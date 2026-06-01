@@ -1,0 +1,275 @@
+"use client";
+
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import type { Route } from "next";
+import { useTransition } from "react";
+import { Check, X, ChevronDown } from "lucide-react";
+import type { ObjectType, TenureType } from "@/types/object";
+import type { ListingsFilter, SortOption } from "@/lib/filters/listings";
+import { cn } from "@/lib/utils/cn";
+
+interface Props {
+  current: ListingsFilter;
+  options: {
+    districts: string[];
+    types: ObjectType[];
+  };
+  totalCount: number;
+}
+
+const SORT_LABELS: Record<SortOption, string> = {
+  featured: "Featured",
+  newest: "Newest",
+};
+
+const TENURE_OPTIONS: TenureType[] = ["Freehold", "Leasehold"];
+
+const BEDROOM_OPTIONS = [1, 2, 3, 4, 5];
+
+export function ListingsFilterBar({ current, options, totalCount }: Props) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const params = useSearchParams();
+  const [pending, startTransition] = useTransition();
+
+  function update(mutator: (p: URLSearchParams) => void) {
+    const next = new URLSearchParams(params.toString());
+    mutator(next);
+    const qs = next.toString();
+    startTransition(() => {
+      const href = (qs ? `${pathname}?${qs}` : pathname) as Route;
+      router.replace(href, { scroll: false });
+    });
+  }
+
+  function toggleMulti(key: string, value: string, currentList: string[]) {
+    const set = new Set(currentList);
+    set.has(value) ? set.delete(value) : set.add(value);
+    update((p) => {
+      if (set.size === 0) p.delete(key);
+      else p.set(key, [...set].join(","));
+    });
+  }
+
+  function setSingle(key: string, value: string | undefined) {
+    update((p) => {
+      if (!value) p.delete(key);
+      else p.set(key, value);
+    });
+  }
+
+  function clearAll() {
+    update((p) => {
+      [...p.keys()].forEach((k) => p.delete(k));
+    });
+  }
+
+  const filtered =
+    current.type.length > 0 ||
+    current.district.length > 0 ||
+    current.tenure.length > 0 ||
+    current.bedroomsMin !== undefined ||
+    current.beachfront ||
+    current.seaView ||
+    current.mountainView ||
+    current.sort !== "featured";
+
+  const showBedrooms =
+    current.type.length === 0 ||
+    current.type.some((t) => ["Villa", "House", "Apartment"].includes(t));
+
+  return (
+    <div
+      className={cn(
+        "sticky top-16 z-30 -mx-6 mt-8 border-y border-forest-500/10 bg-cream-100/90 px-6 py-4 backdrop-blur-md md:top-20 md:-mx-8 md:px-8",
+        pending && "opacity-90",
+      )}
+    >
+      <div className="flex flex-wrap items-center gap-2">
+        {/* Type chips */}
+        {options.types.map((t) => {
+          const active = current.type.includes(t);
+          return (
+            <Chip
+              key={t}
+              active={active}
+              onClick={() => toggleMulti("type", t, current.type)}
+            >
+              {t}
+            </Chip>
+          );
+        })}
+
+        <Divider />
+
+        {/* District multi-select */}
+        <Select
+          label="District"
+          placeholder="Any district"
+          value={current.district[0] ?? ""}
+          activeCount={current.district.length}
+          options={options.districts.map((d) => ({ value: d, label: d }))}
+          onChange={(v) => {
+            update((p) => {
+              if (!v) p.delete("district");
+              else p.set("district", v);
+            });
+          }}
+        />
+
+        {/* Tenure chips */}
+        {TENURE_OPTIONS.map((t) => {
+          const active = current.tenure.includes(t);
+          return (
+            <Chip
+              key={t}
+              active={active}
+              onClick={() => toggleMulti("tenure", t, current.tenure)}
+            >
+              {t}
+            </Chip>
+          );
+        })}
+
+        <Divider />
+
+        {/* Feature toggles */}
+        <Chip
+          active={current.beachfront}
+          onClick={() => setSingle("beachfront", current.beachfront ? undefined : "1")}
+        >
+          Beachfront
+        </Chip>
+        <Chip
+          active={current.seaView}
+          onClick={() => setSingle("seaview", current.seaView ? undefined : "1")}
+        >
+          Sea view
+        </Chip>
+        <Chip
+          active={current.mountainView}
+          onClick={() =>
+            setSingle("mountainview", current.mountainView ? undefined : "1")
+          }
+        >
+          Mountain view
+        </Chip>
+
+        {/* Bedrooms (conditional) */}
+        {showBedrooms ? (
+          <>
+            <Divider />
+            <Select
+              label="Beds"
+              placeholder="Any beds"
+              value={current.bedroomsMin?.toString() ?? ""}
+              options={BEDROOM_OPTIONS.map((n) => ({
+                value: String(n),
+                label: `${n}+`,
+              }))}
+              onChange={(v) => setSingle("bedrooms", v || undefined)}
+            />
+          </>
+        ) : null}
+
+        <div className="ml-auto flex items-center gap-2">
+          {/* Sort */}
+          <Select
+            label="Sort"
+            value={current.sort}
+            options={(Object.keys(SORT_LABELS) as SortOption[]).map((s) => ({
+              value: s,
+              label: SORT_LABELS[s],
+            }))}
+            onChange={(v) => setSingle("sort", v === "featured" ? undefined : v)}
+          />
+
+          {/* Clear */}
+          {filtered ? (
+            <button
+              type="button"
+              onClick={clearAll}
+              className="inline-flex items-center gap-1 rounded-sm px-3 py-1.5 text-xs text-forest-500/70 hover:text-forest-500 hover:bg-forest-500/5 transition-colors"
+            >
+              <X className="h-3 w-3" />
+              Clear
+            </button>
+          ) : null}
+        </div>
+      </div>
+
+      <p className="mt-3 text-xs text-forest-500/50">
+        {filtered ? `${totalCount} matching` : `${totalCount} total`} ·{" "}
+        {pending ? "Updating…" : `Showing ${current.sort}`}
+      </p>
+    </div>
+  );
+}
+
+function Chip({
+  active,
+  onClick,
+  children,
+}: {
+  active: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={cn(
+        "inline-flex items-center gap-1.5 rounded-sm border px-3 py-1.5 text-xs font-medium transition-colors",
+        active
+          ? "border-forest-500 bg-forest-500 text-cream-100"
+          : "border-forest-500/20 bg-cream-50 text-forest-500 hover:border-forest-500/50",
+      )}
+    >
+      {active ? <Check className="h-3 w-3" /> : null}
+      {children}
+    </button>
+  );
+}
+
+function Divider() {
+  return <span className="hidden h-5 w-px bg-forest-500/10 md:inline-block" />;
+}
+
+function Select({
+  label,
+  placeholder,
+  value,
+  activeCount,
+  options,
+  onChange,
+}: {
+  label: string;
+  placeholder?: string;
+  value: string;
+  activeCount?: number;
+  options: Array<{ value: string; label: string }>;
+  onChange: (value: string) => void;
+}) {
+  return (
+    <label className="relative inline-flex items-center">
+      <select
+        aria-label={label}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className={cn(
+          "h-8 cursor-pointer appearance-none rounded-sm border border-forest-500/20 bg-cream-50 pl-3 pr-7 text-xs font-medium text-forest-500 hover:border-forest-500/50 focus:outline-none focus:ring-2 focus:ring-forest-500/30",
+          (value || (activeCount && activeCount > 0)) && "border-forest-500 bg-forest-500/5",
+        )}
+      >
+        <option value="">{placeholder ?? label}</option>
+        {options.map((opt) => (
+          <option key={opt.value} value={opt.value}>
+            {opt.label}
+          </option>
+        ))}
+      </select>
+      <ChevronDown className="pointer-events-none absolute right-2 h-3 w-3 text-forest-500/50" />
+    </label>
+  );
+}
