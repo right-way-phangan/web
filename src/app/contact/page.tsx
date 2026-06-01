@@ -1,15 +1,122 @@
 import type { Metadata } from "next";
-import { PagePlaceholder } from "@/components/sections/page-placeholder";
+import { MessageCircle, Phone, Mail, MapPin } from "lucide-react";
+import { LeadForm } from "@/components/forms/lead-form";
+import {
+  siteConfig,
+  whatsappLink,
+  telegramDmLink,
+  telegramChannelLink,
+} from "@/lib/site-config";
 
-export const metadata: Metadata = { title: "Contact" };
+export const metadata: Metadata = {
+  title: "Contact",
+  description:
+    "Tell us what you're looking for on Koh Phangan. We reply within the working day.",
+};
 
 export default function ContactPage() {
   return (
-    <PagePlaceholder
-      eyebrow="Contact"
-      title="Tell us what you're looking for."
-      text="Brief us by message or schedule a call. We reply within the working day. If you already have a property in mind, mention the listing code."
-      expectedDay="Day 7"
-    />
+    <section className="container-prose py-16 md:py-24">
+      <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
+        Contact
+      </p>
+      <h1 className="mt-4 max-w-3xl text-balance">
+        Tell us what you&rsquo;re looking for.
+      </h1>
+      <p className="mt-6 max-w-xl text-lg text-forest-500/70">
+        Send a brief and we&rsquo;ll match it against our active inventory. If
+        you already have a specific listing in mind, mention the{" "}
+        <code className="rounded-sm bg-forest-500/5 px-1.5 py-0.5 text-sm">RW-####</code>{" "}
+        code.
+      </p>
+
+      <div className="mt-16 grid gap-12 lg:grid-cols-[1fr_320px] lg:gap-16">
+        {/* Left: form */}
+        <div className="rounded-sm border border-forest-500/10 bg-cream-50 p-6 md:p-8">
+          <LeadForm source="contact" layout="block" />
+        </div>
+
+        {/* Right: direct channels */}
+        <aside className="space-y-6">
+          <div>
+            <h2 className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+              Or message us directly
+            </h2>
+            <ul className="mt-4 space-y-3">
+              <ContactRow
+                icon={MessageCircle}
+                label="WhatsApp"
+                value="Reply within the hour"
+                href={whatsappLink()}
+              />
+              <ContactRow
+                icon={Phone}
+                label="Telegram chat"
+                value={`@${siteConfig.contact.telegram.bot.replace(/_/g, " ").trim()}`}
+                href={telegramDmLink()}
+              />
+              <ContactRow
+                icon={Phone}
+                label="Telegram channel"
+                value={`@${siteConfig.contact.telegram.channel}`}
+                href={telegramChannelLink()}
+              />
+              <ContactRow
+                icon={Mail}
+                label="Email"
+                value={siteConfig.contact.email}
+                href={`mailto:${siteConfig.contact.email}`}
+              />
+            </ul>
+          </div>
+
+          <div className="border-t border-forest-500/10 pt-6">
+            <h2 className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+              Office
+            </h2>
+            <div className="mt-4 flex items-start gap-3 text-sm text-forest-500">
+              <MapPin className="h-4 w-4 mt-0.5 text-forest-500/50" />
+              <div>
+                <p>Koh Phangan, Thailand</p>
+                <p className="mt-1 text-xs text-forest-500/60">
+                  We meet clients on the island for viewings and signings.
+                </p>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  );
+}
+
+function ContactRow({
+  icon: Icon,
+  label,
+  value,
+  href,
+}: {
+  icon: typeof MessageCircle;
+  label: string;
+  value: string;
+  href: string;
+}) {
+  return (
+    <li>
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group flex items-start gap-3 rounded-sm border border-transparent p-2 -m-2 transition-colors hover:border-forest-500/10 hover:bg-cream-200/40"
+      >
+        <Icon className="h-4 w-4 mt-1 shrink-0 text-forest-500/50 group-hover:text-brass-500 transition-colors" />
+        <div className="min-w-0">
+          <p className="text-sm font-medium text-forest-900 group-hover:text-brass-500 transition-colors">
+            {label}
+          </p>
+          <p className="truncate text-xs text-forest-500/60">{value}</p>
+        </div>
+      </a>
+    </li>
   );
 }
