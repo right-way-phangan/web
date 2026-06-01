@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Cormorant_Garamond } from "next/font/google";
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
+import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
 const sans = Inter({
@@ -16,17 +19,18 @@ const serif = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  ),
   title: {
-    default: "Right Way Phangan — Premium real estate on Koh Phangan",
-    template: "%s · Right Way Phangan",
+    default: `${siteConfig.name} — ${siteConfig.tagline}`,
+    template: `%s · ${siteConfig.name}`,
   },
-  description:
-    "Land, villas, and houses on Koh Phangan. Curated listings, transparent process, AI-assisted search.",
+  description: siteConfig.description,
   openGraph: {
     type: "website",
     locale: "en_US",
-    siteName: "Right Way Phangan",
+    siteName: siteConfig.name,
   },
 };
 
@@ -35,7 +39,11 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${sans.variable} ${serif.variable}`}>
-      <body>{children}</body>
+      <body className="flex min-h-screen flex-col">
+        <Header />
+        <main className="flex-1">{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 }
