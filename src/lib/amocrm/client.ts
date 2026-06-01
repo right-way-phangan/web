@@ -12,13 +12,18 @@ class AmoApiError extends Error {
   }
 }
 
+type FetchInit = RequestInit & { next?: { revalidate?: number; tags?: string[] } };
+
 async function request<T>(
   method: "GET" | "POST" | "PATCH",
   path: string,
   body?: unknown,
-  init?: RequestInit,
+  init?: FetchInit,
 ): Promise<T> {
   const url = `https://${amoEnv.AMOCRM_DOMAIN}/api/v4${path}`;
+  // GETs are cached by Next.js for 5min by default; writes are always uncached.
+  const defaultNext =
+    method === "GET" ? { next: { revalidate: 300 } as const } : { cache: "no-store" as const };
   const res = await fetch(url, {
     method,
     headers: {
@@ -26,6 +31,7 @@ async function request<T>(
       "Content-Type": "application/json",
     },
     body: body ? JSON.stringify(body) : undefined,
+    ...defaultNext,
     ...init,
   });
   if (!res.ok) {
