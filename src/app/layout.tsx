@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { Inter, Cormorant_Garamond } from "next/font/google";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { OrganizationJsonLd } from "@/components/seo/organization-json-ld";
 import { siteConfig } from "@/lib/site-config";
+import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
 
 const sans = Inter({
@@ -18,19 +20,36 @@ const serif = Cormorant_Garamond({
   display: "swap",
 });
 
+const siteUrl = getSiteUrl();
+
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-  ),
+  metadataBase: new URL(siteUrl),
   title: {
     default: `${siteConfig.name} — ${siteConfig.tagline}`,
     template: `%s · ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "en_US",
+    url: siteUrl,
     siteName: siteConfig.name,
+    title: `${siteConfig.name} — ${siteConfig.tagline}`,
+    description: siteConfig.description,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteConfig.name} — ${siteConfig.tagline}`,
+    description: siteConfig.description,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
+  icons: {
+    icon: "/favicon.ico",
   },
 };
 
@@ -40,6 +59,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${sans.variable} ${serif.variable}`}>
       <body className="flex min-h-screen flex-col">
+        <OrganizationJsonLd siteUrl={siteUrl} />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

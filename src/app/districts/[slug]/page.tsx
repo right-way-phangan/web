@@ -5,6 +5,8 @@ import type { Route } from "next";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { DISTRICTS, getDistrictBySlug } from "@/content/districts";
 import { Button } from "@/components/ui/button";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
+import { getSiteUrl } from "@/lib/site-url";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -31,12 +33,20 @@ export default async function DistrictPage({ params }: Props) {
 
   const listingsHref = `/listings?district=${encodeURIComponent(d.amoName)}` as Route;
   const [name, subtitle] = d.title.split(" — ");
+  const siteUrl = getSiteUrl();
 
   // Other districts for the bottom strip
   const others = DISTRICTS.filter((x) => x.slug !== d.slug).slice(0, 3);
 
   return (
     <article>
+      <BreadcrumbJsonLd
+        crumbs={[
+          { name: "Home", url: `${siteUrl}/` },
+          { name: "Districts", url: `${siteUrl}/districts` },
+          { name: name, url: `${siteUrl}/districts/${d.slug}` },
+        ]}
+      />
       <div className="container-prose pt-8">
         <Button asChild variant="ghost" size="sm">
           <Link href="/districts">

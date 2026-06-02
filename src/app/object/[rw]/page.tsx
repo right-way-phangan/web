@@ -9,6 +9,8 @@ import { SpecTable } from "@/components/objects/spec-table";
 import { InvestmentHighlights } from "@/components/objects/investment-highlights";
 import { InquiryForm } from "@/components/objects/inquiry-form";
 import { ObjectJsonLd } from "@/components/objects/object-json-ld";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
+import { getSiteUrl } from "@/lib/site-url";
 
 interface Props {
   params: Promise<{ rw: string }>;
@@ -32,13 +34,19 @@ export default async function ObjectPage({ params }: Props) {
   const object = await getObjectByRwNumber(rw);
   if (!object) notFound();
 
-  const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://web-phi-ruby-87.vercel.app";
+  const siteUrl = getSiteUrl();
   const pageUrl = `${siteUrl}/object/${object.rwNumber}`;
 
   return (
     <>
       <ObjectJsonLd object={object} url={pageUrl} />
+      <BreadcrumbJsonLd
+        crumbs={[
+          { name: "Home", url: `${siteUrl}/` },
+          { name: "Listings", url: `${siteUrl}/listings` },
+          { name: object.rwNumber, url: pageUrl },
+        ]}
+      />
 
       <article className="container-prose py-8 md:py-12">
         <Button asChild variant="ghost" size="sm" className="mb-6">
