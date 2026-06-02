@@ -8,6 +8,10 @@ import "server-only";
  * development and previews where you don't want to spam the admin chat.
  *
  * Failure is non-throwing — a Telegram outage must not break form submission.
+ *
+ * Uses parse_mode="HTML" rather than Markdown — HTML escaping is unambiguous
+ * (only <, >, & need it) and avoids the legacy Markdown parser's quirks
+ * around brackets and parentheses in URLs.
  */
 export async function notifyLeadCreated(opts: {
   leadId: number;
@@ -30,17 +34,19 @@ export async function notifyLeadCreated(opts: {
       : null;
 
   const lines: string[] = [];
-  lines.push(`🔔 *New website lead*`);
+  lines.push(`🔔 <b>New website lead</b>`);
   lines.push("");
-  lines.push(`*Name:* ${escapeMd(opts.contactName)}`);
-  if (opts.email) lines.push(`*Email:* ${escapeMd(opts.email)}`);
-  if (opts.phone) lines.push(`*Phone:* ${escapeMd(opts.phone)}`);
-  if (opts.rwNumber) lines.push(`*About:* ${escapeMd(opts.rwNumber)}`);
+  lines.push(`<b>Name:</b> ${esc(opts.contactName)}`);
+  if (opts.email) lines.push(`<b>Email:</b> ${esc(opts.email)}`);
+  if (opts.phone) lines.push(`<b>Phone:</b> ${esc(opts.phone)}`);
+  if (opts.rwNumber) lines.push(`<b>About:</b> ${esc(opts.rwNumber)}`);
   lines.push("");
-  lines.push(`*Message:*`);
-  lines.push(escapeMd(opts.message.slice(0, 600)));
-  lines.push("");
-  if (leadUrl) lines.push(`[Open in amoCRM](${leadUrl})`);
+  lines.push(`<b>Message:</b>`);
+  lines.push(esc(opts.message.slice(0, 600)));
+  if (leadUrl) {
+    lines.push("");
+    lines.push(`<a href="${esc(leadUrl)}">Open in amoCRM →</a>`);
+  }
 
   try {
     const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
@@ -49,7 +55,7 @@ export async function notifyLeadCreated(opts: {
       body: JSON.stringify({
         chat_id: chatId,
         text: lines.join("\n"),
-        parse_mode: "Markdown",
+        parse_mode: "HTML",
         disable_web_page_preview: true,
       }),
       cache: "no-store",
@@ -63,11 +69,9 @@ export async function notifyLeadCreated(opts: {
   }
 }
 
-/**
- * Minimal Markdown escape for Telegram parse_mode="Markdown" (legacy variant).
- * Only escapes the characters that have meaning at the top level — enough to
- * keep names and messages from breaking the markup.
- */
-function escapeMd(text: string): string {
-  return text.replace(/([_*[\]()`])/g, "\\$1");
+function esc(text: string): string {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
 }
