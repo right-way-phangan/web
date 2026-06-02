@@ -4,6 +4,7 @@ import { z } from "zod";
 import { createLead, AmoApiError } from "@/lib/amocrm/client";
 import { amoEnv } from "@/lib/amocrm/env";
 import { getObjectByRwNumber } from "@/lib/data/objects";
+import { notifyLeadCreated } from "@/lib/notify/telegram";
 import type { ObjectType } from "@/types/object";
 
 export type FormState =
@@ -161,6 +162,18 @@ export async function submitInquiry(
         console.error("[inquiry] note attach failed:", err);
       }
     }
+
+    // Telegram heads-up. Non-blocking — failures are logged, not surfaced.
+    await notifyLeadCreated({
+      leadId,
+      leadName,
+      contactName: data.name,
+      email: data.email || undefined,
+      phone: data.phone || undefined,
+      message: data.message,
+      pipelineId,
+      rwNumber: data.rwNumber || undefined,
+    });
 
     return {
       status: "ok",

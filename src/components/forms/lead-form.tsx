@@ -2,6 +2,7 @@
 
 import { useActionState, useEffect, useState, useRef } from "react";
 import { useFormStatus } from "react-dom";
+import { track } from "@vercel/analytics";
 import { CheckCircle2, AlertCircle, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -30,12 +31,18 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card" }: 
   const utm = useUtmParams();
   const formRef = useRef<HTMLFormElement | null>(null);
 
-  // Reset form on success
+  // Reset form on success + emit analytics event
   useEffect(() => {
     if (state.status === "ok") {
       formRef.current?.reset();
+      track("inquiry_submitted", {
+        source,
+        rwNumber: rwNumber ?? "n/a",
+      });
+    } else if (state.status === "error") {
+      track("inquiry_error", { source, rwNumber: rwNumber ?? "n/a" });
     }
-  }, [state.status]);
+  }, [state.status, source, rwNumber]);
 
   const fieldError = (key: FieldKey): string | undefined => {
     if (state.status !== "error") return undefined;
