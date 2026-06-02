@@ -1,15 +1,100 @@
 import type { Metadata } from "next";
-import { PagePlaceholder } from "@/components/sections/page-placeholder";
+import Link from "next/link";
+import { PageHero } from "@/components/sections/page-hero";
+import { ContentSection } from "@/components/sections/content-section";
+import { PrincipleGrid } from "@/components/sections/principle-grid";
+import { Button } from "@/components/ui/button";
+import { whatsappLink } from "@/lib/site-config";
 
-export const metadata: Metadata = { title: "About" };
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "Right Way Phangan Group — a boutique real estate advisory on Koh Phangan, founded by Vladimir Buryi in 2026.",
+};
+
+const PRINCIPLES = [
+  {
+    title: "Honesty over polish",
+    text: "If a property has issues, you hear about them before we walk on-site. Our reputation depends on long-term relationships, not single transactions.",
+  },
+  {
+    title: "Process over hustle",
+    text: "Every transaction follows a documented sequence: title search, boundary verification, encumbrance check, zoning, access rights, tax exposure. Nothing improvised, nothing skipped.",
+  },
+  {
+    title: "Data over opinion",
+    text: "We track price per rai by district, leasehold escalation norms, time-on-market — and we share what we know with our clients.",
+  },
+] as const;
 
 export default function AboutPage() {
   return (
-    <PagePlaceholder
-      eyebrow="About"
-      title="A boutique agency, built on the island."
-      text="We focus on land, villas, and houses on Koh Phangan — for international buyers who want a transparent process and someone who actually knows each district."
-      expectedDay="Day 8"
-    />
+    <>
+      <PageHero
+        eyebrow="About"
+        title="A boutique advisory, not a listing portal."
+        lede="Right Way Phangan Group was founded in 2026 by Vladimir Buryi, building on four years of operational work in the local land market. We are a small, specialised team focused exclusively on Koh Phangan property."
+      />
+
+      <PrincipleGrid
+        eyebrow="What we believe"
+        title="Three principles, in plain language."
+        principles={[...PRINCIPLES]}
+      />
+
+      <ContentSection eyebrow="The name" title='Why "Right Way"' spacing="default">
+        <p>
+          The name reflects a position rather than a slogan: there is a right
+          way to buy property on Phangan, and there are several easier, faster
+          ways that result in disputes, lost deposits, or unbuildable land.
+        </p>
+        <p>
+          We optimise for the first path. It costs a little more time. It is
+          rarely the wrong choice.
+        </p>
+      </ContentSection>
+
+      <section className="container-prose py-16 md:py-24">
+        <div className="grid gap-10 md:grid-cols-[1fr_2fr] md:gap-16">
+          <div>
+            <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
+              The founder
+            </p>
+            <h2 className="mt-3 font-serif text-3xl text-forest-900 md:text-4xl">
+              Vladimir Buryi
+            </h2>
+            <p className="mt-2 text-sm text-forest-500/60">
+              Founder · Koh Phangan
+            </p>
+          </div>
+
+          <div className="space-y-4 text-base leading-relaxed text-forest-500/85 md:text-lg">
+            <p>
+              Originally from Saint Petersburg, Russia. Four years operating
+              in the Phangan land market, with hundreds of land plots
+              assessed and over forty transactions supported in the local
+              market. Based on Koh Phangan year-round from July 2026.
+            </p>
+            <p className="text-sm text-forest-500/70">
+              Languages: English, Russian.
+            </p>
+            <div className="flex flex-wrap gap-3 pt-4">
+              <Button asChild variant="outline" size="md">
+                <a
+                  href={whatsappLink("Hi Vladimir — I'd like to ask about Right Way Phangan.")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Message on WhatsApp
+                </a>
+              </Button>
+              <Button asChild variant="ghost" size="md">
+                <Link href="/contact">Get in touch</Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

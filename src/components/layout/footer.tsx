@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Route } from "next";
 import { Logo } from "./logo";
 import {
   siteConfig,
@@ -34,7 +35,7 @@ export function Footer() {
               {siteConfig.nav.map((item) => (
                 <li key={item.href}>
                   <Link
-                    href={item.href}
+                    href={item.href as Route}
                     className="text-sm text-forest-500 hover:text-brass-500 transition-colors"
                   >
                     {item.label}

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import type { Route } from "next";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Logo } from "./logo";
@@ -20,7 +21,7 @@ export function Header() {
           {siteConfig.nav.map((item) => (
             <Link
               key={item.href}
-              href={item.href}
+              href={item.href as Route}
               className="text-sm text-forest-500 hover:text-brass-500 transition-colors"
             >
               {item.label}
@@ -58,7 +59,7 @@ export function Header() {
           {siteConfig.nav.map((item) => (
             <Link
               key={item.href}
-              href={item.href}
+              href={item.href as Route}
               onClick={() => setOpen(false)}
               className="py-3 text-base text-forest-500 border-b border-forest-500/5 last:border-b-0 hover:text-brass-500"
             >
