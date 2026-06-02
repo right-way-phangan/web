@@ -81,12 +81,16 @@ export async function getCatalogElement(id: number, catalogId?: number) {
 }
 
 /**
- * Create a lead. Returns array of created leads (amoCRM convention).
+ * Create a lead via /leads/complex. The endpoint returns a top-level array
+ * of created entities, not the `{_embedded: {leads: []}}` envelope used by
+ * most other v4 list responses.
  */
 export async function createLead(input: AmoLeadCreateInput) {
-  return request<{
-    _embedded: { leads: Array<{ id: number; request_id?: string }> };
-  }>("POST", "/leads/complex", [input]);
+  return request<Array<{ id: number; contact_id?: number; request_id?: string[] }>>(
+    "POST",
+    "/leads/complex",
+    [input],
+  );
 }
 
 export { AmoApiError };

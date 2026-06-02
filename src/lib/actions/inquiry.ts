@@ -149,7 +149,7 @@ export async function submitInquiry(
         tags: tags.map((name) => ({ name })),
       },
     });
-    const leadId = res._embedded.leads[0]?.id ?? 0;
+    const leadId = res[0]?.id ?? 0;
 
     // Note: descriptive message goes into the lead's first note via a
     // separate API call. For MVP we encode it into the lead name's tail
