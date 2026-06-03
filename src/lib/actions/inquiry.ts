@@ -27,6 +27,7 @@ const inquirySchema = z
     // Hidden / context fields
     rwNumber: z.string().optional(),       // present on object inquiry, absent on /contact
     source: z.enum(["object", "contact"]), // discriminator
+    kind: z.enum(["inquiry", "calculator"]).optional(), // calculator = ROI-calculator lead
     utm_source: z.string().optional(),
     utm_medium: z.string().optional(),
     utm_campaign: z.string().optional(),
@@ -106,17 +107,20 @@ export async function submitInquiry(
   }
 
   const pipelineId = pipelineFor(objectType);
+  const isCalc = data.kind === "calculator";
   const tags = [
     "website",
     data.source === "contact" ? "website-contact" : "website-inquiry",
+    ...(isCalc ? ["calculator"] : []),
     ...(data.rwNumber ? [`object:${data.rwNumber}`] : []),
     ...utmTags(data),
   ];
 
   // Build amoCRM payload — leads/complex creates lead + contact in one call.
+  const namePrefix = isCalc ? "Calc lead" : data.rwNumber ? "Web inquiry" : "Web contact";
   const leadName = data.rwNumber
-    ? `Web inquiry · ${data.rwNumber}${objectTitle ? ` · ${objectTitle.slice(0, 60)}` : ""}`
-    : `Web contact · ${data.name}`;
+    ? `${namePrefix} · ${data.rwNumber}${objectTitle ? ` · ${objectTitle.slice(0, 60)}` : ""}`
+    : `${namePrefix} · ${data.name}`;
 
   const contactCustomFields: Array<{
     field_code: "PHONE" | "EMAIL";

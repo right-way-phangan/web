@@ -13,6 +13,7 @@ import {
 } from "@/lib/calculator/roi";
 import { formatPriceTHB, formatPriceCompact } from "@/lib/utils/price";
 import { ObjectCard } from "@/components/objects/object-card";
+import { CalcLeadButton } from "@/components/calculator/calc-lead-button";
 import type { RealEstateObject } from "@/types/object";
 
 const fmtPct = (n: number) =>
@@ -40,6 +41,18 @@ export function RoiCalculator({ initialPriceThb, catalog = [], excludeRw, compac
   const set = (patch: Partial<RoiInputs>) => setInputs((p) => ({ ...p, ...patch }));
 
   const activeScenario = SCENARIOS.find((s) => s.growthPct === inputs.annualGrowthPct)?.key;
+
+  const calcSummary = [
+    `Investment calculation${excludeRw ? ` — ${excludeRw}` : ""}`,
+    `Purchase price: ${formatPriceTHB(inputs.purchasePriceThb)}`,
+    `Annual growth: ${inputs.annualGrowthPct}% over ${inputs.years} years`,
+    `Projected value: ${formatPriceTHB(r.projectedValue)}`,
+    `Total ROI: ${fmtPct(r.roiPct)} · CAGR ${fmtPct(r.cagrPct)}/yr`,
+    `Net profit: ${formatPriceTHB(r.netProfit)}`,
+    `vs bank (${inputs.bankRatePct}%): ${formatPriceCompact(r.vsBankThb)} more`,
+    ``,
+    `Please send me this calculation and get in touch.`,
+  ].join("\n");
 
   return (
     <div className={compact ? "" : "grid gap-10 lg:grid-cols-[380px_1fr] lg:gap-14"}>
@@ -140,6 +153,10 @@ export function RoiCalculator({ initialPriceThb, catalog = [], excludeRw, compac
             <Kpi label="Total ROI" value={fmtPct(r.roiPct)} accent />
             <Kpi label="CAGR / year" value={fmtPct(r.cagrPct)} />
             <Kpi label="Net profit" value={formatPriceCompact(r.netProfit)} />
+          </div>
+
+          <div className="mt-6">
+            <CalcLeadButton message={calcSummary} rwNumber={excludeRw} />
           </div>
         </div>
 

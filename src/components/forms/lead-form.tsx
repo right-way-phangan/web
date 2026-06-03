@@ -21,12 +21,16 @@ interface Props {
   defaultMessage?: string;
   /** Visual layout. "card" = inquiry form sidebar; "block" = /contact full-width block */
   layout?: "card" | "block";
+  /** "calculator" tags the lead as coming from the ROI calculator. */
+  kind?: "inquiry" | "calculator";
+  /** Submit button label override. */
+  submitLabel?: string;
 }
 
 const FIELDS = ["name", "email", "phone", "message"] as const;
 type FieldKey = (typeof FIELDS)[number];
 
-export function LeadForm({ rwNumber, source, defaultMessage, layout = "card" }: Props) {
+export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", kind, submitLabel }: Props) {
   const [state, formAction] = useActionState(submitInquiry, initialState);
   const utm = useUtmParams();
   const formRef = useRef<HTMLFormElement | null>(null);
@@ -58,6 +62,7 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card" }: 
     >
       {/* Hidden context */}
       <input type="hidden" name="source" value={source} />
+      {kind ? <input type="hidden" name="kind" value={kind} /> : null}
       {rwNumber ? <input type="hidden" name="rwNumber" value={rwNumber} /> : null}
       {utm.utm_source ? <input type="hidden" name="utm_source" value={utm.utm_source} /> : null}
       {utm.utm_medium ? <input type="hidden" name="utm_medium" value={utm.utm_medium} /> : null}
@@ -126,7 +131,7 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card" }: 
         <ErrorBanner message={state.message} />
       ) : null}
 
-      <SubmitButton />
+      <SubmitButton label={submitLabel} />
 
       <p className="text-center text-[11px] text-forest-500/50">
         We reply within the working day. No marketing emails — only your inquiry.
@@ -144,12 +149,12 @@ function FieldError({ msg }: { msg?: string }) {
   return <p className="text-xs text-red-700/80">{msg}</p>;
 }
 
-function SubmitButton() {
+function SubmitButton({ label }: { label?: string }) {
   const { pending } = useFormStatus();
   return (
     <Button type="submit" variant="primary" size="md" className="w-full" disabled={pending}>
       <Send className="h-4 w-4" />
-      {pending ? "Sending…" : "Send inquiry"}
+      {pending ? "Sending…" : (label ?? "Send inquiry")}
     </Button>
   );
 }
