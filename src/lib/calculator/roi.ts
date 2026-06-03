@@ -114,6 +114,41 @@ export const DEFAULT_INPUTS: RoiInputs = {
   handoverUpliftPct: 15,
 };
 
+export type SolveMetric = "roi" | "cap" | "coc" | "irr";
+
+/**
+ * Reverse calculator: the maximum purchase price at which a target return is
+ * still met, holding every other input fixed. Only meaningful when a metric
+ * depends on price — i.e. rent mode, where rent is a fixed THB amount while
+ * price varies (cap rate, cash-on-cash, and the rental part of total ROI all
+ * fall as price rises). For appreciation-only (hold/off-plan), ROI% is
+ * price-independent and this returns null (the caller explains why).
+ *
+ * The chosen metric is monotonically decreasing in price, so we bisect.
+ */
+export function solveMaxPrice(input: RoiInputs, metric: SolveMetric, targetPct: number): number | null {
+  const read = (price: number): number => {
+    const r = computeRoi({ ...input, purchasePriceThb: price });
+    return metric === "cap" ? r.capRatePct : metric === "coc" ? r.cashOnCashPct : metric === "irr" ? r.irrPct : r.roiPct;
+  };
+  let lo = 100_000;
+  let hi = 2_000_000_000;
+  const mLo = read(lo); // highest return (cheapest)
+  const mHi = read(hi); // lowest return (most expensive)
+  if (!isFinite(mLo) || !isFinite(mHi)) return null;
+  // Target must fall within the achievable band, and the band must be non-flat.
+  if (mLo - mHi < 1e-6) return null; // price-independent (degenerate)
+  if (targetPct > mLo || targetPct < mHi) return null; // unreachable in range
+  for (let i = 0; i < 80; i++) {
+    const mid = (lo + hi) / 2;
+    const m = read(mid);
+    if (m > targetPct) lo = mid;
+    else hi = mid;
+    if (Math.abs(m - targetPct) < 1e-3) return mid;
+  }
+  return (lo + hi) / 2;
+}
+
 function computeIRR(cashflows: number[]): number {
   // Newton–Raphson with safe bounds.
   let r = 0.1;

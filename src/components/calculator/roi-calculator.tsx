@@ -8,10 +8,12 @@ import {
   computeRoi,
   DEFAULT_INPUTS,
   SCENARIOS,
+  solveMaxPrice,
   type RoiInputs,
   type RoiResult,
   type CalcMode,
   type Tenure,
+  type SolveMetric,
 } from "@/lib/calculator/roi";
 import {
   CURRENCIES,
@@ -27,6 +29,13 @@ import type { RealEstateObject } from "@/types/object";
 
 const fmtPct = (n: number) =>
   !isFinite(n) ? "—" : `${n >= 0 ? "+" : ""}${n.toLocaleString("en-US", { maximumFractionDigits: 1 })}%`;
+
+const SOLVE_LABELS: Record<SolveMetric, string> = {
+  roi: "total ROI",
+  cap: "cap rate",
+  coc: "cash-on-cash",
+  irr: "IRR / year",
+};
 
 type Money = (thb: number, full?: boolean) => string;
 
@@ -60,6 +69,9 @@ export function RoiCalculator({
   });
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [showYears, setShowYears] = useState(false);
+  const [showSolver, setShowSolver] = useState(false);
+  const [solverMetric, setSolverMetric] = useState<SolveMetric>("roi");
+  const [solverTarget, setSolverTarget] = useState(60);
   const [currency, setCurrency] = useState<Currency>("THB");
   const [rates, setRates] = useState<Record<Currency, number>>(DEFAULT_RATES);
 
@@ -69,6 +81,10 @@ export function RoiCalculator({
   }, []);
 
   const r = useMemo(() => computeRoi(inputs), [inputs]);
+  const solvedMaxPrice = useMemo(
+    () => (showSolver ? solveMaxPrice(inputs, solverMetric, solverTarget) : null),
+    [showSolver, inputs, solverMetric, solverTarget],
+  );
   const set = (patch: Partial<RoiInputs>) => setInputs((p) => ({ ...p, ...patch }));
   const money: Money = (thb, full) => formatMoney(thb, currency, rates, { compact: !full });
 
@@ -328,6 +344,69 @@ export function RoiCalculator({
             Show year-by-year
           </button>
           {showYears ? <YearTable r={r} money={money} isRent={isRent} /> : null}
+        </div>
+
+        {/* Reverse: solve max price for a target return */}
+        <div className="mt-4">
+          <button
+            type="button"
+            onClick={() => setShowSolver((v) => !v)}
+            className="flex items-center gap-1.5 text-sm font-medium text-forest-500/80 hover:text-forest-500"
+          >
+            <ChevronDown className={`h-4 w-4 transition-transform ${showSolver ? "rotate-180" : ""}`} />
+            Find max price for a target return
+          </button>
+          {showSolver ? (
+            <div className="mt-4 space-y-4 rounded-sm border border-forest-500/10 bg-cream-50 p-6">
+              <div className="flex flex-wrap items-end gap-3">
+                <div>
+                  <label className="text-xs text-forest-500/70">Target metric</label>
+                  <select
+                    value={solverMetric}
+                    onChange={(e) => setSolverMetric(e.target.value as SolveMetric)}
+                    className="mt-1.5 block rounded-sm border border-forest-500/20 bg-cream-50 px-3 py-2 text-sm text-forest-900 focus:border-forest-500 focus:outline-none"
+                  >
+                    <option value="roi">Total ROI</option>
+                    <option value="cap">Cap rate</option>
+                    <option value="coc">Cash-on-cash</option>
+                    <option value="irr">IRR / year</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="text-xs text-forest-500/70">Target (%)</label>
+                  <input
+                    type="number"
+                    value={solverTarget}
+                    step={1}
+                    onChange={(e) => setSolverTarget(Number(e.target.value))}
+                    className="mt-1.5 block w-28 rounded-sm border border-forest-500/20 bg-cream-50 px-3 py-2 text-sm text-forest-900 focus:border-forest-500 focus:outline-none"
+                  />
+                </div>
+              </div>
+              {solvedMaxPrice != null ? (
+                <div>
+                  <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">Max purchase price</p>
+                  <p className="mt-1 font-serif text-3xl text-forest-900">{money(solvedMaxPrice, true)}</p>
+                  <p className="mt-1 text-[11px] text-forest-500/50">
+                    Pay up to this and you still hit {solverTarget}% {SOLVE_LABELS[solverMetric]}.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => set({ purchasePriceThb: Math.round(solvedMaxPrice) })}
+                    className="mt-3 inline-flex items-center gap-2 rounded-sm border border-forest-500/25 px-4 py-2 text-sm font-medium text-forest-500 transition-colors hover:border-forest-500/50 hover:bg-forest-500/[0.04]"
+                  >
+                    Apply this price
+                  </button>
+                </div>
+              ) : (
+                <p className="text-sm leading-relaxed text-forest-500/60">
+                  {isRent
+                    ? "That target isn't reachable in a sensible price range — try a lower target."
+                    : "Appreciation-only return doesn't depend on price (every figure scales with it). Switch to Buy & Rent — where rent is a fixed amount — to solve for a max price."}
+                </p>
+              )}
+            </div>
+          ) : null}
         </div>
 
         <SimilarObjects price={inputs.purchasePriceThb} catalog={catalog} excludeRw={excludeRw} money={money} />
