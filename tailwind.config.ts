@@ -23,6 +23,8 @@ const config: Config = {
         },
         brass: {
           DEFAULT: "#B5651D",
+          200: "#E8C9A0",
+          300: "#DDA86A",
           400: "#C77929",
           500: "#B5651D",
           600: "#965318",

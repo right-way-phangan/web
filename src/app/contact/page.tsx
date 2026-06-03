@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { MessageCircle, Phone, Mail, MapPin } from "lucide-react";
+import { PageHero } from "@/components/sections/page-hero";
 import { LeadForm } from "@/components/forms/lead-form";
 import {
   siteConfig,
@@ -16,21 +17,17 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <section className="container-prose py-16 md:py-24">
-      <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
-        Contact
-      </p>
-      <h1 className="mt-4 max-w-3xl text-balance">
-        Tell us what you&rsquo;re looking for.
-      </h1>
-      <p className="mt-6 max-w-xl text-lg text-forest-500/70">
-        Send a brief and we&rsquo;ll match it against our active inventory. If
-        you already have a specific listing in mind, mention the{" "}
-        <code className="rounded-sm bg-forest-500/5 px-1.5 py-0.5 text-sm">RW-####</code>{" "}
-        code.
-      </p>
+    <>
+      <PageHero
+        eyebrow="Contact"
+        title="Tell us what you're looking for."
+        lede="Send a brief and we'll match it against our active inventory. If you already have a specific listing in mind, mention the RW-#### code."
+        image="/images/scenes/contact.jpg"
+        imageAlt="Coastal villas above the sea on Koh Phangan"
+      />
 
-      <div className="mt-16 grid gap-12 lg:grid-cols-[1fr_320px] lg:gap-16">
+      <section className="container-prose py-16 md:py-24">
+      <div className="grid gap-12 lg:grid-cols-[1fr_320px] lg:gap-16">
         {/* Left: form */}
         <div className="rounded-sm border border-forest-500/10 bg-cream-50 p-6 md:p-8">
           <LeadForm source="contact" layout="block" />
@@ -86,7 +83,8 @@ export default function ContactPage() {
           </div>
         </aside>
       </div>
-    </section>
+      </section>
+    </>
   );
 }
 

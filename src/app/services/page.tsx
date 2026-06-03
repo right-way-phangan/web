@@ -36,6 +36,8 @@ export default function ServicesPage() {
         eyebrow="Services"
         title="Three services. Each done properly."
         lede="We deliberately do not offer rental management, construction, short-term lets or property staging. Our entire operation is built around three services, each one carrying the same level of documentation and care."
+        image="/images/scenes/turquoise-aerial.jpg"
+        imageAlt="Turquoise water and boats off Koh Phangan"
       />
 
       <ServiceCards services={[...SERVICES]} />

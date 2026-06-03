@@ -34,6 +34,8 @@ export default function AboutPage() {
         eyebrow="About"
         title="A boutique advisory, not a listing portal."
         lede="Right Way Phangan Group was founded in 2026 by Vladimir Buryi, building on four years of operational work in the local land market. We are a small, specialised team focused exclusively on Koh Phangan property."
+        image="/images/scenes/coast-aerial.jpg"
+        imageAlt="Aerial view of the Koh Phangan coastline"
       />
 
       <PrincipleGrid

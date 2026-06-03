@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import type { Route } from "next";
 import { ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
@@ -10,12 +11,6 @@ export const metadata: Metadata = {
   description:
     "Seven districts of Koh Phangan where Right Way focuses — each with its own character, price profile, and buyer match.",
 };
-
-function hueFor(seed: string): number {
-  let h = 0;
-  for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) >>> 0;
-  return h % 360;
-}
 
 export default function DistrictsPage() {
   return (
@@ -29,31 +24,37 @@ export default function DistrictsPage() {
       <section className="container-prose py-16 md:py-24">
         <div className="grid gap-6 md:grid-cols-2 md:gap-8">
           {DISTRICTS.map((d) => {
-            const h = hueFor(d.slug);
+            const [name, subtitle] = d.title.split(" — ");
             return (
               <Link
                 key={d.slug}
                 href={`/districts/${d.slug}` as Route}
                 className="group flex flex-col overflow-hidden rounded-sm border border-forest-500/10 bg-cream-50 transition-all hover:border-forest-500/30 hover:shadow-lg"
               >
-                <div
-                  className="relative aspect-[16/9] overflow-hidden"
-                  style={{
-                    backgroundImage: `linear-gradient(135deg, hsl(${h} 30% 86%) 0%, hsl(${(h + 40) % 360} 25% 76%) 100%)`,
-                  }}
-                  aria-hidden="true"
-                />
+                <div className="relative aspect-[16/9] overflow-hidden bg-forest-900">
+                  <Image
+                    src={`/images/districts/${d.slug}.jpg`}
+                    alt={`${name}, Koh Phangan`}
+                    fill
+                    sizes="(min-width: 768px) 50vw, 100vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div
+                    className="absolute inset-0 bg-gradient-to-t from-forest-900/80 via-forest-900/10 to-transparent"
+                    aria-hidden
+                  />
+                  <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
+                    <h2 className="font-serif text-2xl text-cream-50 md:text-3xl">
+                      {name}
+                    </h2>
+                    <p className="mt-0.5 text-sm text-cream-100/85">{subtitle}</p>
+                  </div>
+                </div>
                 <div className="flex flex-1 flex-col gap-3 p-6 md:p-8">
-                  <h2 className="font-serif text-2xl text-forest-900 md:text-3xl">
-                    {d.title.split(" — ")[0]}
-                  </h2>
-                  <p className="text-sm text-forest-500/60 md:text-base">
-                    {d.title.split(" — ")[1]}
-                  </p>
-                  <p className="mt-2 text-sm leading-relaxed text-forest-500/85 md:text-base">
+                  <p className="text-sm leading-relaxed text-forest-500/85 md:text-base">
                     {d.short}
                   </p>
-                  <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-forest-500 transition-colors group-hover:text-brass-500">
+                  <span className="mt-auto inline-flex items-center gap-1.5 pt-2 text-sm font-medium text-forest-500 transition-colors group-hover:text-brass-500">
                     Read more
                     <ArrowRight className="h-3.5 w-3.5" />
                   </span>

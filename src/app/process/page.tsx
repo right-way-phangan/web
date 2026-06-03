@@ -59,6 +59,8 @@ export default function ProcessPage() {
         eyebrow="Process"
         title="From discovery to title in seven stages."
         lede="Every transaction follows the same sequence. Each stage has a defined deliverable and a clear point at which you can walk away with no obligation."
+        image="/images/scenes/process.jpg"
+        imageAlt="Golden-hour aerial of a Koh Phangan cove"
       />
 
       <ProcessTimeline steps={[...STEPS]} />

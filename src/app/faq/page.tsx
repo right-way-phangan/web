@@ -18,6 +18,8 @@ export default function FaqPage() {
         eyebrow="FAQ"
         title="Buying property on Phangan, demystified."
         lede={`${FAQ_ITEMS.length} answers to the questions foreign buyers actually ask, grouped into six categories. Search by keyword, filter by category, or just scroll.`}
+        image="/images/scenes/faq.jpg"
+        imageAlt="Palm-fringed beach at dusk on Koh Phangan"
       />
 
       <section className="container-prose py-12 md:py-16">

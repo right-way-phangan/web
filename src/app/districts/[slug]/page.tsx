@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import type { Route } from "next";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { DISTRICTS, getDistrictBySlug } from "@/content/districts";
@@ -65,14 +66,34 @@ export default async function DistrictPage({ params }: Props) {
         </Button>
       </div>
 
-      <header className="container-prose pt-8 md:pt-12">
-        <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
-          District
-        </p>
-        <h1 className="mt-4 max-w-3xl text-balance">{name}</h1>
-        <p className="mt-3 max-w-2xl text-lg text-forest-500/65 md:text-xl">
-          {subtitle}
-        </p>
+      <header className="container-prose pt-6 md:pt-8">
+        <div className="relative isolate overflow-hidden rounded-sm bg-forest-900">
+          <Image
+            src={`/images/districts/${d.slug}.jpg`}
+            alt={`${name}, Koh Phangan`}
+            fill
+            priority
+            sizes="(min-width: 1280px) 1216px, 100vw"
+            className="object-cover"
+          />
+          <div
+            className="absolute inset-0 bg-gradient-to-t from-forest-900/92 via-forest-900/55 to-forest-900/25"
+            aria-hidden
+          />
+          <div
+            className="absolute inset-0 bg-gradient-to-r from-forest-900/75 via-forest-900/30 to-transparent"
+            aria-hidden
+          />
+          <div className="relative z-10 flex min-h-[42vh] flex-col justify-end p-7 md:min-h-[48vh] md:p-12">
+            <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-300">
+              District
+            </p>
+            <h1 className="mt-3 max-w-3xl text-balance text-cream-50">{name}</h1>
+            <p className="mt-3 max-w-2xl text-lg text-cream-100/85 md:text-xl">
+              {subtitle}
+            </p>
+          </div>
+        </div>
       </header>
 
       <section className="container-prose py-12 md:py-16">
