@@ -13,6 +13,7 @@ export const siteConfig = {
   nav: [
     { label: "Listings", href: "/listings" as const },
     { label: "Districts", href: "/districts" as const },
+    { label: "Calculator", href: "/calculator" as const },
     { label: "Services", href: "/services" as const },
     { label: "Process", href: "/process" as const },
     { label: "About", href: "/about" as const },

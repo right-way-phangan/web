@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, MapPin } from "lucide-react";
-import { getObjectByRwNumber } from "@/lib/data/objects";
+import { getObjectByRwNumber, getPublicObjects } from "@/lib/data/objects";
 import { formatPriceTHB, formatPricePerRai } from "@/lib/utils/price";
+import { RoiCalculator } from "@/components/calculator/roi-calculator";
 import { Button } from "@/components/ui/button";
 import { ObjectGallery } from "@/components/objects/object-gallery";
 import { SpecTable } from "@/components/objects/spec-table";
@@ -35,6 +36,7 @@ export default async function ObjectPage({ params }: Props) {
   const object = await getObjectByRwNumber(rw);
   if (!object) notFound();
 
+  const catalog = await getPublicObjects();
   const siteUrl = getSiteUrl();
   const pageUrl = `${siteUrl}/object/${object.rwNumber}`;
 
@@ -148,6 +150,23 @@ export default async function ObjectPage({ params }: Props) {
           {/* Right: sticky inquiry form on desktop, below content on mobile */}
           <InquiryForm rwNumber={object.rwNumber} />
         </div>
+
+        {object.priceThb ? (
+          <section className="mt-16 border-t border-forest-500/10 pt-12 md:mt-20 md:pt-16">
+            <h2 className="font-serif text-3xl text-forest-900">Investment outlook</h2>
+            <p className="mt-3 max-w-2xl text-base text-forest-500/70">
+              Project this property&apos;s value over time. Set your own growth
+              outlook — every figure is illustrative.
+            </p>
+            <div className="mt-8">
+              <RoiCalculator
+                initialPriceThb={object.priceThb}
+                catalog={catalog}
+                excludeRw={object.rwNumber}
+              />
+            </div>
+          </section>
+        ) : null}
       </article>
     </>
   );
