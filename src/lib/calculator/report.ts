@@ -79,7 +79,11 @@ export function buildCalcReportHtml({ inputs, result, currency, rates, rwNumber 
     row("Expected annual price growth", `${inputs.annualGrowthPct}%${isOffplan ? " (post-handover)" : ""}`),
     row(isOffplan ? "Horizon" : "Holding period", `${inputs.years} years`),
     isRent ? row("Nightly rate", money(inputs.nightlyRateThb, true)) : "",
-    isRent ? row("Occupancy", `${inputs.occupancyPct}%`) : "",
+    isRent && !inputs.seasonality ? row("Occupancy", `${inputs.occupancyPct}%`) : "",
+    isRent && inputs.seasonality
+      ? row("High season", `${inputs.highSeasonMonths}mo @ ${inputs.highSeasonOccupancyPct}% · +${inputs.highSeasonRateUpliftPct}% rate`)
+      : "",
+    isRent && inputs.seasonality ? row("Low season", `${inputs.lowSeasonOccupancyPct}% occupancy`) : "",
     isRent ? row("Management fee", `${inputs.mgmtFeePct}% of rent`) : "",
   ].join("");
 

@@ -85,6 +85,7 @@ export function RoiCalculator({
   const isOffplan = inputs.offplan;
   const isRent = inputs.mode === "rent" && !isOffplan;
   const isLeasehold = inputs.tenure === "leasehold";
+  const isSeasonal = inputs.seasonality;
   const installmentPct = Math.max(0, 100 - inputs.downPaymentPct - inputs.handoverPaymentPct);
 
   const strategyLabel = isOffplan ? "Off-plan (new build)" : isRent ? "Buy & Rent" : "Buy & Hold";
@@ -100,6 +101,9 @@ export function RoiCalculator({
     `Projected value: ${formatMoney(r.projectedValue, "THB", rates, { compact: false })}`,
     `Total ROI: ${fmtPct(r.roiPct)} · CAGR ${fmtPct(r.cagrPct)}/yr${isRent || isOffplan ? ` · IRR ${fmtPct(r.irrPct)}` : ""}`,
     isRent ? `Cap rate ${fmtPct(r.capRatePct)} · Cash-on-cash ${fmtPct(r.cashOnCashPct)}` : "",
+    isRent && isSeasonal
+      ? `Seasonality: ${inputs.highSeasonMonths}mo high @ ${inputs.highSeasonOccupancyPct}% (+${inputs.highSeasonRateUpliftPct}% rate) · low @ ${inputs.lowSeasonOccupancyPct}%`
+      : "",
     isRent ? `Net rental income: ${formatMoney(r.rentNetTotal, "THB", rates, { compact: false })}` : "",
     `Net profit: ${formatMoney(r.netProfit, "THB", rates, { compact: false })}`,
     `vs bank (${inputs.bankRatePct}%): ${formatMoney(r.vsBankThb, "THB", rates)} more`,
@@ -212,9 +216,29 @@ export function RoiCalculator({
           {/* Rent-only inputs */}
           {isRent ? (
             <div className="space-y-4 rounded-sm border border-brass-500/20 bg-brass-500/[0.04] p-4">
-              <p className="text-[11px] font-medium uppercase tracking-wide text-brass-600">Rental assumptions</p>
+              <div className="flex items-center justify-between">
+                <p className="text-[11px] font-medium uppercase tracking-wide text-brass-600">Rental assumptions</p>
+                <label className="flex cursor-pointer items-center gap-1.5 text-[11px] text-forest-500/70">
+                  <input
+                    type="checkbox"
+                    checked={isSeasonal}
+                    onChange={(e) => set({ seasonality: e.target.checked })}
+                    className="h-3.5 w-3.5 accent-brass-500"
+                  />
+                  High/low season
+                </label>
+              </div>
               <NumberField label="Nightly rate (THB)" value={inputs.nightlyRateThb} step={500} onChange={(v) => set({ nightlyRateThb: v })} small />
-              <NumberField label="Occupancy (%)" value={inputs.occupancyPct} step={5} min={0} max={100} onChange={(v) => set({ occupancyPct: v })} small />
+              {isSeasonal ? (
+                <div className="space-y-4 rounded-sm border border-brass-500/15 bg-cream-50/60 p-3">
+                  <NumberField label="High season length (months)" value={inputs.highSeasonMonths} step={1} min={0} max={12} onChange={(v) => set({ highSeasonMonths: v })} small />
+                  <NumberField label="High season occupancy (%)" value={inputs.highSeasonOccupancyPct} step={5} min={0} max={100} onChange={(v) => set({ highSeasonOccupancyPct: v })} small />
+                  <NumberField label="High season rate uplift (%)" value={inputs.highSeasonRateUpliftPct} step={5} min={0} onChange={(v) => set({ highSeasonRateUpliftPct: v })} small />
+                  <NumberField label="Low season occupancy (%)" value={inputs.lowSeasonOccupancyPct} step={5} min={0} max={100} onChange={(v) => set({ lowSeasonOccupancyPct: v })} small />
+                </div>
+              ) : (
+                <NumberField label="Occupancy (%)" value={inputs.occupancyPct} step={5} min={0} max={100} onChange={(v) => set({ occupancyPct: v })} small />
+              )}
               <NumberField label="Management fee (% of rent)" value={inputs.mgmtFeePct} step={1} min={0} max={100} onChange={(v) => set({ mgmtFeePct: v })} small />
               <NumberField label="Operating expenses (% of price/yr)" value={inputs.opexPct} step={0.5} min={0} onChange={(v) => set({ opexPct: v })} small />
               <NumberField label="Annual rate growth (%)" value={inputs.rentGrowthPct} step={0.5} onChange={(v) => set({ rentGrowthPct: v })} small />

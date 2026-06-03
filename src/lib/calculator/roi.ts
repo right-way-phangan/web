@@ -31,6 +31,13 @@ export interface RoiInputs {
   mgmtFeePct: number; // % of gross rent
   opexPct: number; // % of price / year
   rentGrowthPct: number; // annual nightly-rate growth
+  // Seasonality (rent mode) — Phangan high vs low season. When off, occupancyPct
+  // is used flat. When on, gross rent splits across two seasons.
+  seasonality: boolean;
+  highSeasonMonths: number;
+  highSeasonOccupancyPct: number;
+  lowSeasonOccupancyPct: number;
+  highSeasonRateUpliftPct: number; // nightly-rate premium in high season
   // Off-plan mode — new builds (RW-P projects). Capital paid in installments
   // during construction; value steps up to handover, then holds to exit.
   offplan: boolean;
@@ -95,6 +102,11 @@ export const DEFAULT_INPUTS: RoiInputs = {
   mgmtFeePct: 25, // full STR management
   opexPct: 3,
   rentGrowthPct: 3,
+  seasonality: false,
+  highSeasonMonths: 5, // Dec–Apr
+  highSeasonOccupancyPct: 75,
+  lowSeasonOccupancyPct: 30,
+  highSeasonRateUpliftPct: 30,
   offplan: false,
   constructionMonths: 24,
   downPaymentPct: 30,
@@ -160,6 +172,18 @@ export function computeRoi(input: RoiInputs): RoiResult {
     { year: 0, propertyValue: price, bankValue: initialInvestment, rentNet: 0, profit: -0 },
   ];
 
+  // Annual gross rent at a given base nightly rate — flat or split by season.
+  const seasonGross = (rate: number): number => {
+    if (!input.seasonality) return rate * ((input.occupancyPct || 0) / 100) * 365;
+    const highDays = Math.min(365, Math.max(0, (input.highSeasonMonths || 0) / 12) * 365);
+    const lowDays = 365 - highDays;
+    const highRate = rate * (1 + (input.highSeasonRateUpliftPct || 0) / 100);
+    return (
+      highDays * ((input.highSeasonOccupancyPct || 0) / 100) * highRate +
+      lowDays * ((input.lowSeasonOccupancyPct || 0) / 100) * rate
+    );
+  };
+
   let grossValue = price; // underlying value before any lease decay
   let currentRate = input.nightlyRateThb || 0;
   let rentNetTotal = 0;
@@ -177,7 +201,7 @@ export function computeRoi(input: RoiInputs): RoiResult {
 
     let rentNet = 0;
     if (isRent) {
-      const rentGross = currentRate * ((input.occupancyPct || 0) / 100) * 365;
+      const rentGross = seasonGross(currentRate);
       const mgmt = rentGross * ((input.mgmtFeePct || 0) / 100);
       const opex = price * ((input.opexPct || 0) / 100);
       rentNet = rentGross - mgmt - opex;
@@ -213,7 +237,7 @@ export function computeRoi(input: RoiInputs): RoiResult {
       : 0;
   const irrPct = computeIRR(cashflows);
 
-  const year1Gross = isRent ? (input.nightlyRateThb || 0) * ((input.occupancyPct || 0) / 100) * 365 : 0;
+  const year1Gross = isRent ? seasonGross(input.nightlyRateThb || 0) : 0;
   const grossYieldPct = isRent && initialInvestment > 0 ? (year1Gross / initialInvestment) * 100 : 0;
   const avgCashYieldPct =
     isRent && initialInvestment > 0
