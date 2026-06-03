@@ -88,6 +88,14 @@ export function RoiCalculator({
   const set = (patch: Partial<RoiInputs>) => setInputs((p) => ({ ...p, ...patch }));
   const money: Money = (thb, full) => formatMoney(thb, currency, rates, { compact: !full });
 
+  // Money inputs are entered in the selected currency; state stays in THB.
+  const fx = rates[currency] ?? 1; // foreign units per 1 THB
+  const toCcy = (thb: number) => (currency === "THB" ? thb : Math.round(thb * fx));
+  const fromCcy = (v: number) => (currency === "THB" ? v : Math.round(v / fx));
+  const moneyStep = (thbStep: number) => (currency === "THB" ? thbStep : Math.max(1, Math.round(thbStep * fx)));
+  const thbHint = (thb: number) =>
+    currency === "THB" ? money(thb) : `≈ ${formatMoney(thb, "THB", rates, { compact: true })}`;
+
   const openReport = () => {
     const html = buildCalcReportHtml({ inputs, result: r, currency, rates, rwNumber: excludeRw });
     const w = window.open("", "_blank");
@@ -162,11 +170,11 @@ export function RoiCalculator({
 
         <div className="mt-6 space-y-5">
           <NumberField
-            label={isOffplan ? "Contract price (THB)" : "Purchase price (THB)"}
-            value={inputs.purchasePriceThb}
-            step={100000}
-            onChange={(v) => set({ purchasePriceThb: v })}
-            hint={money(inputs.purchasePriceThb)}
+            label={`${isOffplan ? "Contract price" : "Purchase price"} (${currency})`}
+            value={toCcy(inputs.purchasePriceThb)}
+            step={moneyStep(100000)}
+            onChange={(v) => set({ purchasePriceThb: fromCcy(v) })}
+            hint={thbHint(inputs.purchasePriceThb)}
           />
 
           <div>
@@ -244,7 +252,7 @@ export function RoiCalculator({
                   High/low season
                 </label>
               </div>
-              <NumberField label="Nightly rate (THB)" value={inputs.nightlyRateThb} step={500} onChange={(v) => set({ nightlyRateThb: v })} small />
+              <NumberField label={`Nightly rate (${currency})`} value={toCcy(inputs.nightlyRateThb)} step={moneyStep(500)} onChange={(v) => set({ nightlyRateThb: fromCcy(v) })} hint={thbHint(inputs.nightlyRateThb)} small />
               {isSeasonal ? (
                 <div className="space-y-4 rounded-sm border border-brass-500/15 bg-cream-50/60 p-3">
                   <NumberField label="High season length (months)" value={inputs.highSeasonMonths} step={1} min={0} max={12} onChange={(v) => set({ highSeasonMonths: v })} small />
