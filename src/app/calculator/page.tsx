@@ -11,8 +11,18 @@ export const metadata: Metadata = {
 
 export const revalidate = 300;
 
-export default async function CalculatorPage() {
+export default async function CalculatorPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ price?: string; mode?: string }>;
+}) {
   const catalog = await getPublicObjects();
+  const params = await searchParams;
+
+  // Deep-link params (e.g. from the Telegram Mini App): ?price=<thb>&mode=hold|rent
+  const priceRaw = Number(params.price);
+  const initialPriceThb = Number.isFinite(priceRaw) && priceRaw > 0 ? priceRaw : undefined;
+  const initialMode = params.mode === "rent" ? "rent" : params.mode === "hold" ? "hold" : undefined;
 
   return (
     <section className="pb-24">
@@ -22,7 +32,7 @@ export default async function CalculatorPage() {
         lede="Set your own growth outlook and horizon. We'll project the value, ROI, and capital curve — then surface listings that fit the budget."
       />
       <div className="container-prose mt-12 md:mt-16">
-        <RoiCalculator catalog={catalog} />
+        <RoiCalculator catalog={catalog} initialPriceThb={initialPriceThb} initialMode={initialMode} />
       </div>
     </section>
   );

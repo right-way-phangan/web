@@ -30,15 +30,17 @@ type Money = (thb: number, full?: boolean) => string;
 
 interface Props {
   initialPriceThb?: number;
+  initialMode?: CalcMode;
   catalog?: RealEstateObject[];
   excludeRw?: string;
   compact?: boolean;
 }
 
-export function RoiCalculator({ initialPriceThb, catalog = [], excludeRw }: Props) {
+export function RoiCalculator({ initialPriceThb, initialMode, catalog = [], excludeRw }: Props) {
   const [inputs, setInputs] = useState<RoiInputs>({
     ...DEFAULT_INPUTS,
     purchasePriceThb: initialPriceThb ?? DEFAULT_INPUTS.purchasePriceThb,
+    mode: initialMode ?? DEFAULT_INPUTS.mode,
   });
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [showYears, setShowYears] = useState(false);
