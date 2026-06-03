@@ -90,9 +90,6 @@ export function RoiCalculator({
 
   // Money inputs are entered in the selected currency; state stays in THB.
   const fx = rates[currency] ?? 1; // foreign units per 1 THB
-  const toCcy = (thb: number) => (currency === "THB" ? thb : Math.round(thb * fx));
-  const fromCcy = (v: number) => (currency === "THB" ? v : Math.round(v / fx));
-  const moneyStep = (thbStep: number) => (currency === "THB" ? thbStep : Math.max(1, Math.round(thbStep * fx)));
   const thbHint = (thb: number) =>
     currency === "THB" ? money(thb) : `≈ ${formatMoney(thb, "THB", rates, { compact: true })}`;
 
@@ -169,11 +166,13 @@ export function RoiCalculator({
         </p>
 
         <div className="mt-6 space-y-5">
-          <NumberField
+          <MoneyField
             label={`${isOffplan ? "Contract price" : "Purchase price"} (${currency})`}
-            value={toCcy(inputs.purchasePriceThb)}
-            step={moneyStep(100000)}
-            onChange={(v) => set({ purchasePriceThb: fromCcy(v) })}
+            thbValue={inputs.purchasePriceThb}
+            currency={currency}
+            fx={fx}
+            thbStep={100000}
+            onChangeThb={(thb) => set({ purchasePriceThb: thb })}
             hint={thbHint(inputs.purchasePriceThb)}
           />
 
@@ -252,7 +251,7 @@ export function RoiCalculator({
                   High/low season
                 </label>
               </div>
-              <NumberField label={`Nightly rate (${currency})`} value={toCcy(inputs.nightlyRateThb)} step={moneyStep(500)} onChange={(v) => set({ nightlyRateThb: fromCcy(v) })} hint={thbHint(inputs.nightlyRateThb)} small />
+              <MoneyField label={`Nightly rate (${currency})`} thbValue={inputs.nightlyRateThb} currency={currency} fx={fx} thbStep={500} onChangeThb={(thb) => set({ nightlyRateThb: thb })} hint={thbHint(inputs.nightlyRateThb)} small />
               {isSeasonal ? (
                 <div className="space-y-4 rounded-sm border border-brass-500/15 bg-cream-50/60 p-3">
                   <NumberField label="High season length (months)" value={inputs.highSeasonMonths} step={1} min={0} max={12} onChange={(v) => set({ highSeasonMonths: v })} small />
@@ -534,6 +533,75 @@ function NumberField({
         min={min}
         max={max}
         onChange={(e) => onChange(Number(e.target.value))}
+        className="mt-1.5 w-full rounded-sm border border-forest-500/20 bg-cream-50 px-3 py-2 text-sm text-forest-900 focus:border-forest-500 focus:outline-none"
+      />
+    </div>
+  );
+}
+
+/**
+ * Money input entered in the selected currency. Keeps its own text state so
+ * typing isn't clobbered by the THB round-trip; state upstream stays in THB.
+ * Resyncs the display when the currency or the external THB value changes.
+ */
+function MoneyField({
+  label,
+  thbValue,
+  currency,
+  fx,
+  thbStep,
+  onChangeThb,
+  hint,
+  small,
+}: {
+  label: string;
+  thbValue: number;
+  currency: Currency;
+  fx: number;
+  thbStep: number;
+  onChangeThb: (thb: number) => void;
+  hint?: string;
+  small?: boolean;
+}) {
+  const toText = (thb: number) =>
+    Number.isFinite(thb) ? String(currency === "THB" ? Math.round(thb) : Math.round(thb * fx)) : "";
+  const [text, setText] = useState(() => toText(thbValue));
+  const [focused, setFocused] = useState(false);
+
+  // Resync from outside (currency switch, "Apply this price", etc.) when idle.
+  useEffect(() => {
+    if (!focused) setText(toText(thbValue));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [thbValue, currency, fx]);
+
+  const onInput = (raw: string) => {
+    setText(raw);
+    const v = Number(raw);
+    if (raw === "" || !Number.isFinite(v)) {
+      onChangeThb(NaN);
+      return;
+    }
+    onChangeThb(currency === "THB" ? v : v / fx);
+  };
+
+  return (
+    <div>
+      <div className="flex items-baseline justify-between">
+        <label className={small ? "text-xs text-forest-500/70" : "text-sm text-forest-500/70"}>{label}</label>
+        {hint ? <span className="text-xs font-medium text-forest-900">{hint}</span> : null}
+      </div>
+      <input
+        type="number"
+        inputMode="numeric"
+        min={0}
+        step={currency === "THB" ? thbStep : "any"}
+        value={text}
+        onFocus={() => setFocused(true)}
+        onBlur={() => {
+          setFocused(false);
+          setText(toText(thbValue));
+        }}
+        onChange={(e) => onInput(e.target.value)}
         className="mt-1.5 w-full rounded-sm border border-forest-500/20 bg-cream-50 px-3 py-2 text-sm text-forest-900 focus:border-forest-500 focus:outline-none"
       />
     </div>
