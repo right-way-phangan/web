@@ -1,12 +1,14 @@
 import type { RealEstateObject, ObjectType, TenureType } from "@/types/object";
 
-export type SortOption = "featured" | "newest";
+export type SortOption = "featured" | "newest" | "price-asc" | "price-desc";
 
 export interface ListingsFilter {
   type: ObjectType[];        // multi: Land/Villa/House/Apartment/Project
   district: string[];        // multi
   tenure: TenureType[];      // multi: Freehold/Leasehold
   bedroomsMin?: number;      // min beds (Villa/House/Apartment)
+  priceMinThb?: number;      // min asking price (THB)
+  priceMaxThb?: number;      // max asking price (THB)
   beachfront: boolean;
   seaView: boolean;
   mountainView: boolean;
@@ -15,7 +17,14 @@ export interface ListingsFilter {
 
 const VALID_TYPES: ObjectType[] = ["Land", "Villa", "House", "Apartment", "Project"];
 const VALID_TENURES: TenureType[] = ["Freehold", "Leasehold"];
-const VALID_SORTS: SortOption[] = ["featured", "newest"];
+const VALID_SORTS: SortOption[] = ["featured", "newest", "price-asc", "price-desc"];
+
+/** URL price params are in millions of THB (e.g. ?pmin=10&pmax=20). */
+function parseMillions(raw: string | undefined): number | undefined {
+  if (!raw) return undefined;
+  const m = Number(raw);
+  return Number.isFinite(m) && m > 0 ? m * 1_000_000 : undefined;
+}
 
 function multi<T extends string>(raw: string | undefined, allowed: readonly T[]): T[] {
   if (!raw) return [];
@@ -54,6 +63,8 @@ export function parseListingsSearchParams(
       .filter(Boolean),
     tenure: multi(get("tenure"), VALID_TENURES),
     bedroomsMin: Number.isFinite(bedroomsMin) && bedroomsMin! > 0 ? bedroomsMin : undefined,
+    priceMinThb: parseMillions(get("pmin")),
+    priceMaxThb: parseMillions(get("pmax")),
     beachfront: get("beachfront") === "1",
     seaView: get("seaview") === "1",
     mountainView: get("mountainview") === "1",
@@ -77,6 +88,12 @@ export function makeFilterPredicate(f: ListingsFilter): (o: RealEstateObject) =>
     if (f.bedroomsMin !== undefined) {
       if (!o.bedrooms || o.bedrooms < f.bedroomsMin) return false;
     }
+    if (f.priceMinThb !== undefined) {
+      if (!o.priceThb || o.priceThb < f.priceMinThb) return false;
+    }
+    if (f.priceMaxThb !== undefined) {
+      if (!o.priceThb || o.priceThb > f.priceMaxThb) return false;
+    }
     if (f.beachfront && !o.beachfront) return false;
     if (f.seaView && !o.seaView) return false;
     if (f.mountainView && !o.mountainView) return false;
@@ -89,6 +106,17 @@ export function applySort(objects: RealEstateObject[], sort: SortOption): RealEs
     return [...objects].sort((a, b) =>
       (b.dateAdded ?? "").localeCompare(a.dateAdded ?? ""),
     );
+  }
+  if (sort === "price-asc" || sort === "price-desc") {
+    // Objects without a price always sink to the bottom, regardless of direction.
+    return [...objects].sort((a, b) => {
+      if (a.priceThb == null && b.priceThb == null) return 0;
+      if (a.priceThb == null) return 1;
+      if (b.priceThb == null) return -1;
+      return sort === "price-asc"
+        ? a.priceThb - b.priceThb
+        : b.priceThb - a.priceThb;
+    });
   }
   // 'featured' is already the upstream default sort in getPublicObjects()
   return objects;
@@ -103,6 +131,8 @@ export function isFiltered(f: ListingsFilter): boolean {
     f.district.length > 0 ||
     f.tenure.length > 0 ||
     f.bedroomsMin !== undefined ||
+    f.priceMinThb !== undefined ||
+    f.priceMaxThb !== undefined ||
     f.beachfront ||
     f.seaView ||
     f.mountainView ||

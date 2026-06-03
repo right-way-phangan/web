@@ -12,6 +12,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import type { RealEstateObject, ObjectType } from "@/types/object";
+import { formatPriceCompact } from "@/lib/utils/price";
 
 const TYPE_ICON: Record<ObjectType, typeof Home> = {
   Land: TreePine,
@@ -98,6 +99,17 @@ export function ObjectCard({ object }: Props) {
         <h3 className="font-serif text-xl leading-snug text-forest-900 line-clamp-2">
           {object.titleEn}
         </h3>
+
+        {object.priceThb ? (
+          <p className="font-serif text-lg text-forest-900">
+            {formatPriceCompact(object.priceThb)}
+            {object.type === "Land" && object.pricePerRai ? (
+              <span className="ml-2 text-xs font-sans text-forest-500/60">
+                {formatPriceCompact(object.pricePerRai)}/rai
+              </span>
+            ) : null}
+          </p>
+        ) : null}
 
         <div className="mt-auto flex flex-wrap items-center gap-3 text-xs text-forest-500/70">
           {object.areaRai ? (

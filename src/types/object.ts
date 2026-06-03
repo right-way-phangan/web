@@ -77,6 +77,8 @@ export interface RealEstateObject {
   // External
   driveFolder?: string;       // Google Drive
   locationUrl?: string;       // Google Maps
+  lat?: number;               // parsed from locationUrl, for map pins
+  lng?: number;
   siteUrl?: string;           // current Laravel site (legacy)
 
   // Photos (resolved separately from Drive)

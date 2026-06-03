@@ -20,11 +20,17 @@ interface Props {
 const SORT_LABELS: Record<SortOption, string> = {
   featured: "Featured",
   newest: "Newest",
+  "price-asc": "Price ↑",
+  "price-desc": "Price ↓",
 };
 
 const TENURE_OPTIONS: TenureType[] = ["Freehold", "Leasehold"];
 
 const BEDROOM_OPTIONS = [1, 2, 3, 4, 5];
+
+// Price stops in millions of THB (URL params ?pmin / ?pmax are in millions).
+const PRICE_STOPS = [5, 10, 20, 30, 50, 75, 100];
+const priceLabel = (m: number) => `฿${m}M`;
 
 export function ListingsFilterBar({ current, options, totalCount }: Props) {
   const router = useRouter();
@@ -69,10 +75,15 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
     current.district.length > 0 ||
     current.tenure.length > 0 ||
     current.bedroomsMin !== undefined ||
+    current.priceMinThb !== undefined ||
+    current.priceMaxThb !== undefined ||
     current.beachfront ||
     current.seaView ||
     current.mountainView ||
     current.sort !== "featured";
+
+  const priceMinM = current.priceMinThb ? current.priceMinThb / 1_000_000 : undefined;
+  const priceMaxM = current.priceMaxThb ? current.priceMaxThb / 1_000_000 : undefined;
 
   const showBedrooms =
     current.type.length === 0 ||
@@ -116,6 +127,30 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
             });
           }}
         />
+
+        {/* Price range (millions THB) */}
+        <Select
+          label="Min price"
+          placeholder="Min ฿"
+          value={priceMinM?.toString() ?? ""}
+          options={PRICE_STOPS.filter((m) => !priceMaxM || m < priceMaxM).map((m) => ({
+            value: String(m),
+            label: priceLabel(m),
+          }))}
+          onChange={(v) => setSingle("pmin", v || undefined)}
+        />
+        <Select
+          label="Max price"
+          placeholder="Max ฿"
+          value={priceMaxM?.toString() ?? ""}
+          options={PRICE_STOPS.filter((m) => !priceMinM || m > priceMinM).map((m) => ({
+            value: String(m),
+            label: priceLabel(m),
+          }))}
+          onChange={(v) => setSingle("pmax", v || undefined)}
+        />
+
+        <Divider />
 
         {/* Tenure chips */}
         {TENURE_OPTIONS.map((t) => {

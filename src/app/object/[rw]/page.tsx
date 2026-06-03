@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, MapPin } from "lucide-react";
 import { getObjectByRwNumber } from "@/lib/data/objects";
+import { formatPriceTHB, formatPricePerRai } from "@/lib/utils/price";
 import { Button } from "@/components/ui/button";
 import { ObjectGallery } from "@/components/objects/object-gallery";
 import { SpecTable } from "@/components/objects/spec-table";
@@ -69,6 +70,19 @@ export default async function ObjectPage({ params }: Props) {
             {object.rwNumber} · {object.type}
           </p>
           <h1 className="mt-3 max-w-3xl text-balance">{object.titleEn}</h1>
+
+          {object.priceThb ? (
+            <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <span className="font-serif text-3xl text-forest-900 md:text-4xl">
+                {formatPriceTHB(object.priceThb)}
+              </span>
+              {object.type === "Land" && object.pricePerRai ? (
+                <span className="text-sm text-forest-500/60">
+                  {formatPricePerRai(object.pricePerRai)}
+                </span>
+              ) : null}
+            </div>
+          ) : null}
 
           {object.district ? (
             <div className="mt-4 flex flex-wrap items-center gap-2 text-sm text-forest-500/70">

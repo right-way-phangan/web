@@ -1,4 +1,5 @@
 import type { RealEstateObject } from "@/types/object";
+import { formatPriceTHB, formatPricePerRai } from "@/lib/utils/price";
 
 interface Row {
   label: string;
@@ -17,6 +18,19 @@ function formatRai(rai: number): string {
 
 function buildGroups(o: RealEstateObject): Group[] {
   const groups: Group[] = [];
+
+  // Pricing (shown first when present)
+  const priceRows: Row[] = [];
+  if (o.priceThb)
+    priceRows.push({ label: "Asking price", value: formatPriceTHB(o.priceThb) });
+  if (o.type === "Land" && o.pricePerRai)
+    priceRows.push({ label: "Price per rai", value: formatPricePerRai(o.pricePerRai) });
+  if (o.rentPerRaiMonth)
+    priceRows.push({
+      label: "Lease rent",
+      value: `${formatPriceTHB(o.rentPerRaiMonth)} / rai / month`,
+    });
+  if (priceRows.length > 0) groups.push({ title: "Pricing", rows: priceRows });
 
   // Property details (always shown)
   const propertyRows: Row[] = [];

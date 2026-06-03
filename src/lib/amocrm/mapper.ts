@@ -89,11 +89,28 @@ export function mapElementToObject(el: AmoCatalogElement): RealEstateObject {
 
     driveFolder: str(cf.get("DRIVE_FOLDER")),
     locationUrl: str(cf.get("LOCATION_URL")),
+    ...parseLatLng(str(cf.get("LOCATION_URL"))),
     siteUrl: str(cf.get("SITE_URL")),
     descriptionRaw: str(cf.get("DESCRIPTION_RAW")),
 
     ...parsePhotos(str(cf.get("PHOTOS"))),
   };
+}
+
+/**
+ * Pull lat/lng out of a Google Maps location URL. Handles the bot's
+ * `?q=LAT,LNG` form and the `@LAT,LNG` form. Returns {} when not parseable —
+ * so an object simply has no map pin rather than a broken one.
+ */
+function parseLatLng(url: string | undefined): { lat?: number; lng?: number } {
+  if (!url) return {};
+  const m = url.match(/[@?q=]?(-?\d{1,2}\.\d+),\s*(-?\d{1,3}\.\d+)/);
+  if (!m) return {};
+  const lat = Number(m[1]);
+  const lng = Number(m[2]);
+  // Sanity: Koh Phangan sits near 9.7°N, 100°E — keep only plausible coords.
+  if (lat < 9 || lat > 10.5 || lng < 99 || lng > 101) return {};
+  return { lat, lng };
 }
 
 /**
