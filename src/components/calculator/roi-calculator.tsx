@@ -1,64 +1,88 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import type { Route } from "next";
-import { ChevronDown, TrendingUp, ArrowRight } from "lucide-react";
+import { ChevronDown, TrendingUp, ArrowRight, Home, Hotel } from "lucide-react";
 import {
   computeRoi,
   DEFAULT_INPUTS,
   SCENARIOS,
   type RoiInputs,
   type RoiResult,
+  type CalcMode,
 } from "@/lib/calculator/roi";
-import { formatPriceTHB, formatPriceCompact } from "@/lib/utils/price";
+import {
+  CURRENCIES,
+  DEFAULT_RATES,
+  fetchRates,
+  formatMoney,
+  type Currency,
+} from "@/lib/calculator/currency";
 import { ObjectCard } from "@/components/objects/object-card";
 import { CalcLeadButton } from "@/components/calculator/calc-lead-button";
 import type { RealEstateObject } from "@/types/object";
 
 const fmtPct = (n: number) =>
-  `${n >= 0 ? "+" : ""}${n.toLocaleString("en-US", { maximumFractionDigits: 1 })}%`;
+  !isFinite(n) ? "—" : `${n >= 0 ? "+" : ""}${n.toLocaleString("en-US", { maximumFractionDigits: 1 })}%`;
+
+type Money = (thb: number, full?: boolean) => string;
 
 interface Props {
   initialPriceThb?: number;
-  /** Catalog for the "similar objects" lead-gen block. */
   catalog?: RealEstateObject[];
-  /** RW number to exclude from "similar objects" (the object being viewed). */
   excludeRw?: string;
-  /** Tighter layout when embedded on an object page. */
   compact?: boolean;
 }
 
-export function RoiCalculator({ initialPriceThb, catalog = [], excludeRw, compact = false }: Props) {
+export function RoiCalculator({ initialPriceThb, catalog = [], excludeRw }: Props) {
   const [inputs, setInputs] = useState<RoiInputs>({
     ...DEFAULT_INPUTS,
     purchasePriceThb: initialPriceThb ?? DEFAULT_INPUTS.purchasePriceThb,
   });
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [showYears, setShowYears] = useState(false);
+  const [currency, setCurrency] = useState<Currency>("THB");
+  const [rates, setRates] = useState<Record<Currency, number>>(DEFAULT_RATES);
+
+  // Best-effort live FX once mounted.
+  useEffect(() => {
+    fetchRates().then((r) => r && setRates(r));
+  }, []);
 
   const r = useMemo(() => computeRoi(inputs), [inputs]);
   const set = (patch: Partial<RoiInputs>) => setInputs((p) => ({ ...p, ...patch }));
+  const money: Money = (thb, full) => formatMoney(thb, currency, rates, { compact: !full });
 
   const activeScenario = SCENARIOS.find((s) => s.growthPct === inputs.annualGrowthPct)?.key;
+  const isRent = inputs.mode === "rent";
 
   const calcSummary = [
-    `Investment calculation${excludeRw ? ` — ${excludeRw}` : ""}`,
-    `Purchase price: ${formatPriceTHB(inputs.purchasePriceThb)}`,
+    `Investment calculation${excludeRw ? ` — ${excludeRw}` : ""} (${isRent ? "Buy & Rent" : "Buy & Hold"})`,
+    `Purchase price: ${formatMoney(inputs.purchasePriceThb, "THB", rates, { compact: false })}`,
     `Annual growth: ${inputs.annualGrowthPct}% over ${inputs.years} years`,
-    `Projected value: ${formatPriceTHB(r.projectedValue)}`,
-    `Total ROI: ${fmtPct(r.roiPct)} · CAGR ${fmtPct(r.cagrPct)}/yr`,
-    `Net profit: ${formatPriceTHB(r.netProfit)}`,
-    `vs bank (${inputs.bankRatePct}%): ${formatPriceCompact(r.vsBankThb)} more`,
+    `Projected value: ${formatMoney(r.projectedValue, "THB", rates, { compact: false })}`,
+    `Total ROI: ${fmtPct(r.roiPct)} · CAGR ${fmtPct(r.cagrPct)}/yr${isRent ? ` · IRR ${fmtPct(r.irrPct)}` : ""}`,
+    isRent ? `Net rental income: ${formatMoney(r.rentNetTotal, "THB", rates, { compact: false })}` : "",
+    `Net profit: ${formatMoney(r.netProfit, "THB", rates, { compact: false })}`,
+    `vs bank (${inputs.bankRatePct}%): ${formatMoney(r.vsBankThb, "THB", rates)} more`,
     ``,
     `Please send me this calculation and get in touch.`,
-  ].join("\n");
+  ]
+    .filter(Boolean)
+    .join("\n");
 
   return (
-    <div className={compact ? "" : "grid gap-10 lg:grid-cols-[380px_1fr] lg:gap-14"}>
+    <div className="grid gap-10 lg:grid-cols-[380px_1fr] lg:gap-14">
       {/* ---- Parameters ---- */}
-      <div className={compact ? "rounded-sm border border-forest-500/10 bg-cream-50 p-6" : ""}>
-        <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+      <div>
+        {/* Mode tabs */}
+        <div className="flex gap-2 rounded-sm border border-forest-500/15 bg-cream-50 p-1">
+          <ModeTab active={!isRent} onClick={() => set({ mode: "hold" as CalcMode })} icon={Home} label="Buy & Hold" />
+          <ModeTab active={isRent} onClick={() => set({ mode: "rent" as CalcMode })} icon={Hotel} label="Buy & Rent" />
+        </div>
+
+        <p className="mt-6 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
           Your assumptions
         </p>
 
@@ -68,14 +92,11 @@ export function RoiCalculator({ initialPriceThb, catalog = [], excludeRw, compac
             value={inputs.purchasePriceThb}
             step={100000}
             onChange={(v) => set({ purchasePriceThb: v })}
-            hint={formatPriceCompact(inputs.purchasePriceThb)}
+            hint={money(inputs.purchasePriceThb)}
           />
 
-          {/* Scenario presets — editable, never asserted as our claim */}
           <div>
-            <label className="text-sm text-forest-500/70">
-              Expected annual price growth (%)
-            </label>
+            <label className="text-sm text-forest-500/70">Expected annual price growth (%)</label>
             <div className="mt-2 flex gap-2">
               {SCENARIOS.map((s) => (
                 <button
@@ -102,36 +123,36 @@ export function RoiCalculator({ initialPriceThb, catalog = [], excludeRw, compac
               onChange={(e) => set({ annualGrowthPct: Number(e.target.value) })}
               className="mt-2 w-full rounded-sm border border-forest-500/20 bg-cream-50 px-3 py-2 text-sm text-forest-900 focus:border-forest-500 focus:outline-none"
             />
-            <p className="mt-1 text-[11px] text-forest-500/50">
-              You set this — adjust to your own outlook.
-            </p>
+            <p className="mt-1 text-[11px] text-forest-500/50">You set this — adjust to your own outlook.</p>
           </div>
 
-          <NumberField
-            label="Holding period (years)"
-            value={inputs.years}
-            step={1}
-            min={1}
-            max={40}
-            onChange={(v) => set({ years: v })}
-          />
+          <NumberField label="Holding period (years)" value={inputs.years} step={1} min={1} max={40} onChange={(v) => set({ years: v })} />
 
-          {/* Advanced */}
+          {/* Rent-only inputs */}
+          {isRent ? (
+            <div className="space-y-4 rounded-sm border border-brass-500/20 bg-brass-500/[0.04] p-4">
+              <p className="text-[11px] font-medium uppercase tracking-wide text-brass-600">Rental assumptions</p>
+              <NumberField label="Nightly rate (THB)" value={inputs.nightlyRateThb} step={500} onChange={(v) => set({ nightlyRateThb: v })} small />
+              <NumberField label="Occupancy (%)" value={inputs.occupancyPct} step={5} min={0} max={100} onChange={(v) => set({ occupancyPct: v })} small />
+              <NumberField label="Management fee (% of rent)" value={inputs.mgmtFeePct} step={1} min={0} max={100} onChange={(v) => set({ mgmtFeePct: v })} small />
+              <NumberField label="Operating expenses (% of price/yr)" value={inputs.opexPct} step={0.5} min={0} onChange={(v) => set({ opexPct: v })} small />
+              <NumberField label="Annual rate growth (%)" value={inputs.rentGrowthPct} step={0.5} onChange={(v) => set({ rentGrowthPct: v })} small />
+            </div>
+          ) : null}
+
           <button
             type="button"
             onClick={() => setShowAdvanced((v) => !v)}
             className="flex items-center gap-1.5 text-xs font-medium text-forest-500/70 hover:text-forest-500"
           >
-            <ChevronDown
-              className={`h-3.5 w-3.5 transition-transform ${showAdvanced ? "rotate-180" : ""}`}
-            />
+            <ChevronDown className={`h-3.5 w-3.5 transition-transform ${showAdvanced ? "rotate-180" : ""}`} />
             Advanced costs
           </button>
           {showAdvanced ? (
             <div className="space-y-4 rounded-sm border border-forest-500/10 bg-forest-500/[0.03] p-4">
               <NumberField label="Entry costs — DD + transfer (%)" value={inputs.closingCostsPct} step={0.5} onChange={(v) => set({ closingCostsPct: v })} small />
               <NumberField label="Exit costs — transfer + commission (%)" value={inputs.saleCostsPct} step={0.5} onChange={(v) => set({ saleCostsPct: v })} small />
-              <NumberField label="Annual holding costs (THB)" value={inputs.annualHoldingThb} step={5000} onChange={(v) => set({ annualHoldingThb: v })} small />
+              <NumberField label="Annual holding costs (% of price)" value={inputs.annualHoldingPct} step={0.1} onChange={(v) => set({ annualHoldingPct: v })} small />
               <NumberField label="Bank deposit rate (%)" value={inputs.bankRatePct} step={0.25} onChange={(v) => set({ bankRatePct: v })} small />
             </div>
           ) : null}
@@ -139,40 +160,45 @@ export function RoiCalculator({ initialPriceThb, catalog = [], excludeRw, compac
       </div>
 
       {/* ---- Results ---- */}
-      <div className={compact ? "mt-8" : ""}>
-        {/* Headline projected value */}
+      <div>
         <div className="rounded-sm border border-forest-500/10 bg-cream-50 p-6 md:p-8">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
-            Projected value in {inputs.years} years
-          </p>
-          <p className="mt-2 font-serif text-4xl text-forest-900 md:text-5xl">
-            {formatPriceTHB(r.projectedValue)}
-          </p>
+          <div className="flex items-start justify-between gap-4">
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+              Projected value in {inputs.years} years
+            </p>
+            <CurrencyPicker currency={currency} onChange={setCurrency} />
+          </div>
+          <p className="mt-2 font-serif text-4xl text-forest-900 md:text-5xl">{money(r.projectedValue, true)}</p>
 
           <div className="mt-6 grid grid-cols-3 gap-4 border-t border-forest-500/10 pt-6">
             <Kpi label="Total ROI" value={fmtPct(r.roiPct)} accent />
             <Kpi label="CAGR / year" value={fmtPct(r.cagrPct)} />
-            <Kpi label="Net profit" value={formatPriceCompact(r.netProfit)} />
+            <Kpi label="Net profit" value={money(r.netProfit)} />
           </div>
+
+          {isRent ? (
+            <div className="mt-4 grid grid-cols-3 gap-4 border-t border-forest-500/10 pt-4">
+              <Kpi label="IRR / year" value={fmtPct(r.irrPct)} />
+              <Kpi label="Gross yield" value={fmtPct(r.grossYieldPct)} />
+              <Kpi label="Net rent total" value={money(r.rentNetTotal)} />
+            </div>
+          ) : null}
 
           <div className="mt-6">
             <CalcLeadButton message={calcSummary} rwNumber={excludeRw} />
           </div>
         </div>
 
-        {/* Bank comparison */}
-        <BankCompare r={r} years={inputs.years} bankRate={inputs.bankRatePct} />
+        <BankCompare r={r} years={inputs.years} bankRate={inputs.bankRatePct} money={money} />
 
-        {/* Growth chart */}
         <div className="mt-6 rounded-sm border border-forest-500/10 bg-cream-50 p-6">
           <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
             <TrendingUp className="h-4 w-4" />
             Capital growth
           </div>
-          <GrowthChart r={r} />
+          <GrowthChart r={r} money={money} />
         </div>
 
-        {/* Year-by-year (collapsible) */}
         <div className="mt-6">
           <button
             type="button"
@@ -182,20 +208,51 @@ export function RoiCalculator({ initialPriceThb, catalog = [], excludeRw, compac
             <ChevronDown className={`h-4 w-4 transition-transform ${showYears ? "rotate-180" : ""}`} />
             Show year-by-year
           </button>
-          {showYears ? <YearTable r={r} /> : null}
+          {showYears ? <YearTable r={r} money={money} isRent={isRent} /> : null}
         </div>
 
-        {/* Lead-gen: similar objects */}
-        <SimilarObjects price={inputs.purchasePriceThb} catalog={catalog} excludeRw={excludeRw} />
+        <SimilarObjects price={inputs.purchasePriceThb} catalog={catalog} excludeRw={excludeRw} money={money} />
 
         <p className="mt-6 text-[11px] leading-relaxed text-forest-500/50">
           Illustrative projection based on the assumptions you enter — not a
-          forecast or guarantee of future returns. Past or projected growth does
-          not predict actual results. Speak with Right Way for a property-specific
-          assessment.
+          forecast or guarantee of future returns. Currency conversion is for
+          display only; figures are computed in THB. Speak with Right Way for a
+          property-specific assessment.
         </p>
       </div>
     </div>
+  );
+}
+
+function ModeTab({ active, onClick, icon: Icon, label }: { active: boolean; onClick: () => void; icon: typeof Home; label: string }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`flex flex-1 items-center justify-center gap-2 rounded-sm px-3 py-2 text-sm font-medium transition-colors ${
+        active ? "bg-forest-500 text-cream-100" : "text-forest-500/70 hover:text-forest-500"
+      }`}
+    >
+      <Icon className="h-4 w-4" />
+      {label}
+    </button>
+  );
+}
+
+function CurrencyPicker({ currency, onChange }: { currency: Currency; onChange: (c: Currency) => void }) {
+  return (
+    <select
+      aria-label="Display currency"
+      value={currency}
+      onChange={(e) => onChange(e.target.value as Currency)}
+      className="rounded-sm border border-forest-500/20 bg-cream-50 px-2 py-1 text-xs font-medium text-forest-500 focus:border-forest-500 focus:outline-none"
+    >
+      {CURRENCIES.map((c) => (
+        <option key={c} value={c}>
+          {c}
+        </option>
+      ))}
+    </select>
   );
 }
 
@@ -203,9 +260,7 @@ function Kpi({ label, value, accent }: { label: string; value: string; accent?: 
   return (
     <div>
       <p className="text-[11px] uppercase tracking-wide text-forest-500/50">{label}</p>
-      <p className={`mt-1 font-serif text-xl ${accent ? "text-brass-600" : "text-forest-900"}`}>
-        {value}
-      </p>
+      <p className={`mt-1 font-serif text-xl ${accent ? "text-brass-600" : "text-forest-900"}`}>{value}</p>
     </div>
   );
 }
@@ -232,9 +287,7 @@ function NumberField({
   return (
     <div>
       <div className="flex items-baseline justify-between">
-        <label className={small ? "text-xs text-forest-500/70" : "text-sm text-forest-500/70"}>
-          {label}
-        </label>
+        <label className={small ? "text-xs text-forest-500/70" : "text-sm text-forest-500/70"}>{label}</label>
         {hint ? <span className="text-xs font-medium text-forest-900">{hint}</span> : null}
       </div>
       <input
@@ -250,25 +303,22 @@ function NumberField({
   );
 }
 
-function BankCompare({ r, years, bankRate }: { r: RoiResult; years: number; bankRate: number }) {
+function BankCompare({ r, years, bankRate, money }: { r: RoiResult; years: number; bankRate: number; money: Money }) {
   const better = r.vsBankThb >= 0;
   return (
     <div className="mt-6 rounded-sm border border-forest-500/10 bg-cream-50 p-6">
-      <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
-        vs a bank deposit
-      </p>
+      <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">vs a bank deposit</p>
       <div className="mt-4 space-y-2">
-        <Row label={`Bank deposit (${bankRate}%)`} value={formatPriceTHB(r.bankFinal)} muted />
-        <Row label="This property" value={formatPriceTHB(r.netProceeds)} />
+        <Row label={`Bank deposit (${bankRate}%)`} value={money(r.bankFinal, true)} muted />
+        <Row label="This property" value={money(r.totalReturn, true)} />
       </div>
       <p className="mt-4 font-serif text-lg text-forest-900">
         {better ? (
           <>
-            <span className="text-brass-600">{formatPriceCompact(r.vsBankThb)}</span> more than
-            the bank over {years} years
+            <span className="text-brass-600">{money(r.vsBankThb)}</span> more than the bank over {years} years
           </>
         ) : (
-          <>{formatPriceCompact(Math.abs(r.vsBankThb))} less than the bank — try a higher growth rate or longer horizon</>
+          <>{money(Math.abs(r.vsBankThb))} less than the bank — try a higher growth rate or longer horizon</>
         )}
       </p>
     </div>
@@ -279,14 +329,12 @@ function Row({ label, value, muted }: { label: string; value: string; muted?: bo
   return (
     <div className="flex items-baseline justify-between border-b border-forest-500/10 pb-2 last:border-0">
       <span className={`text-sm ${muted ? "text-forest-500/60" : "text-forest-900"}`}>{label}</span>
-      <span className={`text-sm font-medium ${muted ? "text-forest-500/60" : "text-forest-900"}`}>
-        {value}
-      </span>
+      <span className={`text-sm font-medium ${muted ? "text-forest-500/60" : "text-forest-900"}`}>{value}</span>
     </div>
   );
 }
 
-function GrowthChart({ r }: { r: RoiResult }) {
+function GrowthChart({ r, money }: { r: RoiResult; money: Money }) {
   const W = 640;
   const H = 220;
   const pad = { l: 8, r: 8, t: 12, b: 22 };
@@ -295,8 +343,7 @@ function GrowthChart({ r }: { r: RoiResult }) {
   const n = pts.length - 1 || 1;
   const x = (i: number) => pad.l + (i / n) * (W - pad.l - pad.r);
   const y = (v: number) => pad.t + (1 - v / maxV) * (H - pad.t - pad.b);
-  const line = (sel: (p: (typeof pts)[number]) => number) =>
-    pts.map((p, i) => `${x(i)},${y(sel(p))}`).join(" ");
+  const line = (sel: (p: (typeof pts)[number]) => number) => pts.map((p, i) => `${x(i)},${y(sel(p))}`).join(" ");
   const propLine = line((p) => p.propertyValue);
   const area = `${pad.l},${y(0)} ${propLine} ${x(n)},${y(0)}`;
 
@@ -312,31 +359,21 @@ function GrowthChart({ r }: { r: RoiResult }) {
         <polygon points={area} fill="url(#propFill)" />
         <polyline points={line((p) => p.bankValue)} fill="none" stroke="#3f4a40" strokeOpacity="0.35" strokeWidth="2" strokeDasharray="5 4" />
         <polyline points={propLine} fill="none" stroke="#B5651D" strokeWidth="2.5" />
-        {pts.map((p, i) =>
-          i === 0 || i === n ? (
-            <circle key={i} cx={x(i)} cy={y(p.propertyValue)} r="3.5" fill="#B5651D" />
-          ) : null,
-        )}
+        {pts.map((p, i) => (i === 0 || i === n ? <circle key={i} cx={x(i)} cy={y(p.propertyValue)} r="3.5" fill="#B5651D" /> : null))}
       </svg>
       <div className="mt-2 flex justify-between text-[11px] text-forest-500/50">
-        <span>Now · {formatPriceCompact(pts[0].propertyValue)}</span>
-        <span className="text-brass-600">
-          Year {n} · {formatPriceCompact(pts[n].propertyValue)}
-        </span>
+        <span>Now · {money(pts[0].propertyValue)}</span>
+        <span className="text-brass-600">Year {n} · {money(pts[n].propertyValue)}</span>
       </div>
       <div className="mt-3 flex gap-4 text-[11px] text-forest-500/60">
-        <span className="inline-flex items-center gap-1.5">
-          <span className="h-0.5 w-4 bg-brass-500" /> Property
-        </span>
-        <span className="inline-flex items-center gap-1.5">
-          <span className="h-0.5 w-4 border-t-2 border-dashed border-forest-500/40" /> Bank deposit
-        </span>
+        <span className="inline-flex items-center gap-1.5"><span className="h-0.5 w-4 bg-brass-500" /> Property</span>
+        <span className="inline-flex items-center gap-1.5"><span className="h-0.5 w-4 border-t-2 border-dashed border-forest-500/40" /> Bank deposit</span>
       </div>
     </div>
   );
 }
 
-function YearTable({ r }: { r: RoiResult }) {
+function YearTable({ r, money, isRent }: { r: RoiResult; money: Money; isRent: boolean }) {
   return (
     <div className="mt-4 overflow-hidden rounded-sm border border-forest-500/10">
       <table className="w-full text-sm">
@@ -344,6 +381,7 @@ function YearTable({ r }: { r: RoiResult }) {
           <tr>
             <th className="px-4 py-2 font-medium">Year</th>
             <th className="px-4 py-2 text-right font-medium">Value</th>
+            {isRent ? <th className="px-4 py-2 text-right font-medium">Net rent</th> : null}
             <th className="px-4 py-2 text-right font-medium">Cumulative profit</th>
           </tr>
         </thead>
@@ -351,8 +389,9 @@ function YearTable({ r }: { r: RoiResult }) {
           {r.series.slice(1).map((p) => (
             <tr key={p.year} className="border-t border-forest-500/10">
               <td className="px-4 py-2 text-forest-500/70">{p.year}</td>
-              <td className="px-4 py-2 text-right text-forest-900">{formatPriceCompact(p.propertyValue)}</td>
-              <td className="px-4 py-2 text-right text-forest-900">{formatPriceCompact(p.profit)}</td>
+              <td className="px-4 py-2 text-right text-forest-900">{money(p.propertyValue)}</td>
+              {isRent ? <td className="px-4 py-2 text-right text-forest-900">{money(p.rentNet)}</td> : null}
+              <td className="px-4 py-2 text-right text-forest-900">{money(p.profit)}</td>
             </tr>
           ))}
         </tbody>
@@ -365,10 +404,12 @@ function SimilarObjects({
   price,
   catalog,
   excludeRw,
+  money,
 }: {
   price: number;
   catalog: RealEstateObject[];
   excludeRw?: string;
+  money: Money;
 }) {
   const lo = price * 0.85;
   const hi = price * 1.15;
@@ -385,11 +426,9 @@ function SimilarObjects({
 
   return (
     <div className="mt-10 border-t border-forest-500/10 pt-10">
-      <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
-        Properties for this budget
-      </p>
+      <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">Properties for this budget</p>
       <h3 className="mt-3 font-serif text-2xl text-forest-900">
-        Around {formatPriceCompact(price)} — {matches.length} match{matches.length === 1 ? "" : "es"}
+        Around {money(price)} — {matches.length} match{matches.length === 1 ? "" : "es"}
       </h3>
       <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {matches.map((o) => (
