@@ -5,12 +5,16 @@ import type { Route } from "next";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { DISTRICTS, getDistrictBySlug } from "@/content/districts";
 import { Button } from "@/components/ui/button";
+import { ObjectCard } from "@/components/objects/object-card";
+import { getPublicObjects } from "@/lib/data/objects";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { getSiteUrl } from "@/lib/site-url";
 
 interface Props {
   params: Promise<{ slug: string }>;
 }
+
+export const revalidate = 300;
 
 export function generateStaticParams() {
   return DISTRICTS.map((d) => ({ slug: d.slug }));
@@ -34,6 +38,11 @@ export default async function DistrictPage({ params }: Props) {
   const listingsHref = `/listings?district=${encodeURIComponent(d.amoName)}` as Route;
   const [name, subtitle] = d.title.split(" — ");
   const siteUrl = getSiteUrl();
+
+  // Live inventory in this district (photos-first ordering from getPublicObjects).
+  const all = await getPublicObjects();
+  const inDistrict = all.filter((o) => o.district === d.amoName);
+  const preview = inDistrict.slice(0, 6);
 
   // Other districts for the bottom strip
   const others = DISTRICTS.filter((x) => x.slug !== d.slug).slice(0, 3);
@@ -107,23 +116,37 @@ export default async function DistrictPage({ params }: Props) {
         <div className="container-prose py-16 md:py-20">
           <div className="max-w-2xl">
             <h2 className="font-serif text-3xl text-forest-900 md:text-4xl">
-              See available listings in {name}.
+              {inDistrict.length > 0
+                ? `Available in ${name}.`
+                : `See available listings in ${name}.`}
             </h2>
             <p className="mt-4 text-lg text-forest-500/70">
-              Our current inventory in this district, filtered live from the
-              catalog.
+              {inDistrict.length > 0
+                ? `${inDistrict.length} ${inDistrict.length === 1 ? "property" : "properties"} in this district right now — filtered live from the catalog.`
+                : "Our current inventory in this district, filtered live from the catalog."}
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild variant="primary" size="md">
-                <Link href={listingsHref}>
-                  See {name} listings
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="md">
-                <Link href="/contact">Ask about off-market plots</Link>
-              </Button>
+          </div>
+
+          {preview.length > 0 ? (
+            <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {preview.map((object) => (
+                <ObjectCard key={object.id} object={object} />
+              ))}
             </div>
+          ) : null}
+
+          <div className="mt-10 flex flex-wrap gap-3">
+            <Button asChild variant="primary" size="md">
+              <Link href={listingsHref}>
+                {inDistrict.length > preview.length
+                  ? `See all ${inDistrict.length} ${name} listings`
+                  : `See ${name} listings`}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="md">
+              <Link href="/contact">Ask about off-market plots</Link>
+            </Button>
           </div>
         </div>
       </section>
