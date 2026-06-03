@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import type { Route } from "next";
-import { ChevronDown, TrendingUp, ArrowRight, Home, Hotel } from "lucide-react";
+import { ChevronDown, TrendingUp, ArrowRight, Home, Hotel, Download } from "lucide-react";
 import {
   computeRoi,
   DEFAULT_INPUTS,
@@ -22,6 +22,7 @@ import {
 } from "@/lib/calculator/currency";
 import { ObjectCard } from "@/components/objects/object-card";
 import { CalcLeadButton } from "@/components/calculator/calc-lead-button";
+import { buildCalcReportHtml } from "@/lib/calculator/report";
 import type { RealEstateObject } from "@/types/object";
 
 const fmtPct = (n: number) =>
@@ -67,6 +68,15 @@ export function RoiCalculator({
   const r = useMemo(() => computeRoi(inputs), [inputs]);
   const set = (patch: Partial<RoiInputs>) => setInputs((p) => ({ ...p, ...patch }));
   const money: Money = (thb, full) => formatMoney(thb, currency, rates, { compact: !full });
+
+  const openReport = () => {
+    const html = buildCalcReportHtml({ inputs, result: r, currency, rates, rwNumber: excludeRw });
+    const w = window.open("", "_blank");
+    if (!w) return; // popup blocked — silently ignore
+    w.document.open();
+    w.document.write(html);
+    w.document.close();
+  };
 
   const activeScenario = SCENARIOS.find((s) => s.growthPct === inputs.annualGrowthPct)?.key;
   const isRent = inputs.mode === "rent";
@@ -221,8 +231,16 @@ export function RoiCalculator({
             </div>
           ) : null}
 
-          <div className="mt-6">
+          <div className="mt-6 space-y-2">
             <CalcLeadButton message={calcSummary} rwNumber={excludeRw} />
+            <button
+              type="button"
+              onClick={openReport}
+              className="flex w-full items-center justify-center gap-2 rounded-sm border border-forest-500/25 bg-transparent px-5 py-2.5 text-sm font-medium text-forest-500 transition-colors hover:border-forest-500/50 hover:bg-forest-500/[0.04]"
+            >
+              <Download className="h-4 w-4" />
+              Download PDF report
+            </button>
           </div>
         </div>
 
