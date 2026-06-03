@@ -161,6 +161,12 @@ export default async function ObjectPage({ params }: Props) {
             <div className="mt-8">
               <RoiCalculator
                 initialPriceThb={object.priceThb}
+                initialTenure={
+                  object.tenure?.includes("Leasehold") && !object.tenure?.includes("Freehold")
+                    ? "leasehold"
+                    : "freehold"
+                }
+                initialLeaseTermYears={object.leaseTermYears}
                 catalog={catalog}
                 excludeRw={object.rwNumber}
               />

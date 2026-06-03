@@ -11,6 +11,7 @@
  */
 
 export type CalcMode = "hold" | "rent";
+export type Tenure = "freehold" | "leasehold";
 
 export interface RoiInputs {
   purchasePriceThb: number;
@@ -21,6 +22,9 @@ export interface RoiInputs {
   annualHoldingPct: number; // yearly holding costs, % of price
   bankRatePct: number; // deposit comparison rate
   mode: CalcMode;
+  // Tenure — Thailand-specific. Leasehold value decays as the lease runs down.
+  tenure: Tenure;
+  leaseTermYears: number; // total lease length (leasehold only), e.g. 30
   // Rent mode
   nightlyRateThb: number;
   occupancyPct: number;
@@ -51,6 +55,9 @@ export interface RoiResult {
   irrPct: number;
   grossYieldPct: number; // rent mode
   avgCashYieldPct: number; // rent mode
+  capRatePct: number; // rent mode — year-1 NOI / price
+  cashOnCashPct: number; // rent mode — year-1 net cash / cash invested
+  leaseFactorAtExit: number; // 1 for freehold; remaining-term fraction for leasehold
   bankFinal: number;
   bankProfit: number;
   vsBankThb: number;
@@ -63,18 +70,21 @@ export const SCENARIOS = [
   { key: "optimistic", labelEn: "Optimistic", growthPct: 9 },
 ] as const;
 
+// Pre-filled with typical Koh Phangan figures (illustrative, all editable).
 export const DEFAULT_INPUTS: RoiInputs = {
   purchasePriceThb: 15_000_000,
   annualGrowthPct: 6,
   years: 10,
-  closingCostsPct: 5,
-  saleCostsPct: 6,
+  closingCostsPct: 5, // Thailand transfer fee + DD + legal, blended
+  saleCostsPct: 6, // agent commission + transfer share at exit
   annualHoldingPct: 0.5,
   bankRatePct: 2,
   mode: "hold",
-  nightlyRateThb: 8000,
-  occupancyPct: 55,
-  mgmtFeePct: 25,
+  tenure: "freehold",
+  leaseTermYears: 30, // standard Thai lease term
+  nightlyRateThb: 8000, // mid villa, Phangan
+  occupancyPct: 50, // seasonal island — blended annual
+  mgmtFeePct: 25, // full STR management
   opexPct: 3,
   rentGrowthPct: 3,
 };
@@ -110,6 +120,18 @@ function computeIRR(cashflows: number[]): number {
   return NaN;
 }
 
+/**
+ * Leasehold value factor — a leasehold's resale value decays as the term runs
+ * down (a 30-yr lease with 10 years left is worth a fraction of a fresh one).
+ * Linear remaining-term fraction: transparent and conservative. Freehold = 1.
+ */
+function leaseFactor(input: RoiInputs, year: number): number {
+  if (input.tenure !== "leasehold") return 1;
+  const term = Math.max(1, input.leaseTermYears || 1);
+  const remaining = term - year;
+  return Math.max(0, remaining) / term;
+}
+
 export function computeRoi(input: RoiInputs): RoiResult {
   const price = Math.max(0, input.purchasePriceThb || 0);
   const g = (input.annualGrowthPct || 0) / 100;
@@ -123,14 +145,17 @@ export function computeRoi(input: RoiInputs): RoiResult {
     { year: 0, propertyValue: price, bankValue: initialInvestment, rentNet: 0, profit: -0 },
   ];
 
-  let currentValue = price;
+  let grossValue = price; // underlying value before any lease decay
   let currentRate = input.nightlyRateThb || 0;
   let rentNetTotal = 0;
   let holdingCostsTotal = 0;
+  let firstYearNoi = 0;
   const cashflows = [-initialInvestment];
 
   for (let y = 1; y <= years; y++) {
-    currentValue *= 1 + g;
+    grossValue *= 1 + g;
+    // Sellable value = underlying growth × remaining-lease fraction (leasehold).
+    const sellableValue = grossValue * leaseFactor(input, y);
     if (y > 1) currentRate *= 1 + (input.rentGrowthPct || 0) / 100;
     const holding = price * ((input.annualHoldingPct || 0) / 100);
     holdingCostsTotal += holding;
@@ -143,23 +168,25 @@ export function computeRoi(input: RoiInputs): RoiResult {
       rentNet = rentGross - mgmt - opex;
       rentNetTotal += rentNet;
     }
+    if (y === 1) firstYearNoi = rentNet - holding;
 
     let cash = rentNet - holding;
-    const saleAtY = currentValue - currentValue * ((input.saleCostsPct || 0) / 100);
+    const saleAtY = sellableValue - sellableValue * ((input.saleCostsPct || 0) / 100);
     if (y === years) cash += saleAtY;
     cashflows.push(cash);
 
     const cumProfit = saleAtY + rentNetTotal - holdingCostsTotal - initialInvestment;
     series.push({
       year: y,
-      propertyValue: currentValue,
+      propertyValue: sellableValue,
       bankValue: initialInvestment * Math.pow(1 + bank, y),
       rentNet,
       profit: cumProfit,
     });
   }
 
-  const projectedValue = currentValue;
+  const leaseFactorAtExit = leaseFactor(input, years);
+  const projectedValue = grossValue * leaseFactorAtExit;
   const saleCosts = projectedValue * ((input.saleCostsPct || 0) / 100);
   const netProceeds = projectedValue - saleCosts;
   const totalReturn = netProceeds + rentNetTotal - holdingCostsTotal;
@@ -177,6 +204,10 @@ export function computeRoi(input: RoiInputs): RoiResult {
     isRent && initialInvestment > 0
       ? ((rentNetTotal - holdingCostsTotal) / years / initialInvestment) * 100
       : 0;
+  // Cap rate = year-1 net operating income / purchase price (financing-agnostic).
+  const capRatePct = isRent && price > 0 ? (firstYearNoi / price) * 100 : 0;
+  // Cash-on-cash = year-1 net cash / total cash invested (all-cash buyer).
+  const cashOnCashPct = isRent && initialInvestment > 0 ? (firstYearNoi / initialInvestment) * 100 : 0;
 
   const bankFinal = initialInvestment * Math.pow(1 + bank, years);
   const bankProfit = bankFinal - initialInvestment;
@@ -196,6 +227,9 @@ export function computeRoi(input: RoiInputs): RoiResult {
     irrPct,
     grossYieldPct,
     avgCashYieldPct,
+    capRatePct,
+    cashOnCashPct,
+    leaseFactorAtExit,
     bankFinal,
     bankProfit,
     vsBankThb,

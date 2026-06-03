@@ -11,6 +11,7 @@ import {
   type RoiInputs,
   type RoiResult,
   type CalcMode,
+  type Tenure,
 } from "@/lib/calculator/roi";
 import {
   CURRENCIES,
@@ -31,16 +32,27 @@ type Money = (thb: number, full?: boolean) => string;
 interface Props {
   initialPriceThb?: number;
   initialMode?: CalcMode;
+  initialTenure?: Tenure;
+  initialLeaseTermYears?: number;
   catalog?: RealEstateObject[];
   excludeRw?: string;
   compact?: boolean;
 }
 
-export function RoiCalculator({ initialPriceThb, initialMode, catalog = [], excludeRw }: Props) {
+export function RoiCalculator({
+  initialPriceThb,
+  initialMode,
+  initialTenure,
+  initialLeaseTermYears,
+  catalog = [],
+  excludeRw,
+}: Props) {
   const [inputs, setInputs] = useState<RoiInputs>({
     ...DEFAULT_INPUTS,
     purchasePriceThb: initialPriceThb ?? DEFAULT_INPUTS.purchasePriceThb,
     mode: initialMode ?? DEFAULT_INPUTS.mode,
+    tenure: initialTenure ?? DEFAULT_INPUTS.tenure,
+    leaseTermYears: initialLeaseTermYears ?? DEFAULT_INPUTS.leaseTermYears,
   });
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [showYears, setShowYears] = useState(false);
@@ -58,13 +70,16 @@ export function RoiCalculator({ initialPriceThb, initialMode, catalog = [], excl
 
   const activeScenario = SCENARIOS.find((s) => s.growthPct === inputs.annualGrowthPct)?.key;
   const isRent = inputs.mode === "rent";
+  const isLeasehold = inputs.tenure === "leasehold";
 
   const calcSummary = [
     `Investment calculation${excludeRw ? ` — ${excludeRw}` : ""} (${isRent ? "Buy & Rent" : "Buy & Hold"})`,
+    `Tenure: ${isLeasehold ? `Leasehold, ${inputs.leaseTermYears}-yr term` : "Freehold"}`,
     `Purchase price: ${formatMoney(inputs.purchasePriceThb, "THB", rates, { compact: false })}`,
     `Annual growth: ${inputs.annualGrowthPct}% over ${inputs.years} years`,
     `Projected value: ${formatMoney(r.projectedValue, "THB", rates, { compact: false })}`,
     `Total ROI: ${fmtPct(r.roiPct)} · CAGR ${fmtPct(r.cagrPct)}/yr${isRent ? ` · IRR ${fmtPct(r.irrPct)}` : ""}`,
+    isRent ? `Cap rate ${fmtPct(r.capRatePct)} · Cash-on-cash ${fmtPct(r.cashOnCashPct)}` : "",
     isRent ? `Net rental income: ${formatMoney(r.rentNetTotal, "THB", rates, { compact: false })}` : "",
     `Net profit: ${formatMoney(r.netProfit, "THB", rates, { compact: false })}`,
     `vs bank (${inputs.bankRatePct}%): ${formatMoney(r.vsBankThb, "THB", rates)} more`,
@@ -84,8 +99,17 @@ export function RoiCalculator({ initialPriceThb, initialMode, catalog = [], excl
           <ModeTab active={isRent} onClick={() => set({ mode: "rent" as CalcMode })} icon={Hotel} label="Buy & Rent" />
         </div>
 
+        {/* Tenure — Thailand-specific. Leasehold value decays as the lease runs down. */}
+        <div className="mt-3 flex gap-1 rounded-sm border border-forest-500/15 bg-cream-50 p-1">
+          <TenureTab active={!isLeasehold} onClick={() => set({ tenure: "freehold" as Tenure })} label="Freehold" />
+          <TenureTab active={isLeasehold} onClick={() => set({ tenure: "leasehold" as Tenure })} label="Leasehold" />
+        </div>
+
         <p className="mt-6 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
           Your assumptions
+        </p>
+        <p className="mt-1 text-[11px] text-forest-500/50">
+          Pre-filled with typical Koh Phangan figures — adjust to your case.
         </p>
 
         <div className="mt-6 space-y-5">
@@ -129,6 +153,17 @@ export function RoiCalculator({ initialPriceThb, initialMode, catalog = [], excl
           </div>
 
           <NumberField label="Holding period (years)" value={inputs.years} step={1} min={1} max={40} onChange={(v) => set({ years: v })} />
+
+          {/* Leasehold-only: total lease term + decay note */}
+          {isLeasehold ? (
+            <div className="space-y-2 rounded-sm border border-forest-500/10 bg-forest-500/[0.03] p-4">
+              <NumberField label="Total lease term (years)" value={inputs.leaseTermYears} step={1} min={1} max={90} onChange={(v) => set({ leaseTermYears: v })} small />
+              <p className="text-[11px] leading-relaxed text-forest-500/55">
+                A leasehold&apos;s resale value falls as the term runs down — we
+                discount the projection by the remaining years of the lease.
+              </p>
+            </div>
+          ) : null}
 
           {/* Rent-only inputs */}
           {isRent ? (
@@ -180,9 +215,9 @@ export function RoiCalculator({ initialPriceThb, initialMode, catalog = [], excl
 
           {isRent ? (
             <div className="mt-4 grid grid-cols-3 gap-4 border-t border-forest-500/10 pt-4">
+              <Kpi label="Cap rate" value={fmtPct(r.capRatePct)} />
+              <Kpi label="Cash-on-cash" value={fmtPct(r.cashOnCashPct)} />
               <Kpi label="IRR / year" value={fmtPct(r.irrPct)} />
-              <Kpi label="Gross yield" value={fmtPct(r.grossYieldPct)} />
-              <Kpi label="Net rent total" value={money(r.rentNetTotal)} />
             </div>
           ) : null}
 
@@ -217,9 +252,12 @@ export function RoiCalculator({ initialPriceThb, initialMode, catalog = [], excl
 
         <p className="mt-6 text-[11px] leading-relaxed text-forest-500/50">
           Illustrative projection based on the assumptions you enter — not a
-          forecast or guarantee of future returns. Currency conversion is for
-          display only; figures are computed in THB. Speak with Right Way for a
-          property-specific assessment.
+          forecast or guarantee of future returns.{" "}
+          {isLeasehold
+            ? "Leasehold value is discounted by the remaining lease term (a simplified linear model). "
+            : ""}
+          Currency conversion is for display only; figures are computed in THB.
+          Speak with Right Way for a property-specific assessment.
         </p>
       </div>
     </div>
@@ -236,6 +274,20 @@ function ModeTab({ active, onClick, icon: Icon, label }: { active: boolean; onCl
       }`}
     >
       <Icon className="h-4 w-4" />
+      {label}
+    </button>
+  );
+}
+
+function TenureTab({ active, onClick, label }: { active: boolean; onClick: () => void; label: string }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`flex-1 rounded-sm px-3 py-1.5 text-xs font-medium transition-colors ${
+        active ? "bg-brass-500 text-cream-100" : "text-forest-500/70 hover:text-forest-500"
+      }`}
+    >
       {label}
     </button>
   );

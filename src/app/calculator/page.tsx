@@ -14,15 +14,20 @@ export const revalidate = 300;
 export default async function CalculatorPage({
   searchParams,
 }: {
-  searchParams: Promise<{ price?: string; mode?: string }>;
+  searchParams: Promise<{ price?: string; mode?: string; tenure?: string; lease?: string }>;
 }) {
   const catalog = await getPublicObjects();
   const params = await searchParams;
 
-  // Deep-link params (e.g. from the Telegram Mini App): ?price=<thb>&mode=hold|rent
+  // Deep-link params (e.g. from the Telegram Mini App):
+  // ?price=<thb>&mode=hold|rent&tenure=freehold|leasehold&lease=<years>
   const priceRaw = Number(params.price);
   const initialPriceThb = Number.isFinite(priceRaw) && priceRaw > 0 ? priceRaw : undefined;
   const initialMode = params.mode === "rent" ? "rent" : params.mode === "hold" ? "hold" : undefined;
+  const initialTenure =
+    params.tenure === "leasehold" ? "leasehold" : params.tenure === "freehold" ? "freehold" : undefined;
+  const leaseRaw = Number(params.lease);
+  const initialLeaseTermYears = Number.isFinite(leaseRaw) && leaseRaw > 0 ? leaseRaw : undefined;
 
   return (
     <section className="pb-24">
@@ -32,7 +37,13 @@ export default async function CalculatorPage({
         lede="Set your own growth outlook and horizon. We'll project the value, ROI, and capital curve — then surface listings that fit the budget."
       />
       <div className="container-prose mt-12 md:mt-16">
-        <RoiCalculator catalog={catalog} initialPriceThb={initialPriceThb} initialMode={initialMode} />
+        <RoiCalculator
+          catalog={catalog}
+          initialPriceThb={initialPriceThb}
+          initialMode={initialMode}
+          initialTenure={initialTenure}
+          initialLeaseTermYears={initialLeaseTermYears}
+        />
       </div>
     </section>
   );
