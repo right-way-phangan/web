@@ -35,6 +35,7 @@ interface Props {
   initialMode?: CalcMode;
   initialTenure?: Tenure;
   initialLeaseTermYears?: number;
+  initialOffplan?: boolean;
   catalog?: RealEstateObject[];
   excludeRw?: string;
   compact?: boolean;
@@ -45,6 +46,7 @@ export function RoiCalculator({
   initialMode,
   initialTenure,
   initialLeaseTermYears,
+  initialOffplan,
   catalog = [],
   excludeRw,
 }: Props) {
@@ -54,6 +56,7 @@ export function RoiCalculator({
     mode: initialMode ?? DEFAULT_INPUTS.mode,
     tenure: initialTenure ?? DEFAULT_INPUTS.tenure,
     leaseTermYears: initialLeaseTermYears ?? DEFAULT_INPUTS.leaseTermYears,
+    offplan: initialOffplan ?? DEFAULT_INPUTS.offplan,
   });
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [showYears, setShowYears] = useState(false);
@@ -79,16 +82,23 @@ export function RoiCalculator({
   };
 
   const activeScenario = SCENARIOS.find((s) => s.growthPct === inputs.annualGrowthPct)?.key;
-  const isRent = inputs.mode === "rent";
+  const isOffplan = inputs.offplan;
+  const isRent = inputs.mode === "rent" && !isOffplan;
   const isLeasehold = inputs.tenure === "leasehold";
+  const installmentPct = Math.max(0, 100 - inputs.downPaymentPct - inputs.handoverPaymentPct);
 
+  const strategyLabel = isOffplan ? "Off-plan (new build)" : isRent ? "Buy & Rent" : "Buy & Hold";
   const calcSummary = [
-    `Investment calculation${excludeRw ? ` — ${excludeRw}` : ""} (${isRent ? "Buy & Rent" : "Buy & Hold"})`,
+    `Investment calculation${excludeRw ? ` — ${excludeRw}` : ""} (${strategyLabel})`,
     `Tenure: ${isLeasehold ? `Leasehold, ${inputs.leaseTermYears}-yr term` : "Freehold"}`,
-    `Purchase price: ${formatMoney(inputs.purchasePriceThb, "THB", rates, { compact: false })}`,
+    `${isOffplan ? "Contract price" : "Purchase price"}: ${formatMoney(inputs.purchasePriceThb, "THB", rates, { compact: false })}`,
+    isOffplan
+      ? `Plan: ${inputs.downPaymentPct}% down · ${installmentPct.toFixed(0)}% during ${inputs.constructionMonths}mo build · ${inputs.handoverPaymentPct}% at handover`
+      : "",
+    isOffplan ? `Value at handover (+${inputs.handoverUpliftPct}%): ${formatMoney(r.handoverValue, "THB", rates, { compact: false })}` : "",
     `Annual growth: ${inputs.annualGrowthPct}% over ${inputs.years} years`,
     `Projected value: ${formatMoney(r.projectedValue, "THB", rates, { compact: false })}`,
-    `Total ROI: ${fmtPct(r.roiPct)} · CAGR ${fmtPct(r.cagrPct)}/yr${isRent ? ` · IRR ${fmtPct(r.irrPct)}` : ""}`,
+    `Total ROI: ${fmtPct(r.roiPct)} · CAGR ${fmtPct(r.cagrPct)}/yr${isRent || isOffplan ? ` · IRR ${fmtPct(r.irrPct)}` : ""}`,
     isRent ? `Cap rate ${fmtPct(r.capRatePct)} · Cash-on-cash ${fmtPct(r.cashOnCashPct)}` : "",
     isRent ? `Net rental income: ${formatMoney(r.rentNetTotal, "THB", rates, { compact: false })}` : "",
     `Net profit: ${formatMoney(r.netProfit, "THB", rates, { compact: false })}`,
@@ -103,11 +113,19 @@ export function RoiCalculator({
     <div className="grid gap-10 lg:grid-cols-[380px_1fr] lg:gap-14">
       {/* ---- Parameters ---- */}
       <div>
-        {/* Mode tabs */}
-        <div className="flex gap-2 rounded-sm border border-forest-500/15 bg-cream-50 p-1">
-          <ModeTab active={!isRent} onClick={() => set({ mode: "hold" as CalcMode })} icon={Home} label="Buy & Hold" />
-          <ModeTab active={isRent} onClick={() => set({ mode: "rent" as CalcMode })} icon={Hotel} label="Buy & Rent" />
+        {/* Phase — completed resale vs off-plan new build (RW-P projects) */}
+        <div className="flex gap-1 rounded-sm border border-forest-500/15 bg-cream-50 p-1">
+          <PhaseTab active={!isOffplan} onClick={() => set({ offplan: false })} label="Completed" />
+          <PhaseTab active={isOffplan} onClick={() => set({ offplan: true })} label="Off-plan (new build)" />
         </div>
+
+        {/* Mode tabs (completed only) */}
+        {!isOffplan ? (
+          <div className="mt-3 flex gap-2 rounded-sm border border-forest-500/15 bg-cream-50 p-1">
+            <ModeTab active={!isRent} onClick={() => set({ mode: "hold" as CalcMode })} icon={Home} label="Buy & Hold" />
+            <ModeTab active={isRent} onClick={() => set({ mode: "rent" as CalcMode })} icon={Hotel} label="Buy & Rent" />
+          </div>
+        ) : null}
 
         {/* Tenure — Thailand-specific. Leasehold value decays as the lease runs down. */}
         <div className="mt-3 flex gap-1 rounded-sm border border-forest-500/15 bg-cream-50 p-1">
@@ -124,7 +142,7 @@ export function RoiCalculator({
 
         <div className="mt-6 space-y-5">
           <NumberField
-            label="Purchase price (THB)"
+            label={isOffplan ? "Contract price (THB)" : "Purchase price (THB)"}
             value={inputs.purchasePriceThb}
             step={100000}
             onChange={(v) => set({ purchasePriceThb: v })}
@@ -171,6 +189,22 @@ export function RoiCalculator({
               <p className="text-[11px] leading-relaxed text-forest-500/55">
                 A leasehold&apos;s resale value falls as the term runs down — we
                 discount the projection by the remaining years of the lease.
+              </p>
+            </div>
+          ) : null}
+
+          {/* Off-plan-only inputs */}
+          {isOffplan ? (
+            <div className="space-y-4 rounded-sm border border-brass-500/20 bg-brass-500/[0.04] p-4">
+              <p className="text-[11px] font-medium uppercase tracking-wide text-brass-600">Construction & payment plan</p>
+              <NumberField label="Construction period (months)" value={inputs.constructionMonths} step={1} min={1} max={84} onChange={(v) => set({ constructionMonths: v })} small />
+              <NumberField label="Down payment (% now)" value={inputs.downPaymentPct} step={5} min={0} max={100} onChange={(v) => set({ downPaymentPct: v })} small />
+              <NumberField label="Balance at handover (%)" value={inputs.handoverPaymentPct} step={5} min={0} max={100} onChange={(v) => set({ handoverPaymentPct: v })} small />
+              <NumberField label="Value uplift to handover (%)" value={inputs.handoverUpliftPct} step={1} onChange={(v) => set({ handoverUpliftPct: v })} small />
+              <p className="text-[11px] leading-relaxed text-forest-500/55">
+                {installmentPct.toFixed(0)}% paid in instalments during construction.
+                Price growth above applies after handover. &ldquo;Years&rdquo; is the
+                total horizon from contract.
               </p>
             </div>
           ) : null}
@@ -223,7 +257,13 @@ export function RoiCalculator({
             <Kpi label="Net profit" value={money(r.netProfit)} />
           </div>
 
-          {isRent ? (
+          {isOffplan ? (
+            <div className="mt-4 grid grid-cols-3 gap-4 border-t border-forest-500/10 pt-4">
+              <Kpi label="Value at handover" value={money(r.handoverValue)} />
+              <Kpi label="IRR / year" value={fmtPct(r.irrPct)} accent />
+              <Kpi label="Total invested" value={money(r.initialInvestment)} />
+            </div>
+          ) : isRent ? (
             <div className="mt-4 grid grid-cols-3 gap-4 border-t border-forest-500/10 pt-4">
               <Kpi label="Cap rate" value={fmtPct(r.capRatePct)} />
               <Kpi label="Cash-on-cash" value={fmtPct(r.cashOnCashPct)} />
@@ -292,6 +332,20 @@ function ModeTab({ active, onClick, icon: Icon, label }: { active: boolean; onCl
       }`}
     >
       <Icon className="h-4 w-4" />
+      {label}
+    </button>
+  );
+}
+
+function PhaseTab({ active, onClick, label }: { active: boolean; onClick: () => void; label: string }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`flex-1 rounded-sm px-3 py-1.5 text-xs font-medium transition-colors ${
+        active ? "bg-forest-500 text-cream-100" : "text-forest-500/70 hover:text-forest-500"
+      }`}
+    >
       {label}
     </button>
   );

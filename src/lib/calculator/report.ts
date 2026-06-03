@@ -57,8 +57,10 @@ function chartSvg(result: RoiResult, money: (thb: number) => string): string {
 
 export function buildCalcReportHtml({ inputs, result, currency, rates, rwNumber }: ReportArgs): string {
   const money = (thb: number, full = false) => formatMoney(thb, currency, rates, { compact: !full });
-  const isRent = inputs.mode === "rent";
+  const isOffplan = inputs.offplan;
+  const isRent = inputs.mode === "rent" && !isOffplan;
   const isLeasehold = inputs.tenure === "leasehold";
+  const installmentPct = Math.max(0, 100 - inputs.downPaymentPct - inputs.handoverPaymentPct);
   const today = new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
 
   const row = (label: string, value: string) =>
@@ -69,10 +71,13 @@ export function buildCalcReportHtml({ inputs, result, currency, rates, rwNumber 
 
   const assumptions = [
     row("Tenure", isLeasehold ? `Leasehold · ${inputs.leaseTermYears}-yr term` : "Freehold"),
-    row("Strategy", isRent ? "Buy & Rent" : "Buy & Hold"),
-    row("Purchase price", money(inputs.purchasePriceThb, true)),
-    row("Expected annual price growth", `${inputs.annualGrowthPct}%`),
-    row("Holding period", `${inputs.years} years`),
+    row("Strategy", isOffplan ? "Off-plan (new build)" : isRent ? "Buy & Rent" : "Buy & Hold"),
+    row(isOffplan ? "Contract price" : "Purchase price", money(inputs.purchasePriceThb, true)),
+    isOffplan ? row("Construction", `${inputs.constructionMonths} months`) : "",
+    isOffplan ? row("Payment plan", `${inputs.downPaymentPct}% down · ${installmentPct.toFixed(0)}% build · ${inputs.handoverPaymentPct}% handover`) : "",
+    isOffplan ? row("Value at handover", `${money(result.handoverValue, true)} (+${inputs.handoverUpliftPct}%)`) : "",
+    row("Expected annual price growth", `${inputs.annualGrowthPct}%${isOffplan ? " (post-handover)" : ""}`),
+    row(isOffplan ? "Horizon" : "Holding period", `${inputs.years} years`),
     isRent ? row("Nightly rate", money(inputs.nightlyRateThb, true)) : "",
     isRent ? row("Occupancy", `${inputs.occupancyPct}%`) : "",
     isRent ? row("Management fee", `${inputs.mgmtFeePct}% of rent`) : "",
@@ -88,13 +93,19 @@ export function buildCalcReportHtml({ inputs, result, currency, rates, rwNumber 
     )
     .join("");
 
-  const rentKpis = isRent
+  const extraKpis = isOffplan
     ? `<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:14px;padding-top:14px;border-top:1px solid #ece7da">
-         ${kpi("Cap rate", pct(result.capRatePct))}
-         ${kpi("Cash-on-cash", pct(result.cashOnCashPct))}
-         ${kpi("IRR / year", pct(result.irrPct))}
+         ${kpi("Value at handover", money(result.handoverValue))}
+         ${kpi("IRR / year", pct(result.irrPct), true)}
+         ${kpi("Total invested", money(result.initialInvestment))}
        </div>`
-    : "";
+    : isRent
+      ? `<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:14px;padding-top:14px;border-top:1px solid #ece7da">
+           ${kpi("Cap rate", pct(result.capRatePct))}
+           ${kpi("Cash-on-cash", pct(result.cashOnCashPct))}
+           ${kpi("IRR / year", pct(result.irrPct))}
+         </div>`
+      : "";
 
   const leaseNote = isLeasehold
     ? " Leasehold value is discounted by the remaining lease term (a simplified linear model)."
@@ -140,7 +151,7 @@ export function buildCalcReportHtml({ inputs, result, currency, rates, rwNumber 
       ${kpi("CAGR / year", pct(result.cagrPct))}
       ${kpi("Net profit", money(result.netProfit))}
     </div>
-    ${rentKpis}
+    ${extraKpis}
   </div>
 
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px">

@@ -31,6 +31,13 @@ export interface RoiInputs {
   mgmtFeePct: number; // % of gross rent
   opexPct: number; // % of price / year
   rentGrowthPct: number; // annual nightly-rate growth
+  // Off-plan mode — new builds (RW-P projects). Capital paid in installments
+  // during construction; value steps up to handover, then holds to exit.
+  offplan: boolean;
+  constructionMonths: number;
+  downPaymentPct: number; // paid at contract (t=0)
+  handoverPaymentPct: number; // balance paid at completion
+  handoverUpliftPct: number; // value gain from contract price to handover
 }
 
 export interface RoiYearPoint {
@@ -58,6 +65,7 @@ export interface RoiResult {
   capRatePct: number; // rent mode — year-1 NOI / price
   cashOnCashPct: number; // rent mode — year-1 net cash / cash invested
   leaseFactorAtExit: number; // 1 for freehold; remaining-term fraction for leasehold
+  handoverValue: number; // off-plan — market value at completion (0 otherwise)
   bankFinal: number;
   bankProfit: number;
   vsBankThb: number;
@@ -87,6 +95,11 @@ export const DEFAULT_INPUTS: RoiInputs = {
   mgmtFeePct: 25, // full STR management
   opexPct: 3,
   rentGrowthPct: 3,
+  offplan: false,
+  constructionMonths: 24,
+  downPaymentPct: 30,
+  handoverPaymentPct: 40,
+  handoverUpliftPct: 15,
 };
 
 function computeIRR(cashflows: number[]): number {
@@ -133,6 +146,8 @@ function leaseFactor(input: RoiInputs, year: number): number {
 }
 
 export function computeRoi(input: RoiInputs): RoiResult {
+  if (input.offplan) return computeOffplan(input);
+
   const price = Math.max(0, input.purchasePriceThb || 0);
   const g = (input.annualGrowthPct || 0) / 100;
   const years = Math.max(1, Math.round(input.years || 1));
@@ -230,6 +245,115 @@ export function computeRoi(input: RoiInputs): RoiResult {
     capRatePct,
     cashOnCashPct,
     leaseFactorAtExit,
+    handoverValue: 0,
+    bankFinal,
+    bankProfit,
+    vsBankThb,
+    series,
+  };
+}
+
+/**
+ * Off-plan: buy a new build on a developer payment plan. Capital is deployed in
+ * installments through construction (down payment now, instalments, balance at
+ * handover), the asset steps up to its handover value, then appreciates to exit.
+ * IRR is the headline metric — staggered capital lifts it well above a lump-sum
+ * buy. Computed on a monthly cashflow series and annualised.
+ */
+function computeOffplan(input: RoiInputs): RoiResult {
+  const price = Math.max(0, input.purchasePriceThb || 0);
+  const g = (input.annualGrowthPct || 0) / 100;
+  const bank = (input.bankRatePct || 0) / 100;
+  const months = Math.max(1, Math.round(input.constructionMonths || 1));
+  const handoverYear = months / 12;
+  const years = Math.max(handoverYear, Math.round(input.years || 1));
+  const down = Math.max(0, (input.downPaymentPct || 0) / 100);
+  const hand = Math.max(0, (input.handoverPaymentPct || 0) / 100);
+  const middle = Math.max(0, 1 - down - hand); // instalments during construction
+  const uplift = (input.handoverUpliftPct || 0) / 100;
+  const closing = (input.closingCostsPct || 0) / 100;
+
+  const exitMonth = Math.max(months, Math.round(years * 12));
+  const cf = new Array(exitMonth + 1).fill(0);
+
+  // Payment schedule (outflows)
+  cf[0] -= price * down;
+  const perInstall = months > 0 ? (price * middle) / months : 0;
+  for (let m = 1; m <= months; m++) cf[m] -= perInstall;
+  cf[months] -= price * hand + price * closing; // balance + transfer fees at handover
+
+  const totalInvested = price * (down + middle + hand) + price * closing;
+
+  const handoverValue = price * (1 + uplift);
+  const lfExit = leaseFactor(input, years);
+  const remainingYears = Math.max(0, years - handoverYear);
+  const grossExit = handoverValue * Math.pow(1 + g, remainingYears);
+  const sellableExit = grossExit * lfExit;
+  const saleCosts = sellableExit * ((input.saleCostsPct || 0) / 100);
+  const netProceeds = sellableExit - saleCosts;
+  cf[exitMonth] += netProceeds;
+
+  const totalReturn = netProceeds;
+  const netProfit = totalReturn - totalInvested;
+  const roiPct = totalInvested > 0 ? (netProfit / totalInvested) * 100 : 0;
+  const cagrPct =
+    totalInvested > 0 && totalReturn > 0 ? (Math.pow(totalReturn / totalInvested, 1 / years) - 1) * 100 : 0;
+
+  const monthlyIrr = computeIRR(cf) / 100;
+  const irrPct = isFinite(monthlyIrr) ? (Math.pow(1 + monthlyIrr, 12) - 1) * 100 : NaN;
+
+  // Bank benchmark: the same instalments parked at the deposit rate until exit.
+  const bankM = Math.pow(1 + bank, 1 / 12) - 1;
+  let bankFinal = 0;
+  for (let m = 0; m <= exitMonth; m++) if (cf[m] < 0) bankFinal += -cf[m] * Math.pow(1 + bankM, exitMonth - m);
+  const bankProfit = bankFinal - totalInvested;
+  const vsBankThb = totalReturn - bankFinal;
+
+  // Annual series — value ramps to handover, then appreciates; bank line = the
+  // instalments paid so far, grown at the deposit rate.
+  const series: RoiYearPoint[] = [];
+  for (let y = 0; y <= years; y++) {
+    const grossVal =
+      y <= handoverYear
+        ? price + (handoverValue - price) * (handoverYear > 0 ? y / handoverYear : 1)
+        : handoverValue * Math.pow(1 + g, y - handoverYear);
+    const sellable = grossVal * leaseFactor(input, y);
+    const mY = Math.round(y * 12);
+    let invested = 0;
+    let banked = 0;
+    for (let m = 0; m <= Math.min(mY, exitMonth); m++) {
+      if (cf[m] < 0) {
+        invested += -cf[m];
+        banked += -cf[m] * Math.pow(1 + bankM, mY - m);
+      }
+    }
+    series.push({
+      year: y,
+      propertyValue: sellable,
+      bankValue: banked,
+      rentNet: 0,
+      profit: sellable - (y === years ? saleCosts : 0) - invested,
+    });
+  }
+
+  return {
+    initialInvestment: totalInvested,
+    projectedValue: sellableExit,
+    saleCosts,
+    holdingCostsTotal: 0,
+    rentNetTotal: 0,
+    netProceeds,
+    totalReturn,
+    netProfit,
+    roiPct,
+    cagrPct,
+    irrPct,
+    grossYieldPct: 0,
+    avgCashYieldPct: 0,
+    capRatePct: 0,
+    cashOnCashPct: 0,
+    leaseFactorAtExit: lfExit,
+    handoverValue,
     bankFinal,
     bankProfit,
     vsBankThb,

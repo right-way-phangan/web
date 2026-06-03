@@ -14,13 +14,13 @@ export const revalidate = 300;
 export default async function CalculatorPage({
   searchParams,
 }: {
-  searchParams: Promise<{ price?: string; mode?: string; tenure?: string; lease?: string }>;
+  searchParams: Promise<{ price?: string; mode?: string; tenure?: string; lease?: string; phase?: string }>;
 }) {
   const catalog = await getPublicObjects();
   const params = await searchParams;
 
   // Deep-link params (e.g. from the Telegram Mini App):
-  // ?price=<thb>&mode=hold|rent&tenure=freehold|leasehold&lease=<years>
+  // ?price=<thb>&mode=hold|rent&tenure=freehold|leasehold&lease=<years>&phase=offplan
   const priceRaw = Number(params.price);
   const initialPriceThb = Number.isFinite(priceRaw) && priceRaw > 0 ? priceRaw : undefined;
   const initialMode = params.mode === "rent" ? "rent" : params.mode === "hold" ? "hold" : undefined;
@@ -28,6 +28,7 @@ export default async function CalculatorPage({
     params.tenure === "leasehold" ? "leasehold" : params.tenure === "freehold" ? "freehold" : undefined;
   const leaseRaw = Number(params.lease);
   const initialLeaseTermYears = Number.isFinite(leaseRaw) && leaseRaw > 0 ? leaseRaw : undefined;
+  const initialOffplan = params.phase === "offplan" ? true : undefined;
 
   return (
     <section className="pb-24">
@@ -43,6 +44,7 @@ export default async function CalculatorPage({
           initialMode={initialMode}
           initialTenure={initialTenure}
           initialLeaseTermYears={initialLeaseTermYears}
+          initialOffplan={initialOffplan}
         />
       </div>
     </section>

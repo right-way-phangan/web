@@ -167,6 +167,7 @@ export default async function ObjectPage({ params }: Props) {
                     : "freehold"
                 }
                 initialLeaseTermYears={object.leaseTermYears}
+                initialOffplan={object.type === "Project" ? true : undefined}
                 catalog={catalog}
                 excludeRw={object.rwNumber}
               />
