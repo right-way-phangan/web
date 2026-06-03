@@ -91,5 +91,32 @@ export function mapElementToObject(el: AmoCatalogElement): RealEstateObject {
     locationUrl: str(cf.get("LOCATION_URL")),
     siteUrl: str(cf.get("SITE_URL")),
     descriptionRaw: str(cf.get("DESCRIPTION_RAW")),
+
+    ...parsePhotos(str(cf.get("PHOTOS"))),
   };
+}
+
+/**
+ * PHOTOS is a textarea custom field holding a JSON array of public image URLs
+ * uploaded to Vercel Blob during the Drive→Blob migration. Returns
+ * {coverImage, gallery} so the spread above keeps the field-list flat.
+ */
+function parsePhotos(raw: string | undefined): {
+  coverImage?: string;
+  gallery?: string[];
+} {
+  if (!raw) return {};
+  try {
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed)) {
+      const urls = parsed.filter(
+        (x): x is string => typeof x === "string" && x.startsWith("http"),
+      );
+      if (urls.length === 0) return {};
+      return { coverImage: urls[0], gallery: urls };
+    }
+  } catch {
+    // Field present but not valid JSON — ignore silently, fall back to placeholder.
+  }
+  return {};
 }

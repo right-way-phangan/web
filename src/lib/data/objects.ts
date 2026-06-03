@@ -36,12 +36,16 @@ export async function getPublicObjects(): Promise<RealEstateObject[]> {
 }
 
 /**
- * Sort: beachfront/sea-view first, then by date_added desc.
- * Keeps the most photogenic listings near the top of /listings.
+ * Sort: objects with a real cover photo first, then beachfront/sea-view, then
+ * by date_added desc. Keeps the listings grid looking complete — placeholder
+ * (photo-less) cards sink below ones that show real imagery.
  */
 function sortByRecentAndPremium(a: RealEstateObject, b: RealEstateObject) {
   const score = (o: RealEstateObject) =>
-    (o.beachfront ? 4 : 0) + (o.seaView ? 2 : 0) + (o.mountainView ? 1 : 0);
+    (o.coverImage ? 8 : 0) +
+    (o.beachfront ? 4 : 0) +
+    (o.seaView ? 2 : 0) +
+    (o.mountainView ? 1 : 0);
   const sd = score(b) - score(a);
   if (sd !== 0) return sd;
   const ad = a.dateAdded ?? "";

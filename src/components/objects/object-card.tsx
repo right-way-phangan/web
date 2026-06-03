@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Route } from "next";
 import {
   Waves,
@@ -21,8 +22,9 @@ const TYPE_ICON: Record<ObjectType, typeof Home> = {
 };
 
 /**
- * Card thumbnail uses a deterministic gradient from rwNumber until real
- * photos sync from Drive (Day 5). Looks intentional, not broken.
+ * Card thumbnail shows the migrated cover photo (Drive → Vercel Blob) when
+ * present, falling back to a deterministic gradient from rwNumber for objects
+ * without photos yet — so the grid stays intentional, never broken.
  */
 function thumbHue(rw: string): number {
   let h = 0;
@@ -45,13 +47,27 @@ export function ObjectCard({ object }: Props) {
     >
       <div
         className="relative aspect-[4/3] overflow-hidden bg-forest-500/5"
-        style={{
-          backgroundImage: `linear-gradient(135deg, hsl(${hue} 30% 88%) 0%, hsl(${(hue + 40) % 360} 25% 78%) 100%)`,
-        }}
+        style={
+          object.coverImage
+            ? undefined
+            : {
+                backgroundImage: `linear-gradient(135deg, hsl(${hue} 30% 88%) 0%, hsl(${(hue + 40) % 360} 25% 78%) 100%)`,
+              }
+        }
       >
-        <div className="absolute inset-0 flex items-center justify-center text-forest-500/30 transition-transform duration-500 group-hover:scale-105">
-          <TypeIcon className="h-16 w-16" strokeWidth={1} />
-        </div>
+        {object.coverImage ? (
+          <Image
+            src={object.coverImage}
+            alt={object.titleEn}
+            fill
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center text-forest-500/30 transition-transform duration-500 group-hover:scale-105">
+            <TypeIcon className="h-16 w-16" strokeWidth={1} />
+          </div>
+        )}
 
         <div className="absolute left-3 top-3 rounded-sm bg-cream-50/90 px-2 py-1 text-[10px] font-medium uppercase tracking-[0.15em] text-forest-500 backdrop-blur-sm">
           {object.rwNumber}
