@@ -13,6 +13,8 @@
  * (public-copy-no-prices). Legal disclaimer is rendered at page level.
  */
 
+import type { FaqCategoryId } from "@/content/faq";
+
 export type KbBlock =
   | string // paragraph (supports **bold** and [label](href))
   | { h: string } // subheading
@@ -34,6 +36,10 @@ export interface KbArticle {
   takeaways: string[];
   sources: KbSource[];
   faqHref?: string;
+  /** FAQ category this article feeds — drives the auto-derived FAQ entry. */
+  faqCategory?: FaqCategoryId;
+  /** Question text for the auto-derived FAQ entry (see content/faq-derived.ts). */
+  faqQuestion?: string;
 }
 
 export const KB_ARTICLES: KbArticle[] = [
@@ -70,6 +76,8 @@ export const KB_ARTICLES: KbArticle[] = [
       { title: "Thai land law — Land Code and Civil & Commercial Code (general practice)" },
     ],
     faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "How is a foreigner's villa ownership actually structured?",
   },
   {
     slug: "koh-phangan-building-zones",
@@ -110,6 +118,8 @@ export const KB_ARTICLES: KbArticle[] = [
       },
     ],
     faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "What am I allowed to build on a plot on Koh Phangan?",
   },
 ];
 

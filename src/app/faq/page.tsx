@@ -3,12 +3,12 @@ import Link from "next/link";
 import { PageHero } from "@/components/sections/page-hero";
 import { FaqExplorer } from "@/components/faq/faq-explorer";
 import { Button } from "@/components/ui/button";
-import { FAQ_ITEMS } from "@/content/faq";
+import { ALL_FAQ_ITEMS } from "@/content/faq-derived";
 
 export const metadata: Metadata = {
   title: "FAQ",
   description:
-    "Thirty answers to the questions foreign buyers actually ask about Koh Phangan property: Chanote vs NS3, freehold vs leasehold, company structures, taxes, utilities, due diligence.",
+    "Answers to the questions foreign buyers actually ask about Koh Phangan property: Chanote vs NS3, freehold vs leasehold, company structures, taxes, utilities, due diligence.",
 };
 
 export default function FaqPage() {
@@ -17,7 +17,7 @@ export default function FaqPage() {
       <PageHero
         eyebrow="FAQ"
         title="Buying property on Phangan, demystified."
-        lede={`${FAQ_ITEMS.length} answers to the questions foreign buyers actually ask, grouped into six categories. Search by keyword, filter by category, or just scroll.`}
+        lede={`${ALL_FAQ_ITEMS.length} answers to the questions foreign buyers actually ask, grouped into six categories. Search by keyword, filter by category, or just scroll.`}
         image="/images/scenes/faq.jpg"
         imageAlt="Palm-fringed beach at dusk on Koh Phangan"
       />
@@ -33,8 +33,8 @@ export default function FaqPage() {
               Still have a question?
             </h2>
             <p className="mt-4 text-lg text-forest-500/70">
-              These thirty cover the most common ground, but every buyer has
-              an edge case. Send us yours — we&rsquo;ll answer it directly,
+              These cover the most common ground, but every buyer has an edge
+              case. Send us yours — we&rsquo;ll answer it directly,
               and if it&rsquo;s a generally useful question, we&rsquo;ll add
               it to this page.
             </p>

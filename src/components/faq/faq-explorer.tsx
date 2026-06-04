@@ -4,19 +4,23 @@ import { useMemo, useState } from "react";
 import { Search, X, ChevronDown } from "lucide-react";
 import {
   FAQ_CATEGORIES,
-  FAQ_ITEMS,
   buildFaqSearchText,
   type FaqCategoryId,
   type FaqItem,
 } from "@/content/faq";
+import { ALL_FAQ_ITEMS } from "@/content/faq-derived";
 import { FaqAnswer } from "./faq-blocks";
 import { cn } from "@/lib/utils/cn";
 
 // Pre-compute search index once at module load (server bundle).
-const INDEX: Array<{ item: FaqItem; text: string }> = FAQ_ITEMS.map((item) => ({
-  item,
-  text: buildFaqSearchText(item),
-}));
+// ALL_FAQ_ITEMS = hand-written FAQ + entries auto-derived from the KB library.
+const INDEX: Array<{ item: FaqItem; text: string }> = ALL_FAQ_ITEMS.map(
+  (item) => ({
+    item,
+    text: buildFaqSearchText(item),
+  }),
+);
+const TOTAL = ALL_FAQ_ITEMS.length;
 
 export function FaqExplorer() {
   const [query, setQuery] = useState("");
@@ -53,7 +57,7 @@ export function FaqExplorer() {
             />
             <input
               type="search"
-              placeholder="Search 30 questions…"
+              placeholder={`Search ${TOTAL} questions…`}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               className="h-10 w-full rounded-sm border border-forest-500/20 bg-cream-50 pl-9 pr-9 text-sm text-forest-900 placeholder:text-forest-500/40 focus:border-forest-500 focus:outline-none focus:ring-2 focus:ring-forest-500/30"
@@ -91,7 +95,7 @@ export function FaqExplorer() {
         </div>
 
         <p className="mt-3 text-xs text-forest-500/50">
-          {filtered.length} of {FAQ_ITEMS.length}{" "}
+          {filtered.length} of {TOTAL}{" "}
           {filtered.length === 1 ? "question" : "questions"} shown
         </p>
       </div>
@@ -103,8 +107,8 @@ export function FaqExplorer() {
             Nothing matches that search.
           </h2>
           <p className="mx-auto mt-3 max-w-md text-sm text-forest-500/70">
-            Try fewer or different words, or clear the filter to see all 30
-            questions.
+            Try fewer or different words, or clear the filter to see all{" "}
+            {TOTAL} questions.
           </p>
         </div>
       ) : (
