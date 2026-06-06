@@ -519,7 +519,7 @@ export const FAQ_ITEMS: FaqItem[] = [
         "**Convenience, services, port access** → Ban Tai",
         "**Long-term hold, lifestyle-driven appreciation** → Sri Thanu or Haad Yao",
       ] },
-      "Each district has its own price profile and inventory mix. See the [Districts](/districts) page for a full read on character, audience, and what to expect. For specific listings, the [Listings](/listings) catalog filters by district.",
+      "Each district has its own price profile and inventory mix. See the [Districts](/districts) page for a full read on character, audience, and what to expect. For specific listings, the [Listings](/listings) catalogue filters by district.",
     ],
   },
   {

@@ -143,8 +143,8 @@ export default async function DistrictPage({ params }: Props) {
             </h2>
             <p className="mt-4 text-lg text-forest-500/70">
               {inDistrict.length > 0
-                ? `${inDistrict.length} ${inDistrict.length === 1 ? "property" : "properties"} in this district right now — filtered live from the catalog.`
-                : "Our current inventory in this district, filtered live from the catalog."}
+                ? `${inDistrict.length} ${inDistrict.length === 1 ? "property" : "properties"} in this district right now — filtered live from the catalogue.`
+                : "Our current inventory in this district, filtered live from the catalogue."}
             </p>
           </div>
 

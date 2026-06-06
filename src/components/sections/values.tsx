@@ -4,7 +4,7 @@ const VALUES = [
   {
     icon: MapPin,
     title: "Phangan specialists",
-    text: "Every listing is on Koh Phangan. We know each district personally — Srithanu, Thong Sala, Haad Salad, Bottle Beach, and the rest.",
+    text: "Every listing is on Koh Phangan. We know each district personally — Sri Thanu, Thong Sala, Haad Salad, Bottle Beach, and the rest.",
   },
   {
     icon: ShieldCheck,

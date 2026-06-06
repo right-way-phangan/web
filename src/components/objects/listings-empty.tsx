@@ -36,7 +36,7 @@ export function ListingsEmpty({ filtered, clearHref }: Props) {
         Nothing to show right now.
       </h2>
       <p className="mx-auto mt-3 max-w-md text-sm text-forest-500/70">
-        Our catalog refreshes every few minutes. If you're looking for
+        Our catalogue refreshes every few minutes. If you're looking for
         something specific, message us and we'll send matches privately.
       </p>
       <div className="mt-8">

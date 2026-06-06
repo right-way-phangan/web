@@ -64,33 +64,36 @@ export default function ServicesPage() {
             Honest about the fee.
           </h2>
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-forest-500/80 md:text-lg">
-            Our commission structure is published transparently.
+            The commission is paid by the seller and built into the price, in
+            line with island norms. As a buyer, you pay us nothing — only the
+            statutory Land Office fees on registration.
           </p>
 
           <div className="mt-10 grid gap-6 md:grid-cols-3 md:gap-8">
             <FeeRow
-              label="Base fee"
-              detail="Due diligence, sale agreement, transaction representation."
-              value="60,000 THB"
-              payer="Paid by the buyer"
+              label="Commission"
+              detail="Due diligence, sale agreement, and transaction representation included."
+              value="5% of the deal"
+              payer="Paid by the seller"
             />
             <FeeRow
-              label="Search fee"
-              detail="Property sourcing, market expertise, network access."
-              value="4% of transaction"
-              payer="Paid by the seller, in line with island norms"
+              label="Minimum fee"
+              detail="On smaller deals, the higher of 5% or this floor applies — due diligence costs the same regardless of price."
+              value="150,000 THB"
+              payer="Paid by the seller"
             />
             <FeeRow
               label="Complex structure"
-              detail="Thai company setup, multi-property deals."
+              detail="Thai company setup, multi-property or non-trivial leasehold deals."
               value="+0.5–1%"
-              payer="Paid by the buyer"
+              payer="Paid by the seller"
             />
           </div>
 
           <p className="mt-10 max-w-2xl text-sm text-forest-500/70">
-            No hidden fees, no kickbacks from sellers, no inflated prices.
-            The fee you see is the fee.
+            Nothing charged to the buyer, no hidden add-ons, no kickbacks. On a
+            leasehold villa the commission is based on the full transaction value
+            — the land lease prepayment plus the building.
           </p>
         </div>
       </section>

@@ -58,7 +58,7 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
       ref={formRef}
       action={formAction}
       className={cn(layout === "card" ? "space-y-4" : "space-y-5")}
-      aria-label={rwNumber ? `Inquiry about ${rwNumber}` : "Contact form"}
+      aria-label={rwNumber ? `Enquiry about ${rwNumber}` : "Contact form"}
     >
       {/* Hidden context */}
       <input type="hidden" name="source" value={source} />
@@ -134,7 +134,7 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
       <SubmitButton label={submitLabel} />
 
       <p className="text-center text-[11px] text-forest-500/50">
-        We reply within the working day. No marketing emails — only your inquiry.
+        We reply within the working day. No marketing emails — only your enquiry.
       </p>
     </form>
   );
@@ -154,7 +154,7 @@ function SubmitButton({ label }: { label?: string }) {
   return (
     <Button type="submit" variant="primary" size="md" className="w-full" disabled={pending}>
       <Send className="h-4 w-4" />
-      {pending ? "Sending…" : (label ?? "Send inquiry")}
+      {pending ? "Sending…" : (label ?? "Send enquiry")}
     </Button>
   );
 }
