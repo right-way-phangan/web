@@ -134,7 +134,7 @@ function FeeRow({
       <p className="text-xs font-medium uppercase tracking-[0.15em] text-brass-500">
         {label}
       </p>
-      <p className="mt-3 font-serif text-2xl text-forest-900">{value}</p>
+      <p className="num mt-3 text-2xl text-forest-900">{value}</p>
       <p className="mt-3 text-sm text-forest-500/75">{detail}</p>
       <p className="mt-4 text-xs text-forest-500/55">{payer}</p>
     </div>

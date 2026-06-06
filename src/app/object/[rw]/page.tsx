@@ -75,7 +75,7 @@ export default async function ObjectPage({ params }: Props) {
 
           {object.priceThb ? (
             <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-              <span className="font-serif text-3xl text-forest-900 md:text-4xl">
+              <span className="num text-3xl text-forest-900 md:text-4xl">
                 {formatPriceTHB(object.priceThb)}
               </span>
               {object.type === "Land" && object.pricePerRai ? (

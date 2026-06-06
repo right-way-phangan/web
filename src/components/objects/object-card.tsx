@@ -104,7 +104,7 @@ export function ObjectCard({ object }: Props) {
         </h3>
 
         {object.priceThb ? (
-          <p className="font-serif text-lg text-forest-900">
+          <p className="num text-lg text-forest-900">
             {formatPriceCompact(object.priceThb)}
             {object.type === "Land" && object.pricePerRai ? (
               <span className="ml-2 text-xs font-sans text-forest-500/60">

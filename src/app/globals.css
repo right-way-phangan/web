@@ -25,4 +25,8 @@
   .container-prose {
     @apply mx-auto px-6 md:px-8 max-w-container;
   }
+  /* Strict, upright figures for money/stats — sans, tabular, no calligraphic serif slant */
+  .num {
+    @apply font-sans font-semibold tabular-nums tracking-tight;
+  }
 }

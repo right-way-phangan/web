@@ -296,7 +296,7 @@ export function RoiCalculator({
             </p>
             <CurrencyPicker currency={currency} onChange={setCurrency} />
           </div>
-          <p className="mt-2 font-serif text-4xl text-forest-900 md:text-5xl">{money(r.projectedValue, true)}</p>
+          <p className="num mt-2 text-4xl text-forest-900 md:text-5xl">{money(r.projectedValue, true)}</p>
 
           <div className="mt-6 grid grid-cols-3 gap-4 border-t border-forest-500/10 pt-6">
             <Kpi label="Total ROI" value={fmtPct(r.roiPct)} accent />
@@ -393,7 +393,7 @@ export function RoiCalculator({
               {solvedMaxPrice != null ? (
                 <div>
                   <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">Max purchase price</p>
-                  <p className="mt-1 font-serif text-3xl text-forest-900">{money(solvedMaxPrice, true)}</p>
+                  <p className="num mt-1 text-3xl text-forest-900">{money(solvedMaxPrice, true)}</p>
                   <p className="mt-1 text-[11px] text-forest-500/50">
                     Pay up to this and you still hit {solverTarget}% {SOLVE_LABELS[solverMetric]}.
                   </p>
@@ -496,7 +496,7 @@ function Kpi({ label, value, accent }: { label: string; value: string; accent?: 
   return (
     <div>
       <p className="text-[11px] uppercase tracking-wide text-forest-500/50">{label}</p>
-      <p className={`mt-1 font-serif text-xl ${accent ? "text-brass-600" : "text-forest-900"}`}>{value}</p>
+      <p className={`num mt-1 text-xl ${accent ? "text-brass-600" : "text-forest-900"}`}>{value}</p>
     </div>
   );
 }
@@ -620,7 +620,7 @@ function BankCompare({ r, years, bankRate, money }: { r: RoiResult; years: numbe
       <p className="mt-4 font-serif text-lg text-forest-900">
         {better ? (
           <>
-            <span className="text-brass-600">{money(r.vsBankThb)}</span> more than the bank over {years} years
+            <span className="text-brass-600 tabular-nums">{money(r.vsBankThb)}</span> more than the bank over {years} years
           </>
         ) : (
           <>{money(Math.abs(r.vsBankThb))} less than the bank — try a higher growth rate or longer horizon</>
@@ -634,7 +634,7 @@ function Row({ label, value, muted }: { label: string; value: string; muted?: bo
   return (
     <div className="flex items-baseline justify-between border-b border-forest-500/10 pb-2 last:border-0">
       <span className={`text-sm ${muted ? "text-forest-500/60" : "text-forest-900"}`}>{label}</span>
-      <span className={`text-sm font-medium ${muted ? "text-forest-500/60" : "text-forest-900"}`}>{value}</span>
+      <span className={`text-sm font-medium tabular-nums ${muted ? "text-forest-500/60" : "text-forest-900"}`}>{value}</span>
     </div>
   );
 }
@@ -681,7 +681,7 @@ function GrowthChart({ r, money }: { r: RoiResult; money: Money }) {
 function YearTable({ r, money, isRent }: { r: RoiResult; money: Money; isRent: boolean }) {
   return (
     <div className="mt-4 overflow-hidden rounded-sm border border-forest-500/10">
-      <table className="w-full text-sm">
+      <table className="w-full text-sm tabular-nums">
         <thead className="bg-forest-500/5 text-left text-xs uppercase tracking-wide text-forest-500/60">
           <tr>
             <th className="px-4 py-2 font-medium">Year</th>

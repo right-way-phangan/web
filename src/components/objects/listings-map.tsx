@@ -76,7 +76,7 @@ export default function ListingsMap({ points }: { points: MapPoint[] }) {
                   {p.title}
                 </span>
                 {p.priceThb ? (
-                  <span className="mt-1 block font-serif text-sm text-forest-900">
+                  <span className="num mt-1 block text-sm text-forest-900">
                     {formatPriceCompact(p.priceThb)}
                   </span>
                 ) : null}

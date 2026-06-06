@@ -131,7 +131,7 @@ export function SpecTable({ object }: { object: RealEstateObject }) {
                 className="flex flex-col gap-1 py-3 sm:flex-row sm:items-baseline sm:justify-between"
               >
                 <dt className="text-sm text-forest-500/60">{row.label}</dt>
-                <dd className="text-sm font-medium text-forest-900 sm:text-right">
+                <dd className="text-sm font-medium tabular-nums text-forest-900 sm:text-right">
                   {row.value}
                 </dd>
               </div>
