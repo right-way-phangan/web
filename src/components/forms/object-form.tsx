@@ -14,6 +14,7 @@ import {
   ChevronUp,
   ChevronDown,
   FileText,
+  Sparkles,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,6 +22,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils/cn";
 import { createObject, type NewObjectState } from "@/lib/actions/new-object";
+import { previewObjectTitle } from "@/lib/actions/title";
 import {
   DISTRICTS,
   DOCUMENT_TYPES,
@@ -175,6 +177,7 @@ interface FormValues {
   unitsTotal: string;
   unitsAvailable: string;
   description: string;
+  title: string;
 }
 
 const emptyValues: FormValues = {
@@ -215,6 +218,7 @@ const emptyValues: FormValues = {
   unitsTotal: "",
   unitsAvailable: "",
   description: "",
+  title: "",
 };
 
 function PublishButton() {
@@ -233,6 +237,8 @@ export function ObjectForm() {
   // Photos managed as an ordered list so the user controls the cover (index 0)
   // and order. We sync the chosen order back into the native file input via a
   // DataTransfer, so the server action receives files in this exact order.
+  const [genTitleLoading, setGenTitleLoading] = useState(false);
+  const titleNonce = useRef(0);
   const [photos, setPhotos] = useState<File[]>([]);
   // Photos the user manually tagged as documents (tracked by File identity so the
   // flag survives reordering). On submit we send their current indices so the
@@ -270,6 +276,36 @@ export function ObjectForm() {
       next.has(code) ? next.delete(code) : next.add(code);
       return { ...prev, [key]: next };
     });
+
+  // Ask the server to suggest a title from the current fields. Each click bumps
+  // a nonce so repeated presses surface different phrasings. The result is
+  // editable and submitted as-is; an empty title auto-generates on publish.
+  const generateTitle = async () => {
+    if (!v.type) return;
+    setGenTitleLoading(true);
+    try {
+      titleNonce.current += 1;
+      const t = await previewObjectTitle({
+        type: v.type,
+        district: v.district || undefined,
+        area: v.area || undefined,
+        bedrooms: v.bedrooms ? Number(v.bedrooms) : undefined,
+        unitsTotal: v.unitsTotal ? Number(v.unitsTotal) : undefined,
+        documentType: v.documentType || undefined,
+        features: Array.from(v.features),
+        villaFeatures: Array.from(v.villaFeatures),
+        terrain: v.terrain || undefined,
+        condition: v.condition || undefined,
+        stage: v.stage || undefined,
+        nonce: `${v.type}-${v.district}-${Date.now()}-${titleNonce.current}`,
+      });
+      if (t) set("title", t);
+    } catch {
+      /* leave the field as-is on failure */
+    } finally {
+      setGenTitleLoading(false);
+    }
+  };
 
   const isLand = v.type === "Land";
   const isProject = v.type === "Project";
@@ -423,6 +459,31 @@ export function ObjectForm() {
               selected={v.tenure}
               onToggle={(c) => toggle("tenure", c)}
             />
+          </Field>
+          <Field
+            label="Название (EN) — SEO-заголовок для сайта"
+            hint="Заполните поля выше, затем «Сгенерировать». Можно отредактировать вручную. Если оставить пустым — заголовок сгенерируется автоматически при публикации."
+          >
+            <div className="flex gap-2">
+              <div className="flex-1">
+                <Input
+                  name="title"
+                  value={v.title}
+                  onChange={(e) => set("title", e.target.value)}
+                  placeholder="напр. Sea-view 2-rai plot in Sri Thanu"
+                />
+              </div>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={generateTitle}
+                disabled={!v.type || genTitleLoading}
+                className="shrink-0"
+                title={!v.type ? "Сначала выберите тип объекта" : "Сгенерировать заголовок"}
+              >
+                <Sparkles /> {genTitleLoading ? "…" : "Сгенерировать"}
+              </Button>
+            </div>
           </Field>
         </section>
 
@@ -853,10 +914,17 @@ export function ObjectForm() {
             <p className="mb-1 text-xs text-forest-500/50">
               RW-номер присвоится автоматически при публикации (следующий в серии типа).
             </p>
-            <h3 className="mb-4 text-lg font-semibold text-forest-900">
+            <h3 className="mb-1 text-lg font-semibold text-forest-900">
+              {v.title || (
+                <span className="font-normal italic text-forest-500/50">
+                  Заголовок сгенерируется при публикации (поле «Название» пустое)
+                </span>
+              )}
+            </h3>
+            <p className="mb-4 text-sm text-forest-500/60">
               {v.type || "—"}
               {v.district ? ` · ${v.district}` : ""}
-            </h3>
+            </p>
             {previewUrls.length > 0 ? (
               <div className="mb-4 flex flex-wrap gap-2">
                 {previewUrls.map((u) => (

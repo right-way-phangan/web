@@ -172,6 +172,7 @@ export async function createObject(
     unitsTotal: toInt(formData.get("unitsTotal") as string | null),
     unitsAvailable: toInt(formData.get("unitsAvailable") as string | null),
     description: str(formData.get("description")),
+    title: str(formData.get("title")),
     photoUrls,
     docUrls,
   };
