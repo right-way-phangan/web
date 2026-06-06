@@ -5,6 +5,7 @@ import { createObjectCard, type NewObjectInput } from "@/lib/amocrm/object-write
 import { AmoApiError } from "@/lib/amocrm/client";
 import { notifyObjectCreated } from "@/lib/notify/telegram";
 import { OBJECT_TYPES } from "@/lib/amocrm/dictionaries";
+import { classifyImageIsDocument } from "@/lib/classify/image-doc";
 
 export type NewObjectState =
   | { status: "idle" }
@@ -84,20 +85,43 @@ export async function createObject(
     return { status: "error", message: "Выберите корректный тип объекта." };
   }
 
-  // Collect all uploads from both inputs. Files dropped in the photos input
-  // that are actually documents get auto-rerouted to DOCS (rule enforcement).
-  const all = [...formData.getAll("photos"), ...formData.getAll("docs")]
-    .filter((f): f is File => f instanceof File && f.size > 0 && f.size <= MAX_FILE_BYTES)
-    .slice(0, MAX_FILES);
+  const valid = (f: FormDataEntryValue): f is File =>
+    f instanceof File && f.size > 0 && f.size <= MAX_FILE_BYTES;
+  // The photos input order matches the indices the form marked as documents.
+  const photoFiles = formData.getAll("photos").filter(valid).slice(0, MAX_FILES);
+  const docFiles = formData.getAll("docs").filter(valid).slice(0, MAX_FILES);
+  // Manual override from the form: indices (in photo order) the user tagged as
+  // "это документ". Takes precedence over the vision classifier.
+  const manualDocIdx = new Set(
+    (str(formData.get("photoDocFlags")) ?? "")
+      .split(",")
+      .map((s) => Number(s.trim()))
+      .filter((n) => Number.isInteger(n)),
+  );
 
   const photoUrls: string[] = [];
   const docUrls: Array<{ name: string; url: string }> = [];
   try {
-    for (const file of all) {
-      if (isImage(file)) {
-        photoUrls.push(await uploadBlob(file, "objects"));
-      } else {
+    // Files explicitly added to the docs input are always documents.
+    for (const file of docFiles) {
+      docUrls.push({ name: file.name, url: await uploadBlob(file, "objects/docs") });
+    }
+    // Photos: route each to DOCS if the user flagged it, if it isn't an image,
+    // or if the vision classifier recognises a document-scan/map/sheet/plan.
+    for (let i = 0; i < photoFiles.length; i++) {
+      const file = photoFiles[i];
+      let isDoc = manualDocIdx.has(i) || !isImage(file);
+      if (!isDoc) {
+        const verdict = await classifyImageIsDocument(
+          await file.arrayBuffer(),
+          file.type || "image/jpeg",
+        );
+        isDoc = verdict === true; // null (unknown) → keep as photo, toggle is the net
+      }
+      if (isDoc) {
         docUrls.push({ name: file.name, url: await uploadBlob(file, "objects/docs") });
+      } else {
+        photoUrls.push(await uploadBlob(file, "objects"));
       }
     }
   } catch (err) {

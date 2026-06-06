@@ -617,7 +617,7 @@ function BankCompare({ r, years, bankRate, money }: { r: RoiResult; years: numbe
         <Row label={`Bank deposit (${bankRate}%)`} value={money(r.bankFinal, true)} muted />
         <Row label="This property" value={money(r.totalReturn, true)} />
       </div>
-      <p className="mt-4 font-serif text-lg text-forest-900">
+      <p className="mt-4 text-lg text-forest-900">
         {better ? (
           <>
             <span className="text-brass-600 tabular-nums">{money(r.vsBankThb)}</span> more than the bank over {years} years

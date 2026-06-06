@@ -234,6 +234,10 @@ export function ObjectForm() {
   // and order. We sync the chosen order back into the native file input via a
   // DataTransfer, so the server action receives files in this exact order.
   const [photos, setPhotos] = useState<File[]>([]);
+  // Photos the user manually tagged as documents (tracked by File identity so the
+  // flag survives reordering). On submit we send their current indices so the
+  // server routes them to DOCS even before the vision classifier is enabled.
+  const [docFlags, setDocFlags] = useState<Set<File>>(new Set());
   const [docNames, setDocNames] = useState<string[]>([]);
   const photoInputRef = useRef<HTMLInputElement | null>(null);
   const formRef = useRef<HTMLFormElement | null>(null);
@@ -277,6 +281,7 @@ export function ObjectForm() {
       setStage("edit");
       setV(emptyValues);
       setPhotos([]);
+      setDocFlags(new Set());
       setDocNames([]);
       formRef.current?.reset();
     }
@@ -304,14 +309,38 @@ export function ObjectForm() {
     [next[i], next[j]] = [next[j], next[i]];
     applyPhotos(next);
   };
-  const removePhoto = (i: number) => applyPhotos(photos.filter((_, k) => k !== i));
+  const removePhoto = (i: number) => {
+    const f = photos[i];
+    if (f && docFlags.has(f)) {
+      const next = new Set(docFlags);
+      next.delete(f);
+      setDocFlags(next);
+    }
+    applyPhotos(photos.filter((_, k) => k !== i));
+  };
+  // Mark/unmark a photo as a document (→ goes to DOCS, never published).
+  const toggleDoc = (i: number) => {
+    const f = photos[i];
+    if (!f) return;
+    const next = new Set(docFlags);
+    next.has(f) ? next.delete(f) : next.add(f);
+    setDocFlags(next);
+  };
+  // Current indices of doc-flagged photos, in submit order — sent to the server.
+  const docFlagIdx = useMemo(
+    () => photos.map((f, i) => (docFlags.has(f) ? i : -1)).filter((i) => i >= 0),
+    [photos, docFlags],
+  );
 
   const onDocsPicked = (files: FileList | null) =>
     setDocNames(files ? Array.from(files).map((f) => f.name) : []);
 
   const canPreview = v.type !== "";
 
-  const previewRows = useMemo(() => buildPreviewRows(v, photos.length), [v, photos.length]);
+  const previewRows = useMemo(
+    () => buildPreviewRows(v, photos.length - docFlagIdx.length),
+    [v, photos.length, docFlagIdx.length],
+  );
 
   if (state.status === "ok") {
     return (
@@ -702,22 +731,48 @@ export function ObjectForm() {
               onChange={(e) => onPhotosPicked(e.target.files)}
               className="block w-full text-sm text-forest-900 file:mr-3 file:rounded-sm file:border-0 file:bg-forest-500 file:px-4 file:py-2 file:text-cream-100 hover:file:bg-forest-400"
             />
+            {/* Indices the user marked as documents → server routes them to DOCS. */}
+            <input type="hidden" name="photoDocFlags" value={docFlagIdx.join(",")} />
           </Field>
           {photos.length > 0 ? (
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-              {photos.map((f, i) => (
+              {photos.map((f, i) => {
+                const flagged = docFlags.has(f);
+                return (
                 <div
                   key={`${f.name}-${i}`}
                   className="group relative overflow-hidden rounded-sm border border-forest-500/15"
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={previewUrls[i]} alt="" className="h-28 w-full object-cover" />
-                  {i === 0 ? (
+                  <img
+                    src={previewUrls[i]}
+                    alt=""
+                    className={cn(
+                      "h-28 w-full object-cover",
+                      flagged && "opacity-40 grayscale",
+                    )}
+                  />
+                  {flagged ? (
+                    <span className="absolute left-1 top-1 rounded-sm bg-forest-900/80 px-1.5 py-0.5 text-[10px] font-medium text-cream-100">
+                      Документ
+                    </span>
+                  ) : i === 0 ? (
                     <span className="absolute left-1 top-1 rounded-sm bg-brass-500 px-1.5 py-0.5 text-[10px] font-medium text-cream-100">
                       Обложка
                     </span>
                   ) : null}
                   <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-1 bg-forest-900/70 px-1 py-1 opacity-0 transition-opacity group-hover:opacity-100">
+                    <button
+                      type="button"
+                      title={flagged ? "Это фото (публиковать)" : "Это документ (не публиковать)"}
+                      onClick={() => toggleDoc(i)}
+                      className={cn(
+                        "text-cream-100 hover:text-brass-400",
+                        flagged && "text-brass-400",
+                      )}
+                    >
+                      <FileText className="size-4" />
+                    </button>
                     <button
                       type="button"
                       title="Сделать обложкой"
@@ -752,7 +807,8 @@ export function ObjectForm() {
                     </button>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
           ) : null}
           <Field
