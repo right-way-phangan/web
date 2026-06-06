@@ -7,6 +7,8 @@ import type {
   Condition,
   DocumentType,
   RoadType,
+  Stage,
+  Furnishing,
 } from "@/types/object";
 
 function cfMap(el: AmoCatalogElement): Map<string, AmoCustomFieldValue> {
@@ -81,6 +83,17 @@ export function mapElementToObject(el: AmoCatalogElement): RealEstateObject {
     waterType: str(cf.get("WATER_TYPE")),
     internetType: str(cf.get("INTERNET_TYPE")),
 
+    stage: str(cf.get("STAGE")) as Stage | undefined,
+    developer: str(cf.get("DEVELOPER")),
+    completion: str(cf.get("COMPLETION")),
+    paymentTerms: str(cf.get("PAYMENT_TERMS")),
+    furnishing: str(cf.get("FURNISHING")) as Furnishing | undefined,
+    netYieldPct: num(cf.get("NET_YIELD_PCT")),
+    estNetIncomeYear: num(cf.get("EST_NET_INCOME_YEAR")),
+    leasePrepayment: num(cf.get("LEASE_PREPAYMENT")),
+    unitsTotal: num(cf.get("UNITS_TOTAL")),
+    unitsAvailable: num(cf.get("UNITS_AVAILABLE")),
+
     ownerName: str(cf.get("OWNER")),
     buildingRules: str(cf.get("BUILDING_RULES")),
     reasonForSelling: str(cf.get("REASON_FOR_SELLING")),
@@ -94,7 +107,31 @@ export function mapElementToObject(el: AmoCatalogElement): RealEstateObject {
     descriptionRaw: str(cf.get("DESCRIPTION_RAW")),
 
     ...parsePhotos(str(cf.get("PHOTOS"))),
+    docs: parseDocs(str(cf.get("DOCS"))),
   };
+}
+
+/** Extensions that mark a file as a document, never a public photo. */
+const DOC_URL_EXT = /\.(pdf|docx?|xlsx?|pptx?|csv|txt|rtf|dwg|dxf|zip|rar|7z|kml|kmz|gpx)(\?|$)/i;
+
+/** Parse DOCS — JSON array of {name,url}. Non-public; for the CRM card only. */
+function parseDocs(
+  raw: string | undefined,
+): Array<{ name: string; url: string }> | undefined {
+  if (!raw) return undefined;
+  try {
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed)) {
+      const items = parsed.filter(
+        (x): x is { name: string; url: string } =>
+          x && typeof x.url === "string" && x.url.startsWith("http"),
+      );
+      return items.length ? items : undefined;
+    }
+  } catch {
+    // ignore malformed
+  }
+  return undefined;
 }
 
 /**
@@ -126,8 +163,11 @@ function parsePhotos(raw: string | undefined): {
   try {
     const parsed = JSON.parse(raw);
     if (Array.isArray(parsed)) {
+      // Publication rule (read-side guard): drop any non-image URL that may
+      // have slipped into PHOTOS, so documents never render on the site.
       const urls = parsed.filter(
-        (x): x is string => typeof x === "string" && x.startsWith("http"),
+        (x): x is string =>
+          typeof x === "string" && x.startsWith("http") && !DOC_URL_EXT.test(x),
       );
       if (urls.length === 0) return {};
       return { coverImage: urls[0], gallery: urls };

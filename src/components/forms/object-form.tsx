@@ -1,0 +1,925 @@
+"use client";
+
+import { useActionState, useEffect, useMemo, useRef, useState } from "react";
+import { useFormStatus } from "react-dom";
+import {
+  CheckCircle2,
+  AlertCircle,
+  Eye,
+  Pencil,
+  Send,
+  ExternalLink,
+  Star,
+  X,
+  ChevronUp,
+  ChevronDown,
+  FileText,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils/cn";
+import { createObject, type NewObjectState } from "@/lib/actions/new-object";
+import {
+  DISTRICTS,
+  DOCUMENT_TYPES,
+  TENURE_TYPES,
+  OBJECT_TYPES,
+  ZONES,
+  ROAD_TYPES,
+  WATER_TYPES,
+  INTERNET_TYPES,
+  TERRAIN_TYPES,
+  CONDITIONS,
+  FEATURES,
+  VILLA_FEATURES,
+  STAGES,
+  FURNISHINGS,
+} from "@/lib/amocrm/dictionaries";
+
+const initialState: NewObjectState = { status: "idle" };
+
+// ---- Small field primitives ----
+
+function Field({
+  label,
+  hint,
+  children,
+}: {
+  label: string;
+  hint?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="space-y-1.5">
+      <Label>{label}</Label>
+      {children}
+      {hint ? <p className="text-xs text-forest-500/50">{hint}</p> : null}
+    </div>
+  );
+}
+
+function Select({
+  name,
+  value,
+  onChange,
+  options,
+  placeholder = "—",
+}: {
+  name: string;
+  value: string;
+  onChange: (v: string) => void;
+  options: readonly string[];
+  placeholder?: string;
+}) {
+  return (
+    <select
+      name={name}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      className={cn(
+        "flex h-11 w-full rounded-sm border border-forest-500/20 bg-cream-50 px-4 py-2 text-sm text-forest-900",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500/30 focus-visible:border-forest-500",
+      )}
+    >
+      <option value="">{placeholder}</option>
+      {options.map((o) => (
+        <option key={o} value={o}>
+          {o}
+        </option>
+      ))}
+    </select>
+  );
+}
+
+function CheckGroup({
+  name,
+  options,
+  selected,
+  onToggle,
+}: {
+  name: string;
+  options: readonly { code: string; label: string }[] | readonly string[];
+  selected: Set<string>;
+  onToggle: (code: string) => void;
+}) {
+  const norm = options.map((o) => (typeof o === "string" ? { code: o, label: o } : o));
+  return (
+    <div className="flex flex-wrap gap-2">
+      {norm.map(({ code, label }) => {
+        const on = selected.has(code);
+        return (
+          <label
+            key={code}
+            className={cn(
+              "cursor-pointer select-none rounded-sm border px-3 py-1.5 text-sm transition-colors",
+              on
+                ? "border-forest-500 bg-forest-500 text-cream-100"
+                : "border-forest-500/20 bg-cream-50 text-forest-900 hover:border-forest-500/40",
+            )}
+          >
+            <input
+              type="checkbox"
+              name={name}
+              value={code}
+              checked={on}
+              onChange={() => onToggle(code)}
+              className="sr-only"
+            />
+            {label}
+          </label>
+        );
+      })}
+    </div>
+  );
+}
+
+// ---- Form state ----
+
+interface FormValues {
+  type: string;
+  district: string;
+  documentType: string;
+  tenure: Set<string>;
+  area: string;
+  pricePerRai: string;
+  rentPerRaiMonth: string;
+  leaseTermYears: string;
+  leaseEscalation: string;
+  leaseAddTerms: string;
+  buildingRules: string;
+  priceThb: string;
+  owner: string;
+  commission: string;
+  locationUrl: string;
+  zone: string;
+  roadType: string;
+  waterType: string;
+  internetType: string;
+  terrain: string;
+  features: Set<string>;
+  bedrooms: string;
+  bathrooms: string;
+  buildYear: string;
+  condition: string;
+  villaFeatures: Set<string>;
+  stage: string;
+  developer: string;
+  completion: string;
+  paymentTerms: string;
+  furnishing: string;
+  netYieldPct: string;
+  estNetIncomeYear: string;
+  leasePrepayment: string;
+  unitsTotal: string;
+  unitsAvailable: string;
+  description: string;
+}
+
+const emptyValues: FormValues = {
+  type: "",
+  district: "",
+  documentType: "",
+  tenure: new Set(),
+  area: "",
+  pricePerRai: "",
+  rentPerRaiMonth: "",
+  leaseTermYears: "",
+  leaseEscalation: "",
+  leaseAddTerms: "",
+  buildingRules: "",
+  priceThb: "",
+  owner: "",
+  commission: "",
+  locationUrl: "",
+  zone: "",
+  roadType: "",
+  waterType: "",
+  internetType: "",
+  terrain: "",
+  features: new Set(),
+  bedrooms: "",
+  bathrooms: "",
+  buildYear: "",
+  condition: "",
+  villaFeatures: new Set(),
+  stage: "",
+  developer: "",
+  completion: "",
+  paymentTerms: "",
+  furnishing: "",
+  netYieldPct: "",
+  estNetIncomeYear: "",
+  leasePrepayment: "",
+  unitsTotal: "",
+  unitsAvailable: "",
+  description: "",
+};
+
+function PublishButton() {
+  const { pending } = useFormStatus();
+  return (
+    <Button type="submit" size="lg" disabled={pending}>
+      <Send /> {pending ? "Публикуем…" : "Опубликовать"}
+    </Button>
+  );
+}
+
+export function ObjectForm() {
+  const [state, formAction] = useActionState(createObject, initialState);
+  const [v, setV] = useState<FormValues>(emptyValues);
+  const [stage, setStage] = useState<"edit" | "preview">("edit");
+  // Photos managed as an ordered list so the user controls the cover (index 0)
+  // and order. We sync the chosen order back into the native file input via a
+  // DataTransfer, so the server action receives files in this exact order.
+  const [photos, setPhotos] = useState<File[]>([]);
+  const [docNames, setDocNames] = useState<string[]>([]);
+  const photoInputRef = useRef<HTMLInputElement | null>(null);
+  const formRef = useRef<HTMLFormElement | null>(null);
+
+  // Object URLs for thumbnails, derived from the current photo order.
+  const previewUrls = useMemo(() => photos.map((f) => URL.createObjectURL(f)), [photos]);
+  useEffect(() => {
+    return () => previewUrls.forEach((u) => URL.revokeObjectURL(u));
+  }, [previewUrls]);
+
+  // Push the current order into the native <input type=file> so form submit
+  // sends them in this order (browsers allow assigning input.files).
+  const syncPhotoInput = (list: File[]) => {
+    if (!photoInputRef.current) return;
+    const dt = new DataTransfer();
+    list.forEach((f) => dt.items.add(f));
+    photoInputRef.current.files = dt.files;
+  };
+  const applyPhotos = (list: File[]) => {
+    setPhotos(list);
+    syncPhotoInput(list);
+  };
+
+  const set = <K extends keyof FormValues>(key: K, value: FormValues[K]) =>
+    setV((prev) => ({ ...prev, [key]: value }));
+
+  const toggle = (key: "tenure" | "features" | "villaFeatures", code: string) =>
+    setV((prev) => {
+      const next = new Set(prev[key]);
+      next.has(code) ? next.delete(code) : next.add(code);
+      return { ...prev, [key]: next };
+    });
+
+  const isLand = v.type === "Land";
+  const isProject = v.type === "Project";
+  const isBuilding = v.type === "Villa" || v.type === "House" || v.type === "Project";
+
+  // On success: reset everything back to a clean edit stage.
+  useEffect(() => {
+    if (state.status === "ok") {
+      setStage("edit");
+      setV(emptyValues);
+      setPhotos([]);
+      setDocNames([]);
+      formRef.current?.reset();
+    }
+  }, [state.status]);
+
+  // Newly selected photos are appended, then ordered by a filename heuristic
+  // (likely cover first, plans/drawings last). The user can still override the
+  // cover with ★. Real content-based cover detection arrives with the AI layer.
+  const onPhotosPicked = (files: FileList | null) => {
+    if (!files?.length) return;
+    const merged = orderPhotos([...photos, ...Array.from(files)], v.type);
+    applyPhotos(merged);
+  };
+  const setCover = (i: number) => {
+    if (i <= 0) return;
+    const next = [...photos];
+    const [f] = next.splice(i, 1);
+    next.unshift(f);
+    applyPhotos(next);
+  };
+  const movePhoto = (i: number, dir: -1 | 1) => {
+    const j = i + dir;
+    if (j < 0 || j >= photos.length) return;
+    const next = [...photos];
+    [next[i], next[j]] = [next[j], next[i]];
+    applyPhotos(next);
+  };
+  const removePhoto = (i: number) => applyPhotos(photos.filter((_, k) => k !== i));
+
+  const onDocsPicked = (files: FileList | null) =>
+    setDocNames(files ? Array.from(files).map((f) => f.name) : []);
+
+  const canPreview = v.type !== "";
+
+  const previewRows = useMemo(() => buildPreviewRows(v, photos.length), [v, photos.length]);
+
+  if (state.status === "ok") {
+    return (
+      <div className="rounded-sm border border-forest-500/20 bg-cream-50 p-6">
+        <div className="mb-3 flex items-center gap-2 text-forest-500">
+          <CheckCircle2 /> <span className="font-medium">{state.message}</span>
+        </div>
+        <p className="text-sm text-forest-900/70">
+          Опубликовано фото: {state.photoCount}
+          {state.docCount > 0 ? ` · документов (не публичны): ${state.docCount}` : ""}. Карточка
+          появится в каталоге сайта (статус Active) после ближайшего обновления кэша.
+        </p>
+        <a
+          href={state.url}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-4 inline-flex items-center gap-1.5 text-sm text-forest-500 underline-offset-4 hover:underline"
+        >
+          Открыть {state.rwNumber} в amoCRM <ExternalLink className="size-4" />
+        </a>
+      </div>
+    );
+  }
+
+  return (
+    <form ref={formRef} action={formAction} className="space-y-8">
+      {/* ===== EDIT STAGE (kept mounted under preview so FormData stays intact) ===== */}
+      <div className={cn("space-y-8", stage === "preview" && "hidden")}>
+        <section className="space-y-4">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-forest-500/60">
+            Основное
+          </h2>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="Тип объекта *">
+              <Select
+                name="type"
+                value={v.type}
+                onChange={(x) => set("type", x)}
+                options={OBJECT_TYPES}
+                placeholder="Выберите тип"
+              />
+            </Field>
+            <Field label="Район">
+              <Select
+                name="district"
+                value={v.district}
+                onChange={(x) => set("district", x)}
+                options={DISTRICTS}
+              />
+            </Field>
+            <Field label="Стадия" hint="Off-plan / строится / готов">
+              <Select
+                name="stage"
+                value={v.stage}
+                onChange={(x) => set("stage", x)}
+                options={STAGES}
+              />
+            </Field>
+            <Field label="Документ">
+              <Select
+                name="documentType"
+                value={v.documentType}
+                onChange={(x) => set("documentType", x)}
+                options={DOCUMENT_TYPES}
+              />
+            </Field>
+            <Field label="Площадь" hint="Свободный текст: «5 rai 2 ngan / 8400 m²»">
+              <Input
+                name="area"
+                value={v.area}
+                onChange={(e) => set("area", e.target.value)}
+                placeholder="5 rai 2 ngan / 8400 m²"
+              />
+            </Field>
+          </div>
+          <Field label="Вид владения (можно несколько)">
+            <CheckGroup
+              name="tenure"
+              options={TENURE_TYPES}
+              selected={v.tenure}
+              onToggle={(c) => toggle("tenure", c)}
+            />
+          </Field>
+        </section>
+
+        <section className="space-y-4">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-forest-500/60">
+            Цена / аренда
+          </h2>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="Цена за рай, THB" hint="Freehold-земля">
+              <Input
+                name="pricePerRai"
+                inputMode="numeric"
+                value={v.pricePerRai}
+                onChange={(e) => set("pricePerRai", e.target.value)}
+                placeholder="напр. 3 000 000"
+              />
+            </Field>
+            <Field label="Цена объекта, THB" hint="Вилла/дом или единый лот">
+              <Input
+                name="priceThb"
+                inputMode="numeric"
+                value={v.priceThb}
+                onChange={(e) => set("priceThb", e.target.value)}
+                placeholder="напр. 8 175 000"
+              />
+            </Field>
+            <Field label="Аренда за рай / мес, THB" hint="Leasehold-земля">
+              <Input
+                name="rentPerRaiMonth"
+                inputMode="numeric"
+                value={v.rentPerRaiMonth}
+                onChange={(e) => set("rentPerRaiMonth", e.target.value)}
+              />
+            </Field>
+            <Field label="Срок аренды, лет">
+              <Input
+                name="leaseTermYears"
+                inputMode="numeric"
+                value={v.leaseTermYears}
+                onChange={(e) => set("leaseTermYears", e.target.value)}
+              />
+            </Field>
+            <Field label="Предоплата за землю, THB" hint="Leasehold lump sum (напр. 1 200 000 за 30 лет)">
+              <Input
+                name="leasePrepayment"
+                inputMode="numeric"
+                value={v.leasePrepayment}
+                onChange={(e) => set("leasePrepayment", e.target.value)}
+              />
+            </Field>
+          </div>
+          <Field label="Индексация аренды" hint="Свободный текст: «8% каждые 5 лет»">
+            <Input
+              name="leaseEscalation"
+              value={v.leaseEscalation}
+              onChange={(e) => set("leaseEscalation", e.target.value)}
+              placeholder="8% каждые 5 лет"
+            />
+          </Field>
+          <Field label="Доп. условия аренды">
+            <Textarea
+              name="leaseAddTerms"
+              value={v.leaseAddTerms}
+              onChange={(e) => set("leaseAddTerms", e.target.value)}
+            />
+          </Field>
+        </section>
+
+        {isLand ? (
+          <section className="space-y-4">
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-forest-500/60">
+              Земля
+            </h2>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Field label="Зона">
+                <Select name="zone" value={v.zone} onChange={(x) => set("zone", x)} options={ZONES} />
+              </Field>
+              <Field label="Рельеф">
+                <Select
+                  name="terrain"
+                  value={v.terrain}
+                  onChange={(x) => set("terrain", x)}
+                  options={TERRAIN_TYPES}
+                />
+              </Field>
+            </div>
+            <Field label="Правила застройки">
+              <Textarea
+                name="buildingRules"
+                value={v.buildingRules}
+                onChange={(e) => set("buildingRules", e.target.value)}
+              />
+            </Field>
+          </section>
+        ) : null}
+
+        {isBuilding ? (
+          <section className="space-y-4">
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-forest-500/60">
+              Здание
+            </h2>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Field label="Спальни">
+                <Input
+                  name="bedrooms"
+                  inputMode="numeric"
+                  value={v.bedrooms}
+                  onChange={(e) => set("bedrooms", e.target.value)}
+                />
+              </Field>
+              <Field label="Санузлы">
+                <Input
+                  name="bathrooms"
+                  inputMode="numeric"
+                  value={v.bathrooms}
+                  onChange={(e) => set("bathrooms", e.target.value)}
+                />
+              </Field>
+              <Field label="Год постройки">
+                <Input
+                  name="buildYear"
+                  inputMode="numeric"
+                  value={v.buildYear}
+                  onChange={(e) => set("buildYear", e.target.value)}
+                />
+              </Field>
+              <Field label="Состояние">
+                <Select
+                  name="condition"
+                  value={v.condition}
+                  onChange={(x) => set("condition", x)}
+                  options={CONDITIONS}
+                />
+              </Field>
+            </div>
+            <Field label="Особенности здания">
+              <CheckGroup
+                name="villaFeatures"
+                options={VILLA_FEATURES}
+                selected={v.villaFeatures}
+                onToggle={(c) => toggle("villaFeatures", c)}
+              />
+            </Field>
+          </section>
+        ) : null}
+
+        {isProject || v.stage === "Off-plan" || v.stage === "Under construction" ? (
+          <section className="space-y-4">
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-forest-500/60">
+              Проект / застройщик (off-plan)
+            </h2>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Field label="Застройщик">
+                <Input
+                  name="developer"
+                  value={v.developer}
+                  onChange={(e) => set("developer", e.target.value)}
+                />
+              </Field>
+              <Field label="Срок сдачи" hint="«Q4 2026» / «~8 мес от старта»">
+                <Input
+                  name="completion"
+                  value={v.completion}
+                  onChange={(e) => set("completion", e.target.value)}
+                />
+              </Field>
+              <Field label="Юнитов в проекте">
+                <Input
+                  name="unitsTotal"
+                  inputMode="numeric"
+                  value={v.unitsTotal}
+                  onChange={(e) => set("unitsTotal", e.target.value)}
+                />
+              </Field>
+              <Field label="Доступно сейчас">
+                <Input
+                  name="unitsAvailable"
+                  inputMode="numeric"
+                  value={v.unitsAvailable}
+                  onChange={(e) => set("unitsAvailable", e.target.value)}
+                />
+              </Field>
+              <Field label="Меблировка">
+                <Select
+                  name="furnishing"
+                  value={v.furnishing}
+                  onChange={(x) => set("furnishing", x)}
+                  options={FURNISHINGS}
+                />
+              </Field>
+              <Field label="Чистая доходность, %" hint="Projected net yield">
+                <Input
+                  name="netYieldPct"
+                  inputMode="decimal"
+                  value={v.netYieldPct}
+                  onChange={(e) => set("netYieldPct", e.target.value)}
+                  placeholder="напр. 15"
+                />
+              </Field>
+              <Field label="Чистый доход / год, THB" hint="Est. annual net income">
+                <Input
+                  name="estNetIncomeYear"
+                  inputMode="numeric"
+                  value={v.estNetIncomeYear}
+                  onChange={(e) => set("estNetIncomeYear", e.target.value)}
+                  placeholder="напр. 734 000"
+                />
+              </Field>
+            </div>
+            <Field
+              label="График платежей / условия"
+              hint="Рассрочка, депозит, привязка к этапам стройки"
+            >
+              <Textarea
+                name="paymentTerms"
+                value={v.paymentTerms}
+                onChange={(e) => set("paymentTerms", e.target.value)}
+              />
+            </Field>
+          </section>
+        ) : null}
+
+        <section className="space-y-4">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-forest-500/60">
+            Инфраструктура и фичи
+          </h2>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="Дорога">
+              <Select
+                name="roadType"
+                value={v.roadType}
+                onChange={(x) => set("roadType", x)}
+                options={ROAD_TYPES}
+              />
+            </Field>
+            <Field label="Вода">
+              <Select
+                name="waterType"
+                value={v.waterType}
+                onChange={(x) => set("waterType", x)}
+                options={WATER_TYPES}
+              />
+            </Field>
+            <Field label="Интернет">
+              <Select
+                name="internetType"
+                value={v.internetType}
+                onChange={(x) => set("internetType", x)}
+                options={INTERNET_TYPES}
+              />
+            </Field>
+          </div>
+          <Field label="Особенности / виды">
+            <CheckGroup
+              name="features"
+              options={FEATURES}
+              selected={v.features}
+              onToggle={(c) => toggle("features", c)}
+            />
+          </Field>
+        </section>
+
+        <section className="space-y-4">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-forest-500/60">
+            Контакты, локация, медиа
+          </h2>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="Собственник / контакт">
+              <Input
+                name="owner"
+                value={v.owner}
+                onChange={(e) => set("owner", e.target.value)}
+                placeholder="Имя, телефон, telegram"
+              />
+            </Field>
+            <Field label="Комиссия">
+              <Input
+                name="commission"
+                value={v.commission}
+                onChange={(e) => set("commission", e.target.value)}
+              />
+            </Field>
+          </div>
+          <Field label="Локация (Google Maps URL)">
+            <Input
+              name="locationUrl"
+              value={v.locationUrl}
+              onChange={(e) => set("locationUrl", e.target.value)}
+              placeholder="https://maps.google.com/?q=9.73,100.0"
+            />
+          </Field>
+          <Field
+            label="Фото (публикуются)"
+            hint={
+              isLand
+                ? "Обложка (★) — вид облёта/аэро, если есть. Только изображения; документы не публикуются."
+                : "Обложка (★) — общий вид виллы/дома. Только изображения; документы не публикуются."
+            }
+          >
+            <input
+              ref={photoInputRef}
+              type="file"
+              name="photos"
+              accept="image/*"
+              multiple
+              onChange={(e) => onPhotosPicked(e.target.files)}
+              className="block w-full text-sm text-forest-900 file:mr-3 file:rounded-sm file:border-0 file:bg-forest-500 file:px-4 file:py-2 file:text-cream-100 hover:file:bg-forest-400"
+            />
+          </Field>
+          {photos.length > 0 ? (
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+              {photos.map((f, i) => (
+                <div
+                  key={`${f.name}-${i}`}
+                  className="group relative overflow-hidden rounded-sm border border-forest-500/15"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={previewUrls[i]} alt="" className="h-28 w-full object-cover" />
+                  {i === 0 ? (
+                    <span className="absolute left-1 top-1 rounded-sm bg-brass-500 px-1.5 py-0.5 text-[10px] font-medium text-cream-100">
+                      Обложка
+                    </span>
+                  ) : null}
+                  <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-1 bg-forest-900/70 px-1 py-1 opacity-0 transition-opacity group-hover:opacity-100">
+                    <button
+                      type="button"
+                      title="Сделать обложкой"
+                      onClick={() => setCover(i)}
+                      className="text-cream-100 hover:text-brass-400"
+                    >
+                      <Star className="size-4" />
+                    </button>
+                    <button
+                      type="button"
+                      title="Левее"
+                      onClick={() => movePhoto(i, -1)}
+                      className="text-cream-100 hover:text-brass-400"
+                    >
+                      <ChevronUp className="size-4 -rotate-90" />
+                    </button>
+                    <button
+                      type="button"
+                      title="Правее"
+                      onClick={() => movePhoto(i, 1)}
+                      className="text-cream-100 hover:text-brass-400"
+                    >
+                      <ChevronDown className="size-4 -rotate-90" />
+                    </button>
+                    <button
+                      type="button"
+                      title="Убрать"
+                      onClick={() => removePhoto(i)}
+                      className="text-cream-100 hover:text-red-400"
+                    >
+                      <X className="size-4" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : null}
+          <Field
+            label="Документы / рабочие файлы (НЕ публикуются)"
+            hint="PDF, презентации, договоры, чертежи и т.п. Хранятся на карточке, на сайт не идут."
+          >
+            <input
+              type="file"
+              name="docs"
+              multiple
+              onChange={(e) => onDocsPicked(e.target.files)}
+              className="block w-full text-sm text-forest-900 file:mr-3 file:rounded-sm file:border-0 file:bg-forest-500/70 file:px-4 file:py-2 file:text-cream-100 hover:file:bg-forest-500"
+            />
+          </Field>
+          {docNames.length > 0 ? (
+            <ul className="space-y-1">
+              {docNames.map((n, i) => (
+                <li key={`${n}-${i}`} className="flex items-center gap-2 text-xs text-forest-900/70">
+                  <FileText className="size-3.5 shrink-0 text-forest-500/60" /> {n}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+          <Field label="Описание / свободный текст" hint="Идёт в Description карточки">
+            <Textarea
+              name="description"
+              value={v.description}
+              onChange={(e) => set("description", e.target.value)}
+              className="min-h-[140px]"
+            />
+          </Field>
+        </section>
+      </div>
+
+      {/* ===== PREVIEW STAGE ===== */}
+      {stage === "preview" ? (
+        <div className="space-y-5">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-forest-500/60">
+            Предпросмотр карточки
+          </h2>
+          <div className="rounded-sm border border-forest-500/20 bg-cream-50 p-5">
+            <p className="mb-1 text-xs text-forest-500/50">
+              RW-номер присвоится автоматически при публикации (следующий в серии типа).
+            </p>
+            <h3 className="mb-4 text-lg font-semibold text-forest-900">
+              {v.type || "—"}
+              {v.district ? ` · ${v.district}` : ""}
+            </h3>
+            {previewUrls.length > 0 ? (
+              <div className="mb-4 flex flex-wrap gap-2">
+                {previewUrls.map((u) => (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img key={u} src={u} alt="" className="h-24 w-24 rounded-sm object-cover" />
+                ))}
+              </div>
+            ) : null}
+            <dl className="grid gap-x-6 gap-y-2 sm:grid-cols-2">
+              {previewRows.map(([k, val]) => (
+                <div key={k} className="flex justify-between gap-3 border-b border-forest-500/10 py-1">
+                  <dt className="text-sm text-forest-500/60">{k}</dt>
+                  <dd className="text-right text-sm text-forest-900">{val}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </div>
+      ) : null}
+
+      {state.status === "error" ? (
+        <div className="flex items-center gap-2 rounded-sm border border-red-300 bg-red-50 p-3 text-sm text-red-700">
+          <AlertCircle className="size-4 shrink-0" /> {state.message}
+        </div>
+      ) : null}
+
+      {/* ===== Actions ===== */}
+      <div className="flex flex-wrap items-center gap-3">
+        {stage === "edit" ? (
+          <Button
+            type="button"
+            size="lg"
+            onClick={() => canPreview && setStage("preview")}
+            disabled={!canPreview}
+          >
+            <Eye /> Предпросмотр
+          </Button>
+        ) : (
+          <>
+            <Button type="button" variant="outline" size="lg" onClick={() => setStage("edit")}>
+              <Pencil /> Править
+            </Button>
+            <PublishButton />
+          </>
+        )}
+        {!canPreview ? (
+          <span className="text-xs text-forest-500/50">Сначала выберите тип объекта</span>
+        ) : null}
+      </div>
+    </form>
+  );
+}
+
+// Filename heuristic for a default photo order: likely cover first, plans /
+// drawings / aerials last (for buildings) — for Land the aerial goes first.
+// Stable within each bucket. Content-based detection comes with the AI layer;
+// the user can always override the cover with ★.
+function orderPhotos(files: File[], type: string): File[] {
+  const AERIAL = /(aerial|drone|облет|обл[её]т|aero|birds?-?eye|сверху|план\s*участка)/i;
+  const PLAN = /(plan|floor|layout|генплан|план|чертеж|чертёж|drawing|scheme|схема|2d|3d)/i;
+  const EXTERIOR = /(exterior|facade|fasad|общий|фасад|вид|outside|front|house|villa|вилла)/i;
+  const weight = (name: string): number => {
+    const isLand = type === "Land";
+    if (AERIAL.test(name)) return isLand ? 0 : 3; // aerial = cover for land
+    if (PLAN.test(name)) return 4; // plans/drawings → back
+    if (EXTERIOR.test(name)) return 1; // exterior = cover for buildings
+    return 2;
+  };
+  return files
+    .map((f, i) => ({ f, i, w: weight(f.name) }))
+    .sort((a, b) => a.w - b.w || a.i - b.i)
+    .map((x) => x.f);
+}
+
+// Build a readable label/value list for the preview from the current form values.
+function buildPreviewRows(v: FormValues, photoCount: number): [string, string][] {
+  const rows: [string, string][] = [];
+  const push = (k: string, val: string | undefined) => {
+    if (val && val.trim()) rows.push([k, val.trim()]);
+  };
+  push("Стадия", v.stage);
+  push("Документ", v.documentType);
+  push("Владение", Array.from(v.tenure).join(", "));
+  push("Площадь", v.area);
+  push("Цена за рай", v.pricePerRai);
+  push("Цена объекта", v.priceThb);
+  push("Предоплата земли", v.leasePrepayment);
+  push("Аренда/рай/мес", v.rentPerRaiMonth);
+  push("Срок аренды", v.leaseTermYears ? `${v.leaseTermYears} лет` : undefined);
+  push("Индексация", v.leaseEscalation);
+  if (v.type === "Project" || v.stage === "Off-plan" || v.stage === "Under construction") {
+    push("Застройщик", v.developer);
+    push("Срок сдачи", v.completion);
+    push("Юнитов", v.unitsTotal);
+    push("Доступно", v.unitsAvailable);
+    push("Меблировка", v.furnishing);
+    push("Доходность", v.netYieldPct ? `${v.netYieldPct}%` : undefined);
+    push("Чистый доход/год", v.estNetIncomeYear);
+    push("График платежей", v.paymentTerms);
+  }
+  if (v.type === "Villa" || v.type === "House" || v.type === "Project") {
+    push("Спальни", v.bedrooms);
+    push("Санузлы", v.bathrooms);
+    push("Год", v.buildYear);
+    push("Состояние", v.condition);
+    push("Здание", Array.from(v.villaFeatures).join(", "));
+  }
+  if (v.type === "Land") {
+    push("Зона", v.zone);
+    push("Рельеф", v.terrain);
+  }
+  push("Особенности", Array.from(v.features).join(", "));
+  push("Дорога", v.roadType);
+  push("Вода", v.waterType);
+  push("Интернет", v.internetType);
+  push("Собственник", v.owner);
+  push("Комиссия", v.commission);
+  push("Локация", v.locationUrl);
+  if (photoCount > 0) push("Фото", `${photoCount} шт.`);
+  push("Описание", v.description);
+  return rows;
+}

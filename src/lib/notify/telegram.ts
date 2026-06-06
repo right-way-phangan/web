@@ -69,6 +69,52 @@ export async function notifyLeadCreated(opts: {
   }
 }
 
+/**
+ * Heads-up when a new object card is created via the website admin form.
+ * Same env-gating / non-throwing contract as notifyLeadCreated.
+ */
+export async function notifyObjectCreated(opts: {
+  rwNumber: string;
+  type: string;
+  district?: string;
+  elementUrl: string;
+  photoCount: number;
+}): Promise<void> {
+  const token = process.env.TELEGRAM_NOTIFY_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_NOTIFY_CHAT_ID;
+  if (!token || !chatId) return;
+
+  const lines: string[] = [];
+  lines.push(`🏠 <b>New object added</b> — ${esc(opts.rwNumber)}`);
+  lines.push("");
+  lines.push(`<b>Type:</b> ${esc(opts.type)}`);
+  if (opts.district) lines.push(`<b>District:</b> ${esc(opts.district)}`);
+  lines.push(`<b>Photos:</b> ${opts.photoCount}`);
+  lines.push(`<b>Source:</b> website /admin/new`);
+  lines.push("");
+  lines.push(`<a href="${esc(opts.elementUrl)}">Open in amoCRM →</a>`);
+
+  try {
+    const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: lines.join("\n"),
+        parse_mode: "HTML",
+        disable_web_page_preview: true,
+      }),
+      cache: "no-store",
+    });
+    if (!res.ok) {
+      const body = await res.text().catch(() => "");
+      console.error(`[notify-tg] object ${res.status}: ${body.slice(0, 200)}`);
+    }
+  } catch (err) {
+    console.error("[notify-tg] object send failed:", err);
+  }
+}
+
 function esc(text: string): string {
   return text
     .replace(/&/g, "&amp;")

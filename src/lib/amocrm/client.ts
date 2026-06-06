@@ -3,6 +3,9 @@ import { amoEnv } from "./env";
 import type {
   AmoCatalogElement,
   AmoCatalogListResponse,
+  AmoCatalogCustomField,
+  AmoCustomFieldsResponse,
+  AmoCatalogElementCreateInput,
   AmoLeadCreateInput,
 } from "./types";
 
@@ -78,6 +81,72 @@ export async function listCatalogElements(opts?: {
 export async function getCatalogElement(id: number, catalogId?: number) {
   const cid = catalogId ?? amoEnv.AMOCRM_OBJECTS_CATALOG_ID;
   return request<AmoCatalogElement>("GET", `/catalogs/${cid}/elements/${id}`);
+}
+
+/**
+ * List the custom-field schema of a catalog (field code → id, enum values).
+ * Used by the object writer to build a code→field_id / (code,value)→enum_id map
+ * dynamically, mirroring bot/amocrm_writer.py — so the web intake stays robust
+ * to enum/field changes without hardcoded IDs.
+ */
+export async function listCatalogCustomFields(
+  catalogId?: number,
+): Promise<AmoCatalogCustomField[]> {
+  const cid = catalogId ?? amoEnv.AMOCRM_OBJECTS_CATALOG_ID;
+  const fields: AmoCatalogCustomField[] = [];
+  let page = 1;
+  while (true) {
+    try {
+      const data = await request<AmoCustomFieldsResponse>(
+        "GET",
+        `/catalogs/${cid}/custom_fields?page=${page}&limit=250`,
+      );
+      const batch = data._embedded?.custom_fields ?? [];
+      fields.push(...batch);
+      if (batch.length < 250) break;
+      page += 1;
+    } catch (err) {
+      if (err instanceof AmoApiError && err.status === 204) break;
+      throw err;
+    }
+  }
+  return fields;
+}
+
+/**
+ * Create one catalog element. amoCRM expects an array body and returns the
+ * `{_embedded: {elements: [...]}}` envelope. Returns the created element.
+ */
+export async function createCatalogElement(
+  input: AmoCatalogElementCreateInput,
+  catalogId?: number,
+): Promise<AmoCatalogElement> {
+  const cid = catalogId ?? amoEnv.AMOCRM_OBJECTS_CATALOG_ID;
+  const data = await request<AmoCatalogListResponse>(
+    "POST",
+    `/catalogs/${cid}/elements`,
+    [input],
+  );
+  const created = data._embedded?.elements?.[0];
+  if (!created) {
+    throw new AmoApiError(502, JSON.stringify(data), "amoCRM create element: empty response");
+  }
+  return created;
+}
+
+/**
+ * PATCH custom fields of an existing catalog element (used to backfill
+ * fields like PHOTOS/DRIVE_FOLDER after the element exists).
+ */
+export async function patchCatalogElement(
+  id: number,
+  customFields: AmoCatalogElementCreateInput["custom_fields_values"],
+  catalogId?: number,
+): Promise<void> {
+  const cid = catalogId ?? amoEnv.AMOCRM_OBJECTS_CATALOG_ID;
+  await request<unknown>("PATCH", `/catalogs/${cid}/elements`, [
+    { id, custom_fields_values: customFields },
+  ]);
 }
 
 /**

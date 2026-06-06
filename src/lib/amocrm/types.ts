@@ -49,6 +49,33 @@ export interface AmoCatalogListResponse {
   _links?: { next?: { href: string } };
 }
 
+// Custom-field schema (GET /catalogs/{id}/custom_fields)
+export interface AmoCatalogCustomField {
+  id: number;
+  code?: string;
+  name: string;
+  type: FieldType;
+  enums?: Array<{ id: number; value: string; sort?: number }>;
+}
+
+export interface AmoCustomFieldsResponse {
+  _page?: number;
+  _embedded: { custom_fields: AmoCatalogCustomField[] };
+}
+
+// One custom-field value as sent on element create/patch. Either a raw
+// `value` (text/numeric/checkbox) or an `enum_id` (select/multiselect).
+export interface AmoCustomFieldWriteValue {
+  field_id: number;
+  values: Array<{ value: string | number | boolean } | { enum_id: number }>;
+}
+
+// Catalog element create payload (POST /catalogs/{id}/elements, array body)
+export interface AmoCatalogElementCreateInput {
+  name: string;
+  custom_fields_values?: AmoCustomFieldWriteValue[];
+}
+
 // Lead create payload (simplified)
 export interface AmoLeadCreateInput {
   name: string;

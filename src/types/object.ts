@@ -3,12 +3,16 @@
  * Used by all UI components. Mapper lives in `src/lib/amocrm/mapper.ts`.
  */
 
-export type ObjectType = "Land" | "Villa" | "House" | "Apartment" | "Project";
+export type ObjectType =
+  | "Land" | "Villa" | "House" | "Apartment"
+  | "Townhouse" | "Hotel" | "Business" | "Project";
 export type ObjectStatus = "Active" | "Hold" | "Sold" | "Withdrawn" | "Reserved";
 export type TenureType = "Freehold" | "Leasehold";
 export type DocumentType = "Chanote" | "NS3" | "NS3K" | "Other";
 export type RoadType = "Concrete" | "Asphalt" | "Dirt" | "None";
 export type Condition = "New" | "Good" | "Needs renovation" | "Off-plan";
+export type Stage = "Ready" | "Under construction" | "Off-plan";
+export type Furnishing = "Full" | "Partial" | "None";
 
 export interface RealEstateObject {
   // Identity
@@ -67,6 +71,18 @@ export interface RealEstateObject {
   waterType?: string;
   internetType?: string;
 
+  // Off-plan / developer project
+  stage?: Stage;
+  developer?: string;
+  completion?: string;        // "Q4 2026" / "~8 months from start"
+  paymentTerms?: string;
+  furnishing?: Furnishing;
+  netYieldPct?: number;
+  estNetIncomeYear?: number;  // THB/year
+  leasePrepayment?: number;   // leasehold land lump sum, THB
+  unitsTotal?: number;
+  unitsAvailable?: number;
+
   // Operational
   ownerName?: string;
   buildingRules?: string;
@@ -81,9 +97,13 @@ export interface RealEstateObject {
   lng?: number;
   siteUrl?: string;           // current Laravel site (legacy)
 
-  // Photos (resolved separately from Drive)
+  // Photos (resolved separately from Drive). Public.
   coverImage?: string;
   gallery?: string[];
+
+  // Documents / working files — NON-public. Kept on the card, never rendered
+  // on the site. Publication rule: only photos go public; docs stay internal.
+  docs?: Array<{ name: string; url: string }>;
 
   // Description
   descriptionRaw?: string;    // legacy textarea

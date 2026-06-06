@@ -19,6 +19,9 @@ const TYPE_ICON: Record<ObjectType, typeof Home> = {
   Villa: Home,
   House: Home,
   Apartment: Building2,
+  Townhouse: Home,
+  Hotel: Building2,
+  Business: Building2,
   Project: Building2,
 };
 
