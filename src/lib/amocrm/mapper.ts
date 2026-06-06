@@ -10,6 +10,29 @@ import type {
   Stage,
   Furnishing,
 } from "@/types/object";
+import { buildTemplateTitle, type TitleAttrs } from "@/lib/generate/object-title";
+
+/** RealEstateObject → title-generator attribute shape (render-time fallback). */
+function titleAttrsFromObject(o: RealEstateObject): TitleAttrs {
+  return {
+    rwNumber: o.rwNumber,
+    type: o.type,
+    district: o.district,
+    rai: o.areaRai,
+    bedrooms: o.bedrooms,
+    unitsTotal: o.unitsTotal,
+    documentType: o.documentType,
+    beachfront: o.beachfront,
+    seaView: o.seaView,
+    mountainView: o.mountainView,
+    jungleView: o.jungleView,
+    quiet: o.quiet,
+    flat: o.flatLand || o.terrain === "Flat",
+    pool: o.pool,
+    brandNew: o.condition === "New",
+    offplan: o.type === "Project" || o.stage === "Off-plan",
+  };
+}
 
 function cfMap(el: AmoCatalogElement): Map<string, AmoCustomFieldValue> {
   const m = new Map<string, AmoCustomFieldValue>();
@@ -34,7 +57,7 @@ const multi = (cf?: AmoCustomFieldValue): string[] =>
 export function mapElementToObject(el: AmoCatalogElement): RealEstateObject {
   const cf = cfMap(el);
 
-  return {
+  const obj: RealEstateObject = {
     id: el.id,
     rwNumber: str(cf.get("RW_NUMBER")) ?? el.name,
     circleCode: str(cf.get("CIRCLE_CODE")),
@@ -109,6 +132,13 @@ export function mapElementToObject(el: AmoCatalogElement): RealEstateObject {
     ...parsePhotos(str(cf.get("PHOTOS"))),
     docs: parseDocs(str(cf.get("DOCS"))),
   };
+
+  // No human/curated TITLE_EN? Generate a clean, SEO-friendly title from the
+  // mapped attributes instead of surfacing the raw CRM label (el.name).
+  if (!str(cf.get("TITLE_EN"))) {
+    obj.titleEn = buildTemplateTitle(titleAttrsFromObject(obj));
+  }
+  return obj;
 }
 
 /** Extensions that mark a file as a document, never a public photo. */
