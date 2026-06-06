@@ -24,8 +24,10 @@ import {
 } from "@/lib/calculator/currency";
 import { ObjectCard } from "@/components/objects/object-card";
 import { CalcLeadButton } from "@/components/calculator/calc-lead-button";
+import { MarketPreset } from "@/components/calculator/market-preset";
 import { buildCalcReportHtml } from "@/lib/calculator/report";
 import type { RealEstateObject } from "@/types/object";
+import type { RentalMarket } from "@/lib/data/rental-market";
 
 const fmtPct = (n: number) =>
   !isFinite(n) ? "—" : `${n >= 0 ? "+" : ""}${n.toLocaleString("en-US", { maximumFractionDigits: 1 })}%`;
@@ -48,6 +50,8 @@ interface Props {
   catalog?: RealEstateObject[];
   excludeRw?: string;
   compact?: boolean;
+  /** Rental-market snapshot — powers the "fill from market data" preset in rent mode. */
+  market?: RentalMarket;
 }
 
 export function RoiCalculator({
@@ -58,6 +62,7 @@ export function RoiCalculator({
   initialOffplan,
   catalog = [],
   excludeRw,
+  market,
 }: Props) {
   const [inputs, setInputs] = useState<RoiInputs>({
     ...DEFAULT_INPUTS,
@@ -251,6 +256,14 @@ export function RoiCalculator({
                   High/low season
                 </label>
               </div>
+              {market ? (
+                <MarketPreset
+                  market={market}
+                  onApply={({ nightlyRateThb, occupancyPct }) =>
+                    set({ nightlyRateThb, occupancyPct, seasonality: false })
+                  }
+                />
+              ) : null}
               <MoneyField label={`Nightly rate (${currency})`} thbValue={inputs.nightlyRateThb} currency={currency} fx={fx} thbStep={500} onChangeThb={(thb) => set({ nightlyRateThb: thb })} hint={thbHint(inputs.nightlyRateThb)} small />
               {isSeasonal ? (
                 <div className="space-y-4 rounded-sm border border-brass-500/15 bg-cream-50/60 p-3">

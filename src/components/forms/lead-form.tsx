@@ -21,16 +21,18 @@ interface Props {
   defaultMessage?: string;
   /** Visual layout. "card" = inquiry form sidebar; "block" = /contact full-width block */
   layout?: "card" | "block";
-  /** "calculator" tags the lead as coming from the ROI calculator. */
-  kind?: "inquiry" | "calculator";
+  /** "calculator" tags the lead as coming from the ROI calculator; "market-report" from /insights. */
+  kind?: "inquiry" | "calculator" | "market-report";
   /** Submit button label override. */
   submitLabel?: string;
+  /** Fired once after a successful submission — e.g. to unlock gated content. */
+  onSuccess?: () => void;
 }
 
 const FIELDS = ["name", "email", "phone", "message"] as const;
 type FieldKey = (typeof FIELDS)[number];
 
-export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", kind, submitLabel }: Props) {
+export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", kind, submitLabel, onSuccess }: Props) {
   const [state, formAction] = useActionState(submitInquiry, initialState);
   const utm = useUtmParams();
   const formRef = useRef<HTMLFormElement | null>(null);
@@ -42,11 +44,15 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
       track("inquiry_submitted", {
         source,
         rwNumber: rwNumber ?? "n/a",
+        kind: kind ?? "inquiry",
       });
+      onSuccess?.();
     } else if (state.status === "error") {
       track("inquiry_error", { source, rwNumber: rwNumber ?? "n/a" });
     }
-  }, [state.status, source, rwNumber]);
+    // onSuccess intentionally omitted from deps — fire once per status change
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.status, source, rwNumber, kind]);
 
   const fieldError = (key: FieldKey): string | undefined => {
     if (state.status !== "error") return undefined;

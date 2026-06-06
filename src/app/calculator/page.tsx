@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/sections/page-hero";
 import { RoiCalculator } from "@/components/calculator/roi-calculator";
+import { MarketMiniBlock } from "@/components/calculator/market-preset";
+import { BuildProForma } from "@/components/calculator/build-proforma";
 import { getPublicObjects } from "@/lib/data/objects";
+import { getRentalMarket } from "@/lib/data/rental-market";
 
 export const metadata: Metadata = {
   title: "Investment calculator",
@@ -17,6 +20,7 @@ export default async function CalculatorPage({
   searchParams: Promise<{ price?: string; mode?: string; tenure?: string; lease?: string; phase?: string }>;
 }) {
   const catalog = await getPublicObjects();
+  const market = getRentalMarket();
   const params = await searchParams;
 
   // Deep-link params (e.g. from the Telegram Mini App):
@@ -40,12 +44,19 @@ export default async function CalculatorPage({
       <div className="container-prose mt-12 md:mt-16">
         <RoiCalculator
           catalog={catalog}
+          market={market}
           initialPriceThb={initialPriceThb}
           initialMode={initialMode}
           initialTenure={initialTenure}
           initialLeaseTermYears={initialLeaseTermYears}
           initialOffplan={initialOffplan}
         />
+        <div className="mt-10 md:mt-14">
+          <MarketMiniBlock market={market} />
+        </div>
+        <div className="mt-6 md:mt-8">
+          <BuildProForma market={market} />
+        </div>
       </div>
     </section>
   );

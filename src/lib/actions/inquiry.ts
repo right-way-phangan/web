@@ -27,7 +27,7 @@ const inquirySchema = z
     // Hidden / context fields
     rwNumber: z.string().optional(),       // present on object inquiry, absent on /contact
     source: z.enum(["object", "contact"]), // discriminator
-    kind: z.enum(["inquiry", "calculator"]).optional(), // calculator = ROI-calculator lead
+    kind: z.enum(["inquiry", "calculator", "market-report"]).optional(), // calculator = ROI-calc; market-report = /insights unlock
     utm_source: z.string().optional(),
     utm_medium: z.string().optional(),
     utm_campaign: z.string().optional(),
@@ -108,16 +108,24 @@ export async function submitInquiry(
 
   const pipelineId = pipelineFor(objectType);
   const isCalc = data.kind === "calculator";
+  const isMarketReport = data.kind === "market-report";
   const tags = [
     "website",
     data.source === "contact" ? "website-contact" : "website-inquiry",
     ...(isCalc ? ["calculator"] : []),
+    ...(isMarketReport ? ["market-report"] : []),
     ...(data.rwNumber ? [`object:${data.rwNumber}`] : []),
     ...utmTags(data),
   ];
 
   // Build amoCRM payload — leads/complex creates lead + contact in one call.
-  const namePrefix = isCalc ? "Calc lead" : data.rwNumber ? "Web inquiry" : "Web contact";
+  const namePrefix = isMarketReport
+    ? "Market report"
+    : isCalc
+      ? "Calc lead"
+      : data.rwNumber
+        ? "Web inquiry"
+        : "Web contact";
   const leadName = data.rwNumber
     ? `${namePrefix} · ${data.rwNumber}${objectTitle ? ` · ${objectTitle.slice(0, 60)}` : ""}`
     : `${namePrefix} · ${data.name}`;

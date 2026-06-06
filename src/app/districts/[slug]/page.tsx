@@ -8,6 +8,8 @@ import { DISTRICTS, getDistrictBySlug } from "@/content/districts";
 import { Button } from "@/components/ui/button";
 import { ObjectCard } from "@/components/objects/object-card";
 import { getPublicObjects } from "@/lib/data/objects";
+import { getDistrictMarket } from "@/lib/data/rental-market";
+import { DistrictMarketPanel } from "@/components/insights/district-market";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { getSiteUrl } from "@/lib/site-url";
 
@@ -44,6 +46,9 @@ export default async function DistrictPage({ params }: Props) {
   const all = await getPublicObjects();
   const inDistrict = all.filter((o) => o.district === d.amoName);
   const preview = inDistrict.slice(0, 6);
+
+  // Rental-market panel data for this district (null if no Airbnb comps).
+  const districtMarket = getDistrictMarket(d.amoName);
 
   // Other districts for the bottom strip
   const others = DISTRICTS.filter((x) => x.slug !== d.slug).slice(0, 3);
@@ -132,6 +137,8 @@ export default async function DistrictPage({ params }: Props) {
           </div>
         </div>
       </section>
+
+      {districtMarket ? <DistrictMarketPanel dm={districtMarket} /> : null}
 
       <section className="border-t border-forest-500/10 bg-cream-200/30">
         <div className="container-prose py-16 md:py-20">
