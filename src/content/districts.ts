@@ -163,3 +163,18 @@ export const DISTRICTS: DistrictContent[] = [
 export function getDistrictBySlug(slug: string): DistrictContent | undefined {
   return DISTRICTS.find((d) => d.slug === slug);
 }
+
+/**
+ * Approximate centre coordinates per district — fallback for the islands map
+ * when the live catalog has no mapped objects in that district yet. When the
+ * catalog does have pins, their centroid is used instead (more accurate).
+ */
+export const DISTRICT_COORDS: Record<string, { lat: number; lng: number }> = {
+  "sri-thanu": { lat: 9.745, lng: 99.978 },
+  "haad-salad": { lat: 9.788, lng: 99.985 },
+  "madeau-wan": { lat: 9.78, lng: 99.97 },
+  "ban-tai": { lat: 9.702, lng: 100.028 },
+  chaloklum: { lat: 9.808, lng: 100.012 },
+  "haad-yao": { lat: 9.766, lng: 99.972 },
+  "ban-khai": { lat: 9.706, lng: 100.048 },
+};

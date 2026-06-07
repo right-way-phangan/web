@@ -10,6 +10,7 @@ import { ObjectGallery } from "@/components/objects/object-gallery";
 import { SpecTable } from "@/components/objects/spec-table";
 import { InvestmentHighlights } from "@/components/objects/investment-highlights";
 import { InquiryForm } from "@/components/objects/inquiry-form";
+import { ObjectLocationMap } from "@/components/objects/object-location-map";
 import { ObjectJsonLd } from "@/components/objects/object-json-ld";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { getSiteUrl } from "@/lib/site-url";
@@ -134,6 +135,13 @@ export default async function ObjectPage({ params }: Props) {
                 <SpecTable object={object} />
               </div>
             </section>
+
+            <ObjectLocationMap
+              lat={object.lat}
+              lng={object.lng}
+              district={object.district}
+              mapsUrl={object.locationUrl}
+            />
 
             {object.buildingRules ? (
               <section>

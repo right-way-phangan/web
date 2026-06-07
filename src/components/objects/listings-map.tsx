@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from "react-leaflet";
 import type { Map as LeafletMap } from "leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import L from "leaflet";
@@ -17,6 +17,13 @@ export interface MapPoint {
   lng: number;
   priceThb?: number;
   cover?: string;
+}
+
+export interface MapBounds {
+  north: number;
+  south: number;
+  east: number;
+  west: number;
 }
 
 type PinState = "idle" | "hover" | "active";
@@ -87,6 +94,25 @@ function FitBounds({ points }: { points: MapPoint[] }) {
   return null;
 }
 
+// Report the map's visible bounds on pan/zoom (and once on mount) so the parent
+// can offer "search as I move the map" — filtering the card list to what's shown.
+function BoundsWatcher({ onChange }: { onChange?: (b: MapBounds) => void }) {
+  const emit = (map: L.Map) => {
+    if (!onChange) return;
+    const b = map.getBounds();
+    onChange({ north: b.getNorth(), south: b.getSouth(), east: b.getEast(), west: b.getWest() });
+  };
+  const map = useMapEvents({
+    moveend: () => emit(map),
+    zoomend: () => emit(map),
+  });
+  useEffect(() => {
+    emit(map);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [map]);
+  return null;
+}
+
 // Pan to the active listing without changing zoom — gentle recentre when a card
 // is selected (from a card click) so its pin is in view.
 function PanToActive({ points, activeRw }: { points: MapPoint[]; activeRw: string | null }) {
@@ -106,6 +132,7 @@ interface Props {
   hoveredRw?: string | null;
   onSelect?: (rw: string) => void;
   onHover?: (rw: string | null) => void;
+  onBoundsChange?: (b: MapBounds) => void;
 }
 
 export default function ListingsMap({
@@ -114,6 +141,7 @@ export default function ListingsMap({
   hoveredRw = null,
   onSelect,
   onHover,
+  onBoundsChange,
 }: Props) {
   // Tear the Leaflet instance down on unmount so React 18 StrictMode's dev
   // double-mount doesn't hit "Map container is already initialized" — the
@@ -140,6 +168,7 @@ export default function ListingsMap({
         />
         <FitBounds points={points} />
         <PanToActive points={points} activeRw={activeRw} />
+        <BoundsWatcher onChange={onBoundsChange} />
         <MarkerClusterGroup
           chunkedLoading
           showCoverageOnHover={false}

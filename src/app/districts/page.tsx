@@ -4,7 +4,10 @@ import Image from "next/image";
 import type { Route } from "next";
 import { ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
-import { DISTRICTS } from "@/content/districts";
+import { DISTRICTS, DISTRICT_COORDS } from "@/content/districts";
+import { DistrictsMap } from "@/components/districts/districts-map";
+import type { DistrictPoint } from "@/components/districts/districts-map-leaflet";
+import { getPublicObjects } from "@/lib/data/objects";
 
 export const metadata: Metadata = {
   title: "Districts",
@@ -12,7 +15,35 @@ export const metadata: Metadata = {
     "Seven districts of Koh Phangan where Right Way focuses — each with its own character, price profile, and buyer match.",
 };
 
-export default function DistrictsPage() {
+export const revalidate = 300;
+
+/**
+ * Build map markers per district: live-catalog centroid + listing count when we
+ * have mapped objects there, otherwise the hardcoded fallback centre.
+ */
+async function buildDistrictPoints(): Promise<DistrictPoint[]> {
+  const objects = await getPublicObjects();
+  return DISTRICTS.map((d) => {
+    const mine = objects.filter(
+      (o) => o.district === d.amoName && o.lat != null && o.lng != null,
+    );
+    const fallback = DISTRICT_COORDS[d.slug];
+    const lat = mine.length
+      ? mine.reduce((s, o) => s + o.lat!, 0) / mine.length
+      : fallback?.lat;
+    const lng = mine.length
+      ? mine.reduce((s, o) => s + o.lng!, 0) / mine.length
+      : fallback?.lng;
+    const count = objects.filter((o) => o.district === d.amoName).length;
+    if (lat == null || lng == null) return null;
+    const [name] = d.title.split(" — ");
+    return { slug: d.slug, amoName: d.amoName, name, lat, lng, count };
+  }).filter((p): p is DistrictPoint => p !== null);
+}
+
+export default async function DistrictsPage() {
+  const districtPoints = await buildDistrictPoints();
+
   return (
     <>
       <PageHero
@@ -20,6 +51,13 @@ export default function DistrictsPage() {
         title="Where we work — seven districts of Koh Phangan."
         lede="Right Way focuses on seven districts that cover roughly ninety percent of high-quality residential land on the island. Each has its own character, price profile, and buyer match. We don't claim to cover all of Phangan with equal depth — these are where our network, data, and experience are strongest."
       />
+
+      <section className="container-prose pt-12 md:pt-16">
+        <p className="mb-6 text-sm text-forest-500/70">
+          Tap a district on the map to jump straight to its live listings.
+        </p>
+        <DistrictsMap points={districtPoints} />
+      </section>
 
       <section className="container-prose py-16 md:py-24">
         <div className="grid gap-6 md:grid-cols-2 md:gap-8">

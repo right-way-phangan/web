@@ -1,0 +1,56 @@
+"use client";
+
+import dynamic from "next/dynamic";
+import { MapSkeleton } from "./map-skeleton";
+
+// Leaflet touches `window`, so the map is client-only (ssr:false). next/dynamic
+// with ssr:false must live in a client component — hence this thin loader.
+const Leaflet = dynamic(() => import("./object-location-map-leaflet"), {
+  ssr: false,
+  loading: () => <MapSkeleton />,
+});
+
+/**
+ * Neighbourhood mini-map for an object detail page. Renders a single brass pin
+ * at the listing's coordinates. Returns null when the object has no coordinates,
+ * so the section simply doesn't appear.
+ */
+export function ObjectLocationMap({
+  lat,
+  lng,
+  district,
+  mapsUrl,
+}: {
+  lat?: number;
+  lng?: number;
+  district?: string;
+  mapsUrl?: string;
+}) {
+  if (lat == null || lng == null) return null;
+
+  return (
+    <section>
+      <div className="flex flex-wrap items-baseline justify-between gap-3">
+        <h2 className="font-serif text-3xl text-forest-900">Location</h2>
+        {mapsUrl ? (
+          <a
+            href={mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-forest-500 underline-offset-4 hover:underline"
+          >
+            Open in Google Maps
+          </a>
+        ) : null}
+      </div>
+      {district ? (
+        <p className="mt-2 text-sm text-forest-500/70">
+          {district} · Koh Phangan, Thailand
+        </p>
+      ) : null}
+      <div className="mt-6 h-[360px] w-full">
+        <Leaflet lat={lat} lng={lng} />
+      </div>
+    </section>
+  );
+}
