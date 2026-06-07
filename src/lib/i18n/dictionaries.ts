@@ -130,6 +130,16 @@ export interface ChromeDict {
   nav: { label: string; href: string }[];
   getInTouch: string;
   savedAria: string;
+  footer: {
+    blurb: string;
+    explore: string;
+    contact: string;
+    telegramChat: string;
+    channel: string;
+    rights: string;
+    location: string;
+    journal: string;
+  };
 }
 
 // EN nav mirrors siteConfig.nav 1:1 (the header now reads this for both locales,
@@ -151,8 +161,21 @@ const chrome: Record<Locale, ChromeDict> = {
     ],
     getInTouch: "Get in touch",
     savedAria: "Saved listings",
+    footer: {
+      blurb:
+        "Right Way Phangan Group is a Koh Phangan–based real estate agency focused on land, villas, and houses for international buyers.",
+      explore: "Explore",
+      contact: "Contact",
+      telegramChat: "Telegram chat",
+      channel: "Channel",
+      rights: "All rights reserved.",
+      location: "Koh Phangan, Thailand",
+      journal: "Journal",
+    },
   },
   ru: {
+    // hrefs flip to /ru/* as each wave ships; not-yet-built routes point at EN
+    // so the nav never links to a 404 between deploys.
     nav: [
       { label: "Объекты", href: "/listings" },
       { label: "Районы", href: "/districts" },
@@ -167,6 +190,17 @@ const chrome: Record<Locale, ChromeDict> = {
     ],
     getInTouch: "Связаться",
     savedAria: "Избранные объекты",
+    footer: {
+      blurb:
+        "Right Way Phangan Group — агентство недвижимости на Ко Пангане: земля, виллы и дома для иностранных покупателей.",
+      explore: "Разделы",
+      contact: "Контакты",
+      telegramChat: "Чат в Telegram",
+      channel: "Канал",
+      rights: "Все права защищены.",
+      location: "Ко Панган, Таиланд",
+      journal: "Журнал",
+    },
   },
 };
 
