@@ -57,6 +57,14 @@ const multi = (cf?: AmoCustomFieldValue): string[] =>
 export function mapElementToObject(el: AmoCatalogElement): RealEstateObject {
   const cf = cfMap(el);
 
+  // Parse DOCS first: any URL that lives in DOCS is — by definition — a
+  // document and must never surface as a public photo, even when it arrives
+  // as a genuine image/jpeg (title-deed scans, cadastral maps). The migration
+  // duplicated such scans into both PHOTOS and DOCS; this is the deterministic
+  // guard that keeps them off the site without needing the vision classifier.
+  const docs = parseDocs(str(cf.get("DOCS")));
+  const docUrls = new Set((docs ?? []).map((d) => d.url));
+
   const obj: RealEstateObject = {
     id: el.id,
     rwNumber: str(cf.get("RW_NUMBER")) ?? el.name,
@@ -129,9 +137,10 @@ export function mapElementToObject(el: AmoCatalogElement): RealEstateObject {
     siteUrl: str(cf.get("SITE_URL")),
     descriptionRaw: str(cf.get("DESCRIPTION_RAW")),
 
-    ...parsePhotos(str(cf.get("PHOTOS"))),
-    docs: parseDocs(str(cf.get("DOCS"))),
+    docs: undefined, // filled just below; declared here to keep field order
+    ...parsePhotos(str(cf.get("PHOTOS")), docUrls),
   };
+  obj.docs = docs;
 
   // No human/curated TITLE_EN? Generate a clean, SEO-friendly title from the
   // mapped attributes instead of surfacing the raw CRM label (el.name).
@@ -185,7 +194,10 @@ function parseLatLng(url: string | undefined): { lat?: number; lng?: number } {
  * uploaded to Vercel Blob during the Drive→Blob migration. Returns
  * {coverImage, gallery} so the spread above keeps the field-list flat.
  */
-function parsePhotos(raw: string | undefined): {
+function parsePhotos(
+  raw: string | undefined,
+  docUrls?: Set<string>,
+): {
   coverImage?: string;
   gallery?: string[];
 } {
@@ -194,10 +206,14 @@ function parsePhotos(raw: string | undefined): {
     const parsed = JSON.parse(raw);
     if (Array.isArray(parsed)) {
       // Publication rule (read-side guard): drop any non-image URL that may
-      // have slipped into PHOTOS, so documents never render on the site.
+      // have slipped into PHOTOS, plus any URL that also lives in DOCS — a
+      // document scan duplicated into PHOTOS must never render on the site.
       const urls = parsed.filter(
         (x): x is string =>
-          typeof x === "string" && x.startsWith("http") && !DOC_URL_EXT.test(x),
+          typeof x === "string" &&
+          x.startsWith("http") &&
+          !DOC_URL_EXT.test(x) &&
+          !(docUrls?.has(x) ?? false),
       );
       if (urls.length === 0) return {};
       return { coverImage: urls[0], gallery: urls };
