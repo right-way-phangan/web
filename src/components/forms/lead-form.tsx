@@ -21,8 +21,8 @@ interface Props {
   defaultMessage?: string;
   /** Visual layout. "card" = inquiry form sidebar; "block" = /contact full-width block */
   layout?: "card" | "block";
-  /** "calculator" tags the lead as coming from the ROI calculator; "market-report" from /insights. */
-  kind?: "inquiry" | "calculator" | "market-report";
+  /** "calculator" tags the lead as coming from the ROI calculator; "market-report" from /insights; "shortlist" from /saved. */
+  kind?: "inquiry" | "calculator" | "market-report" | "shortlist";
   /** Submit button label override. */
   submitLabel?: string;
   /** Fired once after a successful submission — e.g. to unlock gated content. */

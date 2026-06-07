@@ -3,14 +3,17 @@
 import Link from "next/link";
 import type { Route } from "next";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Heart } from "lucide-react";
 import { Logo } from "./logo";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/lib/site-config";
+import { useSaved } from "@/lib/saved/saved-context";
 import { cn } from "@/lib/utils/cn";
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const { saved, ready } = useSaved();
+  const savedCount = ready ? saved.length : 0;
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-forest-500/10 bg-cream-100/80 backdrop-blur-md">
@@ -29,21 +32,25 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="hidden md:block">
+        <div className="hidden md:flex md:items-center md:gap-3">
+          <SavedLink count={savedCount} />
           <Button asChild variant="outline" size="sm">
             <Link href="/contact">Get in touch</Link>
           </Button>
         </div>
 
-        <button
-          type="button"
-          aria-label="Toggle navigation"
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          className="md:hidden flex h-10 w-10 items-center justify-center rounded-sm text-forest-500"
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        <div className="flex items-center gap-1 md:hidden">
+          <SavedLink count={savedCount} />
+          <button
+            type="button"
+            aria-label="Toggle navigation"
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+            className="flex h-10 w-10 items-center justify-center rounded-sm text-forest-500"
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
       <div
@@ -69,5 +76,22 @@ export function Header() {
         </nav>
       </div>
     </header>
+  );
+}
+
+function SavedLink({ count }: { count: number }) {
+  return (
+    <Link
+      href="/saved"
+      aria-label={`Saved listings${count ? ` (${count})` : ""}`}
+      className="relative flex h-10 w-10 items-center justify-center rounded-sm text-forest-500 transition-colors hover:text-brass-500"
+    >
+      <Heart className={cn("h-5 w-5", count > 0 && "fill-brass-500 text-brass-500")} />
+      {count > 0 ? (
+        <span className="absolute right-1 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-brass-500 px-1 text-[10px] font-semibold leading-none text-cream-50">
+          {count}
+        </span>
+      ) : null}
+    </Link>
   );
 }

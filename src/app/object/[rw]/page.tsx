@@ -11,6 +11,8 @@ import { SpecTable } from "@/components/objects/spec-table";
 import { InvestmentHighlights } from "@/components/objects/investment-highlights";
 import { InquiryForm } from "@/components/objects/inquiry-form";
 import { ObjectLocationMap } from "@/components/objects/object-location-map";
+import { RelatedListings } from "@/components/objects/related-listings";
+import { SaveButton } from "@/components/objects/save-button";
 import { ObjectJsonLd } from "@/components/objects/object-json-ld";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { getSiteUrl } from "@/lib/site-url";
@@ -69,9 +71,12 @@ export default async function ObjectPage({ params }: Props) {
 
         {/* Header */}
         <header className="mt-8 md:mt-12">
-          <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
-            {object.rwNumber} · {object.type}
-          </p>
+          <div className="flex items-start justify-between gap-4">
+            <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
+              {object.rwNumber} · {object.type}
+            </p>
+            <SaveButton rw={object.rwNumber} variant="inline" className="shrink-0" />
+          </div>
           <h1 className="mt-3 max-w-3xl text-balance">{object.titleEn}</h1>
 
           {object.priceThb ? (
@@ -182,6 +187,8 @@ export default async function ObjectPage({ params }: Props) {
             </div>
           </section>
         ) : null}
+
+        <RelatedListings current={object} catalog={catalog} />
       </article>
     </>
   );

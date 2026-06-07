@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import type { RealEstateObject, ObjectType } from "@/types/object";
 import { formatPriceCompact } from "@/lib/utils/price";
+import { SaveButton } from "./save-button";
 
 const TYPE_ICON: Record<ObjectType, typeof Home> = {
   Land: TreePine,
@@ -45,10 +46,12 @@ export function ObjectCard({ object }: Props) {
   const hue = thumbHue(object.rwNumber);
 
   return (
-    <Link
-      href={`/object/${object.rwNumber}` as Route}
-      className="group flex flex-col overflow-hidden rounded-sm border border-forest-500/10 bg-cream-50 transition-all hover:border-forest-500/30 hover:shadow-lg"
-    >
+    <div className="group relative flex h-full flex-col">
+      <SaveButton rw={object.rwNumber} className="absolute right-3 top-3 z-10" />
+      <Link
+        href={`/object/${object.rwNumber}` as Route}
+        className="flex h-full flex-col overflow-hidden rounded-sm border border-forest-500/10 bg-cream-50 transition-all hover:border-forest-500/30 hover:shadow-lg"
+      >
       <div
         className="relative aspect-[4/3] overflow-hidden bg-forest-500/5"
         style={
@@ -132,8 +135,9 @@ export function ObjectCard({ object }: Props) {
             </span>
           ) : null}
         </div>
-      </div>
-    </Link>
+        </div>
+      </Link>
+    </div>
   );
 }
 
