@@ -3,6 +3,7 @@ import { getPublicObjects } from "@/lib/data/objects";
 import { ListingsFilterBar } from "@/components/objects/listings-filter-bar";
 import { ListingsEmpty } from "@/components/objects/listings-empty";
 import { ListingsSplit } from "@/components/objects/listings-split";
+import { NlSearch } from "@/components/objects/nl-search";
 import {
   parseListingsSearchParams,
   makeFilterPredicate,
@@ -32,6 +33,8 @@ export default async function ListingsPage({ searchParams }: PageProps) {
   const filtered = all.filter(makeFilterPredicate(filter));
   const sorted = applySort(filtered, filter.sort);
   const isAnyFilter = isFiltered(filter);
+  const qRaw = sp.q;
+  const q = (Array.isArray(qRaw) ? qRaw[0] : qRaw) ?? "";
 
   return (
     <section className="container-prose py-16 md:py-24">
@@ -46,6 +49,10 @@ export default async function ListingsPage({ searchParams }: PageProps) {
           ? `${sorted.length} ${sorted.length === 1 ? "match" : "matches"} from ${all.length} total listings.`
           : `${all.length} ${all.length === 1 ? "property" : "properties"} ready to view.`}
       </p>
+
+      <div className="mt-8">
+        <NlSearch initialQuery={q} />
+      </div>
 
       <ListingsFilterBar
         current={filter}
