@@ -9,6 +9,7 @@ import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import { formatPriceCompact } from "@/lib/utils/price";
 import { useLeafletStrictModeFix } from "@/lib/leaflet/strict-mode-fix";
+import { TILE_URL, TILE_ATTRIBUTION, TILE_SUBDOMAINS } from "@/lib/leaflet/tiles";
 
 export interface MapPoint {
   rw: string;
@@ -114,6 +115,17 @@ function BoundsWatcher({ onChange }: { onChange?: (b: MapBounds) => void }) {
   return null;
 }
 
+// Fire once the visitor actually engages the map (hovers / pans / zooms) so the
+// parent can switch the card list into "only what's on the map" mode.
+function InteractionWatcher({ onInteract }: { onInteract?: () => void }) {
+  useMapEvents({
+    mouseover: () => onInteract?.(),
+    dragstart: () => onInteract?.(),
+    zoomstart: () => onInteract?.(),
+  });
+  return null;
+}
+
 // Pan to the active listing without changing zoom — gentle recentre when a card
 // is selected (from a card click) so its pin is in view.
 function PanToActive({ points, activeRw }: { points: MapPoint[]; activeRw: string | null }) {
@@ -134,6 +146,7 @@ interface Props {
   onSelect?: (rw: string) => void;
   onHover?: (rw: string | null) => void;
   onBoundsChange?: (b: MapBounds) => void;
+  onInteract?: () => void;
 }
 
 export default function ListingsMap({
@@ -143,6 +156,7 @@ export default function ListingsMap({
   onSelect,
   onHover,
   onBoundsChange,
+  onInteract,
 }: Props) {
   // Tear the Leaflet instance down on unmount, and survive StrictMode's dev
   // double-mount (see useLeafletStrictModeFix for the why).
@@ -164,13 +178,11 @@ export default function ListingsMap({
         className="h-full w-full"
         style={{ background: "#e8e4da" }}
       >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
+        <TileLayer attribution={TILE_ATTRIBUTION} url={TILE_URL} subdomains={TILE_SUBDOMAINS} />
         <FitBounds points={points} />
         <PanToActive points={points} activeRw={activeRw} />
         <BoundsWatcher onChange={onBoundsChange} />
+        <InteractionWatcher onInteract={onInteract} />
         <MarkerClusterGroup
           chunkedLoading
           showCoverageOnHover={false}

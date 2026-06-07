@@ -8,6 +8,7 @@ import type { RealEstateObject } from "@/types/object";
 import { ObjectCard } from "./object-card";
 import { MapSkeleton } from "./map-skeleton";
 import type { MapPoint, MapBounds } from "./listings-map";
+import { useMediaQuery } from "@/lib/hooks/use-media-query";
 import { cn } from "@/lib/utils/cn";
 
 // Leaflet touches `window`, so the map is client-only (ssr:false).
@@ -43,9 +44,15 @@ export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
   const [activeRw, setActiveRw] = useState<string | null>(null);
   const [hoveredRw, setHoveredRw] = useState<string | null>(null);
   const [mobileView, setMobileView] = useState<"list" | "map">("list");
-  const [searchInArea, setSearchInArea] = useState(false);
+  // Auto-sync: once the visitor engages the map, the card list shows only the
+  // pins currently in view. "Show all" turns it back off.
+  const [areaSync, setAreaSync] = useState(false);
   const [bounds, setBounds] = useState<MapBounds | null>(null);
   const listRef = useRef<HTMLDivElement>(null);
+
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
+  // Don't load the Leaflet chunk on mobile until the map tab is actually opened.
+  const mountMap = isDesktop || mobileView === "map";
 
   // Pin click → select the card and bring it into view.
   const handleSelect = useCallback((rw: string) => {
@@ -55,11 +62,17 @@ export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
     el?.scrollIntoView({ behavior: "smooth", block: "center" });
   }, []);
 
-  // "Search as I move the map": when on, the card list shows only objects whose
-  // pin falls within the current map view. The map itself keeps every pin, so
-  // panning never re-fits the view. Objects without coordinates drop out.
+  const enableAreaSync = useCallback(() => {
+    setAreaSync((on) => {
+      if (!on) track("search_in_area", { on: true });
+      return true;
+    });
+  }, []);
+
+  // When area-sync is on, the card list shows only objects whose pin falls in
+  // the current map view. The map keeps every pin, so panning never re-fits.
   const visibleObjects = useMemo(() => {
-    if (!searchInArea || !bounds) return objects;
+    if (!areaSync || !bounds) return objects;
     return objects.filter(
       (o) =>
         o.lat != null &&
@@ -69,7 +82,7 @@ export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
         o.lng <= bounds.east &&
         o.lng >= bounds.west,
     );
-  }, [objects, searchInArea, bounds]);
+  }, [objects, areaSync, bounds]);
 
   const mappedCount = points.length;
   const unmappedCount = objects.length - mappedCount;
@@ -97,10 +110,19 @@ export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
       <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(360px,40%)] lg:gap-6 lg:items-start">
         {/* Cards */}
         <div className={cn(mobileView === "map" && "hidden lg:block")}>
-          {searchInArea ? (
-            <p className="mb-4 text-sm text-forest-500/70">
-              {visibleObjects.length}{" "}
-              {visibleObjects.length === 1 ? "property" : "properties"} in this area
+          {areaSync ? (
+            <p className="mb-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-forest-500/70">
+              <span>
+                {visibleObjects.length}{" "}
+                {visibleObjects.length === 1 ? "property" : "properties"} in the map area
+              </span>
+              <button
+                type="button"
+                onClick={() => setAreaSync(false)}
+                className="text-forest-500 underline-offset-4 hover:text-brass-500 hover:underline"
+              >
+                Show all
+              </button>
             </p>
           ) : null}
           {visibleObjects.length === 0 ? (
@@ -143,27 +165,36 @@ export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
             </div>
           ) : (
             <div className="relative h-full w-full">
-              <ListingsMap
-                points={points}
-                activeRw={activeRw}
-                hoveredRw={hoveredRw}
-                onSelect={handleSelect}
-                onHover={setHoveredRw}
-                onBoundsChange={setBounds}
-              />
-              {/* Search-as-I-move toggle */}
-              <label className="absolute right-3 top-3 z-[500] inline-flex cursor-pointer items-center gap-2 rounded-sm bg-cream-50/95 px-3 py-1.5 text-[12px] font-medium text-forest-500 shadow-sm backdrop-blur-sm">
-                <input
-                  type="checkbox"
-                  checked={searchInArea}
-                  onChange={(e) => {
-                    setSearchInArea(e.target.checked);
-                    track("search_in_area", { on: e.target.checked });
-                  }}
-                  className="h-3.5 w-3.5 accent-forest-500"
+              {mountMap ? (
+                <ListingsMap
+                  points={points}
+                  activeRw={activeRw}
+                  hoveredRw={hoveredRw}
+                  onSelect={handleSelect}
+                  onHover={setHoveredRw}
+                  onBoundsChange={setBounds}
+                  onInteract={enableAreaSync}
                 />
-                Search as I move the map
-              </label>
+              ) : (
+                <MapSkeleton />
+              )}
+              {/* Area-sync status (auto-on once the map is used) */}
+              {areaSync ? (
+                <span className="absolute right-3 top-3 z-[500] inline-flex items-center gap-2 rounded-sm bg-cream-50/95 px-3 py-1.5 text-[12px] font-medium text-forest-500 shadow-sm backdrop-blur-sm">
+                  Showing this area
+                  <button
+                    type="button"
+                    onClick={() => setAreaSync(false)}
+                    className="text-forest-500/70 underline-offset-2 hover:text-brass-500 hover:underline"
+                  >
+                    Show all
+                  </button>
+                </span>
+              ) : (
+                <span className="pointer-events-none absolute right-3 top-3 z-[500] rounded-sm bg-cream-50/90 px-3 py-1.5 text-[11px] text-forest-500/60 shadow-sm backdrop-blur-sm">
+                  Move the map to filter the list
+                </span>
+              )}
               {unmappedCount > 0 ? (
                 <span className="pointer-events-none absolute bottom-3 left-3 z-[500] rounded-sm bg-cream-50/90 px-2.5 py-1 text-[11px] text-forest-500/70 backdrop-blur-sm">
                   {unmappedCount} listing{unmappedCount === 1 ? "" : "s"} without a map pin
