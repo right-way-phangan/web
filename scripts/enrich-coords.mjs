@@ -101,7 +101,8 @@ function hasInlineCoords(url) {
 }
 
 // Pull the most precise coords from a full maps URL. Prefer the !3d…!4d… pair
-// (the actual pin) over @lat,lng (the viewport centre).
+// (the actual pin), then @lat,lng (viewport), then the /maps/search/LAT,+LNG and
+// ?q=/query= forms that the "share place" short links expand into.
 function extractCoords(url) {
   const d = url.match(/!3d(-?\d+\.\d+)!4d(-?\d+\.\d+)/);
   if (d && PHANGAN_OK(Number(d[1]), Number(d[2]))) {
@@ -111,7 +112,18 @@ function extractCoords(url) {
   if (at && PHANGAN_OK(Number(at[1]), Number(at[2]))) {
     return { lat: Number(at[1]), lng: Number(at[2]) };
   }
+  // /maps/search/9.776,+99.969  ·  ?q=9.776,99.969  ·  query=9.776,+99.969
+  const s = url.match(/(?:search\/|[?&](?:q|query|destination)=)(-?\d+\.\d+),\s*\+?\s*(-?\d+\.\d+)/);
+  if (s && PHANGAN_OK(Number(s[1]), Number(s[2]))) {
+    return { lat: Number(s[1]), lng: Number(s[2]) };
+  }
   return null;
+}
+
+// Canonical URL the site's parser (mapper.ts parseLatLng) reads cleanly — no "+"
+// between the numbers, coords right after ?q=.
+function canonicalMapsUrl({ lat, lng }) {
+  return `https://www.google.com/maps?q=${lat},${lng}`;
 }
 
 // Follow redirects on a short link, return the final expanded URL.
@@ -216,8 +228,9 @@ async function main() {
 
   console.error(`\nЗапись в amoCRM: ${resolvedList.length} карточек…`);
   for (const r of resolvedList) {
+    const writeUrl = canonicalMapsUrl(r.coords);
     await amo("PATCH", `/catalogs/${CATALOG_ID}/elements`, [
-      { id: r.id, custom_fields_values: [{ field_id: fieldIds[FIELD_CODE], values: [{ value: r.expanded }] }] },
+      { id: r.id, custom_fields_values: [{ field_id: fieldIds[FIELD_CODE], values: [{ value: writeUrl }] }] },
     ]);
     stats.patched++;
     process.stderr.write(`  ✓ ${r.rw}\r`);
