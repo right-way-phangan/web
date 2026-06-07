@@ -25,6 +25,8 @@ interface Props {
   kind?: "inquiry" | "calculator" | "market-report" | "shortlist";
   /** Submit button label override. */
   submitLabel?: string;
+  /** Show an optional "preferred viewing date" field (object pages). */
+  showViewingDate?: boolean;
   /** Fired once after a successful submission — e.g. to unlock gated content. */
   onSuccess?: () => void;
 }
@@ -32,7 +34,8 @@ interface Props {
 const FIELDS = ["name", "email", "phone", "message"] as const;
 type FieldKey = (typeof FIELDS)[number];
 
-export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", kind, submitLabel, onSuccess }: Props) {
+export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", kind, submitLabel, showViewingDate, onSuccess }: Props) {
+  const todayIso = new Date().toISOString().slice(0, 10);
   const [state, formAction] = useActionState(submitInquiry, initialState);
   const utm = useUtmParams();
   const formRef = useRef<HTMLFormElement | null>(null);
@@ -119,6 +122,18 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
         />
         <FieldError msg={fieldError("phone")} />
       </FieldRow>
+
+      {showViewingDate ? (
+        <FieldRow>
+          <Label htmlFor={`viewingDate-${source}`}>Preferred viewing date (optional)</Label>
+          <Input
+            id={`viewingDate-${source}`}
+            name="viewingDate"
+            type="date"
+            min={todayIso}
+          />
+        </FieldRow>
+      ) : null}
 
       <FieldRow>
         <Label htmlFor={`message-${source}`}>Message</Label>
