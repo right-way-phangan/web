@@ -3,9 +3,11 @@
 import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import type { Route } from "next";
+import { track } from "@vercel/analytics";
 import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
 import L, { type Map as LeafletMap } from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { useLeafletStrictModeFix } from "@/lib/leaflet/strict-mode-fix";
 
 export interface DistrictPoint {
   slug: string;
@@ -53,13 +55,15 @@ function FitBounds({ points }: { points: DistrictPoint[] }) {
 export default function DistrictsMapLeaflet({ points }: { points: DistrictPoint[] }) {
   const router = useRouter();
   const mapRef = useRef<LeafletMap | null>(null);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  useLeafletStrictModeFix(wrapperRef);
   useEffect(() => () => {
     mapRef.current?.remove();
     mapRef.current = null;
   }, []);
 
   return (
-    <div className="h-full w-full overflow-hidden rounded-sm border border-forest-500/10">
+    <div ref={wrapperRef} className="h-full w-full overflow-hidden rounded-sm border border-forest-500/10">
       <MapContainer
         ref={mapRef}
         center={[9.75, 100.0]}
@@ -79,10 +83,12 @@ export default function DistrictsMapLeaflet({ points }: { points: DistrictPoint[
             position={[p.lat, p.lng]}
             icon={districtIcon(p)}
             eventHandlers={{
-              click: () =>
+              click: () => {
+                track("district_map_click", { district: p.amoName });
                 router.push(
                   `/listings?district=${encodeURIComponent(p.amoName)}` as Route,
-                ),
+                );
+              },
             }}
           />
         ))}

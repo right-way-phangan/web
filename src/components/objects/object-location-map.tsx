@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { MapSkeleton } from "./map-skeleton";
+import { useInView } from "@/lib/hooks/use-in-view";
 
 // Leaflet touches `window`, so the map is client-only (ssr:false). next/dynamic
 // with ssr:false must live in a client component — hence this thin loader.
@@ -26,6 +27,10 @@ export function ObjectLocationMap({
   district?: string;
   mapsUrl?: string;
 }) {
+  // Defer the Leaflet chunk + tiles until the section scrolls near — it sits
+  // well below the fold on the object page.
+  const [ref, inView] = useInView<HTMLDivElement>("300px");
+
   if (lat == null || lng == null) return null;
 
   return (
@@ -48,8 +53,8 @@ export function ObjectLocationMap({
           {district} · Koh Phangan, Thailand
         </p>
       ) : null}
-      <div className="mt-6 h-[360px] w-full">
-        <Leaflet lat={lat} lng={lng} />
+      <div ref={ref} className="mt-6 h-[360px] w-full">
+        {inView ? <Leaflet lat={lat} lng={lng} /> : <MapSkeleton />}
       </div>
     </section>
   );

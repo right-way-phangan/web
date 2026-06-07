@@ -8,6 +8,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import { formatPriceCompact } from "@/lib/utils/price";
+import { useLeafletStrictModeFix } from "@/lib/leaflet/strict-mode-fix";
 
 export interface MapPoint {
   rw: string;
@@ -143,17 +144,18 @@ export default function ListingsMap({
   onHover,
   onBoundsChange,
 }: Props) {
-  // Tear the Leaflet instance down on unmount so React 18 StrictMode's dev
-  // double-mount doesn't hit "Map container is already initialized" — the
-  // container div keeps its `_leaflet_id` unless we explicitly remove the map.
+  // Tear the Leaflet instance down on unmount, and survive StrictMode's dev
+  // double-mount (see useLeafletStrictModeFix for the why).
   const mapRef = useRef<LeafletMap | null>(null);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  useLeafletStrictModeFix(wrapperRef);
   useEffect(() => () => {
     mapRef.current?.remove();
     mapRef.current = null;
   }, []);
 
   return (
-    <div className="h-full w-full overflow-hidden rounded-sm border border-forest-500/10">
+    <div ref={wrapperRef} className="h-full w-full overflow-hidden rounded-sm border border-forest-500/10">
       <MapContainer
         ref={mapRef}
         center={[9.75, 100.02]}

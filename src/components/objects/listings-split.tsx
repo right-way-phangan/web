@@ -2,6 +2,7 @@
 
 import { useCallback, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
+import { track } from "@vercel/analytics";
 import { LayoutGrid, Map as MapIcon } from "lucide-react";
 import type { RealEstateObject } from "@/types/object";
 import { ObjectCard } from "./object-card";
@@ -49,6 +50,7 @@ export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
   // Pin click → select the card and bring it into view.
   const handleSelect = useCallback((rw: string) => {
     setActiveRw(rw);
+    track("map_pin_click", { rw });
     const el = listRef.current?.querySelector<HTMLElement>(`[data-rw="${rw}"]`);
     el?.scrollIntoView({ behavior: "smooth", block: "center" });
   }, []);
@@ -154,7 +156,10 @@ export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
                 <input
                   type="checkbox"
                   checked={searchInArea}
-                  onChange={(e) => setSearchInArea(e.target.checked)}
+                  onChange={(e) => {
+                    setSearchInArea(e.target.checked);
+                    track("search_in_area", { on: e.target.checked });
+                  }}
                   className="h-3.5 w-3.5 accent-forest-500"
                 />
                 Search as I move the map
