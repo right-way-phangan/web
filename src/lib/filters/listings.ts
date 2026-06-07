@@ -141,6 +141,32 @@ export function isFiltered(f: ListingsFilter): boolean {
 }
 
 /**
+ * Human-readable summary of the active filters (+ optional NL query) — used to
+ * pre-fill the "Send a brief" message when a search returns nothing, so the
+ * visitor's intent isn't lost.
+ */
+export function summarizeForBrief(f: ListingsFilter, query?: string): string | undefined {
+  const bits: string[] = [];
+  if (f.type.length) bits.push(f.type.join(" / "));
+  if (f.district.length) bits.push(`in ${f.district.join(", ")}`);
+  if (f.priceMinThb) bits.push(`from ฿${f.priceMinThb / 1_000_000}M`);
+  if (f.priceMaxThb) bits.push(`up to ฿${f.priceMaxThb / 1_000_000}M`);
+  if (f.bedroomsMin) bits.push(`${f.bedroomsMin}+ bed`);
+  if (f.tenure.length) bits.push(f.tenure.join(" / "));
+  if (f.beachfront) bits.push("beachfront");
+  if (f.seaView) bits.push("sea view");
+  if (f.mountainView) bits.push("mountain view");
+
+  if (!query && bits.length === 0) return undefined;
+
+  const lines = ["Hi — I couldn't find a match on the site for what I'm after."];
+  if (query) lines.push(`I searched: "${query}".`);
+  if (bits.length) lines.push(`Criteria: ${bits.join(", ")}.`);
+  lines.push("Could you send any private or upcoming listings that fit?");
+  return lines.join("\n");
+}
+
+/**
  * Extract distinct option lists from a population, for filter dropdowns.
  * District/type lists adapt to the actual catalog content.
  */

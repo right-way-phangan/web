@@ -12,6 +12,9 @@ import { InvestmentHighlights } from "@/components/objects/investment-highlights
 import { InquiryForm } from "@/components/objects/inquiry-form";
 import { ObjectLocationMap } from "@/components/objects/object-location-map";
 import { RelatedListings } from "@/components/objects/related-listings";
+import { RecentlyViewed } from "@/components/objects/recently-viewed";
+import { TrackView } from "@/components/objects/track-view";
+import { PriceContextBadge } from "@/components/objects/price-context-badge";
 import { SaveButton } from "@/components/objects/save-button";
 import { ShareButton } from "@/components/objects/share-button";
 import { ObjectJsonLd } from "@/components/objects/object-json-ld";
@@ -84,16 +87,19 @@ export default async function ObjectPage({ params }: Props) {
           <h1 className="mt-3 max-w-3xl text-balance">{object.titleEn}</h1>
 
           {object.priceThb ? (
-            <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-              <span className="num text-3xl text-forest-900 md:text-4xl">
-                {formatPriceTHB(object.priceThb)}
-              </span>
-              {object.type === "Land" && object.pricePerRai ? (
-                <span className="text-sm text-forest-500/60">
-                  {formatPricePerRai(object.pricePerRai)}
+            <>
+              <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <span className="num text-3xl text-forest-900 md:text-4xl">
+                  {formatPriceTHB(object.priceThb)}
                 </span>
-              ) : null}
-            </div>
+                {object.type === "Land" && object.pricePerRai ? (
+                  <span className="text-sm text-forest-500/60">
+                    {formatPricePerRai(object.pricePerRai)}
+                  </span>
+                ) : null}
+              </div>
+              <PriceContextBadge object={object} catalog={catalog} />
+            </>
           ) : null}
 
           {object.district ? (
@@ -193,7 +199,9 @@ export default async function ObjectPage({ params }: Props) {
         ) : null}
 
         <RelatedListings current={object} catalog={catalog} />
+        <RecentlyViewed catalog={catalog} excludeRw={object.rwNumber} />
       </article>
+      <TrackView rw={object.rwNumber} />
     </>
   );
 }

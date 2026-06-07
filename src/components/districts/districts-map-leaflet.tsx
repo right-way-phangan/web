@@ -8,6 +8,7 @@ import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
 import L, { type Map as LeafletMap } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useLeafletStrictModeFix } from "@/lib/leaflet/strict-mode-fix";
+import { TILE_URL, TILE_ATTRIBUTION, TILE_SUBDOMAINS } from "@/lib/leaflet/tiles";
 
 export interface DistrictPoint {
   slug: string;
@@ -72,10 +73,7 @@ export default function DistrictsMapLeaflet({ points }: { points: DistrictPoint[
         className="h-full w-full"
         style={{ background: "#e8e4da" }}
       >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
+        <TileLayer attribution={TILE_ATTRIBUTION} url={TILE_URL} subdomains={TILE_SUBDOMAINS} />
         <FitBounds points={points} />
         {points.map((p) => (
           <Marker

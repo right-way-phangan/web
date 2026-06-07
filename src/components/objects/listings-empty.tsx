@@ -5,9 +5,15 @@ import { Button } from "@/components/ui/button";
 interface Props {
   filtered: boolean;
   clearHref: Route;
+  /** Pre-filled brief message carried to /contact when a search finds nothing. */
+  briefMessage?: string;
 }
 
-export function ListingsEmpty({ filtered, clearHref }: Props) {
+export function ListingsEmpty({ filtered, clearHref, briefMessage }: Props) {
+  const briefHref = (
+    briefMessage ? `/contact?brief=${encodeURIComponent(briefMessage)}` : "/contact"
+  ) as Route;
+
   if (filtered) {
     return (
       <div className="mt-12 rounded-sm border border-forest-500/10 bg-cream-200/40 p-12 text-center">
@@ -23,7 +29,7 @@ export function ListingsEmpty({ filtered, clearHref }: Props) {
             <Link href={clearHref}>Clear filters</Link>
           </Button>
           <Button asChild variant="primary" size="md">
-            <Link href="/contact">Send a brief</Link>
+            <Link href={briefHref}>Send a brief</Link>
           </Button>
         </div>
       </div>

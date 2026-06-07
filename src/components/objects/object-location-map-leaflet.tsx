@@ -5,6 +5,7 @@ import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import L, { type Map as LeafletMap } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useLeafletStrictModeFix } from "@/lib/leaflet/strict-mode-fix";
+import { TILE_URL, TILE_ATTRIBUTION, TILE_SUBDOMAINS } from "@/lib/leaflet/tiles";
 
 // Brass teardrop pin (matches the listings map's idle pin shape).
 const pinIcon = L.divIcon({
@@ -38,10 +39,7 @@ export default function ObjectLocationMapLeaflet({ lat, lng }: Props) {
         className="h-full w-full"
         style={{ background: "#e8e4da" }}
       >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
+        <TileLayer attribution={TILE_ATTRIBUTION} url={TILE_URL} subdomains={TILE_SUBDOMAINS} />
         <Marker position={[lat, lng]} icon={pinIcon} />
       </MapContainer>
     </div>

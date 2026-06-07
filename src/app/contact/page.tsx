@@ -15,7 +15,15 @@ export const metadata: Metadata = {
     "Tell us what you're looking for on Koh Phangan. We reply within the working day.",
 };
 
-export default function ContactPage() {
+interface PageProps {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}
+
+export default async function ContactPage({ searchParams }: PageProps) {
+  const sp = await searchParams;
+  const briefRaw = sp.brief;
+  const brief = (Array.isArray(briefRaw) ? briefRaw[0] : briefRaw) || undefined;
+
   return (
     <>
       <PageHero
@@ -26,11 +34,20 @@ export default function ContactPage() {
         imageAlt="Coastal villas above the sea on Koh Phangan"
       />
 
+      {brief ? (
+        <div className="container-prose pt-8">
+          <p className="rounded-sm border border-brass-500/20 bg-brass-500/5 px-4 py-3 text-sm text-forest-500/80">
+            We&rsquo;ve pre-filled your brief below from your search — edit it if
+            you like, then send.
+          </p>
+        </div>
+      ) : null}
+
       <section className="container-prose py-16 md:py-24">
       <div className="grid gap-12 lg:grid-cols-[1fr_320px] lg:gap-16">
         {/* Left: form */}
         <div className="rounded-sm border border-forest-500/10 bg-cream-50 p-6 md:p-8">
-          <LeadForm source="contact" layout="block" />
+          <LeadForm source="contact" layout="block" defaultMessage={brief} />
         </div>
 
         {/* Right: direct channels */}
