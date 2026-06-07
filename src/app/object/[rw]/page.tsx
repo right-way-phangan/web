@@ -12,6 +12,8 @@ import { InvestmentHighlights } from "@/components/objects/investment-highlights
 import { InquiryForm } from "@/components/objects/inquiry-form";
 import { ObjectLocationMap } from "@/components/objects/object-location-map";
 import { RelatedListings } from "@/components/objects/related-listings";
+import { RecentlyViewed } from "@/components/objects/recently-viewed";
+import { TrackView } from "@/components/objects/track-view";
 import { SaveButton } from "@/components/objects/save-button";
 import { ShareButton } from "@/components/objects/share-button";
 import { ObjectJsonLd } from "@/components/objects/object-json-ld";
@@ -193,7 +195,9 @@ export default async function ObjectPage({ params }: Props) {
         ) : null}
 
         <RelatedListings current={object} catalog={catalog} />
+        <RecentlyViewed catalog={catalog} excludeRw={object.rwNumber} />
       </article>
+      <TrackView rw={object.rwNumber} />
     </>
   );
 }

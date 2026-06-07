@@ -4,6 +4,7 @@ import { ListingsFilterBar } from "@/components/objects/listings-filter-bar";
 import { ListingsEmpty } from "@/components/objects/listings-empty";
 import { ListingsSplit } from "@/components/objects/listings-split";
 import { NlSearch } from "@/components/objects/nl-search";
+import { RecentlyViewed } from "@/components/objects/recently-viewed";
 import {
   parseListingsSearchParams,
   makeFilterPredicate,
@@ -70,6 +71,8 @@ export default async function ListingsPage({ searchParams }: PageProps) {
       ) : (
         <ListingsSplit objects={sorted} />
       )}
+
+      <RecentlyViewed catalog={all} />
     </section>
   );
 }
