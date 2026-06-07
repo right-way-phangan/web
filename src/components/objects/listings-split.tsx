@@ -5,17 +5,14 @@ import dynamic from "next/dynamic";
 import { LayoutGrid, Map as MapIcon } from "lucide-react";
 import type { RealEstateObject } from "@/types/object";
 import { ObjectCard } from "./object-card";
+import { MapSkeleton } from "./map-skeleton";
 import type { MapPoint } from "./listings-map";
 import { cn } from "@/lib/utils/cn";
 
 // Leaflet touches `window`, so the map is client-only (ssr:false).
 const ListingsMap = dynamic(() => import("./listings-map"), {
   ssr: false,
-  loading: () => (
-    <div className="flex h-full w-full items-center justify-center rounded-sm border border-forest-500/10 bg-forest-500/5 text-sm text-forest-500/50">
-      Loading map…
-    </div>
-  ),
+  loading: () => <MapSkeleton />,
 });
 
 /**
