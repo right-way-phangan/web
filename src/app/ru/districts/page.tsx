@@ -4,78 +4,71 @@ import Image from "next/image";
 import type { Route } from "next";
 import { ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
-import { DISTRICTS, DISTRICT_COORDS } from "@/content/districts";
+import { DISTRICT_COORDS } from "@/content/districts";
+import { DISTRICTS_RU } from "@/content/districts.ru";
 import { DistrictsMap } from "@/components/districts/districts-map";
 import type { DistrictPoint } from "@/components/districts/districts-map-leaflet";
 import { getPublicObjects } from "@/lib/data/objects";
 import { spreadDistrictOverlaps } from "@/lib/districts/points";
 
 export const metadata: Metadata = {
-  title: "Districts",
+  title: "Районы",
   description:
-    "Seven districts of Koh Phangan where Right Way focuses — each with its own character, price profile, and buyer match.",
+    "Семь районов Ко Пангана, на которых сосредоточена Right Way — у каждого свой характер, ценовой профиль и «свой» покупатель.",
+  alternates: { canonical: "/ru/districts", languages: { en: "/districts", ru: "/ru/districts" } },
 };
 
 export const revalidate = 300;
 
-/**
- * Build map markers per district: live-catalog centroid + listing count when we
- * have mapped objects there, otherwise the hardcoded fallback centre.
- */
 async function buildDistrictPoints(): Promise<DistrictPoint[]> {
   const objects = await getPublicObjects();
-  const points = DISTRICTS.map((d) => {
+  const points = DISTRICTS_RU.map((d) => {
     const mine = objects.filter(
       (o) => o.district === d.amoName && o.lat != null && o.lng != null,
     );
     const fallback = DISTRICT_COORDS[d.slug];
-    const lat = mine.length
-      ? mine.reduce((s, o) => s + o.lat!, 0) / mine.length
-      : fallback?.lat;
-    const lng = mine.length
-      ? mine.reduce((s, o) => s + o.lng!, 0) / mine.length
-      : fallback?.lng;
+    const lat = mine.length ? mine.reduce((s, o) => s + o.lat!, 0) / mine.length : fallback?.lat;
+    const lng = mine.length ? mine.reduce((s, o) => s + o.lng!, 0) / mine.length : fallback?.lng;
     const count = objects.filter((o) => o.district === d.amoName).length;
     if (lat == null || lng == null) return null;
     const [name] = d.title.split(" — ");
     return { slug: d.slug, amoName: d.amoName, name, lat, lng, count };
   }).filter((p): p is DistrictPoint => p !== null);
-
   return spreadDistrictOverlaps(points);
 }
 
-export default async function DistrictsPage() {
+export default async function RussianDistrictsPage() {
   const districtPoints = await buildDistrictPoints();
 
   return (
     <>
       <PageHero
-        eyebrow="Districts"
-        title="Where we work — seven districts of Koh Phangan."
-        lede="Right Way focuses on seven districts that cover roughly ninety percent of high-quality residential land on the island. Each has its own character, price profile, and buyer match. We don't claim to cover all of Phangan with equal depth — these are where our network, data, and experience are strongest."
+        eyebrow="Районы"
+        title="Где мы работаем — семь районов Ко Пангана."
+        lede="Right Way сосредоточена на семи районах, которые покрывают примерно девяносто процентов качественной жилой земли на острове. У каждого свой характер, ценовой профиль и «свой» покупатель. Мы не претендуем на одинаково глубокое покрытие всего Пангана — это места, где наша сеть, данные и опыт сильнее всего."
       />
 
       <section className="container-prose pt-12 md:pt-16">
         <p className="mb-6 text-sm text-forest-500/70">
-          Tap a district on the map to jump straight to its live listings.
+          Нажмите на район на карте, чтобы сразу перейти к его актуальным объектам.
         </p>
         <DistrictsMap points={districtPoints} />
       </section>
 
       <section className="container-prose py-16 md:py-24">
         <div className="grid gap-6 md:grid-cols-2 md:gap-8">
-          {DISTRICTS.map((d) => {
+          {DISTRICTS_RU.map((d) => {
             const [name, subtitle] = d.title.split(" — ");
             return (
               <Link
                 key={d.slug}
-                href={`/districts/${d.slug}` as Route}
+                href={`/ru/districts/${d.slug}` as Route}
                 className="group flex flex-col overflow-hidden rounded-sm border border-forest-500/10 bg-cream-50 transition-all hover:border-forest-500/30 hover:shadow-lg"
               >
                 <div className="relative aspect-[16/9] overflow-hidden bg-forest-900">
                   <Image
                     src={`/images/districts/${d.slug}.jpg`}
-                    alt={`${name}, Koh Phangan`}
+                    alt={`${name}, Ко Панган`}
                     fill
                     sizes="(min-width: 768px) 50vw, 100vw"
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -85,18 +78,14 @@ export default async function DistrictsPage() {
                     aria-hidden
                   />
                   <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
-                    <h2 className="font-serif text-2xl text-cream-50 md:text-3xl">
-                      {name}
-                    </h2>
+                    <h2 className="font-serif text-2xl text-cream-50 md:text-3xl">{name}</h2>
                     <p className="mt-0.5 text-sm text-cream-100/85">{subtitle}</p>
                   </div>
                 </div>
                 <div className="flex flex-1 flex-col gap-3 p-6 md:p-8">
-                  <p className="text-sm leading-relaxed text-forest-500/85 md:text-base">
-                    {d.short}
-                  </p>
+                  <p className="text-sm leading-relaxed text-forest-500/85 md:text-base">{d.short}</p>
                   <span className="mt-auto inline-flex items-center gap-1.5 pt-2 text-sm font-medium text-forest-500 transition-colors group-hover:text-brass-500">
-                    Read more
+                    Подробнее
                     <ArrowRight className="h-3.5 w-3.5" />
                   </span>
                 </div>
@@ -110,20 +99,20 @@ export default async function DistrictsPage() {
         <div className="container-prose py-16 md:py-20">
           <div className="max-w-2xl">
             <h2 className="font-serif text-3xl text-forest-900 md:text-4xl">
-              Not sure which district fits?
+              Не уверены, какой район подходит?
             </h2>
             <p className="mt-4 text-lg text-forest-500/70">
-              A short discovery call usually narrows it down faster than
-              reading through seven pages. Tell us what matters most — quiet,
-              community, beach access, infrastructure, build potential — and
-              we&rsquo;ll point you to one or two districts to explore first.
+              Короткий вводный звонок обычно сужает выбор быстрее, чем чтение семи
+              страниц. Скажите, что важнее всего — тишина, сообщество, выход к пляжу,
+              инфраструктура, потенциал застройки — и мы подскажем один-два района,
+              с которых стоит начать.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
-                href="/contact"
+                href={"/ru/contact" as Route}
                 className="inline-flex items-center gap-2 rounded-sm bg-forest-500 px-6 py-3 text-sm font-medium text-cream-100 transition-colors hover:bg-forest-400"
               >
-                Book a discovery call
+                Записаться на вводный звонок
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>

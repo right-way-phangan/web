@@ -178,7 +178,7 @@ const chrome: Record<Locale, ChromeDict> = {
     // so the nav never links to a 404 between deploys.
     nav: [
       { label: "Объекты", href: "/listings" },
-      { label: "Районы", href: "/districts" },
+      { label: "Районы", href: "/ru/districts" },
       { label: "Калькулятор", href: "/calculator" },
       { label: "Аналитика", href: "/insights" },
       { label: "Услуги", href: "/ru/services" },
