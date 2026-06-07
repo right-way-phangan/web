@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { SavedProvider } from "@/lib/saved/saved-context";
 import { OrganizationJsonLd } from "@/components/seo/organization-json-ld";
 import { siteConfig } from "@/lib/site-config";
 import { getSiteUrl } from "@/lib/site-url";
@@ -82,9 +83,11 @@ export default function RootLayout({
           }}
         />
         <OrganizationJsonLd siteUrl={siteUrl} />
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <SavedProvider>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </SavedProvider>
         <Analytics />
         <SpeedInsights />
       </body>
