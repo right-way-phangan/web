@@ -6,14 +6,25 @@ import { usePathname } from "next/navigation";
 import { Globe } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 
-/**
- * Compact EN/RU switch. Russian currently has a localized home at /ru; other
- * routes fall back to EN, so the switch points at the home of the other locale
- * rather than a per-page mapping (which arrives as routes are ported).
- */
+// EN ↔ RU page pairs. Routes with a Russian version map across directly; anything
+// else falls back to the other locale's home (RU listings/districts/etc. aren't
+// ported yet — their content is EN-sourced).
+const PAIRS: Record<string, string> = {
+  "/": "/ru",
+  "/about": "/ru/about",
+  "/services": "/ru/services",
+  "/process": "/ru/process",
+  "/contact": "/ru/contact",
+};
+const EN_OF = Object.fromEntries(Object.entries(PAIRS).map(([en, ru]) => [ru, en]));
+
 export function LanguageSwitcher({ className }: { className?: string }) {
   const pathname = usePathname();
   const isRu = pathname === "/ru" || pathname.startsWith("/ru/");
+
+  // Target hrefs that keep the visitor on the equivalent page where one exists.
+  const enHref = isRu ? (EN_OF[pathname] ?? "/") : pathname;
+  const ruHref = isRu ? pathname : (PAIRS[pathname] ?? "/ru");
 
   return (
     <div
@@ -24,7 +35,7 @@ export function LanguageSwitcher({ className }: { className?: string }) {
     >
       <Globe className="h-3.5 w-3.5 text-forest-500/50" aria-hidden />
       <Link
-        href={"/" as Route}
+        href={enHref as Route}
         aria-current={!isRu ? "page" : undefined}
         className={cn(
           "rounded-sm px-1.5 py-0.5 transition-colors hover:text-brass-500",
@@ -35,7 +46,7 @@ export function LanguageSwitcher({ className }: { className?: string }) {
       </Link>
       <span aria-hidden className="text-forest-500/25">/</span>
       <Link
-        href={"/ru" as Route}
+        href={ruHref as Route}
         aria-current={isRu ? "page" : undefined}
         className={cn(
           "rounded-sm px-1.5 py-0.5 transition-colors hover:text-brass-500",

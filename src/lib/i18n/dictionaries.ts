@@ -132,6 +132,9 @@ export interface ChromeDict {
   savedAria: string;
 }
 
+// EN nav mirrors siteConfig.nav 1:1 (the header now reads this for both locales,
+// so it must stay in sync). RU is the localized equivalent, pointing at /ru/*
+// where a Russian page exists and EN routes otherwise.
 const chrome: Record<Locale, ChromeDict> = {
   en: {
     nav: [
@@ -139,8 +142,11 @@ const chrome: Record<Locale, ChromeDict> = {
       { label: "Districts", href: "/districts" },
       { label: "Calculator", href: "/calculator" },
       { label: "Insights", href: "/insights" },
+      { label: "Services", href: "/services" },
+      { label: "Process", href: "/process" },
       { label: "About", href: "/about" },
       { label: "Knowledge", href: "/knowledge" },
+      { label: "FAQ", href: "/faq" },
       { label: "Contact", href: "/contact" },
     ],
     getInTouch: "Get in touch",
@@ -152,8 +158,11 @@ const chrome: Record<Locale, ChromeDict> = {
       { label: "Районы", href: "/districts" },
       { label: "Калькулятор", href: "/calculator" },
       { label: "Аналитика", href: "/insights" },
+      { label: "Услуги", href: "/ru/services" },
+      { label: "Процесс", href: "/ru/process" },
       { label: "О нас", href: "/ru/about" },
       { label: "База знаний", href: "/knowledge" },
+      { label: "FAQ", href: "/faq" },
       { label: "Контакты", href: "/ru/contact" },
     ],
     getInTouch: "Связаться",
@@ -337,4 +346,184 @@ const contact: Record<Locale, ContactDict> = {
 
 export function getContactDict(locale: Locale): ContactDict {
   return contact[locale];
+}
+
+// ---- Services page ----
+
+export interface ServicesDict {
+  hero: { eyebrow: string; title: string; lede: string };
+  services: { title: string; text: string; meta: string }[];
+  boundaries: { eyebrow: string; title: string; body: string[] };
+  commission: {
+    eyebrow: string;
+    title: string;
+    lede: string;
+    rows: { label: string; value: string; detail: string; payer: string }[];
+    note: string;
+  };
+  cta: { title: string; lede: string; start: string; process: string };
+}
+
+const services: Record<Locale, ServicesDict> = {
+  en: {
+    hero: {
+      eyebrow: "Services",
+      title: "Three services. Each done properly.",
+      lede: "We deliberately do not offer rental management, construction, short-term lets or property staging. Our entire operation is built around three services, each one carrying the same level of documentation and care.",
+    },
+    services: [
+      {
+        title: "Land acquisition advisory",
+        text: "For clients buying land to build, develop, or hold. We work across freehold (Chanote) and leasehold structures, with deep familiarity in the document chain. Each plot undergoes a four-stage check: title verification at the Land Office, boundary survey reconciliation, access and easement review, and zoning compliance. You receive a written report before signing anything.",
+        meta: "Typical engagement: 4–12 weeks",
+      },
+      {
+        title: "Villa and house transactions",
+        text: "For clients buying a finished home or villa, whether for personal use or long-term hold. Each villa transaction includes structural review, utility verification, ownership history, and a clear comparison against current market rates in the same district.",
+        meta: "Typical engagement: 2–6 weeks",
+      },
+      {
+        title: "Standalone transaction support",
+        text: "For clients who already found their property — directly, through another agent, or via a private contact — but want professional support through the closing process. We work as your representative at the Land Office and through legal proceedings.",
+        meta: "Fixed fee from 60,000 THB",
+      },
+    ],
+    boundaries: {
+      eyebrow: "Boundaries",
+      title: "Where we stop",
+      body: [
+        "We do not manage rental properties. We do not arrange short-term stays. We do not build, renovate, or design. We do not buy off-plan condominiums.",
+        "We refer trusted partners for each of these — but our own operation stays focused on what we know best: helping you buy a piece of land or a home, properly.",
+      ],
+    },
+    commission: {
+      eyebrow: "Commission",
+      title: "Honest about the fee.",
+      lede: "The commission is paid by the seller and built into the price, in line with island norms. As a buyer, you pay us nothing — only the statutory Land Office fees on registration.",
+      rows: [
+        { label: "Commission", value: "5% of the deal", detail: "Due diligence, sale agreement, and transaction representation included.", payer: "Paid by the seller" },
+        { label: "Minimum fee", value: "150,000 THB", detail: "On smaller deals, the higher of 5% or this floor applies — due diligence costs the same regardless of price.", payer: "Paid by the seller" },
+        { label: "Complex structure", value: "+0.5–1%", detail: "Thai company setup, multi-property or non-trivial leasehold deals.", payer: "Paid by the seller" },
+      ],
+      note: "Nothing charged to the buyer, no hidden add-ons, no kickbacks. On a leasehold villa the commission is based on the full transaction value — the land lease prepayment plus the building.",
+    },
+    cta: {
+      title: "Ready to start?",
+      lede: "Tell us what you're looking for. A 30-minute discovery call costs you nothing and saves both of us weeks down the road.",
+      start: "Start a brief",
+      process: "See our process",
+    },
+  },
+  ru: {
+    hero: {
+      eyebrow: "Услуги",
+      title: "Три услуги. Каждая — как надо.",
+      lede: "Мы сознательно не занимаемся управлением арендой, строительством, краткосрочной сдачей и предпродажной подготовкой. Вся работа построена вокруг трёх услуг — и каждая выполняется с одинаковым уровнем документации и внимания.",
+    },
+    services: [
+      {
+        title: "Сопровождение покупки земли",
+        text: "Для тех, кто покупает землю под застройку, девелопмент или в актив. Работаем и с фрихолдом (чанот), и с лизхолдом, хорошо знаем всю цепочку документов. Каждый участок проходит проверку из четырёх этапов: титул в Земельном управлении, сверка границ, права доступа и сервитуты, соответствие зонированию. Письменный отчёт — до подписания чего-либо.",
+        meta: "Обычный срок: 4–12 недель",
+      },
+      {
+        title: "Сделки с виллами и домами",
+        text: "Для тех, кто покупает готовый дом или виллу — для себя или в долгосрочный актив. Каждая сделка включает проверку конструктива, коммуникаций, истории владения и понятное сравнение с текущими ценами в том же районе.",
+        meta: "Обычный срок: 2–6 недель",
+      },
+      {
+        title: "Сопровождение отдельной сделки",
+        text: "Для тех, кто уже нашёл объект — напрямую, через другого агента или по личным контактам — но хочет профессиональной поддержки на этапе закрытия. Представляем ваши интересы в Земельном управлении и в юридических процедурах.",
+        meta: "Фикс. гонорар от 60 000 THB",
+      },
+    ],
+    boundaries: {
+      eyebrow: "Границы",
+      title: "Где мы останавливаемся",
+      body: [
+        "Мы не управляем арендой. Не организуем краткосрочное проживание. Не строим, не делаем ремонт и проект. Не покупаем кондоминиумы на стадии котлована.",
+        "По каждому из этих направлений рекомендуем проверенных партнёров — но сами остаёмся в том, что знаем лучше всего: помогаем грамотно купить землю или дом.",
+      ],
+    },
+    commission: {
+      eyebrow: "Комиссия",
+      title: "Честно о вознаграждении.",
+      lede: "Комиссию платит продавец, она зашита в цену — по нормам острова. Как покупатель, вы не платите нам ничего, только государственные сборы Земельного управления при регистрации.",
+      rows: [
+        { label: "Комиссия", value: "5% от сделки", detail: "Включает due diligence, договор купли-продажи и представление интересов в сделке.", payer: "Платит продавец" },
+        { label: "Минимальный гонорар", value: "150 000 THB", detail: "На небольших сделках применяется большее из 5% или этого минимума — проверка стоит одинаково независимо от цены.", payer: "Платит продавец" },
+        { label: "Сложная структура", value: "+0,5–1%", detail: "Регистрация тайской компании, несколько объектов или нетривиальный лизхолд.", payer: "Платит продавец" },
+      ],
+      note: "С покупателя — ничего, без скрытых надбавок и откатов. По лизхолд-вилле комиссия считается от полной стоимости сделки — предоплата аренды земли плюс строение.",
+    },
+    cta: {
+      title: "Готовы начать?",
+      lede: "Расскажите, что вы ищете. 30-минутный вводный звонок бесплатен и экономит нам обоим недели в будущем.",
+      start: "Описать задачу",
+      process: "Посмотреть процесс",
+    },
+  },
+};
+
+export function getServicesDict(locale: Locale): ServicesDict {
+  return services[locale];
+}
+
+// ---- Process page ----
+
+export interface ProcessDict {
+  hero: { eyebrow: string; title: string; lede: string };
+  steps: { number: number; title: string; duration?: string; text: string }[];
+  cta: { title: string; lede: string; book: string; browse: string };
+}
+
+const process: Record<Locale, ProcessDict> = {
+  en: {
+    hero: {
+      eyebrow: "Process",
+      title: "From discovery to title in seven stages.",
+      lede: "Every transaction follows the same sequence. Each stage has a defined deliverable and a clear point at which you can walk away with no obligation.",
+    },
+    steps: [
+      { number: 1, title: "Discovery call", duration: "30 minutes", text: "We learn what you want to do with the property: live, hold, build, divide. Without this context, every property is just numbers. With it, we know which of our listings actually fit." },
+      { number: 2, title: "Shortlist", duration: "Within 5 business days", text: "We send a written shortlist of three to seven properties with full data: location, document type, tenure, area in Thai units and m², and our honest read on each one — including drawbacks." },
+      { number: 3, title: "On-site tour", duration: "One full day", text: "We arrange and accompany visits to the shortlisted properties — typically three to five in a single day. We bring district context, owner history, and our notes from previous due diligence." },
+      { number: 4, title: "Offer and negotiation", text: "Once you choose a property, we structure the offer and negotiate on your behalf: payment schedule, contingencies, and any seller-side commitments (existing structures, utilities, fencing)." },
+      { number: 5, title: "Due diligence", duration: "1–3 weeks", text: "A documented, written process: title verification at the Land Office, boundary reconciliation, encumbrance and mortgage check, zoning compliance, access rights, and water and electricity availability. Deliverable: a single PDF report you review before signing." },
+      { number: 6, title: "Sale and Purchase Agreement", text: "A bilingual agreement (English–Thai) drafted by our partner law firm. We review every clause with you and explain Thai-specific provisions in plain language. Deposit is held in escrow until closing." },
+      { number: 7, title: "Closing at the Land Office", text: "We represent you at the Land Office for title transfer, tax payment, and registration. You receive originals of all documents, our final transaction report, and contacts for ongoing matters." },
+    ],
+    cta: {
+      title: "Ready when you are.",
+      lede: "A discovery call is the cheapest hour we'll spend together — and the most useful. Bring your questions, even the ones that feel obvious.",
+      book: "Book a call",
+      browse: "Browse listings first",
+    },
+  },
+  ru: {
+    hero: {
+      eyebrow: "Процесс",
+      title: "От первого звонка до титула — семь этапов.",
+      lede: "Каждая сделка идёт по одной и той же последовательности. У каждого этапа есть понятный результат и момент, когда вы можете выйти без обязательств.",
+    },
+    steps: [
+      { number: 1, title: "Вводный звонок", duration: "30 минут", text: "Выясняем, что вы хотите делать с объектом: жить, держать, строить, делить. Без этого контекста любой объект — просто цифры. С ним мы знаем, какие из наших объектов вам реально подходят." },
+      { number: 2, title: "Шорт-лист", duration: "В течение 5 рабочих дней", text: "Присылаем письменный список из трёх–семи объектов с полными данными: локация, тип документа, вид владения, площадь в тайских единицах и м², и наша честная оценка каждого — включая минусы." },
+      { number: 3, title: "Выезд на объекты", duration: "Один полный день", text: "Организуем и сопровождаем просмотры из шорт-листа — обычно три–пять объектов за день. Приносим контекст по району, историю владельца и заметки с прошлых проверок." },
+      { number: 4, title: "Оффер и переговоры", text: "Когда вы выбрали объект, мы структурируем предложение и ведём переговоры от вашего имени: график платежей, условия (финансирование, завершение проверки) и обязательства со стороны продавца (строения, коммуникации, забор)." },
+      { number: 5, title: "Due diligence", duration: "1–3 недели", text: "Задокументированный письменный процесс: проверка титула в Земельном управлении, сверка границ, проверка обременений и залогов, зонирование, права доступа, наличие воды и электричества. Результат — единый PDF-отчёт, который вы изучаете до подписания." },
+      { number: 6, title: "Договор купли-продажи", text: "Двуязычный договор (англ.–тайск.) от нашей партнёрской юрфирмы. Разбираем с вами каждый пункт и объясняем тайские нюансы простым языком. Задаток — на эскроу до закрытия." },
+      { number: 7, title: "Закрытие в Земельном управлении", text: "Представляем вас в Земельном управлении при передаче титула, уплате налогов и регистрации. Вы получаете оригиналы всех документов, итоговый отчёт по сделке и контакты по дальнейшим вопросам." },
+    ],
+    cta: {
+      title: "Когда будете готовы.",
+      lede: "Вводный звонок — самый дешёвый час из тех, что мы проведём вместе, и самый полезный. Приходите с вопросами, даже с теми, что кажутся очевидными.",
+      book: "Записаться на звонок",
+      browse: "Сначала посмотреть объекты",
+    },
+  },
+};
+
+export function getProcessDict(locale: Locale): ProcessDict {
+  return process[locale];
 }
