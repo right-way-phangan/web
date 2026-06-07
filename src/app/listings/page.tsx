@@ -10,6 +10,7 @@ import {
   applySort,
   deriveFilterOptions,
   isFiltered,
+  summarizeForBrief,
 } from "@/lib/filters/listings";
 
 export const metadata: Metadata = {
@@ -61,7 +62,11 @@ export default async function ListingsPage({ searchParams }: PageProps) {
       />
 
       {sorted.length === 0 ? (
-        <ListingsEmpty filtered={isAnyFilter} clearHref="/listings" />
+        <ListingsEmpty
+          filtered={isAnyFilter}
+          clearHref="/listings"
+          briefMessage={summarizeForBrief(filter, q)}
+        />
       ) : (
         <ListingsSplit objects={sorted} />
       )}

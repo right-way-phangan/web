@@ -89,6 +89,33 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
     current.type.length === 0 ||
     current.type.some((t) => ["Villa", "House", "Apartment"].includes(t));
 
+  // Flat list of active filters, each removable on its own (handy for the
+  // select-based ones — district, price, beds, sort — that have no quick off).
+  const activeFilters: Array<{ key: string; label: string; remove: () => void }> = [
+    ...current.type.map((t) => ({
+      key: `type-${t}`,
+      label: t,
+      remove: () => toggleMulti("type", t, current.type),
+    })),
+    ...current.district.map((d) => ({
+      key: `district-${d}`,
+      label: d,
+      remove: () => setSingle("district", undefined),
+    })),
+    ...current.tenure.map((t) => ({
+      key: `tenure-${t}`,
+      label: t,
+      remove: () => toggleMulti("tenure", t, current.tenure),
+    })),
+    ...(priceMinM ? [{ key: "pmin", label: `≥ ฿${priceMinM}M`, remove: () => setSingle("pmin", undefined) }] : []),
+    ...(priceMaxM ? [{ key: "pmax", label: `≤ ฿${priceMaxM}M`, remove: () => setSingle("pmax", undefined) }] : []),
+    ...(current.bedroomsMin ? [{ key: "beds", label: `${current.bedroomsMin}+ bed`, remove: () => setSingle("bedrooms", undefined) }] : []),
+    ...(current.beachfront ? [{ key: "beachfront", label: "Beachfront", remove: () => setSingle("beachfront", undefined) }] : []),
+    ...(current.seaView ? [{ key: "seaview", label: "Sea view", remove: () => setSingle("seaview", undefined) }] : []),
+    ...(current.mountainView ? [{ key: "mountainview", label: "Mountain view", remove: () => setSingle("mountainview", undefined) }] : []),
+    ...(current.sort !== "featured" ? [{ key: "sort", label: `Sort: ${SORT_LABELS[current.sort]}`, remove: () => setSingle("sort", undefined) }] : []),
+  ];
+
   return (
     <div
       className={cn(
@@ -232,6 +259,23 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
           ) : null}
         </div>
       </div>
+
+      {activeFilters.length > 0 ? (
+        <div className="mt-3 flex flex-wrap items-center gap-1.5">
+          {activeFilters.map((f) => (
+            <button
+              key={f.key}
+              type="button"
+              onClick={f.remove}
+              className="inline-flex items-center gap-1 rounded-full bg-forest-500/10 px-2.5 py-1 text-xs text-forest-500 transition-colors hover:bg-forest-500/20"
+              aria-label={`Remove ${f.label}`}
+            >
+              {f.label}
+              <X className="h-3 w-3" />
+            </button>
+          ))}
+        </div>
+      ) : null}
 
       <p className="mt-3 text-xs text-forest-500/50">
         {filtered ? `${totalCount} matching` : `${totalCount} total`} ·{" "}
