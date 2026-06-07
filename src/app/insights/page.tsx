@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/sections/page-hero";
 import { RentalInsights } from "@/components/insights/rental-insights";
+import { SalePrices } from "@/components/insights/sale-prices";
 import { getRentalMarket, buildInventoryYield } from "@/lib/data/rental-market";
 import { getPublicObjects } from "@/lib/data/objects";
+import { buildSalePriceByDistrict } from "@/lib/data/sale-prices";
 
 export const metadata: Metadata = {
-  title: "Market insights — Koh Phangan rental data",
+  title: "Market insights — Koh Phangan land prices & rental data",
   description:
-    "What a villa earns per night by district on Koh Phangan, the premium a pool or sea view commands, and which configuration is worth building for rental. Based on a live snapshot of Airbnb listings.",
+    "Median land price per rai by district on Koh Phangan, what a villa earns per night, the premium a pool or sea view commands, and which configuration is worth building for rental. Based on live listings.",
 };
 
 export const revalidate = 300;
@@ -16,15 +18,17 @@ export default async function InsightsPage() {
   const data = getRentalMarket();
   const objects = await getPublicObjects();
   const inventory = buildInventoryYield(objects, data);
+  const salePrices = buildSalePriceByDistrict(objects);
 
   return (
     <section className="pb-24">
       <PageHero
         eyebrow="Market insights"
-        title="What to build for rental — the data."
-        lede="We track nightly rates across the island so you don't have to guess. See how much a villa earns by district, what a pool or sea view adds, and which configuration pays back fastest — then run your own numbers in the calculator."
+        title="The Phangan market — in numbers."
+        lede="What land costs per rai by district, how much a villa earns a night, what a pool or sea view adds, and which configuration pays back fastest. Live data, so you don't have to guess — then run your own numbers in the calculator."
       />
-      <div className="container-prose mt-12 md:mt-16">
+      <div className="container-prose mt-12 space-y-14 md:mt-16 md:space-y-20">
+        <SalePrices stats={salePrices} />
         <RentalInsights data={data} inventory={inventory} />
       </div>
     </section>

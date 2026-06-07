@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getPublicObjects } from "@/lib/data/objects";
 import { SavedListings } from "@/components/objects/saved-listings";
+import { SavedSearches } from "@/components/objects/saved-searches";
 
 export const metadata: Metadata = {
   title: "Saved",
@@ -27,6 +28,7 @@ export default async function SavedPage() {
       </p>
 
       <SavedListings catalog={catalog} />
+      <SavedSearches />
     </section>
   );
 }

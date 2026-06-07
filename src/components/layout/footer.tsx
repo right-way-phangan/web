@@ -32,7 +32,7 @@ export function Footer() {
               Explore
             </h4>
             <ul className="mt-5 space-y-3">
-              {siteConfig.nav.map((item) => (
+              {[...siteConfig.nav, ...siteConfig.footerExtra].map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href as Route}

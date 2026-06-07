@@ -100,7 +100,24 @@ export default async function ObjectPage({ params }: Props) {
               </div>
               <PriceContextBadge object={object} catalog={catalog} />
             </>
-          ) : null}
+          ) : object.pricePerRai ? (
+            <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <span className="num text-3xl text-forest-900 md:text-4xl">
+                {formatPricePerRai(object.pricePerRai)}
+              </span>
+            </div>
+          ) : object.rentPerRaiMonth ? (
+            <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <span className="num text-3xl text-forest-900 md:text-4xl">
+                {formatPriceTHB(object.rentPerRaiMonth)}
+              </span>
+              <span className="text-sm text-forest-500/60">/ rai / month</span>
+            </div>
+          ) : (
+            <p className="mt-4 text-lg italic text-forest-500/60">
+              Price on request
+            </p>
+          )}
 
           {object.district ? (
             <div className="mt-4 flex flex-wrap items-center gap-2 text-sm text-forest-500/70">

@@ -5,6 +5,7 @@ import type { Route } from "next";
 import { useState } from "react";
 import { Menu, X, Heart } from "lucide-react";
 import { Logo } from "./logo";
+import { LanguageSwitcher } from "@/components/i18n/language-switcher";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/lib/site-config";
 import { useSaved } from "@/lib/saved/saved-context";
@@ -33,6 +34,7 @@ export function Header() {
         </nav>
 
         <div className="hidden md:flex md:items-center md:gap-3">
+          <LanguageSwitcher />
           <SavedLink count={savedCount} />
           <Button asChild variant="outline" size="sm">
             <Link href="/contact">Get in touch</Link>
@@ -73,6 +75,9 @@ export function Header() {
               {item.label}
             </Link>
           ))}
+          <div className="pt-3">
+            <LanguageSwitcher />
+          </div>
         </nav>
       </div>
     </header>

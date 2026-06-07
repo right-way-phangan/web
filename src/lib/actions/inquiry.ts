@@ -28,7 +28,7 @@ const inquirySchema = z
     // Hidden / context fields
     rwNumber: z.string().optional(),       // present on object inquiry, absent on /contact
     source: z.enum(["object", "contact"]), // discriminator
-    kind: z.enum(["inquiry", "calculator", "market-report", "shortlist"]).optional(), // calculator = ROI-calc; market-report = /insights unlock; shortlist = saved-listings batch
+    kind: z.enum(["inquiry", "calculator", "market-report", "shortlist", "saved-search"]).optional(), // calculator = ROI-calc; market-report = /insights unlock; shortlist = saved-listings batch; saved-search = new-listing alert request
     utm_source: z.string().optional(),
     utm_medium: z.string().optional(),
     utm_campaign: z.string().optional(),
@@ -111,6 +111,7 @@ export async function submitInquiry(
   const isCalc = data.kind === "calculator";
   const isMarketReport = data.kind === "market-report";
   const isShortlist = data.kind === "shortlist";
+  const isSavedSearch = data.kind === "saved-search";
   const isViewing = Boolean(data.viewingDate);
   const tags = [
     "website",
@@ -118,6 +119,7 @@ export async function submitInquiry(
     ...(isCalc ? ["calculator"] : []),
     ...(isMarketReport ? ["market-report"] : []),
     ...(isShortlist ? ["shortlist"] : []),
+    ...(isSavedSearch ? ["saved-search"] : []),
     ...(isViewing ? ["viewing"] : []),
     ...(data.rwNumber ? [`object:${data.rwNumber}`] : []),
     ...utmTags(data),
@@ -136,11 +138,13 @@ export async function submitInquiry(
       ? "Market report"
       : isShortlist
         ? "Shortlist"
-        : isCalc
-          ? "Calc lead"
-          : data.rwNumber
-            ? "Web inquiry"
-            : "Web contact";
+        : isSavedSearch
+          ? "New-listing alert"
+          : isCalc
+            ? "Calc lead"
+            : data.rwNumber
+              ? "Web inquiry"
+              : "Web contact";
   const leadName = data.rwNumber
     ? `${namePrefix} · ${data.rwNumber}${objectTitle ? ` · ${objectTitle.slice(0, 60)}` : ""}`
     : `${namePrefix} · ${data.name}`;

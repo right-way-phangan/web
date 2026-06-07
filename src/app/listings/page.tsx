@@ -39,20 +39,20 @@ export default async function ListingsPage({ searchParams }: PageProps) {
   const q = (Array.isArray(qRaw) ? qRaw[0] : qRaw) ?? "";
 
   return (
-    <section className="container-prose py-16 md:py-24">
+    <section className="container-prose py-10 md:py-14">
       <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
         Listings
       </p>
-      <h1 className="mt-4 max-w-3xl text-balance">
+      <h1 className="mt-3 max-w-3xl text-balance scroll-mt-24">
         Every active property on Phangan.
       </h1>
-      <p className="mt-6 max-w-xl text-lg text-forest-500/70">
+      <p className="mt-3 max-w-xl text-base text-forest-500/70">
         {isAnyFilter
           ? `${sorted.length} ${sorted.length === 1 ? "match" : "matches"} from ${all.length} total listings.`
           : `${all.length} ${all.length === 1 ? "property" : "properties"} ready to view.`}
       </p>
 
-      <div className="mt-8">
+      <div className="mt-5">
         <NlSearch initialQuery={q} />
       </div>
 

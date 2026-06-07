@@ -2,10 +2,12 @@
 
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import type { Route } from "next";
-import { useTransition } from "react";
-import { Check, X, ChevronDown } from "lucide-react";
+import { useEffect, useRef, useState, useTransition } from "react";
+import { Check, X, ChevronDown, BellPlus, BellRing, SlidersHorizontal } from "lucide-react";
 import type { ObjectType, TenureType } from "@/types/object";
 import type { ListingsFilter, SortOption } from "@/lib/filters/listings";
+import { describeFilter } from "@/lib/filters/listings";
+import { useSavedSearches } from "@/lib/saved/saved-searches";
 import { cn } from "@/lib/utils/cn";
 
 interface Props {
@@ -29,7 +31,7 @@ const TENURE_OPTIONS: TenureType[] = ["Freehold", "Leasehold"];
 const BEDROOM_OPTIONS = [1, 2, 3, 4, 5];
 
 // Price stops in millions of THB (URL params ?pmin / ?pmax are in millions).
-const PRICE_STOPS = [5, 10, 20, 30, 50, 75, 100];
+const PRICE_STOPS = [5, 10, 15, 20, 25, 30, 40, 50, 75, 100];
 const priceLabel = (m: number) => `฿${m}M`;
 
 export function ListingsFilterBar({ current, options, totalCount }: Props) {
@@ -37,6 +39,10 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
   const pathname = usePathname();
   const params = useSearchParams();
   const [pending, startTransition] = useTransition();
+  const { has: hasSearch, save: saveSearch, ready: searchesReady } = useSavedSearches();
+  // Secondary filters (tenure, views, beds) collapse on mobile to keep the bar
+  // short; desktop always shows them via `lg:flex`.
+  const [showMore, setShowMore] = useState(false);
 
   function update(mutator: (p: URLSearchParams) => void) {
     const next = new URLSearchParams(params.toString());
@@ -85,6 +91,26 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
   const priceMinM = current.priceMinThb ? current.priceMinThb / 1_000_000 : undefined;
   const priceMaxM = current.priceMaxThb ? current.priceMaxThb / 1_000_000 : undefined;
 
+  // Saved-search identity ignores sort order (not part of intent), so featured
+  // vs price-sorted views of the same filters don't become two saved searches.
+  const queryParam = params.get("q") ?? undefined;
+  const savedQuery = (() => {
+    const p = new URLSearchParams(params.toString());
+    p.delete("sort");
+    return p.toString();
+  })();
+  const canSaveSearch = (filtered || Boolean(queryParam)) && savedQuery.length > 0;
+  const alreadySaved = searchesReady && hasSearch(savedQuery);
+
+  // How many of the collapsible (secondary) filters are active — shown on the
+  // mobile "More filters" toggle so a closed panel still signals active filters.
+  const secondaryActiveCount =
+    current.tenure.length +
+    (current.beachfront ? 1 : 0) +
+    (current.seaView ? 1 : 0) +
+    (current.mountainView ? 1 : 0) +
+    (current.bedroomsMin ? 1 : 0);
+
   const showBedrooms =
     current.type.length === 0 ||
     current.type.some((t) => ["Villa", "House", "Apartment"].includes(t));
@@ -100,7 +126,7 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
     ...current.district.map((d) => ({
       key: `district-${d}`,
       label: d,
-      remove: () => setSingle("district", undefined),
+      remove: () => toggleMulti("district", d, current.district),
     })),
     ...current.tenure.map((t) => ({
       key: `tenure-${t}`,
@@ -141,18 +167,13 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
         <Divider />
 
         {/* District multi-select */}
-        <Select
+        <MultiSelect
           label="District"
           placeholder="Any district"
-          value={current.district[0] ?? ""}
-          activeCount={current.district.length}
-          options={options.districts.map((d) => ({ value: d, label: d }))}
-          onChange={(v) => {
-            update((p) => {
-              if (!v) p.delete("district");
-              else p.set("district", v);
-            });
-          }}
+          selected={current.district}
+          options={options.districts}
+          onToggle={(d) => toggleMulti("district", d, current.district)}
+          onClear={() => setSingle("district", undefined)}
         />
 
         {/* Price range (millions THB) */}
@@ -177,67 +198,93 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
           onChange={(v) => setSingle("pmax", v || undefined)}
         />
 
-        <Divider />
-
-        {/* Tenure chips */}
-        {TENURE_OPTIONS.map((t) => {
-          const active = current.tenure.includes(t);
-          return (
-            <Chip
-              key={t}
-              active={active}
-              onClick={() => toggleMulti("tenure", t, current.tenure)}
-            >
-              {t}
-            </Chip>
-          );
-        })}
-
-        <Divider />
-
-        {/* Feature toggles */}
-        <Chip
-          active={current.beachfront}
-          onClick={() => setSingle("beachfront", current.beachfront ? undefined : "1")}
+        {/* Mobile-only toggle for the secondary filters below */}
+        <button
+          type="button"
+          onClick={() => setShowMore((s) => !s)}
+          aria-expanded={showMore}
+          className="inline-flex items-center gap-1.5 rounded-sm border border-forest-500/20 bg-cream-50 px-3 py-1.5 text-xs font-medium text-forest-500 lg:hidden"
         >
-          Beachfront
-        </Chip>
-        <Chip
-          active={current.seaView}
-          onClick={() => setSingle("seaview", current.seaView ? undefined : "1")}
-        >
-          Sea view
-        </Chip>
-        <Chip
-          active={current.mountainView}
-          onClick={() =>
-            setSingle("mountainview", current.mountainView ? undefined : "1")
-          }
-        >
-          Mountain view
-        </Chip>
+          <SlidersHorizontal className="h-3 w-3" />
+          More
+          {secondaryActiveCount > 0 ? (
+            <span className="inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-forest-500 px-1 text-[10px] text-cream-100">
+              {secondaryActiveCount}
+            </span>
+          ) : null}
+          <ChevronDown className={cn("h-3 w-3 transition-transform", showMore && "rotate-180")} />
+        </button>
 
-        {/* Bedrooms (conditional) */}
-        {showBedrooms ? (
-          <>
-            <Divider />
-            <Select
-              label="Beds"
-              placeholder="Any beds"
-              value={current.bedroomsMin?.toString() ?? ""}
-              options={BEDROOM_OPTIONS.map((n) => ({
-                value: String(n),
-                label: `${n}+`,
-              }))}
-              onChange={(v) => setSingle("bedrooms", v || undefined)}
-            />
-          </>
-        ) : null}
+        {/* Secondary filters — collapsed on mobile, always inline on desktop */}
+        <div
+          className={cn(
+            "w-full flex-wrap items-center gap-2 lg:w-auto lg:flex",
+            showMore ? "flex" : "hidden",
+          )}
+        >
+          <Divider />
+
+          {/* Tenure chips */}
+          {TENURE_OPTIONS.map((t) => {
+            const active = current.tenure.includes(t);
+            return (
+              <Chip
+                key={t}
+                active={active}
+                onClick={() => toggleMulti("tenure", t, current.tenure)}
+              >
+                {t}
+              </Chip>
+            );
+          })}
+
+          <Divider />
+
+          {/* Feature toggles */}
+          <Chip
+            active={current.beachfront}
+            onClick={() => setSingle("beachfront", current.beachfront ? undefined : "1")}
+          >
+            Beachfront
+          </Chip>
+          <Chip
+            active={current.seaView}
+            onClick={() => setSingle("seaview", current.seaView ? undefined : "1")}
+          >
+            Sea view
+          </Chip>
+          <Chip
+            active={current.mountainView}
+            onClick={() =>
+              setSingle("mountainview", current.mountainView ? undefined : "1")
+            }
+          >
+            Mountain view
+          </Chip>
+
+          {/* Bedrooms (conditional) */}
+          {showBedrooms ? (
+            <>
+              <Divider />
+              <Select
+                label="Beds"
+                placeholder="Any beds"
+                value={current.bedroomsMin?.toString() ?? ""}
+                options={BEDROOM_OPTIONS.map((n) => ({
+                  value: String(n),
+                  label: `${n}+`,
+                }))}
+                onChange={(v) => setSingle("bedrooms", v || undefined)}
+              />
+            </>
+          ) : null}
+        </div>
 
         <div className="ml-auto flex items-center gap-2">
           {/* Sort */}
           <Select
             label="Sort"
+            title="Featured = the order we recommend (curated). Or sort by newest / price."
             value={current.sort}
             options={(Object.keys(SORT_LABELS) as SortOption[]).map((s) => ({
               value: s,
@@ -245,6 +292,40 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
             }))}
             onChange={(v) => setSingle("sort", v === "featured" ? undefined : v)}
           />
+
+          {/* Save this search */}
+          {canSaveSearch ? (
+            <button
+              type="button"
+              onClick={() =>
+                saveSearch(describeFilter(current, queryParam), savedQuery)
+              }
+              disabled={alreadySaved}
+              title={
+                alreadySaved
+                  ? "Saved — manage it on your Saved page"
+                  : "Save this search to revisit it later"
+              }
+              className={cn(
+                "inline-flex items-center gap-1 rounded-sm px-3 py-1.5 text-xs transition-colors",
+                alreadySaved
+                  ? "text-brass-500"
+                  : "text-forest-500/70 hover:bg-forest-500/5 hover:text-forest-500",
+              )}
+            >
+              {alreadySaved ? (
+                <>
+                  <BellRing className="h-3 w-3" />
+                  Saved
+                </>
+              ) : (
+                <>
+                  <BellPlus className="h-3 w-3" />
+                  Save search
+                </>
+              )}
+            </button>
+          ) : null}
 
           {/* Clear */}
           {filtered ? (
@@ -277,10 +358,16 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
         </div>
       ) : null}
 
-      <p className="mt-3 text-xs text-forest-500/50">
-        {filtered ? `${totalCount} matching` : `${totalCount} total`} ·{" "}
-        {pending ? "Updating…" : `Showing ${current.sort}`}
-      </p>
+      {/* The hero subtitle already states the unfiltered total, so only surface
+          this line once it carries new information (a filter/sort is active or
+          a transition is in flight). */}
+      {filtered || pending ? (
+        <p className="mt-3 text-xs text-forest-500/50">
+          {pending
+            ? "Updating…"
+            : `${totalCount} ${totalCount === 1 ? "match" : "matches"} · sorted by ${SORT_LABELS[current.sort].toLowerCase()}`}
+        </p>
+      ) : null}
     </div>
   );
 }
@@ -298,6 +385,7 @@ function Chip({
     <button
       type="button"
       onClick={onClick}
+      aria-pressed={active}
       className={cn(
         "inline-flex items-center gap-1.5 rounded-sm border px-3 py-1.5 text-xs font-medium transition-colors",
         active
@@ -318,6 +406,7 @@ function Divider() {
 function Select({
   label,
   placeholder,
+  title,
   value,
   activeCount,
   options,
@@ -325,13 +414,14 @@ function Select({
 }: {
   label: string;
   placeholder?: string;
+  title?: string;
   value: string;
   activeCount?: number;
   options: Array<{ value: string; label: string }>;
   onChange: (value: string) => void;
 }) {
   return (
-    <label className="relative inline-flex items-center">
+    <label className="relative inline-flex items-center" title={title}>
       <select
         aria-label={label}
         value={value}
@@ -350,5 +440,112 @@ function Select({
       </select>
       <ChevronDown className="pointer-events-none absolute right-2 h-3 w-3 text-forest-500/50" />
     </label>
+  );
+}
+
+/**
+ * Checkbox dropdown for multi-value filters (currently District). The URL layer
+ * and the filter predicate already support several comma-joined values — this is
+ * the control that finally lets a visitor pick more than one.
+ */
+function MultiSelect({
+  label,
+  placeholder,
+  selected,
+  options,
+  onToggle,
+  onClear,
+}: {
+  label: string;
+  placeholder: string;
+  selected: string[];
+  options: string[];
+  onToggle: (value: string) => void;
+  onClear: () => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    function onDocClick(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    }
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpen(false);
+    }
+    document.addEventListener("mousedown", onDocClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDocClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  const count = selected.length;
+  const buttonLabel =
+    count === 0 ? placeholder : count === 1 ? selected[0] : `${count} districts`;
+
+  return (
+    <div ref={ref} className="relative inline-flex">
+      <button
+        type="button"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        onClick={() => setOpen((o) => !o)}
+        className={cn(
+          "inline-flex h-8 items-center gap-1.5 rounded-sm border bg-cream-50 pl-3 pr-2 text-xs font-medium text-forest-500 hover:border-forest-500/50 focus:outline-none focus:ring-2 focus:ring-forest-500/30",
+          count > 0 ? "border-forest-500 bg-forest-500/5" : "border-forest-500/20",
+        )}
+      >
+        {buttonLabel}
+        <ChevronDown className="h-3 w-3 text-forest-500/50" />
+      </button>
+
+      {open ? (
+        <div
+          role="listbox"
+          aria-label={label}
+          aria-multiselectable
+          className="absolute left-0 top-9 z-40 max-h-72 w-56 overflow-auto rounded-sm border border-forest-500/20 bg-cream-50 p-1 shadow-lg"
+        >
+          {count > 0 ? (
+            <button
+              type="button"
+              onClick={onClear}
+              className="mb-1 flex w-full items-center gap-1 rounded-sm px-2 py-1.5 text-xs text-forest-500/70 hover:bg-forest-500/5 hover:text-forest-500"
+            >
+              <X className="h-3 w-3" />
+              Clear districts
+            </button>
+          ) : null}
+          {options.map((opt) => {
+            const active = selected.includes(opt);
+            return (
+              <button
+                key={opt}
+                type="button"
+                role="option"
+                aria-selected={active}
+                onClick={() => onToggle(opt)}
+                className="flex w-full items-center gap-2 rounded-sm px-2 py-1.5 text-left text-xs text-forest-500 hover:bg-forest-500/5"
+              >
+                <span
+                  className={cn(
+                    "flex h-3.5 w-3.5 items-center justify-center rounded-[3px] border",
+                    active
+                      ? "border-forest-500 bg-forest-500 text-cream-100"
+                      : "border-forest-500/30",
+                  )}
+                >
+                  {active ? <Check className="h-2.5 w-2.5" /> : null}
+                </span>
+                {opt}
+              </button>
+            );
+          })}
+        </div>
+      ) : null}
+    </div>
   );
 }

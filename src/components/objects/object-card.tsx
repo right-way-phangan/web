@@ -115,7 +115,19 @@ export function ObjectCard({ object }: Props) {
               </span>
             ) : null}
           </p>
-        ) : null}
+        ) : object.pricePerRai ? (
+          <p className="num text-lg text-forest-900">
+            {formatPriceCompact(object.pricePerRai)}
+            <span className="ml-2 text-xs font-sans text-forest-500/60">/rai</span>
+          </p>
+        ) : object.rentPerRaiMonth ? (
+          <p className="num text-lg text-forest-900">
+            {formatPriceCompact(object.rentPerRaiMonth)}
+            <span className="ml-2 text-xs font-sans text-forest-500/60">/rai/mo</span>
+          </p>
+        ) : (
+          <p className="text-sm italic text-forest-500/55">Price on request</p>
+        )}
 
         <div className="mt-auto flex flex-wrap items-center gap-3 text-xs text-forest-500/70">
           {object.areaRai ? (

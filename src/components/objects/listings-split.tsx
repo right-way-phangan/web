@@ -178,14 +178,16 @@ export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
               ) : (
                 <MapSkeleton />
               )}
-              {/* Area-sync status (auto-on once the map is used) */}
+              {/* Area-sync status (auto-on once the map is used). When active it's
+                  a filter that hides listings, so make it unmistakable + easy to clear. */}
               {areaSync ? (
-                <span className="absolute right-3 top-3 z-[500] inline-flex items-center gap-2 rounded-sm bg-cream-50/95 px-3 py-1.5 text-[12px] font-medium text-forest-500 shadow-sm backdrop-blur-sm">
-                  Showing this area
+                <span className="absolute right-3 top-3 z-[500] inline-flex items-center gap-2 rounded-sm border border-brass-500/40 bg-brass-500/15 px-3 py-1.5 text-[12px] font-semibold text-forest-900 shadow-sm backdrop-blur-sm">
+                  <MapIcon className="h-3.5 w-3.5 text-brass-500" />
+                  Filtered to this area
                   <button
                     type="button"
                     onClick={() => setAreaSync(false)}
-                    className="text-forest-500/70 underline-offset-2 hover:text-brass-500 hover:underline"
+                    className="ml-1 rounded-sm bg-forest-500 px-2 py-0.5 text-[11px] font-medium text-cream-100 hover:bg-forest-400"
                   >
                     Show all
                   </button>

@@ -141,6 +141,26 @@ export function isFiltered(f: ListingsFilter): boolean {
 }
 
 /**
+ * Short human label for a filter set — e.g. "Land in Sri Thanu · up to ฿20M ·
+ * sea view". Used to title a saved search. Returns "All listings" when nothing
+ * is active. The trailing sort is intentionally omitted (not part of intent).
+ */
+export function describeFilter(f: ListingsFilter, query?: string): string {
+  const bits: string[] = [];
+  if (query?.trim()) bits.push(`"${query.trim()}"`);
+  if (f.type.length) bits.push(f.type.join(" / "));
+  if (f.district.length) bits.push(`in ${f.district.join(", ")}`);
+  if (f.priceMinThb) bits.push(`from ฿${f.priceMinThb / 1_000_000}M`);
+  if (f.priceMaxThb) bits.push(`up to ฿${f.priceMaxThb / 1_000_000}M`);
+  if (f.bedroomsMin) bits.push(`${f.bedroomsMin}+ bed`);
+  if (f.tenure.length) bits.push(f.tenure.join(" / "));
+  if (f.beachfront) bits.push("beachfront");
+  if (f.seaView) bits.push("sea view");
+  if (f.mountainView) bits.push("mountain view");
+  return bits.length ? bits.join(" · ") : "All listings";
+}
+
+/**
  * Human-readable summary of the active filters (+ optional NL query) — used to
  * pre-fill the "Send a brief" message when a search returns nothing, so the
  * visitor's intent isn't lost.

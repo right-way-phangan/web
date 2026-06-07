@@ -23,6 +23,9 @@ export const siteConfig = {
     { label: "Contact", href: "/contact" as const },
   ],
 
+  // Secondary links — footer + sitemap only, kept out of the (already full) header.
+  footerExtra: [{ label: "Journal", href: "/blog" as const }],
+
   contact: {
     telegram: {
       bot: process.env.NEXT_PUBLIC_TELEGRAM_BOT ?? "rightwayphangan_bot",

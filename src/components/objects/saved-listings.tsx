@@ -2,11 +2,11 @@
 
 import { useMemo } from "react";
 import Link from "next/link";
-import type { Route } from "next";
-import { Heart, X, ArrowRight } from "lucide-react";
+import { Heart, ArrowRight } from "lucide-react";
 import type { RealEstateObject } from "@/types/object";
 import { useSaved } from "@/lib/saved/saved-context";
 import { ObjectCard } from "./object-card";
+import { CompareTable } from "./compare-table";
 import { LeadForm } from "@/components/forms/lead-form";
 import { formatPriceCompact } from "@/lib/utils/price";
 
@@ -96,94 +96,5 @@ export function SavedListings({ catalog }: { catalog: RealEstateObject[] }) {
         </div>
       </section>
     </div>
-  );
-}
-
-function CompareTable({ items }: { items: RealEstateObject[] }) {
-  const { remove } = useSaved();
-
-  const rows: Array<{ label: string; get: (o: RealEstateObject) => string }> = [
-    { label: "Price", get: (o) => (o.priceThb ? formatPriceCompact(o.priceThb) : "—") },
-    { label: "Type", get: (o) => o.type },
-    { label: "District", get: (o) => o.district ?? "—" },
-    {
-      label: "Area",
-      get: (o) =>
-        o.areaRai
-          ? `${o.areaRai.toLocaleString(undefined, { maximumFractionDigits: 2 })} rai`
-          : o.areaSqm
-            ? `${o.areaSqm.toLocaleString()} m²`
-            : "—",
-    },
-    { label: "Tenure", get: (o) => o.tenure?.join(", ") ?? "—" },
-    { label: "Document", get: (o) => o.documentType ?? "—" },
-    { label: "Bedrooms", get: (o) => (o.bedrooms ? String(o.bedrooms) : "—") },
-    {
-      label: "View",
-      get: (o) =>
-        o.beachfront
-          ? "Beachfront"
-          : o.seaView
-            ? "Sea view"
-            : o.mountainView
-              ? "Mountain"
-              : o.jungleView
-                ? "Jungle"
-                : "—",
-    },
-  ];
-
-  return (
-    <section>
-      <h2 className="font-serif text-2xl text-forest-900">Compare</h2>
-      <div className="mt-6 overflow-x-auto rounded-sm border border-forest-500/10">
-        <table className="w-full min-w-[640px] border-collapse text-sm">
-          <thead>
-            <tr className="border-b border-forest-500/10 bg-cream-50">
-              <th className="sticky left-0 z-10 bg-cream-50 p-3 text-left text-xs font-medium uppercase tracking-wide text-forest-500/50">
-                Spec
-              </th>
-              {items.map((o) => (
-                <th key={o.id} className="min-w-[160px] p-3 text-left align-top">
-                  <div className="flex items-start justify-between gap-2">
-                    <Link
-                      href={`/object/${o.rwNumber}` as Route}
-                      className="font-serif text-base leading-snug text-forest-900 hover:text-brass-500"
-                    >
-                      {o.rwNumber}
-                    </Link>
-                    <button
-                      type="button"
-                      onClick={() => remove(o.rwNumber)}
-                      aria-label={`Remove ${o.rwNumber}`}
-                      className="shrink-0 text-forest-500/40 hover:text-forest-500"
-                    >
-                      <X className="h-4 w-4" />
-                    </button>
-                  </div>
-                  <span className="mt-1 block text-xs font-normal text-forest-500/60 line-clamp-2">
-                    {o.titleEn}
-                  </span>
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row) => (
-              <tr key={row.label} className="border-b border-forest-500/5 last:border-b-0">
-                <td className="sticky left-0 z-10 bg-cream-50 p-3 text-xs font-medium uppercase tracking-wide text-forest-500/50">
-                  {row.label}
-                </td>
-                {items.map((o) => (
-                  <td key={o.id} className="p-3 text-forest-900">
-                    {row.get(o)}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </section>
   );
 }
