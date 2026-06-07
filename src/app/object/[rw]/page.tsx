@@ -13,6 +13,7 @@ import { InquiryForm } from "@/components/objects/inquiry-form";
 import { ObjectLocationMap } from "@/components/objects/object-location-map";
 import { RelatedListings } from "@/components/objects/related-listings";
 import { SaveButton } from "@/components/objects/save-button";
+import { ShareButton } from "@/components/objects/share-button";
 import { ObjectJsonLd } from "@/components/objects/object-json-ld";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { getSiteUrl } from "@/lib/site-url";
@@ -75,7 +76,10 @@ export default async function ObjectPage({ params }: Props) {
             <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
               {object.rwNumber} · {object.type}
             </p>
-            <SaveButton rw={object.rwNumber} variant="inline" className="shrink-0" />
+            <div className="flex shrink-0 items-center gap-2">
+              <ShareButton rw={object.rwNumber} title={object.titleEn} />
+              <SaveButton rw={object.rwNumber} variant="inline" />
+            </div>
           </div>
           <h1 className="mt-3 max-w-3xl text-balance">{object.titleEn}</h1>
 

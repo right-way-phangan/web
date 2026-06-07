@@ -19,11 +19,12 @@ export function InquiryForm({ rwNumber }: Props) {
   return (
     <aside className="rounded-sm border border-forest-500/10 bg-cream-50 p-6 md:sticky md:top-24">
       <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
-        Enquire about
+        Enquire or book a viewing
       </p>
       <h2 className="mt-2 font-serif text-2xl text-forest-900">{rwNumber}</h2>
       <p className="mt-2 text-sm text-forest-500/70">
-        We reply within the working day, usually within an hour.
+        Ask a question or pick a date to see it. We reply within the working day,
+        usually within an hour.
       </p>
 
       <div className="mt-6">
@@ -32,6 +33,7 @@ export function InquiryForm({ rwNumber }: Props) {
           source="object"
           defaultMessage={defaultMessage}
           layout="card"
+          showViewingDate
         />
       </div>
 
