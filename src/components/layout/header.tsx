@@ -3,18 +3,23 @@
 import Link from "next/link";
 import type { Route } from "next";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X, Heart } from "lucide-react";
 import { Logo } from "./logo";
 import { LanguageSwitcher } from "@/components/i18n/language-switcher";
 import { Button } from "@/components/ui/button";
-import { siteConfig } from "@/lib/site-config";
 import { useSaved } from "@/lib/saved/saved-context";
+import { getChromeDict } from "@/lib/i18n/dictionaries";
 import { cn } from "@/lib/utils/cn";
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const { saved, ready } = useSaved();
   const savedCount = ready ? saved.length : 0;
+  const pathname = usePathname();
+  const isRu = pathname === "/ru" || pathname.startsWith("/ru/");
+  const chrome = getChromeDict(isRu ? "ru" : "en");
+  const contactHref = (isRu ? "/ru/contact" : "/contact") as Route;
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-forest-500/10 bg-cream-100/80 backdrop-blur-md">
@@ -22,7 +27,7 @@ export function Header() {
         <Logo />
 
         <nav className="hidden md:flex items-center gap-8" aria-label="Primary">
-          {siteConfig.nav.map((item) => (
+          {chrome.nav.map((item) => (
             <Link
               key={item.href}
               href={item.href as Route}
@@ -35,14 +40,14 @@ export function Header() {
 
         <div className="hidden md:flex md:items-center md:gap-3">
           <LanguageSwitcher />
-          <SavedLink count={savedCount} />
+          <SavedLink count={savedCount} label={chrome.savedAria} />
           <Button asChild variant="outline" size="sm">
-            <Link href="/contact">Get in touch</Link>
+            <Link href={contactHref}>{chrome.getInTouch}</Link>
           </Button>
         </div>
 
         <div className="flex items-center gap-1 md:hidden">
-          <SavedLink count={savedCount} />
+          <SavedLink count={savedCount} label={chrome.savedAria} />
           <button
             type="button"
             aria-label="Toggle navigation"
@@ -65,7 +70,7 @@ export function Header() {
           className="container-prose flex flex-col gap-1 py-4"
           aria-label="Mobile"
         >
-          {siteConfig.nav.map((item) => (
+          {chrome.nav.map((item) => (
             <Link
               key={item.href}
               href={item.href as Route}
@@ -84,11 +89,11 @@ export function Header() {
   );
 }
 
-function SavedLink({ count }: { count: number }) {
+function SavedLink({ count, label = "Saved listings" }: { count: number; label?: string }) {
   return (
     <Link
       href="/saved"
-      aria-label={`Saved listings${count ? ` (${count})` : ""}`}
+      aria-label={`${label}${count ? ` (${count})` : ""}`}
       className="relative flex h-10 w-10 items-center justify-center rounded-sm text-forest-500 transition-colors hover:text-brass-500"
     >
       <Heart className={cn("h-5 w-5", count > 0 && "fill-brass-500 text-brass-500")} />

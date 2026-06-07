@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { submitInquiry, type FormState } from "@/lib/actions/inquiry";
+import { getFormDict, type Locale } from "@/lib/i18n/dictionaries";
 import { cn } from "@/lib/utils/cn";
 
 const initialState: FormState = { status: "idle" };
@@ -29,12 +30,15 @@ interface Props {
   showViewingDate?: boolean;
   /** Fired once after a successful submission — e.g. to unlock gated content. */
   onSuccess?: () => void;
+  /** UI language for field labels/buttons. Server still stores the lead the same way. */
+  locale?: Locale;
 }
 
 const FIELDS = ["name", "email", "phone", "message"] as const;
 type FieldKey = (typeof FIELDS)[number];
 
-export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", kind, submitLabel, showViewingDate, onSuccess }: Props) {
+export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", kind, submitLabel, showViewingDate, onSuccess, locale = "en" }: Props) {
+  const t = getFormDict(locale);
   const todayIso = new Date().toISOString().slice(0, 10);
   const [state, formAction] = useActionState(submitInquiry, initialState);
   const utm = useUtmParams();
@@ -87,11 +91,11 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
       </div>
 
       <FieldRow>
-        <Label htmlFor={`name-${source}`}>Name</Label>
+        <Label htmlFor={`name-${source}`}>{t.name}</Label>
         <Input
           id={`name-${source}`}
           name="name"
-          placeholder="Your name"
+          placeholder={t.namePlaceholder}
           required
           aria-invalid={!!fieldError("name")}
         />
@@ -99,7 +103,7 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
       </FieldRow>
 
       <FieldRow>
-        <Label htmlFor={`email-${source}`}>Email</Label>
+        <Label htmlFor={`email-${source}`}>{t.email}</Label>
         <Input
           id={`email-${source}`}
           name="email"
@@ -111,7 +115,7 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
       </FieldRow>
 
       <FieldRow>
-        <Label htmlFor={`phone-${source}`}>Phone (optional)</Label>
+        <Label htmlFor={`phone-${source}`}>{t.phone}</Label>
         <Input
           id={`phone-${source}`}
           name="phone"
@@ -136,7 +140,7 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
       ) : null}
 
       <FieldRow>
-        <Label htmlFor={`message-${source}`}>Message</Label>
+        <Label htmlFor={`message-${source}`}>{t.message}</Label>
         <Textarea
           id={`message-${source}`}
           name="message"
@@ -152,11 +156,9 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
         <ErrorBanner message={state.message} />
       ) : null}
 
-      <SubmitButton label={submitLabel} />
+      <SubmitButton label={submitLabel ?? t.submit} sendingLabel={t.sending} />
 
-      <p className="text-center text-[11px] text-forest-500/50">
-        We reply within the working day. No marketing emails — only your enquiry.
-      </p>
+      <p className="text-center text-[11px] text-forest-500/50">{t.privacy}</p>
     </form>
   );
 }
@@ -170,12 +172,12 @@ function FieldError({ msg }: { msg?: string }) {
   return <p className="text-xs text-red-700/80">{msg}</p>;
 }
 
-function SubmitButton({ label }: { label?: string }) {
+function SubmitButton({ label, sendingLabel }: { label?: string; sendingLabel?: string }) {
   const { pending } = useFormStatus();
   return (
     <Button type="submit" variant="primary" size="md" className="w-full" disabled={pending}>
       <Send className="h-4 w-4" />
-      {pending ? "Sending…" : (label ?? "Send enquiry")}
+      {pending ? (sendingLabel ?? "Sending…") : (label ?? "Send enquiry")}
     </Button>
   );
 }
