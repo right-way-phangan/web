@@ -19,7 +19,7 @@ export function Footer() {
   const isRu = pathname === "/ru" || pathname.startsWith("/ru/");
   const chrome = getChromeDict(isRu ? "ru" : "en");
   const f = chrome.footer;
-  const exploreLinks = [...chrome.nav, { label: f.journal, href: isRu ? "/blog" : "/blog" }];
+  const exploreLinks = [...chrome.nav, { label: f.journal, href: isRu ? "/ru/blog" : "/blog" }];
 
   return (
     <footer className="mt-32 border-t border-forest-500/10 bg-cream-200/40">

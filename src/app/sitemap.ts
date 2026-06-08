@@ -5,6 +5,7 @@ import { KB_ARTICLES } from "@/content/knowledge-base";
 import { BLOG_POSTS } from "@/content/blog";
 import { DISTRICTS_RU } from "@/content/districts.ru";
 import { KB_ARTICLES_RU } from "@/content/knowledge-base.ru";
+import { BLOG_POSTS_RU } from "@/content/blog.ru";
 import { getPublicObjects } from "@/lib/data/objects";
 
 export const revalidate = 3600; // 1 hour — fresh enough for new listings
@@ -26,6 +27,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/ru/insights`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
     { url: `${base}/ru/faq`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
     { url: `${base}/ru/knowledge`, lastModified: now, changeFrequency: "weekly", priority: 0.5 },
+    { url: `${base}/ru/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.5 },
     { url: `${base}/ru/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
     { url: `${base}/listings`, lastModified: now, changeFrequency: "daily", priority: 0.9 },
     { url: `${base}/districts`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
@@ -74,6 +76,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.5,
   }));
 
+  const ruBlogEntries: MetadataRoute.Sitemap = BLOG_POSTS_RU.map((p) => ({
+    url: `${base}/ru/blog/${p.slug}`,
+    lastModified: new Date(p.published),
+    changeFrequency: "monthly" as const,
+    priority: 0.5,
+  }));
+
   // Active objects — fetched fresh per sitemap regeneration.
   const objects = await getPublicObjects();
   const objectEntries: MetadataRoute.Sitemap = objects.flatMap((o) => [
@@ -98,6 +107,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...blogEntries,
     ...ruDistrictEntries,
     ...ruKnowledgeEntries,
+    ...ruBlogEntries,
     ...objectEntries,
   ];
 }
