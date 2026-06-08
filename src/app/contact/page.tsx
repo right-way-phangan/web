@@ -10,6 +10,7 @@ import {
 } from "@/lib/site-config";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/contact", languages: { en: "/contact", ru: "/ru/contact" } },
   title: "Contact",
   description:
     "Tell us what you're looking for on Koh Phangan. We reply within the working day.",

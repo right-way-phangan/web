@@ -11,6 +11,7 @@ import { getPublicObjects } from "@/lib/data/objects";
 import { spreadDistrictOverlaps } from "@/lib/districts/points";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/districts", languages: { en: "/districts", ru: "/ru/districts" } },
   title: "Districts",
   description:
     "Seven districts of Koh Phangan where Right Way focuses — each with its own character, price profile, and buyer match.",

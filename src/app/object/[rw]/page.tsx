@@ -35,6 +35,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description:
       object.descriptionRaw?.slice(0, 160) ??
       `${object.type} on Koh Phangan${districtSuffix} — Right Way listing ${object.rwNumber}.`,
+    alternates: {
+      canonical: `/object/${object.rwNumber}`,
+      languages: {
+        en: `/object/${object.rwNumber}`,
+        ru: `/ru/object/${object.rwNumber}`,
+      },
+    },
   };
 }
 

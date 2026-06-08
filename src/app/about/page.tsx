@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { whatsappLink } from "@/lib/site-config";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/about", languages: { en: "/about", ru: "/ru/about" } },
   title: "About",
   description:
     "Right Way Phangan Group — a boutique real estate advisory on Koh Phangan, founded by Vladimir Buryi in 2026.",

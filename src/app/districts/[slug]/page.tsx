@@ -30,6 +30,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: d.title.split(" — ")[0],
     description: d.short,
+    alternates: {
+      canonical: `/districts/${d.slug}`,
+      languages: { en: `/districts/${d.slug}`, ru: `/ru/districts/${d.slug}` },
+    },
   };
 }
 

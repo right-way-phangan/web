@@ -7,6 +7,7 @@ import { getPublicObjects } from "@/lib/data/objects";
 import { buildSalePriceByDistrict } from "@/lib/data/sale-prices";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/insights", languages: { en: "/insights", ru: "/ru/insights" } },
   title: "Market insights — Koh Phangan land prices & rental data",
   description:
     "Median land price per rai by district on Koh Phangan, what a villa earns per night, the premium a pool or sea view commands, and which configuration is worth building for rental. Based on live listings.",

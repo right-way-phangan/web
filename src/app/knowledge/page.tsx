@@ -6,6 +6,7 @@ import { PageHero } from "@/components/sections/page-hero";
 import { KB_ARTICLES } from "@/content/knowledge-base";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/knowledge", languages: { en: "/knowledge", ru: "/ru/knowledge" } },
   title: "Knowledge",
   description:
     "Plain-language guides to buying property on Koh Phangan — foreign ownership, leasehold structures, building zones, and the rules that actually affect a purchase.",
