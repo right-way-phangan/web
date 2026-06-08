@@ -4,7 +4,8 @@ import type { Route } from "next";
 import { PageHero } from "@/components/sections/page-hero";
 import { FaqExplorer } from "@/components/faq/faq-explorer";
 import { Button } from "@/components/ui/button";
-import { FAQ_ITEMS_RU, FAQ_CATEGORIES_RU } from "@/content/faq.ru";
+import { FAQ_CATEGORIES_RU } from "@/content/faq.ru";
+import { ALL_FAQ_ITEMS_RU } from "@/content/faq-derived.ru";
 
 export const metadata: Metadata = {
   title: "Вопросы и ответы",
@@ -19,13 +20,13 @@ export default function RussianFaqPage() {
       <PageHero
         eyebrow="Вопросы и ответы"
         title="Покупка недвижимости на Пангане — без тумана."
-        lede={`${FAQ_ITEMS_RU.length} ответов на вопросы, которые иностранные покупатели задают на самом деле, по шести категориям. Ищите по слову, фильтруйте по категории или просто листайте.`}
+        lede={`${ALL_FAQ_ITEMS_RU.length} ответов на вопросы, которые иностранные покупатели задают на самом деле, по шести категориям. Ищите по слову, фильтруйте по категории или просто листайте.`}
         image="/images/scenes/faq.jpg"
         imageAlt="Окаймлённый пальмами пляж на закате, Ко Панган"
       />
 
       <section className="container-prose py-12 md:py-16">
-        <FaqExplorer items={FAQ_ITEMS_RU} categories={FAQ_CATEGORIES_RU} locale="ru" />
+        <FaqExplorer items={ALL_FAQ_ITEMS_RU} categories={FAQ_CATEGORIES_RU} locale="ru" />
       </section>
 
       <section className="border-t border-forest-500/10 bg-cream-200/30">
