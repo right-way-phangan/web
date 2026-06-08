@@ -110,7 +110,7 @@ export function Header() {
                   : "pointer-events-none -translate-y-2 opacity-0",
               )}
             >
-        <div className="container-prose flex h-16 items-center justify-between border-b border-forest-500/10 md:h-20">
+        <div className="flex h-16 w-full items-center justify-between border-b border-forest-500/10 px-6 md:h-20 md:px-8">
           <Logo />
           <button
             type="button"
@@ -123,7 +123,7 @@ export function Header() {
         </div>
 
         <nav
-          className="container-prose flex flex-1 flex-col justify-center gap-1 overflow-y-auto py-6"
+          className="flex w-full flex-1 flex-col justify-center gap-1.5 overflow-y-auto px-6 py-8 md:px-8"
           aria-label="Mobile"
         >
           {chrome.nav.map((item) => {
@@ -146,7 +146,7 @@ export function Header() {
           })}
         </nav>
 
-        <div className="container-prose space-y-5 border-t border-forest-500/10 py-6">
+        <div className="w-full space-y-5 border-t border-forest-500/10 px-6 py-6 md:px-8">
           <div className="flex items-center justify-between">
             <LanguageSwitcher />
             <SavedLink count={savedCount} label={chrome.savedAria} href={savedHref} />
