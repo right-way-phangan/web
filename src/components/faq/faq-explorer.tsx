@@ -61,9 +61,11 @@ export function FaqExplorer({
   const [query, setQuery] = useState("");
   const [activeCat, setActiveCat] = useState<FaqCategoryId | "all">("all");
 
-  // Collapse the filter bar to a slim search-only strip while reading
-  // (scrolling down); expand it back to the full chip set on scroll up.
-  const [compact, setCompact] = useState(false);
+  // Slide the whole filter bar up out of view while reading (scrolling down)
+  // and slide it back on scroll up. Uses transform only — no height/layout
+  // change — so the page never reflows and the motion stays smooth (no jitter
+  // feedback loop, which an animated collapse would cause on iOS momentum).
+  const [hidden, setHidden] = useState(false);
   const lastYRef = useRef(0);
   useEffect(() => {
     lastYRef.current = window.scrollY;
@@ -74,8 +76,9 @@ export function FaqExplorer({
       requestAnimationFrame(() => {
         const y = window.scrollY;
         const last = lastYRef.current;
-        if (y > last + 4 && y > 240) setCompact(true);
-        else if (y < last - 4) setCompact(false);
+        // Hysteresis (±8px) keeps tiny scroll wobble from toggling the bar.
+        if (y > last + 8 && y > 240) setHidden(true);
+        else if (y < last - 8) setHidden(false);
         lastYRef.current = y;
         ticking = false;
       });
@@ -112,71 +115,60 @@ export function FaqExplorer({
 
   return (
     <>
-      {/* Sticky filter bar — collapses to a slim search strip on scroll down. */}
+      {/* Sticky filter bar — slides up out of view on scroll down, back on up. */}
       <div
+        aria-hidden={hidden}
         className={cn(
-          "sticky top-16 z-30 -mx-6 mb-12 border-y border-forest-500/10 bg-cream-100/90 px-6 backdrop-blur-md transition-[padding] duration-200 md:top-20 md:-mx-8 md:px-8",
-          compact ? "py-2" : "py-4",
+          "sticky top-16 z-30 -mx-6 mb-12 border-y border-forest-500/10 bg-cream-100/90 px-6 py-4 backdrop-blur-md transition-transform duration-300 ease-out md:top-20 md:-mx-8 md:px-8",
+          hidden ? "pointer-events-none -translate-y-[140%]" : "translate-y-0",
         )}
       >
-        <div className="relative">
-          <Search
-            className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-forest-500/40"
-            aria-hidden="true"
-          />
-          <input
-            type="search"
-            placeholder={dict.searchPlaceholder(TOTAL)}
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            className="h-10 w-full rounded-sm border border-forest-500/20 bg-cream-50 pl-9 pr-9 text-sm text-forest-900 placeholder:text-forest-500/40 focus:border-forest-500 focus:outline-none focus:ring-2 focus:ring-forest-500/30"
-            aria-label={dict.searchAria}
-          />
-          {query ? (
-            <button
-              type="button"
-              onClick={() => setQuery("")}
-              aria-label={dict.clearSearch}
-              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-sm p-1 text-forest-500/50 hover:bg-forest-500/5 hover:text-forest-500"
-            >
-              <X className="h-3.5 w-3.5" />
-            </button>
-          ) : null}
-        </div>
-
-        {/* Chips + counter — collapse out of the way while reading. */}
-        <div
-          aria-hidden={compact}
-          className={cn(
-            "grid transition-all duration-200",
-            compact
-              ? "pointer-events-none mt-0 grid-rows-[0fr] opacity-0"
-              : "mt-3 grid-rows-[1fr] opacity-100",
-          )}
-        >
-          <div className="overflow-hidden">
-            <div className="flex flex-wrap gap-1.5">
-              <CatChip
-                active={activeCat === "all"}
-                onClick={() => setActiveCat("all")}
+        <div className="flex flex-col gap-3 md:flex-row md:items-center">
+          <div className="relative flex-1">
+            <Search
+              className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-forest-500/40"
+              aria-hidden="true"
+            />
+            <input
+              type="search"
+              placeholder={dict.searchPlaceholder(TOTAL)}
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="h-10 w-full rounded-sm border border-forest-500/20 bg-cream-50 pl-9 pr-9 text-sm text-forest-900 placeholder:text-forest-500/40 focus:border-forest-500 focus:outline-none focus:ring-2 focus:ring-forest-500/30"
+              aria-label={dict.searchAria}
+            />
+            {query ? (
+              <button
+                type="button"
+                onClick={() => setQuery("")}
+                aria-label={dict.clearSearch}
+                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-sm p-1 text-forest-500/50 hover:bg-forest-500/5 hover:text-forest-500"
               >
-                {dict.all}
+                <X className="h-3.5 w-3.5" />
+              </button>
+            ) : null}
+          </div>
+
+          <div className="flex flex-wrap gap-1.5">
+            <CatChip
+              active={activeCat === "all"}
+              onClick={() => setActiveCat("all")}
+            >
+              {dict.all}
+            </CatChip>
+            {categories.map((c) => (
+              <CatChip
+                key={c.id}
+                active={activeCat === c.id}
+                onClick={() => setActiveCat(c.id)}
+              >
+                {c.title}
               </CatChip>
-              {categories.map((c) => (
-                <CatChip
-                  key={c.id}
-                  active={activeCat === c.id}
-                  onClick={() => setActiveCat(c.id)}
-                >
-                  {c.title}
-                </CatChip>
-              ))}
-            </div>
-            <p className="mt-3 text-xs text-forest-500/50">
-              {dict.shown(filtered.length, TOTAL)}
-            </p>
+            ))}
           </div>
         </div>
+
+        <p className="mt-3 text-xs text-forest-500/50">{dict.shown(filtered.length, TOTAL)}</p>
       </div>
 
       {/* Results */}
