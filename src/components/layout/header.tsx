@@ -140,13 +140,13 @@ export function Header() {
                     onClick={() => setOpen(false)}
                     aria-current={active ? "page" : undefined}
                     className={cn(
-                      "group flex items-baseline justify-between gap-4 py-3.5 transition-colors",
+                      "group flex items-baseline justify-between gap-4 py-3 transition-colors",
                       active
                         ? "text-brass-500"
                         : "text-forest-500 hover:text-brass-500",
                     )}
                   >
-                    <span className="font-serif text-[1.7rem] leading-none tracking-tight transition-transform duration-200 group-hover:translate-x-1">
+                    <span className="font-serif text-[1.4rem] leading-none tracking-tight transition-transform duration-200 group-hover:translate-x-1">
                       {item.label}
                     </span>
                     <span
