@@ -129,7 +129,7 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
 
       {showViewingDate ? (
         <FieldRow>
-          <Label htmlFor={`viewingDate-${source}`}>Preferred viewing date (optional)</Label>
+          <Label htmlFor={`viewingDate-${source}`}>{t.viewingDate}</Label>
           <Input
             id={`viewingDate-${source}`}
             name="viewingDate"

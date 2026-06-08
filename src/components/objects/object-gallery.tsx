@@ -13,6 +13,8 @@ import {
   Images,
 } from "lucide-react";
 import type { ObjectType } from "@/types/object";
+import { useLocale } from "@/lib/i18n/use-locale";
+import { getObjectDict } from "@/lib/i18n/dictionaries";
 
 const TYPE_ICON: Record<ObjectType, typeof Home> = {
   Land: TreePine,
@@ -45,6 +47,7 @@ interface Props {
  */
 export function ObjectGallery({ rwNumber, type, gallery }: Props) {
   const Icon = TYPE_ICON[type];
+  const t = getObjectDict(useLocale());
   const photos = (gallery ?? []).filter(Boolean);
   const hasPhotos = photos.length > 0;
 
@@ -180,7 +183,7 @@ export function ObjectGallery({ rwNumber, type, gallery }: Props) {
             aria-describedby={undefined}
           >
             <Dialog.Title className="sr-only">
-              {rwNumber} photos — {index + 1} of {photos.length}
+              {t.galleryCaption(rwNumber, index + 1, photos.length)}
             </Dialog.Title>
 
             {/* Top bar */}
@@ -212,7 +215,7 @@ export function ObjectGallery({ rwNumber, type, gallery }: Props) {
                   <button
                     type="button"
                     onClick={prev}
-                    aria-label="Previous photo"
+                    aria-label={t.prevPhoto}
                     className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-forest-900/40 p-2 text-cream-50 transition-colors hover:bg-forest-900/70 md:left-6 md:p-3"
                   >
                     <ChevronLeft className="h-6 w-6" />
@@ -220,7 +223,7 @@ export function ObjectGallery({ rwNumber, type, gallery }: Props) {
                   <button
                     type="button"
                     onClick={next}
-                    aria-label="Next photo"
+                    aria-label={t.nextPhoto}
                     className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-forest-900/40 p-2 text-cream-50 transition-colors hover:bg-forest-900/70 md:right-6 md:p-3"
                   >
                     <ChevronRight className="h-6 w-6" />

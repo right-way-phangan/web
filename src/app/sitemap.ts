@@ -64,12 +64,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Active objects — fetched fresh per sitemap regeneration.
   const objects = await getPublicObjects();
-  const objectEntries: MetadataRoute.Sitemap = objects.map((o) => ({
-    url: `${base}/object/${o.rwNumber}`,
-    lastModified: now,
-    changeFrequency: "weekly" as const,
-    priority: 0.8,
-  }));
+  const objectEntries: MetadataRoute.Sitemap = objects.flatMap((o) => [
+    {
+      url: `${base}/object/${o.rwNumber}`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    },
+    {
+      url: `${base}/ru/object/${o.rwNumber}`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.6,
+    },
+  ]);
 
   return [
     ...staticEntries,

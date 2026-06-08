@@ -1,5 +1,9 @@
+"use client";
+
 import type { RealEstateObject } from "@/types/object";
 import { formatPriceTHB, formatPricePerRai } from "@/lib/utils/price";
+import { useLocale } from "@/lib/i18n/use-locale";
+import { getObjectDict, getListingsDict, type ObjectDict } from "@/lib/i18n/dictionaries";
 
 interface Row {
   label: string;
@@ -11,76 +15,52 @@ interface Group {
   rows: Row[];
 }
 
-function formatRai(rai: number): string {
-  if (rai >= 1) return `${rai.toLocaleString(undefined, { maximumFractionDigits: 2 })} rai`;
-  return `${Math.round(rai * 1600).toLocaleString()} m²`;
-}
-
-function buildGroups(o: RealEstateObject): Group[] {
+function buildGroups(o: RealEstateObject, t: ObjectDict, typeName: string): Group[] {
   const groups: Group[] = [];
+  const rai = (r: number) =>
+    r >= 1
+      ? `${r.toLocaleString(undefined, { maximumFractionDigits: 2 })} ${t.rai}`
+      : `${Math.round(r * 1600).toLocaleString()} m²`;
+  const L = t.specRows;
 
-  // Pricing (shown first when present)
+  // Pricing
   const priceRows: Row[] = [];
-  if (o.priceThb)
-    priceRows.push({ label: "Asking price", value: formatPriceTHB(o.priceThb) });
+  if (o.priceThb) priceRows.push({ label: L["Asking price"], value: formatPriceTHB(o.priceThb) });
   if (o.type === "Land" && o.pricePerRai)
-    priceRows.push({ label: "Price per rai", value: formatPricePerRai(o.pricePerRai) });
+    priceRows.push({ label: L["Price per rai"], value: formatPricePerRai(o.pricePerRai) });
   if (o.rentPerRaiMonth)
-    priceRows.push({
-      label: "Lease rent",
-      value: `${formatPriceTHB(o.rentPerRaiMonth)} / rai / month`,
-    });
-  if (priceRows.length > 0) groups.push({ title: "Pricing", rows: priceRows });
+    priceRows.push({ label: L["Lease rent"], value: `${formatPriceTHB(o.rentPerRaiMonth)} ${t.perRaiMonth}` });
+  if (priceRows.length > 0) groups.push({ title: t.specGroups.Pricing, rows: priceRows });
 
-  // Property details (always shown)
+  // Property
   const propertyRows: Row[] = [];
-  propertyRows.push({ label: "Type", value: o.type });
-  if (o.district) propertyRows.push({ label: "District", value: o.district });
-  if (o.zone) propertyRows.push({ label: "Zone", value: o.zone });
-  if (o.areaRai)
-    propertyRows.push({ label: "Plot area", value: formatRai(o.areaRai) });
-  if (o.areaSqm)
-    propertyRows.push({
-      label: "Built area",
-      value: `${o.areaSqm.toLocaleString()} m²`,
-    });
-  if (o.altitude !== undefined)
-    propertyRows.push({ label: "Altitude", value: `${o.altitude} m` });
-  if (o.terrain) propertyRows.push({ label: "Terrain", value: o.terrain });
-  groups.push({ title: "Property", rows: propertyRows });
+  propertyRows.push({ label: L.Type, value: typeName });
+  if (o.district) propertyRows.push({ label: L.District, value: o.district });
+  if (o.zone) propertyRows.push({ label: L.Zone, value: o.zone });
+  if (o.areaRai) propertyRows.push({ label: L["Plot area"], value: rai(o.areaRai) });
+  if (o.areaSqm) propertyRows.push({ label: L["Built area"], value: `${o.areaSqm.toLocaleString()} m²` });
+  if (o.altitude !== undefined) propertyRows.push({ label: L.Altitude, value: `${o.altitude} m` });
+  if (o.terrain) propertyRows.push({ label: L.Terrain, value: o.terrain });
+  groups.push({ title: t.specGroups.Property, rows: propertyRows });
 
-  // Legal — important for foreign buyers
+  // Legal
   const legalRows: Row[] = [];
-  if (o.documentType)
-    legalRows.push({ label: "Document type", value: o.documentType });
-  if (o.tenure && o.tenure.length > 0)
-    legalRows.push({ label: "Tenure", value: o.tenure.join(", ") });
-  if (o.leaseTermYears)
-    legalRows.push({ label: "Lease term", value: `${o.leaseTermYears} years` });
-  if (legalRows.length > 0) groups.push({ title: "Legal", rows: legalRows });
+  if (o.documentType) legalRows.push({ label: L["Document type"], value: o.documentType });
+  if (o.tenure && o.tenure.length > 0) legalRows.push({ label: L.Tenure, value: o.tenure.join(", ") });
+  if (o.leaseTermYears) legalRows.push({ label: L["Lease term"], value: t.years(o.leaseTermYears) });
+  if (legalRows.length > 0) groups.push({ title: t.specGroups.Legal, rows: legalRows });
 
-  // Building (only for V/H/A)
+  // Building
   if (["Villa", "House", "Apartment"].includes(o.type)) {
     const buildingRows: Row[] = [];
-    if (o.bedrooms !== undefined)
-      buildingRows.push({
-        label: "Bedrooms",
-        value: String(o.bedrooms),
-      });
-    if (o.bathrooms !== undefined)
-      buildingRows.push({
-        label: "Bathrooms",
-        value: String(o.bathrooms),
-      });
-    if (o.buildYear)
-      buildingRows.push({ label: "Built", value: String(o.buildYear) });
-    if (o.condition)
-      buildingRows.push({ label: "Condition", value: o.condition });
-    if (buildingRows.length > 0)
-      groups.push({ title: "Building", rows: buildingRows });
+    if (o.bedrooms !== undefined) buildingRows.push({ label: L.Bedrooms, value: String(o.bedrooms) });
+    if (o.bathrooms !== undefined) buildingRows.push({ label: L.Bathrooms, value: String(o.bathrooms) });
+    if (o.buildYear) buildingRows.push({ label: L.Built, value: String(o.buildYear) });
+    if (o.condition) buildingRows.push({ label: L.Condition, value: o.condition });
+    if (buildingRows.length > 0) groups.push({ title: t.specGroups.Building, rows: buildingRows });
   }
 
-  // Features (true booleans only)
+  // Features
   const featureLabels: Array<[boolean, string]> = [
     [o.beachfront, "Beachfront"],
     [o.seaView, "Sea view"],
@@ -93,29 +73,27 @@ function buildGroups(o: RealEstateObject): Group[] {
     [o.parking ?? false, "Parking"],
     [o.gated ?? false, "Gated"],
   ];
-  const activeFeatures = featureLabels.filter(([v]) => v).map(([, l]) => l);
+  const activeFeatures = featureLabels.filter(([v]) => v).map(([, l]) => t.features[l] ?? l);
   if (activeFeatures.length > 0) {
-    groups.push({
-      title: "Features",
-      rows: [{ label: "On site", value: activeFeatures.join(" · ") }],
-    });
+    groups.push({ title: t.specGroups.Features, rows: [{ label: L["On site"], value: activeFeatures.join(" · ") }] });
   }
 
-  // Utilities
+  // Infrastructure
   const utilRows: Row[] = [];
-  if (o.electricity !== undefined)
-    utilRows.push({ label: "Electricity", value: o.electricity ? "Yes" : "No" });
-  if (o.waterType) utilRows.push({ label: "Water", value: o.waterType });
-  if (o.internetType) utilRows.push({ label: "Internet", value: o.internetType });
-  if (o.roadType) utilRows.push({ label: "Road access", value: o.roadType });
-  if (utilRows.length > 0)
-    groups.push({ title: "Infrastructure", rows: utilRows });
+  if (o.electricity !== undefined) utilRows.push({ label: L.Electricity, value: o.electricity ? t.yes : t.no });
+  if (o.waterType) utilRows.push({ label: L.Water, value: o.waterType });
+  if (o.internetType) utilRows.push({ label: L.Internet, value: o.internetType });
+  if (o.roadType) utilRows.push({ label: L["Road access"], value: o.roadType });
+  if (utilRows.length > 0) groups.push({ title: t.specGroups.Infrastructure, rows: utilRows });
 
   return groups;
 }
 
 export function SpecTable({ object }: { object: RealEstateObject }) {
-  const groups = buildGroups(object);
+  const locale = useLocale();
+  const t = getObjectDict(locale);
+  const typeName = getListingsDict(locale).types[object.type];
+  const groups = buildGroups(object, t, typeName);
 
   return (
     <div className="space-y-10">

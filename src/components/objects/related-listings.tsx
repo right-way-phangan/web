@@ -1,4 +1,8 @@
+"use client";
+
 import type { RealEstateObject } from "@/types/object";
+import { useLocale } from "@/lib/i18n/use-locale";
+import { getObjectDict } from "@/lib/i18n/dictionaries";
 import { ObjectCard } from "./object-card";
 
 /** Squared planar distance in degrees — fine for ranking on an island this size. */
@@ -48,12 +52,11 @@ export function RelatedListings({
   current: RealEstateObject;
   catalog: RealEstateObject[];
 }) {
+  const t = getObjectDict(useLocale());
   const related = pickRelated(current, catalog, 4);
   if (related.length === 0) return null;
 
-  const heading = current.district
-    ? `More in ${current.district} & nearby`
-    : "More listings to explore";
+  const heading = current.district ? t.moreInNearby(current.district) : t.moreToExplore;
 
   return (
     <section className="mt-16 border-t border-forest-500/10 pt-12 md:mt-20 md:pt-16">

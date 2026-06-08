@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { Share2, Check } from "lucide-react";
 import { track } from "@vercel/analytics";
+import { useLocale } from "@/lib/i18n/use-locale";
+import { getObjectDict } from "@/lib/i18n/dictionaries";
 import { cn } from "@/lib/utils/cn";
 
 /**
@@ -19,6 +21,7 @@ export function ShareButton({
   className?: string;
 }) {
   const [copied, setCopied] = useState(false);
+  const t = getObjectDict(useLocale());
 
   async function onShare(e: React.MouseEvent) {
     e.preventDefault();
@@ -49,15 +52,15 @@ export function ShareButton({
     <button
       type="button"
       onClick={onShare}
-      aria-label="Share this listing"
-      title="Share this listing"
+      aria-label={t.shareAria}
+      title={t.shareAria}
       className={cn(
         "inline-flex h-8 items-center justify-center gap-1.5 rounded-full border border-forest-500/20 px-3 text-xs font-medium text-forest-500 transition-colors hover:border-brass-500/40 hover:text-brass-500",
         className,
       )}
     >
       {copied ? <Check className="h-4 w-4 text-forest-500" /> : <Share2 className="h-4 w-4" />}
-      {copied ? "Copied" : "Share"}
+      {copied ? t.copied : t.share}
     </button>
   );
 }

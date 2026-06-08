@@ -216,6 +216,7 @@ export interface FormDict {
   email: string;
   phone: string;
   message: string;
+  viewingDate: string;
   submit: string;
   sending: string;
   success: string;
@@ -229,6 +230,7 @@ const form: Record<Locale, FormDict> = {
     email: "Email",
     phone: "Phone (optional)",
     message: "Message",
+    viewingDate: "Preferred viewing date (optional)",
     submit: "Send enquiry",
     sending: "Sending…",
     success: "Thanks — we'll be in touch within the working day.",
@@ -240,6 +242,7 @@ const form: Record<Locale, FormDict> = {
     email: "Email",
     phone: "Телефон (необязательно)",
     message: "Сообщение",
+    viewingDate: "Желаемая дата просмотра (необязательно)",
     submit: "Отправить запрос",
     sending: "Отправляем…",
     success: "Спасибо — ответим в течение рабочего дня.",
@@ -775,4 +778,197 @@ export function pluralRu(n: number, one: string, few: string, many: string): str
 
 export function getListingsDict(locale: Locale): ListingsDict {
   return listings[locale];
+}
+
+// ---- Object detail page (+ its components) ----
+
+export interface ObjectDict {
+  backToListings: string;
+  locationCountry: string;
+  openInMaps: string;
+  openInGoogleMaps: string;
+  location: string;
+  perRaiMonth: string;
+  priceOnRequest: string;
+  aboutProperty: string;
+  whyThisOne: string;
+  specifications: string;
+  buildingRules: string;
+  investmentOutlook: string;
+  investmentOutlookLede: string;
+  // inquiry
+  enquireOrBook: string;
+  inquiryLede: string;
+  orMessageDirectly: string;
+  inquiryDefaultMessage: (rw: string) => string;
+  // share / save
+  share: string;
+  copied: string;
+  shareAria: string;
+  saveAria: string;
+  removeAria: string;
+  // gallery
+  galleryCaption: (rw: string, i: number, total: number) => string;
+  prevPhoto: string;
+  nextPhoto: string;
+  // related
+  moreInNearby: (district: string) => string;
+  moreToExplore: string;
+  // price context
+  pcPerRai: string;
+  pcPerSqm: string;
+  pcAsking: string;
+  pcInLine: (district: string, metric: string) => string;
+  pcDelta: (pct: number, dir: "below" | "above", district: string, metric: string) => string;
+  // spec groups + rows
+  specGroups: { Pricing: string; Property: string; Legal: string; Building: string; Features: string; Infrastructure: string };
+  specRows: Record<string, string>;
+  yes: string;
+  no: string;
+  years: (n: number) => string;
+  rai: string;
+  features: Record<string, string>;
+  // investment highlights
+  hl: {
+    beachfront: { title: string; text: string };
+    seaView: { title: string; text: string };
+    chanote: { title: string; text: string };
+    ns3k: { title: string; text: string };
+    plot: (rai: string) => { title: string; text: string };
+    freehold: { title: string; text: string };
+    moveIn: { title: string; text: string };
+    elevation: (m: number) => { title: string; text: string };
+    quiet: { title: string; text: string };
+  };
+}
+
+const objectDict: Record<Locale, ObjectDict> = {
+  en: {
+    backToListings: "Back to listings",
+    locationCountry: "Koh Phangan, Thailand",
+    openInMaps: "Open in Maps",
+    openInGoogleMaps: "Open in Google Maps",
+    location: "Location",
+    perRaiMonth: "/ rai / month",
+    priceOnRequest: "Price on request",
+    aboutProperty: "About this property",
+    whyThisOne: "Why this one",
+    specifications: "Specifications",
+    buildingRules: "Building rules",
+    investmentOutlook: "Investment outlook",
+    investmentOutlookLede: "Project this property’s value over time. Set your own growth outlook — every figure is illustrative.",
+    enquireOrBook: "Enquire or book a viewing",
+    inquiryLede: "Ask a question or pick a date to see it. We reply within the working day, usually within an hour.",
+    orMessageDirectly: "Or message directly",
+    inquiryDefaultMessage: (rw) => `Hi — I'd like more information about ${rw}.`,
+    share: "Share",
+    copied: "Copied",
+    shareAria: "Share this listing",
+    saveAria: "Save to shortlist",
+    removeAria: "Remove from saved",
+    galleryCaption: (rw, i, total) => `${rw} photos — ${i} of ${total}`,
+    prevPhoto: "Previous photo",
+    nextPhoto: "Next photo",
+    moreInNearby: (district) => `More in ${district} & nearby`,
+    moreToExplore: "More listings to explore",
+    pcPerRai: "per rai",
+    pcPerSqm: "per m²",
+    pcAsking: "asking price",
+    pcInLine: (district, metric) => `≈ in line with the ${district} average (${metric})`,
+    pcDelta: (pct, dir, district, metric) => `≈ ${pct}% ${dir} the ${district} average ${metric}`,
+    specGroups: { Pricing: "Pricing", Property: "Property", Legal: "Legal", Building: "Building", Features: "Features", Infrastructure: "Infrastructure" },
+    specRows: {
+      "Asking price": "Asking price", "Price per rai": "Price per rai", "Lease rent": "Lease rent",
+      Type: "Type", District: "District", Zone: "Zone", "Plot area": "Plot area", "Built area": "Built area",
+      Altitude: "Altitude", Terrain: "Terrain", "Document type": "Document type", Tenure: "Tenure", "Lease term": "Lease term",
+      Bedrooms: "Bedrooms", Bathrooms: "Bathrooms", Built: "Built", Condition: "Condition", "On site": "On site",
+      Electricity: "Electricity", Water: "Water", Internet: "Internet", "Road access": "Road access",
+    },
+    yes: "Yes",
+    no: "No",
+    years: (n) => `${n} years`,
+    rai: "rai",
+    features: {
+      Beachfront: "Beachfront", "Sea view": "Sea view", "Mountain view": "Mountain view", "Jungle view": "Jungle view",
+      "Flat land": "Flat land", "Quiet location": "Quiet location", "Private pool": "Private pool",
+      "Private garden": "Private garden", Parking: "Parking", Gated: "Gated",
+    },
+    hl: {
+      beachfront: { title: "Beachfront access", text: "Direct frontage to the sea — a rare and quickly disappearing category on Phangan." },
+      seaView: { title: "Sea view", text: "Unobstructed view of the Gulf — a durable premium driver on resale." },
+      chanote: { title: "Chanote title", text: "The strongest form of land title in Thailand. Boundaries are GPS-surveyed and registered with the Land Department." },
+      ns3k: { title: "NS3K title", text: "Confirmed ownership with surveyed boundaries — upgradeable to Chanote in many cases." },
+      plot: (rai) => ({ title: `${rai}-rai plot`, text: "Enough land for a multi-building project, a private villa with full grounds, or sub-division upside." }),
+      freehold: { title: "Freehold-eligible", text: "Available for direct ownership via Thai company or transfer to qualifying buyers — clean exit path." },
+      moveIn: { title: "Move-in ready", text: "Recently completed — no renovation, no permits, no waiting." },
+      elevation: (m) => ({ title: `Elevation ${m} m`, text: "High enough for cooler nights, year-round breeze, and panoramic sightlines." }),
+      quiet: { title: "Quiet location", text: "Away from nightlife and through-traffic — the kind of plot people buy for retirement or family." },
+    },
+  },
+  ru: {
+    backToListings: "Назад к объектам",
+    locationCountry: "Ко Панган, Таиланд",
+    openInMaps: "Открыть в картах",
+    openInGoogleMaps: "Открыть в Google Maps",
+    location: "Расположение",
+    perRaiMonth: "/ рай / мес",
+    priceOnRequest: "Цена по запросу",
+    aboutProperty: "Об объекте",
+    whyThisOne: "Почему именно этот",
+    specifications: "Характеристики",
+    buildingRules: "Правила застройки",
+    investmentOutlook: "Инвестиционный прогноз",
+    investmentOutlookLede: "Спрогнозируйте стоимость объекта во времени. Задайте свой темп роста — все цифры иллюстративны.",
+    enquireOrBook: "Запрос или запись на просмотр",
+    inquiryLede: "Задайте вопрос или выберите дату просмотра. Отвечаем в течение рабочего дня, обычно в течение часа.",
+    orMessageDirectly: "Или напишите напрямую",
+    inquiryDefaultMessage: (rw) => `Здравствуйте — хочу узнать подробнее об объекте ${rw}.`,
+    share: "Поделиться",
+    copied: "Скопировано",
+    shareAria: "Поделиться объектом",
+    saveAria: "В избранное",
+    removeAria: "Убрать из избранного",
+    galleryCaption: (rw, i, total) => `${rw} — фото ${i} из ${total}`,
+    prevPhoto: "Предыдущее фото",
+    nextPhoto: "Следующее фото",
+    moreInNearby: (district) => `Ещё в районе ${district} и рядом`,
+    moreToExplore: "Другие объекты",
+    pcPerRai: "за рай",
+    pcPerSqm: "за м²",
+    pcAsking: "запрашиваемая цена",
+    pcInLine: (district, metric) => `≈ на уровне среднего по ${district} (${metric})`,
+    pcDelta: (pct, dir, district, metric) => `≈ на ${pct}% ${dir === "below" ? "ниже" : "выше"} среднего по ${district} (${metric})`,
+    specGroups: { Pricing: "Цена", Property: "Объект", Legal: "Юридически", Building: "Строение", Features: "Особенности", Infrastructure: "Инфраструктура" },
+    specRows: {
+      "Asking price": "Запрашиваемая цена", "Price per rai": "Цена за рай", "Lease rent": "Аренда",
+      Type: "Тип", District: "Район", Zone: "Зона", "Plot area": "Площадь участка", "Built area": "Площадь строения",
+      Altitude: "Высота", Terrain: "Рельеф", "Document type": "Тип документа", Tenure: "Вид владения", "Lease term": "Срок аренды",
+      Bedrooms: "Спальни", Bathrooms: "Санузлы", Built: "Год постройки", Condition: "Состояние", "On site": "На участке",
+      Electricity: "Электричество", Water: "Вода", Internet: "Интернет", "Road access": "Подъезд",
+    },
+    yes: "Да",
+    no: "Нет",
+    years: (n) => `${n} ${pluralRu(n, "год", "года", "лет")}`,
+    rai: "рай",
+    features: {
+      Beachfront: "Первая линия", "Sea view": "Вид на море", "Mountain view": "Вид на горы", "Jungle view": "Вид на джунгли",
+      "Flat land": "Ровный участок", "Quiet location": "Тихое место", "Private pool": "Свой бассейн",
+      "Private garden": "Свой сад", Parking: "Парковка", Gated: "Закрытая территория",
+    },
+    hl: {
+      beachfront: { title: "Выход к пляжу", text: "Прямой выход к морю — редкая и быстро исчезающая категория на Пангане." },
+      seaView: { title: "Вид на море", text: "Открытый вид на залив — устойчивый драйвер премии при перепродаже." },
+      chanote: { title: "Титул Chanote", text: "Самая надёжная форма права на землю в Таиланде. Границы отсняты по GPS и зарегистрированы в Земельном департаменте." },
+      ns3k: { title: "Титул NS3K", text: "Подтверждённое право с отснятыми границами — во многих случаях можно повысить до Chanote." },
+      plot: (rai) => ({ title: `Участок ${rai} рай`, text: "Достаточно земли для проекта из нескольких строений, виллы с участком или потенциала под разделение." }),
+      freehold: { title: "Возможен фрихолд", text: "Доступно для прямого владения через тайскую компанию или передачи квалифицированным покупателям — чистый выход." },
+      moveIn: { title: "Готово к заселению", text: "Недавно завершено — без ремонта, разрешений и ожидания." },
+      elevation: (m) => ({ title: `Высота ${m} м`, text: "Достаточно высоко для прохладных ночей, круглогодичного бриза и панорамных видов." }),
+      quiet: { title: "Тихое место", text: "Вдали от ночной жизни и транзита — такой участок берут под пенсию или для семьи." },
+    },
+  },
+};
+
+export function getObjectDict(locale: Locale): ObjectDict {
+  return objectDict[locale];
 }

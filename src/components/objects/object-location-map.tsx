@@ -3,6 +3,8 @@
 import dynamic from "next/dynamic";
 import { MapSkeleton } from "./map-skeleton";
 import { useInView } from "@/lib/hooks/use-in-view";
+import { useLocale } from "@/lib/i18n/use-locale";
+import { getObjectDict } from "@/lib/i18n/dictionaries";
 
 // Leaflet touches `window`, so the map is client-only (ssr:false). next/dynamic
 // with ssr:false must live in a client component — hence this thin loader.
@@ -30,13 +32,14 @@ export function ObjectLocationMap({
   // Defer the Leaflet chunk + tiles until the section scrolls near — it sits
   // well below the fold on the object page.
   const [ref, inView] = useInView<HTMLDivElement>("300px");
+  const t = getObjectDict(useLocale());
 
   if (lat == null || lng == null) return null;
 
   return (
     <section>
       <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <h2 className="font-serif text-3xl text-forest-900">Location</h2>
+        <h2 className="font-serif text-3xl text-forest-900">{t.location}</h2>
         {mapsUrl ? (
           <a
             href={mapsUrl}
@@ -44,13 +47,13 @@ export function ObjectLocationMap({
             rel="noopener noreferrer"
             className="text-sm text-forest-500 underline-offset-4 hover:underline"
           >
-            Open in Google Maps
+            {t.openInGoogleMaps}
           </a>
         ) : null}
       </div>
       {district ? (
         <p className="mt-2 text-sm text-forest-500/70">
-          {district} · Koh Phangan, Thailand
+          {district} · {t.locationCountry}
         </p>
       ) : null}
       <div ref={ref} className="mt-6 h-[360px] w-full">

@@ -3,6 +3,8 @@
 import { Heart } from "lucide-react";
 import { track } from "@vercel/analytics";
 import { useSaved } from "@/lib/saved/saved-context";
+import { useLocale } from "@/lib/i18n/use-locale";
+import { getObjectDict } from "@/lib/i18n/dictionaries";
 import { cn } from "@/lib/utils/cn";
 
 /**
@@ -21,13 +23,14 @@ export function SaveButton({
 }) {
   const { isSaved, toggle } = useSaved();
   const active = isSaved(rw);
+  const t = getObjectDict(useLocale());
 
   return (
     <button
       type="button"
       aria-pressed={active}
-      aria-label={active ? "Remove from saved" : "Save to shortlist"}
-      title={active ? "Remove from saved" : "Save to shortlist"}
+      aria-label={active ? t.removeAria : t.saveAria}
+      title={active ? t.removeAria : t.saveAria}
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();

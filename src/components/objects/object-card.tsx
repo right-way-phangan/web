@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import type { RealEstateObject, ObjectType } from "@/types/object";
 import { formatPriceCompact } from "@/lib/utils/price";
-import { useLocale } from "@/lib/i18n/use-locale";
+import { useLocale, localeHref } from "@/lib/i18n/use-locale";
 import { getListingsDict, type ListingsDict } from "@/lib/i18n/dictionaries";
 import { SaveButton } from "./save-button";
 
@@ -53,13 +53,14 @@ interface Props {
 export function ObjectCard({ object }: Props) {
   const TypeIcon = TYPE_ICON[object.type];
   const hue = thumbHue(object.rwNumber);
-  const t = getListingsDict(useLocale());
+  const locale = useLocale();
+  const t = getListingsDict(locale);
 
   return (
     <div className="group relative flex h-full flex-col">
       <SaveButton rw={object.rwNumber} className="absolute right-3 top-3 z-10" />
       <Link
-        href={`/object/${object.rwNumber}` as Route}
+        href={localeHref(locale, `/object/${object.rwNumber}`) as Route}
         className="flex h-full flex-col overflow-hidden rounded-sm border border-forest-500/10 bg-cream-50 transition-all hover:border-forest-500/30 hover:shadow-lg"
       >
       <div
