@@ -6,6 +6,7 @@ import { FaqExplorer } from "@/components/faq/faq-explorer";
 import { Button } from "@/components/ui/button";
 import { FAQ_CATEGORIES_RU } from "@/content/faq.ru";
 import { ALL_FAQ_ITEMS_RU } from "@/content/faq-derived.ru";
+import { pluralRu } from "@/lib/i18n/dictionaries";
 
 export const metadata: Metadata = {
   title: "Вопросы и ответы",
@@ -19,8 +20,8 @@ export default function RussianFaqPage() {
     <>
       <PageHero
         eyebrow="Вопросы и ответы"
-        title="Покупка недвижимости на Пангане — без тумана."
-        lede={`${ALL_FAQ_ITEMS_RU.length} ответов на вопросы, которые иностранные покупатели задают на самом деле, по шести категориям. Ищите по слову, фильтруйте по категории или просто листайте.`}
+        title="Покупка недвижимости на Пангане — начистоту."
+        lede={`${ALL_FAQ_ITEMS_RU.length} ${pluralRu(ALL_FAQ_ITEMS_RU.length, "ответ", "ответа", "ответов")} на реальные вопросы иностранных покупателей — по шести категориям. Ищите по слову, фильтруйте или просто листайте.`}
         image="/images/scenes/faq.jpg"
         imageAlt="Окаймлённый пальмами пляж на закате, Ко Панган"
       />

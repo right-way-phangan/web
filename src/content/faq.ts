@@ -185,7 +185,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     answer: [
       "Three verification steps Right Way completes for every property:",
       { ul: [
-        "**Land Office title search** (~1–2 days, ~500 THB) — confirms the Chanote is registered to the seller, with no liens, mortgages, or court orders. Reveals co-owners (sometimes 4–5 family members on one Chanote, all must consent to sell).",
+        "**Land Office title search** (~1–2 days) — confirms the Chanote is registered to the seller, with no liens, mortgages, or court orders. Reveals co-owners (sometimes 4–5 family members on one Chanote, all must consent to sell).",
         "**Identity check** — verifying the seller's Thai ID matches the name on the Chanote. If sold via Power of Attorney, the PoA must be notarised and current (within 30 days).",
         "**Chain of title review** — tracing the title back 2–3 transfers to ensure clean transfers, no fraud, no contested transfers. This is where ~70% of cheap plots turn out to have issues.",
       ] },
@@ -197,7 +197,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     category: "documents",
     question: "What if the document area (rai) and GPS-measured area don't match?",
     answer: [
-      "Small discrepancies (< 2%) are common and usually within survey tolerance. Larger ones need investigation:",
+      "Small discrepancies are common and usually within survey tolerance. Larger ones need investigation:",
       { ul: [
         "**0–2%** — normal, accepted by Land Office.",
         "**2–5%** — flag for review, often a recent fence move or neighbour encroachment. Resolvable.",
@@ -205,7 +205,7 @@ export const FAQ_ITEMS: FaqItem[] = [
         "**>10%** — major issue, often title fraud or unresolved historic dispute. Walk away.",
       ] },
       "Sometimes the document says 6 rai but the seller actually owns 5.7 rai (encroachment by a neighbour years ago, never resolved). The buyer either pays for 5.7 rai or insists the seller resolve the boundary before sale.",
-      "Right Way performs GPS verification on every Chanote we list. Any discrepancy over 2% is documented in the property's data sheet.",
+      "Right Way performs GPS verification on every Chanote we list, and any material discrepancy between the document and the survey is documented in the property's data sheet.",
     ],
   },
 
@@ -530,7 +530,7 @@ export const FAQ_ITEMS: FaqItem[] = [
       "Honest answer: **Phangan is primarily a lifestyle market, secondarily an investment market.** Reasons:",
       { ul: [
         "Land appreciation has been 6–10% per year in good locations over the past 5 years. Not Bitcoin returns, but stable.",
-        "Rental yield is modest — 4–7% gross on villa rentals, lower on land. After management, maintenance, vacancy, and tax, net yields land at 2–4%.",
+        "Rental yield is meaningful — roughly 8–12% gross per year on well-located villas at realistic occupancy (district rates and occupancy live in our [Market Analytics](/insights)) — but net depends heavily on occupancy, management, and seasonality, and the asset is less liquid than equities. Demand for quality villas is steady while supply is still limited.",
         "Liquidity is moderate — selling a Phangan property typically takes 4–12 months. Not instant like stocks.",
       ] },
       "**Where Phangan works as an investment:**",
