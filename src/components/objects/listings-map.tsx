@@ -1,14 +1,12 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from "react-leaflet";
-import type { Map as LeafletMap } from "leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import { formatPriceCompact } from "@/lib/utils/price";
-import { useLeafletStrictModeFix } from "@/lib/leaflet/strict-mode-fix";
 import { TILE_URL, TILE_ATTRIBUTION, TILE_SUBDOMAINS } from "@/lib/leaflet/tiles";
 
 export interface MapPoint {
@@ -158,20 +156,9 @@ export default function ListingsMap({
   onBoundsChange,
   onInteract,
 }: Props) {
-  // Tear the Leaflet instance down on unmount, and survive StrictMode's dev
-  // double-mount (see useLeafletStrictModeFix for the why).
-  const mapRef = useRef<LeafletMap | null>(null);
-  const wrapperRef = useRef<HTMLDivElement | null>(null);
-  useLeafletStrictModeFix(wrapperRef);
-  useEffect(() => () => {
-    mapRef.current?.remove();
-    mapRef.current = null;
-  }, []);
-
   return (
-    <div ref={wrapperRef} className="h-full w-full overflow-hidden rounded-sm border border-forest-500/10">
+    <div className="h-full w-full overflow-hidden rounded-sm border border-forest-500/10">
       <MapContainer
-        ref={mapRef}
         center={[9.75, 100.02]}
         zoom={12}
         scrollWheelZoom

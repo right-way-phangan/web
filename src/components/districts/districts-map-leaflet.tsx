@@ -1,13 +1,12 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import type { Route } from "next";
 import { track } from "@vercel/analytics";
 import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
-import L, { type Map as LeafletMap } from "leaflet";
+import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { useLeafletStrictModeFix } from "@/lib/leaflet/strict-mode-fix";
 import { TILE_URL, TILE_ATTRIBUTION, TILE_SUBDOMAINS } from "@/lib/leaflet/tiles";
 
 export interface DistrictPoint {
@@ -55,18 +54,10 @@ function FitBounds({ points }: { points: DistrictPoint[] }) {
 
 export default function DistrictsMapLeaflet({ points }: { points: DistrictPoint[] }) {
   const router = useRouter();
-  const mapRef = useRef<LeafletMap | null>(null);
-  const wrapperRef = useRef<HTMLDivElement | null>(null);
-  useLeafletStrictModeFix(wrapperRef);
-  useEffect(() => () => {
-    mapRef.current?.remove();
-    mapRef.current = null;
-  }, []);
 
   return (
-    <div ref={wrapperRef} className="h-full w-full overflow-hidden rounded-sm border border-forest-500/10">
+    <div className="h-full w-full overflow-hidden rounded-sm border border-forest-500/10">
       <MapContainer
-        ref={mapRef}
         center={[9.75, 100.0]}
         zoom={12}
         scrollWheelZoom={false}

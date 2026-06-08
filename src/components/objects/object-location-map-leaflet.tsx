@@ -1,10 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
-import L, { type Map as LeafletMap } from "leaflet";
+import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { useLeafletStrictModeFix } from "@/lib/leaflet/strict-mode-fix";
 import { TILE_URL, TILE_ATTRIBUTION, TILE_SUBDOMAINS } from "@/lib/leaflet/tiles";
 
 // Brass teardrop pin (matches the listings map's idle pin shape).
@@ -21,18 +19,9 @@ interface Props {
 }
 
 export default function ObjectLocationMapLeaflet({ lat, lng }: Props) {
-  const mapRef = useRef<LeafletMap | null>(null);
-  const wrapperRef = useRef<HTMLDivElement | null>(null);
-  useLeafletStrictModeFix(wrapperRef);
-  useEffect(() => () => {
-    mapRef.current?.remove();
-    mapRef.current = null;
-  }, []);
-
   return (
-    <div ref={wrapperRef} className="h-full w-full overflow-hidden rounded-sm border border-forest-500/10">
+    <div className="h-full w-full overflow-hidden rounded-sm border border-forest-500/10">
       <MapContainer
-        ref={mapRef}
         center={[lat, lng]}
         zoom={15}
         scrollWheelZoom={false}

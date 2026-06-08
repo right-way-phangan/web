@@ -26,19 +26,19 @@ export function Header() {
       <div className="container-prose flex h-16 items-center justify-between md:h-20">
         <Logo />
 
-        <nav className="hidden md:flex items-center gap-8" aria-label="Primary">
+        <nav className="hidden xl:flex items-center gap-x-5" aria-label="Primary">
           {chrome.nav.map((item) => (
             <Link
               key={item.href}
               href={item.href as Route}
-              className="text-sm text-forest-500 hover:text-brass-500 transition-colors"
+              className="whitespace-nowrap text-sm text-forest-500 hover:text-brass-500 transition-colors"
             >
               {item.label}
             </Link>
           ))}
         </nav>
 
-        <div className="hidden md:flex md:items-center md:gap-3">
+        <div className="hidden xl:flex xl:items-center xl:gap-3">
           <LanguageSwitcher />
           <SavedLink count={savedCount} label={chrome.savedAria} href={isRu ? "/ru/saved" : "/saved"} />
           <Button asChild variant="outline" size="sm">
@@ -46,7 +46,7 @@ export function Header() {
           </Button>
         </div>
 
-        <div className="flex items-center gap-1 md:hidden">
+        <div className="flex items-center gap-1 xl:hidden">
           <SavedLink count={savedCount} label={chrome.savedAria} href={isRu ? "/ru/saved" : "/saved"} />
           <button
             type="button"
@@ -62,8 +62,8 @@ export function Header() {
 
       <div
         className={cn(
-          "md:hidden overflow-hidden border-t border-forest-500/10 bg-cream-100 transition-[max-height,opacity] duration-300",
-          open ? "max-h-96 opacity-100" : "max-h-0 opacity-0",
+          "xl:hidden overflow-hidden border-t border-forest-500/10 bg-cream-100 transition-[max-height,opacity] duration-300",
+          open ? "max-h-[40rem] opacity-100" : "max-h-0 opacity-0",
         )}
       >
         <nav
@@ -80,8 +80,13 @@ export function Header() {
               {item.label}
             </Link>
           ))}
-          <div className="pt-3">
+          <div className="flex items-center justify-between gap-3 pt-4">
             <LanguageSwitcher />
+            <Button asChild variant="outline" size="sm">
+              <Link href={contactHref} onClick={() => setOpen(false)}>
+                {chrome.getInTouch}
+              </Link>
+            </Button>
           </div>
         </nav>
       </div>
