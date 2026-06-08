@@ -185,7 +185,7 @@ const chrome: Record<Locale, ChromeDict> = {
       { label: "Процесс", href: "/ru/process" },
       { label: "О нас", href: "/ru/about" },
       { label: "База знаний", href: "/knowledge" },
-      { label: "FAQ", href: "/faq" },
+      { label: "FAQ", href: "/ru/faq" },
       { label: "Контакты", href: "/ru/contact" },
     ],
     getInTouch: "Связаться",

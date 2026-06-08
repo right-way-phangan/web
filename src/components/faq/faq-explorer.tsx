@@ -12,19 +12,61 @@ import { ALL_FAQ_ITEMS } from "@/content/faq-derived";
 import { FaqAnswer } from "./faq-blocks";
 import { cn } from "@/lib/utils/cn";
 
-// Pre-compute search index once at module load (server bundle).
-// ALL_FAQ_ITEMS = hand-written FAQ + entries auto-derived from the KB library.
-const INDEX: Array<{ item: FaqItem; text: string }> = ALL_FAQ_ITEMS.map(
-  (item) => ({
-    item,
-    text: buildFaqSearchText(item),
-  }),
-);
-const TOTAL = ALL_FAQ_ITEMS.length;
+interface FaqExplorerDict {
+  searchPlaceholder: (n: number) => string;
+  searchAria: string;
+  clearSearch: string;
+  all: string;
+  shown: (filtered: number, total: number) => string;
+  emptyTitle: string;
+  emptyBody: (total: number) => string;
+}
 
-export function FaqExplorer() {
+// Dicts live inside the client component — functions can't cross the
+// server→client boundary, so the page passes a plain `locale` string instead.
+const DICTS: Record<"en" | "ru", FaqExplorerDict> = {
+  en: {
+    searchPlaceholder: (n) => `Search ${n} questions…`,
+    searchAria: "Search FAQ",
+    clearSearch: "Clear search",
+    all: "All",
+    shown: (filtered, total) =>
+      `${filtered} of ${total} ${filtered === 1 ? "question" : "questions"} shown`,
+    emptyTitle: "Nothing matches that search.",
+    emptyBody: (total) =>
+      `Try fewer or different words, or clear the filter to see all ${total} questions.`,
+  },
+  ru: {
+    searchPlaceholder: (n) => `Поиск по ${n} вопросам…`,
+    searchAria: "Поиск по вопросам",
+    clearSearch: "Очистить поиск",
+    all: "Все",
+    shown: (filtered, total) => `Показано ${filtered} из ${total}`,
+    emptyTitle: "По этому запросу ничего не нашлось.",
+    emptyBody: (total) =>
+      `Попробуйте меньше или другие слова, либо сбросьте фильтр, чтобы увидеть все ${total} вопросов.`,
+  },
+};
+
+export function FaqExplorer({
+  items = ALL_FAQ_ITEMS,
+  categories = FAQ_CATEGORIES,
+  locale = "en",
+}: {
+  items?: FaqItem[];
+  categories?: Array<{ id: FaqCategoryId; title: string; lead: string }>;
+  locale?: "en" | "ru";
+} = {}) {
+  const dict = DICTS[locale];
   const [query, setQuery] = useState("");
   const [activeCat, setActiveCat] = useState<FaqCategoryId | "all">("all");
+
+  // Search index for the provided item set (hand-written + any derived).
+  const INDEX = useMemo(
+    () => items.map((item) => ({ item, text: buildFaqSearchText(item) })),
+    [items],
+  );
+  const TOTAL = items.length;
 
   const trimmed = query.trim().toLowerCase();
 
@@ -34,7 +76,7 @@ export function FaqExplorer() {
       if (trimmed && !text.includes(trimmed)) return false;
       return true;
     }).map((r) => r.item);
-  }, [trimmed, activeCat]);
+  }, [INDEX, trimmed, activeCat]);
 
   // Group filtered items by category
   const grouped = useMemo(() => {
@@ -57,17 +99,17 @@ export function FaqExplorer() {
             />
             <input
               type="search"
-              placeholder={`Search ${TOTAL} questions…`}
+              placeholder={dict.searchPlaceholder(TOTAL)}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               className="h-10 w-full rounded-sm border border-forest-500/20 bg-cream-50 pl-9 pr-9 text-sm text-forest-900 placeholder:text-forest-500/40 focus:border-forest-500 focus:outline-none focus:ring-2 focus:ring-forest-500/30"
-              aria-label="Search FAQ"
+              aria-label={dict.searchAria}
             />
             {query ? (
               <button
                 type="button"
                 onClick={() => setQuery("")}
-                aria-label="Clear search"
+                aria-label={dict.clearSearch}
                 className="absolute right-2 top-1/2 -translate-y-1/2 rounded-sm p-1 text-forest-500/50 hover:bg-forest-500/5 hover:text-forest-500"
               >
                 <X className="h-3.5 w-3.5" />
@@ -80,9 +122,9 @@ export function FaqExplorer() {
               active={activeCat === "all"}
               onClick={() => setActiveCat("all")}
             >
-              All
+              {dict.all}
             </CatChip>
-            {FAQ_CATEGORIES.map((c) => (
+            {categories.map((c) => (
               <CatChip
                 key={c.id}
                 active={activeCat === c.id}
@@ -94,26 +136,18 @@ export function FaqExplorer() {
           </div>
         </div>
 
-        <p className="mt-3 text-xs text-forest-500/50">
-          {filtered.length} of {TOTAL}{" "}
-          {filtered.length === 1 ? "question" : "questions"} shown
-        </p>
+        <p className="mt-3 text-xs text-forest-500/50">{dict.shown(filtered.length, TOTAL)}</p>
       </div>
 
       {/* Results */}
       {filtered.length === 0 ? (
         <div className="mt-12 rounded-sm border border-forest-500/10 bg-cream-200/40 p-12 text-center">
-          <h2 className="font-serif text-2xl text-forest-500">
-            Nothing matches that search.
-          </h2>
-          <p className="mx-auto mt-3 max-w-md text-sm text-forest-500/70">
-            Try fewer or different words, or clear the filter to see all{" "}
-            {TOTAL} questions.
-          </p>
+          <h2 className="font-serif text-2xl text-forest-500">{dict.emptyTitle}</h2>
+          <p className="mx-auto mt-3 max-w-md text-sm text-forest-500/70">{dict.emptyBody(TOTAL)}</p>
         </div>
       ) : (
         <div className="space-y-16">
-          {FAQ_CATEGORIES.map((cat) => {
+          {categories.map((cat) => {
             const items = grouped[cat.id];
             if (!items || items.length === 0) return null;
             return (
