@@ -122,7 +122,7 @@ export default async function RussianDistrictPage({ params }: Props) {
         </div>
       </section>
 
-      {districtMarket ? <DistrictMarketPanel dm={districtMarket} /> : null}
+      {districtMarket ? <DistrictMarketPanel dm={districtMarket} locale="ru" /> : null}
 
       <section className="border-t border-forest-500/10 bg-cream-200/30">
         <div className="container-prose py-16 md:py-20">

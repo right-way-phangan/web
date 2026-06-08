@@ -180,7 +180,7 @@ const chrome: Record<Locale, ChromeDict> = {
       { label: "Объекты", href: "/ru/listings" },
       { label: "Районы", href: "/ru/districts" },
       { label: "Калькулятор", href: "/ru/calculator" },
-      { label: "Аналитика", href: "/insights" },
+      { label: "Аналитика", href: "/ru/insights" },
       { label: "Услуги", href: "/ru/services" },
       { label: "Процесс", href: "/ru/process" },
       { label: "О нас", href: "/ru/about" },

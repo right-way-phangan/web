@@ -6,6 +6,62 @@ import {
   type DistrictMarket as DistrictMarketData,
   fmtThb,
 } from "@/lib/data/rental-market";
+import type { Locale } from "@/lib/i18n/dictionaries";
+
+const DM = {
+  en: {
+    eyebrow: "Rental market here",
+    title: (name: string) => `What homes earn in ${name}`,
+    rank: (rank: number, count: number) => `#${rank} of ${count} on the island`,
+    medianNightly: "Median nightly rate",
+    comps: (n: number) => `${n} comps`,
+    annualIncome: "Est. annual income",
+    perYr: (v: string) => `${v}/yr`,
+    atOcc: (pct: number, booked: number | null) =>
+      `at ${pct}% base occupancy${booked != null ? ` · ${booked}% booked now` : ""}`,
+    landPrice: "Land price",
+    perSqm: (v: string) => `${v}/m²`,
+    fromLand: "from our land listings",
+    noLand: "no land comps yet",
+    byBedrooms: "By bedrooms:",
+    studio: "Studio",
+    br: (n: number) => `${n} BR`,
+    fullData: "Full market data",
+    modelRoi: "Model the ROI",
+    footnote: (sample: number, date: string) =>
+      `Median of ${sample} Airbnb listings · ${date}. Annual income uses a base occupancy assumption; “booked now” is current forward-90d availability of active listings. See the full report for method.`,
+  },
+  ru: {
+    eyebrow: "Рынок аренды здесь",
+    title: (name: string) => `Сколько зарабатывают объекты в ${name}`,
+    rank: (rank: number, count: number) => `#${rank} из ${count} на острове`,
+    medianNightly: "Медианная ставка за ночь",
+    comps: (n: number) => `${n} ${pluralComps(n)}`,
+    annualIncome: "Ориент. годовой доход",
+    perYr: (v: string) => `${v}/год`,
+    atOcc: (pct: number, booked: number | null) =>
+      `при ${pct}% базовой загрузке${booked != null ? ` · занято ${booked}%` : ""}`,
+    landPrice: "Цена земли",
+    perSqm: (v: string) => `${v}/м²`,
+    fromLand: "по нашим земельным объявлениям",
+    noLand: "пока нет земельных данных",
+    byBedrooms: "По спальням:",
+    studio: "Студия",
+    br: (n: number) => `${n} спал.`,
+    fullData: "Все данные рынка",
+    modelRoi: "Смоделировать ROI",
+    footnote: (sample: number, date: string) =>
+      `Медиана по ${sample} объявлениям Airbnb · ${date}. Годовой доход — при допущении базовой загрузки; «занято» — текущая доступность активных объектов на 90 дней вперёд. Метод — в полном отчёте.`,
+  },
+} as const;
+
+function pluralComps(n: number): string {
+  const mod10 = n % 10;
+  const mod100 = n % 100;
+  if (mod10 === 1 && mod100 !== 11) return "объект";
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return "объекта";
+  return "объектов";
+}
 
 /**
  * Rental-market panel for a /districts/[slug] page: how much homes here earn
@@ -13,7 +69,15 @@ import {
  * and the local land price per m² (own listings). Bridges the district guide to
  * the full /insights report and the ROI calculator.
  */
-export function DistrictMarketPanel({ dm }: { dm: DistrictMarketData }) {
+export function DistrictMarketPanel({
+  dm,
+  locale = "en",
+}: {
+  dm: DistrictMarketData;
+  locale?: Locale;
+}) {
+  const t = DM[locale];
+  const base = locale === "ru" ? "/ru" : "";
   const meta = getRentalMarket().meta;
   const { district: d } = dm;
 
@@ -24,46 +88,42 @@ export function DistrictMarketPanel({ dm }: { dm: DistrictMarketData }) {
           <div>
             <p className="inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
               <TrendingUp className="h-4 w-4" />
-              Rental market here
+              {t.eyebrow}
             </p>
-            <h2 className="mt-3 font-serif text-2xl text-forest-900 md:text-3xl">
-              What homes earn in {d.name}
-            </h2>
+            <h2 className="mt-3 font-serif text-2xl text-forest-900 md:text-3xl">{t.title(d.name)}</h2>
           </div>
           <span className="rounded-full bg-forest-500/8 px-3 py-1 text-xs font-medium text-forest-900">
-            #{dm.islandRank} of {dm.islandCount} on the island
+            {t.rank(dm.islandRank, dm.islandCount)}
           </span>
         </div>
 
         <div className="mt-6 grid gap-4 sm:grid-cols-3">
           <Stat
-            label="Median nightly rate"
+            label={t.medianNightly}
             value={fmtThb(d.adrMedian)}
-            sub={`${d.n} comps${d.adrP25 && d.adrP75 ? ` · ${fmtThb(d.adrP25)}–${fmtThb(d.adrP75)}` : ""}`}
+            sub={`${t.comps(d.n)}${d.adrP25 && d.adrP75 ? ` · ${fmtThb(d.adrP25)}–${fmtThb(d.adrP75)}` : ""}`}
           />
           <Stat
-            label={`Est. annual income`}
-            value={`${fmtThb(dm.annualThb, true)}/yr`}
-            sub={`at ${dm.baseOccPct}% base occupancy${
-              dm.measuredOcc != null ? ` · ${Math.round(dm.measuredOcc * 100)}% booked now` : ""
-            }`}
+            label={t.annualIncome}
+            value={t.perYr(fmtThb(dm.annualThb, true))}
+            sub={t.atOcc(dm.baseOccPct, dm.measuredOcc != null ? Math.round(dm.measuredOcc * 100) : null)}
           />
           <Stat
-            label="Land price"
-            value={dm.landPerSqm ? `${fmtThb(dm.landPerSqm)}/m²` : "—"}
-            sub={dm.landPerSqm ? "from our land listings" : "no land comps yet"}
+            label={t.landPrice}
+            value={dm.landPerSqm ? t.perSqm(fmtThb(dm.landPerSqm)) : "—"}
+            sub={dm.landPerSqm ? t.fromLand : t.noLand}
           />
         </div>
 
         {dm.bedroomConfigs.length > 0 ? (
           <div className="mt-5 flex flex-wrap items-center gap-2">
-            <span className="text-xs text-forest-500/60">By bedrooms:</span>
+            <span className="text-xs text-forest-500/60">{t.byBedrooms}</span>
             {dm.bedroomConfigs.map((b) => (
               <span
                 key={b.bedrooms}
                 className="rounded-full bg-cream-50 px-3 py-1 text-xs font-medium text-forest-900 ring-1 ring-forest-500/10"
               >
-                {b.bedrooms === 0 ? "Studio" : `${b.bedrooms} BR`} {fmtThb(b.adrMedian)}
+                {b.bedrooms === 0 ? t.studio : t.br(b.bedrooms)} {fmtThb(b.adrMedian)}
               </span>
             ))}
           </div>
@@ -71,25 +131,21 @@ export function DistrictMarketPanel({ dm }: { dm: DistrictMarketData }) {
 
         <div className="mt-6 flex flex-wrap gap-4">
           <Link
-            href={"/insights" as Route}
+            href={`${base}/insights` as Route}
             className="inline-flex items-center gap-1.5 text-sm font-medium text-forest-500 hover:text-brass-500"
           >
-            Full market data
+            {t.fullData}
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
           <Link
-            href={"/calculator?mode=rent" as Route}
+            href={`${base}/calculator?mode=rent` as Route}
             className="inline-flex items-center gap-1.5 text-sm font-medium text-forest-500 hover:text-brass-500"
           >
-            Model the ROI
+            {t.modelRoi}
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>
-        <p className="mt-3 text-[11px] text-forest-500/45">
-          Median of {meta.sample} Airbnb listings · {meta.date}. Annual income uses a base
-          occupancy assumption; &ldquo;booked now&rdquo; is current forward-90d availability of
-          active listings. See the full report for method.
-        </p>
+        <p className="mt-3 text-[11px] text-forest-500/45">{t.footnote(meta.sample, meta.date)}</p>
       </div>
     </section>
   );

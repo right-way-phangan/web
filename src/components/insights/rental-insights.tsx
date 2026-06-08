@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import Link from "next/link";
 import type { Route } from "next";
 import {
@@ -17,6 +17,8 @@ import {
   Building2,
 } from "lucide-react";
 import { LeadForm } from "@/components/forms/lead-form";
+import { useLocale, localeHref } from "@/lib/i18n/use-locale";
+import { pluralRu } from "@/lib/i18n/dictionaries";
 import {
   type RentalMarket,
   type RmSeasonal,
@@ -29,6 +31,396 @@ import {
   measuredOccupancy,
   confidenceOf,
 } from "@/lib/data/rental-market";
+
+/* ------------------------------ i18n dict ------------------------------ */
+
+const INS = {
+  en: {
+    dataRefreshing: "Market data is being refreshed — check back shortly.",
+    // snapshot strip
+    listingsAnalysed: "Listings analysed",
+    source: "Source",
+    snapshot: "Snapshot",
+    activeOcc: "Active occupancy (90d)",
+    bookingCrossCheck: "Booking cross-check",
+    perNight: "/night",
+    // teaser
+    freePreview: "Free preview",
+    teaserTitle: "Top districts to build for rental",
+    teaserNote: "Median nightly rate (ADR) of entire-home listings, by district.",
+    topPick: "Top pick",
+    poolPremium: (pct: number): ReactNode => (
+      <>
+        Listings with a pool command a{" "}
+        <strong className="text-forest-900">+{pct}%</strong> nightly premium.
+      </>
+    ),
+    teaserSub: (n: number, annual: string, basePct: number, booked: number | null) =>
+      `${n} listings · est. ${annual}/yr at ${basePct}% base${
+        booked != null ? ` · ${booked}% booked now` : ""
+      }`,
+    // gate
+    fullReportEyebrow: "Full report",
+    unlockEyebrow: "Unlock the full report",
+    gateTitle: "The complete build-to-rent picture",
+    gateNote:
+      "All districts, premiums by feature, rates by property type and bedroom count, plus the assumptions behind every number.",
+    unlockedConfirm: "Report unlocked — thanks. We'll be in touch.",
+    // build recommendation
+    whatDataSuggests: "What the data suggests",
+    featurePhrase: {
+      pool: "a pool",
+      private_pool: "a private pool",
+      sea_view: "a sea view",
+      beachfront: "a beachfront location",
+      luxury: "a luxury finish",
+    } as Record<string, string>,
+    homeWord: "home",
+    configLabel: (bedrooms: number | null, typeLabel: string | null) => {
+      const type = typeLabel ? typeLabel.toLowerCase() : "home";
+      if (bedrooms == null) return type;
+      return `${bedrooms === 0 ? "studio" : `${bedrooms}-bedroom`} ${type}`;
+    },
+    buildSentence: (p: {
+      config: ReactNode;
+      feat: string | null;
+      district: string;
+      nightly: string;
+      annual: string;
+      basePct: number;
+      booked: number | null;
+    }): ReactNode => (
+      <>
+        Build a <strong>{p.config}</strong>
+        {p.feat ? (
+          <>
+            {" "}
+            with <strong>{p.feat}</strong>
+          </>
+        ) : null}{" "}
+        in <strong>{p.district}</strong>. It&apos;s the island&apos;s strongest nightly market — a
+        median of <strong>{p.nightly}/night</strong>, an estimated <strong>{p.annual}/year</strong>{" "}
+        at {p.basePct}% base occupancy
+        {p.booked != null ? ` (currently ${p.booked}% booked)` : ""}.
+      </>
+    ),
+    pillAdds: (label: string, pct: number) => `${label} adds +${pct}%`,
+    pillHighestType: (label: string) => `${label} = highest ADR type`,
+    pillComps: (n: number, district: string) => `${n} comps in ${district}`,
+    modelThisRoi: "Model this in the ROI calculator",
+    // inventory
+    ourXmarket: "Our listings × the market",
+    invTitle: "What our listings could earn",
+    invNote:
+      "Active Right Way listings matched to their district's nightly rate — gross and net yield (net is after 25% management + 3% opex). An indication, not a guarantee.",
+    netSuffix: (pct: number) => `${pct}% net`,
+    brSuffix: (n: number) => ` · ${n} BR`,
+    bookedNow: (pct: number) => ` · ${pct}% booked now`,
+    mPrice: "Price",
+    mGross: "Gross",
+    mNet: "Net",
+    mPayback: "Payback",
+    paybackY: (n: number) => `${n}y`,
+    invFootnote:
+      "Gross = district median ADR × 365 × base occupancy ÷ price. Net deducts 25% management + 3% opex. “Booked now” = current forward-90d availability of active listings. Land excluded.",
+    // full report
+    sortLabels: {
+      adr: "Nightly rate",
+      annual: "Annual income",
+      sample: "Sample size",
+      name: "Name A–Z",
+    } as Record<DistrictSort, string>,
+    subAllDistricts: "Nightly rate by district — all districts",
+    subByType: "Nightly rate by property type",
+    subByBedroom: "Nightly rate by bedroom count",
+    subWhatRaises: "What raises the nightly rate",
+    subDistrictBedroom: "District × bedroom configurations (sample ≥2)",
+    bedroomNote: "Bedroom counts are parsed from listing text where stated — a partial sample.",
+    nListings: (n: number) => `${n} listings`,
+    districtSub: (n: number, p25p75: string | null, annual: string, booked: number | null) =>
+      `${n} listings · ${p25p75 ? `${p25p75} p25–p75 · ` : ""}est. ${annual}/yr${
+        booked != null ? ` · ${booked}% booked now` : ""
+      }`,
+    typeSub: (n: number, rating: number | null) =>
+      `${n} listings${rating ? ` · ★ ${rating}` : ""}`,
+    featureSub: (withStr: string, withoutStr: string, nWith: number, nWithout: number) =>
+      `${withStr} vs ${withoutStr} · ${nWith} with / ${nWithout} without`,
+    bedroomLabel: (n: number) => (n === 0 ? "Studio" : `${n} bedroom${n > 1 ? "s" : ""}`),
+    brShort: (n: number) => (n === 0 ? "Studio" : `${n} BR`),
+    thDistrict: "District",
+    thBedrooms: "Bedrooms",
+    thAdrMedian: "ADR median",
+    thN: "n",
+    perNightShort: " /night",
+    capexText: (source: string, perSqm: string, nSale: number): ReactNode => (
+      <>
+        <strong>CapEx reference:</strong>{" "}
+        {source === "own_land" ? "median land price" : "median sale price"} {perSqm}/m²
+        {source === "own_land" ? ` across ${nSale} Right Way land listings` : ` (${nSale} listings)`}.
+        Land is the big build-to-rent CapEx line — pair it with the annual-revenue column above for a
+        rough yield-on-cost.
+      </>
+    ),
+    ctaTitle: "Turn this into your own projection",
+    ctaBody:
+      "The ROI calculator is wired to this data — pick a district and property type and it fills in the nightly rate and occupancy automatically.",
+    ctaButton: "Open the ROI calculator",
+    // seasonality
+    seasonalTrend: "Seasonal trend",
+    collecting: (n: number): ReactNode => (
+      <>
+        Collecting monthly snapshots — <strong>{n}</strong> so far. The seasonal ADR trend (high vs
+        low season) appears once we have at least two months. A fresh snapshot runs on the 1st of
+        each month.
+      </>
+    ),
+    island: "Island",
+    seasonalOverTime: "Seasonal trend — nightly rate over time",
+    // methodology
+    methodSummary: "Method & assumptions",
+    methodBullets: (meta: RentalMarket["meta"]): ReactNode[] => [
+      <>
+        Data is a snapshot of <strong>{meta.sample}</strong> entire-home Airbnb listings on Koh
+        Phangan ({meta.date}), priced in {meta.currency}. Internal research, not republished data.
+      </>,
+      <>
+        <strong>Annual income uses an assumed base occupancy</strong> of{" "}
+        {Math.round(meta.occupancy.base * 100)}% — one forward 90-day window (often low season)
+        can&apos;t stand in for a full year, so we don&apos;t let it drive the headline. Scenarios:{" "}
+        {Math.round(meta.occupancy.conservative * 100)}/{Math.round(meta.occupancy.base * 100)}/
+        {Math.round(meta.occupancy.high * 100)}%.
+      </>,
+      <>
+        <strong>&ldquo;Booked now&rdquo;</strong> is a current-demand signal: the share of the next
+        ~90 days that&apos;s unavailable, measured from each listing&apos;s calendar, across{" "}
+        <em>active</em> listings only (≥5 reviews). The long tail of dormant listings (no reviews)
+        sits near 0% and is excluded — including them understates real demand.
+      </>,
+      <>
+        <strong>Net yield</strong> deducts 25% management and 3% opex from gross. Demand is also
+        proxied by review counts and guest-favorite share.
+      </>,
+      <>
+        Confidence dots reflect sample size per district (
+        <span className="inline-block h-1.5 w-1.5 rounded-full bg-forest-500 align-middle" /> high
+        ≥12 ·{" "}
+        <span className="inline-block h-1.5 w-1.5 rounded-full bg-brass-400 align-middle" /> medium
+        ≥5 ·{" "}
+        <span className="inline-block h-1.5 w-1.5 rounded-full bg-brass-400/50 align-middle" /> low
+        &lt;5). Treat low-sample districts as indicative only.
+      </>,
+      <>
+        District is assigned by listing coordinates (nearest centroid); Airbnb coarsens some
+        coordinates, so it&apos;s approximate. Bedrooms/features come from listing text.
+      </>,
+      <>Prices reflect the snapshot date and season — re-run monthly for seasonal trends.</>,
+    ],
+    // unlock card
+    unlockHeadline: (n: number) => `Get the full ${n}-listing breakdown`,
+    unlockBody:
+      "Leave your email and the complete report opens instantly — every district, the premium each feature commands, rates by type and bedroom count, and the method behind it. No marketing emails; we'll only follow up about your project if you ask.",
+    unlockSubmit: "Unlock the report",
+    unlockDefaultMessage:
+      "Please send me the Koh Phangan rental-market report. I'm interested in building / buying for rental.",
+  },
+  ru: {
+    dataRefreshing: "Данные рынка обновляются — загляните чуть позже.",
+    listingsAnalysed: "Проанализировано объявлений",
+    source: "Источник",
+    snapshot: "Срез",
+    activeOcc: "Активная загрузка (90д)",
+    bookingCrossCheck: "Сверка с Booking",
+    perNight: "/ночь",
+    freePreview: "Бесплатный обзор",
+    teaserTitle: "Лучшие районы для строительства под аренду",
+    teaserNote: "Медианная ставка за ночь (ADR) по объектам целиком, по районам.",
+    topPick: "Топ-выбор",
+    poolPremium: (pct: number): ReactNode => (
+      <>
+        Объекты с бассейном получают наценку{" "}
+        <strong className="text-forest-900">+{pct}%</strong> к ставке за ночь.
+      </>
+    ),
+    teaserSub: (n: number, annual: string, basePct: number, booked: number | null) =>
+      `${n} ${pluralRu(n, "объявление", "объявления", "объявлений")} · ориент. ${annual}/год при ${basePct}% базовой${
+        booked != null ? ` · занято ${booked}%` : ""
+      }`,
+    fullReportEyebrow: "Полный отчёт",
+    unlockEyebrow: "Откройте полный отчёт",
+    gateTitle: "Полная картина строительства под аренду",
+    gateNote:
+      "Все районы, наценки по характеристикам, ставки по типам и числу спален, плюс допущения за каждой цифрой.",
+    unlockedConfirm: "Отчёт открыт — спасибо. Мы свяжемся с вами.",
+    whatDataSuggests: "Что подсказывают данные",
+    featurePhrase: {
+      pool: "бассейном",
+      private_pool: "собственным бассейном",
+      sea_view: "видом на море",
+      beachfront: "выходом на пляж",
+      luxury: "люксовой отделкой",
+    } as Record<string, string>,
+    homeWord: "дом",
+    configLabel: (bedrooms: number | null, typeLabel: string | null) => {
+      const type = typeWordRu(typeLabel);
+      if (bedrooms == null) return type;
+      if (bedrooms === 0) return `${type}-студию`;
+      return `${type} на ${bedrooms} ${pluralRu(bedrooms, "спальню", "спальни", "спален")}`;
+    },
+    buildSentence: (p: {
+      config: ReactNode;
+      feat: string | null;
+      district: string;
+      nightly: string;
+      annual: string;
+      basePct: number;
+      booked: number | null;
+    }): ReactNode => (
+      <>
+        Постройте <strong>{p.config}</strong>
+        {p.feat ? (
+          <>
+            {" "}
+            с <strong>{p.feat}</strong>
+          </>
+        ) : null}{" "}
+        в районе <strong>{p.district}</strong>. Это сильнейший рынок посуточной аренды на острове —
+        медиана <strong>{p.nightly}/ночь</strong>, ориентировочно <strong>{p.annual}/год</strong> при
+        базовой загрузке {p.basePct}%
+        {p.booked != null ? ` (сейчас занято ${p.booked}%)` : ""}.
+      </>
+    ),
+    pillAdds: (label: string, pct: number) => `${label}: +${pct}%`,
+    pillHighestType: (label: string) => `${label} — самый дорогой тип`,
+    pillComps: (n: number, district: string) =>
+      `${n} ${pluralRu(n, "объект", "объекта", "объектов")} в ${district}`,
+    modelThisRoi: "Смоделировать в ROI-калькуляторе",
+    ourXmarket: "Наши объекты × рынок",
+    invTitle: "Сколько могут зарабатывать наши объекты",
+    invNote:
+      "Активные объекты Right Way, сопоставленные со ставкой их района — валовая и чистая доходность (чистая — после 25% управления + 3% операционных). Ориентир, не гарантия.",
+    netSuffix: (pct: number) => `${pct}% чистыми`,
+    brSuffix: (n: number) => ` · ${n} спал.`,
+    bookedNow: (pct: number) => ` · занято ${pct}%`,
+    mPrice: "Цена",
+    mGross: "Валовая",
+    mNet: "Чистая",
+    mPayback: "Окупаемость",
+    paybackY: (n: number) => `${n} ${pluralRu(n, "год", "года", "лет")}`,
+    invFootnote:
+      "Валовая = медианный ADR района × 365 × базовая загрузка ÷ цена. Чистая вычитает 25% управления + 3% операционных. «Занято» = текущая доступность активных объектов на 90 дней вперёд. Земля исключена.",
+    sortLabels: {
+      adr: "Ставка за ночь",
+      annual: "Годовой доход",
+      sample: "Размер выборки",
+      name: "По названию",
+    } as Record<DistrictSort, string>,
+    subAllDistricts: "Ставка за ночь по районам — все районы",
+    subByType: "Ставка за ночь по типу объекта",
+    subByBedroom: "Ставка за ночь по числу спален",
+    subWhatRaises: "Что повышает ставку за ночь",
+    subDistrictBedroom: "Конфигурации район × спальни (выборка ≥2)",
+    bedroomNote:
+      "Число спален извлечено из текста объявлений, где указано — частичная выборка.",
+    nListings: (n: number) => `${n} ${pluralRu(n, "объявление", "объявления", "объявлений")}`,
+    districtSub: (n: number, p25p75: string | null, annual: string, booked: number | null) =>
+      `${n} ${pluralRu(n, "объявление", "объявления", "объявлений")} · ${
+        p25p75 ? `${p25p75} p25–p75 · ` : ""
+      }ориент. ${annual}/год${booked != null ? ` · занято ${booked}%` : ""}`,
+    typeSub: (n: number, rating: number | null) =>
+      `${n} ${pluralRu(n, "объявление", "объявления", "объявлений")}${rating ? ` · ★ ${rating}` : ""}`,
+    featureSub: (withStr: string, withoutStr: string, nWith: number, nWithout: number) =>
+      `${withStr} против ${withoutStr} · ${nWith} с / ${nWithout} без`,
+    bedroomLabel: (n: number) =>
+      n === 0 ? "Студия" : `${n} ${pluralRu(n, "спальня", "спальни", "спален")}`,
+    brShort: (n: number) => (n === 0 ? "Студия" : `${n} спал.`),
+    thDistrict: "Район",
+    thBedrooms: "Спальни",
+    thAdrMedian: "Медиана ADR",
+    thN: "n",
+    perNightShort: " /ночь",
+    capexText: (source: string, perSqm: string, nSale: number): ReactNode => (
+      <>
+        <strong>Справка по CapEx:</strong>{" "}
+        {source === "own_land" ? "медианная цена земли" : "медианная цена продажи"} {perSqm}/м²
+        {source === "own_land"
+          ? ` по ${nSale} ${pluralRu(nSale, "участку", "участкам", "участкам")} Right Way`
+          : ` (${nSale} ${pluralRu(nSale, "объявление", "объявления", "объявлений")})`}
+        . Земля — главная статья капзатрат при строительстве под аренду; сопоставьте её с колонкой
+        годового дохода выше для грубой доходности на капитал.
+      </>
+    ),
+    ctaTitle: "Превратите это в свой прогноз",
+    ctaBody:
+      "ROI-калькулятор связан с этими данными — выберите район и тип объекта, и он сам подставит ставку за ночь и загрузку.",
+    ctaButton: "Открыть ROI-калькулятор",
+    seasonalTrend: "Сезонный тренд",
+    collecting: (n: number): ReactNode => (
+      <>
+        Собираем ежемесячные срезы — пока <strong>{n}</strong>. Сезонный тренд ставки (высокий vs
+        низкий сезон) появится, когда наберётся хотя бы два месяца. Новый срез снимается 1-го числа
+        каждого месяца.
+      </>
+    ),
+    island: "Остров",
+    seasonalOverTime: "Сезонный тренд — ставка за ночь во времени",
+    methodSummary: "Метод и допущения",
+    methodBullets: (meta: RentalMarket["meta"]): ReactNode[] => [
+      <>
+        Данные — срез <strong>{meta.sample}</strong> объявлений Airbnb (объект целиком) на Ко Пангане
+        ({meta.date}), в валюте {meta.currency}. Внутреннее исследование, не перепубликация чужих
+        данных.
+      </>,
+      <>
+        <strong>Годовой доход берётся при допущении базовой загрузки</strong>{" "}
+        {Math.round(meta.occupancy.base * 100)}% — одно окно в 90 дней вперёд (часто низкий сезон) не
+        может заменить полный год, поэтому мы не делаем его заголовком. Сценарии:{" "}
+        {Math.round(meta.occupancy.conservative * 100)}/{Math.round(meta.occupancy.base * 100)}/
+        {Math.round(meta.occupancy.high * 100)}%.
+      </>,
+      <>
+        <strong>«Занято»</strong> — сигнал текущего спроса: доля ближайших ~90 дней, что недоступны,
+        измеренная по календарю каждого объявления, только по <em>активным</em> объектам (≥5
+        отзывов). Длинный хвост спящих объявлений (без отзывов) держится около 0% и исключён — их учёт
+        занижал бы реальный спрос.
+      </>,
+      <>
+        <strong>Чистая доходность</strong> вычитает 25% управления и 3% операционных из валовой. Спрос
+        также оценивается по числу отзывов и доле «гостевой выбор».
+      </>,
+      <>
+        Точки уверенности отражают размер выборки по району (
+        <span className="inline-block h-1.5 w-1.5 rounded-full bg-forest-500 align-middle" /> высокая
+        ≥12 ·{" "}
+        <span className="inline-block h-1.5 w-1.5 rounded-full bg-brass-400 align-middle" /> средняя
+        ≥5 ·{" "}
+        <span className="inline-block h-1.5 w-1.5 rounded-full bg-brass-400/50 align-middle" /> низкая
+        &lt;5). Районы с малой выборкой — только как ориентир.
+      </>,
+      <>
+        Район присваивается по координатам объявления (ближайший центроид); Airbnb огрубляет часть
+        координат, поэтому приблизительно. Спальни/характеристики — из текста объявления.
+      </>,
+      <>Цены отражают дату среза и сезон — перезапускайте ежемесячно для сезонных трендов.</>,
+    ],
+    unlockHeadline: (n: number) => `Получите полную разбивку по ${n} объявлениям`,
+    unlockBody:
+      "Оставьте email — и полный отчёт откроется сразу: каждый район, наценка за каждую характеристику, ставки по типам и числу спален, и метод за ними. Без рекламных рассылок; напишем по вашему проекту только если попросите.",
+    unlockSubmit: "Открыть отчёт",
+    unlockDefaultMessage:
+      "Пришлите, пожалуйста, отчёт по рынку аренды Ко Пангана. Интересует строительство / покупка под аренду.",
+  },
+} as const;
+
+/** Translate an English property-type label to a Russian noun for the build sentence. */
+function typeWordRu(label: string | null): string {
+  if (!label) return "дом";
+  const l = label.toLowerCase();
+  if (l.includes("villa")) return "виллу";
+  if (l.includes("apart") || l.includes("condo")) return "апартаменты";
+  if (l.includes("house")) return "дом";
+  if (l.includes("land")) return "участок";
+  return label.toLowerCase();
+}
 
 /**
  * /insights rental-market view. Public teaser (top districts + one premium),
@@ -43,6 +435,7 @@ export function RentalInsights({
   data: RentalMarket;
   inventory?: InventoryYieldRow[];
 }) {
+  const t = INS[useLocale()];
   const [unlocked, setUnlocked] = useState(false);
   const [currency, setCurrency] = useState<DisplayCurrency>("THB");
   const { meta } = data;
@@ -55,7 +448,7 @@ export function RentalInsights({
   if (data.districts.length === 0) {
     return (
       <p className="rounded-sm border border-forest-500/15 bg-cream-50 p-6 text-forest-500/80">
-        Market data is being refreshed — check back shortly.
+        {t.dataRefreshing}
       </p>
     );
   }
@@ -65,19 +458,19 @@ export function RentalInsights({
       {/* Snapshot strip + currency toggle */}
       <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 rounded-sm border border-forest-500/10 bg-cream-50 px-6 py-5 text-sm">
         <div className="flex flex-wrap gap-x-8 gap-y-3">
-          <Stat label="Listings analysed" value={meta.sample.toLocaleString("en-US")} />
-          <Stat label="Source" value={meta.source} />
-          <Stat label="Snapshot" value={meta.date} />
+          <Stat label={t.listingsAnalysed} value={meta.sample.toLocaleString("en-US")} />
+          <Stat label={t.source} value={meta.source} />
+          <Stat label={t.snapshot} value={meta.date} />
           {meta.occupancyMeasuredAll != null ? (
             <Stat
-              label="Active occupancy (90d)"
+              label={t.activeOcc}
               value={`${Math.round(meta.occupancyMeasuredAll * 100)}%`}
             />
           ) : null}
           {data.crossCheck?.bookingVillaNightly ? (
             <Stat
-              label="Booking cross-check"
-              value={`${fmt(data.crossCheck.bookingVillaNightly)}/night`}
+              label={t.bookingCrossCheck}
+              value={`${fmt(data.crossCheck.bookingVillaNightly)}${t.perNight}`}
             />
           ) : null}
         </div>
@@ -96,9 +489,9 @@ export function RentalInsights({
       <section>
         <SectionHead
           icon={<TrendingUp className="h-4 w-4" />}
-          eyebrow="Free preview"
-          title="Top districts to build for rental"
-          note="Median nightly rate (ADR) of entire-home listings, by district."
+          eyebrow={t.freePreview}
+          title={t.teaserTitle}
+          note={t.teaserNote}
         />
         <div className="mt-6 space-y-3">
           {top3.map((d, i) => (
@@ -109,23 +502,23 @@ export function RentalInsights({
               value={d.adrMedian}
               max={maxAdr}
               right={fmt(d.adrMedian)}
-              sub={`${d.n} listings · est. ${fmt(effectiveAnnualThb(d, meta), true)}/yr at ${Math.round(
-                meta.occupancy.base * 100,
-              )}% base${
+              sub={t.teaserSub(
+                d.n,
+                fmt(effectiveAnnualThb(d, meta), true),
+                Math.round(meta.occupancy.base * 100),
                 measuredOccupancy(d, meta) != null
-                  ? ` · ${Math.round((measuredOccupancy(d, meta) as number) * 100)}% booked now`
-                  : ""
-              }`}
+                  ? Math.round((measuredOccupancy(d, meta) as number) * 100)
+                  : null,
+              )}
               highlight
-              badge={i === 0 ? "Top pick" : undefined}
+              badge={i === 0 ? t.topPick : undefined}
             />
           ))}
         </div>
         {poolPremium != null ? (
           <p className="mt-6 inline-flex items-center gap-2 rounded-sm bg-brass-200/40 px-4 py-2.5 text-sm text-forest-500">
             <Waves className="h-4 w-4 text-brass-500" />
-            Listings with a pool command a{" "}
-            <strong className="text-forest-900">+{poolPremium}%</strong> nightly premium.
+            {t.poolPremium(poolPremium)}
           </p>
         ) : null}
       </section>
@@ -134,9 +527,9 @@ export function RentalInsights({
       <section className="relative">
         <SectionHead
           icon={<Lock className="h-4 w-4" />}
-          eyebrow={unlocked ? "Full report" : "Unlock the full report"}
-          title="The complete build-to-rent picture"
-          note="All districts, premiums by feature, rates by property type and bedroom count, plus the assumptions behind every number."
+          eyebrow={unlocked ? t.fullReportEyebrow : t.unlockEyebrow}
+          title={t.gateTitle}
+          note={t.gateNote}
         />
 
         {!unlocked ? (
@@ -144,7 +537,7 @@ export function RentalInsights({
         ) : (
           <div className="mt-4 inline-flex items-center gap-2 rounded-sm border border-forest-500/20 bg-forest-50/40 px-4 py-2 text-sm text-forest-500">
             <CheckCircle2 className="h-4 w-4 text-forest-500" />
-            Report unlocked — thanks. We&apos;ll be in touch.
+            {t.unlockedConfirm}
           </div>
         )}
 
@@ -166,17 +559,11 @@ export function RentalInsights({
 
 /* ------------------------- Build recommendation ------------------------ */
 
-const FEATURE_PHRASE: Record<string, string> = {
-  pool: "a pool",
-  private_pool: "a private pool",
-  sea_view: "a sea view",
-  beachfront: "a beachfront location",
-  luxury: "a luxury finish",
-};
-
 function BuildRecommendation({ data, fmt }: { data: RentalMarket; fmt: MoneyFmt }) {
+  const locale = useLocale();
+  const t = INS[locale];
   const topD = data.districts[0];
-  const bestType = data.byType.find((t) => t.n >= 3);
+  const bestType = data.byType.find((ty) => ty.n >= 3);
   const topFeat = [...data.featurePremiums]
     .filter((f) => f.premiumPct != null)
     .sort((a, b) => (b.premiumPct ?? 0) - (a.premiumPct ?? 0))[0];
@@ -185,47 +572,44 @@ function BuildRecommendation({ data, fmt }: { data: RentalMarket; fmt: MoneyFmt 
     .sort((a, b) => b.adrMedian - a.adrMedian)[0];
 
   if (!topD) return null;
-  const config = bestConfig
-    ? `${bestConfig.bedrooms === 0 ? "studio" : `${bestConfig.bedrooms}-bedroom`} ${
-        bestType?.label.toLowerCase() ?? "home"
-      }`
-    : (bestType?.label.toLowerCase() ?? "home");
+  const config = t.configLabel(
+    bestConfig ? bestConfig.bedrooms : null,
+    bestType?.label ?? null,
+  );
+  const feat = topFeat ? (t.featurePhrase[topFeat.key] ?? topFeat.label.toLowerCase()) : null;
 
   return (
     <div className="rounded-sm border border-brass-300/50 bg-gradient-to-br from-cream-50 to-brass-200/20 p-7 md:p-9">
       <p className="inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
         <Hammer className="h-4 w-4" />
-        What the data suggests
+        {t.whatDataSuggests}
       </p>
       <p className="mt-4 max-w-3xl text-pretty text-lg leading-relaxed text-forest-900 md:text-xl">
-        Build a <strong>{config}</strong>
-        {topFeat ? (
-          <>
-            {" "}
-            with <strong>{FEATURE_PHRASE[topFeat.key] ?? topFeat.label.toLowerCase()}</strong>
-          </>
-        ) : null}{" "}
-        in <strong>{topD.name}</strong>. It&apos;s the island&apos;s strongest nightly market —
-        a median of <strong>{fmt(bestConfig?.adrMedian ?? topD.adrMedian)}/night</strong>, an
-        estimated <strong>{fmt(effectiveAnnualThb(topD, data.meta), true)}/year</strong> at{" "}
-        {Math.round(data.meta.occupancy.base * 100)}% base occupancy
-        {measuredOccupancy(topD, data.meta) != null
-          ? ` (currently ${Math.round((measuredOccupancy(topD, data.meta) as number) * 100)}% booked)`
-          : ""}
-        .
+        {t.buildSentence({
+          config,
+          feat,
+          district: topD.name,
+          nightly: fmt(bestConfig?.adrMedian ?? topD.adrMedian),
+          annual: fmt(effectiveAnnualThb(topD, data.meta), true),
+          basePct: Math.round(data.meta.occupancy.base * 100),
+          booked:
+            measuredOccupancy(topD, data.meta) != null
+              ? Math.round((measuredOccupancy(topD, data.meta) as number) * 100)
+              : null,
+        })}
       </p>
       <div className="mt-5 flex flex-wrap gap-2.5">
         {topFeat?.premiumPct != null ? (
-          <Pill>{topFeat.label} adds +{topFeat.premiumPct}%</Pill>
+          <Pill>{t.pillAdds(topFeat.label, topFeat.premiumPct)}</Pill>
         ) : null}
-        {bestType ? <Pill>{bestType.label} = highest ADR type</Pill> : null}
-        <Pill>{topD.n} comps in {topD.name}</Pill>
+        {bestType ? <Pill>{t.pillHighestType(bestType.label)}</Pill> : null}
+        <Pill>{t.pillComps(topD.n, topD.name)}</Pill>
       </div>
       <Link
-        href={"/calculator?mode=rent" as Route}
+        href={localeHref(locale, "/calculator?mode=rent") as Route}
         className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-forest-500 hover:text-brass-500"
       >
-        Model this in the ROI calculator
+        {t.modelThisRoi}
         <ArrowRight className="h-4 w-4" />
       </Link>
     </div>
@@ -251,19 +635,22 @@ function InventoryYield({
   fmt: MoneyFmt;
   meta: RentalMarket["meta"];
 }) {
+  void meta;
+  const locale = useLocale();
+  const t = INS[locale];
   return (
     <section>
       <SectionHead
         icon={<Building2 className="h-4 w-4" />}
-        eyebrow="Our listings × the market"
-        title="What our listings could earn"
-        note="Active Right Way listings matched to their district's nightly rate — gross and net yield (net is after 25% management + 3% opex). An indication, not a guarantee."
+        eyebrow={t.ourXmarket}
+        title={t.invTitle}
+        note={t.invNote}
       />
       <div className="mt-6 grid gap-3 sm:grid-cols-2">
         {rows.map((r) => (
           <Link
             key={r.rwNumber}
-            href={`/object/${r.rwNumber}` as Route}
+            href={localeHref(locale, `/object/${r.rwNumber}`) as Route}
             className="group rounded-sm border border-forest-500/10 bg-cream-50 p-4 transition-colors hover:border-brass-300/60"
           >
             <div className="flex items-start justify-between gap-3">
@@ -273,28 +660,24 @@ function InventoryYield({
                 </div>
                 <div className="text-[11px] text-forest-500/60">
                   {r.rwNumber} · {r.type} · {r.district}
-                  {r.bedrooms ? ` · ${r.bedrooms} BR` : ""}
-                  {r.measuredOcc != null ? ` · ${Math.round(r.measuredOcc * 100)}% booked now` : ""}
+                  {r.bedrooms ? t.brSuffix(r.bedrooms) : ""}
+                  {r.measuredOcc != null ? t.bookedNow(Math.round(r.measuredOcc * 100)) : ""}
                 </div>
               </div>
               <div className="shrink-0 rounded-full bg-forest-500 px-2.5 py-0.5 text-xs font-semibold text-cream-50">
-                {r.netYieldPct}% net
+                {t.netSuffix(r.netYieldPct)}
               </div>
             </div>
             <div className="mt-3 grid grid-cols-4 gap-2 text-center">
-              <Metric label="Price" value={fmt(r.priceThb, true)} />
-              <Metric label="Gross" value={`${r.grossYieldPct}%`} />
-              <Metric label="Net" value={`${r.netYieldPct}%`} />
-              <Metric label="Payback" value={r.paybackYears > 0 ? `${r.paybackYears}y` : "—"} />
+              <Metric label={t.mPrice} value={fmt(r.priceThb, true)} />
+              <Metric label={t.mGross} value={`${r.grossYieldPct}%`} />
+              <Metric label={t.mNet} value={`${r.netYieldPct}%`} />
+              <Metric label={t.mPayback} value={r.paybackYears > 0 ? t.paybackY(r.paybackYears) : "—"} />
             </div>
           </Link>
         ))}
       </div>
-      <p className="mt-3 text-[11px] text-forest-500/50">
-        Gross = district median ADR × 365 × base occupancy ÷ price. Net deducts 25% management + 3%
-        opex. &ldquo;Booked now&rdquo; = current forward-90d availability of active listings. Land
-        excluded.
-      </p>
+      <p className="mt-3 text-[11px] text-forest-500/50">{t.invFootnote}</p>
     </section>
   );
 }
@@ -312,18 +695,12 @@ function Metric({ label, value }: { label: string; value: string }) {
 
 type DistrictSort = "adr" | "annual" | "sample" | "name";
 
-const SORT_LABELS: Record<DistrictSort, string> = {
-  adr: "Nightly rate",
-  annual: "Annual income",
-  sample: "Sample size",
-  name: "Name A–Z",
-};
-
 function FullReport({ data, fmt }: { data: RentalMarket; fmt: MoneyFmt }) {
+  const t = INS[useLocale()];
   const { meta } = data;
   const [sort, setSort] = useState<DistrictSort>("adr");
   const maxAdr = Math.max(...data.districts.map((d) => d.adrMedian), 1);
-  const maxType = Math.max(...data.byType.map((t) => t.adrMedian), 1);
+  const maxType = Math.max(...data.byType.map((ty) => ty.adrMedian), 1);
   const maxPremium = Math.max(...data.featurePremiums.map((f) => f.premiumPct ?? 0), 1);
   const bedrooms = [...data.byBedrooms].sort((a, b) => a.bedrooms - b.bedrooms);
   const maxBed = Math.max(...bedrooms.map((b) => b.adrMedian), 1);
@@ -342,9 +719,9 @@ function FullReport({ data, fmt }: { data: RentalMarket; fmt: MoneyFmt }) {
       {/* All districts */}
       <div>
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <SubHead title="Nightly rate by district — all districts" />
+          <SubHead title={t.subAllDistricts} />
           <div className="inline-flex flex-wrap gap-1 text-[11px]">
-            {(Object.keys(SORT_LABELS) as DistrictSort[]).map((k) => (
+            {(Object.keys(t.sortLabels) as DistrictSort[]).map((k) => (
               <button
                 key={k}
                 type="button"
@@ -355,7 +732,7 @@ function FullReport({ data, fmt }: { data: RentalMarket; fmt: MoneyFmt }) {
                     : "bg-forest-500/8 text-forest-500/70 hover:bg-forest-500/15"
                 }`}
               >
-                {SORT_LABELS[k]}
+                {t.sortLabels[k]}
               </button>
             ))}
           </div>
@@ -369,14 +746,15 @@ function FullReport({ data, fmt }: { data: RentalMarket; fmt: MoneyFmt }) {
               value={d.adrMedian}
               max={maxAdr}
               right={fmt(d.adrMedian)}
-              sub={`${d.n} listings · ${
-                d.adrP25 && d.adrP75 ? `${fmt(d.adrP25)}–${fmt(d.adrP75)} p25–p75 · ` : ""
-              }est. ${fmt(effectiveAnnualThb(d, meta), true)}/yr${
+              sub={t.districtSub(
+                d.n,
+                d.adrP25 && d.adrP75 ? `${fmt(d.adrP25)}–${fmt(d.adrP75)}` : null,
+                fmt(effectiveAnnualThb(d, meta), true),
                 measuredOccupancy(d, meta) != null
-                  ? ` · ${Math.round((measuredOccupancy(d, meta) as number) * 100)}% booked now`
-                  : ""
-              }`}
-              badge={d.name === topPick ? "Top pick" : undefined}
+                  ? Math.round((measuredOccupancy(d, meta) as number) * 100)
+                  : null,
+              )}
+              badge={d.name === topPick ? t.topPick : undefined}
               highlight={d.name === topPick}
               confidence={confidenceOf(d.n)}
             />
@@ -386,18 +764,18 @@ function FullReport({ data, fmt }: { data: RentalMarket; fmt: MoneyFmt }) {
 
       {/* By property type */}
       <div>
-        <SubHead title="Nightly rate by property type" icon={<Home className="h-4 w-4" />} />
+        <SubHead title={t.subByType} icon={<Home className="h-4 w-4" />} />
         <div className="mt-5 space-y-2.5">
           {data.byType
-            .filter((t) => t.n >= 2)
-            .map((t) => (
+            .filter((ty) => ty.n >= 2)
+            .map((ty) => (
               <BarRow
-                key={t.type}
-                label={t.label}
-                value={t.adrMedian}
+                key={ty.type}
+                label={ty.label}
+                value={ty.adrMedian}
                 max={maxType}
-                right={fmt(t.adrMedian)}
-                sub={`${t.n} listings${t.ratingMedian ? ` · ★ ${t.ratingMedian}` : ""}`}
+                right={fmt(ty.adrMedian)}
+                sub={t.typeSub(ty.n, ty.ratingMedian ?? null)}
               />
             ))}
         </div>
@@ -406,28 +784,26 @@ function FullReport({ data, fmt }: { data: RentalMarket; fmt: MoneyFmt }) {
       {/* By bedrooms */}
       {bedrooms.length > 0 ? (
         <div>
-          <SubHead title="Nightly rate by bedroom count" icon={<BedDouble className="h-4 w-4" />} />
+          <SubHead title={t.subByBedroom} icon={<BedDouble className="h-4 w-4" />} />
           <div className="mt-5 space-y-2.5">
             {bedrooms.map((b) => (
               <BarRow
                 key={b.bedrooms}
-                label={b.bedrooms === 0 ? "Studio" : `${b.bedrooms} bedroom${b.bedrooms > 1 ? "s" : ""}`}
+                label={t.bedroomLabel(b.bedrooms)}
                 value={b.adrMedian}
                 max={maxBed}
                 right={fmt(b.adrMedian)}
-                sub={`${b.n} listings`}
+                sub={t.nListings(b.n)}
               />
             ))}
           </div>
-          <p className="mt-3 text-xs text-forest-500/60">
-            Bedroom counts are parsed from listing text where stated — a partial sample.
-          </p>
+          <p className="mt-3 text-xs text-forest-500/60">{t.bedroomNote}</p>
         </div>
       ) : null}
 
       {/* Feature premiums */}
       <div>
-        <SubHead title="What raises the nightly rate" icon={<Waves className="h-4 w-4" />} />
+        <SubHead title={t.subWhatRaises} icon={<Waves className="h-4 w-4" />} />
         <div className="mt-5 space-y-2.5">
           {data.featurePremiums
             .filter((f) => f.premiumPct != null)
@@ -439,7 +815,7 @@ function FullReport({ data, fmt }: { data: RentalMarket; fmt: MoneyFmt }) {
                 value={f.premiumPct ?? 0}
                 max={maxPremium}
                 right={`+${f.premiumPct}%`}
-                sub={`${fmt(f.adrWith)} vs ${fmt(f.adrWithout)} · ${f.nWith} with / ${f.nWithout} without`}
+                sub={t.featureSub(fmt(f.adrWith), fmt(f.adrWithout), f.nWith, f.nWithout)}
                 tone="brass"
               />
             ))}
@@ -449,23 +825,23 @@ function FullReport({ data, fmt }: { data: RentalMarket; fmt: MoneyFmt }) {
       {/* District × bedrooms — table on desktop, cards on mobile */}
       {districtBedrooms.length > 0 ? (
         <div>
-          <SubHead title="District × bedroom configurations (sample ≥2)" />
+          <SubHead title={t.subDistrictBedroom} />
           {/* desktop table */}
           <div className="mt-5 hidden md:block">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-forest-500/15 text-left text-xs uppercase tracking-wider text-forest-500/60">
-                  <th className="py-2 pr-4 font-medium">District</th>
-                  <th className="py-2 pr-4 font-medium">Bedrooms</th>
-                  <th className="py-2 pr-4 text-right font-medium">ADR median</th>
-                  <th className="py-2 text-right font-medium">n</th>
+                  <th className="py-2 pr-4 font-medium">{t.thDistrict}</th>
+                  <th className="py-2 pr-4 font-medium">{t.thBedrooms}</th>
+                  <th className="py-2 pr-4 text-right font-medium">{t.thAdrMedian}</th>
+                  <th className="py-2 text-right font-medium">{t.thN}</th>
                 </tr>
               </thead>
               <tbody>
                 {districtBedrooms.map((r) => (
                   <tr key={`${r.district}-${r.bedrooms}`} className="border-b border-forest-500/[0.08]">
                     <td className="py-2 pr-4">{r.district}</td>
-                    <td className="py-2 pr-4">{r.bedrooms === 0 ? "Studio" : `${r.bedrooms} BR`}</td>
+                    <td className="py-2 pr-4">{t.brShort(r.bedrooms)}</td>
                     <td className="py-2 pr-4 text-right font-medium">{fmt(r.adrMedian)}</td>
                     <td className="py-2 text-right text-forest-500/70">{r.n}</td>
                   </tr>
@@ -482,12 +858,11 @@ function FullReport({ data, fmt }: { data: RentalMarket; fmt: MoneyFmt }) {
               >
                 <div className="text-sm font-medium text-forest-900">{r.district}</div>
                 <div className="text-[11px] text-forest-500/60">
-                  {r.bedrooms === 0 ? "Studio" : `${r.bedrooms} bedroom${r.bedrooms > 1 ? "s" : ""}`} ·{" "}
-                  {r.n} listings
+                  {t.bedroomLabel(r.bedrooms)} · {t.nListings(r.n)}
                 </div>
                 <div className="mt-1.5 text-base font-semibold tabular-nums text-forest-900">
                   {fmt(r.adrMedian)}
-                  <span className="text-[11px] font-normal text-forest-500/55"> /night</span>
+                  <span className="text-[11px] font-normal text-forest-500/55">{t.perNightShort}</span>
                 </div>
               </div>
             ))}
@@ -501,32 +876,12 @@ function FullReport({ data, fmt }: { data: RentalMarket; fmt: MoneyFmt }) {
       {/* CapEx — land price per m² */}
       {data.capex.pricePerSqmMedian ? (
         <p className="text-sm text-forest-500/80">
-          <strong>CapEx reference:</strong>{" "}
-          {data.capex.source === "own_land" ? "median land price" : "median sale price"}{" "}
-          {fmt(data.capex.pricePerSqmMedian)}/m²
-          {data.capex.source === "own_land"
-            ? ` across ${data.capex.nSale} Right Way land listings`
-            : ` (${data.capex.nSale} listings)`}
-          . Land is the big build-to-rent CapEx line — pair it with the annual-revenue column
-          above for a rough yield-on-cost.
+          {t.capexText(data.capex.source ?? "", fmt(data.capex.pricePerSqmMedian), data.capex.nSale)}
         </p>
       ) : null}
 
       {/* CTA into the calculator */}
-      <div className="rounded-sm border border-forest-500/15 bg-forest-900 p-7 text-cream-50 md:p-9">
-        <h3 className="font-serif text-2xl text-cream-50">Turn this into your own projection</h3>
-        <p className="mt-2 max-w-xl text-cream-100/80">
-          The ROI calculator is wired to this data — pick a district and property type and it
-          fills in the nightly rate and occupancy automatically.
-        </p>
-        <Link
-          href={"/calculator?mode=rent" as Route}
-          className="mt-5 inline-flex items-center gap-2 rounded-sm bg-brass-400 px-5 py-2.5 text-sm font-medium text-forest-900 transition-colors hover:bg-brass-300"
-        >
-          Open the ROI calculator
-          <ArrowRight className="h-4 w-4" />
-        </Link>
-      </div>
+      <CalculatorCta />
 
       {/* Methodology */}
       <Methodology meta={meta} />
@@ -534,17 +889,34 @@ function FullReport({ data, fmt }: { data: RentalMarket; fmt: MoneyFmt }) {
   );
 }
 
+function CalculatorCta() {
+  const locale = useLocale();
+  const t = INS[locale];
+  return (
+    <div className="rounded-sm border border-forest-500/15 bg-forest-900 p-7 text-cream-50 md:p-9">
+      <h3 className="font-serif text-2xl text-cream-50">{t.ctaTitle}</h3>
+      <p className="mt-2 max-w-xl text-cream-100/80">{t.ctaBody}</p>
+      <Link
+        href={localeHref(locale, "/calculator?mode=rent") as Route}
+        className="mt-5 inline-flex items-center gap-2 rounded-sm bg-brass-400 px-5 py-2.5 text-sm font-medium text-forest-900 transition-colors hover:bg-brass-300"
+      >
+        {t.ctaButton}
+        <ArrowRight className="h-4 w-4" />
+      </Link>
+    </div>
+  );
+}
+
 const SEASON_COLORS = ["#1F3A2E", "#C77929", "#2F5546", "#B5651D"];
 
 function Seasonality({ seasonal, fmt }: { seasonal: RmSeasonal; fmt: MoneyFmt }) {
+  const t = INS[useLocale()];
   if (!seasonal || seasonal.points < 2) {
     return (
       <div>
-        <SubHead title="Seasonal trend" />
+        <SubHead title={t.seasonalTrend} />
         <p className="mt-3 rounded-sm border border-forest-500/10 bg-cream-200/30 p-4 text-sm text-forest-500/75">
-          Collecting monthly snapshots — <strong>{seasonal?.points ?? 0}</strong> so far. The
-          seasonal ADR trend (high vs low season) appears once we have at least two months. A fresh
-          snapshot runs on the 1st of each month.
+          {t.collecting(seasonal?.points ?? 0)}
         </p>
       </div>
     );
@@ -552,7 +924,7 @@ function Seasonality({ seasonal, fmt }: { seasonal: RmSeasonal; fmt: MoneyFmt })
 
   // Series: island overall + up to 3 districts. Scale to combined min/max.
   const series: { name: string; values: (number | null)[]; color: string }[] = [
-    { name: "Island", values: seasonal.overall, color: SEASON_COLORS[0] },
+    { name: t.island, values: seasonal.overall, color: SEASON_COLORS[0] },
   ];
   Object.entries(seasonal.districts)
     .slice(0, 3)
@@ -572,7 +944,7 @@ function Seasonality({ seasonal, fmt }: { seasonal: RmSeasonal; fmt: MoneyFmt })
 
   return (
     <div>
-      <SubHead title="Seasonal trend — nightly rate over time" />
+      <SubHead title={t.seasonalOverTime} />
       <div className="mt-5 overflow-x-auto rounded-sm border border-forest-500/10 bg-cream-50 p-4">
         <svg viewBox={`0 0 ${W} ${H}`} className="h-48 w-full min-w-[28rem]" role="img">
           {series.map((s) => {
@@ -612,47 +984,14 @@ function Seasonality({ seasonal, fmt }: { seasonal: RmSeasonal; fmt: MoneyFmt })
 }
 
 function Methodology({ meta }: { meta: RentalMarket["meta"] }) {
+  const t = INS[useLocale()];
   return (
     <details className="rounded-sm border border-forest-500/10 bg-cream-200/30 p-5 text-sm text-forest-500/80">
-      <summary className="cursor-pointer font-medium text-forest-500">
-        Method &amp; assumptions
-      </summary>
+      <summary className="cursor-pointer font-medium text-forest-500">{t.methodSummary}</summary>
       <ul className="mt-3 list-disc space-y-1.5 pl-5">
-        <li>
-          Data is a snapshot of <strong>{meta.sample}</strong> entire-home Airbnb listings on Koh
-          Phangan ({meta.date}), priced in {meta.currency}. Internal research, not republished data.
-        </li>
-        <li>
-          <strong>Annual income uses an assumed base occupancy</strong> of{" "}
-          {Math.round(meta.occupancy.base * 100)}% — one forward 90-day window (often low season)
-          can&apos;t stand in for a full year, so we don&apos;t let it drive the headline. Scenarios:{" "}
-          {Math.round(meta.occupancy.conservative * 100)}/{Math.round(meta.occupancy.base * 100)}/
-          {Math.round(meta.occupancy.high * 100)}%.
-        </li>
-        <li>
-          <strong>&ldquo;Booked now&rdquo;</strong> is a current-demand signal: the share of the
-          next ~90 days that&apos;s unavailable, measured from each listing&apos;s calendar, across{" "}
-          <em>active</em> listings only (≥5 reviews). The long tail of dormant listings (no reviews)
-          sits near 0% and is excluded — including them understates real demand.
-        </li>
-        <li>
-          <strong>Net yield</strong> deducts 25% management and 3% opex from gross. Demand is also
-          proxied by review counts and guest-favorite share.
-        </li>
-        <li>
-          Confidence dots reflect sample size per district (
-          <span className="inline-block h-1.5 w-1.5 rounded-full bg-forest-500 align-middle" /> high
-          ≥12 ·{" "}
-          <span className="inline-block h-1.5 w-1.5 rounded-full bg-brass-400 align-middle" /> medium
-          ≥5 ·{" "}
-          <span className="inline-block h-1.5 w-1.5 rounded-full bg-brass-400/50 align-middle" /> low
-          &lt;5). Treat low-sample districts as indicative only.
-        </li>
-        <li>
-          District is assigned by listing coordinates (nearest centroid); Airbnb coarsens some
-          coordinates, so it&apos;s approximate. Bedrooms/features come from listing text.
-        </li>
-        <li>Prices reflect the snapshot date and season — re-run monthly for seasonal trends.</li>
+        {t.methodBullets(meta).map((b, i) => (
+          <li key={i}>{b}</li>
+        ))}
       </ul>
     </details>
   );
@@ -755,6 +1094,7 @@ function BarRow({
   confidence?: "low" | "medium" | "high";
   tone?: "forest" | "brass";
 }) {
+  const locale = useLocale();
   const pct = Math.max(4, Math.round((value / max) * 100));
   const barColor =
     tone === "brass" ? "bg-brass-400" : highlight ? "bg-brass-500" : "bg-forest-500/70";
@@ -775,7 +1115,7 @@ function BarRow({
           ) : null}
           {hasPage ? (
             <Link
-              href={`/districts/${slug}` as Route}
+              href={localeHref(locale, `/districts/${slug}`) as Route}
               className="truncate text-sm font-medium text-forest-900 underline-offset-2 hover:text-brass-500 hover:underline"
             >
               {label}
@@ -799,26 +1139,25 @@ function BarRow({
 /* ------------------------------- Gate ---------------------------------- */
 
 function UnlockCard({ onSuccess, meta }: { onSuccess: () => void; meta: RentalMarket["meta"] }) {
+  const locale = useLocale();
+  const t = INS[locale];
   return (
     <div className="mt-6 rounded-sm border border-brass-300/50 bg-cream-50 p-6 shadow-sm md:p-8">
       <div className="grid gap-8 md:grid-cols-[1fr_minmax(18rem,22rem)] md:items-center">
         <div>
           <p className="inline-flex items-center gap-2 text-sm font-medium text-forest-500">
             <Info className="h-4 w-4 text-brass-500" />
-            Get the full {meta.sample}-listing breakdown
+            {t.unlockHeadline(meta.sample)}
           </p>
-          <p className="mt-3 text-forest-500/80">
-            Leave your email and the complete report opens instantly — every district, the premium
-            each feature commands, rates by type and bedroom count, and the method behind it. No
-            marketing emails; we&apos;ll only follow up about your project if you ask.
-          </p>
+          <p className="mt-3 text-forest-500/80">{t.unlockBody}</p>
         </div>
         <LeadForm
           source="contact"
           kind="market-report"
           layout="card"
-          submitLabel="Unlock the report"
-          defaultMessage="Please send me the Koh Phangan rental-market report. I'm interested in building / buying for rental."
+          locale={locale}
+          submitLabel={t.unlockSubmit}
+          defaultMessage={t.unlockDefaultMessage}
           onSuccess={onSuccess}
         />
       </div>

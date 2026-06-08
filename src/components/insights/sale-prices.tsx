@@ -4,6 +4,44 @@ import { Landmark } from "lucide-react";
 import type { SalePriceStats } from "@/lib/data/sale-prices";
 import { DISTRICT_PAGE_SLUGS } from "@/lib/data/rental-market";
 import { formatPriceCompact } from "@/lib/utils/price";
+import type { Locale } from "@/lib/i18n/dictionaries";
+
+const SP = {
+  en: {
+    title: "Land prices by district",
+    intro: (median: string, sample: number): React.ReactNode => (
+      <>
+        Median asking price per rai across our live land listings. The island-wide median is{" "}
+        <strong className="text-forest-900">{median}</strong> from {sample} priced plots. Bars show
+        where each district sits against the most expensive.
+      </>
+    ),
+    plots: (n: number) => `${n} ${n === 1 ? "plot" : "plots"}`,
+    footnote:
+      "Medians from a live snapshot of active listings — indicative, not a valuation. Plots vary by access, zoning, and frontage.",
+  },
+  ru: {
+    title: "Цены на землю по районам",
+    intro: (median: string, sample: number): React.ReactNode => (
+      <>
+        Медианная цена за рай по нашим активным земельным объявлениям. Медиана по острову —{" "}
+        <strong className="text-forest-900">{median}</strong> из {sample} участков с ценой. Полоски
+        показывают, где каждый район относительно самого дорогого.
+      </>
+    ),
+    plots: (n: number) => `${n} ${pluralPlots(n)}`,
+    footnote:
+      "Медианы по живому срезу активных объявлений — ориентир, не оценка. Участки различаются по доступу, зонированию и фронту.",
+  },
+} as const;
+
+function pluralPlots(n: number): string {
+  const mod10 = n % 10;
+  const mod100 = n % 100;
+  if (mod10 === 1 && mod100 !== 11) return "участок";
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return "участка";
+  return "участков";
+}
 
 /**
  * Sale-price-by-district section for /insights. Pairs the rental yield data with
@@ -11,30 +49,31 @@ import { formatPriceCompact } from "@/lib/utils/price";
  * per rai, ranked by district. Pure CSS bars (no chart lib) to match the rental
  * section and keep the bundle lean.
  */
-export function SalePrices({ stats }: { stats: SalePriceStats }) {
+export function SalePrices({
+  stats,
+  locale = "en",
+}: {
+  stats: SalePriceStats;
+  locale?: Locale;
+}) {
+  const t = SP[locale];
+  const base = locale === "ru" ? "/ru" : "";
   const landRows = stats.rows.filter((r) => r.landPerRaiMedian != null);
   if (landRows.length === 0) return null;
 
   const max = Math.max(...landRows.map((r) => r.landPerRaiMedian ?? 0), 1);
+  const medianAll = stats.landPerRaiMedianAll
+    ? `${formatPriceCompact(stats.landPerRaiMedianAll)}/${locale === "ru" ? "рай" : "rai"}`
+    : "—";
 
   return (
     <section>
       <header className="mb-6 flex items-start gap-3">
         <Landmark className="mt-0.5 h-5 w-5 shrink-0 text-brass-500" />
         <div>
-          <h2 className="font-serif text-2xl text-forest-900 md:text-3xl">
-            Land prices by district
-          </h2>
+          <h2 className="font-serif text-2xl text-forest-900 md:text-3xl">{t.title}</h2>
           <p className="mt-1 max-w-2xl text-sm text-forest-500/70">
-            Median asking price per rai across our live land listings. The
-            island-wide median is{" "}
-            <strong className="text-forest-900">
-              {stats.landPerRaiMedianAll
-                ? `${formatPriceCompact(stats.landPerRaiMedianAll)}/rai`
-                : "—"}
-            </strong>{" "}
-            from {stats.landSampleAll} priced plots. Bars show where each district
-            sits against the most expensive.
+            {t.intro(medianAll, stats.landSampleAll)}
           </p>
         </div>
       </header>
@@ -53,7 +92,7 @@ export function SalePrices({ stats }: { stats: SalePriceStats }) {
               <div className="min-w-0">
                 {hasPage ? (
                   <Link
-                    href={`/districts/${slug}` as Route}
+                    href={`${base}/districts/${slug}` as Route}
                     className="block truncate text-sm font-medium text-forest-900 underline-offset-2 hover:text-brass-500 hover:underline"
                   >
                     {r.district}
@@ -63,9 +102,7 @@ export function SalePrices({ stats }: { stats: SalePriceStats }) {
                     {r.district}
                   </span>
                 )}
-                <div className="truncate text-[11px] text-forest-500/55">
-                  {r.landCount} {r.landCount === 1 ? "plot" : "plots"}
-                </div>
+                <div className="truncate text-[11px] text-forest-500/55">{t.plots(r.landCount)}</div>
               </div>
               <div className="h-2.5 overflow-hidden rounded-full bg-forest-500/8">
                 <div
@@ -81,10 +118,7 @@ export function SalePrices({ stats }: { stats: SalePriceStats }) {
         })}
       </div>
 
-      <p className="mt-3 text-[11px] text-forest-500/45">
-        Medians from a live snapshot of active listings — indicative, not a
-        valuation. Plots vary by access, zoning, and frontage.
-      </p>
+      <p className="mt-3 text-[11px] text-forest-500/45">{t.footnote}</p>
     </section>
   );
 }
