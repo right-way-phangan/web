@@ -8,6 +8,8 @@ import type { ObjectType, TenureType } from "@/types/object";
 import type { ListingsFilter, SortOption } from "@/lib/filters/listings";
 import { describeFilter } from "@/lib/filters/listings";
 import { useSavedSearches } from "@/lib/saved/saved-searches";
+import { useLocale } from "@/lib/i18n/use-locale";
+import { getListingsDict } from "@/lib/i18n/dictionaries";
 import { cn } from "@/lib/utils/cn";
 
 interface Props {
@@ -18,13 +20,6 @@ interface Props {
   };
   totalCount: number;
 }
-
-const SORT_LABELS: Record<SortOption, string> = {
-  featured: "Featured",
-  newest: "Newest",
-  "price-asc": "Price ↑",
-  "price-desc": "Price ↓",
-};
 
 const TENURE_OPTIONS: TenureType[] = ["Freehold", "Leasehold"];
 
@@ -40,6 +35,13 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
   const params = useSearchParams();
   const [pending, startTransition] = useTransition();
   const { has: hasSearch, save: saveSearch, ready: searchesReady } = useSavedSearches();
+  const dict = getListingsDict(useLocale());
+  const SORT_LABELS: Record<SortOption, string> = {
+    featured: dict.sortFeatured,
+    newest: dict.sortNewest,
+    "price-asc": dict.sortPriceAsc,
+    "price-desc": dict.sortPriceDesc,
+  };
   // Secondary filters (tenure, views, beds) collapse on mobile to keep the bar
   // short; desktop always shows them via `lg:flex`.
   const [showMore, setShowMore] = useState(false);
@@ -118,28 +120,28 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
   // Flat list of active filters, each removable on its own (handy for the
   // select-based ones — district, price, beds, sort — that have no quick off).
   const activeFilters: Array<{ key: string; label: string; remove: () => void }> = [
-    ...current.type.map((t) => ({
-      key: `type-${t}`,
-      label: t,
-      remove: () => toggleMulti("type", t, current.type),
+    ...current.type.map((ty) => ({
+      key: `type-${ty}`,
+      label: dict.types[ty],
+      remove: () => toggleMulti("type", ty, current.type),
     })),
     ...current.district.map((d) => ({
       key: `district-${d}`,
       label: d,
       remove: () => toggleMulti("district", d, current.district),
     })),
-    ...current.tenure.map((t) => ({
-      key: `tenure-${t}`,
-      label: t,
-      remove: () => toggleMulti("tenure", t, current.tenure),
+    ...current.tenure.map((tn) => ({
+      key: `tenure-${tn}`,
+      label: tn === "Freehold" ? dict.freehold : dict.leasehold,
+      remove: () => toggleMulti("tenure", tn, current.tenure),
     })),
     ...(priceMinM ? [{ key: "pmin", label: `≥ ฿${priceMinM}M`, remove: () => setSingle("pmin", undefined) }] : []),
     ...(priceMaxM ? [{ key: "pmax", label: `≤ ฿${priceMaxM}M`, remove: () => setSingle("pmax", undefined) }] : []),
-    ...(current.bedroomsMin ? [{ key: "beds", label: `${current.bedroomsMin}+ bed`, remove: () => setSingle("bedrooms", undefined) }] : []),
-    ...(current.beachfront ? [{ key: "beachfront", label: "Beachfront", remove: () => setSingle("beachfront", undefined) }] : []),
-    ...(current.seaView ? [{ key: "seaview", label: "Sea view", remove: () => setSingle("seaview", undefined) }] : []),
-    ...(current.mountainView ? [{ key: "mountainview", label: "Mountain view", remove: () => setSingle("mountainview", undefined) }] : []),
-    ...(current.sort !== "featured" ? [{ key: "sort", label: `Sort: ${SORT_LABELS[current.sort]}`, remove: () => setSingle("sort", undefined) }] : []),
+    ...(current.bedroomsMin ? [{ key: "beds", label: `${current.bedroomsMin}+ ${dict.bed}`, remove: () => setSingle("bedrooms", undefined) }] : []),
+    ...(current.beachfront ? [{ key: "beachfront", label: dict.beachfront, remove: () => setSingle("beachfront", undefined) }] : []),
+    ...(current.seaView ? [{ key: "seaview", label: dict.seaView, remove: () => setSingle("seaview", undefined) }] : []),
+    ...(current.mountainView ? [{ key: "mountainview", label: dict.mountainView, remove: () => setSingle("mountainview", undefined) }] : []),
+    ...(current.sort !== "featured" ? [{ key: "sort", label: `${dict.sort}: ${SORT_LABELS[current.sort]}`, remove: () => setSingle("sort", undefined) }] : []),
   ];
 
   return (
@@ -151,15 +153,15 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
     >
       <div className="flex flex-wrap items-center gap-2">
         {/* Type chips */}
-        {options.types.map((t) => {
-          const active = current.type.includes(t);
+        {options.types.map((ty) => {
+          const active = current.type.includes(ty);
           return (
             <Chip
-              key={t}
+              key={ty}
               active={active}
-              onClick={() => toggleMulti("type", t, current.type)}
+              onClick={() => toggleMulti("type", ty, current.type)}
             >
-              {t}
+              {dict.types[ty]}
             </Chip>
           );
         })}
@@ -169,7 +171,9 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
         {/* District multi-select */}
         <MultiSelect
           label="District"
-          placeholder="Any district"
+          placeholder={dict.anyDistrict}
+          districtsNLabel={dict.districtsN}
+          clearLabel={dict.clearDistricts}
           selected={current.district}
           options={options.districts}
           onToggle={(d) => toggleMulti("district", d, current.district)}
@@ -178,8 +182,8 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
 
         {/* Price range (millions THB) */}
         <Select
-          label="Min price"
-          placeholder="Min ฿"
+          label={dict.minPrice}
+          placeholder={dict.minPrice}
           value={priceMinM?.toString() ?? ""}
           options={PRICE_STOPS.filter((m) => !priceMaxM || m < priceMaxM).map((m) => ({
             value: String(m),
@@ -188,8 +192,8 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
           onChange={(v) => setSingle("pmin", v || undefined)}
         />
         <Select
-          label="Max price"
-          placeholder="Max ฿"
+          label={dict.maxPrice}
+          placeholder={dict.maxPrice}
           value={priceMaxM?.toString() ?? ""}
           options={PRICE_STOPS.filter((m) => !priceMinM || m > priceMinM).map((m) => ({
             value: String(m),
@@ -206,7 +210,7 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
           className="inline-flex items-center gap-1.5 rounded-sm border border-forest-500/20 bg-cream-50 px-3 py-1.5 text-xs font-medium text-forest-500 lg:hidden"
         >
           <SlidersHorizontal className="h-3 w-3" />
-          More
+          {dict.more}
           {secondaryActiveCount > 0 ? (
             <span className="inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-forest-500 px-1 text-[10px] text-cream-100">
               {secondaryActiveCount}
@@ -225,15 +229,15 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
           <Divider />
 
           {/* Tenure chips */}
-          {TENURE_OPTIONS.map((t) => {
-            const active = current.tenure.includes(t);
+          {TENURE_OPTIONS.map((tn) => {
+            const active = current.tenure.includes(tn);
             return (
               <Chip
-                key={t}
+                key={tn}
                 active={active}
-                onClick={() => toggleMulti("tenure", t, current.tenure)}
+                onClick={() => toggleMulti("tenure", tn, current.tenure)}
               >
-                {t}
+                {tn === "Freehold" ? dict.freehold : dict.leasehold}
               </Chip>
             );
           })}
@@ -245,13 +249,13 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
             active={current.beachfront}
             onClick={() => setSingle("beachfront", current.beachfront ? undefined : "1")}
           >
-            Beachfront
+            {dict.beachfront}
           </Chip>
           <Chip
             active={current.seaView}
             onClick={() => setSingle("seaview", current.seaView ? undefined : "1")}
           >
-            Sea view
+            {dict.seaView}
           </Chip>
           <Chip
             active={current.mountainView}
@@ -259,7 +263,7 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
               setSingle("mountainview", current.mountainView ? undefined : "1")
             }
           >
-            Mountain view
+            {dict.mountainView}
           </Chip>
 
           {/* Bedrooms (conditional) */}
@@ -267,12 +271,12 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
             <>
               <Divider />
               <Select
-                label="Beds"
-                placeholder="Any beds"
+                label={dict.anyBeds}
+                placeholder={dict.anyBeds}
                 value={current.bedroomsMin?.toString() ?? ""}
                 options={BEDROOM_OPTIONS.map((n) => ({
                   value: String(n),
-                  label: `${n}+`,
+                  label: dict.bedsN(n),
                 }))}
                 onChange={(v) => setSingle("bedrooms", v || undefined)}
               />
@@ -283,8 +287,8 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
         <div className="ml-auto flex items-center gap-2">
           {/* Sort */}
           <Select
-            label="Sort"
-            title="Featured = the order we recommend (curated). Or sort by newest / price."
+            label={dict.sort}
+            title={dict.sortTooltip}
             value={current.sort}
             options={(Object.keys(SORT_LABELS) as SortOption[]).map((s) => ({
               value: s,
@@ -316,12 +320,12 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
               {alreadySaved ? (
                 <>
                   <BellRing className="h-3 w-3" />
-                  Saved
+                  {dict.saved}
                 </>
               ) : (
                 <>
                   <BellPlus className="h-3 w-3" />
-                  Save search
+                  {dict.saveSearch}
                 </>
               )}
             </button>
@@ -335,7 +339,7 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
               className="inline-flex items-center gap-1 rounded-sm px-3 py-1.5 text-xs text-forest-500/70 hover:text-forest-500 hover:bg-forest-500/5 transition-colors"
             >
               <X className="h-3 w-3" />
-              Clear
+              {dict.clear}
             </button>
           ) : null}
         </div>
@@ -364,8 +368,8 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
       {filtered || pending ? (
         <p className="mt-3 text-xs text-forest-500/50">
           {pending
-            ? "Updating…"
-            : `${totalCount} ${totalCount === 1 ? "match" : "matches"} · sorted by ${SORT_LABELS[current.sort].toLowerCase()}`}
+            ? dict.updating
+            : `${dict.matchesCount(totalCount)} · ${dict.sortedBy(SORT_LABELS[current.sort])}`}
         </p>
       ) : null}
     </div>
@@ -451,6 +455,8 @@ function Select({
 function MultiSelect({
   label,
   placeholder,
+  districtsNLabel,
+  clearLabel,
   selected,
   options,
   onToggle,
@@ -458,6 +464,8 @@ function MultiSelect({
 }: {
   label: string;
   placeholder: string;
+  districtsNLabel: (n: number) => string;
+  clearLabel: string;
   selected: string[];
   options: string[];
   onToggle: (value: string) => void;
@@ -484,7 +492,7 @@ function MultiSelect({
 
   const count = selected.length;
   const buttonLabel =
-    count === 0 ? placeholder : count === 1 ? selected[0] : `${count} districts`;
+    count === 0 ? placeholder : count === 1 ? selected[0] : districtsNLabel(count);
 
   return (
     <div ref={ref} className="relative inline-flex">
@@ -516,7 +524,7 @@ function MultiSelect({
               className="mb-1 flex w-full items-center gap-1 rounded-sm px-2 py-1.5 text-xs text-forest-500/70 hover:bg-forest-500/5 hover:text-forest-500"
             >
               <X className="h-3 w-3" />
-              Clear districts
+              {clearLabel}
             </button>
           ) : null}
           {options.map((opt) => {

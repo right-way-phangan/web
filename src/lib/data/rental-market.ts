@@ -22,6 +22,16 @@ export interface RmMeta {
   occupancyMeasuredAll?: number | null;
   nOccupancyAll?: number;
   thbPerUsd: number;
+  /**
+   * Data-anchored capital-appreciation band (%/yr) for the ROI calculator's
+   * "Expected growth" presets, so the figure is sourced rather than guessed.
+   * `base` is the headline; `source`/`asOf` document provenance. Computed in
+   * `analytics/rental_market/export_web.py` — from measured ADR YoY once the
+   * snapshot history spans ≥12 months, otherwise an external macro anchor
+   * (Thailand house-price index + island demand premium). Still an estimate,
+   * never a forecast (see calculator disclaimer).
+   */
+  appreciation?: { conservative: number; base: number; high: number; source: string; asOf: string };
 }
 
 export interface RmDistrict {
@@ -98,6 +108,31 @@ export interface RentalMarket {
   crossCheck?: { bookingVillaNightly: number | null; bookingN: number } | null;
 }
 
+/**
+ * Fallback appreciation band when the snapshot history can't yet derive one.
+ * Anchored to Thailand's nationwide house-price index (BoT/REIC, broadly
+ * 3–5%/yr over recent years) with an island demand premium on the high end —
+ * an indicative range the user can override, not a Right Way forecast.
+ */
+export const DEFAULT_APPRECIATION = {
+  conservative: 3,
+  base: 5,
+  high: 8,
+  source: "TH house-price index (BoT/REIC) + Phangan demand premium",
+  asOf: "2026",
+} as const;
+
+/** Appreciation band for the calculator — always returns a usable block. */
+export function getAppreciation(m: RentalMarket): {
+  conservative: number;
+  base: number;
+  high: number;
+  source: string;
+  asOf: string;
+} {
+  return m.meta.appreciation ?? DEFAULT_APPRECIATION;
+}
+
 const EMPTY_MARKET: RentalMarket = {
   meta: {
     date: "—",
@@ -111,6 +146,7 @@ const EMPTY_MARKET: RentalMarket = {
     occupancyMeasuredAll: null,
     nOccupancyAll: 0,
     thbPerUsd: 36.5,
+    appreciation: DEFAULT_APPRECIATION,
   },
   ranking: [],
   districts: [],

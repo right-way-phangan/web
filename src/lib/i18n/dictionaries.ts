@@ -177,7 +177,7 @@ const chrome: Record<Locale, ChromeDict> = {
     // hrefs flip to /ru/* as each wave ships; not-yet-built routes point at EN
     // so the nav never links to a 404 between deploys.
     nav: [
-      { label: "Объекты", href: "/listings" },
+      { label: "Объекты", href: "/ru/listings" },
       { label: "Районы", href: "/ru/districts" },
       { label: "Калькулятор", href: "/calculator" },
       { label: "Аналитика", href: "/insights" },
@@ -560,4 +560,219 @@ const process: Record<Locale, ProcessDict> = {
 
 export function getProcessDict(locale: Locale): ProcessDict {
   return process[locale];
+}
+
+// ---- Listings (filter bar, cards, search, map split, empty state) ----
+
+export interface ListingsDict {
+  // page hero
+  eyebrow: string;
+  title: string;
+  ready: (n: number) => string;
+  matches: (shown: number, total: number) => string;
+  // nl search
+  nlPlaceholder: string;
+  nlExamples: string[];
+  nlSearch: string;
+  nlSearching: string;
+  nlTry: string;
+  nlInterpreted: string;
+  nlNoMatch: string;
+  // filter bar
+  anyDistrict: string;
+  minPrice: string;
+  maxPrice: string;
+  freehold: string;
+  leasehold: string;
+  beachfront: string;
+  seaView: string;
+  mountainView: string;
+  jungleView: string;
+  anyBeds: string;
+  bedsN: (n: number) => string;
+  districtsN: (n: number) => string;
+  clearDistricts: string;
+  sort: string;
+  sortFeatured: string;
+  sortNewest: string;
+  sortPriceAsc: string;
+  sortPriceDesc: string;
+  sortTooltip: string;
+  more: string;
+  clear: string;
+  saveSearch: string;
+  saved: string;
+  matchesCount: (n: number) => string;
+  sortedBy: (label: string) => string;
+  updating: string;
+  total: (n: number) => string;
+  // object types
+  types: { Land: string; Villa: string; House: string; Apartment: string; Townhouse: string; Hotel: string; Business: string; Project: string };
+  // card
+  priceOnRequest: string;
+  perRai: string;
+  perRaiMonth: string;
+  rai: string;
+  bed: string;
+  // map split
+  inMapArea: (n: number) => string;
+  showAll: string;
+  noneInArea: string;
+  list: string;
+  map: string;
+  filteredToArea: string;
+  moveMapHint: string;
+  withoutPin: (n: number) => string;
+  noMapped: string;
+  // empty
+  emptyFilteredTitle: string;
+  emptyFilteredText: string;
+  emptyTitle: string;
+  emptyText: string;
+  clearFilters: string;
+  sendBrief: string;
+  recentlyViewed: string;
+}
+
+const TYPES_EN = { Land: "Land", Villa: "Villa", House: "House", Apartment: "Apartment", Townhouse: "Townhouse", Hotel: "Hotel", Business: "Business", Project: "Project" };
+const TYPES_RU = { Land: "Земля", Villa: "Вилла", House: "Дом", Apartment: "Апартаменты", Townhouse: "Таунхаус", Hotel: "Отель", Business: "Бизнес", Project: "Проект" };
+
+const listings: Record<Locale, ListingsDict> = {
+  en: {
+    eyebrow: "Listings",
+    title: "Every active property on Phangan.",
+    ready: (n) => `${n} ${n === 1 ? "property" : "properties"} ready to view.`,
+    matches: (shown, total) => `${shown} ${shown === 1 ? "match" : "matches"} from ${total} total listings.`,
+    nlPlaceholder: "Describe what you want — e.g. flat land near the beach under 20M",
+    nlExamples: ["flat land near the beach under 20M", "3-bed villa with sea view", "leasehold land in Sri Thanu"],
+    nlSearch: "Search",
+    nlSearching: "Searching…",
+    nlTry: "Try:",
+    nlInterpreted: "Interpreted as:",
+    nlNoMatch: "Couldn’t pin that to a filter — showing everything. Try terms like a district, type, price, or “sea view”.",
+    anyDistrict: "Any district",
+    minPrice: "Min ฿",
+    maxPrice: "Max ฿",
+    freehold: "Freehold",
+    leasehold: "Leasehold",
+    beachfront: "Beachfront",
+    seaView: "Sea view",
+    mountainView: "Mountain view",
+    jungleView: "Jungle view",
+    anyBeds: "Any beds",
+    bedsN: (n) => `${n}+`,
+    districtsN: (n) => `${n} districts`,
+    clearDistricts: "Clear districts",
+    sort: "Sort",
+    sortFeatured: "Featured",
+    sortNewest: "Newest",
+    sortPriceAsc: "Price ↑",
+    sortPriceDesc: "Price ↓",
+    sortTooltip: "Featured = the order we recommend (curated). Or sort by newest / price.",
+    more: "More",
+    clear: "Clear",
+    saveSearch: "Save search",
+    saved: "Saved",
+    matchesCount: (n) => `${n} ${n === 1 ? "match" : "matches"}`,
+    sortedBy: (label) => `sorted by ${label.toLowerCase()}`,
+    updating: "Updating…",
+    total: (n) => `${n} total`,
+    types: TYPES_EN,
+    priceOnRequest: "Price on request",
+    perRai: "/rai",
+    perRaiMonth: "/rai/mo",
+    rai: "rai",
+    bed: "bed",
+    inMapArea: (n) => `${n} ${n === 1 ? "property" : "properties"} in the map area`,
+    showAll: "Show all",
+    noneInArea: "No listings in the current map area. Zoom out or pan to see more.",
+    list: "List",
+    map: "Map",
+    filteredToArea: "Filtered to this area",
+    moveMapHint: "Move the map to filter the list",
+    withoutPin: (n) => `${n} listing${n === 1 ? "" : "s"} without a map pin`,
+    noMapped: "No mapped locations for the current filters.",
+    emptyFilteredTitle: "No matches for these filters.",
+    emptyFilteredText: "Try removing one of the criteria, or send us a brief — we often have listings that aren’t published yet.",
+    emptyTitle: "Nothing to show right now.",
+    emptyText: "Our catalogue refreshes every few minutes. If you’re looking for something specific, message us and we’ll send matches privately.",
+    clearFilters: "Clear filters",
+    sendBrief: "Send a brief",
+    recentlyViewed: "Recently viewed",
+  },
+  ru: {
+    eyebrow: "Объекты",
+    title: "Все активные объекты на Пангане.",
+    ready: (n) => `${n} ${pluralRu(n, "объект готов", "объекта готовы", "объектов готовы")} к просмотру.`,
+    matches: (shown, total) => `${shown} ${pluralRu(shown, "совпадение", "совпадения", "совпадений")} из ${total} всего.`,
+    nlPlaceholder: "Опишите, что ищете — напр. ровный участок у пляжа до 20M",
+    nlExamples: ["ровный участок у пляжа до 20M", "вилла с 3 спальнями и видом на море", "аренда земли в Шри Тану"],
+    nlSearch: "Найти",
+    nlSearching: "Ищем…",
+    nlTry: "Примеры:",
+    nlInterpreted: "Поняли так:",
+    nlNoMatch: "Не удалось привязать к фильтру — показываем всё. Попробуйте район, тип, цену или «вид на море».",
+    anyDistrict: "Любой район",
+    minPrice: "Цена от ฿",
+    maxPrice: "Цена до ฿",
+    freehold: "Freehold",
+    leasehold: "Leasehold",
+    beachfront: "Первая линия",
+    seaView: "Вид на море",
+    mountainView: "Вид на горы",
+    jungleView: "Вид на джунгли",
+    anyBeds: "Спальни",
+    bedsN: (n) => `${n}+`,
+    districtsN: (n) => `районов: ${n}`,
+    clearDistricts: "Сбросить районы",
+    sort: "Сортировка",
+    sortFeatured: "Рекомендуемые",
+    sortNewest: "Новые",
+    sortPriceAsc: "Цена ↑",
+    sortPriceDesc: "Цена ↓",
+    sortTooltip: "Рекомендуемые = наш курируемый порядок. Или сортируйте по новизне / цене.",
+    more: "Ещё",
+    clear: "Сбросить",
+    saveSearch: "Сохранить поиск",
+    saved: "Сохранено",
+    matchesCount: (n) => `${n} ${pluralRu(n, "совпадение", "совпадения", "совпадений")}`,
+    sortedBy: (label) => `сортировка: ${label.toLowerCase()}`,
+    updating: "Обновляем…",
+    total: (n) => `всего ${n}`,
+    types: TYPES_RU,
+    priceOnRequest: "Цена по запросу",
+    perRai: "/рай",
+    perRaiMonth: "/рай/мес",
+    rai: "рай",
+    bed: "сп.",
+    inMapArea: (n) => `${n} ${pluralRu(n, "объект", "объекта", "объектов")} в области карты`,
+    showAll: "Показать все",
+    noneInArea: "В текущей области карты объектов нет. Отдалите или подвиньте карту.",
+    list: "Список",
+    map: "Карта",
+    filteredToArea: "Отфильтровано по области",
+    moveMapHint: "Двигайте карту, чтобы отфильтровать список",
+    withoutPin: (n) => `${n} ${pluralRu(n, "объект", "объекта", "объектов")} без метки на карте`,
+    noMapped: "Для текущих фильтров нет объектов на карте.",
+    emptyFilteredTitle: "Под эти фильтры ничего не нашлось.",
+    emptyFilteredText: "Уберите один из критериев или отправьте бриф — у нас часто есть объекты, которых ещё нет в публикации.",
+    emptyTitle: "Сейчас показывать нечего.",
+    emptyText: "Каталог обновляется каждые несколько минут. Если ищете что-то конкретное — напишите нам, пришлём подходящее лично.",
+    clearFilters: "Сбросить фильтры",
+    sendBrief: "Отправить бриф",
+    recentlyViewed: "Недавно просмотренные",
+  },
+};
+
+/** RU plural picker: (1, 2–4, 0/5+) forms. */
+export function pluralRu(n: number, one: string, few: string, many: string): string {
+  const mod10 = n % 10;
+  const mod100 = n % 100;
+  if (mod10 === 1 && mod100 !== 11) return one;
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return few;
+  return many;
+}
+
+export function getListingsDict(locale: Locale): ListingsDict {
+  return listings[locale];
 }

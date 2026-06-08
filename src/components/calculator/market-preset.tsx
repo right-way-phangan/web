@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { Route } from "next";
 import { Sparkles, ArrowRight } from "lucide-react";
 import { type RentalMarket, fmtThb } from "@/lib/data/rental-market";
+import type { CalcDict } from "@/lib/i18n/calculator";
 
 type Scenario = "conservative" | "base" | "high" | "measured";
 
@@ -20,9 +21,11 @@ type Scenario = "conservative" | "base" | "high" | "measured";
 export function MarketPreset({
   market,
   onApply,
+  t,
 }: {
   market: RentalMarket;
   onApply: (p: { nightlyRateThb: number; occupancyPct: number }) => void;
+  t: CalcDict;
 }) {
   const [district, setDistrict] = useState<string>("");
   const [type, setType] = useState<string>("");
@@ -61,40 +64,40 @@ export function MarketPreset({
       <div className="flex items-center justify-between">
         <p className="inline-flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wide text-brass-600">
           <Sparkles className="h-3.5 w-3.5" />
-          Fill from market data
+          {t.fillFromMarket}
         </p>
         <Link
           href={"/insights" as Route}
           className="text-[11px] text-forest-500/60 underline-offset-2 hover:text-brass-500 hover:underline"
         >
-          See full report
+          {t.seeFullReport}
         </Link>
       </div>
 
       <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-3">
-        <Select label="District" value={district} onChange={setDistrict} placeholder="Choose…">
+        <Select label={t.mpDistrict} value={district} onChange={setDistrict} placeholder={t.mpChoose}>
           {market.districts.map((d) => (
             <option key={d.name} value={d.name}>
               {d.name}
             </option>
           ))}
         </Select>
-        <Select label="Type" value={type} onChange={setType} placeholder="Any">
+        <Select label={t.mpType} value={type} onChange={setType} placeholder={t.mpAny}>
           {market.byType
-            .filter((t) => t.n >= 3)
-            .map((t) => (
-              <option key={t.type} value={t.type}>
-                {t.label}
+            .filter((x) => x.n >= 3)
+            .map((x) => (
+              <option key={x.type} value={x.type}>
+                {x.label}
               </option>
             ))}
         </Select>
-        <Select label="Bedrooms" value={bedrooms} onChange={setBedrooms} placeholder="Any">
+        <Select label={t.mpBedrooms} value={bedrooms} onChange={setBedrooms} placeholder={t.mpAny}>
           {market.byBedrooms
             .slice()
             .sort((a, b) => a.bedrooms - b.bedrooms)
             .map((b) => (
               <option key={b.bedrooms} value={String(b.bedrooms)}>
-                {b.bedrooms === 0 ? "Studio" : `${b.bedrooms} BR`}
+                {b.bedrooms === 0 ? t.mpStudio : `${b.bedrooms} BR`}
               </option>
             ))}
         </Select>
@@ -102,7 +105,7 @@ export function MarketPreset({
 
       {/* Occupancy scenario */}
       <div className="flex flex-wrap items-center gap-2 text-[11px]">
-        <span className="text-forest-500/60">Occupancy:</span>
+        <span className="text-forest-500/60">{t.mpOccupancy}</span>
         {estimate?.measuredOk ? (
           <button
             type="button"
@@ -114,7 +117,7 @@ export function MarketPreset({
             }`}
             title="From this district's forward availability"
           >
-            Measured{" "}
+            {t.mpMeasured}{" "}
             {Math.round(
               (market.districts.find((x) => x.name === district)?.occupancyMeasured ?? 0) * 100,
             )}
@@ -141,11 +144,11 @@ export function MarketPreset({
         <div className="flex flex-wrap items-center justify-between gap-2 rounded-sm bg-cream-50 px-3 py-2.5">
           <div className="text-sm">
             <span className="font-semibold tabular-nums text-forest-900">
-              {fmtThb(estimate.nightlyRateThb)}/night
+              {fmtThb(estimate.nightlyRateThb)}{t.mpPerNight}
             </span>
-            <span className="text-forest-500/60"> · {estimate.occupancyPct}% occupancy</span>
+            <span className="text-forest-500/60"> · {estimate.occupancyPct}% {t.occupancy.replace(" (%)", "").toLowerCase()}</span>
             <div className="text-[11px] text-forest-500/55">
-              from {estimate.basis} ({estimate.n} listings)
+              {t.mpFrom(estimate.basis, estimate.n)}
             </div>
           </div>
           <button
@@ -158,13 +161,13 @@ export function MarketPreset({
             }
             className="inline-flex items-center gap-1.5 rounded-sm bg-forest-500 px-3 py-1.5 text-xs font-medium text-cream-50 transition-colors hover:bg-forest-900"
           >
-            Apply
+            {t.mpApply}
             <ArrowRight className="h-3.5 w-3.5" />
           </button>
         </div>
       ) : (
         <p className="text-[11px] text-forest-500/50">
-          Pick a district to pull a starting nightly rate and occupancy. You can edit them after.
+          {t.mpPickDistrict}
         </p>
       )}
     </div>

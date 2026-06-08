@@ -6,12 +6,8 @@ import type { Route } from "next";
 import { Sparkles, ArrowRight } from "lucide-react";
 import { track } from "@vercel/analytics";
 import { runNlSearch } from "@/lib/actions/search";
-
-const EXAMPLES = [
-  "flat land near the beach under 20M",
-  "3-bed villa with sea view",
-  "leasehold land in Sri Thanu",
-];
+import { useLocale, localeHref } from "@/lib/i18n/use-locale";
+import { getListingsDict } from "@/lib/i18n/dictionaries";
 
 /**
  * Natural-language search box for /listings. Submits the phrase to a server
@@ -19,6 +15,8 @@ const EXAMPLES = [
  */
 export function NlSearch({ initialQuery = "" }: { initialQuery?: string }) {
   const router = useRouter();
+  const locale = useLocale();
+  const t = getListingsDict(locale);
   const [value, setValue] = useState(initialQuery);
   const [interpreted, setInterpreted] = useState<string[] | null>(null);
   const [noMatch, setNoMatch] = useState(false);
@@ -33,7 +31,11 @@ export function NlSearch({ initialQuery = "" }: { initialQuery?: string }) {
       setInterpreted(res.interpreted);
       setNoMatch(!res.matched);
       track("nl_search", { q, matched: res.matched });
-      router.push(res.href as Route, { scroll: false });
+      // runNlSearch returns an EN "/listings?…" href; keep the visitor in /ru.
+      const href = res.href.startsWith("/listings")
+        ? localeHref(locale, res.href)
+        : res.href;
+      router.push(href as Route, { scroll: false });
     });
   }
 
@@ -53,9 +55,9 @@ export function NlSearch({ initialQuery = "" }: { initialQuery?: string }) {
             type="text"
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            placeholder="Describe what you want — e.g. flat land near the beach under 20M"
+            placeholder={t.nlPlaceholder}
             className="w-full bg-transparent text-sm text-forest-900 placeholder:text-forest-500/45 focus:outline-none"
-            aria-label="Describe what you're looking for"
+            aria-label={t.nlPlaceholder}
           />
         </div>
         <button
@@ -63,14 +65,14 @@ export function NlSearch({ initialQuery = "" }: { initialQuery?: string }) {
           disabled={pending || !value.trim()}
           className="inline-flex items-center justify-center gap-1.5 rounded-sm bg-forest-500 px-5 py-2.5 text-sm font-medium text-cream-100 transition-colors hover:bg-forest-400 disabled:opacity-50"
         >
-          {pending ? "Searching…" : "Search"}
+          {pending ? t.nlSearching : t.nlSearch}
           {!pending ? <ArrowRight className="h-4 w-4" /> : null}
         </button>
       </form>
 
       {interpreted && interpreted.length > 0 ? (
         <div className="mt-3 flex flex-wrap items-center gap-1.5 text-xs">
-          <span className="text-forest-500/60">Interpreted as:</span>
+          <span className="text-forest-500/60">{t.nlInterpreted}</span>
           {interpreted.map((chip) => (
             <span
               key={chip}
@@ -81,14 +83,11 @@ export function NlSearch({ initialQuery = "" }: { initialQuery?: string }) {
           ))}
         </div>
       ) : noMatch ? (
-        <p className="mt-3 text-xs text-forest-500/60">
-          Couldn&rsquo;t pin that to a filter — showing everything. Try terms like
-          a district, type, price, or &ldquo;sea view&rdquo;.
-        </p>
+        <p className="mt-3 text-xs text-forest-500/60">{t.nlNoMatch}</p>
       ) : (
         <div className="mt-3 flex flex-wrap items-center gap-1.5 text-xs text-forest-500/55">
-          <span>Try:</span>
-          {EXAMPLES.map((ex) => (
+          <span>{t.nlTry}</span>
+          {t.nlExamples.map((ex) => (
             <button
               key={ex}
               type="button"

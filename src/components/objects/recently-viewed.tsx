@@ -3,6 +3,8 @@
 import { useEffect, useMemo, useState } from "react";
 import type { RealEstateObject } from "@/types/object";
 import { getRecentlyViewed } from "@/lib/recently-viewed";
+import { useLocale } from "@/lib/i18n/use-locale";
+import { getListingsDict } from "@/lib/i18n/dictionaries";
 import { ObjectCard } from "./object-card";
 
 /**
@@ -13,12 +15,13 @@ import { ObjectCard } from "./object-card";
 export function RecentlyViewed({
   catalog,
   excludeRw,
-  title = "Recently viewed",
+  title,
 }: {
   catalog: RealEstateObject[];
   excludeRw?: string;
   title?: string;
 }) {
+  const heading = title ?? getListingsDict(useLocale()).recentlyViewed;
   const [recent, setRecent] = useState<string[]>([]);
   useEffect(() => setRecent(getRecentlyViewed()), []);
 
@@ -34,7 +37,7 @@ export function RecentlyViewed({
 
   return (
     <section className="mt-16 border-t border-forest-500/10 pt-12 md:mt-20 md:pt-16">
-      <h2 className="font-serif text-3xl text-forest-900">{title}</h2>
+      <h2 className="font-serif text-3xl text-forest-900">{heading}</h2>
       <div className="-mx-6 mt-8 flex snap-x gap-5 overflow-x-auto px-6 pb-2 md:-mx-8 md:px-8">
         {items.map((o) => (
           <div key={o.id} className="w-[260px] shrink-0 snap-start">

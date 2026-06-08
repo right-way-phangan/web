@@ -9,6 +9,8 @@ import { ObjectCard } from "./object-card";
 import { MapSkeleton } from "./map-skeleton";
 import type { MapPoint, MapBounds } from "./listings-map";
 import { useMediaQuery } from "@/lib/hooks/use-media-query";
+import { useLocale } from "@/lib/i18n/use-locale";
+import { getListingsDict } from "@/lib/i18n/dictionaries";
 import { cn } from "@/lib/utils/cn";
 
 // Leaflet touches `window`, so the map is client-only (ssr:false).
@@ -23,6 +25,7 @@ const ListingsMap = dynamic(() => import("./listings-map"), {
  * and scrolls to the matching card. On mobile it collapses to a List/Map toggle.
  */
 export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
+  const t = getListingsDict(useLocale());
   // Stable identity — recomputing each render would re-trigger the map's
   // FitBounds (deps on `points`) and snap the zoom back on every state change.
   const points: MapPoint[] = useMemo(
@@ -96,13 +99,13 @@ export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
             active={mobileView === "list"}
             onClick={() => setMobileView("list")}
             icon={LayoutGrid}
-            label="List"
+            label={t.list}
           />
           <MobileTab
             active={mobileView === "map"}
             onClick={() => setMobileView("map")}
             icon={MapIcon}
-            label="Map"
+            label={t.map}
           />
         </div>
       </div>
@@ -112,22 +115,19 @@ export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
         <div className={cn(mobileView === "map" && "hidden lg:block")}>
           {areaSync ? (
             <p className="mb-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-forest-500/70">
-              <span>
-                {visibleObjects.length}{" "}
-                {visibleObjects.length === 1 ? "property" : "properties"} in the map area
-              </span>
+              <span>{t.inMapArea(visibleObjects.length)}</span>
               <button
                 type="button"
                 onClick={() => setAreaSync(false)}
                 className="text-forest-500 underline-offset-4 hover:text-brass-500 hover:underline"
               >
-                Show all
+                {t.showAll}
               </button>
             </p>
           ) : null}
           {visibleObjects.length === 0 ? (
             <div className="rounded-sm border border-forest-500/10 bg-forest-500/5 px-6 py-12 text-center text-sm text-forest-500/60">
-              No listings in the current map area. Zoom out or pan to see more.
+              {t.noneInArea}
             </div>
           ) : (
             <div ref={listRef} className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
@@ -161,7 +161,7 @@ export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
         >
           {mappedCount === 0 ? (
             <div className="flex h-full w-full items-center justify-center rounded-sm border border-forest-500/10 bg-forest-500/5 px-6 text-center text-sm text-forest-500/50">
-              No mapped locations for the current filters.
+              {t.noMapped}
             </div>
           ) : (
             <div className="relative h-full w-full">
@@ -183,23 +183,23 @@ export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
               {areaSync ? (
                 <span className="absolute right-3 top-3 z-[500] inline-flex items-center gap-2 rounded-sm border border-brass-500/40 bg-brass-500/15 px-3 py-1.5 text-[12px] font-semibold text-forest-900 shadow-sm backdrop-blur-sm">
                   <MapIcon className="h-3.5 w-3.5 text-brass-500" />
-                  Filtered to this area
+                  {t.filteredToArea}
                   <button
                     type="button"
                     onClick={() => setAreaSync(false)}
                     className="ml-1 rounded-sm bg-forest-500 px-2 py-0.5 text-[11px] font-medium text-cream-100 hover:bg-forest-400"
                   >
-                    Show all
+                    {t.showAll}
                   </button>
                 </span>
               ) : (
                 <span className="pointer-events-none absolute right-3 top-3 z-[500] rounded-sm bg-cream-50/90 px-3 py-1.5 text-[11px] text-forest-500/60 shadow-sm backdrop-blur-sm">
-                  Move the map to filter the list
+                  {t.moveMapHint}
                 </span>
               )}
               {unmappedCount > 0 ? (
                 <span className="pointer-events-none absolute bottom-3 left-3 z-[500] rounded-sm bg-cream-50/90 px-2.5 py-1 text-[11px] text-forest-500/70 backdrop-blur-sm">
-                  {unmappedCount} listing{unmappedCount === 1 ? "" : "s"} without a map pin
+                  {t.withoutPin(unmappedCount)}
                 </span>
               ) : null}
             </div>

@@ -14,7 +14,14 @@
     },
     "occupancyMeasuredAll": 0.285,
     "nOccupancyAll": 174,
-    "thbPerUsd": 36.5
+    "thbPerUsd": 36.5,
+    "appreciation": {
+      "conservative": 3,
+      "base": 5,
+      "high": 8,
+      "source": "TH house-price index (BoT/REIC) + Phangan demand premium",
+      "asOf": "2026"
+    }
   },
   "ranking": [
     "Coconut lane area",

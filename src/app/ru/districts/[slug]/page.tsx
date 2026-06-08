@@ -42,8 +42,7 @@ export default async function RussianDistrictPage({ params }: Props) {
   const d = getDistrictRuBySlug(slug);
   if (!d) notFound();
 
-  // Points at EN /listings until /ru/listings ships (wave 8), then flips.
-  const listingsHref = `/listings?district=${encodeURIComponent(d.amoName)}` as Route;
+  const listingsHref = `/ru/listings?district=${encodeURIComponent(d.amoName)}` as Route;
   const [name, subtitle] = d.title.split(" — ");
   const siteUrl = getSiteUrl();
 

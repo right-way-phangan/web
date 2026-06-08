@@ -1,13 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import type { Route } from "next";
 import { ChevronDown, TrendingUp, ArrowRight, Home, Hotel, Download } from "lucide-react";
 import {
   computeRoi,
   DEFAULT_INPUTS,
-  SCENARIOS,
   solveMaxPrice,
   type RoiInputs,
   type RoiResult,
@@ -27,17 +26,18 @@ import { CalcLeadButton } from "@/components/calculator/calc-lead-button";
 import { MarketPreset } from "@/components/calculator/market-preset";
 import { buildCalcReportHtml } from "@/lib/calculator/report";
 import type { RealEstateObject } from "@/types/object";
-import type { RentalMarket } from "@/lib/data/rental-market";
+import { getAppreciation, type RentalMarket } from "@/lib/data/rental-market";
+import { calcDict, type CalcDict, type CalcLocale } from "@/lib/i18n/calculator";
 
 const fmtPct = (n: number) =>
   !isFinite(n) ? "—" : `${n >= 0 ? "+" : ""}${n.toLocaleString("en-US", { maximumFractionDigits: 1 })}%`;
 
-const SOLVE_LABELS: Record<SolveMetric, string> = {
-  roi: "total ROI",
-  cap: "cap rate",
-  coc: "cash-on-cash",
-  irr: "IRR / year",
-};
+const solveLabels = (t: CalcDict): Record<SolveMetric, string> => ({
+  roi: t.solveRoi,
+  cap: t.solveCap,
+  coc: t.solveCoc,
+  irr: t.solveIrr,
+});
 
 type Money = (thb: number, full?: boolean) => string;
 
@@ -64,9 +64,24 @@ export function RoiCalculator({
   excludeRw,
   market,
 }: Props) {
+  const [locale, setLocale] = useState<CalcLocale>("en");
+  const t = calcDict(locale);
+
+  // Data-anchored expected-growth band (sourced, not guessed). Falls back to an
+  // external macro anchor when the rental-market snapshot history can't derive one.
+  const appr = market ? getAppreciation(market) : getAppreciation({ meta: {} } as RentalMarket);
+  const growthScenarios = [
+    { key: "conservative", label: t.scenarioConservative, growthPct: appr.conservative },
+    { key: "base", label: t.scenarioBase, growthPct: appr.base },
+    { key: "optimistic", label: t.scenarioOptimistic, growthPct: appr.high },
+  ] as const;
+
   const [inputs, setInputs] = useState<RoiInputs>({
     ...DEFAULT_INPUTS,
     purchasePriceThb: initialPriceThb ?? DEFAULT_INPUTS.purchasePriceThb,
+    // Default the headline growth to the data-anchored "base" so the projection
+    // starts from market context, not a hardcoded guess.
+    annualGrowthPct: appr.base,
     mode: initialMode ?? DEFAULT_INPUTS.mode,
     tenure: initialTenure ?? DEFAULT_INPUTS.tenure,
     leaseTermYears: initialLeaseTermYears ?? DEFAULT_INPUTS.leaseTermYears,
@@ -80,9 +95,24 @@ export function RoiCalculator({
   const [currency, setCurrency] = useState<Currency>("THB");
   const [rates, setRates] = useState<Record<Currency, number>>(DEFAULT_RATES);
 
+  // Mobile: a sticky result bar so the headline stays visible while the user
+  // edits assumptions above it. Shown only while the calculator is on screen.
+  const rootRef = useRef<HTMLDivElement>(null);
+  const [showMobileBar, setShowMobileBar] = useState(false);
+
   // Best-effort live FX once mounted.
   useEffect(() => {
     fetchRates().then((r) => r && setRates(r));
+  }, []);
+
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const obs = new IntersectionObserver(([e]) => setShowMobileBar(e.isIntersecting), {
+      rootMargin: "-100px 0px -45% 0px",
+    });
+    obs.observe(el);
+    return () => obs.disconnect();
   }, []);
 
   const r = useMemo(() => computeRoi(inputs), [inputs]);
@@ -107,7 +137,7 @@ export function RoiCalculator({
     w.document.close();
   };
 
-  const activeScenario = SCENARIOS.find((s) => s.growthPct === inputs.annualGrowthPct)?.key;
+  const activeScenario = growthScenarios.find((s) => s.growthPct === inputs.annualGrowthPct)?.key;
   const isOffplan = inputs.offplan;
   const isRent = inputs.mode === "rent" && !isOffplan;
   const isLeasehold = inputs.tenure === "leasehold";
@@ -140,39 +170,48 @@ export function RoiCalculator({
     .join("\n");
 
   return (
-    <div className="grid gap-10 lg:grid-cols-[380px_1fr] lg:gap-14">
+    <>
+    <div ref={rootRef} className="grid gap-10 pb-16 lg:grid-cols-[380px_1fr] lg:gap-14 lg:pb-0">
       {/* ---- Parameters ---- */}
       <div>
+        {/* Language toggle — scoped to the calculator (the conversion tool). */}
+        <div className="mb-3 flex justify-end">
+          <div className="inline-flex overflow-hidden rounded-sm border border-forest-500/20 text-[11px] font-medium" role="group" aria-label={t.langLabel}>
+            <button type="button" onClick={() => setLocale("en")} className={`px-2.5 py-1 transition-colors ${locale === "en" ? "bg-forest-500 text-cream-50" : "text-forest-500/60 hover:bg-forest-500/8"}`}>EN</button>
+            <button type="button" onClick={() => setLocale("ru")} className={`px-2.5 py-1 transition-colors ${locale === "ru" ? "bg-forest-500 text-cream-50" : "text-forest-500/60 hover:bg-forest-500/8"}`}>RU</button>
+          </div>
+        </div>
+
         {/* Phase — completed resale vs off-plan new build (RW-P projects) */}
         <div className="flex gap-1 rounded-sm border border-forest-500/15 bg-cream-50 p-1">
-          <PhaseTab active={!isOffplan} onClick={() => set({ offplan: false })} label="Completed" />
-          <PhaseTab active={isOffplan} onClick={() => set({ offplan: true })} label="Off-plan (new build)" />
+          <PhaseTab active={!isOffplan} onClick={() => set({ offplan: false })} label={t.completed} />
+          <PhaseTab active={isOffplan} onClick={() => set({ offplan: true })} label={t.offplan} />
         </div>
 
         {/* Mode tabs (completed only) */}
         {!isOffplan ? (
           <div className="mt-3 flex gap-2 rounded-sm border border-forest-500/15 bg-cream-50 p-1">
-            <ModeTab active={!isRent} onClick={() => set({ mode: "hold" as CalcMode })} icon={Home} label="Buy & Hold" />
-            <ModeTab active={isRent} onClick={() => set({ mode: "rent" as CalcMode })} icon={Hotel} label="Buy & Rent" />
+            <ModeTab active={!isRent} onClick={() => set({ mode: "hold" as CalcMode })} icon={Home} label={t.buyHold} />
+            <ModeTab active={isRent} onClick={() => set({ mode: "rent" as CalcMode })} icon={Hotel} label={t.buyRent} />
           </div>
         ) : null}
 
         {/* Tenure — Thailand-specific. Leasehold value decays as the lease runs down. */}
         <div className="mt-3 flex gap-1 rounded-sm border border-forest-500/15 bg-cream-50 p-1">
-          <TenureTab active={!isLeasehold} onClick={() => set({ tenure: "freehold" as Tenure })} label="Freehold" />
-          <TenureTab active={isLeasehold} onClick={() => set({ tenure: "leasehold" as Tenure })} label="Leasehold" />
+          <TenureTab active={!isLeasehold} onClick={() => set({ tenure: "freehold" as Tenure })} label={t.freehold} />
+          <TenureTab active={isLeasehold} onClick={() => set({ tenure: "leasehold" as Tenure })} label={t.leasehold} />
         </div>
 
         <p className="mt-6 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
-          Your assumptions
+          {t.assumptionsTitle}
         </p>
         <p className="mt-1 text-[11px] text-forest-500/50">
-          Pre-filled with typical Koh Phangan figures — adjust to your case.
+          {t.assumptionsHint}
         </p>
 
         <div className="mt-6 space-y-5">
           <MoneyField
-            label={`${isOffplan ? "Contract price" : "Purchase price"} (${currency})`}
+            label={`${isOffplan ? t.contractPrice : t.purchasePrice} (${currency})`}
             thbValue={inputs.purchasePriceThb}
             currency={currency}
             fx={fx}
@@ -182,9 +221,9 @@ export function RoiCalculator({
           />
 
           <div>
-            <label className="text-sm text-forest-500/70">Expected annual price growth (%)</label>
+            <label className="text-sm text-forest-500/70">{t.growthLabel}</label>
             <div className="mt-2 flex gap-2">
-              {SCENARIOS.map((s) => (
+              {growthScenarios.map((s) => (
                 <button
                   key={s.key}
                   type="button"
@@ -195,32 +234,35 @@ export function RoiCalculator({
                       : "border-forest-500/20 bg-cream-50 text-forest-500 hover:border-forest-500/50"
                   }`}
                 >
-                  {s.labelEn}
+                  {s.label}
                   <span className="block text-[10px] opacity-70">{s.growthPct}%</span>
                 </button>
               ))}
             </div>
-            <input
-              type="number"
-              value={inputs.annualGrowthPct}
-              min={-10}
-              max={30}
-              step={0.5}
-              onChange={(e) => set({ annualGrowthPct: Number(e.target.value) })}
-              className="mt-2 w-full rounded-sm border border-forest-500/20 bg-cream-50 px-3 py-2 text-sm text-forest-900 focus:border-forest-500 focus:outline-none"
-            />
-            <p className="mt-1 text-[11px] text-forest-500/50">You set this — adjust to your own outlook.</p>
+            <div className="mt-3">
+              <SliderField
+                label={t.growthFineTune}
+                value={inputs.annualGrowthPct}
+                min={-10}
+                max={30}
+                step={0.5}
+                onChange={(v) => set({ annualGrowthPct: v })}
+                small
+              />
+            </div>
+            <p className="mt-1.5 text-[11px] leading-relaxed text-forest-500/50">
+              {t.growthSource(appr.source, appr.asOf)}
+            </p>
           </div>
 
-          <NumberField label="Holding period (years)" value={inputs.years} step={1} min={1} max={40} onChange={(v) => set({ years: v })} />
+          <SliderField label={t.holdingPeriod} value={inputs.years} unit={t.unitYr} step={1} min={1} max={40} onChange={(v) => set({ years: v })} />
 
           {/* Leasehold-only: total lease term + decay note */}
           {isLeasehold ? (
             <div className="space-y-2 rounded-sm border border-forest-500/10 bg-forest-500/[0.03] p-4">
-              <NumberField label="Total lease term (years)" value={inputs.leaseTermYears} step={1} min={1} max={90} onChange={(v) => set({ leaseTermYears: v })} small />
+              <SliderField label={t.leaseTerm} value={inputs.leaseTermYears} unit={t.unitYr} step={1} min={1} max={90} onChange={(v) => set({ leaseTermYears: v })} small />
               <p className="text-[11px] leading-relaxed text-forest-500/55">
-                A leasehold&apos;s resale value falls as the term runs down — we
-                discount the projection by the remaining years of the lease.
+                {t.leaseDecayNote}
               </p>
             </div>
           ) : null}
@@ -228,15 +270,13 @@ export function RoiCalculator({
           {/* Off-plan-only inputs */}
           {isOffplan ? (
             <div className="space-y-4 rounded-sm border border-brass-500/20 bg-brass-500/[0.04] p-4">
-              <p className="text-[11px] font-medium uppercase tracking-wide text-brass-600">Construction & payment plan</p>
-              <NumberField label="Construction period (months)" value={inputs.constructionMonths} step={1} min={1} max={84} onChange={(v) => set({ constructionMonths: v })} small />
-              <NumberField label="Down payment (% now)" value={inputs.downPaymentPct} step={5} min={0} max={100} onChange={(v) => set({ downPaymentPct: v })} small />
-              <NumberField label="Balance at handover (%)" value={inputs.handoverPaymentPct} step={5} min={0} max={100} onChange={(v) => set({ handoverPaymentPct: v })} small />
-              <NumberField label="Value uplift to handover (%)" value={inputs.handoverUpliftPct} step={1} onChange={(v) => set({ handoverUpliftPct: v })} small />
+              <p className="text-[11px] font-medium uppercase tracking-wide text-brass-600">{t.constructionPlan}</p>
+              <SliderField label={t.constructionPeriod} value={inputs.constructionMonths} unit={t.unitMo} step={1} min={1} max={84} onChange={(v) => set({ constructionMonths: v })} small />
+              <SliderField label={t.downPaymentNow} value={inputs.downPaymentPct} step={5} min={0} max={100} onChange={(v) => set({ downPaymentPct: v })} small />
+              <SliderField label={t.balanceHandover} value={inputs.handoverPaymentPct} step={5} min={0} max={100} onChange={(v) => set({ handoverPaymentPct: v })} small />
+              <SliderField label={t.valueUplift} value={inputs.handoverUpliftPct} step={1} min={0} max={50} onChange={(v) => set({ handoverUpliftPct: v })} small />
               <p className="text-[11px] leading-relaxed text-forest-500/55">
-                {installmentPct.toFixed(0)}% paid in instalments during construction.
-                Price growth above applies after handover. &ldquo;Years&rdquo; is the
-                total horizon from contract.
+                {t.offplanNote(installmentPct.toFixed(0))}
               </p>
             </div>
           ) : null}
@@ -245,7 +285,7 @@ export function RoiCalculator({
           {isRent ? (
             <div className="space-y-4 rounded-sm border border-brass-500/20 bg-brass-500/[0.04] p-4">
               <div className="flex items-center justify-between">
-                <p className="text-[11px] font-medium uppercase tracking-wide text-brass-600">Rental assumptions</p>
+                <p className="text-[11px] font-medium uppercase tracking-wide text-brass-600">{t.rentalAssumptions}</p>
                 <label className="flex cursor-pointer items-center gap-1.5 text-[11px] text-forest-500/70">
                   <input
                     type="checkbox"
@@ -253,31 +293,32 @@ export function RoiCalculator({
                     onChange={(e) => set({ seasonality: e.target.checked })}
                     className="h-3.5 w-3.5 accent-brass-500"
                   />
-                  High/low season
+                  {t.highLowSeason}
                 </label>
               </div>
               {market ? (
                 <MarketPreset
                   market={market}
+                  t={t}
                   onApply={({ nightlyRateThb, occupancyPct }) =>
                     set({ nightlyRateThb, occupancyPct, seasonality: false })
                   }
                 />
               ) : null}
-              <MoneyField label={`Nightly rate (${currency})`} thbValue={inputs.nightlyRateThb} currency={currency} fx={fx} thbStep={500} onChangeThb={(thb) => set({ nightlyRateThb: thb })} hint={thbHint(inputs.nightlyRateThb)} small />
+              <MoneyField label={`${t.nightlyRate} (${currency})`} thbValue={inputs.nightlyRateThb} currency={currency} fx={fx} thbStep={500} onChangeThb={(thb) => set({ nightlyRateThb: thb })} hint={thbHint(inputs.nightlyRateThb)} small />
               {isSeasonal ? (
                 <div className="space-y-4 rounded-sm border border-brass-500/15 bg-cream-50/60 p-3">
-                  <NumberField label="High season length (months)" value={inputs.highSeasonMonths} step={1} min={0} max={12} onChange={(v) => set({ highSeasonMonths: v })} small />
-                  <NumberField label="High season occupancy (%)" value={inputs.highSeasonOccupancyPct} step={5} min={0} max={100} onChange={(v) => set({ highSeasonOccupancyPct: v })} small />
-                  <NumberField label="High season rate uplift (%)" value={inputs.highSeasonRateUpliftPct} step={5} min={0} onChange={(v) => set({ highSeasonRateUpliftPct: v })} small />
-                  <NumberField label="Low season occupancy (%)" value={inputs.lowSeasonOccupancyPct} step={5} min={0} max={100} onChange={(v) => set({ lowSeasonOccupancyPct: v })} small />
+                  <SliderField label={t.highSeasonLength} value={inputs.highSeasonMonths} unit={t.unitMo} step={1} min={0} max={12} onChange={(v) => set({ highSeasonMonths: v })} small />
+                  <SliderField label={t.highSeasonOccupancy} value={inputs.highSeasonOccupancyPct} step={5} min={0} max={100} onChange={(v) => set({ highSeasonOccupancyPct: v })} small />
+                  <SliderField label={t.highSeasonUplift} value={inputs.highSeasonRateUpliftPct} step={5} min={0} max={100} onChange={(v) => set({ highSeasonRateUpliftPct: v })} small />
+                  <SliderField label={t.lowSeasonOccupancy} value={inputs.lowSeasonOccupancyPct} step={5} min={0} max={100} onChange={(v) => set({ lowSeasonOccupancyPct: v })} small />
                 </div>
               ) : (
-                <NumberField label="Occupancy (%)" value={inputs.occupancyPct} step={5} min={0} max={100} onChange={(v) => set({ occupancyPct: v })} small />
+                <SliderField label={t.occupancy} value={inputs.occupancyPct} step={5} min={0} max={100} onChange={(v) => set({ occupancyPct: v })} small />
               )}
-              <NumberField label="Management fee (% of rent)" value={inputs.mgmtFeePct} step={1} min={0} max={100} onChange={(v) => set({ mgmtFeePct: v })} small />
-              <NumberField label="Operating expenses (% of price/yr)" value={inputs.opexPct} step={0.5} min={0} onChange={(v) => set({ opexPct: v })} small />
-              <NumberField label="Annual rate growth (%)" value={inputs.rentGrowthPct} step={0.5} onChange={(v) => set({ rentGrowthPct: v })} small />
+              <SliderField label={t.mgmtFee} value={inputs.mgmtFeePct} step={1} min={0} max={100} onChange={(v) => set({ mgmtFeePct: v })} small />
+              <SliderField label={t.opex} value={inputs.opexPct} step={0.5} min={0} max={15} onChange={(v) => set({ opexPct: v })} small />
+              <SliderField label={t.rentGrowth} value={inputs.rentGrowthPct} step={0.5} min={-5} max={15} onChange={(v) => set({ rentGrowthPct: v })} small />
             </div>
           ) : null}
 
@@ -287,47 +328,48 @@ export function RoiCalculator({
             className="flex items-center gap-1.5 text-xs font-medium text-forest-500/70 hover:text-forest-500"
           >
             <ChevronDown className={`h-3.5 w-3.5 transition-transform ${showAdvanced ? "rotate-180" : ""}`} />
-            Advanced costs
+            {t.advancedCosts}
           </button>
           {showAdvanced ? (
             <div className="space-y-4 rounded-sm border border-forest-500/10 bg-forest-500/[0.03] p-4">
-              <NumberField label="Entry costs — DD + transfer (%)" value={inputs.closingCostsPct} step={0.5} onChange={(v) => set({ closingCostsPct: v })} small />
-              <NumberField label="Exit costs — transfer + commission (%)" value={inputs.saleCostsPct} step={0.5} onChange={(v) => set({ saleCostsPct: v })} small />
-              <NumberField label="Annual holding costs (% of price)" value={inputs.annualHoldingPct} step={0.1} onChange={(v) => set({ annualHoldingPct: v })} small />
-              <NumberField label="Bank deposit rate (%)" value={inputs.bankRatePct} step={0.25} onChange={(v) => set({ bankRatePct: v })} small />
+              <p className="text-[11px] text-forest-500/55">{t.costsToggleHint(currency)}</p>
+              <PctOrMoneyField label={t.entryCosts} t={t} pctValue={inputs.closingCostsPct} priceThb={inputs.purchasePriceThb} currency={currency} fx={fx} rates={rates} min={0} max={20} step={0.5} onChangePct={(v) => set({ closingCostsPct: v })} small />
+              <PctOrMoneyField label={t.exitCosts} t={t} pctValue={inputs.saleCostsPct} priceThb={inputs.purchasePriceThb} currency={currency} fx={fx} rates={rates} min={0} max={20} step={0.5} onChangePct={(v) => set({ saleCostsPct: v })} small />
+              <PctOrMoneyField label={t.annualHolding} t={t} pctValue={inputs.annualHoldingPct} priceThb={inputs.purchasePriceThb} currency={currency} fx={fx} rates={rates} min={0} max={10} step={0.1} onChangePct={(v) => set({ annualHoldingPct: v })} small />
+              <SliderField label={t.bankRate} value={inputs.bankRatePct} step={0.25} min={0} max={10} onChange={(v) => set({ bankRatePct: v })} small />
             </div>
           ) : null}
         </div>
       </div>
 
       {/* ---- Results ---- */}
-      <div>
+      <div id="calc-results" className="scroll-mt-24">
         <div className="rounded-sm border border-forest-500/10 bg-cream-50 p-6 md:p-8">
           <div className="flex items-start justify-between gap-4">
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
-              Projected value in {inputs.years} years
+              {t.projectedValueIn(inputs.years)}
             </p>
             <CurrencyPicker currency={currency} onChange={setCurrency} />
           </div>
           <p className="num mt-2 text-4xl text-forest-900 md:text-5xl">{money(r.projectedValue, true)}</p>
 
           <div className="mt-6 grid grid-cols-3 gap-4 border-t border-forest-500/10 pt-6">
-            <Kpi label="Total ROI" value={fmtPct(r.roiPct)} accent />
-            <Kpi label="CAGR / year" value={fmtPct(r.cagrPct)} />
-            <Kpi label="Net profit" value={money(r.netProfit)} />
+            <Kpi label={t.totalRoi} value={fmtPct(r.roiPct)} accent />
+            <Kpi label={t.cagrYear} value={fmtPct(r.cagrPct)} />
+            <Kpi label={t.netProfit} value={money(r.netProfit)} />
           </div>
 
           {isOffplan ? (
             <div className="mt-4 grid grid-cols-3 gap-4 border-t border-forest-500/10 pt-4">
-              <Kpi label="Value at handover" value={money(r.handoverValue)} />
-              <Kpi label="IRR / year" value={fmtPct(r.irrPct)} accent />
-              <Kpi label="Total invested" value={money(r.initialInvestment)} />
+              <Kpi label={t.valueAtHandover} value={money(r.handoverValue)} />
+              <Kpi label={t.irrYear} value={fmtPct(r.irrPct)} accent />
+              <Kpi label={t.totalInvested} value={money(r.initialInvestment)} />
             </div>
           ) : isRent ? (
             <div className="mt-4 grid grid-cols-3 gap-4 border-t border-forest-500/10 pt-4">
-              <Kpi label="Cap rate" value={fmtPct(r.capRatePct)} />
-              <Kpi label="Cash-on-cash" value={fmtPct(r.cashOnCashPct)} />
-              <Kpi label="IRR / year" value={fmtPct(r.irrPct)} />
+              <Kpi label={t.capRate} value={fmtPct(r.capRatePct)} />
+              <Kpi label={t.cashOnCash} value={fmtPct(r.cashOnCashPct)} />
+              <Kpi label={t.irrYear} value={fmtPct(r.irrPct)} />
             </div>
           ) : null}
 
@@ -339,19 +381,19 @@ export function RoiCalculator({
               className="flex w-full items-center justify-center gap-2 rounded-sm border border-forest-500/25 bg-transparent px-5 py-2.5 text-sm font-medium text-forest-500 transition-colors hover:border-forest-500/50 hover:bg-forest-500/[0.04]"
             >
               <Download className="h-4 w-4" />
-              Download PDF report
+              {t.downloadPdf}
             </button>
           </div>
         </div>
 
-        <BankCompare r={r} years={inputs.years} bankRate={inputs.bankRatePct} money={money} />
+        <BankCompare r={r} years={inputs.years} bankRate={inputs.bankRatePct} money={money} t={t} />
 
         <div className="mt-6 rounded-sm border border-forest-500/10 bg-cream-50 p-6">
           <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
             <TrendingUp className="h-4 w-4" />
-            Capital growth
+            {t.capitalGrowth}
           </div>
-          <GrowthChart r={r} money={money} />
+          <GrowthChart r={r} money={money} t={t} />
         </div>
 
         <div className="mt-6">
@@ -361,9 +403,9 @@ export function RoiCalculator({
             className="flex items-center gap-1.5 text-sm font-medium text-forest-500/80 hover:text-forest-500"
           >
             <ChevronDown className={`h-4 w-4 transition-transform ${showYears ? "rotate-180" : ""}`} />
-            Show year-by-year
+            {t.showYearByYear}
           </button>
-          {showYears ? <YearTable r={r} money={money} isRent={isRent} /> : null}
+          {showYears ? <YearTable r={r} money={money} isRent={isRent} t={t} /> : null}
         </div>
 
         {/* Reverse: solve max price for a target return */}
@@ -374,26 +416,26 @@ export function RoiCalculator({
             className="flex items-center gap-1.5 text-sm font-medium text-forest-500/80 hover:text-forest-500"
           >
             <ChevronDown className={`h-4 w-4 transition-transform ${showSolver ? "rotate-180" : ""}`} />
-            Find max price for a target return
+            {t.findMaxPrice}
           </button>
           {showSolver ? (
             <div className="mt-4 space-y-4 rounded-sm border border-forest-500/10 bg-cream-50 p-6">
               <div className="flex flex-wrap items-end gap-3">
                 <div>
-                  <label className="text-xs text-forest-500/70">Target metric</label>
+                  <label className="text-xs text-forest-500/70">{t.targetMetric}</label>
                   <select
                     value={solverMetric}
                     onChange={(e) => setSolverMetric(e.target.value as SolveMetric)}
                     className="mt-1.5 block rounded-sm border border-forest-500/20 bg-cream-50 px-3 py-2 text-sm text-forest-900 focus:border-forest-500 focus:outline-none"
                   >
-                    <option value="roi">Total ROI</option>
-                    <option value="cap">Cap rate</option>
-                    <option value="coc">Cash-on-cash</option>
-                    <option value="irr">IRR / year</option>
+                    <option value="roi">{t.solveRoi}</option>
+                    <option value="cap">{t.solveCap}</option>
+                    <option value="coc">{t.solveCoc}</option>
+                    <option value="irr">{t.solveIrr}</option>
                   </select>
                 </div>
                 <div>
-                  <label className="text-xs text-forest-500/70">Target (%)</label>
+                  <label className="text-xs text-forest-500/70">{t.targetPct}</label>
                   <input
                     type="number"
                     value={solverTarget}
@@ -405,43 +447,60 @@ export function RoiCalculator({
               </div>
               {solvedMaxPrice != null ? (
                 <div>
-                  <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">Max purchase price</p>
+                  <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">{t.maxPurchasePrice}</p>
                   <p className="num mt-1 text-3xl text-forest-900">{money(solvedMaxPrice, true)}</p>
                   <p className="mt-1 text-[11px] text-forest-500/50">
-                    Pay up to this and you still hit {solverTarget}% {SOLVE_LABELS[solverMetric]}.
+                    {t.payUpTo(solverTarget, solveLabels(t)[solverMetric])}
                   </p>
                   <button
                     type="button"
                     onClick={() => set({ purchasePriceThb: Math.round(solvedMaxPrice) })}
                     className="mt-3 inline-flex items-center gap-2 rounded-sm border border-forest-500/25 px-4 py-2 text-sm font-medium text-forest-500 transition-colors hover:border-forest-500/50 hover:bg-forest-500/[0.04]"
                   >
-                    Apply this price
+                    {t.applyThisPrice}
                   </button>
                 </div>
               ) : (
                 <p className="text-sm leading-relaxed text-forest-500/60">
-                  {isRent
-                    ? "That target isn't reachable in a sensible price range — try a lower target."
-                    : "Appreciation-only return doesn't depend on price (every figure scales with it). Switch to Buy & Rent — where rent is a fixed amount — to solve for a max price."}
+                  {isRent ? t.unreachableRent : t.unreachableHold}
                 </p>
               )}
             </div>
           ) : null}
         </div>
 
-        <SimilarObjects price={inputs.purchasePriceThb} catalog={catalog} excludeRw={excludeRw} money={money} />
+        <SimilarObjects price={inputs.purchasePriceThb} catalog={catalog} excludeRw={excludeRw} money={money} t={t} />
 
         <p className="mt-6 text-[11px] leading-relaxed text-forest-500/50">
-          Illustrative projection based on the assumptions you enter — not a
-          forecast or guarantee of future returns.{" "}
-          {isLeasehold
-            ? "Leasehold value is discounted by the remaining lease term (a simplified linear model). "
-            : ""}
-          Currency conversion is for display only; figures are computed in THB.
-          Speak with Right Way for a property-specific assessment.
+          {t.disclaimerMain}
+          {isLeasehold ? t.disclaimerLease : ""}
+          {t.disclaimerCurrency}
         </p>
       </div>
     </div>
+
+    {/* Mobile sticky headline — keeps the payoff visible while editing inputs. */}
+    {showMobileBar ? (
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-forest-500/15 bg-cream-100/95 px-4 py-2.5 shadow-[0_-4px_16px_rgba(0,0,0,0.08)] backdrop-blur lg:hidden">
+        <div className="flex items-center justify-between gap-3">
+          <div>
+            <p className="text-[10px] uppercase tracking-wide text-forest-500/55">{t.inYr(inputs.years)}</p>
+            <p className="num text-lg leading-tight text-forest-900">{money(r.projectedValue, true)}</p>
+          </div>
+          <div className="text-center">
+            <p className="text-[10px] uppercase tracking-wide text-forest-500/55">{t.totalRoi}</p>
+            <p className="num text-lg leading-tight text-brass-600">{fmtPct(r.roiPct)}</p>
+          </div>
+          <a
+            href="#calc-results"
+            className="rounded-sm bg-forest-500 px-3 py-2 text-xs font-medium text-cream-100"
+          >
+            {t.resultsBtn}
+          </a>
+        </div>
+      </div>
+    ) : null}
+    </>
   );
 }
 
@@ -514,40 +573,193 @@ function Kpi({ label, value, accent }: { label: string; value: string; accent?: 
   );
 }
 
-function NumberField({
+/**
+ * Slider + precise numeric input bound to the same value. Dragging is fast for
+ * exploring; the number lets power users type an exact figure. Used for every
+ * bounded assumption (percentages, years, months).
+ */
+function SliderField({
   label,
   value,
   onChange,
+  min = 0,
+  max = 100,
   step = 1,
-  min,
-  max,
-  hint,
+  unit = "%",
   small,
 }: {
   label: string;
   value: number;
   onChange: (v: number) => void;
-  step?: number;
   min?: number;
   max?: number;
-  hint?: string;
+  step?: number;
+  unit?: string;
   small?: boolean;
 }) {
+  const clamp = (v: number) => Math.min(max, Math.max(min, v));
   return (
     <div>
-      <div className="flex items-baseline justify-between">
+      <div className="flex items-baseline justify-between gap-2">
         <label className={small ? "text-xs text-forest-500/70" : "text-sm text-forest-500/70"}>{label}</label>
-        {hint ? <span className="text-xs font-medium text-forest-900">{hint}</span> : null}
+        <div className="flex items-baseline gap-1">
+          <input
+            type="number"
+            value={Number.isFinite(value) ? value : ""}
+            step={step}
+            min={min}
+            max={max}
+            onChange={(e) => onChange(Number(e.target.value))}
+            className="w-16 rounded-sm border border-forest-500/20 bg-cream-50 px-2 py-1 text-right text-sm tabular-nums text-forest-900 focus:border-forest-500 focus:outline-none"
+          />
+          {unit ? <span className="text-xs text-forest-500/55">{unit}</span> : null}
+        </div>
       </div>
       <input
-        type="number"
-        value={Number.isFinite(value) ? value : ""}
-        step={step}
+        type="range"
         min={min}
         max={max}
+        step={step}
+        value={Number.isFinite(value) ? clamp(value) : min}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="mt-1.5 w-full rounded-sm border border-forest-500/20 bg-cream-50 px-3 py-2 text-sm text-forest-900 focus:border-forest-500 focus:outline-none"
+        className="mt-2 w-full cursor-pointer accent-forest-500"
+        aria-label={label}
       />
+    </div>
+  );
+}
+
+/**
+ * A cost field that the user can express either as a percentage of price or as
+ * an absolute amount in the selected currency. State upstream stays a percent
+ * (the engine is %-based); money entry is converted via the live price. The
+ * other unit is always shown as an equivalent so both worlds stay visible.
+ */
+function PctOrMoneyField({
+  label,
+  t,
+  pctValue,
+  onChangePct,
+  priceThb,
+  currency,
+  fx,
+  rates,
+  min = 0,
+  max = 30,
+  step = 0.5,
+  small,
+}: {
+  label: string;
+  t: CalcDict;
+  pctValue: number;
+  onChangePct: (pct: number) => void;
+  priceThb: number;
+  currency: Currency;
+  fx: number;
+  rates: Record<Currency, number>;
+  min?: number;
+  max?: number;
+  step?: number;
+  small?: boolean;
+}) {
+  const [mode, setMode] = useState<"pct" | "money">("pct");
+  const amountThb = (priceThb || 0) * ((pctValue || 0) / 100);
+  const toMoneyText = (thb: number) =>
+    Number.isFinite(thb) ? String(currency === "THB" ? Math.round(thb) : Math.round(thb * fx)) : "";
+  const [moneyText, setMoneyText] = useState(() => toMoneyText(amountThb));
+  const [focused, setFocused] = useState(false);
+
+  // Resync money text from the canonical percent when idle.
+  useEffect(() => {
+    if (mode === "money" && !focused) setMoneyText(toMoneyText(amountThb));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [amountThb, currency, fx, mode]);
+
+  const onMoneyInput = (raw: string) => {
+    setMoneyText(raw);
+    const v = Number(raw);
+    if (raw === "" || !Number.isFinite(v) || !priceThb) {
+      onChangePct(0);
+      return;
+    }
+    const thb = currency === "THB" ? v : v / fx;
+    onChangePct((thb / priceThb) * 100);
+  };
+
+  const labelClass = small ? "text-xs text-forest-500/70" : "text-sm text-forest-500/70";
+
+  return (
+    <div>
+      <div className="flex items-baseline justify-between gap-2">
+        <label className={labelClass}>{label}</label>
+        <div className="inline-flex overflow-hidden rounded-sm border border-forest-500/20 text-[10px] font-medium">
+          <button
+            type="button"
+            onClick={() => setMode("pct")}
+            className={`px-1.5 py-0.5 transition-colors ${mode === "pct" ? "bg-forest-500 text-cream-50" : "text-forest-500/60 hover:bg-forest-500/8"}`}
+          >
+            %
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setMoneyText(toMoneyText(amountThb));
+              setMode("money");
+            }}
+            className={`px-1.5 py-0.5 transition-colors ${mode === "money" ? "bg-forest-500 text-cream-50" : "text-forest-500/60 hover:bg-forest-500/8"}`}
+          >
+            {currency}
+          </button>
+        </div>
+      </div>
+
+      {mode === "pct" ? (
+        <>
+          <div className="mt-1.5 flex items-center gap-3">
+            <input
+              type="range"
+              min={min}
+              max={max}
+              step={step}
+              value={Number.isFinite(pctValue) ? Math.min(max, Math.max(min, pctValue)) : min}
+              onChange={(e) => onChangePct(Number(e.target.value))}
+              className="w-full cursor-pointer accent-forest-500"
+              aria-label={label}
+            />
+            <input
+              type="number"
+              value={Number.isFinite(pctValue) ? pctValue : ""}
+              step={step}
+              min={min}
+              max={max}
+              onChange={(e) => onChangePct(Number(e.target.value))}
+              className="w-16 shrink-0 rounded-sm border border-forest-500/20 bg-cream-50 px-2 py-1 text-right text-sm tabular-nums text-forest-900 focus:border-forest-500 focus:outline-none"
+            />
+          </div>
+          <p className="mt-1 text-[11px] text-forest-500/50">
+            ≈ {formatMoney(amountThb, currency, rates, { compact: false })}
+          </p>
+        </>
+      ) : (
+        <>
+          <input
+            type="number"
+            inputMode="numeric"
+            min={0}
+            value={moneyText}
+            onFocus={() => setFocused(true)}
+            onBlur={() => {
+              setFocused(false);
+              setMoneyText(toMoneyText(amountThb));
+            }}
+            onChange={(e) => onMoneyInput(e.target.value)}
+            className="mt-1.5 w-full rounded-sm border border-forest-500/20 bg-cream-50 px-3 py-2 text-sm text-forest-900 focus:border-forest-500 focus:outline-none"
+          />
+          <p className="mt-1 text-[11px] text-forest-500/50">
+            {t.pctOfPrice((Number.isFinite(pctValue) ? pctValue : 0).toLocaleString("en-US", { maximumFractionDigits: 2 }))}
+          </p>
+        </>
+      )}
     </div>
   );
 }
@@ -621,22 +833,22 @@ function MoneyField({
   );
 }
 
-function BankCompare({ r, years, bankRate, money }: { r: RoiResult; years: number; bankRate: number; money: Money }) {
+function BankCompare({ r, years, bankRate, money, t }: { r: RoiResult; years: number; bankRate: number; money: Money; t: CalcDict }) {
   const better = r.vsBankThb >= 0;
   return (
     <div className="mt-6 rounded-sm border border-forest-500/10 bg-cream-50 p-6">
-      <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">vs a bank deposit</p>
+      <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">{t.vsBank}</p>
       <div className="mt-4 space-y-2">
-        <Row label={`Bank deposit (${bankRate}%)`} value={money(r.bankFinal, true)} muted />
-        <Row label="This property" value={money(r.totalReturn, true)} />
+        <Row label={t.bankDeposit(bankRate)} value={money(r.bankFinal, true)} muted />
+        <Row label={t.thisProperty} value={money(r.totalReturn, true)} />
       </div>
       <p className="mt-4 text-lg text-forest-900">
         {better ? (
           <>
-            <span className="text-brass-600 tabular-nums">{money(r.vsBankThb)}</span> more than the bank over {years} years
+            <span className="text-brass-600 tabular-nums">{money(r.vsBankThb)}</span> {t.moreThanBank(years)}
           </>
         ) : (
-          <>{money(Math.abs(r.vsBankThb))} less than the bank — try a higher growth rate or longer horizon</>
+          <>{money(Math.abs(r.vsBankThb))} {t.lessThanBank}</>
         )}
       </p>
     </div>
@@ -652,7 +864,7 @@ function Row({ label, value, muted }: { label: string; value: string; muted?: bo
   );
 }
 
-function GrowthChart({ r, money }: { r: RoiResult; money: Money }) {
+function GrowthChart({ r, money, t }: { r: RoiResult; money: Money; t: CalcDict }) {
   const W = 640;
   const H = 220;
   const pad = { l: 8, r: 8, t: 12, b: 22 };
@@ -680,27 +892,27 @@ function GrowthChart({ r, money }: { r: RoiResult; money: Money }) {
         {pts.map((p, i) => (i === 0 || i === n ? <circle key={i} cx={x(i)} cy={y(p.propertyValue)} r="3.5" fill="#B5651D" /> : null))}
       </svg>
       <div className="mt-2 flex justify-between text-[11px] text-forest-500/50">
-        <span>Now · {money(pts[0].propertyValue)}</span>
-        <span className="text-brass-600">Year {n} · {money(pts[n].propertyValue)}</span>
+        <span>{t.now} · {money(pts[0].propertyValue)}</span>
+        <span className="text-brass-600">{t.yearN(n)} · {money(pts[n].propertyValue)}</span>
       </div>
       <div className="mt-3 flex gap-4 text-[11px] text-forest-500/60">
-        <span className="inline-flex items-center gap-1.5"><span className="h-0.5 w-4 bg-brass-500" /> Property</span>
-        <span className="inline-flex items-center gap-1.5"><span className="h-0.5 w-4 border-t-2 border-dashed border-forest-500/40" /> Bank deposit</span>
+        <span className="inline-flex items-center gap-1.5"><span className="h-0.5 w-4 bg-brass-500" /> {t.legendProperty}</span>
+        <span className="inline-flex items-center gap-1.5"><span className="h-0.5 w-4 border-t-2 border-dashed border-forest-500/40" /> {t.legendBank}</span>
       </div>
     </div>
   );
 }
 
-function YearTable({ r, money, isRent }: { r: RoiResult; money: Money; isRent: boolean }) {
+function YearTable({ r, money, isRent, t }: { r: RoiResult; money: Money; isRent: boolean; t: CalcDict }) {
   return (
     <div className="mt-4 overflow-hidden rounded-sm border border-forest-500/10">
       <table className="w-full text-sm tabular-nums">
         <thead className="bg-forest-500/5 text-left text-xs uppercase tracking-wide text-forest-500/60">
           <tr>
-            <th className="px-4 py-2 font-medium">Year</th>
-            <th className="px-4 py-2 text-right font-medium">Value</th>
-            {isRent ? <th className="px-4 py-2 text-right font-medium">Net rent</th> : null}
-            <th className="px-4 py-2 text-right font-medium">Cumulative profit</th>
+            <th className="px-4 py-2 font-medium">{t.thYear}</th>
+            <th className="px-4 py-2 text-right font-medium">{t.thValue}</th>
+            {isRent ? <th className="px-4 py-2 text-right font-medium">{t.thNetRent}</th> : null}
+            <th className="px-4 py-2 text-right font-medium">{t.thCumProfit}</th>
           </tr>
         </thead>
         <tbody>
@@ -723,11 +935,13 @@ function SimilarObjects({
   catalog,
   excludeRw,
   money,
+  t,
 }: {
   price: number;
   catalog: RealEstateObject[];
   excludeRw?: string;
   money: Money;
+  t: CalcDict;
 }) {
   const lo = price * 0.85;
   const hi = price * 1.15;
@@ -744,9 +958,9 @@ function SimilarObjects({
 
   return (
     <div className="mt-10 border-t border-forest-500/10 pt-10">
-      <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">Properties for this budget</p>
+      <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">{t.propsForBudget}</p>
       <h3 className="mt-3 font-serif text-2xl text-forest-900">
-        Around {money(price)} — {matches.length} match{matches.length === 1 ? "" : "es"}
+        {t.aroundMatches(money(price), matches.length)}
       </h3>
       <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {matches.map((o) => (
@@ -757,7 +971,7 @@ function SimilarObjects({
         href={href}
         className="mt-6 inline-flex items-center gap-2 rounded-sm bg-forest-500 px-5 py-2.5 text-sm font-medium text-cream-100 transition-colors hover:bg-forest-400"
       >
-        Find properties for this budget
+        {t.findForBudget}
         <ArrowRight className="h-4 w-4" />
       </Link>
     </div>
