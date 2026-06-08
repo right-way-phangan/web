@@ -76,7 +76,7 @@ export default function AboutPage() {
               Originally from Saint Petersburg, Russia. Four years operating
               in the Phangan land market, with hundreds of land plots
               assessed and over forty transactions supported in the local
-              market. Based on Koh Phangan year-round from July 2026.
+              market. Living on Koh Phangan year-round for over four years.
             </p>
             <p className="text-sm text-forest-500/70">
               Languages: English, Russian.
