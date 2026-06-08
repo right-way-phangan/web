@@ -123,7 +123,7 @@ export function Header() {
         </div>
 
         <nav
-          className="flex w-full flex-1 flex-col overflow-y-auto px-6 md:px-8"
+          className="w-full flex-1 overflow-y-auto px-6 md:px-8"
           aria-label="Mobile"
         >
           <ul className="flex min-h-full flex-col justify-center py-6">
