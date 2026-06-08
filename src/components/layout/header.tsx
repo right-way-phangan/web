@@ -3,6 +3,7 @@
 import Link from "next/link";
 import type { Route } from "next";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
 import { Menu, X, Heart } from "lucide-react";
 import { Logo } from "./logo";
@@ -26,6 +27,11 @@ export function Header() {
   const chrome = getChromeDict(isRu ? "ru" : "en");
   const contactHref = (isRu ? "/ru/contact" : "/contact") as Route;
   const savedHref = isRu ? "/ru/saved" : "/saved";
+
+  // The overlay must portal to <body>: the header's backdrop-blur creates a
+  // containing block that would otherwise trap our position:fixed overlay.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   // Lock background scroll and close on Escape while the overlay is open.
   useEffect(() => {
@@ -87,20 +93,23 @@ export function Header() {
         </div>
       </div>
 
-      {/* Full-screen mobile overlay */}
-      <div
-        id="mobile-nav"
-        role="dialog"
-        aria-modal="true"
-        aria-label="Navigation"
-        className={cn(
-          "fixed inset-0 z-50 flex flex-col bg-cream-100 xl:hidden",
-          "transition-[opacity,transform] duration-300 ease-out",
-          open
-            ? "opacity-100 translate-y-0 pointer-events-auto"
-            : "pointer-events-none -translate-y-2 opacity-0",
-        )}
-      >
+      {/* Full-screen mobile overlay — portaled to <body> so the header's
+          backdrop-blur containing block can't trap our fixed positioning. */}
+      {mounted
+        ? createPortal(
+            <div
+              id="mobile-nav"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Navigation"
+              className={cn(
+                "fixed inset-0 z-50 flex flex-col bg-cream-100 xl:hidden",
+                "transition-[opacity,transform] duration-300 ease-out",
+                open
+                  ? "opacity-100 translate-y-0 pointer-events-auto"
+                  : "pointer-events-none -translate-y-2 opacity-0",
+              )}
+            >
         <div className="container-prose flex h-16 items-center justify-between border-b border-forest-500/10 md:h-20">
           <Logo />
           <button
@@ -127,7 +136,7 @@ export function Header() {
                 onClick={() => setOpen(false)}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "py-2.5 font-serif text-3xl tracking-tight transition-colors hover:text-brass-500",
+                  "py-2 font-serif text-2xl tracking-tight transition-colors hover:text-brass-500",
                   active ? "text-brass-500" : "text-forest-500",
                 )}
               >
@@ -172,7 +181,10 @@ export function Header() {
             </a>
           </div>
         </div>
-      </div>
+            </div>,
+            document.body,
+          )
+        : null}
     </header>
   );
 }
