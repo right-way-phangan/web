@@ -21,8 +21,17 @@ export function Footer() {
   const f = chrome.footer;
   const exploreLinks = [...chrome.nav, { label: f.journal, href: isRu ? "/ru/blog" : "/blog" }];
 
+  // The homepage ends on the full-bleed IslandCta band; let the footer sit flush
+  // against it instead of floating below a wide cream gap. Other pages close on
+  // light content and keep the breathing room.
+  const isHome = pathname === "/" || pathname === "/ru";
+
   return (
-    <footer className="mt-32 border-t border-forest-500/10 bg-cream-200/40">
+    <footer
+      className={`border-t border-forest-500/10 bg-cream-200/40 ${
+        isHome ? "" : "mt-32"
+      }`}
+    >
       <div className="container-prose py-16">
         <div className="grid gap-12 md:grid-cols-4">
           <div className="md:col-span-2 max-w-md">
