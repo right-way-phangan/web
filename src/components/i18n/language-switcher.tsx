@@ -19,6 +19,7 @@ const PAIRS: Record<string, string> = {
   "/districts": "/ru/districts",
   "/calculator": "/ru/calculator",
   "/insights": "/ru/insights",
+  "/saved": "/ru/saved",
 };
 const EN_OF = Object.fromEntries(Object.entries(PAIRS).map(([en, ru]) => [ru, en]));
 

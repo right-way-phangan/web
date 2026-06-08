@@ -40,14 +40,14 @@ export function Header() {
 
         <div className="hidden md:flex md:items-center md:gap-3">
           <LanguageSwitcher />
-          <SavedLink count={savedCount} label={chrome.savedAria} />
+          <SavedLink count={savedCount} label={chrome.savedAria} href={isRu ? "/ru/saved" : "/saved"} />
           <Button asChild variant="outline" size="sm">
             <Link href={contactHref}>{chrome.getInTouch}</Link>
           </Button>
         </div>
 
         <div className="flex items-center gap-1 md:hidden">
-          <SavedLink count={savedCount} label={chrome.savedAria} />
+          <SavedLink count={savedCount} label={chrome.savedAria} href={isRu ? "/ru/saved" : "/saved"} />
           <button
             type="button"
             aria-label="Toggle navigation"
@@ -89,10 +89,18 @@ export function Header() {
   );
 }
 
-function SavedLink({ count, label = "Saved listings" }: { count: number; label?: string }) {
+function SavedLink({
+  count,
+  label = "Saved listings",
+  href = "/saved",
+}: {
+  count: number;
+  label?: string;
+  href?: string;
+}) {
   return (
     <Link
-      href="/saved"
+      href={href as Route}
       aria-label={`${label}${count ? ` (${count})` : ""}`}
       className="relative flex h-10 w-10 items-center justify-center rounded-sm text-forest-500 transition-colors hover:text-brass-500"
     >
