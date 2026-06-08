@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { Search, X, ChevronDown } from "lucide-react";
 import {
   FAQ_CATEGORIES,
@@ -61,32 +61,6 @@ export function FaqExplorer({
   const [query, setQuery] = useState("");
   const [activeCat, setActiveCat] = useState<FaqCategoryId | "all">("all");
 
-  // Slide the whole filter bar up out of view while reading (scrolling down)
-  // and slide it back on scroll up. Uses transform only — no height/layout
-  // change — so the page never reflows and the motion stays smooth (no jitter
-  // feedback loop, which an animated collapse would cause on iOS momentum).
-  const [hidden, setHidden] = useState(false);
-  const lastYRef = useRef(0);
-  useEffect(() => {
-    lastYRef.current = window.scrollY;
-    let ticking = false;
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        const y = window.scrollY;
-        const last = lastYRef.current;
-        // Hysteresis (±8px) keeps tiny scroll wobble from toggling the bar.
-        if (y > last + 8 && y > 240) setHidden(true);
-        else if (y < last - 8) setHidden(false);
-        lastYRef.current = y;
-        ticking = false;
-      });
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   // Search index for the provided item set (hand-written + any derived).
   const INDEX = useMemo(
     () => items.map((item) => ({ item, text: buildFaqSearchText(item) })),
@@ -115,15 +89,11 @@ export function FaqExplorer({
 
   return (
     <>
-      {/* Sticky filter bar — slides up out of view on scroll down, back on up. */}
-      <div
-        aria-hidden={hidden}
-        className={cn(
-          "sticky top-16 z-30 -mx-6 mb-12 border-y border-forest-500/10 bg-cream-100/90 px-6 py-4 backdrop-blur-md transition-transform duration-300 ease-out md:top-20 md:-mx-8 md:px-8",
-          hidden ? "pointer-events-none -translate-y-[140%]" : "translate-y-0",
-        )}
-      >
-        <div className="flex flex-col gap-3 md:flex-row md:items-center">
+      {/* Sticky filter bar — compact, no scroll-reactive motion (nothing to
+          jitter). Category chips scroll horizontally on mobile instead of
+          wrapping to several rows, keeping the bar short. */}
+      <div className="sticky top-16 z-30 -mx-6 mb-12 border-y border-forest-500/10 bg-cream-100/90 px-6 py-3 backdrop-blur-md md:top-20 md:-mx-8 md:px-8">
+        <div className="flex flex-col gap-2.5 md:flex-row md:items-center md:gap-3">
           <div className="relative flex-1">
             <Search
               className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-forest-500/40"
@@ -149,7 +119,8 @@ export function FaqExplorer({
             ) : null}
           </div>
 
-          <div className="flex flex-wrap gap-1.5">
+          {/* Horizontal scroll on mobile (one row), wrap on desktop. */}
+          <div className="-mx-6 flex gap-1.5 overflow-x-auto px-6 pb-0.5 [scrollbar-width:none] md:mx-0 md:flex-wrap md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden">
             <CatChip
               active={activeCat === "all"}
               onClick={() => setActiveCat("all")}
@@ -168,7 +139,7 @@ export function FaqExplorer({
           </div>
         </div>
 
-        <p className="mt-3 text-xs text-forest-500/50">{dict.shown(filtered.length, TOTAL)}</p>
+        <p className="mt-2 text-xs text-forest-500/50">{dict.shown(filtered.length, TOTAL)}</p>
       </div>
 
       {/* Results */}
@@ -218,7 +189,7 @@ function CatChip({
       type="button"
       onClick={onClick}
       className={cn(
-        "rounded-sm border px-3 py-1.5 text-xs font-medium transition-colors",
+        "shrink-0 whitespace-nowrap rounded-sm border px-3 py-1.5 text-xs font-medium transition-colors",
         active
           ? "border-forest-500 bg-forest-500 text-cream-100"
           : "border-forest-500/20 bg-cream-50 text-forest-500 hover:border-forest-500/50",
