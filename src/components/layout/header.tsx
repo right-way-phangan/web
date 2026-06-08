@@ -123,27 +123,47 @@ export function Header() {
         </div>
 
         <nav
-          className="flex w-full flex-1 flex-col justify-center gap-1.5 overflow-y-auto px-6 py-8 md:px-8"
+          className="flex w-full flex-1 flex-col overflow-y-auto px-6 md:px-8"
           aria-label="Mobile"
         >
-          {chrome.nav.map((item) => {
-            const active =
-              pathname === item.href || pathname.startsWith(`${item.href}/`);
-            return (
-              <Link
-                key={item.href}
-                href={item.href as Route}
-                onClick={() => setOpen(false)}
-                aria-current={active ? "page" : undefined}
-                className={cn(
-                  "py-2 font-serif text-2xl tracking-tight transition-colors hover:text-brass-500",
-                  active ? "text-brass-500" : "text-forest-500",
-                )}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
+          <ul className="flex min-h-full flex-col justify-center py-6">
+            {chrome.nav.map((item, i) => {
+              const active =
+                pathname === item.href || pathname.startsWith(`${item.href}/`);
+              return (
+                <li
+                  key={item.href}
+                  className="border-b border-forest-500/10 last:border-b-0"
+                >
+                  <Link
+                    href={item.href as Route}
+                    onClick={() => setOpen(false)}
+                    aria-current={active ? "page" : undefined}
+                    className={cn(
+                      "group flex items-baseline justify-between gap-4 py-3.5 transition-colors",
+                      active
+                        ? "text-brass-500"
+                        : "text-forest-500 hover:text-brass-500",
+                    )}
+                  >
+                    <span className="font-serif text-[1.7rem] leading-none tracking-tight transition-transform duration-200 group-hover:translate-x-1">
+                      {item.label}
+                    </span>
+                    <span
+                      className={cn(
+                        "text-[0.7rem] font-medium tabular-nums tracking-[0.25em] transition-colors",
+                        active
+                          ? "text-brass-500"
+                          : "text-forest-500/30 group-hover:text-brass-500/70",
+                      )}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
         </nav>
 
         <div className="w-full space-y-5 border-t border-forest-500/10 px-6 py-6 md:px-8">
