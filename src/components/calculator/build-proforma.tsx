@@ -9,6 +9,58 @@ import {
   MGMT_FEE,
   OPEX_PCT,
 } from "@/lib/data/rental-market";
+import { useLocale } from "@/lib/i18n/use-locale";
+
+const BP = {
+  en: {
+    badge: "Build-to-rent pro-forma",
+    title: "What it costs to build — and what it returns",
+    lede: "Land price pre-fills from our own listings; construction and furnishing are editable assumptions. Rent and occupancy come from the market snapshot.",
+    district: "District",
+    plot: "Plot size (m²)",
+    landPrice: "Land price (THB/m²)",
+    built: "Built area (m²)",
+    construction: "Construction (THB/m²)",
+    furnishing: "Furnishing (THB/m²)",
+    landCost: "Land cost",
+    constructionCost: "Construction",
+    furnishingCost: "Furnishing",
+    totalCapex: "Total CapEx",
+    netRentYr: "Net rent / yr",
+    sub: (gross: string, occ: number, booked: string) =>
+      `gross ${gross} · ${occ}% base occ${booked}`,
+    bookedNow: (p: number) => ` · ${p}% booked now`,
+    yoc: "Net yield-on-cost",
+    payback: "Payback",
+    yr: "yr",
+    footnote: (mgmt: number, opex: number) =>
+      `Net = market ADR × 365 × occupancy, less ${mgmt}% management and ${opex}% opex. Construction & furnishing are assumptions — adjust to your spec. Not investment advice.`,
+  },
+  ru: {
+    badge: "Pro-forma «построй и сдавай»",
+    title: "Сколько стоит построить — и сколько это приносит",
+    lede: "Цена земли подставляется из наших объявлений; стройка и меблировка — редактируемые допущения. Аренда и загрузка — из рыночного среза.",
+    district: "Район",
+    plot: "Площадь участка (м²)",
+    landPrice: "Цена земли (THB/м²)",
+    built: "Площадь застройки (м²)",
+    construction: "Стройка (THB/м²)",
+    furnishing: "Меблировка (THB/м²)",
+    landCost: "Стоимость земли",
+    constructionCost: "Стройка",
+    furnishingCost: "Меблировка",
+    totalCapex: "Итого CapEx",
+    netRentYr: "Чистая аренда / год",
+    sub: (gross: string, occ: number, booked: string) =>
+      `грязными ${gross} · базовая загрузка ${occ}%${booked}`,
+    bookedNow: (p: number) => ` · сейчас занято ${p}%`,
+    yoc: "Доходность на вложения",
+    payback: "Окупаемость",
+    yr: "лет",
+    footnote: (mgmt: number, opex: number) =>
+      `Чистыми = рыночный ADR × 365 × загрузка, минус ${mgmt}% управление и ${opex}% opex. Стройка и меблировка — допущения, корректируйте под свой проект. Не инвестиционный совет.`,
+  },
+};
 
 /**
  * Build-to-rent pro-forma: combine our own land price (THB/m² by district) with
@@ -20,6 +72,7 @@ const DEFAULT_CONSTR = 32000; // THB/m² — mid villa, Phangan (assumption)
 const DEFAULT_FURNISH = 9000; // THB/m² built (assumption)
 
 export function BuildProForma({ market }: { market: RentalMarket }) {
+  const t = BP[useLocale()];
   const [district, setDistrict] = useState<string>(market.districts[0]?.name ?? "");
   const [plotSqm, setPlotSqm] = useState(600);
   const [builtSqm, setBuiltSqm] = useState(180);
@@ -66,21 +119,16 @@ export function BuildProForma({ market }: { market: RentalMarket }) {
     <div className="rounded-sm border border-forest-500/10 bg-cream-50 p-6 md:p-8">
       <p className="inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
         <Hammer className="h-4 w-4" />
-        Build-to-rent pro-forma
+        {t.badge}
       </p>
-      <h3 className="mt-2 font-serif text-2xl text-forest-900">
-        What it costs to build — and what it returns
-      </h3>
-      <p className="mt-2 max-w-2xl text-sm text-forest-500/75">
-        Land price pre-fills from our own listings; construction and furnishing are editable
-        assumptions. Rent and occupancy come from the market snapshot.
-      </p>
+      <h3 className="mt-2 font-serif text-2xl text-forest-900">{t.title}</h3>
+      <p className="mt-2 max-w-2xl text-sm text-forest-500/75">{t.lede}</p>
 
       <div className="mt-6 grid gap-6 md:grid-cols-[1fr_1fr]">
         {/* Inputs */}
         <div className="space-y-3">
           <label className="block">
-            <span className="mb-1 block text-[11px] font-medium text-forest-500/70">District</span>
+            <span className="mb-1 block text-[11px] font-medium text-forest-500/70">{t.district}</span>
             <select
               value={district}
               onChange={(e) => pickDistrict(e.target.value)}
@@ -93,35 +141,35 @@ export function BuildProForma({ market }: { market: RentalMarket }) {
               ))}
             </select>
           </label>
-          <Num label="Plot size (m²)" value={plotSqm} onChange={setPlotSqm} step={50} />
-          <Num label="Land price (THB/m²)" value={landPerSqm} onChange={setLandPerSqm} step={500} />
-          <Num label="Built area (m²)" value={builtSqm} onChange={setBuiltSqm} step={10} />
-          <Num label="Construction (THB/m²)" value={constrPerSqm} onChange={setConstrPerSqm} step={1000} />
-          <Num label="Furnishing (THB/m²)" value={furnishPerSqm} onChange={setFurnishPerSqm} step={500} />
+          <Num label={t.plot} value={plotSqm} onChange={setPlotSqm} step={50} />
+          <Num label={t.landPrice} value={landPerSqm} onChange={setLandPerSqm} step={500} />
+          <Num label={t.built} value={builtSqm} onChange={setBuiltSqm} step={10} />
+          <Num label={t.construction} value={constrPerSqm} onChange={setConstrPerSqm} step={1000} />
+          <Num label={t.furnishing} value={furnishPerSqm} onChange={setFurnishPerSqm} step={500} />
         </div>
 
         {/* Outputs */}
         <div className="space-y-3">
-          <Row label="Land cost" value={fmtThb(out.landCost, true)} />
-          <Row label="Construction" value={fmtThb(out.buildCost, true)} />
-          <Row label="Furnishing" value={fmtThb(out.furnishCost, true)} />
-          <Row label="Total CapEx" value={fmtThb(out.total, true)} bold />
+          <Row label={t.landCost} value={fmtThb(out.landCost, true)} />
+          <Row label={t.constructionCost} value={fmtThb(out.buildCost, true)} />
+          <Row label={t.furnishingCost} value={fmtThb(out.furnishCost, true)} />
+          <Row label={t.totalCapex} value={fmtThb(out.total, true)} bold />
           <div className="my-1 border-t border-forest-500/10" />
           <Row
-            label={`Net rent / yr`}
+            label={t.netRentYr}
             value={`${fmtThb(out.annualNet, true)}`}
-            sub={`gross ${fmtThb(out.annualGross, true)} · ${Math.round(out.occ * 100)}% base occ${
-              out.measuredNow != null ? ` · ${Math.round(out.measuredNow * 100)}% booked now` : ""
-            }`}
+            sub={t.sub(
+              fmtThb(out.annualGross, true),
+              Math.round(out.occ * 100),
+              out.measuredNow != null ? t.bookedNow(Math.round(out.measuredNow * 100)) : "",
+            )}
           />
           <div className="grid grid-cols-2 gap-3 pt-1">
-            <Big label="Net yield-on-cost" value={`${out.yoc}%`} />
-            <Big label="Payback" value={out.payback > 0 ? `${out.payback} yr` : "—"} />
+            <Big label={t.yoc} value={`${out.yoc}%`} />
+            <Big label={t.payback} value={out.payback > 0 ? `${out.payback} ${t.yr}` : "—"} />
           </div>
           <p className="text-[11px] text-forest-500/50">
-            Net = market ADR × 365 × occupancy, less {Math.round(MGMT_FEE * 100)}% management and{" "}
-            {Math.round(OPEX_PCT * 100)}% opex. Construction &amp; furnishing are assumptions —
-            adjust to your spec. Not investment advice.
+            {t.footnote(Math.round(MGMT_FEE * 100), Math.round(OPEX_PCT * 100))}
           </p>
         </div>
       </div>

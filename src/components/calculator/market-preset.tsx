@@ -6,8 +6,38 @@ import type { Route } from "next";
 import { Sparkles, ArrowRight } from "lucide-react";
 import { type RentalMarket, fmtThb } from "@/lib/data/rental-market";
 import type { CalcDict } from "@/lib/i18n/calculator";
+import { useLocale } from "@/lib/i18n/use-locale";
 
 type Scenario = "conservative" | "base" | "high" | "measured";
+
+const MM = {
+  en: {
+    context: "Market context",
+    nightlyByDistrict: "Nightly rates by district",
+    fullReport: "Full report",
+    driver: (label: string, pct: number) => (
+      <>
+        Biggest price driver: <strong className="text-forest-900">{label}</strong> — a{" "}
+        <strong className="text-forest-900">+{pct}%</strong> nightly premium.
+      </>
+    ),
+    median: (n: number, date: string) =>
+      `Median of ${n} Airbnb listings · ${date}. Occupancy is an assumption; see the full report for method.`,
+  },
+  ru: {
+    context: "Контекст рынка",
+    nightlyByDistrict: "Ставки за ночь по районам",
+    fullReport: "Полный отчёт",
+    driver: (label: string, pct: number) => (
+      <>
+        Главный драйвер цены: <strong className="text-forest-900">{label}</strong> — наценка{" "}
+        <strong className="text-forest-900">+{pct}%</strong> к ставке за ночь.
+      </>
+    ),
+    median: (n: number, date: string) =>
+      `Медиана по ${n} объявлениям Airbnb · ${date}. Загрузка — допущение; метод — в полном отчёте.`,
+  },
+};
 
 /**
  * In-calculator preset: pick a district (+ optional type / bedrooms) and pull
@@ -207,6 +237,7 @@ function Select({
  * rate + the feature that moves price most, with a link to the full /insights.
  */
 export function MarketMiniBlock({ market }: { market: RentalMarket }) {
+  const t = MM[useLocale()];
   const top = market.districts.slice(0, 5);
   const max = Math.max(...top.map((d) => d.adrMedian), 1);
   const topFeature = [...market.featurePremiums]
@@ -218,17 +249,15 @@ export function MarketMiniBlock({ market }: { market: RentalMarket }) {
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
-            Market context
+            {t.context}
           </p>
-          <h3 className="mt-2 font-serif text-xl text-forest-900">
-            Nightly rates by district
-          </h3>
+          <h3 className="mt-2 font-serif text-xl text-forest-900">{t.nightlyByDistrict}</h3>
         </div>
         <Link
           href={"/insights" as Route}
           className="inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-forest-500 hover:text-brass-500"
         >
-          Full report
+          {t.fullReport}
           <ArrowRight className="h-3.5 w-3.5" />
         </Link>
       </div>
@@ -252,13 +281,11 @@ export function MarketMiniBlock({ market }: { market: RentalMarket }) {
 
       {topFeature ? (
         <p className="mt-4 text-sm text-forest-500/75">
-          Biggest price driver: <strong className="text-forest-900">{topFeature.label}</strong> —
-          a <strong className="text-forest-900">+{topFeature.premiumPct}%</strong> nightly premium.
+          {t.driver(topFeature.label, topFeature.premiumPct ?? 0)}
         </p>
       ) : null}
       <p className="mt-1 text-[11px] text-forest-500/50">
-        Median of {market.meta.sample} Airbnb listings · {market.meta.date}. Occupancy is an
-        assumption; see the full report for method.
+        {t.median(market.meta.sample, market.meta.date)}
       </p>
     </div>
   );

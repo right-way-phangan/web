@@ -28,6 +28,7 @@ import { buildCalcReportHtml } from "@/lib/calculator/report";
 import type { RealEstateObject } from "@/types/object";
 import { getAppreciation, type RentalMarket } from "@/lib/data/rental-market";
 import { calcDict, type CalcDict, type CalcLocale } from "@/lib/i18n/calculator";
+import { useLocale } from "@/lib/i18n/use-locale";
 
 const fmtPct = (n: number) =>
   !isFinite(n) ? "—" : `${n >= 0 ? "+" : ""}${n.toLocaleString("en-US", { maximumFractionDigits: 1 })}%`;
@@ -64,7 +65,10 @@ export function RoiCalculator({
   excludeRw,
   market,
 }: Props) {
-  const [locale, setLocale] = useState<CalcLocale>("en");
+  // Seed the calculator language from the URL (/ru/* → RU), but keep the manual
+  // EN/RU toggle so a visitor can switch either tool independently.
+  const urlLocale = useLocale();
+  const [locale, setLocale] = useState<CalcLocale>(urlLocale);
   const t = calcDict(locale);
 
   // Data-anchored expected-growth band (sourced, not guessed). Falls back to an
