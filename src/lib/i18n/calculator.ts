@@ -204,6 +204,73 @@ export interface CalcDict {
   mpFrom: (basis: string, n: number) => string;
   mpPickDistrict: string;
   mpPerNight: string;
+  // FX scenario (A1)
+  fxDriftLabel: string;
+  fxDriftHint: string;
+  fxReturnTitle: string;
+  fxReturnLine: (roi: string, cagr: string) => string;
+  fxNeutralNote: string;
+  // Capital-gains tax (A2)
+  cgtLabel: string;
+  // Payback + downside (A3)
+  paybackKpi: string;
+  paybackVal: (v: string) => string;
+  paybackNever: string;
+  defPayback: string;
+  mcProbLoss: (p: number) => string;
+  mcVar: (v: string) => string;
+  // Two-way sensitivity (A4)
+  matrixTitle: string;
+  matrixHint: (driver: string) => string;
+  matrixGrowthAxis: string;
+  // Fan chart (V1)
+  fanTitle: string;
+  fanHint: string;
+  fanBand: string;
+  fanMid: string;
+  // Tornado (V2)
+  tornadoTitle: string;
+  tornadoHint: string;
+  driverGrowth: string;
+  driverOccupancy: string;
+  driverNightly: string;
+  driverMgmt: string;
+  driverExit: string;
+  driverHorizon: string;
+  // Waterfall (V3)
+  waterfallTitle: string;
+  waterfallHint: string;
+  wfInvested: string;
+  wfSale: string;
+  wfRent: string;
+  wfHolding: string;
+  wfCgt: string;
+  wfProfit: string;
+  // Reality check (L1)
+  realityTitle: string;
+  realityRateHigh: (pct: number) => string;
+  realityOccHigh: (pct: number) => string;
+  // Scenario compare (L3)
+  addScenario: string;
+  compareTitle: string;
+  compareEmpty: string;
+  removeScenario: string;
+  clearAll: string;
+  // Profiles (U1)
+  profilesLabel: string;
+  profileConservative: string;
+  profileYield: string;
+  profileFlipper: string;
+  // Result tabs (U2)
+  tabSummary: string;
+  tabReturns: string;
+  tabRisk: string;
+  tabCompare: string;
+  // Verdict (U3)
+  verdictBeats: (amount: string) => string;
+  verdictTrails: (amount: string) => string;
+  verdictProfitFrom: (v: string) => string;
+  verdictNoProfit: string;
   // Language toggle a11y
   langLabel: string;
 }
@@ -385,6 +452,62 @@ const EN: CalcDict = {
   mpFrom: (basis, n) => `from ${basis} (${n} listings)`,
   mpPickDistrict: "Pick a district to pull a starting nightly rate and occupancy. You can edit them after.",
   mpPerNight: "/night",
+  fxDriftLabel: "THB vs your currency (%/yr)",
+  fxDriftHint:
+    "Your view on the baht over the hold: + if you expect THB to strengthen against your home currency, − if to weaken. Drives the “return in your currency” line.",
+  fxReturnTitle: "Return in your currency",
+  fxReturnLine: (roi, cagr) => `Total ROI ${roi} · CAGR ${cagr}/yr — after the THB move you assumed.`,
+  fxNeutralNote: "Set a THB view in Advanced costs to see how currency moves change the return in your currency.",
+  cgtLabel: "Tax on gain at sale (%)",
+  paybackKpi: "Turns a profit",
+  paybackVal: (v) => `Year ${v}`,
+  paybackNever: "Not within horizon",
+  defPayback: "The year a resale would first clear your costs and show a profit.",
+  mcProbLoss: (p) => `${p}% chance of a nominal loss`,
+  mcVar: (v) => `Worst-case (P5): ${v}`,
+  matrixTitle: "Two-way sensitivity",
+  matrixHint: (driver) => `Total ROI as growth and ${driver} both move off your base case.`,
+  matrixGrowthAxis: "Growth ↓ / driver →",
+  fanTitle: "Range over time",
+  fanHint: "The P10–P90 band of your total return across the Monte Carlo runs, widening as uncertainty compounds.",
+  fanBand: "P10–P90 range",
+  fanMid: "Median",
+  tornadoTitle: "What moves the return most",
+  tornadoHint: "ROI swing when each driver alone goes from its low to its high — the longest bar is the biggest lever.",
+  driverGrowth: "Price growth",
+  driverOccupancy: "Occupancy",
+  driverNightly: "Nightly rate",
+  driverMgmt: "Mgmt fee",
+  driverExit: "Exit costs",
+  driverHorizon: "Holding period",
+  waterfallTitle: "Where the money goes",
+  waterfallHint: "From cash invested to net profit over the whole hold.",
+  wfInvested: "Invested",
+  wfSale: "Net sale",
+  wfRent: "Net rent",
+  wfHolding: "Holding",
+  wfCgt: "Sale tax",
+  wfProfit: "Net profit",
+  realityTitle: "Reality check",
+  realityRateHigh: (pct) => `Your nightly rate sits above ~${pct}% of comparable island listings — optimistic; verify against real comps.`,
+  realityOccHigh: (pct) => `Occupancy is above the optimistic market band (${pct}%) — make sure it's achievable year-round.`,
+  addScenario: "Add to compare",
+  compareTitle: "Scenario comparison",
+  compareEmpty: "Add scenarios with the button above to compare them side by side.",
+  removeScenario: "Remove",
+  clearAll: "Clear all",
+  profilesLabel: "Quick start",
+  profileConservative: "Conservative",
+  profileYield: "Yield-focused",
+  profileFlipper: "Off-plan flipper",
+  tabSummary: "Summary",
+  tabReturns: "Returns",
+  tabRisk: "Risk",
+  tabCompare: "Compare",
+  verdictBeats: (amount) => `beats a bank deposit by ${amount}`,
+  verdictTrails: (amount) => `trails a bank deposit by ${amount}`,
+  verdictProfitFrom: (v) => `profitable on resale from year ${v}`,
+  verdictNoProfit: "doesn't clear costs within the horizon",
   langLabel: "Language",
 };
 
@@ -565,6 +688,62 @@ const RU: CalcDict = {
   mpFrom: (basis, n) => `из «${basis}» (${n} объявл.)`,
   mpPickDistrict: "Выберите район, чтобы подтянуть стартовую ставку за ночь и загрузку. Потом можно поправить.",
   mpPerNight: "/ночь",
+  fxDriftLabel: "THB к вашей валюте (%/год)",
+  fxDriftHint:
+    "Ваш взгляд на бат за срок владения: + если ожидаете укрепления THB к вашей валюте, − если ослабления. Управляет строкой «доходность в вашей валюте».",
+  fxReturnTitle: "Доходность в вашей валюте",
+  fxReturnLine: (roi, cagr) => `Полный ROI ${roi} · CAGR ${cagr}/год — с учётом заданного вами движения THB.`,
+  fxNeutralNote: "Задайте взгляд на THB в «Дополнительных затратах», чтобы увидеть доходность в вашей валюте с учётом курса.",
+  cgtLabel: "Налог на прирост при продаже (%)",
+  paybackKpi: "Выход в плюс",
+  paybackVal: (v) => `${v}-й год`,
+  paybackNever: "Не в пределах срока",
+  defPayback: "Год, когда перепродажа впервые покрывает затраты и выходит в прибыль.",
+  mcProbLoss: (p) => `${p}% шанс номинального убытка`,
+  mcVar: (v) => `Худший случай (P5): ${v}`,
+  matrixTitle: "Двумерная чувствительность",
+  matrixHint: (driver) => `Полный ROI при одновременном отклонении роста и «${driver}» от базового случая.`,
+  matrixGrowthAxis: "Рост ↓ / параметр →",
+  fanTitle: "Диапазон во времени",
+  fanHint: "Полоса P10–P90 вашего результата по прогонам Monte Carlo, расширяющаяся по мере накопления неопределённости.",
+  fanBand: "Диапазон P10–P90",
+  fanMid: "Медиана",
+  tornadoTitle: "Что сильнее всего влияет на результат",
+  tornadoHint: "Размах ROI, когда каждый параметр в одиночку идёт от минимума к максимуму — самая длинная полоса — главный рычаг.",
+  driverGrowth: "Рост цены",
+  driverOccupancy: "Загрузка",
+  driverNightly: "Ставка за ночь",
+  driverMgmt: "Комиссия упр.",
+  driverExit: "Затраты выхода",
+  driverHorizon: "Срок владения",
+  waterfallTitle: "Куда уходят деньги",
+  waterfallHint: "От вложенного капитала до чистой прибыли за весь срок.",
+  wfInvested: "Вложено",
+  wfSale: "Чистая продажа",
+  wfRent: "Чистая аренда",
+  wfHolding: "Содержание",
+  wfCgt: "Налог с продажи",
+  wfProfit: "Чистая прибыль",
+  realityTitle: "Проверка реалистичности",
+  realityRateHigh: (pct) => `Ваша ставка за ночь выше ~${pct}% сопоставимых объявлений по острову — оптимистично; сверьтесь с реальными аналогами.`,
+  realityOccHigh: (pct) => `Загрузка выше оптимистичного рыночного диапазона (${pct}%) — убедитесь, что она достижима круглый год.`,
+  addScenario: "Добавить к сравнению",
+  compareTitle: "Сравнение сценариев",
+  compareEmpty: "Добавьте сценарии кнопкой выше, чтобы сравнить их рядом.",
+  removeScenario: "Убрать",
+  clearAll: "Очистить всё",
+  profilesLabel: "Быстрый старт",
+  profileConservative: "Консервативный",
+  profileYield: "Под доходность",
+  profileFlipper: "Флиппер off-plan",
+  tabSummary: "Сводка",
+  tabReturns: "Доходность",
+  tabRisk: "Риск",
+  tabCompare: "Сравнение",
+  verdictBeats: (amount) => `обгоняет депозит на ${amount}`,
+  verdictTrails: (amount) => `отстаёт от депозита на ${amount}`,
+  verdictProfitFrom: (v) => `прибыльна при перепродаже с ${v}-го года`,
+  verdictNoProfit: "не покрывает затраты в пределах срока",
   langLabel: "Язык",
 };
 
