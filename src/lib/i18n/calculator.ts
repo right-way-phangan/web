@@ -163,6 +163,29 @@ export interface CalcDict {
   roiTargetMatches: (n: number) => string;
   roiTargetNone: string;
   roiTargetNeedsRent: string;
+  // Index / alternative-investment benchmark
+  altReturnLabel: string;
+  indexRow: (rate: number) => string;
+  moreThanIndex: string;
+  lessThanIndex: string;
+  // Monte Carlo
+  mcTitle: string;
+  mcHint: (n: number, rent: boolean) => string;
+  mcLow: string;
+  mcMid: string;
+  mcHigh: string;
+  mcBeatBank: (p: number) => string;
+  mcBeatIndex: (p: number) => string;
+  // Deal score
+  dealTitle: string;
+  dealStrong: string;
+  dealFair: string;
+  dealWeak: string;
+  // Market preset range / confidence
+  mpRange: (lo: string, hi: string) => string;
+  confHigh: string;
+  confMed: string;
+  confLow: string;
   // Mobile bar
   inYr: (years: number) => string;
   resultsBtn: string;
@@ -326,6 +349,26 @@ const EN: CalcDict = {
   roiTargetMatches: (n) => `${n} listing${n === 1 ? "" : "s"} hit this return under your assumptions`,
   roiTargetNone: "No listings reach this ROI under the current assumptions — lower the target or adjust the inputs.",
   roiTargetNeedsRent: "Appreciation-only ROI doesn't depend on price, so it's the same for every listing. Turn on rental income above to rank properties by ROI.",
+  altReturnLabel: "Index / alt. return (%/yr)",
+  indexRow: (rate) => `Index fund (${rate}%)`,
+  moreThanIndex: "more than an index fund",
+  lessThanIndex: "less than an index fund",
+  mcTitle: "Probable outcomes (Monte Carlo)",
+  mcHint: (n, rent) =>
+    `${n.toLocaleString("en-US")} runs varying growth${rent ? ", occupancy and nightly rate" : ""} within the data band — a range of outcomes, not a single guess.`,
+  mcLow: "Pessimistic (P10)",
+  mcMid: "Median (P50)",
+  mcHigh: "Optimistic (P90)",
+  mcBeatBank: (p) => `${p}% chance of beating the bank`,
+  mcBeatIndex: (p) => `${p}% chance of beating the index`,
+  dealTitle: "Deal score",
+  dealStrong: "Strong",
+  dealFair: "Fair",
+  dealWeak: "Weak",
+  mpRange: (lo, hi) => `range ${lo}–${hi}`,
+  confHigh: "high confidence",
+  confMed: "medium confidence",
+  confLow: "low confidence",
   inYr: (years) => `In ${years} yr`,
   resultsBtn: "Results",
   fillFromMarket: "Fill from market data",
@@ -486,6 +529,26 @@ const RU: CalcDict = {
   roiTargetMatches: (n) => `${n} ${n === 1 ? "объект даёт" : "объект(ов) дают"} такую доходность при ваших допущениях`,
   roiTargetNone: "Ни один объект не достигает этого ROI при текущих допущениях — снизьте цель или измените параметры.",
   roiTargetNeedsRent: "ROI только от роста цены не зависит от стоимости — он одинаков для всех объектов. Включите доход от аренды выше, чтобы ранжировать объекты по ROI.",
+  altReturnLabel: "Индекс / альт. доходность (%/год)",
+  indexRow: (rate) => `Индексный фонд (${rate}%)`,
+  moreThanIndex: "больше индексного фонда",
+  lessThanIndex: "меньше индексного фонда",
+  mcTitle: "Вероятные исходы (Monte Carlo)",
+  mcHint: (n, rent) =>
+    `${n.toLocaleString("ru-RU")} прогонов с вариацией роста${rent ? ", загрузки и ставки за ночь" : ""} внутри диапазона данных — спектр исходов, а не одна догадка.`,
+  mcLow: "Пессимистичный (P10)",
+  mcMid: "Медиана (P50)",
+  mcHigh: "Оптимистичный (P90)",
+  mcBeatBank: (p) => `${p}% шанс обогнать банк`,
+  mcBeatIndex: (p) => `${p}% шанс обогнать индекс`,
+  dealTitle: "Оценка сделки",
+  dealStrong: "Сильная",
+  dealFair: "Средняя",
+  dealWeak: "Слабая",
+  mpRange: (lo, hi) => `диапазон ${lo}–${hi}`,
+  confHigh: "высокая достоверность",
+  confMed: "средняя достоверность",
+  confLow: "низкая достоверность",
   inYr: (years) => `Через ${years} лет`,
   resultsBtn: "Результат",
   fillFromMarket: "Заполнить из данных рынка",
