@@ -32,6 +32,7 @@ export interface RealEstateObject {
   // Geometry
   areaRai?: number;
   areaSqm?: number;
+  areaNote?: string;       // free-text area breakdown (plot/living/terrace/pool…)
   altitude?: number;
   terrain?: string;
 
@@ -82,6 +83,13 @@ export interface RealEstateObject {
   leasePrepayment?: number;   // leasehold land lump sum, THB
   unitsTotal?: number;
   unitsAvailable?: number;
+
+  // Developer-project landing extras (parsed from textarea custom fields)
+  videoUrls?: string[];                       // VIDEO_URLS — one URL per line
+  floorplanUrls?: string[];                   // FLOORPLAN_URLS — image URL per line
+  priceStages?: Array<{ label: string; value: string }>; // PRICE_STAGES — "stage | price"
+  timeline?: Array<{ date: string; event: string }>;     // TIMELINE — "date | event"
+  team?: Array<{ role: string; name: string }>;          // TEAM — "role | name"
 
   // Operational
   ownerName?: string;

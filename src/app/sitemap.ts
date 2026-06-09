@@ -7,6 +7,7 @@ import { DISTRICTS_RU } from "@/content/districts.ru";
 import { KB_ARTICLES_RU } from "@/content/knowledge-base.ru";
 import { BLOG_POSTS_RU } from "@/content/blog.ru";
 import { getPublicObjects } from "@/lib/data/objects";
+import { getPublicProjects, projectSlug, isProjectUnit, getDevelopers } from "@/lib/data/projects";
 
 export const revalidate = 3600; // 1 hour — fresh enough for new listings
 
@@ -30,6 +31,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/ru/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.5 },
     { url: `${base}/ru/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
     { url: `${base}/listings`, lastModified: now, changeFrequency: "daily", priority: 0.9 },
+    { url: `${base}/projects`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${base}/ru/projects`, lastModified: now, changeFrequency: "weekly", priority: 0.6 },
     { url: `${base}/districts`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/insights`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/services`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
@@ -83,8 +86,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.5,
   }));
 
-  // Active objects — fetched fresh per sitemap regeneration.
-  const objects = await getPublicObjects();
+  // Active objects — fetched fresh per sitemap regeneration. Developer projects
+  // (RW-P) and their unit cards (RW-P####-N) are excluded here; projects have
+  // their own /projects/[slug] entries, units live on the project page.
+  const objects = (await getPublicObjects()).filter(
+    (o) => o.type !== "Project" && !isProjectUnit(o.rwNumber),
+  );
   const objectEntries: MetadataRoute.Sitemap = objects.flatMap((o) => [
     {
       url: `${base}/object/${o.rwNumber}`,
@@ -100,6 +107,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ]);
 
+  const projects = await getPublicProjects();
+  const projectEntries: MetadataRoute.Sitemap = projects.flatMap((p) => {
+    const slug = projectSlug(p, projects);
+    return [
+      { url: `${base}/projects/${slug}`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.8 },
+      { url: `${base}/ru/projects/${slug}`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.6 },
+    ];
+  });
+
+  const developers = await getDevelopers();
+  const developerEntries: MetadataRoute.Sitemap = developers.flatMap((d) => [
+    { url: `${base}/developers/${d.slug}`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.6 },
+    { url: `${base}/ru/developers/${d.slug}`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.5 },
+  ]);
+
   return [
     ...staticEntries,
     ...districtEntries,
@@ -109,5 +131,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...ruKnowledgeEntries,
     ...ruBlogEntries,
     ...objectEntries,
+    ...projectEntries,
+    ...developerEntries,
   ];
 }

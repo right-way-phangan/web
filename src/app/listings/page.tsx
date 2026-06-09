@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getPublicObjects } from "@/lib/data/objects";
+import { isProjectUnit } from "@/lib/data/projects";
 import { ListingsFilterBar } from "@/components/objects/listings-filter-bar";
 import { ListingsEmpty } from "@/components/objects/listings-empty";
 import { ListingsSplit } from "@/components/objects/listings-split";
@@ -31,7 +32,11 @@ export default async function ListingsPage({ searchParams }: PageProps) {
   const sp = await searchParams;
   const filter = parseListingsSearchParams(sp);
 
-  const all = await getPublicObjects();
+  // Developer projects (off-plan, RW-P) and their per-unit cards (RW-P####-N)
+  // have their own section at /projects — keep both out of the listings grid.
+  const all = (await getPublicObjects()).filter(
+    (o) => o.type !== "Project" && !isProjectUnit(o.rwNumber),
+  );
   const options = deriveFilterOptions(all);
   const filtered = all.filter(makeFilterPredicate(filter));
   const sorted = applySort(filtered, filter.sort);

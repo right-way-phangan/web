@@ -38,6 +38,10 @@ export const OBJECT_TYPES = [
   "Land", "Villa", "House", "Apartment", "Townhouse", "Hotel", "Business", "Project",
 ] as const;
 
+// Listing status (catalog STATUS enum). Only these are offered in intake;
+// "Archive" exists in amoCRM but is not a publishable choice.
+export const STATUSES = ["Active", "Reserved", "Sold", "Withdrawn"] as const;
+
 // Construction stage (off-plan). Orthogonal to type.
 export const STAGES = ["Ready", "Under construction", "Off-plan"] as const;
 // Furnishing (buildings / projects).

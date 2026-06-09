@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getPublicObjects } from "@/lib/data/objects";
+import { isProjectUnit } from "@/lib/data/projects";
 import { ListingsFilterBar } from "@/components/objects/listings-filter-bar";
 import { ListingsEmpty } from "@/components/objects/listings-empty";
 import { ListingsSplit } from "@/components/objects/listings-split";
@@ -33,7 +34,11 @@ export default async function RussianListingsPage({ searchParams }: PageProps) {
   const filter = parseListingsSearchParams(sp);
   const t = getListingsDict("ru");
 
-  const all = await getPublicObjects();
+  // Проекты застройщиков (off-plan, RW-P) и их юниты (RW-P####-N) живут в
+  // отдельном разделе /projects — в общую сетку объектов их не включаем.
+  const all = (await getPublicObjects()).filter(
+    (o) => o.type !== "Project" && !isProjectUnit(o.rwNumber),
+  );
   const options = deriveFilterOptions(all);
   const filtered = all.filter(makeFilterPredicate(filter));
   const sorted = applySort(filtered, filter.sort);

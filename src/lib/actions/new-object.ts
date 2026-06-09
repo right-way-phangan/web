@@ -1,7 +1,7 @@
 "use server";
 
 import { put } from "@vercel/blob";
-import { createObjectCard, type NewObjectInput } from "@/lib/amocrm/object-writer";
+import { createObjectCard, ObjectInputError, type NewObjectInput } from "@/lib/amocrm/object-writer";
 import { AmoApiError } from "@/lib/amocrm/client";
 import { notifyObjectCreated } from "@/lib/notify/telegram";
 import { OBJECT_TYPES } from "@/lib/amocrm/dictionaries";
@@ -171,8 +171,15 @@ export async function createObject(
     estNetIncomeYear: toInt(formData.get("estNetIncomeYear") as string | null),
     unitsTotal: toInt(formData.get("unitsTotal") as string | null),
     unitsAvailable: toInt(formData.get("unitsAvailable") as string | null),
+    videoUrls: str(formData.get("videoUrls")),
+    floorplanUrls: str(formData.get("floorplanUrls")),
+    priceStages: str(formData.get("priceStages")),
+    timeline: str(formData.get("timeline")),
+    team: str(formData.get("team")),
     description: str(formData.get("description")),
     title: str(formData.get("title")),
+    parentProjectRw: str(formData.get("parentProjectRw")),
+    status: str(formData.get("status")),
     photoUrls,
     docUrls,
   };
@@ -197,6 +204,11 @@ export async function createObject(
       message: `Объект ${res.rwNumber} создан в amoCRM.`,
     };
   } catch (err) {
+    // Validation errors (e.g. unknown parent project) carry a user-facing
+    // message — surface it verbatim instead of the generic failure text.
+    if (err instanceof ObjectInputError) {
+      return { status: "error", message: err.message };
+    }
     if (err instanceof AmoApiError) {
       console.error("[new-object] amoCRM", err.status, err.body.slice(0, 300));
     } else {

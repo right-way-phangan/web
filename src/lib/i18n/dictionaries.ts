@@ -149,6 +149,7 @@ const chrome: Record<Locale, ChromeDict> = {
   en: {
     nav: [
       { label: "Listings", href: "/listings" },
+      { label: "Projects", href: "/projects" },
       { label: "Districts", href: "/districts" },
       { label: "Calculator", href: "/calculator" },
       { label: "Insights", href: "/insights" },
@@ -178,6 +179,7 @@ const chrome: Record<Locale, ChromeDict> = {
     // so the nav never links to a 404 between deploys.
     nav: [
       { label: "Объекты", href: "/ru/listings" },
+      { label: "Проекты", href: "/ru/projects" },
       { label: "Районы", href: "/ru/districts" },
       { label: "Калькулятор", href: "/ru/calculator" },
       { label: "Аналитика", href: "/ru/insights" },
@@ -971,4 +973,200 @@ const objectDict: Record<Locale, ObjectDict> = {
 
 export function getObjectDict(locale: Locale): ObjectDict {
   return objectDict[locale];
+}
+
+// ---- Developer projects (off-plan landings) ----
+
+export interface ProjectsDict {
+  eyebrow: string;
+  indexTitle: string;
+  indexLede: string;
+  count: (n: number) => string;
+  empty: string;
+  viewProject: string;
+  from: string;
+  developer: string;
+  completion: string;
+  units: string;
+  availableLabel: string;
+  takenLabel: string;
+  available: (a: number, total: number) => string;
+  soldOut: string;
+  unitsLeft: (n: number) => string;
+  enquire: string;
+  backToProjects: string;
+  nav: {
+    overview: string;
+    gallery: string;
+    plans: string;
+    video: string;
+    units: string;
+    pricing: string;
+    returns: string;
+    timeline: string;
+    team: string;
+    location: string;
+    enquire: string;
+  };
+  sections: {
+    overview: string;
+    gallery: string;
+    plans: string;
+    video: string;
+    units: string;
+    unitsLede: string;
+    pricing: string;
+    priceStages: string;
+    paymentTerms: string;
+    leasePrepayment: string;
+    tenure: string;
+    leaseTerm: string;
+    returns: string;
+    returnsLede: string;
+    netYield: string;
+    estIncome: string;
+    timeline: string;
+    team: string;
+    location: string;
+    amenities: string;
+    facts: string;
+  };
+  watchVideo: string;
+  stage: Record<string, string>;
+  perYear: string;
+}
+
+const projectsDict: Record<Locale, ProjectsDict> = {
+  en: {
+    eyebrow: "Developer projects",
+    indexTitle: "Off-plan projects on Phangan.",
+    indexLede:
+      "Curated developer projects — pool villas, off-plan complexes and turnkey homes. Each with the full picture: units, pricing, payment schedule and projected returns.",
+    count: (n) => `${n} ${n === 1 ? "project" : "projects"} on the island.`,
+    empty: "No projects published yet. New developer projects appear here as they go live.",
+    viewProject: "View project",
+    from: "from",
+    developer: "Developer",
+    completion: "Completion",
+    units: "Units",
+    availableLabel: "Available",
+    takenLabel: "Taken",
+    available: (a, total) => `${a} of ${total} available`,
+    soldOut: "Fully reserved",
+    unitsLeft: (n) => `${n} ${n === 1 ? "unit" : "units"} left`,
+    enquire: "Enquire about this project",
+    backToProjects: "Back to projects",
+    nav: {
+      overview: "Overview",
+      gallery: "Gallery",
+      plans: "Plans",
+      video: "Video",
+      units: "Units",
+      pricing: "Pricing",
+      returns: "Returns",
+      timeline: "Timeline",
+      team: "Team",
+      location: "Location",
+      enquire: "Enquire",
+    },
+    sections: {
+      overview: "About the project",
+      gallery: "Gallery",
+      plans: "Floor plans & masterplan",
+      video: "Video & tour",
+      units: "Units & availability",
+      unitsLede: "Live availability across the project.",
+      pricing: "Price & payment",
+      priceStages: "Price by stage",
+      paymentTerms: "Payment schedule",
+      leasePrepayment: "Lease prepayment",
+      tenure: "Tenure",
+      leaseTerm: "Lease term",
+      returns: "Projected returns",
+      returnsLede:
+        "Model this project's outlook. Every figure is illustrative — not a guarantee.",
+      netYield: "Net yield",
+      estIncome: "Est. net income",
+      timeline: "Construction timeline",
+      team: "Developer & team",
+      location: "Location",
+      amenities: "What's included",
+      facts: "Key facts",
+    },
+    watchVideo: "Watch video",
+    stage: {
+      Ready: "Ready",
+      "Under construction": "Under construction",
+      "Off-plan": "Off-plan",
+    },
+    perYear: "/ year",
+  },
+  ru: {
+    eyebrow: "Проекты застройщиков",
+    indexTitle: "Проекты от застройщиков на Пангане.",
+    indexLede:
+      "Отобранные проекты застройщиков — виллы с бассейном, off-plan комплексы и дома под ключ. По каждому — полная картина: юниты, цена, график платежей и прогноз доходности.",
+    count: (n) => `${n} ${n === 1 ? "проект" : n < 5 ? "проекта" : "проектов"} на острове.`,
+    empty: "Пока нет опубликованных проектов. Новые проекты застройщиков появляются здесь по мере выхода.",
+    viewProject: "Смотреть проект",
+    from: "от",
+    developer: "Застройщик",
+    completion: "Срок сдачи",
+    units: "Юниты",
+    availableLabel: "Доступно",
+    takenLabel: "Занято",
+    available: (a, total) => `доступно ${a} из ${total}`,
+    soldOut: "Всё зарезервировано",
+    unitsLeft: (n) => `осталось ${n} ${n === 1 ? "юнит" : n < 5 ? "юнита" : "юнитов"}`,
+    enquire: "Запросить по проекту",
+    backToProjects: "Назад к проектам",
+    nav: {
+      overview: "Обзор",
+      gallery: "Галерея",
+      plans: "Планировки",
+      video: "Видео",
+      units: "Юниты",
+      pricing: "Цена",
+      returns: "Доходность",
+      timeline: "Сроки",
+      team: "Команда",
+      location: "Локация",
+      enquire: "Заявка",
+    },
+    sections: {
+      overview: "О проекте",
+      gallery: "Галерея",
+      plans: "Планировки и мастерплан",
+      video: "Видео и тур",
+      units: "Юниты и остатки",
+      unitsLede: "Актуальная доступность по проекту.",
+      pricing: "Цена и оплата",
+      priceStages: "Цена по этапам",
+      paymentTerms: "График платежей",
+      leasePrepayment: "Предоплата аренды земли",
+      tenure: "Вид владения",
+      leaseTerm: "Срок аренды",
+      returns: "Прогноз доходности",
+      returnsLede:
+        "Смоделируйте перспективу проекта. Все цифры иллюстративны — не гарантия.",
+      netYield: "Чистая доходность",
+      estIncome: "Оценка чистого дохода",
+      timeline: "Этапы строительства",
+      team: "Застройщик и команда",
+      location: "Локация",
+      amenities: "Что включено",
+      facts: "Ключевые факты",
+    },
+    watchVideo: "Смотреть видео",
+    stage: {
+      Ready: "Готов",
+      "Under construction": "Строится",
+      "Off-plan": "Off-plan",
+    },
+    perYear: "/ год",
+  },
+};
+
+export function getProjectsDict(locale: Locale): ProjectsDict {
+  return projectsDict[locale];
 }

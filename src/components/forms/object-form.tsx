@@ -38,6 +38,7 @@ import {
   VILLA_FEATURES,
   STAGES,
   FURNISHINGS,
+  STATUSES,
 } from "@/lib/amocrm/dictionaries";
 
 const initialState: NewObjectState = { status: "idle" };
@@ -176,6 +177,13 @@ interface FormValues {
   leasePrepayment: string;
   unitsTotal: string;
   unitsAvailable: string;
+  videoUrls: string;
+  floorplanUrls: string;
+  priceStages: string;
+  timeline: string;
+  team: string;
+  parentProjectRw: string;
+  status: string;
   description: string;
   title: string;
 }
@@ -217,6 +225,13 @@ const emptyValues: FormValues = {
   leasePrepayment: "",
   unitsTotal: "",
   unitsAvailable: "",
+  videoUrls: "",
+  floorplanUrls: "",
+  priceStages: "",
+  timeline: "",
+  team: "",
+  parentProjectRw: "",
+  status: "",
   description: "",
   title: "",
 };
@@ -409,6 +424,30 @@ export function ObjectForm() {
           <h2 className="text-sm font-semibold uppercase tracking-wide text-forest-500/60">
             Основное
           </h2>
+          <div className="rounded-sm border border-dashed border-forest-500/20 p-4">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Field
+                label="Юнит проекта (RW-P####)"
+                hint="Заполни, чтобы карточка стала юнитом проекта: номер будет RW-P####-N"
+              >
+                <Input
+                  name="parentProjectRw"
+                  value={v.parentProjectRw}
+                  onChange={(e) => set("parentProjectRw", e.target.value)}
+                  placeholder="напр. RW-P0001"
+                />
+              </Field>
+              <Field label="Статус" hint="Пусто = Active. Для проданных юнитов — Sold/Reserved">
+                <Select
+                  name="status"
+                  value={v.status}
+                  onChange={(x) => set("status", x)}
+                  options={STATUSES}
+                  placeholder="Active (по умолчанию)"
+                />
+              </Field>
+            </div>
+          </div>
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="Тип объекта *">
               <Select
@@ -703,6 +742,52 @@ export function ObjectForm() {
                 onChange={(e) => set("paymentTerms", e.target.value)}
               />
             </Field>
+
+            <div className="rounded-sm border border-dashed border-forest-500/20 p-4 space-y-4">
+              <p className="text-xs font-medium uppercase tracking-wide text-brass-500">
+                Лендинг проекта (необязательно)
+              </p>
+              <Field label="Видео / туры" hint="По одной ссылке на строку — YouTube, Vimeo, mp4">
+                <Textarea
+                  name="videoUrls"
+                  value={v.videoUrls}
+                  onChange={(e) => set("videoUrls", e.target.value)}
+                  placeholder={"https://youtu.be/...\nhttps://vimeo.com/..."}
+                />
+              </Field>
+              <Field label="Планировки / мастерплан" hint="По одной ссылке на картинку на строку">
+                <Textarea
+                  name="floorplanUrls"
+                  value={v.floorplanUrls}
+                  onChange={(e) => set("floorplanUrls", e.target.value)}
+                  placeholder={"https://.../floorplan-1.jpg\nhttps://.../masterplan.png"}
+                />
+              </Field>
+              <Field label="Лестница цен по готовности" hint="Строка: «этап | цена». Первая = текущая">
+                <Textarea
+                  name="priceStages"
+                  value={v.priceStages}
+                  onChange={(e) => set("priceStages", e.target.value)}
+                  placeholder={"Off-plan | 4 490 000\nСтарт стройки | 4 690 000\nГотовность 50% | 5 290 000\n100% | 5 690 000"}
+                />
+              </Field>
+              <Field label="Этапы строительства" hint="Строка: «дата | событие»">
+                <Textarea
+                  name="timeline"
+                  value={v.timeline}
+                  onChange={(e) => set("timeline", e.target.value)}
+                  placeholder={"Май 2026 | Старт стройки\nДек 2026 | Первая вилла\nОкт 2027 | Сдача проекта"}
+                />
+              </Field>
+              <Field label="Команда застройщика" hint="Строка: «роль | имя/компания»">
+                <Textarea
+                  name="team"
+                  value={v.team}
+                  onChange={(e) => set("team", e.target.value)}
+                  placeholder={"Генподрядчик | First Construction\nАрхбюро | Nine Develop & Design\nГарантия | 5 лет на конструкцию"}
+                />
+              </Field>
+            </div>
           </section>
         ) : null}
 

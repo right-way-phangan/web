@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, MapPin } from "lucide-react";
+import type { Route } from "next";
 import { getObjectByRwNumber, getPublicObjects } from "@/lib/data/objects";
+import { isProjectUnit, parentProjectRw, projectSlug, getPublicProjects } from "@/lib/data/projects";
 import { formatPriceTHB, formatPricePerRai } from "@/lib/utils/price";
 import { RoiCalculator } from "@/components/calculator/roi-calculator";
 import { Button } from "@/components/ui/button";
@@ -54,6 +56,23 @@ export default async function ObjectPage({ params }: Props) {
   const siteUrl = getSiteUrl();
   const pageUrl = `${siteUrl}/object/${object.rwNumber}`;
 
+  // Unit cards (RW-P####-N) link back to their project, not the listings grid
+  // (units are excluded from listings). If the parent project isn't published
+  // yet, fall back to the projects index rather than a listings dead-end.
+  let backHref = "/listings";
+  let backLabel = "Back to listings";
+  if (isProjectUnit(object.rwNumber)) {
+    const projects = await getPublicProjects();
+    const parent = projects.find((p) => p.rwNumber === parentProjectRw(object.rwNumber));
+    if (parent) {
+      backHref = `/projects/${projectSlug(parent, projects)}`;
+      backLabel = `Back to ${parent.titleEn}`;
+    } else {
+      backHref = "/projects";
+      backLabel = "Back to projects";
+    }
+  }
+
   return (
     <>
       <ObjectJsonLd object={object} url={pageUrl} />
@@ -67,9 +86,9 @@ export default async function ObjectPage({ params }: Props) {
 
       <article className="container-prose py-8 md:py-12">
         <Button asChild variant="ghost" size="sm" className="mb-6">
-          <Link href="/listings">
+          <Link href={backHref as Route}>
             <ArrowLeft className="h-4 w-4" />
-            Back to listings
+            {backLabel}
           </Link>
         </Button>
 

@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { Route } from "next";
 import { ArrowLeft, MapPin } from "lucide-react";
 import { getObjectByRwNumber, getPublicObjects } from "@/lib/data/objects";
+import { isProjectUnit, parentProjectRw, projectSlug, getPublicProjects } from "@/lib/data/projects";
 import { formatPriceTHB, formatPricePerRai } from "@/lib/utils/price";
 import { RoiCalculator } from "@/components/calculator/roi-calculator";
 import { Button } from "@/components/ui/button";
@@ -54,6 +55,22 @@ export default async function RussianObjectPage({ params }: Props) {
   const t = getObjectDict("ru");
   const typeName = getListingsDict("ru").types[object.type];
 
+  // Юнит проекта (RW-P####-N) ведёт назад к проекту, а не к списку объектов
+  // (юниты исключены из списка). Если проект ещё не опубликован — на /projects.
+  let backHref = "/ru/listings";
+  let backLabel = t.backToListings;
+  if (isProjectUnit(object.rwNumber)) {
+    const projects = await getPublicProjects();
+    const parent = projects.find((p) => p.rwNumber === parentProjectRw(object.rwNumber));
+    if (parent) {
+      backHref = `/ru/projects/${projectSlug(parent, projects)}`;
+      backLabel = `Назад: ${parent.titleEn}`;
+    } else {
+      backHref = "/ru/projects";
+      backLabel = "Назад к проектам";
+    }
+  }
+
   return (
     <>
       <ObjectJsonLd object={object} url={pageUrl} />
@@ -67,9 +84,9 @@ export default async function RussianObjectPage({ params }: Props) {
 
       <article className="container-prose py-8 md:py-12">
         <Button asChild variant="ghost" size="sm" className="mb-6">
-          <Link href={"/ru/listings" as Route}>
+          <Link href={backHref as Route}>
             <ArrowLeft className="h-4 w-4" />
-            {t.backToListings}
+            {backLabel}
           </Link>
         </Button>
 

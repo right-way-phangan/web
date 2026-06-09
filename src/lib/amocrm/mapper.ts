@@ -11,6 +11,12 @@ import type {
   Furnishing,
 } from "@/types/object";
 import { buildTemplateTitle, type TitleAttrs } from "@/lib/generate/object-title";
+import {
+  parseUrls,
+  parsePriceStages,
+  parseTimeline,
+  parseTeam,
+} from "@/lib/projects/parse";
 
 /** RealEstateObject → title-generator attribute shape (render-time fallback). */
 function titleAttrsFromObject(o: RealEstateObject): TitleAttrs {
@@ -80,6 +86,7 @@ export function mapElementToObject(el: AmoCatalogElement): RealEstateObject {
 
     areaRai: num(cf.get("AREA_RAI")),
     areaSqm: num(cf.get("AREA_SQM")),
+    areaNote: str(cf.get("AREA")),
     altitude: num(cf.get("ALTITUDE")),
     terrain: str(cf.get("TERRAIN")),
 
@@ -124,6 +131,12 @@ export function mapElementToObject(el: AmoCatalogElement): RealEstateObject {
     leasePrepayment: num(cf.get("LEASE_PREPAYMENT")),
     unitsTotal: num(cf.get("UNITS_TOTAL")),
     unitsAvailable: num(cf.get("UNITS_AVAILABLE")),
+
+    videoUrls: parseUrls(str(cf.get("VIDEO_URLS"))),
+    floorplanUrls: parseUrls(str(cf.get("FLOORPLAN_URLS"))),
+    priceStages: parsePriceStages(str(cf.get("PRICE_STAGES"))),
+    timeline: parseTimeline(str(cf.get("TIMELINE"))),
+    team: parseTeam(str(cf.get("TEAM"))),
 
     ownerName: str(cf.get("OWNER")),
     buildingRules: str(cf.get("BUILDING_RULES")),
