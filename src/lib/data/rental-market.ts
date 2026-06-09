@@ -10,10 +10,21 @@ import type { RealEstateObject } from "@/types/object";
  * ADR × 365 × occupancy across three scenarios. Surface that caveat in the UI.
  */
 
+export interface RmSource {
+  key: string;
+  label: string;
+  n: number;
+  adrMedian: number | null;
+}
+
 export interface RmMeta {
   date: string;
   currency: string;
   source: string;
+  /** Per-platform breakdown (Airbnb/Booking/Agoda/Vrbo) for the source-mix strip. */
+  sources?: RmSource[];
+  /** Total listings collected across sources vs unique after cross-source dedup. */
+  dedup?: { total: number; unique: number };
   window: string;
   sample: number;
   withDistrict: number;
@@ -47,6 +58,17 @@ export interface RmDistrict {
   occupancyMeasured?: number | null;
   nOccupancy?: number;
   annualMeasured?: number | null;
+  /** Supply signal vs island median: "under" (niche) / "saturated" (competitive). */
+  supplyTag?: "under" | "saturated" | null;
+  /** Indicative income ÷ reference-plot land cost (build excluded), %. */
+  yieldOnLandPct?: number | null;
+}
+
+/** Per-platform ADR triangulation: agreement across sources raises confidence. */
+export interface RmCrossCheck {
+  sources: { key: string; label: string; n: number; nPriced: number; adrMedian: number | null }[];
+  spreadPct: number | null;
+  agree: boolean;
 }
 
 export interface RmType {
@@ -105,7 +127,7 @@ export interface RentalMarket {
     byDistrict?: Record<string, number>;
   };
   seasonal: RmSeasonal;
-  crossCheck?: { bookingVillaNightly: number | null; bookingN: number } | null;
+  crossCheck?: RmCrossCheck | null;
 }
 
 /**
