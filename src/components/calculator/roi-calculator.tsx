@@ -1610,15 +1610,21 @@ function RoiMatches({
       ) : (
         <>
           <p className="mt-2 text-sm text-forest-500/70">{t.roiTargetMatches(matches.length)}</p>
-          <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {matches.map(({ o, roi }) => (
-              <div key={o.id}>
-                <div className="mb-2 inline-flex items-center rounded-sm bg-brass-500/10 px-2 py-0.5 text-xs font-medium text-brass-600">
-                  ROI {fmtPct(roi)}
+          {/* Column count keys off this block's OWN width (container query), not
+              the viewport — the calculator is embedded in narrow columns on the
+              project/object pages where viewport-based lg:grid-cols-3 crushed the
+              cards into clipped slivers. */}
+          <div className="@container mt-6">
+            <div className="grid grid-cols-1 gap-6 @[30rem]:grid-cols-2 @[46rem]:grid-cols-3">
+              {matches.map(({ o, roi }) => (
+                <div key={o.id}>
+                  <div className="mb-2 inline-flex items-center rounded-sm bg-brass-500/10 px-2 py-0.5 text-xs font-medium text-brass-600">
+                    ROI {fmtPct(roi)}
+                  </div>
+                  <ObjectCard object={o} />
                 </div>
-                <ObjectCard object={o} />
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </>
       )}
