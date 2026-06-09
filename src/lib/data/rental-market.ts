@@ -112,6 +112,25 @@ export interface RmSeasonal {
   points: number;
 }
 
+/** Search-demand seasonality from Google Trends (monthly index, peak = 100). */
+export interface RmSeasonality {
+  months: string[];
+  index: (number | null)[];
+  peakMonth: string;
+  lowMonth: string;
+  keywords: string[];
+  source: string;
+  asOf: string;
+}
+
+/** Market asking land price per m² (FazWaz) — context to the own-base CapEx. */
+export interface RmCapexMarket {
+  pricePerSqmMedian: number | null;
+  n: number;
+  source?: string;
+  byDistrict?: Record<string, number>;
+}
+
 export interface RentalMarket {
   meta: RmMeta;
   ranking: string[];
@@ -125,8 +144,10 @@ export interface RentalMarket {
     nSale: number;
     source?: string;
     byDistrict?: Record<string, number>;
+    market?: RmCapexMarket | null;
   };
   seasonal: RmSeasonal;
+  seasonality?: RmSeasonality | null;
   crossCheck?: RmCrossCheck | null;
 }
 
@@ -176,8 +197,9 @@ const EMPTY_MARKET: RentalMarket = {
   byBedrooms: [],
   districtBedrooms: [],
   featurePremiums: [],
-  capex: { pricePerSqmMedian: null, nSale: 0, source: "none", byDistrict: {} },
+  capex: { pricePerSqmMedian: null, nSale: 0, source: "none", byDistrict: {}, market: null },
   seasonal: { dates: [], overall: [], districts: {}, points: 0 },
+  seasonality: null,
   crossCheck: null,
 };
 

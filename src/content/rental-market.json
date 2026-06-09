@@ -7,30 +7,30 @@
       {
         "key": "airbnb",
         "label": "Airbnb",
-        "n": 1079,
-        "adrMedian": 2900
+        "n": 1073,
+        "adrMedian": 2836
       },
       {
         "key": "booking",
         "label": "Booking.com",
         "n": 25,
-        "adrMedian": 852
+        "adrMedian": 4604
       }
     ],
     "dedup": {
-      "total": 1104,
-      "unique": 1093
+      "total": 1098,
+      "unique": 1087
     },
-    "window": "дефолт Airbnb",
-    "sample": 1093,
-    "withDistrict": 1079,
-    "adrMedianAll": 2883,
+    "window": "Airbnb 2026-06-07 + live Booking/FazWaz/Trends",
+    "sample": 1087,
+    "withDistrict": 1073,
+    "adrMedianAll": 2867,
     "occupancy": {
       "conservative": 0.4,
       "base": 0.55,
       "high": 0.7
     },
-    "occupancyMeasuredAll": 0.292,
+    "occupancyMeasuredAll": 0.273,
     "nOccupancyAll": 168,
     "thbPerUsd": 36.5,
     "appreciation": {
@@ -42,62 +42,42 @@
     }
   },
   "ranking": [
-    "Haad Salad",
     "Coconut lane area",
-    "Haad Yao",
     "Then Sadet",
-    "Wok Tum",
+    "Haad Salad",
+    "Haad Yao",
     "Thong Nai Pan",
     "Mae Haad",
-    "Ban Nok",
-    "Ban Tai",
-    "Hin Kong",
     "Thong Nai Pan Noi",
+    "Ban Nok",
     "Bottle Beach",
-    "Chaloklum",
+    "Hin Kong",
+    "Ban Tai",
     "Phangan Hospital area",
-    "Madeau Wan",
+    "Chaloklum",
     "Ban Nai Suan",
     "Ban Khai",
     "Nai Wok",
+    "Madeau Wan",
+    "Wok Tum",
     "Haad Rin",
-    "Khao Khao Haeng",
-    "Sri Thanu"
+    "Sri Thanu",
+    "Khao Khao Haeng"
   ],
   "districts": [
     {
-      "name": "Haad Salad",
-      "slug": "haad-salad",
-      "n": 28,
-      "adrMedian": 6417,
-      "adrP25": 3652,
-      "adrP75": 8271,
-      "reviewsMedian": 28,
-      "guestFavoriteShare": 0.43,
-      "annual": {
-        "conservative": 936889,
-        "base": 1288223,
-        "high": 1639556
-      },
-      "occupancyMeasured": null,
-      "nOccupancy": 0,
-      "annualMeasured": null,
-      "supplyTag": null,
-      "yieldOnLandPct": 79.3
-    },
-    {
       "name": "Coconut lane area",
       "slug": "coconut-lane-area",
-      "n": 10,
-      "adrMedian": 6359,
-      "adrP25": 4884,
-      "adrP75": 8940,
-      "reviewsMedian": 19,
-      "guestFavoriteShare": 0.6,
+      "n": 9,
+      "adrMedian": 7000,
+      "adrP25": 6214,
+      "adrP75": 11330,
+      "reviewsMedian": 22,
+      "guestFavoriteShare": 0.67,
       "annual": {
-        "conservative": 928475,
-        "base": 1276653,
-        "high": 1624831
+        "conservative": 1022000,
+        "base": 1405250,
+        "high": 1788500
       },
       "occupancyMeasured": null,
       "nOccupancy": 0,
@@ -106,31 +86,11 @@
       "yieldOnLandPct": null
     },
     {
-      "name": "Haad Yao",
-      "slug": "haad-yao",
-      "n": 88,
-      "adrMedian": 4622,
-      "adrP25": 1757,
-      "adrP75": 8445,
-      "reviewsMedian": 22,
-      "guestFavoriteShare": 0.35,
-      "annual": {
-        "conservative": 674778,
-        "base": 927820,
-        "high": 1180862
-      },
-      "occupancyMeasured": null,
-      "nOccupancy": 0,
-      "annualMeasured": null,
-      "supplyTag": "saturated",
-      "yieldOnLandPct": 46.4
-    },
-    {
       "name": "Then Sadet",
       "slug": "then-sadet",
       "n": 13,
       "adrMedian": 4290,
-      "adrP25": 2921,
+      "adrP25": 3510,
       "adrP75": 9000,
       "reviewsMedian": 19,
       "guestFavoriteShare": 0.31,
@@ -139,45 +99,65 @@
         "base": 861218,
         "high": 1096095
       },
-      "occupancyMeasured": 0.369,
+      "occupancyMeasured": 0.355,
       "nOccupancy": 2,
       "annualMeasured": null,
       "supplyTag": "under",
       "yieldOnLandPct": null
     },
     {
-      "name": "Wok Tum",
-      "slug": "wok-tum",
-      "n": 10,
-      "adrMedian": 3968,
-      "adrP25": 1692,
-      "adrP75": 4747,
-      "reviewsMedian": 17,
-      "guestFavoriteShare": 0.5,
+      "name": "Haad Salad",
+      "slug": "haad-salad",
+      "n": 32,
+      "adrMedian": 4256,
+      "adrP25": 2453,
+      "adrP75": 7072,
+      "reviewsMedian": 22,
+      "guestFavoriteShare": 0.31,
       "annual": {
-        "conservative": 579313,
-        "base": 796556,
-        "high": 1013798
+        "conservative": 621376,
+        "base": 854392,
+        "high": 1087408
       },
       "occupancyMeasured": null,
       "nOccupancy": 0,
       "annualMeasured": null,
-      "supplyTag": "under",
-      "yieldOnLandPct": 25.4
+      "supplyTag": null,
+      "yieldOnLandPct": 52.6
+    },
+    {
+      "name": "Haad Yao",
+      "slug": "haad-yao",
+      "n": 86,
+      "adrMedian": 4070,
+      "adrP25": 1752,
+      "adrP75": 6602,
+      "reviewsMedian": 16,
+      "guestFavoriteShare": 0.29,
+      "annual": {
+        "conservative": 594261,
+        "base": 817109,
+        "high": 1039957
+      },
+      "occupancyMeasured": null,
+      "nOccupancy": 0,
+      "annualMeasured": null,
+      "supplyTag": "saturated",
+      "yieldOnLandPct": 40.9
     },
     {
       "name": "Thong Nai Pan",
       "slug": "thong-nai-pan",
       "n": 44,
-      "adrMedian": 3851,
-      "adrP25": 2962,
-      "adrP75": 5033,
+      "adrMedian": 3942,
+      "adrP25": 3025,
+      "adrP75": 5151,
       "reviewsMedian": 44,
-      "guestFavoriteShare": 0.25,
+      "guestFavoriteShare": 0.23,
       "annual": {
-        "conservative": 562315,
-        "base": 773183,
-        "high": 984051
+        "conservative": 575532,
+        "base": 791357,
+        "high": 1007181
       },
       "occupancyMeasured": null,
       "nOccupancy": 0,
@@ -188,16 +168,36 @@
     {
       "name": "Mae Haad",
       "slug": "mae-haad",
-      "n": 28,
-      "adrMedian": 3646,
-      "adrP25": 2419,
-      "adrP75": 5569,
-      "reviewsMedian": 17,
-      "guestFavoriteShare": 0.39,
+      "n": 27,
+      "adrMedian": 3500,
+      "adrP25": 2100,
+      "adrP75": 6013,
+      "reviewsMedian": 15,
+      "guestFavoriteShare": 0.37,
       "annual": {
-        "conservative": 532366,
-        "base": 732004,
-        "high": 931641
+        "conservative": 511000,
+        "base": 702625,
+        "high": 894250
+      },
+      "occupancyMeasured": null,
+      "nOccupancy": 0,
+      "annualMeasured": null,
+      "supplyTag": null,
+      "yieldOnLandPct": null
+    },
+    {
+      "name": "Thong Nai Pan Noi",
+      "slug": "thong-nai-pan-noi",
+      "n": 22,
+      "adrMedian": 3387,
+      "adrP25": 2278,
+      "adrP75": 6910,
+      "reviewsMedian": 35,
+      "guestFavoriteShare": 0.32,
+      "annual": {
+        "conservative": 494531,
+        "base": 679980,
+        "high": 865430
       },
       "occupancyMeasured": null,
       "nOccupancy": 0,
@@ -208,96 +208,36 @@
     {
       "name": "Ban Nok",
       "slug": "ban-nok",
-      "n": 25,
-      "adrMedian": 3429,
-      "adrP25": 1860,
-      "adrP75": 4839,
+      "n": 23,
+      "adrMedian": 3183,
+      "adrP25": 2000,
+      "adrP75": 5186,
       "reviewsMedian": 8,
       "guestFavoriteShare": 0.04,
       "annual": {
-        "conservative": 500612,
-        "base": 688342,
-        "high": 876071
+        "conservative": 464718,
+        "base": 638987,
+        "high": 813256
       },
       "occupancyMeasured": null,
       "nOccupancy": 0,
       "annualMeasured": null,
       "supplyTag": null,
-      "yieldOnLandPct": 64.5
-    },
-    {
-      "name": "Ban Tai",
-      "slug": "ban-tai",
-      "n": 80,
-      "adrMedian": 3424,
-      "adrP25": 1700,
-      "adrP75": 6048,
-      "reviewsMedian": 16,
-      "guestFavoriteShare": 0.38,
-      "annual": {
-        "conservative": 499835,
-        "base": 687274,
-        "high": 874712
-      },
-      "occupancyMeasured": 0.274,
-      "nOccupancy": 63,
-      "annualMeasured": 342387,
-      "supplyTag": "saturated",
-      "yieldOnLandPct": 36.3
-    },
-    {
-      "name": "Hin Kong",
-      "slug": "hin-kong",
-      "n": 75,
-      "adrMedian": 3309,
-      "adrP25": 1766,
-      "adrP75": 5706,
-      "reviewsMedian": 36,
-      "guestFavoriteShare": 0.4,
-      "annual": {
-        "conservative": 483174,
-        "base": 664364,
-        "high": 845554
-      },
-      "occupancyMeasured": null,
-      "nOccupancy": 0,
-      "annualMeasured": null,
-      "supplyTag": "saturated",
-      "yieldOnLandPct": null
-    },
-    {
-      "name": "Thong Nai Pan Noi",
-      "slug": "thong-nai-pan-noi",
-      "n": 21,
-      "adrMedian": 3195,
-      "adrP25": 2260,
-      "adrP75": 5820,
-      "reviewsMedian": 35,
-      "guestFavoriteShare": 0.33,
-      "annual": {
-        "conservative": 466514,
-        "base": 641456,
-        "high": 816399
-      },
-      "occupancyMeasured": null,
-      "nOccupancy": 0,
-      "annualMeasured": null,
-      "supplyTag": null,
-      "yieldOnLandPct": null
+      "yieldOnLandPct": 59.9
     },
     {
       "name": "Bottle Beach",
       "slug": "bottle-beach",
       "n": 7,
-      "adrMedian": 2997,
-      "adrP25": 1997,
-      "adrP75": 3266,
+      "adrMedian": 3058,
+      "adrP25": 2058,
+      "adrP75": 3260,
       "reviewsMedian": 66,
       "guestFavoriteShare": 0.86,
       "annual": {
-        "conservative": 437523,
-        "base": 601594,
-        "high": 765665
+        "conservative": 446443,
+        "base": 613859,
+        "high": 781276
       },
       "occupancyMeasured": null,
       "nOccupancy": 0,
@@ -306,78 +246,98 @@
       "yieldOnLandPct": null
     },
     {
+      "name": "Hin Kong",
+      "slug": "hin-kong",
+      "n": 69,
+      "adrMedian": 2920,
+      "adrP25": 1845,
+      "adrP75": 5490,
+      "reviewsMedian": 32,
+      "guestFavoriteShare": 0.41,
+      "annual": {
+        "conservative": 426320,
+        "base": 586190,
+        "high": 746060
+      },
+      "occupancyMeasured": null,
+      "nOccupancy": 0,
+      "annualMeasured": null,
+      "supplyTag": null,
+      "yieldOnLandPct": null
+    },
+    {
+      "name": "Ban Tai",
+      "slug": "ban-tai",
+      "n": 75,
+      "adrMedian": 2900,
+      "adrP25": 1740,
+      "adrP75": 4648,
+      "reviewsMedian": 16,
+      "guestFavoriteShare": 0.36,
+      "annual": {
+        "conservative": 423400,
+        "base": 582175,
+        "high": 740950
+      },
+      "occupancyMeasured": 0.244,
+      "nOccupancy": 57,
+      "annualMeasured": 258274,
+      "supplyTag": "saturated",
+      "yieldOnLandPct": 30.8
+    },
+    {
+      "name": "Phangan Hospital area",
+      "slug": "phangan-hospital-area",
+      "n": 44,
+      "adrMedian": 2805,
+      "adrP25": 1800,
+      "adrP75": 5207,
+      "reviewsMedian": 13,
+      "guestFavoriteShare": 0.2,
+      "annual": {
+        "conservative": 409541,
+        "base": 563119,
+        "high": 716697
+      },
+      "occupancyMeasured": 0.366,
+      "nOccupancy": 22,
+      "annualMeasured": 374730,
+      "supplyTag": null,
+      "yieldOnLandPct": null
+    },
+    {
       "name": "Chaloklum",
       "slug": "chaloklum",
-      "n": 152,
-      "adrMedian": 2950,
+      "n": 153,
+      "adrMedian": 2760,
       "adrP25": 1575,
-      "adrP75": 5400,
-      "reviewsMedian": 16,
-      "guestFavoriteShare": 0.32,
+      "adrP75": 5256,
+      "reviewsMedian": 15,
+      "guestFavoriteShare": 0.27,
       "annual": {
-        "conservative": 430700,
-        "base": 592212,
-        "high": 753725
+        "conservative": 402960,
+        "base": 554070,
+        "high": 705180
       },
       "occupancyMeasured": null,
       "nOccupancy": 0,
       "annualMeasured": null,
       "supplyTag": "saturated",
-      "yieldOnLandPct": 33.5
-    },
-    {
-      "name": "Phangan Hospital area",
-      "slug": "phangan-hospital-area",
-      "n": 45,
-      "adrMedian": 2584,
-      "adrP25": 1544,
-      "adrP75": 4904,
-      "reviewsMedian": 14,
-      "guestFavoriteShare": 0.24,
-      "annual": {
-        "conservative": 377209,
-        "base": 518662,
-        "high": 660115
-      },
-      "occupancyMeasured": 0.369,
-      "nOccupancy": 25,
-      "annualMeasured": 347975,
-      "supplyTag": null,
-      "yieldOnLandPct": null
-    },
-    {
-      "name": "Madeau Wan",
-      "slug": "madeau-wan",
-      "n": 45,
-      "adrMedian": 2500,
-      "adrP25": 1100,
-      "adrP75": 4532,
-      "reviewsMedian": 8,
-      "guestFavoriteShare": 0.31,
-      "annual": {
-        "conservative": 365000,
-        "base": 501875,
-        "high": 638750
-      },
-      "occupancyMeasured": null,
-      "nOccupancy": 0,
-      "annualMeasured": null,
-      "supplyTag": null,
-      "yieldOnLandPct": 38.8
+      "yieldOnLandPct": 31.3
     },
     {
       "name": "Ban Nai Suan",
       "slug": "ban-nai-suan",
-      "n": 38,
-      "adrMedian": 2395,
-      "adrP25": 1240,
-      "adrP75": 4900,
+      "n": 40,
+      "adrMedian": 2653,
+      "adrP25": 1250,
+      "adrP75": 5100,
       "reviewsMedian": 17,
-      "guestFavoriteShare": 0.34,
+      "guestFavoriteShare": 0.33,
       "annual": {
-        "conservative": 349605,
-        "base": 480707,
-        "high": 611809
+        "conservative": 387304,
+        "base": 532544,
+        "high": 677783
       },
       "occupancyMeasured": null,
       "nOccupancy": 0,
@@ -390,139 +350,179 @@
       "slug": "ban-khai",
       "n": 59,
       "adrMedian": 2300,
-      "adrP25": 1405,
-      "adrP75": 4336,
-      "reviewsMedian": 15,
-      "guestFavoriteShare": 0.34,
+      "adrP25": 1328,
+      "adrP75": 4019,
+      "reviewsMedian": 19,
+      "guestFavoriteShare": 0.32,
       "annual": {
         "conservative": 335800,
         "base": 461725,
         "high": 587650
       },
-      "occupancyMeasured": 0.292,
-      "nOccupancy": 34,
-      "annualMeasured": 245134,
+      "occupancyMeasured": 0.233,
+      "nOccupancy": 36,
+      "annualMeasured": 195604,
       "supplyTag": null,
       "yieldOnLandPct": 38.5
     },
     {
       "name": "Nai Wok",
       "slug": "nai-wok",
-      "n": 165,
-      "adrMedian": 2282,
-      "adrP25": 913,
-      "adrP75": 6276,
-      "reviewsMedian": 18,
+      "n": 161,
+      "adrMedian": 2297,
+      "adrP25": 876,
+      "adrP75": 5840,
+      "reviewsMedian": 20,
       "guestFavoriteShare": 0.16,
       "annual": {
-        "conservative": 333223,
-        "base": 458182,
-        "high": 583140
+        "conservative": 335429,
+        "base": 461215,
+        "high": 587001
       },
-      "occupancyMeasured": 0.202,
-      "nOccupancy": 36,
-      "annualMeasured": 168278,
+      "occupancyMeasured": 0.209,
+      "nOccupancy": 37,
+      "annualMeasured": 175262,
       "supplyTag": "saturated",
-      "yieldOnLandPct": 21.2
+      "yieldOnLandPct": 21.4
+    },
+    {
+      "name": "Madeau Wan",
+      "slug": "madeau-wan",
+      "n": 45,
+      "adrMedian": 2269,
+      "adrP25": 1238,
+      "adrP75": 5090,
+      "reviewsMedian": 8,
+      "guestFavoriteShare": 0.31,
+      "annual": {
+        "conservative": 331245,
+        "base": 455462,
+        "high": 579678
+      },
+      "occupancyMeasured": null,
+      "nOccupancy": 0,
+      "annualMeasured": null,
+      "supplyTag": null,
+      "yieldOnLandPct": 35.2
+    },
+    {
+      "name": "Wok Tum",
+      "slug": "wok-tum",
+      "n": 16,
+      "adrMedian": 1877,
+      "adrP25": 1758,
+      "adrP75": 3485,
+      "reviewsMedian": 12,
+      "guestFavoriteShare": 0.31,
+      "annual": {
+        "conservative": 274071,
+        "base": 376848,
+        "high": 479625
+      },
+      "occupancyMeasured": null,
+      "nOccupancy": 0,
+      "annualMeasured": null,
+      "supplyTag": "under",
+      "yieldOnLandPct": 12.0
     },
     {
       "name": "Haad Rin",
       "slug": "haad-rin",
       "n": 127,
-      "adrMedian": 1701,
-      "adrP25": 945,
-      "adrP75": 3471,
-      "reviewsMedian": 14,
+      "adrMedian": 1634,
+      "adrP25": 999,
+      "adrP75": 3504,
+      "reviewsMedian": 13,
       "guestFavoriteShare": 0.17,
       "annual": {
-        "conservative": 248290,
-        "base": 341398,
-        "high": 434507
+        "conservative": 238497,
+        "base": 327933,
+        "high": 417369
       },
-      "occupancyMeasured": 0.428,
-      "nOccupancy": 8,
-      "annualMeasured": 265980,
+      "occupancyMeasured": 0.395,
+      "nOccupancy": 14,
+      "annualMeasured": 235814,
       "supplyTag": "saturated",
-      "yieldOnLandPct": 6.8
+      "yieldOnLandPct": 6.6
+    },
+    {
+      "name": "Sri Thanu",
+      "slug": "sri-thanu",
+      "n": 7,
+      "adrMedian": 1621,
+      "adrP25": 1612,
+      "adrP75": 1621,
+      "reviewsMedian": 32,
+      "guestFavoriteShare": 0.43,
+      "annual": {
+        "conservative": 236694,
+        "base": 325454,
+        "high": 414214
+      },
+      "occupancyMeasured": null,
+      "nOccupancy": 0,
+      "annualMeasured": null,
+      "supplyTag": "under",
+      "yieldOnLandPct": 19.3
     },
     {
       "name": "Khao Khao Haeng",
       "slug": "khao-khao-haeng",
       "n": 14,
-      "adrMedian": 1604,
-      "adrP25": 1181,
-      "adrP75": 2100,
+      "adrMedian": 1470,
+      "adrP25": 1285,
+      "adrP75": 2191,
       "reviewsMedian": 16,
-      "guestFavoriteShare": 0.36,
+      "guestFavoriteShare": 0.5,
       "annual": {
-        "conservative": 234184,
-        "base": 322003,
-        "high": 409822
+        "conservative": 214562,
+        "base": 295022,
+        "high": 375483
       },
       "occupancyMeasured": null,
       "nOccupancy": 0,
       "annualMeasured": null,
       "supplyTag": "under",
-      "yieldOnLandPct": 30.1
-    },
-    {
-      "name": "Sri Thanu",
-      "slug": "sri-thanu",
-      "n": 5,
-      "adrMedian": 1255,
-      "adrP25": 1255,
-      "adrP75": 1255,
-      "reviewsMedian": 37,
-      "guestFavoriteShare": 0.4,
-      "annual": {
-        "conservative": 183272,
-        "base": 251999,
-        "high": 320727
-      },
-      "occupancyMeasured": null,
-      "nOccupancy": 0,
-      "annualMeasured": null,
-      "supplyTag": "under",
-      "yieldOnLandPct": 14.9
+      "yieldOnLandPct": 27.6
     }
   ],
   "byType": [
     {
       "type": "villa",
       "label": "Villa",
-      "n": 159,
-      "adrMedian": 6071,
-      "reviewsMedian": 37,
-      "ratingMedian": 4.92
-    },
-    {
-      "type": "chalet",
-      "label": "Chalet",
-      "n": 1,
-      "adrMedian": 4296,
-      "reviewsMedian": 13,
-      "ratingMedian": 5.0
+      "n": 149,
+      "adrMedian": 6167,
+      "reviewsMedian": 34,
+      "ratingMedian": 4.94
     },
     {
       "type": "cottage",
       "label": "Cottage",
       "n": 2,
-      "adrMedian": 3914,
+      "adrMedian": 4006,
       "reviewsMedian": 66,
       "ratingMedian": 4.96
     },
     {
+      "type": "chalet",
+      "label": "Chalet",
+      "n": 2,
+      "adrMedian": 3297,
+      "reviewsMedian": 60,
+      "ratingMedian": 4.92
+    },
+    {
       "type": "house",
       "label": "House / home",
-      "n": 525,
-      "adrMedian": 3125,
+      "n": 526,
+      "adrMedian": 2900,
       "reviewsMedian": 14,
       "ratingMedian": 4.92
     },
     {
       "type": "bungalow",
       "label": "Bungalow",
-      "n": 54,
+      "n": 57,
       "adrMedian": 2260,
       "reviewsMedian": 44,
       "ratingMedian": 4.88
@@ -531,75 +531,75 @@
       "type": "cabin",
       "label": "Cabin",
       "n": 15,
-      "adrMedian": 1929,
+      "adrMedian": 2191,
       "reviewsMedian": 14,
       "ratingMedian": 4.96
     },
     {
-      "type": "apartment",
-      "label": "Apartment",
-      "n": 87,
-      "adrMedian": 1529,
-      "reviewsMedian": 20,
-      "ratingMedian": 4.86
-    },
-    {
       "type": "condo",
       "label": "Condo",
-      "n": 1,
-      "adrMedian": 1492,
-      "reviewsMedian": 39,
-      "ratingMedian": 4.74
+      "n": 2,
+      "adrMedian": 1803,
+      "reviewsMedian": 22,
+      "ratingMedian": 4.67
+    },
+    {
+      "type": "apartment",
+      "label": "Apartment",
+      "n": 88,
+      "adrMedian": 1545,
+      "reviewsMedian": 18,
+      "ratingMedian": 4.86
     }
   ],
   "byBedrooms": [
     {
       "bedrooms": 0,
-      "n": 34,
-      "adrMedian": 1266,
-      "reviewsMedian": 22
+      "n": 39,
+      "adrMedian": 1562,
+      "reviewsMedian": 20
     },
     {
       "bedrooms": 1,
-      "n": 215,
-      "adrMedian": 1736,
+      "n": 231,
+      "adrMedian": 2219,
       "reviewsMedian": 20
     },
     {
       "bedrooms": 2,
-      "n": 146,
-      "adrMedian": 4234,
+      "n": 125,
+      "adrMedian": 4292,
       "reviewsMedian": 16
     },
     {
       "bedrooms": 3,
-      "n": 38,
-      "adrMedian": 5426,
+      "n": 30,
+      "adrMedian": 5646,
       "reviewsMedian": 12
     },
     {
       "bedrooms": 4,
-      "n": 9,
-      "adrMedian": 2208,
+      "n": 8,
+      "adrMedian": 4136,
       "reviewsMedian": 39
     },
     {
       "bedrooms": 5,
       "n": 2,
-      "adrMedian": 5421,
+      "adrMedian": 5502,
       "reviewsMedian": 35
     },
     {
       "bedrooms": 6,
-      "n": 4,
+      "n": 2,
       "adrMedian": 798,
       "reviewsMedian": 5
     },
     {
       "bedrooms": 8,
-      "n": 2,
+      "n": 3,
       "adrMedian": 756,
-      "reviewsMedian": null
+      "reviewsMedian": 26
     },
     {
       "bedrooms": 14,
@@ -619,148 +619,148 @@
       "district": "Phangan Hospital area",
       "slug": "phangan-hospital-area",
       "bedrooms": 2,
-      "n": 9,
-      "adrMedian": 5882
+      "n": 8,
+      "adrMedian": 6030
     },
     {
       "district": "Nai Wok",
       "slug": "nai-wok",
       "bedrooms": 2,
       "n": 18,
-      "adrMedian": 5706
+      "adrMedian": 5840
     },
     {
       "district": "Nai Wok",
       "slug": "nai-wok",
       "bedrooms": 1,
-      "n": 101,
-      "adrMedian": 1712
+      "n": 102,
+      "adrMedian": 1676
     },
     {
       "district": "Nai Wok",
       "slug": "nai-wok",
       "bedrooms": 3,
       "n": 2,
-      "adrMedian": 23600
-    },
-    {
-      "district": "Phangan Hospital area",
-      "slug": "phangan-hospital-area",
-      "bedrooms": 1,
-      "n": 24,
-      "adrMedian": 2240
-    },
-    {
-      "district": "Phangan Hospital area",
-      "slug": "phangan-hospital-area",
-      "bedrooms": 0,
-      "n": 4,
-      "adrMedian": 1735
+      "adrMedian": 21600
     },
     {
       "district": "Nai Wok",
       "slug": "nai-wok",
       "bedrooms": 0,
       "n": 12,
-      "adrMedian": 760
+      "adrMedian": 730
+    },
+    {
+      "district": "Phangan Hospital area",
+      "slug": "phangan-hospital-area",
+      "bedrooms": 1,
+      "n": 22,
+      "adrMedian": 2625
+    },
+    {
+      "district": "Phangan Hospital area",
+      "slug": "phangan-hospital-area",
+      "bedrooms": 0,
+      "n": 4,
+      "adrMedian": 1849
     },
     {
       "district": "Phangan Hospital area",
       "slug": "phangan-hospital-area",
       "bedrooms": 3,
       "n": 2,
-      "adrMedian": 3558
+      "adrMedian": 3598
+    },
+    {
+      "district": "Ban Khai",
+      "slug": "ban-khai",
+      "bedrooms": 1,
+      "n": 23,
+      "adrMedian": 2161
     },
     {
       "district": "Ban Tai",
       "slug": "ban-tai",
       "bedrooms": 2,
+      "n": 32,
+      "adrMedian": 4460
+    },
+    {
+      "district": "Ban Tai",
+      "slug": "ban-tai",
+      "bedrooms": 1,
       "n": 37,
-      "adrMedian": 5489
-    },
-    {
-      "district": "Ban Khai",
-      "slug": "ban-khai",
-      "bedrooms": 1,
-      "n": 22,
-      "adrMedian": 1883
+      "adrMedian": 2102
     },
     {
       "district": "Ban Khai",
       "slug": "ban-khai",
       "bedrooms": 2,
-      "n": 20,
-      "adrMedian": 4082
-    },
-    {
-      "district": "Ban Tai",
-      "slug": "ban-tai",
-      "bedrooms": 1,
-      "n": 33,
-      "adrMedian": 1700
-    },
-    {
-      "district": "Ban Tai",
-      "slug": "ban-tai",
-      "bedrooms": 0,
-      "n": 5,
-      "adrMedian": 4565
+      "n": 18,
+      "adrMedian": 4204
     },
     {
       "district": "Ban Tai",
       "slug": "ban-tai",
       "bedrooms": 3,
-      "n": 5,
-      "adrMedian": 4848
+      "n": 2,
+      "adrMedian": 3289
+    },
+    {
+      "district": "Ban Tai",
+      "slug": "ban-tai",
+      "bedrooms": 0,
+      "n": 4,
+      "adrMedian": 4690
     },
     {
       "district": "Ban Khai",
       "slug": "ban-khai",
       "bedrooms": 3,
       "n": 2,
-      "adrMedian": 7722
+      "adrMedian": 7861
     },
     {
       "district": "Haad Rin",
       "slug": "haad-rin",
       "bedrooms": 1,
-      "n": 9,
-      "adrMedian": 2185
+      "n": 15,
+      "adrMedian": 2125
     },
     {
       "district": "Then Sadet",
       "slug": "then-sadet",
       "bedrooms": 1,
       "n": 2,
-      "adrMedian": 3133
-    },
-    {
-      "district": "Haad Rin",
-      "slug": "haad-rin",
-      "bedrooms": 3,
-      "n": 2,
-      "adrMedian": 11691
-    },
-    {
-      "district": "Haad Rin",
-      "slug": "haad-rin",
-      "bedrooms": 4,
-      "n": 4,
-      "adrMedian": 945
+      "adrMedian": 3146
     },
     {
       "district": "Haad Rin",
       "slug": "haad-rin",
       "bedrooms": 2,
-      "n": 4,
-      "adrMedian": 5317
+      "n": 5,
+      "adrMedian": 4985
     },
     {
       "district": "Haad Rin",
       "slug": "haad-rin",
       "bedrooms": 0,
+      "n": 3,
+      "adrMedian": 1138
+    },
+    {
+      "district": "Haad Rin",
+      "slug": "haad-rin",
+      "bedrooms": 4,
+      "n": 3,
+      "adrMedian": 945
+    },
+    {
+      "district": "Haad Rin",
+      "slug": "haad-rin",
+      "bedrooms": 6,
       "n": 2,
-      "adrMedian": 1156
+      "adrMedian": 798
     },
     {
       "district": "Haad Rin",
@@ -770,191 +770,205 @@
       "adrMedian": 756
     },
     {
-      "district": "Haad Rin",
-      "slug": "haad-rin",
-      "bedrooms": 6,
-      "n": 4,
-      "adrMedian": 798
+      "district": "Hin Kong",
+      "slug": "hin-kong",
+      "bedrooms": 0,
+      "n": 5,
+      "adrMedian": 3162
     },
     {
       "district": "Hin Kong",
       "slug": "hin-kong",
       "bedrooms": 2,
-      "n": 13,
-      "adrMedian": 3300
-    },
-    {
-      "district": "Hin Kong",
-      "slug": "hin-kong",
-      "bedrooms": 0,
-      "n": 4,
-      "adrMedian": 2721
+      "n": 6,
+      "adrMedian": 3256
     },
     {
       "district": "Hin Kong",
       "slug": "hin-kong",
       "bedrooms": 3,
       "n": 2,
-      "adrMedian": 6977
+      "adrMedian": 7444
     },
     {
       "district": "Wok Tum",
       "slug": "wok-tum",
       "bedrooms": 2,
       "n": 3,
-      "adrMedian": 4730
+      "adrMedian": 4841
+    },
+    {
+      "district": "Hin Kong",
+      "slug": "hin-kong",
+      "bedrooms": 1,
+      "n": 2,
+      "adrMedian": 3930
+    },
+    {
+      "district": "Wok Tum",
+      "slug": "wok-tum",
+      "bedrooms": 1,
+      "n": 2,
+      "adrMedian": 2397
     },
     {
       "district": "Haad Yao",
       "slug": "haad-yao",
       "bedrooms": 3,
-      "n": 4,
-      "adrMedian": 11037
+      "n": 3,
+      "adrMedian": 11446
     },
     {
       "district": "Madeau Wan",
       "slug": "madeau-wan",
       "bedrooms": 2,
       "n": 5,
-      "adrMedian": 4234
+      "adrMedian": 4250
     },
     {
       "district": "Madeau Wan",
       "slug": "madeau-wan",
       "bedrooms": 3,
       "n": 3,
-      "adrMedian": 4990
-    },
-    {
-      "district": "Ban Nai Suan",
-      "slug": "ban-nai-suan",
-      "bedrooms": 3,
-      "n": 3,
-      "adrMedian": 4900
-    },
-    {
-      "district": "Ban Nai Suan",
-      "slug": "ban-nai-suan",
-      "bedrooms": 2,
-      "n": 6,
-      "adrMedian": 2227
-    },
-    {
-      "district": "Madeau Wan",
-      "slug": "madeau-wan",
-      "bedrooms": 1,
-      "n": 2,
-      "adrMedian": 1179
+      "adrMedian": 5090
     },
     {
       "district": "Ban Nai Suan",
       "slug": "ban-nai-suan",
       "bedrooms": 1,
       "n": 2,
-      "adrMedian": 1162
+      "adrMedian": 1075
     },
     {
-      "district": "Mae Haad",
-      "slug": "mae-haad",
+      "district": "Ban Nai Suan",
+      "slug": "ban-nai-suan",
       "bedrooms": 2,
       "n": 4,
-      "adrMedian": 3024
+      "adrMedian": 2427
+    },
+    {
+      "district": "Ban Nai Suan",
+      "slug": "ban-nai-suan",
+      "bedrooms": 3,
+      "n": 3,
+      "adrMedian": 5358
+    },
+    {
+      "district": "Madeau Wan",
+      "slug": "madeau-wan",
+      "bedrooms": 1,
+      "n": 2,
+      "adrMedian": 1526
     },
     {
       "district": "Chaloklum",
       "slug": "chaloklum",
       "bedrooms": 2,
-      "n": 17,
-      "adrMedian": 3300
+      "n": 14,
+      "adrMedian": 3458
     },
     {
       "district": "Haad Yao",
       "slug": "haad-yao",
       "bedrooms": 0,
-      "n": 3,
-      "adrMedian": 1862
+      "n": 4,
+      "adrMedian": 1610
+    },
+    {
+      "district": "Mae Haad",
+      "slug": "mae-haad",
+      "bedrooms": 2,
+      "n": 2,
+      "adrMedian": 3095
     },
     {
       "district": "Haad Salad",
       "slug": "haad-salad",
       "bedrooms": 2,
       "n": 2,
-      "adrMedian": 1523
+      "adrMedian": 1550
+    },
+    {
+      "district": "Haad Salad",
+      "slug": "haad-salad",
+      "bedrooms": 1,
+      "n": 2,
+      "adrMedian": 4407
     },
     {
       "district": "Haad Yao",
       "slug": "haad-yao",
       "bedrooms": 2,
-      "n": 3,
-      "adrMedian": 7000
-    },
-    {
-      "district": "Chaloklum",
-      "slug": "chaloklum",
-      "bedrooms": 1,
-      "n": 6,
-      "adrMedian": 4160
+      "n": 2,
+      "adrMedian": 6738
     },
     {
       "district": "Chaloklum",
       "slug": "chaloklum",
       "bedrooms": 3,
-      "n": 8,
-      "adrMedian": 5250
+      "n": 6,
+      "adrMedian": 5313
+    },
+    {
+      "district": "Chaloklum",
+      "slug": "chaloklum",
+      "bedrooms": 1,
+      "n": 7,
+      "adrMedian": 4328
     },
     {
       "district": "Thong Nai Pan Noi",
       "slug": "thong-nai-pan-noi",
       "bedrooms": 2,
       "n": 3,
-      "adrMedian": 2499
+      "adrMedian": 2558
     }
   ],
   "featurePremiums": [
     {
       "key": "private_pool",
       "label": "Private pool",
-      "premiumPct": 44,
-      "adrWith": 4108,
-      "adrWithout": 2853,
-      "nWith": 45,
-      "nWithout": 1045
+      "premiumPct": 45,
+      "adrWith": 3992,
+      "adrWithout": 2750,
+      "nWith": 56,
+      "nWithout": 1029
     },
     {
       "key": "pool",
       "label": "Any pool",
-      "premiumPct": 114,
-      "adrWith": 5200,
-      "adrWithout": 2427,
-      "nWith": 159,
-      "nWithout": 931
+      "premiumPct": 102,
+      "adrWith": 4899,
+      "adrWithout": 2424,
+      "nWith": 161,
+      "nWithout": 924
     },
     {
       "key": "sea_view",
       "label": "Sea view",
-      "premiumPct": 71,
-      "adrWith": 4500,
-      "adrWithout": 2625,
-      "nWith": 165,
-      "nWithout": 925
+      "premiumPct": 63,
+      "adrWith": 4194,
+      "adrWithout": 2575,
+      "nWith": 163,
+      "nWithout": 922
     },
     {
       "key": "beachfront",
       "label": "Beachfront",
-      "premiumPct": 89,
-      "adrWith": 5294,
-      "adrWithout": 2808,
-      "nWith": 73,
-      "nWithout": 1017
+      "premiumPct": 72,
+      "adrWith": 4672,
+      "adrWithout": 2722,
+      "nWith": 67,
+      "nWithout": 1018
     },
     {
       "key": "luxury",
       "label": "Luxury positioning",
-      "premiumPct": 132,
-      "adrWith": 6459,
-      "adrWithout": 2782,
-      "nWith": 49,
-      "nWithout": 1041
+      "premiumPct": 115,
+      "adrWith": 5840,
+      "adrWithout": 2710,
+      "nWith": 45,
+      "nWithout": 1040
     }
   ],
   "capex": {
@@ -978,63 +992,102 @@
       "Sri Thanu": 4215,
       "Tong Sala (Nai Wok)": 8906,
       "Wok Tum": 7850
+    },
+    "market": {
+      "pricePerSqmMedian": 7510,
+      "n": 23,
+      "source": "fazwaz_land",
+      "byDistrict": {
+        "Ban Tai": 5945
+      }
     }
   },
   "seasonal": {
     "dates": [
-      "2026-06-07",
-      "2026-06-09"
+      "2026-06-07"
     ],
     "overall": [
-      3147,
-      2883
+      2836
     ],
     "districts": {
-      "Haad Salad": [
-        4560,
-        6417
-      ],
       "Coconut lane area": [
-        6619,
-        6359
-      ],
-      "Haad Yao": [
-        5135,
-        4622
+        7000
       ],
       "Then Sadet": [
-        4315,
         4290
       ],
-      "Wok Tum": [
-        2688,
-        3968
+      "Haad Salad": [
+        4256
+      ],
+      "Haad Yao": [
+        4070
       ],
       "Thong Nai Pan": [
-        3797,
-        3851
+        3942
+      ],
+      "Mae Haad": [
+        3500
       ]
     },
-    "points": 2
+    "points": 1
+  },
+  "seasonality": {
+    "months": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ],
+    "index": [
+      100.0,
+      99.5,
+      89.7,
+      74.9,
+      65.0,
+      50.2,
+      64.0,
+      78.8,
+      66.0,
+      61.6,
+      76.8,
+      91.6
+    ],
+    "peakMonth": "Jan",
+    "lowMonth": "Jun",
+    "keywords": [
+      "Koh Phangan",
+      "Phangan villa",
+      "Koh Phangan rental"
+    ],
+    "source": "Google Trends (5y avg, worldwide)",
+    "asOf": "2026-06-09"
   },
   "crossCheck": {
     "sources": [
       {
         "key": "airbnb",
         "label": "Airbnb",
-        "n": 1079,
-        "nPriced": 1076,
-        "adrMedian": 2900
+        "n": 1073,
+        "nPriced": 1071,
+        "adrMedian": 2836
       },
       {
         "key": "booking",
         "label": "Booking.com",
         "n": 25,
         "nPriced": 25,
-        "adrMedian": 852
+        "adrMedian": 4604
       }
     ],
-    "spreadPct": 240,
+    "spreadPct": 62,
     "agree": false
   }
 }
