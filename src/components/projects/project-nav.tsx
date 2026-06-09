@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils/cn";
 
 export interface NavItem {
@@ -13,8 +13,24 @@ export interface NavItem {
  * the section anchors via IntersectionObserver and smooth-scrolls on click,
  * compensating for the sticky site header + this bar so headings aren't hidden.
  */
-export function ProjectNav({ items, ctaLabel }: { items: NavItem[]; ctaLabel?: string }) {
+export function ProjectNav({
+  items,
+  ctaLabel,
+  availabilityNote,
+}: {
+  items: NavItem[];
+  ctaLabel?: string;
+  availabilityNote?: string;
+}) {
   const [active, setActive] = useState(items[0]?.id);
+  const navRef = useRef<HTMLElement>(null);
+
+  // Keep the active tab in view as the user scrolls the page (mobile esp.).
+  useEffect(() => {
+    if (!active) return;
+    const el = navRef.current?.querySelector<HTMLElement>(`[data-nav-id="${active}"]`);
+    el?.scrollIntoView({ block: "nearest", inline: "center" });
+  }, [active]);
 
   useEffect(() => {
     const sections = items
@@ -49,12 +65,14 @@ export function ProjectNav({ items, ctaLabel }: { items: NavItem[]; ctaLabel?: s
     <div className="sticky top-16 z-30 -mx-4 border-b border-forest-500/10 bg-cream-100/85 backdrop-blur-md md:top-20">
       <div className="container-prose flex items-center gap-2 px-4">
         <nav
+          ref={navRef}
           aria-label="Project sections"
-          className="flex flex-1 gap-1 overflow-x-auto py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="flex flex-1 gap-1 overflow-x-auto py-2 [mask-image:linear-gradient(to_right,transparent,black_1rem,black_calc(100%-1.5rem),transparent)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {items.map((item) => (
             <a
               key={item.id}
+              data-nav-id={item.id}
               href={`#${item.id}`}
               onClick={(e) => onClick(e, item.id)}
               className={cn(
@@ -68,6 +86,12 @@ export function ProjectNav({ items, ctaLabel }: { items: NavItem[]; ctaLabel?: s
             </a>
           ))}
         </nav>
+        {availabilityNote ? (
+          <span className="hidden shrink-0 items-center gap-1.5 text-xs text-forest-500/70 lg:inline-flex">
+            <span className="h-1.5 w-1.5 rounded-full bg-brass-500" />
+            {availabilityNote}
+          </span>
+        ) : null}
         {ctaLabel ? (
           <a
             href="#enquire"

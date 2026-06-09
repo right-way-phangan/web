@@ -995,6 +995,8 @@ export interface ProjectsDict {
   unitsLeft: (n: number) => string;
   enquire: string;
   backToProjects: string;
+  home: string;
+  otherProjects: string;
   nav: {
     overview: string;
     gallery: string;
@@ -1057,6 +1059,8 @@ const projectsDict: Record<Locale, ProjectsDict> = {
     unitsLeft: (n) => `${n} ${n === 1 ? "unit" : "units"} left`,
     enquire: "Enquire about this project",
     backToProjects: "Back to projects",
+    home: "Home",
+    otherProjects: "Other projects",
     nav: {
       overview: "Overview",
       gallery: "Gallery",
@@ -1122,6 +1126,8 @@ const projectsDict: Record<Locale, ProjectsDict> = {
     unitsLeft: (n) => `осталось ${n} ${n === 1 ? "юнит" : n < 5 ? "юнита" : "юнитов"}`,
     enquire: "Запросить по проекту",
     backToProjects: "Назад к проектам",
+    home: "Главная",
+    otherProjects: "Другие проекты",
     nav: {
       overview: "Обзор",
       gallery: "Галерея",

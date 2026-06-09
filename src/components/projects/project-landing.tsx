@@ -1,14 +1,20 @@
 import Link from "next/link";
 import type { Route } from "next";
-import { ArrowLeft, Check } from "lucide-react";
+import { ChevronRight, Check } from "lucide-react";
 import type { RealEstateObject } from "@/types/object";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getProjectsDict, getObjectDict } from "@/lib/i18n/dictionaries";
-import { getProjectUnitsAll, projectAvailability, developerHasPage } from "@/lib/data/projects";
-import { developerSlug } from "@/lib/data/projects";
+import {
+  getProjectUnits,
+  projectAvailability,
+  developerHasPage,
+  developerSlug,
+  projectSlug,
+  getPublicProjects,
+} from "@/lib/data/projects";
+import { getAllObjects } from "@/lib/data/objects";
 import { formatPriceTHB } from "@/lib/utils/price";
 import { localePath } from "@/lib/i18n/locale-path";
-import { Button } from "@/components/ui/button";
 import { ObjectGallery } from "@/components/objects/object-gallery";
 import { ObjectLocationMap } from "@/components/objects/object-location-map";
 import { InquiryForm } from "@/components/objects/inquiry-form";
@@ -16,6 +22,8 @@ import { RoiCalculator } from "@/components/calculator/roi-calculator";
 import { ProjectHero } from "./project-hero";
 import { ProjectNav, type NavItem } from "./project-nav";
 import { ProjectActionBar } from "./project-action-bar";
+import { BackToTop } from "./back-to-top";
+import { ProjectCard } from "./project-card";
 import { UnitsTable } from "./units-table";
 import { ProjectVideos } from "./project-videos";
 import { Floorplans } from "./floorplans";
@@ -48,12 +56,22 @@ function amenityLabels(o: RealEstateObject, t: ReturnType<typeof getObjectDict>)
 export async function ProjectLanding({ project, catalog, locale }: Props) {
   const t = getProjectsDict(locale);
   const ot = getObjectDict(locale);
-  const units = await getProjectUnitsAll(project);
+  const allObjects = await getAllObjects();
+  const units = getProjectUnits(project, allObjects);
   const availability = projectAvailability(project, units);
   const amenities = amenityLabels(project, ot);
   const devHref =
     project.developer && (await developerHasPage(project.developer))
       ? localePath(locale, `/developers/${developerSlug(project.developer)}`)
+      : undefined;
+
+  // Other projects for the cross-link block at the bottom.
+  const allProjects = await getPublicProjects();
+  const otherProjects = allProjects.filter((p) => p.rwNumber !== project.rwNumber).slice(0, 3);
+
+  const availNote =
+    availability.total != null
+      ? `${availability.available ?? 0}/${availability.total} ${t.availableLabel.toLowerCase()}`
       : undefined;
 
   const hasGallery = (project.gallery?.length ?? 0) > 0;
@@ -84,15 +102,25 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
   ];
 
   const projectsHref = localePath(locale, "/projects") as Route;
+  const homeHref = localePath(locale, "/") as Route;
+  const projectsCrumb = locale === "ru" ? "Проекты" : "Projects";
 
   return (
     <article className="container-prose py-8 md:py-10">
-      <Button asChild variant="ghost" size="sm" className="mb-6">
-        <Link href={projectsHref}>
-          <ArrowLeft className="h-4 w-4" />
-          {t.backToProjects}
+      <nav
+        aria-label="Breadcrumb"
+        className="mb-6 flex flex-wrap items-center gap-1.5 text-xs text-forest-500/60"
+      >
+        <Link href={homeHref} className="transition-colors hover:text-brass-500">
+          {t.home}
         </Link>
-      </Button>
+        <ChevronRight className="h-3 w-3" aria-hidden />
+        <Link href={projectsHref} className="transition-colors hover:text-brass-500">
+          {projectsCrumb}
+        </Link>
+        <ChevronRight className="h-3 w-3" aria-hidden />
+        <span className="truncate text-forest-900">{project.titleEn}</span>
+      </nav>
 
       <ProjectHero
         project={project}
@@ -102,7 +130,7 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
       />
 
       <div className="mt-10">
-        <ProjectNav items={nav} ctaLabel={t.nav.enquire} />
+        <ProjectNav items={nav} ctaLabel={t.nav.enquire} availabilityNote={availNote} />
       </div>
 
       <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_360px] lg:gap-16">
@@ -299,12 +327,30 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
         </div>
       </div>
 
-      {/* Mobile sticky CTA bar */}
+      {/* Other projects */}
+      {otherProjects.length > 0 ? (
+        <section className="mt-16 border-t border-forest-500/10 pt-12 md:mt-20">
+          <h2 className="font-serif text-2xl text-forest-900">{t.otherProjects}</h2>
+          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {otherProjects.map((p) => (
+              <ProjectCard
+                key={p.rwNumber}
+                project={p}
+                href={localePath(locale, `/projects/${projectSlug(p, allProjects)}`)}
+                availability={projectAvailability(p, getProjectUnits(p, allObjects))}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {/* Mobile sticky CTA bar + back-to-top */}
       <ProjectActionBar
         rwNumber={project.rwNumber}
         titleEn={project.titleEn}
         priceThb={project.priceThb}
       />
+      <BackToTop />
     </article>
   );
 }
