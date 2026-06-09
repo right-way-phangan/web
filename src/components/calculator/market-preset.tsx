@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import type { Route } from "next";
 import { Sparkles, ArrowRight } from "lucide-react";
-import { type RentalMarket, fmtThb } from "@/lib/data/rental-market";
+import { type RentalMarket, fmtThb, confidenceOf } from "@/lib/data/rental-market";
 import type { CalcDict } from "@/lib/i18n/calculator";
 import { useLocale } from "@/lib/i18n/use-locale";
 
@@ -86,7 +86,8 @@ export function MarketPreset({
       scenario === "measured" && measuredOk
         ? Math.round((d.occupancyMeasured as number) * 100)
         : Math.round(market.meta.occupancy[scenario === "measured" ? "base" : scenario] * 100);
-    return { nightlyRateThb: nightly, occupancyPct, basis, n: d.n, measuredOk };
+    const nUsed = db ? db.n : d.n;
+    return { nightlyRateThb: nightly, occupancyPct, basis, n: d.n, measuredOk, p25: d.adrP25, p75: d.adrP75, nUsed };
   }, [market, district, type, bedrooms, scenario]);
 
   return (
@@ -179,6 +180,11 @@ export function MarketPreset({
             <span className="text-forest-500/60"> · {estimate.occupancyPct}% {t.occupancy.replace(" (%)", "").toLowerCase()}</span>
             <div className="text-[11px] text-forest-500/55">
               {t.mpFrom(estimate.basis, estimate.n)}
+              {estimate.p25 && estimate.p75 ? <> · {t.mpRange(fmtThb(estimate.p25), fmtThb(estimate.p75))}</> : null}
+            </div>
+            <div className="mt-1 inline-flex items-center gap-1 rounded-full bg-forest-500/8 px-2 py-0.5 text-[10px] text-forest-500/70">
+              <span className={`h-1.5 w-1.5 rounded-full ${confidenceOf(estimate.nUsed) === "high" ? "bg-forest-500" : confidenceOf(estimate.nUsed) === "medium" ? "bg-brass-500" : "bg-red-500/70"}`} />
+              {confidenceOf(estimate.nUsed) === "high" ? t.confHigh : confidenceOf(estimate.nUsed) === "medium" ? t.confMed : t.confLow}
             </div>
           </div>
           <button

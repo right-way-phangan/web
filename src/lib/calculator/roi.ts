@@ -21,6 +21,7 @@ export interface RoiInputs {
   saleCostsPct: number; // exit: transfer + commission, % of sale value
   annualHoldingPct: number; // yearly holding costs, % of price
   bankRatePct: number; // deposit comparison rate
+  altReturnPct: number; // alternative investment benchmark (e.g. stock index)
   inflationPct: number; // for "in today's money" real-return readout
   mode: CalcMode;
   // Tenure — Thailand-specific. Leasehold value decays as the lease runs down.
@@ -83,6 +84,8 @@ export interface RoiResult {
   bankFinal: number;
   bankProfit: number;
   vsBankThb: number;
+  altFinal: number; // alternative-investment benchmark ending value
+  vsAltThb: number; // total return − altFinal
   series: RoiYearPoint[];
 }
 
@@ -102,6 +105,7 @@ export const DEFAULT_INPUTS: RoiInputs = {
   saleCostsPct: 6, // agent commission + transfer share at exit
   annualHoldingPct: 0.5,
   bankRatePct: 2,
+  altReturnPct: 7, // long-run global equity index, illustrative
   inflationPct: 3, // Thailand long-run CPI, illustrative
   mode: "hold",
   tenure: "freehold",
@@ -187,6 +191,95 @@ export function solveBreakEven(input: RoiInputs): { metric: "occupancy" | "growt
     if (Math.abs(fm) < 1) return { metric: isRent ? "occupancy" : "growth", value: mid };
   }
   return { metric: isRent ? "occupancy" : "growth", value: (lo + hi) / 2 };
+}
+
+export interface MonteCarloBand {
+  lo: number;
+  base: number;
+  hi: number;
+}
+
+export interface MonteCarloResult {
+  p10: number;
+  p50: number;
+  p90: number;
+  mean: number;
+  probBeatBank: number; // fraction of runs where the property beats the deposit
+  probBeatAlt: number; // …beats the alternative-investment benchmark
+  samples: number;
+  hist: number[]; // bucket counts for a small distribution viz
+  histMin: number;
+  histMax: number;
+}
+
+/** Inverse-CDF sample from a triangular distribution on [lo, hi] with mode. */
+function triSample(lo: number, mode: number, hi: number): number {
+  if (hi <= lo) return lo;
+  const u = Math.random();
+  const c = (mode - lo) / (hi - lo);
+  return u < c
+    ? lo + Math.sqrt(u * (hi - lo) * (mode - lo))
+    : hi - Math.sqrt((1 - u) * (hi - lo) * (hi - mode));
+}
+
+/**
+ * Monte Carlo over the headline uncertainties — appreciation, and (in rent mode)
+ * occupancy and nightly rate — sampled from triangular distributions defined by
+ * the data-anchored conservative/base/high bands. Returns the ROI distribution
+ * (P10/P50/P90), the odds of beating each benchmark, and a histogram. Turns a
+ * single point estimate into a probabilistic outlook (cf. institutional models).
+ */
+export function monteCarlo(
+  input: RoiInputs,
+  bands: { growth: MonteCarloBand; occupancy?: MonteCarloBand; nightly?: MonteCarloBand },
+  n = 1500,
+): MonteCarloResult {
+  const isRent = (input.mode === "rent" && !input.offplan) || (input.offplan && input.rentAfterHandover);
+  const rois: number[] = [];
+  let beatBank = 0;
+  let beatAlt = 0;
+  for (let i = 0; i < n; i++) {
+    const patch: Partial<RoiInputs> = {
+      annualGrowthPct: triSample(bands.growth.lo, bands.growth.base, bands.growth.hi),
+    };
+    if (isRent && bands.occupancy) {
+      patch.seasonality = false;
+      patch.occupancyPct = triSample(bands.occupancy.lo, bands.occupancy.base, bands.occupancy.hi);
+    }
+    if (isRent && bands.nightly) {
+      patch.nightlyRateThb = triSample(bands.nightly.lo, bands.nightly.base, bands.nightly.hi);
+    }
+    const r = computeRoi({ ...input, ...patch });
+    if (!isFinite(r.roiPct)) continue;
+    rois.push(r.roiPct);
+    if (r.vsBankThb > 0) beatBank++;
+    if (r.vsAltThb > 0) beatAlt++;
+  }
+  rois.sort((a, b) => a - b);
+  const m = rois.length || 1;
+  const pct = (p: number) => rois[Math.min(m - 1, Math.max(0, Math.floor(p * m)))] ?? 0;
+  const mean = rois.reduce((a, b) => a + b, 0) / m;
+  const lo = rois[0] ?? 0;
+  const hi = rois[m - 1] ?? 0;
+  const buckets = 24;
+  const hist = new Array(buckets).fill(0);
+  const span = hi - lo || 1;
+  for (const v of rois) {
+    const idx = Math.min(buckets - 1, Math.max(0, Math.floor(((v - lo) / span) * buckets)));
+    hist[idx]++;
+  }
+  return {
+    p10: pct(0.1),
+    p50: pct(0.5),
+    p90: pct(0.9),
+    mean,
+    probBeatBank: beatBank / m,
+    probBeatAlt: beatAlt / m,
+    samples: m,
+    hist,
+    histMin: lo,
+    histMax: hi,
+  };
 }
 
 function computeIRR(cashflows: number[]): number {
@@ -339,6 +432,11 @@ export function computeRoi(input: RoiInputs): RoiResult {
   const bankProfit = bankFinal - initialInvestment;
   const vsBankThb = totalReturn - bankFinal;
 
+  // Alternative-investment benchmark (e.g. a global equity index): the same
+  // up-front cash compounded at altReturnPct over the hold.
+  const altFinal = initialInvestment * Math.pow(1 + (input.altReturnPct || 0) / 100, years);
+  const vsAltThb = totalReturn - altFinal;
+
   return {
     initialInvestment,
     projectedValue,
@@ -362,6 +460,8 @@ export function computeRoi(input: RoiInputs): RoiResult {
     bankFinal,
     bankProfit,
     vsBankThb,
+    altFinal,
+    vsAltThb,
     series,
   };
 }
@@ -472,6 +572,12 @@ function computeOffplan(input: RoiInputs): RoiResult {
   const bankProfit = bankFinal - totalInvested;
   const vsBankThb = totalReturn - bankFinal;
 
+  // Alternative-investment benchmark: same instalments compounded at altReturnPct.
+  const altM = Math.pow(1 + (input.altReturnPct || 0) / 100, 1 / 12) - 1;
+  let altFinal = 0;
+  for (let m = 0; m <= exitMonth; m++) if (cf[m] < 0) altFinal += -cf[m] * Math.pow(1 + altM, exitMonth - m);
+  const vsAltThb = totalReturn - altFinal;
+
   // Annual series — value ramps to handover, then appreciates; bank line = the
   // instalments paid so far, grown at the deposit rate.
   const series: RoiYearPoint[] = [];
@@ -524,6 +630,8 @@ function computeOffplan(input: RoiInputs): RoiResult {
     bankFinal,
     bankProfit,
     vsBankThb,
+    altFinal,
+    vsAltThb,
     series,
   };
 }

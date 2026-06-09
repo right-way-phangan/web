@@ -3,9 +3,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import type { Route } from "next";
-import { ChevronDown, TrendingUp, ArrowRight, Download, RotateCcw, Link2, Check, Pin, Info } from "lucide-react";
+import { ChevronDown, TrendingUp, ArrowRight, Download, RotateCcw, Link2, Check, Pin, Info, Dices } from "lucide-react";
 import {
   computeRoi,
+  monteCarlo,
   DEFAULT_INPUTS,
   solveMaxPrice,
   solveBreakEven,
@@ -15,6 +16,7 @@ import {
   type CalcMode,
   type Tenure,
   type SolveMetric,
+  type MonteCarloResult,
 } from "@/lib/calculator/roi";
 import {
   CURRENCIES,
@@ -97,6 +99,7 @@ export function RoiCalculator({
   const [showYears, setShowYears] = useState(false);
   const [showSolver, setShowSolver] = useState(false);
   const [showSens, setShowSens] = useState(false);
+  const [showMc, setShowMc] = useState(false);
   const [solverMetric, setSolverMetric] = useState<SolveMetric>("roi");
   const [solverTarget, setSolverTarget] = useState(60);
   const [pinned, setPinned] = useState<{ proj: number; roi: number; profit: number; label: string } | null>(null);
@@ -201,6 +204,24 @@ export function RoiCalculator({
   // ROI only varies with price when there's rental income (rent is a fixed THB
   // amount while price moves); appreciation-only ROI is price-independent.
   const roiVariesByPrice = isRent || (isOffplan && inputs.rentAfterHandover);
+
+  // Monte Carlo over the data-anchored bands (growth always; occupancy + nightly
+  // rate when there's rental income). Computed only while the panel is open.
+  const mc = useMemo(() => {
+    if (!showMc) return null;
+    const bands: Parameters<typeof monteCarlo>[1] = {
+      growth: { lo: appr.conservative, base: appr.base, hi: appr.high },
+    };
+    if (roiVariesByPrice) {
+      const occ = market?.meta.occupancy;
+      bands.occupancy = occ
+        ? { lo: occ.conservative * 100, base: occ.base * 100, hi: occ.high * 100 }
+        : { lo: Math.max(0, inputs.occupancyPct - 15), base: inputs.occupancyPct, hi: Math.min(100, inputs.occupancyPct + 15) };
+      const nb = inputs.nightlyRateThb || 0;
+      bands.nightly = { lo: nb * 0.75, base: nb, hi: nb * 1.3 };
+    }
+    return monteCarlo(inputs, bands, 1500);
+  }, [showMc, inputs, appr, market, roiVariesByPrice]);
 
   const strategyLabel = isOffplan ? "Off-plan (new build)" : isRent ? "Buy & Rent" : "Buy & Hold";
   // Lead summary in the buyer's display currency (THB equivalent in parens when
@@ -460,6 +481,7 @@ export function RoiCalculator({
               <PctOrMoneyField label={t.exitCosts} t={t} pctValue={inputs.saleCostsPct} priceThb={inputs.purchasePriceThb} currency={currency} fx={fx} rates={rates} min={0} max={20} step={0.5} onChangePct={(v) => set({ saleCostsPct: v })} small />
               <PctOrMoneyField label={t.annualHolding} t={t} pctValue={inputs.annualHoldingPct} priceThb={inputs.purchasePriceThb} currency={currency} fx={fx} rates={rates} min={0} max={10} step={0.1} onChangePct={(v) => set({ annualHoldingPct: v })} small />
               <SliderField label={t.bankRate} value={inputs.bankRatePct} step={0.25} min={0} max={10} onChange={(v) => set({ bankRatePct: v })} small />
+              <SliderField label={t.altReturnLabel} value={inputs.altReturnPct} step={0.5} min={0} max={20} onChange={(v) => set({ altReturnPct: v })} small />
               <SliderField label={t.inflationLabel} value={inputs.inflationPct} step={0.5} min={0} max={15} onChange={(v) => set({ inflationPct: v })} small />
             </div>
           ) : null}
@@ -486,7 +508,10 @@ export function RoiCalculator({
               <CurrencyPicker currency={currency} onChange={setCurrency} />
             </div>
           </div>
-          <p className="num mt-2 text-4xl text-forest-900 md:text-5xl">{money(r.projectedValue, true)}</p>
+          <div className="mt-2 flex flex-wrap items-center gap-3">
+            <p className="num text-4xl text-forest-900 md:text-5xl">{money(r.projectedValue, true)}</p>
+            <DealBadge grade={dealGrade(r, isRent)} t={t} />
+          </div>
           {inputs.inflationPct > 0 ? (
             <p className="num mt-1 text-sm text-forest-500/55">≈ {money(r.realProjectedValue, true)} {t.inTodaysMoney}</p>
           ) : null}
@@ -542,7 +567,7 @@ export function RoiCalculator({
           </div>
         </div>
 
-        <BankCompare r={r} years={inputs.years} bankRate={inputs.bankRatePct} money={money} t={t} />
+        <BankCompare r={r} years={inputs.years} bankRate={inputs.bankRatePct} altRate={inputs.altReturnPct} money={money} t={t} />
 
         <BreakEven be={breakEven} beatsNow={r.vsBankThb >= 0} t={t} />
 
@@ -560,6 +585,7 @@ export function RoiCalculator({
           setTargetRoi={setTargetRoi}
           roiVariesByPrice={roiVariesByPrice}
           catalog={catalog}
+          market={market}
           excludeRw={excludeRw}
           t={t}
         />
@@ -587,6 +613,21 @@ export function RoiCalculator({
             {t.sensitivityTitle}
           </button>
           {showSens ? <Sensitivity inputs={inputs} isRent={isRent} t={t} /> : null}
+        </div>
+
+        {/* Monte Carlo — probabilistic outcome distribution over the data bands */}
+        <div className="mt-4">
+          <button
+            type="button"
+            onClick={() => setShowMc((v) => !v)}
+            className="flex items-center gap-1.5 text-sm font-medium text-forest-500/80 hover:text-forest-500"
+          >
+            <Dices className="h-4 w-4" />
+            {t.mcTitle}
+          </button>
+          {showMc && mc ? (
+            <MonteCarlo mc={mc} rent={roiVariesByPrice} altRate={inputs.altReturnPct} t={t} />
+          ) : null}
         </div>
 
         {/* Reverse: solve max price for a target return */}
@@ -823,7 +864,66 @@ function BreakEven({
   );
 }
 
-/** One-dimensional sensitivity: total ROI as the main driver moves off the base. */
+/** Deal score from benchmark margins, growth and (rent) cash-on-cash. */
+function dealGrade(r: RoiResult, isRent: boolean): "strong" | "fair" | "weak" {
+  let score = 0;
+  if (r.vsBankThb > 0) score += 1;
+  if (r.vsAltThb > 0) score += 1;
+  if (r.cagrPct >= 8) score += 2;
+  else if (r.cagrPct >= 5) score += 1;
+  if (isRent) {
+    if (r.cashOnCashPct >= 6) score += 2;
+    else if (r.cashOnCashPct >= 3) score += 1;
+  }
+  const max = isRent ? 6 : 4;
+  const ratio = score / max;
+  return ratio >= 0.66 ? "strong" : ratio >= 0.4 ? "fair" : "weak";
+}
+
+function DealBadge({ grade, t }: { grade: "strong" | "fair" | "weak"; t: CalcDict }) {
+  const map = {
+    strong: { label: t.dealStrong, cls: "border-forest-500/30 bg-forest-500/10 text-forest-500" },
+    fair: { label: t.dealFair, cls: "border-brass-500/30 bg-brass-500/10 text-brass-600" },
+    weak: { label: t.dealWeak, cls: "border-red-500/30 bg-red-500/10 text-red-600" },
+  } as const;
+  const m = map[grade];
+  return (
+    <span className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium ${m.cls}`}>
+      <span className="text-[9px] uppercase tracking-wide opacity-70">{t.dealTitle}</span>
+      {m.label}
+    </span>
+  );
+}
+
+/** Monte Carlo panel: P10/P50/P90 ROI, odds of beating benchmarks, histogram. */
+function MonteCarlo({ mc, rent, altRate, t }: { mc: MonteCarloResult; rent: boolean; altRate: number; t: CalcDict }) {
+  const maxH = Math.max(...mc.hist, 1);
+  return (
+    <div className="mt-4 rounded-sm border border-forest-500/10 bg-cream-50 p-5">
+      <p className="text-[11px] leading-relaxed text-forest-500/60">{t.mcHint(mc.samples, rent)}</p>
+      <div className="mt-4 grid grid-cols-3 gap-4">
+        <Kpi label={t.mcLow} value={fmtPct(mc.p10)} />
+        <Kpi label={t.mcMid} value={fmtPct(mc.p50)} accent />
+        <Kpi label={t.mcHigh} value={fmtPct(mc.p90)} />
+      </div>
+      <div className="mt-4 flex h-20 items-end gap-0.5" role="img" aria-label="ROI distribution">
+        {mc.hist.map((h, i) => (
+          <div key={i} className="flex-1 rounded-t-sm bg-brass-500/60" style={{ height: `${Math.max(2, (h / maxH) * 100)}%` }} />
+        ))}
+      </div>
+      <div className="mt-1.5 flex justify-between text-[10px] text-forest-500/50">
+        <span>{fmtPct(mc.histMin)}</span>
+        <span>{fmtPct(mc.histMax)}</span>
+      </div>
+      <div className="mt-3 space-y-1 text-sm text-forest-900">
+        <p>{t.mcBeatBank(Math.round(mc.probBeatBank * 100))}</p>
+        {altRate > 0 ? <p>{t.mcBeatIndex(Math.round(mc.probBeatAlt * 100))}</p> : null}
+      </div>
+    </div>
+  );
+}
+
+/** Tornado-style sensitivity: total ROI as the main driver moves off the base. */
 function Sensitivity({ inputs, isRent, t }: { inputs: RoiInputs; isRent: boolean; t: CalcDict }) {
   const driverIsOcc = isRent;
   const base = driverIsOcc ? inputs.occupancyPct : inputs.annualGrowthPct;
@@ -835,27 +935,32 @@ function Sensitivity({ inputs, isRent, t }: { inputs: RoiInputs; isRent: boolean
     );
     return { v, d, roi: rr.roiPct };
   });
+  const maxAbs = Math.max(...rows.map((r) => Math.abs(r.roi)), 1);
   return (
-    <div className="mt-4 overflow-hidden rounded-sm border border-forest-500/10">
-      <div className="bg-forest-500/5 px-4 py-2 text-[11px] text-forest-500/60">{t.sensHint}</div>
-      <table className="w-full text-sm tabular-nums">
-        <thead className="text-left text-xs uppercase tracking-wide text-forest-500/60">
-          <tr>
-            <th className="px-4 py-2 font-medium">{driverIsOcc ? t.sensDriverOccupancy : t.sensDriverGrowth}</th>
-            <th className="px-4 py-2 text-right font-medium">{t.totalRoi}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row) => (
-            <tr key={row.d} className={`border-t border-forest-500/10 ${row.d === 0 ? "bg-brass-500/[0.06] font-medium" : ""}`}>
-              <td className="px-4 py-2 text-forest-500/80">
+    <div className="mt-4 rounded-sm border border-forest-500/10 bg-cream-50 p-5">
+      <p className="text-[11px] text-forest-500/60">{t.sensHint}</p>
+      <p className="mt-1 text-xs font-medium text-forest-500/70">{driverIsOcc ? t.sensDriverOccupancy : t.sensDriverGrowth}</p>
+      <div className="mt-3 space-y-2">
+        {rows.map((row) => {
+          const isBase = row.d === 0;
+          return (
+            <div key={row.d} className="flex items-center gap-3">
+              <span className="w-12 shrink-0 text-right text-xs tabular-nums text-forest-500/70">
                 {row.v.toLocaleString("en-US", { maximumFractionDigits: 1 })}%
-              </td>
-              <td className="px-4 py-2 text-right text-forest-900">{fmtPct(row.roi)}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+              </span>
+              <div className="h-4 flex-1 overflow-hidden rounded-sm bg-forest-500/5">
+                <div
+                  className={`h-full rounded-sm ${isBase ? "bg-brass-500" : row.roi >= 0 ? "bg-forest-500/70" : "bg-red-500/60"}`}
+                  style={{ width: `${Math.max(2, (Math.abs(row.roi) / maxAbs) * 100)}%` }}
+                />
+              </div>
+              <span className={`w-14 shrink-0 text-right text-xs tabular-nums ${isBase ? "font-semibold text-brass-600" : "text-forest-900"}`}>
+                {fmtPct(row.roi)}
+              </span>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
@@ -1131,13 +1236,15 @@ function MoneyField({
   );
 }
 
-function BankCompare({ r, years, bankRate, money, t }: { r: RoiResult; years: number; bankRate: number; money: Money; t: CalcDict }) {
+function BankCompare({ r, years, bankRate, altRate, money, t }: { r: RoiResult; years: number; bankRate: number; altRate: number; money: Money; t: CalcDict }) {
   const better = r.vsBankThb >= 0;
+  const betterAlt = r.vsAltThb >= 0;
   return (
     <div className="mt-6 rounded-sm border border-forest-500/10 bg-cream-50 p-6">
       <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">{t.vsBank}</p>
       <div className="mt-4 space-y-2">
         <Row label={t.bankDeposit(bankRate)} value={money(r.bankFinal, true)} muted />
+        {altRate > 0 ? <Row label={t.indexRow(altRate)} value={money(r.altFinal, true)} muted /> : null}
         <Row label={t.thisProperty} value={money(r.totalReturn, true)} />
       </div>
       <p className="mt-4 text-lg text-forest-900">
@@ -1149,6 +1256,12 @@ function BankCompare({ r, years, bankRate, money, t }: { r: RoiResult; years: nu
           <>{money(Math.abs(r.vsBankThb))} {t.lessThanBank}</>
         )}
       </p>
+      {altRate > 0 ? (
+        <p className="mt-1 text-sm text-forest-500/70">
+          <span className={`tabular-nums ${betterAlt ? "text-brass-600" : "text-forest-500/70"}`}>{money(Math.abs(r.vsAltThb))}</span>{" "}
+          {betterAlt ? t.moreThanIndex : t.lessThanIndex}
+        </p>
+      ) : null}
     </div>
   );
 }
@@ -1308,6 +1421,7 @@ function RoiMatches({
   setTargetRoi,
   roiVariesByPrice,
   catalog,
+  market,
   excludeRw,
   t,
 }: {
@@ -1316,18 +1430,27 @@ function RoiMatches({
   setTargetRoi: (v: number) => void;
   roiVariesByPrice: boolean;
   catalog: RealEstateObject[];
+  market?: RentalMarket;
   excludeRw?: string;
   t: CalcDict;
 }) {
   const matches = useMemo(() => {
     if (!roiVariesByPrice) return [];
+    // Anchor each listing's rent to its own district's nightly rate (real comps)
+    // rather than the global assumption — a far more realistic per-property ROI.
+    const adrByDistrict = new Map((market?.districts ?? []).map((d) => [d.name, d.adrMedian]));
     return catalog
       .filter((o) => o.rwNumber !== excludeRw && o.priceThb)
-      .map((o) => ({ o, roi: computeRoi({ ...inputs, purchasePriceThb: o.priceThb! }).roiPct }))
+      .map((o) => {
+        const districtAdr = o.district ? adrByDistrict.get(o.district) : undefined;
+        const patch: Partial<RoiInputs> = { purchasePriceThb: o.priceThb! };
+        if (districtAdr) patch.nightlyRateThb = districtAdr;
+        return { o, roi: computeRoi({ ...inputs, ...patch }).roiPct, districtAdr };
+      })
       .filter((x) => Number.isFinite(x.roi) && x.roi >= targetRoi)
       .sort((a, b) => b.roi - a.roi)
       .slice(0, 6);
-  }, [inputs, targetRoi, roiVariesByPrice, catalog, excludeRw]);
+  }, [inputs, targetRoi, roiVariesByPrice, catalog, market, excludeRw]);
 
   if (catalog.length === 0) return null;
 
