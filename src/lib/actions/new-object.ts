@@ -7,6 +7,34 @@ import { notifyObjectCreated } from "@/lib/notify/telegram";
 import { OBJECT_TYPES } from "@/lib/amocrm/dictionaries";
 import { classifyImageIsDocument } from "@/lib/classify/image-doc";
 
+/**
+ * Migration off amoCRM (Phase A): when OBJECTS_API_URL is set, new objects are
+ * written to the own DB via the backend API instead of the amoCRM catalog.
+ * Unset → amoCRM (current prod behavior, untouched).
+ */
+const OBJECTS_API_URL = process.env.OBJECTS_API_URL;
+
+async function createViaApi(
+  input: NewObjectInput,
+): Promise<{ rwNumber: string; url: string }> {
+  const res = await fetch(`${OBJECTS_API_URL}/objects`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(input),
+    cache: "no-store",
+  });
+  const body = (await res.json().catch(() => ({}))) as {
+    rwNumber?: string;
+    url?: string;
+    error?: string;
+  };
+  if (res.status === 400 && body.error) throw new ObjectInputError(body.error);
+  if (!res.ok || !body.rwNumber) {
+    throw new Error(`objects API POST → ${res.status}: ${body.error ?? "no rwNumber"}`);
+  }
+  return { rwNumber: body.rwNumber, url: body.url ?? `/object/${body.rwNumber}` };
+}
+
 export type NewObjectState =
   | { status: "idle" }
   | {
@@ -184,8 +212,11 @@ export async function createObject(
     docUrls,
   };
 
+  const target = OBJECTS_API_URL ? "базе" : "amoCRM";
   try {
-    const res = await createObjectCard(input);
+    const res = OBJECTS_API_URL
+      ? await createViaApi(input)
+      : await createObjectCard(input);
 
     await notifyObjectCreated({
       rwNumber: res.rwNumber,
@@ -201,7 +232,7 @@ export async function createObject(
       url: res.url,
       photoCount: photoUrls.length,
       docCount: docUrls.length,
-      message: `Объект ${res.rwNumber} создан в amoCRM.`,
+      message: `Объект ${res.rwNumber} создан в ${target}.`,
     };
   } catch (err) {
     // Validation errors (e.g. unknown parent project) carry a user-facing
@@ -216,8 +247,7 @@ export async function createObject(
     }
     return {
       status: "error",
-      message:
-        "Не удалось создать карточку в amoCRM. Фото уже загружены — попробуйте опубликовать ещё раз.",
+      message: `Не удалось создать карточку в ${target}. Фото уже загружены — попробуйте опубликовать ещё раз.`,
     };
   }
 }

@@ -12,6 +12,22 @@ export const CATALOG_REVALIDATE_SECONDS = 300;
 const PUBLIC_STATUSES: ObjectStatus[] = ["Active"];
 
 /**
+ * Migration off amoCRM (Phase A): when OBJECTS_API_URL is set, objects come from
+ * the own DB via the backend API (RealEstateObject JSON, same shape) instead of
+ * the amoCRM catalog. Unset → amoCRM (current prod behavior, untouched).
+ * The API already returns the public set sorted; getAllObjects returns all.
+ */
+const OBJECTS_API_URL = process.env.OBJECTS_API_URL;
+
+async function apiObjects(path: string): Promise<RealEstateObject[]> {
+  const res = await fetch(`${OBJECTS_API_URL}${path}`, {
+    next: { revalidate: CATALOG_REVALIDATE_SECONDS },
+  });
+  if (!res.ok) throw new Error(`objects API ${path} → ${res.status}`);
+  return (await res.json()) as RealEstateObject[];
+}
+
+/**
  * Fetch all objects from the amoCRM catalog and return only those that
  * should be publicly visible: Active status, has RW number, AND has at least
  * one photo (coverImage). Photo-less objects stay in amoCRM but are hidden
@@ -23,6 +39,14 @@ const PUBLIC_STATUSES: ObjectStatus[] = ["Active"];
  * Returns [] on API failure rather than throwing — listing page degrades gracefully.
  */
 export async function getPublicObjects(): Promise<RealEstateObject[]> {
+  if (OBJECTS_API_URL) {
+    try {
+      return await apiObjects("/objects");
+    } catch (err) {
+      console.error("[objects] own-API failed:", err);
+      return [];
+    }
+  }
   try {
     const elements = await listCatalogElements();
     const all = elements.map(mapElementToObject);
@@ -73,6 +97,14 @@ export async function getObjectByRwNumber(
  * Active ones. Returns [] on failure. Do NOT use for the public listings grid.
  */
 export async function getAllObjects(): Promise<RealEstateObject[]> {
+  if (OBJECTS_API_URL) {
+    try {
+      return await apiObjects("/objects/all");
+    } catch (err) {
+      console.error("[objects:all] own-API failed:", err);
+      return [];
+    }
+  }
   try {
     const elements = await listCatalogElements();
     return elements

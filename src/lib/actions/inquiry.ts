@@ -52,6 +52,20 @@ function pipelineFor(type: ObjectType | undefined): number {
   return amoEnv.AMOCRM_PIPELINE_LAND;
 }
 
+/**
+ * Migration off amoCRM (Phase B): when OBJECTS_API_URL is set, leads are created
+ * in the own CRM via the backend API instead of amoCRM /leads/complex. Unset →
+ * amoCRM (current prod behavior). The own-CRM pipeline is keyed, not id'd.
+ */
+const CRM_API_URL = process.env.OBJECTS_API_URL;
+
+function pipelineKeyFor(type: ObjectType | undefined): "land" | "villa_house" {
+  if (type === "Villa" || type === "House" || type === "Apartment" || type === "Project") {
+    return "villa_house";
+  }
+  return "land";
+}
+
 function utmTags(input: z.infer<typeof inquirySchema>): string[] {
   const tags: string[] = [];
   if (input.utm_source) tags.push(`utm-source:${input.utm_source}`);
@@ -107,7 +121,6 @@ export async function submitInquiry(
     }
   }
 
-  const pipelineId = pipelineFor(objectType);
   const isCalc = data.kind === "calculator";
   const isMarketReport = data.kind === "market-report";
   const isShortlist = data.kind === "shortlist";
@@ -167,30 +180,50 @@ export async function submitInquiry(
   }
 
   try {
-    const res = await createLead({
-      name: leadName,
-      pipeline_id: pipelineId,
-      _embedded: {
-        contacts: [
-          {
-            first_name: data.name,
-            custom_fields_values: contactCustomFields,
-          },
-        ],
-        tags: tags.map((name) => ({ name })),
-      },
-    });
-    const leadId = res[0]?.id ?? 0;
+    let leadId: number;
 
-    // Note: descriptive message goes into the lead's first note via a
-    // separate API call. For MVP we encode it into the lead name's tail
-    // would lose detail — better to add as note. POST /api/v4/leads/{id}/notes
-    // We do best-effort and don't fail the form if note fails.
-    if (leadId > 0) {
-      try {
-        await postLeadNote(leadId, noteMessage);
-      } catch (err) {
-        console.error("[inquiry] note attach failed:", err);
+    if (CRM_API_URL) {
+      // Own CRM (Phase B): create lead+contact+note in our DB.
+      const res = await fetch(`${CRM_API_URL}/leads`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        cache: "no-store",
+        body: JSON.stringify({
+          leadName,
+          pipeline: pipelineKeyFor(objectType),
+          contact: {
+            name: data.name,
+            email: data.email || undefined,
+            phone: data.phone || undefined,
+          },
+          note: noteMessage,
+          tags,
+          rwNumber: data.rwNumber || undefined,
+          source: data.source,
+          kind: data.kind,
+        }),
+      });
+      if (!res.ok) throw new Error(`leads API → ${res.status}`);
+      const body = (await res.json()) as { leadId?: number };
+      leadId = body.leadId ?? 0;
+    } else {
+      const pipelineId = pipelineFor(objectType);
+      const res = await createLead({
+        name: leadName,
+        pipeline_id: pipelineId,
+        _embedded: {
+          contacts: [{ first_name: data.name, custom_fields_values: contactCustomFields }],
+          tags: tags.map((name) => ({ name })),
+        },
+      });
+      leadId = res[0]?.id ?? 0;
+      // Descriptive message → lead's first note (best-effort; don't fail the form).
+      if (leadId > 0) {
+        try {
+          await postLeadNote(leadId, noteMessage);
+        } catch (err) {
+          console.error("[inquiry] note attach failed:", err);
+        }
       }
     }
 
@@ -202,7 +235,7 @@ export async function submitInquiry(
       email: data.email || undefined,
       phone: data.phone || undefined,
       message: noteMessage,
-      pipelineId,
+      pipelineId: 0,
       rwNumber: data.rwNumber || undefined,
     });
 
