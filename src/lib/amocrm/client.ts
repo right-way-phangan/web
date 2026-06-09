@@ -68,7 +68,11 @@ export async function listCatalogElements(opts?: {
       );
       const batch = data._embedded?.elements ?? [];
       elements.push(...batch);
-      if (batch.length < limit) break;
+      // Paginate by amoCRM's `_links.next`, NOT by `batch.length < limit`:
+      // amoCRM can return a SHORT page transiently, and stopping on it silently
+      // truncates the public listings (cached 5 min). Trust the next-link.
+      const next = (data as { _links?: { next?: unknown } })._links?.next;
+      if (!next || batch.length === 0) break;
       page += 1;
     } catch (err) {
       if (err instanceof AmoApiError && err.status === 204) break;
@@ -103,7 +107,8 @@ export async function listCatalogCustomFields(
       );
       const batch = data._embedded?.custom_fields ?? [];
       fields.push(...batch);
-      if (batch.length < 250) break;
+      const next = (data as { _links?: { next?: unknown } })._links?.next;
+      if (!next || batch.length === 0) break;
       page += 1;
     } catch (err) {
       if (err instanceof AmoApiError && err.status === 204) break;
