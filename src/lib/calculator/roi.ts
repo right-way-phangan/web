@@ -19,10 +19,12 @@ export interface RoiInputs {
   years: number;
   closingCostsPct: number; // entry: DD + transfer, % of price
   saleCostsPct: number; // exit: transfer + commission, % of sale value
+  capitalGainsTaxPct: number; // tax on the gain (sale value − purchase price) at exit
   annualHoldingPct: number; // yearly holding costs, % of price
   bankRatePct: number; // deposit comparison rate
   altReturnPct: number; // alternative investment benchmark (e.g. stock index)
   inflationPct: number; // for "in today's money" real-return readout
+  fxDriftPct: number; // annual drift of THB vs the buyer's currency (+ = THB strengthens)
   mode: CalcMode;
   // Tenure — Thailand-specific. Leasehold value decays as the lease runs down.
   tenure: Tenure;
@@ -65,6 +67,7 @@ export interface RoiResult {
   initialInvestment: number;
   projectedValue: number; // gross sale value at exit
   saleCosts: number;
+  capitalGainsTax: number; // tax on the gain at exit (0 when no CGT input)
   holdingCostsTotal: number;
   rentNetTotal: number;
   netProceeds: number; // sale value − sale costs
@@ -74,6 +77,9 @@ export interface RoiResult {
   cagrPct: number;
   realCagrPct: number; // CAGR net of inflation
   realProjectedValue: number; // projected value in today's money
+  roiFxPct: number; // total ROI in the buyer's currency, given fxDriftPct
+  cagrFxPct: number; // CAGR in the buyer's currency, given fxDriftPct
+  paybackYears: number | null; // year cumulative profit first turns non-negative
   irrPct: number;
   grossYieldPct: number; // rent mode
   avgCashYieldPct: number; // rent mode
@@ -103,10 +109,12 @@ export const DEFAULT_INPUTS: RoiInputs = {
   years: 10,
   closingCostsPct: 5, // Thailand transfer fee + DD + legal, blended
   saleCostsPct: 6, // agent commission + transfer share at exit
+  capitalGainsTaxPct: 0, // off by default — Thai PIT on gains varies; user opts in
   annualHoldingPct: 0.5,
   bankRatePct: 2,
   altReturnPct: 7, // long-run global equity index, illustrative
   inflationPct: 3, // Thailand long-run CPI, illustrative
+  fxDriftPct: 0, // no FX view by default
   mode: "hold",
   tenure: "freehold",
   leaseTermYears: 30, // standard Thai lease term
@@ -199,17 +207,27 @@ export interface MonteCarloBand {
   hi: number;
 }
 
+export interface McBandPoint {
+  year: number;
+  p10: number;
+  p50: number;
+  p90: number;
+}
+
 export interface MonteCarloResult {
+  p05: number; // value-at-risk style downside
   p10: number;
   p50: number;
   p90: number;
   mean: number;
   probBeatBank: number; // fraction of runs where the property beats the deposit
   probBeatAlt: number; // …beats the alternative-investment benchmark
+  probLoss: number; // fraction of runs with a negative total ROI
   samples: number;
   hist: number[]; // bucket counts for a small distribution viz
   histMin: number;
   histMax: number;
+  band: McBandPoint[]; // owner-return P10/P50/P90 per year (fan chart)
 }
 
 /** Inverse-CDF sample from a triangular distribution on [lo, hi] with mode. */
@@ -238,6 +256,9 @@ export function monteCarlo(
   const rois: number[] = [];
   let beatBank = 0;
   let beatAlt = 0;
+  let loss = 0;
+  // Owner-return samples per year index, for the fan chart (cone of uncertainty).
+  const byYear: number[][] = [];
   for (let i = 0; i < n; i++) {
     const patch: Partial<RoiInputs> = {
       annualGrowthPct: triSample(bands.growth.lo, bands.growth.base, bands.growth.hi),
@@ -254,6 +275,10 @@ export function monteCarlo(
     rois.push(r.roiPct);
     if (r.vsBankThb > 0) beatBank++;
     if (r.vsAltThb > 0) beatAlt++;
+    if (r.roiPct < 0) loss++;
+    for (let y = 0; y < r.series.length; y++) {
+      (byYear[y] ??= []).push(r.series[y].profit + r.initialInvestment);
+    }
   }
   rois.sort((a, b) => a - b);
   const m = rois.length || 1;
@@ -268,17 +293,26 @@ export function monteCarlo(
     const idx = Math.min(buckets - 1, Math.max(0, Math.floor(((v - lo) / span) * buckets)));
     hist[idx]++;
   }
+  const band: McBandPoint[] = byYear.map((arr, year) => {
+    const s = arr.slice().sort((a, b) => a - b);
+    const k = s.length || 1;
+    const q = (p: number) => s[Math.min(k - 1, Math.max(0, Math.floor(p * k)))] ?? 0;
+    return { year, p10: q(0.1), p50: q(0.5), p90: q(0.9) };
+  });
   return {
+    p05: pct(0.05),
     p10: pct(0.1),
     p50: pct(0.5),
     p90: pct(0.9),
     mean,
     probBeatBank: beatBank / m,
     probBeatAlt: beatAlt / m,
+    probLoss: loss / m,
     samples: m,
     hist,
     histMin: lo,
     histMax: hi,
+    band,
   };
 }
 
@@ -325,6 +359,63 @@ function leaseFactor(input: RoiInputs, year: number): number {
   const term = Math.max(1, input.leaseTermYears || 1);
   const remaining = term - year;
   return Math.max(0, remaining) / term;
+}
+
+/**
+ * Payback period — the year cumulative profit (return-if-sold-that-year minus
+ * the cash invested) first turns non-negative, linearly interpolated between the
+ * bracketing years. Null when the deal never recovers within the horizon.
+ */
+function paybackFrom(series: RoiYearPoint[]): number | null {
+  for (let i = 1; i < series.length; i++) {
+    const cur = series[i];
+    if (cur.profit >= 0) {
+      const prev = series[i - 1];
+      if (prev.profit >= 0) return cur.year;
+      const frac = (0 - prev.profit) / (cur.profit - prev.profit);
+      return prev.year + frac * (cur.year - prev.year);
+    }
+  }
+  return null;
+}
+
+/**
+ * Return in the buyer's currency. THB cashflows are converted at a spot rate that
+ * drifts geometrically at fxDriftPct/yr (+ = THB strengthens vs the buyer's
+ * currency). We isolate the pure timing effect of FX as a ratio of the drifted
+ * money-multiple to the un-drifted one (`adj`), then apply it to the headline THB
+ * multiple — so at zero drift the result equals the THB figure exactly, and any
+ * difference is the FX effect alone. `times` are in years (fractional for monthly).
+ */
+function fxAdjusted(
+  cashflows: number[],
+  times: number[],
+  headlineMultiple: number, // totalReturn / capital invested (THB)
+  driftPct: number,
+  years: number,
+): { roiFxPct: number; cagrFxPct: number } {
+  const d = (driftPct || 0) / 100;
+  let inv0 = 0;
+  let invD = 0;
+  let ret0 = 0;
+  let retD = 0;
+  for (let i = 0; i < cashflows.length; i++) {
+    const f = Math.pow(1 + d, times[i]);
+    if (cashflows[i] < 0) {
+      inv0 += -cashflows[i];
+      invD += -cashflows[i] * f;
+    } else {
+      ret0 += cashflows[i];
+      retD += cashflows[i] * f;
+    }
+  }
+  const m0 = inv0 > 0 ? ret0 / inv0 : 0;
+  const mD = invD > 0 ? retD / invD : 0;
+  const adj = m0 > 0 ? mD / m0 : 1;
+  const multiple = headlineMultiple * adj;
+  const roiFxPct = (multiple - 1) * 100;
+  const cagrFxPct = multiple > 0 && years > 0 ? (Math.pow(multiple, 1 / years) - 1) * 100 : 0;
+  return { roiFxPct, cagrFxPct };
 }
 
 export function computeRoi(input: RoiInputs): RoiResult {
@@ -402,8 +493,16 @@ export function computeRoi(input: RoiInputs): RoiResult {
   const leaseFactorAtExit = leaseFactor(input, years);
   const projectedValue = grossValue * leaseFactorAtExit;
   const saleCosts = projectedValue * ((input.saleCostsPct || 0) / 100);
+  // Capital-gains tax on the realised gain at exit (no credit on a loss).
+  const capitalGainsTax = Math.max(0, projectedValue - price) * ((input.capitalGainsTaxPct || 0) / 100);
   const netProceeds = projectedValue - saleCosts;
-  const totalReturn = netProceeds + rentNetTotal - holdingCostsTotal;
+  const totalReturn = netProceeds + rentNetTotal - holdingCostsTotal - capitalGainsTax;
+  // Fold the exit tax into the final cashflow + series so IRR, payback and the
+  // chart's last point all agree with the headline figure.
+  if (capitalGainsTax > 0) {
+    cashflows[cashflows.length - 1] -= capitalGainsTax;
+    series[series.length - 1].profit -= capitalGainsTax;
+  }
   const netProfit = totalReturn - initialInvestment;
   const roiPct = initialInvestment > 0 ? (netProfit / initialInvestment) * 100 : 0;
   const cagrPct =
@@ -411,6 +510,14 @@ export function computeRoi(input: RoiInputs): RoiResult {
       ? (Math.pow((netProfit + initialInvestment) / initialInvestment, 1 / years) - 1) * 100
       : 0;
   const irrPct = computeIRR(cashflows);
+  const paybackYears = paybackFrom(series);
+  const { roiFxPct, cagrFxPct } = fxAdjusted(
+    cashflows,
+    cashflows.map((_, i) => i),
+    initialInvestment > 0 ? totalReturn / initialInvestment : 0,
+    input.fxDriftPct,
+    years,
+  );
 
   // Real (inflation-adjusted) headline figures — "in today's money".
   const infl = (input.inflationPct || 0) / 100;
@@ -441,6 +548,7 @@ export function computeRoi(input: RoiInputs): RoiResult {
     initialInvestment,
     projectedValue,
     saleCosts,
+    capitalGainsTax,
     holdingCostsTotal,
     rentNetTotal,
     netProceeds,
@@ -450,6 +558,9 @@ export function computeRoi(input: RoiInputs): RoiResult {
     cagrPct,
     realCagrPct,
     realProjectedValue,
+    roiFxPct,
+    cagrFxPct,
+    paybackYears,
     irrPct,
     grossYieldPct,
     avgCashYieldPct,
@@ -544,10 +655,12 @@ function computeOffplan(input: RoiInputs): RoiResult {
   const grossExit = handoverValue * Math.pow(1 + g, remainingYears);
   const sellableExit = grossExit * lfExit;
   const saleCosts = sellableExit * ((input.saleCostsPct || 0) / 100);
+  // Capital-gains tax on the gain over the contract price (no credit on a loss).
+  const capitalGainsTax = Math.max(0, sellableExit - price) * ((input.capitalGainsTaxPct || 0) / 100);
   const netProceeds = sellableExit - saleCosts;
-  cf[exitMonth] += netProceeds;
+  cf[exitMonth] += netProceeds - capitalGainsTax;
 
-  const totalReturn = netProceeds + rentNetTotal;
+  const totalReturn = netProceeds + rentNetTotal - capitalGainsTax;
   const netProfit = totalReturn - totalInvested;
   const roiPct = totalInvested > 0 ? (netProfit / totalInvested) * 100 : 0;
   const cagrPct =
@@ -603,14 +716,24 @@ function computeOffplan(input: RoiInputs): RoiResult {
       propertyValue: sellable,
       bankValue: banked,
       rentNet: rentByYear[y] || 0,
-      profit: sellable - (y === years ? saleCosts : 0) - invested + cumRent,
+      profit: sellable - (y === years ? saleCosts + capitalGainsTax : 0) - invested + cumRent,
     });
   }
+
+  const paybackYears = paybackFrom(series);
+  const { roiFxPct, cagrFxPct } = fxAdjusted(
+    cf,
+    cf.map((_, m) => m / 12),
+    totalInvested > 0 ? totalReturn / totalInvested : 0,
+    input.fxDriftPct,
+    years,
+  );
 
   return {
     initialInvestment: totalInvested,
     projectedValue: sellableExit,
     saleCosts,
+    capitalGainsTax,
     holdingCostsTotal: 0,
     rentNetTotal,
     netProceeds,
@@ -620,6 +743,9 @@ function computeOffplan(input: RoiInputs): RoiResult {
     cagrPct,
     realCagrPct,
     realProjectedValue,
+    roiFxPct,
+    cagrFxPct,
+    paybackYears,
     irrPct,
     grossYieldPct,
     avgCashYieldPct: 0,

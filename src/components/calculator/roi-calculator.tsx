@@ -46,6 +46,20 @@ const solveLabels = (t: CalcDict): Record<SolveMetric, string> => ({
 
 type Money = (thb: number, full?: boolean) => string;
 
+// Compact URL keys so "Copy link" round-trips the full scenario, not just price.
+const URL_NUMS: [keyof RoiInputs, string][] = [
+  ["annualGrowthPct", "g"], ["years", "y"], ["closingCostsPct", "cc"], ["saleCostsPct", "sc"],
+  ["capitalGainsTaxPct", "cgt"], ["annualHoldingPct", "hc"], ["bankRatePct", "br"], ["altReturnPct", "ar"],
+  ["inflationPct", "inf"], ["fxDriftPct", "fx"], ["leaseTermYears", "lt"], ["nightlyRateThb", "nr"],
+  ["occupancyPct", "oc"], ["mgmtFeePct", "mg"], ["opexPct", "ox"], ["rentGrowthPct", "rg"],
+  ["rentTaxPct", "rt"], ["furnishingThb", "fn"], ["highSeasonMonths", "hm"], ["highSeasonOccupancyPct", "ho"],
+  ["lowSeasonOccupancyPct", "lso"], ["highSeasonRateUpliftPct", "hru"], ["constructionMonths", "cm"],
+  ["downPaymentPct", "dp"], ["handoverPaymentPct", "hpp"], ["handoverUpliftPct", "hup"],
+];
+const URL_BOOLS: [keyof RoiInputs, string][] = [
+  ["leaseRenewable", "lr"], ["seasonality", "se"], ["rentAfterHandover", "rah"],
+];
+
 interface Props {
   initialPriceThb?: number;
   initialMode?: CalcMode;
@@ -99,10 +113,14 @@ export function RoiCalculator({
   const [showYears, setShowYears] = useState(false);
   const [showSolver, setShowSolver] = useState(false);
   const [showSens, setShowSens] = useState(false);
+  const [showMatrix, setShowMatrix] = useState(false);
+  const [showTornado, setShowTornado] = useState(false);
   const [showMc, setShowMc] = useState(false);
   const [solverMetric, setSolverMetric] = useState<SolveMetric>("roi");
   const [solverTarget, setSolverTarget] = useState(60);
-  const [pinned, setPinned] = useState<{ proj: number; roi: number; profit: number; label: string } | null>(null);
+  const [scenarios, setScenarios] = useState<SavedScenario[]>([]);
+  const [tab, setTab] = useState<"summary" | "returns" | "risk" | "compare">("summary");
+  const scenarioId = useRef(0);
   const [targetRoi, setTargetRoi] = useState(50);
   const [currency, setCurrency] = useState<Currency>("THB");
   const [rates, setRates] = useState<Record<Currency, number>>(DEFAULT_RATES);
@@ -177,8 +195,25 @@ export function RoiCalculator({
     }
   };
 
-  // Keep the URL in sync with the inputs the calculator page can deep-link from
-  // (price, mode, tenure, lease, phase) so "Copy link" reproduces the scenario.
+  // On mount, hydrate the full scenario from the URL so a shared "Copy link"
+  // reproduces every assumption, not just price/mode/tenure (which arrive via props).
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const p = new URLSearchParams(window.location.search);
+    const patch: Partial<RoiInputs> = {};
+    for (const [k, q] of URL_NUMS) {
+      const v = p.get(q);
+      if (v != null && v !== "" && Number.isFinite(Number(v))) (patch as Record<string, unknown>)[k] = Number(v);
+    }
+    for (const [k, q] of URL_BOOLS) {
+      const v = p.get(q);
+      if (v != null) (patch as Record<string, unknown>)[k] = v === "1";
+    }
+    if (Object.keys(patch).length) setInputs((s) => ({ ...s, ...patch }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Keep the URL in sync with the full input set so "Copy link" reproduces the scenario.
   useEffect(() => {
     if (typeof window === "undefined") return;
     const p = new URLSearchParams();
@@ -186,9 +221,10 @@ export function RoiCalculator({
     if (inputs.offplan) p.set("phase", "offplan");
     else p.set("mode", inputs.mode);
     p.set("tenure", inputs.tenure);
-    if (inputs.tenure === "leasehold") p.set("lease", String(inputs.leaseTermYears));
+    for (const [k, q] of URL_NUMS) p.set(q, String(inputs[k]));
+    for (const [k, q] of URL_BOOLS) p.set(q, inputs[k] ? "1" : "0");
     window.history.replaceState(null, "", `${window.location.pathname}?${p.toString()}`);
-  }, [inputs.purchasePriceThb, inputs.offplan, inputs.mode, inputs.tenure, inputs.leaseTermYears]);
+  }, [inputs]);
 
   const activeScenario = growthScenarios.find((s) => s.growthPct === inputs.annualGrowthPct)?.key;
   const isOffplan = inputs.offplan;
@@ -204,6 +240,38 @@ export function RoiCalculator({
   // ROI only varies with price when there's rental income (rent is a fixed THB
   // amount while price moves); appreciation-only ROI is price-independent.
   const roiVariesByPrice = isRent || (isOffplan && inputs.rentAfterHandover);
+  const isLet = isOffplan && inputs.rentAfterHandover;
+
+  // Scenario snapshots for side-by-side comparison (max 3 pinned + current).
+  const scenarioLabel = isOffplan ? t.offplan : isRent ? t.buyRent : t.buyHold;
+  const currentScenario: SavedScenario = {
+    id: -1,
+    label: t.currentLabel,
+    roi: r.roiPct,
+    proj: r.projectedValue,
+    profit: r.netProfit,
+    cagr: r.cagrPct,
+    payback: r.paybackYears,
+    vsBank: r.vsBankThb,
+  };
+  const addScenario = () => {
+    setScenarios((p) =>
+      p.length >= 3 ? p : [...p, { ...currentScenario, id: ++scenarioId.current, label: `${scenarioLabel} ${p.length + 1}` }],
+    );
+    setTab("compare");
+  };
+
+  // Quick-start profiles — fill a coherent set of fields in one click.
+  const applyProfile = (profile: "conservative" | "yield" | "flipper") => {
+    if (profile === "conservative") {
+      set({ offplan: false, mode: "hold", tenure: "freehold", annualGrowthPct: appr.conservative, years: 10 });
+    } else if (profile === "yield") {
+      const occ = market ? Math.round(market.meta.occupancy.base * 100) : 55;
+      set({ offplan: false, mode: "rent", annualGrowthPct: appr.base, occupancyPct: occ, seasonality: false });
+    } else {
+      set({ offplan: true, mode: "hold", annualGrowthPct: appr.high, years: 3, rentAfterHandover: false });
+    }
+  };
 
   // Monte Carlo over the data-anchored bands (growth always; occupancy + nightly
   // rate when there's rental income). Computed only while the panel is open.
@@ -282,6 +350,27 @@ export function RoiCalculator({
           <div className="inline-flex overflow-hidden rounded-sm border border-forest-500/20 text-[11px] font-medium" role="group" aria-label={t.langLabel}>
             <button type="button" onClick={() => setLocale("en")} className={`px-2.5 py-1 transition-colors ${locale === "en" ? "bg-forest-500 text-cream-50" : "text-forest-500/60 hover:bg-forest-500/8"}`}>EN</button>
             <button type="button" onClick={() => setLocale("ru")} className={`px-2.5 py-1 transition-colors ${locale === "ru" ? "bg-forest-500 text-cream-50" : "text-forest-500/60 hover:bg-forest-500/8"}`}>RU</button>
+          </div>
+        </div>
+
+        {/* Quick-start profiles — fill a coherent assumption set in one click. */}
+        <div className="mb-3">
+          <p className="mb-1.5 text-[11px] font-medium uppercase tracking-wide text-forest-500/50">{t.profilesLabel}</p>
+          <div className="flex flex-wrap gap-1.5">
+            {([
+              ["conservative", t.profileConservative],
+              ["yield", t.profileYield],
+              ["flipper", t.profileFlipper],
+            ] as const).map(([key, label]) => (
+              <button
+                key={key}
+                type="button"
+                onClick={() => applyProfile(key)}
+                className="rounded-full border border-forest-500/20 px-3 py-1 text-[11px] font-medium text-forest-500/75 transition-colors hover:border-brass-500 hover:text-brass-600"
+              >
+                {label}
+              </button>
+            ))}
           </div>
         </div>
 
@@ -479,10 +568,15 @@ export function RoiCalculator({
               <p className="text-[11px] text-forest-500/55">{t.costsToggleHint(currency)}</p>
               <PctOrMoneyField label={t.entryCosts} t={t} pctValue={inputs.closingCostsPct} priceThb={inputs.purchasePriceThb} currency={currency} fx={fx} rates={rates} min={0} max={20} step={0.5} onChangePct={(v) => set({ closingCostsPct: v })} small />
               <PctOrMoneyField label={t.exitCosts} t={t} pctValue={inputs.saleCostsPct} priceThb={inputs.purchasePriceThb} currency={currency} fx={fx} rates={rates} min={0} max={20} step={0.5} onChangePct={(v) => set({ saleCostsPct: v })} small />
+              <SliderField label={t.cgtLabel} value={inputs.capitalGainsTaxPct} step={1} min={0} max={40} onChange={(v) => set({ capitalGainsTaxPct: v })} small />
               <PctOrMoneyField label={t.annualHolding} t={t} pctValue={inputs.annualHoldingPct} priceThb={inputs.purchasePriceThb} currency={currency} fx={fx} rates={rates} min={0} max={10} step={0.1} onChangePct={(v) => set({ annualHoldingPct: v })} small />
               <SliderField label={t.bankRate} value={inputs.bankRatePct} step={0.25} min={0} max={10} onChange={(v) => set({ bankRatePct: v })} small />
               <SliderField label={t.altReturnLabel} value={inputs.altReturnPct} step={0.5} min={0} max={20} onChange={(v) => set({ altReturnPct: v })} small />
               <SliderField label={t.inflationLabel} value={inputs.inflationPct} step={0.5} min={0} max={15} onChange={(v) => set({ inflationPct: v })} small />
+              <div>
+                <SliderField label={t.fxDriftLabel} value={inputs.fxDriftPct} step={0.5} min={-10} max={10} onChange={(v) => set({ fxDriftPct: v })} small />
+                <p className="mt-1 text-[11px] leading-relaxed text-forest-500/50">{t.fxDriftHint}</p>
+              </div>
             </div>
           ) : null}
         </div>
@@ -498,10 +592,11 @@ export function RoiCalculator({
             <div className="flex items-center gap-2">
               <button
                 type="button"
-                onClick={() => setPinned({ proj: r.projectedValue, roi: r.roiPct, profit: r.netProfit, label: isOffplan ? t.offplan : isRent ? t.buyRent : t.buyHold })}
-                title={t.pinScenario}
-                aria-label={t.pinScenario}
-                className="inline-flex items-center rounded-sm border border-forest-500/20 p-1.5 text-forest-500/60 transition-colors hover:border-forest-500/50 hover:text-forest-500"
+                onClick={addScenario}
+                disabled={scenarios.length >= 3}
+                title={t.addScenario}
+                aria-label={t.addScenario}
+                className="inline-flex items-center rounded-sm border border-forest-500/20 p-1.5 text-forest-500/60 transition-colors hover:border-forest-500/50 hover:text-forest-500 disabled:cursor-not-allowed disabled:opacity-40"
               >
                 <Pin className="h-3.5 w-3.5" />
               </button>
@@ -516,6 +611,15 @@ export function RoiCalculator({
             <p className="num mt-1 text-sm text-forest-500/55">≈ {money(r.realProjectedValue, true)} {t.inTodaysMoney}</p>
           ) : null}
 
+          <Verdict r={r} grade={dealGrade(r, isRent)} money={money} t={t} />
+
+          {inputs.fxDriftPct !== 0 ? (
+            <div className="mt-3 rounded-sm border border-forest-500/10 bg-forest-500/[0.03] p-3">
+              <p className="text-[11px] font-medium uppercase tracking-wide text-forest-500/55">{t.fxReturnTitle}</p>
+              <p className="num mt-0.5 text-sm text-forest-900">{t.fxReturnLine(fmtPct(r.roiFxPct), fmtPct(r.cagrFxPct))}</p>
+            </div>
+          ) : null}
+
           <div className="mt-6 grid grid-cols-3 gap-4 border-t border-forest-500/10 pt-6">
             <Kpi label={t.totalRoi} value={fmtPct(r.roiPct)} accent tip={t.defRoi} />
             <Kpi label={t.cagrYear} value={fmtPct(r.cagrPct)} tip={t.defCagr} />
@@ -526,33 +630,24 @@ export function RoiCalculator({
           ) : null}
 
           {isOffplan ? (
-            <div className="mt-4 grid grid-cols-3 gap-4 border-t border-forest-500/10 pt-4">
+            <div className="mt-4 grid grid-cols-2 gap-4 border-t border-forest-500/10 pt-4 sm:grid-cols-4">
               <Kpi label={t.valueAtHandover} value={money(r.handoverValue)} />
               <Kpi label={t.irrYear} value={fmtPct(r.irrPct)} accent tip={t.defIrr} />
               <Kpi label={t.totalInvested} value={money(r.initialInvestment)} />
+              <Kpi label={t.paybackKpi} value={r.paybackYears != null ? t.paybackVal(r.paybackYears.toFixed(1)) : t.paybackNever} tip={t.defPayback} />
             </div>
           ) : isRent ? (
             <div className="mt-4 grid grid-cols-2 gap-4 border-t border-forest-500/10 pt-4 sm:grid-cols-4">
               <Kpi label={t.capRate} value={fmtPct(r.capRatePct)} tip={t.defCapRate} />
               <Kpi label={t.cashOnCash} value={fmtPct(r.cashOnCashPct)} tip={t.defCashOnCash} />
               <Kpi label={t.grossYield} value={fmtPct(r.grossYieldPct)} tip={t.defGrossYield} />
-              <Kpi label={t.irrYear} value={fmtPct(r.irrPct)} tip={t.defIrr} />
+              <Kpi label={t.paybackKpi} value={r.paybackYears != null ? t.paybackVal(r.paybackYears.toFixed(1)) : t.paybackNever} tip={t.defPayback} />
             </div>
-          ) : null}
-
-          {pinned ? (
-            <div className="mt-4 rounded-sm border border-forest-500/15 bg-forest-500/[0.03] p-4">
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] uppercase tracking-wide text-forest-500/55">{t.pinnedLabel}: {pinned.label}</span>
-                <button type="button" onClick={() => setPinned(null)} className="text-[11px] text-forest-500/60 hover:text-forest-500">{t.clearPin}</button>
-              </div>
-              <div className="mt-3 grid grid-cols-3 gap-3">
-                <CompareCell label={t.projectedValueIn(inputs.years)} pinned={money(pinned.proj)} current={money(r.projectedValue)} delta={r.projectedValue - pinned.proj} money={money} />
-                <CompareCell label={t.totalRoi} pinned={fmtPct(pinned.roi)} current={fmtPct(r.roiPct)} deltaPct={r.roiPct - pinned.roi} />
-                <CompareCell label={t.netProfit} pinned={money(pinned.profit)} current={money(r.netProfit)} delta={r.netProfit - pinned.profit} money={money} />
-              </div>
+          ) : (
+            <div className="mt-4 grid grid-cols-3 gap-4 border-t border-forest-500/10 pt-4">
+              <Kpi label={t.paybackKpi} value={r.paybackYears != null ? t.paybackVal(r.paybackYears.toFixed(1)) : t.paybackNever} tip={t.defPayback} />
             </div>
-          ) : null}
+          )}
 
           <div className="mt-6 space-y-2">
             <CalcLeadButton message={calcSummary} rwNumber={excludeRw} />
@@ -567,129 +662,199 @@ export function RoiCalculator({
           </div>
         </div>
 
-        <BankCompare r={r} years={inputs.years} bankRate={inputs.bankRatePct} altRate={inputs.altReturnPct} money={money} t={t} />
-
-        <BreakEven be={breakEven} beatsNow={r.vsBankThb >= 0} t={t} />
-
-        <div className="mt-6 rounded-sm border border-forest-500/10 bg-cream-50 p-6">
-          <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
-            <TrendingUp className="h-4 w-4" />
-            {isOffplan && !inputs.rentAfterHandover ? t.capitalGrowth : t.returnVsBankTitle}
-          </div>
-          <GrowthChart r={r} money={money} t={t} mode={isOffplan && !inputs.rentAfterHandover ? "asset" : "owner"} />
+        {/* Result tabs — keep the analytical depth without a long scroll. */}
+        <div className="mt-6 flex flex-wrap gap-1 border-b border-forest-500/15">
+          {([
+            ["summary", t.tabSummary],
+            ["returns", t.tabReturns],
+            ["risk", t.tabRisk],
+            ["compare", scenarios.length ? `${t.tabCompare} (${scenarios.length})` : t.tabCompare],
+          ] as const).map(([k, label]) => (
+            <button
+              key={k}
+              type="button"
+              onClick={() => setTab(k)}
+              className={`-mb-px border-b-2 px-3 py-2 text-sm font-medium transition-colors ${
+                tab === k ? "border-brass-500 text-forest-900" : "border-transparent text-forest-500/60 hover:text-forest-500"
+              }`}
+            >
+              {label}
+            </button>
+          ))}
         </div>
 
-        <RoiMatches
-          inputs={inputs}
-          targetRoi={targetRoi}
-          setTargetRoi={setTargetRoi}
-          roiVariesByPrice={roiVariesByPrice}
-          catalog={catalog}
-          market={market}
-          excludeRw={excludeRw}
-          t={t}
-        />
-
-        <div className="mt-6">
-          <button
-            type="button"
-            onClick={() => setShowYears((v) => !v)}
-            className="flex items-center gap-1.5 text-sm font-medium text-forest-500/80 hover:text-forest-500"
-          >
-            <ChevronDown className={`h-4 w-4 transition-transform ${showYears ? "rotate-180" : ""}`} />
-            {t.showYearByYear}
-          </button>
-          {showYears ? <YearTable r={r} money={money} isRent={isRent} t={t} /> : null}
-        </div>
-
-        {/* Sensitivity — ROI as the main driver moves around the base case */}
-        <div className="mt-4">
-          <button
-            type="button"
-            onClick={() => setShowSens((v) => !v)}
-            className="flex items-center gap-1.5 text-sm font-medium text-forest-500/80 hover:text-forest-500"
-          >
-            <ChevronDown className={`h-4 w-4 transition-transform ${showSens ? "rotate-180" : ""}`} />
-            {t.sensitivityTitle}
-          </button>
-          {showSens ? <Sensitivity inputs={inputs} isRent={isRent} t={t} /> : null}
-        </div>
-
-        {/* Monte Carlo — probabilistic outcome distribution over the data bands */}
-        <div className="mt-4">
-          <button
-            type="button"
-            onClick={() => setShowMc((v) => !v)}
-            className="flex items-center gap-1.5 text-sm font-medium text-forest-500/80 hover:text-forest-500"
-          >
-            <Dices className="h-4 w-4" />
-            {t.mcTitle}
-          </button>
-          {showMc && mc ? (
-            <MonteCarlo mc={mc} rent={roiVariesByPrice} altRate={inputs.altReturnPct} t={t} />
-          ) : null}
-        </div>
-
-        {/* Reverse: solve max price for a target return */}
-        <div className="mt-4">
-          <button
-            type="button"
-            onClick={() => setShowSolver((v) => !v)}
-            className="flex items-center gap-1.5 text-sm font-medium text-forest-500/80 hover:text-forest-500"
-          >
-            <ChevronDown className={`h-4 w-4 transition-transform ${showSolver ? "rotate-180" : ""}`} />
-            {t.findMaxPrice}
-          </button>
-          {showSolver ? (
-            <div className="mt-4 space-y-4 rounded-sm border border-forest-500/10 bg-cream-50 p-6">
-              <div className="flex flex-wrap items-end gap-3">
-                <div>
-                  <label className="text-xs text-forest-500/70">{t.targetMetric}</label>
-                  <select
-                    value={solverMetric}
-                    onChange={(e) => setSolverMetric(e.target.value as SolveMetric)}
-                    className="mt-1.5 block rounded-sm border border-forest-500/20 bg-cream-50 px-3 py-2 text-sm text-forest-900 focus:border-forest-500 focus:outline-none"
-                  >
-                    <option value="roi">{t.solveRoi}</option>
-                    <option value="cap">{t.solveCap}</option>
-                    <option value="coc">{t.solveCoc}</option>
-                    <option value="irr">{t.solveIrr}</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="text-xs text-forest-500/70">{t.targetPct}</label>
-                  <input
-                    type="number"
-                    value={solverTarget}
-                    step={1}
-                    onChange={(e) => setSolverTarget(Number(e.target.value))}
-                    className="mt-1.5 block w-28 rounded-sm border border-forest-500/20 bg-cream-50 px-3 py-2 text-sm text-forest-900 focus:border-forest-500 focus:outline-none"
-                  />
-                </div>
+        {tab === "summary" ? (
+          <>
+            <BankCompare r={r} years={inputs.years} bankRate={inputs.bankRatePct} altRate={inputs.altReturnPct} money={money} t={t} />
+            <BreakEven be={breakEven} beatsNow={r.vsBankThb >= 0} t={t} />
+            <div className="mt-6 rounded-sm border border-forest-500/10 bg-cream-50 p-6">
+              <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+                <TrendingUp className="h-4 w-4" />
+                {isOffplan && !inputs.rentAfterHandover ? t.capitalGrowth : t.returnVsBankTitle}
               </div>
-              {solvedMaxPrice != null ? (
-                <div>
-                  <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">{t.maxPurchasePrice}</p>
-                  <p className="num mt-1 text-3xl text-forest-900">{money(solvedMaxPrice, true)}</p>
-                  <p className="mt-1 text-[11px] text-forest-500/50">
-                    {t.payUpTo(solverTarget, solveLabels(t)[solverMetric])}
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => set({ purchasePriceThb: Math.round(solvedMaxPrice) })}
-                    className="mt-3 inline-flex items-center gap-2 rounded-sm border border-forest-500/25 px-4 py-2 text-sm font-medium text-forest-500 transition-colors hover:border-forest-500/50 hover:bg-forest-500/[0.04]"
-                  >
-                    {t.applyThisPrice}
-                  </button>
-                </div>
-              ) : (
-                <p className="text-sm leading-relaxed text-forest-500/60">
-                  {isRent ? t.unreachableRent : t.unreachableHold}
-                </p>
-              )}
+              <GrowthChart r={r} money={money} t={t} mode={isOffplan && !inputs.rentAfterHandover ? "asset" : "owner"} />
             </div>
-          ) : null}
-        </div>
+          </>
+        ) : null}
+
+        {tab === "returns" ? (
+          <>
+            <Waterfall r={r} money={money} isRent={isRent || isLet} t={t} />
+            <RoiMatches
+              inputs={inputs}
+              targetRoi={targetRoi}
+              setTargetRoi={setTargetRoi}
+              roiVariesByPrice={roiVariesByPrice}
+              catalog={catalog}
+              market={market}
+              excludeRw={excludeRw}
+              t={t}
+            />
+            <div className="mt-6">
+              <button
+                type="button"
+                onClick={() => setShowYears((v) => !v)}
+                className="flex items-center gap-1.5 text-sm font-medium text-forest-500/80 hover:text-forest-500"
+              >
+                <ChevronDown className={`h-4 w-4 transition-transform ${showYears ? "rotate-180" : ""}`} />
+                {t.showYearByYear}
+              </button>
+              {showYears ? <YearTable r={r} money={money} isRent={isRent} t={t} /> : null}
+            </div>
+            <div className="mt-4">
+              <button
+                type="button"
+                onClick={() => setShowSolver((v) => !v)}
+                className="flex items-center gap-1.5 text-sm font-medium text-forest-500/80 hover:text-forest-500"
+              >
+                <ChevronDown className={`h-4 w-4 transition-transform ${showSolver ? "rotate-180" : ""}`} />
+                {t.findMaxPrice}
+              </button>
+              {showSolver ? (
+                <div className="mt-4 space-y-4 rounded-sm border border-forest-500/10 bg-cream-50 p-6">
+                  <div className="flex flex-wrap items-end gap-3">
+                    <div>
+                      <label className="text-xs text-forest-500/70">{t.targetMetric}</label>
+                      <select
+                        value={solverMetric}
+                        onChange={(e) => setSolverMetric(e.target.value as SolveMetric)}
+                        className="mt-1.5 block rounded-sm border border-forest-500/20 bg-cream-50 px-3 py-2 text-sm text-forest-900 focus:border-forest-500 focus:outline-none"
+                      >
+                        <option value="roi">{t.solveRoi}</option>
+                        <option value="cap">{t.solveCap}</option>
+                        <option value="coc">{t.solveCoc}</option>
+                        <option value="irr">{t.solveIrr}</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="text-xs text-forest-500/70">{t.targetPct}</label>
+                      <input
+                        type="number"
+                        value={solverTarget}
+                        step={1}
+                        onChange={(e) => setSolverTarget(Number(e.target.value))}
+                        className="mt-1.5 block w-28 rounded-sm border border-forest-500/20 bg-cream-50 px-3 py-2 text-sm text-forest-900 focus:border-forest-500 focus:outline-none"
+                      />
+                    </div>
+                  </div>
+                  {solvedMaxPrice != null ? (
+                    <div>
+                      <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">{t.maxPurchasePrice}</p>
+                      <p className="num mt-1 text-3xl text-forest-900">{money(solvedMaxPrice, true)}</p>
+                      <p className="mt-1 text-[11px] text-forest-500/50">
+                        {t.payUpTo(solverTarget, solveLabels(t)[solverMetric])}
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => set({ purchasePriceThb: Math.round(solvedMaxPrice) })}
+                        className="mt-3 inline-flex items-center gap-2 rounded-sm border border-forest-500/25 px-4 py-2 text-sm font-medium text-forest-500 transition-colors hover:border-forest-500/50 hover:bg-forest-500/[0.04]"
+                      >
+                        {t.applyThisPrice}
+                      </button>
+                    </div>
+                  ) : (
+                    <p className="text-sm leading-relaxed text-forest-500/60">
+                      {isRent ? t.unreachableRent : t.unreachableHold}
+                    </p>
+                  )}
+                </div>
+              ) : null}
+            </div>
+          </>
+        ) : null}
+
+        {tab === "risk" ? (
+          <div className="mt-6">
+            <RealityCheck inputs={inputs} market={market} t={t} />
+            {/* Sensitivity — ROI as the main driver moves around the base case */}
+            <div className="mt-4">
+              <button
+                type="button"
+                onClick={() => setShowSens((v) => !v)}
+                className="flex items-center gap-1.5 text-sm font-medium text-forest-500/80 hover:text-forest-500"
+              >
+                <ChevronDown className={`h-4 w-4 transition-transform ${showSens ? "rotate-180" : ""}`} />
+                {t.sensitivityTitle}
+              </button>
+              {showSens ? <Sensitivity inputs={inputs} isRent={isRent} t={t} /> : null}
+            </div>
+            {/* Two-way sensitivity matrix */}
+            <div className="mt-4">
+              <button
+                type="button"
+                onClick={() => setShowMatrix((v) => !v)}
+                className="flex items-center gap-1.5 text-sm font-medium text-forest-500/80 hover:text-forest-500"
+              >
+                <ChevronDown className={`h-4 w-4 transition-transform ${showMatrix ? "rotate-180" : ""}`} />
+                {t.matrixTitle}
+              </button>
+              {showMatrix ? <Matrix inputs={inputs} isRent={isRent} t={t} /> : null}
+            </div>
+            {/* Tornado — biggest levers */}
+            <div className="mt-4">
+              <button
+                type="button"
+                onClick={() => setShowTornado((v) => !v)}
+                className="flex items-center gap-1.5 text-sm font-medium text-forest-500/80 hover:text-forest-500"
+              >
+                <ChevronDown className={`h-4 w-4 transition-transform ${showTornado ? "rotate-180" : ""}`} />
+                {t.tornadoTitle}
+              </button>
+              {showTornado ? <Tornado inputs={inputs} isRent={isRent} isLet={isLet} t={t} /> : null}
+            </div>
+            {/* Monte Carlo — probabilistic outcome distribution over the data bands */}
+            <div className="mt-4">
+              <button
+                type="button"
+                onClick={() => setShowMc((v) => !v)}
+                className="flex items-center gap-1.5 text-sm font-medium text-forest-500/80 hover:text-forest-500"
+              >
+                <Dices className="h-4 w-4" />
+                {t.mcTitle}
+              </button>
+              {showMc && mc ? (
+                <>
+                  <MonteCarlo mc={mc} rent={roiVariesByPrice} altRate={inputs.altReturnPct} t={t} />
+                  <div className="mt-4 rounded-sm border border-forest-500/10 bg-cream-50 p-5">
+                    <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">{t.fanTitle}</p>
+                    <FanChart band={mc.band} money={money} t={t} />
+                  </div>
+                </>
+              ) : null}
+            </div>
+          </div>
+        ) : null}
+
+        {tab === "compare" ? (
+          <ScenarioCompare
+            scenarios={scenarios}
+            current={currentScenario}
+            onRemove={(id) => setScenarios((p) => p.filter((s) => s.id !== id))}
+            onClear={() => setScenarios([])}
+            money={money}
+            t={t}
+          />
+        ) : null}
 
         <SimilarObjects price={inputs.purchasePriceThb} catalog={catalog} excludeRw={excludeRw} money={money} t={t} />
 
@@ -804,40 +969,6 @@ function InfoTip({ text }: { text: string }) {
   );
 }
 
-/** One metric in the pinned-vs-current comparison strip. */
-function CompareCell({
-  label,
-  pinned,
-  current,
-  delta,
-  deltaPct,
-  money,
-}: {
-  label: string;
-  pinned: string;
-  current: string;
-  delta?: number;
-  deltaPct?: number;
-  money?: Money;
-}) {
-  const isPct = deltaPct !== undefined;
-  const raw = isPct ? deltaPct! : delta ?? 0;
-  const up = raw >= 0;
-  const deltaText = isPct
-    ? `${up ? "+" : ""}${deltaPct!.toLocaleString("en-US", { maximumFractionDigits: 1 })}pp`
-    : money
-      ? `${up ? "+" : "−"}${money(Math.abs(delta ?? 0))}`
-      : "";
-  return (
-    <div>
-      <p className="text-[10px] uppercase tracking-wide text-forest-500/50">{label}</p>
-      <p className="num mt-1 text-sm text-forest-500/55">{pinned}</p>
-      <p className="num text-sm text-forest-900">{current}</p>
-      {deltaText ? <p className={`num text-[11px] ${up ? "text-brass-600" : "text-red-600"}`}>{deltaText}</p> : null}
-    </div>
-  );
-}
-
 /** Break-even readout: the occupancy / growth at which the deal matches a deposit. */
 function BreakEven({
   be,
@@ -918,6 +1049,8 @@ function MonteCarlo({ mc, rent, altRate, t }: { mc: MonteCarloResult; rent: bool
       <div className="mt-3 space-y-1 text-sm text-forest-900">
         <p>{t.mcBeatBank(Math.round(mc.probBeatBank * 100))}</p>
         {altRate > 0 ? <p>{t.mcBeatIndex(Math.round(mc.probBeatAlt * 100))}</p> : null}
+        <p className={mc.probLoss > 0 ? "text-red-600" : "text-forest-500/70"}>{t.mcProbLoss(Math.round(mc.probLoss * 100))}</p>
+        <p className="text-forest-500/70">{t.mcVar(fmtPct(mc.p05))}</p>
       </div>
     </div>
   );
@@ -1489,6 +1622,349 @@ function RoiMatches({
           </div>
         </>
       )}
+    </div>
+  );
+}
+
+/** One-line plain-language verdict under the headline (deal · vs bank · payback · CAGR). */
+function Verdict({
+  r,
+  grade,
+  money,
+  t,
+}: {
+  r: RoiResult;
+  grade: "strong" | "fair" | "weak";
+  money: Money;
+  t: CalcDict;
+}) {
+  const dealWord = grade === "strong" ? t.dealStrong : grade === "fair" ? t.dealFair : t.dealWeak;
+  const bank = r.vsBankThb >= 0 ? t.verdictBeats(money(r.vsBankThb)) : t.verdictTrails(money(Math.abs(r.vsBankThb)));
+  const pay = r.paybackYears != null ? t.verdictProfitFrom(r.paybackYears.toFixed(1)) : t.verdictNoProfit;
+  const dot = grade === "strong" ? "bg-forest-500" : grade === "fair" ? "bg-brass-500" : "bg-red-500/70";
+  return (
+    <p className="mt-3 flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-sm leading-relaxed text-forest-500/75">
+      <span className={`inline-block h-2 w-2 shrink-0 rounded-full ${dot}`} />
+      <span className="font-medium text-forest-900">{dealWord}.</span>
+      <span>
+        {bank} · {pay} · CAGR {fmtPct(r.cagrPct)}/{t.unitYr}.
+      </span>
+    </p>
+  );
+}
+
+/** Capital flow waterfall — from cash invested to net profit over the hold. */
+function Waterfall({ r, money, isRent, t }: { r: RoiResult; money: Money; isRent: boolean; t: CalcDict }) {
+  const steps: { label: string; delta: number }[] = [
+    { label: t.wfInvested, delta: -r.initialInvestment },
+    { label: t.wfSale, delta: r.netProceeds },
+  ];
+  if (isRent && r.rentNetTotal !== 0) steps.push({ label: t.wfRent, delta: r.rentNetTotal });
+  if (r.holdingCostsTotal > 0) steps.push({ label: t.wfHolding, delta: -r.holdingCostsTotal });
+  if (r.capitalGainsTax > 0) steps.push({ label: t.wfCgt, delta: -r.capitalGainsTax });
+
+  let run = 0;
+  const bars = steps.map((s) => {
+    const start = run;
+    run += s.delta;
+    return { ...s, start, end: run };
+  });
+  const total = run; // == netProfit
+  const lo = Math.min(0, ...bars.map((b) => Math.min(b.start, b.end)));
+  const hi = Math.max(0, ...bars.map((b) => Math.max(b.start, b.end)), total);
+  const span = hi - lo || 1;
+  const xPct = (v: number) => ((v - lo) / span) * 100;
+  const rows = [...bars, { label: t.wfProfit, delta: total, start: 0, end: total, isTotal: true } as (typeof bars)[number] & { isTotal?: boolean }];
+
+  return (
+    <div className="mt-6 rounded-sm border border-forest-500/10 bg-cream-50 p-6">
+      <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">{t.waterfallTitle}</p>
+      <p className="mt-1 text-[11px] text-forest-500/55">{t.waterfallHint}</p>
+      <div className="mt-4 space-y-2">
+        {rows.map((b, i) => {
+          const left = Math.min(b.start, b.end);
+          const right = Math.max(b.start, b.end);
+          const isTotal = "isTotal" in b && b.isTotal;
+          const positive = b.delta >= 0;
+          const color = isTotal
+            ? total >= 0
+              ? "bg-forest-500"
+              : "bg-red-500/70"
+            : positive
+              ? "bg-forest-500/65"
+              : "bg-red-500/55";
+          return (
+            <div key={i} className="grid grid-cols-[7rem_1fr_auto] items-center gap-3">
+              <span className={`truncate text-xs ${isTotal ? "font-semibold text-forest-900" : "text-forest-500/70"}`}>{b.label}</span>
+              <div className="relative h-4 rounded-sm bg-forest-500/[0.04]">
+                <div className="absolute top-0 h-full w-px bg-forest-500/20" style={{ left: `${xPct(0)}%` }} />
+                <div
+                  className={`absolute top-0 h-full rounded-sm ${color}`}
+                  style={{ left: `${xPct(left)}%`, width: `${Math.max(0.8, xPct(right) - xPct(left))}%` }}
+                />
+              </div>
+              <span className={`w-20 shrink-0 text-right text-xs tabular-nums ${isTotal ? "font-semibold text-forest-900" : positive ? "text-forest-900" : "text-red-600"}`}>
+                {positive ? "" : "−"}{money(Math.abs(b.delta))}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/** Tornado: ROI swing when each driver alone moves low→high. Longest bar = biggest lever. */
+function Tornado({
+  inputs,
+  isRent,
+  isLet,
+  t,
+}: {
+  inputs: RoiInputs;
+  isRent: boolean;
+  isLet: boolean;
+  t: CalcDict;
+}) {
+  const base = computeRoi(inputs).roiPct;
+  const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
+  const roiAt = (patch: Partial<RoiInputs>) => computeRoi({ ...inputs, ...patch }).roiPct;
+  const rentish = isRent || isLet;
+
+  const drivers: { label: string; lo: number; hi: number }[] = [];
+  drivers.push({ label: t.driverGrowth, lo: roiAt({ annualGrowthPct: inputs.annualGrowthPct - 3 }), hi: roiAt({ annualGrowthPct: inputs.annualGrowthPct + 3 }) });
+  if (rentish) {
+    drivers.push({ label: t.driverOccupancy, lo: roiAt({ seasonality: false, occupancyPct: clamp(inputs.occupancyPct - 15, 0, 100) }), hi: roiAt({ seasonality: false, occupancyPct: clamp(inputs.occupancyPct + 15, 0, 100) }) });
+    drivers.push({ label: t.driverNightly, lo: roiAt({ nightlyRateThb: inputs.nightlyRateThb * 0.75 }), hi: roiAt({ nightlyRateThb: inputs.nightlyRateThb * 1.25 }) });
+    drivers.push({ label: t.driverMgmt, lo: roiAt({ mgmtFeePct: clamp(inputs.mgmtFeePct + 10, 0, 100) }), hi: roiAt({ mgmtFeePct: clamp(inputs.mgmtFeePct - 10, 0, 100) }) });
+  }
+  drivers.push({ label: t.driverExit, lo: roiAt({ saleCostsPct: clamp(inputs.saleCostsPct + 3, 0, 30) }), hi: roiAt({ saleCostsPct: clamp(inputs.saleCostsPct - 3, 0, 30) }) });
+  drivers.push({ label: t.driverHorizon, lo: roiAt({ years: Math.max(1, inputs.years - 3) }), hi: roiAt({ years: inputs.years + 3 }) });
+
+  const rows = drivers
+    .map((d) => ({ ...d, swing: Math.abs(d.hi - d.lo) }))
+    .sort((a, b) => b.swing - a.swing);
+  const domainLo = Math.min(base, ...rows.map((r) => Math.min(r.lo, r.hi)));
+  const domainHi = Math.max(base, ...rows.map((r) => Math.max(r.lo, r.hi)));
+  const span = domainHi - domainLo || 1;
+  const xPct = (v: number) => ((v - domainLo) / span) * 100;
+
+  return (
+    <div className="mt-4 rounded-sm border border-forest-500/10 bg-cream-50 p-5">
+      <p className="text-[11px] text-forest-500/60">{t.tornadoHint}</p>
+      <div className="mt-4 space-y-2.5">
+        {rows.map((d) => {
+          const left = Math.min(d.lo, d.hi);
+          const right = Math.max(d.lo, d.hi);
+          return (
+            <div key={d.label} className="grid grid-cols-[6.5rem_1fr_auto] items-center gap-3">
+              <span className="truncate text-xs text-forest-500/70">{d.label}</span>
+              <div className="relative h-4 rounded-sm bg-forest-500/[0.04]">
+                <div className="absolute top-0 z-10 h-full w-px bg-forest-900/40" style={{ left: `${xPct(base)}%` }} />
+                <div className="absolute top-0 h-full rounded-sm bg-brass-500/55" style={{ left: `${xPct(left)}%`, width: `${Math.max(1, xPct(right) - xPct(left))}%` }} />
+              </div>
+              <span className="w-24 shrink-0 text-right text-[11px] tabular-nums text-forest-500/70">
+                {fmtPct(left)} … {fmtPct(right)}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+      <p className="mt-3 text-[10px] text-forest-500/45">{t.sensDriverGrowth}: {fmtPct(base)} (base)</p>
+    </div>
+  );
+}
+
+/** Fan chart: P10–P90 band of owner return over time, with the median line. */
+function FanChart({ band, money, t }: { band: { year: number; p10: number; p50: number; p90: number }[]; money: Money; t: CalcDict }) {
+  if (band.length < 2) return null;
+  const W = 640;
+  const H = 180;
+  const pad = { l: 8, r: 8, t: 10, b: 20 };
+  const n = band.length - 1 || 1;
+  const maxV = Math.max(...band.map((b) => b.p90), 1);
+  const x = (i: number) => pad.l + (i / n) * (W - pad.l - pad.r);
+  const y = (v: number) => pad.t + (1 - v / maxV) * (H - pad.t - pad.b);
+  const topPts = band.map((b, i) => `${x(i)},${y(b.p90)}`);
+  const botPts = band.map((b, i) => `${x(i)},${y(b.p10)}`).reverse();
+  const areaPoints = [...topPts, ...botPts].join(" ");
+  const midLine = band.map((b, i) => `${x(i)},${y(b.p50)}`).join(" ");
+  const last = band[band.length - 1];
+  return (
+    <div className="mt-4">
+      <p className="text-[11px] text-forest-500/60">{t.fanHint}</p>
+      <svg viewBox={`0 0 ${W} ${H}`} className="mt-2 h-auto w-full select-none" role="img" aria-label="Range of outcomes over time">
+        <polygon points={areaPoints} fill="#B5651D" fillOpacity="0.15" />
+        <polyline points={band.map((b, i) => `${x(i)},${y(b.p90)}`).join(" ")} fill="none" stroke="#B5651D" strokeOpacity="0.4" strokeWidth="1" />
+        <polyline points={band.map((b, i) => `${x(i)},${y(b.p10)}`).join(" ")} fill="none" stroke="#B5651D" strokeOpacity="0.4" strokeWidth="1" />
+        <polyline points={midLine} fill="none" stroke="#B5651D" strokeWidth="2.5" />
+      </svg>
+      <div className="mt-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-[11px] text-forest-500/60">
+        <span className="inline-flex items-center gap-1.5"><span className="h-0.5 w-4 bg-brass-500" /> {t.fanMid}</span>
+        <span className="inline-flex items-center gap-1.5"><span className="h-2 w-4 bg-brass-500/20" /> {t.fanBand}</span>
+        <span className="tabular-nums">{t.yearN(last.year)}: {money(last.p10)} … {money(last.p90)}</span>
+      </div>
+    </div>
+  );
+}
+
+/** Two-way sensitivity heatmap — growth (rows) × occupancy/horizon (cols). */
+function Matrix({ inputs, isRent, t }: { inputs: RoiInputs; isRent: boolean; t: CalcDict }) {
+  const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
+  const rowSteps = [-3, -1.5, 0, 1.5, 3];
+  const colSteps = isRent ? [-20, -10, 0, 10, 20] : [-4, -2, 0, 2, 4];
+  const rowBase = inputs.annualGrowthPct;
+  const colBase = isRent ? inputs.occupancyPct : inputs.years;
+  const colVals = colSteps.map((c) => (isRent ? clamp(colBase + c, 0, 100) : Math.max(1, Math.round(colBase + c))));
+  const cells = rowSteps.map((rs) =>
+    colVals.map((cv) => {
+      const patch: Partial<RoiInputs> = { annualGrowthPct: rowBase + rs };
+      if (isRent) {
+        patch.seasonality = false;
+        patch.occupancyPct = cv;
+      } else {
+        patch.years = cv;
+      }
+      return computeRoi({ ...inputs, ...patch }).roiPct;
+    }),
+  );
+  const flat = cells.flat().filter((v) => Number.isFinite(v));
+  const min = Math.min(...flat);
+  const max = Math.max(...flat);
+  const tone = (v: number) => {
+    const f = max > min ? (v - min) / (max - min) : 0.5;
+    // red (low) → cream → forest (high)
+    return f < 0.5
+      ? `rgba(220,80,60,${0.12 + (0.5 - f) * 0.5})`
+      : `rgba(63,74,64,${0.1 + (f - 0.5) * 0.5})`;
+  };
+
+  return (
+    <div className="mt-4 rounded-sm border border-forest-500/10 bg-cream-50 p-5">
+      <p className="text-[11px] text-forest-500/60">{t.matrixHint(isRent ? t.sensDriverOccupancy : t.holdingPeriod)}</p>
+      <div className="mt-3 overflow-x-auto">
+        <table className="w-full border-collapse text-center text-[11px] tabular-nums">
+          <thead>
+            <tr>
+              <th className="p-1 text-left font-medium text-forest-500/50">{t.matrixGrowthAxis}</th>
+              {colVals.map((cv, i) => (
+                <th key={i} className="p-1 font-medium text-forest-500/60">{isRent ? `${cv}%` : `${cv}${t.unitYr}`}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {cells.map((row, ri) => (
+              <tr key={ri}>
+                <td className="p-1 text-left font-medium text-forest-500/60">{(rowBase + rowSteps[ri]).toLocaleString("en-US", { maximumFractionDigits: 1 })}%</td>
+                {row.map((v, ci) => (
+                  <td key={ci} className="rounded-sm p-1.5 text-forest-900" style={{ backgroundColor: tone(v) }}>
+                    {fmtPct(v)}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+/** Reality check — flags inputs that run ahead of what the market data supports. */
+function RealityCheck({ inputs, market, t }: { inputs: RoiInputs; market?: RentalMarket; t: CalcDict }) {
+  if (!market) return null;
+  const warns: string[] = [];
+  const adrHigh = Math.max(0, ...market.districts.map((d) => d.adrP75 ?? 0));
+  if (adrHigh > 0 && inputs.nightlyRateThb > adrHigh) warns.push(t.realityRateHigh(75));
+  const occHigh = Math.round((market.meta.occupancy.high || 0) * 100);
+  if (occHigh > 0 && inputs.occupancyPct > occHigh) warns.push(t.realityOccHigh(occHigh));
+  if (warns.length === 0) return null;
+  return (
+    <div className="mt-4 space-y-2 rounded-sm border border-amber-500/30 bg-amber-500/[0.07] p-4">
+      <p className="text-[11px] font-medium uppercase tracking-wide text-amber-700">{t.realityTitle}</p>
+      {warns.map((w, i) => (
+        <p key={i} className="flex gap-1.5 text-[11px] leading-relaxed text-amber-800">
+          <span aria-hidden>⚑</span>
+          <span>{w}</span>
+        </p>
+      ))}
+    </div>
+  );
+}
+
+/** Side-by-side comparison of pinned scenarios + the current one. */
+interface SavedScenario {
+  id: number;
+  label: string;
+  roi: number;
+  proj: number;
+  profit: number;
+  cagr: number;
+  payback: number | null;
+  vsBank: number;
+}
+function ScenarioCompare({
+  scenarios,
+  current,
+  onRemove,
+  onClear,
+  money,
+  t,
+}: {
+  scenarios: SavedScenario[];
+  current: SavedScenario;
+  onRemove: (id: number) => void;
+  onClear: () => void;
+  money: Money;
+  t: CalcDict;
+}) {
+  if (scenarios.length === 0) {
+    return (
+      <div className="mt-6 rounded-sm border border-forest-500/10 bg-cream-50 p-6">
+        <p className="text-sm leading-relaxed text-forest-500/60">{t.compareEmpty}</p>
+      </div>
+    );
+  }
+  const cols = [...scenarios, { ...current, id: -1, label: t.currentLabel }];
+  const rows: { label: string; fmt: (s: SavedScenario) => string }[] = [
+    { label: t.totalRoi, fmt: (s) => fmtPct(s.roi) },
+    { label: t.cagrYear, fmt: (s) => fmtPct(s.cagr) },
+    { label: t.thValue, fmt: (s) => money(s.proj) },
+    { label: t.netProfit, fmt: (s) => money(s.profit) },
+    { label: t.paybackKpi, fmt: (s) => (s.payback != null ? t.paybackVal(s.payback.toFixed(1)) : "—") },
+    { label: t.vsBank, fmt: (s) => money(s.vsBank) },
+  ];
+  return (
+    <div className="mt-6 overflow-x-auto rounded-sm border border-forest-500/10 bg-cream-50 p-6">
+      <div className="mb-3 flex items-center justify-between">
+        <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">{t.compareTitle}</p>
+        <button type="button" onClick={onClear} className="text-[11px] text-forest-500/60 hover:text-forest-500">{t.clearAll}</button>
+      </div>
+      <table className="w-full text-sm tabular-nums">
+        <thead>
+          <tr className="text-left text-[11px] uppercase tracking-wide text-forest-500/55">
+            <th className="py-2 pr-3 font-medium" />
+            {cols.map((c) => (
+              <th key={c.id} className="px-3 py-2 font-medium">
+                <span className={c.id === -1 ? "text-brass-600" : "text-forest-900"}>{c.label}</span>
+                {c.id !== -1 ? (
+                  <button type="button" onClick={() => onRemove(c.id)} className="ml-1.5 text-forest-500/40 hover:text-red-600" aria-label={t.removeScenario}>×</button>
+                ) : null}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr key={row.label} className="border-t border-forest-500/10">
+              <td className="py-2 pr-3 text-[11px] uppercase tracking-wide text-forest-500/55">{row.label}</td>
+              {cols.map((c) => (
+                <td key={c.id} className={`px-3 py-2 ${c.id === -1 ? "font-medium text-forest-900" : "text-forest-500/80"}`}>{row.fmt(c)}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
