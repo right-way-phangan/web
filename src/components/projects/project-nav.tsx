@@ -25,11 +25,20 @@ export function ProjectNav({
   const [active, setActive] = useState(items[0]?.id);
   const navRef = useRef<HTMLElement>(null);
 
-  // Keep the active tab in view as the user scrolls the page (mobile esp.).
+  // Keep the active tab centered in the nav strip as the user scrolls (mobile
+  // esp.). Scroll ONLY the horizontal strip — never el.scrollIntoView(), which
+  // also scrolls the window vertically and fought the user's scroll on mobile
+  // (page jitter / couldn't reach the bottom of a long project landing).
   useEffect(() => {
     if (!active) return;
-    const el = navRef.current?.querySelector<HTMLElement>(`[data-nav-id="${active}"]`);
-    el?.scrollIntoView({ block: "nearest", inline: "center" });
+    const nav = navRef.current;
+    const el = nav?.querySelector<HTMLElement>(`[data-nav-id="${active}"]`);
+    if (!nav || !el) return;
+    const navRect = nav.getBoundingClientRect();
+    const elRect = el.getBoundingClientRect();
+    const delta =
+      elRect.left + elRect.width / 2 - (navRect.left + navRect.width / 2);
+    nav.scrollBy({ left: delta, behavior: "smooth" });
   }, [active]);
 
   useEffect(() => {

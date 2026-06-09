@@ -62,32 +62,36 @@ export function HeroBackground({
 
   return (
     <div className="absolute inset-0 overflow-hidden bg-forest-900">
-      {/* Fallback / LCP layer — always present underneath the scene crossfade. */}
-      <Image
-        src={fallbackSrc}
-        alt={fallbackAlt}
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover"
-      />
-
-      {scenes.map((scene, i) => (
+      {/* One continuous Ken-Burns drift on the whole image stack — never a
+          per-frame transform toggle (that snapped scale back on the fading
+          frame and caused a visible jerk just before each crossfade). The
+          crossfade is opacity-only; the slow zoom rides underneath it. */}
+      <div className="absolute inset-0 motion-safe:animate-[heroDrift_28s_ease-in-out_infinite_alternate]">
+        {/* Fallback / LCP layer — always present underneath the scene crossfade. */}
         <Image
-          key={scene.src}
-          src={scene.src}
-          alt={scene.alt || fallbackAlt}
+          src={fallbackSrc}
+          alt={fallbackAlt}
           fill
+          priority
           sizes="100vw"
-          aria-hidden={i !== idx}
-          className={[
-            "object-cover transition-opacity duration-[1200ms] ease-in-out motion-safe:will-change-transform",
-            i === idx
-              ? "opacity-100 motion-safe:animate-[heroDrift_12s_ease-out_forwards]"
-              : "opacity-0",
-          ].join(" ")}
+          className="object-cover"
         />
-      ))}
+
+        {scenes.map((scene, i) => (
+          <Image
+            key={scene.src}
+            src={scene.src}
+            alt={scene.alt || fallbackAlt}
+            fill
+            sizes="100vw"
+            aria-hidden={i !== idx}
+            className={[
+              "object-cover transition-opacity duration-[1200ms] ease-in-out",
+              i === idx ? "opacity-100" : "opacity-0",
+            ].join(" ")}
+          />
+        ))}
+      </div>
 
       {/* Dot indicators — quietly clickable, hidden when there's nothing to cycle. */}
       {scenes.length > 1 ? (
