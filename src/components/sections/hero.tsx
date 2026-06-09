@@ -1,7 +1,7 @@
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { HeroBackground } from "./hero-background";
 
 export function Hero() {
   return (
@@ -9,15 +9,13 @@ export function Hero() {
       aria-label="Hero"
       className="relative isolate overflow-hidden bg-forest-900"
     >
-      {/* Aerial of a Phangan beachfront plot (RW-0516 original, unwatermarked) */}
-      <Image
-        src="/hero-phangan.jpg"
-        alt="Aerial view of a beachfront on Koh Phangan"
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover"
+      {/* Crossfading Phangan scenes (self-refreshing from our catalog), with the
+          aerial of RW-0516 as the static LCP fallback underneath. */}
+      <HeroBackground
+        fallbackSrc="/hero-phangan.jpg"
+        fallbackAlt="Aerial view of a beachfront on Koh Phangan"
       />
+
       {/* Scrim for text legibility + fade into the cream section below */}
       <div
         className="absolute inset-0 bg-gradient-to-tr from-forest-900/85 via-forest-900/55 to-forest-900/25"

@@ -25,7 +25,7 @@ export async function FeaturedListings() {
             Featured
           </p>
           <h2 className="mt-4 max-w-3xl text-balance">
-            A few off the island right now.
+            A few on the island right now.
           </h2>
           <p className="mt-6 max-w-xl text-lg text-forest-500/70">
             Hand-picked land and homes across Phangan&apos;s best districts.

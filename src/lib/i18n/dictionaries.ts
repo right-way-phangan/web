@@ -126,8 +126,20 @@ export function getHomeDict(locale: Locale): HomeDict {
 
 // ---- Global chrome (header nav + CTA) ----
 
+export interface NavItem {
+  label: string;
+  href: string;
+}
+export interface NavGroup {
+  label: string;
+  items: NavItem[];
+}
 export interface ChromeDict {
-  nav: { label: string; href: string }[];
+  // Primary links sit directly in the bar; groups collapse the long tail into
+  // labelled dropdowns (desktop) / sections (mobile). Keep both in sync with
+  // siteConfig routes. Use flatNav() when a flat list is needed (footer, etc.).
+  nav: NavItem[];
+  groups: NavGroup[];
   getInTouch: string;
   savedAria: string;
   footer: {
@@ -151,14 +163,26 @@ const chrome: Record<Locale, ChromeDict> = {
       { label: "Listings", href: "/listings" },
       { label: "Projects", href: "/projects" },
       { label: "Districts", href: "/districts" },
-      { label: "Calculator", href: "/calculator" },
-      { label: "Insights", href: "/insights" },
-      { label: "Services", href: "/services" },
-      { label: "Process", href: "/process" },
-      { label: "About", href: "/about" },
-      { label: "Knowledge", href: "/knowledge" },
-      { label: "FAQ", href: "/faq" },
-      { label: "Contact", href: "/contact" },
+    ],
+    groups: [
+      {
+        label: "Resources",
+        items: [
+          { label: "Calculator", href: "/calculator" },
+          { label: "Insights", href: "/insights" },
+          { label: "Knowledge", href: "/knowledge" },
+          { label: "FAQ", href: "/faq" },
+        ],
+      },
+      {
+        label: "Company",
+        items: [
+          { label: "About", href: "/about" },
+          { label: "Services", href: "/services" },
+          { label: "Process", href: "/process" },
+          { label: "Contact", href: "/contact" },
+        ],
+      },
     ],
     getInTouch: "Get in touch",
     savedAria: "Saved listings",
@@ -181,14 +205,26 @@ const chrome: Record<Locale, ChromeDict> = {
       { label: "Объекты", href: "/ru/listings" },
       { label: "Проекты", href: "/ru/projects" },
       { label: "Районы", href: "/ru/districts" },
-      { label: "Калькулятор", href: "/ru/calculator" },
-      { label: "Аналитика", href: "/ru/insights" },
-      { label: "Услуги", href: "/ru/services" },
-      { label: "Процесс", href: "/ru/process" },
-      { label: "О нас", href: "/ru/about" },
-      { label: "База знаний", href: "/ru/knowledge" },
-      { label: "FAQ", href: "/ru/faq" },
-      { label: "Контакты", href: "/ru/contact" },
+    ],
+    groups: [
+      {
+        label: "Ресурсы",
+        items: [
+          { label: "Калькулятор", href: "/ru/calculator" },
+          { label: "Аналитика", href: "/ru/insights" },
+          { label: "База знаний", href: "/ru/knowledge" },
+          { label: "FAQ", href: "/ru/faq" },
+        ],
+      },
+      {
+        label: "Агентство",
+        items: [
+          { label: "О нас", href: "/ru/about" },
+          { label: "Услуги", href: "/ru/services" },
+          { label: "Процесс", href: "/ru/process" },
+          { label: "Контакты", href: "/ru/contact" },
+        ],
+      },
     ],
     getInTouch: "Связаться",
     savedAria: "Избранные объекты",
@@ -208,6 +244,11 @@ const chrome: Record<Locale, ChromeDict> = {
 
 export function getChromeDict(locale: Locale): ChromeDict {
   return chrome[locale];
+}
+
+/** Flat list of every nav destination (primary + grouped) — for the footer. */
+export function flatNav(c: ChromeDict): NavItem[] {
+  return [...c.nav, ...c.groups.flatMap((g) => g.items)];
 }
 
 // ---- Lead form labels ----

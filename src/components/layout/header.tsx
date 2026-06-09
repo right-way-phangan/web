@@ -5,12 +5,13 @@ import type { Route } from "next";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
-import { Menu, X, Heart } from "lucide-react";
+import { Menu, X, Heart, ChevronDown } from "lucide-react";
 import { Logo } from "./logo";
 import { LanguageSwitcher } from "@/components/i18n/language-switcher";
 import { Button } from "@/components/ui/button";
 import { useSaved } from "@/lib/saved/saved-context";
 import { getChromeDict } from "@/lib/i18n/dictionaries";
+import type { NavGroup } from "@/lib/i18n/dictionaries";
 import {
   siteConfig,
   telegramDmLink,
@@ -27,6 +28,9 @@ export function Header() {
   const chrome = getChromeDict(isRu ? "ru" : "en");
   const contactHref = (isRu ? "/ru/contact" : "/contact") as Route;
   const savedHref = isRu ? "/ru/saved" : "/saved";
+
+  const isActive = (href: string) =>
+    pathname === href || pathname.startsWith(`${href}/`);
 
   // The overlay must portal to <body>: the header's backdrop-blur creates a
   // containing block that would otherwise trap our position:fixed overlay.
@@ -58,19 +62,26 @@ export function Header() {
       <div className="container-prose flex h-16 items-center justify-between md:h-20">
         <Logo />
 
-        <nav className="hidden xl:flex items-center gap-x-5" aria-label="Primary">
+        <nav className="hidden lg:flex items-center gap-x-6" aria-label="Primary">
           {chrome.nav.map((item) => (
             <Link
               key={item.href}
               href={item.href as Route}
-              className="whitespace-nowrap text-sm text-forest-500 hover:text-brass-500 transition-colors"
+              aria-current={isActive(item.href) ? "page" : undefined}
+              className={cn(
+                "whitespace-nowrap text-sm transition-colors hover:text-brass-500",
+                isActive(item.href) ? "text-brass-500" : "text-forest-500",
+              )}
             >
               {item.label}
             </Link>
           ))}
+          {chrome.groups.map((group) => (
+            <NavDropdown key={group.label} group={group} isActive={isActive} />
+          ))}
         </nav>
 
-        <div className="hidden xl:flex xl:items-center xl:gap-3">
+        <div className="hidden lg:flex lg:items-center lg:gap-3">
           <LanguageSwitcher />
           <SavedLink count={savedCount} label={chrome.savedAria} href={savedHref} />
           <Button asChild variant="outline" size="sm">
@@ -78,7 +89,7 @@ export function Header() {
           </Button>
         </div>
 
-        <div className="flex items-center gap-1 xl:hidden">
+        <div className="flex items-center gap-1 lg:hidden">
           <SavedLink count={savedCount} label={chrome.savedAria} href={savedHref} />
           <button
             type="button"
@@ -86,7 +97,7 @@ export function Header() {
             aria-expanded={open}
             aria-controls="mobile-nav"
             onClick={() => setOpen(true)}
-            className="flex h-10 w-10 items-center justify-center rounded-sm text-forest-500"
+            className="flex h-11 w-11 items-center justify-center rounded-sm text-forest-500"
           >
             <Menu className="h-5 w-5" />
           </button>
@@ -103,7 +114,7 @@ export function Header() {
               aria-modal="true"
               aria-label="Navigation"
               className={cn(
-                "fixed inset-0 z-50 flex flex-col bg-cream-100 xl:hidden",
+                "fixed inset-0 z-50 flex flex-col bg-cream-100 lg:hidden",
                 "transition-[opacity,transform] duration-300 ease-out",
                 open
                   ? "opacity-100 translate-y-0 pointer-events-auto"
@@ -126,14 +137,13 @@ export function Header() {
           className="w-full flex-1 overflow-y-auto px-6 md:px-8"
           aria-label="Mobile"
         >
-          <ul className="flex min-h-full flex-col justify-center py-6">
+          <ul className="flex flex-col py-6">
             {chrome.nav.map((item, i) => {
-              const active =
-                pathname === item.href || pathname.startsWith(`${item.href}/`);
+              const active = isActive(item.href);
               return (
                 <li
                   key={item.href}
-                  className="border-b border-forest-500/10 last:border-b-0"
+                  className="border-b border-forest-500/10"
                 >
                   <Link
                     href={item.href as Route}
@@ -164,6 +174,36 @@ export function Header() {
               );
             })}
           </ul>
+
+          {chrome.groups.map((group) => (
+            <div key={group.label} className="pb-6">
+              <p className="pt-2 text-xs font-medium uppercase tracking-[0.25em] text-forest-500/40">
+                {group.label}
+              </p>
+              <ul className="mt-2 flex flex-col">
+                {group.items.map((item) => {
+                  const active = isActive(item.href);
+                  return (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href as Route}
+                        onClick={() => setOpen(false)}
+                        aria-current={active ? "page" : undefined}
+                        className={cn(
+                          "block py-2.5 font-serif text-lg leading-none tracking-tight transition-colors",
+                          active
+                            ? "text-brass-500"
+                            : "text-forest-500 hover:text-brass-500",
+                        )}
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ))}
         </nav>
 
         <div className="w-full space-y-5 border-t border-forest-500/10 px-6 py-6 md:px-8">
@@ -209,6 +249,68 @@ export function Header() {
   );
 }
 
+/**
+ * Desktop nav dropdown. Pure CSS hover/focus — no client state — so it stays
+ * cheap and keyboard-reachable: focusing the trigger or tabbing into a link
+ * opens the panel via group-focus-within. A pt-3 bridge keeps the hover target
+ * connected to the trigger so the panel doesn't drop on the way down.
+ */
+function NavDropdown({
+  group,
+  isActive,
+}: {
+  group: NavGroup;
+  isActive: (href: string) => boolean;
+}) {
+  const groupActive = group.items.some((item) => isActive(item.href));
+  return (
+    <div className="group relative">
+      <button
+        type="button"
+        aria-haspopup="true"
+        className={cn(
+          "flex items-center gap-1 whitespace-nowrap text-sm transition-colors hover:text-brass-500",
+          groupActive ? "text-brass-500" : "text-forest-500",
+        )}
+      >
+        {group.label}
+        <ChevronDown
+          className="h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-180"
+          aria-hidden
+        />
+      </button>
+      <div
+        className={cn(
+          "invisible absolute left-1/2 top-full z-50 -translate-x-1/2 pt-3 opacity-0",
+          "transition-[opacity] duration-150",
+          "group-hover:visible group-hover:opacity-100",
+          "group-focus-within:visible group-focus-within:opacity-100",
+        )}
+      >
+        <ul className="min-w-44 rounded-md border border-forest-500/10 bg-cream-50 p-2 shadow-lg shadow-forest-900/10">
+          {group.items.map((item) => {
+            const active = isActive(item.href);
+            return (
+              <li key={item.href}>
+                <Link
+                  href={item.href as Route}
+                  aria-current={active ? "page" : undefined}
+                  className={cn(
+                    "block whitespace-nowrap rounded-sm px-3 py-2 text-sm transition-colors hover:bg-forest-50 hover:text-brass-500",
+                    active ? "text-brass-500" : "text-forest-500",
+                  )}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
 function SavedLink({
   count,
   label = "Saved listings",
@@ -222,11 +324,11 @@ function SavedLink({
     <Link
       href={href as Route}
       aria-label={`${label}${count ? ` (${count})` : ""}`}
-      className="relative flex h-10 w-10 items-center justify-center rounded-sm text-forest-500 transition-colors hover:text-brass-500"
+      className="relative flex h-11 w-11 items-center justify-center rounded-sm text-forest-500 transition-colors hover:text-brass-500"
     >
       <Heart className={cn("h-5 w-5", count > 0 && "fill-brass-500 text-brass-500")} />
       {count > 0 ? (
-        <span className="absolute right-1 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-brass-500 px-1 text-[10px] font-semibold leading-none text-cream-50">
+        <span className="absolute right-1.5 top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-brass-500 px-1 text-[10px] font-semibold leading-none text-cream-50">
           {count}
         </span>
       ) : null}

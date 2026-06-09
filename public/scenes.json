@@ -1,0 +1,9 @@
+{
+  "generatedAt": "2026-06-09T00:00:00.000Z",
+  "source": "seed",
+  "scenes": [
+    { "src": "/images/scenes/turquoise-aerial.jpg", "alt": "Turquoise water off a Koh Phangan beach, from the air" },
+    { "src": "/images/scenes/coast-aerial.jpg", "alt": "Aerial view of the Koh Phangan coastline" },
+    { "src": "/images/scenes/cove-portrait.jpg", "alt": "A quiet cove on Koh Phangan" }
+  ]
+}

@@ -10,7 +10,7 @@ import {
   telegramDmLink,
   whatsappLink,
 } from "@/lib/site-config";
-import { getChromeDict } from "@/lib/i18n/dictionaries";
+import { getChromeDict, flatNav } from "@/lib/i18n/dictionaries";
 
 const currentYear = new Date().getFullYear();
 
@@ -19,7 +19,7 @@ export function Footer() {
   const isRu = pathname === "/ru" || pathname.startsWith("/ru/");
   const chrome = getChromeDict(isRu ? "ru" : "en");
   const f = chrome.footer;
-  const exploreLinks = [...chrome.nav, { label: f.journal, href: isRu ? "/ru/blog" : "/blog" }];
+  const exploreLinks = [...flatNav(chrome), { label: f.journal, href: isRu ? "/ru/blog" : "/blog" }];
 
   // The homepage ends on the full-bleed IslandCta band; let the footer sit flush
   // against it instead of floating below a wide cream gap. Other pages close on

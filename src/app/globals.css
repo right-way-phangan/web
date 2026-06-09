@@ -21,6 +21,16 @@
   }
 }
 
+/* Subtle Ken-Burns drift for the active hero scene (see hero-background.tsx). */
+@keyframes heroDrift {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.06);
+  }
+}
+
 @layer components {
   .container-prose {
     @apply mx-auto px-6 md:px-8 max-w-container;
