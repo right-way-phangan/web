@@ -25,6 +25,7 @@ import { pluralRu } from "@/lib/i18n/dictionaries";
 import {
   type RentalMarket,
   type RmSeasonal,
+  type RmSeasonality,
   type RmCrossCheck,
   type DisplayCurrency,
   type MoneyFmt,
@@ -179,10 +180,29 @@ const INS = {
         rough yield-on-cost.
       </>
     ),
+    capexMarket: (perSqm: string, n: number, ratio: string | null): ReactNode => (
+      <>
+        {" "}
+        <strong>Market asking</strong> is {perSqm}/m² across {n} land listings (FazWaz)
+        {ratio ? <> — about <strong>{ratio}</strong> the basis above</> : null}.
+      </>
+    ),
     ctaTitle: "Turn this into your own projection",
     ctaBody:
       "The ROI calculator is wired to this data — pick a district and property type and it fills in the nightly rate and occupancy automatically.",
     ctaButton: "Open the ROI calculator",
+    // demand seasonality (Google Trends)
+    demandEyebrow: "Demand seasonality",
+    demandTitle: "When demand peaks",
+    demandNote:
+      "Worldwide Google-search interest in Koh Phangan by month (5-year average) — a forward demand signal: peak months are when guests plan and book, so build, furnish and price for them.",
+    demandPeakLow: (peak: string, low: string): ReactNode => (
+      <>
+        Peak <strong className="text-forest-900">{peak}</strong> · low{" "}
+        <strong className="text-forest-900">{low}</strong>
+      </>
+    ),
+    demandSource: (src: string, asOf: string) => `${src} · ${asOf}`,
     // seasonality
     seasonalTrend: "Seasonal trend",
     collecting: (n: number): ReactNode => (
@@ -389,10 +409,29 @@ const INS = {
         годового дохода выше для грубой доходности на капитал.
       </>
     ),
+    capexMarket: (perSqm: string, n: number, ratio: string | null): ReactNode => (
+      <>
+        {" "}
+        <strong>Рыночный asking</strong> — {perSqm}/м² по {n}{" "}
+        {pluralRu(n, "участку", "участкам", "участкам")} (FazWaz)
+        {ratio ? <> — примерно <strong>{ratio}</strong> к базе выше</> : null}.
+      </>
+    ),
     ctaTitle: "Превратите это в свой прогноз",
     ctaBody:
       "ROI-калькулятор связан с этими данными — выберите район и тип объекта, и он сам подставит ставку за ночь и загрузку.",
     ctaButton: "Открыть ROI-калькулятор",
+    demandEyebrow: "Сезонность спроса",
+    demandTitle: "Когда пик спроса",
+    demandNote:
+      "Мировой интерес к «Koh Phangan» в Google по месяцам (среднее за 5 лет) — опережающий сигнал спроса: в пиковые месяцы гости планируют и бронируют, под них и строить, обставлять и ставить цену.",
+    demandPeakLow: (peak: string, low: string): ReactNode => (
+      <>
+        Пик <strong className="text-forest-900">{peak}</strong> · низ{" "}
+        <strong className="text-forest-900">{low}</strong>
+      </>
+    ),
+    demandSource: (src: string, asOf: string) => `${src} · ${asOf}`,
     seasonalTrend: "Сезонный тренд",
     collecting: (n: number): ReactNode => (
       <>
@@ -1012,13 +1051,27 @@ function FullReport({ data, fmt }: { data: RentalMarket; fmt: MoneyFmt }) {
         </div>
       ) : null}
 
-      {/* Seasonality */}
+      {/* Demand seasonality (Google Trends) — available immediately */}
+      {data.seasonality && data.seasonality.index.some((v) => v != null) ? (
+        <DemandSeasonality seasonality={data.seasonality} />
+      ) : null}
+
+      {/* Seasonality (ADR over own snapshots) */}
       <Seasonality seasonal={data.seasonal} fmt={fmt} />
 
-      {/* CapEx — land price per m² */}
+      {/* CapEx — land price per m² (own basis + market asking) */}
       {data.capex.pricePerSqmMedian ? (
         <p className="text-sm text-forest-500/80">
           {t.capexText(data.capex.source ?? "", fmt(data.capex.pricePerSqmMedian), data.capex.nSale)}
+          {data.capex.market?.pricePerSqmMedian
+            ? t.capexMarket(
+                fmt(data.capex.market.pricePerSqmMedian),
+                data.capex.market.n,
+                data.capex.pricePerSqmMedian
+                  ? `${(data.capex.market.pricePerSqmMedian / data.capex.pricePerSqmMedian).toFixed(1)}×`
+                  : null,
+              )
+            : null}
         </p>
       ) : null}
 
@@ -1045,6 +1098,53 @@ function CalculatorCta() {
         {t.ctaButton}
         <ArrowRight className="h-4 w-4" />
       </Link>
+    </div>
+  );
+}
+
+function DemandSeasonality({ seasonality }: { seasonality: RmSeasonality }) {
+  const t = INS[useLocale()];
+  const peakI = seasonality.index.indexOf(
+    Math.max(...seasonality.index.filter((v): v is number => v != null)),
+  );
+  return (
+    <div>
+      <SectionHead
+        icon={<TrendingUp className="h-4 w-4" />}
+        eyebrow={t.demandEyebrow}
+        title={t.demandTitle}
+        note={t.demandNote}
+      />
+      <div className="mt-6 rounded-sm border border-forest-500/10 bg-cream-50 p-5">
+        <div className="flex items-end gap-1.5 sm:gap-2.5" style={{ height: 132 }}>
+          {seasonality.index.map((v, i) => {
+            const h = v == null ? 0 : Math.max(6, Math.round((v / 100) * 116));
+            const isPeak = i === peakI;
+            return (
+              <div key={i} className="flex flex-1 flex-col items-center justify-end gap-1.5">
+                <span className="text-[9px] tabular-nums text-forest-500/45">
+                  {v == null ? "" : Math.round(v)}
+                </span>
+                <div
+                  className={`w-full rounded-t-sm ${isPeak ? "bg-brass-500" : "bg-forest-500/40"}`}
+                  style={{ height: h }}
+                />
+                <span
+                  className={`text-[10px] ${isPeak ? "font-semibold text-forest-900" : "text-forest-500/55"}`}
+                >
+                  {seasonality.months[i]?.slice(0, 1)}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-2 text-xs text-forest-500/70">
+          <span>{t.demandPeakLow(seasonality.peakMonth, seasonality.lowMonth)}</span>
+          <span className="text-forest-500/45">
+            {t.demandSource(seasonality.source, seasonality.asOf)}
+          </span>
+        </div>
+      </div>
     </div>
   );
 }
