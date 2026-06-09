@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import type { Route } from "next";
-import { ChevronDown, TrendingUp, ArrowRight, Home, Hotel, Download, RotateCcw, Link2, Check, Pin, Info } from "lucide-react";
+import { ChevronDown, TrendingUp, ArrowRight, Download, RotateCcw, Link2, Check, Pin, Info } from "lucide-react";
 import {
   computeRoi,
   DEFAULT_INPUTS,
@@ -100,6 +100,7 @@ export function RoiCalculator({
   const [solverMetric, setSolverMetric] = useState<SolveMetric>("roi");
   const [solverTarget, setSolverTarget] = useState(60);
   const [pinned, setPinned] = useState<{ proj: number; roi: number; profit: number; label: string } | null>(null);
+  const [targetRoi, setTargetRoi] = useState(50);
   const [currency, setCurrency] = useState<Currency>("THB");
   const [rates, setRates] = useState<Record<Currency, number>>(DEFAULT_RATES);
   const [copied, setCopied] = useState(false);
@@ -197,6 +198,9 @@ export function RoiCalculator({
   // (lease decayed to ~0, payment plan over 100%) is never shown without a flag.
   const leaseExpiry = isLeasehold && !inputs.leaseRenewable && inputs.years >= inputs.leaseTermYears;
   const offplanOverpay = isOffplan && inputs.downPaymentPct + inputs.handoverPaymentPct > 100;
+  // ROI only varies with price when there's rental income (rent is a fixed THB
+  // amount while price moves); appreciation-only ROI is price-independent.
+  const roiVariesByPrice = isRent || (isOffplan && inputs.rentAfterHandover);
 
   const strategyLabel = isOffplan ? "Off-plan (new build)" : isRent ? "Buy & Rent" : "Buy & Hold";
   // Lead summary in the buyer's display currency (THB equivalent in parens when
@@ -265,14 +269,6 @@ export function RoiCalculator({
           <PhaseTab active={!isOffplan} onClick={() => set({ offplan: false })} label={t.completed} />
           <PhaseTab active={isOffplan} onClick={() => set({ offplan: true })} label={t.offplan} />
         </div>
-
-        {/* Mode tabs (completed only) */}
-        {!isOffplan ? (
-          <div className="mt-3 flex gap-2 rounded-sm border border-forest-500/15 bg-cream-50 p-1">
-            <ModeTab active={!isRent} onClick={() => set({ mode: "hold" as CalcMode })} icon={Home} label={t.buyHold} />
-            <ModeTab active={isRent} onClick={() => set({ mode: "rent" as CalcMode })} icon={Hotel} label={t.buyRent} />
-          </div>
-        ) : null}
 
         {/* Tenure — Thailand-specific. Leasehold value decays as the lease runs down. */}
         <div className="mt-3 flex gap-1 rounded-sm border border-forest-500/15 bg-cream-50 p-1">
@@ -389,6 +385,20 @@ export function RoiCalculator({
                 </div>
               ) : null}
             </div>
+          ) : null}
+
+          {/* Rental income is optional for completed properties — a single toggle
+              replaces the old Buy & Hold / Buy & Rent mode tabs. */}
+          {!isOffplan ? (
+            <label className="flex cursor-pointer items-center gap-2 rounded-sm border border-forest-500/15 bg-cream-50 p-3 text-sm text-forest-500/80">
+              <input
+                type="checkbox"
+                checked={isRent}
+                onChange={(e) => set({ mode: (e.target.checked ? "rent" : "hold") as CalcMode })}
+                className="h-4 w-4 accent-brass-500"
+              />
+              {t.addRentalIncome}
+            </label>
           ) : null}
 
           {/* Rent-only inputs */}
@@ -544,6 +554,16 @@ export function RoiCalculator({
           <GrowthChart r={r} money={money} t={t} mode={isOffplan && !inputs.rentAfterHandover ? "asset" : "owner"} />
         </div>
 
+        <RoiMatches
+          inputs={inputs}
+          targetRoi={targetRoi}
+          setTargetRoi={setTargetRoi}
+          roiVariesByPrice={roiVariesByPrice}
+          catalog={catalog}
+          excludeRw={excludeRw}
+          t={t}
+        />
+
         <div className="mt-6">
           <button
             type="button"
@@ -662,21 +682,6 @@ export function RoiCalculator({
       </div>
     ) : null}
     </>
-  );
-}
-
-function ModeTab({ active, onClick, icon: Icon, label }: { active: boolean; onClick: () => void; icon: typeof Home; label: string }) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`flex flex-1 items-center justify-center gap-2 rounded-sm px-3 py-2 text-sm font-medium transition-colors ${
-        active ? "bg-forest-500 text-cream-100" : "text-forest-500/70 hover:text-forest-500"
-      }`}
-    >
-      <Icon className="h-4 w-4" />
-      {label}
-    </button>
   );
 }
 
@@ -1287,6 +1292,80 @@ function YearTable({ r, money, isRent, t }: { r: RoiResult; money: Money; isRent
           ))}
         </tbody>
       </table>
+    </div>
+  );
+}
+
+/**
+ * Live property finder: enter a desired total ROI and surface catalog listings
+ * that hit it under the current assumptions. ROI only ranks by price when there
+ * is rental income (rent is fixed THB while price varies); for appreciation-only
+ * the ROI is the same for every listing, so we prompt to enable rental income.
+ */
+function RoiMatches({
+  inputs,
+  targetRoi,
+  setTargetRoi,
+  roiVariesByPrice,
+  catalog,
+  excludeRw,
+  t,
+}: {
+  inputs: RoiInputs;
+  targetRoi: number;
+  setTargetRoi: (v: number) => void;
+  roiVariesByPrice: boolean;
+  catalog: RealEstateObject[];
+  excludeRw?: string;
+  t: CalcDict;
+}) {
+  const matches = useMemo(() => {
+    if (!roiVariesByPrice) return [];
+    return catalog
+      .filter((o) => o.rwNumber !== excludeRw && o.priceThb)
+      .map((o) => ({ o, roi: computeRoi({ ...inputs, purchasePriceThb: o.priceThb! }).roiPct }))
+      .filter((x) => Number.isFinite(x.roi) && x.roi >= targetRoi)
+      .sort((a, b) => b.roi - a.roi)
+      .slice(0, 6);
+  }, [inputs, targetRoi, roiVariesByPrice, catalog, excludeRw]);
+
+  if (catalog.length === 0) return null;
+
+  return (
+    <div className="mt-6 rounded-sm border border-forest-500/10 bg-cream-50 p-6">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">{t.roiTargetTitle}</p>
+        <div className="flex items-center gap-2">
+          <label className="text-xs text-forest-500/70">{t.roiTargetLabel}</label>
+          <input
+            type="number"
+            value={Number.isFinite(targetRoi) ? targetRoi : ""}
+            step={5}
+            onChange={(e) => setTargetRoi(Number(e.target.value))}
+            className="w-20 rounded-sm border border-forest-500/20 bg-cream-50 px-2 py-1 text-right text-sm tabular-nums text-forest-900 focus:border-forest-500 focus:outline-none"
+          />
+        </div>
+      </div>
+
+      {!roiVariesByPrice ? (
+        <p className="mt-4 text-sm leading-relaxed text-forest-500/60">{t.roiTargetNeedsRent}</p>
+      ) : matches.length === 0 ? (
+        <p className="mt-4 text-sm leading-relaxed text-forest-500/60">{t.roiTargetNone}</p>
+      ) : (
+        <>
+          <p className="mt-2 text-sm text-forest-500/70">{t.roiTargetMatches(matches.length)}</p>
+          <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {matches.map(({ o, roi }) => (
+              <div key={o.id}>
+                <div className="mb-2 inline-flex items-center rounded-sm bg-brass-500/10 px-2 py-0.5 text-xs font-medium text-brass-600">
+                  ROI {fmtPct(roi)}
+                </div>
+                <ObjectCard object={o} />
+              </div>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }

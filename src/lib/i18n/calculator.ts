@@ -155,6 +155,14 @@ export interface CalcDict {
   pinnedLabel: string;
   currentLabel: string;
   clearPin: string;
+  // Rental income toggle (replaces the Hold/Rent tabs)
+  addRentalIncome: string;
+  // Target-ROI property finder
+  roiTargetTitle: string;
+  roiTargetLabel: string;
+  roiTargetMatches: (n: number) => string;
+  roiTargetNone: string;
+  roiTargetNeedsRent: string;
   // Mobile bar
   inYr: (years: number) => string;
   resultsBtn: string;
@@ -312,6 +320,12 @@ const EN: CalcDict = {
   pinnedLabel: "Pinned",
   currentLabel: "Current",
   clearPin: "Clear",
+  addRentalIncome: "Include rental income",
+  roiTargetTitle: "Find properties by target ROI",
+  roiTargetLabel: "Desired total ROI (%)",
+  roiTargetMatches: (n) => `${n} listing${n === 1 ? "" : "s"} hit this return under your assumptions`,
+  roiTargetNone: "No listings reach this ROI under the current assumptions — lower the target or adjust the inputs.",
+  roiTargetNeedsRent: "Appreciation-only ROI doesn't depend on price, so it's the same for every listing. Turn on rental income above to rank properties by ROI.",
   inYr: (years) => `In ${years} yr`,
   resultsBtn: "Results",
   fillFromMarket: "Fill from market data",
@@ -466,6 +480,12 @@ const RU: CalcDict = {
   pinnedLabel: "Закреплён",
   currentLabel: "Текущий",
   clearPin: "Сбросить",
+  addRentalIncome: "Учитывать доход от аренды",
+  roiTargetTitle: "Подобрать объекты под желаемый ROI",
+  roiTargetLabel: "Желаемый полный ROI (%)",
+  roiTargetMatches: (n) => `${n} ${n === 1 ? "объект даёт" : "объект(ов) дают"} такую доходность при ваших допущениях`,
+  roiTargetNone: "Ни один объект не достигает этого ROI при текущих допущениях — снизьте цель или измените параметры.",
+  roiTargetNeedsRent: "ROI только от роста цены не зависит от стоимости — он одинаков для всех объектов. Включите доход от аренды выше, чтобы ранжировать объекты по ROI.",
   inYr: (years) => `Через ${years} лет`,
   resultsBtn: "Результат",
   fillFromMarket: "Заполнить из данных рынка",
