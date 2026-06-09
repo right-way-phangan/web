@@ -2007,10 +2007,15 @@ function SimilarObjects({
       <h3 className="mt-3 font-serif text-2xl text-forest-900">
         {t.aroundMatches(money(price), matches.length)}
       </h3>
-      <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {matches.map((o) => (
-          <ObjectCard key={o.id} object={o} />
-        ))}
+      {/* Columns key off this block's own width (container query), not the
+          viewport — embedded in narrow project/object columns, viewport-based
+          lg:grid-cols-3 crushed the cards into clipped slivers. */}
+      <div className="@container mt-6">
+        <div className="grid grid-cols-1 gap-6 @[30rem]:grid-cols-2 @[46rem]:grid-cols-3">
+          {matches.map((o) => (
+            <ObjectCard key={o.id} object={o} />
+          ))}
+        </div>
       </div>
       <Link
         href={href}
