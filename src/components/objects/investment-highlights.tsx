@@ -14,7 +14,7 @@ interface Highlight {
  * object dictionary. No prices, no exaggeration — facts that genuinely affect
  * value.
  */
-function deriveHighlights(o: RealEstateObject, hl: ObjectDict["hl"]): Highlight[] {
+function deriveHighlights(o: RealEstateObject, hl: ObjectDict["hl"], nl: string): Highlight[] {
   const out: Highlight[] = [];
 
   if (o.beachfront) out.push(hl.beachfront);
@@ -24,7 +24,9 @@ function deriveHighlights(o: RealEstateObject, hl: ObjectDict["hl"]): Highlight[
   else if (o.documentType === "NS3K") out.push(hl.ns3k);
 
   if (o.areaRai && o.areaRai >= 3) {
-    out.push(hl.plot(o.areaRai.toLocaleString(undefined, { maximumFractionDigits: 1 })));
+    // Explicit locale: a fractional rai (e.g. 3.5) renders with a runtime-
+    // dependent decimal separator otherwise → server/client hydration mismatch.
+    out.push(hl.plot(o.areaRai.toLocaleString(nl, { maximumFractionDigits: 1 })));
   }
 
   if (o.tenure?.includes("Freehold")) out.push(hl.freehold);
@@ -36,8 +38,9 @@ function deriveHighlights(o: RealEstateObject, hl: ObjectDict["hl"]): Highlight[
 }
 
 export function InvestmentHighlights({ object }: { object: RealEstateObject }) {
-  const t = getObjectDict(useLocale());
-  const items = deriveHighlights(object, t.hl);
+  const locale = useLocale();
+  const t = getObjectDict(locale);
+  const items = deriveHighlights(object, t.hl, locale === "ru" ? "ru-RU" : "en-US");
   if (items.length === 0) return null;
 
   return (

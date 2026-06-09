@@ -813,7 +813,11 @@ function InventoryYield({
         title={t.invTitle}
         note={t.invNote}
       />
-      <div className="mt-6 grid gap-3 sm:grid-cols-2">
+      {/* grid-cols-1 on the base is load-bearing: a bare `grid` makes one auto
+          column sized to its content's min-width, which the inner 4-col metric
+          grid blew past → 186px horizontal overflow on mobile. An explicit
+          single column is minmax(0,1fr) and stays within the viewport. */}
+      <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
         {rows.map((r) => (
           <Link
             key={r.rwNumber}

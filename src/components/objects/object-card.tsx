@@ -55,6 +55,8 @@ export function ObjectCard({ object }: Props) {
   const hue = thumbHue(object.rwNumber);
   const locale = useLocale();
   const t = getListingsDict(locale);
+  // Explicit locale so server/client number formatting matches (hydration).
+  const nl = locale === "ru" ? "ru-RU" : "en-US";
 
   return (
     <div className="group relative flex h-full flex-col">
@@ -142,9 +144,9 @@ export function ObjectCard({ object }: Props) {
 
         <div className="mt-auto flex flex-wrap items-center gap-3 text-xs text-forest-500/70">
           {object.areaRai ? (
-            <span>{formatRai(object.areaRai, t)}</span>
+            <span>{formatRai(object.areaRai, t, nl)}</span>
           ) : object.areaSqm ? (
-            <span>{object.areaSqm.toLocaleString()} m²</span>
+            <span>{object.areaSqm.toLocaleString(nl)} m²</span>
           ) : null}
 
           {object.bedrooms ? (
@@ -179,8 +181,8 @@ function FeatureBadge({
   );
 }
 
-function formatRai(rai: number, t: ListingsDict): string {
-  if (rai >= 1) return `${rai.toLocaleString(undefined, { maximumFractionDigits: 2 })} ${t.rai}`;
+function formatRai(rai: number, t: ListingsDict, nl: string): string {
+  if (rai >= 1) return `${rai.toLocaleString(nl, { maximumFractionDigits: 2 })} ${t.rai}`;
   // sub-rai: 1 rai = 400 sq.wah; 1 sq.wah = 4 m². Show in m² for clarity.
-  return `${Math.round(rai * 1600).toLocaleString()} m²`;
+  return `${Math.round(rai * 1600).toLocaleString(nl)} m²`;
 }

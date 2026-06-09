@@ -164,6 +164,10 @@ export default function ListingsMap({
         scrollWheelZoom
         className="h-full w-full"
         style={{ background: "#e8e4da" }}
+        // Names the map region for assistive tech. The only alt-less <img>s on
+        // /listings are Leaflet's decorative basemap tiles (third-party); the
+        // accessible handle belongs on the map container, not each tile.
+        aria-label="Interactive map of Koh Phangan property listings"
       >
         <TileLayer attribution={TILE_ATTRIBUTION} url={TILE_URL} subdomains={TILE_SUBDOMAINS} />
         <FitBounds points={points} />

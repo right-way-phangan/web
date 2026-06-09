@@ -15,12 +15,21 @@ interface Group {
   rows: Row[];
 }
 
-function buildGroups(o: RealEstateObject, t: ObjectDict, typeName: string): Group[] {
+function buildGroups(
+  o: RealEstateObject,
+  t: ObjectDict,
+  typeName: string,
+  // Explicit BCP-47 locale so numbers format identically on server and client.
+  // toLocaleString() with no locale uses the runtime default, which differs
+  // between Node and the browser (grouping + decimal separators) and caused a
+  // hydration mismatch (React #418) on object pages with sqm/fractional-rai.
+  nl: string,
+): Group[] {
   const groups: Group[] = [];
   const rai = (r: number) =>
     r >= 1
-      ? `${r.toLocaleString(undefined, { maximumFractionDigits: 2 })} ${t.rai}`
-      : `${Math.round(r * 1600).toLocaleString()} m²`;
+      ? `${r.toLocaleString(nl, { maximumFractionDigits: 2 })} ${t.rai}`
+      : `${Math.round(r * 1600).toLocaleString(nl)} m²`;
   const L = t.specRows;
 
   // Pricing
@@ -38,7 +47,7 @@ function buildGroups(o: RealEstateObject, t: ObjectDict, typeName: string): Grou
   if (o.district) propertyRows.push({ label: L.District, value: o.district });
   if (o.zone) propertyRows.push({ label: L.Zone, value: o.zone });
   if (o.areaRai) propertyRows.push({ label: L["Plot area"], value: rai(o.areaRai) });
-  if (o.areaSqm) propertyRows.push({ label: L["Built area"], value: `${o.areaSqm.toLocaleString()} m²` });
+  if (o.areaSqm) propertyRows.push({ label: L["Built area"], value: `${o.areaSqm.toLocaleString(nl)} m²` });
   if (o.altitude !== undefined) propertyRows.push({ label: L.Altitude, value: `${o.altitude} m` });
   if (o.terrain) propertyRows.push({ label: L.Terrain, value: o.terrain });
   groups.push({ title: t.specGroups.Property, rows: propertyRows });
@@ -93,7 +102,8 @@ export function SpecTable({ object }: { object: RealEstateObject }) {
   const locale = useLocale();
   const t = getObjectDict(locale);
   const typeName = getListingsDict(locale).types[object.type];
-  const groups = buildGroups(object, t, typeName);
+  const numberLocale = locale === "ru" ? "ru-RU" : "en-US";
+  const groups = buildGroups(object, t, typeName, numberLocale);
 
   return (
     <div className="space-y-10">
