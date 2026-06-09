@@ -9,6 +9,7 @@ import type { ProjectAvailability } from "@/lib/data/projects";
 import { formatPriceCompact } from "@/lib/utils/price";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { getProjectsDict } from "@/lib/i18n/dictionaries";
+import { cn } from "@/lib/utils/cn";
 import { AvailabilityBar } from "./availability-bar";
 import { StageBadge } from "./stage-badge";
 
@@ -100,8 +101,19 @@ export function ProjectCard({ project, href, availability }: Props) {
         {total ? (
           <div className="mt-auto space-y-1.5 pt-1">
             <AvailabilityBar total={total} available={available} />
-            <p className="text-xs text-forest-500/60">
-              {(available ?? 0) <= 0 ? t.soldOut : t.available(available ?? 0, total)}
+            <p
+              className={cn(
+                "text-xs",
+                (available ?? 0) > 0 && (available ?? 0) <= 2
+                  ? "font-medium text-brass-600"
+                  : "text-forest-500/60",
+              )}
+            >
+              {(available ?? 0) <= 0
+                ? t.soldOut
+                : (available ?? 0) <= 2
+                  ? t.unitsLeft(available ?? 0)
+                  : t.available(available ?? 0, total)}
             </p>
           </div>
         ) : (

@@ -1,6 +1,17 @@
 import Link from "next/link";
 import type { Route } from "next";
-import { ChevronRight, Check } from "lucide-react";
+import {
+  ChevronRight,
+  Check,
+  Waves,
+  Trees,
+  Car,
+  ShieldCheck,
+  Eye,
+  Mountain,
+  Leaf,
+  type LucideIcon,
+} from "lucide-react";
 import type { RealEstateObject } from "@/types/object";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getProjectsDict, getObjectDict } from "@/lib/i18n/dictionaries";
@@ -23,6 +34,7 @@ import { ProjectHero } from "./project-hero";
 import { ProjectNav, type NavItem } from "./project-nav";
 import { ProjectActionBar } from "./project-action-bar";
 import { BackToTop } from "./back-to-top";
+import { SpecStrip } from "./spec-strip";
 import { ProjectCard } from "./project-card";
 import { UnitsTable } from "./units-table";
 import { ProjectVideos } from "./project-videos";
@@ -37,8 +49,23 @@ interface Props {
   locale: Locale;
 }
 
-/** Amenity labels derived from the object's boolean feature flags. */
-function amenityLabels(o: RealEstateObject, t: ReturnType<typeof getObjectDict>): string[] {
+const AMENITY_ICON: Record<string, LucideIcon> = {
+  "Private pool": Waves,
+  "Private garden": Trees,
+  Parking: Car,
+  Gated: ShieldCheck,
+  Beachfront: Waves,
+  "Sea view": Eye,
+  "Mountain view": Mountain,
+  "Jungle view": Trees,
+  "Quiet location": Leaf,
+};
+
+/** Amenities derived from boolean feature flags → {key, localized label}. */
+function amenityList(
+  o: RealEstateObject,
+  t: ReturnType<typeof getObjectDict>,
+): Array<{ key: string; label: string }> {
   const flags: Array<[boolean | undefined, string]> = [
     [o.pool, "Private pool"],
     [o.privateGarden, "Private garden"],
@@ -50,7 +77,7 @@ function amenityLabels(o: RealEstateObject, t: ReturnType<typeof getObjectDict>)
     [o.jungleView, "Jungle view"],
     [o.quiet, "Quiet location"],
   ];
-  return flags.filter(([v]) => v).map(([, l]) => t.features[l] ?? l);
+  return flags.filter(([v]) => v).map(([, key]) => ({ key, label: t.features[key] ?? key }));
 }
 
 export async function ProjectLanding({ project, catalog, locale }: Props) {
@@ -59,7 +86,7 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
   const allObjects = await getAllObjects();
   const units = getProjectUnits(project, allObjects);
   const availability = projectAvailability(project, units);
-  const amenities = amenityLabels(project, ot);
+  const amenities = amenityList(project, ot);
   const devHref =
     project.developer && (await developerHasPage(project.developer))
       ? localePath(locale, `/developers/${developerSlug(project.developer)}`)
@@ -129,6 +156,8 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
         developerHref={devHref}
       />
 
+      <SpecStrip project={project} locale={locale} />
+
       <div className="mt-10">
         <ProjectNav items={nav} ctaLabel={t.nav.enquire} availabilityNote={availNote} />
       </div>
@@ -159,12 +188,18 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
                   {t.sections.amenities}
                 </h3>
                 <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-                  {amenities.map((a) => (
-                    <li key={a} className="flex items-center gap-2 text-sm text-forest-500/85">
-                      <Check className="h-4 w-4 shrink-0 text-brass-500" />
-                      {a}
-                    </li>
-                  ))}
+                  {amenities.map((a) => {
+                    const Icon = AMENITY_ICON[a.key] ?? Check;
+                    return (
+                      <li
+                        key={a.key}
+                        className="flex items-center gap-2 text-sm text-forest-500/85"
+                      >
+                        <Icon className="h-4 w-4 shrink-0 text-brass-500" />
+                        {a.label}
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             ) : null}

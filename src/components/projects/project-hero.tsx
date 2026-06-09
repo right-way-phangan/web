@@ -1,7 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Route } from "next";
-import { MapPin, CalendarClock, Building2, MessageCircle, Send } from "lucide-react";
+import {
+  MapPin,
+  CalendarClock,
+  Building2,
+  MessageCircle,
+  Send,
+  Coins,
+  TrendingUp,
+  Home,
+  type LucideIcon,
+} from "lucide-react";
 import type { RealEstateObject } from "@/types/object";
 import type { ProjectAvailability } from "@/lib/data/projects";
 import type { Locale } from "@/lib/i18n/dictionaries";
@@ -26,15 +36,18 @@ export function ProjectHero({ project, availability, locale, developerHref }: Pr
   const t = getProjectsDict(locale);
   const { total, available } = availability;
 
+  const hasCover = !!project.coverImage;
+
   return (
-    <section className="grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-12">
+    <section className="flex flex-col-reverse gap-8 lg:grid lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-12">
       {/* Text */}
       <div>
         <div className="flex flex-wrap items-center gap-3">
           <span className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
             {project.rwNumber}
           </span>
-          <StageBadge stage={project.stage} locale={locale} />
+          {/* When there's a cover, the stage badge lives on the image instead. */}
+          {!hasCover ? <StageBadge stage={project.stage} locale={locale} /> : null}
           <div className="ml-auto flex items-center gap-2">
             <ShareButton rw={project.rwNumber} title={project.titleEn} />
             <SaveButton rw={project.rwNumber} variant="inline" />
@@ -77,24 +90,28 @@ export function ProjectHero({ project, availability, locale, developerHref }: Pr
         {/* Stats */}
         <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-3">
           {project.priceThb ? (
-            <Stat label={t.from} value={formatPriceTHB(project.priceThb)} />
+            <Stat icon={Coins} label={t.from} value={formatPriceTHB(project.priceThb)} />
           ) : null}
           {project.netYieldPct ? (
-            <Stat label={t.sections.netYield} value={`~${project.netYieldPct}%`} />
+            <Stat icon={TrendingUp} label={t.sections.netYield} value={`~${project.netYieldPct}%`} />
           ) : null}
           {total != null ? (
             <Stat
+              icon={Home}
               label={t.units}
-              value={
-                (available ?? 0) <= 0
-                  ? t.soldOut
-                  : `${available}/${total}`
-              }
+              value={(available ?? 0) <= 0 ? t.soldOut : `${available}/${total}`}
             />
           ) : null}
         </dl>
 
-        {total ? <AvailabilityBar total={total} available={available} className="mt-6 max-w-sm" /> : null}
+        {total ? (
+          <div className="mt-6 max-w-sm">
+            <AvailabilityBar total={total} available={available} />
+            {(available ?? 0) > 0 && (available ?? 0) <= 2 ? (
+              <p className="mt-2 text-sm font-medium text-brass-600">{t.unitsLeft(available!)}</p>
+            ) : null}
+          </div>
+        ) : null}
 
         <div className="mt-8 flex flex-wrap items-center gap-3">
           <Button asChild>
@@ -125,15 +142,23 @@ export function ProjectHero({ project, availability, locale, developerHref }: Pr
 
       {/* Image */}
       <div className="relative aspect-[4/3] overflow-hidden rounded-sm bg-forest-500/5 lg:aspect-[5/4]">
-        {project.coverImage ? (
-          <Image
-            src={project.coverImage}
-            alt={project.titleEn}
-            fill
-            priority
-            sizes="(min-width: 1024px) 55vw, 100vw"
-            className="object-cover"
-          />
+        {hasCover ? (
+          <>
+            <Image
+              src={project.coverImage!}
+              alt={project.titleEn}
+              fill
+              priority
+              sizes="(min-width: 1024px) 55vw, 100vw"
+              className="object-cover"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-forest-900/35 via-transparent to-transparent" />
+            <StageBadge
+              stage={project.stage}
+              locale={locale}
+              className="absolute bottom-3 left-3 bg-cream-50/90 backdrop-blur-sm"
+            />
+          </>
         ) : (
           <div className="absolute inset-0 flex items-center justify-center text-forest-500/20">
             <Building2 className="h-28 w-28" strokeWidth={0.8} />
@@ -144,10 +169,13 @@ export function ProjectHero({ project, availability, locale, developerHref }: Pr
   );
 }
 
-function Stat({ label, value }: { label: string; value: string }) {
+function Stat({ label, value, icon: Icon }: { label: string; value: string; icon?: LucideIcon }) {
   return (
     <div>
-      <dt className="text-xs uppercase tracking-[0.15em] text-forest-500/55">{label}</dt>
+      <dt className="flex items-center gap-1.5 text-xs uppercase tracking-[0.15em] text-forest-500/55">
+        {Icon ? <Icon className="h-3.5 w-3.5" /> : null}
+        {label}
+      </dt>
       <dd className="num mt-1 text-xl text-forest-900 sm:text-2xl">{value}</dd>
     </div>
   );

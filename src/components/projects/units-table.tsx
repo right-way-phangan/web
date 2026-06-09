@@ -40,9 +40,13 @@ export function UnitsTable({ units, availability }: Props) {
       {total ? (
         <div className="space-y-2">
           <AvailabilityBar total={total} available={available} />
-          <p className="text-sm text-forest-500/70">
-            {(available ?? 0) <= 0 ? t.soldOut : t.available(available ?? 0, total)}
-          </p>
+          {(available ?? 0) <= 0 ? (
+            <p className="text-sm text-forest-500/70">{t.soldOut}</p>
+          ) : (available ?? 0) <= 2 ? (
+            <p className="text-sm font-medium text-brass-600">{t.unitsLeft(available ?? 0)}</p>
+          ) : (
+            <p className="text-sm text-forest-500/70">{t.available(available ?? 0, total)}</p>
+          )}
         </div>
       ) : null}
 
