@@ -1,14 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Route } from "next";
-import { MapPin, CalendarClock, Building2 } from "lucide-react";
+import { MapPin, CalendarClock, Building2, MessageCircle, Send } from "lucide-react";
 import type { RealEstateObject } from "@/types/object";
 import type { ProjectAvailability } from "@/lib/data/projects";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getProjectsDict } from "@/lib/i18n/dictionaries";
 import { formatPriceTHB } from "@/lib/utils/price";
+import { whatsappLink, telegramDmLink } from "@/lib/site-config";
 import { Button } from "@/components/ui/button";
 import { ShareButton } from "@/components/objects/share-button";
+import { SaveButton } from "@/components/objects/save-button";
 import { StageBadge } from "./stage-badge";
 import { AvailabilityBar } from "./availability-bar";
 
@@ -33,7 +35,10 @@ export function ProjectHero({ project, availability, locale, developerHref }: Pr
             {project.rwNumber}
           </span>
           <StageBadge stage={project.stage} locale={locale} />
-          <ShareButton rw={project.rwNumber} title={project.titleEn} className="ml-auto" />
+          <div className="ml-auto flex items-center gap-2">
+            <ShareButton rw={project.rwNumber} title={project.titleEn} />
+            <SaveButton rw={project.rwNumber} variant="inline" />
+          </div>
         </div>
 
         <h1 className="mt-4 text-balance">{project.titleEn}</h1>
@@ -91,9 +96,29 @@ export function ProjectHero({ project, availability, locale, developerHref }: Pr
 
         {total ? <AvailabilityBar total={total} available={available} className="mt-6 max-w-sm" /> : null}
 
-        <div className="mt-8 flex flex-wrap gap-3">
+        <div className="mt-8 flex flex-wrap items-center gap-3">
           <Button asChild>
             <a href="#enquire">{t.enquire}</a>
+          </Button>
+          <Button asChild variant="outline">
+            <a
+              href={whatsappLink(t.contactMessage(project.titleEn))}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <MessageCircle className="h-4 w-4" />
+              WhatsApp
+            </a>
+          </Button>
+          <Button asChild variant="outline">
+            <a
+              href={telegramDmLink(`interest_${project.rwNumber}`)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Send className="h-4 w-4" />
+              Telegram
+            </a>
           </Button>
         </div>
       </div>

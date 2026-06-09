@@ -15,6 +15,7 @@ import { InquiryForm } from "@/components/objects/inquiry-form";
 import { RoiCalculator } from "@/components/calculator/roi-calculator";
 import { ProjectHero } from "./project-hero";
 import { ProjectNav, type NavItem } from "./project-nav";
+import { ProjectActionBar } from "./project-action-bar";
 import { UnitsTable } from "./units-table";
 import { ProjectVideos } from "./project-videos";
 import { Floorplans } from "./floorplans";
@@ -80,7 +81,6 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
     ...(hasTimeline ? [{ id: "timeline", label: t.nav.timeline }] : []),
     ...(hasTeam ? [{ id: "team", label: t.nav.team }] : []),
     ...(hasLocation ? [{ id: "location", label: t.nav.location }] : []),
-    { id: "enquire", label: t.nav.enquire },
   ];
 
   const projectsHref = localePath(locale, "/projects") as Route;
@@ -102,7 +102,7 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
       />
 
       <div className="mt-10">
-        <ProjectNav items={nav} />
+        <ProjectNav items={nav} ctaLabel={t.nav.enquire} />
       </div>
 
       <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_360px] lg:gap-16">
@@ -298,6 +298,13 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
           <InquiryForm rwNumber={project.rwNumber} />
         </div>
       </div>
+
+      {/* Mobile sticky CTA bar */}
+      <ProjectActionBar
+        rwNumber={project.rwNumber}
+        titleEn={project.titleEn}
+        priceThb={project.priceThb}
+      />
     </article>
   );
 }

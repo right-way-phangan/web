@@ -1032,6 +1032,7 @@ export interface ProjectsDict {
     facts: string;
   };
   watchVideo: string;
+  contactMessage: (title: string) => string;
   stage: Record<string, string>;
   perYear: string;
 }
@@ -1094,6 +1095,7 @@ const projectsDict: Record<Locale, ProjectsDict> = {
       facts: "Key facts",
     },
     watchVideo: "Watch video",
+    contactMessage: (title) => `Hi! I'm interested in ${title}. Could you share more details?`,
     stage: {
       Ready: "Ready",
       "Under construction": "Under construction",
@@ -1158,6 +1160,7 @@ const projectsDict: Record<Locale, ProjectsDict> = {
       facts: "Ключевые факты",
     },
     watchVideo: "Смотреть видео",
+    contactMessage: (title) => `Здравствуйте! Интересует ${title}. Расскажите подробнее, пожалуйста.`,
     stage: {
       Ready: "Готов",
       "Under construction": "Строится",
