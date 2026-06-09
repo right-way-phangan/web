@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Daily site audit of rightwaygroup.co. Runs run-audit.sh at 09:00 and posts a
+  macOS notification if anything FAILs. Reports land in ~/.rw-site-audit/reports/.
+
+  Install:
+    cp com.rightway.site-audit.plist ~/Library/LaunchAgents/
+    launchctl unload ~/Library/LaunchAgents/com.rightway.site-audit.plist 2>/dev/null
+    launchctl load   ~/Library/LaunchAgents/com.rightway.site-audit.plist
+  Run now (test):  launchctl start com.rightway.site-audit
+  Change schedule: edit StartCalendarInterval, then unload + load again.
+
+  NOTE: PATH pins the current nvm node bin. If you switch node versions, update
+  the PATH entry below (and the README documents this).
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.rightway.site-audit</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/burik/Documents/Claude/Projects/Right Way - сбор компании/web/scripts/audit/run-audit.sh</string>
+    <string>--notify</string>
+  </array>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/Users/burik/.nvm/versions/node/v24.16.0/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+  </dict>
+
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>9</integer>
+    <key>Minute</key>
+    <integer>0</integer>
+  </dict>
+
+  <key>RunAtLoad</key>
+  <false/>
+
+  <key>StandardOutPath</key>
+  <string>/Users/burik/.rw-site-audit/reports/launchd.out</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/burik/.rw-site-audit/reports/launchd.err</string>
+</dict>
+</plist>
