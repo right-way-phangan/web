@@ -13,7 +13,11 @@ const PUBLIC_STATUSES: ObjectStatus[] = ["Active"];
 
 /**
  * Fetch all objects from the amoCRM catalog and return only those that
- * should be publicly visible (Active status, has RW number).
+ * should be publicly visible: Active status, has RW number, AND has at least
+ * one photo (coverImage). Photo-less objects stay in amoCRM but are hidden
+ * from the site until a photo is uploaded — at which point they reappear
+ * automatically on the next cache refresh. No manual re-listing needed.
+ * See task: "Right Way — мои задачи.md" → «Наполнить фото скрытые объекты».
  *
  * Server-only — uses long-lived amoCRM token. Cached per CATALOG_REVALIDATE_SECONDS.
  * Returns [] on API failure rather than throwing — listing page degrades gracefully.
@@ -23,7 +27,9 @@ export async function getPublicObjects(): Promise<RealEstateObject[]> {
     const elements = await listCatalogElements();
     const all = elements.map(mapElementToObject);
     return all
-      .filter((o) => o.rwNumber && PUBLIC_STATUSES.includes(o.status))
+      .filter(
+        (o) => o.rwNumber && PUBLIC_STATUSES.includes(o.status) && !!o.coverImage,
+      )
       .sort(sortByRecentAndPremium);
   } catch (err) {
     if (err instanceof AmoApiError) {
@@ -36,9 +42,9 @@ export async function getPublicObjects(): Promise<RealEstateObject[]> {
 }
 
 /**
- * Sort: objects with a real cover photo first, then beachfront/sea-view, then
- * by date_added desc. Keeps the listings grid looking complete — placeholder
- * (photo-less) cards sink below ones that show real imagery.
+ * Sort premium features first (beachfront → sea-view → mountain-view), then by
+ * date_added desc. All public objects already have a cover photo (filtered in
+ * getPublicObjects), so the coverImage term below is now effectively constant.
  */
 function sortByRecentAndPremium(a: RealEstateObject, b: RealEstateObject) {
   const score = (o: RealEstateObject) =>
@@ -58,4 +64,26 @@ export async function getObjectByRwNumber(
 ): Promise<RealEstateObject | null> {
   const all = await getPublicObjects();
   return all.find((o) => o.rwNumber === rw) ?? null;
+}
+
+/**
+ * Fetch ALL catalog objects regardless of status (Active/Sold/Reserved/…).
+ * Used only to resolve a project's unit cards — a project page must show sold
+ * and reserved units (with their status badge), not just the publicly listable
+ * Active ones. Returns [] on failure. Do NOT use for the public listings grid.
+ */
+export async function getAllObjects(): Promise<RealEstateObject[]> {
+  try {
+    const elements = await listCatalogElements();
+    return elements
+      .map(mapElementToObject)
+      .filter((o) => o.rwNumber);
+  } catch (err) {
+    if (err instanceof AmoApiError) {
+      console.error(`[objects:all] amoCRM ${err.status}:`, err.body.slice(0, 200));
+    } else {
+      console.error("[objects:all] unexpected:", err);
+    }
+    return [];
+  }
 }
