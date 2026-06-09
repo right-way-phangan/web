@@ -15,6 +15,9 @@ import {
   Award,
   Hammer,
   Building2,
+  Scale,
+  CheckCircle,
+  AlertTriangle,
 } from "lucide-react";
 import { LeadForm } from "@/components/forms/lead-form";
 import { useLocale, localeHref } from "@/lib/i18n/use-locale";
@@ -22,6 +25,7 @@ import { pluralRu } from "@/lib/i18n/dictionaries";
 import {
   type RentalMarket,
   type RmSeasonal,
+  type RmCrossCheck,
   type DisplayCurrency,
   type MoneyFmt,
   type InventoryYieldRow,
@@ -39,11 +43,24 @@ const INS = {
     dataRefreshing: "Market data is being refreshed — check back shortly.",
     // snapshot strip
     listingsAnalysed: "Listings analysed",
-    source: "Source",
+    source: "Sources",
     snapshot: "Snapshot",
     activeOcc: "Active occupancy (90d)",
-    bookingCrossCheck: "Booking cross-check",
-    perNight: "/night",
+    // source mix + triangulation
+    dedupNote: (collected: number, unique: number) =>
+      `${collected.toLocaleString("en-US")} collected · ${unique.toLocaleString("en-US")} unique after dedup`,
+    triangulationEyebrow: "Cross-source check",
+    triangulationTitle: "Price triangulation",
+    triangulationNote:
+      "Median nightly rate for the same villa market, by platform. When independent platforms land on the same number, trust it.",
+    agree: (pct: number) => `Platforms agree — within ±${pct}%`,
+    diverge: (pct: number) => `Platforms diverge — ${pct}% spread`,
+    sourceN: (n: number) => `${n.toLocaleString("en-US")} listings`,
+    supplyUnder: "Under-supplied",
+    supplySaturated: "Saturated",
+    yieldSuffix: (pct: number) => ` · ${pct}% income-on-land`,
+    yieldNote:
+      "“Income-on-land” = estimated annual income ÷ the cost of a reference 400 m² plot in that district (build cost excluded) — an indicative land-value signal, not a full yield.",
     // teaser
     freePreview: "Free preview",
     teaserTitle: "Top districts to build for rental",
@@ -127,6 +144,7 @@ const INS = {
     sortLabels: {
       adr: "Nightly rate",
       annual: "Annual income",
+      yield: "Income-on-land",
       sample: "Sample size",
       name: "Name A–Z",
     } as Record<DistrictSort, string>,
@@ -180,8 +198,17 @@ const INS = {
     methodSummary: "Method & assumptions",
     methodBullets: (meta: RentalMarket["meta"]): ReactNode[] => [
       <>
-        Data is a snapshot of <strong>{meta.sample}</strong> entire-home Airbnb listings on Koh
-        Phangan ({meta.date}), priced in {meta.currency}. Internal research, not republished data.
+        Data is a snapshot of <strong>{meta.sample}</strong> unique entire-home listings on Koh
+        Phangan ({meta.date}), priced in {meta.currency}, collected across{" "}
+        {(meta.sources ?? []).map((s) => s.label).join(", ") || "Airbnb"} and de-duplicated by
+        location and name so a villa listed on several platforms counts once. Internal research, not
+        republished data.
+      </>,
+      <>
+        <strong>Price triangulation:</strong> each platform&apos;s median nightly rate is compared —
+        when independent sources agree (small spread), confidence in the figure is higher. Coordinate
+        data is richest on Airbnb/Vrbo, so district-level cuts lean on those; Booking/Agoda mainly
+        validate the island-wide price.
       </>,
       <>
         <strong>Annual income uses an assumed base occupancy</strong> of{" "}
@@ -226,11 +253,23 @@ const INS = {
   ru: {
     dataRefreshing: "Данные рынка обновляются — загляните чуть позже.",
     listingsAnalysed: "Проанализировано объявлений",
-    source: "Источник",
+    source: "Источники",
     snapshot: "Срез",
     activeOcc: "Активная загрузка (90д)",
-    bookingCrossCheck: "Сверка с Booking",
-    perNight: "/ночь",
+    dedupNote: (collected: number, unique: number) =>
+      `${collected.toLocaleString("ru-RU")} собрано · ${unique.toLocaleString("ru-RU")} уникальных после дедупа`,
+    triangulationEyebrow: "Кросс-проверка источников",
+    triangulationTitle: "Триангуляция цены",
+    triangulationNote:
+      "Медианная ставка за ночь по одному и тому же рынку вилл, по площадкам. Когда независимые площадки сходятся на одной цифре — ей можно доверять.",
+    agree: (pct: number) => `Площадки сходятся — в пределах ±${pct}%`,
+    diverge: (pct: number) => `Площадки расходятся — разброс ${pct}%`,
+    sourceN: (n: number) => `${n.toLocaleString("ru-RU")} ${pluralRu(n, "объект", "объекта", "объектов")}`,
+    supplyUnder: "Мало предложения",
+    supplySaturated: "Насыщен",
+    yieldSuffix: (pct: number) => ` · ${pct}% дохода к земле`,
+    yieldNote:
+      "«Доход к земле» = ориентировочный годовой доход ÷ стоимость эталонного участка 400 м² в районе (без стоимости стройки) — индикатор ценности земли, а не полная доходность.",
     freePreview: "Бесплатный обзор",
     teaserTitle: "Лучшие районы для строительства под аренду",
     teaserNote: "Медианная ставка за ночь (ADR) по объектам целиком, по районам.",
@@ -311,6 +350,7 @@ const INS = {
     sortLabels: {
       adr: "Ставка за ночь",
       annual: "Годовой доход",
+      yield: "Доход к земле",
       sample: "Размер выборки",
       name: "По названию",
     } as Record<DistrictSort, string>,
@@ -366,9 +406,17 @@ const INS = {
     methodSummary: "Метод и допущения",
     methodBullets: (meta: RentalMarket["meta"]): ReactNode[] => [
       <>
-        Данные — срез <strong>{meta.sample}</strong> объявлений Airbnb (объект целиком) на Ко Пангане
-        ({meta.date}), в валюте {meta.currency}. Внутреннее исследование, не перепубликация чужих
-        данных.
+        Данные — срез <strong>{meta.sample}</strong> уникальных объявлений (объект целиком) на Ко
+        Пангане ({meta.date}), в валюте {meta.currency}, собранных по площадкам{" "}
+        {(meta.sources ?? []).map((s) => s.label).join(", ") || "Airbnb"} и схлопнутых по координатам
+        и названию — вилла с нескольких площадок считается один раз. Внутреннее исследование, не
+        перепубликация чужих данных.
+      </>,
+      <>
+        <strong>Триангуляция цены:</strong> медианная ставка каждой площадки сравнивается — когда
+        независимые источники сходятся (малый разброс), доверие к цифре выше. Координаты богаче всего
+        у Airbnb/Vrbo, поэтому район-срезы опираются на них; Booking/Agoda в основном подтверждают
+        островную цену.
       </>,
       <>
         <strong>Годовой доход берётся при допущении базовой загрузки</strong>{" "}
@@ -459,7 +507,7 @@ export function RentalInsights({
       <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 rounded-sm border border-forest-500/10 bg-cream-50 px-6 py-5 text-sm">
         <div className="flex flex-wrap gap-x-8 gap-y-3">
           <Stat label={t.listingsAnalysed} value={meta.sample.toLocaleString("en-US")} />
-          <Stat label={t.source} value={meta.source} />
+          <SourceMix meta={meta} />
           <Stat label={t.snapshot} value={meta.date} />
           {meta.occupancyMeasuredAll != null ? (
             <Stat
@@ -467,15 +515,14 @@ export function RentalInsights({
               value={`${Math.round(meta.occupancyMeasuredAll * 100)}%`}
             />
           ) : null}
-          {data.crossCheck?.bookingVillaNightly ? (
-            <Stat
-              label={t.bookingCrossCheck}
-              value={`${fmt(data.crossCheck.bookingVillaNightly)}${t.perNight}`}
-            />
-          ) : null}
         </div>
         <CurrencyToggle currency={currency} onChange={setCurrency} />
       </div>
+
+      {/* Cross-source price triangulation (when ≥2 platforms) */}
+      {data.crossCheck && data.crossCheck.sources.length >= 2 ? (
+        <Triangulation cross={data.crossCheck} fmt={fmt} />
+      ) : null}
 
       {/* What to build — the synthesised answer */}
       <BuildRecommendation data={data} fmt={fmt} />
@@ -554,6 +601,87 @@ export function RentalInsights({
         </div>
       </section>
     </div>
+  );
+}
+
+/* ----------------------------- Source mix ------------------------------ */
+
+function SourceMix({ meta }: { meta: RentalMarket["meta"] }) {
+  const t = INS[useLocale()];
+  const sources = meta.sources ?? [];
+  if (sources.length === 0) {
+    return <Stat label={t.source} value={meta.source} />;
+  }
+  return (
+    <div>
+      <div className="text-[11px] uppercase tracking-wider text-forest-500/55">{t.source}</div>
+      <div className="mt-1 flex flex-wrap items-center gap-1.5">
+        {sources.map((s) => (
+          <span
+            key={s.key}
+            className="inline-flex items-center gap-1 rounded-full bg-forest-500/8 px-2.5 py-0.5 text-xs font-medium text-forest-900"
+            title={t.sourceN(s.n)}
+          >
+            {s.label}
+            <span className="tabular-nums text-forest-500/55">{s.n.toLocaleString("en-US")}</span>
+          </span>
+        ))}
+      </div>
+      {meta.dedup && meta.dedup.total !== meta.dedup.unique ? (
+        <div className="mt-1 text-[10px] text-forest-500/45">
+          {t.dedupNote(meta.dedup.total, meta.dedup.unique)}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+/* -------------------------- Triangulation card ------------------------- */
+
+function Triangulation({ cross, fmt }: { cross: RmCrossCheck; fmt: MoneyFmt }) {
+  const t = INS[useLocale()];
+  const priced = cross.sources.filter((s) => s.adrMedian != null);
+  const maxAdr = Math.max(...priced.map((s) => s.adrMedian ?? 0), 1);
+
+  return (
+    <section>
+      <SectionHead
+        icon={<Scale className="h-4 w-4" />}
+        eyebrow={t.triangulationEyebrow}
+        title={t.triangulationTitle}
+        note={t.triangulationNote}
+      />
+      <div className="mt-6 rounded-sm border border-forest-500/10 bg-cream-50 p-6">
+        <div className="space-y-3">
+          {priced.map((s) => (
+            <BarRow
+              key={s.key}
+              label={s.label}
+              value={s.adrMedian ?? 0}
+              max={maxAdr}
+              right={fmt(s.adrMedian)}
+              sub={t.sourceN(s.nPriced || s.n)}
+            />
+          ))}
+        </div>
+        {cross.spreadPct != null ? (
+          <div
+            className={`mt-5 inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-sm font-medium ${
+              cross.agree
+                ? "bg-forest-50/60 text-forest-500"
+                : "bg-brass-200/50 text-brass-600"
+            }`}
+          >
+            {cross.agree ? (
+              <CheckCircle className="h-4 w-4" />
+            ) : (
+              <AlertTriangle className="h-4 w-4" />
+            )}
+            {cross.agree ? t.agree(cross.spreadPct) : t.diverge(cross.spreadPct)}
+          </div>
+        ) : null}
+      </div>
+    </section>
   );
 }
 
@@ -693,7 +821,7 @@ function Metric({ label, value }: { label: string; value: string }) {
 
 /* ----------------------------- Full report ----------------------------- */
 
-type DistrictSort = "adr" | "annual" | "sample" | "name";
+type DistrictSort = "adr" | "annual" | "yield" | "sample" | "name";
 
 function FullReport({ data, fmt }: { data: RentalMarket; fmt: MoneyFmt }) {
   const t = INS[useLocale()];
@@ -707,8 +835,10 @@ function FullReport({ data, fmt }: { data: RentalMarket; fmt: MoneyFmt }) {
   const districtBedrooms = [...data.districtBedrooms].sort((a, b) => b.adrMedian - a.adrMedian);
 
   const topPick = data.districts[0]?.name;
+  const hasYield = data.districts.some((d) => d.yieldOnLandPct != null);
   const sortedDistricts = [...data.districts].sort((a, b) => {
     if (sort === "annual") return (b.annual.base ?? 0) - (a.annual.base ?? 0);
+    if (sort === "yield") return (b.yieldOnLandPct ?? 0) - (a.yieldOnLandPct ?? 0);
     if (sort === "sample") return b.n - a.n;
     if (sort === "name") return a.name.localeCompare(b.name);
     return b.adrMedian - a.adrMedian;
@@ -721,7 +851,9 @@ function FullReport({ data, fmt }: { data: RentalMarket; fmt: MoneyFmt }) {
         <div className="flex flex-wrap items-center justify-between gap-3">
           <SubHead title={t.subAllDistricts} />
           <div className="inline-flex flex-wrap gap-1 text-[11px]">
-            {(Object.keys(t.sortLabels) as DistrictSort[]).map((k) => (
+            {(Object.keys(t.sortLabels) as DistrictSort[])
+              .filter((k) => k !== "yield" || hasYield)
+              .map((k) => (
               <button
                 key={k}
                 type="button"
@@ -746,20 +878,30 @@ function FullReport({ data, fmt }: { data: RentalMarket; fmt: MoneyFmt }) {
               value={d.adrMedian}
               max={maxAdr}
               right={fmt(d.adrMedian)}
-              sub={t.districtSub(
-                d.n,
-                d.adrP25 && d.adrP75 ? `${fmt(d.adrP25)}–${fmt(d.adrP75)}` : null,
-                fmt(effectiveAnnualThb(d, meta), true),
-                measuredOccupancy(d, meta) != null
-                  ? Math.round((measuredOccupancy(d, meta) as number) * 100)
-                  : null,
-              )}
+              sub={
+                t.districtSub(
+                  d.n,
+                  d.adrP25 && d.adrP75 ? `${fmt(d.adrP25)}–${fmt(d.adrP75)}` : null,
+                  fmt(effectiveAnnualThb(d, meta), true),
+                  measuredOccupancy(d, meta) != null
+                    ? Math.round((measuredOccupancy(d, meta) as number) * 100)
+                    : null,
+                ) + (sort === "yield" && d.yieldOnLandPct != null ? t.yieldSuffix(d.yieldOnLandPct) : "")
+              }
               badge={d.name === topPick ? t.topPick : undefined}
               highlight={d.name === topPick}
               confidence={confidenceOf(d.n)}
+              tag={
+                d.supplyTag === "under"
+                  ? { label: t.supplyUnder, tone: "good" }
+                  : d.supplyTag === "saturated"
+                    ? { label: t.supplySaturated, tone: "warn" }
+                    : undefined
+              }
             />
           ))}
         </div>
+        {hasYield ? <p className="mt-3 text-[11px] text-forest-500/55">{t.yieldNote}</p> : null}
       </div>
 
       {/* By property type */}
@@ -1081,6 +1223,7 @@ function BarRow({
   highlight,
   badge,
   confidence,
+  tag,
   tone = "forest",
 }: {
   label: string;
@@ -1092,6 +1235,7 @@ function BarRow({
   highlight?: boolean;
   badge?: string;
   confidence?: "low" | "medium" | "high";
+  tag?: { label: string; tone: "good" | "warn" };
   tone?: "forest" | "brass";
 }) {
   const locale = useLocale();
@@ -1123,6 +1267,17 @@ function BarRow({
           ) : (
             <span className="block truncate text-sm font-medium text-forest-900">{label}</span>
           )}
+          {tag ? (
+            <span
+              className={`shrink-0 rounded-full px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wide ${
+                tag.tone === "good"
+                  ? "bg-forest-500/10 text-forest-500"
+                  : "bg-brass-200/60 text-brass-600"
+              }`}
+            >
+              {tag.label}
+            </span>
+          ) : null}
         </span>
         {sub ? <div className="truncate text-[11px] text-forest-500/55">{sub}</div> : null}
       </div>
