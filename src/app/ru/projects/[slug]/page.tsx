@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getProjectBySlug, getPublicProjects, projectSlug } from "@/lib/data/projects";
 import { ProjectLanding } from "@/components/projects/project-landing";
+import { ObjectJsonLd } from "@/components/objects/object-json-ld";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
+import { getSiteUrl } from "@/lib/site-url";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -36,5 +39,19 @@ export default async function RuProjectLandingPage({ params }: Props) {
   const { slug } = await params;
   const found = await getProjectBySlug(slug);
   if (!found) notFound();
-  return <ProjectLanding project={found.project} catalog={found.catalog} locale="ru" />;
+  const siteUrl = getSiteUrl();
+  const pageUrl = `${siteUrl}/ru/projects/${slug}`;
+  return (
+    <>
+      <ObjectJsonLd object={found.project} url={pageUrl} />
+      <BreadcrumbJsonLd
+        crumbs={[
+          { name: "Главная", url: `${siteUrl}/ru` },
+          { name: "Проекты", url: `${siteUrl}/ru/projects` },
+          { name: found.project.rwNumber, url: pageUrl },
+        ]}
+      />
+      <ProjectLanding project={found.project} catalog={found.catalog} locale="ru" />
+    </>
+  );
 }

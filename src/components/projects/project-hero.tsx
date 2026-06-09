@@ -8,6 +8,7 @@ import type { Locale } from "@/lib/i18n/dictionaries";
 import { getProjectsDict } from "@/lib/i18n/dictionaries";
 import { formatPriceTHB } from "@/lib/utils/price";
 import { Button } from "@/components/ui/button";
+import { ShareButton } from "@/components/objects/share-button";
 import { StageBadge } from "./stage-badge";
 import { AvailabilityBar } from "./availability-bar";
 
@@ -32,6 +33,7 @@ export function ProjectHero({ project, availability, locale, developerHref }: Pr
             {project.rwNumber}
           </span>
           <StageBadge stage={project.stage} locale={locale} />
+          <ShareButton rw={project.rwNumber} title={project.titleEn} className="ml-auto" />
         </div>
 
         <h1 className="mt-4 text-balance">{project.titleEn}</h1>
