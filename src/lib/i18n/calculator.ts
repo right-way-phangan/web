@@ -73,7 +73,14 @@ export interface CalcDict {
   totalInvested: string;
   capRate: string;
   cashOnCash: string;
+  grossYield: string;
   downloadPdf: string;
+  resetDefaults: string;
+  copyLink: string;
+  linkCopied: string;
+  // Cross-input warnings
+  leaseExpiryWarn: (years: number, term: number) => string;
+  offplanOverpayWarn: (totalPct: number) => string;
   // Bank compare
   vsBank: string;
   bankDeposit: (rate: number) => string;
@@ -82,10 +89,13 @@ export interface CalcDict {
   lessThanBank: string;
   // Capital growth
   capitalGrowth: string;
+  returnVsBankTitle: string;
   now: string;
   yearN: (n: number) => string;
   legendProperty: string;
+  legendReturn: string;
   legendBank: string;
+  chartTipYear: (n: number) => string;
   // Year table
   showYearByYear: string;
   thYear: string;
@@ -113,6 +123,38 @@ export interface CalcDict {
   disclaimerMain: string;
   disclaimerLease: string;
   disclaimerCurrency: string;
+  // New inputs (wave 2)
+  leaseRenewableLabel: string;
+  furnishingLabel: string;
+  furnishingHint: string;
+  rentTaxLabel: string;
+  rentAfterHandoverLabel: string;
+  inflationLabel: string;
+  inTodaysMoney: string;
+  realCagrNote: (infl: number, value: string) => string;
+  // Metric definitions (info tooltips)
+  defRoi: string;
+  defCagr: string;
+  defIrr: string;
+  defCapRate: string;
+  defCashOnCash: string;
+  defGrossYield: string;
+  // Break-even
+  breakEvenTitle: string;
+  breakEvenOccupancy: (v: string) => string;
+  breakEvenGrowth: (v: string) => string;
+  breakEvenAlways: string;
+  breakEvenNever: string;
+  // Sensitivity
+  sensitivityTitle: string;
+  sensHint: string;
+  sensDriverGrowth: string;
+  sensDriverOccupancy: string;
+  // Scenario pin
+  pinScenario: string;
+  pinnedLabel: string;
+  currentLabel: string;
+  clearPin: string;
   // Mobile bar
   inYr: (years: number) => string;
   resultsBtn: string;
@@ -194,17 +236,28 @@ const EN: CalcDict = {
   totalInvested: "Total invested",
   capRate: "Cap rate",
   cashOnCash: "Cash-on-cash",
+  grossYield: "Gross yield",
   downloadPdf: "Download PDF report",
+  resetDefaults: "Reset",
+  copyLink: "Copy link",
+  linkCopied: "Link copied",
+  leaseExpiryWarn: (years, term) =>
+    `Your holding period (${years} yr) reaches or exceeds the lease term (${term} yr) — the lease runs out, so the projected resale value falls to near zero. Shorten the horizon or extend the lease.`,
+  offplanOverpayWarn: (totalPct) =>
+    `Down payment + balance at handover = ${totalPct}% — that's over 100% of the price. Lower one of them so the plan adds up.`,
   vsBank: "vs a bank deposit",
   bankDeposit: (rate) => `Bank deposit (${rate}%)`,
   thisProperty: "This property",
   moreThanBank: (years) => `more than the bank over ${years} years`,
   lessThanBank: "less than the bank — try a higher growth rate or longer horizon",
   capitalGrowth: "Capital growth",
+  returnVsBankTitle: "Your return vs a bank deposit",
   now: "Now",
   yearN: (n) => `Year ${n}`,
-  legendProperty: "Property",
+  legendProperty: "Property value",
+  legendReturn: "Your return (sale + rent − costs)",
   legendBank: "Bank deposit",
+  chartTipYear: (n) => `Year ${n}`,
   showYearByYear: "Show year-by-year",
   thYear: "Year",
   thValue: "Value",
@@ -232,6 +285,33 @@ const EN: CalcDict = {
     "Leasehold value is discounted by the remaining lease term (a simplified linear model). ",
   disclaimerCurrency:
     "Currency conversion is for display only; figures are computed in THB. Speak with Right Way for a property-specific assessment.",
+  leaseRenewableLabel: "Renewable lease (e.g. 30+30+30)",
+  furnishingLabel: "Furnishing / setup, one-off",
+  furnishingHint: "FF&E to make the villa rentable — counted as cash invested.",
+  rentTaxLabel: "Tax on rental income (%)",
+  rentAfterHandoverLabel: "Rent it out after handover",
+  inflationLabel: "Inflation (%/yr)",
+  inTodaysMoney: "in today's money",
+  realCagrNote: (infl, value) => `Real CAGR, net of ${infl}% inflation: ${value}/yr`,
+  defRoi: "Total profit over the whole period as a % of the cash you put in.",
+  defCagr: "The smoothed average annual growth rate of your money.",
+  defIrr: "Annualised return that accounts for when each payment is made.",
+  defCapRate: "Year-1 net rental income as a % of the purchase price.",
+  defCashOnCash: "Year-1 net cash as a % of the cash you actually invested.",
+  defGrossYield: "Year-1 gross rent as a % of total invested, before costs.",
+  breakEvenTitle: "Break-even vs the bank",
+  breakEvenOccupancy: (v) => `At about ${v}% occupancy this matches the bank deposit — above it, the property wins.`,
+  breakEvenGrowth: (v) => `At about ${v}%/yr growth this matches the bank deposit — above it, the property wins.`,
+  breakEvenAlways: "This beats the bank across the whole sensible range of assumptions.",
+  breakEvenNever: "This can't catch the bank within a sensible range — revisit the assumptions.",
+  sensitivityTitle: "Sensitivity",
+  sensHint: "Total ROI if the main driver lands lower or higher than your base case.",
+  sensDriverGrowth: "Annual growth",
+  sensDriverOccupancy: "Occupancy",
+  pinScenario: "Pin to compare",
+  pinnedLabel: "Pinned",
+  currentLabel: "Current",
+  clearPin: "Clear",
   inYr: (years) => `In ${years} yr`,
   resultsBtn: "Results",
   fillFromMarket: "Fill from market data",
@@ -310,17 +390,28 @@ const RU: CalcDict = {
   totalInvested: "Всего вложено",
   capRate: "Cap rate",
   cashOnCash: "Cash-on-cash",
+  grossYield: "Валовая доходность",
   downloadPdf: "Скачать PDF-отчёт",
+  resetDefaults: "Сбросить",
+  copyLink: "Скопировать ссылку",
+  linkCopied: "Ссылка скопирована",
+  leaseExpiryWarn: (years, term) =>
+    `Срок владения (${years} г.) достигает или превышает срок аренды (${term} г.) — аренда заканчивается, поэтому прогнозная стоимость перепродажи падает почти до нуля. Сократите горизонт или продлите аренду.`,
+  offplanOverpayWarn: (totalPct) =>
+    `Первый взнос + остаток при сдаче = ${totalPct}% — это больше 100% цены. Уменьшите одно из значений, чтобы план сходился.`,
   vsBank: "против банковского депозита",
   bankDeposit: (rate) => `Банковский депозит (${rate}%)`,
   thisProperty: "Эта недвижимость",
   moreThanBank: (years) => `больше банка за ${years} лет`,
   lessThanBank: "меньше банка — попробуйте выше рост или длиннее горизонт",
   capitalGrowth: "Рост капитала",
+  returnVsBankTitle: "Ваш результат против депозита",
   now: "Сейчас",
   yearN: (n) => `Год ${n}`,
-  legendProperty: "Недвижимость",
+  legendProperty: "Стоимость объекта",
+  legendReturn: "Ваш результат (продажа + аренда − затраты)",
   legendBank: "Депозит",
+  chartTipYear: (n) => `Год ${n}`,
   showYearByYear: "Показать по годам",
   thYear: "Год",
   thValue: "Стоимость",
@@ -348,6 +439,33 @@ const RU: CalcDict = {
     "Стоимость лизхолда дисконтируется на остаток срока аренды (упрощённая линейная модель). ",
   disclaimerCurrency:
     "Конвертация валют — только для отображения; расчёты ведутся в THB. Обратитесь в Right Way за оценкой под конкретный объект.",
+  leaseRenewableLabel: "Аренда с продлением (напр. 30+30+30)",
+  furnishingLabel: "Меблировка / запуск, разово",
+  furnishingHint: "Обстановка, чтобы виллу можно было сдавать — учитывается как вложенный капитал.",
+  rentTaxLabel: "Налог на арендный доход (%)",
+  rentAfterHandoverLabel: "Сдавать после сдачи объекта",
+  inflationLabel: "Инфляция (%/год)",
+  inTodaysMoney: "в сегодняшних деньгах",
+  realCagrNote: (infl, value) => `Реальный CAGR, за вычетом инфляции ${infl}%: ${value}/год`,
+  defRoi: "Совокупная прибыль за весь период в % от вложенных денег.",
+  defCagr: "Сглаженный средний годовой темп роста ваших денег.",
+  defIrr: "Годовая доходность с учётом того, когда сделан каждый платёж.",
+  defCapRate: "Чистый арендный доход за 1-й год в % от цены покупки.",
+  defCashOnCash: "Чистый денежный поток за 1-й год в % от реально вложенных денег.",
+  defGrossYield: "Валовая аренда за 1-й год в % от всего вложенного, до затрат.",
+  breakEvenTitle: "Точка безубыточности против банка",
+  breakEvenOccupancy: (v) => `Примерно при ${v}% загрузки результат сравнивается с депозитом — выше неё выигрывает недвижимость.`,
+  breakEvenGrowth: (v) => `Примерно при росте ${v}%/год результат сравнивается с депозитом — выше него выигрывает недвижимость.`,
+  breakEvenAlways: "Обгоняет банк во всём разумном диапазоне допущений.",
+  breakEvenNever: "Не догоняет банк в разумном диапазоне — пересмотрите допущения.",
+  sensitivityTitle: "Чувствительность",
+  sensHint: "Полный ROI, если ключевой параметр окажется ниже или выше базового.",
+  sensDriverGrowth: "Годовой рост",
+  sensDriverOccupancy: "Загрузка",
+  pinScenario: "Закрепить для сравнения",
+  pinnedLabel: "Закреплён",
+  currentLabel: "Текущий",
+  clearPin: "Сбросить",
   inYr: (years) => `Через ${years} лет`,
   resultsBtn: "Результат",
   fillFromMarket: "Заполнить из данных рынка",

@@ -21,16 +21,20 @@ export interface RoiInputs {
   saleCostsPct: number; // exit: transfer + commission, % of sale value
   annualHoldingPct: number; // yearly holding costs, % of price
   bankRatePct: number; // deposit comparison rate
+  inflationPct: number; // for "in today's money" real-return readout
   mode: CalcMode;
   // Tenure — Thailand-specific. Leasehold value decays as the lease runs down.
   tenure: Tenure;
   leaseTermYears: number; // total lease length (leasehold only), e.g. 30
+  leaseRenewable: boolean; // renewable lease (e.g. 30+30+30) — no decay
   // Rent mode
   nightlyRateThb: number;
   occupancyPct: number;
   mgmtFeePct: number; // % of gross rent
   opexPct: number; // % of price / year
   rentGrowthPct: number; // annual nightly-rate growth
+  rentTaxPct: number; // income tax on net rent, %
+  furnishingThb: number; // one-off FF&E / setup cost (rent mode)
   // Seasonality (rent mode) — Phangan high vs low season. When off, occupancyPct
   // is used flat. When on, gross rent splits across two seasons.
   seasonality: boolean;
@@ -45,6 +49,7 @@ export interface RoiInputs {
   downPaymentPct: number; // paid at contract (t=0)
   handoverPaymentPct: number; // balance paid at completion
   handoverUpliftPct: number; // value gain from contract price to handover
+  rentAfterHandover: boolean; // off-plan: let the unit from handover to exit
 }
 
 export interface RoiYearPoint {
@@ -66,6 +71,8 @@ export interface RoiResult {
   netProfit: number; // total return − initial investment
   roiPct: number;
   cagrPct: number;
+  realCagrPct: number; // CAGR net of inflation
+  realProjectedValue: number; // projected value in today's money
   irrPct: number;
   grossYieldPct: number; // rent mode
   avgCashYieldPct: number; // rent mode
@@ -87,21 +94,26 @@ export const SCENARIOS = [
 
 // Pre-filled with typical Koh Phangan figures (illustrative, all editable).
 export const DEFAULT_INPUTS: RoiInputs = {
-  purchasePriceThb: 15_000_000,
+  // Neutral starting point — does not anchor the public price segment.
+  purchasePriceThb: 9_000_000,
   annualGrowthPct: 6,
   years: 10,
   closingCostsPct: 5, // Thailand transfer fee + DD + legal, blended
   saleCostsPct: 6, // agent commission + transfer share at exit
   annualHoldingPct: 0.5,
   bankRatePct: 2,
+  inflationPct: 3, // Thailand long-run CPI, illustrative
   mode: "hold",
   tenure: "freehold",
   leaseTermYears: 30, // standard Thai lease term
+  leaseRenewable: false,
   nightlyRateThb: 8000, // mid villa, Phangan
   occupancyPct: 50, // seasonal island — blended annual
   mgmtFeePct: 25, // full STR management
   opexPct: 3,
   rentGrowthPct: 3,
+  rentTaxPct: 0,
+  furnishingThb: 0,
   seasonality: false,
   highSeasonMonths: 5, // Dec–Apr
   highSeasonOccupancyPct: 75,
@@ -112,6 +124,7 @@ export const DEFAULT_INPUTS: RoiInputs = {
   downPaymentPct: 30,
   handoverPaymentPct: 40,
   handoverUpliftPct: 15,
+  rentAfterHandover: false,
 };
 
 export type SolveMetric = "roi" | "cap" | "coc" | "irr";
@@ -147,6 +160,33 @@ export function solveMaxPrice(input: RoiInputs, metric: SolveMetric, targetPct: 
     if (Math.abs(m - targetPct) < 1e-3) return mid;
   }
   return (lo + hi) / 2;
+}
+
+/**
+ * Break-even: the input level at which the property just matches a bank deposit
+ * (vsBank = 0). In rent mode we solve for occupancy; otherwise for annual growth.
+ * vsBank is monotonically increasing in both, so we bisect. Returns null when the
+ * property already beats the bank at the floor, or can't reach it at the ceiling.
+ */
+export function solveBreakEven(input: RoiInputs): { metric: "occupancy" | "growth"; value: number } | null {
+  const isRent = input.mode === "rent" && !input.offplan;
+  const f = isRent
+    ? (v: number) => computeRoi({ ...input, seasonality: false, occupancyPct: v }).vsBankThb
+    : (v: number) => computeRoi({ ...input, annualGrowthPct: v }).vsBankThb;
+  let lo = isRent ? 0 : -20;
+  let hi = isRent ? 100 : 40;
+  const flo = f(lo);
+  const fhi = f(hi);
+  if (!isFinite(flo) || !isFinite(fhi)) return null;
+  if (flo > 0 || fhi < 0) return null; // already beats at floor, or unreachable at ceiling
+  for (let i = 0; i < 80; i++) {
+    const mid = (lo + hi) / 2;
+    const fm = f(mid);
+    if (fm > 0) hi = mid;
+    else lo = mid;
+    if (Math.abs(fm) < 1) return { metric: isRent ? "occupancy" : "growth", value: mid };
+  }
+  return { metric: isRent ? "occupancy" : "growth", value: (lo + hi) / 2 };
 }
 
 function computeIRR(cashflows: number[]): number {
@@ -187,6 +227,8 @@ function computeIRR(cashflows: number[]): number {
  */
 function leaseFactor(input: RoiInputs, year: number): number {
   if (input.tenure !== "leasehold") return 1;
+  // Renewable lease (e.g. 30+30+30) — treated as effectively perpetual, no decay.
+  if (input.leaseRenewable) return 1;
   const term = Math.max(1, input.leaseTermYears || 1);
   const remaining = term - year;
   return Math.max(0, remaining) / term;
@@ -201,7 +243,9 @@ export function computeRoi(input: RoiInputs): RoiResult {
   const bank = (input.bankRatePct || 0) / 100;
   const isRent = input.mode === "rent";
 
-  const initialInvestment = price * (1 + (input.closingCostsPct || 0) / 100);
+  // One-off furnishing/setup (FF&E) only applies when the plan is to rent.
+  const furnishing = isRent ? Math.max(0, input.furnishingThb || 0) : 0;
+  const initialInvestment = price * (1 + (input.closingCostsPct || 0) / 100) + furnishing;
 
   const series: RoiYearPoint[] = [
     { year: 0, propertyValue: price, bankValue: initialInvestment, rentNet: 0, profit: -0 },
@@ -239,7 +283,10 @@ export function computeRoi(input: RoiInputs): RoiResult {
       const rentGross = seasonGross(currentRate);
       const mgmt = rentGross * ((input.mgmtFeePct || 0) / 100);
       const opex = price * ((input.opexPct || 0) / 100);
-      rentNet = rentGross - mgmt - opex;
+      const preTax = rentGross - mgmt - opex;
+      // Income tax on the net rental profit (no tax credit on a loss).
+      const tax = preTax > 0 ? preTax * ((input.rentTaxPct || 0) / 100) : 0;
+      rentNet = preTax - tax;
       rentNetTotal += rentNet;
     }
     if (y === 1) firstYearNoi = rentNet - holding;
@@ -272,6 +319,11 @@ export function computeRoi(input: RoiInputs): RoiResult {
       : 0;
   const irrPct = computeIRR(cashflows);
 
+  // Real (inflation-adjusted) headline figures — "in today's money".
+  const infl = (input.inflationPct || 0) / 100;
+  const realProjectedValue = projectedValue / Math.pow(1 + infl, years);
+  const realCagrPct = ((1 + cagrPct / 100) / (1 + infl) - 1) * 100;
+
   const year1Gross = isRent ? seasonGross(input.nightlyRateThb || 0) : 0;
   const grossYieldPct = isRent && initialInvestment > 0 ? (year1Gross / initialInvestment) * 100 : 0;
   const avgCashYieldPct =
@@ -298,6 +350,8 @@ export function computeRoi(input: RoiInputs): RoiResult {
     netProfit,
     roiPct,
     cagrPct,
+    realCagrPct,
+    realProjectedValue,
     irrPct,
     grossYieldPct,
     avgCashYieldPct,
@@ -341,7 +395,48 @@ function computeOffplan(input: RoiInputs): RoiResult {
   for (let m = 1; m <= months; m++) cf[m] -= perInstall;
   cf[months] -= price * hand + price * closing; // balance + transfer fees at handover
 
-  const totalInvested = price * (down + middle + hand) + price * closing;
+  // Optional buy-to-let: the unit earns net rent from handover to exit.
+  const isLet = !!input.rentAfterHandover;
+  const furnishing = isLet ? Math.max(0, input.furnishingThb || 0) : 0;
+  if (furnishing) cf[months] -= furnishing; // FF&E paid at handover
+  const totalInvested = price * (down + middle + hand) + price * closing + furnishing;
+
+  const seasonGross = (rate: number): number => {
+    if (!input.seasonality) return rate * ((input.occupancyPct || 0) / 100) * 365;
+    const highDays = Math.min(365, Math.max(0, (input.highSeasonMonths || 0) / 12) * 365);
+    const lowDays = 365 - highDays;
+    const highRate = rate * (1 + (input.highSeasonRateUpliftPct || 0) / 100);
+    return (
+      highDays * ((input.highSeasonOccupancyPct || 0) / 100) * highRate +
+      lowDays * ((input.lowSeasonOccupancyPct || 0) / 100) * rate
+    );
+  };
+
+  // Net rent earned during each calendar year (prorated for the partial year the
+  // lease starts in). Credited at year-end into the monthly cashflow series.
+  // years can be fractional (a short horizon clamped up to handover), so size by ceil.
+  const rentByYear = new Array(Math.ceil(years) + 1).fill(0);
+  let firstYearNoi = 0;
+  if (isLet) {
+    let rate = input.nightlyRateThb || 0;
+    let started = false;
+    for (let y = 1; y <= years; y++) {
+      const occ = Math.max(0, y - Math.max(y - 1, handoverYear)); // operating fraction of year y
+      if (occ <= 0) continue;
+      if (started) rate *= 1 + (input.rentGrowthPct || 0) / 100;
+      started = true;
+      const gross = seasonGross(rate) * occ;
+      const mgmt = gross * ((input.mgmtFeePct || 0) / 100);
+      const opex = price * ((input.opexPct || 0) / 100) * occ;
+      const preTax = gross - mgmt - opex;
+      const tax = preTax > 0 ? preTax * ((input.rentTaxPct || 0) / 100) : 0;
+      rentByYear[y] = preTax - tax;
+      if (!firstYearNoi) firstYearNoi = rentByYear[y] / occ; // annualised first-year NOI
+      const m = Math.min(exitMonth, Math.round(y * 12));
+      cf[m] += rentByYear[y];
+    }
+  }
+  const rentNetTotal = rentByYear.reduce((a, b) => a + b, 0);
 
   const handoverValue = price * (1 + uplift);
   const lfExit = leaseFactor(input, years);
@@ -352,14 +447,23 @@ function computeOffplan(input: RoiInputs): RoiResult {
   const netProceeds = sellableExit - saleCosts;
   cf[exitMonth] += netProceeds;
 
-  const totalReturn = netProceeds;
+  const totalReturn = netProceeds + rentNetTotal;
   const netProfit = totalReturn - totalInvested;
   const roiPct = totalInvested > 0 ? (netProfit / totalInvested) * 100 : 0;
   const cagrPct =
     totalInvested > 0 && totalReturn > 0 ? (Math.pow(totalReturn / totalInvested, 1 / years) - 1) * 100 : 0;
+  const infl = (input.inflationPct || 0) / 100;
+  const realProjectedValue = sellableExit / Math.pow(1 + infl, years);
+  const realCagrPct = ((1 + cagrPct / 100) / (1 + infl) - 1) * 100;
 
   const monthlyIrr = computeIRR(cf) / 100;
   const irrPct = isFinite(monthlyIrr) ? (Math.pow(1 + monthlyIrr, 12) - 1) * 100 : NaN;
+
+  // Rent yields (buy-to-let off-plan only).
+  const capRatePct = isLet && price > 0 ? (firstYearNoi / price) * 100 : 0;
+  const cashOnCashPct = isLet && totalInvested > 0 ? (firstYearNoi / totalInvested) * 100 : 0;
+  const grossYieldPct =
+    isLet && totalInvested > 0 ? (seasonGross(input.nightlyRateThb || 0) / totalInvested) * 100 : 0;
 
   // Bank benchmark: the same instalments parked at the deposit rate until exit.
   const bankM = Math.pow(1 + bank, 1 / 12) - 1;
@@ -371,12 +475,14 @@ function computeOffplan(input: RoiInputs): RoiResult {
   // Annual series — value ramps to handover, then appreciates; bank line = the
   // instalments paid so far, grown at the deposit rate.
   const series: RoiYearPoint[] = [];
+  let cumRent = 0;
   for (let y = 0; y <= years; y++) {
     const grossVal =
       y <= handoverYear
         ? price + (handoverValue - price) * (handoverYear > 0 ? y / handoverYear : 1)
         : handoverValue * Math.pow(1 + g, y - handoverYear);
     const sellable = grossVal * leaseFactor(input, y);
+    cumRent += rentByYear[y] || 0;
     const mY = Math.round(y * 12);
     let invested = 0;
     let banked = 0;
@@ -390,8 +496,8 @@ function computeOffplan(input: RoiInputs): RoiResult {
       year: y,
       propertyValue: sellable,
       bankValue: banked,
-      rentNet: 0,
-      profit: sellable - (y === years ? saleCosts : 0) - invested,
+      rentNet: rentByYear[y] || 0,
+      profit: sellable - (y === years ? saleCosts : 0) - invested + cumRent,
     });
   }
 
@@ -400,17 +506,19 @@ function computeOffplan(input: RoiInputs): RoiResult {
     projectedValue: sellableExit,
     saleCosts,
     holdingCostsTotal: 0,
-    rentNetTotal: 0,
+    rentNetTotal,
     netProceeds,
     totalReturn,
     netProfit,
     roiPct,
     cagrPct,
+    realCagrPct,
+    realProjectedValue,
     irrPct,
-    grossYieldPct: 0,
+    grossYieldPct,
     avgCashYieldPct: 0,
-    capRatePct: 0,
-    cashOnCashPct: 0,
+    capRatePct,
+    cashOnCashPct,
     leaseFactorAtExit: lfExit,
     handoverValue,
     bankFinal,
