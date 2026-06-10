@@ -34,11 +34,38 @@ export async function updateLeadContactAction(
 
 export type CreateLeadResult = { ok: boolean; leadId?: number; error?: string };
 
+const SOURCE_LABEL: Record<string, string> = {
+  "walk-in": "Walk-in (офис)",
+  ad: "Реклама",
+  telegram: "Telegram",
+  whatsapp: "WhatsApp",
+  phone: "Звонок",
+  referral: "Рекомендация",
+  other: "Другое",
+};
+const TIMEFRAME_LABEL: Record<string, string> = {
+  now: "готов сейчас",
+  "1-3m": "1–3 мес",
+  "3-6m": "3–6 мес",
+  browsing: "присматривается",
+};
+
+/** Villa/House/Apartment/Project → villa_house pipeline; Land/empty → land. */
+function pipelineForInterest(type: string): "land" | "villa_house" {
+  return ["Villa", "House", "Apartment", "Project"].includes(type) ? "villa_house" : "land";
+}
+
+function slug(s: string): string {
+  return s.toLowerCase().replace(/[^a-z0-9а-я]+/gi, "-").replace(/^-+|-+$/g, "").slice(0, 40);
+}
+
 /**
- * Create a lead by hand from the admin (offline channels — Telegram/WhatsApp/
- * walk-in/referral/phone — which never hit the website form). Mirrors the
- * site's submitInquiry payload but tagged "manual" + a channel tag so the
- * board shows where the lead came from. Returns the new id for client redirect.
+ * Create a lead by hand from the admin. Covers every non-website origin a real
+ * agency sees: a walk-in into the office (often just a name + what they want),
+ * an ad-driven call (attribution: source=ad + campaign), or messenger/referral.
+ * Builds a structured first note (source · ad · qualification) + attribution
+ * tags so the board shows where the lead came from and how warm it is. Pipeline
+ * auto-derives from the interest type. Returns the new id for client redirect.
  */
 export async function createManualLeadAction(formData: FormData): Promise<CreateLeadResult> {
   if (!API) return { ok: false, error: "Backend не подключён." };
@@ -47,17 +74,52 @@ export async function createManualLeadAction(formData: FormData): Promise<Create
   const contactName = s("contactName");
   if (!contactName) return { ok: false, error: "Укажите имя контакта." };
 
-  const pipeline = s("pipeline") === "villa_house" ? "villa_house" : "land";
   const email = s("email");
   const phone = s("phone");
+  const source = s("source"); // walk-in | ad | telegram | whatsapp | phone | referral | other
+  const adCampaign = s("adCampaign"); // free text when source=ad: "Meta / lead-form / June-land"
+  const interestType = s("interestType"); // ''|Land|Villa|House|Apartment|Project
+  const district = s("district");
+  const budget = s("budget");
+  const timeframe = s("timeframe"); // ''|now|1-3m|3-6m|browsing
   const rwNumber = s("rwNumber");
-  const channel = s("channel"); // telegram | whatsapp | walk-in | referral | phone | other
-  const note = s("note");
-  const leadName = rwNumber ? `Лид · ${rwNumber} · ${contactName}` : `Лид · ${contactName}`;
+  const freeNote = s("note");
+
+  // Pipeline: interest type wins; else the explicit select; else land.
+  const pipeline = interestType
+    ? pipelineForInterest(interestType)
+    : s("pipeline") === "villa_house"
+      ? "villa_house"
+      : "land";
+
+  // Structured first note — what the agent will read at a glance.
+  const interestParts = [
+    interestType || null,
+    district || null,
+    budget ? `бюджет ${budget}` : null,
+    timeframe ? `срок ${TIMEFRAME_LABEL[timeframe] ?? timeframe}` : null,
+  ].filter(Boolean);
+  const noteLines = [
+    source ? `Источник: ${SOURCE_LABEL[source] ?? source}` : null,
+    source === "ad" && adCampaign ? `Реклама: ${adCampaign}` : null,
+    interestParts.length ? `Интерес: ${interestParts.join(" · ")}` : null,
+  ].filter(Boolean);
+  const note = [noteLines.join("\n"), freeNote].filter(Boolean).join("\n———\n") || undefined;
+
+  // Lead title: object → interest → name.
+  const interestLabel = [interestType, district].filter(Boolean).join(" ");
+  const leadName = rwNumber
+    ? `Лид · ${rwNumber} · ${contactName}`
+    : interestLabel
+      ? `Лид · ${interestLabel} · ${contactName}`
+      : `Лид · ${contactName}`;
 
   const tags = [
     "manual",
-    ...(channel ? [`channel:${channel}`] : []),
+    ...(source === "ad" ? ["source:ad"] : source ? [`channel:${source}`] : []),
+    ...(source === "ad" && adCampaign ? [`campaign:${slug(adCampaign)}`] : []),
+    ...(interestType ? [`interest:${interestType}`] : []),
+    ...(timeframe === "now" ? ["hot"] : []),
     ...(rwNumber ? [`object:${rwNumber}`] : []),
   ];
 
@@ -70,10 +132,10 @@ export async function createManualLeadAction(formData: FormData): Promise<Create
         leadName,
         pipeline,
         contact: { name: contactName, email: email || undefined, phone: phone || undefined },
-        note: note || undefined,
+        note,
         tags,
         rwNumber: rwNumber || undefined,
-        source: "manual",
+        source: source === "ad" ? "ad" : "manual",
         kind: "manual",
       }),
     });

@@ -29,8 +29,9 @@ export default function NewLeadPage() {
         </p>
         <h1 className="mt-2 text-2xl font-semibold text-forest-900 md:text-3xl">Новый лид</h1>
         <p className="mt-1 max-w-xl text-sm text-forest-900/60">
-          Завести клиента, пришедшего вне сайта — Telegram, WhatsApp, лично, по рекомендации
-          или звонком.
+          Завести клиента, пришедшего вне сайта: зашёл в офис (walk-in), позвонил с рекламы,
+          написал в Telegram/WhatsApp или по рекомендации. Минимум — имя; источник и квалификация
+          помогают вести и считать конверсию по каналам.
         </p>
       </div>
       <NewLeadForm />
