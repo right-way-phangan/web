@@ -5,8 +5,10 @@ import { useRouter } from "next/navigation";
 import type { Route } from "next";
 import { track } from "@vercel/analytics";
 import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
+import MarkerClusterGroup from "react-leaflet-cluster";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import "leaflet.markercluster/dist/MarkerCluster.css";
 import { TILE_URL, TILE_ATTRIBUTION, TILE_SUBDOMAINS } from "@/lib/leaflet/tiles";
 
 export interface DistrictPoint {
@@ -42,6 +44,25 @@ function districtIcon(p: DistrictPoint): L.DivIcon {
   });
 }
 
+// Cluster bubble — count of grouped districts, on-brand. Click zooms in to split.
+function clusterIcon(cluster: { getChildCount(): number }): L.DivIcon {
+  const n = cluster.getChildCount();
+  return L.divIcon({
+    className: "rw-district-cluster",
+    html: `<div style="
+      display:flex;align-items:center;justify-content:center;
+      width:40px;height:40px;border-radius:9999px;
+      transform:translate(-50%,-50%);
+      color:${COLORS.cream};background:${COLORS.forest};
+      border:2px solid ${COLORS.cream};box-shadow:0 1px 6px rgba(0,0,0,.35);
+      font:700 14px/1 var(--font-sans),system-ui,sans-serif;
+      cursor:pointer;
+    ">${n}</div>`,
+    iconSize: [0, 0],
+    iconAnchor: [0, 0],
+  });
+}
+
 function FitBounds({ points }: { points: DistrictPoint[] }) {
   const map = useMap();
   useEffect(() => {
@@ -66,21 +87,28 @@ export default function DistrictsMapLeaflet({ points }: { points: DistrictPoint[
       >
         <TileLayer attribution={TILE_ATTRIBUTION} url={TILE_URL} subdomains={TILE_SUBDOMAINS} />
         <FitBounds points={points} />
-        {points.map((p) => (
-          <Marker
-            key={p.slug}
-            position={[p.lat, p.lng]}
-            icon={districtIcon(p)}
-            eventHandlers={{
-              click: () => {
-                track("district_map_click", { district: p.amoName });
-                router.push(
-                  `/listings?district=${encodeURIComponent(p.amoName)}` as Route,
-                );
-              },
-            }}
-          />
-        ))}
+        <MarkerClusterGroup
+          maxClusterRadius={48}
+          showCoverageOnHover={false}
+          spiderfyOnMaxZoom={false}
+          iconCreateFunction={clusterIcon}
+        >
+          {points.map((p) => (
+            <Marker
+              key={p.slug}
+              position={[p.lat, p.lng]}
+              icon={districtIcon(p)}
+              eventHandlers={{
+                click: () => {
+                  track("district_map_click", { district: p.amoName });
+                  router.push(
+                    `/listings?district=${encodeURIComponent(p.amoName)}` as Route,
+                  );
+                },
+              }}
+            />
+          ))}
+        </MarkerClusterGroup>
       </MapContainer>
     </div>
   );

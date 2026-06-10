@@ -20,6 +20,8 @@ export function Footer() {
   const chrome = getChromeDict(isRu ? "ru" : "en");
   const f = chrome.footer;
   const exploreLinks = [...flatNav(chrome), { label: f.journal, href: isRu ? "/ru/blog" : "/blog" }];
+  const creditsHref = (isRu ? "/ru/credits" : "/credits") as Route;
+  const creditsLabel = isRu ? "Кредиты фото" : "Photo credits";
 
   // The homepage ends on the full-bleed IslandCta band; let the footer sit flush
   // against it instead of floating below a wide cream gap. Other pages close on
@@ -111,7 +113,15 @@ export function Footer() {
           <p className="text-xs text-forest-500/50">
             © {currentYear} Right Way Phangan Group. {f.rights}
           </p>
-          <p className="text-xs text-forest-500/50">{f.location}</p>
+          <div className="flex flex-col gap-2 text-xs text-forest-500/50 md:flex-row md:items-center md:gap-6">
+            <Link
+              href={creditsHref}
+              className="hover:text-brass-500 transition-colors"
+            >
+              {creditsLabel}
+            </Link>
+            <span>{f.location}</span>
+          </div>
         </div>
       </div>
     </footer>
