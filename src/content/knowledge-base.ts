@@ -175,6 +175,56 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "ownership",
     faqQuestion: "Should a foreigner buy freehold or leasehold on Koh Phangan?",
   },
+  {
+    slug: "land-titles-chanote-vs-nor-sor-3",
+    kbId: "kb-0005",
+    topic: "Documents",
+    title: "Land titles on Koh Phangan: Chanote vs Nor Sor 3, and how to verify one",
+    short:
+      "The title class decides what you're actually buying. A Chanote is the full ownership deed and the one to aim for; Nor Sor 3 Gor is usually fine with care. Por Bor Tor 5 and Sor Por Kor land are not real titles — common island traps. Verify every deed at the Land Office before you commit.",
+    updated: "2026-06-10",
+    body: [
+      "On Koh Phangan, the single most important document in any land deal is the title deed — and not all titles are equal. The class of title decides whether you're buying real, transferable ownership or a piece of paper that can't be legally sold at all. Here's how they rank, and what due diligence has to confirm.",
+      { h: "The title classes, strongest to weakest" },
+      {
+        ul: [
+          "**Chanote (Nor Sor 4 Jor, โฉนดที่ดิน)** — the full ownership title deed. GPS-surveyed with concrete boundary markers; can be sold, mortgaged and subdivided. The gold standard — this is what to aim for.",
+          "**Nor Sor 3 Gor (น.ส.3ก)** — a certificate of use with an aerial parcel map. Transferable, and can be upgraded to a Chanote. Boundaries are defined but without marked posts; transfer doesn't need a public notice. Usually fine with proper checks.",
+          "**Nor Sor 3 (น.ส.3)** — older, with vaguer boundaries and no parcel-map link. Transfer requires a 30-day public posting. Workable, but needs more caution.",
+          "**Sor Kor 1 (สค.1)** — an old notification of possession, not a title; registration has been effectively closed since 2008. Weak.",
+          "**Por Bor Tor 5 / 6 (ภบท.5)** — **not a title at all** — it's a land-tax payment receipt, often over state or forest land. It cannot be legally owned or transferred. A classic island trap, marketed cheaply as “land with possession.” Avoid.",
+          "**Sor Por Kor 4-01 (สปก.)** — agricultural land-reform land, reserved for qualified Thai farmers. It can't be sold to others or used to build a villa. Avoid.",
+        ],
+      },
+      { h: "How to verify a title" },
+      "A title deed is only as good as what the Land Office record says about it. Verification means reading the official record, not trusting the seller's copy.",
+      {
+        ul: [
+          "Compare the original deed against the Land Office's record copy at the Koh Phangan Land Office. The back of the deed logs everything registered against it: ownership history, mortgages, leases, usufructs, servitudes and court orders.",
+          "Commission a GPS boundary survey by a licensed surveyor and walk the plot — confirm the posts match the deed.",
+          "Confirm registered road access. Landlocked plots are common, and a right of way has to be registered, not just verbal.",
+          "Check what you can build. A clean title tells you what you own; the 2025 environmental zoning tells you what's buildable — see [Building zones on Koh Phangan](/knowledge/koh-phangan-building-zones).",
+          "Make sure it isn't forest reserve, Sor Por Kor, or encroached state land — and for a leasehold, that the lease is registered on the back of the deed.",
+        ],
+      },
+      { h: "Phangan in particular" },
+      "A lot of island land is held as Nor Sor 3 Gor rather than Chanote — that's normal here, not a red flag in itself. The real traps are Por Bor Tor 5 “possession” land sold as if it were ownership, and beachfront or hillside plots that carry a clean title but are effectively unbuildable under the ecozone rules. Both look fine until you check.",
+    ],
+    takeaways: [
+      "Chanote is the full ownership deed and the title to aim for; Nor Sor 3 Gor is usually fine with proper due diligence.",
+      "Por Bor Tor 5 (ภบท.5) is a tax receipt, not a title — it can't be legally owned or transferred.",
+      "Sor Por Kor (สปก.) land is for Thai farmers only — you can't build a villa on it.",
+      "Always compare the deed against the Land Office record — the back of the deed lists every mortgage, lease and claim.",
+      "A clean title still doesn't guarantee you can build — check the 2025 ecozone rules separately.",
+    ],
+    sources: [
+      { title: "Thai Land Code — title deed classes (Chanote / Nor Sor 3 Gor / Nor Sor 3 / Sor Kor 1), general practice" },
+      { title: "Por Bor Tor 5 is a tax-payment document, not a title; Sor Por Kor is agricultural land-reform land (general practice)" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion: "What land titles exist on Koh Phangan, and which can I safely buy?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
