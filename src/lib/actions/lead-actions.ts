@@ -32,6 +32,62 @@ export async function updateLeadContactAction(
   return { ok: true };
 }
 
+export type CreateLeadResult = { ok: boolean; leadId?: number; error?: string };
+
+/**
+ * Create a lead by hand from the admin (offline channels — Telegram/WhatsApp/
+ * walk-in/referral/phone — which never hit the website form). Mirrors the
+ * site's submitInquiry payload but tagged "manual" + a channel tag so the
+ * board shows where the lead came from. Returns the new id for client redirect.
+ */
+export async function createManualLeadAction(formData: FormData): Promise<CreateLeadResult> {
+  if (!API) return { ok: false, error: "Backend не подключён." };
+
+  const s = (k: string) => String(formData.get(k) ?? "").trim();
+  const contactName = s("contactName");
+  if (!contactName) return { ok: false, error: "Укажите имя контакта." };
+
+  const pipeline = s("pipeline") === "villa_house" ? "villa_house" : "land";
+  const email = s("email");
+  const phone = s("phone");
+  const rwNumber = s("rwNumber");
+  const channel = s("channel"); // telegram | whatsapp | walk-in | referral | phone | other
+  const note = s("note");
+  const leadName = rwNumber ? `Лид · ${rwNumber} · ${contactName}` : `Лид · ${contactName}`;
+
+  const tags = [
+    "manual",
+    ...(channel ? [`channel:${channel}`] : []),
+    ...(rwNumber ? [`object:${rwNumber}`] : []),
+  ];
+
+  try {
+    const res = await backendFetch(`/leads`, {
+      method: "POST",
+      headers: JSON_HEADERS,
+      cache: "no-store",
+      body: JSON.stringify({
+        leadName,
+        pipeline,
+        contact: { name: contactName, email: email || undefined, phone: phone || undefined },
+        note: note || undefined,
+        tags,
+        rwNumber: rwNumber || undefined,
+        source: "manual",
+        kind: "manual",
+      }),
+    });
+    if (!res.ok) return { ok: false, error: `API ${res.status}` };
+    const body = (await res.json()) as { leadId?: number };
+    revalidatePath("/admin/crm");
+    revalidatePath("/admin");
+    return { ok: true, leadId: body.leadId };
+  } catch (err) {
+    console.error("[crm] createManualLead failed:", err);
+    return { ok: false, error: "Сетевая ошибка." };
+  }
+}
+
 /** Delete a lead (test-lead cleanup), then return to the board. Form action. */
 export async function deleteLeadAction(formData: FormData): Promise<void> {
   const leadId = Number(formData.get("leadId"));

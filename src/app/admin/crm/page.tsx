@@ -37,15 +37,23 @@ export default async function CrmPage({
   return (
     <section className="px-4 py-8 md:px-8">
       <AdminNav active="crm" />
-      <div className="mb-6">
-        <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
-          Admin · CRM
-        </p>
-        <h1 className="mt-2 text-2xl font-semibold text-forest-900 md:text-3xl">Лиды</h1>
-        <p className="mt-1 text-sm text-forest-900/60">
-          {leads.length} лид(ов) · своя БД (Фаза B). Перетаскивайте карточку между колонками или
-          меняйте стадию селектором.
-        </p>
+      <div className="mb-6 flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+            Admin · CRM
+          </p>
+          <h1 className="mt-2 text-2xl font-semibold text-forest-900 md:text-3xl">Лиды</h1>
+          <p className="mt-1 text-sm text-forest-900/60">
+            {leads.length} лид(ов) · своя БД (Фаза B). Перетаскивайте карточку между колонками или
+            меняйте стадию селектором.
+          </p>
+        </div>
+        <Link
+          href={{ pathname: "/admin/crm/new" }}
+          className="shrink-0 rounded-full bg-forest-900 px-4 py-2 text-sm font-medium text-white hover:bg-forest-900/90"
+        >
+          + Новый лид
+        </Link>
       </div>
 
       {/* Pipeline tabs */}
