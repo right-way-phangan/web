@@ -28,6 +28,7 @@ export interface AdminObjectRow {
   photos: number;
   isPublic: boolean;
   isUnit: boolean;
+  leadCount: number;
   // edit-modal fields
   priceThb?: number | null;
   pricePerRai?: number | null;
@@ -126,13 +127,14 @@ export function ObjectsTable({
                 />
               </th>
               {headerCells}
+              <th className="px-3 py-2 text-center font-medium">Лиды</th>
               <th className="px-3 py-2 text-center font-medium">Правка</th>
             </tr>
           </thead>
           <tbody>
             {rows.length === 0 ? (
               <tr>
-                <td colSpan={11} className="px-3 py-8 text-center text-sm text-forest-900/40">
+                <td colSpan={12} className="px-3 py-8 text-center text-sm text-forest-900/40">
                   Ничего не найдено.
                 </td>
               </tr>
@@ -199,6 +201,19 @@ export function ObjectsTable({
                           title="Скрыт (не Active или без фото)"
                           className="inline-block h-2.5 w-2.5 rounded-full bg-forest-900/15"
                         />
+                      )}
+                    </td>
+                    <td className="px-3 py-2 text-center">
+                      {o.leadCount > 0 ? (
+                        <Link
+                          href={`/admin/crm?q=${encodeURIComponent(o.rwNumber)}`}
+                          title={`${o.leadCount} интересовавшихся — открыть в CRM`}
+                          className="inline-flex items-center gap-0.5 rounded-full bg-brass-500/10 px-2 py-0.5 text-xs font-medium text-brass-600 hover:bg-brass-500/20"
+                        >
+                          👤 {o.leadCount}
+                        </Link>
+                      ) : (
+                        <span className="text-forest-900/25">—</span>
                       )}
                     </td>
                     <td className="px-3 py-2 text-center">

@@ -128,6 +128,31 @@ export default async function AdminHomePage() {
     .map(([key, v]) => ({ key, label: CHANNEL_LABEL[key] ?? key, ...v }))
     .sort((a, b) => b.total - a.total);
 
+  // Funnel per pipeline. Leads sit at their current stage; assuming forward
+  // progress, a lead at stage i has passed every earlier non-lost stage, so the
+  // cumulative count at stage i = leads whose current stage sort >= i (excluding
+  // lost = dropouts). Gives Incoming→Contacted→…→Won conversion at a glance.
+  const funnels = pipelines
+    .map((p) => {
+      const plLeads = leads.filter((l) => l.pipelineKey === p.key);
+      const ordered = [...p.stages].sort((a, b) => a.sort - b.sort);
+      const lostKeysP = new Set(ordered.filter((s) => s.isLost).map((s) => s.key));
+      const sortOf = (key?: string | null) =>
+        ordered.find((s) => s.key === key)?.sort ?? -1;
+      const notLost = plLeads.filter((l) => !(l.stageKey && lostKeysP.has(l.stageKey)));
+      const steps = ordered
+        .filter((s) => !s.isLost)
+        .map((s) => ({
+          key: s.key,
+          name: s.name,
+          isWon: s.isWon,
+          cum: notLost.filter((l) => sortOf(l.stageKey) >= s.sort).length,
+        }));
+      const lost = plLeads.length - notLost.length;
+      return { key: p.key, name: p.name, steps, lost, total: plLeads.length };
+    })
+    .filter((f) => f.total > 0);
+
   // Recent leads (newest first).
   const recent = [...leads]
     .sort((a, b) => (b.createdAt ?? "").localeCompare(a.createdAt ?? ""))
@@ -220,6 +245,51 @@ export default async function AdminHomePage() {
               hint={closed > 0 ? `${won} из ${closed} закрытых` : "нет закрытых сделок"}
             />
           </div>
+
+          {/* Funnel per pipeline */}
+          {funnels.length > 0 && (
+            <div className="mb-7 grid gap-4 md:grid-cols-2">
+              {funnels.map((f) => {
+                const top = f.steps[0]?.cum || 0;
+                return (
+                  <div key={f.key} className="rounded-2xl border border-forest-900/10 bg-white p-4">
+                    <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
+                      Воронка · {f.name}
+                    </p>
+                    <div className="space-y-1.5">
+                      {f.steps.map((s, i) => {
+                        const prev = i > 0 ? f.steps[i - 1].cum : s.cum;
+                        const stepPct = prev > 0 ? Math.round((s.cum / prev) * 100) : 0;
+                        const width = top > 0 ? Math.max(4, Math.round((s.cum / top) * 100)) : 0;
+                        return (
+                          <div key={s.key} className="flex items-center gap-2 text-sm">
+                            <span className="w-24 shrink-0 text-xs text-forest-900/70">{s.name}</span>
+                            <div className="h-5 flex-1 overflow-hidden rounded bg-forest-900/5">
+                              <div
+                                className={
+                                  "flex h-full items-center justify-end rounded px-2 text-[11px] font-medium text-white " +
+                                  (s.isWon ? "bg-emerald-500" : "bg-brass-500")
+                                }
+                                style={{ width: `${width}%` }}
+                              >
+                                {s.cum}
+                              </div>
+                            </div>
+                            <span className="w-10 shrink-0 text-right text-xs text-forest-900/45">
+                              {i === 0 ? "100%" : `${stepPct}%`}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    {f.lost > 0 && (
+                      <p className="mt-2 text-xs text-forest-900/40">Потеряно (Lost): {f.lost}</p>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
 
           {/* Channel attribution */}
           {channels.length > 0 && (

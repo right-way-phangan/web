@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllObjects, getPublicObjects } from "@/lib/data/objects";
+import { getLeads } from "@/lib/data/leads";
 import { AdminNav } from "@/components/admin/admin-nav";
 import { ObjectsTable, type AdminObjectRow } from "@/components/admin/objects-table";
 import type { RealEstateObject } from "@/types/object";
@@ -73,7 +74,17 @@ export default async function ObjectsPage({
   }>;
 }) {
   const sp = await searchParams;
-  const [all, publicObjs] = await Promise.all([getAllObjects(), getPublicObjects()]);
+  const [all, publicObjs, leads] = await Promise.all([
+    getAllObjects(),
+    getPublicObjects(),
+    getLeads(),
+  ]);
+
+  // How many leads reference each object (by RW) — object→leads link.
+  const leadsByRw = new Map<string, number>();
+  for (const l of leads) {
+    if (l.rwNumber) leadsByRw.set(l.rwNumber, (leadsByRw.get(l.rwNumber) ?? 0) + 1);
+  }
 
   if (all.length === 0) {
     return (
@@ -187,6 +198,7 @@ export default async function ObjectsPage({
     photos: photoCount(o),
     isPublic: publicSet.has(o.rwNumber),
     isUnit: isUnit(o.rwNumber),
+    leadCount: leadsByRw.get(o.rwNumber) ?? 0,
     priceThb: o.priceThb,
     pricePerRai: o.pricePerRai,
     rentPerRaiMonth: o.rentPerRaiMonth,
