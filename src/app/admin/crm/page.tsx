@@ -78,7 +78,7 @@ export default async function CrmPage({
 
       {/* Search + quick filters */}
       <div className="mb-4 flex flex-wrap items-center gap-2">
-        <form action="/admin/crm" className="flex items-center gap-2">
+        <form action="/admin/crm" className="flex w-full items-center gap-2 sm:w-auto">
           {p && <input type="hidden" name="p" value={p} />}
           {hot && <input type="hidden" name="hot" value="1" />}
           <input
@@ -86,7 +86,7 @@ export default async function CrmPage({
             name="q"
             defaultValue={query}
             placeholder="Имя / телефон / email / RW / тег…"
-            className="w-64 rounded-full border border-forest-900/15 bg-white px-3 py-1.5 text-sm outline-none focus:border-brass-500"
+            className="w-full rounded-full border border-forest-900/15 bg-white px-3 py-1.5 text-sm outline-none focus:border-brass-500 sm:w-64"
           />
         </form>
         <Link

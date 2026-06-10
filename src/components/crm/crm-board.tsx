@@ -46,7 +46,7 @@ export function CrmBoard({
   const stageOptions = stages.map((s) => ({ key: s.key, name: s.name }));
 
   return (
-    <div className="flex gap-4 overflow-x-auto pb-4">
+    <div className="flex flex-col gap-4 pb-4 lg:flex-row lg:overflow-x-auto">
       {stages.map((stage) => {
         const colItems = items.filter(
           (l) => l.pipelineKey === pipelineKey && l.stageKey === stage.key,
@@ -67,7 +67,7 @@ export function CrmBoard({
               setOverStage(null);
               setDragId(null);
             }}
-            className="flex min-w-[270px] max-w-[270px] flex-col"
+            className="flex w-full flex-col lg:min-w-[280px] lg:max-w-[280px]"
           >
             <div className="mb-2 flex items-center justify-between px-1">
               <h2
@@ -86,7 +86,7 @@ export function CrmBoard({
             </div>
             <div
               className={
-                "flex min-h-[80px] flex-col gap-2 rounded-lg p-2 transition-colors " +
+                "flex flex-col gap-2 rounded-lg p-2 transition-colors lg:min-h-[80px] " +
                 (isOver
                   ? "bg-brass-500/10 ring-2 ring-brass-500/40"
                   : "bg-forest-900/[0.03]")
