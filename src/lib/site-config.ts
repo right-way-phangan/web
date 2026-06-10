@@ -5,7 +5,7 @@
 
 export const siteConfig = {
   name: "Right Way Phangan",
-  tagline: "Premium real estate on Koh Phangan",
+  tagline: "Specialised real estate on Koh Phangan",
   description:
     "Land, villas, and houses on Koh Phangan. Curated listings, transparent process, AI-assisted search.",
 
