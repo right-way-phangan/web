@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllObjects, getPublicObjects } from "@/lib/data/objects";
 import { AdminNav } from "@/components/admin/admin-nav";
+import { ObjectEditButton } from "@/components/admin/object-edit";
 import type { RealEstateObject, ObjectStatus } from "@/types/object";
 
 export const metadata: Metadata = {
@@ -14,6 +15,9 @@ export const dynamic = "force-dynamic";
 const TYPE_TABS = ["All", "Land", "Villa", "House", "Apartment", "Project"] as const;
 type TypeTab = (typeof TYPE_TABS)[number];
 
+const STATUS_TABS = ["All", "Active", "Reserved", "Hold", "Sold", "Withdrawn"] as const;
+type StatusTab = (typeof STATUS_TABS)[number];
+
 const STATUS_STYLE: Record<ObjectStatus, string> = {
   Active: "bg-emerald-500/10 text-emerald-700",
   Reserved: "bg-amber-500/10 text-amber-700",
@@ -22,8 +26,23 @@ const STATUS_STYLE: Record<ObjectStatus, string> = {
   Withdrawn: "bg-forest-900/5 text-forest-900/40",
 };
 
+const SORT_KEYS = ["rw", "type", "status", "price", "area", "photos", "site"] as const;
+type SortKey = (typeof SORT_KEYS)[number];
+
 function nf(n: number): string {
   return new Intl.NumberFormat("en-US").format(Math.round(n));
+}
+
+function priceValue(o: RealEstateObject): number {
+  return o.priceThb ?? o.pricePerRai ?? o.rentPerRaiMonth ?? 0;
+}
+
+function areaValue(o: RealEstateObject): number {
+  return o.areaSqm ?? (o.areaRai ? o.areaRai * 1600 : 0);
+}
+
+function photoCount(o: RealEstateObject): number {
+  return (o.gallery?.length ?? 0) + (o.coverImage ? 1 : 0);
 }
 
 function fmtPrice(o: RealEstateObject): string {
@@ -47,9 +66,9 @@ function isUnit(rw: string): boolean {
 export default async function ObjectsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ t?: string; q?: string }>;
+  searchParams: Promise<{ t?: string; q?: string; s?: string; sort?: string; dir?: string }>;
 }) {
-  const { t, q } = await searchParams;
+  const sp = await searchParams;
   const [all, publicObjs] = await Promise.all([getAllObjects(), getPublicObjects()]);
 
   if (all.length === 0) {
@@ -66,28 +85,91 @@ export default async function ObjectsPage({
   }
 
   const publicSet = new Set(publicObjs.map((o) => o.rwNumber));
-  const activeType: TypeTab = (TYPE_TABS as readonly string[]).includes(t ?? "")
-    ? (t as TypeTab)
+  const activeType: TypeTab = (TYPE_TABS as readonly string[]).includes(sp.t ?? "")
+    ? (sp.t as TypeTab)
     : "All";
-  const query = (q ?? "").trim().toLowerCase();
+  const activeStatus: StatusTab = (STATUS_TABS as readonly string[]).includes(sp.s ?? "")
+    ? (sp.s as StatusTab)
+    : "All";
+  const query = (sp.q ?? "").trim().toLowerCase();
+  const sortKey: SortKey = (SORT_KEYS as readonly string[]).includes(sp.sort ?? "")
+    ? (sp.sort as SortKey)
+    : "rw";
+  const dir: "asc" | "desc" = sp.dir === "asc" ? "asc" : "desc";
 
-  // Newest first by RW number within type, parents before their units.
-  const sorted = [...all].sort((a, b) => b.rwNumber.localeCompare(a.rwNumber));
+  // Carry current filters into every link; the caller overrides what it changes.
+  const baseQuery: Record<string, string> = {
+    ...(query ? { q: query } : {}),
+    ...(activeType !== "All" ? { t: activeType } : {}),
+    ...(activeStatus !== "All" ? { s: activeStatus } : {}),
+    ...(sortKey !== "rw" ? { sort: sortKey } : {}),
+    ...(dir !== "desc" ? { dir } : {}),
+  };
 
-  const rows = sorted.filter((o) => {
-    if (activeType !== "All" && o.type !== activeType) return false;
-    if (query) {
-      const hay = `${o.rwNumber} ${o.titleEn ?? ""} ${o.district ?? ""}`.toLowerCase();
-      if (!hay.includes(query)) return false;
-    }
-    return true;
-  });
+  const rows = all
+    .filter((o) => {
+      if (activeType !== "All" && o.type !== activeType) return false;
+      if (activeStatus !== "All" && o.status !== activeStatus) return false;
+      if (query) {
+        const hay = `${o.rwNumber} ${o.titleEn ?? ""} ${o.district ?? ""}`.toLowerCase();
+        if (!hay.includes(query)) return false;
+      }
+      return true;
+    })
+    .sort((a, b) => {
+      let cmp = 0;
+      switch (sortKey) {
+        case "type":
+          cmp = a.type.localeCompare(b.type);
+          break;
+        case "status":
+          cmp = a.status.localeCompare(b.status);
+          break;
+        case "price":
+          cmp = priceValue(a) - priceValue(b);
+          break;
+        case "area":
+          cmp = areaValue(a) - areaValue(b);
+          break;
+        case "photos":
+          cmp = photoCount(a) - photoCount(b);
+          break;
+        case "site":
+          cmp = Number(publicSet.has(a.rwNumber)) - Number(publicSet.has(b.rwNumber));
+          break;
+        default:
+          cmp = a.rwNumber.localeCompare(b.rwNumber);
+      }
+      if (cmp === 0) cmp = a.rwNumber.localeCompare(b.rwNumber);
+      return dir === "asc" ? cmp : -cmp;
+    });
 
   const counts = {
     total: all.length,
     public: publicSet.size,
     units: all.filter((o) => isUnit(o.rwNumber)).length,
   };
+
+  // Header cell that links to sort by `key`, toggling direction when already active.
+  function SortTh({ label, k, center }: { label: string; k: SortKey; center?: boolean }) {
+    const on = sortKey === k;
+    const nextDir = on && dir === "desc" ? "asc" : "desc";
+    const q = { ...baseQuery, sort: k, dir: nextDir };
+    if (k === "rw") delete (q as Record<string, string>).sort;
+    return (
+      <th className={"px-3 py-2 font-medium " + (center ? "text-center" : "")}>
+        <Link
+          href={{ pathname: "/admin/objects", query: q }}
+          className="inline-flex items-center gap-1 hover:text-forest-900"
+        >
+          {label}
+          <span className={on ? "text-brass-600" : "text-forest-900/20"}>
+            {on ? (dir === "asc" ? "▲" : "▼") : "↕"}
+          </span>
+        </Link>
+      </th>
+    );
+  }
 
   return (
     <section className="px-4 py-8 md:px-8">
@@ -105,14 +187,16 @@ export default async function ObjectsPage({
       </div>
 
       {/* Type tabs + search */}
-      <div className="mb-4 flex flex-wrap items-center gap-2">
+      <div className="mb-3 flex flex-wrap items-center gap-2">
         {TYPE_TABS.map((tab) => {
           const n = tab === "All" ? all.length : all.filter((o) => o.type === tab).length;
           const on = tab === activeType;
+          const q = { ...baseQuery, t: tab };
+          if (tab === "All") delete (q as Record<string, string>).t;
           return (
             <Link
               key={tab}
-              href={{ pathname: "/admin/objects", query: { ...(query ? { q: query } : {}), t: tab } }}
+              href={{ pathname: "/admin/objects", query: q }}
               className={
                 "rounded-full px-3 py-1.5 text-sm font-medium transition " +
                 (on
@@ -126,6 +210,9 @@ export default async function ObjectsPage({
         })}
         <form action="/admin/objects" className="ml-auto flex items-center gap-2">
           {activeType !== "All" && <input type="hidden" name="t" value={activeType} />}
+          {activeStatus !== "All" && <input type="hidden" name="s" value={activeStatus} />}
+          {sortKey !== "rw" && <input type="hidden" name="sort" value={sortKey} />}
+          {dir !== "desc" && <input type="hidden" name="dir" value={dir} />}
           <input
             type="search"
             name="q"
@@ -136,33 +223,60 @@ export default async function ObjectsPage({
         </form>
       </div>
 
+      {/* Status filter */}
+      <div className="mb-4 flex flex-wrap items-center gap-1.5">
+        <span className="mr-1 text-xs uppercase tracking-wide text-forest-900/40">Статус:</span>
+        {STATUS_TABS.map((st) => {
+          const n =
+            st === "All" ? all.length : all.filter((o) => o.status === st).length;
+          const on = st === activeStatus;
+          const q = { ...baseQuery, s: st };
+          if (st === "All") delete (q as Record<string, string>).s;
+          return (
+            <Link
+              key={st}
+              href={{ pathname: "/admin/objects", query: q }}
+              className={
+                "rounded-full px-2.5 py-1 text-xs font-medium transition " +
+                (on
+                  ? "bg-brass-500 text-white"
+                  : "bg-forest-900/5 text-forest-900/60 hover:bg-forest-900/10")
+              }
+            >
+              {st} <span className="opacity-60">({n})</span>
+            </Link>
+          );
+        })}
+      </div>
+
       {/* Table */}
       <div className="overflow-x-auto rounded-xl border border-forest-900/10">
-        <table className="w-full min-w-[820px] text-sm">
+        <table className="w-full min-w-[880px] text-sm">
           <thead>
             <tr className="border-b border-forest-900/10 bg-forest-900/[0.03] text-left text-xs uppercase tracking-wide text-forest-900/50">
-              <th className="px-3 py-2 font-medium">RW</th>
+              <SortTh label="RW" k="rw" />
               <th className="px-3 py-2 font-medium">Название</th>
-              <th className="px-3 py-2 font-medium">Тип</th>
-              <th className="px-3 py-2 font-medium">Статус</th>
+              <SortTh label="Тип" k="type" />
+              <SortTh label="Статус" k="status" />
               <th className="px-3 py-2 font-medium">Район</th>
-              <th className="px-3 py-2 font-medium">Цена</th>
-              <th className="px-3 py-2 font-medium">Площадь</th>
-              <th className="px-3 py-2 text-center font-medium">Фото</th>
-              <th className="px-3 py-2 text-center font-medium">Сайт</th>
+              <SortTh label="Цена" k="price" />
+              <SortTh label="Площадь" k="area" />
+              <SortTh label="Фото" k="photos" center />
+              <SortTh label="Сайт" k="site" center />
+              <th className="px-3 py-2 text-center font-medium">Правка</th>
             </tr>
           </thead>
           <tbody>
             {rows.length === 0 ? (
               <tr>
-                <td colSpan={9} className="px-3 py-8 text-center text-sm text-forest-900/40">
+                <td colSpan={10} className="px-3 py-8 text-center text-sm text-forest-900/40">
                   Ничего не найдено.
                 </td>
               </tr>
             ) : (
               rows.map((o) => {
                 const isPublic = publicSet.has(o.rwNumber);
-                const photos = (o.gallery?.length ?? 0) + (o.coverImage ? 1 : 0);
+                const photos = photoCount(o);
                 return (
                   <tr
                     key={o.rwNumber}
@@ -216,6 +330,23 @@ export default async function ObjectsPage({
                         />
                       )}
                     </td>
+                    <td className="px-3 py-2 text-center">
+                      <ObjectEditButton
+                        object={{
+                          rwNumber: o.rwNumber,
+                          type: o.type,
+                          status: o.status,
+                          titleEn: o.titleEn,
+                          district: o.district,
+                          priceThb: o.priceThb,
+                          pricePerRai: o.pricePerRai,
+                          rentPerRaiMonth: o.rentPerRaiMonth,
+                          leaseTermYears: o.leaseTermYears,
+                          unitsAvailable: o.unitsAvailable,
+                          locationUrl: o.locationUrl,
+                        }}
+                      />
+                    </td>
                   </tr>
                 );
               })
@@ -225,12 +356,9 @@ export default async function ObjectsPage({
       </div>
 
       <p className="mt-3 text-xs text-forest-900/45">
-        Показано {rows.length} из {all.length}. Редактирование — через бота{" "}
-        <code className="rounded bg-forest-900/5 px-1">/edit RW-XXXX</code> или форму{" "}
-        <Link href="/admin/new" className="text-brass-600 hover:underline">
-          /admin/new
-        </Link>
-        . Скрытые объекты вернутся на сайт автоматически после заливки фото.
+        Показано {rows.length} из {all.length}. Правка прямо в таблице (кнопка ✎) или через бота{" "}
+        <code className="rounded bg-forest-900/5 px-1">/edit RW-XXXX</code>. Скрытые объекты
+        вернутся на сайт автоматически после заливки фото.
       </p>
     </section>
   );
