@@ -225,6 +225,58 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "documents",
     faqQuestion: "What land titles exist on Koh Phangan, and which can I safely buy?",
   },
+  {
+    slug: "how-land-is-priced-price-per-rai",
+    kbId: "kb-0006",
+    topic: "Market",
+    title: "How land is priced on Koh Phangan: the rai, and what moves the price",
+    short:
+      "Land here is sold by the rai (1,600 m²), but the price per rai on its own tells you very little. Sea view, road access, title class and whether you can actually build under the 2025 zoning move the number far more than the headline figure. Live medians by district are on our market page.",
+    updated: "2026-06-10",
+    body: [
+      "Land on Koh Phangan is measured and sold by the rai, and you'll see prices quoted as a figure “per rai.” That figure is a starting point, not an answer — two plots at the same price per rai can be worth wildly different amounts once you look at what actually drives value here.",
+      { h: "The unit: rai, ngan, talang wah" },
+      "Thai land area uses a few units it pays to know before you compare anything.",
+      {
+        ul: [
+          "**1 rai = 1,600 m²** — the headline unit land is priced in.",
+          "**1 ngan = 400 m²** — a quarter of a rai.",
+          "**1 talang wah (sq. wah) = 4 m²** — 400 to a rai. Small premium plots are sometimes quoted per talang wah.",
+        ],
+      },
+      { h: "What actually moves the price per rai" },
+      "The same nominal price can sit on plots that aren't remotely comparable. The big drivers:",
+      {
+        ul: [
+          "**District** — the west coast (Sri Thanu, Haad Yao and the wellness belt) carries a premium over quieter inland and northern areas.",
+          "**Sea view and slope** — a sea view and a gentle, buildable gradient add a lot; a steep plot costs more to build on, which pulls land value the other way.",
+          "**Proximity to the beach** — beachfront and near-beach plots are their own tier.",
+          "**Road access** — a registered right of way versus a landlocked plot is one of the largest swings of all. See [Land titles and how to verify one](/knowledge/land-titles-chanote-vs-nor-sor-3).",
+          "**Title class** — Chanote versus Nor Sor 3 Gor matters, and cheap “Por Bor Tor 5” land usually isn't ownership at all, so it can't be compared on price.",
+          "**Whether you can build** — under the 2025 environmental zoning, a plot you can't build on is worth a fraction of one you can. See [Building zones on Koh Phangan](/knowledge/koh-phangan-building-zones).",
+          "**Utilities and usable shape** — mains water and power, road quality, and how much of the plot is actually usable after setbacks and gradient.",
+        ],
+      },
+      { h: "Freehold and leasehold are priced differently" },
+      "A freehold plot is quoted as a capital price per rai. Leasehold isn't a single per-rai price at all — it's a lease: an up-front prepayment or periodic payments over the term, usually with indexation built in. Since the post-2025 shift toward leasehold (see [Leasehold vs freehold](/knowledge/leasehold-vs-freehold)), comparing a leasehold offer to a freehold one means comparing a stream of payments to a one-time price, not two numbers per rai.",
+      { h: "So how do you know if a price is fair?" },
+      "Start from comparable plots — same district, similar access, view and title — not from a single per-rai headline. For current median land prices per rai by district, drawn from live inventory, see our [market insights](/insights). Then the only way to know what a specific plot is worth is to check the things above against the deed and the zoning.",
+    ],
+    takeaways: [
+      "Land is sold by the rai (1,600 m²); 1 ngan = 400 m², 1 talang wah = 4 m².",
+      "Price per rai alone is misleading — view, access, title class and buildability move it far more.",
+      "A landlocked plot or one you can't build on under the 2025 zoning is worth a fraction of a comparable buildable one.",
+      "Freehold is a capital price per rai; leasehold is a lease (prepayment + term + indexation) — they aren't directly comparable per rai.",
+      "Compare like-for-like plots; live median prices per rai by district are on the market-insights page.",
+    ],
+    sources: [
+      { title: "Thai land area units — 1 rai = 1,600 m² = 4 ngan = 400 talang wah (general practice)" },
+      { title: "Right Way market insights — median land price per rai by district (/insights)" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "How is land priced on Koh Phangan, and what makes one plot cost more than another?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
