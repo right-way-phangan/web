@@ -43,6 +43,16 @@ export function CrmBoard({
     }
   }
 
+  /** Whole days since the lead was last touched (updatedAt, else createdAt). */
+  function daysSinceTouch(lead: CrmLead): number {
+    const iso = lead.updatedAt || lead.createdAt;
+    if (!iso) return 0;
+    const t = new Date(iso).getTime();
+    if (!Number.isFinite(t)) return 0;
+    return Math.floor((Date.now() - t) / 86_400_000);
+  }
+  const STALE_DAYS = 3;
+
   const stageOptions = stages.map((s) => ({ key: s.key, name: s.name }));
 
   return (
@@ -99,6 +109,9 @@ export function CrmBoard({
               ) : (
                 colItems.map((lead) => {
                   const contact = [lead.email, lead.phone].filter(Boolean).join(" · ");
+                  const isOpen = (lead.status ?? "open") === "open";
+                  const days = daysSinceTouch(lead);
+                  const stale = isOpen && days >= STALE_DAYS;
                   return (
                     <article
                       key={lead.id}
@@ -113,7 +126,10 @@ export function CrmBoard({
                         setOverStage(null);
                       }}
                       className={
-                        "cursor-grab rounded-lg border border-forest-900/10 bg-white p-3 shadow-sm active:cursor-grabbing " +
+                        "cursor-grab rounded-lg border bg-white p-3 shadow-sm active:cursor-grabbing " +
+                        (stale
+                          ? "border-forest-900/10 border-l-2 border-l-amber-400 "
+                          : "border-forest-900/10 ") +
                         (dragId === lead.id ? "opacity-50" : "")
                       }
                     >
@@ -147,6 +163,11 @@ export function CrmBoard({
                       </div>
                       <p className="mt-0.5 line-clamp-2 text-xs text-forest-900/70">{lead.name}</p>
                       {contact && <p className="mt-1 text-xs text-forest-900/55">{contact}</p>}
+                      {stale && (
+                        <p className="mt-1 text-[11px] font-medium text-amber-600">
+                          💤 {days} дн без касания
+                        </p>
+                      )}
                       <div className="mt-2 flex flex-wrap gap-1">
                         {lead.rwNumber && (
                           <span className="rounded bg-brass-500/10 px-1.5 py-0.5 text-[10px] font-medium text-brass-600">

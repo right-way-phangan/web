@@ -84,6 +84,50 @@ export default async function AdminHomePage() {
   const conversion = closed > 0 ? Math.round((won / closed) * 100) : null;
   const overdueLeads = leads.filter((l) => (l.overdueTasks ?? 0) > 0).length;
 
+  // Stale: open leads not touched (updatedAt/createdAt) in 3+ days.
+  const STALE_DAYS = 3;
+  const daysSince = (l: { updatedAt?: string | null; createdAt: string }) => {
+    const t = new Date(l.updatedAt || l.createdAt).getTime();
+    return Number.isFinite(t) ? Math.floor((Date.now() - t) / 86_400_000) : 0;
+  };
+  const isOpenLead = (l: { stageKey?: string | null }) =>
+    !(l.stageKey && (wonKeys.has(l.stageKey) || lostKeys.has(l.stageKey)));
+  const staleLeads = leads.filter((l) => isOpenLead(l) && daysSince(l) >= STALE_DAYS).length;
+
+  // Channel attribution: where leads come from (source/tags) + per-channel win rate.
+  const channelOf = (l: { source?: string | null; tags?: string[] | null }): string => {
+    const tags = l.tags ?? [];
+    const ch = tags.find((t) => t.startsWith("channel:"));
+    if (ch) return ch.slice("channel:".length);
+    if (l.source === "ad" || tags.includes("source:ad")) return "ad";
+    if (tags.includes("website") || l.source === "object" || l.source === "contact")
+      return "website";
+    if (l.source === "manual") return "manual";
+    return "other";
+  };
+  const CHANNEL_LABEL: Record<string, string> = {
+    ad: "Реклама",
+    website: "Сайт",
+    telegram: "Telegram",
+    whatsapp: "WhatsApp",
+    "walk-in": "Walk-in",
+    referral: "Рекомендация",
+    phone: "Звонок",
+    manual: "Ручной",
+    other: "Другое",
+  };
+  const channelStats = new Map<string, { total: number; won: number }>();
+  for (const l of leads) {
+    const c = channelOf(l);
+    const e = channelStats.get(c) ?? { total: 0, won: 0 };
+    e.total += 1;
+    if (l.stageKey && wonKeys.has(l.stageKey)) e.won += 1;
+    channelStats.set(c, e);
+  }
+  const channels = [...channelStats.entries()]
+    .map(([key, v]) => ({ key, label: CHANNEL_LABEL[key] ?? key, ...v }))
+    .sort((a, b) => b.total - a.total);
+
   // Recent leads (newest first).
   const recent = [...leads]
     .sort((a, b) => (b.createdAt ?? "").localeCompare(a.createdAt ?? ""))
@@ -158,7 +202,14 @@ export default async function AdminHomePage() {
             <Stat
               label="В работе"
               value={openLeads}
-              hint={overdueLeads > 0 ? `⏰ ${overdueLeads} с просрочкой` : undefined}
+              hint={
+                [
+                  overdueLeads > 0 ? `⏰ ${overdueLeads} просрочка` : "",
+                  staleLeads > 0 ? `💤 ${staleLeads} остыло` : "",
+                ]
+                  .filter(Boolean)
+                  .join(" · ") || undefined
+              }
               href={{ pathname: "/admin/crm" }}
               accent
             />
@@ -169,6 +220,42 @@ export default async function AdminHomePage() {
               hint={closed > 0 ? `${won} из ${closed} закрытых` : "нет закрытых сделок"}
             />
           </div>
+
+          {/* Channel attribution */}
+          {channels.length > 0 && (
+            <div className="mb-7 rounded-2xl border border-forest-900/10 bg-white p-4">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
+                Каналы привлечения
+              </p>
+              <div className="space-y-2">
+                {channels.map((c) => {
+                  const pct = leads.length ? Math.round((c.total / leads.length) * 100) : 0;
+                  const winRate = c.total ? Math.round((c.won / c.total) * 100) : 0;
+                  return (
+                    <div key={c.key} className="flex items-center gap-3 text-sm">
+                      <span className="w-24 shrink-0 text-forest-900/70">{c.label}</span>
+                      <div className="h-2 flex-1 overflow-hidden rounded-full bg-forest-900/5">
+                        <div
+                          className="h-full rounded-full bg-brass-500"
+                          style={{ width: `${pct}%` }}
+                        />
+                      </div>
+                      <span className="w-10 shrink-0 text-right font-medium text-forest-900">
+                        {c.total}
+                      </span>
+                      <span className="w-20 shrink-0 text-right text-xs text-forest-900/50">
+                        {c.won > 0 ? `${winRate}% win` : "—"}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+              <p className="mt-3 text-xs text-forest-900/40">
+                Колонки: канал · доля · число лидов · доля выигранных. Источник — теги лида
+                (source/channel/campaign).
+              </p>
+            </div>
+          )}
 
           {recent.length > 0 && (
             <div className="rounded-2xl border border-forest-900/10 bg-white">

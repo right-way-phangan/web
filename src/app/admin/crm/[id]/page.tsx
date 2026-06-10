@@ -5,6 +5,7 @@ import { getLead, CRM_ENABLED } from "@/lib/data/leads";
 import { MoveLeadSelect } from "@/components/crm/move-lead-select";
 import { TaskToggle } from "@/components/crm/task-toggle";
 import { LeadEdit } from "@/components/crm/lead-edit";
+import { ContactActions } from "@/components/crm/contact-actions";
 import { addNoteAction, addTaskAction } from "@/lib/actions/lead-actions";
 
 export const metadata: Metadata = {
@@ -71,8 +72,13 @@ export default async function LeadDetailPage({
         </span>
       </div>
 
-      {/* Inline contact editor + delete */}
+      {/* One-tap contact actions */}
       <div className="mt-4">
+        <ContactActions phone={lead.phone} email={lead.email} />
+      </div>
+
+      {/* Inline contact editor + delete */}
+      <div className="mt-3">
         <LeadEdit
           leadId={lead.id}
           contactName={lead.contactName}

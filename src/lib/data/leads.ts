@@ -18,6 +18,7 @@ export interface CrmLead {
   kind?: string | null;
   tags?: string[] | null;
   createdAt: string;
+  updatedAt?: string | null;
   contactName?: string | null;
   email?: string | null;
   phone?: string | null;
