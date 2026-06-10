@@ -6,6 +6,7 @@ import {
   recurring,
   deals,
   ledger,
+  plannedRevenue,
   thbPerMonth,
   opexActiveMonthly,
   leakMonthly,
@@ -15,17 +16,22 @@ import {
   stage1MonthlyForecast,
   ledgerTotalTHB,
   opexBreakdown,
-  fmtTHB,
+  fmtMoney,
   FX,
   FX_DATE,
   type SubStatus,
   type RecurringStatus,
+  type DisplayCurrency,
 } from "@/lib/data/finance";
+import { getLiveRatesTHB } from "@/lib/data/fx-live";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Финансы",
   robots: { index: false, follow: false },
 };
+
+export const dynamic = "force-dynamic";
 
 function Stat({
   label,
@@ -87,7 +93,17 @@ function priceLabel(s: (typeof subscriptions)[number]): string {
   return `${head}${per}`;
 }
 
-export default function FinancePage() {
+export default async function FinancePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ cur?: string }>;
+}) {
+  const { cur: curParam } = await searchParams;
+  const cur: DisplayCurrency = curParam === "usd" ? "USD" : "THB";
+  const money = (n: number) => fmtMoney(n, cur);
+
+  const live = await getLiveRatesTHB();
+
   const opex = opexActiveMonthly();
   const leak = leakMonthly();
   const balance = monthlyBalance();
@@ -96,6 +112,8 @@ export default function FinancePage() {
   const stage1 = stage1MonthlyForecast();
   const preIncorpPaid = ledgerTotalTHB();
   const breakdown = opexBreakdown();
+  const maxRev = Math.max(...plannedRevenue.map((q) => q.thb));
+  const totalRev = plannedRevenue.reduce((s, q) => s + q.thb, 0);
   const claudeShare = breakdown.length
     ? Math.round((breakdown[0].value / breakdown.reduce((s, x) => s + x.value, 0)) * 100)
     : 0;
@@ -104,36 +122,55 @@ export default function FinancePage() {
     <section className="px-4 py-8 md:px-8">
       <AdminNav active="finance" />
 
-      <div className="mb-6">
-        <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
-          Admin · Финансы
-        </p>
-        <h1 className="mt-2 text-2xl font-semibold text-forest-900 md:text-3xl">
-          Финансовый дашборд
-        </h1>
-        <p className="mt-1 text-sm text-forest-900/60">
-          Текущие расходы, движения по сделкам и план. База — THB. Данные ведутся в коде, цифры
-          пересчитываются автоматически.
-        </p>
+      <div className="mb-6 flex items-start justify-between gap-4">
+        <div>
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+            Admin · Финансы
+          </p>
+          <h1 className="mt-2 text-2xl font-semibold text-forest-900 md:text-3xl">
+            Финансовый дашборд
+          </h1>
+          <p className="mt-1 text-sm text-forest-900/60">
+            Текущие расходы, движения по сделкам и план. Данные ведутся в коде, цифры
+            пересчитываются автоматически.
+          </p>
+        </div>
+        <div className="flex shrink-0 overflow-hidden rounded-full border border-forest-900/15 text-sm">
+          {(["THB", "USD"] as const).map((c) => {
+            const on = cur === c;
+            return (
+              <Link
+                key={c}
+                href={c === "THB" ? "/admin/finance" : "/admin/finance?cur=usd"}
+                className={
+                  "px-3 py-1.5 font-medium transition " +
+                  (on ? "bg-forest-900 text-white" : "text-forest-900/60 hover:bg-forest-900/5")
+                }
+              >
+                {c}
+              </Link>
+            );
+          })}
+        </div>
       </div>
 
       {/* Сводка */}
       <div className="mb-7 grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Stat
           label="OpEx активных / мес"
-          value={fmtTHB(opex)}
-          hint={`≈ $${Math.round(opex / FX.USD)} · ${claudeShare}% — Claude`}
+          value={money(opex)}
+          hint={`≈ ${fmtMoney(opex, cur === "THB" ? "USD" : "THB")} · ${claudeShare}% — Claude`}
           accent
         />
-        <Stat label="OpEx / год" value={fmtTHB(opex * 12)} hint="текущий run-rate" />
+        <Stat label="OpEx / год" value={money(opex * 12)} hint="текущий run-rate" />
         <Stat
           label="Приходы по сделкам"
-          value={fmtTHB(dealsNet())}
+          value={money(dealsNet())}
           hint={deals.length ? `${deals.length} сделок` : "стадия запуска"}
         />
         <Stat
           label="Баланс месяца"
-          value={fmtTHB(balance)}
+          value={money(balance)}
           hint="приходы − расходы"
           negative={balance < 0}
         />
@@ -146,8 +183,9 @@ export default function FinancePage() {
       <div className="mb-8 rounded-2xl border border-forest-900/10 bg-white p-6">
         <FinanceDonut
           segments={breakdown}
-          centerValue={fmtTHB(opex)}
+          centerValue={money(opex)}
           centerLabel="в месяц"
+          currency={cur}
         />
       </div>
 
@@ -181,7 +219,7 @@ export default function FinancePage() {
                   <td className="px-4 py-2.5 text-forest-900/65">{s.provider}</td>
                   <td className="px-4 py-2.5 text-forest-900/65">{priceLabel(s)}</td>
                   <td className="px-4 py-2.5 text-right tabular-nums text-forest-900">
-                    {thb > 0 ? fmtTHB(thb) : "—"}
+                    {thb > 0 ? money(thb) : "—"}
                   </td>
                   <td className="px-4 py-2.5">
                     <span
@@ -200,7 +238,7 @@ export default function FinancePage() {
                 Итого активных (без утечки)
               </td>
               <td className="px-4 py-2.5 text-right tabular-nums text-forest-900">
-                {fmtTHB(opex)}
+                {money(opex)}
               </td>
               <td className="px-4 py-2.5" />
             </tr>
@@ -209,7 +247,7 @@ export default function FinancePage() {
                 <td className="px-4 py-1.5" colSpan={3}>
                   🔴 Утечка Circle (к отвязке)
                 </td>
-                <td className="px-4 py-1.5 text-right tabular-nums">{fmtTHB(leak)}</td>
+                <td className="px-4 py-1.5 text-right tabular-nums">{money(leak)}</td>
                 <td className="px-4 py-1.5" />
               </tr>
             )}
@@ -229,17 +267,17 @@ export default function FinancePage() {
       <div className="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
         <div className="rounded-xl border border-forest-900/10 bg-white px-4 py-3">
           <p className="text-xs text-forest-900/45">Сейчас постоянных / мес</p>
-          <p className="mt-0.5 text-xl font-semibold text-forest-900">{fmtTHB(0)}</p>
+          <p className="mt-0.5 text-xl font-semibold text-forest-900">{money(0)}</p>
           <p className="text-xs text-forest-900/45">home-office solo</p>
         </div>
         <div className="rounded-xl border border-brass-500/30 bg-brass-500/[0.06] px-4 py-3">
           <p className="text-xs text-forest-900/45">После Co. Ltd ≈ / мес</p>
-          <p className="mt-0.5 text-xl font-semibold text-forest-900">{fmtTHB(stage1)}</p>
-          <p className="text-xs text-forest-900/45">подписки + операционка {fmtTHB(plannedRecurring)}</p>
+          <p className="mt-0.5 text-xl font-semibold text-forest-900">{money(stage1)}</p>
+          <p className="text-xs text-forest-900/45">подписки + операционка {money(plannedRecurring)}</p>
         </div>
         <div className="rounded-xl border border-forest-900/10 bg-white px-4 py-3">
           <p className="text-xs text-forest-900/45">+ при найме агента / мес</p>
-          <p className="mt-0.5 text-xl font-semibold text-forest-900">+{fmtTHB(onHireRecurring)}</p>
+          <p className="mt-0.5 text-xl font-semibold text-forest-900">+{money(onHireRecurring)}</p>
           <p className="text-xs text-forest-900/45">зарплата + офис</p>
         </div>
       </div>
@@ -254,7 +292,7 @@ export default function FinancePage() {
                   <td className="px-4 py-2.5 font-medium text-forest-900">{r.item}</td>
                   <td className="px-4 py-2.5 text-forest-900/55">{r.when}</td>
                   <td className="px-4 py-2.5 text-right tabular-nums text-forest-900">
-                    {r.thbPerMonth > 0 ? fmtTHB(r.thbPerMonth) + " / мес" : "—"}
+                    {r.thbPerMonth > 0 ? money(r.thbPerMonth) + " / мес" : "—"}
                   </td>
                   <td className="px-4 py-2.5">
                     <span
@@ -273,7 +311,7 @@ export default function FinancePage() {
                 Итого плановых / мес
               </td>
               <td className="px-4 py-2.5 text-right tabular-nums text-forest-900">
-                {fmtTHB(plannedRecurring)}
+                {money(plannedRecurring)}
               </td>
               <td className="px-4 py-2.5" />
             </tr>
@@ -306,7 +344,7 @@ export default function FinancePage() {
                 <td className="px-4 py-2.5 font-medium text-forest-900">{e.item}</td>
                 <td className="px-4 py-2.5 text-forest-900/55">{e.account}</td>
                 <td className="px-4 py-2.5 text-right tabular-nums text-forest-900">
-                  {e.thb != null ? fmtTHB(e.thb) : "?"}
+                  {e.thb != null ? money(e.thb) : "?"}
                 </td>
                 <td className="px-4 py-2.5">
                   <span
@@ -329,7 +367,7 @@ export default function FinancePage() {
                 Понесено (к возмещению, без утечки)
               </td>
               <td className="px-4 py-2.5 text-right tabular-nums text-forest-900">
-                {fmtTHB(preIncorpPaid)}
+                {money(preIncorpPaid)}
               </td>
               <td className="px-4 py-2.5" />
             </tr>
@@ -341,15 +379,58 @@ export default function FinancePage() {
       <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
         Движения по сделкам
       </h2>
-      <div className="mb-6 rounded-2xl border border-dashed border-forest-900/15 bg-white p-6 text-sm text-forest-900/55">
+      <div className="mb-4 rounded-2xl border border-dashed border-forest-900/15 bg-white p-6 text-sm text-forest-900/55">
         Пока нет закрытых сделок (стадия запуска). Первая сделка — Этап 1. Комиссия Hybrid C
         (~4.8%): сделка 20M ≈ 960k ฿ перекроет ~10 лет текущего OpEx.
       </div>
 
-      <p className="text-xs text-forest-900/40">
-        Курсы на {FX_DATE}: $1 = {FX.USD} ฿ · 1₽ = {FX.RUB} ฿ · 1€ = {FX.EUR} ฿ (обновляются
-        вручную). Источник цифр — финансовый трекер проекта.
-      </p>
+      <div className="mb-6 rounded-2xl border border-forest-900/10 bg-white p-6">
+        <p className="mb-4 text-sm font-medium text-forest-900">
+          Плановый график приходов — Year 1{" "}
+          <span className="font-normal text-forest-900/45">(финмодель, сценарий A)</span>
+        </p>
+        <ul className="space-y-3">
+          {plannedRevenue.map((q) => {
+            const w = (q.thb / maxRev) * 100;
+            return (
+              <li key={q.q}>
+                <div className="mb-1 flex items-baseline justify-between text-xs text-forest-900/60">
+                  <span>
+                    {q.q} · {q.deals} {q.deals === 1 ? "сделка" : "сделки"}
+                  </span>
+                  <span className="font-medium text-forest-900">{money(q.thb)}</span>
+                </div>
+                <div className="h-2.5 w-full rounded-full bg-forest-900/5">
+                  <div
+                    className="h-2.5 rounded-full bg-brass-500"
+                    style={{ width: `${w}%` }}
+                  />
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+        <p className="mt-4 text-xs text-forest-900/45">
+          Итого Year 1: 6 сделок · {money(totalRev)} приходов · EBITDA ~4.0M ฿. Первая же сделка
+          перекрывает ~10 лет текущего OpEx.
+        </p>
+      </div>
+
+      <div className="space-y-1 text-xs text-forest-900/40">
+        <p>
+          Учётные курсы (для расчётов, {FX_DATE}): $1 = {FX.USD} ฿ · 1₽ = {FX.RUB} ฿ · 1€ ={" "}
+          {FX.EUR} ฿
+        </p>
+        {live ? (
+          <p>
+            Рыночные сейчас (live): $1 = {live.USD.toFixed(2)} ฿ · 1₽ = {live.RUB.toFixed(3)} ฿ ·
+            1€ = {live.EUR.toFixed(2)} ฿ · обновлено {live.date}
+          </p>
+        ) : (
+          <p>Рыночные курсы временно недоступны.</p>
+        )}
+        <p>Источник цифр — финансовый трекер проекта.</p>
+      </div>
     </section>
   );
 }

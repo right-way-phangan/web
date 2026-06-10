@@ -1,4 +1,4 @@
-import { fmtTHB } from "@/lib/data/finance";
+import { fmtMoney, type DisplayCurrency } from "@/lib/data/finance";
 
 /**
  * Лёгкий SVG-донат для структуры расходов. Server component, без client JS и
@@ -21,10 +21,12 @@ export function FinanceDonut({
   segments,
   centerValue,
   centerLabel,
+  currency = "THB",
 }: {
   segments: Array<{ label: string; value: number }>;
   centerValue: string;
   centerLabel: string;
+  currency?: DisplayCurrency;
 }) {
   const total = segments.reduce((s, x) => s + x.value, 0) || 1;
   let acc = 0;
@@ -73,7 +75,9 @@ export function FinanceDonut({
                 style={{ backgroundColor: COLORS[i % COLORS.length] }}
               />
               <span className="min-w-0 flex-1 truncate text-forest-900/75">{seg.label}</span>
-              <span className="shrink-0 tabular-nums text-forest-900/50">{fmtTHB(seg.value)}</span>
+              <span className="shrink-0 tabular-nums text-forest-900/50">
+                {fmtMoney(seg.value, currency)}
+              </span>
               <span className="w-12 shrink-0 text-right font-medium tabular-nums text-forest-900">
                 {pct.toFixed(1)}%
               </span>

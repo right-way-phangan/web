@@ -108,6 +108,16 @@ export type Deal = {
 /** Закрытые сделки (приходы). Пока пусто — стадия запуска. OpEx tracker §4. */
 export const deals: Deal[] = [];
 
+export type PlannedQuarter = { q: string; deals: number; thb: number };
+
+/** Плановый график приходов Year 1 (финмодель, сценарий A — база). */
+export const plannedRevenue: PlannedQuarter[] = [
+  { q: "Q1 · Aug–Oct", deals: 1, thb: 960000 },
+  { q: "Q2 · Nov–Jan", deals: 1, thb: 960000 },
+  { q: "Q3 · Feb–Apr", deals: 2, thb: 1920000 },
+  { q: "Q4 · May–Jul", deals: 2, thb: 1920000 },
+];
+
 // ── Хелперы расчёта ────────────────────────────────────────────────────────
 
 /** THB/мес для подписки: цена × курс, год → /12, нулевые/none → 0. */
@@ -168,6 +178,17 @@ export function ledgerTotalTHB(): number {
 /** Формат THB: "7 811 ฿". */
 export function fmtTHB(n: number): string {
   return new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 0 }).format(Math.round(n)) + " ฿";
+}
+
+export type DisplayCurrency = "THB" | "USD";
+
+/** Формат суммы (в THB на входе) в выбранной валюте отображения. */
+export function fmtMoney(thb: number, currency: DisplayCurrency = "THB"): string {
+  if (currency === "USD") {
+    const usd = thb / FX.USD;
+    return "$" + new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 0 }).format(Math.round(usd));
+  }
+  return fmtTHB(thb);
 }
 
 /**
