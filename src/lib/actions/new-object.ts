@@ -6,6 +6,7 @@ import { AmoApiError } from "@/lib/amocrm/client";
 import { notifyObjectCreated } from "@/lib/notify/telegram";
 import { OBJECT_TYPES } from "@/lib/amocrm/dictionaries";
 import { classifyImageIsDocument } from "@/lib/classify/image-doc";
+import { backendFetch } from "@/lib/api/backend";
 
 /**
  * Migration off amoCRM (Phase A): when OBJECTS_API_URL is set, new objects are
@@ -17,7 +18,7 @@ const OBJECTS_API_URL = process.env.OBJECTS_API_URL;
 async function createViaApi(
   input: NewObjectInput,
 ): Promise<{ rwNumber: string; url: string }> {
-  const res = await fetch(`${OBJECTS_API_URL}/objects`, {
+  const res = await backendFetch(`/objects`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(input),

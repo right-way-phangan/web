@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/sections/page-hero";
 import { RentalInsights } from "@/components/insights/rental-insights";
 import { SalePrices } from "@/components/insights/sale-prices";
+import { DatasetJsonLd } from "@/components/seo/dataset-json-ld";
 import { getRentalMarket, buildInventoryYield } from "@/lib/data/rental-market";
 import { getPublicObjects } from "@/lib/data/objects";
 import { buildSalePriceByDistrict } from "@/lib/data/sale-prices";
+import { getSiteUrl } from "@/lib/site-url";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/insights", languages: { en: "/insights", ru: "/ru/insights" } },
@@ -23,6 +25,7 @@ export default async function InsightsPage() {
 
   return (
     <section className="pb-24">
+      <DatasetJsonLd siteUrl={getSiteUrl()} meta={data.meta} />
       <PageHero
         eyebrow="Market insights"
         title="The Phangan market — in numbers."

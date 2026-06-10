@@ -1,12 +1,12 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { AUTH_ENABLED, SESSION_COOKIE, verifySession } from "@/lib/auth/session";
 
 /**
- * HTTP Basic Auth gate for /admin/*. Credentials in env: ADMIN_USER /
- * ADMIN_PASSWORD. Fails closed — if either is unset, all /admin access is
- * denied (so a misconfigured deploy never exposes the intake form).
- *
- * This is intentionally lightweight (single shared login) for Phase 1. A
- * proper multi-user auth is tracked in open questions.
+ * /admin/* gate. Two modes:
+ *  - AUTH_SECRET set  → per-user session cookie (Phase B); unauthenticated →
+ *    redirect to /admin/login. Multiple users + roles, no per-seat license.
+ *  - AUTH_SECRET unset → shared HTTP Basic Auth (ADMIN_USER/ADMIN_PASSWORD),
+ *    the current prod behavior. Fails closed if creds are missing.
  */
 function unauthorized() {
   return new NextResponse("Authentication required.", {
@@ -15,7 +15,18 @@ function unauthorized() {
   });
 }
 
-export function middleware(req: NextRequest) {
+export async function middleware(req: NextRequest) {
+  // Phase B: cookie-session auth.
+  if (AUTH_ENABLED) {
+    if (req.nextUrl.pathname === "/admin/login") return NextResponse.next();
+    const session = await verifySession(req.cookies.get(SESSION_COOKIE)?.value);
+    if (session) return NextResponse.next();
+    const url = req.nextUrl.clone();
+    url.pathname = "/admin/login";
+    return NextResponse.redirect(url);
+  }
+
+  // Fallback: shared Basic Auth.
   const user = process.env.ADMIN_USER;
   const pass = process.env.ADMIN_PASSWORD;
   if (!user || !pass) return unauthorized();

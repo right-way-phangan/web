@@ -21,7 +21,8 @@ export function RecentlyViewed({
   excludeRw?: string;
   title?: string;
 }) {
-  const heading = title ?? getListingsDict(useLocale()).recentlyViewed;
+  const locale = useLocale();
+  const heading = title ?? getListingsDict(locale).recentlyViewed;
   const [recent, setRecent] = useState<string[]>([]);
   useEffect(() => setRecent(getRecentlyViewed()), []);
 
