@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getLead, CRM_ENABLED } from "@/lib/data/leads";
 import { MoveLeadSelect } from "@/components/crm/move-lead-select";
 import { TaskToggle } from "@/components/crm/task-toggle";
+import { LeadEdit } from "@/components/crm/lead-edit";
 import { addNoteAction, addTaskAction } from "@/lib/actions/lead-actions";
 
 export const metadata: Metadata = {
@@ -68,6 +69,17 @@ export default async function LeadDetailPage({
         >
           {lead.status}
         </span>
+      </div>
+
+      {/* Inline contact editor + delete */}
+      <div className="mt-4">
+        <LeadEdit
+          leadId={lead.id}
+          contactName={lead.contactName}
+          email={lead.email}
+          phone={lead.phone}
+          rwNumber={lead.rwNumber}
+        />
       </div>
 
       {/* Meta grid */}

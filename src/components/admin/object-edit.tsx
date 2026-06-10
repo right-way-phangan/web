@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useRef, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { updateObjectAction, type ObjectPatch } from "@/lib/actions/update-object";
+import { addObjectPhotosAction } from "@/lib/actions/object-photos";
 
 const STATUSES = ["Active", "Reserved", "Hold", "Sold", "Withdrawn"] as const;
 
@@ -34,6 +35,35 @@ export function ObjectEditButton({ object }: { object: EditableObject }) {
   const [pending, start] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+
+  // Photo upload state.
+  const fileRef = useRef<HTMLInputElement>(null);
+  const [photoPending, startPhotos] = useTransition();
+  const [photoMsg, setPhotoMsg] = useState<string | null>(null);
+  const [fileCount, setFileCount] = useState(0);
+
+  function uploadPhotos() {
+    const files = fileRef.current?.files;
+    if (!files || files.length === 0) return;
+    setPhotoMsg(null);
+    const fd = new FormData();
+    fd.set("rwNumber", object.rwNumber);
+    for (const f of Array.from(files)) fd.append("photos", f);
+    startPhotos(async () => {
+      const res = await addObjectPhotosAction(fd);
+      if (res.ok) {
+        setPhotoMsg(
+          `Загружено фото: ${res.added}.` +
+            (res.coverSet ? " Обложка задана — объект теперь на сайте." : ""),
+        );
+        if (fileRef.current) fileRef.current.value = "";
+        setFileCount(0);
+        router.refresh();
+      } else {
+        setPhotoMsg(res.error ?? "Не удалось загрузить.");
+      }
+    });
+  }
 
   const isLand = object.type === "Land";
   const isProject = object.type === "Project";
@@ -214,6 +244,32 @@ export function ObjectEditButton({ object }: { object: EditableObject }) {
                   className={field}
                 />
               </label>
+            </div>
+
+            {/* Photo upload — closes the photo-less → live loop */}
+            <div className="mt-4 rounded-xl border border-forest-900/10 bg-white/60 p-3">
+              <p className="text-xs font-medium text-forest-900/55">
+                Добавить фото {object.type === "Land" ? "(аэро на обложку)" : "(экстерьер на обложку)"}
+              </p>
+              <div className="mt-2 flex flex-wrap items-center gap-2">
+                <input
+                  ref={fileRef}
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  onChange={(e) => setFileCount(e.target.files?.length ?? 0)}
+                  className="text-xs text-forest-900/70 file:mr-2 file:rounded-full file:border-0 file:bg-forest-900/5 file:px-3 file:py-1.5 file:text-xs file:font-medium file:text-forest-900/70 hover:file:bg-forest-900/10"
+                />
+                <button
+                  type="button"
+                  disabled={photoPending || fileCount === 0}
+                  onClick={uploadPhotos}
+                  className="rounded-full bg-brass-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-brass-600/90 disabled:opacity-40"
+                >
+                  {photoPending ? "Загружаю…" : fileCount > 0 ? `Загрузить ${fileCount}` : "Загрузить"}
+                </button>
+              </div>
+              {photoMsg && <p className="mt-2 text-xs text-emerald-700">{photoMsg}</p>}
             </div>
 
             {error && (

@@ -1,10 +1,51 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { backendFetch } from "@/lib/api/backend";
 
 const API = process.env.OBJECTS_API_URL;
 const JSON_HEADERS = { "Content-Type": "application/json" };
+
+export type LeadEditResult = { ok: boolean; error?: string };
+
+/** Edit a lead's contact details + linked object (CRM detail card editor). */
+export async function updateLeadContactAction(
+  leadId: number,
+  patch: { contactName?: string; email?: string; phone?: string; rwNumber?: string },
+): Promise<LeadEditResult> {
+  if (!API) return { ok: false, error: "Backend не подключён." };
+  try {
+    const res = await backendFetch(`/leads/${leadId}/contact`, {
+      method: "PATCH",
+      headers: JSON_HEADERS,
+      cache: "no-store",
+      body: JSON.stringify(patch),
+    });
+    if (!res.ok) return { ok: false, error: `API ${res.status}` };
+  } catch (err) {
+    console.error("[crm] updateLeadContact failed:", err);
+    return { ok: false, error: "Сетевая ошибка." };
+  }
+  revalidatePath(`/admin/crm/${leadId}`);
+  revalidatePath("/admin/crm");
+  return { ok: true };
+}
+
+/** Delete a lead (test-lead cleanup), then return to the board. Form action. */
+export async function deleteLeadAction(formData: FormData): Promise<void> {
+  const leadId = Number(formData.get("leadId"));
+  if (API && leadId) {
+    try {
+      await backendFetch(`/leads/${leadId}`, { method: "DELETE", cache: "no-store" });
+    } catch (err) {
+      console.error("[crm] deleteLead failed:", err);
+    }
+  }
+  revalidatePath("/admin/crm");
+  revalidatePath("/admin");
+  redirect("/admin/crm");
+}
 
 /** Add a note to a lead (history feed). Form action. */
 export async function addNoteAction(formData: FormData): Promise<void> {
