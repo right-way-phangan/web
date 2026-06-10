@@ -485,6 +485,50 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "costs",
     faqQuestion: "Can a foreigner get a mortgage to buy property on Koh Phangan?",
   },
+  {
+    slug: "inheritance-leasehold-and-villa",
+    kbId: "kb-0012",
+    topic: "Structures",
+    title: "Inheritance on Koh Phangan: what happens to your leasehold and villa when you die",
+    short:
+      "What your heirs receive depends on how the asset is held. A land lease, the villa building and company shares all pass on differently — and a Thai lease does not pass on automatically unless the contract says so. The fix is to plan it in advance: a succession clause in the lease, the company structure, and a Thai will.",
+    updated: "2026-06-10",
+    body: [
+      "“What happens to all this when I die?” is a fair question, and on Koh Phangan the answer is reassuring but conditional: inheritance works — if it was set up to. The key is that a lease, a building and company shares are three different things in law, and each passes on its own way. Get the wording right when you buy, and your heirs inherit smoothly; leave it to chance, and parts of the asset can fall away.",
+      { h: "By type of asset" },
+      {
+        ul: [
+          "**Leasehold (land lease)** — a Thai lease does not pass on automatically; it's a contract, not ownership. It transfers to your heirs only if the lease itself spells out succession and renewal for them. Without that clause, the lease can end on the lessee's death. This is why the inheritance wording is checked at the buying stage — see [Leasehold vs freehold](/knowledge/leasehold-vs-freehold).",
+          "**The villa / building** — a foreigner can own the structure separately from the land, and it passes as personal property under a will. But with no rights to the land beneath it, an inherited building is stranded — so the building and the lease must be inherited together.",
+          "**Condominium (freehold unit)** — passes as ownership. A foreign heir usually has to fit within the building's 49% foreign quota or sell the unit within a set period.",
+          "**Held through a company** — if the land or villa sits in a Thai Co., Ltd., what your heirs inherit are your shares under the will or articles; the property itself stays with the company.",
+        ],
+      },
+      { h: "What to set up in advance" },
+      {
+        ul: [
+          "**A Thai will** covering your Thai assets, separate from any will at home — it makes the process faster and clearer for your heirs.",
+          "**A succession clause in the lease** — transfer and/or renewal to named heirs.",
+          "**Aligned inheritance** of the lease, the building and any company shares, so they don't drift apart.",
+        ],
+      },
+      { h: "The takeaway" },
+      "Inheritance on Phangan is workable, but not by default — it's configured when the deal is structured, not afterwards. Before you buy, talk through with your agent and lawyer exactly how the asset will pass to your heirs.",
+    ],
+    takeaways: [
+      "What heirs receive depends on how the asset is held — lease, building and shares pass differently.",
+      "A Thai lease does NOT pass on automatically; it needs a succession clause in the contract.",
+      "The villa building and the lease must be inherited together, or the building is stranded.",
+      "A condo passes as ownership, subject to the 49% foreign quota for the heir.",
+      "Set up a Thai will and align lease, building and shares before you buy.",
+    ],
+    sources: [
+      { title: "Thai succession — inheritance by will under the Civil and Commercial Code; leasehold passes only if the contract provides for it (general practice)" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "What happens to my leasehold and villa on Koh Phangan when I die?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
