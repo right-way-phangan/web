@@ -121,6 +121,60 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "phangan",
     faqQuestion: "What am I allowed to build on a plot on Koh Phangan?",
   },
+  {
+    slug: "leasehold-vs-freehold",
+    kbId: "kb-0001",
+    topic: "Ownership",
+    title: "Leasehold vs freehold on Koh Phangan: what foreign buyers should know in 2026",
+    short:
+      "Foreigners can't hold land freehold in their own name, and the company workaround turned risky after the 2025–2026 nominee enforcement. For most foreign buyers on Phangan today the clean, durable route is leasehold: a registered long lease on the land plus outright ownership of the building.",
+    updated: "2026-06-10",
+    body: [
+      "For a foreign buyer on Koh Phangan, the practical answer in 2026 is leasehold. Foreigners cannot own land freehold in their own name in Thailand, and the structure that used to get around that — a Thai company holding the land — has become risky after the 2025–2026 enforcement against nominee shareholders. The clean route that survives scrutiny is a registered long lease on the land combined with outright ownership of the building.",
+      { h: "What the two words actually mean here" },
+      "“Freehold” and “leasehold” describe what you hold, not just how long you hold it.",
+      {
+        ul: [
+          "**Freehold** — owning the land outright, in perpetuity. In Thailand this is reserved for Thai nationals (and certain Thai-majority entities). A foreigner cannot register freehold land in their own name.",
+          "**Leasehold** — a registered right to use the land for a fixed term, most commonly 30 years. You don't own the land, but you can own the house on it. Paired with a superficies, the building stays yours independently of the lease.",
+        ],
+      },
+      { h: "Why freehold through a company became risky" },
+      "The common workaround was a Thai company in which a foreigner held 49% and Thai shareholders the rest — often nominees holding their shares on the foreigner's behalf. Through 2025 and into 2026, enforcement on Koh Phangan tightened sharply against exactly this arrangement.",
+      "The Department of Business Development began demanding fuller information on shareholders and directors and scrutinising addresses with five or more registered companies — a classic nominee-address signal. The stated focus is small and mid-sized foreign investors. The practical result: selling freehold land into the foreign market has become very hard, because the structure most foreign buyers relied on is now the one under the microscope.",
+      { h: "Why leasehold is the clean route" },
+      "A registered lease doesn't pretend a foreigner owns land they legally can't. It gives you a real, registrable interest in the land for the term, while the villa itself is owned outright through the construction permit or a sale-of-structure agreement and anchored by a superficies. We cover the mechanics in [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa).",
+      "The point people miss is renewal. A 30-year lease is solid; the “30 + 30 + 30” you'll hear quoted is a contractual promise, not a property right — whether it survives a sale of the land or the death of the landlord has to be checked, not assumed.",
+      { h: "What due diligence must check" },
+      "Whether a plot is offered as freehold or leasehold, the checks are the same in spirit: confirm what you're actually buying and that it will hold up.",
+      {
+        ul: [
+          "Is a “freehold” offer in fact a disguised nominee structure — and is the selling company sitting on an address shared by many other companies?",
+          "Is the lease registered at the Land Office, for the exact term stated? Anything over three years is only enforceable if registered.",
+          "Do renewal promises survive a change of landowner, and who actually owns the land today?",
+          "Mortgages, encumbrances, and registered road access.",
+        ],
+      },
+    ],
+    takeaways: [
+      "Foreigners can't register freehold land in their own name — that's reserved for Thai nationals.",
+      "The 49/51 company route turned risky after the 2025–2026 nominee enforcement on Phangan.",
+      "Leasehold (registered land lease + owning the building via superficies) is the clean, durable route today.",
+      "“30 + 30 + 30” renewals are contractual promises, not guaranteed rights — verify they survive a change of landowner.",
+      "Due diligence should confirm a “freehold” offer isn't a hidden nominee scheme.",
+    ],
+    sources: [
+      {
+        title:
+          "Thai Examiner — Koh Phangan crackdown continues as government targets small-time investors (25 Nov 2025)",
+        url: "https://www.thaiexaminer.com/thai-news-foreigners/2025/11/25/koh-phangan-crackdown-continues-as-thai-government-sends-message-small-time-investors-are-not-wanted/",
+      },
+      { title: "Thai land law — Land Code and Civil & Commercial Code (general practice)" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "ownership",
+    faqQuestion: "Should a foreigner buy freehold or leasehold on Koh Phangan?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
