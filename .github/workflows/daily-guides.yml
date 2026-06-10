@@ -1,0 +1,93 @@
+name: Daily knowledge guides
+
+# Autonomous content routine: once a day, headless Claude Code authors 2 new
+# knowledge guides (EN+RU) grounded in live web sources, following
+# content-pipeline/routine.md. A tsc gate validates before anything is committed;
+# the push triggers a Vercel redeploy. Runs entirely in the cloud — no laptop needed.
+#
+# Required repo secret:
+#   CLAUDE_CODE_OAUTH_TOKEN  — from `claude setup-token` on a Pro/Max subscription.
+# Uses the built-in GITHUB_TOKEN to push to main (no extra secret).
+
+on:
+  schedule:
+    - cron: "41 1 * * *" # 01:41 UTC ≈ 08:41 Asia/Bangkok, daily
+  workflow_dispatch:
+    inputs:
+      count:
+        description: "How many guides to author this run (default 2)"
+        required: false
+        default: "2"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-guides
+  cancel-in-progress: false
+
+jobs:
+  author:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Claude Code
+        run: npm i -g @anthropic-ai/claude-code
+
+      - name: Author guides (headless Claude)
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          GUIDE_COUNT: ${{ github.event.inputs.count || '2' }}
+        run: |
+          if [ -z "${CLAUDE_CODE_OAUTH_TOKEN}" ]; then
+            echo "::error::CLAUDE_CODE_OAUTH_TOKEN secret is not set. Run 'claude setup-token' and add it to repo secrets."
+            exit 1
+          fi
+          PROMPT="$(cat content-pipeline/routine.md)
+          (This run: author up to ${GUIDE_COUNT} guides.)"
+          echo "$PROMPT" | claude --print --dangerously-skip-permissions 2>&1 | tee claude-run.log
+
+      - name: Type-check gate
+        run: npx tsc --noEmit
+
+      - name: Commit & push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # stage only pipeline + content outputs
+          git add src/content/knowledge-base.ts src/content/knowledge-base.ru.ts \
+                  content-pipeline/backlog.md content-pipeline/last-run.md 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No new guides this run (backlog exhausted or quality gate). Nothing to commit."
+            exit 0
+          fi
+          DATE="$(date -u +%Y-%m-%d)"
+          git commit -m "content: daily knowledge guides ($DATE) [auto]
+
+          Authored by headless Claude Code via content-pipeline/routine.md.
+
+          Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
+          git push origin HEAD:main
+
+      - name: Upload run log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: claude-run-log
+          path: |
+            claude-run.log
+            content-pipeline/last-run.md
+          if-no-files-found: ignore
+          retention-days: 14
