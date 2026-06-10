@@ -1,6 +1,7 @@
 import "server-only";
 import { listCatalogElements, AmoApiError } from "@/lib/amocrm/client";
 import { mapElementToObject } from "@/lib/amocrm/mapper";
+import { backendFetch } from "@/lib/api/backend";
 import type { RealEstateObject, ObjectStatus } from "@/types/object";
 
 /**
@@ -20,9 +21,7 @@ const PUBLIC_STATUSES: ObjectStatus[] = ["Active"];
 const OBJECTS_API_URL = process.env.OBJECTS_API_URL;
 
 async function apiObjects(path: string): Promise<RealEstateObject[]> {
-  const res = await fetch(`${OBJECTS_API_URL}${path}`, {
-    next: { revalidate: CATALOG_REVALIDATE_SECONDS },
-  });
+  const res = await backendFetch(path, { next: { revalidate: CATALOG_REVALIDATE_SECONDS } });
   if (!res.ok) throw new Error(`objects API ${path} → ${res.status}`);
   return (await res.json()) as RealEstateObject[];
 }

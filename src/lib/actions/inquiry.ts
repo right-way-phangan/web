@@ -3,6 +3,7 @@
 import { z } from "zod";
 import { createLead, AmoApiError } from "@/lib/amocrm/client";
 import { amoEnv } from "@/lib/amocrm/env";
+import { backendFetch } from "@/lib/api/backend";
 import { getObjectByRwNumber } from "@/lib/data/objects";
 import { notifyLeadCreated } from "@/lib/notify/telegram";
 import type { ObjectType } from "@/types/object";
@@ -184,7 +185,7 @@ export async function submitInquiry(
 
     if (CRM_API_URL) {
       // Own CRM (Phase B): create lead+contact+note in our DB.
-      const res = await fetch(`${CRM_API_URL}/leads`, {
+      const res = await backendFetch(`/leads`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         cache: "no-store",
