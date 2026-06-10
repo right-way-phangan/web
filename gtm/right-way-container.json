@@ -1,0 +1,235 @@
+{
+  "exportFormatVersion": 2,
+  "containerVersion": {
+    "container": {
+      "accountId": "0",
+      "containerId": "0",
+      "name": "Right Way Phangan — Web",
+      "publicId": "GTM-XXXXXXX",
+      "usageContext": ["WEB"]
+    },
+    "builtInVariable": [
+      { "accountId": "0", "containerId": "0", "type": "EVENT", "name": "Event" },
+      { "accountId": "0", "containerId": "0", "type": "PAGE_PATH", "name": "Page Path" },
+      { "accountId": "0", "containerId": "0", "type": "PAGE_URL", "name": "Page URL" }
+    ],
+    "variable": [
+      {
+        "accountId": "0", "containerId": "0", "variableId": "1",
+        "name": "GA4_MEASUREMENT_ID", "type": "c",
+        "parameter": [{ "type": "TEMPLATE", "key": "value", "value": "G-XXXXXXXXXX" }],
+        "notes": "Paste your GA4 Measurement ID here (Admin → Data Streams → Web). Everything else references this."
+      },
+      {
+        "accountId": "0", "containerId": "0", "variableId": "2",
+        "name": "META_PIXEL_ID", "type": "c",
+        "parameter": [{ "type": "TEMPLATE", "key": "value", "value": "000000000000000" }],
+        "notes": "Paste your Meta Pixel ID here (Events Manager → Data Sources)."
+      },
+      {
+        "accountId": "0", "containerId": "0", "variableId": "3",
+        "name": "dlv - source", "type": "v",
+        "parameter": [
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" },
+          { "type": "BOOLEAN", "key": "setDefaultValue", "value": "false" },
+          { "type": "TEMPLATE", "key": "name", "value": "source" }
+        ]
+      },
+      {
+        "accountId": "0", "containerId": "0", "variableId": "4",
+        "name": "dlv - rw", "type": "v",
+        "parameter": [
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" },
+          { "type": "BOOLEAN", "key": "setDefaultValue", "value": "false" },
+          { "type": "TEMPLATE", "key": "name", "value": "rw" }
+        ]
+      },
+      {
+        "accountId": "0", "containerId": "0", "variableId": "5",
+        "name": "dlv - kind", "type": "v",
+        "parameter": [
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" },
+          { "type": "BOOLEAN", "key": "setDefaultValue", "value": "false" },
+          { "type": "TEMPLATE", "key": "name", "value": "kind" }
+        ]
+      },
+      {
+        "accountId": "0", "containerId": "0", "variableId": "6",
+        "name": "dlv - type", "type": "v",
+        "parameter": [
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" },
+          { "type": "BOOLEAN", "key": "setDefaultValue", "value": "false" },
+          { "type": "TEMPLATE", "key": "name", "value": "type" }
+        ]
+      },
+      {
+        "accountId": "0", "containerId": "0", "variableId": "7",
+        "name": "dlv - location", "type": "v",
+        "parameter": [
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" },
+          { "type": "BOOLEAN", "key": "setDefaultValue", "value": "false" },
+          { "type": "TEMPLATE", "key": "name", "value": "location" }
+        ]
+      },
+      {
+        "accountId": "0", "containerId": "0", "variableId": "8",
+        "name": "dlv - action", "type": "v",
+        "parameter": [
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" },
+          { "type": "BOOLEAN", "key": "setDefaultValue", "value": "false" },
+          { "type": "TEMPLATE", "key": "name", "value": "action" }
+        ]
+      }
+    ],
+    "trigger": [
+      {
+        "accountId": "0", "containerId": "0", "triggerId": "100",
+        "name": "ce - lead_submit", "type": "CUSTOM_EVENT",
+        "customEventFilter": [{ "type": "EQUALS", "parameter": [
+          { "type": "TEMPLATE", "key": "arg0", "value": "{{_event}}" },
+          { "type": "TEMPLATE", "key": "arg1", "value": "lead_submit" }
+        ]}]
+      },
+      {
+        "accountId": "0", "containerId": "0", "triggerId": "101",
+        "name": "ce - view_listing", "type": "CUSTOM_EVENT",
+        "customEventFilter": [{ "type": "EQUALS", "parameter": [
+          { "type": "TEMPLATE", "key": "arg0", "value": "{{_event}}" },
+          { "type": "TEMPLATE", "key": "arg1", "value": "view_listing" }
+        ]}]
+      },
+      {
+        "accountId": "0", "containerId": "0", "triggerId": "102",
+        "name": "ce - telegram_click", "type": "CUSTOM_EVENT",
+        "customEventFilter": [{ "type": "EQUALS", "parameter": [
+          { "type": "TEMPLATE", "key": "arg0", "value": "{{_event}}" },
+          { "type": "TEMPLATE", "key": "arg1", "value": "telegram_click" }
+        ]}]
+      },
+      {
+        "accountId": "0", "containerId": "0", "triggerId": "103",
+        "name": "ce - whatsapp_click", "type": "CUSTOM_EVENT",
+        "customEventFilter": [{ "type": "EQUALS", "parameter": [
+          { "type": "TEMPLATE", "key": "arg0", "value": "{{_event}}" },
+          { "type": "TEMPLATE", "key": "arg1", "value": "whatsapp_click" }
+        ]}]
+      },
+      {
+        "accountId": "0", "containerId": "0", "triggerId": "104",
+        "name": "ce - phone_click", "type": "CUSTOM_EVENT",
+        "customEventFilter": [{ "type": "EQUALS", "parameter": [
+          { "type": "TEMPLATE", "key": "arg0", "value": "{{_event}}" },
+          { "type": "TEMPLATE", "key": "arg1", "value": "phone_click" }
+        ]}]
+      },
+      {
+        "accountId": "0", "containerId": "0", "triggerId": "105",
+        "name": "ce - email_click", "type": "CUSTOM_EVENT",
+        "customEventFilter": [{ "type": "EQUALS", "parameter": [
+          { "type": "TEMPLATE", "key": "arg0", "value": "{{_event}}" },
+          { "type": "TEMPLATE", "key": "arg1", "value": "email_click" }
+        ]}]
+      },
+      {
+        "accountId": "0", "containerId": "0", "triggerId": "106",
+        "name": "ce - roi_complete", "type": "CUSTOM_EVENT",
+        "customEventFilter": [{ "type": "EQUALS", "parameter": [
+          { "type": "TEMPLATE", "key": "arg0", "value": "{{_event}}" },
+          { "type": "TEMPLATE", "key": "arg1", "value": "roi_complete" }
+        ]}]
+      }
+    ],
+    "tag": [
+      {
+        "accountId": "0", "containerId": "0", "tagId": "200",
+        "name": "GA4 - Config", "type": "html",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "html", "value": "<script>(function(){var id='{{GA4_MEASUREMENT_ID}}';if(!id||id.indexOf('G-')!==0)return;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+id;document.head.appendChild(s);window.dataLayer=window.dataLayer||[];window.gtag=window.gtag||function(){dataLayer.push(arguments);};gtag('js',new Date());gtag('config',id);})();</script>" },
+          { "type": "BOOLEAN", "key": "supportDocumentWrite", "value": "false" }
+        ],
+        "firingTriggerId": ["2147479553"],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "0", "containerId": "0", "tagId": "201",
+        "name": "Meta Pixel - Base + PageView", "type": "html",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "html", "value": "<script>(function(){var id='{{META_PIXEL_ID}}';if(!id||/^0+$/.test(id))return;!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init',id);fbq('track','PageView');})();</script>" },
+          { "type": "BOOLEAN", "key": "supportDocumentWrite", "value": "false" }
+        ],
+        "firingTriggerId": ["2147479553"],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "0", "containerId": "0", "tagId": "202",
+        "name": "EVT - lead_submit", "type": "html",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "html", "value": "<script>try{if(window.gtag)gtag('event','generate_lead',{source:'{{dlv - source}}',rw:'{{dlv - rw}}',kind:'{{dlv - kind}}'});}catch(e){}try{if(window.fbq)fbq('track','Lead');}catch(e){}</script>" },
+          { "type": "BOOLEAN", "key": "supportDocumentWrite", "value": "false" }
+        ],
+        "firingTriggerId": ["100"],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "0", "containerId": "0", "tagId": "203",
+        "name": "EVT - view_listing", "type": "html",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "html", "value": "<script>try{if(window.gtag)gtag('event','view_listing',{rw:'{{dlv - rw}}',type:'{{dlv - type}}'});}catch(e){}try{if(window.fbq)fbq('track','ViewContent',{content_ids:['{{dlv - rw}}'],content_type:'product'});}catch(e){}</script>" },
+          { "type": "BOOLEAN", "key": "supportDocumentWrite", "value": "false" }
+        ],
+        "firingTriggerId": ["101"],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "0", "containerId": "0", "tagId": "204",
+        "name": "EVT - telegram_click", "type": "html",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "html", "value": "<script>try{if(window.gtag)gtag('event','telegram_click',{location:'{{dlv - location}}'});}catch(e){}try{if(window.fbq)fbq('track','Contact',{method:'telegram'});}catch(e){}</script>" },
+          { "type": "BOOLEAN", "key": "supportDocumentWrite", "value": "false" }
+        ],
+        "firingTriggerId": ["102"],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "0", "containerId": "0", "tagId": "205",
+        "name": "EVT - whatsapp_click", "type": "html",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "html", "value": "<script>try{if(window.gtag)gtag('event','whatsapp_click',{location:'{{dlv - location}}'});}catch(e){}try{if(window.fbq)fbq('track','Contact',{method:'whatsapp'});}catch(e){}</script>" },
+          { "type": "BOOLEAN", "key": "supportDocumentWrite", "value": "false" }
+        ],
+        "firingTriggerId": ["103"],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "0", "containerId": "0", "tagId": "206",
+        "name": "EVT - phone_click", "type": "html",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "html", "value": "<script>try{if(window.gtag)gtag('event','phone_click',{location:'{{dlv - location}}'});}catch(e){}try{if(window.fbq)fbq('track','Contact',{method:'phone'});}catch(e){}</script>" },
+          { "type": "BOOLEAN", "key": "supportDocumentWrite", "value": "false" }
+        ],
+        "firingTriggerId": ["104"],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "0", "containerId": "0", "tagId": "207",
+        "name": "EVT - email_click", "type": "html",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "html", "value": "<script>try{if(window.gtag)gtag('event','email_click',{location:'{{dlv - location}}'});}catch(e){}try{if(window.fbq)fbq('track','Contact',{method:'email'});}catch(e){}</script>" },
+          { "type": "BOOLEAN", "key": "supportDocumentWrite", "value": "false" }
+        ],
+        "firingTriggerId": ["105"],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "0", "containerId": "0", "tagId": "208",
+        "name": "EVT - roi_complete", "type": "html",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "html", "value": "<script>try{if(window.gtag)gtag('event','roi_complete',{action:'{{dlv - action}}'});}catch(e){}try{if(window.fbq)fbq('trackCustom','ROIComplete');}catch(e){}</script>" },
+          { "type": "BOOLEAN", "key": "supportDocumentWrite", "value": "false" }
+        ],
+        "firingTriggerId": ["106"],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      }
+    ]
+  }
+}

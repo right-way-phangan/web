@@ -29,6 +29,7 @@ import { ObjectCard } from "@/components/objects/object-card";
 import { CalcLeadButton } from "@/components/calculator/calc-lead-button";
 import { MarketPreset } from "@/components/calculator/market-preset";
 import { buildCalcReportHtml } from "@/lib/calculator/report";
+import { track } from "@/lib/analytics/track";
 import type { RealEstateObject } from "@/types/object";
 import { getAppreciation, type RentalMarket } from "@/lib/data/rental-market";
 import { calcDict, type CalcDict, type CalcLocale } from "@/lib/i18n/calculator";
@@ -190,6 +191,7 @@ export function RoiCalculator({
       await navigator.clipboard.writeText(window.location.href);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
+      track("roi_complete", { action: "share" });
     } catch {
       /* clipboard unavailable — ignore */
     }

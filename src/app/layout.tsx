@@ -6,6 +6,8 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { SavedProvider } from "@/lib/saved/saved-context";
 import { OrganizationJsonLd } from "@/components/seo/organization-json-ld";
+import { GtmScript, GtmNoScript } from "@/components/analytics/gtm";
+import { ContactClickTracker } from "@/components/analytics/contact-click-tracker";
 import { siteConfig } from "@/lib/site-config";
 import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
@@ -68,6 +70,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${sans.variable} ${serif.variable}`}>
       <body className="flex min-h-screen flex-col">
+        <GtmNoScript />
         {/*
           Kill-switch: this site uses no service worker. If a device carries a
           stale SW from whatever was on this domain before the DNS swap, it can
@@ -88,6 +91,8 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
         </SavedProvider>
+        <ContactClickTracker />
+        <GtmScript />
         <Analytics />
         <SpeedInsights />
       </body>

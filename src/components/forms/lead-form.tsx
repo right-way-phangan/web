@@ -3,6 +3,7 @@
 import { useActionState, useEffect, useState, useRef } from "react";
 import { useFormStatus } from "react-dom";
 import { track } from "@vercel/analytics";
+import { track as gtmTrack } from "@/lib/analytics/track";
 import { CheckCircle2, AlertCircle, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -51,6 +52,12 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
       track("inquiry_submitted", {
         source,
         rwNumber: rwNumber ?? "n/a",
+        kind: kind ?? "inquiry",
+      });
+      // Marketing conversion → GTM (GA4 conversion + Meta Pixel Lead).
+      gtmTrack("lead_submit", {
+        source,
+        rw: rwNumber ?? "n/a",
         kind: kind ?? "inquiry",
       });
       onSuccess?.();
