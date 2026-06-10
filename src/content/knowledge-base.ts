@@ -447,6 +447,44 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "phangan",
     faqQuestion: "Can I rent out my villa on Koh Phangan short-term, and what about tax and yield?",
   },
+  {
+    slug: "financing-buying-as-a-foreigner",
+    kbId: "kb-0011",
+    topic: "Costs",
+    title: "Financing a Koh Phangan purchase as a foreigner: mortgages, payment plans and cash",
+    short:
+      "For a foreign buyer, Thailand is largely a cash market. Thai banks generally don't lend to foreigners for a home — and never for land, which you can't own anyway. Plan around your own funds, finance at home if you need to, and use a developer's staged payments on off-plan.",
+    updated: "2026-06-10",
+    body: [
+      "“Can I get a mortgage?” is one of the first questions foreign buyers ask, and the honest answer reshapes the whole plan: on Koh Phangan, you should expect to buy with cash. Thai bank lending to foreigners is rare and doesn't cover the things most people buy here. Here's the real picture and the ways people actually fund a purchase.",
+      { h: "Thai bank mortgages" },
+      "As a rule, Thai banks don't offer mortgages to foreigners for residential property, and certainly not for land — which a foreigner can't own in the first place. A few banks (UOB, ICBC, Bangkok Bank's Singapore branch) occasionally lend in foreign currency for condominium units under specific conditions, but for villas and land on Phangan that route is effectively closed. Thai permanent residents are a different case.",
+      { h: "How people actually fund it" },
+      {
+        ul: [
+          "**Cash / own funds** — the default. Most purchases here complete with the buyer's own capital.",
+          "**Financing at home** — releasing equity or borrowing against property in your home country, then bringing the funds in. This is the most common form of “financing” a Thai purchase. Keep the FET form when the money arrives — see [Costs, taxes and the FET form](/knowledge/cost-of-buying-taxes-and-fees).",
+          "**Developer payment plans** — for off-plan, staged payments tied to construction act as informal financing, spreading the cost over the build. See [Buying off-plan](/knowledge/buying-off-plan-new-developments).",
+          "**Seller or private financing** — occasionally negotiated, but rare and to be approached carefully.",
+        ],
+      },
+      { h: "What this means for your plan" },
+      "Because a Thai mortgage usually isn't on the table, structure the purchase around cash and, for a new build, staged payments. It's also why moving funds correctly matters — the bank transfer and the FET form aren't admin to skip; they're what let you take your money back out when you eventually sell.",
+    ],
+    takeaways: [
+      "Thailand is largely a cash market for foreign buyers — don't count on a Thai mortgage.",
+      "Thai banks generally don't lend to foreigners for homes, and never for land.",
+      "A few banks lend in foreign currency for condos under conditions — not for villas or land on Phangan.",
+      "Most buyers fund with cash or by financing against property in their home country.",
+      "Off-plan staged payments spread the cost over the build — informal financing.",
+    ],
+    sources: [
+      { title: "Thai mortgage practice — limited foreign lending, foreigners cannot own land (general practice)" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "Can a foreigner get a mortgage to buy property on Koh Phangan?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
