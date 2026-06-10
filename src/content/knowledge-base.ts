@@ -366,6 +366,50 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "process",
     faqQuestion: "What are the steps to buy property on Koh Phangan as a foreigner?",
   },
+  {
+    slug: "buying-off-plan-new-developments",
+    kbId: "kb-0009",
+    topic: "Process",
+    title: "Buying off-plan on Koh Phangan: the upside, the risks, and how to vet a developer",
+    short:
+      "Off-plan can mean a lower entry price, staged payments and a choice of unit — but you're buying a promise, not a finished building. The protection is in the details: a developer with a real track record, the land title under the project, the permits, staged payments tied to construction, and a contract your own lawyer has read.",
+    updated: "2026-06-10",
+    body: [
+      "Buying off-plan means buying from the developer before or during construction. On Koh Phangan that's how most new villa and condo projects are sold. The appeal is real — but so are the risks, and the difference between a good off-plan buy and a bad one is almost entirely in the due diligence.",
+      { h: "Why people buy off-plan" },
+      "A lower entry price than a finished unit, payments spread over the build rather than all at once, first pick of the best units, and the chance of appreciation by the time it completes. For the right project and buyer, that's a strong combination.",
+      { h: "What you're actually taking on" },
+      "You're buying a promise of a finished building, which adds risks a completed property doesn't carry: construction delay or non-completion, a developer running out of money, the finished spec not matching the renders, and — underneath it all — the same foreign-ownership reality. The unit is still held as leasehold plus ownership of the structure (see [Leasehold vs freehold](/knowledge/leasehold-vs-freehold)), and the project still sits on a piece of land with its own title.",
+      { h: "Off-plan due diligence — beyond the usual checks" },
+      {
+        ul: [
+          "**The developer's track record** — projects they've actually finished and handed over, not just renders and a brochure.",
+          "**The land title under the project** — what the development is built on, checked the same way as any plot. See [Land titles](/knowledge/land-titles-chanote-vs-nor-sor-3).",
+          "**Building permit and zoning** — that the project is legally permitted at this location and scale under the 2025 environmental rules. See [Building zones](/knowledge/koh-phangan-building-zones).",
+          "**Your unit's legal structure** — exactly how the lease and building ownership are registered to you on completion.",
+          "**A staged payment schedule** tied to construction milestones — not the full price up front — and what happens to your money if the developer fails (escrow, guarantees).",
+          "**The contract** — completion date, penalties for delay, the handover and snagging process, and precisely what the spec includes.",
+        ],
+      },
+      { h: "On Koh Phangan specifically" },
+      "The island's new-build market is small, with relatively few large developers, so a track record is easier to verify — and more important when it's thin. The 2025 environmental zoning also constrains what can be built where, so confirming a project's permits is not a formality here; it's central. A beautiful render means nothing if the project can't legally be completed as drawn.",
+      { h: "How to keep the risk down" },
+      "Pay in stages against real construction progress rather than a large amount up front, use escrow where it's available, favour a developer who has completed comparable projects, and have an independent lawyer review the contract before you sign anything. The overall journey is the same as any purchase — see [the step-by-step buying process](/knowledge/how-to-buy-property-step-by-step).",
+    ],
+    takeaways: [
+      "Off-plan offers a lower entry price, staged payments and unit choice — at the cost of construction and developer risk.",
+      "Vet the developer's completed track record, not the renders.",
+      "Check the land title under the project and that it's permitted under the 2025 zoning.",
+      "Tie payments to construction milestones; avoid paying the full price up front.",
+      "Have an independent lawyer review the contract — completion date, penalties, handover.",
+    ],
+    sources: [
+      { title: "Thai off-plan practice — staged payments, developer due diligence, permits and handover (general practice)" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "Is buying off-plan on Koh Phangan safe, and how do I vet the developer?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
