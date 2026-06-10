@@ -1,14 +1,15 @@
 import Link from "next/link";
+import type { Route } from "next";
 
 /**
  * Shared sub-navigation for the /admin area (objects DB · CRM · new object).
  * `active` highlights the current section. Server component — no client JS.
  */
 export function AdminNav({ active }: { active: "objects" | "crm" | "new" }) {
-  const items: Array<{ key: "objects" | "crm" | "new"; href: string; label: string }> = [
-    { key: "objects", href: "/admin/objects", label: "База объектов" },
-    { key: "crm", href: "/admin/crm", label: "CRM · Лиды" },
-    { key: "new", href: "/admin/new", label: "+ Новый объект" },
+  const items: Array<{ key: "objects" | "crm" | "new"; href: Route; label: string }> = [
+    { key: "objects", href: "/admin/objects" as Route, label: "База объектов" },
+    { key: "crm", href: "/admin/crm" as Route, label: "CRM · Лиды" },
+    { key: "new", href: "/admin/new" as Route, label: "+ Новый объект" },
   ];
   return (
     <nav className="mb-6 flex flex-wrap gap-2 border-b border-forest-900/10 pb-4">
