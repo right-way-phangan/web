@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getLeads, getPipelines, CRM_ENABLED, type CrmLead, type CrmPipeline } from "@/lib/data/leads";
 import { MoveLeadSelect } from "@/components/crm/move-lead-select";
+import { AdminNav } from "@/components/admin/admin-nav";
 
 export const metadata: Metadata = {
   title: "CRM — лиды",
@@ -89,6 +90,7 @@ export default async function CrmPage({
 
   return (
     <section className="px-4 py-8 md:px-8">
+      <AdminNav active="crm" />
       <div className="mb-6">
         <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
           Admin · CRM
