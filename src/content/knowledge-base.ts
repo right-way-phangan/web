@@ -277,6 +277,52 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "phangan",
     faqQuestion: "How is land priced on Koh Phangan, and what makes one plot cost more than another?",
   },
+  {
+    slug: "cost-of-buying-taxes-and-fees",
+    kbId: "kb-0007",
+    topic: "Costs",
+    title: "The full cost of buying on Koh Phangan: taxes, fees and the FET form",
+    short:
+      "Beyond the price, a buyer budgets roughly 1–2% for legal, survey and registration. Most transfer taxes fall on the seller by law and local practice. The detail that catches people out isn't a tax at all — it's keeping the FET form you'll need to take your money back out when you sell.",
+    updated: "2026-06-10",
+    body: [
+      "The purchase price is rarely the whole story. There are transfer taxes at the Land Office, professional fees, an annual property tax, and — the part people forget — a single bank form that decides whether you can repatriate your money when you eventually sell. Here's the full picture. Transfer taxes are calculated on the Land Office's appraised value, which is usually below market.",
+      { h: "Transfer taxes and fees at the Land Office" },
+      {
+        ul: [
+          "**Transfer fee — 2%** of the appraised value. Often split between buyer and seller by local practice.",
+          "**Specific Business Tax (SBT) — 3.3%**, paid by the seller, if the property was held under 5 years. Waived after 5 years.",
+          "**Stamp duty — 0.5%**, but only when SBT doesn't apply.",
+          "**Withholding tax** — for an individual seller, a progressive rate based on appraised value and years held; for a company, 1% of the higher of appraised or sale price. A seller's tax.",
+          "**For a leasehold**, registering the lease costs **1%** of the total rent over the term, plus **0.1%** stamp duty.",
+        ],
+      },
+      { h: "Who pays what" },
+      "On Phangan, standard practice is that the seller pays the agent commission — a foreign buyer typically pays zero commission on a listed property. Our own published structure is on the [Services page](/services).",
+      "What the buyer does budget for is roughly 1–2% of the price, covering legal due diligence, the contract and transfer handling, a GPS boundary survey, translation and notarisation, and — for a villa — a structural inspection.",
+      { h: "Annual property tax" },
+      "Under the Land and Building Tax Act (2019), an owner-occupied home is taxed at **0.02–0.10%** of appraised value per year. Vacant or rented residential property is taxed higher (up to around 0.3%), commercial use higher still, and long-vacant land escalates over time. Right Way doesn't file taxes for clients — use a Thai accountant for compliance.",
+      { h: "Getting money into Thailand — and the FET form" },
+      "Funds usually move by SWIFT to the lawyer's escrow account or the seller at closing; Wise is common and cheaper on FX for smaller amounts. Receive into a major Thai bank (Bangkok Bank, Kasikorn, SCB).",
+      "The detail that matters most: keep the **Foreign Exchange Transaction (FET) form** the receiving Thai bank issues when foreign currency arrives from abroad. You will need it to remit the proceeds back out of Thailand when you sell. Without it, repatriating your money is much harder.",
+      { h: "What you'll pay when you sell" },
+      "When you sell, the seller side typically carries the SBT (3.3% if held under 5 years, waived after), withholding tax (1% of appraised value), personal income tax on the gain (progressive, with deductions after 5 years), and the transfer fee (2%, often split). A Thai company selling pays corporate income tax (20% on profit) instead of personal income tax.",
+    ],
+    takeaways: [
+      "Budget roughly 1–2% of the price for the buyer side (legal, survey, registration).",
+      "Most transfer taxes — SBT, withholding, much of the transfer fee — fall on the seller by law and practice.",
+      "On Phangan the seller pays the agent commission; buyers usually pay none on listed properties.",
+      "Keep the FET form — it's what lets you take your money back out of Thailand when you sell.",
+      "Annual Land and Building Tax on an owner-occupied home is 0.02–0.10% of appraised value.",
+    ],
+    sources: [
+      { title: "Thai property transfer taxes — transfer fee 2%, SBT 3.3%, stamp duty 0.5%, withholding tax (general practice)" },
+      { title: "Land and Building Tax Act 2019 — residential 0.02–0.10% of appraised value per year" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "What are the total costs and taxes of buying property on Koh Phangan?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
