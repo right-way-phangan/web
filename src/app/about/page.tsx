@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/about", languages: { en: "/about", ru: "/ru/about" } },
   title: "About",
   description:
-    "Right Way Phangan Group — a boutique real estate advisory on Koh Phangan, founded by Vladimir Buryi in 2026.",
+    "Right Way Phangan Group — a real estate advisory on Koh Phangan, founded by Vladimir Buryi in 2026.",
 };
 
 const PRINCIPLES = [
@@ -33,7 +33,7 @@ export default function AboutPage() {
     <>
       <PageHero
         eyebrow="About"
-        title="A boutique advisory, not a listing portal."
+        title="A specialised advisory, not a listing portal."
         lede="Right Way Phangan Group was founded in 2026 by Vladimir Buryi, building on four years of operational work in the local land market. We are a small, specialised team focused exclusively on Koh Phangan property."
         image="/images/scenes/coast-aerial.jpg"
         imageAlt="Aerial view of the Koh Phangan coastline"

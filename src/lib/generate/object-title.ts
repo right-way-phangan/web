@@ -223,7 +223,7 @@ export function buildTemplateTitle(a: TitleAttrs): string {
 const MODEL = process.env.ANTHROPIC_MODEL ?? "claude-haiku-4-5-20251001";
 const API_URL = "https://api.anthropic.com/v1/messages";
 
-const SYSTEM_PROMPT = `You write listing titles for a boutique real-estate agency on Koh Phangan, Thailand.
+const SYSTEM_PROMPT = `You write listing titles for a specialised real-estate agency on Koh Phangan, Thailand.
 Write ONE English title for the property described by the user's JSON facts.
 
 Rules:

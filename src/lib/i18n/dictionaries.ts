@@ -37,13 +37,13 @@ const en: HomeDict = {
   hero: {
     eyebrow: "Koh Phangan · Thailand",
     titleHtml: "Land, villas, and homes — <em>curated</em> on Phangan.",
-    lede: "A boutique agency for international buyers. Verified listings, transparent process, AI-assisted search across every district on the island.",
+    lede: "A specialised agency for international buyers. Verified listings, transparent process, AI-assisted search across every district on the island.",
     ctaBrowse: "Browse listings",
     ctaProcess: "How we work",
   },
   values: {
     eyebrow: "Why Right Way",
-    title: "Boutique, not brokerage.",
+    title: "Specialists, not a brokerage.",
     lede: "Three things we do differently from the rest of the island.",
     items: [
       {
@@ -79,13 +79,13 @@ const ru: HomeDict = {
   hero: {
     eyebrow: "Ко Панган · Таиланд",
     titleHtml: "Земля, виллы и дома — <em>с отбором</em> на Пангане.",
-    lede: "Бутиковое агентство для иностранных покупателей. Проверенные объекты, прозрачный процесс и поиск по всему острову с помощью ИИ.",
+    lede: "Профильное агентство для иностранных покупателей. Проверенные объекты, прозрачный процесс и поиск по всему острову с помощью ИИ.",
     ctaBrowse: "Смотреть объекты",
     ctaProcess: "Как мы работаем",
   },
   values: {
     eyebrow: "Почему Right Way",
-    title: "Бутик, а не «риелторская контора».",
+    title: "Специалисты, а не «риелторская контора».",
     lede: "Три вещи, которые мы делаем иначе, чем остальные на острове.",
     items: [
       {
@@ -312,7 +312,7 @@ const about: Record<Locale, AboutDict> = {
   en: {
     hero: {
       eyebrow: "About",
-      title: "A boutique advisory, not a listing portal.",
+      title: "A specialised advisory, not a listing portal.",
       lede: "Right Way Phangan Group was founded in 2026 by Vladimir Buryi, building on four years of operational work in the local land market. We are a small, specialised team focused exclusively on Koh Phangan property.",
     },
     principlesEyebrow: "What we believe",
@@ -352,7 +352,7 @@ const about: Record<Locale, AboutDict> = {
   ru: {
     hero: {
       eyebrow: "О нас",
-      title: "Бутиковое агентство, а не портал объявлений.",
+      title: "Профильное агентство, а не портал объявлений.",
       lede: "Right Way Phangan Group основана в 2026 году Владимиром Бурым на базе четырёх лет работы на местном рынке земли. Небольшая команда специалистов, сосредоточенная только на недвижимости Ко Пангана.",
     },
     principlesEyebrow: "Во что мы верим",

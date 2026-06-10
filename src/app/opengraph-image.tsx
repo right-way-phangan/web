@@ -10,7 +10,7 @@ export default function Image() {
     eyebrow: "Koh Phangan · Thailand",
     title: "Land, villas, and homes — curated on Phangan.",
     subtitle:
-      "A boutique advisory for international buyers. Verified listings, transparent process.",
+      "A specialised advisory for international buyers. Verified listings, transparent process.",
     features: ["Listings", "Districts", "Process", "FAQ"],
   });
 }

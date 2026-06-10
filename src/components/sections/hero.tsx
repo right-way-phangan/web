@@ -37,7 +37,7 @@ export function Hero() {
         </h1>
 
         <p className="mt-8 max-w-xl text-lg leading-relaxed text-cream-100/85 md:text-xl">
-          A boutique agency for international buyers. Verified listings,
+          A specialised agency for international buyers. Verified listings,
           transparent process, AI-assisted search across every district on the
           island.
         </p>

@@ -25,7 +25,7 @@ export function Values() {
         Why Right Way
       </p>
       <h2 className="mt-4 max-w-3xl text-balance">
-        Boutique, not brokerage.
+        Specialists, not a brokerage.
       </h2>
       <p className="mt-6 max-w-xl text-lg text-forest-500/70">
         Three things we do differently from the rest of the island.

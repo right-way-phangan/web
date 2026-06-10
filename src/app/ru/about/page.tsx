@@ -11,7 +11,7 @@ import { getAboutDict } from "@/lib/i18n/dictionaries";
 export const metadata: Metadata = {
   title: "О нас",
   description:
-    "Right Way Phangan Group — бутиковое агентство недвижимости на Ко Пангане, основано Владимиром Бурым в 2026 году.",
+    "Right Way Phangan Group — агентство недвижимости на Ко Пангане, основано Владимиром Бурым в 2026 году.",
   alternates: { canonical: "/ru/about", languages: { en: "/about", ru: "/ru/about" } },
 };
 
