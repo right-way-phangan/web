@@ -82,6 +82,7 @@ export default async function AdminHomePage() {
   const openLeads = leads.length - won - lost;
   const closed = won + lost;
   const conversion = closed > 0 ? Math.round((won / closed) * 100) : null;
+  const overdueLeads = leads.filter((l) => (l.overdueTasks ?? 0) > 0).length;
 
   // Recent leads (newest first).
   const recent = [...leads]
@@ -154,7 +155,13 @@ export default async function AdminHomePage() {
         <>
           <div className="mb-7 grid grid-cols-2 gap-3 sm:grid-cols-4">
             <Stat label="Всего лидов" value={leads.length} href={{ pathname: "/admin/crm" }} />
-            <Stat label="В работе" value={openLeads} href={{ pathname: "/admin/crm" }} accent />
+            <Stat
+              label="В работе"
+              value={openLeads}
+              hint={overdueLeads > 0 ? `⏰ ${overdueLeads} с просрочкой` : undefined}
+              href={{ pathname: "/admin/crm" }}
+              accent
+            />
             <Stat label="Выиграно" value={won} href={{ pathname: "/admin/crm" }} />
             <Stat
               label="Конверсия"

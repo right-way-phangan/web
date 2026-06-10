@@ -26,6 +26,8 @@ export interface CrmLead {
   stage?: string | null;
   stageKey?: string | null;
   stageId?: number | null;
+  openTasks?: number;
+  overdueTasks?: number;
 }
 
 export interface CrmStage {

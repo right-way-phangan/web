@@ -124,8 +124,25 @@ export function CrmBoard({
                         >
                           {lead.contactName || "—"}
                         </Link>
-                        <span className="shrink-0 text-[10px] uppercase tracking-wide text-forest-900/40">
-                          {fmtDate(lead.createdAt)}
+                        <span className="flex shrink-0 items-center gap-1">
+                          {(lead.overdueTasks ?? 0) > 0 ? (
+                            <span
+                              title={`${lead.overdueTasks} просроченных задач`}
+                              className="rounded bg-red-500/15 px-1.5 py-0.5 text-[10px] font-semibold text-red-700"
+                            >
+                              ⏰ {lead.overdueTasks}
+                            </span>
+                          ) : (lead.openTasks ?? 0) > 0 ? (
+                            <span
+                              title={`${lead.openTasks} открытых задач`}
+                              className="rounded bg-forest-900/5 px-1.5 py-0.5 text-[10px] font-medium text-forest-900/55"
+                            >
+                              ✓ {lead.openTasks}
+                            </span>
+                          ) : null}
+                          <span className="text-[10px] uppercase tracking-wide text-forest-900/40">
+                            {fmtDate(lead.createdAt)}
+                          </span>
                         </span>
                       </div>
                       <p className="mt-0.5 line-clamp-2 text-xs text-forest-900/70">{lead.name}</p>
