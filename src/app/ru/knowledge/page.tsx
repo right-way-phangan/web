@@ -3,7 +3,13 @@ import Link from "next/link";
 import type { Route } from "next";
 import { ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
+import { KnowledgeBrowser } from "@/components/knowledge/knowledge-browser";
 import { KB_ARTICLES_RU } from "@/content/knowledge-base.ru";
+
+const MONTHS_RU = [
+  "янв.", "февр.", "март", "апр.", "май", "июнь",
+  "июль", "авг.", "сент.", "окт.", "нояб.", "дек.",
+];
 
 export const metadata: Metadata = {
   title: "База знаний",
@@ -22,23 +28,25 @@ export default function RussianKnowledgePage() {
       />
 
       <section className="container-prose py-16 md:py-24">
-        <div className="grid gap-6 md:grid-cols-2 md:gap-8">
-          {KB_ARTICLES_RU.map((a) => (
-            <Link
-              key={a.slug}
-              href={`/ru/knowledge/${a.slug}` as Route}
-              className="group flex flex-col rounded-sm border border-forest-500/10 bg-cream-50 p-6 transition-all hover:border-forest-500/30 hover:shadow-lg md:p-8"
-            >
-              <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">{a.topic}</p>
-              <h2 className="mt-3 font-serif text-xl text-forest-900 md:text-2xl">{a.title}</h2>
-              <p className="mt-3 text-sm leading-relaxed text-forest-500/85 md:text-base">{a.short}</p>
-              <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-medium text-forest-500 transition-colors group-hover:text-brass-500">
-                Читать
-                <ArrowRight className="h-3.5 w-3.5" />
-              </span>
-            </Link>
-          ))}
-        </div>
+        <KnowledgeBrowser
+          basePath="/ru/knowledge"
+          articles={KB_ARTICLES_RU.map((a) => ({
+            slug: a.slug,
+            topic: a.topic,
+            title: a.title,
+            short: a.short,
+            updated: a.updated,
+          }))}
+          labels={{
+            all: "Все",
+            read: "Читать",
+            searchPlaceholder: "Поиск по гидам…",
+            empty: "По запросу пока ничего не найдено.",
+            clear: "Очистить поиск",
+            updatedPrefix: "Обновлено",
+            months: MONTHS_RU,
+          }}
+        />
       </section>
 
       <section className="border-t border-forest-500/10 bg-cream-200/30">
