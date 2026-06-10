@@ -5,6 +5,7 @@ import Image from "next/image";
 import type { Route } from "next";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { DISTRICTS_RU, getDistrictRuBySlug } from "@/content/districts.ru";
+import { districtHasHero } from "@/content/districts";
 import { Button } from "@/components/ui/button";
 import { ObjectCard } from "@/components/objects/object-card";
 import { getPublicObjects } from "@/lib/data/objects";
@@ -72,14 +73,16 @@ export default async function RussianDistrictPage({ params }: Props) {
 
       <header className="container-prose pt-6 md:pt-8">
         <div className="relative isolate overflow-hidden rounded-sm bg-forest-900">
-          <Image
-            src={`/images/districts/${d.slug}.jpg`}
-            alt={`${name}, Ко Панган`}
-            fill
-            priority
-            sizes="(min-width: 1280px) 1216px, 100vw"
-            className="object-cover"
-          />
+          {districtHasHero(d.slug) ? (
+            <Image
+              src={`/images/districts/${d.slug}.jpg`}
+              alt={`${name}, Ко Панган`}
+              fill
+              priority
+              sizes="(min-width: 1280px) 1216px, 100vw"
+              className="object-cover"
+            />
+          ) : null}
           <div className="absolute inset-0 bg-gradient-to-t from-forest-900/92 via-forest-900/55 to-forest-900/25" aria-hidden />
           <div className="absolute inset-0 bg-gradient-to-r from-forest-900/75 via-forest-900/30 to-transparent" aria-hidden />
           <div className="relative z-10 flex min-h-[42vh] flex-col justify-end p-7 md:min-h-[48vh] md:p-12">

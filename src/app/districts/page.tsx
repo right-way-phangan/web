@@ -4,17 +4,16 @@ import Image from "next/image";
 import type { Route } from "next";
 import { ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
-import { DISTRICTS, DISTRICT_COORDS } from "@/content/districts";
+import { DISTRICTS, DISTRICT_COORDS, districtHasHero } from "@/content/districts";
 import { DistrictsMap } from "@/components/districts/districts-map";
 import type { DistrictPoint } from "@/components/districts/districts-map-leaflet";
 import { getPublicObjects } from "@/lib/data/objects";
-import { spreadDistrictOverlaps } from "@/lib/districts/points";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/districts", languages: { en: "/districts", ru: "/ru/districts" } },
   title: "Districts",
   description:
-    "Seven districts of Koh Phangan where Right Way focuses — each with its own character, price profile, and buyer match.",
+    "Every district of Koh Phangan, mapped by Right Way — each with its own character, price profile, and buyer match, from the wellness west coast to the quiet inland hills.",
 };
 
 export const revalidate = 300;
@@ -42,7 +41,9 @@ async function buildDistrictPoints(): Promise<DistrictPoint[]> {
     return { slug: d.slug, amoName: d.amoName, name, lat, lng, count };
   }).filter((p): p is DistrictPoint => p !== null);
 
-  return spreadDistrictOverlaps(points);
+  // Real coordinates — nearby districts are grouped by the map's clustering
+  // (react-leaflet-cluster) and split apart on zoom-in.
+  return points;
 }
 
 export default async function DistrictsPage() {
@@ -52,8 +53,8 @@ export default async function DistrictsPage() {
     <>
       <PageHero
         eyebrow="Districts"
-        title="Where we work — seven districts of Koh Phangan."
-        lede="Right Way focuses on seven districts that cover roughly ninety percent of high-quality residential land on the island. Each has its own character, price profile, and buyer match. We don't claim to cover all of Phangan with equal depth — these are where our network, data, and experience are strongest."
+        title="Where we work — across all of Koh Phangan."
+        lede="We cover the whole island. Each district has its own character, price profile, and buyer match — from the wellness west coast to the upscale east, the working north, and the quiet inland hills. This is where our network, data, and on-the-ground experience turn local knowledge into the right shortlist for you."
       />
 
       <section className="container-prose pt-12 md:pt-16">
@@ -74,13 +75,15 @@ export default async function DistrictsPage() {
                 className="group flex flex-col overflow-hidden rounded-sm border border-forest-500/10 bg-cream-50 transition-all hover:border-forest-500/30 hover:shadow-lg"
               >
                 <div className="relative aspect-[16/9] overflow-hidden bg-forest-900">
-                  <Image
-                    src={`/images/districts/${d.slug}.jpg`}
-                    alt={`${name}, Koh Phangan`}
-                    fill
-                    sizes="(min-width: 768px) 50vw, 100vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
+                  {districtHasHero(d.slug) ? (
+                    <Image
+                      src={`/images/districts/${d.slug}.jpg`}
+                      alt={`${name}, Koh Phangan`}
+                      fill
+                      sizes="(min-width: 768px) 50vw, 100vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  ) : null}
                   <div
                     className="absolute inset-0 bg-gradient-to-t from-forest-900/80 via-forest-900/10 to-transparent"
                     aria-hidden
@@ -115,7 +118,7 @@ export default async function DistrictsPage() {
             </h2>
             <p className="mt-4 text-lg text-forest-500/70">
               A short discovery call usually narrows it down faster than
-              reading through seven pages. Tell us what matters most — quiet,
+              reading through every district page. Tell us what matters most — quiet,
               community, beach access, infrastructure, build potential — and
               we&rsquo;ll point you to one or two districts to explore first.
             </p>
