@@ -24,6 +24,7 @@ import {
   type DisplayCurrency,
 } from "@/lib/data/finance";
 import { getLiveRatesTHB } from "@/lib/data/fx-live";
+import { loadFinanceFromSheet } from "@/lib/data/finance-sheet";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -102,16 +103,21 @@ export default async function FinancePage({
   const cur: DisplayCurrency = curParam === "usd" ? "USD" : "THB";
   const money = (n: number) => fmtMoney(n, cur);
 
-  const live = await getLiveRatesTHB();
+  const [live, sheet] = await Promise.all([getLiveRatesTHB(), loadFinanceFromSheet()]);
 
-  const opex = opexActiveMonthly();
-  const leak = leakMonthly();
-  const balance = monthlyBalance();
+  // Подписки и журнал — из таблицы (live) или из кода (fallback).
+  const subs = sheet?.subscriptions ?? subscriptions;
+  const led = sheet?.ledger ?? ledger;
+  const liveData = sheet !== null;
+
+  const opex = opexActiveMonthly(subs);
+  const leak = leakMonthly(subs);
+  const balance = monthlyBalance(subs);
   const plannedRecurring = recurringByStatus("planned");
   const onHireRecurring = recurringByStatus("on_hire");
-  const stage1 = stage1MonthlyForecast();
-  const preIncorpPaid = ledgerTotalTHB();
-  const breakdown = opexBreakdown();
+  const stage1 = stage1MonthlyForecast(subs);
+  const preIncorpPaid = ledgerTotalTHB(led);
+  const breakdown = opexBreakdown(subs);
   const maxRev = Math.max(...plannedRevenue.map((q) => q.thb));
   const totalRev = plannedRevenue.reduce((s, q) => s + q.thb, 0);
   const claudeShare = breakdown.length
@@ -131,8 +137,17 @@ export default async function FinancePage({
             Финансовый дашборд
           </h1>
           <p className="mt-1 text-sm text-forest-900/60">
-            Текущие расходы, движения по сделкам и план. Данные ведутся в коде, цифры
-            пересчитываются автоматически.
+            Текущие расходы, движения по сделкам и план. Цифры пересчитываются автоматически.
+          </p>
+          <p className="mt-1 inline-flex items-center gap-1.5 text-xs text-forest-900/45">
+            <span
+              className={
+                "h-1.5 w-1.5 rounded-full " + (liveData ? "bg-emerald-500" : "bg-forest-900/30")
+              }
+            />
+            {liveData
+              ? "Источник: Google-таблица (live, кэш 60 с)"
+              : "Источник: код (таблица не подключена)"}
           </p>
         </div>
         <div className="flex shrink-0 overflow-hidden rounded-full border border-forest-900/15 text-sm">
@@ -205,7 +220,7 @@ export default async function FinancePage({
             </tr>
           </thead>
           <tbody className="divide-y divide-forest-900/5">
-            {subscriptions.map((s) => {
+            {subs.map((s) => {
               const badge = SUB_BADGE[s.status];
               const thb = thbPerMonth(s);
               return (
@@ -338,7 +353,7 @@ export default async function FinancePage({
             </tr>
           </thead>
           <tbody className="divide-y divide-forest-900/5">
-            {ledger.map((e, i) => (
+            {led.map((e, i) => (
               <tr key={`${e.item}-${i}`} className={e.kind === "leak" ? "bg-red-50/40" : undefined}>
                 <td className="px-4 py-2.5 tabular-nums text-forest-900/55">{e.date || "—"}</td>
                 <td className="px-4 py-2.5 font-medium text-forest-900">{e.item}</td>

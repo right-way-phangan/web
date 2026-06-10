@@ -127,38 +127,36 @@ export function thbPerMonth(s: Subscription): number {
   return s.period === "year" ? base / 12 : base;
 }
 
-/** OpEx активных THB/мес (всё кроме утечки). */
-export function opexActiveMonthly(): number {
-  return subscriptions
-    .filter((s) => s.status !== "leak")
-    .reduce((sum, s) => sum + thbPerMonth(s), 0);
+/** OpEx активных THB/мес (всё кроме утечки). Принимает live-данные или код по умолчанию. */
+export function opexActiveMonthly(subs: Subscription[] = subscriptions): number {
+  return subs.filter((s) => s.status !== "leak").reduce((sum, s) => sum + thbPerMonth(s), 0);
 }
 
 /** Утечка THB/мес (статус leak). */
-export function leakMonthly(): number {
-  return subscriptions
-    .filter((s) => s.status === "leak")
-    .reduce((sum, s) => sum + thbPerMonth(s), 0);
+export function leakMonthly(subs: Subscription[] = subscriptions): number {
+  return subs.filter((s) => s.status === "leak").reduce((sum, s) => sum + thbPerMonth(s), 0);
 }
 
 /** Постоянные расходы по статусу, THB/мес. */
-export function recurringByStatus(status: RecurringStatus): number {
-  return recurring.filter((r) => r.status === status).reduce((s, r) => s + r.thbPerMonth, 0);
+export function recurringByStatus(status: RecurringStatus, recs: Recurring[] = recurring): number {
+  return recs.filter((r) => r.status === status).reduce((s, r) => s + r.thbPerMonth, 0);
 }
 
 /** Чистый приход по сделкам (Net RW). */
-export function dealsNet(): number {
-  return deals.reduce((s, d) => s + d.netRW, 0);
+export function dealsNet(dls: Deal[] = deals): number {
+  return dls.reduce((s, d) => s + d.netRW, 0);
 }
 
 /** Баланс месяца: приходы − OpEx активных − постоянные активные. */
-export function monthlyBalance(): number {
-  return dealsNet() - opexActiveMonthly() - recurringByStatus("active");
+export function monthlyBalance(subs: Subscription[] = subscriptions, dls: Deal[] = deals): number {
+  return dealsNet(dls) - opexActiveMonthly(subs) - recurringByStatus("active");
 }
 
 /** Структура OpEx по статьям (только ненулевые, без утечки) — для донат-графика. */
-export function opexBreakdown(): Array<{ label: string; value: number }> {
-  return subscriptions
+export function opexBreakdown(
+  subs: Subscription[] = subscriptions,
+): Array<{ label: string; value: number }> {
+  return subs
     .filter((s) => s.status !== "leak")
     .map((s) => ({ label: s.item, value: thbPerMonth(s) }))
     .filter((x) => x.value > 0)
@@ -166,13 +164,13 @@ export function opexBreakdown(): Array<{ label: string; value: number }> {
 }
 
 /** Ожидаемый постоянный OpEx после регистрации Co.Ltd (без найма): подписки + обязательная операционка. */
-export function stage1MonthlyForecast(): number {
-  return opexActiveMonthly() + recurringByStatus("planned");
+export function stage1MonthlyForecast(subs: Subscription[] = subscriptions): number {
+  return opexActiveMonthly(subs) + recurringByStatus("planned");
 }
 
 /** Сумма понесённых платежей в ledger (pre-incorporation, к возмещению основателю). */
-export function ledgerTotalTHB(): number {
-  return ledger.filter((e) => e.kind !== "leak").reduce((s, e) => s + (e.thb ?? 0), 0);
+export function ledgerTotalTHB(led: LedgerEntry[] = ledger): number {
+  return led.filter((e) => e.kind !== "leak").reduce((s, e) => s + (e.thb ?? 0), 0);
 }
 
 /** Формат THB: "7 811 ฿". */
@@ -195,19 +193,23 @@ export function fmtMoney(thb: number, currency: DisplayCurrency = "THB"): string
  * Машиночитаемая сводка — мост к личному проекту «Сам себе я».
  * Пока компании нет, OpEx RW = личные расходы основателя (категория «Бизнес / Right Way»).
  */
-export function financeSummary() {
-  const opex = opexActiveMonthly();
+export function financeSummary(
+  subs: Subscription[] = subscriptions,
+  led: LedgerEntry[] = ledger,
+  dls: Deal[] = deals,
+) {
+  const opex = opexActiveMonthly(subs);
   return {
     date: FX_DATE,
     currency: "THB" as const,
     opexMonthly: Math.round(opex),
     opexYearly: Math.round(opex * 12),
     opexMonthlyUSD: Math.round(opex / FX.USD),
-    leakMonthly: Math.round(leakMonthly()),
-    dealsNet: Math.round(dealsNet()),
-    monthlyBalance: Math.round(monthlyBalance()),
-    stage1Forecast: Math.round(stage1MonthlyForecast()),
-    preIncorporationPaid: Math.round(ledgerTotalTHB()),
+    leakMonthly: Math.round(leakMonthly(subs)),
+    dealsNet: Math.round(dealsNet(dls)),
+    monthlyBalance: Math.round(monthlyBalance(subs, dls)),
+    stage1Forecast: Math.round(stage1MonthlyForecast(subs)),
+    preIncorporationPaid: Math.round(ledgerTotalTHB(led)),
     note: "Pre-incorporation: OpEx RW оплачивается лично основателем = личный расход (категория «Бизнес / Right Way»). После Co.Ltd — возмещение через director's loan.",
   };
 }
