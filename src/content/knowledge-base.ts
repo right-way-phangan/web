@@ -323,6 +323,49 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "costs",
     faqQuestion: "What are the total costs and taxes of buying property on Koh Phangan?",
   },
+  {
+    slug: "how-to-buy-property-step-by-step",
+    kbId: "kb-0008",
+    topic: "Process",
+    title: "How to buy property on Koh Phangan: the step-by-step process",
+    short:
+      "From brief to registration, a clean purchase runs through nine steps — and the two that actually protect you are independent legal due diligence and registering the lease at the Land Office. With a clear title, expect roughly 4–8 weeks from reservation to completion.",
+    updated: "2026-06-10",
+    body: [
+      "Buying property on Koh Phangan as a foreigner isn't complicated once you know the order of operations. The steps below are the path a clean purchase follows. Two of them — independent legal due diligence and registering the lease — are non-negotiable; skip them and you don't really own what you paid for.",
+      { h: "The nine steps" },
+      {
+        ul: [
+          "**1. Settle the structure.** For a foreigner that almost always means leasehold: a registered land lease plus owning the building. Start here so everything after fits. See [Leasehold vs freehold](/knowledge/leasehold-vs-freehold).",
+          "**2. Brief and search.** Define the goal (home, investment, development), the area and the must-haves, then shortlist. Land prices vary far more than the headline per-rai figure — see [How land is priced](/knowledge/how-land-is-priced-price-per-rai).",
+          "**3. Viewing trip.** See the plots in person — road access, utilities, the actual view and gradient. Photos hide a lot.",
+          "**4. Reservation.** A reservation agreement plus a deposit takes the property off the market. The deposit is normally refundable if due diligence later fails.",
+          "**5. Legal due diligence.** The deed checked against the Land Office record, encumbrances, access, and what you can build under the 2025 zoning. See [Land titles](/knowledge/land-titles-chanote-vs-nor-sor-3) and [Building zones](/knowledge/koh-phangan-building-zones).",
+          "**6. Contracts.** A registered land lease, a sale of the building, and a registered superficies — drafted and reviewed before you sign.",
+          "**7. Transfer the funds.** By SWIFT or Wise to the lawyer's escrow. Keep the FET form — you'll need it to take proceeds back out when you sell. See [Costs, taxes and the FET form](/knowledge/cost-of-buying-taxes-and-fees).",
+          "**8. Register at the Land Office.** The lease is registered on the back of the deed and the building transferred; transfer taxes and fees are paid at this point.",
+          "**9. Post-deal.** Switch utilities into your name, store the originals safely, and set up tax compliance with a Thai accountant.",
+        ],
+      },
+      { h: "How long it takes" },
+      "With a clear title, expect roughly 4–8 weeks from reservation to registration. It runs longer when due diligence surfaces something — an unregistered access road, a lease that was never registered, or a zoning limit on what you can build. That's due diligence doing its job, not a delay to rush past.",
+      { h: "The two steps that actually protect you" },
+      "Everything here matters, but two steps are what stand between you and a bad deal: independent legal due diligence (step 5) and registering the lease at the Land Office (step 8). A handshake, an unregistered lease, or a “we'll sort the paperwork later” is not ownership. Insist on both.",
+    ],
+    takeaways: [
+      "Nine steps: structure → brief → viewing → reservation → due diligence → contracts → funds → registration → post-deal.",
+      "Independent legal due diligence and a registered lease are the two non-negotiable steps.",
+      "Keep the FET form from your bank transfer — it's needed to repatriate funds when you sell.",
+      "With a clear title, budget roughly 4–8 weeks from reservation to completion.",
+      "A reservation deposit is normally refundable if due diligence fails.",
+    ],
+    sources: [
+      { title: "Thai conveyancing practice — lease registration, building transfer, Land Office completion (general practice)" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "What are the steps to buy property on Koh Phangan as a foreigner?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
