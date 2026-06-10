@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Route } from "next";
 import { PageHero } from "@/components/sections/page-hero";
 import { FaqExplorer } from "@/components/faq/faq-explorer";
+import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { Button } from "@/components/ui/button";
 import { FAQ_CATEGORIES_RU } from "@/content/faq.ru";
 import { ALL_FAQ_ITEMS_RU } from "@/content/faq-derived.ru";
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
 export default function RussianFaqPage() {
   return (
     <>
+      <FaqJsonLd items={ALL_FAQ_ITEMS_RU} />
       <PageHero
         eyebrow="Вопросы и ответы"
         title="Покупка недвижимости на Пангане — начистоту."

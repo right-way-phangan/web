@@ -6,6 +6,16 @@ import { siteConfig } from "@/lib/site-config";
  * knowledge panel, and link out to social profiles.
  */
 export function OrganizationJsonLd({ siteUrl }: { siteUrl: string }) {
+  const { telegram, whatsapp, email } = siteConfig.contact;
+
+  // Telegram channel / WhatsApp are env-gated and some are intentionally off at
+  // this stage. Only advertise live profiles — a broken `https://t.me/` in
+  // sameAs pollutes the entity graph instead of strengthening it.
+  const sameAs = [
+    telegram.channel && `https://t.me/${telegram.channel}`,
+    whatsapp && `https://wa.me/${whatsapp}`,
+  ].filter((u): u is string => Boolean(u));
+
   const data = {
     "@context": "https://schema.org",
     "@type": "RealEstateAgent",
@@ -14,16 +24,13 @@ export function OrganizationJsonLd({ siteUrl }: { siteUrl: string }) {
     description: siteConfig.description,
     url: siteUrl,
     areaServed: { "@type": "Place", name: "Koh Phangan, Thailand" },
-    sameAs: [
-      `https://t.me/${siteConfig.contact.telegram.channel}`,
-      `https://wa.me/${siteConfig.contact.whatsapp}`,
-    ],
+    ...(sameAs.length ? { sameAs } : {}),
     contactPoint: [
       {
         "@type": "ContactPoint",
         contactType: "sales",
-        telephone: `+${siteConfig.contact.whatsapp}`,
-        email: siteConfig.contact.email,
+        ...(whatsapp ? { telephone: `+${whatsapp}` } : {}),
+        email,
         availableLanguage: ["English", "Russian"],
       },
     ],
@@ -32,7 +39,7 @@ export function OrganizationJsonLd({ siteUrl }: { siteUrl: string }) {
   return (
     <script
       type="application/ld+json"
-      // eslint-disable-next-line react/no-danger
+       
       dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
     />
   );

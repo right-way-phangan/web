@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero } from "@/components/sections/page-hero";
 import { FaqExplorer } from "@/components/faq/faq-explorer";
+import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { Button } from "@/components/ui/button";
 import { ALL_FAQ_ITEMS } from "@/content/faq-derived";
 
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
 export default function FaqPage() {
   return (
     <>
+      <FaqJsonLd items={ALL_FAQ_ITEMS} />
       <PageHero
         eyebrow="FAQ"
         title="Buying property on Phangan, demystified."
