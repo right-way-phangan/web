@@ -68,12 +68,21 @@ export default async function CrmPage({
             своя БД (Фаза B). Перетаскивайте карточку между колонками или меняйте стадию селектором.
           </p>
         </div>
-        <Link
-          href={{ pathname: "/admin/crm/new" }}
-          className="shrink-0 rounded-full bg-forest-900 px-4 py-2 text-sm font-medium text-white hover:bg-forest-900/90"
-        >
-          + Новый лид
-        </Link>
+        <div className="flex shrink-0 items-center gap-2">
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages -- route handler returns a file download, not a page nav */}
+          <a
+            href="/admin/crm/export"
+            className="rounded-full border border-forest-900/15 px-3 py-2 text-sm font-medium text-forest-900/70 hover:bg-forest-900/5"
+          >
+            ⤓ CSV
+          </a>
+          <Link
+            href={{ pathname: "/admin/crm/new" }}
+            className="rounded-full bg-forest-900 px-4 py-2 text-sm font-medium text-white hover:bg-forest-900/90"
+          >
+            + Новый лид
+          </Link>
+        </div>
       </div>
 
       {/* Search + quick filters */}
