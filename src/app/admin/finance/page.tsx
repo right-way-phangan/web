@@ -5,12 +5,15 @@ import {
   subscriptions,
   recurring,
   deals,
+  ledger,
   thbPerMonth,
   opexActiveMonthly,
   leakMonthly,
   recurringByStatus,
   dealsNet,
   monthlyBalance,
+  stage1MonthlyForecast,
+  ledgerTotalTHB,
   opexBreakdown,
   fmtTHB,
   FX,
@@ -67,7 +70,8 @@ const SUB_BADGE: Record<SubStatus, { label: string; cls: string }> = {
 
 const REC_BADGE: Record<RecurringStatus, { label: string; cls: string }> = {
   active: { label: "активно", cls: "bg-forest-900/10 text-forest-900/70" },
-  planned: { label: "план", cls: "bg-brass-500/10 text-brass-600" },
+  planned: { label: "Этап 1", cls: "bg-brass-500/10 text-brass-600" },
+  on_hire: { label: "при найме", cls: "bg-brass-500/5 text-brass-600/80" },
   scalable: { label: "масштаб.", cls: "bg-forest-900/5 text-forest-900/55" },
   future: { label: "далеко", cls: "bg-forest-900/5 text-forest-900/40" },
 };
@@ -88,6 +92,9 @@ export default function FinancePage() {
   const leak = leakMonthly();
   const balance = monthlyBalance();
   const plannedRecurring = recurringByStatus("planned");
+  const onHireRecurring = recurringByStatus("on_hire");
+  const stage1 = stage1MonthlyForecast();
+  const preIncorpPaid = ledgerTotalTHB();
   const breakdown = opexBreakdown();
   const claudeShare = breakdown.length
     ? Math.round((breakdown[0].value / breakdown.reduce((s, x) => s + x.value, 0)) * 100)
@@ -217,6 +224,26 @@ export default function FinancePage() {
           — появятся в Этапе 1, сейчас 0
         </span>
       </h2>
+
+      {/* Прогноз будущего run-rate */}
+      <div className="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
+        <div className="rounded-xl border border-forest-900/10 bg-white px-4 py-3">
+          <p className="text-xs text-forest-900/45">Сейчас постоянных / мес</p>
+          <p className="mt-0.5 text-xl font-semibold text-forest-900">{fmtTHB(0)}</p>
+          <p className="text-xs text-forest-900/45">home-office solo</p>
+        </div>
+        <div className="rounded-xl border border-brass-500/30 bg-brass-500/[0.06] px-4 py-3">
+          <p className="text-xs text-forest-900/45">После Co. Ltd ≈ / мес</p>
+          <p className="mt-0.5 text-xl font-semibold text-forest-900">{fmtTHB(stage1)}</p>
+          <p className="text-xs text-forest-900/45">подписки + операционка {fmtTHB(plannedRecurring)}</p>
+        </div>
+        <div className="rounded-xl border border-forest-900/10 bg-white px-4 py-3">
+          <p className="text-xs text-forest-900/45">+ при найме агента / мес</p>
+          <p className="mt-0.5 text-xl font-semibold text-forest-900">+{fmtTHB(onHireRecurring)}</p>
+          <p className="text-xs text-forest-900/45">зарплата + офис</p>
+        </div>
+      </div>
+
       <div className="mb-8 overflow-hidden rounded-2xl border border-forest-900/10 bg-white">
         <table className="w-full text-sm">
           <tbody className="divide-y divide-forest-900/5">
@@ -247,6 +274,62 @@ export default function FinancePage() {
               </td>
               <td className="px-4 py-2.5 text-right tabular-nums text-forest-900">
                 {fmtTHB(plannedRecurring)}
+              </td>
+              <td className="px-4 py-2.5" />
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      {/* Журнал платежей (ledger) */}
+      <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
+        Журнал платежей{" "}
+        <span className="font-normal normal-case text-forest-900/40">
+          — pre-incorporation, к возмещению основателю
+        </span>
+      </h2>
+      <div className="mb-8 overflow-hidden rounded-2xl border border-forest-900/10 bg-white">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b border-forest-900/10 text-left text-xs uppercase tracking-wide text-forest-900/45">
+              <th className="px-4 py-2.5 font-medium">Дата</th>
+              <th className="px-4 py-2.5 font-medium">Статья</th>
+              <th className="px-4 py-2.5 font-medium">Счёт</th>
+              <th className="px-4 py-2.5 text-right font-medium">THB</th>
+              <th className="px-4 py-2.5 font-medium">Чек</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-forest-900/5">
+            {ledger.map((e, i) => (
+              <tr key={`${e.item}-${i}`} className={e.kind === "leak" ? "bg-red-50/40" : undefined}>
+                <td className="px-4 py-2.5 tabular-nums text-forest-900/55">{e.date || "—"}</td>
+                <td className="px-4 py-2.5 font-medium text-forest-900">{e.item}</td>
+                <td className="px-4 py-2.5 text-forest-900/55">{e.account}</td>
+                <td className="px-4 py-2.5 text-right tabular-nums text-forest-900">
+                  {e.thb != null ? fmtTHB(e.thb) : "?"}
+                </td>
+                <td className="px-4 py-2.5">
+                  <span
+                    className={
+                      "rounded px-1.5 py-0.5 text-[11px] font-medium " +
+                      (e.receipt
+                        ? "bg-forest-900/10 text-forest-900/70"
+                        : "bg-brass-500/10 text-brass-600")
+                    }
+                  >
+                    {e.receipt ? "есть" : "нет"}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr className="border-t border-forest-900/10 font-medium">
+              <td className="px-4 py-2.5 text-forest-900/70" colSpan={3}>
+                Понесено (к возмещению, без утечки)
+              </td>
+              <td className="px-4 py-2.5 text-right tabular-nums text-forest-900">
+                {fmtTHB(preIncorpPaid)}
               </td>
               <td className="px-4 py-2.5" />
             </tr>

@@ -46,7 +46,7 @@ export const subscriptions: Subscription[] = [
   { item: "DigitalOcean (Circle)", provider: "DigitalOcean", plan: "droplet", priceOrig: 12, currency: "USD", period: "month", payment: "карта …4673", status: "leak", note: "утечка — к отвязке" },
 ];
 
-export type RecurringStatus = "active" | "planned" | "scalable" | "future";
+export type RecurringStatus = "active" | "planned" | "on_hire" | "scalable" | "future";
 
 export type Recurring = {
   item: string;
@@ -55,14 +55,41 @@ export type Recurring = {
   status: RecurringStatus;
 };
 
-/** Постоянные расходы помимо подписок (текущие + будущие). OpEx tracker §5. */
+/**
+ * Постоянные расходы помимо подписок. OpEx tracker §5. Статусы:
+ *  active — уже идёт · planned — обязательно после регистрации Co.Ltd ·
+ *  on_hire — при найме агента · scalable — масштабируемо · future — далеко.
+ */
 export const recurring: Recurring[] = [
   { item: "Co. Ltd. recurring (bookkeeping/audit/tax/секретарь)", thbPerMonth: 18000, when: "Этап 1 (после регистрации)", status: "planned" },
   { item: "Google Workspace (~$6/польз.)", thbPerMonth: 220, when: "Этап 1", status: "planned" },
-  { item: "Агент — base salary", thbPerMonth: 40000, when: "при найме (Q4 2026+)", status: "planned" },
-  { item: "Аренда офиса (home-office)", thbPerMonth: 5000, when: "при найме агента (опц.)", status: "planned" },
+  { item: "Агент — base salary", thbPerMonth: 40000, when: "при найме (Q4 2026+)", status: "on_hire" },
+  { item: "Аренда офиса (home-office)", thbPerMonth: 5000, when: "при найме агента (опц.)", status: "on_hire" },
   { item: "Маркетинг (Google Ads и пр.)", thbPerMonth: 60000, when: "по мере роста", status: "scalable" },
   { item: "Полноценный офис", thbPerMonth: 0, when: "Q2 2027 (если 4+ агентов)", status: "future" },
+];
+
+export type LedgerEntry = {
+  date: string; // ISO или "" если ещё не оплачено/неизвестно
+  item: string;
+  amountOrig: number | null;
+  currency: Currency;
+  thb: number | null;
+  account: string;
+  kind: "OpEx" | "leak" | "deal" | "one-time";
+  receipt: boolean;
+};
+
+/**
+ * Журнал фактических платежей (pre-incorporation). OpEx tracker §8.
+ * Основа для возмещения основателю через director's loan после Co.Ltd.
+ */
+export const ledger: LedgerEntry[] = [
+  { date: "2026-01-09", item: "amoCRM Расширенный (год)", amountOrig: 11988, currency: "RUB", thb: 5035, account: "личная", kind: "OpEx", receipt: false },
+  { date: "", item: "amoCRM пакет «Доп. лимиты API»", amountOrig: null, currency: "RUB", thb: null, account: "личная", kind: "OpEx", receipt: false },
+  { date: "", item: "GoDaddy renewal домена", amountOrig: 30, currency: "USD", thb: 1095, account: "личная", kind: "OpEx", receipt: false },
+  { date: "", item: "Claude Max 20x (ежемесячно)", amountOrig: 200, currency: "USD", thb: 7300, account: "личная", kind: "OpEx", receipt: false },
+  { date: "", item: "DigitalOcean (Circle)", amountOrig: 12, currency: "USD", thb: 438, account: "карта …4673", kind: "leak", receipt: false },
 ];
 
 export type Deal = {
@@ -128,7 +155,38 @@ export function opexBreakdown(): Array<{ label: string; value: number }> {
     .sort((a, b) => b.value - a.value);
 }
 
+/** Ожидаемый постоянный OpEx после регистрации Co.Ltd (без найма): подписки + обязательная операционка. */
+export function stage1MonthlyForecast(): number {
+  return opexActiveMonthly() + recurringByStatus("planned");
+}
+
+/** Сумма понесённых платежей в ledger (pre-incorporation, к возмещению основателю). */
+export function ledgerTotalTHB(): number {
+  return ledger.filter((e) => e.kind !== "leak").reduce((s, e) => s + (e.thb ?? 0), 0);
+}
+
 /** Формат THB: "7 811 ฿". */
 export function fmtTHB(n: number): string {
   return new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 0 }).format(Math.round(n)) + " ฿";
+}
+
+/**
+ * Машиночитаемая сводка — мост к личному проекту «Сам себе я».
+ * Пока компании нет, OpEx RW = личные расходы основателя (категория «Бизнес / Right Way»).
+ */
+export function financeSummary() {
+  const opex = opexActiveMonthly();
+  return {
+    date: FX_DATE,
+    currency: "THB" as const,
+    opexMonthly: Math.round(opex),
+    opexYearly: Math.round(opex * 12),
+    opexMonthlyUSD: Math.round(opex / FX.USD),
+    leakMonthly: Math.round(leakMonthly()),
+    dealsNet: Math.round(dealsNet()),
+    monthlyBalance: Math.round(monthlyBalance()),
+    stage1Forecast: Math.round(stage1MonthlyForecast()),
+    preIncorporationPaid: Math.round(ledgerTotalTHB()),
+    note: "Pre-incorporation: OpEx RW оплачивается лично основателем = личный расход (категория «Бизнес / Right Way»). После Co.Ltd — возмещение через director's loan.",
+  };
 }
