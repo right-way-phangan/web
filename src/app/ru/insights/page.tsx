@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/sections/page-hero";
 import { RentalInsights } from "@/components/insights/rental-insights";
 import { SalePrices } from "@/components/insights/sale-prices";
+import { DatasetJsonLd } from "@/components/seo/dataset-json-ld";
 import { getRentalMarket, buildInventoryYield } from "@/lib/data/rental-market";
 import { getPublicObjects } from "@/lib/data/objects";
 import { buildSalePriceByDistrict } from "@/lib/data/sale-prices";
+import { getSiteUrl } from "@/lib/site-url";
 
 export const metadata: Metadata = {
   title: "Аналитика рынка — цены на землю и аренду на Ко Пангане",
@@ -23,6 +25,7 @@ export default async function RussianInsightsPage() {
 
   return (
     <section className="pb-24">
+      <DatasetJsonLd siteUrl={getSiteUrl()} meta={data.meta} locale="ru" />
       <PageHero
         eyebrow="Аналитика рынка"
         title="Рынок Пангана — в цифрах."
