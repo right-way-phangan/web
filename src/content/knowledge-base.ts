@@ -410,6 +410,43 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "process",
     faqQuestion: "Is buying off-plan on Koh Phangan safe, and how do I vet the developer?",
   },
+  {
+    slug: "renting-out-your-villa-rules-and-taxes",
+    kbId: "kb-0010",
+    topic: "Renting out",
+    title: "Renting out your Koh Phangan villa: the 30-day rule, taxes and realistic yield",
+    short:
+      "Renting out for under 30 days is treated as running a hotel and needs a licence — without one, daily lettings are technically illegal. Monthly lets are generally fine. Rental income is taxed, and the only honest way to model yield is from real nightly rates and occupancy, not a brochure number.",
+    updated: "2026-06-10",
+    body: [
+      "Plenty of buyers plan to rent out their villa, at least part of the year. That's a sound idea — but the rules around it are widely misunderstood, and getting them wrong can turn an investment case into a liability. Here's what actually governs renting out on Koh Phangan.",
+      { h: "The 30-day rule (Hotel Act)" },
+      "Under Thailand's Hotel Act, renting accommodation for stays of fewer than 30 days is treated as operating a hotel — which requires a hotel licence. Without one, daily and weekly lettings (the classic Airbnb model) are technically illegal and can attract fines. Renting for 30 days or more generally falls outside the Act and is fine. Condominium units carry extra short-let restrictions under the Condominium Act and building rules.",
+      "In practice, many owners on Phangan do let short-term without a licence; enforcement is uneven, but the risk is real — more so in the tighter regulatory climate since 2025. Licensing is possible for a property set up for it, and is worth considering if daily-rate income is central to your plan.",
+      { h: "Tax on rental income" },
+      "Rental income is taxable. Two things to budget for: the annual Land and Building Tax is charged at a higher rate on rented residential property than on an owner-occupied home (see [Costs and taxes](/knowledge/cost-of-buying-taxes-and-fees)), and income tax applies to the rent — progressive for an individual, a withholding rate for a non-resident, and corporate income tax if the property is held through a Thai company. Use a Thai accountant; Right Way doesn't file taxes for clients.",
+      { h: "Modelling the yield honestly" },
+      "A realistic yield is the median nightly rate times occupancy, minus the costs that always apply — management (often around 25% of gross), maintenance and the annual taxes above. A brochure “projected yield” usually skips the costs and assumes peak occupancy all year. For real nightly rates and occupancy by district, drawn from live listings, see our [market insights](/insights), then run your own numbers in the [calculator](/calculator).",
+      { h: "Who runs it day to day" },
+      "A rental villa needs managing — guests, cleaning, maintenance, bookings. Right Way focuses on buying and selling property, not rental management, so this typically runs through a management partner. The point to plan for: that cost is real and comes out of your gross, which is exactly why a 30%-on-paper yield isn't a 30% return.",
+      { h: "The bottom line" },
+      "Unless you obtain a hotel licence, build your investment case on 30-day-plus lets rather than nightly income — and verify the rental assumptions before you buy a property “for rental.” The asset you choose, and where, decides most of the outcome.",
+    ],
+    takeaways: [
+      "Lets under 30 days need a hotel licence; without one they're technically illegal. 30-day-plus lets are generally fine.",
+      "Condos carry extra short-let restrictions under the Condominium Act and building rules.",
+      "Rental income is taxed, and Land and Building Tax is higher on rented residential property.",
+      "Model yield as nightly rate × occupancy minus costs (management ~25%, maintenance, tax) — not a brochure figure.",
+      "Right Way doesn't manage rentals — day-to-day runs through a management partner; that cost is real.",
+    ],
+    sources: [
+      { title: "Hotel Act B.E. 2547 (2004) — stays under 30 days treated as hotel operation, licence required (general practice)" },
+      { title: "Land and Building Tax Act 2019 — higher rate on rented residential property (general practice)" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "Can I rent out my villa on Koh Phangan short-term, and what about tax and yield?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
