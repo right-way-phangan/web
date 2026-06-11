@@ -854,6 +854,8 @@ export interface ObjectDict {
   galleryCaption: (rw: string, i: number, total: number) => string;
   prevPhoto: string;
   nextPhoto: string;
+  photosCount: (n: number) => string;
+  viewPhoto: (n: number) => string;
   // related
   moreInNearby: (district: string) => string;
   moreToExplore: string;
@@ -912,6 +914,8 @@ const objectDict: Record<Locale, ObjectDict> = {
     galleryCaption: (rw, i, total) => `${rw} photos — ${i} of ${total}`,
     prevPhoto: "Previous photo",
     nextPhoto: "Next photo",
+    photosCount: (n) => `${n} photo${n === 1 ? "" : "s"}`,
+    viewPhoto: (n) => `View photo ${n}`,
     moreInNearby: (district) => `More in ${district} & nearby`,
     moreToExplore: "More listings to explore",
     pcPerRai: "per rai",
@@ -974,6 +978,8 @@ const objectDict: Record<Locale, ObjectDict> = {
     galleryCaption: (rw, i, total) => `${rw} — фото ${i} из ${total}`,
     prevPhoto: "Предыдущее фото",
     nextPhoto: "Следующее фото",
+    photosCount: (n) => `${n} фото`,
+    viewPhoto: (n) => `Открыть фото ${n}`,
     moreInNearby: (district) => `Ещё в районе ${district} и рядом`,
     moreToExplore: "Другие объекты",
     pcPerRai: "за рай",

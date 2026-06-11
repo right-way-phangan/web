@@ -61,9 +61,13 @@ export function ObjectCard({ object }: Props) {
   return (
     <div className="group relative flex h-full flex-col">
       <SaveButton rw={object.rwNumber} className="absolute right-3 top-3 z-10" />
+      {/* New tab so list/search/map context survives — users lose NL-search
+          results when navigating back (feedback 2026-06-11). */}
       <Link
         href={localeHref(locale, `/object/${object.rwNumber}`) as Route}
-        className="flex h-full flex-col overflow-hidden rounded-sm border border-forest-500/10 bg-cream-50 transition-all hover:border-forest-500/30 hover:shadow-lg"
+        target="_blank"
+        rel="noopener"
+        className="flex h-full flex-col overflow-hidden rounded-sm border border-forest-500/10 bg-cream-50 transition-all duration-300 hover:-translate-y-0.5 hover:border-forest-500/25 hover:shadow-lg hover:shadow-forest-900/10 motion-reduce:hover:translate-y-0"
       >
       <div
         className="relative aspect-[4/3] overflow-hidden bg-forest-500/5"

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { AdminNav } from "@/components/admin/admin-nav";
 import { FinanceDonut } from "@/components/admin/finance-donut";
+import { FinanceTrend } from "@/components/admin/finance-trend";
 import {
   subscriptions,
   recurring,
@@ -15,6 +16,8 @@ import {
   monthlyBalance,
   stage1MonthlyForecast,
   ledgerTotalTHB,
+  ledgerIncomeTHB,
+  ledgerMonthlySeries,
   opexBreakdown,
   fmtMoney,
   FX,
@@ -117,6 +120,8 @@ export default async function FinancePage({
   const onHireRecurring = recurringByStatus("on_hire");
   const stage1 = stage1MonthlyForecast(subs);
   const preIncorpPaid = ledgerTotalTHB(led);
+  const ledgerIncome = ledgerIncomeTHB(led);
+  const monthSeries = ledgerMonthlySeries(led);
   const breakdown = opexBreakdown(subs);
   const maxRev = Math.max(...plannedRevenue.map((q) => q.thb));
   const totalRev = plannedRevenue.reduce((s, q) => s + q.thb, 0);
@@ -354,12 +359,26 @@ export default async function FinancePage({
           </thead>
           <tbody className="divide-y divide-forest-900/5">
             {led.map((e, i) => (
-              <tr key={`${e.item}-${i}`} className={e.kind === "leak" ? "bg-red-50/40" : undefined}>
+              <tr
+                key={`${e.item}-${i}`}
+                className={
+                  e.kind === "leak"
+                    ? "bg-red-50/40"
+                    : e.kind === "income"
+                      ? "bg-emerald-50/40"
+                      : undefined
+                }
+              >
                 <td className="px-4 py-2.5 tabular-nums text-forest-900/55">{e.date || "—"}</td>
                 <td className="px-4 py-2.5 font-medium text-forest-900">{e.item}</td>
                 <td className="px-4 py-2.5 text-forest-900/55">{e.account}</td>
-                <td className="px-4 py-2.5 text-right tabular-nums text-forest-900">
-                  {e.thb != null ? money(e.thb) : "?"}
+                <td
+                  className={
+                    "px-4 py-2.5 text-right tabular-nums " +
+                    (e.kind === "income" ? "font-medium text-emerald-700" : "text-forest-900")
+                  }
+                >
+                  {e.thb != null ? (e.kind === "income" ? "+" : "") + money(e.thb) : "?"}
                 </td>
                 <td className="px-4 py-2.5">
                   <span
@@ -386,9 +405,33 @@ export default async function FinancePage({
               </td>
               <td className="px-4 py-2.5" />
             </tr>
+            {ledgerIncome > 0 && (
+              <tr className="font-medium text-emerald-700">
+                <td className="px-4 py-2.5" colSpan={3}>
+                  Доходы (журнал)
+                </td>
+                <td className="px-4 py-2.5 text-right tabular-nums">+{money(ledgerIncome)}</td>
+                <td className="px-4 py-2.5" />
+              </tr>
+            )}
           </tfoot>
         </table>
       </div>
+
+      {/* Динамика по месяцам */}
+      {monthSeries.length > 0 && (
+        <>
+          <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
+            Динамика по месяцам{" "}
+            <span className="font-normal normal-case text-forest-900/40">
+              — из журнала платежей, записи без даты не учитываются
+            </span>
+          </h2>
+          <div className="mb-8 rounded-2xl border border-forest-900/10 bg-white p-6">
+            <FinanceTrend data={monthSeries} currency={cur} />
+          </div>
+        </>
+      )}
 
       {/* Сделки */}
       <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
