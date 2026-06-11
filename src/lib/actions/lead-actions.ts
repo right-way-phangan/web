@@ -188,7 +188,11 @@ export async function addNoteAction(formData: FormData): Promise<void> {
 export async function addTaskAction(formData: FormData): Promise<void> {
   const leadId = Number(formData.get("leadId"));
   const title = String(formData.get("title") ?? "").trim();
-  const dueAt = String(formData.get("dueAt") ?? "") || null;
+  const dueDate = String(formData.get("dueAt") ?? "").trim();
+  const dueTime = String(formData.get("dueTime") ?? "").trim();
+  // Time is entered in office (Phangan, UTC+7) hours; date-only stays as-is
+  // (backend parses it as UTC midnight = "due that day", digest convention).
+  const dueAt = dueDate ? (dueTime ? `${dueDate}T${dueTime}:00+07:00` : dueDate) : null;
   if (API && title) {
     try {
       await backendFetch(`/leads/${leadId}/tasks`, {

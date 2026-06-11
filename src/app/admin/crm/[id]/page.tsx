@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
+// All times shown in office hours (Phangan, UTC+7) — server renders in UTC.
 function fmt(iso?: string | null): string {
   if (!iso) return "";
   try {
@@ -26,7 +27,22 @@ function fmt(iso?: string | null): string {
       month: "short",
       hour: "2-digit",
       minute: "2-digit",
+      timeZone: "Asia/Bangkok",
     });
+  } catch {
+    return "";
+  }
+}
+
+/** Task due: date-only tasks are stored as UTC midnight — show just the date. */
+function fmtDue(iso?: string | null): string {
+  if (!iso) return "";
+  try {
+    const d = new Date(iso);
+    if (d.getUTCHours() === 0 && d.getUTCMinutes() === 0) {
+      return d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", timeZone: "UTC" });
+    }
+    return fmt(iso);
   } catch {
     return "";
   }
@@ -220,7 +236,7 @@ export default async function LeadDetailPage({
               {t.title}
             </span>
             {t.dueAt && (
-              <span className="ml-auto text-xs text-forest-900/40">до {fmt(t.dueAt)}</span>
+              <span className="ml-auto text-xs text-forest-900/40">до {fmtDue(t.dueAt)}</span>
             )}
           </li>
         ))}
@@ -236,6 +252,12 @@ export default async function LeadDetailPage({
         <input
           name="dueAt"
           type="date"
+          className="rounded-md border border-forest-900/15 bg-white px-3 py-1.5 text-sm text-forest-900/70 outline-none focus:border-brass-500"
+        />
+        <input
+          name="dueTime"
+          type="time"
+          title="Время (необязательно) — в момент срока придёт напоминание в Telegram"
           className="rounded-md border border-forest-900/15 bg-white px-3 py-1.5 text-sm text-forest-900/70 outline-none focus:border-brass-500"
         />
         <button
