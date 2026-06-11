@@ -56,10 +56,15 @@ const URL_NUMS: [keyof RoiInputs, string][] = [
   ["rentTaxPct", "rt"], ["furnishingThb", "fn"], ["highSeasonMonths", "hm"], ["highSeasonOccupancyPct", "ho"],
   ["lowSeasonOccupancyPct", "lso"], ["highSeasonRateUpliftPct", "hru"], ["constructionMonths", "cm"],
   ["downPaymentPct", "dp"], ["handoverPaymentPct", "hpp"], ["handoverUpliftPct", "hup"],
+  ["leaseMonthlyThb", "lm"], ["leaseIndexationPct", "li"], ["monthlyRentThb", "mr"],
 ];
 const URL_BOOLS: [keyof RoiInputs, string][] = [
   ["leaseRenewable", "lr"], ["seasonality", "se"], ["rentAfterHandover", "rah"],
+  ["leaseMonthly", "lpm"], ["longTermRent", "ltr"],
 ];
+
+// Last-used scenario survives a page reload (a shared link still wins).
+const STORAGE_KEY = "rw-roi-calc-v1";
 
 interface Props {
   initialPriceThb?: number;
@@ -183,8 +188,16 @@ export function RoiCalculator({
     setTimeout(() => URL.revokeObjectURL(url), 10_000);
   };
 
-  // Full reset to defaults (keeps the data-anchored "base" growth).
-  const resetInputs = () => setInputs({ ...DEFAULT_INPUTS, annualGrowthPct: appr.base });
+  // Full reset to defaults (keeps the data-anchored "base" growth) — and forget
+  // the persisted session, otherwise it would re-apply on the next visit.
+  const resetInputs = () => {
+    setInputs({ ...DEFAULT_INPUTS, annualGrowthPct: appr.base });
+    try {
+      window.localStorage.removeItem(STORAGE_KEY);
+    } catch {
+      /* ignore */
+    }
+  };
 
   const copyLink = async () => {
     try {
@@ -198,7 +211,9 @@ export function RoiCalculator({
   };
 
   // On mount, hydrate the full scenario from the URL so a shared "Copy link"
-  // reproduces every assumption, not just price/mode/tenure (which arrive via props).
+  // reproduces every assumption, not just price/mode/tenure (which arrive via
+  // props). With no URL scenario and no deep-linked price, restore the
+  // visitor's last session from localStorage instead.
   useEffect(() => {
     if (typeof window === "undefined") return;
     const p = new URLSearchParams(window.location.search);
@@ -211,9 +226,40 @@ export function RoiCalculator({
       const v = p.get(q);
       if (v != null) (patch as Record<string, unknown>)[k] = v === "1";
     }
-    if (Object.keys(patch).length) setInputs((s) => ({ ...s, ...patch }));
+    if (Object.keys(patch).length || p.has("price")) {
+      if (Object.keys(patch).length) setInputs((s) => ({ ...s, ...patch }));
+      return;
+    }
+    if (initialPriceThb != null) return; // object-page embed — keep the listing's figures
+    try {
+      const raw = window.localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      const saved = JSON.parse(raw) as { inputs?: Partial<RoiInputs>; currency?: Currency };
+      if (saved.inputs && typeof saved.inputs === "object") {
+        // Only accept known keys with the expected type — old/corrupt entries degrade silently.
+        const safe: Partial<RoiInputs> = {};
+        for (const k of Object.keys(DEFAULT_INPUTS) as (keyof RoiInputs)[]) {
+          const v = saved.inputs[k];
+          if (v != null && typeof v === typeof DEFAULT_INPUTS[k]) (safe as Record<string, unknown>)[k] = v;
+        }
+        if (Object.keys(safe).length) setInputs((s) => ({ ...s, ...safe }));
+      }
+      if (saved.currency && saved.currency in DEFAULT_RATES) setCurrency(saved.currency);
+    } catch {
+      /* unreadable storage — start fresh */
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Persist the scenario so a reload doesn't lose the visitor's work.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ inputs, currency }));
+    } catch {
+      /* storage full/blocked — ignore */
+    }
+  }, [inputs, currency]);
 
   // Keep the URL in sync with the full input set so "Copy link" reproduces the scenario.
   useEffect(() => {
@@ -275,6 +321,19 @@ export function RoiCalculator({
     }
   };
 
+  // Switching the rental strategy re-seeds the assumptions that mean something
+  // different in each world (occupancy, management fee) — both stay editable.
+  const setLongTermRent = (lt: boolean) => {
+    if (lt === inputs.longTermRent) return;
+    if (lt) set({ longTermRent: true, seasonality: false, mgmtFeePct: 10, occupancyPct: 95 });
+    else
+      set({
+        longTermRent: false,
+        mgmtFeePct: DEFAULT_INPUTS.mgmtFeePct,
+        occupancyPct: market ? Math.round(market.meta.occupancy.base * 100) : DEFAULT_INPUTS.occupancyPct,
+      });
+  };
+
   // Monte Carlo over the data-anchored bands (growth always; occupancy + nightly
   // rate when there's rental income). Computed only while the panel is open.
   const mc = useMemo(() => {
@@ -283,11 +342,12 @@ export function RoiCalculator({
       growth: { lo: appr.conservative, base: appr.base, hi: appr.high },
     };
     if (roiVariesByPrice) {
-      const occ = market?.meta.occupancy;
+      // Market occupancy data is Airbnb-derived — it only anchors the STR band.
+      const occ = !inputs.longTermRent ? market?.meta.occupancy : undefined;
       bands.occupancy = occ
         ? { lo: occ.conservative * 100, base: occ.base * 100, hi: occ.high * 100 }
         : { lo: Math.max(0, inputs.occupancyPct - 15), base: inputs.occupancyPct, hi: Math.min(100, inputs.occupancyPct + 15) };
-      const nb = inputs.nightlyRateThb || 0;
+      const nb = (inputs.longTermRent ? inputs.monthlyRentThb : inputs.nightlyRateThb) || 0;
       bands.nightly = { lo: nb * 0.75, base: nb, hi: nb * 1.3 };
     }
     return monteCarlo(inputs, bands, 1500);
@@ -303,6 +363,9 @@ export function RoiCalculator({
   const calcSummary = [
     `Investment calculation${excludeRw ? ` — ${excludeRw}` : ""} (${strategyLabel})`,
     `Tenure: ${isLeasehold ? `Leasehold, ${inputs.leaseTermYears}-yr term` : "Freehold"}`,
+    isLeasehold && inputs.leaseMonthly
+      ? `Land rent: ${disp(inputs.leaseMonthlyThb)}/mo, indexed ${inputs.leaseIndexationPct}%/yr (price covers the building only)`
+      : "",
     `${isOffplan ? "Contract price" : "Purchase price"}: ${disp(inputs.purchasePriceThb)}`,
     isOffplan
       ? `Plan: ${inputs.downPaymentPct}% down · ${installmentPct.toFixed(0)}% during ${inputs.constructionMonths}mo build · ${inputs.handoverPaymentPct}% at handover`
@@ -311,6 +374,9 @@ export function RoiCalculator({
     `Annual growth: ${inputs.annualGrowthPct}% over ${inputs.years} years`,
     `Projected value: ${disp(r.projectedValue)}`,
     `Total ROI: ${fmtPct(r.roiPct)} · CAGR ${fmtPct(r.cagrPct)}/yr${isRent || isOffplan ? ` · IRR ${fmtPct(r.irrPct)}` : ""}`,
+    isRent
+      ? `Rental: ${inputs.longTermRent ? `long-term @ ${disp(inputs.monthlyRentThb)}/mo` : `nightly @ ${disp(inputs.nightlyRateThb)}`} · ${inputs.occupancyPct}% occupancy`
+      : "",
     isRent ? `Cap rate ${fmtPct(r.capRatePct)} · Cash-on-cash ${fmtPct(r.cashOnCashPct)} · Gross yield ${fmtPct(r.grossYieldPct)}` : "",
     isRent && isSeasonal
       ? `Seasonality: ${inputs.highSeasonMonths}mo high @ ${inputs.highSeasonOccupancyPct}% (+${inputs.highSeasonRateUpliftPct}% rate) · low @ ${inputs.lowSeasonOccupancyPct}%`
@@ -455,6 +521,19 @@ export function RoiCalculator({
                 />
                 {t.leaseRenewableLabel}
               </label>
+              {/* Lease payment structure — prepaid (price covers the lease) vs
+                  monthly land rent (the post-pivot "land lease + villa" deal). */}
+              <div className="flex gap-1 rounded-sm border border-forest-500/15 bg-cream-50 p-1">
+                <TenureTab active={!inputs.leaseMonthly} onClick={() => set({ leaseMonthly: false })} label={t.leasePayPrepaid} />
+                <TenureTab active={inputs.leaseMonthly} onClick={() => set({ leaseMonthly: true })} label={t.leasePayMonthly} />
+              </div>
+              {inputs.leaseMonthly ? (
+                <div className="space-y-4 rounded-sm border border-forest-500/10 bg-cream-50/60 p-3">
+                  <MoneyField label={`${t.leaseMonthlyRate} (${currency})`} thbValue={inputs.leaseMonthlyThb} currency={currency} fx={fx} onChangeThb={(thb) => set({ leaseMonthlyThb: thb })} hint={thbHint(inputs.leaseMonthlyThb)} small />
+                  <SliderField label={t.leaseIndexation} value={inputs.leaseIndexationPct} step={0.5} min={0} max={15} onChange={(v) => set({ leaseIndexationPct: v })} small />
+                  <p className="text-[11px] leading-relaxed text-forest-500/55">{t.leaseMonthlyNote}</p>
+                </div>
+              ) : null}
               {!inputs.leaseRenewable ? (
                 <p className="text-[11px] leading-relaxed text-forest-500/55">{t.leaseDecayNote}</p>
               ) : null}
@@ -487,7 +566,15 @@ export function RoiCalculator({
               </label>
               {inputs.rentAfterHandover ? (
                 <div className="space-y-4 rounded-sm border border-brass-500/15 bg-cream-50/60 p-3">
-                  <MoneyField label={`${t.nightlyRate} (${currency})`} thbValue={inputs.nightlyRateThb} currency={currency} fx={fx} onChangeThb={(thb) => set({ nightlyRateThb: thb })} hint={thbHint(inputs.nightlyRateThb)} small />
+                  <div className="flex gap-1 rounded-sm border border-forest-500/15 bg-cream-50 p-1">
+                    <TenureTab active={!inputs.longTermRent} onClick={() => setLongTermRent(false)} label={t.rentShortTerm} />
+                    <TenureTab active={inputs.longTermRent} onClick={() => setLongTermRent(true)} label={t.rentLongTerm} />
+                  </div>
+                  {inputs.longTermRent ? (
+                    <MoneyField label={`${t.monthlyRent} (${currency})`} thbValue={inputs.monthlyRentThb} currency={currency} fx={fx} onChangeThb={(thb) => set({ monthlyRentThb: thb })} hint={thbHint(inputs.monthlyRentThb)} small />
+                  ) : (
+                    <MoneyField label={`${t.nightlyRate} (${currency})`} thbValue={inputs.nightlyRateThb} currency={currency} fx={fx} onChangeThb={(thb) => set({ nightlyRateThb: thb })} hint={thbHint(inputs.nightlyRateThb)} small />
+                  )}
                   <SliderField label={t.occupancy} value={inputs.occupancyPct} step={5} min={0} max={100} onChange={(v) => set({ occupancyPct: v })} small />
                   <SliderField label={t.mgmtFee} value={inputs.mgmtFeePct} step={1} min={0} max={100} onChange={(v) => set({ mgmtFeePct: v })} small />
                   <SliderField label={t.opex} value={inputs.opexPct} step={0.5} min={0} max={15} onChange={(v) => set({ opexPct: v })} small />
@@ -518,17 +605,24 @@ export function RoiCalculator({
             <div className="space-y-4 rounded-sm border border-brass-500/20 bg-brass-500/[0.04] p-4">
               <div className="flex items-center justify-between">
                 <p className="text-[11px] font-medium uppercase tracking-wide text-brass-600">{t.rentalAssumptions}</p>
-                <label className="flex cursor-pointer items-center gap-1.5 text-[11px] text-forest-500/70">
-                  <input
-                    type="checkbox"
-                    checked={isSeasonal}
-                    onChange={(e) => set({ seasonality: e.target.checked })}
-                    className="h-3.5 w-3.5 accent-brass-500"
-                  />
-                  {t.highLowSeason}
-                </label>
+                {!inputs.longTermRent ? (
+                  <label className="flex cursor-pointer items-center gap-1.5 text-[11px] text-forest-500/70">
+                    <input
+                      type="checkbox"
+                      checked={isSeasonal}
+                      onChange={(e) => set({ seasonality: e.target.checked })}
+                      className="h-3.5 w-3.5 accent-brass-500"
+                    />
+                    {t.highLowSeason}
+                  </label>
+                ) : null}
               </div>
-              {market ? (
+              {/* Rental strategy — nightly STR vs a monthly long-term let. */}
+              <div className="flex gap-1 rounded-sm border border-forest-500/15 bg-cream-50 p-1">
+                <TenureTab active={!inputs.longTermRent} onClick={() => setLongTermRent(false)} label={t.rentShortTerm} />
+                <TenureTab active={inputs.longTermRent} onClick={() => setLongTermRent(true)} label={t.rentLongTerm} />
+              </div>
+              {market && !inputs.longTermRent ? (
                 <MarketPreset
                   market={market}
                   t={t}
@@ -537,16 +631,28 @@ export function RoiCalculator({
                   }
                 />
               ) : null}
-              <MoneyField label={`${t.nightlyRate} (${currency})`} thbValue={inputs.nightlyRateThb} currency={currency} fx={fx} onChangeThb={(thb) => set({ nightlyRateThb: thb })} hint={thbHint(inputs.nightlyRateThb)} small />
-              {isSeasonal ? (
-                <div className="space-y-4 rounded-sm border border-brass-500/15 bg-cream-50/60 p-3">
-                  <SliderField label={t.highSeasonLength} value={inputs.highSeasonMonths} unit={t.unitMo} step={1} min={0} max={12} onChange={(v) => set({ highSeasonMonths: v })} small />
-                  <SliderField label={t.highSeasonOccupancy} value={inputs.highSeasonOccupancyPct} step={5} min={0} max={100} onChange={(v) => set({ highSeasonOccupancyPct: v })} small />
-                  <SliderField label={t.highSeasonUplift} value={inputs.highSeasonRateUpliftPct} step={5} min={0} max={100} onChange={(v) => set({ highSeasonRateUpliftPct: v })} small />
-                  <SliderField label={t.lowSeasonOccupancy} value={inputs.lowSeasonOccupancyPct} step={5} min={0} max={100} onChange={(v) => set({ lowSeasonOccupancyPct: v })} small />
-                </div>
+              {inputs.longTermRent ? (
+                <>
+                  <MoneyField label={`${t.monthlyRent} (${currency})`} thbValue={inputs.monthlyRentThb} currency={currency} fx={fx} onChangeThb={(thb) => set({ monthlyRentThb: thb })} hint={thbHint(inputs.monthlyRentThb)} small />
+                  <div>
+                    <SliderField label={t.occupancy} value={inputs.occupancyPct} step={5} min={0} max={100} onChange={(v) => set({ occupancyPct: v })} small />
+                    <p className="mt-1 text-[11px] leading-relaxed text-forest-500/50">{t.ltOccupancyHint}</p>
+                  </div>
+                </>
               ) : (
-                <SliderField label={t.occupancy} value={inputs.occupancyPct} step={5} min={0} max={100} onChange={(v) => set({ occupancyPct: v })} small />
+                <>
+                  <MoneyField label={`${t.nightlyRate} (${currency})`} thbValue={inputs.nightlyRateThb} currency={currency} fx={fx} onChangeThb={(thb) => set({ nightlyRateThb: thb })} hint={thbHint(inputs.nightlyRateThb)} small />
+                  {isSeasonal ? (
+                    <div className="space-y-4 rounded-sm border border-brass-500/15 bg-cream-50/60 p-3">
+                      <SliderField label={t.highSeasonLength} value={inputs.highSeasonMonths} unit={t.unitMo} step={1} min={0} max={12} onChange={(v) => set({ highSeasonMonths: v })} small />
+                      <SliderField label={t.highSeasonOccupancy} value={inputs.highSeasonOccupancyPct} step={5} min={0} max={100} onChange={(v) => set({ highSeasonOccupancyPct: v })} small />
+                      <SliderField label={t.highSeasonUplift} value={inputs.highSeasonRateUpliftPct} step={5} min={0} max={100} onChange={(v) => set({ highSeasonRateUpliftPct: v })} small />
+                      <SliderField label={t.lowSeasonOccupancy} value={inputs.lowSeasonOccupancyPct} step={5} min={0} max={100} onChange={(v) => set({ lowSeasonOccupancyPct: v })} small />
+                    </div>
+                  ) : (
+                    <SliderField label={t.occupancy} value={inputs.occupancyPct} step={5} min={0} max={100} onChange={(v) => set({ occupancyPct: v })} small />
+                  )}
+                </>
               )}
               <SliderField label={t.mgmtFee} value={inputs.mgmtFeePct} step={1} min={0} max={100} onChange={(v) => set({ mgmtFeePct: v })} small />
               <SliderField label={t.opex} value={inputs.opexPct} step={0.5} min={0} max={15} onChange={(v) => set({ opexPct: v })} small />
@@ -1669,6 +1775,7 @@ function Waterfall({ r, money, isRent, t }: { r: RoiResult; money: Money; isRent
   ];
   if (isRent && r.rentNetTotal !== 0) steps.push({ label: t.wfRent, delta: r.rentNetTotal });
   if (r.holdingCostsTotal > 0) steps.push({ label: t.wfHolding, delta: -r.holdingCostsTotal });
+  if (r.leasePaymentsTotal > 0) steps.push({ label: t.wfLease, delta: -r.leasePaymentsTotal });
   if (r.capitalGainsTax > 0) steps.push({ label: t.wfCgt, delta: -r.capitalGainsTax });
 
   let run = 0;
@@ -1743,7 +1850,11 @@ function Tornado({
   drivers.push({ label: t.driverGrowth, lo: roiAt({ annualGrowthPct: inputs.annualGrowthPct - 3 }), hi: roiAt({ annualGrowthPct: inputs.annualGrowthPct + 3 }) });
   if (rentish) {
     drivers.push({ label: t.driverOccupancy, lo: roiAt({ seasonality: false, occupancyPct: clamp(inputs.occupancyPct - 15, 0, 100) }), hi: roiAt({ seasonality: false, occupancyPct: clamp(inputs.occupancyPct + 15, 0, 100) }) });
-    drivers.push({ label: t.driverNightly, lo: roiAt({ nightlyRateThb: inputs.nightlyRateThb * 0.75 }), hi: roiAt({ nightlyRateThb: inputs.nightlyRateThb * 1.25 }) });
+    drivers.push(
+      inputs.longTermRent
+        ? { label: t.driverMonthlyRent, lo: roiAt({ monthlyRentThb: inputs.monthlyRentThb * 0.75 }), hi: roiAt({ monthlyRentThb: inputs.monthlyRentThb * 1.25 }) }
+        : { label: t.driverNightly, lo: roiAt({ nightlyRateThb: inputs.nightlyRateThb * 0.75 }), hi: roiAt({ nightlyRateThb: inputs.nightlyRateThb * 1.25 }) },
+    );
     drivers.push({ label: t.driverMgmt, lo: roiAt({ mgmtFeePct: clamp(inputs.mgmtFeePct + 10, 0, 100) }), hi: roiAt({ mgmtFeePct: clamp(inputs.mgmtFeePct - 10, 0, 100) }) });
   }
   drivers.push({ label: t.driverExit, lo: roiAt({ saleCostsPct: clamp(inputs.saleCostsPct + 3, 0, 30) }), hi: roiAt({ saleCostsPct: clamp(inputs.saleCostsPct - 3, 0, 30) }) });
@@ -1881,6 +1992,8 @@ function Matrix({ inputs, isRent, t }: { inputs: RoiInputs; isRent: boolean; t: 
 /** Reality check — flags inputs that run ahead of what the market data supports. */
 function RealityCheck({ inputs, market, t }: { inputs: RoiInputs; market?: RentalMarket; t: CalcDict }) {
   if (!market) return null;
+  // The snapshot is Airbnb (nightly) data — it can't sanity-check a long-term let.
+  if (inputs.longTermRent) return null;
   const warns: string[] = [];
   const adrHigh = Math.max(0, ...market.districts.map((d) => d.adrP75 ?? 0));
   if (adrHigh > 0 && inputs.nightlyRateThb > adrHigh) warns.push(t.realityRateHigh(75));

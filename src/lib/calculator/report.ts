@@ -44,6 +44,8 @@ const REPORT_STRINGS = {
     planHandover: "handover",
     rate: "rate",
     occupancyWord: "occupancy",
+    perMonth: "/mo",
+    indexedYr: "indexed",
   },
   ru: {
     analysisTitle: "Инвестиционный анализ",
@@ -67,6 +69,8 @@ const REPORT_STRINGS = {
     planHandover: "сдача",
     rate: "ставка",
     occupancyWord: "загрузка",
+    perMonth: "/мес",
+    indexedYr: "индексация",
   },
 } as const;
 
@@ -147,8 +151,12 @@ export function buildCalcReportHtml({ inputs, result, currency, rates, rwNumber,
     : t.freehold;
   const strategyValue = isOffplan ? t.offplan : inputs.mode === "rent" ? t.buyRent : t.buyHold;
 
+  const isLtRent = isRent && inputs.longTermRent;
   const assumptions = [
     row(R.tenure, tenureValue),
+    isLeasehold && inputs.leaseMonthly
+      ? row(t.leaseMonthlyRate, `${money(inputs.leaseMonthlyThb, true)}${R.perMonth} · +${inputs.leaseIndexationPct}% ${R.indexedYr}`)
+      : "",
     row(R.strategy, strategyValue),
     row(isOffplan ? t.contractPrice : t.purchasePrice, money(inputs.purchasePriceThb, true)),
     isOffplan ? row(R.construction, `${inputs.constructionMonths} ${R.months}`) : "",
@@ -158,12 +166,13 @@ export function buildCalcReportHtml({ inputs, result, currency, rates, rwNumber,
     isOffplan ? row(t.valueAtHandover, `${money(result.handoverValue, true)} (+${inputs.handoverUpliftPct}%)`) : "",
     row(t.growthLabel, `${inputs.annualGrowthPct}%${isOffplan ? R.postHandover : ""}`),
     row(isOffplan ? R.horizon : t.holdingPeriod, `${inputs.years} ${R.years}`),
-    isRent ? row(t.nightlyRate, money(inputs.nightlyRateThb, true)) : "",
-    isRent && !inputs.seasonality ? row(t.occupancy, `${inputs.occupancyPct}%`) : "",
-    isRent && inputs.seasonality
+    isLtRent ? row(t.monthlyRent, `${money(inputs.monthlyRentThb, true)}${R.perMonth}`) : "",
+    isRent && !isLtRent ? row(t.nightlyRate, money(inputs.nightlyRateThb, true)) : "",
+    isRent && (isLtRent || !inputs.seasonality) ? row(t.occupancy, `${inputs.occupancyPct}%`) : "",
+    isRent && !isLtRent && inputs.seasonality
       ? row(R.highSeason, `${inputs.highSeasonMonths}${R.months} @ ${inputs.highSeasonOccupancyPct}% · +${inputs.highSeasonRateUpliftPct}% ${R.rate}`)
       : "",
-    isRent && inputs.seasonality ? row(R.lowSeason, `${inputs.lowSeasonOccupancyPct}% ${R.occupancyWord}`) : "",
+    isRent && !isLtRent && inputs.seasonality ? row(R.lowSeason, `${inputs.lowSeasonOccupancyPct}% ${R.occupancyWord}`) : "",
     isRent ? row(t.mgmtFee, `${inputs.mgmtFeePct}%`) : "",
   ].join("");
 
