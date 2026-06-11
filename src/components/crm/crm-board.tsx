@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import Link from "next/link";
 import { moveLead } from "@/lib/actions/move-lead";
+import { bulkMoveLeads, bulkDeleteLeads } from "@/lib/actions/bulk-leads";
 import { MoveLeadSelect } from "@/components/crm/move-lead-select";
 import type { CrmLead, CrmStage } from "@/lib/data/leads";
 
@@ -24,7 +25,9 @@ export function CrmBoard({
   const [items, setItems] = useState<CrmLead[]>(leads);
   const [dragId, setDragId] = useState<number | null>(null);
   const [overStage, setOverStage] = useState<string | null>(null);
-  const [, start] = useTransition();
+  const [selected, setSelected] = useState<Set<number>>(new Set());
+  const [bulkStage, setBulkStage] = useState("");
+  const [pending, start] = useTransition();
 
   function applyMove(leadId: number, stageKey: string) {
     const lead = items.find((l) => l.id === leadId);
@@ -33,6 +36,39 @@ export function CrmBoard({
       prev.map((l) => (l.id === leadId ? { ...l, stageKey } : l)),
     );
     start(() => moveLead(leadId, stageKey));
+  }
+
+  function toggleSelect(leadId: number) {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(leadId)) next.delete(leadId);
+      else next.add(leadId);
+      return next;
+    });
+  }
+
+  function runBulkMove() {
+    if (!bulkStage || selected.size === 0) return;
+    const ids = [...selected];
+    setItems((prev) =>
+      prev.map((l) => (selected.has(l.id) ? { ...l, stageKey: bulkStage } : l)),
+    );
+    setSelected(new Set());
+    setBulkStage("");
+    start(async () => {
+      await bulkMoveLeads(ids, bulkStage);
+    });
+  }
+
+  function runBulkDelete() {
+    if (selected.size === 0) return;
+    if (!window.confirm(`Удалить ${selected.size} лид(ов)? Заметки и задачи тоже удалятся.`)) return;
+    const ids = [...selected];
+    setItems((prev) => prev.filter((l) => !selected.has(l.id)));
+    setSelected(new Set());
+    start(async () => {
+      await bulkDeleteLeads(ids);
+    });
   }
 
   function fmtDate(iso: string): string {
@@ -56,6 +92,7 @@ export function CrmBoard({
   const stageOptions = stages.map((s) => ({ key: s.key, name: s.name }));
 
   return (
+    <>
     <div className="flex flex-col gap-4 pb-4 lg:flex-row lg:overflow-x-auto">
       {stages.map((stage) => {
         const colItems = items.filter(
@@ -134,12 +171,21 @@ export function CrmBoard({
                       }
                     >
                       <div className="flex items-start justify-between gap-2">
-                        <Link
-                          href={`/admin/crm/${lead.id}`}
-                          className="text-sm font-medium leading-snug text-forest-900 hover:text-brass-600 hover:underline"
-                        >
-                          {lead.contactName || "—"}
-                        </Link>
+                        <span className="flex min-w-0 items-start gap-2">
+                          <input
+                            type="checkbox"
+                            checked={selected.has(lead.id)}
+                            onChange={() => toggleSelect(lead.id)}
+                            aria-label="Выбрать лид"
+                            className="mt-0.5 h-4 w-4 shrink-0 cursor-pointer rounded border-forest-900/25 accent-brass-500"
+                          />
+                          <Link
+                            href={`/admin/crm/${lead.id}`}
+                            className="text-sm font-medium leading-snug text-forest-900 hover:text-brass-600 hover:underline"
+                          >
+                            {lead.contactName || "—"}
+                          </Link>
+                        </span>
                         <span className="flex shrink-0 items-center gap-1">
                           {(lead.overdueTasks ?? 0) > 0 ? (
                             <span
@@ -202,5 +248,50 @@ export function CrmBoard({
         );
       })}
     </div>
+
+    {/* Bulk bar — appears when at least one card is checked */}
+    {selected.size > 0 && (
+      <div className="fixed inset-x-0 bottom-4 z-40 flex justify-center px-4">
+        <div className="flex flex-wrap items-center gap-2 rounded-2xl bg-forest-900 px-4 py-3 shadow-xl">
+          <span className="text-sm font-medium text-white">Выбрано: {selected.size}</span>
+          <select
+            value={bulkStage}
+            onChange={(e) => setBulkStage(e.target.value)}
+            className="rounded-md border border-white/20 bg-white/10 px-2 py-1.5 text-sm text-white outline-none [&>option]:text-forest-900"
+          >
+            <option value="">Стадия…</option>
+            {stages.map((s) => (
+              <option key={s.key} value={s.key}>
+                {s.name}
+              </option>
+            ))}
+          </select>
+          <button
+            type="button"
+            disabled={!bulkStage || pending}
+            onClick={runBulkMove}
+            className="rounded-md bg-brass-500 px-3 py-1.5 text-sm font-medium text-white hover:bg-brass-600 disabled:opacity-40"
+          >
+            Переместить
+          </button>
+          <button
+            type="button"
+            disabled={pending}
+            onClick={runBulkDelete}
+            className="rounded-md bg-white/10 px-3 py-1.5 text-sm font-medium text-red-300 hover:bg-white/20 disabled:opacity-40"
+          >
+            🗑 Удалить
+          </button>
+          <button
+            type="button"
+            onClick={() => setSelected(new Set())}
+            className="px-2 py-1.5 text-sm text-white/60 hover:text-white"
+          >
+            Отмена
+          </button>
+        </div>
+      </div>
+    )}
+    </>
   );
 }

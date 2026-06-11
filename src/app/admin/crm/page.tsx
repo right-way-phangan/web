@@ -45,20 +45,28 @@ export default async function CrmPage({
     const t = new Date(l.updatedAt || l.createdAt).getTime();
     return Number.isFinite(t) ? Math.floor((Date.now() - t) / 86_400_000) : 0;
   };
-  const filteredLeads = leads.filter((l) => {
+  type Lead = (typeof leads)[number];
+  const matchesQuick = (l: Lead, key: string): boolean => {
     const open = (l.status ?? "open") === "open";
-    if (quick === "hot" && !(l.tags ?? []).includes("hot")) return false;
-    if (quick === "stale" && !(open && daysSince(l) >= 3)) return false;
-    if (quick === "notasks" && !(open && (l.openTasks ?? 0) === 0)) return false;
-    if (query) {
-      const hay = [l.contactName, l.name, l.email, l.phone, l.rwNumber, (l.tags ?? []).join(" ")]
-        .filter(Boolean)
-        .join(" ")
-        .toLowerCase();
-      if (!hay.includes(query)) return false;
-    }
+    if (key === "hot") return (l.tags ?? []).includes("hot");
+    if (key === "stale") return open && daysSince(l) >= 3;
+    if (key === "notasks") return open && (l.openTasks ?? 0) === 0;
     return true;
-  });
+  };
+  const matchesQuery = (l: Lead): boolean => {
+    if (!query) return true;
+    return [l.contactName, l.name, l.email, l.phone, l.rwNumber, (l.tags ?? []).join(" ")]
+      .filter(Boolean)
+      .join(" ")
+      .toLowerCase()
+      .includes(query);
+  };
+  const searched = leads.filter(matchesQuery);
+  // Chip counters reflect what each quick filter would show given the current search.
+  const quickCounts: Record<string, number> = Object.fromEntries(
+    QUICK.map((x) => [x.key, searched.filter((l) => matchesQuick(l, x.key)).length]),
+  );
+  const filteredLeads = quick ? searched.filter((l) => matchesQuick(l, quick)) : searched;
   const filtering = Boolean(query || quick);
   // Carry the active filters across pipeline tabs / toggles.
   const baseQ: Record<string, string> = {
@@ -126,7 +134,7 @@ export default async function CrmPage({
                   : "bg-forest-900/5 text-forest-900/70 hover:bg-forest-900/10")
               }
             >
-              {x.label}
+              {x.label} <span className="opacity-60">({quickCounts[x.key] ?? 0})</span>
             </Link>
           );
         })}
