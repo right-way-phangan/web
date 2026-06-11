@@ -20,6 +20,23 @@ const PUBLIC_STATUSES: ObjectStatus[] = ["Active"];
  */
 const OBJECTS_API_URL = process.env.OBJECTS_API_URL;
 
+/**
+ * Strip CRM-internal fields before an object can reach a public page. These
+ * end up serialized into the RSC payload of /listings et al., so anything left
+ * here is world-readable in the page source: ownerName carries seller contacts,
+ * docs holds non-public document URLs, driveFolder links the object's Drive
+ * folder. No public component reads them — admin reads go through
+ * getAllObjects, which stays unsanitized.
+ */
+export function sanitizePublicObject(o: RealEstateObject): RealEstateObject {
+  const { ownerName, driveFolder, docs, circleCode, ...pub } = o;
+  void ownerName;
+  void driveFolder;
+  void docs;
+  void circleCode;
+  return pub;
+}
+
 async function apiObjects(path: string): Promise<RealEstateObject[]> {
   const res = await backendFetch(path, { next: { revalidate: CATALOG_REVALIDATE_SECONDS } });
   if (!res.ok) throw new Error(`objects API ${path} → ${res.status}`);
@@ -40,7 +57,7 @@ async function apiObjects(path: string): Promise<RealEstateObject[]> {
 export async function getPublicObjects(): Promise<RealEstateObject[]> {
   if (OBJECTS_API_URL) {
     try {
-      return await apiObjects("/objects");
+      return (await apiObjects("/objects")).map(sanitizePublicObject);
     } catch (err) {
       console.error("[objects] own-API failed:", err);
       return [];
@@ -53,6 +70,7 @@ export async function getPublicObjects(): Promise<RealEstateObject[]> {
       .filter(
         (o) => o.rwNumber && PUBLIC_STATUSES.includes(o.status) && !!o.coverImage,
       )
+      .map(sanitizePublicObject)
       .sort(sortByRecentAndPremium);
   } catch (err) {
     if (err instanceof AmoApiError) {
