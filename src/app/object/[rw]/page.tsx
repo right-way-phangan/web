@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Link from "next/link";
-import { ArrowLeft, MapPin } from "lucide-react";
-import type { Route } from "next";
+import { MapPin } from "lucide-react";
 import { getObjectByRwNumber, getPublicObjects } from "@/lib/data/objects";
 import { isProjectUnit, parentProjectRw, projectSlug, getPublicProjects } from "@/lib/data/projects";
 import { formatPriceTHB, formatPricePerRai } from "@/lib/utils/price";
 import { RoiCalculator } from "@/components/calculator/roi-calculator";
-import { Button } from "@/components/ui/button";
+import { BackLink } from "@/components/objects/back-link";
 import { ObjectGallery } from "@/components/objects/object-gallery";
 import { SpecTable } from "@/components/objects/spec-table";
 import { InvestmentHighlights } from "@/components/objects/investment-highlights";
@@ -85,12 +83,7 @@ export default async function ObjectPage({ params }: Props) {
       />
 
       <article className="container-prose py-8 md:py-12">
-        <Button asChild variant="ghost" size="sm" className="mb-6">
-          <Link href={backHref as Route}>
-            <ArrowLeft className="h-4 w-4" />
-            {backLabel}
-          </Link>
-        </Button>
+        <BackLink href={backHref} label={backLabel} />
 
         {/* Gallery */}
         <ObjectGallery

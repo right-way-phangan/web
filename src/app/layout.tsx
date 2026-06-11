@@ -12,14 +12,16 @@ import { siteConfig } from "@/lib/site-config";
 import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
 
+// Cyrillic subsets cover the /ru pages — without them RU text falls back to
+// system fonts and the serif/sans pairing breaks.
 const sans = Inter({
-  subsets: ["latin"],
+  subsets: ["latin", "cyrillic"],
   variable: "--font-sans",
   display: "swap",
 });
 
 const serif = Cormorant_Garamond({
-  subsets: ["latin"],
+  subsets: ["latin", "cyrillic"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-serif",
   display: "swap",

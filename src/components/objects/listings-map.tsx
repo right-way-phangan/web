@@ -196,7 +196,12 @@ export default function ListingsMap({
                 }}
               >
                 <Popup>
-                  <a href={`/object/${p.rw}`} className="block w-44 no-underline">
+                  <a
+                    href={`/object/${p.rw}`}
+                    target="_blank"
+                    rel="noopener"
+                    className="block w-44 no-underline"
+                  >
                     {p.cover ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
