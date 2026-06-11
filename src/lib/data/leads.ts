@@ -29,6 +29,9 @@ export interface CrmLead {
   stageId?: number | null;
   openTasks?: number;
   overdueTasks?: number;
+  /** When the lead landed on its current stage (last event) — "days on stage". */
+  stageSince?: string | null;
+  lostReason?: string | null;
 }
 
 export interface CrmStage {
@@ -89,6 +92,22 @@ export interface CrmEvent {
   fromStage: string | null;
   toStage: string | null;
   createdAt: string;
+  // Present on the cross-CRM feed (GET /events), absent inside a lead detail.
+  leadId?: number;
+  leadName?: string | null;
+  contactName?: string | null;
+}
+
+/** Recent activity across all leads — dashboard feed + stage-cycle analytics. */
+export async function getEvents(limit = 200): Promise<CrmEvent[]> {
+  if (!API) return [];
+  try {
+    const r = await backendFetch(`/events?limit=${limit}`, { cache: "no-store" });
+    return r.ok ? ((await r.json()) as CrmEvent[]) : [];
+  } catch (err) {
+    console.error("[crm] getEvents failed:", err);
+    return [];
+  }
 }
 
 export interface CrmLeadDetail extends CrmLead {

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { moveLead } from "@/lib/actions/move-lead";
 import { bulkMoveLeads, bulkDeleteLeads } from "@/lib/actions/bulk-leads";
 import { MoveLeadSelect } from "@/components/crm/move-lead-select";
+import { LostReasonDialog } from "@/components/crm/lost-reason-dialog";
 import type { CrmLead, CrmStage } from "@/lib/data/leads";
 
 /**
@@ -27,15 +28,22 @@ export function CrmBoard({
   const [overStage, setOverStage] = useState<string | null>(null);
   const [selected, setSelected] = useState<Set<number>>(new Set());
   const [bulkStage, setBulkStage] = useState("");
+  const [pendingLost, setPendingLost] = useState<{ leadId: number; stageKey: string } | null>(null);
   const [pending, start] = useTransition();
 
-  function applyMove(leadId: number, stageKey: string) {
+  function applyMove(leadId: number, stageKey: string, lostReason?: string) {
     const lead = items.find((l) => l.id === leadId);
     if (!lead || lead.stageKey === stageKey) return;
+    // Moving into a lost stage: ask why first (loss analytics), then move.
+    const target = stages.find((s) => s.key === stageKey);
+    if (target?.isLost && !lostReason && (lead.status ?? "open") !== "lost") {
+      setPendingLost({ leadId, stageKey });
+      return;
+    }
     setItems((prev) =>
       prev.map((l) => (l.id === leadId ? { ...l, stageKey } : l)),
     );
-    start(() => moveLead(leadId, stageKey));
+    start(() => moveLead(leadId, stageKey, lostReason));
   }
 
   function toggleSelect(leadId: number) {
@@ -214,6 +222,18 @@ export function CrmBoard({
                           💤 {days} дн без касания
                         </p>
                       )}
+                      {(() => {
+                        const sinceIso = lead.stageSince || lead.createdAt;
+                        const t = sinceIso ? new Date(sinceIso).getTime() : NaN;
+                        const onStage = Number.isFinite(t)
+                          ? Math.floor((Date.now() - t) / 86_400_000)
+                          : 0;
+                        return isOpen && onStage >= 1 ? (
+                          <p className="mt-1 text-[10px] text-forest-900/40">
+                            ⏳ на стадии {onStage} дн
+                          </p>
+                        ) : null;
+                      })()}
                       <div className="mt-2 flex flex-wrap gap-1">
                         {lead.rwNumber && (
                           <span className="rounded bg-brass-500/10 px-1.5 py-0.5 text-[10px] font-medium text-brass-600">
@@ -248,6 +268,17 @@ export function CrmBoard({
         );
       })}
     </div>
+
+    {pendingLost && (
+      <LostReasonDialog
+        contactName={items.find((l) => l.id === pendingLost.leadId)?.contactName}
+        onConfirm={(reason) => {
+          applyMove(pendingLost.leadId, pendingLost.stageKey, reason);
+          setPendingLost(null);
+        }}
+        onCancel={() => setPendingLost(null)}
+      />
+    )}
 
     {/* Bulk bar — appears when at least one card is checked */}
     {selected.size > 0 && (

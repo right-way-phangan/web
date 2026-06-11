@@ -4,7 +4,7 @@ import Link from "next/link";
 import { getAllObjects, getPublicObjects } from "@/lib/data/objects";
 
 type Href = ComponentProps<typeof Link>["href"];
-import { getLeads, getPipelines, CRM_ENABLED } from "@/lib/data/leads";
+import { getLeads, getPipelines, getEvents, CRM_ENABLED } from "@/lib/data/leads";
 import { AdminNav } from "@/components/admin/admin-nav";
 import type { RealEstateObject } from "@/types/object";
 
@@ -53,11 +53,12 @@ function Stat({
 }
 
 export default async function AdminHomePage() {
-  const [all, publicObjs, leads, pipelines] = await Promise.all([
+  const [all, publicObjs, leads, pipelines, events] = await Promise.all([
     getAllObjects(),
     getPublicObjects(),
     CRM_ENABLED ? getLeads() : Promise.resolve([]),
     CRM_ENABLED ? getPipelines() : Promise.resolve([]),
+    CRM_ENABLED ? getEvents(500) : Promise.resolve([]),
   ]);
 
   // Objects exclude off-plan unit sub-cards from the headline count.
@@ -157,6 +158,64 @@ export default async function AdminHomePage() {
   const recent = [...leads]
     .sort((a, b) => (b.createdAt ?? "").localeCompare(a.createdAt ?? ""))
     .slice(0, 6);
+
+  // Loss reasons (asked by the Lost dialog) — why deals die.
+  const lostLeads = leads.filter((l) => l.stageKey && lostKeys.has(l.stageKey));
+  const lossReasons = [
+    ...lostLeads
+      .reduce((m, l) => {
+        const k = l.lostReason || "Без причины";
+        m.set(k, (m.get(k) ?? 0) + 1);
+        return m;
+      }, new Map<string, number>())
+      .entries(),
+  ].sort((a, b) => b[1] - a[1]);
+
+  // Average time per stage, from stage events: a lead's stay on stage S = gap
+  // between the event that put it on S and the lead's next event.
+  const stageSort = new Map<string, number>();
+  for (const p of pipelines) for (const s of p.stages) stageSort.set(s.name, s.sort);
+  const byLeadEvents = new Map<number, typeof events>();
+  for (const e of events) {
+    if (e.leadId == null) continue;
+    const arr = byLeadEvents.get(e.leadId) ?? [];
+    arr.push(e);
+    byLeadEvents.set(e.leadId, arr);
+  }
+  const stageDur = new Map<string, { totalMs: number; n: number }>();
+  for (const arr of byLeadEvents.values()) {
+    const asc = [...arr].sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+    for (let i = 0; i < asc.length - 1; i++) {
+      const st = asc[i].toStage;
+      if (!st) continue;
+      const ms = new Date(asc[i + 1].createdAt).getTime() - new Date(asc[i].createdAt).getTime();
+      if (!Number.isFinite(ms) || ms < 0) continue;
+      const e = stageDur.get(st) ?? { totalMs: 0, n: 0 };
+      e.totalMs += ms;
+      e.n += 1;
+      stageDur.set(st, e);
+    }
+  }
+  const stageCycle = [...stageDur.entries()]
+    .map(([name, v]) => ({ name, days: v.totalMs / v.n / 86_400_000, n: v.n }))
+    .sort((a, b) => (stageSort.get(a.name) ?? 99) - (stageSort.get(b.name) ?? 99));
+  const fmtDays = (d: number) => (d < 1 ? "< 1 дн" : `${d.toFixed(d < 10 ? 1 : 0)} дн`);
+
+  // Activity feed: latest stage moves / creations across all leads.
+  const activity = events.slice(0, 8);
+  const fmtEvent = (iso: string) => {
+    try {
+      return new Date(iso).toLocaleString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        hour: "2-digit",
+        minute: "2-digit",
+        timeZone: "Asia/Bangkok",
+      });
+    } catch {
+      return "";
+    }
+  };
 
   return (
     <section className="px-4 py-8 md:px-8">
@@ -327,6 +386,63 @@ export default async function AdminHomePage() {
             </div>
           )}
 
+          {/* Loss reasons + stage cycle */}
+          {(lossReasons.length > 0 || stageCycle.length > 0) && (
+            <div className="mb-7 grid gap-4 md:grid-cols-2">
+              {lossReasons.length > 0 && (
+                <div className="rounded-2xl border border-forest-900/10 bg-white p-4">
+                  <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
+                    Причины потерь
+                  </p>
+                  <div className="space-y-2">
+                    {lossReasons.map(([reason, n]) => {
+                      const pct = lostLeads.length
+                        ? Math.round((n / lostLeads.length) * 100)
+                        : 0;
+                      return (
+                        <div key={reason} className="flex items-center gap-3 text-sm">
+                          <span className="w-32 shrink-0 truncate text-forest-900/70">{reason}</span>
+                          <div className="h-2 flex-1 overflow-hidden rounded-full bg-forest-900/5">
+                            <div
+                              className="h-full rounded-full bg-forest-900/30"
+                              style={{ width: `${pct}%` }}
+                            />
+                          </div>
+                          <span className="w-8 shrink-0 text-right font-medium text-forest-900">
+                            {n}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <p className="mt-3 text-xs text-forest-900/40">
+                    Спрашивается при переносе лида в Lost.
+                  </p>
+                </div>
+              )}
+              {stageCycle.length > 0 && (
+                <div className="rounded-2xl border border-forest-900/10 bg-white p-4">
+                  <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
+                    Средний цикл стадий
+                  </p>
+                  <div className="space-y-2">
+                    {stageCycle.map((s) => (
+                      <div key={s.name} className="flex items-center gap-3 text-sm">
+                        <span className="w-32 shrink-0 text-forest-900/70">{s.name}</span>
+                        <span className="font-medium text-forest-900">{fmtDays(s.days)}</span>
+                        <span className="text-xs text-forest-900/40">({s.n} перех.)</span>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="mt-3 text-xs text-forest-900/40">
+                    Сколько лид в среднем проводит на стадии до следующего шага.
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+
+          <div className={recent.length > 0 && activity.length > 0 ? "grid gap-4 md:grid-cols-2" : ""}>
           {recent.length > 0 && (
             <div className="rounded-2xl border border-forest-900/10 bg-white">
               <div className="border-b border-forest-900/10 px-4 py-2.5 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
@@ -365,6 +481,40 @@ export default async function AdminHomePage() {
               </ul>
             </div>
           )}
+
+          {/* Activity feed: who moved where */}
+          {activity.length > 0 && (
+            <div className="rounded-2xl border border-forest-900/10 bg-white">
+              <div className="border-b border-forest-900/10 px-4 py-2.5 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
+                Активность
+              </div>
+              <ul className="divide-y divide-forest-900/5">
+                {activity.map((e) => (
+                  <li key={e.id}>
+                    <Link
+                      href={`/admin/crm/${e.leadId}`}
+                      className="flex items-center justify-between gap-3 px-4 py-2.5 hover:bg-brass-500/[0.04]"
+                    >
+                      <span className="min-w-0">
+                        <span className="text-sm font-medium text-forest-900">
+                          {e.contactName || e.leadName || `#${e.leadId}`}
+                        </span>
+                        <span className="ml-2 text-xs text-forest-900/55">
+                          {e.type === "created"
+                            ? `создан → ${e.toStage ?? "—"}`
+                            : `${e.fromStage ?? "—"} → ${e.toStage ?? "—"}`}
+                        </span>
+                      </span>
+                      <span className="shrink-0 text-[11px] tabular-nums text-forest-900/40">
+                        {fmtEvent(e.createdAt)}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          </div>
         </>
       )}
     </section>
