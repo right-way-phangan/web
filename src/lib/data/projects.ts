@@ -1,5 +1,5 @@
 import "server-only";
-import { getPublicObjects, getAllObjects } from "@/lib/data/objects";
+import { getPublicObjects, getAllObjects, sanitizePublicObject } from "@/lib/data/objects";
 import type { RealEstateObject } from "@/types/object";
 
 /** A unit card belongs to a project: RW-P####-N (project number + "-N"). */
@@ -93,8 +93,10 @@ export function getProjectUnits(
 
 /** Async convenience: a project's unit cards across all statuses. */
 export async function getProjectUnitsAll(project: RealEstateObject): Promise<RealEstateObject[]> {
+  // getAllObjects is unsanitized (admin source) and these unit cards land on
+  // the public /projects/[slug] page — strip internal fields here too.
   const all = await getAllObjects();
-  return getProjectUnits(project, all);
+  return getProjectUnits(project, all).map(sanitizePublicObject);
 }
 
 export interface ProjectAvailability {
