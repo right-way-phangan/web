@@ -79,7 +79,18 @@ jobs:
           Authored by headless Claude Code via content-pipeline/routine.md.
 
           Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
-          git push origin HEAD:main
+          # main may have moved during the long run — rebase on reject and retry.
+          for i in 1 2 3 4 5; do
+            if git push origin HEAD:main; then
+              echo "Pushed on attempt $i."
+              exit 0
+            fi
+            echo "Push rejected (attempt $i) — rebasing onto origin/main..."
+            git fetch origin main
+            git rebase origin/main || { echo "::error::Rebase conflict — aborting."; git rebase --abort; exit 1; }
+          done
+          echo "::error::Could not push after retries."
+          exit 1
 
       - name: Upload run log
         if: always()
