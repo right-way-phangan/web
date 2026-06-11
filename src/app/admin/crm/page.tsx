@@ -14,7 +14,7 @@ export const dynamic = "force-dynamic";
 export default async function CrmPage({
   searchParams,
 }: {
-  searchParams: Promise<{ p?: string; q?: string; hot?: string }>;
+  searchParams: Promise<{ p?: string; q?: string; f?: string }>;
 }) {
   if (!CRM_ENABLED) {
     return (
@@ -31,13 +31,25 @@ export default async function CrmPage({
   }
 
   const [pipelines, leads] = await Promise.all([getPipelines(), getLeads()]);
-  const { p, q, hot: hotParam } = await searchParams;
+  const { p, q, f } = await searchParams;
   const active = pipelines.find((pl) => pl.key === p) ?? pipelines[0];
 
   const query = (q ?? "").trim().toLowerCase();
-  const hot = hotParam === "1";
+  const QUICK = [
+    { key: "hot", label: "🔥 Горячие" },
+    { key: "stale", label: "💤 Остывающие" },
+    { key: "notasks", label: "📋 Без задач" },
+  ] as const;
+  const quick = QUICK.some((x) => x.key === f) ? (f as string) : "";
+  const daysSince = (l: { updatedAt?: string | null; createdAt: string }) => {
+    const t = new Date(l.updatedAt || l.createdAt).getTime();
+    return Number.isFinite(t) ? Math.floor((Date.now() - t) / 86_400_000) : 0;
+  };
   const filteredLeads = leads.filter((l) => {
-    if (hot && !(l.tags ?? []).includes("hot")) return false;
+    const open = (l.status ?? "open") === "open";
+    if (quick === "hot" && !(l.tags ?? []).includes("hot")) return false;
+    if (quick === "stale" && !(open && daysSince(l) >= 3)) return false;
+    if (quick === "notasks" && !(open && (l.openTasks ?? 0) === 0)) return false;
     if (query) {
       const hay = [l.contactName, l.name, l.email, l.phone, l.rwNumber, (l.tags ?? []).join(" ")]
         .filter(Boolean)
@@ -47,11 +59,11 @@ export default async function CrmPage({
     }
     return true;
   });
-  const filtering = Boolean(query || hot);
+  const filtering = Boolean(query || quick);
   // Carry the active filters across pipeline tabs / toggles.
   const baseQ: Record<string, string> = {
     ...(query ? { q: query } : {}),
-    ...(hot ? { hot: "1" } : {}),
+    ...(quick ? { f: quick } : {}),
   };
 
   return (
@@ -89,7 +101,7 @@ export default async function CrmPage({
       <div className="mb-4 flex flex-wrap items-center gap-2">
         <form action="/admin/crm" className="flex w-full items-center gap-2 sm:w-auto">
           {p && <input type="hidden" name="p" value={p} />}
-          {hot && <input type="hidden" name="hot" value="1" />}
+          {quick && <input type="hidden" name="f" value={quick} />}
           <input
             type="search"
             name="q"
@@ -98,17 +110,26 @@ export default async function CrmPage({
             className="w-full rounded-full border border-forest-900/15 bg-white px-3 py-1.5 text-sm outline-none focus:border-brass-500 sm:w-64"
           />
         </form>
-        <Link
-          href={{ pathname: "/admin/crm", query: hot ? { ...baseQ, hot: undefined } : { ...baseQ, hot: "1" } }}
-          className={
-            "rounded-full px-3 py-1.5 text-sm font-medium transition " +
-            (hot
-              ? "bg-amber-500 text-white"
-              : "bg-forest-900/5 text-forest-900/70 hover:bg-forest-900/10")
-          }
-        >
-          🔥 Горячие
-        </Link>
+        {QUICK.map((x) => {
+          const on = quick === x.key;
+          const query2 = on
+            ? { ...baseQ, f: undefined }
+            : { ...baseQ, f: x.key };
+          return (
+            <Link
+              key={x.key}
+              href={{ pathname: "/admin/crm", query: query2 }}
+              className={
+                "rounded-full px-3 py-1.5 text-sm font-medium transition " +
+                (on
+                  ? "bg-amber-500 text-white"
+                  : "bg-forest-900/5 text-forest-900/70 hover:bg-forest-900/10")
+              }
+            >
+              {x.label}
+            </Link>
+          );
+        })}
         {filtering && (
           <Link
             href={{ pathname: "/admin/crm", query: p ? { p } : {} }}
