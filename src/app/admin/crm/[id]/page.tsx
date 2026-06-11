@@ -2,9 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getLead, CRM_ENABLED } from "@/lib/data/leads";
+import { getAllObjects } from "@/lib/data/objects";
+import type { RealEstateObject } from "@/types/object";
 import { MoveLeadSelect } from "@/components/crm/move-lead-select";
 import { TaskToggle } from "@/components/crm/task-toggle";
 import { LeadEdit } from "@/components/crm/lead-edit";
+import { LeadWonLost } from "@/components/crm/lead-won-lost";
 import { ContactActions } from "@/components/crm/contact-actions";
 import { addNoteAction, addTaskAction } from "@/lib/actions/lead-actions";
 
@@ -35,6 +38,16 @@ const STATUS_STYLE: Record<string, string> = {
   lost: "bg-forest-900/5 text-forest-900/40",
 };
 
+function nf(n: number): string {
+  return new Intl.NumberFormat("en-US").format(Math.round(n));
+}
+function objPrice(o: RealEstateObject): string {
+  if (o.priceThb) return `฿${nf(o.priceThb)}`;
+  if (o.pricePerRai) return `฿${nf(o.pricePerRai)}/rai`;
+  if (o.rentPerRaiMonth) return `฿${nf(o.rentPerRaiMonth)}/rai·мес`;
+  return "Цена по запросу";
+}
+
 export default async function LeadDetailPage({
   params,
 }: {
@@ -44,6 +57,11 @@ export default async function LeadDetailPage({
   const { id } = await params;
   const lead = await getLead(Number(id));
   if (!lead) notFound();
+
+  // Reverse object↔lead link: the object this lead is about (any status).
+  const obj = lead.rwNumber
+    ? (await getAllObjects()).find((o) => o.rwNumber === lead.rwNumber) ?? null
+    : null;
 
   return (
     <section className="container-prose py-8">
@@ -75,6 +93,11 @@ export default async function LeadDetailPage({
       {/* One-tap contact actions */}
       <div className="mt-4">
         <ContactActions phone={lead.phone} email={lead.email} />
+      </div>
+
+      {/* Quick close */}
+      <div className="mt-3 max-w-sm">
+        <LeadWonLost leadId={lead.id} status={lead.status} />
       </div>
 
       {/* Inline contact editor + delete */}
@@ -131,6 +154,51 @@ export default async function LeadDetailPage({
               {t}
             </span>
           ))}
+        </div>
+      )}
+
+      {/* Object the lead is interested in */}
+      {obj && (
+        <div className="mt-6">
+          <h2 className="mb-2 text-sm font-semibold uppercase tracking-wide text-forest-900/70">
+            Интересующий объект
+          </h2>
+          <Link
+            href={`/object/${obj.rwNumber}`}
+            className="flex items-center gap-3 rounded-xl border border-forest-900/10 bg-white p-3 transition hover:border-brass-500/40 hover:shadow-sm"
+          >
+            <span className="h-16 w-20 shrink-0 overflow-hidden rounded-lg bg-forest-900/5">
+              {obj.coverImage ? (
+                // eslint-disable-next-line @next/next/no-img-element -- admin thumb, no LCP/optim need
+                <img
+                  src={obj.coverImage}
+                  alt=""
+                  className="h-full w-full object-cover"
+                  loading="lazy"
+                />
+              ) : (
+                <span className="flex h-full w-full items-center justify-center text-xs text-forest-900/30">
+                  нет фото
+                </span>
+              )}
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="flex items-center gap-2">
+                <span className="font-mono text-xs font-medium text-brass-600">{obj.rwNumber}</span>
+                <span className="rounded bg-forest-900/5 px-1.5 py-0.5 text-[10px] text-forest-900/60">
+                  {obj.type}
+                </span>
+                <span className="text-[10px] text-forest-900/45">{obj.status}</span>
+              </span>
+              <span className="mt-0.5 line-clamp-1 block text-sm text-forest-900/85">
+                {obj.titleEn || "—"}
+              </span>
+              <span className="mt-0.5 block text-xs text-forest-900/55">
+                {[obj.district, objPrice(obj)].filter(Boolean).join(" · ")}
+              </span>
+            </span>
+            <span className="shrink-0 text-forest-900/30">›</span>
+          </Link>
         </div>
       )}
 
