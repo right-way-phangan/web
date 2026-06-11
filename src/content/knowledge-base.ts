@@ -529,6 +529,128 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "structures",
     faqQuestion: "What happens to my leasehold and villa on Koh Phangan when I die?",
   },
+  {
+    slug: "nominee-crackdown-krabi-islands-2026",
+    kbId: "kb-0013",
+    topic: "Structures",
+    title: "Nominee-ownership enforcement spreads to Krabi: what island buyers need to know in 2026",
+    short:
+      "A June 2026 raid on luxury villas in Krabi Province — linked to Spanish nationals — marks the geographic expansion of the enforcement campaign that began on Koh Phangan and Samui. With 401 businesses under investigation in Krabi and roughly 21,000 cases targeted nationwide, the crackdown is no longer an island story. Nominee structures now carry real criminal risk across all of Thailand's main tourist areas.",
+    updated: "2026-06-11",
+    body: [
+      "On 2 June 2026, Thai police and the Department of Business Development (DBD) raided a luxury pool villa on over one rai of land in Nong Thale subdistrict, Mueang Krabi. The villa was linked to two Spanish nationals through a Thai company. The immediate charges spanned suspected nominee ownership, unlicensed short-term tourist rentals under the Hotel Act, and immigration reporting failures. The raid is now feeding into an investigation of 401 business entities across Krabi Province identified by the DBD as suspected nominee arrangements.",
+      "Krabi is the latest expansion of a crackdown that began on the islands. The structure and scale are the same — and for anyone who holds property through a Thai company with nominee Thai shareholders, the geography no longer offers safety.",
+      { h: "How the enforcement campaign developed" },
+      {
+        ul: [
+          "**Koh Phangan and Koh Samui (October 2025)** — 32 companies targeted across the islands with 300+ officers; 34 companies subsequently investigated, ~20 holding assets over 100 million baht.",
+          "**Koh Phangan (May 2026)** — 22 foreigners arrested, more than 40 rai seized (estimated value over 200 million baht).",
+          "**Phuket (ongoing)** — 200+ suspects, billions of baht in seizures; one Thai national found listed as nominee in 87 separate companies.",
+          "**Krabi (June 2026)** — 401 businesses flagged, raids begun, 6 land plots under review.",
+          "**Next in scope** — Pattaya, Phang Nga, Hua Hin and Chiang Mai are explicitly named in DBD/DSI statements as coming enforcement zones.",
+        ],
+      },
+      { h: "What law they are enforcing" },
+      "The Foreign Business Act B.E. 2542 (1999) makes it a criminal offence for a Thai national to hold shares on behalf of a foreigner (Section 36) and equally criminal for the foreigner who benefits from the arrangement (Section 37). Penalties are up to **3 years imprisonment and fines of 100,000–1,000,000 baht**, or both. The Land Code adds a further consequence: a foreign-controlled company that holds land unlawfully can be ordered to sell the land within **180 days to 1 year** — at whatever price the forced sale yields.",
+      { h: "What changed in 2026" },
+      "Two procedural changes made the enforcement much harder to hide from. Since **January 2026**, Thai shareholders in companies with foreign involvement must submit bank statements proving they funded their shares from their own money. Since **April 2026**, any company alteration involving a foreign director triggers a mandatory review. Both changes removed the paper layer that nominee structures relied on. The DBD is now working with the Department of Special Investigation (DSI) and the Anti-Money Laundering Office (AMLO) — which means the investigation tools extend beyond company registers to financial flows.",
+      { h: "What this means for buyers" },
+      "For anyone considering a purchase structured through a Thai company, the enforcement context is not ambiguous: both the nominee and the foreigner face prosecution; the land, not just the company, can be subject to forced sale. The clean route is a registered leasehold — a right that doesn't require a Thai company or nominees to exist. See [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa) and [Leasehold vs freehold](/knowledge/leasehold-vs-freehold).",
+      "For anyone who already holds through a company structure, the advice from Thai property lawyers is to get confidential, fact-specific legal advice before the enforcement reaches your area — not after. The wrong move made in panic can make matters worse than the structure itself.",
+    ],
+    takeaways: [
+      "June 2026: luxury villas in Krabi raided over nominee structures — 401 businesses flagged across the province.",
+      "The crackdown now spans Phangan, Samui, Phuket, Krabi, Pattaya, Hua Hin and Chiang Mai — it is explicitly nationwide.",
+      "Both the Thai nominee AND the foreign beneficiary face criminal prosecution: up to 3 years, fines of 100,000–1,000,000 baht.",
+      "The Land Code permits forced sale within 180 days to 1 year if a violation is found — the land itself is at risk, not only the company.",
+      "Since January 2026, Thai shareholders must prove genuine investment with bank statements; since April 2026, any foreign-director company change triggers a mandatory review.",
+    ],
+    sources: [
+      {
+        title:
+          "Thai Examiner — Police move to tighten the foreign ownership net now in Krabi: luxury villas linked with Spaniards raided (3 June 2026)",
+        url: "https://www.thaiexaminer.com/thai-news-foreigners/2026/06/03/police-move-to-tighten-the-foreign-ownership-net-now-in-krabi-luxury-villas-linked-with-spaniards-raided/",
+      },
+      {
+        title: "Lawyers for Expats Thailand — The Nominee Crackdown: Understanding Why It Is Happening",
+        url: "https://www.lawyersforexpatsthailand.com/post/the-nominee-crackdown-understanding-why-it-is-happening",
+      },
+      {
+        title:
+          "Khaosod English — Thai Authorities Target Nominee Businesses on Koh Samui and Koh Phangan (14 October 2025)",
+        url: "https://www.khaosodenglish.com/news/business/2025/10/14/thai-authorities-target-nominee-businesses-on-koh-samui-and-koh-phangan/",
+      },
+      {
+        title:
+          "Foreign Business Act B.E. 2542 (1999), Sections 36–37; Thai Land Code Sections 94, 97–98, 111–113 (general practice)",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "Is a Thai nominee company still a safe way to hold property on Koh Phangan in 2026?",
+  },
+  {
+    slug: "koh-phangan-market-outlook-2026",
+    kbId: "kb-0014",
+    topic: "Market",
+    title: "Koh Phangan property market in 2026: what the data shows and what to watch",
+    short:
+      "Koh Phangan is part of a 61-billion-baht investment hub with Koh Samui, house prices have risen roughly 5–10% annually since 2016, and Colliers sees the market at a comparable stage to Phuket five years ago. The genuine signals are real — but they don't override the basics: title quality, the 2025 zoning, and buying through a clean structure are preconditions, not afterthoughts.",
+    updated: "2026-06-11",
+    body: [
+      "The market numbers for Koh Phangan in 2026 are striking. Koh Samui and Koh Phangan together host 154 active residential projects worth a combined 61.14 billion baht, with approximately 2,860 units currently for sale (Q1 2026 data). Phangan alone accounts for 41 residential projects comprising 438 units valued at roughly 7.94 billion baht. That is not a small, informal market anymore.",
+      { h: "How prices have moved" },
+      {
+        ul: [
+          "**House prices** rose 8.9% year-on-year from July 2024 to July 2025, consistent with the historical 5–10% annual growth observed since 2016.",
+          "**Western coast land** (Sri Thanu, Haad Yao and the wellness belt) is up 2–4× since early 2022 — the most dramatic appreciation on the island.",
+          "**Current averages**: condominiums at around 7.9 million baht; villas at roughly 12 million baht; houses at around 15 million baht; land at an average of 20.27 million baht.",
+          "Land prices remain substantially lower than comparable plots in Phuket, which is the basis of the Colliers early-growth argument.",
+        ],
+      },
+      { h: "The Colliers view" },
+      "Colliers Thailand director Phattarachai Taweewong described the current trajectory as resembling the expansion of Phuket's property market around five years ago — a period that proved to be early in a sustained price run. The comparison is based on foreign demand concentration, limited supply, and land prices still below the level a mature resort market carries. The condominium segment is where supply is most constrained relative to demand.",
+      "Colliers also offered a clear-eyed warning: the success of future projects will not depend on market momentum alone. Careful verification of land title documents, strategic location selection, and suitability of the product for actual buyer demand are what separates performing assets from ones that stall.",
+      { h: "Who is buying and why" },
+      "The market is driven overwhelmingly by foreign buyers — particularly from Israel, Europe and Australia — seeking long-stay residences, retirement homes or rental investment properties. The digital-nomad transition Phangan underwent from 2020 onwards anchored a segment of full-time residents who buy rather than rent. Major Thai developers including Supalai and Ornsirin Holding are launching new projects in 2026 to capture a share of demand they previously left to smaller operators.",
+      { h: "The rental investment case" },
+      "Rental yields for villas can exceed 10% net under the right conditions. The conditions matter: the Hotel Act requires a licence for stays under 30 days, and the honest yield calculation runs from real nightly rates and occupancy minus management costs (typically ~25%), maintenance and tax — not a brochure number. See [Renting out your villa](/knowledge/renting-out-your-villa-rules-and-taxes).",
+      { h: "What growth alone doesn't resolve" },
+      "Market appreciation is a tailwind, not a due-diligence substitute. The 2025 environmental zoning limits what can be built on many of the plots that command a view or beachfront premium — and a plot you can't build on the way you intend is not an appreciating asset at the price you paid. See [Building zones on Koh Phangan](/knowledge/koh-phangan-building-zones).",
+      "The nominee crackdown also matters for the supply picture. A significant share of the freehold-structured inventory listed before 2025 was held through Thai nominee companies. Much of that supply has either been withdrawn, become unsellable in its current structure, or is under investigation. The practical market for foreign buyers is leasehold — see [Leasehold vs freehold](/knowledge/leasehold-vs-freehold). Growth signals are real; they apply to correctly structured assets on properly titled land.",
+    ],
+    takeaways: [
+      "Q1 2026: Koh Samui and Phangan have 154 active residential projects worth 61 billion baht; Phangan alone accounts for 41 projects and 7.94 billion baht.",
+      "House prices on Phangan rose 8.9% year-on-year in 2025; western coast land is up 2–4× since 2022.",
+      "Colliers: the market resembles Phuket's growth trajectory from five years ago, with land prices still below Phuket levels.",
+      "Market momentum alone doesn't make a deal good — title quality, buildability under the 2025 zoning, and clean ownership structure are preconditions.",
+      "The nominee crackdown has thinned freehold-structured supply; the functional foreign-buyer market is leasehold.",
+    ],
+    sources: [
+      {
+        title: "Nation Thailand — Samui and Phangan boom as 61bn-baht property investment hub (2026)",
+        url: "https://www.nationthailand.com/business/property/40066940",
+      },
+      {
+        title:
+          "Thailand Construction and Engineering News — Koh Samui and Koh Phangan boom as 61bn-baht property investment hub",
+        url: "https://thailand-construction.com/koh-samui-and-koh-phangan-boom-as-61bn-baht-property-investment-hub/",
+      },
+      {
+        title:
+          "kohphangan.estate — Annual Housing Appreciation on Koh Phangan: Key Drivers, Market Trends & Investment Insights",
+        url: "https://kohphangan.estate/blog/tpost/de0ng2hti1-annual-housing-appreciation-on-koh-phang",
+      },
+      {
+        title: "Bangkok Post — Samui, Phangan are new property hotspots",
+        url: "https://www.bangkokpost.com/property/3267488/samui-phangan-are-new-property-hotspots",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion:
+      "Is now a good time to buy property on Koh Phangan, and what do the market numbers show?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

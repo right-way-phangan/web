@@ -14,8 +14,8 @@ Status: ⏳ queued · ✅ published.
 
 | Topic | faqCategory | Priority | Status |
 |---|---|---|---|
-| Nominee-ownership crackdown spreads to Krabi (villa raids) — what it means for island buyers | structures | 🔴 | ⏳ |
-| "Now is the time to buy" (Colliers take on market resilience) — what's true for Phangan | costs | 🟡 | ⏳ |
+| Nominee-ownership crackdown spreads to Krabi (villa raids) — what it means for island buyers | structures | 🔴 | ✅ |
+| "Now is the time to buy" (Colliers take on market resilience) — what's true for Phangan | costs | 🟡 | ✅ |
 
 ## B. Evergreen long-tail (daily backbone)
 
