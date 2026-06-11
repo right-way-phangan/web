@@ -32,7 +32,13 @@ export async function updateLeadContactAction(
   return { ok: true };
 }
 
-export type CreateLeadResult = { ok: boolean; leadId?: number; error?: string };
+export type CreateLeadResult = {
+  ok: boolean;
+  leadId?: number;
+  error?: string;
+  /** Set when an existing lead matches the phone/email — the form asks to confirm. */
+  duplicate?: { id: number; contactName: string | null; stage: string | null };
+};
 
 const SOURCE_LABEL: Record<string, string> = {
   "walk-in": "Walk-in (офис)",
@@ -84,6 +90,38 @@ export async function createManualLeadAction(formData: FormData): Promise<Create
   const timeframe = s("timeframe"); // ''|now|1-3m|3-6m|browsing
   const rwNumber = s("rwNumber");
   const freeNote = s("note");
+
+  // Duplicate guard: ad/walk-in contacts often come back twice. Best-effort —
+  // a failed check never blocks creation. "force" (confirm button) skips it.
+  if (!formData.get("force") && (phone || email)) {
+    try {
+      const r = await backendFetch("/leads", { cache: "no-store" });
+      if (r.ok) {
+        const all = (await r.json()) as {
+          id: number;
+          contactName?: string | null;
+          email?: string | null;
+          phone?: string | null;
+          stage?: string | null;
+        }[];
+        const digits = (v: string) => v.replace(/\D/g, "");
+        const pd = digits(phone).slice(-9); // last 9 digits — survives +66 vs 0 prefixes
+        const dup = all.find((l) => {
+          if (email && l.email && l.email.toLowerCase() === email.toLowerCase()) return true;
+          if (pd.length >= 7 && l.phone) return digits(l.phone).slice(-9) === pd;
+          return false;
+        });
+        if (dup) {
+          return {
+            ok: false,
+            duplicate: { id: dup.id, contactName: dup.contactName ?? null, stage: dup.stage ?? null },
+          };
+        }
+      }
+    } catch (err) {
+      console.error("[crm] duplicate check failed:", err);
+    }
+  }
 
   // Pipeline: interest type wins; else the explicit select; else land.
   const pipeline = interestType

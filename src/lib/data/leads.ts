@@ -83,10 +83,19 @@ export interface CrmTask {
   createdAt: string;
 }
 
+export interface CrmEvent {
+  id: number;
+  type: string; // created | stage
+  fromStage: string | null;
+  toStage: string | null;
+  createdAt: string;
+}
+
 export interface CrmLeadDetail extends CrmLead {
   updatedAt: string;
   notes: CrmNote[];
   tasks: CrmTask[];
+  events?: CrmEvent[];
   stages: CrmStage[];
 }
 
