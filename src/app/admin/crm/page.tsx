@@ -36,6 +36,7 @@ export default async function CrmPage({
 
   const query = (q ?? "").trim().toLowerCase();
   const QUICK = [
+    { key: "shift", label: "🎯 Моя смена" },
     { key: "hot", label: "🔥 Горячие" },
     { key: "stale", label: "💤 Остывающие" },
     { key: "notasks", label: "📋 Без задач" },
@@ -51,6 +52,19 @@ export default async function CrmPage({
     if (key === "hot") return (l.tags ?? []).includes("hot");
     if (key === "stale") return open && daysSince(l) >= 3;
     if (key === "notasks") return open && (l.openTasks ?? 0) === 0;
+    // "Моя смена" — что требует действия сейчас: просрочка, горячие,
+    // новые за сегодня, остывшие.
+    if (key === "shift") {
+      if (!open) return false;
+      const newToday =
+        Math.floor((Date.now() - new Date(l.createdAt).getTime()) / 86_400_000) === 0;
+      return (
+        (l.overdueTasks ?? 0) > 0 ||
+        (l.tags ?? []).includes("hot") ||
+        newToday ||
+        daysSince(l) >= 3
+      );
+    }
     return true;
   };
   const matchesQuery = (l: Lead): boolean => {
@@ -96,6 +110,12 @@ export default async function CrmPage({
           >
             ⤓ CSV
           </a>
+          <Link
+            href={{ pathname: "/admin/crm/import" }}
+            className="rounded-full border border-forest-900/15 px-3 py-2 text-sm font-medium text-forest-900/70 hover:bg-forest-900/5"
+          >
+            ⤒ Импорт
+          </Link>
           <Link
             href={{ pathname: "/admin/crm/new" }}
             className="rounded-full bg-forest-900 px-4 py-2 text-sm font-medium text-white hover:bg-forest-900/90"
