@@ -7,6 +7,8 @@ import { SignJWT, jwtVerify } from "jose";
  * back to shared Basic Auth (current prod behavior).
  */
 export const SESSION_COOKIE = "rw_session";
+/** Session lifetime — long, so the installed CRM PWA doesn't re-ask login. */
+export const SESSION_DAYS = 90;
 const SECRET = process.env.AUTH_SECRET;
 export const AUTH_ENABLED = Boolean(SECRET);
 const key = SECRET ? new TextEncoder().encode(SECRET) : null;
@@ -23,7 +25,7 @@ export async function signSession(user: SessionUser): Promise<string> {
   return new SignJWT({ ...user })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    .setExpirationTime("7d")
+    .setExpirationTime(`${SESSION_DAYS}d`)
     .sign(key);
 }
 
