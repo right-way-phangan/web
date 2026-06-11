@@ -37,6 +37,18 @@ export function sanitizePublicObject(o: RealEstateObject): RealEstateObject {
   return pub;
 }
 
+/**
+ * Drop the full photo gallery for list/map views — cards render coverImage
+ * only, and serializing every object's gallery into the /listings RSC payload
+ * is what pushed the page over 500 KB. Detail pages resolve their own object
+ * (getObjectByRwNumber) and keep the gallery.
+ */
+export function slimObjectForList(o: RealEstateObject): RealEstateObject {
+  const { gallery, ...slim } = o;
+  void gallery;
+  return slim;
+}
+
 async function apiObjects(path: string): Promise<RealEstateObject[]> {
   const res = await backendFetch(path, { next: { revalidate: CATALOG_REVALIDATE_SECONDS } });
   if (!res.ok) throw new Error(`objects API ${path} → ${res.status}`);
