@@ -28,10 +28,12 @@ export const siteConfig = {
 
   contact: {
     telegram: {
-      bot: process.env.NEXT_PUBLIC_TELEGRAM_BOT ?? "rightwayphangan_bot",
-      channel: process.env.NEXT_PUBLIC_TELEGRAM_CHANNEL ?? "rightwayphangan",
+      // `||` (not `??`): empty-string env values must also fall back to the
+      // real default, otherwise prod renders bare `t.me/` / `wa.me/` links.
+      bot: process.env.NEXT_PUBLIC_TELEGRAM_BOT || "rightwayphangan_bot",
+      channel: process.env.NEXT_PUBLIC_TELEGRAM_CHANNEL || "rightwayphangan",
     },
-    whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_E164 ?? "66800044960",
+    whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_E164 || "66843627784",
     email: "hello@rightwaygroup.co",
   },
 } as const;
