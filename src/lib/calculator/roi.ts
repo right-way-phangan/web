@@ -30,7 +30,16 @@ export interface RoiInputs {
   tenure: Tenure;
   leaseTermYears: number; // total lease length (leasehold only), e.g. 30
   leaseRenewable: boolean; // renewable lease (e.g. 30+30+30) — no decay
+  // Leasehold payment structure. Prepaid (default): the purchase price covers
+  // the whole lease up front. Monthly: the price covers the building only and
+  // the land rent is paid through the hold, indexed annually — the post-pivot
+  // "land lease + villa" product.
+  leaseMonthly: boolean;
+  leaseMonthlyThb: number; // land rent, THB/month at year-1 level
+  leaseIndexationPct: number; // annual escalation of the land rent
   // Rent mode
+  longTermRent: boolean; // monthly long-term let instead of nightly STR
+  monthlyRentThb: number; // long-term: rent per month
   nightlyRateThb: number;
   occupancyPct: number;
   mgmtFeePct: number; // % of gross rent
@@ -69,6 +78,7 @@ export interface RoiResult {
   saleCosts: number;
   capitalGainsTax: number; // tax on the gain at exit (0 when no CGT input)
   holdingCostsTotal: number;
+  leasePaymentsTotal: number; // periodic land rent paid over the hold (leasehold monthly)
   rentNetTotal: number;
   netProceeds: number; // sale value − sale costs
   totalReturn: number; // net proceeds + net rent − holding
@@ -119,6 +129,11 @@ export const DEFAULT_INPUTS: RoiInputs = {
   tenure: "freehold",
   leaseTermYears: 30, // standard Thai lease term
   leaseRenewable: false,
+  leaseMonthly: false,
+  leaseMonthlyThb: 20_000, // illustrative villa-plot land rent
+  leaseIndexationPct: 3, // ≈ the common "10% every 3 years" step, annualised
+  longTermRent: false,
+  monthlyRentThb: 60_000, // mid villa long-term, Phangan
   nightlyRateThb: 8000, // mid villa, Phangan
   occupancyPct: 50, // seasonal island — blended annual
   mgmtFeePct: 25, // full STR management
@@ -268,7 +283,11 @@ export function monteCarlo(
       patch.occupancyPct = triSample(bands.occupancy.lo, bands.occupancy.base, bands.occupancy.hi);
     }
     if (isRent && bands.nightly) {
-      patch.nightlyRateThb = triSample(bands.nightly.lo, bands.nightly.base, bands.nightly.hi);
+      // The rate band varies whichever rate drives the gross — nightly for STR,
+      // monthly for a long-term let (the caller builds it from the right base).
+      const sampled = triSample(bands.nightly.lo, bands.nightly.base, bands.nightly.hi);
+      if (input.longTermRent) patch.monthlyRentThb = sampled;
+      else patch.nightlyRateThb = sampled;
     }
     const r = computeRoi({ ...input, ...patch });
     if (!isFinite(r.roiPct)) continue;
@@ -435,8 +454,10 @@ export function computeRoi(input: RoiInputs): RoiResult {
     { year: 0, propertyValue: price, bankValue: initialInvestment, rentNet: 0, profit: -0 },
   ];
 
-  // Annual gross rent at a given base nightly rate — flat or split by season.
-  const seasonGross = (rate: number): number => {
+  // Annual gross rent at a given base rate — monthly for a long-term let;
+  // nightly (flat or split by season) for STR. Occupancy applies to both.
+  const annualGross = (rate: number): number => {
+    if (input.longTermRent) return rate * 12 * ((input.occupancyPct || 0) / 100);
     if (!input.seasonality) return rate * ((input.occupancyPct || 0) / 100) * 365;
     const highDays = Math.min(365, Math.max(0, (input.highSeasonMonths || 0) / 12) * 365);
     const lowDays = 365 - highDays;
@@ -447,10 +468,20 @@ export function computeRoi(input: RoiInputs): RoiResult {
     );
   };
 
+  // Periodic land rent (leasehold, monthly structure) — an indexed annuity paid
+  // through the hold; the purchase price then covers the building only.
+  const periodicLease = input.tenure === "leasehold" && input.leaseMonthly;
+  const leasePayAt = (y: number): number =>
+    periodicLease
+      ? Math.max(0, input.leaseMonthlyThb || 0) * 12 * Math.pow(1 + (input.leaseIndexationPct || 0) / 100, y - 1)
+      : 0;
+
   let grossValue = price; // underlying value before any lease decay
-  let currentRate = input.nightlyRateThb || 0;
+  const baseRate = input.longTermRent ? input.monthlyRentThb || 0 : input.nightlyRateThb || 0;
+  let currentRate = baseRate;
   let rentNetTotal = 0;
   let holdingCostsTotal = 0;
+  let leasePaymentsTotal = 0;
   let firstYearNoi = 0;
   const cashflows = [-initialInvestment];
 
@@ -461,10 +492,12 @@ export function computeRoi(input: RoiInputs): RoiResult {
     if (y > 1) currentRate *= 1 + (input.rentGrowthPct || 0) / 100;
     const holding = price * ((input.annualHoldingPct || 0) / 100);
     holdingCostsTotal += holding;
+    const leasePay = leasePayAt(y);
+    leasePaymentsTotal += leasePay;
 
     let rentNet = 0;
     if (isRent) {
-      const rentGross = seasonGross(currentRate);
+      const rentGross = annualGross(currentRate);
       const mgmt = rentGross * ((input.mgmtFeePct || 0) / 100);
       const opex = price * ((input.opexPct || 0) / 100);
       const preTax = rentGross - mgmt - opex;
@@ -473,14 +506,15 @@ export function computeRoi(input: RoiInputs): RoiResult {
       rentNet = preTax - tax;
       rentNetTotal += rentNet;
     }
-    if (y === 1) firstYearNoi = rentNet - holding;
+    // Ground rent is an operating cost, so it belongs in NOI alongside holding.
+    if (y === 1) firstYearNoi = rentNet - holding - leasePay;
 
-    let cash = rentNet - holding;
+    let cash = rentNet - holding - leasePay;
     const saleAtY = sellableValue - sellableValue * ((input.saleCostsPct || 0) / 100);
     if (y === years) cash += saleAtY;
     cashflows.push(cash);
 
-    const cumProfit = saleAtY + rentNetTotal - holdingCostsTotal - initialInvestment;
+    const cumProfit = saleAtY + rentNetTotal - holdingCostsTotal - leasePaymentsTotal - initialInvestment;
     series.push({
       year: y,
       propertyValue: sellableValue,
@@ -496,7 +530,7 @@ export function computeRoi(input: RoiInputs): RoiResult {
   // Capital-gains tax on the realised gain at exit (no credit on a loss).
   const capitalGainsTax = Math.max(0, projectedValue - price) * ((input.capitalGainsTaxPct || 0) / 100);
   const netProceeds = projectedValue - saleCosts;
-  const totalReturn = netProceeds + rentNetTotal - holdingCostsTotal - capitalGainsTax;
+  const totalReturn = netProceeds + rentNetTotal - holdingCostsTotal - leasePaymentsTotal - capitalGainsTax;
   // Fold the exit tax into the final cashflow + series so IRR, payback and the
   // chart's last point all agree with the headline figure.
   if (capitalGainsTax > 0) {
@@ -524,11 +558,11 @@ export function computeRoi(input: RoiInputs): RoiResult {
   const realProjectedValue = projectedValue / Math.pow(1 + infl, years);
   const realCagrPct = ((1 + cagrPct / 100) / (1 + infl) - 1) * 100;
 
-  const year1Gross = isRent ? seasonGross(input.nightlyRateThb || 0) : 0;
+  const year1Gross = isRent ? annualGross(baseRate) : 0;
   const grossYieldPct = isRent && initialInvestment > 0 ? (year1Gross / initialInvestment) * 100 : 0;
   const avgCashYieldPct =
     isRent && initialInvestment > 0
-      ? ((rentNetTotal - holdingCostsTotal) / years / initialInvestment) * 100
+      ? ((rentNetTotal - holdingCostsTotal - leasePaymentsTotal) / years / initialInvestment) * 100
       : 0;
   // Cap rate = year-1 net operating income / purchase price (financing-agnostic).
   const capRatePct = isRent && price > 0 ? (firstYearNoi / price) * 100 : 0;
@@ -550,6 +584,7 @@ export function computeRoi(input: RoiInputs): RoiResult {
     saleCosts,
     capitalGainsTax,
     holdingCostsTotal,
+    leasePaymentsTotal,
     rentNetTotal,
     netProceeds,
     totalReturn,
@@ -599,20 +634,29 @@ function computeOffplan(input: RoiInputs): RoiResult {
 
   const exitMonth = Math.max(months, Math.round(years * 12));
   const cf = new Array(exitMonth + 1).fill(0);
+  // Outflows tracked separately — inside cf they can be netted against inflows
+  // landing in the same month (rent, sale proceeds), which would hide them from
+  // the bank/alt benchmarks and the series' invested-capital line.
+  const out = new Array(exitMonth + 1).fill(0);
+  const payOut = (m: number, amount: number) => {
+    cf[m] -= amount;
+    out[m] += amount;
+  };
 
   // Payment schedule (outflows)
-  cf[0] -= price * down;
+  payOut(0, price * down);
   const perInstall = months > 0 ? (price * middle) / months : 0;
-  for (let m = 1; m <= months; m++) cf[m] -= perInstall;
-  cf[months] -= price * hand + price * closing; // balance + transfer fees at handover
+  for (let m = 1; m <= months; m++) payOut(m, perInstall);
+  payOut(months, price * hand + price * closing); // balance + transfer fees at handover
 
   // Optional buy-to-let: the unit earns net rent from handover to exit.
   const isLet = !!input.rentAfterHandover;
   const furnishing = isLet ? Math.max(0, input.furnishingThb || 0) : 0;
-  if (furnishing) cf[months] -= furnishing; // FF&E paid at handover
+  if (furnishing) payOut(months, furnishing); // FF&E paid at handover
   const totalInvested = price * (down + middle + hand) + price * closing + furnishing;
 
-  const seasonGross = (rate: number): number => {
+  const annualGross = (rate: number): number => {
+    if (input.longTermRent) return rate * 12 * ((input.occupancyPct || 0) / 100);
     if (!input.seasonality) return rate * ((input.occupancyPct || 0) / 100) * 365;
     const highDays = Math.min(365, Math.max(0, (input.highSeasonMonths || 0) / 12) * 365);
     const lowDays = 365 - highDays;
@@ -623,26 +667,45 @@ function computeOffplan(input: RoiInputs): RoiResult {
     );
   };
 
+  // Periodic land rent (leasehold, monthly structure) — runs from contract
+  // signing (the lease term starts then, not at handover), indexed annually,
+  // charged at each year-end into the monthly series. Prorated final year.
+  const periodicLease = input.tenure === "leasehold" && input.leaseMonthly;
+  const leaseByYear = new Array(Math.ceil(years) + 1).fill(0);
+  let leasePaymentsTotal = 0;
+  if (periodicLease) {
+    for (let y = 1; y <= Math.ceil(years); y++) {
+      const frac = Math.min(1, years - (y - 1));
+      if (frac <= 0) break;
+      const pay =
+        Math.max(0, input.leaseMonthlyThb || 0) * 12 * Math.pow(1 + (input.leaseIndexationPct || 0) / 100, y - 1) * frac;
+      leaseByYear[y] = pay;
+      leasePaymentsTotal += pay;
+      payOut(Math.min(exitMonth, Math.round(y * 12)), pay);
+    }
+  }
+
   // Net rent earned during each calendar year (prorated for the partial year the
   // lease starts in). Credited at year-end into the monthly cashflow series.
   // years can be fractional (a short horizon clamped up to handover), so size by ceil.
   const rentByYear = new Array(Math.ceil(years) + 1).fill(0);
   let firstYearNoi = 0;
   if (isLet) {
-    let rate = input.nightlyRateThb || 0;
+    let rate = input.longTermRent ? input.monthlyRentThb || 0 : input.nightlyRateThb || 0;
     let started = false;
     for (let y = 1; y <= years; y++) {
       const occ = Math.max(0, y - Math.max(y - 1, handoverYear)); // operating fraction of year y
       if (occ <= 0) continue;
       if (started) rate *= 1 + (input.rentGrowthPct || 0) / 100;
       started = true;
-      const gross = seasonGross(rate) * occ;
+      const gross = annualGross(rate) * occ;
       const mgmt = gross * ((input.mgmtFeePct || 0) / 100);
       const opex = price * ((input.opexPct || 0) / 100) * occ;
       const preTax = gross - mgmt - opex;
       const tax = preTax > 0 ? preTax * ((input.rentTaxPct || 0) / 100) : 0;
       rentByYear[y] = preTax - tax;
-      if (!firstYearNoi) firstYearNoi = rentByYear[y] / occ; // annualised first-year NOI
+      // Annualised first-year NOI, net of that year's ground rent (also annualised).
+      if (!firstYearNoi) firstYearNoi = rentByYear[y] / occ - leaseByYear[y] / Math.min(1, years - (y - 1));
       const m = Math.min(exitMonth, Math.round(y * 12));
       cf[m] += rentByYear[y];
     }
@@ -660,7 +723,7 @@ function computeOffplan(input: RoiInputs): RoiResult {
   const netProceeds = sellableExit - saleCosts;
   cf[exitMonth] += netProceeds - capitalGainsTax;
 
-  const totalReturn = netProceeds + rentNetTotal - capitalGainsTax;
+  const totalReturn = netProceeds + rentNetTotal - leasePaymentsTotal - capitalGainsTax;
   const netProfit = totalReturn - totalInvested;
   const roiPct = totalInvested > 0 ? (netProfit / totalInvested) * 100 : 0;
   const cagrPct =
@@ -676,19 +739,21 @@ function computeOffplan(input: RoiInputs): RoiResult {
   const capRatePct = isLet && price > 0 ? (firstYearNoi / price) * 100 : 0;
   const cashOnCashPct = isLet && totalInvested > 0 ? (firstYearNoi / totalInvested) * 100 : 0;
   const grossYieldPct =
-    isLet && totalInvested > 0 ? (seasonGross(input.nightlyRateThb || 0) / totalInvested) * 100 : 0;
+    isLet && totalInvested > 0
+      ? (annualGross(input.longTermRent ? input.monthlyRentThb || 0 : input.nightlyRateThb || 0) / totalInvested) * 100
+      : 0;
 
   // Bank benchmark: the same instalments parked at the deposit rate until exit.
   const bankM = Math.pow(1 + bank, 1 / 12) - 1;
   let bankFinal = 0;
-  for (let m = 0; m <= exitMonth; m++) if (cf[m] < 0) bankFinal += -cf[m] * Math.pow(1 + bankM, exitMonth - m);
+  for (let m = 0; m <= exitMonth; m++) if (out[m] > 0) bankFinal += out[m] * Math.pow(1 + bankM, exitMonth - m);
   const bankProfit = bankFinal - totalInvested;
   const vsBankThb = totalReturn - bankFinal;
 
   // Alternative-investment benchmark: same instalments compounded at altReturnPct.
   const altM = Math.pow(1 + (input.altReturnPct || 0) / 100, 1 / 12) - 1;
   let altFinal = 0;
-  for (let m = 0; m <= exitMonth; m++) if (cf[m] < 0) altFinal += -cf[m] * Math.pow(1 + altM, exitMonth - m);
+  for (let m = 0; m <= exitMonth; m++) if (out[m] > 0) altFinal += out[m] * Math.pow(1 + altM, exitMonth - m);
   const vsAltThb = totalReturn - altFinal;
 
   // Annual series — value ramps to handover, then appreciates; bank line = the
@@ -706,9 +771,9 @@ function computeOffplan(input: RoiInputs): RoiResult {
     let invested = 0;
     let banked = 0;
     for (let m = 0; m <= Math.min(mY, exitMonth); m++) {
-      if (cf[m] < 0) {
-        invested += -cf[m];
-        banked += -cf[m] * Math.pow(1 + bankM, mY - m);
+      if (out[m] > 0) {
+        invested += out[m];
+        banked += out[m] * Math.pow(1 + bankM, mY - m);
       }
     }
     series.push({
@@ -735,6 +800,7 @@ function computeOffplan(input: RoiInputs): RoiResult {
     saleCosts,
     capitalGainsTax,
     holdingCostsTotal: 0,
+    leasePaymentsTotal,
     rentNetTotal,
     netProceeds,
     totalReturn,

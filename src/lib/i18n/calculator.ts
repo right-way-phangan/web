@@ -36,6 +36,11 @@ export interface CalcDict {
   // Leasehold
   leaseTerm: string;
   leaseDecayNote: string;
+  leasePayPrepaid: string;
+  leasePayMonthly: string;
+  leaseMonthlyRate: string;
+  leaseIndexation: string;
+  leaseMonthlyNote: string;
   // Off-plan
   constructionPlan: string;
   constructionPeriod: string;
@@ -46,6 +51,10 @@ export interface CalcDict {
   // Rent
   rentalAssumptions: string;
   highLowSeason: string;
+  rentShortTerm: string;
+  rentLongTerm: string;
+  monthlyRent: string;
+  ltOccupancyHint: string;
   nightlyRate: string;
   highSeasonLength: string;
   highSeasonOccupancy: string;
@@ -234,6 +243,7 @@ export interface CalcDict {
   driverGrowth: string;
   driverOccupancy: string;
   driverNightly: string;
+  driverMonthlyRent: string;
   driverMgmt: string;
   driverExit: string;
   driverHorizon: string;
@@ -244,6 +254,7 @@ export interface CalcDict {
   wfSale: string;
   wfRent: string;
   wfHolding: string;
+  wfLease: string;
   wfCgt: string;
   wfProfit: string;
   // Reality check (L1)
@@ -299,6 +310,12 @@ const EN: CalcDict = {
   leaseTerm: "Total lease term (years)",
   leaseDecayNote:
     "A leasehold's resale value falls as the term runs down — we discount the projection by the remaining years of the lease.",
+  leasePayPrepaid: "Lease prepaid",
+  leasePayMonthly: "Monthly land rent",
+  leaseMonthlyRate: "Land rent (per month)",
+  leaseIndexation: "Land rent indexation (%/yr)",
+  leaseMonthlyNote:
+    "The price above covers the building only; the land is rented monthly with annual indexation. Land rent is counted as an operating cost through the hold.",
   constructionPlan: "Construction & payment plan",
   constructionPeriod: "Construction period (months)",
   downPaymentNow: "Down payment now (%)",
@@ -308,6 +325,10 @@ const EN: CalcDict = {
     `${installmentPct}% paid in instalments during construction. Price growth above applies after handover. “Years” is the total horizon from contract.`,
   rentalAssumptions: "Rental assumptions",
   highLowSeason: "High/low season",
+  rentShortTerm: "Nightly (Airbnb)",
+  rentLongTerm: "Long-term (monthly)",
+  monthlyRent: "Monthly rent",
+  ltOccupancyHint: "Share of the year the unit is actually let — vacancy between tenants.",
   nightlyRate: "Nightly rate",
   highSeasonLength: "High season length (months)",
   highSeasonOccupancy: "High season occupancy (%)",
@@ -477,6 +498,7 @@ const EN: CalcDict = {
   driverGrowth: "Price growth",
   driverOccupancy: "Occupancy",
   driverNightly: "Nightly rate",
+  driverMonthlyRent: "Monthly rent",
   driverMgmt: "Mgmt fee",
   driverExit: "Exit costs",
   driverHorizon: "Holding period",
@@ -486,6 +508,7 @@ const EN: CalcDict = {
   wfSale: "Net sale",
   wfRent: "Net rent",
   wfHolding: "Holding",
+  wfLease: "Land rent",
   wfCgt: "Sale tax",
   wfProfit: "Net profit",
   realityTitle: "Reality check",
@@ -535,6 +558,12 @@ const RU: CalcDict = {
   leaseTerm: "Срок аренды, всего (лет)",
   leaseDecayNote:
     "Стоимость перепродажи лизхолда падает по мере истечения срока — мы дисконтируем прогноз на остаток срока аренды.",
+  leasePayPrepaid: "Лизхолд выкуплен",
+  leasePayMonthly: "Помесячная плата за землю",
+  leaseMonthlyRate: "Плата за землю (в месяц)",
+  leaseIndexation: "Индексация платы (%/год)",
+  leaseMonthlyNote:
+    "Цена выше — только за строение; земля арендуется помесячно с ежегодной индексацией. Плата за землю учитывается как операционный расход на всём горизонте.",
   constructionPlan: "Стройка и план оплаты",
   constructionPeriod: "Срок строительства (мес)",
   downPaymentNow: "Первый взнос сейчас (%)",
@@ -544,6 +573,10 @@ const RU: CalcDict = {
     `${installmentPct}% выплачивается частями во время строительства. Рост цены выше применяется после сдачи. «Лет» — общий горизонт от договора.`,
   rentalAssumptions: "Параметры аренды",
   highLowSeason: "Высокий/низкий сезон",
+  rentShortTerm: "Посуточно (Airbnb)",
+  rentLongTerm: "Долгосрочно (помесячно)",
+  monthlyRent: "Ставка в месяц",
+  ltOccupancyHint: "Доля года, когда объект реально сдан — простой между арендаторами.",
   nightlyRate: "Ставка за ночь",
   highSeasonLength: "Длина высокого сезона (мес)",
   highSeasonOccupancy: "Загрузка в высокий сезон (%)",
@@ -713,6 +746,7 @@ const RU: CalcDict = {
   driverGrowth: "Рост цены",
   driverOccupancy: "Загрузка",
   driverNightly: "Ставка за ночь",
+  driverMonthlyRent: "Ставка в месяц",
   driverMgmt: "Комиссия упр.",
   driverExit: "Затраты выхода",
   driverHorizon: "Срок владения",
@@ -722,6 +756,7 @@ const RU: CalcDict = {
   wfSale: "Чистая продажа",
   wfRent: "Чистая аренда",
   wfHolding: "Содержание",
+  wfLease: "Аренда земли",
   wfCgt: "Налог с продажи",
   wfProfit: "Чистая прибыль",
   realityTitle: "Проверка реалистичности",
