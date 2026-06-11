@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getPublicObjects } from "@/lib/data/objects";
+import { getPublicObjects, slimObjectForList } from "@/lib/data/objects";
 import { isProjectUnit } from "@/lib/data/projects";
 import { ListingsFilterBar } from "@/components/objects/listings-filter-bar";
 import { ListingsEmpty } from "@/components/objects/listings-empty";
@@ -36,9 +36,11 @@ export default async function RussianListingsPage({ searchParams }: PageProps) {
 
   // Проекты застройщиков (off-plan, RW-P) и их юниты (RW-P####-N) живут в
   // отдельном разделе /projects — в общую сетку объектов их не включаем.
-  const all = (await getPublicObjects()).filter(
-    (o) => o.type !== "Project" && !isProjectUnit(o.rwNumber),
-  );
+  // Slim once at the source so sorted/filtered share the same instances —
+  // mapping per-prop would break reference sharing and double the RSC payload.
+  const all = (await getPublicObjects())
+    .filter((o) => o.type !== "Project" && !isProjectUnit(o.rwNumber))
+    .map(slimObjectForList);
   const options = deriveFilterOptions(all);
   const filtered = all.filter(makeFilterPredicate(filter));
   const sorted = applySort(filtered, filter.sort);
