@@ -48,6 +48,7 @@ function mapSubStatus(v: string): SubStatus {
 
 function mapKind(v: string): LedgerEntry["kind"] {
   const s = v.trim().toLowerCase();
+  if (s.includes("доход") || s.includes("приход") || s.includes("income")) return "income";
   if (s.includes("утечк") || s.includes("leak")) return "leak";
   if (s.includes("сделк") || s.includes("deal")) return "deal";
   if (s.includes("one") || s.includes("разов")) return "one-time";

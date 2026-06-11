@@ -76,7 +76,7 @@ export type LedgerEntry = {
   currency: Currency;
   thb: number | null;
   account: string;
-  kind: "OpEx" | "leak" | "deal" | "one-time";
+  kind: "OpEx" | "leak" | "deal" | "one-time" | "income";
   receipt: boolean;
 };
 
@@ -170,7 +170,33 @@ export function stage1MonthlyForecast(subs: Subscription[] = subscriptions): num
 
 /** Сумма понесённых платежей в ledger (pre-incorporation, к возмещению основателю). */
 export function ledgerTotalTHB(led: LedgerEntry[] = ledger): number {
-  return led.filter((e) => e.kind !== "leak").reduce((s, e) => s + (e.thb ?? 0), 0);
+  return led
+    .filter((e) => e.kind !== "leak" && e.kind !== "income")
+    .reduce((s, e) => s + (e.thb ?? 0), 0);
+}
+
+/** Сумма доходов в ledger. */
+export function ledgerIncomeTHB(led: LedgerEntry[] = ledger): number {
+  return led.filter((e) => e.kind === "income").reduce((s, e) => s + (e.thb ?? 0), 0);
+}
+
+export type MonthPoint = { month: string; spent: number; income: number };
+
+/**
+ * Динамика по месяцам из ledger: траты (всё, что не доход — реальный отток,
+ * включая утечку) и доходы. Записи без даты/суммы не попадают.
+ */
+export function ledgerMonthlySeries(led: LedgerEntry[] = ledger): MonthPoint[] {
+  const map = new Map<string, MonthPoint>();
+  for (const e of led) {
+    if (!e.date || e.thb == null) continue;
+    const m = e.date.slice(0, 7);
+    const p = map.get(m) ?? { month: m, spent: 0, income: 0 };
+    if (e.kind === "income") p.income += e.thb;
+    else p.spent += e.thb;
+    map.set(m, p);
+  }
+  return [...map.values()].sort((a, b) => a.month.localeCompare(b.month));
 }
 
 /** Формат THB: "7 811 ฿". */
