@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { backendFetch } from "@/lib/api/backend";
-import { signSession, SESSION_COOKIE } from "@/lib/auth/session";
+import { signSession, SESSION_COOKIE, SESSION_DAYS } from "@/lib/auth/session";
 
 export type LoginState = { error?: string };
 
@@ -37,7 +37,7 @@ export async function loginAction(
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     path: "/",
-    maxAge: 60 * 60 * 24 * 7,
+    maxAge: 60 * 60 * 24 * SESSION_DAYS,
   });
   redirect("/admin/crm");
 }
