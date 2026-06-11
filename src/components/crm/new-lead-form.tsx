@@ -28,16 +28,19 @@ const TIMEFRAMES = [
 export function NewLeadForm() {
   const [pending, start] = useTransition();
   const [error, setError] = useState<string | null>(null);
+  const [dup, setDup] = useState<{ id: number; contactName: string | null; stage: string | null } | null>(null);
   const [source, setSource] = useState<string>("walk-in");
   const [interestType, setInterestType] = useState<string>("");
   const router = useRouter();
 
   function submit(formData: FormData) {
     setError(null);
+    setDup(null);
     start(async () => {
       const res = await createManualLeadAction(formData);
       if (res.ok && res.leadId) router.push(`/admin/crm/${res.leadId}`);
       else if (res.ok) router.push("/admin/crm");
+      else if (res.duplicate) setDup(res.duplicate);
       else setError(res.error ?? "Не удалось создать лид.");
     });
   }
@@ -181,6 +184,22 @@ export function NewLeadForm() {
         <p className="rounded-md bg-red-500/10 px-3 py-2 text-xs text-red-700">{error}</p>
       )}
 
+      {dup && (
+        <div className="rounded-md bg-amber-500/10 px-3 py-2 text-xs text-amber-800">
+          ⚠️ Похоже, такой контакт уже есть:{" "}
+          <a
+            href={`/admin/crm/${dup.id}`}
+            target="_blank"
+            rel="noreferrer"
+            className="font-semibold underline"
+          >
+            лид #{dup.id} {dup.contactName || ""}
+          </a>
+          {dup.stage ? ` (стадия ${dup.stage})` : ""}. Откройте его и добавьте заметку — или
+          нажмите «Создать всё равно», если это действительно новый запрос.
+        </div>
+      )}
+
       <div className="flex items-center gap-2">
         <button
           type="submit"
@@ -189,6 +208,17 @@ export function NewLeadForm() {
         >
           {pending ? "Создаю…" : "Создать лид"}
         </button>
+        {dup && (
+          <button
+            type="submit"
+            name="force"
+            value="1"
+            disabled={pending}
+            className="rounded-full border border-amber-500/50 px-4 py-2 text-sm font-medium text-amber-700 hover:bg-amber-500/10 disabled:opacity-50"
+          >
+            Создать всё равно
+          </button>
+        )}
         <span className="text-xs text-forest-900/45">Попадёт в стадию Incoming.</span>
       </div>
     </form>

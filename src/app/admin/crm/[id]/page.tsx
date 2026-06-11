@@ -79,6 +79,15 @@ export default async function LeadDetailPage({
     ? (await getAllObjects()).find((o) => o.rwNumber === lead.rwNumber) ?? null
     : null;
 
+  // How long the lead sits on the current stage: since the last stage event
+  // (events come desc), else since creation.
+  const events = lead.events ?? [];
+  const stageSinceIso = events[0]?.createdAt ?? lead.createdAt;
+  const daysOnStage = Math.max(
+    0,
+    Math.floor((Date.now() - new Date(stageSinceIso).getTime()) / 86_400_000),
+  );
+
   return (
     <section className="container-prose py-8">
       <Link
@@ -158,6 +167,7 @@ export default async function LeadDetailPage({
           </dd>
         </div>
         <Meta label="Создан" value={fmt(lead.createdAt)} />
+        <Meta label="На стадии" value={daysOnStage === 0 ? "сегодня" : `${daysOnStage} дн`} />
       </dl>
 
       {(lead.tags ?? []).length > 0 && (
@@ -267,6 +277,33 @@ export default async function LeadDetailPage({
           Добавить
         </button>
       </form>
+
+      {/* Stage timeline */}
+      {events.length > 0 && (
+        <>
+          <h2 className="mt-8 text-sm font-semibold uppercase tracking-wide text-forest-900/70">
+            История стадий
+          </h2>
+          <ul className="mt-2 space-y-1">
+            {events.map((e) => (
+              <li key={e.id} className="flex items-baseline gap-2 text-sm">
+                <span className="shrink-0 text-[11px] tabular-nums text-forest-900/40">
+                  {fmt(e.createdAt)}
+                </span>
+                {e.type === "created" ? (
+                  <span className="text-forest-900/70">
+                    Лид создан{e.toStage ? <> → <b className="font-medium">{e.toStage}</b></> : null}
+                  </span>
+                ) : (
+                  <span className="text-forest-900/70">
+                    {e.fromStage ?? "—"} → <b className="font-medium text-forest-900">{e.toStage}</b>
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
 
       {/* Notes / history */}
       <h2 className="mt-8 text-sm font-semibold uppercase tracking-wide text-forest-900/70">
