@@ -122,7 +122,7 @@ export default async function LeadDetailPage({
 
       {/* Quick close */}
       <div className="mt-3 max-w-sm">
-        <LeadWonLost leadId={lead.id} status={lead.status} />
+        <LeadWonLost leadId={lead.id} status={lead.status} contactName={lead.contactName} />
       </div>
 
       {/* Inline contact editor + delete */}
@@ -168,6 +168,9 @@ export default async function LeadDetailPage({
         </div>
         <Meta label="Создан" value={fmt(lead.createdAt)} />
         <Meta label="На стадии" value={daysOnStage === 0 ? "сегодня" : `${daysOnStage} дн`} />
+        {lead.status === "lost" && lead.lostReason && (
+          <Meta label="Причина потери" value={lead.lostReason} />
+        )}
       </dl>
 
       {(lead.tags ?? []).length > 0 && (
