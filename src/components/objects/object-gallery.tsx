@@ -293,8 +293,9 @@ export function ObjectGallery({ rwNumber, type, gallery }: Props) {
               {t.galleryCaption(rwNumber, index + 1, photos.length)}
             </Dialog.Title>
 
-            {/* Top bar */}
-            <div className="flex items-center justify-between px-4 py-4 text-cream-50 md:px-8">
+            {/* Top bar. On short viewports (landscape phones) it overlays the
+                photo as a gradient instead of taking a row of its own. */}
+            <div className="flex items-center justify-between px-4 py-4 text-cream-50 md:px-8 [@media(max-height:500px)]:absolute [@media(max-height:500px)]:inset-x-0 [@media(max-height:500px)]:top-0 [@media(max-height:500px)]:z-10 [@media(max-height:500px)]:bg-gradient-to-b [@media(max-height:500px)]:from-forest-900/70 [@media(max-height:500px)]:to-transparent [@media(max-height:500px)]:py-2">
               <span className="text-sm tabular-nums text-cream-50/80">
                 {index + 1} / {photos.length}
               </span>
@@ -306,7 +307,7 @@ export function ObjectGallery({ rwNumber, type, gallery }: Props) {
 
             {/* Stage */}
             <div
-              className="relative flex flex-1 items-center justify-center overflow-hidden px-4 pb-4 md:px-16"
+              className="relative flex flex-1 items-center justify-center overflow-hidden px-2 pb-2 sm:px-4 sm:pb-4 md:px-16 [@media(max-height:500px)]:p-0"
               onTouchStart={onStageTouchStart}
               onTouchEnd={onStageTouchEnd}
             >
@@ -370,7 +371,7 @@ export function ObjectGallery({ rwNumber, type, gallery }: Props) {
             {photos.length > 1 ? (
               <div
                 ref={stripRef}
-                className="no-scrollbar flex gap-2 overflow-x-auto px-4 pb-4 pt-1 md:justify-center md:px-8"
+                className="no-scrollbar flex gap-2 overflow-x-auto px-4 pb-4 pt-1 md:justify-center md:px-8 [@media(max-height:500px)]:hidden"
               >
                 {photos.map((url, i) => (
                   <button
