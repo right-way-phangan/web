@@ -286,16 +286,16 @@ export function ObjectGallery({ rwNumber, type, gallery }: Props) {
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 z-50 bg-forest-900/90 backdrop-blur-sm motion-safe:animate-[lbFade_200ms_ease-out]" />
           <Dialog.Content
-            className="fixed inset-0 z-50 flex flex-col focus:outline-none"
+            className="fixed inset-0 z-50 focus:outline-none"
             aria-describedby={undefined}
           >
             <Dialog.Title className="sr-only">
               {t.galleryCaption(rwNumber, index + 1, photos.length)}
             </Dialog.Title>
 
-            {/* Top bar. On short viewports (landscape phones) it overlays the
-                photo as a gradient instead of taking a row of its own. */}
-            <div className="flex items-center justify-between px-4 py-4 text-cream-50 md:px-8 [@media(max-height:500px)]:absolute [@media(max-height:500px)]:inset-x-0 [@media(max-height:500px)]:top-0 [@media(max-height:500px)]:z-10 [@media(max-height:500px)]:bg-gradient-to-b [@media(max-height:500px)]:from-forest-900/70 [@media(max-height:500px)]:to-transparent [@media(max-height:500px)]:py-2">
+            {/* Top bar — overlays the photo as a gradient so the stage gets
+                the full viewport in every orientation. */}
+            <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between bg-gradient-to-b from-forest-900/70 to-transparent px-4 py-3 text-cream-50 md:px-8">
               <span className="text-sm tabular-nums text-cream-50/80">
                 {index + 1} / {photos.length}
               </span>
@@ -307,7 +307,7 @@ export function ObjectGallery({ rwNumber, type, gallery }: Props) {
 
             {/* Stage */}
             <div
-              className="relative flex flex-1 items-center justify-center overflow-hidden px-2 pb-2 sm:px-4 sm:pb-4 md:px-16 [@media(max-height:500px)]:p-0"
+              className="absolute inset-0 flex items-center justify-center overflow-hidden"
               onTouchStart={onStageTouchStart}
               onTouchEnd={onStageTouchEnd}
             >
@@ -371,7 +371,7 @@ export function ObjectGallery({ rwNumber, type, gallery }: Props) {
             {photos.length > 1 ? (
               <div
                 ref={stripRef}
-                className="no-scrollbar flex gap-2 overflow-x-auto px-4 pb-4 pt-1 md:justify-center md:px-8 [@media(max-height:500px)]:hidden"
+                className="no-scrollbar absolute inset-x-0 bottom-0 z-10 flex gap-2 overflow-x-auto bg-gradient-to-t from-forest-900/70 to-transparent px-4 pb-3 pt-8 md:justify-center md:px-8 [@media(max-height:500px)]:hidden"
               >
                 {photos.map((url, i) => (
                   <button
