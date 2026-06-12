@@ -167,8 +167,17 @@ export default async function AdminHomePage() {
   const openValued = leads.filter((l) => isOpenLead(l) && (l.dealValue ?? 0) > 0);
   const pipelineValue = openValued.reduce((s, l) => s + (l.dealValue ?? 0), 0);
   const pipelineCommission = openValued.reduce((s, l) => s + commissionOf(l.dealValue ?? 0), 0);
-  const wonValued = leads.filter((l) => l.stageKey && wonKeys.has(l.stageKey) && (l.dealValue ?? 0) > 0);
-  const wonCommission = wonValued.reduce((s, l) => s + commissionOf(l.dealValue ?? 0), 0);
+  const wonValued = leads.filter(
+    (l) =>
+      l.stageKey &&
+      wonKeys.has(l.stageKey) &&
+      ((l.dealValue ?? 0) > 0 || (l.commissionValue ?? 0) > 0),
+  );
+  // Выигранная комиссия: факт (commissionValue) важнее расчёта по формуле.
+  const wonCommission = wonValued.reduce(
+    (s, l) => s + (l.commissionValue ?? commissionOf(l.dealValue ?? 0)),
+    0,
+  );
   const valueByStage = new Map<string, number>();
   for (const l of openValued) {
     const k = l.stage ?? "—";

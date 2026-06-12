@@ -34,6 +34,8 @@ export interface CrmLead {
   lostReason?: string | null;
   /** Expected deal size, THB — pipeline money. */
   dealValue?: number | null;
+  /** Actual commission earned, THB (won deals; co-agency/referral splits make it ≠ formula). */
+  commissionValue?: number | null;
   /** Concatenated notes (truncated) — board search looks into them. */
   notesText?: string;
 }
