@@ -33,7 +33,7 @@ export async function GET(): Promise<Response> {
   lines.push(
     `> ${siteConfig.name} is a specialised real estate agency on Koh Phangan, Thailand. ` +
       `We help foreign and local buyers purchase and sell land, villas, and houses, with a ` +
-      `transparent, systemised process and AI-assisted search. Languages: English and Russian.`,
+      `transparent, systemised process; every listing personally vetted (title, zoning, real numbers). Languages: English and Russian.`,
   );
   lines.push("");
   lines.push(
