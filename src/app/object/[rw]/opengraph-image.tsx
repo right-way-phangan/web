@@ -1,5 +1,6 @@
 import { getObjectByRwNumber } from "@/lib/data/objects";
 import { renderOg, OG_SIZE, OG_CONTENT_TYPE } from "@/lib/seo/og";
+import { getSiteUrl } from "@/lib/site-url";
 
 // Edge runtime requires fetch-only data sources. amoCRM client uses fetch — works.
 export const runtime = "edge";
@@ -42,10 +43,19 @@ export default async function Image({ params }: Props) {
   if (o.documentType) features.push(o.documentType);
   if (o.tenure?.[0]) features.push(o.tenure[0]);
 
+  // Run the cover through the image optimizer (resized jpeg) before satori:
+  // feeding the raw multi-MB drone shot balloons the PNG past what WhatsApp
+  // will preview. Satori decodes jpeg/png only, so skip exotic source formats.
+  const coverOk = /\.(jpe?g|png)(\?|$)/i.test(o.coverImage ?? "");
+  const photo =
+    o.coverImage && coverOk
+      ? `${getSiteUrl()}/_next/image?url=${encodeURIComponent(o.coverImage)}&w=1200&q=55`
+      : undefined;
+
   return renderOg({
     eyebrow: eyebrowParts.join(" · "),
     title: o.titleEn,
     features,
-    photo: o.coverImage,
+    photo,
   });
 }
