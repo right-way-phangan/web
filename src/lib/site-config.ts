@@ -7,7 +7,7 @@ export const siteConfig = {
   name: "Right Way Phangan",
   tagline: "Specialised real estate on Koh Phangan",
   description:
-    "Land, villas, and houses on Koh Phangan. Curated listings, transparent process, AI-assisted search.",
+    "Land, villas, and houses on Koh Phangan. Personally vetted listings, transparent process, honest numbers.",
 
   // Primary nav (visible on Header + Footer)
   nav: [

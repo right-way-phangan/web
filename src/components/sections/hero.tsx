@@ -37,9 +37,9 @@ export function Hero() {
         </h1>
 
         <p className="mt-8 max-w-xl text-lg leading-relaxed text-cream-100/85 md:text-xl">
-          A specialised agency for international buyers. Verified listings,
-          transparent process, AI-assisted search across every district on the
-          island.
+          Every property we list, we&apos;ve personally vetted — title, zoning,
+          the real numbers. No 600-listing feeds, no fantasy 30% returns. One
+          island, done properly.
         </p>
 
         <div className="mt-12 flex flex-col gap-3 sm:flex-row sm:gap-4">

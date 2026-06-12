@@ -37,7 +37,7 @@ const en: HomeDict = {
   hero: {
     eyebrow: "Koh Phangan · Thailand",
     titleHtml: "Land, villas, and homes — <em>curated</em> on Phangan.",
-    lede: "A specialised agency for international buyers. Verified listings, transparent process, AI-assisted search across every district on the island.",
+    lede: "Every property we list, we've personally vetted — title, zoning, the real numbers. No 600-listing feeds, no fantasy 30% returns. One island, done properly.",
     ctaBrowse: "Browse listings",
     ctaProcess: "How we work",
   },
@@ -55,8 +55,8 @@ const en: HomeDict = {
         text: "Verified ownership, real prices, clear closing steps. Foreign-buyer friendly: Chanote checks, lease structuring, lawyer introductions.",
       },
       {
-        title: "AI-assisted search",
-        text: "Tell us what you want — sunset view, walking distance to beach, 2-rai plot — and we narrow the island down to the ten worth seeing.",
+        title: "Honest numbers",
+        text: "Real yields, real price history, drawbacks included. Our market reports and calculator show figures we'd trust with our own money — no fantasy returns.",
       },
     ],
   },
@@ -79,7 +79,7 @@ const ru: HomeDict = {
   hero: {
     eyebrow: "Ко Панган · Таиланд",
     titleHtml: "Земля, виллы и дома — <em>с отбором</em> на Пангане.",
-    lede: "Профильное агентство для иностранных покупателей. Проверенные объекты, прозрачный процесс и поиск по всему острову с помощью ИИ.",
+    lede: "Каждый объект в каталоге мы проверили лично — документ, зона, реальные цифры. Без витрин на 600 чужих листингов и сказок про 30% годовых. Один остров — сделанный правильно.",
     ctaBrowse: "Смотреть объекты",
     ctaProcess: "Как мы работаем",
   },
@@ -97,8 +97,8 @@ const ru: HomeDict = {
         text: "Проверенное право собственности, реальные цены, понятные шаги сделки. Удобно для иностранцев: проверка чанота, оформление аренды, контакты юристов.",
       },
       {
-        title: "Поиск с помощью ИИ",
-        text: "Скажите, что нужно — вид на закат, пешком до пляжа, участок на 2 рая — и мы сузим остров до десяти объектов, которые стоит посмотреть.",
+        title: "Честные цифры",
+        text: "Реальная доходность, реальная история цен, недостатки — тоже. В отчётах и калькуляторе те цифры, которым мы доверили бы собственные деньги, — без сказочных процентов.",
       },
     ],
   },

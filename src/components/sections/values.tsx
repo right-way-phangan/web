@@ -13,8 +13,8 @@ const VALUES = [
   },
   {
     icon: Sparkles,
-    title: "AI-assisted search",
-    text: "Tell us what you want — sunset view, walking distance to beach, 2-rai plot — and we narrow the island down to the ten worth seeing.",
+    title: "Honest numbers",
+    text: "Real yields, real price history, drawbacks included. Our market reports and calculator show figures we'd trust with our own money — no fantasy returns.",
   },
 ] as const;
 
