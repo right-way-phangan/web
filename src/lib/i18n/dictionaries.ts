@@ -862,6 +862,24 @@ export interface ObjectDict {
   openInMaps: string;
   openInGoogleMaps: string;
   location: string;
+  // interactive map controls (cadastre / zoning / geolocation)
+  map: {
+    baseMap: string;
+    baseSatellite: string;
+    parcels: string;
+    zoning: string;
+    locate: string;
+    locateStop: string;
+    locateError: string;
+    parcelZoomHint: string;
+    legendTitle: string;
+    legendRural: string;
+    legendConservation: string;
+    legendRecreation: string;
+    legendResidential: string;
+    legendOther: string;
+    overlayNote: string;
+  };
   perRaiMonth: string;
   priceOnRequest: string;
   aboutProperty: string;
@@ -950,6 +968,23 @@ const objectDict: Record<Locale, ObjectDict> = {
     openInMaps: "Open in Maps",
     openInGoogleMaps: "Open in Google Maps",
     location: "Location",
+    map: {
+      baseMap: "Map",
+      baseSatellite: "Satellite",
+      parcels: "Plot boundaries",
+      zoning: "Zoning",
+      locate: "Show my location",
+      locateStop: "Hide my location",
+      locateError: "Location unavailable — allow access in your browser settings.",
+      parcelZoomHint: "Zoom in to see plot boundaries",
+      legendTitle: "City-plan zoning (DPT)",
+      legendRural: "Rural & agricultural",
+      legendConservation: "Conservation rural",
+      legendRecreation: "Recreation / open space",
+      legendResidential: "Low-density residential",
+      legendOther: "Other / unclassified",
+      overlayNote: "Cadastral data: Department of Lands via Longdo Map. Indicative — verify at the Land Office.",
+    },
     perRaiMonth: "/ rai / month",
     priceOnRequest: "Price on request",
     aboutProperty: "About this property",
@@ -1037,6 +1072,23 @@ const objectDict: Record<Locale, ObjectDict> = {
     openInMaps: "Открыть в картах",
     openInGoogleMaps: "Открыть в Google Maps",
     location: "Расположение",
+    map: {
+      baseMap: "Карта",
+      baseSatellite: "Спутник",
+      parcels: "Границы участков",
+      zoning: "Зоны застройки",
+      locate: "Показать моё местоположение",
+      locateStop: "Скрыть моё местоположение",
+      locateError: "Геолокация недоступна — разрешите доступ в настройках браузера.",
+      parcelZoomHint: "Приблизьте карту, чтобы увидеть границы участков",
+      legendTitle: "Зонирование (ผังเมือง, DPT)",
+      legendRural: "Сельхоз / деревенская",
+      legendConservation: "Заповедная сельхоз",
+      legendRecreation: "Рекреация / открытые пространства",
+      legendResidential: "Жилая малой плотности",
+      legendOther: "Прочее / без категории",
+      overlayNote: "Кадастровые данные: Департамент земель через Longdo Map. Ориентировочно — проверяйте в Land Office.",
+    },
     perRaiMonth: "/ рай / мес",
     priceOnRequest: "Цена по запросу",
     aboutProperty: "Об объекте",
