@@ -103,6 +103,20 @@ export default async function CrmPage({
           </p>
         </div>
         <div className="flex shrink-0 items-center gap-2">
+          <Link
+            href={{ pathname: "/admin/crm/tasks" }}
+            className="rounded-full border border-forest-900/15 px-3 py-2 text-sm font-medium text-forest-900/70 hover:bg-forest-900/5"
+          >
+            ☑ Задачи
+            {(() => {
+              const overdue = leads.reduce((n, l) => n + (l.overdueTasks ?? 0), 0);
+              return overdue > 0 ? (
+                <span className="ml-1.5 rounded-full bg-red-100 px-1.5 py-0.5 text-xs font-semibold text-red-700">
+                  {overdue}
+                </span>
+              ) : null;
+            })()}
+          </Link>
           {/* eslint-disable-next-line @next/next/no-html-link-for-pages -- route handler returns a file download, not a page nav */}
           <a
             href="/admin/crm/export"

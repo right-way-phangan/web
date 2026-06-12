@@ -90,6 +90,27 @@ export interface CrmTask {
   createdAt: string;
 }
 
+/** A task joined with its lead/contact — the cross-CRM tasks page (GET /tasks). */
+export interface CrmTaskItem extends CrmTask {
+  leadId: number;
+  leadName: string | null;
+  leadStatus?: string | null;
+  contactName?: string | null;
+  phone?: string | null;
+}
+
+/** Open (or done=true) tasks across all leads, due-date ascending, NULLs last. */
+export async function getTasks(done = false): Promise<CrmTaskItem[]> {
+  if (!API) return [];
+  try {
+    const r = await backendFetch(`/tasks${done ? "?done=1" : ""}`, { cache: "no-store" });
+    return r.ok ? ((await r.json()) as CrmTaskItem[]) : [];
+  } catch (err) {
+    console.error("[crm] getTasks failed:", err);
+    return [];
+  }
+}
+
 export interface CrmEvent {
   id: number;
   type: string; // created | stage
