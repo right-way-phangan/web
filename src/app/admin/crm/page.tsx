@@ -36,7 +36,7 @@ export default async function CrmPage({
 
   const query = (q ?? "").trim().toLowerCase();
   const QUICK = [
-    { key: "shift", label: "🎯 Моя смена" },
+    { key: "shift", label: "🎯 Мой движ" },
     { key: "hot", label: "🔥 Горячие" },
     { key: "stale", label: "💤 Остывающие" },
     { key: "notasks", label: "📋 Без задач" },
@@ -103,6 +103,12 @@ export default async function CrmPage({
           </p>
         </div>
         <div className="flex shrink-0 items-center gap-2">
+          <Link
+            href={{ pathname: "/admin/crm/contacts" }}
+            className="rounded-full border border-forest-900/15 px-3 py-2 text-sm font-medium text-forest-900/70 hover:bg-forest-900/5"
+          >
+            👥 Контакты
+          </Link>
           <Link
             href={{ pathname: "/admin/crm/tasks" }}
             className="rounded-full border border-forest-900/15 px-3 py-2 text-sm font-medium text-forest-900/70 hover:bg-forest-900/5"

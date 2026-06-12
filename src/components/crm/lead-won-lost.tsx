@@ -35,7 +35,7 @@ export function LeadWonLost({
         onClick={() => close("won")}
         className="flex-1 rounded-md bg-emerald-500/15 px-3 py-1.5 text-sm font-medium text-emerald-700 hover:bg-emerald-500/25 disabled:opacity-40"
       >
-        🏆 Выиграно
+        🏆 Победа
       </button>
       <button
         type="button"
