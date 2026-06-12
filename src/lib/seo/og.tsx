@@ -1,6 +1,10 @@
 import { ImageResponse } from "next/og";
 
 export const OG_SIZE = { width: 1200, height: 630 } as const;
+// Photo cards render on a smaller canvas: PNG weight scales with pixel count,
+// and WhatsApp won't preview og:images much past ~600KB. 800×420 keeps the
+// 1.9:1 ratio and stays comfortably above every platform's large-card minimum.
+export const OG_PHOTO_SIZE = { width: 800, height: 420 } as const;
 export const OG_CONTENT_TYPE = "image/png";
 
 // Palette tokens duplicated here because ImageResponse evaluates outside the
@@ -36,7 +40,7 @@ function renderOgPhoto({ eyebrow, title, features, photo }: RenderArgs) {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          padding: "56px 72px",
+          padding: "36px 48px",
           position: "relative",
           fontFamily: "system-ui, -apple-system, sans-serif",
           backgroundColor: COLORS.forest,
@@ -46,8 +50,8 @@ function renderOgPhoto({ eyebrow, title, features, photo }: RenderArgs) {
         <img
           src={photo}
           alt=""
-          width={1200}
-          height={630}
+          width={OG_PHOTO_SIZE.width}
+          height={OG_PHOTO_SIZE.height}
           style={{
             position: "absolute",
             inset: 0,
@@ -66,15 +70,15 @@ function renderOgPhoto({ eyebrow, title, features, photo }: RenderArgs) {
         />
 
         {/* Brand */}
-        <div style={{ display: "flex", alignItems: "baseline", gap: 14, zIndex: 1 }}>
-          <span style={{ fontSize: 34, fontWeight: 600, letterSpacing: -0.5, color: COLORS.cream }}>
+        <div style={{ display: "flex", alignItems: "baseline", gap: 10, zIndex: 1 }}>
+          <span style={{ fontSize: 24, fontWeight: 600, letterSpacing: -0.5, color: COLORS.cream }}>
             Right Way
           </span>
           <span
             style={{
-              fontSize: 13,
+              fontSize: 10,
               fontWeight: 500,
-              letterSpacing: 4,
+              letterSpacing: 3,
               textTransform: "uppercase",
               color: "rgba(250,247,242,0.65)",
             }}
@@ -87,38 +91,38 @@ function renderOgPhoto({ eyebrow, title, features, photo }: RenderArgs) {
         <div style={{ display: "flex", flexDirection: "column", zIndex: 1 }}>
           <span
             style={{
-              fontSize: 17,
+              fontSize: 12,
               fontWeight: 600,
-              letterSpacing: 4,
+              letterSpacing: 3,
               textTransform: "uppercase",
               color: "#DDA86A",
-              marginBottom: 16,
+              marginBottom: 10,
             }}
           >
             {eyebrow}
           </span>
           <span
             style={{
-              fontSize: 58,
+              fontSize: 38,
               fontWeight: 600,
               lineHeight: 1.08,
               letterSpacing: -0.5,
-              maxWidth: 1020,
+              maxWidth: 680,
               color: COLORS.cream,
             }}
           >
             {title}
           </span>
-          <div style={{ display: "flex", gap: 12, marginTop: 28 }}>
+          <div style={{ display: "flex", gap: 8, marginTop: 18 }}>
             {(features ?? []).slice(0, 4).map((f) => (
               <span
                 key={f}
                 style={{
                   display: "flex",
-                  padding: "8px 16px",
+                  padding: "5px 11px",
                   borderRadius: 4,
                   border: "1px solid rgba(250,247,242,0.45)",
-                  fontSize: 18,
+                  fontSize: 13,
                   color: COLORS.cream,
                   background: "rgba(14,31,24,0.35)",
                 }}
@@ -130,7 +134,7 @@ function renderOgPhoto({ eyebrow, title, features, photo }: RenderArgs) {
         </div>
       </div>
     ),
-    OG_SIZE,
+    OG_PHOTO_SIZE,
   );
 }
 

@@ -1,10 +1,12 @@
 import { getObjectByRwNumber } from "@/lib/data/objects";
-import { renderOg, OG_SIZE, OG_CONTENT_TYPE } from "@/lib/seo/og";
+import { renderOg, OG_PHOTO_SIZE, OG_CONTENT_TYPE } from "@/lib/seo/og";
 import { getSiteUrl } from "@/lib/site-url";
 
 // Edge runtime requires fetch-only data sources. amoCRM client uses fetch — works.
 export const runtime = "edge";
-export const size = OG_SIZE;
+// Photo card size: nearly every listing has a cover, so the hint matches the
+// dominant case (the rare no-photo fallback renders at 1200×630 — harmless).
+export const size = OG_PHOTO_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 export const alt = "Right Way Phangan property listing";
 
@@ -47,9 +49,10 @@ export default async function Image({ params }: Props) {
   // feeding the raw multi-MB drone shot balloons the PNG past what WhatsApp
   // will preview. Satori decodes jpeg/png only, so skip exotic source formats.
   const coverOk = /\.(jpe?g|png)(\?|$)/i.test(o.coverImage ?? "");
+  // w must be one of next/image's configured deviceSizes (828 ≈ our canvas).
   const photo =
     o.coverImage && coverOk
-      ? `${getSiteUrl()}/_next/image?url=${encodeURIComponent(o.coverImage)}&w=1200&q=55`
+      ? `${getSiteUrl()}/_next/image?url=${encodeURIComponent(o.coverImage)}&w=828&q=55`
       : undefined;
 
   return renderOg({
