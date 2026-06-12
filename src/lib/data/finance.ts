@@ -204,13 +204,26 @@ export function fmtTHB(n: number): string {
   return new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 0 }).format(Math.round(n)) + " ฿";
 }
 
-export type DisplayCurrency = "THB" | "USD";
+export type DisplayCurrency = "THB" | "USD" | "RUB";
 
-/** Формат суммы (в THB на входе) в выбранной валюте отображения. */
-export function fmtMoney(thb: number, currency: DisplayCurrency = "THB"): string {
+/**
+ * Формат суммы (в THB на входе) в выбранной валюте отображения.
+ * fx — курсы пересчёта: по умолчанию учётные FX; страница передаёт live-курс
+ * для RUB (заработок в ฿, переводы домой в ₽ — важен рыночный курс «сейчас»).
+ * USD остаётся учётным, чтобы $-цены подписок сходились round-trip ($200 = $200).
+ */
+export function fmtMoney(
+  thb: number,
+  currency: DisplayCurrency = "THB",
+  fx: Record<Currency, number> = FX,
+): string {
   if (currency === "USD") {
-    const usd = thb / FX.USD;
+    const usd = thb / fx.USD;
     return "$" + new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 0 }).format(Math.round(usd));
+  }
+  if (currency === "RUB") {
+    const rub = thb / fx.RUB;
+    return new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 0 }).format(Math.round(rub)) + " ₽";
   }
   return fmtTHB(thb);
 }
@@ -231,6 +244,7 @@ export function financeSummary(
     opexMonthly: Math.round(opex),
     opexYearly: Math.round(opex * 12),
     opexMonthlyUSD: Math.round(opex / FX.USD),
+    opexMonthlyRUB: Math.round(opex / FX.RUB),
     leakMonthly: Math.round(leakMonthly(subs)),
     dealsNet: Math.round(dealsNet(dls)),
     monthlyBalance: Math.round(monthlyBalance(subs, dls)),
