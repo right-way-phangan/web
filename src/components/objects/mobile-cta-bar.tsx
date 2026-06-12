@@ -37,7 +37,7 @@ export function MobileCtaBar({ rwNumber, priceLabel }: Props) {
   return (
     <div
       className={cn(
-        "fixed inset-x-0 bottom-0 z-30 border-t border-forest-500/10 bg-cream-50/95 px-4 pt-2.5 backdrop-blur-sm transition-transform duration-300 lg:hidden",
+        "fixed inset-x-0 bottom-0 z-30 border-t border-forest-500/10 bg-cream-50/95 px-4 pt-2.5 backdrop-blur-sm transition-transform duration-300 lg:hidden print:hidden",
         "pb-[max(0.625rem,env(safe-area-inset-bottom))]",
         formInView && "translate-y-full",
       )}

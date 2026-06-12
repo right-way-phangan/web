@@ -910,6 +910,7 @@ export interface ObjectDict {
   // share / save
   share: string;
   copied: string;
+  brochure: string;
   shareAria: string;
   saveAria: string;
   removeAria: string;
@@ -1024,6 +1025,7 @@ const objectDict: Record<Locale, ObjectDict> = {
     inquiryDefaultMessage: (rw) => `Hi — I'd like more information about ${rw}.`,
     share: "Share",
     copied: "Copied",
+    brochure: "Brochure (PDF)",
     shareAria: "Share this listing",
     saveAria: "Save to shortlist",
     removeAria: "Remove from saved",
@@ -1137,6 +1139,7 @@ const objectDict: Record<Locale, ObjectDict> = {
     inquiryDefaultMessage: (rw) => `Здравствуйте — хочу узнать подробнее об объекте ${rw}.`,
     share: "Поделиться",
     copied: "Скопировано",
+    brochure: "Брошюра (PDF)",
     shareAria: "Поделиться объектом",
     saveAria: "В избранное",
     removeAria: "Убрать из избранного",

@@ -7,7 +7,8 @@ import { DISTRICTS } from "@/content/districts";
 import { getObjectByRwNumber, getAnyObjectByRwNumber, getPublicObjects } from "@/lib/data/objects";
 import { UnavailableObject } from "@/components/objects/unavailable-object";
 import { isProjectUnit, parentProjectRw, projectSlug, getPublicProjects } from "@/lib/data/projects";
-import { formatPriceTHB, formatPricePerRai } from "@/lib/utils/price";
+import { formatPriceTHB, formatPricePerRai, formatApproxUSD } from "@/lib/utils/price";
+import { getUsdPerThb } from "@/lib/data/fx";
 import { RoiCalculator } from "@/components/calculator/roi-calculator";
 import { Breadcrumbs } from "@/components/objects/breadcrumbs";
 import { BuyingCosts } from "@/components/objects/buying-costs";
@@ -24,6 +25,8 @@ import { TrackView } from "@/components/objects/track-view";
 import { PriceContextBadge } from "@/components/objects/price-context-badge";
 import { SaveButton } from "@/components/objects/save-button";
 import { ShareButton } from "@/components/objects/share-button";
+import { BrochureButton } from "@/components/objects/brochure-button";
+import { PrintBrochure } from "@/components/objects/print-brochure";
 import { ObjectJsonLd } from "@/components/objects/object-json-ld";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { getSiteUrl } from "@/lib/site-url";
@@ -69,6 +72,7 @@ export default async function RussianObjectPage({ params }: Props) {
   }
 
   const catalog = await getPublicObjects();
+  const usdPerThb = await getUsdPerThb();
   const siteUrl = getSiteUrl();
   const pageUrl = `${siteUrl}/ru/object/${object.rwNumber}`;
   const t = getObjectDict("ru");
@@ -116,12 +120,15 @@ export default async function RussianObjectPage({ params }: Props) {
           current={object.rwNumber}
         />
 
-        <ObjectGallery
-          rwNumber={object.rwNumber}
-          type={object.type}
-          gallery={object.gallery}
-          title={object.titleEn}
-        />
+        <div className="print:hidden">
+          <ObjectGallery
+            rwNumber={object.rwNumber}
+            type={object.type}
+            gallery={object.gallery}
+            title={object.titleEn}
+          />
+        </div>
+        <PrintBrochure object={object} />
 
         <header className="mt-8 md:mt-12">
           <div className="flex items-start justify-between gap-4">
@@ -137,7 +144,8 @@ export default async function RussianObjectPage({ params }: Props) {
                 {t.verifiedBadge}
               </Link>
             </div>
-            <div className="flex shrink-0 items-center gap-2">
+            <div className="flex shrink-0 items-center gap-2 print:hidden">
+              <BrochureButton rw={object.rwNumber} />
               <ShareButton rw={object.rwNumber} title={object.titleEn} />
               <SaveButton rw={object.rwNumber} variant="inline" />
             </div>
@@ -149,6 +157,9 @@ export default async function RussianObjectPage({ params }: Props) {
               <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
                 <span className="num text-3xl text-forest-900 md:text-4xl">
                   {formatPriceTHB(object.priceThb)}
+                </span>
+                <span className="num text-sm text-forest-500/60">
+                  {formatApproxUSD(object.priceThb, usdPerThb)}
                 </span>
                 {object.type === "Land" && object.pricePerRai ? (
                   <span className="text-sm text-forest-500/70">
@@ -257,7 +268,7 @@ export default async function RussianObjectPage({ params }: Props) {
         </div>
 
         {object.priceThb ? (
-          <section className="mt-16 border-t border-forest-500/10 pt-12 md:mt-20 md:pt-16">
+          <section className="mt-16 border-t border-forest-500/10 pt-12 md:mt-20 md:pt-16 print:hidden">
             <h2 className="font-serif text-3xl text-forest-900">{t.investmentOutlook}</h2>
             <p className="mt-3 max-w-2xl text-base text-forest-500/70">{t.investmentOutlookLede}</p>
             <div className="mt-8">

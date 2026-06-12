@@ -86,3 +86,19 @@
     display: none;
   }
 }
+
+/* Брошюра объекта: window.print() поверх print-оптимизированной страницы.
+   Хром скрыт точечно через print:hidden в компонентах; здесь — базовая
+   гигиена печати (белый фон, видимые reveal-блоки, без хвостов ссылок). */
+@media print {
+  body {
+    background: #fff;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  a {
+    text-decoration: none;
+  }
+}

@@ -31,3 +31,15 @@ export function formatPriceCompact(thb: number): string {
 export function formatPricePerRai(thbPerRai: number): string {
   return `${formatPriceCompact(thbPerRai)} / rai`;
 }
+
+/**
+ * "≈ $445,000" — dollar hint next to the THB headline price. Rounded to
+ * 3 significant figures: the FX rate moves daily, false precision would
+ * just look wrong tomorrow.
+ */
+export function formatApproxUSD(thb: number, usdPerThb: number): string {
+  const usd = thb * usdPerThb;
+  const magnitude = 10 ** Math.max(Math.floor(Math.log10(usd)) - 2, 0);
+  const rounded = Math.round(usd / magnitude) * magnitude;
+  return `≈ $${rounded.toLocaleString("en-US")}`;
+}

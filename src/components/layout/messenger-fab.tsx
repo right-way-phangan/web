@@ -22,7 +22,7 @@ export function MessengerFab() {
   if (pathname.startsWith("/admin") || pathname.includes("/object/")) return null;
 
   return (
-    <div className="fixed bottom-4 right-4 z-30 flex flex-col items-end gap-2 lg:hidden">
+    <div className="fixed bottom-4 right-4 z-30 flex flex-col items-end gap-2 lg:hidden print:hidden">
       {open ? (
         <>
           <a

@@ -59,7 +59,7 @@ export function RelatedListings({
   const heading = current.district ? t.moreInNearby(current.district) : t.moreToExplore;
 
   return (
-    <section className="mt-16 border-t border-forest-500/10 pt-12 md:mt-20 md:pt-16">
+    <section className="mt-16 border-t border-forest-500/10 pt-12 md:mt-20 md:pt-16 print:hidden">
       <h2 className="font-serif text-3xl text-forest-900">{heading}</h2>
       <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {related.map((o) => (

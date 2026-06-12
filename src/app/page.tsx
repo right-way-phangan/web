@@ -7,7 +7,11 @@ import { IslandCta } from "@/components/sections/island-cta";
 import { Reveal } from "@/components/sections/reveal";
 
 export const metadata: Metadata = {
-  alternates: { canonical: "/", languages: { en: "/", ru: "/ru" } },
+  alternates: {
+    canonical: "/",
+    languages: { en: "/", ru: "/ru" },
+    types: { "application/rss+xml": "/feed.xml" },
+  },
 };
 
 export const revalidate = 300;

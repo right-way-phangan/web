@@ -74,7 +74,7 @@ export function Header() {
   return (
     <header
       className={cn(
-        "top-0 z-40 w-full border-b transition-colors duration-300",
+        "top-0 z-40 w-full border-b transition-colors duration-300 print:hidden",
         isHome ? "fixed" : "sticky",
         overlay
           ? "border-transparent bg-transparent"

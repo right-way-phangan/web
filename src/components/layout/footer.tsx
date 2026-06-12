@@ -30,7 +30,7 @@ export function Footer() {
 
   return (
     <footer
-      className={`border-t border-forest-500/10 bg-cream-200/40 ${
+      className={`border-t border-forest-500/10 bg-cream-200/40 print:hidden ${
         isHome ? "" : "mt-32"
       }`}
     >

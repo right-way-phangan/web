@@ -37,7 +37,10 @@ export const metadata: Metadata = {
     template: `%s · ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    types: { "application/rss+xml": "/feed.xml" },
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -73,6 +76,19 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${sans.variable} ${serif.variable}`}>
       <body className="flex min-h-screen flex-col">
+        {/* Every photo lives on Vercel Blob — warming the connection early
+            shaves the TLS handshake off the LCP image. rel=preconnect is a
+            body-ok link element, no <head> access needed. */}
+        <link
+          rel="preconnect"
+          href="https://qcv6wpmi0tztxmyg.public.blob.vercel-storage.com"
+        />
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-sm focus:bg-forest-900 focus:px-4 focus:py-2 focus:text-sm focus:text-cream-50"
+        >
+          Skip to content
+        </a>
         <GtmNoScript />
         {/*
           Kill-switch: this site uses no service worker. If a device carries a
@@ -91,7 +107,7 @@ export default function RootLayout({
         <OrganizationJsonLd siteUrl={siteUrl} />
         <SavedProvider>
           <Header />
-          <main className="flex-1">{children}</main>
+          <main id="main-content" className="flex-1">{children}</main>
           <Footer />
           <MessengerFab />
         </SavedProvider>

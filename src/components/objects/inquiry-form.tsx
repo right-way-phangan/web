@@ -23,7 +23,7 @@ export function InquiryForm({ rwNumber }: Props) {
   return (
     <aside
       id="inquiry"
-      className="scroll-mt-24 rounded-sm border border-forest-500/10 bg-cream-50 p-6 md:sticky md:top-24"
+      className="scroll-mt-24 rounded-sm border border-forest-500/10 bg-cream-50 p-6 md:sticky md:top-24 print:hidden"
     >
       <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
         {t.enquireOrBook}

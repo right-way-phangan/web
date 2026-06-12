@@ -37,7 +37,7 @@ export function RecentlyViewed({
   if (items.length === 0) return null;
 
   return (
-    <section className="mt-16 border-t border-forest-500/10 pt-12 md:mt-20 md:pt-16">
+    <section className="mt-16 border-t border-forest-500/10 pt-12 md:mt-20 md:pt-16 print:hidden">
       <h2 className="font-serif text-3xl text-forest-900">{heading}</h2>
       <div className="-mx-6 mt-8 flex snap-x gap-5 overflow-x-auto px-6 pb-2 md:-mx-8 md:px-8">
         {items.map((o) => (

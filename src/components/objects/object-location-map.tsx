@@ -37,7 +37,7 @@ export function ObjectLocationMap({
   if (lat == null || lng == null) return null;
 
   return (
-    <section>
+    <section className="print:hidden">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
         <h2 className="font-serif text-3xl text-forest-900">{t.location}</h2>
         {mapsUrl ? (
