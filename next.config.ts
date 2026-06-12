@@ -8,6 +8,9 @@ const nextConfig: NextConfig = {
   // Keeping StrictMode off lets react-leaflet manage one clean mount/unmount.
   reactStrictMode: false,
   images: {
+    // AVIF first (≈25% lighter than WebP at same quality) — island connections
+    // feel every photo byte; browsers without AVIF fall through to WebP.
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [
       { protocol: "https", hostname: "drive.google.com" },
       { protocol: "https", hostname: "lh3.googleusercontent.com" },

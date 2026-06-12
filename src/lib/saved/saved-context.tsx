@@ -14,6 +14,8 @@ interface SavedContextValue {
   saved: string[]; // RW numbers, newest first
   isSaved: (rw: string) => boolean;
   toggle: (rw: string) => void;
+  /** Merge a list in (shared-shortlist import) — keeps existing order, no dups. */
+  addMany: (rws: string[]) => void;
   remove: (rw: string) => void;
   clear: () => void;
   /** false until localStorage has been read — lets UI avoid a saved-state flash. */
@@ -74,11 +76,18 @@ export function SavedProvider({ children }: { children: React.ReactNode }) {
       setSaved((s) => (s.includes(rw) ? s.filter((x) => x !== rw) : [rw, ...s])),
     [],
   );
+  const addMany = useCallback(
+    (rws: string[]) =>
+      setSaved((s) => [...s, ...rws.filter((rw) => !s.includes(rw))]),
+    [],
+  );
   const remove = useCallback((rw: string) => setSaved((s) => s.filter((x) => x !== rw)), []);
   const clear = useCallback(() => setSaved([]), []);
 
   return (
-    <SavedContext.Provider value={{ saved, isSaved, toggle, remove, clear, ready }}>
+    <SavedContext.Provider
+      value={{ saved, isSaved, toggle, addMany, remove, clear, ready }}
+    >
       {children}
     </SavedContext.Provider>
   );

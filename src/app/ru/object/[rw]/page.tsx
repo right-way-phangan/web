@@ -96,7 +96,12 @@ export default async function RussianObjectPage({ params }: Props) {
           current={object.rwNumber}
         />
 
-        <ObjectGallery rwNumber={object.rwNumber} type={object.type} gallery={object.gallery} />
+        <ObjectGallery
+          rwNumber={object.rwNumber}
+          type={object.type}
+          gallery={object.gallery}
+          title={object.titleEn}
+        />
 
         <header className="mt-8 md:mt-12">
           <div className="flex items-start justify-between gap-4">

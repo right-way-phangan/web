@@ -18,13 +18,130 @@ interface RenderArgs {
   title: string;       // main line
   subtitle?: string;   // optional secondary line
   features?: string[]; // small chips at the bottom
+  /** Cover photo URL (public, jpeg/png). Switches to the photo composition. */
+  photo?: string;
 }
 
 /**
- * Default OG card. Same composition for all routes — only the text changes.
- * No external images / fonts (works on Edge without network calls).
+ * Photo composition: full-bleed cover with a forest gradient and cream text —
+ * listings shared into WhatsApp/Telegram lead with the property itself.
  */
-export function renderOg({ eyebrow, title, subtitle, features }: RenderArgs) {
+function renderOgPhoto({ eyebrow, title, features, photo }: RenderArgs) {
+  return new ImageResponse(
+    (
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          padding: "56px 72px",
+          position: "relative",
+          fontFamily: "system-ui, -apple-system, sans-serif",
+          backgroundColor: COLORS.forest,
+        }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={photo}
+          alt=""
+          width={1200}
+          height={630}
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background:
+              "linear-gradient(to top, rgba(14,31,24,0.92) 0%, rgba(14,31,24,0.45) 45%, rgba(14,31,24,0.20) 100%)",
+          }}
+        />
+
+        {/* Brand */}
+        <div style={{ display: "flex", alignItems: "baseline", gap: 14, zIndex: 1 }}>
+          <span style={{ fontSize: 34, fontWeight: 600, letterSpacing: -0.5, color: COLORS.cream }}>
+            Right Way
+          </span>
+          <span
+            style={{
+              fontSize: 13,
+              fontWeight: 500,
+              letterSpacing: 4,
+              textTransform: "uppercase",
+              color: "rgba(250,247,242,0.65)",
+            }}
+          >
+            Phangan
+          </span>
+        </div>
+
+        {/* Bottom: eyebrow, title, chips */}
+        <div style={{ display: "flex", flexDirection: "column", zIndex: 1 }}>
+          <span
+            style={{
+              fontSize: 17,
+              fontWeight: 600,
+              letterSpacing: 4,
+              textTransform: "uppercase",
+              color: "#DDA86A",
+              marginBottom: 16,
+            }}
+          >
+            {eyebrow}
+          </span>
+          <span
+            style={{
+              fontSize: 58,
+              fontWeight: 600,
+              lineHeight: 1.08,
+              letterSpacing: -0.5,
+              maxWidth: 1020,
+              color: COLORS.cream,
+            }}
+          >
+            {title}
+          </span>
+          <div style={{ display: "flex", gap: 12, marginTop: 28 }}>
+            {(features ?? []).slice(0, 4).map((f) => (
+              <span
+                key={f}
+                style={{
+                  display: "flex",
+                  padding: "8px 16px",
+                  borderRadius: 4,
+                  border: "1px solid rgba(250,247,242,0.45)",
+                  fontSize: 18,
+                  color: COLORS.cream,
+                  background: "rgba(14,31,24,0.35)",
+                }}
+              >
+                {f}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    ),
+    OG_SIZE,
+  );
+}
+
+/**
+ * Default OG card. Text composition for all routes; pass `photo` to lead with
+ * the property cover instead (object pages). Without a photo there are no
+ * network calls — works on Edge self-contained.
+ */
+export function renderOg(args: RenderArgs) {
+  if (args.photo) return renderOgPhoto(args);
+  const { eyebrow, title, subtitle, features } = args;
   return new ImageResponse(
     (
       <div
