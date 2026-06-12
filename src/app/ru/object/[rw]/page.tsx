@@ -10,6 +10,7 @@ import { formatPriceTHB, formatPricePerRai } from "@/lib/utils/price";
 import { RoiCalculator } from "@/components/calculator/roi-calculator";
 import { Breadcrumbs } from "@/components/objects/breadcrumbs";
 import { BuyingCosts } from "@/components/objects/buying-costs";
+import { ObjectFaq } from "@/components/objects/object-faq";
 import { MobileCtaBar } from "@/components/objects/mobile-cta-bar";
 import { ObjectGallery } from "@/components/objects/object-gallery";
 import { SpecTable } from "@/components/objects/spec-table";
@@ -217,6 +218,8 @@ export default async function RussianObjectPage({ params }: Props) {
             </section>
 
             <BuyingCosts object={object} locale="ru" />
+
+            <ObjectFaq type={object.type} locale="ru" />
 
             <ObjectLocationMap
               lat={object.lat}

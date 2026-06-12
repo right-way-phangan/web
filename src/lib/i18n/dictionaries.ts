@@ -281,6 +281,8 @@ export interface FormDict {
   phone: string;
   message: string;
   viewingDate: string;
+  replyVia: string;
+  videoTour: string;
   submit: string;
   sending: string;
   success: string;
@@ -295,6 +297,8 @@ const form: Record<Locale, FormDict> = {
     phone: "Phone (optional)",
     message: "Message",
     viewingDate: "Preferred viewing date (optional)",
+    replyVia: "Reply to me via",
+    videoTour: "Send me a video tour of this property",
     submit: "Send enquiry",
     sending: "Sending…",
     success: "Thanks — we'll be in touch within the working day.",
@@ -307,6 +311,8 @@ const form: Record<Locale, FormDict> = {
     phone: "Телефон (необязательно)",
     message: "Сообщение",
     viewingDate: "Желаемая дата просмотра (необязательно)",
+    replyVia: "Куда ответить",
+    videoTour: "Пришлите видео-тур по этому объекту",
     submit: "Отправить запрос",
     sending: "Отправляем…",
     success: "Спасибо — ответим в течение рабочего дня.",
@@ -896,6 +902,9 @@ export interface ObjectDict {
   };
   verifiedBadge: string;
   districtGuide: string;
+  // object faq
+  faqTitle: string;
+  faqAll: string;
   // gallery
   galleryCaption: (rw: string, i: number, total: number) => string;
   prevPhoto: string;
@@ -978,6 +987,8 @@ const objectDict: Record<Locale, ObjectDict> = {
     },
     verifiedBadge: "Verified listing — what we check",
     districtGuide: "District guide",
+    faqTitle: "Good to know",
+    faqAll: "All questions answered in the FAQ",
     galleryCaption: (rw, i, total) => `${rw} photos — ${i} of ${total}`,
     prevPhoto: "Previous photo",
     nextPhoto: "Next photo",
@@ -1063,6 +1074,8 @@ const objectDict: Record<Locale, ObjectDict> = {
     },
     verifiedBadge: "Проверенный объект — что мы проверяем",
     districtGuide: "Гид по району",
+    faqTitle: "Полезно знать",
+    faqAll: "Все ответы — в FAQ",
     galleryCaption: (rw, i, total) => `${rw} — фото ${i} из ${total}`,
     prevPhoto: "Предыдущее фото",
     nextPhoto: "Следующее фото",
