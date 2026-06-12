@@ -24,6 +24,7 @@ import {
   FX_DATE,
   type SubStatus,
   type RecurringStatus,
+  type Currency,
   type DisplayCurrency,
 } from "@/lib/data/finance";
 import { getLiveRatesTHB } from "@/lib/data/fx-live";
@@ -104,8 +105,7 @@ export default async function FinancePage({
   searchParams: Promise<{ cur?: string }>;
 }) {
   const { cur: curParam } = await searchParams;
-  const cur: DisplayCurrency = curParam === "usd" ? "USD" : "THB";
-  const money = (n: number) => fmtMoney(n, cur);
+  const cur: DisplayCurrency = curParam === "usd" ? "USD" : curParam === "rub" ? "RUB" : "THB";
 
   const [live, sheet, crmLeads, crmEvents] = await Promise.all([
     getLiveRatesTHB(),
@@ -113,6 +113,11 @@ export default async function FinancePage({
     getLeads(),
     getEvents(500),
   ]);
+
+  // Рубли пересчитываем по живому рыночному курсу (переводы домой в ₽ — важен
+  // курс «сейчас»), fallback — учётный. USD остаётся учётным (round-trip $-цен).
+  const fxDisp: Record<Currency, number> = { ...FX, RUB: live?.RUB ?? FX.RUB };
+  const money = (n: number) => fmtMoney(n, cur, fxDisp);
 
   // Журнал сделок — Won-лиды из CRM: дата выигрыша из событий стадий,
   // комиссия = факт (commissionValue) либо расчёт по формуле max(5%; 150k).
@@ -185,12 +190,12 @@ export default async function FinancePage({
           </p>
         </div>
         <div className="flex shrink-0 overflow-hidden rounded-full border border-forest-900/15 text-sm">
-          {(["THB", "USD"] as const).map((c) => {
+          {(["THB", "USD", "RUB"] as const).map((c) => {
             const on = cur === c;
             return (
               <Link
                 key={c}
-                href={c === "THB" ? "/admin/finance" : "/admin/finance?cur=usd"}
+                href={c === "THB" ? "/admin/finance" : `/admin/finance?cur=${c.toLowerCase()}`}
                 className={
                   "px-3 py-1.5 font-medium transition " +
                   (on ? "bg-forest-900 text-white" : "text-forest-900/60 hover:bg-forest-900/5")
@@ -208,7 +213,14 @@ export default async function FinancePage({
         <Stat
           label="OpEx активных / мес"
           value={money(opex)}
-          hint={`≈ ${fmtMoney(opex, cur === "THB" ? "USD" : "THB")} · ${claudeShare}% — Claude`}
+          hint={
+            "≈ " +
+            (["THB", "USD", "RUB"] as const)
+              .filter((c) => c !== cur)
+              .map((c) => fmtMoney(opex, c, fxDisp))
+              .join(" · ") +
+            ` · ${claudeShare}% — Claude`
+          }
           accent
         />
         <Stat label="OpEx / год" value={money(opex * 12)} hint="текущий run-rate" />
@@ -235,6 +247,7 @@ export default async function FinancePage({
           centerValue={money(opex)}
           centerLabel="в месяц"
           currency={cur}
+          fx={fxDisp}
         />
       </div>
 
@@ -457,7 +470,7 @@ export default async function FinancePage({
             </span>
           </h2>
           <div className="mb-8 rounded-2xl border border-forest-900/10 bg-white p-6">
-            <FinanceTrend data={monthSeries} currency={cur} />
+            <FinanceTrend data={monthSeries} currency={cur} fx={fxDisp} />
           </div>
         </>
       )}
@@ -575,6 +588,12 @@ export default async function FinancePage({
         ) : (
           <p>Рыночные курсы временно недоступны.</p>
         )}
+        <p>
+          Бат → рубль (перевод домой): 1 ฿ ≈{" "}
+          {live
+            ? `${(1 / live.RUB).toFixed(2)} ₽ по рынку — ₽-суммы выше пересчитаны по нему`
+            : `${(1 / FX.RUB).toFixed(2)} ₽ по учётному курсу (рынок недоступен)`}
+        </p>
         <p>Источник цифр — финансовый трекер проекта.</p>
       </div>
     </section>

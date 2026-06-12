@@ -2,7 +2,7 @@
  * График динамики по месяцам — пары столбиков «траты / доходы» из ledger.
  * Без чарт-либ: flex-колонки с высотой в процентах от максимума.
  */
-import { fmtMoney, type DisplayCurrency, type MonthPoint } from "@/lib/data/finance";
+import { fmtMoney, type Currency, type DisplayCurrency, type MonthPoint } from "@/lib/data/finance";
 
 const MONTHS_RU = [
   "янв", "фев", "мар", "апр", "май", "июн",
@@ -18,9 +18,11 @@ function monthLabel(m: string): string {
 export function FinanceTrend({
   data,
   currency,
+  fx,
 }: {
   data: MonthPoint[];
   currency: DisplayCurrency;
+  fx?: Record<Currency, number>;
 }) {
   const max = Math.max(...data.map((d) => Math.max(d.spent, d.income)), 1);
   return (
@@ -35,7 +37,7 @@ export function FinanceTrend({
                 <div className="flex h-full w-7 flex-col items-center justify-end">
                   {d.spent > 0 && (
                     <span className="mb-0.5 text-[10px] tabular-nums text-forest-900/55">
-                      {fmtMoney(d.spent, currency)}
+                      {fmtMoney(d.spent, currency, fx)}
                     </span>
                   )}
                   <div
@@ -46,7 +48,7 @@ export function FinanceTrend({
                 <div className="flex h-full w-7 flex-col items-center justify-end">
                   {d.income > 0 && (
                     <span className="mb-0.5 text-[10px] tabular-nums text-emerald-700">
-                      {fmtMoney(d.income, currency)}
+                      {fmtMoney(d.income, currency, fx)}
                     </span>
                   )}
                   <div
