@@ -29,6 +29,19 @@ export function Header() {
   const contactHref = (isRu ? "/ru/contact" : "/contact") as Route;
   const savedHref = isRu ? "/ru/saved" : "/saved";
 
+  // On the homepage the header floats transparent over the hero photo and
+  // only gains its cream background after the visitor scrolls.
+  const isHome = pathname === "/" || pathname === "/ru";
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    if (!isHome) return;
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [isHome]);
+  const overlay = isHome && !scrolled;
+
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(`${href}/`);
 
@@ -58,9 +71,17 @@ export function Header() {
   }, [pathname]);
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-forest-500/10 bg-cream-100/80 backdrop-blur-md">
+    <header
+      className={cn(
+        "top-0 z-40 w-full border-b transition-colors duration-300",
+        isHome ? "fixed" : "sticky",
+        overlay
+          ? "border-transparent bg-transparent"
+          : "border-forest-500/10 bg-cream-100/80 backdrop-blur-md",
+      )}
+    >
       <div className="container-prose flex h-16 items-center justify-between md:h-20">
-        <Logo />
+        <Logo tone={overlay ? "light" : "default"} />
 
         <nav className="hidden lg:flex items-center gap-x-6" aria-label="Primary">
           {chrome.nav.map((item) => (
@@ -69,35 +90,68 @@ export function Header() {
               href={item.href as Route}
               aria-current={isActive(item.href) ? "page" : undefined}
               className={cn(
-                "whitespace-nowrap text-sm transition-colors hover:text-brass-500",
-                isActive(item.href) ? "text-brass-500" : "text-forest-500",
+                "whitespace-nowrap text-sm transition-colors",
+                overlay ? "hover:text-brass-300" : "hover:text-brass-500",
+                isActive(item.href)
+                  ? overlay
+                    ? "text-brass-300"
+                    : "text-brass-500"
+                  : overlay
+                    ? "text-cream-100"
+                    : "text-forest-500",
               )}
             >
               {item.label}
             </Link>
           ))}
           {chrome.groups.map((group) => (
-            <NavDropdown key={group.label} group={group} isActive={isActive} />
+            <NavDropdown
+              key={group.label}
+              group={group}
+              isActive={isActive}
+              light={overlay}
+            />
           ))}
         </nav>
 
         <div className="hidden lg:flex lg:items-center lg:gap-3">
-          <LanguageSwitcher />
-          <SavedLink count={savedCount} label={chrome.savedAria} href={savedHref} />
-          <Button asChild variant="outline" size="sm">
+          <LanguageSwitcher tone={overlay ? "light" : "default"} />
+          <SavedLink
+            count={savedCount}
+            label={chrome.savedAria}
+            href={savedHref}
+            light={overlay}
+          />
+          <Button
+            asChild
+            variant="outline"
+            size="sm"
+            className={cn(
+              overlay &&
+                "border-cream-100/40 text-cream-50 hover:border-cream-50 hover:bg-cream-50 hover:text-forest-900",
+            )}
+          >
             <Link href={contactHref}>{chrome.getInTouch}</Link>
           </Button>
         </div>
 
         <div className="flex items-center gap-1 lg:hidden">
-          <SavedLink count={savedCount} label={chrome.savedAria} href={savedHref} />
+          <SavedLink
+            count={savedCount}
+            label={chrome.savedAria}
+            href={savedHref}
+            light={overlay}
+          />
           <button
             type="button"
             aria-label="Open navigation"
             aria-expanded={open}
             aria-controls="mobile-nav"
             onClick={() => setOpen(true)}
-            className="flex h-11 w-11 items-center justify-center rounded-sm text-forest-500"
+            className={cn(
+              "flex h-11 w-11 items-center justify-center rounded-sm transition-colors",
+              overlay ? "text-cream-50" : "text-forest-500",
+            )}
           >
             <Menu className="h-5 w-5" />
           </button>
@@ -258,9 +312,11 @@ export function Header() {
 function NavDropdown({
   group,
   isActive,
+  light = false,
 }: {
   group: NavGroup;
   isActive: (href: string) => boolean;
+  light?: boolean;
 }) {
   const groupActive = group.items.some((item) => isActive(item.href));
   return (
@@ -269,8 +325,15 @@ function NavDropdown({
         type="button"
         aria-haspopup="true"
         className={cn(
-          "flex items-center gap-1 whitespace-nowrap text-sm transition-colors hover:text-brass-500",
-          groupActive ? "text-brass-500" : "text-forest-500",
+          "flex items-center gap-1 whitespace-nowrap text-sm transition-colors",
+          light ? "hover:text-brass-300" : "hover:text-brass-500",
+          groupActive
+            ? light
+              ? "text-brass-300"
+              : "text-brass-500"
+            : light
+              ? "text-cream-100"
+              : "text-forest-500",
         )}
       >
         {group.label}
@@ -315,16 +378,21 @@ function SavedLink({
   count,
   label = "Saved listings",
   href = "/saved",
+  light = false,
 }: {
   count: number;
   label?: string;
   href?: string;
+  light?: boolean;
 }) {
   return (
     <Link
       href={href as Route}
       aria-label={`${label}${count ? ` (${count})` : ""}`}
-      className="relative flex h-11 w-11 items-center justify-center rounded-sm text-forest-500 transition-colors hover:text-brass-500"
+      className={cn(
+        "relative flex h-11 w-11 items-center justify-center rounded-sm transition-colors",
+        light ? "text-cream-50 hover:text-brass-300" : "text-forest-500 hover:text-brass-500",
+      )}
     >
       <Heart className={cn("h-5 w-5", count > 0 && "fill-brass-500 text-brass-500")} />
       {count > 0 ? (

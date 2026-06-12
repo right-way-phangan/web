@@ -5,6 +5,8 @@ import { ArrowRight, MapPin, ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FeaturedListings } from "@/components/sections/featured-listings";
 import { HeroBackground } from "@/components/sections/hero-background";
+import { HeroStats } from "@/components/sections/hero-stats";
+import { Reveal } from "@/components/sections/reveal";
 import type { HomeDict, Locale } from "@/lib/i18n/dictionaries";
 
 const VALUE_ICONS = [MapPin, ShieldCheck, Sparkles] as const;
@@ -24,12 +26,6 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
 
   return (
     <>
-      {dict.inProgress ? (
-        <p className="bg-forest-900 px-6 py-2 text-center text-xs text-cream-100/80">
-          {dict.inProgress}
-        </p>
-      ) : null}
-
       {/* Hero */}
       <section aria-label="Hero" className="relative isolate overflow-hidden bg-forest-900">
         <HeroBackground
@@ -75,6 +71,16 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
         </div>
       </section>
 
+      {/* The in-progress notice sits under the hero: the header floats
+          transparent over the hero photo, so a strip above it would hide. */}
+      {dict.inProgress ? (
+        <p className="bg-forest-900 px-6 py-2 text-center text-xs text-cream-100/80">
+          {dict.inProgress}
+        </p>
+      ) : null}
+
+      <HeroStats locale={locale} />
+
       {/* Values */}
       <section className="container-prose py-24 md:py-32">
         <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
@@ -98,43 +104,48 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
         </div>
       </section>
 
-      <FeaturedListings />
+      <Reveal>
+        <FeaturedListings />
+      </Reveal>
 
-      {/* Closing CTA — light, contained panel (the page opens on a full-bleed
-          dark hero; mirrors the EN IslandCta so the two locales don't drift). */}
-      <section className="container-prose py-24 md:py-32">
-        <div className="overflow-hidden rounded-2xl border border-forest-500/10 bg-cream-200/60">
-          <div className="grid items-center gap-10 p-8 md:grid-cols-2 md:gap-14 md:p-14">
-            <div>
-              <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
-                {dict.cta.eyebrow}
-              </p>
-              <h2 className="mt-4 max-w-md text-balance text-forest-900">{dict.cta.title}</h2>
-              <p className="mt-6 max-w-md text-lg leading-relaxed text-forest-500/70">
-                {dict.cta.lede}
-              </p>
-              <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:gap-4">
-                <Button asChild variant="primary" size="lg">
-                  <Link href={browseHref}>
-                    {dict.cta.browse}
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-                <Button asChild variant="outline" size="lg">
-                  <Link href={contactHref}>{dict.cta.talk}</Link>
-                </Button>
-              </div>
-            </div>
+      {/* Closing CTA — full-bleed coastal scene bookending the dark hero
+          (mirrors the EN IslandCta so the two locales don't drift). */}
+      <section className="relative isolate overflow-hidden bg-forest-900">
+        <Image
+          src="/images/scenes/coast-aerial.jpg"
+          alt="Aerial view of the Koh Phangan coastline"
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div
+          className="absolute inset-0 bg-gradient-to-t from-forest-900/90 via-forest-900/50 to-forest-900/30"
+          aria-hidden
+        />
 
-            <div className="relative hidden aspect-[4/3] overflow-hidden rounded-xl ring-1 ring-forest-500/10 sm:block">
-              <Image
-                src="/images/scenes/cove-portrait.jpg"
-                alt="A quiet cove on Koh Phangan"
-                fill
-                sizes="(min-width: 768px) 40vw, 90vw"
-                className="object-cover object-center"
-              />
-            </div>
+        <div className="container-prose relative z-10 flex min-h-[55vh] flex-col items-center justify-center py-24 text-center md:min-h-[65vh] md:py-32">
+          <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-300">
+            {dict.cta.eyebrow}
+          </p>
+          <h2 className="mt-4 max-w-2xl text-balance text-cream-50">{dict.cta.title}</h2>
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-cream-100/85">
+            {dict.cta.lede}
+          </p>
+          <div className="mt-10 flex w-full max-w-sm flex-col gap-3 sm:w-auto sm:max-w-none sm:flex-row sm:gap-4">
+            <Button asChild variant="accent" size="lg">
+              <Link href={browseHref}>
+                {dict.cta.browse}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="border-cream-100/40 text-cream-50 hover:border-cream-50 hover:bg-cream-50 hover:text-forest-900"
+            >
+              <Link href={contactHref}>{dict.cta.talk}</Link>
+            </Button>
           </div>
         </div>
       </section>

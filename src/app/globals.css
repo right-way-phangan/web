@@ -55,6 +55,20 @@
   }
 }
 
+/* Scroll reveal (see sections/reveal.tsx — only applied when JS confirms the
+   element is below the fold, so no-JS visitors never get hidden content). */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.reveal-visible {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+}
+
 @layer components {
   .container-prose {
     @apply mx-auto px-6 md:px-8 max-w-container;
