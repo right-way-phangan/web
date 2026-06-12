@@ -10,6 +10,7 @@ import { LeadEdit } from "@/components/crm/lead-edit";
 import { LeadWonLost } from "@/components/crm/lead-won-lost";
 import { ContactActions } from "@/components/crm/contact-actions";
 import { DealValue } from "@/components/crm/deal-value";
+import { CommissionValue } from "@/components/crm/commission-value";
 import { LeadMatches, type MatchItem } from "@/components/crm/lead-matches";
 import { MessageTemplates } from "@/components/crm/message-templates";
 import { addNoteAction, addTaskAction } from "@/lib/actions/lead-actions";
@@ -265,6 +266,23 @@ export default async function LeadDetailPage({
             />
           </dd>
         </div>
+        {lead.status === "won" && (
+          <div className="col-span-2 sm:col-span-3">
+            <dt className="text-xs uppercase tracking-wide text-forest-900/40">
+              Комиссия (факт)
+              <span className="ml-2 normal-case text-forest-900/45">
+                co-agency/referral учитывайте здесь — идёт в журнал сделок
+              </span>
+            </dt>
+            <dd className="mt-1">
+              <CommissionValue
+                leadId={lead.id}
+                value={lead.commissionValue ?? null}
+                suggested={lead.dealValue ? Math.round(Math.max(lead.dealValue * 0.05, 150_000)) : null}
+              />
+            </dd>
+          </div>
+        )}
       </dl>
 
       {(lead.tags ?? []).length > 0 && (

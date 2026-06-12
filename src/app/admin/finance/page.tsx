@@ -28,6 +28,7 @@ import {
 } from "@/lib/data/finance";
 import { getLiveRatesTHB } from "@/lib/data/fx-live";
 import { loadFinanceFromSheet } from "@/lib/data/finance-sheet";
+import { getLeads, getEvents } from "@/lib/data/leads";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -106,7 +107,35 @@ export default async function FinancePage({
   const cur: DisplayCurrency = curParam === "usd" ? "USD" : "THB";
   const money = (n: number) => fmtMoney(n, cur);
 
-  const [live, sheet] = await Promise.all([getLiveRatesTHB(), loadFinanceFromSheet()]);
+  const [live, sheet, crmLeads, crmEvents] = await Promise.all([
+    getLiveRatesTHB(),
+    loadFinanceFromSheet(),
+    getLeads(),
+    getEvents(500),
+  ]);
+
+  // Журнал сделок — Won-лиды из CRM: дата выигрыша из событий стадий,
+  // комиссия = факт (commissionValue) либо расчёт по формуле max(5%; 150k).
+  const wonAt = new Map<number, string>();
+  for (const e of crmEvents) {
+    if (e.type === "stage" && e.toStage === "Won" && e.leadId != null && !wonAt.has(e.leadId)) {
+      wonAt.set(e.leadId, e.createdAt); // события идут desc → первое = последний выигрыш
+    }
+  }
+  const crmDeals = crmLeads
+    .filter((l) => l.status === "won")
+    .map((l) => ({
+      id: l.id,
+      name: l.contactName || l.name,
+      rw: l.rwNumber ?? null,
+      when: wonAt.get(l.id) ?? l.updatedAt ?? l.createdAt,
+      value: l.dealValue ?? null,
+      commission:
+        l.commissionValue ?? (l.dealValue ? Math.max(l.dealValue * 0.05, 150_000) : null),
+      isFact: l.commissionValue != null,
+    }))
+    .sort((a, b) => new Date(b.when).getTime() - new Date(a.when).getTime());
+  const crmCommissionTotal = crmDeals.reduce((s, d) => s + (d.commission ?? 0), 0);
 
   // Подписки и журнал — из таблицы (live) или из кода (fallback).
   const subs = sheet?.subscriptions ?? subscriptions;
@@ -433,14 +462,73 @@ export default async function FinancePage({
         </>
       )}
 
-      {/* Сделки */}
+      {/* Сделки — живой журнал Won-лидов из CRM */}
       <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
-        Движения по сделкам
+        Журнал сделок (Won){" "}
+        {crmDeals.length > 0 && (
+          <span className="normal-case text-forest-900/40">
+            · {crmDeals.length} · комиссия {money(crmCommissionTotal)}
+          </span>
+        )}
       </h2>
-      <div className="mb-4 rounded-2xl border border-dashed border-forest-900/15 bg-white p-6 text-sm text-forest-900/55">
-        Пока нет закрытых сделок (стадия запуска). Первая сделка — Этап 1. Комиссия Hybrid C
-        (~4.8%): сделка 20M ≈ 960k ฿ перекроет ~10 лет текущего OpEx.
-      </div>
+      {crmDeals.length === 0 ? (
+        <div className="mb-4 rounded-2xl border border-dashed border-forest-900/15 bg-white p-6 text-sm text-forest-900/55">
+          Пока нет закрытых сделок (стадия запуска). Первая сделка — Этап 1. Комиссия Hybrid C
+          (~4.8%): сделка 20M ≈ 960k ฿ перекроет ~10 лет текущего OpEx.
+        </div>
+      ) : (
+        <div className="mb-4 overflow-x-auto rounded-2xl border border-forest-900/10 bg-white">
+          <table className="w-full min-w-[34rem] text-sm">
+            <thead>
+              <tr className="border-b border-forest-900/10 text-left text-xs uppercase tracking-wide text-forest-900/40">
+                <th className="px-4 py-2 font-medium">Дата</th>
+                <th className="px-4 py-2 font-medium">Клиент</th>
+                <th className="px-4 py-2 font-medium">Объект</th>
+                <th className="px-4 py-2 text-right font-medium">Сделка</th>
+                <th className="px-4 py-2 text-right font-medium">Комиссия</th>
+              </tr>
+            </thead>
+            <tbody>
+              {crmDeals.map((d) => (
+                <tr key={d.id} className="border-b border-forest-900/5 last:border-0">
+                  <td className="whitespace-nowrap px-4 py-2 text-forest-900/60">
+                    {new Date(d.when).toLocaleDateString("ru-RU", {
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                      timeZone: "Asia/Bangkok",
+                    })}
+                  </td>
+                  <td className="px-4 py-2">
+                    <Link
+                      href={{ pathname: `/admin/crm/${d.id}` }}
+                      className="text-forest-900 hover:text-brass-600"
+                    >
+                      {d.name}
+                    </Link>
+                  </td>
+                  <td className="px-4 py-2 text-forest-900/60">{d.rw ?? "—"}</td>
+                  <td className="whitespace-nowrap px-4 py-2 text-right text-forest-900/70">
+                    {d.value != null ? money(d.value) : "—"}
+                  </td>
+                  <td className="whitespace-nowrap px-4 py-2 text-right font-medium text-emerald-700">
+                    {d.commission != null ? money(d.commission) : "—"}
+                    {d.commission != null && (
+                      <span className="ml-1 text-[10px] font-normal text-forest-900/40">
+                        {d.isFact ? "факт" : "≈расчёт"}
+                      </span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p className="border-t border-forest-900/5 px-4 py-2 text-xs text-forest-900/45">
+            Факт-комиссию (co-agency 50/50, referral −20%) вносите на карточке лида — поле
+            «Комиссия (факт)» появляется после 🏆 Выиграно.
+          </p>
+        </div>
+      )}
 
       <div className="mb-6 rounded-2xl border border-forest-900/10 bg-white p-6">
         <p className="mb-4 text-sm font-medium text-forest-900">

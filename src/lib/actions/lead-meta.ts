@@ -35,3 +35,13 @@ export async function updateLeadValue(leadId: number, dealValue: number | null):
 export async function updateLeadTags(leadId: number, tags: string[]): Promise<boolean> {
   return patchLead(leadId, { tags });
 }
+
+/** Set / clear the actual commission earned (THB) on a won deal — deals ledger. */
+export async function updateLeadCommission(
+  leadId: number,
+  commissionValue: number | null,
+): Promise<boolean> {
+  const ok = await patchLead(leadId, { commissionValue });
+  revalidatePath("/admin/finance");
+  return ok;
+}
