@@ -48,6 +48,7 @@ export const STAGES = ["Ready", "Under construction", "Off-plan"] as const;
 export const FURNISHINGS = ["Full", "Partial", "None"] as const;
 
 export const ZONES = ["Green", "Yellow", "Orange", "Red", "Purple", "Unknown"] as const;
+export type Zone = (typeof ZONES)[number];
 export const ROAD_TYPES = ["Country", "Government", "Concrete", "Cement", "Dirt", "Private", "Asphalt"] as const;
 export const WATER_TYPES = ["PWA", "Well", "Tank only", "None", "Unknown"] as const;
 export const INTERNET_TYPES = ["Fiber", "4G/5G", "Limited", "None", "Unknown"] as const;

@@ -15,6 +15,7 @@ import {
   ChevronDown,
   FileText,
   Sparkles,
+  MapPinned,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,6 +24,7 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils/cn";
 import { createObject, type NewObjectState } from "@/lib/actions/new-object";
 import { previewObjectTitle } from "@/lib/actions/title";
+import { lookupZoneByLocation } from "@/lib/actions/zone-lookup";
 import {
   DISTRICTS,
   DOCUMENT_TYPES,
@@ -42,6 +44,21 @@ import {
 } from "@/lib/amocrm/dictionaries";
 
 const initialState: NewObjectState = { status: "idle" };
+
+// Pull lat/lng out of a Google Maps URL (or a bare "lat, lng" string). Mirrors
+// what the server later derives for the catalog pin; used client-side by the
+// zoning helper before the object is saved.
+function parseLatLng(s: string): { lat: number; lng: number } | null {
+  const m =
+    s.match(/@(-?\d{1,2}\.\d+),(-?\d{1,3}\.\d+)/) ??
+    s.match(/[?&](?:q|query|ll|center)=(-?\d{1,2}\.\d+)\s*,\s*(-?\d{1,3}\.\d+)/) ??
+    s.match(/!3d(-?\d{1,2}\.\d+)!4d(-?\d{1,3}\.\d+)/) ??
+    s.match(/^\s*(-?\d{1,2}\.\d+)\s*[, ]\s*(-?\d{1,3}\.\d+)\s*$/);
+  if (!m) return null;
+  const lat = Number(m[1]);
+  const lng = Number(m[2]);
+  return Number.isFinite(lat) && Number.isFinite(lng) ? { lat, lng } : null;
+}
 
 // ---- Small field primitives ----
 
@@ -254,6 +271,13 @@ export function ObjectForm() {
   // DataTransfer, so the server action receives files in this exact order.
   const [genTitleLoading, setGenTitleLoading] = useState(false);
   const titleNonce = useRef(0);
+  // Zoning auto-detect (colour of the DPT city-plan tile at the location).
+  const [zoneLookup, setZoneLookup] = useState<{
+    status: "idle" | "busy" | "done" | "error";
+    label?: string;
+    colorHex?: string;
+    error?: string;
+  }>({ status: "idle" });
   const [photos, setPhotos] = useState<File[]>([]);
   // Photos the user manually tagged as documents (tracked by File identity so the
   // flag survives reordering). On submit we send their current indices so the
@@ -291,6 +315,30 @@ export function ObjectForm() {
       next.has(code) ? next.delete(code) : next.add(code);
       return { ...prev, [key]: next };
     });
+
+  // Suggest the zone from the DPT city-plan colour at the pasted location.
+  const detectZone = async () => {
+    const coords = parseLatLng(v.locationUrl);
+    if (!coords) {
+      setZoneLookup({
+        status: "error",
+        error: "Сначала вставьте Google Maps URL с координатами в поле «Локация» ниже",
+      });
+      return;
+    }
+    setZoneLookup({ status: "busy" });
+    try {
+      const r = await lookupZoneByLocation(coords.lat, coords.lng);
+      if (r.ok && r.zone) {
+        set("zone", r.zone);
+        setZoneLookup({ status: "done", label: r.label, colorHex: r.colorHex });
+      } else {
+        setZoneLookup({ status: "error", error: r.error ?? "Не удалось определить зону" });
+      }
+    } catch {
+      setZoneLookup({ status: "error", error: "Не удалось определить зону" });
+    }
+  };
 
   // Ask the server to suggest a title from the current fields. Each click bumps
   // a nonce so repeated presses surface different phrasings. The result is
@@ -597,8 +645,58 @@ export function ObjectForm() {
               Земля
             </h2>
             <div className="grid gap-4 sm:grid-cols-2">
-              <Field label="Зона">
+              <Field
+                label="Зона"
+                hint="Цвет ผังเมือง по тайлу DPT — ориентир; перед публикацией сверяйте на landsmaps."
+              >
                 <Select name="zone" value={v.zone} onChange={(x) => set("zone", x)} options={ZONES} />
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 pt-1">
+                  <button
+                    type="button"
+                    onClick={detectZone}
+                    disabled={zoneLookup.status === "busy"}
+                    className="inline-flex items-center gap-1.5 rounded-sm border border-forest-500/20 px-2.5 py-1.5 text-xs font-medium text-forest-900 transition-colors hover:bg-cream-100 disabled:opacity-50"
+                  >
+                    <MapPinned size={14} aria-hidden />
+                    {zoneLookup.status === "busy" ? "Определяем…" : "Определить по локации"}
+                  </button>
+                  {zoneLookup.status === "done" ? (
+                    <span className="inline-flex items-center gap-1.5 text-xs text-forest-900">
+                      <i
+                        className="inline-block h-3 w-3 shrink-0 rounded-[2px] border border-black/10"
+                        style={{ background: zoneLookup.colorHex }}
+                        aria-hidden
+                      />
+                      {zoneLookup.label}
+                    </span>
+                  ) : null}
+                  {zoneLookup.status === "error" ? (
+                    <span className="text-xs text-red-700">{zoneLookup.error}</span>
+                  ) : null}
+                  {(() => {
+                    const c = parseLatLng(v.locationUrl);
+                    return c ? (
+                      <>
+                        <a
+                          href={`https://map.longdo.com/main/?lat=${c.lat}&long=${c.lng}&zoom=18`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs text-forest-500 underline-offset-2 hover:underline"
+                        >
+                          Longdo (кадастр) ↗
+                        </a>
+                        <a
+                          href="https://landsmaps.dol.go.th/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs text-forest-500 underline-offset-2 hover:underline"
+                        >
+                          landsmaps ↗
+                        </a>
+                      </>
+                    ) : null;
+                  })()}
+                </div>
               </Field>
               <Field label="Рельеф">
                 <Select
