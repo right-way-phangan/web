@@ -54,6 +54,8 @@ interface Props {
   rwNumber: string;
   type: ObjectType;
   gallery?: string[];
+  /** Listing title for descriptive alt text (image SEO + screen readers). */
+  title?: string;
 }
 
 /**
@@ -66,11 +68,12 @@ interface Props {
  * thumbnail filmstrip, and neighbour preloading. Falls back to deterministic
  * gradient panels when an object has no photos yet.
  */
-export function ObjectGallery({ rwNumber, type, gallery }: Props) {
+export function ObjectGallery({ rwNumber, type, gallery, title }: Props) {
   const Icon = TYPE_ICON[type];
   const t = getObjectDict(useLocale());
   const photos = (gallery ?? []).filter(Boolean);
   const hasPhotos = photos.length > 0;
+  const altFor = (n: number) => `${title ?? rwNumber} (${rwNumber}) — photo ${n}`;
 
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
@@ -312,7 +315,7 @@ export function ObjectGallery({ rwNumber, type, gallery }: Props) {
             >
               <Image
                 src={url}
-                alt={`${rwNumber} — photo ${i + 1}`}
+                alt={altFor(i + 1)}
                 fill
                 priority={i === 0}
                 sizes="100vw"
@@ -362,7 +365,7 @@ export function ObjectGallery({ rwNumber, type, gallery }: Props) {
         >
           <Image
             src={photos[0]}
-            alt={`${rwNumber} — photo 1`}
+            alt={altFor(1)}
             fill
             priority
             sizes="(min-width: 768px) 50vw, 100vw"
@@ -387,7 +390,7 @@ export function ObjectGallery({ rwNumber, type, gallery }: Props) {
             >
               <Image
                 src={url}
-                alt={`${rwNumber} — photo ${photoIndex + 1}`}
+                alt={altFor(photoIndex + 1)}
                 fill
                 sizes="25vw"
                 placeholder="blur"
@@ -454,7 +457,7 @@ export function ObjectGallery({ rwNumber, type, gallery }: Props) {
               >
                 <Image
                   src={photos[index]}
-                  alt={`${rwNumber} — photo ${index + 1}`}
+                  alt={altFor(index + 1)}
                   fill
                   sizes="100vw"
                   className="object-contain"

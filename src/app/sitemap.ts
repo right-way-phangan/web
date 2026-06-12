@@ -92,20 +92,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const objects = (await getPublicObjects()).filter(
     (o) => o.type !== "Project" && !isProjectUnit(o.rwNumber),
   );
-  const objectEntries: MetadataRoute.Sitemap = objects.flatMap((o) => [
-    {
-      url: `${base}/object/${o.rwNumber}`,
-      lastModified: now,
-      changeFrequency: "weekly" as const,
-      priority: 0.8,
-    },
-    {
-      url: `${base}/ru/object/${o.rwNumber}`,
-      lastModified: now,
-      changeFrequency: "weekly" as const,
-      priority: 0.6,
-    },
-  ]);
+  const objectEntries: MetadataRoute.Sitemap = objects.flatMap((o) => {
+    // Image sitemap: cover + a few gallery shots per listing — property photos
+    // are a real discovery channel via Google Images.
+    const images = [o.coverImage, ...(o.gallery ?? [])]
+      .filter((u): u is string => !!u)
+      .filter((u, i, arr) => arr.indexOf(u) === i)
+      .slice(0, 4);
+    return [
+      {
+        url: `${base}/object/${o.rwNumber}`,
+        lastModified: now,
+        changeFrequency: "weekly" as const,
+        priority: 0.8,
+        images,
+      },
+      {
+        url: `${base}/ru/object/${o.rwNumber}`,
+        lastModified: now,
+        changeFrequency: "weekly" as const,
+        priority: 0.6,
+        images,
+      },
+    ];
+  });
 
   const projects = await getPublicProjects();
   const projectEntries: MetadataRoute.Sitemap = projects.flatMap((p) => {

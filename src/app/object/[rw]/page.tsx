@@ -103,6 +103,7 @@ export default async function ObjectPage({ params }: Props) {
           rwNumber={object.rwNumber}
           type={object.type}
           gallery={object.gallery}
+          title={object.titleEn}
         />
 
         {/* Header */}

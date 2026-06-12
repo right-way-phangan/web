@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { getPublicObjects } from "@/lib/data/objects";
 import { SavedListings } from "@/components/objects/saved-listings";
 import { SavedSearches } from "@/components/objects/saved-searches";
@@ -27,7 +28,14 @@ export default async function SavedPage() {
         send us the shortlist and we&rsquo;ll take it from there.
       </p>
 
-      <SavedListings catalog={catalog} />
+      {/* Suspense: SavedListings reads ?rw= (shared shortlists) via useSearchParams */}
+      <Suspense
+        fallback={
+          <div className="mt-12 h-40 animate-pulse rounded-sm border border-forest-500/10 bg-forest-500/5" />
+        }
+      >
+        <SavedListings catalog={catalog} />
+      </Suspense>
       <SavedSearches />
     </section>
   );

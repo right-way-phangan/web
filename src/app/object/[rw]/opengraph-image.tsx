@@ -46,5 +46,6 @@ export default async function Image({ params }: Props) {
     eyebrow: eyebrowParts.join(" · "),
     title: o.titleEn,
     features,
+    photo: o.coverImage,
   });
 }
