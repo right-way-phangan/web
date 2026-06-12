@@ -186,6 +186,7 @@ const chrome: Record<Locale, ChromeDict> = {
           { label: "Calculator", href: "/calculator" },
           { label: "Insights", href: "/insights" },
           { label: "Knowledge", href: "/knowledge" },
+          { label: "What we verify", href: "/due-diligence" },
           { label: "FAQ", href: "/faq" },
         ],
       },
@@ -230,6 +231,7 @@ const chrome: Record<Locale, ChromeDict> = {
           { label: "Калькулятор", href: "/ru/calculator" },
           { label: "Аналитика", href: "/ru/insights" },
           { label: "База знаний", href: "/ru/knowledge" },
+          { label: "Что мы проверяем", href: "/due-diligence" },
           { label: "FAQ", href: "/ru/faq" },
         ],
       },
@@ -874,6 +876,26 @@ export interface ObjectDict {
   shareAria: string;
   saveAria: string;
   removeAria: string;
+  // buying costs
+  costs: {
+    title: string;
+    lede: string;
+    item: string;
+    typical: string;
+    transferFee: string;
+    transferFeeNote: string;
+    leaseReg: string;
+    leaseRegNote: string;
+    legal: string;
+    surveyor: string;
+    translation: string;
+    inspection: string;
+    total: string;
+    sellerNote: string;
+    disclaimer: string;
+  };
+  verifiedBadge: string;
+  districtGuide: string;
   // gallery
   galleryCaption: (rw: string, i: number, total: number) => string;
   prevPhoto: string;
@@ -937,6 +959,25 @@ const objectDict: Record<Locale, ObjectDict> = {
     shareAria: "Share this listing",
     saveAria: "Save to shortlist",
     removeAria: "Remove from saved",
+    costs: {
+      title: "What it costs to buy",
+      lede: "The honest math for this property — standard Land Office rates and typical professional fees, beyond the asking price.",
+      item: "Item",
+      typical: "Typical cost",
+      transferFee: "Land Office transfer fee",
+      transferFeeNote: "2% of appraised value — commonly split between parties",
+      leaseReg: "Lease registration fee",
+      leaseRegNote: "1.1% of the total lease value — commonly split",
+      legal: "Independent lawyer (due diligence, contracts, transfer)",
+      surveyor: "Licensed surveyor (GPS boundary check)",
+      translation: "Translation & notarisation",
+      inspection: "Structural inspection (built property)",
+      total: "Typical total beyond the price",
+      sellerNote: "Specific Business Tax, withholding tax and most transfer costs fall on the seller by law and practice — they are not on this list.",
+      disclaimer: "Indicative figures. We confirm the exact breakdown for this property before you commit to anything.",
+    },
+    verifiedBadge: "Verified listing — what we check",
+    districtGuide: "District guide",
     galleryCaption: (rw, i, total) => `${rw} photos — ${i} of ${total}`,
     prevPhoto: "Previous photo",
     nextPhoto: "Next photo",
@@ -1003,6 +1044,25 @@ const objectDict: Record<Locale, ObjectDict> = {
     shareAria: "Поделиться объектом",
     saveAria: "В избранное",
     removeAria: "Убрать из избранного",
+    costs: {
+      title: "Сколько стоит покупка",
+      lede: "Честная математика по этому объекту — стандартные ставки Земельного департамента и типовые услуги, сверх запрашиваемой цены.",
+      item: "Статья",
+      typical: "Типичная сумма",
+      transferFee: "Сбор за переход права (Land Office)",
+      transferFeeNote: "2% от оценочной стоимости — обычно делится между сторонами",
+      leaseReg: "Регистрация договора аренды",
+      leaseRegNote: "1,1% от суммы аренды за весь срок — обычно делится",
+      legal: "Независимый юрист (проверка, договоры, регистрация)",
+      surveyor: "Лицензированный замер границ (GPS)",
+      translation: "Перевод и нотариат",
+      inspection: "Строительная инспекция (для построек)",
+      total: "Типичный итог сверх цены",
+      sellerNote: "Specific Business Tax, withholding tax и большая часть сборов за переход права по закону и практике ложатся на продавца — их в списке нет.",
+      disclaimer: "Цифры ориентировочные. Точный расчёт по этому объекту мы подтверждаем до любых обязательств.",
+    },
+    verifiedBadge: "Проверенный объект — что мы проверяем",
+    districtGuide: "Гид по району",
     galleryCaption: (rw, i, total) => `${rw} — фото ${i} из ${total}`,
     prevPhoto: "Предыдущее фото",
     nextPhoto: "Следующее фото",

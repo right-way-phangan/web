@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { MapPin } from "lucide-react";
+import Link from "next/link";
+import type { Route } from "next";
+import { MapPin, ShieldCheck } from "lucide-react";
+import { DISTRICTS } from "@/content/districts";
 import { getObjectByRwNumber, getPublicObjects } from "@/lib/data/objects";
 import { isProjectUnit, parentProjectRw, projectSlug, getPublicProjects } from "@/lib/data/projects";
 import { formatPriceTHB, formatPricePerRai } from "@/lib/utils/price";
 import { RoiCalculator } from "@/components/calculator/roi-calculator";
 import { Breadcrumbs } from "@/components/objects/breadcrumbs";
+import { BuyingCosts } from "@/components/objects/buying-costs";
 import { MobileCtaBar } from "@/components/objects/mobile-cta-bar";
 import { ObjectGallery } from "@/components/objects/object-gallery";
 import { SpecTable } from "@/components/objects/spec-table";
@@ -105,9 +109,18 @@ export default async function RussianObjectPage({ params }: Props) {
 
         <header className="mt-8 md:mt-12">
           <div className="flex items-start justify-between gap-4">
-            <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
-              {object.rwNumber} · {typeName}
-            </p>
+            <div>
+              <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
+                {object.rwNumber} · {typeName}
+              </p>
+              <Link
+                href={"/due-diligence" as Route}
+                className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-forest-500/80 transition-colors hover:text-brass-500"
+              >
+                <ShieldCheck className="h-3.5 w-3.5 text-brass-500" />
+                {t.verifiedBadge}
+              </Link>
+            </div>
             <div className="flex shrink-0 items-center gap-2">
               <ShareButton rw={object.rwNumber} title={object.titleEn} />
               <SaveButton rw={object.rwNumber} variant="inline" />
@@ -152,6 +165,20 @@ export default async function RussianObjectPage({ params }: Props) {
               <span>{object.district}</span>
               <span aria-hidden>·</span>
               <span>{t.locationCountry}</span>
+              {(() => {
+                const guide = DISTRICTS.find((d) => d.amoName === object.district);
+                return guide ? (
+                  <>
+                    <span aria-hidden>·</span>
+                    <Link
+                      href={`/ru/districts/${guide.slug}` as Route}
+                      className="text-forest-500 underline-offset-4 hover:underline"
+                    >
+                      {t.districtGuide}
+                    </Link>
+                  </>
+                ) : null;
+              })()}
               {object.locationUrl ? (
                 <>
                   <span aria-hidden>·</span>
@@ -188,6 +215,8 @@ export default async function RussianObjectPage({ params }: Props) {
                 <SpecTable object={object} />
               </div>
             </section>
+
+            <BuyingCosts object={object} locale="ru" />
 
             <ObjectLocationMap
               lat={object.lat}
