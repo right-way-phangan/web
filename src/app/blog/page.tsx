@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { Route } from "next";
 import { ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
-import { sortedBlogPosts } from "@/content/blog";
+import { getAllBlogPosts } from "@/lib/data/articles";
 
 export const metadata: Metadata = {
   title: "Journal",
@@ -20,8 +20,10 @@ function fmtDate(iso: string): string {
   });
 }
 
-export default function BlogPage() {
-  const posts = sortedBlogPosts();
+export const revalidate = 60;
+
+export default async function BlogPage() {
+  const posts = await getAllBlogPosts("en");
 
   return (
     <>

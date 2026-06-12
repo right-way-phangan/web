@@ -1,17 +1,30 @@
 import Link from "next/link";
 import type { Route } from "next";
+import { getPendingArticleCount } from "@/lib/data/articles";
 
 /**
- * Shared sub-navigation for the /admin area (objects DB · CRM · new object).
- * `active` highlights the current section. Server component — no client JS.
+ * Shared sub-navigation for the /admin area (objects DB · CRM · articles · …).
+ * `active` highlights the current section. Async server component — fetches the
+ * "articles awaiting review" count itself so the badge shows on every admin
+ * page; callers may pass `pendingArticles` to override (avoids a duplicate
+ * fetch on pages that already loaded it).
  */
-type AdminSection = "home" | "objects" | "crm" | "finance" | "new";
+type AdminSection = "home" | "objects" | "crm" | "articles" | "finance" | "new";
 
-export function AdminNav({ active }: { active: AdminSection }) {
-  const items: Array<{ key: AdminSection; href: Route; label: string }> = [
+export async function AdminNav({
+  active,
+  pendingArticles,
+}: {
+  active: AdminSection;
+  /** Count for the "Статьи" badge — fetched if omitted. */
+  pendingArticles?: number;
+}) {
+  const pending = pendingArticles ?? (await getPendingArticleCount());
+  const items: Array<{ key: AdminSection; href: Route; label: string; badge?: number }> = [
     { key: "home", href: "/admin" as Route, label: "Дашборд" },
     { key: "objects", href: "/admin/objects" as Route, label: "База объектов" },
     { key: "crm", href: "/admin/crm" as Route, label: "CRM · Лиды" },
+    { key: "articles", href: "/admin/articles" as Route, label: "Статьи", badge: pending },
     { key: "finance", href: "/admin/finance" as Route, label: "Финансы" },
     { key: "new", href: "/admin/new" as Route, label: "+ Новый объект" },
   ];
@@ -24,13 +37,23 @@ export function AdminNav({ active }: { active: AdminSection }) {
             key={it.key}
             href={it.href}
             className={
-              "rounded-full px-3 py-1.5 text-sm font-medium transition " +
+              "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition " +
               (on
                 ? "bg-forest-900 text-white"
                 : "bg-forest-900/5 text-forest-900/70 hover:bg-forest-900/10")
             }
           >
             {it.label}
+            {it.badge ? (
+              <span
+                className={
+                  "inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full px-1.5 text-xs font-semibold " +
+                  (on ? "bg-white/20 text-white" : "bg-brass-500 text-white")
+                }
+              >
+                {it.badge}
+              </span>
+            ) : null}
           </Link>
         );
       })}

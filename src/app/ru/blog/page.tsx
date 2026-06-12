@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { Route } from "next";
 import { ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
-import { sortedBlogPostsRu } from "@/content/blog.ru";
+import { getAllBlogPosts } from "@/lib/data/articles";
 
 export const metadata: Metadata = {
   title: "Журнал",
@@ -20,8 +20,10 @@ function fmtDate(iso: string): string {
   });
 }
 
-export default function RussianBlogPage() {
-  const posts = sortedBlogPostsRu();
+export const revalidate = 60;
+
+export default async function RussianBlogPage() {
+  const posts = await getAllBlogPosts("ru");
 
   return (
     <>

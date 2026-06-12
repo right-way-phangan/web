@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Route } from "next";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
-import { BLOG_POSTS_RU, getBlogPostRuBySlug } from "@/content/blog.ru";
+import { BLOG_POSTS_RU } from "@/content/blog.ru";
+import { getBlogPost, getAllBlogPosts } from "@/lib/data/articles";
 import { Button } from "@/components/ui/button";
 import { ArticleBody } from "@/components/sections/article-body";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
@@ -14,13 +15,15 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
+export const revalidate = 60;
+
 export function generateStaticParams() {
   return BLOG_POSTS_RU.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const p = getBlogPostRuBySlug(slug);
+  const p = await getBlogPost(slug, "ru");
   if (!p) return { title: "Пост не найден" };
   return {
     title: p.title,
@@ -42,11 +45,11 @@ function fmtDate(iso: string): string {
 
 export default async function RussianBlogPostPage({ params }: Props) {
   const { slug } = await params;
-  const p = getBlogPostRuBySlug(slug);
+  const p = await getBlogPost(slug, "ru");
   if (!p) notFound();
 
   const siteUrl = getSiteUrl();
-  const others = BLOG_POSTS_RU.filter((x) => x.slug !== p.slug).slice(0, 2);
+  const others = (await getAllBlogPosts("ru")).filter((x) => x.slug !== p.slug).slice(0, 2);
 
   const articleSchema = {
     "@context": "https://schema.org",

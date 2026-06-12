@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Route } from "next";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
-import { BLOG_POSTS, getBlogPostBySlug } from "@/content/blog";
+import { BLOG_POSTS } from "@/content/blog";
+import { getBlogPost, getAllBlogPosts } from "@/lib/data/articles";
 import { Button } from "@/components/ui/button";
 import { ArticleBody } from "@/components/sections/article-body";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
@@ -14,13 +15,15 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
+export const revalidate = 60;
+
 export function generateStaticParams() {
   return BLOG_POSTS.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const p = getBlogPostBySlug(slug);
+  const p = await getBlogPost(slug, "en");
   if (!p) return { title: "Post not found" };
   return {
     title: p.title,
@@ -42,11 +45,11 @@ function fmtDate(iso: string): string {
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
-  const p = getBlogPostBySlug(slug);
+  const p = await getBlogPost(slug, "en");
   if (!p) notFound();
 
   const siteUrl = getSiteUrl();
-  const others = BLOG_POSTS.filter((x) => x.slug !== p.slug).slice(0, 2);
+  const others = (await getAllBlogPosts("en")).filter((x) => x.slug !== p.slug).slice(0, 2);
 
   const articleSchema = {
     "@context": "https://schema.org",
