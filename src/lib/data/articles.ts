@@ -151,6 +151,24 @@ export async function getAdminArticles(): Promise<DbArticle[]> {
   }
 }
 
+/**
+ * The other language version of an EN+RU pair (same slug, other lang) — the
+ * review page shows whether the paired translation exists and its status.
+ */
+export async function getPairedArticle(slug: string, lang: string): Promise<DbArticle | null> {
+  if (!BACKEND_URL) return null;
+  const other = lang === "ru" ? "en" : "ru";
+  try {
+    const r = await backendFetch(
+      `/articles/slug/${encodeURIComponent(slug)}?lang=${other}`,
+      { cache: "no-store" },
+    );
+    return r.ok ? ((await r.json()) as DbArticle) : null;
+  } catch {
+    return null;
+  }
+}
+
 /** One article by id (admin review). */
 export async function getAdminArticle(id: number): Promise<DbArticle | null> {
   if (!BACKEND_URL) return null;
@@ -183,7 +201,8 @@ export async function getBlogPost(
 ): Promise<BlogPost | null> {
   if (BACKEND_URL) {
     try {
-      const r = await backendFetch(`/articles/slug/${encodeURIComponent(slug)}`, {
+      // ?lang= picks the right row of the EN+RU pair sharing this slug
+      const r = await backendFetch(`/articles/slug/${encodeURIComponent(slug)}?lang=${lang}`, {
         next: { revalidate: 60, tags: ["articles"] },
       });
       if (r.ok) {

@@ -6,7 +6,12 @@ import { ArrowLeft } from "lucide-react";
 import { AdminNav } from "@/components/admin/admin-nav";
 import { ArticleBody } from "@/components/sections/article-body";
 import { ArticleReview } from "@/components/admin/article-review";
-import { getAdminArticle, getPendingArticleCount, mdToBlocks } from "@/lib/data/articles";
+import {
+  getAdminArticle,
+  getPairedArticle,
+  getPendingArticleCount,
+  mdToBlocks,
+} from "@/lib/data/articles";
 
 export const metadata: Metadata = {
   title: "Статья — согласование",
@@ -36,6 +41,8 @@ export default async function AdminArticlePage({ params }: Props) {
     getPendingArticleCount(),
   ]);
   if (!article) notFound();
+  const paired = await getPairedArticle(article.slug, article.lang);
+  const otherLang = article.lang === "ru" ? "en" : "ru";
 
   const blogBase = article.lang === "ru" ? "/ru/blog" : "/blog";
   const publicHref = `${blogBase}/${article.slug}`;
@@ -94,6 +101,21 @@ export default async function AdminArticlePage({ params }: Props) {
               <div className="flex justify-between gap-4">
                 <dt className="text-forest-900/50">URL (slug)</dt>
                 <dd className="truncate font-mono text-xs text-forest-900/70">{article.slug}</dd>
+              </div>
+              <div className="flex justify-between gap-4">
+                <dt className="text-forest-900/50">Версия {otherLang.toUpperCase()}</dt>
+                <dd className="font-medium">
+                  {paired ? (
+                    <Link
+                      href={`/admin/articles/${paired.id}` as Route}
+                      className="text-forest-900 underline decoration-forest-900/30 hover:text-brass-600"
+                    >
+                      {STATUS_LABEL[paired.status]}
+                    </Link>
+                  ) : (
+                    <span className="text-red-700/80">нет — нужна вторая языковая версия</span>
+                  )}
+                </dd>
               </div>
               <div className="flex justify-between gap-4">
                 <dt className="text-forest-900/50">Создано</dt>

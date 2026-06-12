@@ -26,6 +26,17 @@ const ORDER: DbArticle["status"][] = ["pending", "rejected", "published"];
 export default async function AdminArticlesPage() {
   const [articles, pending] = await Promise.all([getAdminArticles(), getPendingArticleCount()]);
 
+  // every article ships as an EN+RU pair (same slug) — flag cards missing theirs
+  const langsBySlug = new Map<string, Set<string>>();
+  for (const a of articles) {
+    if (!langsBySlug.has(a.slug)) langsBySlug.set(a.slug, new Set());
+    langsBySlug.get(a.slug)!.add(a.lang);
+  }
+  const missingPair = (a: DbArticle): string | null => {
+    const other = a.lang === "ru" ? "en" : "ru";
+    return langsBySlug.get(a.slug)?.has(other) ? null : other;
+  };
+
   const groups = ORDER.map((status) => ({
     status,
     items: articles.filter((a) => a.status === status),
@@ -72,8 +83,15 @@ export default async function AdminArticlesPage() {
                       <span className="text-xs font-medium uppercase tracking-wide text-brass-600">
                         {a.topic}
                       </span>
-                      <span className="rounded-full bg-forest-900/5 px-2 py-0.5 text-[11px] font-medium uppercase text-forest-900/50">
-                        {a.lang}
+                      <span className="flex items-center gap-1">
+                        <span className="rounded-full bg-forest-900/5 px-2 py-0.5 text-[11px] font-medium uppercase text-forest-900/50">
+                          {a.lang}
+                        </span>
+                        {missingPair(a) ? (
+                          <span className="rounded-full bg-red-500/10 px-2 py-0.5 text-[11px] font-medium uppercase text-red-700/80">
+                            нет {missingPair(a)}
+                          </span>
+                        ) : null}
                       </span>
                     </div>
                     <h3 className="mt-2 font-serif text-lg leading-snug text-forest-900">{a.title}</h3>
