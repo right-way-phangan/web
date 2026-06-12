@@ -4,7 +4,8 @@ import Link from "next/link";
 import type { Route } from "next";
 import { MapPin } from "lucide-react";
 import { DISTRICTS } from "@/content/districts";
-import { getObjectByRwNumber, getPublicObjects } from "@/lib/data/objects";
+import { getObjectByRwNumber, getAnyObjectByRwNumber, getPublicObjects } from "@/lib/data/objects";
+import { UnavailableObject } from "@/components/objects/unavailable-object";
 import { isProjectUnit, parentProjectRw, projectSlug, getPublicProjects } from "@/lib/data/projects";
 import { formatPriceTHB, formatPricePerRai } from "@/lib/utils/price";
 import { RoiCalculator } from "@/components/calculator/roi-calculator";
@@ -35,7 +36,17 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { rw } = await params;
   const object = await getObjectByRwNumber(rw);
-  if (!object) return { title: `${rw} not found` };
+  if (!object) {
+    // Off-market listing keeps a live (noindex) page; an RW number that never
+    // existed must 404 — thrown here, before streaming starts, so the HTTP
+    // status is a real 404 (the route's loading.tsx otherwise locks in a 200).
+    const gone = await getAnyObjectByRwNumber(rw);
+    if (!gone) notFound();
+    return {
+      title: `${gone.titleEn} — ${gone.rwNumber}`,
+      robots: { index: false },
+    };
+  }
   const districtSuffix = object.district ? ` in ${object.district}` : "";
   return {
     title: `${object.titleEn} — ${object.rwNumber}`,
@@ -55,7 +66,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ObjectPage({ params }: Props) {
   const { rw } = await params;
   const object = await getObjectByRwNumber(rw);
-  if (!object) notFound();
+  if (!object) {
+    const gone = await getAnyObjectByRwNumber(rw);
+    if (!gone) notFound();
+    const catalog = await getPublicObjects();
+    return <UnavailableObject object={gone} catalog={catalog} locale="en" />;
+  }
 
   const catalog = await getPublicObjects();
   const siteUrl = getSiteUrl();

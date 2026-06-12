@@ -157,6 +157,11 @@ export interface ChromeDict {
   savedAria: string;
   chatCta: string;
   chatClose: string;
+  // header search → /listings?q=
+  searchAria: string;
+  searchTitle: string;
+  searchPlaceholder: string;
+  searchSubmit: string;
   footer: {
     blurb: string;
     explore: string;
@@ -204,6 +209,10 @@ const chrome: Record<Locale, ChromeDict> = {
     savedAria: "Saved listings",
     chatCta: "Message us",
     chatClose: "Close chat options",
+    searchAria: "Search listings",
+    searchTitle: "Search listings",
+    searchPlaceholder: "Try: sea-view land for 2–3 villas…",
+    searchSubmit: "Search",
     footer: {
       blurb:
         "Right Way Phangan Group is a Koh Phangan–based real estate agency focused on land, villas, and houses for international buyers.",
@@ -249,6 +258,10 @@ const chrome: Record<Locale, ChromeDict> = {
     savedAria: "Избранные объекты",
     chatCta: "Написать нам",
     chatClose: "Скрыть варианты чата",
+    searchAria: "Поиск по объектам",
+    searchTitle: "Поиск по объектам",
+    searchPlaceholder: "Например: участок с видом на море под 2–3 виллы…",
+    searchSubmit: "Найти",
     footer: {
       blurb:
         "Right Way Phangan Group — агентство недвижимости на Ко Пангане: земля, виллы и дома для иностранных покупателей.",
@@ -902,6 +915,17 @@ export interface ObjectDict {
   };
   verifiedBadge: string;
   districtGuide: string;
+  // unavailable listing (sold / reserved / withdrawn) — page stays live so old
+  // shared links land on something useful instead of a 404
+  unavail: {
+    sold: string;
+    reserved: string;
+    generic: string;
+    title: string;
+    lede: string;
+    browse: string;
+    contact: string;
+  };
   // object faq
   faqTitle: string;
   faqAll: string;
@@ -987,6 +1011,15 @@ const objectDict: Record<Locale, ObjectDict> = {
     },
     verifiedBadge: "Verified listing — what we check",
     districtGuide: "District guide",
+    unavail: {
+      sold: "Sold",
+      reserved: "Reserved",
+      generic: "Unavailable",
+      title: "This listing is no longer available",
+      lede: "It may have been sold, reserved, or temporarily withdrawn. Here are similar properties on the island right now — or tell us what you're looking for and we'll suggest options.",
+      browse: "Browse all listings",
+      contact: "Tell us what you need",
+    },
     faqTitle: "Good to know",
     faqAll: "All questions answered in the FAQ",
     galleryCaption: (rw, i, total) => `${rw} photos — ${i} of ${total}`,
@@ -1074,6 +1107,15 @@ const objectDict: Record<Locale, ObjectDict> = {
     },
     verifiedBadge: "Проверенный объект — что мы проверяем",
     districtGuide: "Гид по району",
+    unavail: {
+      sold: "Продан",
+      reserved: "Зарезервирован",
+      generic: "Недоступен",
+      title: "Этот объект больше не доступен",
+      lede: "Он мог быть продан, зарезервирован или временно снят с продажи. Вот похожие объекты на острове прямо сейчас — или напишите, что ищете, и мы подберём варианты.",
+      browse: "Все объекты",
+      contact: "Расскажите, что ищете",
+    },
     faqTitle: "Полезно знать",
     faqAll: "Все ответы — в FAQ",
     galleryCaption: (rw, i, total) => `${rw} — фото ${i} из ${total}`,

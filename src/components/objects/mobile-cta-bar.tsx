@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { getObjectDict } from "@/lib/i18n/dictionaries";
+import { whatsappLink } from "@/lib/site-config";
 import { cn } from "@/lib/utils/cn";
 
 interface Props {
@@ -54,9 +55,22 @@ export function MobileCtaBar({ rwNumber, priceLabel }: Props) {
             <p className="text-sm italic text-forest-500/70">{t.priceOnRequest}</p>
           )}
         </div>
-        <Button asChild size="md" className="shrink-0">
-          <a href="#inquiry">{t.enquire}</a>
-        </Button>
+        <div className="flex shrink-0 items-center gap-2">
+          {/* One-tap WhatsApp with the listing pre-filled — the form is ~6
+              screens down, half of mobile visitors won't scroll to it. */}
+          <Button asChild variant="outline" size="md">
+            <a
+              href={whatsappLink(t.inquiryDefaultMessage(rwNumber))}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              WhatsApp
+            </a>
+          </Button>
+          <Button asChild size="md">
+            <a href="#inquiry">{t.enquire}</a>
+          </Button>
+        </div>
       </div>
     </div>
   );

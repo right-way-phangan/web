@@ -165,6 +165,20 @@ export async function getObjectByRwNumber(
 }
 
 /**
+ * Resolve an RW number that is NOT publicly listable (Sold/Reserved/photo-less)
+ * so its detail URL can render an "unavailable" page instead of a 404 — shared
+ * links to sold listings keep landing on live inventory. Returns the object
+ * sanitized and without gallery; null when the number never existed.
+ */
+export async function getAnyObjectByRwNumber(
+  rw: string,
+): Promise<RealEstateObject | null> {
+  const all = await getAllObjects();
+  const found = all.find((o) => o.rwNumber === rw);
+  return found ? slimObjectForList(sanitizePublicObject(found)) : null;
+}
+
+/**
  * Fetch ALL catalog objects regardless of status (Active/Sold/Reserved/…).
  * Used only to resolve a project's unit cards — a project page must show sold
  * and reserved units (with their status badge), not just the publicly listable

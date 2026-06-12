@@ -7,6 +7,7 @@ import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
 import { Menu, X, Heart, ChevronDown } from "lucide-react";
 import { Logo } from "./logo";
+import { HeaderSearch } from "./header-search";
 import { LanguageSwitcher } from "@/components/i18n/language-switcher";
 import { Button } from "@/components/ui/button";
 import { useSaved } from "@/lib/saved/saved-context";
@@ -115,6 +116,7 @@ export function Header() {
         </nav>
 
         <div className="hidden lg:flex lg:items-center lg:gap-3">
+          <HeaderSearch light={overlay} />
           <LanguageSwitcher tone={overlay ? "light" : "default"} />
           <SavedLink
             count={savedCount}
@@ -136,6 +138,7 @@ export function Header() {
         </div>
 
         <div className="flex items-center gap-1 lg:hidden">
+          <HeaderSearch light={overlay} />
           <SavedLink
             count={savedCount}
             label={chrome.savedAria}

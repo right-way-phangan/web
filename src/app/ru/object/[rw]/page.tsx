@@ -4,7 +4,8 @@ import Link from "next/link";
 import type { Route } from "next";
 import { MapPin, ShieldCheck } from "lucide-react";
 import { DISTRICTS } from "@/content/districts";
-import { getObjectByRwNumber, getPublicObjects } from "@/lib/data/objects";
+import { getObjectByRwNumber, getAnyObjectByRwNumber, getPublicObjects } from "@/lib/data/objects";
+import { UnavailableObject } from "@/components/objects/unavailable-object";
 import { isProjectUnit, parentProjectRw, projectSlug, getPublicProjects } from "@/lib/data/projects";
 import { formatPriceTHB, formatPricePerRai } from "@/lib/utils/price";
 import { RoiCalculator } from "@/components/calculator/roi-calculator";
@@ -35,7 +36,16 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { rw } = await params;
   const object = await getObjectByRwNumber(rw);
-  if (!object) return { title: `${rw} — не найдено` };
+  if (!object) {
+    // Снятый с продажи объект живёт (noindex); несуществующий номер — честный
+    // 404: notFound() здесь, до начала стриминга (иначе loading.tsx фиксирует 200).
+    const gone = await getAnyObjectByRwNumber(rw);
+    if (!gone) notFound();
+    return {
+      title: `${gone.titleEn} — ${gone.rwNumber}`,
+      robots: { index: false },
+    };
+  }
   return {
     title: `${object.titleEn} — ${object.rwNumber}`,
     description:
@@ -51,7 +61,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function RussianObjectPage({ params }: Props) {
   const { rw } = await params;
   const object = await getObjectByRwNumber(rw);
-  if (!object) notFound();
+  if (!object) {
+    const gone = await getAnyObjectByRwNumber(rw);
+    if (!gone) notFound();
+    const catalog = await getPublicObjects();
+    return <UnavailableObject object={gone} catalog={catalog} locale="ru" />;
+  }
 
   const catalog = await getPublicObjects();
   const siteUrl = getSiteUrl();
