@@ -235,6 +235,13 @@ export function CrmBoard({
                         ) : null;
                       })()}
                       <div className="mt-2 flex flex-wrap gap-1">
+                        {(lead.dealValue ?? 0) > 0 && (
+                          <span className="rounded bg-emerald-500/10 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-700">
+                            ฿{lead.dealValue! >= 1_000_000
+                              ? `${(lead.dealValue! / 1_000_000).toFixed(1)}M`
+                              : new Intl.NumberFormat("en-US").format(lead.dealValue!)}
+                          </span>
+                        )}
                         {lead.rwNumber && (
                           <span className="rounded bg-brass-500/10 px-1.5 py-0.5 text-[10px] font-medium text-brass-600">
                             {lead.rwNumber}
