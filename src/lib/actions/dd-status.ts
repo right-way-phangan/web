@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { backendFetch } from "@/lib/api/backend";
-import { DD_STATUSES, type DdStatus } from "@/lib/dd";
+import { DD_STATUSES, DD_CHECKLIST, type DdStatus } from "@/lib/dd";
 
 const API = process.env.OBJECTS_API_URL;
 
@@ -47,5 +47,37 @@ export async function setDdStatus(
   revalidatePath("/admin/dd");
   revalidatePath("/admin/objects");
   revalidatePath(`/object/${rwNumber}`);
+  return { ok: true };
+}
+
+/**
+ * Persist the L1 checklist ticks (V1–V7) for an object. Stored as jsonb in
+ * Neon (dd_checklist); internal-only — never reaches public payloads.
+ */
+export async function saveDdChecklist(
+  rwNumber: string,
+  checklist: Record<string, boolean>,
+): Promise<DdResult> {
+  if (!API) return { ok: false, error: "Backend не подключён (OBJECTS_API_URL)." };
+
+  const allowed = new Set(DD_CHECKLIST.map((i) => i.key));
+  const clean: Record<string, boolean> = {};
+  for (const [k, v] of Object.entries(checklist)) {
+    if (allowed.has(k as (typeof DD_CHECKLIST)[number]["key"])) clean[k] = !!v;
+  }
+
+  try {
+    const r = await backendFetch(`/objects/${encodeURIComponent(rwNumber)}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      cache: "no-store",
+      body: JSON.stringify({ ddChecklist: clean }),
+    });
+    if (!r.ok) return { ok: false, error: `PATCH ${rwNumber}: ${r.status}` };
+  } catch (err) {
+    return { ok: false, error: err instanceof Error ? err.message : "fetch failed" };
+  }
+
+  revalidatePath("/admin/dd");
   return { ok: true };
 }

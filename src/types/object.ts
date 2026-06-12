@@ -102,6 +102,7 @@ export interface RealEstateObject {
   ddStatus?: string;   // Pending | Vetted | Full DD | Red flag
   ddDate?: string;     // YYYY-MM-DD — дата вердикта
   ddLawyer?: string;   // кто дал вердикт — НЕ публичное (режется в sanitizePublicObject)
+  ddChecklist?: Record<string, boolean>; // пункты V1–V7 — НЕ публичное
 
   // External
   driveFolder?: string;       // Google Drive

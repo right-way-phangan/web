@@ -37,6 +37,17 @@ export default async function AdminDdPage() {
       ddStatus: o.ddStatus,
       ddDate: o.ddDate,
       ddLawyer: o.ddLawyer,
+      ddChecklist: o.ddChecklist,
+      // Авто-факты: что уже есть в карточке для L1 (подсказка перед полевой
+      // работой; ничего не тикают сами — честность чек-листа)
+      facts: [
+        { label: "Координаты (lat/lng)", ok: o.lat != null && o.lng != null },
+        { label: "Копия документа в DOCS", ok: (o.docs?.length ?? 0) > 0 },
+        { label: "Площадь в карточке", ok: o.areaRai != null || o.areaSqm != null || !!o.areaNote },
+        { label: "Район указан", ok: !!o.district },
+        { label: "Фото-обложка", ok: !!o.coverImage },
+        { label: "Тип документа (Chanote/NS3…)", ok: !!o.documentType },
+      ],
     }))
     .sort((a, b) => {
       // публичные без вердикта — наверх: они уже на сайте, где hero обещает

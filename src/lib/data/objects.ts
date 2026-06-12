@@ -29,12 +29,13 @@ const OBJECTS_API_URL = process.env.OBJECTS_API_URL;
  * getAllObjects, which stays unsanitized.
  */
 export function sanitizePublicObject(o: RealEstateObject): RealEstateObject {
-  const { ownerName, driveFolder, docs, circleCode, ddLawyer, ...pub } = o;
+  const { ownerName, driveFolder, docs, circleCode, ddLawyer, ddChecklist, ...pub } = o;
   void ownerName;
   void driveFolder;
   void docs;
   void circleCode;
   void ddLawyer; // имя юриста — внутреннее; публично только ddStatus/ddDate
+  void ddChecklist;
   return pub;
 }
 
