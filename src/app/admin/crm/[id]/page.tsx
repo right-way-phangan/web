@@ -9,6 +9,9 @@ import { TaskToggle } from "@/components/crm/task-toggle";
 import { LeadEdit } from "@/components/crm/lead-edit";
 import { LeadWonLost } from "@/components/crm/lead-won-lost";
 import { ContactActions } from "@/components/crm/contact-actions";
+import { DealValue } from "@/components/crm/deal-value";
+import { LeadMatches, type MatchItem } from "@/components/crm/lead-matches";
+import { MessageTemplates } from "@/components/crm/message-templates";
 import { addNoteAction, addTaskAction } from "@/lib/actions/lead-actions";
 
 export const metadata: Metadata = {
@@ -74,10 +77,74 @@ export default async function LeadDetailPage({
   const lead = await getLead(Number(id));
   if (!lead) notFound();
 
+  const allObjects = await getAllObjects();
   // Reverse object↔lead link: the object this lead is about (any status).
   const obj = lead.rwNumber
-    ? (await getAllObjects()).find((o) => o.rwNumber === lead.rwNumber) ?? null
+    ? allObjects.find((o) => o.rwNumber === lead.rwNumber) ?? null
     : null;
+
+  // "Что показать": match catalog objects to the lead's qualification.
+  const tags = lead.tags ?? [];
+  const shortRws = new Set(tags.filter((t) => t.startsWith("object:")).map((t) => t.slice(7)));
+  const interest = tags.find((t) => t.startsWith("interest:"))?.slice("interest:".length);
+  const wantTypes = interest
+    ? new Set([interest])
+    : lead.pipelineKey === "villa_house"
+      ? new Set(["Villa", "House", "Apartment", "Project"])
+      : lead.pipelineKey === "land"
+        ? new Set(["Land"])
+        : null;
+  const leadText = [lead.name, ...lead.notes.map((n) => n.text)].join(" ").toLowerCase();
+  const isUnit = (rw: string) => /^RW-P\d+-\d+$/i.test(rw);
+  const toItem = (o: RealEstateObject, inShortlist: boolean): MatchItem => ({
+    rwNumber: o.rwNumber,
+    title: o.titleEn || o.rwNumber,
+    cover: o.coverImage ?? null,
+    priceLabel: o.priceThb || o.pricePerRai || o.rentPerRaiMonth ? objPrice(o) : "",
+    district: o.district ?? null,
+    inShortlist,
+  });
+  const matches: MatchItem[] =
+    lead.status === "open"
+      ? allObjects
+          .filter(
+            (o) =>
+              o.status === "Active" &&
+              o.coverImage &&
+              o.rwNumber &&
+              !isUnit(o.rwNumber) &&
+              o.rwNumber !== lead.rwNumber &&
+              !shortRws.has(o.rwNumber) &&
+              (!wantTypes || wantTypes.has(o.type)),
+          )
+          .map((o) => ({
+            o,
+            score: o.district && leadText.includes(o.district.toLowerCase()) ? 2 : 0,
+          }))
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 4)
+          .map(({ o }) => toItem(o, false))
+      : [];
+  const shortlist: MatchItem[] = allObjects
+    .filter((o) => shortRws.has(o.rwNumber))
+    .map((o) => toItem(o, true));
+
+  // Timed tasks get an "add to Google Calendar" prefill link (viewings).
+  const gcalUrl = (t: { title: string; dueAt: string | null }) => {
+    if (!t.dueAt) return null;
+    const start = new Date(t.dueAt);
+    if (start.getUTCHours() === 0 && start.getUTCMinutes() === 0) return null; // date-only
+    const f = (d: Date) => d.toISOString().replace(/[-:]|\.\d{3}/g, "");
+    const end = new Date(start.getTime() + 3_600_000);
+    const p = new URLSearchParams({
+      action: "TEMPLATE",
+      text: `${t.title} — ${lead.contactName ?? `лид #${lead.id}`}`,
+      dates: `${f(start)}/${f(end)}`,
+      details: `Лид: https://rightwaygroup.co/admin/crm/${lead.id}${lead.phone ? `\nТел: ${lead.phone}` : ""}`,
+      location: obj?.locationUrl || obj?.district || "",
+    });
+    return `https://calendar.google.com/calendar/render?${p.toString()}`;
+  };
 
   // How long the lead sits on the current stage: since the last stage event
   // (events come desc), else since creation.
@@ -118,6 +185,16 @@ export default async function LeadDetailPage({
       {/* One-tap contact actions */}
       <div className="mt-4">
         <ContactActions phone={lead.phone} email={lead.email} />
+      </div>
+
+      {/* Message templates (copy / WhatsApp prefill) */}
+      <div className="mt-3">
+        <MessageTemplates
+          contactName={lead.contactName}
+          phone={lead.phone}
+          objectTitle={obj?.titleEn ?? null}
+          objectRw={obj?.rwNumber ?? null}
+        />
       </div>
 
       {/* Quick close */}
@@ -171,6 +248,23 @@ export default async function LeadDetailPage({
         {lead.status === "lost" && lead.lostReason && (
           <Meta label="Причина потери" value={lead.lostReason} />
         )}
+        <div className="col-span-2 sm:col-span-3">
+          <dt className="text-xs uppercase tracking-wide text-forest-900/40">
+            Сумма сделки
+            {lead.dealValue ? (
+              <span className="ml-2 normal-case text-brass-600">
+                комиссия ≈ ฿{nf(Math.max(lead.dealValue * 0.05, 150_000))}
+              </span>
+            ) : null}
+          </dt>
+          <dd className="mt-1">
+            <DealValue
+              leadId={lead.id}
+              value={lead.dealValue ?? null}
+              objectPrice={obj?.priceThb ?? null}
+            />
+          </dd>
+        </div>
       </dl>
 
       {(lead.tags ?? []).length > 0 && (
@@ -231,6 +325,17 @@ export default async function LeadDetailPage({
         </div>
       )}
 
+      {/* Matching + shortlist */}
+      <div className="mt-6">
+        <LeadMatches
+          leadId={lead.id}
+          tags={tags}
+          matches={matches}
+          shortlist={shortlist}
+          contactName={lead.contactName}
+        />
+      </div>
+
       {/* Tasks */}
       <h2 className="mt-8 text-sm font-semibold uppercase tracking-wide text-forest-900/70">
         Задачи
@@ -249,7 +354,20 @@ export default async function LeadDetailPage({
               {t.title}
             </span>
             {t.dueAt && (
-              <span className="ml-auto text-xs text-forest-900/40">до {fmtDue(t.dueAt)}</span>
+              <span className="ml-auto flex shrink-0 items-center gap-2 text-xs text-forest-900/40">
+                до {fmtDue(t.dueAt)}
+                {!t.done && gcalUrl(t) && (
+                  <a
+                    href={gcalUrl(t)!}
+                    target="_blank"
+                    rel="noreferrer"
+                    title="Добавить в Google Calendar"
+                    className="rounded bg-forest-900/5 px-1.5 py-0.5 text-forest-900/60 hover:bg-forest-900/10"
+                  >
+                    📅
+                  </a>
+                )}
+              </span>
             )}
           </li>
         ))}

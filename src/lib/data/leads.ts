@@ -32,6 +32,10 @@ export interface CrmLead {
   /** When the lead landed on its current stage (last event) — "days on stage". */
   stageSince?: string | null;
   lostReason?: string | null;
+  /** Expected deal size, THB — pipeline money. */
+  dealValue?: number | null;
+  /** Concatenated notes (truncated) — board search looks into them. */
+  notesText?: string;
 }
 
 export interface CrmStage {

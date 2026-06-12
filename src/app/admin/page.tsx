@@ -159,6 +159,23 @@ export default async function AdminHomePage() {
     .sort((a, b) => (b.createdAt ?? "").localeCompare(a.createdAt ?? ""))
     .slice(0, 6);
 
+  // Pipeline money: expected deal sizes + commission max(5%; 150k THB).
+  const nf = (n: number) => new Intl.NumberFormat("en-US").format(Math.round(n));
+  const fmtTHB = (n: number) =>
+    n >= 1_000_000 ? `฿${(n / 1_000_000).toFixed(1)}M` : `฿${nf(n)}`;
+  const commissionOf = (v: number) => Math.max(v * 0.05, 150_000);
+  const openValued = leads.filter((l) => isOpenLead(l) && (l.dealValue ?? 0) > 0);
+  const pipelineValue = openValued.reduce((s, l) => s + (l.dealValue ?? 0), 0);
+  const pipelineCommission = openValued.reduce((s, l) => s + commissionOf(l.dealValue ?? 0), 0);
+  const wonValued = leads.filter((l) => l.stageKey && wonKeys.has(l.stageKey) && (l.dealValue ?? 0) > 0);
+  const wonCommission = wonValued.reduce((s, l) => s + commissionOf(l.dealValue ?? 0), 0);
+  const valueByStage = new Map<string, number>();
+  for (const l of openValued) {
+    const k = l.stage ?? "—";
+    valueByStage.set(k, (valueByStage.get(k) ?? 0) + (l.dealValue ?? 0));
+  }
+  const stageValues = [...valueByStage.entries()].sort((a, b) => b[1] - a[1]);
+
   // Loss reasons (asked by the Lost dialog) — why deals die.
   const lostLeads = leads.filter((l) => l.stageKey && lostKeys.has(l.stageKey));
   const lossReasons = [
@@ -382,6 +399,51 @@ export default async function AdminHomePage() {
               <p className="mt-3 text-xs text-forest-900/40">
                 Колонки: канал · доля · число лидов · доля выигранных. Источник — теги лида
                 (source/channel/campaign).
+              </p>
+            </div>
+          )}
+
+          {/* Pipeline money */}
+          {(pipelineValue > 0 || wonCommission > 0) && (
+            <div className="mb-7 rounded-2xl border border-forest-900/10 bg-white p-4">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
+                Деньги в воронке
+              </p>
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                <div>
+                  <p className="text-xs text-forest-900/45">В работе (сделки)</p>
+                  <p className="text-2xl font-semibold text-forest-900">{fmtTHB(pipelineValue)}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-forest-900/45">Прогноз комиссии</p>
+                  <p className="text-2xl font-semibold text-brass-600">{fmtTHB(pipelineCommission)}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-forest-900/45">Выиграно (комиссия)</p>
+                  <p className="text-2xl font-semibold text-emerald-600">
+                    {wonCommission > 0 ? fmtTHB(wonCommission) : "—"}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-xs text-forest-900/45">Лидов с суммой</p>
+                  <p className="text-2xl font-semibold text-forest-900">{openValued.length}</p>
+                </div>
+              </div>
+              {stageValues.length > 0 && (
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {stageValues.map(([stage, v]) => (
+                    <span
+                      key={stage}
+                      className="rounded-full bg-forest-900/5 px-2.5 py-1 text-xs text-forest-900/70"
+                    >
+                      {stage}: <b className="text-forest-900">{fmtTHB(v)}</b>
+                    </span>
+                  ))}
+                </div>
+              )}
+              <p className="mt-3 text-xs text-forest-900/40">
+                Комиссия по формуле max(5%; ฿150k) с каждой сделки. Сумму задаёт поле «Сумма
+                сделки» на карточке лида.
               </p>
             </div>
           )}

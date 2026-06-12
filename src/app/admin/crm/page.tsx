@@ -69,7 +69,7 @@ export default async function CrmPage({
   };
   const matchesQuery = (l: Lead): boolean => {
     if (!query) return true;
-    return [l.contactName, l.name, l.email, l.phone, l.rwNumber, (l.tags ?? []).join(" ")]
+    return [l.contactName, l.name, l.email, l.phone, l.rwNumber, (l.tags ?? []).join(" "), l.notesText]
       .filter(Boolean)
       .join(" ")
       .toLowerCase()
@@ -134,7 +134,7 @@ export default async function CrmPage({
             type="search"
             name="q"
             defaultValue={query}
-            placeholder="Имя / телефон / email / RW / тег…"
+            placeholder="Имя / телефон / email / RW / тег / заметки…"
             className="w-full rounded-full border border-forest-900/15 bg-white px-3 py-1.5 text-sm outline-none focus:border-brass-500 sm:w-64"
           />
         </form>
