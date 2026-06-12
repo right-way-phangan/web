@@ -2,20 +2,24 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ObjectCard } from "@/components/objects/object-card";
-import { getPublicObjects } from "@/lib/data/objects";
+import { getPublicObjects, slimObjectForCard } from "@/lib/data/objects";
 
 /**
  * Homepage showcase — the six most photogenic active listings. getPublicObjects()
  * already sorts cover-photo + premium objects to the top, so we prefer ones with
  * a real photo and fall back to the head of the list if the catalog is thin.
  * Renders nothing when the catalog is empty (amoCRM down) so the page degrades.
+ * Cards are slimmed to ObjectCard fields — full objects would put six galleries
+ * and raw descriptions into the homepage RSC payload.
  */
 export async function FeaturedListings() {
   const all = await getPublicObjects();
   if (all.length === 0) return null;
 
   const withPhotos = all.filter((o) => o.coverImage);
-  const featured = (withPhotos.length >= 6 ? withPhotos : all).slice(0, 6);
+  const featured = (withPhotos.length >= 6 ? withPhotos : all)
+    .slice(0, 6)
+    .map(slimObjectForCard);
 
   return (
     <section className="container-prose py-24 md:py-32">
