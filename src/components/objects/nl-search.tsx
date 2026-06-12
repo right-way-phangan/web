@@ -72,7 +72,7 @@ export function NlSearch({ initialQuery = "" }: { initialQuery?: string }) {
 
       {interpreted && interpreted.length > 0 ? (
         <div className="mt-3 flex flex-wrap items-center gap-1.5 text-xs">
-          <span className="text-forest-500/60">{t.nlInterpreted}</span>
+          <span className="text-forest-500/70">{t.nlInterpreted}</span>
           {interpreted.map((chip) => (
             <span
               key={chip}
@@ -83,7 +83,7 @@ export function NlSearch({ initialQuery = "" }: { initialQuery?: string }) {
           ))}
         </div>
       ) : noMatch ? (
-        <p className="mt-3 text-xs text-forest-500/60">{t.nlNoMatch}</p>
+        <p className="mt-3 text-xs text-forest-500/70">{t.nlNoMatch}</p>
       ) : (
         <div className="mt-3 flex flex-wrap items-center gap-1.5 text-xs text-forest-500/55">
           <span>{t.nlTry}</span>

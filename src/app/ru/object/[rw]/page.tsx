@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Link from "next/link";
-import type { Route } from "next";
-import { ArrowLeft, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { getObjectByRwNumber, getPublicObjects } from "@/lib/data/objects";
 import { isProjectUnit, parentProjectRw, projectSlug, getPublicProjects } from "@/lib/data/projects";
 import { formatPriceTHB, formatPricePerRai } from "@/lib/utils/price";
 import { RoiCalculator } from "@/components/calculator/roi-calculator";
-import { Button } from "@/components/ui/button";
+import { Breadcrumbs } from "@/components/objects/breadcrumbs";
+import { MobileCtaBar } from "@/components/objects/mobile-cta-bar";
 import { ObjectGallery } from "@/components/objects/object-gallery";
 import { SpecTable } from "@/components/objects/spec-table";
 import { InvestmentHighlights } from "@/components/objects/investment-highlights";
@@ -57,19 +56,27 @@ export default async function RussianObjectPage({ params }: Props) {
 
   // Юнит проекта (RW-P####-N) ведёт назад к проекту, а не к списку объектов
   // (юниты исключены из списка). Если проект ещё не опубликован — на /projects.
-  let backHref = "/ru/listings";
-  let backLabel = t.backToListings;
+  let trailHref = "/ru/listings";
+  let trailLabel = "Объекты";
   if (isProjectUnit(object.rwNumber)) {
     const projects = await getPublicProjects();
     const parent = projects.find((p) => p.rwNumber === parentProjectRw(object.rwNumber));
     if (parent) {
-      backHref = `/ru/projects/${projectSlug(parent, projects)}`;
-      backLabel = `Назад: ${parent.titleEn}`;
+      trailHref = `/ru/projects/${projectSlug(parent, projects)}`;
+      trailLabel = parent.titleEn;
     } else {
-      backHref = "/ru/projects";
-      backLabel = "Назад к проектам";
+      trailHref = "/ru/projects";
+      trailLabel = "Проекты";
     }
   }
+
+  const mobilePriceLabel = object.priceThb
+    ? formatPriceTHB(object.priceThb)
+    : object.pricePerRai
+      ? formatPricePerRai(object.pricePerRai)
+      : object.rentPerRaiMonth
+        ? `${formatPriceTHB(object.rentPerRaiMonth)} /рай/мес`
+        : undefined;
 
   return (
     <>
@@ -82,13 +89,12 @@ export default async function RussianObjectPage({ params }: Props) {
         ]}
       />
 
-      <article className="container-prose py-8 md:py-12">
-        <Button asChild variant="ghost" size="sm" className="mb-6">
-          <Link href={backHref as Route}>
-            <ArrowLeft className="h-4 w-4" />
-            {backLabel}
-          </Link>
-        </Button>
+      <article className="container-prose py-8 pb-24 md:py-12 lg:pb-12">
+        <Breadcrumbs
+          trailHref={trailHref}
+          trailLabel={trailLabel}
+          current={object.rwNumber}
+        />
 
         <ObjectGallery rwNumber={object.rwNumber} type={object.type} gallery={object.gallery} />
 
@@ -111,7 +117,7 @@ export default async function RussianObjectPage({ params }: Props) {
                   {formatPriceTHB(object.priceThb)}
                 </span>
                 {object.type === "Land" && object.pricePerRai ? (
-                  <span className="text-sm text-forest-500/60">
+                  <span className="text-sm text-forest-500/70">
                     {formatPricePerRai(object.pricePerRai)}
                   </span>
                 ) : null}
@@ -129,10 +135,10 @@ export default async function RussianObjectPage({ params }: Props) {
               <span className="num text-3xl text-forest-900 md:text-4xl">
                 {formatPriceTHB(object.rentPerRaiMonth)}
               </span>
-              <span className="text-sm text-forest-500/60">{t.perRaiMonth}</span>
+              <span className="text-sm text-forest-500/70">{t.perRaiMonth}</span>
             </div>
           ) : (
-            <p className="mt-4 text-lg italic text-forest-500/60">{t.priceOnRequest}</p>
+            <p className="mt-4 text-lg italic text-forest-500/70">{t.priceOnRequest}</p>
           )}
 
           {object.district ? (
@@ -222,6 +228,7 @@ export default async function RussianObjectPage({ params }: Props) {
         <RelatedListings current={object} catalog={catalog} />
         <RecentlyViewed catalog={catalog} excludeRw={object.rwNumber} />
       </article>
+      <MobileCtaBar rwNumber={object.rwNumber} priceLabel={mobilePriceLabel} />
       <TrackView rw={object.rwNumber} />
     </>
   );

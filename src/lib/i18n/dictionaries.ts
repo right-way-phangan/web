@@ -29,6 +29,7 @@ export interface HomeDict {
     items: { title: string; text: string }[];
   };
   featured: { eyebrow: string; title: string; lede: string };
+  stats: { listings: string; districts: string; reply: string; replyValue: string };
   cta: { eyebrow: string; title: string; lede: string; browse: string; talk: string };
   inProgress: string;
 }
@@ -64,6 +65,12 @@ const en: HomeDict = {
     eyebrow: "Featured",
     title: "A few we'd show you first.",
     lede: "A sample of what's on the island right now.",
+  },
+  stats: {
+    listings: "active listings",
+    districts: "districts covered",
+    reply: "typical first reply",
+    replyValue: "≈ 1 hour",
   },
   cta: {
     eyebrow: "Ready when you are",
@@ -107,6 +114,12 @@ const ru: HomeDict = {
     title: "С чего мы бы начали показ.",
     lede: "Несколько объектов из того, что есть на острове прямо сейчас.",
   },
+  stats: {
+    listings: "активных объектов",
+    districts: "районов острова",
+    reply: "обычное время ответа",
+    replyValue: "≈ 1 час",
+  },
   cta: {
     eyebrow: "Когда будете готовы",
     title: "Найдите своё место на Пангане.",
@@ -142,6 +155,8 @@ export interface ChromeDict {
   groups: NavGroup[];
   getInTouch: string;
   savedAria: string;
+  chatCta: string;
+  chatClose: string;
   footer: {
     blurb: string;
     explore: string;
@@ -186,6 +201,8 @@ const chrome: Record<Locale, ChromeDict> = {
     ],
     getInTouch: "Get in touch",
     savedAria: "Saved listings",
+    chatCta: "Message us",
+    chatClose: "Close chat options",
     footer: {
       blurb:
         "Right Way Phangan Group is a Koh Phangan–based real estate agency focused on land, villas, and houses for international buyers.",
@@ -228,6 +245,8 @@ const chrome: Record<Locale, ChromeDict> = {
     ],
     getInTouch: "Связаться",
     savedAria: "Избранные объекты",
+    chatCta: "Написать нам",
+    chatClose: "Скрыть варианты чата",
     footer: {
       blurb:
         "Right Way Phangan Group — агентство недвижимости на Ко Пангане: земля, виллы и дома для иностранных покупателей.",
@@ -660,6 +679,7 @@ export interface ListingsDict {
   perRaiMonth: string;
   rai: string;
   bed: string;
+  newBadge: string;
   // map split
   inMapArea: (n: number) => string;
   showAll: string;
@@ -729,6 +749,7 @@ const listings: Record<Locale, ListingsDict> = {
     perRaiMonth: "/rai/mo",
     rai: "rai",
     bed: "bed",
+    newBadge: "New",
     inMapArea: (n) => `${n} ${n === 1 ? "property" : "properties"} in the map area`,
     showAll: "Show all",
     noneInArea: "No listings in the current map area. Zoom out or pan to see more.",
@@ -791,6 +812,7 @@ const listings: Record<Locale, ListingsDict> = {
     perRaiMonth: "/рай/мес",
     rai: "рай",
     bed: "сп.",
+    newBadge: "Новое",
     inMapArea: (n) => `${n} ${pluralRu(n, "объект", "объекта", "объектов")} в области карты`,
     showAll: "Показать все",
     noneInArea: "В текущей области карты объектов нет. Отдалите или подвиньте карту.",
@@ -827,6 +849,7 @@ export function getListingsDict(locale: Locale): ListingsDict {
 
 export interface ObjectDict {
   backToListings: string;
+  bcHome: string;
   locationCountry: string;
   openInMaps: string;
   openInGoogleMaps: string;
@@ -841,6 +864,7 @@ export interface ObjectDict {
   investmentOutlookLede: string;
   // inquiry
   enquireOrBook: string;
+  enquire: string;
   inquiryLede: string;
   orMessageDirectly: string;
   inquiryDefaultMessage: (rw: string) => string;
@@ -890,6 +914,7 @@ export interface ObjectDict {
 const objectDict: Record<Locale, ObjectDict> = {
   en: {
     backToListings: "Back to listings",
+    bcHome: "Home",
     locationCountry: "Koh Phangan, Thailand",
     openInMaps: "Open in Maps",
     openInGoogleMaps: "Open in Google Maps",
@@ -903,6 +928,7 @@ const objectDict: Record<Locale, ObjectDict> = {
     investmentOutlook: "Investment outlook",
     investmentOutlookLede: "Project this property’s value over time. Set your own growth outlook — every figure is illustrative.",
     enquireOrBook: "Enquire or book a viewing",
+    enquire: "Enquire",
     inquiryLede: "Ask a question or pick a date to see it. We reply within the working day, usually within an hour.",
     orMessageDirectly: "Or message directly",
     inquiryDefaultMessage: (rw) => `Hi — I'd like more information about ${rw}.`,
@@ -954,6 +980,7 @@ const objectDict: Record<Locale, ObjectDict> = {
   },
   ru: {
     backToListings: "Назад к объектам",
+    bcHome: "Главная",
     locationCountry: "Ко Панган, Таиланд",
     openInMaps: "Открыть в картах",
     openInGoogleMaps: "Открыть в Google Maps",
@@ -967,6 +994,7 @@ const objectDict: Record<Locale, ObjectDict> = {
     investmentOutlook: "Инвестиционный прогноз",
     investmentOutlookLede: "Спрогнозируйте стоимость объекта во времени. Задайте свой темп роста — все цифры иллюстративны.",
     enquireOrBook: "Запрос или запись на просмотр",
+    enquire: "Запрос",
     inquiryLede: "Задайте вопрос или выберите дату просмотра. Отвечаем в течение рабочего дня, обычно в течение часа.",
     orMessageDirectly: "Или напишите напрямую",
     inquiryDefaultMessage: (rw) => `Здравствуйте — хочу узнать подробнее об объекте ${rw}.`,

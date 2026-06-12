@@ -15,9 +15,19 @@ import {
 } from "lucide-react";
 import type { RealEstateObject, ObjectType } from "@/types/object";
 import { formatPriceCompact } from "@/lib/utils/price";
+import { BLUR_PLACEHOLDER } from "@/lib/utils/blur";
 import { useLocale, localeHref } from "@/lib/i18n/use-locale";
 import { getListingsDict, type ListingsDict } from "@/lib/i18n/dictionaries";
 import { SaveButton } from "./save-button";
+
+const NEW_BADGE_DAYS = 14;
+
+function isFreshListing(dateAdded?: string): boolean {
+  if (!dateAdded) return false;
+  const added = Date.parse(dateAdded);
+  if (Number.isNaN(added)) return false;
+  return Date.now() - added < NEW_BADGE_DAYS * 24 * 60 * 60 * 1000;
+}
 
 const TYPE_ICON: Record<ObjectType, typeof Home> = {
   Land: TreePine,
@@ -85,6 +95,8 @@ export function ObjectCard({ object }: Props) {
             alt={object.titleEn}
             fill
             sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            placeholder="blur"
+            blurDataURL={BLUR_PLACEHOLDER}
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
@@ -93,8 +105,15 @@ export function ObjectCard({ object }: Props) {
           </div>
         )}
 
-        <div className="absolute left-3 top-3 rounded-sm bg-cream-50/90 px-2 py-1 text-[10px] font-medium uppercase tracking-[0.15em] text-forest-500 backdrop-blur-sm">
-          {object.rwNumber}
+        <div className="absolute left-3 top-3 flex items-center gap-1.5">
+          <span className="rounded-sm bg-cream-50/90 px-2 py-1 text-[10px] font-medium uppercase tracking-[0.15em] text-forest-500 backdrop-blur-sm">
+            {object.rwNumber}
+          </span>
+          {isFreshListing(object.dateAdded) ? (
+            <span className="rounded-sm bg-brass-500 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-cream-50">
+              {t.newBadge}
+            </span>
+          ) : null}
         </div>
 
         {object.beachfront ? (
@@ -109,7 +128,7 @@ export function ObjectCard({ object }: Props) {
       </div>
 
       <div className="flex flex-1 flex-col gap-3 p-5">
-        <div className="flex items-center gap-2 text-xs text-forest-500/60">
+        <div className="flex items-center gap-2 text-xs text-forest-500/70">
           <span className="font-medium">{t.types[object.type]}</span>
           {object.district ? (
             <>
@@ -127,7 +146,7 @@ export function ObjectCard({ object }: Props) {
           <p className="num text-lg text-forest-900">
             {formatPriceCompact(object.priceThb)}
             {object.type === "Land" && object.pricePerRai ? (
-              <span className="ml-2 text-xs font-sans text-forest-500/60">
+              <span className="ml-2 text-xs font-sans text-forest-500/70">
                 {formatPriceCompact(object.pricePerRai)}{t.perRai}
               </span>
             ) : null}
@@ -135,12 +154,12 @@ export function ObjectCard({ object }: Props) {
         ) : object.pricePerRai ? (
           <p className="num text-lg text-forest-900">
             {formatPriceCompact(object.pricePerRai)}
-            <span className="ml-2 text-xs font-sans text-forest-500/60">{t.perRai}</span>
+            <span className="ml-2 text-xs font-sans text-forest-500/70">{t.perRai}</span>
           </p>
         ) : object.rentPerRaiMonth ? (
           <p className="num text-lg text-forest-900">
             {formatPriceCompact(object.rentPerRaiMonth)}
-            <span className="ml-2 text-xs font-sans text-forest-500/60">{t.perRaiMonth}</span>
+            <span className="ml-2 text-xs font-sans text-forest-500/70">{t.perRaiMonth}</span>
           </p>
         ) : (
           <p className="text-sm italic text-forest-500/55">{t.priceOnRequest}</p>

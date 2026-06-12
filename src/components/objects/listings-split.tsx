@@ -126,7 +126,7 @@ export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
             </p>
           ) : null}
           {visibleObjects.length === 0 ? (
-            <div className="rounded-sm border border-forest-500/10 bg-forest-500/5 px-6 py-12 text-center text-sm text-forest-500/60">
+            <div className="rounded-sm border border-forest-500/10 bg-forest-500/5 px-6 py-12 text-center text-sm text-forest-500/70">
               {t.noneInArea}
             </div>
           ) : (
@@ -193,7 +193,7 @@ export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
                   </button>
                 </span>
               ) : (
-                <span className="pointer-events-none absolute right-3 top-3 z-[500] rounded-sm bg-cream-50/90 px-3 py-1.5 text-[11px] text-forest-500/60 shadow-sm backdrop-blur-sm">
+                <span className="pointer-events-none absolute right-3 top-3 z-[500] rounded-sm bg-cream-50/90 px-3 py-1.5 text-[11px] text-forest-500/70 shadow-sm backdrop-blur-sm">
                   {t.moveMapHint}
                 </span>
               )}

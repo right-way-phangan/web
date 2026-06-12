@@ -5,7 +5,8 @@ import { getObjectByRwNumber, getPublicObjects } from "@/lib/data/objects";
 import { isProjectUnit, parentProjectRw, projectSlug, getPublicProjects } from "@/lib/data/projects";
 import { formatPriceTHB, formatPricePerRai } from "@/lib/utils/price";
 import { RoiCalculator } from "@/components/calculator/roi-calculator";
-import { BackLink } from "@/components/objects/back-link";
+import { Breadcrumbs } from "@/components/objects/breadcrumbs";
+import { MobileCtaBar } from "@/components/objects/mobile-cta-bar";
 import { ObjectGallery } from "@/components/objects/object-gallery";
 import { SpecTable } from "@/components/objects/spec-table";
 import { InvestmentHighlights } from "@/components/objects/investment-highlights";
@@ -54,22 +55,30 @@ export default async function ObjectPage({ params }: Props) {
   const siteUrl = getSiteUrl();
   const pageUrl = `${siteUrl}/object/${object.rwNumber}`;
 
-  // Unit cards (RW-P####-N) link back to their project, not the listings grid
+  // Unit cards (RW-P####-N) trail back to their project, not the listings grid
   // (units are excluded from listings). If the parent project isn't published
   // yet, fall back to the projects index rather than a listings dead-end.
-  let backHref = "/listings";
-  let backLabel = "Back to listings";
+  let trailHref = "/listings";
+  let trailLabel = "Listings";
   if (isProjectUnit(object.rwNumber)) {
     const projects = await getPublicProjects();
     const parent = projects.find((p) => p.rwNumber === parentProjectRw(object.rwNumber));
     if (parent) {
-      backHref = `/projects/${projectSlug(parent, projects)}`;
-      backLabel = `Back to ${parent.titleEn}`;
+      trailHref = `/projects/${projectSlug(parent, projects)}`;
+      trailLabel = parent.titleEn;
     } else {
-      backHref = "/projects";
-      backLabel = "Back to projects";
+      trailHref = "/projects";
+      trailLabel = "Projects";
     }
   }
+
+  const mobilePriceLabel = object.priceThb
+    ? formatPriceTHB(object.priceThb)
+    : object.pricePerRai
+      ? formatPricePerRai(object.pricePerRai)
+      : object.rentPerRaiMonth
+        ? `${formatPriceTHB(object.rentPerRaiMonth)} /rai/mo`
+        : undefined;
 
   return (
     <>
@@ -82,8 +91,12 @@ export default async function ObjectPage({ params }: Props) {
         ]}
       />
 
-      <article className="container-prose py-8 md:py-12">
-        <BackLink href={backHref} label={backLabel} />
+      <article className="container-prose py-8 pb-24 md:py-12 lg:pb-12">
+        <Breadcrumbs
+          trailHref={trailHref}
+          trailLabel={trailLabel}
+          current={object.rwNumber}
+        />
 
         {/* Gallery */}
         <ObjectGallery
@@ -112,7 +125,7 @@ export default async function ObjectPage({ params }: Props) {
                   {formatPriceTHB(object.priceThb)}
                 </span>
                 {object.type === "Land" && object.pricePerRai ? (
-                  <span className="text-sm text-forest-500/60">
+                  <span className="text-sm text-forest-500/70">
                     {formatPricePerRai(object.pricePerRai)}
                   </span>
                 ) : null}
@@ -130,10 +143,10 @@ export default async function ObjectPage({ params }: Props) {
               <span className="num text-3xl text-forest-900 md:text-4xl">
                 {formatPriceTHB(object.rentPerRaiMonth)}
               </span>
-              <span className="text-sm text-forest-500/60">/ rai / month</span>
+              <span className="text-sm text-forest-500/70">/ rai / month</span>
             </div>
           ) : (
-            <p className="mt-4 text-lg italic text-forest-500/60">
+            <p className="mt-4 text-lg italic text-forest-500/70">
               Price on request
             </p>
           )}
@@ -237,6 +250,7 @@ export default async function ObjectPage({ params }: Props) {
         <RelatedListings current={object} catalog={catalog} />
         <RecentlyViewed catalog={catalog} excludeRw={object.rwNumber} />
       </article>
+      <MobileCtaBar rwNumber={object.rwNumber} priceLabel={mobilePriceLabel} />
       <TrackView rw={object.rwNumber} />
     </>
   );
