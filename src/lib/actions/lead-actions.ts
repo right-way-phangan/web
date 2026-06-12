@@ -265,4 +265,27 @@ export async function toggleTaskAction(
     }
   }
   revalidatePath(`/admin/crm/${leadId}`);
+  revalidatePath("/admin/crm/tasks");
+}
+
+/** Reschedule a task (snooze): new dueAt ISO/date, or null to clear the deadline. */
+export async function rescheduleTaskAction(
+  taskId: number,
+  leadId: number,
+  dueAt: string | null,
+): Promise<void> {
+  if (API) {
+    try {
+      await backendFetch(`/tasks/${taskId}`, {
+        method: "PATCH",
+        headers: JSON_HEADERS,
+        cache: "no-store",
+        body: JSON.stringify({ dueAt }),
+      });
+    } catch (err) {
+      console.error("[crm] rescheduleTask failed:", err);
+    }
+  }
+  revalidatePath(`/admin/crm/${leadId}`);
+  revalidatePath("/admin/crm/tasks");
 }
