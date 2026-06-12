@@ -137,7 +137,7 @@ export function CompareTable({ items }: { items: RealEstateObject[] }) {
   return (
     <section>
       <h2 className="font-serif text-2xl text-forest-900">{t.heading}</h2>
-      <p className="mt-1 text-sm text-forest-500/60">{t.lede}</p>
+      <p className="mt-1 text-sm text-forest-500/70">{t.lede}</p>
       <div className="mt-6 overflow-x-auto rounded-sm border border-forest-500/10">
         <table className="w-full min-w-[640px] border-collapse text-sm">
           <thead>
@@ -163,7 +163,7 @@ export function CompareTable({ items }: { items: RealEstateObject[] }) {
                       <X className="h-4 w-4" />
                     </button>
                   </div>
-                  <span className="mt-1 block text-xs font-normal text-forest-500/60 line-clamp-2">
+                  <span className="mt-1 block text-xs font-normal text-forest-500/70 line-clamp-2">
                     {o.titleEn}
                   </span>
                 </th>

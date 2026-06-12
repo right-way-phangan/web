@@ -95,7 +95,7 @@ export function SavedListings({ catalog }: { catalog: RealEstateObject[] }) {
         <button
           type="button"
           onClick={clear}
-          className="text-sm text-forest-500/60 underline-offset-4 hover:text-forest-500 hover:underline"
+          className="text-sm text-forest-500/70 underline-offset-4 hover:text-forest-500 hover:underline"
         >
           {t.clearAll}
         </button>

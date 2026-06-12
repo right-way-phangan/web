@@ -210,7 +210,7 @@ export default function ListingsMap({
                         className="mb-2 h-24 w-full rounded-sm object-cover"
                       />
                     ) : null}
-                    <span className="block text-[11px] uppercase tracking-wide text-forest-500/60">
+                    <span className="block text-[11px] uppercase tracking-wide text-forest-500/70">
                       {p.rw} · {p.type}
                     </span>
                     <span className="block font-serif text-sm leading-snug text-forest-900">
