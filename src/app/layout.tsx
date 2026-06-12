@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { MessengerFab } from "@/components/layout/messenger-fab";
 import { SavedProvider } from "@/lib/saved/saved-context";
 import { OrganizationJsonLd } from "@/components/seo/organization-json-ld";
 import { GtmScript, GtmNoScript } from "@/components/analytics/gtm";
@@ -92,6 +93,7 @@ export default function RootLayout({
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
+          <MessengerFab />
         </SavedProvider>
         <ContactClickTracker />
         <GtmScript />

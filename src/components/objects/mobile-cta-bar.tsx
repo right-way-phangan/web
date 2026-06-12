@@ -1,0 +1,63 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { useLocale } from "@/lib/i18n/use-locale";
+import { getObjectDict } from "@/lib/i18n/dictionaries";
+import { cn } from "@/lib/utils/cn";
+
+interface Props {
+  rwNumber: string;
+  /** Pre-formatted headline price (server-side), or undefined → "on request". */
+  priceLabel?: string;
+}
+
+/**
+ * Mobile-only bar pinned to the bottom of object pages: price + an Enquire
+ * shortcut down to the inquiry form (#inquiry). The form is the last thing on
+ * a long page, so without this the main conversion action lives below ~6
+ * screens of content. Slides away while the form itself is in view.
+ */
+export function MobileCtaBar({ rwNumber, priceLabel }: Props) {
+  const t = getObjectDict(useLocale());
+  const [formInView, setFormInView] = useState(false);
+
+  useEffect(() => {
+    const form = document.getElementById("inquiry");
+    if (!form || !("IntersectionObserver" in window)) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => setFormInView(entry.isIntersecting),
+      { threshold: 0.15 },
+    );
+    obs.observe(form);
+    return () => obs.disconnect();
+  }, []);
+
+  return (
+    <div
+      className={cn(
+        "fixed inset-x-0 bottom-0 z-30 border-t border-forest-500/10 bg-cream-50/95 px-4 pt-2.5 backdrop-blur-sm transition-transform duration-300 lg:hidden",
+        "pb-[max(0.625rem,env(safe-area-inset-bottom))]",
+        formInView && "translate-y-full",
+      )}
+    >
+      <div className="flex items-center justify-between gap-4">
+        <div className="min-w-0">
+          <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-forest-500/70">
+            {rwNumber}
+          </p>
+          {priceLabel ? (
+            <p className="num truncate text-lg leading-tight text-forest-900">
+              {priceLabel}
+            </p>
+          ) : (
+            <p className="text-sm italic text-forest-500/70">{t.priceOnRequest}</p>
+          )}
+        </div>
+        <Button asChild size="md" className="shrink-0">
+          <a href="#inquiry">{t.enquire}</a>
+        </Button>
+      </div>
+    </div>
+  );
+}
