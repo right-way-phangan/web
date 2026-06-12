@@ -29,11 +29,12 @@ const OBJECTS_API_URL = process.env.OBJECTS_API_URL;
  * getAllObjects, which stays unsanitized.
  */
 export function sanitizePublicObject(o: RealEstateObject): RealEstateObject {
-  const { ownerName, driveFolder, docs, circleCode, ...pub } = o;
+  const { ownerName, driveFolder, docs, circleCode, ddLawyer, ...pub } = o;
   void ownerName;
   void driveFolder;
   void docs;
   void circleCode;
+  void ddLawyer; // имя юриста — внутреннее; публично только ddStatus/ddDate
   return pub;
 }
 
@@ -47,6 +48,40 @@ export function slimObjectForList(o: RealEstateObject): RealEstateObject {
   const { gallery, ...slim } = o;
   void gallery;
   return slim;
+}
+
+/**
+ * Tighter cut than slimObjectForList: exactly the fields ObjectCard renders.
+ * For card strips serialized into widely-shared RSC payloads (homepage
+ * FeaturedListings, the root not-found embedded into every page) — a full
+ * object would leak galleries, raw descriptions and RU-sourced notes into
+ * every page's HTML.
+ */
+export function slimObjectForCard(o: RealEstateObject): RealEstateObject {
+  return {
+    id: o.id,
+    rwNumber: o.rwNumber,
+    titleEn: o.titleEn,
+    type: o.type,
+    status: o.status,
+    district: o.district,
+    documentType: o.documentType,
+    priceThb: o.priceThb,
+    pricePerRai: o.pricePerRai,
+    rentPerRaiMonth: o.rentPerRaiMonth,
+    areaRai: o.areaRai,
+    areaSqm: o.areaSqm,
+    bedrooms: o.bedrooms,
+    coverImage: o.coverImage,
+    dateAdded: o.dateAdded,
+    seaView: o.seaView,
+    beachfront: o.beachfront,
+    mountainView: o.mountainView,
+    jungleView: o.jungleView,
+    flatLand: o.flatLand,
+    quiet: o.quiet,
+    electricity: o.electricity,
+  };
 }
 
 // Last successful fetch, kept per server instance: an amoCRM hiccup serves

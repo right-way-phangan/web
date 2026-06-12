@@ -98,6 +98,11 @@ export interface RealEstateObject {
   timeOnMarketMonths?: number;
   dateAdded?: string;
 
+  // Due diligence (двухуровневая система, чек-лист DD v0.2 2026-06-12)
+  ddStatus?: string;   // Pending | Vetted | Full DD | Red flag
+  ddDate?: string;     // YYYY-MM-DD — дата вердикта
+  ddLawyer?: string;   // кто дал вердикт — НЕ публичное (режется в sanitizePublicObject)
+
   // External
   driveFolder?: string;       // Google Drive
   locationUrl?: string;       // Google Maps

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Route } from "next";
-import { MapPin, ShieldCheck } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { DISTRICTS } from "@/content/districts";
 import { getObjectByRwNumber, getPublicObjects } from "@/lib/data/objects";
 import { isProjectUnit, parentProjectRw, projectSlug, getPublicProjects } from "@/lib/data/projects";
@@ -13,6 +13,7 @@ import { BuyingCosts } from "@/components/objects/buying-costs";
 import { ObjectFaq } from "@/components/objects/object-faq";
 import { MobileCtaBar } from "@/components/objects/mobile-cta-bar";
 import { ObjectGallery } from "@/components/objects/object-gallery";
+import { VettedBadge } from "@/components/objects/vetted-badge";
 import { SpecTable } from "@/components/objects/spec-table";
 import { InvestmentHighlights } from "@/components/objects/investment-highlights";
 import { InquiryForm } from "@/components/objects/inquiry-form";
@@ -118,13 +119,7 @@ export default async function ObjectPage({ params }: Props) {
               <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
                 {object.rwNumber} · {object.type}
               </p>
-              <Link
-                href={"/due-diligence" as Route}
-                className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-forest-500/80 transition-colors hover:text-brass-500"
-              >
-                <ShieldCheck className="h-3.5 w-3.5 text-brass-500" />
-                Verified listing — what we check
-              </Link>
+              <VettedBadge ddStatus={object.ddStatus} ddDate={object.ddDate} />
             </div>
             <div className="flex shrink-0 items-center gap-2">
               <ShareButton rw={object.rwNumber} title={object.titleEn} />

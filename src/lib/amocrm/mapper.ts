@@ -121,6 +121,10 @@ export function mapElementToObject(el: AmoCatalogElement): RealEstateObject {
     waterType: str(cf.get("WATER_TYPE")),
     internetType: str(cf.get("INTERNET_TYPE")),
 
+    ddStatus: str(cf.get("DD_STATUS")),
+    ddDate: str(cf.get("DD_DATE")),
+    ddLawyer: str(cf.get("DD_LAWYER")),
+
     stage: str(cf.get("STAGE")) as Stage | undefined,
     developer: str(cf.get("DEVELOPER")),
     completion: str(cf.get("COMPLETION")),
