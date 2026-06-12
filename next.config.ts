@@ -7,6 +7,12 @@ const nextConfig: NextConfig = {
   // being reused by another instance" when navigating away from a map page.
   // Keeping StrictMode off lets react-leaflet manage one clean mount/unmount.
   reactStrictMode: false,
+  // Bots that read raw HTML without running JS get blocking (head-placed)
+  // metadata instead of streamed-into-body tags. This REPLACES Next's default
+  // preview-bot list, so the defaults (Telegram/WhatsApp/Twitter previews…)
+  // are folded in alongside the search/AI crawlers we care about for GEO/AEO.
+  htmlLimitedBots:
+    /Googlebot|Googlebot-Image|bingbot|Yandex(Bot|Images)?|Baiduspider|DuckDuckBot|Applebot|GPTBot|ClaudeBot|Claude-Web|PerplexityBot|CCBot|Bytespider|Mediapartners-Google|Slurp|vkShare|Slackbot|Discordbot|facebookexternalhit|facebookcatalog|Twitterbot|LinkedInBot|WhatsApp|SkypeUriPreview|BingPreview|ia_archiver|TelegramBot/i,
   images: {
     // AVIF first (≈25% lighter than WebP at same quality) — island connections
     // feel every photo byte; browsers without AVIF fall through to WebP.
