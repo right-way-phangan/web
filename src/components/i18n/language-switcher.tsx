@@ -3,28 +3,14 @@
 import Link from "next/link";
 import type { Route } from "next";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Globe } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 
-// EN ↔ RU page pairs. Routes with a Russian version map across directly; anything
-// else falls back to the other locale's home (RU listings/districts/etc. aren't
-// ported yet — their content is EN-sourced).
-const PAIRS: Record<string, string> = {
-  "/": "/ru",
-  "/about": "/ru/about",
-  "/services": "/ru/services",
-  "/process": "/ru/process",
-  "/contact": "/ru/contact",
-  "/listings": "/ru/listings",
-  "/districts": "/ru/districts",
-  "/calculator": "/ru/calculator",
-  "/insights": "/ru/insights",
-  "/saved": "/ru/saved",
-  "/faq": "/ru/faq",
-  "/knowledge": "/ru/knowledge",
-  "/blog": "/ru/blog",
-};
-const EN_OF = Object.fromEntries(Object.entries(PAIRS).map(([en, ru]) => [ru, en]));
+// The RU tree mirrors EN under /ru with identical slugs (objects, projects,
+// blog posts, districts), so locale switching is a prefix swap. Only routes
+// listed here have no RU counterpart and fall back to the RU home.
+const EN_ONLY = ["/due-diligence"];
 
 export function LanguageSwitcher({
   className,
@@ -37,9 +23,20 @@ export function LanguageSwitcher({
   const isRu = pathname === "/ru" || pathname.startsWith("/ru/");
   const light = tone === "light";
 
-  // Target hrefs that keep the visitor on the equivalent page where one exists.
-  const enHref = isRu ? (EN_OF[pathname] ?? "/") : pathname;
-  const ruHref = isRu ? pathname : (PAIRS[pathname] ?? "/ru");
+  // Carry query/hash (calculator deep-links, listing filters) across the
+  // switch. Read from window instead of useSearchParams, which would demand a
+  // Suspense boundary around the header on every page.
+  const [suffix, setSuffix] = useState("");
+  useEffect(() => {
+    setSuffix(window.location.search + window.location.hash);
+  }, [pathname]);
+
+  const enPath = isRu ? pathname.slice("/ru".length) || "/" : pathname;
+  const hasRu = !EN_ONLY.some((p) => enPath === p || enPath.startsWith(`${p}/`));
+  const enHref = enPath + suffix;
+  const ruHref = hasRu
+    ? (enPath === "/" ? "/ru" : `/ru${enPath}`) + suffix
+    : "/ru";
 
   return (
     <div
