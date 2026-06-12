@@ -1,0 +1,41 @@
+# Production smoke every 30 min: the catalog lives on the live amoCRM API, so
+# an expired token or amo outage empties /listings silently — clients would
+# notice before we do. Failures alert Vladimir via @rightway_admin_notify_bot.
+name: Prod smoke
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check production
+        id: check
+        run: |
+          fail() { echo "reason=$1" >> "$GITHUB_OUTPUT"; echo "FAILED: $1"; exit 1; }
+
+          code=$(curl -s --max-time 30 -o /tmp/home.html -w '%{http_code}' https://rightwaygroup.co/) || fail "home unreachable"
+          [ "$code" = "200" ] || fail "home HTTP $code"
+          grep -q "Right Way" /tmp/home.html || fail "home content broken"
+
+          code=$(curl -s --max-time 30 -o /tmp/listings.html -w '%{http_code}' https://rightwaygroup.co/listings) || fail "listings unreachable"
+          [ "$code" = "200" ] || fail "listings HTTP $code"
+          rw=$(grep -o 'href="/object/RW-[A-Z0-9-]*"' /tmp/listings.html | head -1 | sed 's/href="\/object\///;s/"//')
+          [ -n "$rw" ] || fail "no listing cards on /listings (amoCRM feed down?)"
+
+          code=$(curl -s --max-time 30 -o /dev/null -w '%{http_code}' "https://rightwaygroup.co/object/$rw") || fail "object page unreachable"
+          [ "$code" = "200" ] || fail "object $rw HTTP $code"
+
+          echo "OK: home, listings ($rw), object page"
+
+      - name: Alert Telegram
+        if: failure()
+        run: |
+          reason="${{ steps.check.outputs.reason }}"
+          curl -s --max-time 20 "https://api.telegram.org/bot${{ secrets.TELEGRAM_NOTIFY_BOT_TOKEN }}/sendMessage" \
+            -d chat_id="${{ secrets.TELEGRAM_NOTIFY_CHAT_ID }}" \
+            --data-urlencode text="🔴 rightwaygroup.co — smoke провален: ${reason:-unknown}. Лог: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            >/dev/null

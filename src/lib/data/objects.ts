@@ -20,6 +20,13 @@ const PUBLIC_STATUSES: ObjectStatus[] = ["Active"];
  */
 const OBJECTS_API_URL = process.env.OBJECTS_API_URL;
 
+// Last successful fetch, kept per server instance: an amoCRM hiccup serves
+// slightly stale inventory instead of an empty site. Survives only within a
+// warm lambda — a cold start during an outage still degrades to [] (alerted
+// by the prod-smoke workflow).
+let lastGoodPublic: RealEstateObject[] | null = null;
+let lastGoodAll: RealEstateObject[] | null = null;
+
 async function apiObjects(path: string): Promise<RealEstateObject[]> {
   const res = await backendFetch(path, { next: { revalidate: CATALOG_REVALIDATE_SECONDS } });
   if (!res.ok) throw new Error(`objects API ${path} → ${res.status}`);
@@ -40,27 +47,29 @@ async function apiObjects(path: string): Promise<RealEstateObject[]> {
 export async function getPublicObjects(): Promise<RealEstateObject[]> {
   if (OBJECTS_API_URL) {
     try {
-      return await apiObjects("/objects");
+      lastGoodPublic = await apiObjects("/objects");
+      return lastGoodPublic;
     } catch (err) {
       console.error("[objects] own-API failed:", err);
-      return [];
+      return lastGoodPublic ?? [];
     }
   }
   try {
     const elements = await listCatalogElements();
     const all = elements.map(mapElementToObject);
-    return all
+    lastGoodPublic = all
       .filter(
         (o) => o.rwNumber && PUBLIC_STATUSES.includes(o.status) && !!o.coverImage,
       )
       .sort(sortByRecentAndPremium);
+    return lastGoodPublic;
   } catch (err) {
     if (err instanceof AmoApiError) {
       console.error(`[objects] amoCRM ${err.status}:`, err.body.slice(0, 200));
     } else {
       console.error("[objects] unexpected:", err);
     }
-    return [];
+    return lastGoodPublic ?? [];
   }
 }
 
@@ -98,23 +107,25 @@ export async function getObjectByRwNumber(
 export async function getAllObjects(): Promise<RealEstateObject[]> {
   if (OBJECTS_API_URL) {
     try {
-      return await apiObjects("/objects/all");
+      lastGoodAll = await apiObjects("/objects/all");
+      return lastGoodAll;
     } catch (err) {
       console.error("[objects:all] own-API failed:", err);
-      return [];
+      return lastGoodAll ?? [];
     }
   }
   try {
     const elements = await listCatalogElements();
-    return elements
+    lastGoodAll = elements
       .map(mapElementToObject)
       .filter((o) => o.rwNumber);
+    return lastGoodAll;
   } catch (err) {
     if (err instanceof AmoApiError) {
       console.error(`[objects:all] amoCRM ${err.status}:`, err.body.slice(0, 200));
     } else {
       console.error("[objects:all] unexpected:", err);
     }
-    return [];
+    return lastGoodAll ?? [];
   }
 }

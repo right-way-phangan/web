@@ -25,6 +25,8 @@ const inquirySchema = z
     phone: z.string().trim().optional().or(z.literal("")),
     message: z.string().trim().min(5, "Please write a short message."),
     viewingDate: z.string().trim().optional(), // ISO date when booking a viewing
+    replyVia: z.enum(["whatsapp", "telegram", "email"]).optional(), // preferred reply channel
+    videoTour: z.literal("yes").optional(), // checkbox: send a video tour
 
     // Hidden / context fields
     rwNumber: z.string().optional(),       // present on object inquiry, absent on /contact
@@ -127,6 +129,7 @@ export async function submitInquiry(
   const isShortlist = data.kind === "shortlist";
   const isSavedSearch = data.kind === "saved-search";
   const isViewing = Boolean(data.viewingDate);
+  const wantsVideoTour = data.videoTour === "yes";
   const tags = [
     "website",
     data.source === "contact" ? "website-contact" : "website-inquiry",
@@ -135,14 +138,21 @@ export async function submitInquiry(
     ...(isShortlist ? ["shortlist"] : []),
     ...(isSavedSearch ? ["saved-search"] : []),
     ...(isViewing ? ["viewing"] : []),
+    ...(wantsVideoTour ? ["video-tour"] : []),
+    ...(data.replyVia ? [`reply:${data.replyVia}`] : []),
     ...(data.rwNumber ? [`object:${data.rwNumber}`] : []),
     ...utmTags(data),
   ];
 
-  // Fold the requested viewing date into the message that becomes the lead note
-  // and the Telegram ping, so the agent sees it without opening custom fields.
-  const noteMessage = isViewing
-    ? `${data.message}\n\nPreferred viewing date: ${data.viewingDate}`
+  // Fold the extras into the message that becomes the lead note and the
+  // Telegram ping, so the agent sees them without opening custom fields.
+  const extras = [
+    isViewing ? `Preferred viewing date: ${data.viewingDate}` : null,
+    wantsVideoTour ? "🎥 Video tour requested" : null,
+    data.replyVia ? `Reply via: ${data.replyVia}` : null,
+  ].filter(Boolean);
+  const noteMessage = extras.length
+    ? `${data.message}\n\n${extras.join("\n")}`
     : data.message;
 
   // Build amoCRM payload — leads/complex creates lead + contact in one call.

@@ -146,6 +146,35 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
         </FieldRow>
       ) : null}
 
+      {/* Reply channel — one tap tells us where to answer */}
+      <FieldRow>
+        <span className="text-sm font-medium text-forest-900">{t.replyVia}</span>
+        <div className="flex gap-2" role="radiogroup" aria-label={t.replyVia}>
+          {(["whatsapp", "telegram", "email"] as const).map((ch) => (
+            <label
+              key={ch}
+              className="flex-1 cursor-pointer rounded-sm border border-forest-500/20 px-2 py-2 text-center text-xs font-medium text-forest-500 transition-colors has-[:checked]:border-forest-500 has-[:checked]:bg-forest-500 has-[:checked]:text-cream-50"
+            >
+              <input type="radio" name="replyVia" value={ch} className="sr-only" />
+              {ch === "whatsapp" ? "WhatsApp" : ch === "telegram" ? "Telegram" : "Email"}
+            </label>
+          ))}
+        </div>
+      </FieldRow>
+
+      {/* Video tour — remote buyers' most common first ask */}
+      {source === "object" ? (
+        <label className="flex cursor-pointer items-center gap-2.5 text-sm text-forest-500/85">
+          <input
+            type="checkbox"
+            name="videoTour"
+            value="yes"
+            className="h-4 w-4 accent-forest-500"
+          />
+          {t.videoTour}
+        </label>
+      ) : null}
+
       <FieldRow>
         <Label htmlFor={`message-${source}`}>{t.message}</Label>
         <Textarea
