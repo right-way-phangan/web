@@ -525,7 +525,7 @@ export default async function FinancePage({
           </table>
           <p className="border-t border-forest-900/5 px-4 py-2 text-xs text-forest-900/45">
             Факт-комиссию (co-agency 50/50, referral −20%) вносите на карточке лида — поле
-            «Комиссия (факт)» появляется после 🏆 Выиграно.
+            «Комиссия (факт)» появляется после 🏆 Победа.
           </p>
         </div>
       )}

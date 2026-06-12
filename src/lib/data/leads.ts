@@ -92,6 +92,30 @@ export interface CrmTask {
   createdAt: string;
 }
 
+/** A contact-book row — contact with lead counters (GET /contacts). */
+export interface CrmContact {
+  id: number;
+  name: string | null;
+  email: string | null;
+  phone: string | null;
+  createdAt: string;
+  leadsCount: number;
+  openLeads: number;
+  lastLeadId: number | null;
+}
+
+/** The contact book: every contact (incl. the imported amo book), name-ascending. */
+export async function getContacts(): Promise<CrmContact[]> {
+  if (!API) return [];
+  try {
+    const r = await backendFetch("/contacts", { cache: "no-store" });
+    return r.ok ? ((await r.json()) as CrmContact[]) : [];
+  } catch (err) {
+    console.error("[crm] getContacts failed:", err);
+    return [];
+  }
+}
+
 /** A task joined with its lead/contact — the cross-CRM tasks page (GET /tasks). */
 export interface CrmTaskItem extends CrmTask {
   leadId: number;

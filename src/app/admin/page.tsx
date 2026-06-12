@@ -323,7 +323,7 @@ export default async function AdminHomePage() {
               href={{ pathname: "/admin/crm" }}
               accent
             />
-            <Stat label="Выиграно" value={won} href={{ pathname: "/admin/crm" }} />
+            <Stat label="Победы" value={won} href={{ pathname: "/admin/crm" }} />
             <Stat
               label="Конверсия"
               value={conversion === null ? "—" : `${conversion}%`}
@@ -406,7 +406,7 @@ export default async function AdminHomePage() {
                 })}
               </div>
               <p className="mt-3 text-xs text-forest-900/40">
-                Колонки: канал · доля · число лидов · доля выигранных. Источник — теги лида
+                Колонки: канал · доля · число лидов · доля побед. Источник — теги лида
                 (source/channel/campaign).
               </p>
             </div>
@@ -428,7 +428,7 @@ export default async function AdminHomePage() {
                   <p className="text-2xl font-semibold text-brass-600">{fmtTHB(pipelineCommission)}</p>
                 </div>
                 <div>
-                  <p className="text-xs text-forest-900/45">Выиграно (комиссия)</p>
+                  <p className="text-xs text-forest-900/45">Победы (комиссия)</p>
                   <p className="text-2xl font-semibold text-emerald-600">
                     {wonCommission > 0 ? fmtTHB(wonCommission) : "—"}
                   </p>
