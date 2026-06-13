@@ -61,6 +61,8 @@ function catalogComp(o: RealEstateObject): CompPoint {
     pool: o.pool,
     date: o.dateAdded ?? null, // поправка на время (DD.M.YY как в каталоге)
     onMarketMonths: o.timeOnMarketMonths ?? null, // стайл-сигнал переоценки
+    lat: o.lat ?? null, // «пешком до пляжа» (есть у объектов каталога — для скана)
+    lng: o.lng ?? null,
   };
 }
 
@@ -200,6 +202,8 @@ function objectToSubject(o: RealEstateObject): ValuationSubject {
     mountainView: o.mountainView,
     electricity: o.electricity,
     pool: o.pool,
+    lat: o.lat,
+    lng: o.lng,
   };
 }
 

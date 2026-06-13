@@ -23,6 +23,7 @@ export interface FactorDef {
   group:
     | "document"
     | "feature"
+    | "location"
     | "road"
     | "terrain"
     | "size"
@@ -50,6 +51,14 @@ export const FACTOR_DEFS: FactorDef[] = [
   { key: "feature.mountain_view", group: "feature", label: "Вид на горы", value: 1.05 },
   { key: "feature.electricity", group: "feature", label: "Электричество на участке", value: 1.1 },
   { key: "feature.pool", group: "feature", label: "Бассейн (вилла)", value: 1.12, note: "Премия к цене виллы; премия к ADR — отдельный фактор" },
+
+  // Близость к пляжу — поправка по расстоянию до берега (только когда есть
+  // координаты; отдельно от вида на море). Контрольные точки множителя; брейк-
+  // пойнты расстояний (0.25/1/3/6 км) — в коде движка (beachFactor). Скромная.
+  { key: "beach.walk", group: "location", label: "Пешком до пляжа (≤0.25 км)", value: 1.1, note: "Шаговая доступность; отдельно от seaView и первой линии" },
+  { key: "beach.near", group: "location", label: "Близко к пляжу (~1 км)", value: 1, note: "Якорь-нейтраль" },
+  { key: "beach.mid", group: "location", label: "Средне от пляжа (~3 км)", value: 0.95 },
+  { key: "beach.far", group: "location", label: "Далеко от пляжа (≥6 км)", value: 0.88, note: "Вглубь острова — дешевле за рай" },
 
   // Дорога до участка
   { key: "road.paved", group: "road", label: "Дорога: асфальт/бетон", value: 1 },
@@ -115,6 +124,7 @@ export type FactorMap = Record<string, number>;
 export const FACTOR_GROUP_LABELS: Record<FactorDef["group"], string> = {
   document: "Документ на землю",
   feature: "Фичи",
+  location: "Близость к пляжу",
   road: "Дорога",
   terrain: "Рельеф",
   size: "Размер участка (к цене за рай)",

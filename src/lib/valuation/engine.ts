@@ -43,6 +43,9 @@ export interface ValuationSubject {
   mountainView?: boolean;
   electricity?: boolean;
   pool?: boolean;
+  /** Координаты — включают поправку «пешком до пляжа» (только когда заданы). */
+  lat?: number;
+  lng?: number;
   askingPrice?: number;
   // leasehold-контракт (земля)
   leaseTermYears?: number;
@@ -77,6 +80,9 @@ export interface CompPoint {
   date?: string | null;
   /** Сколько месяцев объявление на рынке — стайл-сигнал переоценки (asking). */
   onMarketMonths?: number | null;
+  /** Координаты — для симметричной поправки «пешком до пляжа» (если есть). */
+  lat?: number | null;
+  lng?: number | null;
 }
 
 export interface EngineData {
@@ -207,6 +213,93 @@ function sizeFactor(areaRai: number, f: FactorMap): { label: string; mult: numbe
     mult = val(ka) + (val(kb) - val(ka)) * t;
   }
   return { label: `Размер ${areaRai.toFixed(2)} рай`, mult };
+}
+
+/**
+ * Главные пляжи Пангана (lat, lng) — опорные точки для «расстояния до берега».
+ * Перекрывают периметр острова, поэтому min-дистанция до точки = хороший прокси
+ * близости к побережью. Грубость ±500 м не критична: поправка модельно скромная.
+ */
+const BEACHES: ReadonlyArray<readonly [number, number]> = [
+  // запад (закатная сторона)
+  [9.738, 99.954], // Sri Thanu / Haad Chaophao
+  [9.756, 99.956], // Haad Yao
+  [9.77, 99.962], // Haad Salad
+  [9.786, 99.957], // Mae Haad
+  [9.728, 99.965], // Hin Kong / Wok Tum
+  [9.715, 99.978], // Ao Nai Wok
+  // север
+  [9.791, 99.987], // Chaloklum
+  [9.795, 99.997], // Haad Khom
+  [9.795, 100.035], // Bottle Beach (Haad Khuat)
+  // восток
+  [9.77, 100.047], // Thong Nai Pan
+  [9.748, 100.056], // Than Sadet
+  [9.682, 100.06], // Haad Yuan / Haad Tien
+  // юг
+  [9.674, 100.068], // Haad Rin
+  [9.715, 100.04], // Ban Kai
+  [9.722, 100.02], // Ban Tai
+  [9.708, 99.986], // Thong Sala
+];
+
+function haversineKm(aLat: number, aLng: number, bLat: number, bLng: number): number {
+  const R = 6371;
+  const dLat = ((bLat - aLat) * Math.PI) / 180;
+  const dLng = ((bLng - aLng) * Math.PI) / 180;
+  const s =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos((aLat * Math.PI) / 180) * Math.cos((bLat * Math.PI) / 180) * Math.sin(dLng / 2) ** 2;
+  return 2 * R * Math.asin(Math.min(1, Math.sqrt(s)));
+}
+
+/** Километры до ближайшего пляжа из BEACHES (null если координаты невалидны). */
+function nearestBeachKm(lat: number, lng: number): number | null {
+  if (!Number.isFinite(lat) || !Number.isFinite(lng)) return null;
+  // груба отсечка явных «не-Панган» координат, чтобы не считать мусор
+  if (lat < 9.5 || lat > 9.9 || lng < 99.8 || lng > 100.2) return null;
+  let min = Infinity;
+  for (const [bLat, bLng] of BEACHES) {
+    const d = haversineKm(lat, lng, bLat, bLng);
+    if (d < min) min = d;
+  }
+  return Number.isFinite(min) ? min : null;
+}
+
+/**
+ * Поправка «пешком до пляжа» — непрерывная (кусочно-линейная) по расстоянию до
+ * ближайшего пляжа. Скромная и ОТДЕЛЬНАЯ от вида на море (seaView): объект бывает
+ * у воды без вида и с видом, но далеко от спуска. Контрольные точки множителя
+ * редактируемы (beach.walk/near/mid/far); расстояния-брейкпоинты — в коде.
+ * Возвращает null, когда координат нет (поведение без координат не меняется).
+ */
+function beachFactor(
+  lat: number | null | undefined,
+  lng: number | null | undefined,
+  f: FactorMap,
+): { label: string; mult: number; km: number } | null {
+  if (lat == null || lng == null) return null;
+  const km = nearestBeachKm(lat, lng);
+  if (km == null) return null;
+  const val = (key: string, dflt: number) => (f[key] !== undefined ? f[key] : dflt);
+  const pts: Array<[number, number]> = [
+    [0.25, val("beach.walk", 1.1)],
+    [1.0, val("beach.near", 1.0)],
+    [3.0, val("beach.mid", 0.95)],
+    [6.0, val("beach.far", 0.88)],
+  ];
+  let mult: number;
+  if (km <= pts[0][0]) mult = pts[0][1];
+  else if (km >= pts[pts.length - 1][0]) mult = pts[pts.length - 1][1];
+  else {
+    let i = 0;
+    while (i < pts.length - 2 && km > pts[i + 1][0]) i++;
+    const [a, ma] = pts[i];
+    const [b, mb] = pts[i + 1];
+    const t = (km - a) / (b - a);
+    mult = ma + (mb - ma) * t;
+  }
+  return { label: `До пляжа ${km.toFixed(1)} км`, mult, km };
 }
 
 function zoneFactorKey(s: string | null | undefined): { key: string; label: string } | null {
@@ -345,6 +438,8 @@ function landFactor(
     beachfront?: boolean;
     mountainView?: boolean;
     electricity?: boolean;
+    lat?: number | null;
+    lng?: number | null;
   },
   f: FactorMap,
 ): FactorBreakdown {
@@ -364,11 +459,24 @@ function landFactor(
   if (p.beachfront) push({ key: "feature.beachfront", label: "Первая линия" });
   if (p.mountainView) push({ key: "feature.mountain_view", label: "Вид на горы" });
   if (p.electricity) push({ key: "feature.electricity", label: "Электричество" });
+  // «Пешком до пляжа» — только при координатах и НЕ для первой линии (её ×2.0
+  // уже учитывает максимальную близость; иначе двойной счёт).
+  if (!p.beachfront) {
+    const bf = beachFactor(p.lat, p.lng, f);
+    if (bf && Math.abs(bf.mult - 1) > 1e-6) parts.push({ label: bf.label, mult: bf.mult });
+  }
   return { mult: parts.reduce((m, x) => m * x.mult, 1), parts };
 }
 
 function villaFactor(
-  p: { seaView?: boolean; beachfront?: boolean; pool?: boolean; condition?: string | null },
+  p: {
+    seaView?: boolean;
+    beachfront?: boolean;
+    pool?: boolean;
+    condition?: string | null;
+    lat?: number | null;
+    lng?: number | null;
+  },
   f: FactorMap,
 ): FactorBreakdown {
   const parts: FactorBreakdown["parts"] = [];
@@ -379,6 +487,10 @@ function villaFactor(
   if (p.beachfront) push({ key: "feature.beachfront", label: "Первая линия" });
   if (p.pool) push({ key: "feature.pool", label: "Бассейн" });
   push(conditionFactorKey(p.condition));
+  if (!p.beachfront) {
+    const bf = beachFactor(p.lat, p.lng, f);
+    if (bf && Math.abs(bf.mult - 1) > 1e-6) parts.push({ label: bf.label, mult: bf.mult });
+  }
   return { mult: parts.reduce((m, x) => m * x.mult, 1), parts };
 }
 
@@ -473,6 +585,9 @@ function comparativeLand(
     return res;
   }
   const apprPct = apprPctOf(data.market);
+  // Поправку «до пляжа» включаем, ТОЛЬКО когда у субъекта валидные координаты —
+  // иначе нормализация компсов асимметрична (комп знает дистанцию, субъект нет).
+  const useBeach = nearestBeachKm(subject.lat ?? NaN, subject.lng ?? NaN) != null;
   const normalized: WV[] = [];
   for (const c of data.comps) {
     if (typeNorm(c.type) !== "land") continue;
@@ -485,7 +600,7 @@ function comparativeLand(
     if (!perRai || perRai < PER_RAI_MIN || perRai > PER_RAI_MAX) continue;
     const date = parseCompDate(c.date);
     const adj = timeAdjust(perRai, date, apprPct); // прошлую цену → к сегодня
-    const fc = landFactor(c, f);
+    const fc = landFactor(useBeach ? c : { ...c, lat: null, lng: null }, f);
     if (fc.mult <= 0) continue;
     const baseTag = compTag(c, f);
     const tag = adj !== perRai ? (baseTag ? `${baseTag} · ↑время` : "↑время") : baseTag;
@@ -546,9 +661,10 @@ function comparativeBuilt(
   else if (subject.bedrooms && pool.some((c) => c.bedrooms && c.bedrooms > 0)) basisKey = "bedroom";
 
   const apprPct = apprPctOf(data.market);
+  const useBeach = nearestBeachKm(subject.lat ?? NaN, subject.lng ?? NaN) != null;
   const normalized: WV[] = [];
   for (const c of pool) {
-    const fc = villaFactor(c, f);
+    const fc = villaFactor(useBeach ? c : { ...c, lat: null, lng: null }, f);
     if (fc.mult <= 0) continue;
     let unit: number | null = null;
     if (basisKey === "sqm") unit = c.builtSqm && c.builtSqm > 0 ? c.priceThb! / c.builtSqm : null;
@@ -786,6 +902,14 @@ function buildSensitivity(
   add("Вид на горы", "feature.mountain_view", !!subject.mountainView);
   add("Электричество на участке", "feature.electricity", !!subject.electricity);
   if (!isLand) add("Бассейн", "feature.pool", !!subject.pool);
+  // Близость к пляжу — измеренный (не гипотетический) рычаг: показываем
+  // фактический вклад, когда есть координаты и это не первая линия.
+  if (!subject.beachfront) {
+    const bf = beachFactor(subject.lat, subject.lng, f);
+    if (bf && Math.abs(bf.mult - 1) > 1e-6) {
+      out.push({ label: bf.label, deltaPct: Math.round((bf.mult - 1) * 100), applied: true });
+    }
+  }
   return out.sort((a, b) => Math.abs(b.deltaPct) - Math.abs(a.deltaPct));
 }
 
