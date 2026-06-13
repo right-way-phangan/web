@@ -213,6 +213,7 @@ export default async function ObjectsPage({
     leaseTermYears: o.leaseTermYears,
     unitsAvailable: o.unitsAvailable,
     locationUrl: o.locationUrl,
+    plotPolygon: o.plotPolygon,
   }));
 
   const counts = {

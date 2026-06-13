@@ -25,6 +25,8 @@ import { cn } from "@/lib/utils/cn";
 import { createObject, type NewObjectState } from "@/lib/actions/new-object";
 import { previewObjectTitle } from "@/lib/actions/title";
 import { lookupZoneByLocation } from "@/lib/actions/zone-lookup";
+import { CoordPicker } from "./coord-picker";
+import { polygonAreaSqm, formatAreaRu } from "@/lib/utils/geo";
 import {
   DISTRICTS,
   DOCUMENT_TYPES,
@@ -278,6 +280,8 @@ export function ObjectForm() {
     colorHex?: string;
     error?: string;
   }>({ status: "idle" });
+  // Traced plot contour ([lat, lng] ring) from the map editor → hidden input.
+  const [plotPoly, setPlotPoly] = useState<Array<[number, number]>>([]);
   const [photos, setPhotos] = useState<File[]>([]);
   // Photos the user manually tagged as documents (tracked by File identity so the
   // flag survives reordering). On submit we send their current indices so the
@@ -437,8 +441,8 @@ export function ObjectForm() {
   const canPreview = v.type !== "";
 
   const previewRows = useMemo(
-    () => buildPreviewRows(v, photos.length - docFlagIdx.length),
-    [v, photos.length, docFlagIdx.length],
+    () => buildPreviewRows(v, photos.length - docFlagIdx.length, plotPoly),
+    [v, photos.length, docFlagIdx.length, plotPoly],
   );
 
   if (state.status === "ok") {
@@ -950,7 +954,7 @@ export function ObjectForm() {
               />
             </Field>
           </div>
-          <Field label="Локация (Google Maps URL)">
+          <Field label="Локация (Google Maps URL)" hint="Или поставьте пин на карте ниже — URL заполнится сам.">
             <Input
               name="locationUrl"
               value={v.locationUrl}
@@ -958,6 +962,20 @@ export function ObjectForm() {
               placeholder="https://maps.google.com/?q=9.73,100.0"
             />
           </Field>
+          <CoordPicker
+            pin={parseLatLng(v.locationUrl)}
+            polygon={plotPoly}
+            onPin={(lat, lng) =>
+              set("locationUrl", `https://maps.google.com/?q=${lat.toFixed(6)},${lng.toFixed(6)}`)
+            }
+            onPolygon={setPlotPoly}
+          />
+          {/* Traced contour rides along as JSON; server validates and stores it. */}
+          <input
+            type="hidden"
+            name="plotPolygon"
+            value={plotPoly.length >= 3 ? JSON.stringify(plotPoly.map(([a, b]) => [Number(a.toFixed(6)), Number(b.toFixed(6))])) : ""}
+          />
           <Field
             label="Фото (публикуются)"
             hint={
@@ -1183,7 +1201,11 @@ function orderPhotos(files: File[], type: string): File[] {
 }
 
 // Build a readable label/value list for the preview from the current form values.
-function buildPreviewRows(v: FormValues, photoCount: number): [string, string][] {
+function buildPreviewRows(
+  v: FormValues,
+  photoCount: number,
+  plotPoly: Array<[number, number]> = [],
+): [string, string][] {
   const rows: [string, string][] = [];
   const push = (k: string, val: string | undefined) => {
     if (val && val.trim()) rows.push([k, val.trim()]);
@@ -1226,6 +1248,8 @@ function buildPreviewRows(v: FormValues, photoCount: number): [string, string][]
   push("Собственник", v.owner);
   push("Комиссия", v.commission);
   push("Локация", v.locationUrl);
+  if (plotPoly.length >= 3)
+    push("Контур участка", `${plotPoly.length} точек · ${formatAreaRu(polygonAreaSqm(plotPoly))}`);
   if (photoCount > 0) push("Фото", `${photoCount} шт.`);
   push("Описание", v.description);
   return rows;

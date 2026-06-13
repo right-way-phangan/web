@@ -4,6 +4,8 @@ import { useState, useRef, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { updateObjectAction, type ObjectPatch } from "@/lib/actions/update-object";
 import { addObjectPhotosAction } from "@/lib/actions/object-photos";
+import { CoordPicker } from "@/components/forms/coord-picker";
+import { parseLatLngText } from "@/lib/utils/geo";
 
 const STATUSES = ["Active", "Reserved", "Hold", "Sold", "Withdrawn"] as const;
 
@@ -20,6 +22,7 @@ export interface EditableObject {
   leaseTermYears?: number | null;
   unitsAvailable?: number | null;
   locationUrl?: string | null;
+  plotPolygon?: Array<[number, number]> | null;
 }
 
 function numOrNull(v: string): number | null {
@@ -84,6 +87,7 @@ export function ObjectEditButton({ object }: { object: EditableObject }) {
     object.unitsAvailable?.toString() ?? "",
   );
   const [locationUrl, setLocationUrl] = useState(object.locationUrl ?? "");
+  const [plotPoly, setPlotPoly] = useState<Array<[number, number]>>(object.plotPolygon ?? []);
 
   function save() {
     setError(null);
@@ -92,6 +96,7 @@ export function ObjectEditButton({ object }: { object: EditableObject }) {
       titleEn: titleEn.trim(),
       district: district.trim(),
       locationUrl: locationUrl.trim(),
+      plotPolygon: plotPoly.length >= 3 ? plotPoly : null,
     };
     if (isLand) {
       patch.pricePerRai = numOrNull(pricePerRai);
@@ -244,6 +249,16 @@ export function ObjectEditButton({ object }: { object: EditableObject }) {
                   className={field}
                 />
               </label>
+
+              {/* Pin + plot contour over the cadastral layer; saves with the form. */}
+              <CoordPicker
+                pin={parseLatLngText(locationUrl)}
+                polygon={plotPoly}
+                onPin={(la, ln) =>
+                  setLocationUrl(`https://maps.google.com/?q=${la.toFixed(6)},${ln.toFixed(6)}`)
+                }
+                onPolygon={setPlotPoly}
+              />
             </div>
 
             {/* Photo upload — closes the photo-less → live loop */}

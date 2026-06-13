@@ -39,6 +39,7 @@ export interface AdminObjectRow {
   leaseTermYears?: number | null;
   unitsAvailable?: number | null;
   locationUrl?: string | null;
+  plotPolygon?: Array<[number, number]> | null;
 }
 
 export function ObjectsTable({
@@ -246,6 +247,7 @@ export function ObjectsTable({
                           leaseTermYears: o.leaseTermYears,
                           unitsAvailable: o.unitsAvailable,
                           locationUrl: o.locationUrl,
+                          plotPolygon: o.plotPolygon,
                         }}
                       />
                     </td>

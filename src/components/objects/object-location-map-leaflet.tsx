@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { MapContainer, TileLayer, Marker, Circle, useMapEvents } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Circle, Polygon, useMapEvents } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { LocateFixed } from "lucide-react";
@@ -50,14 +50,17 @@ function ZoomWatcher({ onZoom }: { onZoom: (z: number) => void }) {
 interface Props {
   lat: number;
   lng: number;
+  plotPolygon?: Array<[number, number]>;
 }
 
-export default function ObjectLocationMapLeaflet({ lat, lng }: Props) {
+export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon }: Props) {
   const t = getObjectDict(useLocale()).map;
   const mapRef = useRef<L.Map | null>(null);
   const watchId = useRef<number | null>(null);
 
-  const [base, setBase] = useState<"map" | "sat">("map");
+  const hasPolygon = (plotPolygon?.length ?? 0) >= 3;
+  // A traced contour reads best over imagery — default to satellite then.
+  const [base, setBase] = useState<"map" | "sat">(hasPolygon ? "sat" : "map");
   const [parcels, setParcels] = useState(false);
   const [zoning, setZoning] = useState(false);
   const [zoom, setZoom] = useState(15);
@@ -136,6 +139,10 @@ export default function ObjectLocationMapLeaflet({ lat, lng }: Props) {
         ref={mapRef}
         center={[lat, lng]}
         zoom={15}
+        // With a traced contour, open framed on the plot itself.
+        {...(hasPolygon
+          ? { bounds: L.latLngBounds(plotPolygon!).pad(0.6), boundsOptions: { maxZoom: 18 } }
+          : {})}
         maxZoom={MAX_ZOOM}
         scrollWheelZoom={false}
         className="h-full w-full"
@@ -181,6 +188,12 @@ export default function ObjectLocationMapLeaflet({ lat, lng }: Props) {
             minZoom={PARCEL_MIN_ZOOM}
             maxNativeZoom={PARCEL_MAX_NATIVE_ZOOM}
             maxZoom={MAX_ZOOM}
+          />
+        ) : null}
+        {hasPolygon ? (
+          <Polygon
+            positions={plotPolygon!}
+            pathOptions={{ color: "#B5651D", weight: 2.5, opacity: 0.9, fillColor: "#B5651D", fillOpacity: 0.14 }}
           />
         ) : null}
         <Marker position={[lat, lng]} icon={pinIcon} />
