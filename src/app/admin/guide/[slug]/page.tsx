@@ -59,7 +59,7 @@ export default async function GuidePageView({ params }: { params: Params }) {
             <p className="mt-2 text-xs text-forest-900/45">обновлено {fmtDate(page.updated)}</p>
           ) : null}
           <div className="mt-6">
-            <GuideArticle md={page.body} />
+            <GuideArticle md={page.body} slug={slug} />
           </div>
 
           {/* Перелистывание по оглавлению */}
