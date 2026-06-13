@@ -5,7 +5,7 @@
  */
 
 export type BaseLayer = "map" | "sat" | "terrain";
-export type LayerPrefs = { base: BaseLayer; parcels: boolean; zoning: boolean };
+export type LayerPrefs = { base: BaseLayer; parcels: boolean; zoning: boolean; poi: boolean };
 
 const LS_KEY = "rw-map-layers";
 

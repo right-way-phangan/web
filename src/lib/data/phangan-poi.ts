@@ -37,3 +37,32 @@ export const THONG_SALA: Poi = {
   lat: 9.7095,
   lng: 100.013,
 };
+
+/** Amenity categories for the optional "Nearby" marker layer. */
+export type AmenityCat = "pier" | "hospital" | "school" | "shop" | "atm";
+
+export interface Amenity extends Poi {
+  cat: AmenityCat;
+}
+
+/**
+ * Everyday-amenity landmarks shown as an optional "Nearby" overlay on the maps —
+ * orientation context for a buyer (ferry off the island, the hospital, the big
+ * supermarket, the bank cluster, a school). Hand-placed at each landmark's
+ * centre, accurate to ~a couple hundred metres; kept to a small set of stable,
+ * well-known points so the layer reads as orientation, not a directory.
+ */
+export const PHANGAN_AMENITIES: Amenity[] = [
+  // Ferry piers — the way on and off the island (to Samui / the mainland).
+  { cat: "pier", en: "Thong Sala Pier", ru: "Пирс Тонгсала", lat: 9.7072, lng: 100.0116 },
+  { cat: "pier", en: "Haad Rin Pier", ru: "Пирс Хаад Рин", lat: 9.6738, lng: 100.0658 },
+  // Hospital — the island's main (government) hospital, north of Thong Sala.
+  { cat: "hospital", en: "Koh Phangan Hospital", ru: "Госпиталь Ко Панган", lat: 9.7203, lng: 100.0078 },
+  // School — Koh Phangan School, central Thong Sala.
+  { cat: "school", en: "Koh Phangan School", ru: "Школа Ко Панган", lat: 9.7133, lng: 100.0096 },
+  // Shops — the island's big-box supermarket + the Thong Sala convenience hub.
+  { cat: "shop", en: "Makro", ru: "Makro", lat: 9.7268, lng: 100.0049 },
+  { cat: "shop", en: "Big C (Thong Sala)", ru: "Big C (Тонгсала)", lat: 9.7113, lng: 100.0135 },
+  // Banks & ATMs — the Thong Sala cluster (Bangkok Bank / Kasikorn / SCB).
+  { cat: "atm", en: "Banks & ATMs (Thong Sala)", ru: "Банки и банкоматы (Тонгсала)", lat: 9.7102, lng: 100.0127 },
+];
