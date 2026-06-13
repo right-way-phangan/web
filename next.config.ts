@@ -25,6 +25,14 @@ const nextConfig: NextConfig = {
     ],
   },
   typedRoutes: true,
+  // Справочник (/admin/guide) читает markdown с диска на рантайме (страницы
+  // dynamic из-за AdminNav) — без явного include Vercel не положит файлы в
+  // серверный бандл и fs.readFileSync вернёт ENOENT.
+  outputFileTracingIncludes: {
+    "/admin/guide": ["./src/content/guide/**/*"],
+    "/admin/guide/[slug]": ["./src/content/guide/**/*"],
+    "/admin/api/search": ["./src/content/guide/**/*"],
+  },
   async headers() {
     return [
       {

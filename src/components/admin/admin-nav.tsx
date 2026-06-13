@@ -9,7 +9,16 @@ import { getPendingArticleCount } from "@/lib/data/articles";
  * page; callers may pass `pendingArticles` to override (avoids a duplicate
  * fetch on pages that already loaded it).
  */
-type AdminSection = "home" | "objects" | "dd" | "outreach" | "crm" | "articles" | "finance" | "new";
+type AdminSection =
+  | "home"
+  | "objects"
+  | "dd"
+  | "outreach"
+  | "crm"
+  | "articles"
+  | "finance"
+  | "guide"
+  | "new";
 
 export async function AdminNav({
   active,
@@ -28,6 +37,7 @@ export async function AdminNav({
     { key: "crm", href: "/admin/crm" as Route, label: "CRM · Лиды" },
     { key: "articles", href: "/admin/articles" as Route, label: "Статьи", badge: pending },
     { key: "finance", href: "/admin/finance" as Route, label: "Финансы" },
+    { key: "guide", href: "/admin/guide" as Route, label: "Справочник" },
     { key: "new", href: "/admin/new" as Route, label: "+ Новый объект" },
   ];
   return (
