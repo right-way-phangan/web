@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { CommandPalette } from "@/components/admin/command-palette";
 
 /**
  * Admin-only PWA wiring: a dedicated manifest (scope /admin, opens on the CRM
@@ -19,5 +20,10 @@ export const viewport: Viewport = {
 };
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return (
+    <>
+      {children}
+      <CommandPalette />
+    </>
+  );
 }
