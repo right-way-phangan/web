@@ -49,6 +49,9 @@ export function GuideChecklist({
       next[i] = !next[i];
       try {
         localStorage.setItem(key, JSON.stringify(next));
+        // Сводный индикатор прогресса (GuideOnboardingProgress) слушает это
+        // событие — storage-событие в той же вкладке не стреляет.
+        window.dispatchEvent(new CustomEvent("rwguide:checklist"));
       } catch {
         /* ignore */
       }

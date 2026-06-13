@@ -121,6 +121,11 @@ export function getGuidePage(slug: string): GuidePage | null {
   return readPage(`${slug}.md`);
 }
 
+/** Сколько страниц-черновиков ждёт проверки — бейдж на пункте «Справочник». */
+export function getGuideDraftCount(): number {
+  return getGuidePages().filter((p) => p.draft).length;
+}
+
 /** Якорь заголовка — должен совпадать с id в GuideArticle (один алгоритм). */
 export function guideHeadingId(text: string): string {
   return text
