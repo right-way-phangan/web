@@ -5,8 +5,17 @@ import { GUIDE_SECTIONS, type GuidePageMeta } from "@/lib/data/guide";
 /**
  * Оглавление справочника (/admin/guide/*): группы по секциям, активная
  * страница подсвечена. На десктопе — липкая колонка слева, на мобильном —
- * сворачиваемый <details> над статьёй (без клиентского JS).
+ * сворачиваемый <details> над статьёй (без клиентского JS). Страницы,
+ * обновлённые за последние 14 дней, помечаются бейджем 🆕.
  */
+
+const NEW_DAYS = 14;
+
+function isRecent(updated: string): boolean {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(updated)) return false;
+  const age = Date.now() - new Date(`${updated}T00:00:00`).getTime();
+  return age >= 0 && age < NEW_DAYS * 86_400_000;
+}
 
 function SectionList({ pages, active }: { pages: GuidePageMeta[]; active?: string }) {
   return (
@@ -36,13 +45,23 @@ function SectionList({ pages, active }: { pages: GuidePageMeta[]; active?: strin
                     <Link
                       href={`/admin/guide/${p.slug}` as Route}
                       className={
-                        "block rounded-lg px-2.5 py-1.5 text-sm transition " +
+                        "flex items-center justify-between gap-2 rounded-lg px-2.5 py-1.5 text-sm transition " +
                         (on
                           ? "bg-forest-900 font-medium text-white"
                           : "text-forest-900/70 hover:bg-forest-900/5 hover:text-forest-900")
                       }
                     >
-                      {p.title}
+                      <span>{p.title}</span>
+                      {isRecent(p.updated) && (
+                        <span
+                          className={
+                            "shrink-0 rounded px-1 text-[10px] font-semibold " +
+                            (on ? "bg-white/20 text-white" : "bg-brass-500/15 text-brass-600")
+                          }
+                        >
+                          🆕
+                        </span>
+                      )}
                     </Link>
                   </li>
                 );

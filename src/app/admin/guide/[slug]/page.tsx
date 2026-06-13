@@ -5,7 +5,8 @@ import { notFound } from "next/navigation";
 import { AdminNav } from "@/components/admin/admin-nav";
 import { GuideNav } from "@/components/admin/guide-nav";
 import { GuideArticle } from "@/components/admin/guide-article";
-import { GUIDE_SECTIONS, getGuidePage, getGuidePages } from "@/lib/data/guide";
+import { GuideToc } from "@/components/admin/guide-toc";
+import { GUIDE_SECTIONS, extractGuideHeadings, getGuidePage, getGuidePages } from "@/lib/data/guide";
 
 export const dynamic = "force-dynamic";
 
@@ -39,11 +40,12 @@ export default async function GuidePageView({ params }: { params: Params }) {
   const prev = idx > 0 ? pages[idx - 1] : null;
   const next = idx >= 0 && idx < pages.length - 1 ? pages[idx + 1] : null;
   const sectionTitle = GUIDE_SECTIONS.find((s) => s.id === page.section)?.title ?? "";
+  const headings = extractGuideHeadings(page.body);
 
   return (
     <section className="px-4 py-8 md:px-8">
       <AdminNav active="guide" />
-      <div className="lg:grid lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-10">
+      <div className="lg:grid lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-10 xl:grid-cols-[15rem_minmax(0,1fr)_13rem]">
         <GuideNav pages={pages} active={slug} />
         <article className="max-w-3xl">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
@@ -82,6 +84,7 @@ export default async function GuidePageView({ params }: { params: Params }) {
             ) : null}
           </div>
         </article>
+        <GuideToc headings={headings} />
       </div>
     </section>
   );

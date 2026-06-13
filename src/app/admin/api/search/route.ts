@@ -57,15 +57,19 @@ export async function GET(req: Request) {
     }
   }
 
-  // Страницы справочника — ищутся по заголовку, аннотации и keywords из
-  // фронтматтера (файлы маленькие, читаются с диска на каждый запрос).
+  // Страницы справочника — полнотекстовый поиск (заголовок/аннотация/keywords
+  // + тело страницы). Файлы маленькие, читаются с диска на каждый запрос.
+  // Совпадение в мете показываем как "справочник", только в теле — помечаем
+  // "в тексте", чтобы было понятно, почему страница нашлась.
   try {
     for (const g of getGuidePages()) {
-      if (matches([g.title, g.summary, g.keywords, "справочник guide"], q)) {
+      const inMeta = matches([g.title, g.summary, g.keywords, "справочник guide"], q);
+      const inBody = !inMeta && matches([g.body], q);
+      if (inMeta || inBody) {
         hits.push({
           kind: "page",
           title: `Справочник · ${g.title}`,
-          subtitle: "справочник",
+          subtitle: inBody ? "справочник · в тексте" : "справочник",
           href: `/admin/guide/${g.slug}`,
         });
       }

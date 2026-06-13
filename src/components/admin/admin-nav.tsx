@@ -29,6 +29,20 @@ export async function AdminNav({
   pendingArticles?: number;
 }) {
   const pending = pendingArticles ?? (await getPendingArticleCount());
+  // Контекстная справка: каждая рабочая страница ведёт на свой раздел учебника
+  // (/admin/guide). Открывается в новой вкладке — чтобы не терять рабочий
+  // контекст. Для страниц без своей статьи — общий обзор справочника.
+  const HELP_SLUG: Partial<Record<AdminSection, string>> = {
+    objects: "objects",
+    dd: "dd",
+    outreach: "outreach",
+    crm: "crm",
+    articles: "articles",
+    finance: "analytics",
+    new: "objects",
+  };
+  const helpHref =
+    active in HELP_SLUG ? `/admin/guide/${HELP_SLUG[active]}` : "/admin/guide";
   const items: Array<{ key: AdminSection; href: Route; label: string; badge?: number }> = [
     { key: "home", href: "/admin" as Route, label: "Дашборд" },
     { key: "objects", href: "/admin/objects" as Route, label: "База объектов" },
@@ -69,6 +83,16 @@ export async function AdminNav({
           </Link>
         );
       })}
+      {active !== "guide" && (
+        <Link
+          href={helpHref as Route}
+          target="_blank"
+          title="Как работает этот раздел — открыть справочник"
+          className="ml-auto inline-flex items-center gap-1.5 rounded-full border border-brass-500/40 px-3 py-1.5 text-sm font-medium text-brass-600 transition hover:bg-brass-500/10"
+        >
+          ❓ Как это работает
+        </Link>
+      )}
     </nav>
   );
 }
