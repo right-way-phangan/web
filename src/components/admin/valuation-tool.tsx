@@ -321,6 +321,63 @@ function ResultPanel({ r, subject }: { r: ValuationResult; subject: ValuationSub
         ))}
       </div>
 
+      {(() => {
+        const comp = r.methods.find((m) => m.key === "comparative" && m.compsUsed && m.compsUsed.length > 0);
+        if (!comp?.compsUsed) return null;
+        return (
+          <details className="rounded-sm border border-forest-900/10 bg-white p-4">
+            <summary className="cursor-pointer text-sm font-medium text-forest-900">
+              Компсы в основе оценки ({comp.compsUsed.length}) — для внутренней проверки
+            </summary>
+            <div className="mt-3 overflow-x-auto">
+              <table className="w-full text-left text-xs">
+                <thead>
+                  <tr className="border-b border-forest-900/10 text-forest-900/50">
+                    <th className="px-2 py-1.5 font-medium">Объект</th>
+                    <th className="px-2 py-1.5 font-medium">Район</th>
+                    <th className="px-2 py-1.5 font-medium">За рай / базис</th>
+                    <th className="px-2 py-1.5 font-medium">Вес</th>
+                    <th className="px-2 py-1.5 font-medium">Метка</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {comp.compsUsed.map((c) => (
+                    <tr key={c.ref} className="border-b border-forest-900/5">
+                      <td className="px-2 py-1.5 text-forest-900">{c.ref}</td>
+                      <td className="px-2 py-1.5 text-forest-900/70">{c.district ?? "—"}</td>
+                      <td className="px-2 py-1.5">{fmtM(c.perRai)}</td>
+                      <td className="px-2 py-1.5 text-forest-900/60">×{c.weight}</td>
+                      <td className="px-2 py-1.5 text-forest-900/60">{c.tag || "—"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <p className="mt-2 text-xs text-forest-900/40">
+                Цена приведена к сегодняшней дате; вес: продан ×1.5, завис ×0.5. Спот плохих компсов → правьте в каталоге/вкладке «Компсы».
+              </p>
+            </div>
+          </details>
+        );
+      })()}
+
+      {r.sensitivity && r.sensitivity.length > 0 && (
+        <div className="rounded-sm border border-forest-900/10 bg-white p-4">
+          <p className="text-xs font-medium uppercase tracking-[0.15em] text-brass-500">Рычаги — что двигает цену</p>
+          <div className="mt-2 space-y-1.5">
+            {r.sensitivity.map((s) => (
+              <div key={s.label} className="flex items-center gap-3 text-sm">
+                <span className="w-52 shrink-0 text-forest-900/80">{s.label}</span>
+                <span className={cn("font-medium tabular-nums", s.deltaPct >= 0 ? "text-forest-700" : "text-red-700")}>
+                  {s.deltaPct > 0 ? "+" : ""}
+                  {s.deltaPct}%
+                </span>
+                <span className="text-xs text-forest-900/45">{s.applied ? "есть у объекта" : "нет — потенциал"}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {r.caveats.length > 0 && (
         <ul className="space-y-1 rounded-sm border border-brass-500/20 bg-brass-500/5 p-4">
           {r.caveats.map((c, i) => (

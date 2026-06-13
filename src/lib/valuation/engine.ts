@@ -87,6 +87,16 @@ export interface EngineData {
 
 // ---- Выход ----
 
+/** Компс, реально вошедший в оценку (для прозрачности — только админка). */
+export interface CompUsed {
+  ref: string;
+  district: string | null;
+  /** Сырая (приведённая к сегодня) цена за рай / за базис. */
+  perRai: number;
+  weight: number;
+  tag: string; // "продан" / "завис" / "↑время" / ""
+}
+
 export interface MethodResult {
   key: "comparative" | "income" | "cost";
   label: string;
@@ -99,6 +109,8 @@ export interface MethodResult {
   n?: number;
   basis?: string;
   details: string[];
+  /** Компсы в основе сравнительного метода (админка; в публичный выход не идёт). */
+  compsUsed?: CompUsed[];
 }
 
 export interface ValuationResult {
@@ -123,6 +135,8 @@ export interface ValuationResult {
     rentVerdict?: "fair" | "over" | "under";
   };
   askingVerdict?: { askingPrice: number; deltaPct: number; verdict: "fair" | "over" | "under" };
+  /** Рычаги: на сколько % двигает оценку каждый фактор (аргументы для торга, админка). */
+  sensitivity?: Array<{ label: string; deltaPct: number; applied: boolean }>;
   caveats: string[];
 }
 
@@ -286,6 +300,9 @@ interface WV {
   district?: string | null;
   v: number;
   w: number;
+  ref?: string; // прозрачность: какой компс
+  raw?: number; // сырая (приведённая к сегодня) цена за рай/базис — для показа
+  tag?: string; // "продан" / "завис" / "↑время"
 }
 
 /** Взвешенная квантиль (по накопленному весу). */
@@ -371,6 +388,7 @@ interface TierStats {
   median: number;
   p25: number;
   p75: number;
+  used: WV[]; // компсы, реально вошедшие после tier-выбора и MAD-отсечки
 }
 
 /**
@@ -404,7 +422,31 @@ function tierStats(values: WV[], district: string | undefined): TierStats | null
     median: weightedQuantile(use, 0.5),
     p25: weightedQuantile(use, 0.25),
     p75: weightedQuantile(use, 0.75),
+    used: use,
   };
+}
+
+/** Тег компса для прозрачности: продан / завис / приведён по времени. */
+function compTag(c: CompPoint, f: FactorMap): string {
+  const st = (c.status ?? "").toLowerCase();
+  if (st.includes("sold") || st.includes("gone")) return "продан";
+  const staleMo = f["market.stale_months"] ?? 9;
+  if (c.onMarketMonths != null && c.onMarketMonths > staleMo) return `завис ${Math.round(c.onMarketMonths)} мес`;
+  return "";
+}
+
+/** Топ-N использованных компсов по весу → для панели прозрачности (админка). */
+function compsUsedFrom(used: WV[], limit = 12): CompUsed[] {
+  return [...used]
+    .sort((a, b) => b.w - a.w || (b.raw ?? 0) - (a.raw ?? 0))
+    .slice(0, limit)
+    .map((x) => ({
+      ref: x.ref ?? "?",
+      district: x.district ?? null,
+      perRai: Math.round(x.raw ?? x.v),
+      weight: x.w,
+      tag: x.tag ?? "",
+    }));
 }
 
 // ---- Сравнительный метод: земля ----
@@ -430,23 +472,27 @@ function comparativeLand(
   const normalized: WV[] = [];
   for (const c of data.comps) {
     if (typeNorm(c.type) !== "land") continue;
-    let perRai =
+    const perRai =
       c.pricePerRai && c.pricePerRai > 0
         ? c.pricePerRai
         : c.priceThb && c.areaRai && c.areaRai > 0
           ? c.priceThb / c.areaRai
           : null;
     if (!perRai || perRai < PER_RAI_MIN || perRai > PER_RAI_MAX) continue;
-    perRai = timeAdjust(perRai, parseCompDate(c.date), apprPct); // прошлую цену → к сегодня
+    const date = parseCompDate(c.date);
+    const adj = timeAdjust(perRai, date, apprPct); // прошлую цену → к сегодня
     const fc = landFactor(c, f);
     if (fc.mult <= 0) continue;
-    normalized.push({ district: c.district, v: perRai / fc.mult, w: compWeight(c, f) });
+    const baseTag = compTag(c, f);
+    const tag = adj !== perRai ? (baseTag ? `${baseTag} · ↑время` : "↑время") : baseTag;
+    normalized.push({ district: c.district, v: adj / fc.mult, w: compWeight(c, f), ref: c.ref, raw: adj, tag });
   }
   const stats = tierStats(normalized, subject.district);
   if (!stats) {
     res.details.push("Нет пригодных земельных компсов.");
     return res;
   }
+  res.compsUsed = compsUsedFrom(stats.used);
   const fs = landFactor(subject, f);
   const perRai = stats.median * fs.mult;
   res.available = true;
@@ -504,14 +550,17 @@ function comparativeBuilt(
     else if (basisKey === "bedroom") unit = c.bedrooms && c.bedrooms > 0 ? c.priceThb! / c.bedrooms : null;
     else unit = c.priceThb!;
     if (!unit || unit <= 0) continue;
-    unit = timeAdjust(unit, parseCompDate(c.date), apprPct);
-    normalized.push({ district: c.district, v: unit / fc.mult, w: compWeight(c, f) });
+    const adj = timeAdjust(unit, parseCompDate(c.date), apprPct);
+    const baseTag = compTag(c, f);
+    const tag = adj !== unit ? (baseTag ? `${baseTag} · ↑время` : "↑время") : baseTag;
+    normalized.push({ district: c.district, v: adj / fc.mult, w: compWeight(c, f), ref: c.ref, raw: adj, tag });
   }
   const stats = tierStats(normalized, subject.district);
   if (!stats) {
     res.details.push("Компсы не дали пригодного базиса сравнения.");
     return res;
   }
+  res.compsUsed = compsUsedFrom(stats.used);
   const fs = villaFactor(subject, f);
   const scale = basisKey === "sqm" ? subject.builtSqm! : basisKey === "bedroom" ? subject.bedrooms! : 1;
   const basisLabel = basisKey === "sqm" ? "за м² постройки" : basisKey === "bedroom" ? "за спальню" : "целиком";
@@ -710,6 +759,29 @@ function leaseholdBlock(
 
 // ---- Свод ----
 
+/**
+ * Рычаги чувствительности: на сколько % каждый признак двигает оценку (значения
+ * множителей из карты факторов). Аргументы для торга — какие фичи поднимают цену
+ * и есть ли они у объекта. Только админка (в публичный выход не идёт).
+ */
+function buildSensitivity(
+  subject: ValuationSubject,
+  f: FactorMap,
+  isLand: boolean,
+): Array<{ label: string; deltaPct: number; applied: boolean }> {
+  const out: Array<{ label: string; deltaPct: number; applied: boolean }> = [];
+  const add = (label: string, key: string, applied: boolean) => {
+    const m = f[key];
+    if (m !== undefined && m !== 1) out.push({ label, deltaPct: Math.round((m - 1) * 100), applied });
+  };
+  add("Вид на море", "feature.sea_view", !!subject.seaView);
+  add("Первая линия", "feature.beachfront", !!subject.beachfront);
+  add("Вид на горы", "feature.mountain_view", !!subject.mountainView);
+  add("Электричество на участке", "feature.electricity", !!subject.electricity);
+  if (!isLand) add("Бассейн", "feature.pool", !!subject.pool);
+  return out.sort((a, b) => Math.abs(b.deltaPct) - Math.abs(a.deltaPct));
+}
+
 export function estimate(subject: ValuationSubject, data: EngineData): ValuationResult {
   const caveats: string[] = [];
   const f = data.factors;
@@ -787,6 +859,7 @@ export function estimate(subject: ValuationSubject, data: EngineData): Valuation
     confidence,
     methods,
     adjustments: fs.parts,
+    sensitivity: buildSensitivity(subject, f, subjType === "land"),
     caveats,
   };
   if (subjType === "land" && subject.areaRai && subject.areaRai > 0) {
