@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Route } from "next";
 import { GuideChecklist } from "@/components/admin/guide-checklist";
 import { GuideQuiz } from "@/components/admin/guide-quiz";
+import { GuideOnboardingProgress } from "@/components/admin/guide-onboarding-progress";
 import type { GuideLiveData } from "@/lib/data/guide";
 
 /**
@@ -98,6 +99,7 @@ type Block =
   | { kind: "code"; lines: string[] }
   | { kind: "table"; header: string[]; rows: string[][] }
   | { kind: "quiz" }
+  | { kind: "onboarding-progress" }
   | { kind: "live"; name: "stages" | "admin-sections" | "stats" }
   | { kind: "hr" };
 
@@ -138,6 +140,12 @@ function parseBlocks(md: string): Block[] {
     // Маркер встраивания квиза самопроверки (страница «Проверь себя»).
     if (t === "{{quiz}}") {
       blocks.push({ kind: "quiz" });
+      i++;
+      continue;
+    }
+    // Сводный прогресс онбординга (агрегирует чек-листы страницы).
+    if (t === "{{onboarding-progress}}") {
+      blocks.push({ kind: "onboarding-progress" });
       i++;
       continue;
     }
@@ -349,6 +357,8 @@ export function GuideArticle({
             return <GuideChecklist key={i} items={b.items} storageKey={`${slug}:${i}`} />;
           case "quiz":
             return <GuideQuiz key={i} />;
+          case "onboarding-progress":
+            return <GuideOnboardingProgress key={i} />;
           case "live":
             return <LiveBlock key={i} name={b.name} live={live} />;
           case "quote": {

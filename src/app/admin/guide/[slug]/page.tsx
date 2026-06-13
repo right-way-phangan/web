@@ -50,6 +50,8 @@ export default async function GuidePageView({ params }: { params: Params }) {
   const next = idx >= 0 && idx < pages.length - 1 ? pages[idx + 1] : null;
   const sectionTitle = GUIDE_SECTIONS.find((s) => s.id === page.section)?.title ?? "";
   const headings = extractGuideHeadings(page.body);
+  // «Смотри также» — другие страницы той же секции (навигация внутри темы).
+  const related = pages.filter((p) => p.section === page.section && p.slug !== slug);
 
   // Живые данные собираем только если страница их использует (маркеры {{…}}),
   // чтобы не дёргать CRM/каталог на страницах без них.
@@ -111,6 +113,26 @@ export default async function GuidePageView({ params }: { params: Params }) {
           <div className="mt-6">
             <GuideArticle md={page.body} slug={slug} live={live} />
           </div>
+
+          {/* Смотри также — соседние страницы той же секции */}
+          {related.length > 0 && (
+            <div className="mt-10 border-t border-forest-900/10 pt-5">
+              <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.15em] text-forest-900/40">
+                Смотри также · {sectionTitle}
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {related.map((p) => (
+                  <Link
+                    key={p.slug}
+                    href={`/admin/guide/${p.slug}` as Route}
+                    className="inline-block rounded-full bg-forest-900/5 px-3 py-1 text-sm text-forest-900/75 transition hover:bg-forest-900/10 hover:text-forest-900"
+                  >
+                    {p.title}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Перелистывание по оглавлению */}
           <div className="mt-10 flex flex-wrap justify-between gap-3 border-t border-forest-900/10 pt-5 text-sm">
