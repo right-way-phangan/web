@@ -24,6 +24,44 @@ export function formatAreaRu(sqm: number): string {
 }
 
 /**
+ * Sunset compass bearing (degrees from North, clockwise) for a latitude on a
+ * given date — the classic "amplitude" formula: cos(A) = sin(δ) / cos(φ), with
+ * the sun on the western half so the bearing is 360 − A. δ is the solar
+ * declination (standard day-of-year approximation, ~0.5° accuracy). Refraction
+ * and observer elevation shift it ~1°, irrelevant for a directional arrow.
+ * Phangan (9.7°N): ~294° (WNW) at June solstice, ~270° (W) at equinox, ~246°
+ * (WSW) in December. Returns null only at polar latitudes (no sunset).
+ */
+export function sunsetBearing(lat: number, date = new Date()): number | null {
+  const rad = Math.PI / 180;
+  const start = Date.UTC(date.getUTCFullYear(), 0, 0);
+  const dayOfYear = Math.floor((date.getTime() - start) / 86400000);
+  const decl = 23.44 * Math.sin(((360 / 365) * (dayOfYear + 284)) * rad);
+  const c = Math.sin(decl * rad) / Math.cos(lat * rad);
+  if (c < -1 || c > 1) return null;
+  return 360 - Math.acos(c) / rad;
+}
+
+/**
+ * Destination point `meters` away from [lat, lng] along a compass `bearing`
+ * (degrees from North). Equirectangular offset — exact enough for a short
+ * on-map arrow at Phangan scale.
+ */
+export function offsetPoint(
+  lat: number,
+  lng: number,
+  bearing: number,
+  meters: number,
+): [number, number] {
+  const R = 6378137;
+  const rad = Math.PI / 180;
+  const b = bearing * rad;
+  const dLat = (meters * Math.cos(b)) / R / rad;
+  const dLng = (meters * Math.sin(b)) / (R * Math.cos(lat * rad)) / rad;
+  return [lat + dLat, lng + dLng];
+}
+
+/**
  * Pull lat/lng out of a Google Maps URL (or a bare "lat, lng" string). Mirrors
  * what the backend derives for the catalog pin; used client-side by the
  * zoning helper and the admin map pickers.

@@ -28,6 +28,18 @@ export const SATELLITE_ATTRIBUTION =
 export const SATELLITE_MAX_NATIVE_ZOOM = 19;
 
 /**
+ * Terrain / hillshade basemap — Esri World Hillshade. Shaded relief makes plot
+ * slope read at a glance (slope matters for land buyers). Same reliable Esri
+ * infra as the satellite layer, no key, {z}/{y}/{x}. Native to ~z16; Leaflet
+ * upscales past that.
+ */
+export const TERRAIN_TILE_URL =
+  "https://server.arcgisonline.com/ArcGIS/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}";
+export const TERRAIN_ATTRIBUTION =
+  "Hillshade &copy; <a href=\"https://www.esri.com/\">Esri</a>, USGS, NGA";
+export const TERRAIN_MAX_NATIVE_ZOOM = 16;
+
+/**
  * DOL cadastral parcel outlines (โฉนด boundaries) — Longdo's dol_hd layer (the
  * one map.longdo.com renders), served through our caching proxy /tiles (see
  * app/tiles/.../route.ts): Vercel CDN keeps tiles warm through upstream

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { MapContainer, TileLayer, Marker, Circle, Polygon, useMapEvents } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Circle, Polygon, Polyline, useMapEvents } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { LocateFixed } from "lucide-react";
@@ -12,6 +12,9 @@ import {
   SATELLITE_TILE_URL,
   SATELLITE_ATTRIBUTION,
   SATELLITE_MAX_NATIVE_ZOOM,
+  TERRAIN_TILE_URL,
+  TERRAIN_ATTRIBUTION,
+  TERRAIN_MAX_NATIVE_ZOOM,
   PARCEL_TILE_URL,
   PARCEL_MIN_ZOOM,
   PARCEL_MAX_NATIVE_ZOOM,
@@ -20,11 +23,26 @@ import {
   CITYPLAN_MAX_NATIVE_ZOOM,
   LONGDO_ATTRIBUTION,
 } from "@/lib/leaflet/tiles";
+import { sunsetBearing, offsetPoint } from "@/lib/utils/geo";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { getObjectDict } from "@/lib/i18n/dictionaries";
 import { cn } from "@/lib/utils/cn";
 
 const MAX_ZOOM = 20;
+
+type BaseLayer = "map" | "sat" | "terrain";
+
+// Persisted layer choice — survives across object pages (localStorage).
+const LS_KEY = "rw-map-layers";
+type LayerPrefs = { base: BaseLayer; parcels: boolean; zoning: boolean };
+function loadPrefs(): Partial<LayerPrefs> {
+  if (typeof window === "undefined") return {};
+  try {
+    return JSON.parse(localStorage.getItem(LS_KEY) || "{}") as Partial<LayerPrefs>;
+  } catch {
+    return {};
+  }
+}
 
 // Brass teardrop pin (matches the listings map's idle pin shape).
 const pinIcon = L.divIcon({
@@ -42,6 +60,16 @@ const meIcon = L.divIcon({
   iconAnchor: [7, 7],
 });
 
+// Sunset marker at the tip of the direction arrow (sea-view / beachfront plots).
+function sunsetIcon(label: string) {
+  return L.divIcon({
+    className: "",
+    html: `<span style="display:inline-flex;align-items:center;gap:3px;white-space:nowrap;padding:1px 6px;border-radius:9px;background:rgba(181,101,29,.92);color:#FEFCF9;font-size:11px;font-weight:600;box-shadow:0 1px 4px rgba(0,0,0,.35)">🌅 ${label}</span>`,
+    iconSize: [0, 0],
+    iconAnchor: [-6, 8],
+  });
+}
+
 function ZoomWatcher({ onZoom }: { onZoom: (z: number) => void }) {
   useMapEvents({ zoomend: (e) => onZoom((e.target as L.Map).getZoom()) });
   return null;
@@ -51,18 +79,22 @@ interface Props {
   lat: number;
   lng: number;
   plotPolygon?: Array<[number, number]>;
+  // Sea-view / beachfront plots get a sunset-direction arrow from the pin.
+  showSunset?: boolean;
 }
 
-export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon }: Props) {
+export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSunset }: Props) {
   const t = getObjectDict(useLocale()).map;
   const mapRef = useRef<L.Map | null>(null);
   const watchId = useRef<number | null>(null);
 
   const hasPolygon = (plotPolygon?.length ?? 0) >= 3;
-  // A traced contour reads best over imagery — default to satellite then.
-  const [base, setBase] = useState<"map" | "sat">(hasPolygon ? "sat" : "map");
-  const [parcels, setParcels] = useState(false);
-  const [zoning, setZoning] = useState(false);
+  // Restore the visitor's last layer choice; otherwise a contour reads best
+  // over imagery, so default to satellite when one is present.
+  const prefs = useRef<Partial<LayerPrefs>>(loadPrefs()).current;
+  const [base, setBase] = useState<BaseLayer>(prefs.base ?? (hasPolygon ? "sat" : "map"));
+  const [parcels, setParcels] = useState(prefs.parcels ?? false);
+  const [zoning, setZoning] = useState(prefs.zoning ?? false);
   const [zoom, setZoom] = useState(15);
   const [me, setMe] = useState<{ lat: number; lng: number; acc: number } | null>(null);
   const [geoBusy, setGeoBusy] = useState(false);
@@ -128,6 +160,19 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon }: Prop
 
   useEffect(() => stopWatch, []);
 
+  // Remember the layer choice for the next object page.
+  useEffect(() => {
+    try {
+      localStorage.setItem(LS_KEY, JSON.stringify({ base, parcels, zoning } satisfies LayerPrefs));
+    } catch {
+      /* private mode / quota — non-essential */
+    }
+  }, [base, parcels, zoning]);
+
+  // Sunset-direction arrow from the pin (sea-view / beachfront plots).
+  const sunset = showSunset ? sunsetBearing(lat) : null;
+  const sunsetTip = sunset != null ? offsetPoint(lat, lng, sunset, 300) : null;
+
   const pill =
     "px-2.5 py-2 text-xs font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brass-500";
   const pillOn = "bg-forest-500 text-cream-100";
@@ -155,6 +200,14 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon }: Prop
             attribution={SATELLITE_ATTRIBUTION}
             url={SATELLITE_TILE_URL}
             maxNativeZoom={SATELLITE_MAX_NATIVE_ZOOM}
+            maxZoom={MAX_ZOOM}
+          />
+        ) : base === "terrain" ? (
+          <TileLayer
+            key="base-terrain"
+            attribution={TERRAIN_ATTRIBUTION}
+            url={TERRAIN_TILE_URL}
+            maxNativeZoom={TERRAIN_MAX_NATIVE_ZOOM}
             maxZoom={MAX_ZOOM}
           />
         ) : (
@@ -196,6 +249,15 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon }: Prop
             pathOptions={{ color: "#B5651D", weight: 2.5, opacity: 0.9, fillColor: "#B5651D", fillOpacity: 0.14 }}
           />
         ) : null}
+        {sunsetTip ? (
+          <>
+            <Polyline
+              positions={[[lat, lng], sunsetTip]}
+              pathOptions={{ color: "#B5651D", weight: 2, opacity: 0.85, dashArray: "5 5" }}
+            />
+            <Marker position={sunsetTip} icon={sunsetIcon(t.sunset)} interactive={false} />
+          </>
+        ) : null}
         <Marker position={[lat, lng]} icon={pinIcon} />
         {me ? (
           <>
@@ -227,6 +289,14 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon }: Prop
             onClick={() => setBase("sat")}
           >
             {t.baseSatellite}
+          </button>
+          <button
+            type="button"
+            aria-pressed={base === "terrain"}
+            className={cn(pill, base === "terrain" ? pillOn : pillOff)}
+            onClick={() => setBase("terrain")}
+          >
+            {t.baseTerrain}
           </button>
         </div>
         <button
