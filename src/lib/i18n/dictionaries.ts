@@ -904,6 +904,12 @@ export interface ObjectDict {
     legendResidential: string;
     legendOther: string;
     overlayNote: string;
+    poiLayer: string;
+    poiPier: string;
+    poiHospital: string;
+    poiSchool: string;
+    poiShop: string;
+    poiAtm: string;
   };
   perRaiMonth: string;
   priceOnRequest: string;
@@ -1025,6 +1031,12 @@ const objectDict: Record<Locale, ObjectDict> = {
       legendResidential: "Low-density residential",
       legendOther: "Other / unclassified",
       overlayNote: "Cadastral data: Department of Lands via Longdo Map. Indicative — verify at the Land Office.",
+      poiLayer: "Nearby",
+      poiPier: "Ferry pier",
+      poiHospital: "Hospital",
+      poiSchool: "School",
+      poiShop: "Shop / supermarket",
+      poiAtm: "Banks & ATMs",
     },
     perRaiMonth: "/ rai / month",
     priceOnRequest: "Price on request",
@@ -1143,6 +1155,12 @@ const objectDict: Record<Locale, ObjectDict> = {
       legendResidential: "Жилая малой плотности",
       legendOther: "Прочее / без категории",
       overlayNote: "Кадастровые данные: Департамент земель через Longdo Map. Ориентировочно — проверяйте в Land Office.",
+      poiLayer: "Рядом",
+      poiPier: "Паромный пирс",
+      poiHospital: "Больница",
+      poiSchool: "Школа",
+      poiShop: "Магазин / супермаркет",
+      poiAtm: "Банки и банкоматы",
     },
     perRaiMonth: "/ рай / мес",
     priceOnRequest: "Цена по запросу",

@@ -34,6 +34,7 @@ import { useLocale } from "@/lib/i18n/use-locale";
 import { getObjectDict } from "@/lib/i18n/dictionaries";
 import { cn } from "@/lib/utils/cn";
 import { MapLegend } from "./map-legend";
+import { PoiMarkers } from "./poi-markers";
 
 const MAX_ZOOM = 20;
 
@@ -77,7 +78,8 @@ interface Props {
 }
 
 export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSunset }: Props) {
-  const t = getObjectDict(useLocale()).map;
+  const locale = useLocale();
+  const t = getObjectDict(locale).map;
   const mapRef = useRef<L.Map | null>(null);
   const watchId = useRef<number | null>(null);
 
@@ -88,6 +90,7 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
   const [base, setBase] = useState<BaseLayer>(prefs.base ?? (hasPolygon ? "sat" : "map"));
   const [parcels, setParcels] = useState(prefs.parcels ?? false);
   const [zoning, setZoning] = useState(prefs.zoning ?? false);
+  const [poi, setPoi] = useState(prefs.poi ?? false);
   const [zoom, setZoom] = useState(15);
   const [me, setMe] = useState<{ lat: number; lng: number; acc: number } | null>(null);
   const [geoBusy, setGeoBusy] = useState(false);
@@ -155,8 +158,8 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
 
   // Remember the layer choice for the next map (object detail / listings).
   useEffect(() => {
-    saveLayerPrefs({ base, parcels, zoning });
-  }, [base, parcels, zoning]);
+    saveLayerPrefs({ base, parcels, zoning, poi });
+  }, [base, parcels, zoning, poi]);
 
   // Sunset-direction arrow from the pin (sea-view / beachfront plots).
   const sunset = showSunset ? sunsetBearing(lat) : null;
@@ -247,6 +250,7 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
             <Marker position={sunsetTip} icon={sunsetIcon(t.sunset)} interactive={false} />
           </>
         ) : null}
+        {poi ? <PoiMarkers locale={locale} t={t} /> : null}
         <Marker position={[lat, lng]} icon={pinIcon} />
         {me ? (
           <>
@@ -306,6 +310,14 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
         </button>
         <button
           type="button"
+          aria-pressed={poi}
+          className={cn(pill, "rounded-sm border border-forest-500/20 shadow-sm", poi ? pillOn : pillOff)}
+          onClick={() => setPoi(!poi)}
+        >
+          {t.poiLayer}
+        </button>
+        <button
+          type="button"
           aria-label={me ? t.locateStop : t.locate}
           aria-pressed={me != null}
           className={cn(
@@ -318,8 +330,10 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
         </button>
       </div>
 
-      {/* Zoning legend + source note (collapsible, shared with /listings). */}
-      {zoning || parcels ? <MapLegend zoning={zoning} t={t} /> : null}
+      {/* Zoning + nearby legend / source note (collapsible, shared with /listings). */}
+      {zoning || parcels || poi ? (
+        <MapLegend zoning={zoning} poi={poi} showSource={zoning || parcels} t={t} />
+      ) : null}
 
       {/* Transient hints: geolocation error / zoom-in prompt. */}
       {geoError || (parcels && zoom < PARCEL_MIN_ZOOM) ? (

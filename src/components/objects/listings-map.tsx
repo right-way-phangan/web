@@ -34,6 +34,7 @@ import { useLocale } from "@/lib/i18n/use-locale";
 import { getObjectDict } from "@/lib/i18n/dictionaries";
 import { cn } from "@/lib/utils/cn";
 import { MapLegend } from "./map-legend";
+import { PoiMarkers } from "./poi-markers";
 
 const LISTINGS_MAX_ZOOM = 20;
 
@@ -184,16 +185,18 @@ export default function ListingsMap({
   onBoundsChange,
   onInteract,
 }: Props) {
-  const t = getObjectDict(useLocale()).map;
+  const locale = useLocale();
+  const t = getObjectDict(locale).map;
   // Same layer choice as the object-detail map (shared localStorage), so a
-  // visitor's Satellite/Cadastre/Zoning preference carries across the site.
+  // visitor's Satellite/Cadastre/Zoning/Nearby preference carries across the site.
   const prefs = loadLayerPrefs();
   const [base, setBase] = useState<BaseLayer>(prefs.base ?? "map");
   const [parcels, setParcels] = useState(prefs.parcels ?? false);
   const [zoning, setZoning] = useState(prefs.zoning ?? false);
+  const [poi, setPoi] = useState(prefs.poi ?? false);
   useEffect(() => {
-    saveLayerPrefs({ base, parcels, zoning });
-  }, [base, parcels, zoning]);
+    saveLayerPrefs({ base, parcels, zoning, poi });
+  }, [base, parcels, zoning, poi]);
 
   const pill =
     "px-2.5 py-2 text-xs font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brass-500";
@@ -320,6 +323,7 @@ export default function ListingsMap({
             );
           })}
         </MarkerClusterGroup>
+        {poi ? <PoiMarkers locale={locale} t={t} /> : null}
       </MapContainer>
 
       {/* Layer controls — same set as the object map (shared preference). */}
@@ -351,9 +355,19 @@ export default function ListingsMap({
         >
           {t.zoning}
         </button>
+        <button
+          type="button"
+          aria-pressed={poi}
+          className={cn(pill, "rounded-sm border border-forest-500/20 shadow-sm", poi ? pillOn : pillOff)}
+          onClick={() => setPoi((v) => !v)}
+        >
+          {t.poiLayer}
+        </button>
       </div>
 
-      {zoning || parcels ? <MapLegend zoning={zoning} t={t} /> : null}
+      {zoning || parcels || poi ? (
+        <MapLegend zoning={zoning} poi={poi} showSource={zoning || parcels} t={t} />
+      ) : null}
     </div>
   );
 }
