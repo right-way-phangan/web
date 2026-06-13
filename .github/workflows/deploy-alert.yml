@@ -1,0 +1,25 @@
+# Тихие падения деплоя: когда Vercel-сборка проваливается, прод просто застывает
+# на старой версии — без сигнала это легко не заметить (так и случилось: серия
+# упавших деплоев из-за Invalid Date в каталоге). Этот workflow ловит
+# deployment_status=failure/error для Production и шлёт алерт Vladimir в
+# @rightway_admin_notify_bot (те же секреты, что и prod-smoke).
+name: Deploy alert
+
+on:
+  deployment_status:
+
+jobs:
+  alert:
+    # Только провалы и только production-окружение (Vercel шлёт статусы и для preview).
+    if: >
+      (github.event.deployment_status.state == 'failure' ||
+       github.event.deployment_status.state == 'error') &&
+      contains(github.event.deployment_status.environment, 'Production')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Alert Telegram
+        run: |
+          curl -s --max-time 20 "https://api.telegram.org/bot${{ secrets.TELEGRAM_NOTIFY_BOT_TOKEN }}/sendMessage" \
+            -d chat_id="${{ secrets.TELEGRAM_NOTIFY_CHAT_ID }}" \
+            --data-urlencode text="🔴 Прод-деплой упал (${{ github.event.deployment_status.environment }}): ${{ github.event.deployment_status.description }}. Сайт остался на прошлой версии. Логи: ${{ github.event.deployment_status.target_url }}" \
+            >/dev/null
