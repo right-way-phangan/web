@@ -57,7 +57,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       `${object.type} на Ко Пангане — объект Right Way ${object.rwNumber}.`,
     alternates: {
       canonical: `/ru/object/${object.rwNumber}`,
-      languages: { en: `/object/${object.rwNumber}`, ru: `/ru/object/${object.rwNumber}` },
+      languages: { en: `/object/${object.rwNumber}`, ru: `/ru/object/${object.rwNumber}`, "x-default": `/object/${object.rwNumber}` },
     },
   };
 }

@@ -34,7 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: now,
       changeFrequency: "weekly",
       priority: 1,
-      alternates: { languages: { en: `${base}/`, ru: `${base}/ru` } },
+      alternates: { languages: { en: `${base}/`, ru: `${base}/ru`, "x-default": `${base}/` } },
     },
     { url: `${base}/ru`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: `${base}/ru/about`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Журнал",
   description:
     "Практичные, понятные тексты о покупке и строительстве на Ко Пангане — юридическая проверка земли, арендная доходность и как рынок работает на самом деле.",
-  alternates: { canonical: "/ru/blog", languages: { en: "/blog", ru: "/ru/blog" } },
+  alternates: { canonical: "/ru/blog", languages: { en: "/blog", ru: "/ru/blog", "x-default": "/blog" } },
 };
 
 function fmtDate(iso: string): string {

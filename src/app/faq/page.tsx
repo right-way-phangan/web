@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { ALL_FAQ_ITEMS } from "@/content/faq-derived";
 
 export const metadata: Metadata = {
-  alternates: { canonical: "/faq", languages: { en: "/faq", ru: "/ru/faq" } },
+  alternates: { canonical: "/faq", languages: { en: "/faq", ru: "/ru/faq", "x-default": "/faq" } },
   title: "FAQ",
   description:
     "Answers to the questions foreign buyers actually ask about Koh Phangan property: Chanote vs NS3, freehold vs leasehold, company structures, taxes, utilities, due diligence.",

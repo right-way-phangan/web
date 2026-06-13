@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   title: "База знаний",
   description:
     "Понятные гиды по покупке недвижимости на Ко Пангане — владение для иностранцев, структуры аренды, строительные зоны и правила, которые реально влияют на сделку.",
-  alternates: { canonical: "/ru/knowledge", languages: { en: "/knowledge", ru: "/ru/knowledge" } },
+  alternates: { canonical: "/ru/knowledge", languages: { en: "/knowledge", ru: "/ru/knowledge", "x-default": "/knowledge" } },
 };
 
 export default function RussianKnowledgePage() {

@@ -11,7 +11,7 @@ const MONTHS_EN = [
 ];
 
 export const metadata: Metadata = {
-  alternates: { canonical: "/knowledge", languages: { en: "/knowledge", ru: "/ru/knowledge" } },
+  alternates: { canonical: "/knowledge", languages: { en: "/knowledge", ru: "/ru/knowledge", "x-default": "/knowledge" } },
   title: "Knowledge",
   description:
     "Plain-language guides to buying property on Koh Phangan — foreign ownership, leasehold structures, building zones, and the rules that actually affect a purchase.",

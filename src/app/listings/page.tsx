@@ -17,7 +17,7 @@ import {
 } from "@/lib/filters/listings";
 
 export const metadata: Metadata = {
-  alternates: { canonical: "/listings", languages: { en: "/listings", ru: "/ru/listings" } },
+  alternates: { canonical: "/listings", languages: { en: "/listings", ru: "/ru/listings", "x-default": "/listings" } },
   title: "Listings",
   description:
     "Every active property on Koh Phangan: land, villas, and houses. Filter by district, type, and key features.",

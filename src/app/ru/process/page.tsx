@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "Процесс",
   description:
     "Как проходит сделка с Right Way: семь этапов, у каждого — понятный результат и момент, когда можно выйти без обязательств.",
-  alternates: { canonical: "/ru/process", languages: { en: "/process", ru: "/ru/process" } },
+  alternates: { canonical: "/ru/process", languages: { en: "/process", ru: "/ru/process", "x-default": "/process" } },
 };
 
 export default function RussianProcessPage() {

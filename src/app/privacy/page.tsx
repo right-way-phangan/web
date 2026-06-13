@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Privacy policy",
   description:
     "How Right Way Phangan handles personal data — what we collect, why, who sees it, how long we keep it, and your rights under Thailand's PDPA.",
-  alternates: { canonical: "/privacy", languages: { en: "/privacy", ru: "/ru/privacy" } },
+  alternates: { canonical: "/privacy", languages: { en: "/privacy", ru: "/ru/privacy", "x-default": "/privacy" } },
 };
 
 export default function PrivacyPage() {

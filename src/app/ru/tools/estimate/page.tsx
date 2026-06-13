@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     "Мгновенная рыночная оценка земли или виллы на Ко Пангане по собственным данным сделок Right Way. Бесплатно, без обязательств — затем точная оценка от команды.",
   alternates: {
     canonical: "/ru/tools/estimate",
-    languages: { en: "/tools/estimate", ru: "/ru/tools/estimate" },
+    languages: { en: "/tools/estimate", ru: "/ru/tools/estimate", "x-default": "/tools/estimate" },
   },
   openGraph: {
     title: "Сколько стоит ваша недвижимость на Пангане?",

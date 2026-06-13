@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: "Вопросы и ответы",
   description:
     "Ответы на вопросы, которые иностранные покупатели реально задают про недвижимость на Ко Пангане: Chanote vs NS3, фрихолд vs лизхолд, корпоративные структуры, налоги, коммуникации, юридическая проверка.",
-  alternates: { canonical: "/ru/faq", languages: { en: "/faq", ru: "/ru/faq" } },
+  alternates: { canonical: "/ru/faq", languages: { en: "/faq", ru: "/ru/faq", "x-default": "/faq" } },
 };
 
 export default function RussianFaqPage() {

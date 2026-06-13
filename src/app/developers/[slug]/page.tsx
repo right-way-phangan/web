@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: `Projects by ${dev.name} on Koh Phangan — units, pricing and availability.`,
     alternates: {
       canonical: `/developers/${slug}`,
-      languages: { en: `/developers/${slug}`, ru: `/ru/developers/${slug}` },
+      languages: { en: `/developers/${slug}`, ru: `/ru/developers/${slug}`, "x-default": `/developers/${slug}` },
     },
   };
 }

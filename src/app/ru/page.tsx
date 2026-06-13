@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     "Агентство недвижимости на Ко Пангане для иностранных покупателей: земля, виллы и дома. Каждый объект проверен лично, прозрачный процесс, честные цифры.",
   alternates: {
     canonical: "/ru",
-    languages: { en: "/", ru: "/ru" },
+    languages: { en: "/", ru: "/ru", "x-default": "/" },
   },
 };
 

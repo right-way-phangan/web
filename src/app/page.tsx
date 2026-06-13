@@ -9,7 +9,7 @@ import { Reveal } from "@/components/sections/reveal";
 export const metadata: Metadata = {
   alternates: {
     canonical: "/",
-    languages: { en: "/", ru: "/ru" },
+    languages: { en: "/", ru: "/ru", "x-default": "/" },
     types: { "application/rss+xml": "/feed.xml" },
   },
 };

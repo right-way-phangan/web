@@ -6,7 +6,7 @@ import { ServiceCards } from "@/components/sections/service-cards";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
-  alternates: { canonical: "/services", languages: { en: "/services", ru: "/ru/services" } },
+  alternates: { canonical: "/services", languages: { en: "/services", ru: "/ru/services", "x-default": "/services" } },
   title: "Services",
   description:
     "Three services: land acquisition, villa and house sales, standalone transaction support. Each one documented and accountable.",

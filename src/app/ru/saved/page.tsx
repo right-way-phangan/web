@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "Избранное",
   description:
     "Ваш шорт-лист объектов на Ко Пангане — сравните их бок о бок и отправьте весь список в Right Way одним нажатием.",
-  alternates: { canonical: "/ru/saved", languages: { en: "/saved", ru: "/ru/saved" } },
+  alternates: { canonical: "/ru/saved", languages: { en: "/saved", ru: "/ru/saved", "x-default": "/saved" } },
   robots: { index: false, follow: true },
 };
 

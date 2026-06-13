@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: "Контакты",
   description:
     "Расскажите, что вы ищете на Ко Пангане. Отвечаем в течение рабочего дня.",
-  alternates: { canonical: "/ru/contact", languages: { en: "/contact", ru: "/ru/contact" } },
+  alternates: { canonical: "/ru/contact", languages: { en: "/contact", ru: "/ru/contact", "x-default": "/contact" } },
 };
 
 export default function RussianContactPage() {

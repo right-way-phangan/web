@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: "О нас",
   description:
     "Right Way Phangan Group — агентство недвижимости на Ко Пангане, основано Владимиром Бурым в 2026 году.",
-  alternates: { canonical: "/ru/about", languages: { en: "/about", ru: "/ru/about" } },
+  alternates: { canonical: "/ru/about", languages: { en: "/about", ru: "/ru/about", "x-default": "/about" } },
 };
 
 export default function RussianAboutPage() {
