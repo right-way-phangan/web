@@ -114,7 +114,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     };
     // Honest lastmod from the listing's own date — `now` on every entry tells
     // Google "everything changed this hour", which erodes trust in the signal.
-    const lastModified = o.dateAdded ? new Date(o.dateAdded) : now;
+    // dateAdded is free-form from amoCRM; an unparseable value would make
+    // Date#toISOString() throw and kill the whole sitemap prerender → fall back.
+    const parsed = o.dateAdded ? new Date(o.dateAdded) : now;
+    const lastModified = Number.isNaN(parsed.getTime()) ? now : parsed;
     return [
       {
         url: `${base}/object/${o.rwNumber}`,
