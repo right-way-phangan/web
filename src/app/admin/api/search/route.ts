@@ -24,6 +24,7 @@ const PAGES: { title: string; keywords: string; href: string }[] = [
   { title: "Объекты", keywords: "objects каталог объекты", href: "/admin/objects" },
   { title: "Новый объект", keywords: "new object добавить объект", href: "/admin/new" },
   { title: "Финансы", keywords: "finance деньги opex журнал сделок", href: "/admin/finance" },
+  { title: "Оценка недвижимости", keywords: "valuation estimate оценка цена компсы факторы", href: "/admin/valuation" },
   { title: "Статьи", keywords: "articles блог статьи", href: "/admin/articles" },
   { title: "Дашборд", keywords: "dashboard главная сводка", href: "/admin" },
 ];

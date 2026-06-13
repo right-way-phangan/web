@@ -25,6 +25,7 @@ import { cn } from "@/lib/utils/cn";
 import { createObject, type NewObjectState } from "@/lib/actions/new-object";
 import { previewObjectTitle } from "@/lib/actions/title";
 import { lookupZoneByLocation } from "@/lib/actions/zone-lookup";
+import { InlineEstimate } from "@/components/admin/inline-estimate";
 import { CoordPicker } from "./coord-picker";
 import { polygonAreaSqm, formatAreaRu } from "@/lib/utils/geo";
 import {
@@ -641,6 +642,28 @@ export function ObjectForm() {
               onChange={(e) => set("leaseAddTerms", e.target.value)}
             />
           </Field>
+          <InlineEstimate
+            values={{
+              type: v.type,
+              district: v.district,
+              documentType: v.documentType,
+              tenure: [...v.tenure],
+              areaText: v.area,
+              pricePerRai: v.pricePerRai,
+              priceThb: v.priceThb,
+              rentPerRaiMonth: v.rentPerRaiMonth,
+              leaseTermYears: v.leaseTermYears,
+              leaseEscalationText: v.leaseEscalation,
+              zone: v.zone,
+              roadType: v.roadType,
+              terrain: v.terrain,
+              features: [...v.features],
+              villaFeatures: [...v.villaFeatures],
+              bedrooms: v.bedrooms,
+              buildYear: v.buildYear,
+              condition: v.condition,
+            }}
+          />
         </section>
 
         {isLand ? (

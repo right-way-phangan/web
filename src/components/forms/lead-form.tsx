@@ -26,8 +26,8 @@ interface Props {
   defaultMessage?: string;
   /** Visual layout. "card" = inquiry form sidebar; "block" = /contact full-width block */
   layout?: "card" | "block";
-  /** "calculator" tags the lead as coming from the ROI calculator; "market-report" from /insights; "shortlist" from /saved; "saved-search" = a new-listing alert request. */
-  kind?: "inquiry" | "calculator" | "market-report" | "shortlist" | "saved-search";
+  /** "calculator" tags the lead as coming from the ROI calculator; "market-report" from /insights; "shortlist" from /saved; "saved-search" = a new-listing alert request; "valuation" = /tools/estimate seller lead. */
+  kind?: "inquiry" | "calculator" | "market-report" | "shortlist" | "saved-search" | "valuation";
   /** Submit button label override. */
   submitLabel?: string;
   /** Show an optional "preferred viewing date" field (object pages). */

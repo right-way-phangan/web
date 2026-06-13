@@ -31,7 +31,7 @@ const inquirySchema = z
     // Hidden / context fields
     rwNumber: z.string().optional(),       // present on object inquiry, absent on /contact
     source: z.enum(["object", "contact"]), // discriminator
-    kind: z.enum(["inquiry", "calculator", "market-report", "shortlist", "saved-search"]).optional(), // calculator = ROI-calc; market-report = /insights unlock; shortlist = saved-listings batch; saved-search = new-listing alert request
+    kind: z.enum(["inquiry", "calculator", "market-report", "shortlist", "saved-search", "valuation"]).optional(), // calculator = ROI-calc; market-report = /insights unlock; shortlist = saved-listings batch; saved-search = new-listing alert request; valuation = /tools/estimate seller lead
     utm_source: z.string().max(200).optional(),
     utm_medium: z.string().max(200).optional(),
     utm_campaign: z.string().max(200).optional(),
@@ -146,6 +146,7 @@ export async function submitInquiry(
   const isMarketReport = data.kind === "market-report";
   const isShortlist = data.kind === "shortlist";
   const isSavedSearch = data.kind === "saved-search";
+  const isValuation = data.kind === "valuation";
   const isViewing = Boolean(data.viewingDate);
   const wantsVideoTour = data.videoTour === "yes";
   const tags = [
@@ -155,6 +156,7 @@ export async function submitInquiry(
     ...(isMarketReport ? ["market-report"] : []),
     ...(isShortlist ? ["shortlist"] : []),
     ...(isSavedSearch ? ["saved-search"] : []),
+    ...(isValuation ? ["valuation", "seller-lead"] : []),
     ...(isViewing ? ["viewing"] : []),
     ...(wantsVideoTour ? ["video-tour"] : []),
     ...(data.replyVia ? [`reply:${data.replyVia}`] : []),
@@ -177,16 +179,18 @@ export async function submitInquiry(
   // Build amoCRM payload — leads/complex creates lead + contact in one call.
   const namePrefix = isViewing
     ? "Viewing request"
-    : isMarketReport
-      ? "Market report"
-      : isShortlist
-        ? "Shortlist"
-        : isSavedSearch
-          ? "New-listing alert"
-          : isCalc
-            ? "Calc lead"
-            : data.rwNumber
-              ? "Web inquiry"
+    : isValuation
+      ? "Valuation · seller"
+      : isMarketReport
+        ? "Market report"
+        : isShortlist
+          ? "Shortlist"
+          : isSavedSearch
+            ? "New-listing alert"
+            : isCalc
+              ? "Calc lead"
+              : data.rwNumber
+                ? "Web inquiry"
               : "Web contact";
   const leadName = data.rwNumber
     ? `${namePrefix} · ${data.rwNumber}${objectTitle ? ` · ${objectTitle.slice(0, 60)}` : ""}`

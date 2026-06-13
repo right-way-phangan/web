@@ -17,6 +17,7 @@ type AdminSection =
   | "crm"
   | "articles"
   | "finance"
+  | "valuation"
   | "guide"
   | "new";
 
@@ -51,6 +52,7 @@ export async function AdminNav({
     { key: "crm", href: "/admin/crm" as Route, label: "CRM · Лиды" },
     { key: "articles", href: "/admin/articles" as Route, label: "Статьи", badge: pending },
     { key: "finance", href: "/admin/finance" as Route, label: "Финансы" },
+    { key: "valuation", href: "/admin/valuation" as Route, label: "Оценка" },
     { key: "guide", href: "/admin/guide" as Route, label: "Справочник" },
     { key: "new", href: "/admin/new" as Route, label: "+ Новый объект" },
   ];
