@@ -10,6 +10,10 @@ export const metadata: Metadata = {
 };
 
 export const dynamic = "force-dynamic";
+// Скан каталога обогащает зоны по координатам (сетевые lookup'ы генплана на
+// ~300 объектов при холодном кэше тайлов) — поднимаем лимит, чтобы первый скан
+// не упёрся в дефолтный таймаут серверного экшена.
+export const maxDuration = 60;
 
 async function fetchJson<T>(path: string, fallback: T): Promise<T> {
   if (!process.env.OBJECTS_API_URL) return fallback;
