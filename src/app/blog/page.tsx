@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Journal",
   description:
     "Practical, plain-language writing on buying and building on Koh Phangan — land due diligence, rental returns, and how the market actually works.",
-  alternates: { canonical: "/blog", languages: { en: "/blog", ru: "/ru/blog" } },
+  alternates: { canonical: "/blog", languages: { en: "/blog", ru: "/ru/blog", "x-default": "/blog" } },
 };
 
 function fmtDate(iso: string): string {

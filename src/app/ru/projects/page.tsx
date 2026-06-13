@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     "Off-plan и готовые проекты застройщиков на Ко Пангане — виллы с бассейном и комплексы: юниты, цена, график платежей и прогноз доходности.",
   alternates: {
     canonical: "/ru/projects",
-    languages: { en: "/projects", ru: "/ru/projects" },
+    languages: { en: "/projects", ru: "/ru/projects", "x-default": "/projects" },
   },
 };
 

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: "Аналитика рынка — цены на землю и аренду на Ко Пангане",
   description:
     "Медианная цена земли за рай по районам Ко Пангана, сколько вилла зарабатывает за ночь, какую наценку даёт бассейн или вид на море, и какую конфигурацию выгодно строить под аренду. По живым объявлениям.",
-  alternates: { canonical: "/ru/insights", languages: { en: "/insights", ru: "/ru/insights" } },
+  alternates: { canonical: "/ru/insights", languages: { en: "/insights", ru: "/ru/insights", "x-default": "/insights" } },
 };
 
 export const revalidate = 300;

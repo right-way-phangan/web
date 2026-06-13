@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: { absolute: "Политика конфиденциальности — Right Way Phangan" },
   description:
     "Как Right Way Phangan обращается с персональными данными — что собираем, зачем, кто видит, сколько храним и ваши права по PDPA Таиланда.",
-  alternates: { canonical: "/ru/privacy", languages: { en: "/privacy", ru: "/ru/privacy" } },
+  alternates: { canonical: "/ru/privacy", languages: { en: "/privacy", ru: "/ru/privacy", "x-default": "/privacy" } },
 };
 
 export default function RussianPrivacyPage() {

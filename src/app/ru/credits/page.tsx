@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Кредиты фото",
   description:
     "Источники изображений и лицензии для фотографий, используемых на сайте Right Way Phangan.",
-  alternates: { canonical: "/ru/credits", languages: { en: "/credits", ru: "/ru/credits" } },
+  alternates: { canonical: "/ru/credits", languages: { en: "/credits", ru: "/ru/credits", "x-default": "/credits" } },
 };
 
 export default function RussianCreditsPage() {

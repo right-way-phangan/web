@@ -10,7 +10,7 @@ import type { DistrictPoint } from "@/components/districts/districts-map-leaflet
 import { getPublicObjects } from "@/lib/data/objects";
 
 export const metadata: Metadata = {
-  alternates: { canonical: "/districts", languages: { en: "/districts", ru: "/ru/districts" } },
+  alternates: { canonical: "/districts", languages: { en: "/districts", ru: "/ru/districts", "x-default": "/districts" } },
   title: "Districts",
   description:
     "Every district of Koh Phangan, mapped by Right Way — each with its own character, price profile, and buyer match, from the wellness west coast to the quiet inland hills.",

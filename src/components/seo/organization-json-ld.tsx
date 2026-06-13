@@ -23,7 +23,21 @@ export function OrganizationJsonLd({ siteUrl }: { siteUrl: string }) {
     name: siteConfig.name,
     description: siteConfig.description,
     url: siteUrl,
+    // Square logo (≥112px) → eligible for the knowledge-panel logo slot; image
+    // is the generated OG card. Both absolute so Google can fetch them directly.
+    logo: `${siteUrl}/icon-512.png`,
+    image: `${siteUrl}/opengraph-image`,
     areaServed: { "@type": "Place", name: "Koh Phangan, Thailand" },
+    // No street address yet (pre-incorporation), but locality + island geo are
+    // a real local-SEO signal for "real estate agent Koh Phangan" queries.
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Koh Phangan",
+      addressRegion: "Surat Thani",
+      addressCountry: "TH",
+    },
+    geo: { "@type": "GeoCoordinates", latitude: 9.7345, longitude: 100.015 },
+    knowsLanguage: ["en", "ru"],
     ...(sameAs.length ? { sameAs } : {}),
     contactPoint: [
       {

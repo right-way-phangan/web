@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: "Услуги",
   description:
     "Три услуги: сопровождение покупки земли, сделки с виллами и домами, поддержка отдельной сделки. Каждая задокументирована и под ответственность.",
-  alternates: { canonical: "/ru/services", languages: { en: "/services", ru: "/ru/services" } },
+  alternates: { canonical: "/ru/services", languages: { en: "/services", ru: "/ru/services", "x-default": "/services" } },
 };
 
 export default function RussianServicesPage() {

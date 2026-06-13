@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     "Off-plan and turnkey developer projects on Koh Phangan — pool villas and complexes with units, pricing, payment schedules and projected returns.",
   alternates: {
     canonical: "/projects",
-    languages: { en: "/projects", ru: "/ru/projects" },
+    languages: { en: "/projects", ru: "/ru/projects", "x-default": "/projects" },
   },
 };
 

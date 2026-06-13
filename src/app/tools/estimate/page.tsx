@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     "Get an instant, data-backed market estimate for land or a villa on Koh Phangan, based on Right Way's own deal data. Free, no obligation — then a precise valuation from our team.",
   alternates: {
     canonical: "/tools/estimate",
-    languages: { en: "/tools/estimate", ru: "/ru/tools/estimate" },
+    languages: { en: "/tools/estimate", ru: "/ru/tools/estimate", "x-default": "/tools/estimate" },
   },
   openGraph: {
     title: "What's my Koh Phangan property worth?",

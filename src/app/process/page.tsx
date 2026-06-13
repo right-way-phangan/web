@@ -5,7 +5,7 @@ import { ProcessTimeline } from "@/components/sections/process-timeline";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
-  alternates: { canonical: "/process", languages: { en: "/process", ru: "/ru/process" } },
+  alternates: { canonical: "/process", languages: { en: "/process", ru: "/ru/process", "x-default": "/process" } },
   title: "Process",
   description:
     "How a Right Way transaction unfolds: seven stages, each with a defined deliverable and a clear walk-away point.",

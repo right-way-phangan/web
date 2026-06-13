@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       `${project.titleEn} — проект застройщика на Ко Пангане${districtSuffix}.`,
     alternates: {
       canonical: `/ru/projects/${slug}`,
-      languages: { en: `/projects/${slug}`, ru: `/ru/projects/${slug}` },
+      languages: { en: `/projects/${slug}`, ru: `/ru/projects/${slug}`, "x-default": `/projects/${slug}` },
     },
   };
 }

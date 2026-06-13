@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: "Районы",
   description:
     "Каждый район Ко Пангана глазами Right Way — у каждого свой характер, ценовой профиль и «свой» покупатель, от велнес-запада до тихих холмов в глубине острова.",
-  alternates: { canonical: "/ru/districts", languages: { en: "/districts", ru: "/ru/districts" } },
+  alternates: { canonical: "/ru/districts", languages: { en: "/districts", ru: "/ru/districts", "x-default": "/districts" } },
 };
 
 export const revalidate = 300;
