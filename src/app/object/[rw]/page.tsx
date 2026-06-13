@@ -263,6 +263,7 @@ export default async function ObjectPage({ params }: Props) {
               district={object.district}
               mapsUrl={object.locationUrl}
               plotPolygon={object.plotPolygon}
+              showSunset={object.seaView || object.beachfront}
             />
 
             {object.buildingRules ? (

@@ -886,6 +886,8 @@ export interface ObjectDict {
   map: {
     baseMap: string;
     baseSatellite: string;
+    baseTerrain: string;
+    sunset: string;
     parcels: string;
     zoning: string;
     locate: string;
@@ -1004,6 +1006,8 @@ const objectDict: Record<Locale, ObjectDict> = {
     map: {
       baseMap: "Map",
       baseSatellite: "Satellite",
+      baseTerrain: "Terrain",
+      sunset: "Sunset",
       parcels: "Plot boundaries",
       zoning: "Zoning",
       locate: "Show my location",
@@ -1119,6 +1123,8 @@ const objectDict: Record<Locale, ObjectDict> = {
     map: {
       baseMap: "Карта",
       baseSatellite: "Спутник",
+      baseTerrain: "Рельеф",
+      sunset: "Закат",
       parcels: "Границы участков",
       zoning: "Зоны застройки",
       locate: "Показать моё местоположение",

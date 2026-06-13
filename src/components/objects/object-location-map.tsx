@@ -24,12 +24,14 @@ export function ObjectLocationMap({
   district,
   mapsUrl,
   plotPolygon,
+  showSunset,
 }: {
   lat?: number;
   lng?: number;
   district?: string;
   mapsUrl?: string;
   plotPolygon?: Array<[number, number]>;
+  showSunset?: boolean;
 }) {
   // Defer the Leaflet chunk + tiles until the section scrolls near — it sits
   // well below the fold on the object page.
@@ -69,7 +71,11 @@ export function ObjectLocationMap({
         </p>
       ) : null}
       <div ref={ref} className="mt-6 h-[360px] w-full">
-        {inView ? <Leaflet lat={lat} lng={lng} plotPolygon={plotPolygon} /> : <MapSkeleton />}
+        {inView ? (
+          <Leaflet lat={lat} lng={lng} plotPolygon={plotPolygon} showSunset={showSunset} />
+        ) : (
+          <MapSkeleton />
+        )}
       </div>
     </section>
   );
