@@ -17,7 +17,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Static routes — manually listed so we don't accidentally include /api/* or internals.
   const staticEntries: MetadataRoute.Sitemap = [
-    { url: `${base}/`, lastModified: now, changeFrequency: "weekly", priority: 1 },
+    {
+      url: `${base}/`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 1,
+      alternates: { languages: { en: `${base}/`, ru: `${base}/ru` } },
+    },
     { url: `${base}/ru`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: `${base}/ru/about`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
     { url: `${base}/ru/services`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
@@ -102,6 +108,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       .filter((u): u is string => !!u)
       .filter((u, i, arr) => arr.indexOf(u) === i)
       .slice(0, 4);
+    const languages = {
+      en: `${base}/object/${o.rwNumber}`,
+      ru: `${base}/ru/object/${o.rwNumber}`,
+    };
     return [
       {
         url: `${base}/object/${o.rwNumber}`,
@@ -109,6 +119,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         changeFrequency: "weekly" as const,
         priority: 0.8,
         images,
+        alternates: { languages },
       },
       {
         url: `${base}/ru/object/${o.rwNumber}`,
@@ -116,6 +127,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         changeFrequency: "weekly" as const,
         priority: 0.6,
         images,
+        alternates: { languages },
       },
     ];
   });
@@ -123,9 +135,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const projects = await getPublicProjects();
   const projectEntries: MetadataRoute.Sitemap = projects.flatMap((p) => {
     const slug = projectSlug(p, projects);
+    const languages = { en: `${base}/projects/${slug}`, ru: `${base}/ru/projects/${slug}` };
     return [
-      { url: `${base}/projects/${slug}`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.8 },
-      { url: `${base}/ru/projects/${slug}`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.6 },
+      { url: `${base}/projects/${slug}`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.8, alternates: { languages } },
+      { url: `${base}/ru/projects/${slug}`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.6, alternates: { languages } },
     ];
   });
 
