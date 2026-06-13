@@ -112,10 +112,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       en: `${base}/object/${o.rwNumber}`,
       ru: `${base}/ru/object/${o.rwNumber}`,
     };
+    // Honest lastmod from the listing's own date — `now` on every entry tells
+    // Google "everything changed this hour", which erodes trust in the signal.
+    const lastModified = o.dateAdded ? new Date(o.dateAdded) : now;
     return [
       {
         url: `${base}/object/${o.rwNumber}`,
-        lastModified: now,
+        lastModified,
         changeFrequency: "weekly" as const,
         priority: 0.8,
         images,
@@ -123,7 +126,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       },
       {
         url: `${base}/ru/object/${o.rwNumber}`,
-        lastModified: now,
+        lastModified,
         changeFrequency: "weekly" as const,
         priority: 0.6,
         images,
