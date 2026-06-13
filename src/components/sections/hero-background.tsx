@@ -25,6 +25,10 @@ export function HeroBackground({
 }) {
   const [scenes, setScenes] = useState<Scene[]>([]);
   const [idx, setIdx] = useState(0);
+  // Какие сцены уже монтировались: рендерим только показанные + следующую.
+  // Монтировать все шесть сразу — это ~400KB полноэкранных AVIF, душивших
+  // канал и оттягивавших LCP-отрисовку fallback'а до ~6s на мобильном 4G.
+  const [warm, setWarm] = useState<number[]>([]);
   const reducedMotion = useRef(false);
 
   useEffect(() => {
@@ -32,24 +36,47 @@ export function HeroBackground({
       typeof window !== "undefined" &&
       window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
+    // Манифест — только после window.load и паузы: слайдшоу — украшение,
+    // оно не имеет права конкурировать за канал с LCP-картинкой.
     let alive = true;
-    fetch("/scenes.json", { cache: "no-store" })
-      .then((r) => (r.ok ? r.json() : null))
-      .then((data) => {
-        if (!alive) return;
-        const list = Array.isArray(data?.scenes) ? data.scenes : [];
-        const clean = list
-          .filter((s: Scene) => s && typeof s.src === "string")
-          .slice(0, 6);
-        if (clean.length) setScenes(clean);
-      })
-      .catch(() => {
-        /* manifest missing/unreachable — fallback already on screen */
-      });
+    let timer: number | undefined;
+    const load = () => {
+      fetch("/scenes.json", { cache: "no-store" })
+        .then((r) => (r.ok ? r.json() : null))
+        .then((data) => {
+          if (!alive) return;
+          const list = Array.isArray(data?.scenes) ? data.scenes : [];
+          const clean = list
+            .filter((s: Scene) => s && typeof s.src === "string")
+            .slice(0, 6);
+          if (clean.length) setScenes(clean);
+        })
+        .catch(() => {
+          /* manifest missing/unreachable — fallback already on screen */
+        });
+    };
+    const arm = () => {
+      timer = window.setTimeout(load, 2500);
+    };
+    if (document.readyState === "complete") arm();
+    else window.addEventListener("load", arm, { once: true });
     return () => {
       alive = false;
+      window.clearTimeout(timer);
+      window.removeEventListener("load", arm);
     };
   }, []);
+
+  // Текущая сцена + следующая (прогревается за кадром все 6.5s показа).
+  useEffect(() => {
+    if (!scenes.length) return;
+    setWarm((m) => {
+      const want = new Set(m);
+      want.add(idx);
+      want.add((idx + 1) % scenes.length);
+      return want.size === m.length ? m : [...want];
+    });
+  }, [idx, scenes.length]);
 
   useEffect(() => {
     if (scenes.length < 2 || reducedMotion.current) return;
@@ -74,23 +101,27 @@ export function HeroBackground({
           fill
           priority
           sizes="100vw"
+          quality={65}
           className="object-cover"
         />
 
-        {scenes.map((scene, i) => (
-          <Image
-            key={scene.src}
-            src={scene.src}
-            alt={scene.alt || fallbackAlt}
-            fill
-            sizes="100vw"
-            aria-hidden={i !== idx}
-            className={[
-              "object-cover transition-opacity duration-[1200ms] ease-in-out",
-              i === idx ? "opacity-100" : "opacity-0",
-            ].join(" ")}
-          />
-        ))}
+        {scenes.map((scene, i) =>
+          warm.includes(i) ? (
+            <Image
+              key={scene.src}
+              src={scene.src}
+              alt={scene.alt || fallbackAlt}
+              fill
+              sizes="100vw"
+              quality={60}
+              aria-hidden={i !== idx}
+              className={[
+                "object-cover transition-opacity duration-[1200ms] ease-in-out",
+                i === idx ? "opacity-100" : "opacity-0",
+              ].join(" ")}
+            />
+          ) : null,
+        )}
       </div>
 
       {/* Dot indicators — quietly clickable, hidden when there's nothing to cycle. */}
