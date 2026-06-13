@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { verifyShortlistToken } from "@/lib/shortlist-token";
 import { getLead } from "@/lib/data/leads";
 import { getPublicObjects } from "@/lib/data/objects";
+import { ShortlistBeacon } from "@/components/shortlist-beacon";
 
 export const metadata: Metadata = {
   title: "Подборка объектов — Right Way Phangan",
@@ -40,6 +41,7 @@ export default async function ShortlistPage({
 
   return (
     <main className="min-h-screen bg-cream-50">
+      <ShortlistBeacon token={token} />
       <header className="border-b border-forest-900/10 bg-white px-4 py-5 text-center">
         <p className="font-serif text-xl font-semibold tracking-wide text-forest-900">
           Right Way Phangan

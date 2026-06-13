@@ -5,6 +5,7 @@ import { getAllObjects, getPublicObjects } from "@/lib/data/objects";
 
 type Href = ComponentProps<typeof Link>["href"];
 import { getLeads, getPipelines, getEvents, getTasks, CRM_ENABLED } from "@/lib/data/leads";
+import { matchLeadsToObject } from "@/lib/crm/matching";
 import { AdminNav } from "@/components/admin/admin-nav";
 import type { RealEstateObject } from "@/types/object";
 
@@ -92,6 +93,15 @@ export default async function AdminHomePage() {
   const active = objects.filter((o: RealEstateObject) => o.status === "Active").length;
   const sold = objects.filter((o) => o.status === "Sold").length;
   const noPhoto = objects.filter((o) => o.status === "Active" && !o.coverImage).length;
+
+  // «Активация базы»: Active-объекты с числом тёплых лидов под них — обратный
+  // подбор. Показываем те, под кого больше всего ждущих лидов: кому звонить.
+  const activation = objects
+    .filter((o) => o.status === "Active")
+    .map((o) => ({ o, warm: matchLeadsToObject(o, leads, { limit: 50 }).length }))
+    .filter((x) => x.warm > 0)
+    .sort((a, b) => b.warm - a.warm || b.o.rwNumber.localeCompare(a.o.rwNumber))
+    .slice(0, 4);
 
   // CRM: classify by won/lost stage flags.
   const wonKeys = new Set<string>();
@@ -227,7 +237,7 @@ export default async function AdminHomePage() {
   const byLeadEvents = new Map<number, typeof events>();
   for (const e of events) {
     if (e.leadId == null) continue;
-    if (e.type === "touch") continue; // касания не двигают стадию — в цикле не участвуют
+    if (e.type !== "created" && e.type !== "stage") continue; // touch/shortlist_view стадию не двигают
     const arr = byLeadEvents.get(e.leadId) ?? [];
     arr.push(e);
     byLeadEvents.set(e.leadId, arr);
@@ -410,6 +420,40 @@ export default async function AdminHomePage() {
                   </ul>
                 </div>
               )}
+            </div>
+          )}
+
+          {/* Активация базы: объект → кому звонить (обратный подбор) */}
+          {activation.length > 0 && (
+            <div className="mb-7 rounded-2xl border border-brass-500/25 bg-brass-500/[0.04] p-4">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
+                🎯 Объекты, под которые есть тёплые лиды
+              </p>
+              <div className="grid gap-2 sm:grid-cols-2">
+                {activation.map(({ o, warm }) => (
+                  <Link
+                    key={o.rwNumber}
+                    href={{ pathname: `/admin/objects/${o.rwNumber}` }}
+                    className="flex items-center justify-between gap-3 rounded-xl border border-forest-900/10 bg-white px-3 py-2 hover:border-brass-500/40"
+                  >
+                    <span className="min-w-0">
+                      <span className="block truncate text-sm font-medium text-forest-900">
+                        {o.rwNumber} · {o.titleEn || o.type}
+                      </span>
+                      <span className="text-xs text-forest-900/45">
+                        {o.type}
+                        {o.district ? ` · ${o.district}` : ""}
+                      </span>
+                    </span>
+                    <span className="shrink-0 rounded-full bg-brass-500/15 px-2 py-1 text-xs font-semibold text-brass-700">
+                      {warm} 🔥
+                    </span>
+                  </Link>
+                ))}
+              </div>
+              <p className="mt-2 text-xs text-forest-900/40">
+                Число — сколько открытых лидов подходят под объект по типу/району/шортлисту.
+              </p>
             </div>
           )}
 
@@ -655,7 +699,7 @@ export default async function AdminHomePage() {
                         <span className="ml-2 text-xs text-forest-900/55">
                           {e.type === "created"
                             ? `создан → ${e.toStage ?? "—"}`
-                            : e.type === "touch"
+                            : e.type === "touch" || e.type === "shortlist_view"
                               ? (e.toStage ?? "касание")
                               : `${e.fromStage ?? "—"} → ${e.toStage ?? "—"}`}
                         </span>

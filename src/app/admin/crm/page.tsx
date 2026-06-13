@@ -131,10 +131,16 @@ export default async function CrmPage({
             📈 Метрики
           </Link>
           <Link
-            href={{ pathname: "/admin/crm/stats" }}
+            href={{ pathname: "/admin/crm/calendar" }}
             className="rounded-full border border-forest-900/15 px-3 py-2 text-sm font-medium text-forest-900/70 hover:bg-forest-900/5"
           >
-            📈 Метрики
+            📅 Показы
+          </Link>
+          <Link
+            href={{ pathname: "/admin/crm/health" }}
+            className="rounded-full border border-forest-900/15 px-3 py-2 text-sm font-medium text-forest-900/70 hover:bg-forest-900/5"
+          >
+            🩺 Здоровье
           </Link>
           <Link
             href={{ pathname: "/admin/crm/contacts" }}

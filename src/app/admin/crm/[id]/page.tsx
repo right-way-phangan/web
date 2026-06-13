@@ -12,6 +12,7 @@ import { ContactActions } from "@/components/crm/contact-actions";
 import { DealValue } from "@/components/crm/deal-value";
 import { CommissionValue } from "@/components/crm/commission-value";
 import { TouchButtons } from "@/components/crm/touch-buttons";
+import { leadScore } from "@/lib/crm/score";
 import { ShareShortlist } from "@/components/crm/share-shortlist";
 import { makeShortlistToken } from "@/lib/shortlist-token";
 import { LeadMatches, type MatchItem } from "@/components/crm/lead-matches";
@@ -151,16 +152,21 @@ export default async function LeadDetailPage({
   };
 
   // How long the lead sits on the current stage: since the last STAGE event
-  // (events come desc; touch-события не двигают стадию), else since creation.
+  // (events come desc; touch/shortlist_view не двигают стадию), else creation.
   const events = lead.events ?? [];
   const stageSinceIso =
-    events.find((e) => e.type !== "touch")?.createdAt ?? lead.createdAt;
+    events.find((e) => e.type === "stage" || e.type === "created")?.createdAt ?? lead.createdAt;
   const daysOnStage = Math.max(
     0,
     Math.floor((Date.now() - new Date(stageSinceIso).getTime()) / 86_400_000),
   );
   // Last real touch — the one-tap журнал касаний writes type='touch' events.
   const lastTouchAt = events.find((e) => e.type === "touch")?.createdAt ?? null;
+  // Client engagement: when they last opened their shared shortlist.
+  const lastShortlistViewAt =
+    events.find((e) => e.type === "shortlist_view")?.createdAt ?? null;
+  // Derived temperature + what's missing to advance.
+  const readiness = leadScore(lead);
 
   return (
     <section className="container-prose py-8">
@@ -198,6 +204,46 @@ export default async function LeadDetailPage({
       <div className="mt-3">
         <TouchButtons leadId={lead.id} lastTouchAt={lastTouchAt} />
       </div>
+
+      {lastShortlistViewAt && (
+        <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-700">
+          👀 Клиент открывал подборку{" "}
+          {(() => {
+            const d = Math.floor((Date.now() - new Date(lastShortlistViewAt).getTime()) / 86_400_000);
+            return d === 0 ? "сегодня" : `${d} дн назад`;
+          })()}
+        </p>
+      )}
+
+      {lead.status === "open" && (
+        <div className="mt-3 rounded-xl border border-forest-900/10 bg-white p-3">
+          <p className="flex items-center gap-2 text-sm font-medium text-forest-900">
+            <span className="text-lg">{readiness.emoji}</span>
+            Готовность {readiness.score}/100
+            <span className="text-xs font-normal text-forest-900/45">
+              {readiness.level === "hot"
+                ? "созрел — двигать к показу/сделке"
+                : readiness.level === "warm"
+                  ? "греется — добить квалификацию"
+                  : "холодный — нужен контакт и интерес"}
+            </span>
+          </p>
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            {readiness.signals.map((s) => (
+              <span
+                key={s.label}
+                className={`rounded-full px-2 py-0.5 text-[11px] ${
+                  s.on
+                    ? "bg-emerald-500/10 text-emerald-700"
+                    : "bg-forest-900/5 text-forest-900/40"
+                }`}
+              >
+                {s.on ? "✓" : "○"} {s.label}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Message templates (copy / WhatsApp prefill) */}
       <div className="mt-3">
@@ -453,7 +499,7 @@ export default async function LeadDetailPage({
                   <span className="text-forest-900/70">
                     Лид создан{e.toStage ? <> → <b className="font-medium">{e.toStage}</b></> : null}
                   </span>
-                ) : e.type === "touch" ? (
+                ) : e.type === "touch" || e.type === "shortlist_view" ? (
                   <span className="text-forest-900/55">{e.toStage ?? "Касание"}</span>
                 ) : (
                   <span className="text-forest-900/70">
