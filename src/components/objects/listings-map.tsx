@@ -1,13 +1,41 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import { formatPriceCompact } from "@/lib/utils/price";
-import { TILE_URL, TILE_ATTRIBUTION, TILE_SUBDOMAINS } from "@/lib/leaflet/tiles";
+import {
+  TILE_URL,
+  TILE_ATTRIBUTION,
+  TILE_SUBDOMAINS,
+  SATELLITE_TILE_URL,
+  SATELLITE_ATTRIBUTION,
+  SATELLITE_MAX_NATIVE_ZOOM,
+  TERRAIN_TILE_URL,
+  TERRAIN_ATTRIBUTION,
+  TERRAIN_MAX_NATIVE_ZOOM,
+  PARCEL_TILE_URL,
+  PARCEL_MIN_ZOOM,
+  PARCEL_MAX_NATIVE_ZOOM,
+  CITYPLAN_TILE_URL,
+  CITYPLAN_MIN_NATIVE_ZOOM,
+  CITYPLAN_MAX_NATIVE_ZOOM,
+  LONGDO_ATTRIBUTION,
+} from "@/lib/leaflet/tiles";
+import {
+  type BaseLayer,
+  loadLayerPrefs,
+  saveLayerPrefs,
+} from "@/lib/leaflet/layer-prefs";
+import { useLocale } from "@/lib/i18n/use-locale";
+import { getObjectDict } from "@/lib/i18n/dictionaries";
+import { cn } from "@/lib/utils/cn";
+import { MapLegend } from "./map-legend";
+
+const LISTINGS_MAX_ZOOM = 20;
 
 export interface MapPoint {
   rw: string;
@@ -156,11 +184,28 @@ export default function ListingsMap({
   onBoundsChange,
   onInteract,
 }: Props) {
+  const t = getObjectDict(useLocale()).map;
+  // Same layer choice as the object-detail map (shared localStorage), so a
+  // visitor's Satellite/Cadastre/Zoning preference carries across the site.
+  const prefs = loadLayerPrefs();
+  const [base, setBase] = useState<BaseLayer>(prefs.base ?? "map");
+  const [parcels, setParcels] = useState(prefs.parcels ?? false);
+  const [zoning, setZoning] = useState(prefs.zoning ?? false);
+  useEffect(() => {
+    saveLayerPrefs({ base, parcels, zoning });
+  }, [base, parcels, zoning]);
+
+  const pill =
+    "px-2.5 py-2 text-xs font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brass-500";
+  const pillOn = "bg-forest-500 text-cream-100";
+  const pillOff = "bg-cream-100/95 text-forest-900 hover:bg-cream-100";
+
   return (
-    <div className="h-full w-full overflow-hidden rounded-sm border border-forest-500/10">
+    <div className="relative h-full w-full overflow-hidden rounded-sm border border-forest-500/10">
       <MapContainer
         center={[9.75, 100.02]}
         zoom={12}
+        maxZoom={LISTINGS_MAX_ZOOM}
         scrollWheelZoom
         className="h-full w-full"
         style={{ background: "#e8e4da" }}
@@ -169,7 +214,55 @@ export default function ListingsMap({
         // accessible handle belongs on the map container, not each tile.
         aria-label="Interactive map of Koh Phangan property listings"
       >
-        <TileLayer attribution={TILE_ATTRIBUTION} url={TILE_URL} subdomains={TILE_SUBDOMAINS} />
+        {base === "sat" ? (
+          <TileLayer
+            key="base-sat"
+            attribution={SATELLITE_ATTRIBUTION}
+            url={SATELLITE_TILE_URL}
+            maxNativeZoom={SATELLITE_MAX_NATIVE_ZOOM}
+            maxZoom={LISTINGS_MAX_ZOOM}
+          />
+        ) : base === "terrain" ? (
+          <TileLayer
+            key="base-terrain"
+            attribution={TERRAIN_ATTRIBUTION}
+            url={TERRAIN_TILE_URL}
+            maxNativeZoom={TERRAIN_MAX_NATIVE_ZOOM}
+            maxZoom={LISTINGS_MAX_ZOOM}
+          />
+        ) : (
+          <TileLayer
+            key="base-map"
+            attribution={TILE_ATTRIBUTION}
+            url={TILE_URL}
+            subdomains={TILE_SUBDOMAINS}
+            maxNativeZoom={19}
+            maxZoom={LISTINGS_MAX_ZOOM}
+          />
+        )}
+        {zoning ? (
+          <TileLayer
+            key="cityplan"
+            url={CITYPLAN_TILE_URL}
+            attribution={LONGDO_ATTRIBUTION}
+            opacity={0.5}
+            zIndex={5}
+            minNativeZoom={CITYPLAN_MIN_NATIVE_ZOOM}
+            maxNativeZoom={CITYPLAN_MAX_NATIVE_ZOOM}
+            maxZoom={LISTINGS_MAX_ZOOM}
+          />
+        ) : null}
+        {parcels ? (
+          <TileLayer
+            key="parcels"
+            url={PARCEL_TILE_URL}
+            attribution={LONGDO_ATTRIBUTION}
+            zIndex={6}
+            minZoom={PARCEL_MIN_ZOOM}
+            maxNativeZoom={PARCEL_MAX_NATIVE_ZOOM}
+            maxZoom={LISTINGS_MAX_ZOOM}
+          />
+        ) : null}
         <FitBounds points={points} />
         <PanToActive points={points} activeRw={activeRw} />
         <BoundsWatcher onChange={onBoundsChange} />
@@ -228,6 +321,39 @@ export default function ListingsMap({
           })}
         </MarkerClusterGroup>
       </MapContainer>
+
+      {/* Layer controls — same set as the object map (shared preference). */}
+      <div className="absolute right-2 top-2 z-[1000] flex flex-col items-end gap-1.5">
+        <div className="flex overflow-hidden rounded-sm border border-forest-500/20 shadow-sm">
+          <button type="button" aria-pressed={base === "map"} className={cn(pill, base === "map" ? pillOn : pillOff)} onClick={() => setBase("map")}>
+            {t.baseMap}
+          </button>
+          <button type="button" aria-pressed={base === "sat"} className={cn(pill, base === "sat" ? pillOn : pillOff)} onClick={() => setBase("sat")}>
+            {t.baseSatellite}
+          </button>
+          <button type="button" aria-pressed={base === "terrain"} className={cn(pill, base === "terrain" ? pillOn : pillOff)} onClick={() => setBase("terrain")}>
+            {t.baseTerrain}
+          </button>
+        </div>
+        <button
+          type="button"
+          aria-pressed={parcels}
+          className={cn(pill, "rounded-sm border border-forest-500/20 shadow-sm", parcels ? pillOn : pillOff)}
+          onClick={() => setParcels((v) => !v)}
+        >
+          {t.parcels}
+        </button>
+        <button
+          type="button"
+          aria-pressed={zoning}
+          className={cn(pill, "rounded-sm border border-forest-500/20 shadow-sm", zoning ? pillOn : pillOff)}
+          onClick={() => setZoning((v) => !v)}
+        >
+          {t.zoning}
+        </button>
+      </div>
+
+      {zoning || parcels ? <MapLegend zoning={zoning} t={t} /> : null}
     </div>
   );
 }

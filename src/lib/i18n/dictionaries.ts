@@ -894,6 +894,7 @@ export interface ObjectDict {
     locateStop: string;
     locateError: string;
     parcelZoomHint: string;
+    legendButton: string;
     legendTitle: string;
     legendRural: string;
     legendConservation: string;
@@ -1014,6 +1015,7 @@ const objectDict: Record<Locale, ObjectDict> = {
       locateStop: "Hide my location",
       locateError: "Location unavailable — allow access in your browser settings.",
       parcelZoomHint: "Zoom in to see plot boundaries",
+      legendButton: "Legend",
       legendTitle: "City-plan zoning (DPT)",
       legendRural: "Rural & agricultural",
       legendConservation: "Conservation rural",
@@ -1131,6 +1133,7 @@ const objectDict: Record<Locale, ObjectDict> = {
       locateStop: "Скрыть моё местоположение",
       locateError: "Геолокация недоступна — разрешите доступ в настройках браузера.",
       parcelZoomHint: "Приблизьте карту, чтобы увидеть границы участков",
+      legendButton: "Легенда",
       legendTitle: "Зонирование (ผังเมือง, DPT)",
       legendRural: "Сельхоз / деревенская",
       legendConservation: "Заповедная сельхоз",

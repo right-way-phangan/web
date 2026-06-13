@@ -61,6 +61,33 @@ export function offsetPoint(
   return [lat + dLat, lng + dLng];
 }
 
+/** Great-circle distance between two points, in metres (haversine). */
+export function haversineMeters(
+  aLat: number,
+  aLng: number,
+  bLat: number,
+  bLng: number,
+): number {
+  const R = 6371000;
+  const rad = Math.PI / 180;
+  const dLat = (bLat - aLat) * rad;
+  const dLng = (bLng - aLng) * rad;
+  const s =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(aLat * rad) * Math.cos(bLat * rad) * Math.sin(dLng / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(s));
+}
+
+/** «350 м» / «4.2 км» (ru) · «350 m» / «4.2 km» (en) — straight-line readout. */
+export function formatDistance(meters: number, locale: "en" | "ru"): string {
+  if (meters < 950) {
+    const m = Math.round(meters / 10) * 10;
+    return locale === "ru" ? `${m} м` : `${m} m`;
+  }
+  const km = (meters / 1000).toFixed(1);
+  return locale === "ru" ? `${km} км` : `${km} km`;
+}
+
 /**
  * Pull lat/lng out of a Google Maps URL (or a bare "lat, lng" string). Mirrors
  * what the backend derives for the catalog pin; used client-side by the

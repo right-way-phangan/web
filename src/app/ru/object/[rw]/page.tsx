@@ -19,6 +19,7 @@ import { SpecTable } from "@/components/objects/spec-table";
 import { InvestmentHighlights } from "@/components/objects/investment-highlights";
 import { InquiryForm } from "@/components/objects/inquiry-form";
 import { ObjectLocationMap } from "@/components/objects/object-location-map";
+import { DistanceChips } from "@/components/objects/distance-chips";
 import { RelatedListings } from "@/components/objects/related-listings";
 import { RecentlyViewed } from "@/components/objects/recently-viewed";
 import { TrackView } from "@/components/objects/track-view";
@@ -256,6 +257,7 @@ export default async function RussianObjectPage({ params }: Props) {
               mapsUrl={object.locationUrl}
               plotPolygon={object.plotPolygon}
               showSunset={object.seaView || object.beachfront}
+              chips={<DistanceChips lat={object.lat} lng={object.lng} locale="ru" />}
             />
 
             {object.buildingRules ? (
