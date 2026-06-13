@@ -6,6 +6,7 @@ import { getAllObjects } from "@/lib/data/objects";
 import { getRentalMarket } from "@/lib/data/rental-market";
 import { estimate, type ValuationSubject, type CompPoint, type ValuationResult } from "@/lib/valuation/engine";
 import { buildFactorMap } from "@/lib/valuation/factors";
+import { lookupZoneByLocation } from "@/lib/actions/zone-lookup";
 import type { RealEstateObject } from "@/types/object";
 
 const API = process.env.OBJECTS_API_URL;
@@ -207,6 +208,41 @@ function objectToSubject(o: RealEstateObject): ValuationSubject {
   };
 }
 
+/** Параллельный map с ограничением одновременных задач (щадим внешний сервис). */
+async function mapPool<T>(items: T[], limit: number, fn: (x: T) => Promise<void>): Promise<void> {
+  let i = 0;
+  const worker = async () => {
+    while (i < items.length) {
+      const idx = i++;
+      await fn(items[idx]);
+    }
+  };
+  await Promise.all(Array.from({ length: Math.min(limit, items.length) }, worker));
+}
+
+/**
+ * Авто-зона по координатам (#6): для объектов с координатами и БЕЗ ручной зоны
+ * подтягиваем цвет генплана ผังเมือง (lookupZoneByLocation — тайл Longdo + цвет
+ * пикселя). Применяется в скане симметрично (одни и те же обогащённые объекты —
+ * и субъекты, и компсы), поэтому zone-фактор нормализуется честно. Берём только
+ * «действующие» зоны (Green/Yellow/Orange/Red/Purple); Unknown/ошибка → нейтраль.
+ * Лимит параллелизма 5; тайлы кэшируются (revalidate 24ч) → повторный скан дёшев.
+ */
+const ACTIONABLE_ZONES = new Set(["Green", "Yellow", "Orange", "Red", "Purple"]);
+async function enrichZones(objects: RealEstateObject[]): Promise<Map<string, string>> {
+  const map = new Map<string, string>();
+  const todo = objects.filter((o) => !o.zone && o.lat != null && o.lng != null);
+  await mapPool(todo, 5, async (o) => {
+    try {
+      const r = await lookupZoneByLocation(o.lat!, o.lng!);
+      if (r.ok && r.zone && ACTIONABLE_ZONES.has(r.zone)) map.set(o.rwNumber, r.zone);
+    } catch {
+      /* зона остаётся нейтральной */
+    }
+  });
+  return map;
+}
+
 /**
  * Прогнать движок по всему каталогу: для каждого объекта оценка строится по
  * остальным (свой ref исключён из компсов — без само-сравнения). Возвращает
@@ -223,11 +259,19 @@ export async function scanCatalog(): Promise<ScanRow[]> {
   const factors = buildFactorMap(overrides);
   const market = getRentalMarket();
   const subjects = objects.filter((o) => !isUnit(o.rwNumber) && o.type !== "Project");
-  const catalogComps = subjects.map(catalogComp);
+  // #6: авто-зона по координатам там, где зона не задана вручную (симметрично —
+  // обогащённые объекты служат и субъектами, и компсами).
+  const zoneMap = await enrichZones(subjects);
+  const withZone = (o: RealEstateObject): RealEstateObject =>
+    o.zone || !zoneMap.has(o.rwNumber)
+      ? o
+      : { ...o, zone: zoneMap.get(o.rwNumber) as RealEstateObject["zone"] };
+  const enriched = subjects.map(withZone);
+  const catalogComps = enriched.map(catalogComp);
   const externalComps = external.map(externalComp);
 
   const rows: ScanRow[] = [];
-  for (const o of subjects) {
+  for (const o of enriched) {
     if (!["Land", "Villa", "House", "Apartment"].includes(o.type)) continue;
     const asking = askingOf(o);
     if (!asking || asking <= 0) continue;
