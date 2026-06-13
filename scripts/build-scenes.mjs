@@ -6,16 +6,17 @@
 // hero refreshes itself as inventory turns over. Runs weekly via GitHub Action
 // (.github/workflows/refresh-scenes.yml); commit the result.
 //
-// Publication rule (mirrors src/lib/amocrm/mapper.ts): only image/* from PHOTOS
-// is public. Anything in DOCS, or any URL with a document extension, is dropped
-// — title-deed scans / cadastral maps must never surface as a hero scene.
+// Source: the own backend catalog API (Neon, post-cutover). /objects already
+// returns the public, sanitized set — Active listings that have a cover photo —
+// so the document/price-screenshot guards that used to live here are no longer
+// needed: confidential media never reaches this endpoint.
 //
 // Usage:
 //   node scripts/build-scenes.mjs            # dry-run: print the manifest
 //   node scripts/build-scenes.mjs --write    # write public/scenes.json
 //
 // Env (from .env.local or CI secrets):
-//   AMOCRM_DOMAIN, AMOCRM_TOKEN, AMOCRM_OBJECTS_CATALOG_ID
+//   OBJECTS_API_URL, OBJECTS_API_TOKEN
 
 import { readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
@@ -42,119 +43,61 @@ async function loadEnv() {
 }
 await loadEnv();
 
-const DOMAIN = process.env.AMOCRM_DOMAIN;
-const TOKEN = process.env.AMOCRM_TOKEN;
-const CATALOG_ID = process.env.AMOCRM_OBJECTS_CATALOG_ID;
-if (!DOMAIN || !TOKEN || !CATALOG_ID) {
-  console.error("Missing AMOCRM_DOMAIN / AMOCRM_TOKEN / AMOCRM_OBJECTS_CATALOG_ID");
+const API = (process.env.OBJECTS_API_URL || "").replace(/\/$/, "");
+const TOKEN = process.env.OBJECTS_API_TOKEN;
+if (!API || !TOKEN) {
+  console.error("Missing OBJECTS_API_URL / OBJECTS_API_TOKEN");
   process.exit(1);
 }
 
-const API = `https://${DOMAIN}/api/v4`;
-const headers = { Authorization: `Bearer ${TOKEN}`, "Content-Type": "application/json" };
-
-async function amo(path) {
-  const res = await fetch(`${API}${path}`, { headers });
+async function getObjects() {
+  const res = await fetch(`${API}/objects`, {
+    headers: { Authorization: `Bearer ${TOKEN}` },
+  });
   const text = await res.text();
-  if (!res.ok) throw new Error(`amo GET ${path} → ${res.status}: ${text.slice(0, 200)}`);
-  return text ? JSON.parse(text) : null;
-}
-
-async function listElements() {
-  const out = [];
-  let page = 1;
-  while (true) {
-    const data = await amo(`/catalogs/${CATALOG_ID}/elements?page=${page}&limit=250`);
-    const batch = data?._embedded?.elements ?? [];
-    out.push(...batch);
-    if (batch.length < 250) break;
-    page += 1;
-  }
-  return out;
-}
-
-// ---- field access by code (amoCRM exposes field_code on each value) ----
-const valueOf = (el, code) => {
-  for (const cf of el.custom_fields_values ?? []) {
-    if (cf.field_code === code) {
-      return cf.values?.[0]?.value != null ? String(cf.values[0].value) : undefined;
-    }
-  }
-  return undefined;
-};
-const boolOf = (el, code) => {
-  const v = valueOf(el, code);
-  return v === "true" || v === "1" || v === "Yes" || v === "yes";
-};
-
-// ---- publication guards (mirror of mapper.ts) ----
-const DOC_URL_EXT = /\.(pdf|docx?|xlsx?|pptx?|zip|rar|7z)(\?|$)/i;
-
-function parseUrlArray(raw) {
-  if (!raw) return [];
-  try {
-    const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed)) return [];
-    return parsed
-      .map((x) => (typeof x === "string" ? x : x?.url))
-      .filter((x) => typeof x === "string" && x.startsWith("http"));
-  } catch {
-    return [];
-  }
-}
-
-function coverFor(el) {
-  const docUrls = new Set(parseUrlArray(valueOf(el, "DOCS")));
-  const photos = parseUrlArray(valueOf(el, "PHOTOS")).filter(
-    (u) => !DOC_URL_EXT.test(u) && !docUrls.has(u),
-  );
-  return photos[0]; // first photo = cover
+  if (!res.ok) throw new Error(`GET /objects → ${res.status}: ${text.slice(0, 200)}`);
+  const data = text ? JSON.parse(text) : [];
+  return Array.isArray(data) ? data : [];
 }
 
 // ---- scenic scoring: aerials + beachfront/sea-view read best as a backdrop ----
-function score(el) {
-  const type = valueOf(el, "TYPE") ?? "Land";
+function score(o) {
   return (
-    (boolOf(el, "BEACHFRONT") ? 5 : 0) +
-    (boolOf(el, "SEA_VIEW") ? 3 : 0) +
-    (type === "Land" ? 3 : 0) + // land covers are aerials
-    (boolOf(el, "MOUNTAIN_VIEW") ? 1 : 0)
+    (o.beachfront ? 5 : 0) +
+    (o.seaView ? 3 : 0) +
+    ((o.type ?? "Land") === "Land" ? 3 : 0) + // land covers are aerials
+    (o.mountainView ? 1 : 0)
   );
 }
 
-function altFor(el) {
-  const district = valueOf(el, "DISTRICT");
-  const type = (valueOf(el, "TYPE") ?? "Land").toLowerCase();
-  const where = district ? `${district}, Koh Phangan` : "Koh Phangan";
+function altFor(o) {
+  const type = (o.type ?? "Land").toLowerCase();
+  const where = o.district ? `${o.district}, Koh Phangan` : "Koh Phangan";
   return `A ${type} on ${where}`;
 }
 
 async function main() {
-  const elements = await listElements();
+  const objects = await getObjects();
   const candidates = [];
   const seen = new Set();
 
-  for (const el of elements) {
-    if ((valueOf(el, "STATUS") ?? "Active") !== "Active") continue;
-    if (!valueOf(el, "RW_NUMBER")) continue;
-    // Skip off-plan projects: their covers are often renders / floor-plans /
-    // marketing graphics that read poorly as a full-bleed island backdrop.
-    if ((valueOf(el, "TYPE") ?? "Land") === "Project") continue;
-    const src = coverFor(el);
+  for (const o of objects) {
+    // /objects is already Active + has coverImage; skip off-plan projects, whose
+    // covers are often renders / floor-plans that read poorly as a backdrop.
+    if ((o.type ?? "Land") === "Project") continue;
+    const src = o.coverImage;
     if (!src || seen.has(src)) continue;
     seen.add(src);
     candidates.push({
       src,
-      alt: altFor(el),
-      _score: score(el),
-      _added: valueOf(el, "DATE_ADDED") ?? "",
+      alt: altFor(o),
+      _score: score(o),
+      _added: o.dateAdded ?? "",
     });
   }
 
-  candidates.sort((a, b) => b._score - a._score || b._added.localeCompare(a._added));
-  const scenes = candidates
-    .slice(0, MAX_SCENES)
-    .map(({ src, alt }) => ({ src, alt }));
+  candidates.sort((a, b) => b._score - a._score || String(b._added).localeCompare(String(a._added)));
+  const scenes = candidates.slice(0, MAX_SCENES).map(({ src, alt }) => ({ src, alt }));
 
   const manifest = {
     generatedAt: new Date().toISOString(),
@@ -163,7 +106,7 @@ async function main() {
   };
 
   console.error(
-    `Каталог: ${elements.length} элементов · кандидатов с фото: ${candidates.length} · в манифест: ${scenes.length}`,
+    `Каталог: ${objects.length} публичных объектов · кандидатов с фото: ${candidates.length} · в манифест: ${scenes.length}`,
   );
   for (const s of scenes) console.error(`  • ${s.alt}\n    ${s.src}`);
 

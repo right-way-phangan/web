@@ -4,7 +4,7 @@ name: Refresh hero scenes
 # The push triggers a Vercel redeploy, so the homepage hero refreshes itself as
 # inventory turns over — no manual edits. Also runnable on demand.
 #
-# Requires repo secrets: AMOCRM_DOMAIN, AMOCRM_TOKEN, AMOCRM_OBJECTS_CATALOG_ID.
+# Requires repo secrets: OBJECTS_API_URL, OBJECTS_API_TOKEN (own backend, post-cutover).
 
 on:
   schedule:
@@ -26,9 +26,8 @@ jobs:
 
       - name: Rebuild scene manifest
         env:
-          AMOCRM_DOMAIN: ${{ secrets.AMOCRM_DOMAIN }}
-          AMOCRM_TOKEN: ${{ secrets.AMOCRM_TOKEN }}
-          AMOCRM_OBJECTS_CATALOG_ID: ${{ secrets.AMOCRM_OBJECTS_CATALOG_ID }}
+          OBJECTS_API_URL: ${{ secrets.OBJECTS_API_URL }}
+          OBJECTS_API_TOKEN: ${{ secrets.OBJECTS_API_TOKEN }}
         run: node scripts/build-scenes.mjs --write
 
       - name: Commit if changed
