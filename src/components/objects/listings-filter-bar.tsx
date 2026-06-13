@@ -35,7 +35,8 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
   const params = useSearchParams();
   const [pending, startTransition] = useTransition();
   const { has: hasSearch, save: saveSearch, ready: searchesReady } = useSavedSearches();
-  const dict = getListingsDict(useLocale());
+  const locale = useLocale();
+  const dict = getListingsDict(locale);
   const SORT_LABELS: Record<SortOption, string> = {
     featured: dict.sortFeatured,
     newest: dict.sortNewest,
@@ -92,6 +93,59 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
 
   const priceMinM = current.priceMinThb ? current.priceMinThb / 1_000_000 : undefined;
   const priceMaxM = current.priceMaxThb ? current.priceMaxThb / 1_000_000 : undefined;
+
+  // Demand signal: once a filter selection settles (2.5s after the last change),
+  // beacon the snapshot to /api/track-search. Debounced + deduped so dragging
+  // through several toggles logs one intent, not every intermediate state. Sort
+  // alone isn't demand, so it's excluded from the signature.
+  const demandSig = [
+    current.type.join(","),
+    current.district.join(","),
+    current.tenure.join(","),
+    current.bedroomsMin ?? "",
+    priceMinM ?? "",
+    priceMaxM ?? "",
+    current.beachfront ? "b" : "",
+    current.seaView ? "s" : "",
+    current.mountainView ? "m" : "",
+  ].join("|");
+  const hasDemand =
+    current.type.length > 0 ||
+    current.district.length > 0 ||
+    current.tenure.length > 0 ||
+    current.bedroomsMin !== undefined ||
+    current.priceMinThb !== undefined ||
+    current.priceMaxThb !== undefined ||
+    current.beachfront ||
+    current.seaView ||
+    current.mountainView;
+  const lastSentSig = useRef<string>("");
+  useEffect(() => {
+    if (!hasDemand || demandSig === lastSentSig.current) return;
+    const id = setTimeout(() => {
+      lastSentSig.current = demandSig;
+      const features: string[] = [];
+      if (current.beachfront) features.push("beachfront");
+      if (current.seaView) features.push("seaView");
+      if (current.mountainView) features.push("mountainView");
+      const body = JSON.stringify({
+        types: current.type,
+        districts: current.district,
+        tenure: current.tenure,
+        features,
+        priceMinM: priceMinM ?? null,
+        priceMaxM: priceMaxM ?? null,
+        bedroomsMin: current.bedroomsMin ?? null,
+        resultCount: totalCount,
+        locale,
+      });
+      const blob = new Blob([body], { type: "application/json" });
+      if (!navigator.sendBeacon?.("/api/track-search", blob)) {
+        fetch("/api/track-search", { method: "POST", body: blob, keepalive: true }).catch(() => {});
+      }
+    }, 2500);
+    return () => clearTimeout(id);
+  }, [demandSig, hasDemand, totalCount, locale, current, priceMinM, priceMaxM]);
 
   // Saved-search identity ignores sort order (not part of intent), so featured
   // vs price-sorted views of the same filters don't become two saved searches.

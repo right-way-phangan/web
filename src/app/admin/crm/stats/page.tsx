@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getLeads, getPipelines, getEvents, CRM_ENABLED, type CrmLead } from "@/lib/data/leads";
+import { getViewsByRw } from "@/lib/data/views";
 import { AdminNav } from "@/components/admin/admin-nav";
 
 export const metadata: Metadata = {
@@ -89,10 +90,11 @@ export default async function CrmStatsPage() {
     );
   }
 
-  const [leads, pipelines, events] = await Promise.all([
+  const [leads, pipelines, events, viewsByRw] = await Promise.all([
     getLeads(),
     getPipelines(),
     getEvents(500),
+    getViewsByRw(),
   ]);
 
   const isLegacyPipe = (name?: string | null) => /legacy|разбор/i.test(name ?? "");
@@ -147,6 +149,43 @@ export default async function CrmStatsPage() {
   const workPipes = pipelines.filter((p) => !isLegacyPipe(p.name));
   const stageCount = (pipeKey: string, stageKey: string) =>
     open.filter((l) => l.pipelineKey === pipeKey && l.stageKey === stageKey).length;
+
+  // ── Воронка просмотры → лиды → сделки ──
+  // Views: own first-party counter (30-day window). Leads: object-linked work
+  // leads created in 30 days. Won: closed-won in 30 days. Rates connect traffic
+  // quality to outcomes — the "честные цифры" backbone.
+  let views30Total = 0;
+  for (const v of viewsByRw.values()) views30Total += v.d30;
+  const leadsWithObject30 = new30.filter((l) => l.rwNumber);
+  const view2lead = views30Total > 0 ? (leadsWithObject30.length / views30Total) * 100 : null;
+  const lead2won = new30.length > 0 ? (won30.length / new30.length) * 100 : null;
+
+  // Leads count per object (work leads only).
+  const leadsByRw = new Map<string, number>();
+  for (const l of work) {
+    if (l.rwNumber) leadsByRw.set(l.rwNumber, (leadsByRw.get(l.rwNumber) ?? 0) + 1);
+  }
+  // "Смотрят, но не пишут" — high views, zero leads = listing-quality problem.
+  const viewedNoLeads = [...viewsByRw.values()]
+    .filter((v) => v.d30 >= 5 && (leadsByRw.get(v.rwNumber) ?? 0) === 0)
+    .sort((a, b) => b.d30 - a.d30)
+    .slice(0, 12);
+
+  // ── ROI по каналам: лиды / выигрыши / комиссия по источнику ──
+  const byChannel = new Map<string, { leads: number; won: number; commission: number }>();
+  for (const l of work) {
+    const src = sourceOf(l);
+    const c = byChannel.get(src) ?? { leads: 0, won: 0, commission: 0 };
+    c.leads++;
+    if (l.status === "won") {
+      c.won++;
+      c.commission += l.commissionValue ?? 0;
+    }
+    byChannel.set(src, c);
+  }
+  const channels = [...byChannel.entries()]
+    .map(([name, v]) => ({ name, ...v }))
+    .sort((a, b) => b.commission - a.commission || b.leads - a.leads);
 
   // ── Legacy-разбор ──
   const legacyPipe = pipelines.find((p) => isLegacyPipe(p.name));
@@ -282,6 +321,100 @@ export default async function CrmStatsPage() {
             );
           })}
         </div>
+      </div>
+
+      {/* Воронка: просмотры → лиды → сделки */}
+      <div className="mt-10">
+        <h2 className="mb-1 text-lg font-semibold text-forest-900">
+          Воронка · 30 дней
+        </h2>
+        <p className="mb-3 text-xs text-forest-900/50">
+          Просмотры — свой first-party счётчик (не зависит от блокировщиков). Связывает трафик
+          с результатом.
+        </p>
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-5">
+          <Card label="Просмотры объектов" value={nf.format(views30Total)} hint="за 30 дней" />
+          <Card
+            label="→ Лиды по объектам"
+            value={String(leadsWithObject30.length)}
+            hint={view2lead != null ? `${view2lead.toFixed(1)}% от просмотров` : "нет данных"}
+          />
+          <Card
+            label="→ Сделки (Won)"
+            value={String(won30.length)}
+            hint={lead2won != null ? `${lead2won.toFixed(0)}% от всех новых лидов` : undefined}
+          />
+          <Card
+            label="Комиссия Won · 30д"
+            value={wonCommission30 > 0 ? `฿${nf.format(wonCommission30)}` : "—"}
+          />
+          <Card
+            label="Смотрят, не пишут"
+            value={String(viewedNoLeads.length)}
+            hint="объектов ≥5 просмотров, 0 лидов"
+          />
+        </div>
+
+        {viewedNoLeads.length > 0 ? (
+          <div className="mt-4">
+            <h3 className="mb-2 text-sm font-semibold text-forest-900/80">
+              Объекты: смотрят, но не пишут — проверить фото/цену/описание
+            </h3>
+            <div className="flex flex-wrap gap-1.5">
+              {viewedNoLeads.map((v) => (
+                <Link
+                  key={v.rwNumber}
+                  href={{ pathname: `/object/${v.rwNumber}` }}
+                  className="rounded-full bg-amber-100 px-2.5 py-1 text-xs font-medium text-amber-800 hover:bg-amber-200"
+                  title={`${v.d30} просмотров за 30д, 0 лидов`}
+                >
+                  {v.rwNumber} · 👁 {v.d30}
+                </Link>
+              ))}
+            </div>
+          </div>
+        ) : null}
+      </div>
+
+      {/* ROI по каналам */}
+      <div className="mt-10">
+        <h2 className="mb-1 text-lg font-semibold text-forest-900">ROI по каналам</h2>
+        <p className="mb-3 text-xs text-forest-900/50">
+          Фактическая комиссия по источнику лида (first-touch). С запуском рекламы рядом встанет
+          расход — получится настоящий ROAS.
+        </p>
+        {channels.length === 0 ? (
+          <p className="text-sm text-forest-900/45">Пока нет лидов с источником.</p>
+        ) : (
+          <div className="overflow-x-auto rounded-xl border border-forest-900/10">
+            <table className="w-full min-w-[440px] text-sm">
+              <thead>
+                <tr className="border-b border-forest-900/10 bg-forest-900/[0.03] text-left text-xs uppercase tracking-wide text-forest-900/50">
+                  <th className="px-3 py-2 font-medium">Канал</th>
+                  <th className="px-3 py-2 text-center font-medium">Лиды</th>
+                  <th className="px-3 py-2 text-center font-medium">Won</th>
+                  <th className="px-3 py-2 text-center font-medium">Конверсия</th>
+                  <th className="px-3 py-2 text-right font-medium">Комиссия, ฿</th>
+                </tr>
+              </thead>
+              <tbody>
+                {channels.map((c) => (
+                  <tr key={c.name} className="border-b border-forest-900/5">
+                    <td className="px-3 py-2 text-forest-900/85">{c.name}</td>
+                    <td className="px-3 py-2 text-center text-forest-900/70">{c.leads}</td>
+                    <td className="px-3 py-2 text-center text-forest-900/70">{c.won}</td>
+                    <td className="px-3 py-2 text-center text-forest-900/60">
+                      {c.leads > 0 ? `${Math.round((c.won / c.leads) * 100)}%` : "—"}
+                    </td>
+                    <td className="px-3 py-2 text-right font-medium text-forest-900">
+                      {c.commission > 0 ? nf.format(c.commission) : "—"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
 
       {/* Legacy-разбор */}

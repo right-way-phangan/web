@@ -68,6 +68,13 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
+  // Google Search Console ownership. Set GOOGLE_SITE_VERIFICATION in Vercel to
+  // the token GSC shows for the "HTML tag" method, and the meta tag appears with
+  // no redeploy of logic. (Simplest path now that GA4 is live: verify via the
+  // existing GA4 property instead — then this can stay unset.)
+  verification: process.env.GOOGLE_SITE_VERIFICATION
+    ? { google: process.env.GOOGLE_SITE_VERIFICATION }
+    : undefined,
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },

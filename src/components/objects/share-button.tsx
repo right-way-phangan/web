@@ -5,6 +5,7 @@ import { Share2, Check } from "lucide-react";
 import { track } from "@vercel/analytics";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { getObjectDict } from "@/lib/i18n/dictionaries";
+import { UTM } from "@/lib/analytics/utm";
 import { cn } from "@/lib/utils/cn";
 
 /**
@@ -26,7 +27,8 @@ export function ShareButton({
   async function onShare(e: React.MouseEvent) {
     e.preventDefault();
     e.stopPropagation();
-    const url = typeof window !== "undefined" ? window.location.href : "";
+    // Tag the shared link so peer-forwarded visits attribute to "share".
+    const url = typeof window !== "undefined" ? UTM.share(window.location.href) : "";
     const shareTitle = title ? `${title} — ${rw}` : `Right Way listing ${rw}`;
 
     if (navigator.share) {

@@ -27,7 +27,7 @@ export function NlSearch({ initialQuery = "" }: { initialQuery?: string }) {
     const q = text.trim();
     if (!q) return;
     startTransition(async () => {
-      const res = await runNlSearch(q);
+      const res = await runNlSearch(q, locale);
       setInterpreted(res.interpreted);
       setNoMatch(!res.matched);
       track("nl_search", { q, matched: res.matched });

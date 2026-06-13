@@ -1,6 +1,7 @@
 import { getPublicObjects } from "@/lib/data/objects";
 import { getSiteUrl } from "@/lib/site-url";
 import { siteConfig } from "@/lib/site-config";
+import { UTM } from "@/lib/analytics/utm";
 
 /**
  * RSS 2.0 feed of the newest public listings: aggregators, feed readers and
@@ -27,6 +28,9 @@ export async function GET() {
   const items = objects
     .map((o) => {
       const url = `${siteUrl}/object/${o.rwNumber}`;
+      // guid stays canonical (stable id); link carries utm so TG-autoposted
+      // clicks attribute to the feed channel.
+      const linkUrl = UTM.feed(url);
       const bits = [
         o.type,
         o.district ? `${o.district}, Koh Phangan` : "Koh Phangan",
@@ -37,7 +41,7 @@ export async function GET() {
       return [
         "    <item>",
         `      <title>${esc(`${o.titleEn} — ${o.rwNumber}`)}</title>`,
-        `      <link>${url}</link>`,
+        `      <link>${esc(linkUrl)}</link>`,
         `      <guid isPermaLink="true">${url}</guid>`,
         `      <pubDate>${new Date(o.dateAdded!).toUTCString()}</pubDate>`,
         `      <description>${esc(bits.join(" · "))}</description>`,
