@@ -74,9 +74,12 @@ function renderInline(text: string): React.ReactNode {
   return parts;
 }
 
+// Якорь заголовка — синхронизирован с guideHeadingId в lib/data/guide.ts
+// (TOC ссылается на эти же id).
 function headingId(text: string): string {
   return text
     .toLowerCase()
+    .replace(/[*`]/g, "")
     .replace(/[^\p{L}\p{N}]+/gu, "-")
     .replace(/^-+|-+$/g, "");
 }

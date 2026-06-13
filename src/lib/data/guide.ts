@@ -13,6 +13,7 @@ import path from "node:path";
  */
 
 export const GUIDE_SECTIONS = [
+  { id: "training", title: "Обучение" },
   { id: "company", title: "Компания" },
   { id: "operations", title: "Операции" },
   { id: "tools", title: "Инструменты" },
@@ -105,6 +106,41 @@ export function getGuidePages(): GuidePage[] {
 export function getGuidePage(slug: string): GuidePage | null {
   if (!/^[\w-]+$/.test(slug)) return null;
   return readPage(`${slug}.md`);
+}
+
+/** Якорь заголовка — должен совпадать с id в GuideArticle (один алгоритм). */
+export function guideHeadingId(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[*`]/g, "")
+    .replace(/[^\p{L}\p{N}]+/gu, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+export interface GuideHeading {
+  level: 2 | 3;
+  text: string;
+  id: string;
+}
+
+/** h2/h3 страницы для оглавления (TOC). Инлайн-разметка из текста срезается. */
+export function extractGuideHeadings(md: string): GuideHeading[] {
+  const out: GuideHeading[] = [];
+  let inCode = false;
+  for (const raw of md.replace(/\r\n/g, "\n").split("\n")) {
+    const t = raw.trim();
+    if (t.startsWith("```")) {
+      inCode = !inCode;
+      continue;
+    }
+    if (inCode) continue;
+    const m = /^(#{2,3})\s+(.*)$/.exec(t);
+    if (m) {
+      const text = m[2].replace(/[*`]/g, "").trim();
+      out.push({ level: m[1].length as 2 | 3, text, id: guideHeadingId(text) });
+    }
+  }
+  return out;
 }
 
 /** Лента «Что нового» — новые записи сверху. */
