@@ -111,6 +111,10 @@ export interface MethodResult {
   details: string[];
   /** Компсы в основе сравнительного метода (админка; в публичный выход не идёт). */
   compsUsed?: CompUsed[];
+  /** На каком уровне взята база сравнения: район (надёжнее) или весь остров (fallback). */
+  tier?: "district" | "island";
+  /** Грубое сравнение (вилла «целиком», без площади/спален) — снижает уверенность. */
+  rough?: boolean;
 }
 
 export interface ValuationResult {
@@ -493,6 +497,7 @@ function comparativeLand(
     return res;
   }
   res.compsUsed = compsUsedFrom(stats.used);
+  res.tier = stats.tier;
   const fs = landFactor(subject, f);
   const perRai = stats.median * fs.mult;
   res.available = true;
@@ -561,6 +566,8 @@ function comparativeBuilt(
     return res;
   }
   res.compsUsed = compsUsedFrom(stats.used);
+  res.tier = stats.tier;
+  res.rough = basisKey === "whole"; // сравнение «целиком» — грубое, снижает уверенность
   const fs = villaFactor(subject, f);
   const scale = basisKey === "sqm" ? subject.builtSqm! : basisKey === "bedroom" ? subject.bedrooms! : 1;
   const basisLabel = basisKey === "sqm" ? "за м² постройки" : basisKey === "bedroom" ? "за спальню" : "целиком";
@@ -840,10 +847,24 @@ export function estimate(subject: ValuationSubject, data: EngineData): Valuation
     }
   }
 
-  // Confidence: по сравнительному n и расхождению методов
+  // Confidence: число компсов + КАЧЕСТВО базы. «High» — только когда сравнение
+  // идёт по самому району (district-tier) и метод не грубый. Island-fallback
+  // (район слишком тонкий) → не выше «средней»; вилла «целиком» (нет площади/
+  // спален) → «низкая». Иначе инструмент обещает уверенность, которой нет.
   const compM = methods.find((m) => m.key === "comparative");
   const n = compM?.available ? (compM.n ?? 0) : 0;
-  let confidence: ValuationResult["confidence"] = n >= 8 ? "high" : n >= 4 ? "medium" : "low";
+  const tier = compM?.tier;
+  const rough = compM?.rough ?? false;
+  let confidence: ValuationResult["confidence"];
+  if (!compM?.available) {
+    confidence = "low";
+  } else if (rough) {
+    confidence = "low";
+  } else if (tier === "island") {
+    confidence = n >= 12 ? "medium" : "low";
+  } else {
+    confidence = n >= 8 ? "high" : n >= 4 ? "medium" : "low";
+  }
   if (caveats.some((c) => c.startsWith("Методы расходятся")) && confidence !== "low") {
     confidence = confidence === "high" ? "medium" : "low";
   }
