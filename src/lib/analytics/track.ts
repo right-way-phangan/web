@@ -15,6 +15,8 @@ type EventParams = Record<string, unknown>;
 declare global {
   interface Window {
     dataLayer?: EventParams[];
+    /** Defined only in GA4-direct mode (components/analytics/ga4.tsx). */
+    gtag?: (...args: unknown[]) => void;
   }
 }
 
@@ -22,6 +24,10 @@ export function track(event: string, params: EventParams = {}): void {
   if (typeof window === "undefined") return;
   window.dataLayer = window.dataLayer ?? [];
   window.dataLayer.push({ event, ...params });
+  // GA4-direct mode (no GTM container yet): gtag.js only processes
+  // `arguments`-style pushes, so mirror the event through gtag(). Once GTM is
+  // live window.gtag is undefined and the dataLayer push above is the only path.
+  window.gtag?.("event", event, params);
 }
 
 /** Map an RW number prefix to a coarse object type (best-effort; legacy RW-05xx → undefined). */

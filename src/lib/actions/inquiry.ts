@@ -32,10 +32,13 @@ const inquirySchema = z
     rwNumber: z.string().optional(),       // present on object inquiry, absent on /contact
     source: z.enum(["object", "contact"]), // discriminator
     kind: z.enum(["inquiry", "calculator", "market-report", "shortlist", "saved-search"]).optional(), // calculator = ROI-calc; market-report = /insights unlock; shortlist = saved-listings batch; saved-search = new-listing alert request
-    utm_source: z.string().optional(),
-    utm_medium: z.string().optional(),
-    utm_campaign: z.string().optional(),
-    utm_content: z.string().optional(),
+    utm_source: z.string().max(200).optional(),
+    utm_medium: z.string().max(200).optional(),
+    utm_campaign: z.string().max(200).optional(),
+    utm_content: z.string().max(200).optional(),
+    utm_term: z.string().max(200).optional(),
+    referrer: z.string().max(200).optional(),   // external referrer hostname (first touch)
+    landing: z.string().max(300).optional(),    // landing path+query (first touch)
     // Honeypot — must remain empty
     website: z.string().max(0).optional(),
   })
@@ -75,7 +78,22 @@ function utmTags(input: z.infer<typeof inquirySchema>): string[] {
   if (input.utm_medium) tags.push(`utm-medium:${input.utm_medium}`);
   if (input.utm_campaign) tags.push(`utm-campaign:${input.utm_campaign}`);
   if (input.utm_content) tags.push(`utm-content:${input.utm_content}`);
+  if (input.utm_term) tags.push(`utm-term:${input.utm_term}`);
+  if (!input.utm_source && input.referrer) tags.push(`ref:${input.referrer}`);
   return tags;
+}
+
+/** One human-readable "where the visitor came from" line for the lead note. */
+function trafficLine(input: z.infer<typeof inquirySchema>): string | null {
+  const channel = [input.utm_source, input.utm_medium, input.utm_campaign]
+    .filter(Boolean)
+    .join(" / ");
+  const parts = [
+    channel || null,
+    !channel && input.referrer ? `ref: ${input.referrer}` : null,
+    input.landing ? `landed: ${input.landing}` : null,
+  ].filter(Boolean);
+  return parts.length ? `Traffic: ${parts.join(" · ")}` : null;
 }
 
 export async function submitInquiry(
@@ -150,6 +168,7 @@ export async function submitInquiry(
     isViewing ? `Preferred viewing date: ${data.viewingDate}` : null,
     wantsVideoTour ? "🎥 Video tour requested" : null,
     data.replyVia ? `Reply via: ${data.replyVia}` : null,
+    trafficLine(data),
   ].filter(Boolean);
   const noteMessage = extras.length
     ? `${data.message}\n\n${extras.join("\n")}`

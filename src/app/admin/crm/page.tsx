@@ -104,6 +104,12 @@ export default async function CrmPage({
         </div>
         <div className="flex shrink-0 items-center gap-2">
           <Link
+            href={{ pathname: "/admin/crm/stats" }}
+            className="rounded-full border border-forest-900/15 px-3 py-2 text-sm font-medium text-forest-900/70 hover:bg-forest-900/5"
+          >
+            📈 Метрики
+          </Link>
+          <Link
             href={{ pathname: "/admin/crm/contacts" }}
             className="rounded-full border border-forest-900/15 px-3 py-2 text-sm font-medium text-forest-900/70 hover:bg-forest-900/5"
           >

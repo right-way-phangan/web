@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { submitInquiry, type FormState } from "@/lib/actions/inquiry";
+import { getAttribution } from "@/lib/analytics/attribution";
 import { getFormDict, type Locale } from "@/lib/i18n/dictionaries";
 import { cn } from "@/lib/utils/cn";
 
@@ -88,6 +89,9 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
       {utm.utm_medium ? <input type="hidden" name="utm_medium" value={utm.utm_medium} /> : null}
       {utm.utm_campaign ? <input type="hidden" name="utm_campaign" value={utm.utm_campaign} /> : null}
       {utm.utm_content ? <input type="hidden" name="utm_content" value={utm.utm_content} /> : null}
+      {utm.utm_term ? <input type="hidden" name="utm_term" value={utm.utm_term} /> : null}
+      {utm.referrer ? <input type="hidden" name="referrer" value={utm.referrer} /> : null}
+      {utm.landing ? <input type="hidden" name="landing" value={utm.landing} /> : null}
 
       {/* Honeypot — invisible to humans, attractive to bots */}
       <div className="absolute left-[-9999px]" aria-hidden="true">
@@ -237,8 +241,11 @@ function ErrorBanner({ message }: { message: string }) {
 }
 
 /**
- * UTM capture from the current URL, performed client-side only (server has no
- * window). Returns empty object on first render to avoid hydration mismatch.
+ * Traffic attribution for the lead, client-side only (server has no window).
+ * Current URL utm_* wins; otherwise the stored first-touch record (captured by
+ * <AttributionCapture/> on the landing page) — so a visitor who arrived from
+ * an ad and submits the form pages later still carries the campaign. Returns
+ * an empty object on first render to avoid hydration mismatch.
  */
 function useUtmParams() {
   const [utm, setUtm] = useState<{
@@ -246,16 +253,23 @@ function useUtmParams() {
     utm_medium?: string;
     utm_campaign?: string;
     utm_content?: string;
+    utm_term?: string;
+    referrer?: string;
+    landing?: string;
   }>({});
 
   useEffect(() => {
     if (typeof window === "undefined") return;
     const sp = new URLSearchParams(window.location.search);
+    const stored = getAttribution();
     setUtm({
-      utm_source: sp.get("utm_source") ?? undefined,
-      utm_medium: sp.get("utm_medium") ?? undefined,
-      utm_campaign: sp.get("utm_campaign") ?? undefined,
-      utm_content: sp.get("utm_content") ?? undefined,
+      utm_source: sp.get("utm_source") ?? stored?.source,
+      utm_medium: sp.get("utm_medium") ?? stored?.medium,
+      utm_campaign: sp.get("utm_campaign") ?? stored?.campaign,
+      utm_content: sp.get("utm_content") ?? stored?.content,
+      utm_term: sp.get("utm_term") ?? stored?.term,
+      referrer: stored?.referrer,
+      landing: stored?.landing,
     });
   }, []);
 

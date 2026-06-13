@@ -8,7 +8,9 @@ import { MessengerFab } from "@/components/layout/messenger-fab";
 import { SavedProvider } from "@/lib/saved/saved-context";
 import { OrganizationJsonLd } from "@/components/seo/organization-json-ld";
 import { GtmScript, GtmNoScript } from "@/components/analytics/gtm";
+import { Ga4Script } from "@/components/analytics/ga4";
 import { ContactClickTracker } from "@/components/analytics/contact-click-tracker";
+import { AttributionCapture } from "@/components/analytics/attribution-capture";
 import { siteConfig } from "@/lib/site-config";
 import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
@@ -112,7 +114,9 @@ export default function RootLayout({
           <MessengerFab />
         </SavedProvider>
         <ContactClickTracker />
+        <AttributionCapture />
         <GtmScript />
+        <Ga4Script />
         <Analytics />
         <SpeedInsights />
       </body>

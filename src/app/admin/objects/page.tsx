@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllObjects, getPublicObjects } from "@/lib/data/objects";
 import { getLeads } from "@/lib/data/leads";
+import { getViewsByRw } from "@/lib/data/views";
 import { AdminNav } from "@/components/admin/admin-nav";
 import { ObjectsTable, type AdminObjectRow } from "@/components/admin/objects-table";
 import type { RealEstateObject } from "@/types/object";
@@ -29,7 +30,7 @@ const VIS_TABS = [
 ] as const;
 type VisTab = (typeof VIS_TABS)[number]["key"];
 
-const SORT_KEYS = ["rw", "type", "status", "price", "area", "photos", "site"] as const;
+const SORT_KEYS = ["rw", "type", "status", "price", "area", "photos", "site", "views"] as const;
 type SortKey = (typeof SORT_KEYS)[number];
 
 function nf(n: number): string {
@@ -74,10 +75,11 @@ export default async function ObjectsPage({
   }>;
 }) {
   const sp = await searchParams;
-  const [all, publicObjs, leads] = await Promise.all([
+  const [all, publicObjs, leads, viewsByRw] = await Promise.all([
     getAllObjects(),
     getPublicObjects(),
     getLeads(),
+    getViewsByRw(),
   ]);
 
   // How many leads reference each object (by RW) — object→leads link.
@@ -175,6 +177,10 @@ export default async function ObjectsPage({
       case "site":
         cmp = Number(publicSet.has(a.rwNumber)) - Number(publicSet.has(b.rwNumber));
         break;
+      case "views":
+        cmp =
+          (viewsByRw.get(a.rwNumber)?.d30 ?? 0) - (viewsByRw.get(b.rwNumber)?.d30 ?? 0);
+        break;
       default:
         cmp = a.rwNumber.localeCompare(b.rwNumber);
     }
@@ -199,6 +205,8 @@ export default async function ObjectsPage({
     isPublic: publicSet.has(o.rwNumber),
     isUnit: isUnit(o.rwNumber),
     leadCount: leadsByRw.get(o.rwNumber) ?? 0,
+    views7: viewsByRw.get(o.rwNumber)?.d7 ?? 0,
+    views30: viewsByRw.get(o.rwNumber)?.d30 ?? 0,
     priceThb: o.priceThb,
     pricePerRai: o.pricePerRai,
     rentPerRaiMonth: o.rentPerRaiMonth,
@@ -245,6 +253,7 @@ export default async function ObjectsPage({
       <SortTh label="Площадь" k="area" />
       <SortTh label="Фото" k="photos" center />
       <SortTh label="Сайт" k="site" center />
+      <SortTh label="👁 7д/30д" k="views" center />
     </>
   );
 

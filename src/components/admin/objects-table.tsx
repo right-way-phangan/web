@@ -29,6 +29,9 @@ export interface AdminObjectRow {
   isPublic: boolean;
   isUnit: boolean;
   leadCount: number;
+  /** First-party views (object_views_daily): last 7 / last 30 days. */
+  views7: number;
+  views30: number;
   // edit-modal fields
   priceThb?: number | null;
   pricePerRai?: number | null;
@@ -134,7 +137,7 @@ export function ObjectsTable({
           <tbody>
             {rows.length === 0 ? (
               <tr>
-                <td colSpan={12} className="px-3 py-8 text-center text-sm text-forest-900/40">
+                <td colSpan={13} className="px-3 py-8 text-center text-sm text-forest-900/40">
                   Ничего не найдено.
                 </td>
               </tr>
@@ -201,6 +204,19 @@ export function ObjectsTable({
                           title="Скрыт (не Active или без фото)"
                           className="inline-block h-2.5 w-2.5 rounded-full bg-forest-900/15"
                         />
+                      )}
+                    </td>
+                    <td
+                      className="whitespace-nowrap px-3 py-2 text-center text-xs text-forest-900/60"
+                      title="Просмотры на сайте: за 7 дней / за 30 дней (своя БД, не зависит от блокировщиков)"
+                    >
+                      {o.views30 > 0 ? (
+                        <>
+                          <span className="font-medium text-forest-900/80">{o.views7}</span>
+                          <span className="text-forest-900/35"> / {o.views30}</span>
+                        </>
+                      ) : (
+                        <span className="text-forest-900/25">—</span>
                       )}
                     </td>
                     <td className="px-3 py-2 text-center">
