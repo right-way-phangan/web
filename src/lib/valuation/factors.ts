@@ -100,6 +100,9 @@ export const FACTOR_DEFS: FactorDef[] = [
   { key: "market.ask_discount", group: "market", label: "Asking → сделка", value: 0.92, note: "Компсы — запрашиваемые цены; сделки ниже" },
   { key: "market.leasehold_yield", group: "market", label: "Leasehold-доходность земли, % в год", value: 0.05, note: "Аренда за год / freehold-стоимость" },
   { key: "market.npv_discount_rate", group: "market", label: "Ставка дисконтирования NPV", value: 0.08 },
+  { key: "market.comp_sold_weight", group: "market", label: "Вес компса: продан", value: 1.5, note: "Реальная сделка весомее asking-объявления" },
+  { key: "market.comp_stale_weight", group: "market", label: "Вес компса: завис на рынке", value: 0.5, note: "Долго не продаётся по своей цене → слабый сигнал" },
+  { key: "market.stale_months", group: "market", label: "Порог «завис», мес", value: 9, note: "Дольше — asking-компс считается заскоревшим" },
 
   // Веса методов при сведении (перенормируются по доступным)
   { key: "weight.comparative", group: "weight", label: "Вес: сравнительный", value: 0.45 },

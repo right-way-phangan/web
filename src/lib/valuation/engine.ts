@@ -73,6 +73,10 @@ export interface CompPoint {
   mountainView?: boolean;
   electricity?: boolean;
   pool?: boolean;
+  /** Когда наблюдали цену (YYYY-MM-DD / DD.M.YY / др.) — для поправки на время. */
+  date?: string | null;
+  /** Сколько месяцев объявление на рынке — стайл-сигнал переоценки (asking). */
+  onMarketMonths?: number | null;
 }
 
 export interface EngineData {
@@ -160,11 +164,31 @@ function terrainFactorKey(s: string | null | undefined): { key: string; label: s
   return null;
 }
 
-function sizeFactorKey(areaRai: number): { key: string; label: string } {
-  if (areaRai < 0.5) return { key: "size.small", label: "Участок < 0.5 рая" };
-  if (areaRai <= 2) return { key: "size.mid", label: "Участок 0.5–2 рая" };
-  if (areaRai <= 5) return { key: "size.large", label: "Участок 2–5 раёв" };
-  return { key: "size.xlarge", label: "Участок > 5 раёв" };
+/**
+ * Непрерывный множитель размера: кусочно-линейная интерполяция между 4
+ * редактируемыми size-факторами в контрольных точках по площади. Убирает
+ * скачки на границах (0.5/2/5 рая) — мелкий участок плавно дороже за рай.
+ */
+function sizeFactor(areaRai: number, f: FactorMap): { label: string; mult: number } {
+  const pts: Array<[number, string]> = [
+    [0.25, "size.small"],
+    [1.25, "size.mid"],
+    [3.5, "size.large"],
+    [8, "size.xlarge"],
+  ];
+  const val = (key: string) => (f[key] !== undefined ? f[key] : 1);
+  let mult: number;
+  if (areaRai <= pts[0][0]) mult = val(pts[0][1]);
+  else if (areaRai >= pts[pts.length - 1][0]) mult = val(pts[pts.length - 1][1]);
+  else {
+    let i = 0;
+    while (i < pts.length - 2 && areaRai > pts[i + 1][0]) i++;
+    const [a, ka] = pts[i];
+    const [b, kb] = pts[i + 1];
+    const t = (areaRai - a) / (b - a);
+    mult = val(ka) + (val(kb) - val(ka)) * t;
+  }
+  return { label: `Размер ${areaRai.toFixed(2)} рай`, mult };
 }
 
 function zoneFactorKey(s: string | null | undefined): { key: string; label: string } | null {
@@ -215,6 +239,69 @@ function round1k(v: number): number {
 
 const fmtM = (v: number) => `${(v / 1e6).toFixed(2)}M`;
 
+// ---- Поправка на время + вес компса (улучшения 2026-06-13) ----
+
+/** Парс даты компса: YYYY-MM-DD, DD.M.YY(YY), D/M/YY. null если не разобрать. */
+function parseCompDate(s: string | null | undefined): Date | null {
+  if (!s) return null;
+  const t = s.trim();
+  let m = t.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+  if (m) return new Date(+m[1], +m[2] - 1, +m[3]);
+  m = t.match(/^(\d{1,2})[./](\d{1,2})[./](\d{2,4})/);
+  if (m) {
+    let y = +m[3];
+    if (y < 100) y += 2000;
+    return new Date(y, +m[2] - 1, +m[1]);
+  }
+  return null;
+}
+
+/** Годовой рост %/год из аналитики (meta.appreciation.base), иначе 0 (не трогать). */
+function apprPctOf(market: RentalMarket | null): number {
+  const a = market?.meta?.appreciation?.base;
+  return typeof a === "number" && a > 0 ? a : 0;
+}
+
+/**
+ * Приведение прошлой цены к сегодняшней по годовому росту. Свежее полугода не
+ * трогаем; срок капаем 3 годами, чтобы древние данные не раздувались.
+ */
+function timeAdjust(value: number, date: Date | null, apprPctYr: number): number {
+  if (!date || apprPctYr <= 0) return value;
+  const years = (Date.now() - date.getTime()) / (365.25 * 24 * 3600 * 1000);
+  if (years <= 0.5) return value;
+  return value * Math.pow(1 + apprPctYr / 100, Math.min(years, 3));
+}
+
+/** Вес компса: проданные (реальная сделка) выше, заскоревшие asking — ниже. */
+function compWeight(c: CompPoint, f: FactorMap): number {
+  const st = (c.status ?? "").toLowerCase();
+  if (st.includes("sold") || st.includes("gone")) return f["market.comp_sold_weight"] ?? 1.5;
+  const staleMo = f["market.stale_months"] ?? 9;
+  if (c.onMarketMonths != null && c.onMarketMonths > staleMo) return f["market.comp_stale_weight"] ?? 0.5;
+  return 1;
+}
+
+interface WV {
+  district?: string | null;
+  v: number;
+  w: number;
+}
+
+/** Взвешенная квантиль (по накопленному весу). */
+function weightedQuantile(items: WV[], q: number): number {
+  const sorted = [...items].sort((a, b) => a.v - b.v);
+  const total = sorted.reduce((s, x) => s + x.w, 0);
+  if (total <= 0) return NaN;
+  const target = q * total;
+  let acc = 0;
+  for (const it of sorted) {
+    acc += it.w;
+    if (acc >= target) return it.v;
+  }
+  return sorted[sorted.length - 1].v;
+}
+
 interface FactorBreakdown {
   mult: number;
   parts: Array<{ label: string; mult: number }>;
@@ -248,7 +335,10 @@ function landFactor(
   push(roadFactorKey(p.roadType));
   push(terrainFactorKey(p.terrain));
   push(zoneFactorKey(p.zone));
-  if (p.areaRai && p.areaRai > 0) push(sizeFactorKey(p.areaRai));
+  if (p.areaRai && p.areaRai > 0) {
+    const sz = sizeFactor(p.areaRai, f);
+    if (Math.abs(sz.mult - 1) > 1e-6) parts.push({ label: sz.label, mult: sz.mult });
+  }
   if (p.seaView) push({ key: "feature.sea_view", label: "Вид на море" });
   if (p.beachfront) push({ key: "feature.beachfront", label: "Первая линия" });
   if (p.mountainView) push({ key: "feature.mountain_view", label: "Вид на горы" });
@@ -283,24 +373,37 @@ interface TierStats {
   p75: number;
 }
 
-/** Медиана/квартели нормализованных значений: район (n≥4), иначе весь остров. */
-function tierStats(
-  values: Array<{ district: string | null | undefined; v: number }>,
-  district: string | undefined,
-): TierStats | null {
+/**
+ * Взвешенные медиана/квартели нормализованных значений с MAD-отсечкой выбросов.
+ * Район при n≥4, иначе весь остров. Веса — из compWeight (проданные выше,
+ * заскоревшие asking ниже). MAD убирает мусорные компсы устойчивее санитарных
+ * границ (только при n≥5, чтобы не терять и так скудные данные).
+ */
+function tierStats(values: WV[], district: string | undefined): TierStats | null {
   if (values.length === 0) return null;
   const inDistrict = district
     ? values.filter((x) => (x.district ?? "").toLowerCase() === district.toLowerCase())
     : [];
-  const use = inDistrict.length >= 4 ? inDistrict : values;
+  let use = inDistrict.length >= 4 ? inDistrict : values;
   const tier: TierStats["tier"] = inDistrict.length >= 4 ? "district" : "island";
-  const sorted = use.map((x) => x.v).sort((a, b) => a - b);
+  if (use.length >= 5) {
+    const vs = use.map((x) => x.v).sort((a, b) => a - b);
+    const med = quantile(vs, 0.5);
+    const devs = vs.map((v) => Math.abs(v - med)).sort((a, b) => a - b);
+    const mad = quantile(devs, 0.5);
+    if (mad > 0) {
+      const lo = med - 3 * 1.4826 * mad;
+      const hi = med + 3 * 1.4826 * mad;
+      const trimmed = use.filter((x) => x.v >= lo && x.v <= hi);
+      if (trimmed.length >= 4) use = trimmed;
+    }
+  }
   return {
-    n: sorted.length,
+    n: use.length,
     tier,
-    median: quantile(sorted, 0.5),
-    p25: quantile(sorted, 0.25),
-    p75: quantile(sorted, 0.75),
+    median: weightedQuantile(use, 0.5),
+    p25: weightedQuantile(use, 0.25),
+    p75: weightedQuantile(use, 0.75),
   };
 }
 
@@ -323,19 +426,21 @@ function comparativeLand(
     res.details.push("Не указана площадь в раях — метод недоступен.");
     return res;
   }
-  const normalized: Array<{ district: string | null | undefined; v: number }> = [];
+  const apprPct = apprPctOf(data.market);
+  const normalized: WV[] = [];
   for (const c of data.comps) {
     if (typeNorm(c.type) !== "land") continue;
-    const perRai =
+    let perRai =
       c.pricePerRai && c.pricePerRai > 0
         ? c.pricePerRai
         : c.priceThb && c.areaRai && c.areaRai > 0
           ? c.priceThb / c.areaRai
           : null;
     if (!perRai || perRai < PER_RAI_MIN || perRai > PER_RAI_MAX) continue;
+    perRai = timeAdjust(perRai, parseCompDate(c.date), apprPct); // прошлую цену → к сегодня
     const fc = landFactor(c, f);
     if (fc.mult <= 0) continue;
-    normalized.push({ district: c.district, v: perRai / fc.mult });
+    normalized.push({ district: c.district, v: perRai / fc.mult, w: compWeight(c, f) });
   }
   const stats = tierStats(normalized, subject.district);
   if (!stats) {
@@ -389,7 +494,8 @@ function comparativeBuilt(
   if (subject.builtSqm && pool.some((c) => c.builtSqm && c.builtSqm > 0)) basisKey = "sqm";
   else if (subject.bedrooms && pool.some((c) => c.bedrooms && c.bedrooms > 0)) basisKey = "bedroom";
 
-  const normalized: Array<{ district: string | null | undefined; v: number }> = [];
+  const apprPct = apprPctOf(data.market);
+  const normalized: WV[] = [];
   for (const c of pool) {
     const fc = villaFactor(c, f);
     if (fc.mult <= 0) continue;
@@ -398,7 +504,8 @@ function comparativeBuilt(
     else if (basisKey === "bedroom") unit = c.bedrooms && c.bedrooms > 0 ? c.priceThb! / c.bedrooms : null;
     else unit = c.priceThb!;
     if (!unit || unit <= 0) continue;
-    normalized.push({ district: c.district, v: unit / fc.mult });
+    unit = timeAdjust(unit, parseCompDate(c.date), apprPct);
+    normalized.push({ district: c.district, v: unit / fc.mult, w: compWeight(c, f) });
   }
   const stats = tierStats(normalized, subject.district);
   if (!stats) {

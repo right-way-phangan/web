@@ -59,6 +59,8 @@ function catalogComp(o: RealEstateObject): CompPoint {
     mountainView: o.mountainView,
     electricity: o.electricity,
     pool: o.pool,
+    date: o.dateAdded ?? null, // поправка на время (DD.M.YY как в каталоге)
+    onMarketMonths: o.timeOnMarketMonths ?? null, // стайл-сигнал переоценки
   };
 }
 
@@ -80,6 +82,7 @@ function externalComp(c: ExternalComp): CompPoint {
     seaView: c.seaView,
     beachfront: c.beachfront,
     electricity: c.electricity,
+    date: c.seenAt ?? c.createdAt ?? null,
   };
 }
 
