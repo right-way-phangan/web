@@ -35,3 +35,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 .env*
+
+# Авто-собираемая лента справочника (генерится при build из git)
+src/content/guide/_changelog.generated.json

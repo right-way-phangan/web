@@ -1,25 +1,18 @@
 import Link from "next/link";
 import type { Route } from "next";
 import { getPendingArticleCount } from "@/lib/data/articles";
+import { ADMIN_SECTIONS, helpHrefFor, type AdminSection } from "@/lib/admin-sections";
 
 /**
  * Shared sub-navigation for the /admin area (objects DB · CRM · articles · …).
  * `active` highlights the current section. Async server component — fetches the
  * "articles awaiting review" count itself so the badge shows on every admin
  * page; callers may pass `pendingArticles` to override (avoids a duplicate
- * fetch on pages that already loaded it).
+ * fetch on pages that already loaded it). Sections come from the single
+ * registry in lib/admin-sections.ts (shared with the guide gap-detector).
  */
-type AdminSection =
-  | "home"
-  | "objects"
-  | "dd"
-  | "outreach"
-  | "crm"
-  | "articles"
-  | "finance"
-  | "valuation"
-  | "guide"
-  | "new";
+
+export type { AdminSection };
 
 export async function AdminNav({
   active,
@@ -31,31 +24,14 @@ export async function AdminNav({
 }) {
   const pending = pendingArticles ?? (await getPendingArticleCount());
   // Контекстная справка: каждая рабочая страница ведёт на свой раздел учебника
-  // (/admin/guide). Открывается в новой вкладке — чтобы не терять рабочий
-  // контекст. Для страниц без своей статьи — общий обзор справочника.
-  const HELP_SLUG: Partial<Record<AdminSection, string>> = {
-    objects: "objects",
-    dd: "dd",
-    outreach: "outreach",
-    crm: "crm",
-    articles: "articles",
-    finance: "analytics",
-    new: "objects",
-  };
-  const helpHref =
-    active in HELP_SLUG ? `/admin/guide/${HELP_SLUG[active]}` : "/admin/guide";
-  const items: Array<{ key: AdminSection; href: Route; label: string; badge?: number }> = [
-    { key: "home", href: "/admin" as Route, label: "Дашборд" },
-    { key: "objects", href: "/admin/objects" as Route, label: "База объектов" },
-    { key: "dd", href: "/admin/dd" as Route, label: "DD · Проверки" },
-    { key: "outreach", href: "/admin/outreach" as Route, label: "Обзвон" },
-    { key: "crm", href: "/admin/crm" as Route, label: "CRM · Лиды" },
-    { key: "articles", href: "/admin/articles" as Route, label: "Статьи", badge: pending },
-    { key: "finance", href: "/admin/finance" as Route, label: "Финансы" },
-    { key: "valuation", href: "/admin/valuation" as Route, label: "Оценка" },
-    { key: "guide", href: "/admin/guide" as Route, label: "Справочник" },
-    { key: "new", href: "/admin/new" as Route, label: "+ Новый объект" },
-  ];
+  // (/admin/guide), в новой вкладке — чтобы не терять рабочий контекст.
+  const helpHref = helpHrefFor(active);
+  const items = ADMIN_SECTIONS.map((s) => ({
+    key: s.key,
+    href: s.href,
+    label: s.label,
+    badge: s.key === "articles" ? pending : undefined,
+  }));
   return (
     <nav className="mb-6 flex flex-wrap gap-2 border-b border-forest-900/10 pb-4">
       {items.map((it) => {

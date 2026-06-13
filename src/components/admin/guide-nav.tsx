@@ -52,15 +52,27 @@ function SectionList({ pages, active }: { pages: GuidePageMeta[]; active?: strin
                       }
                     >
                       <span>{p.title}</span>
-                      {isRecent(p.updated) && (
+                      {p.draft ? (
                         <span
+                          title="черновик на проверке"
                           className={
                             "shrink-0 rounded px-1 text-[10px] font-semibold " +
                             (on ? "bg-white/20 text-white" : "bg-brass-500/15 text-brass-600")
                           }
                         >
-                          🆕
+                          ✎
                         </span>
+                      ) : (
+                        isRecent(p.updated) && (
+                          <span
+                            className={
+                              "shrink-0 rounded px-1 text-[10px] font-semibold " +
+                              (on ? "bg-white/20 text-white" : "bg-brass-500/15 text-brass-600")
+                            }
+                          >
+                            🆕
+                          </span>
+                        )
                       )}
                     </Link>
                   </li>

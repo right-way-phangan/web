@@ -32,6 +32,18 @@ export interface GuidePageMeta {
   summary: string;
   /** Дополнительные слова для поиска ⌘K (рус/англ синонимы). */
   keywords: string;
+  /** Черновик (фронтматтер `status: draft`) — ждёт проверки, помечен в UI. */
+  draft: boolean;
+}
+
+/** Живые данные, подставляемые в маркеры {{…}} страницы (актуальны на запрос). */
+export interface GuideLiveData {
+  /** Воронки и их стадии — маркер {{stages}}. */
+  stages?: { pipeline: string; stages: string[] }[];
+  /** Рабочие разделы админки — маркер {{admin-sections}}. */
+  adminSections?: { label: string; href: string }[];
+  /** Счётчики каталога/лидов — маркер {{stats}}. */
+  stats?: { objects: number; leads: number };
 }
 
 export interface GuidePage extends GuidePageMeta {
@@ -76,6 +88,7 @@ function readPage(file: string): GuidePage | null {
       updated: meta.updated ?? "",
       summary: meta.summary ?? "",
       keywords: meta.keywords ?? "",
+      draft: (meta.status ?? "").toLowerCase() === "draft",
       body,
     };
   } catch {
@@ -143,18 +156,72 @@ export function extractGuideHeadings(md: string): GuideHeading[] {
   return out;
 }
 
-/** Лента «Что нового» — новые записи сверху. */
+/**
+ * Лента «Что нового» — новые записи сверху. Два источника, объединяются:
+ *  1. _changelog.md — ручные записи (формат `- ДАТА · slug · текст`).
+ *  2. _changelog.generated.json — авто-записи, собранные при деплое из
+ *     commit-трейлеров `Guide: …` (scripts/build-guide-changelog.mjs).
+ * Дедуп по date+text (если одно и то же попало и в ручную ленту, и в авто).
+ */
 export function getGuideChangelog(): GuideLogEntry[] {
-  let raw = "";
-  try {
-    raw = fs.readFileSync(path.join(GUIDE_DIR, "_changelog.md"), "utf8");
-  } catch {
-    return [];
-  }
   const entries: GuideLogEntry[] = [];
-  for (const line of raw.split("\n")) {
-    const m = /^-\s*(\d{4}-\d{2}-\d{2})\s*·\s*([\w-]+|—)\s*·\s*(.+)$/.exec(line.trim());
-    if (m) entries.push({ date: m[1], slug: m[2] === "—" ? null : m[2], text: m[3].trim() });
+
+  try {
+    const raw = fs.readFileSync(path.join(GUIDE_DIR, "_changelog.md"), "utf8");
+    for (const line of raw.split("\n")) {
+      const m = /^-\s*(\d{4}-\d{2}-\d{2})\s*·\s*([\w-]+|—)\s*·\s*(.+)$/.exec(line.trim());
+      if (m) entries.push({ date: m[1], slug: m[2] === "—" ? null : m[2], text: m[3].trim() });
+    }
+  } catch {
+    /* ручной лог отсутствует — берём только авто */
   }
-  return entries.sort((a, b) => b.date.localeCompare(a.date));
+
+  try {
+    const raw = fs.readFileSync(path.join(GUIDE_DIR, "_changelog.generated.json"), "utf8");
+    const auto = JSON.parse(raw) as GuideLogEntry[];
+    if (Array.isArray(auto)) entries.push(...auto.filter((e) => e?.date && e?.text));
+  } catch {
+    /* авто-лог ещё не собран (нет git при билде) — не страшно */
+  }
+
+  const seen = new Set<string>();
+  return entries
+    .filter((e) => {
+      const k = `${e.date}|${e.text}`;
+      if (seen.has(k)) return false;
+      seen.add(k);
+      return true;
+    })
+    .sort((a, b) => b.date.localeCompare(a.date));
+}
+
+export interface GuideCoverageRow {
+  key: string;
+  label: string;
+  href: string;
+  guideSlug?: string;
+  /** Учебная страница для раздела существует. */
+  covered: boolean;
+}
+
+/**
+ * Детектор пробелов обучения: сверяет реестр разделов админки
+ * (lib/admin-sections.ts, needsGuide) с реально существующими страницами
+ * справочника. Раздел без своей страницы → covered:false (подсветка на обзоре
+ * /admin/guide — «обучение отстаёт»). Параметр приходит извне, чтобы не
+ * создавать здесь зависимость от admin-sections (этот модуль server-only).
+ */
+export function getGuideCoverage(
+  sections: { key: string; label: string; href: string; guideSlug?: string; needsGuide: boolean }[],
+): GuideCoverageRow[] {
+  const have = new Set(getGuidePages().map((p) => p.slug));
+  return sections
+    .filter((s) => s.needsGuide)
+    .map((s) => ({
+      key: s.key,
+      label: s.label,
+      href: s.href,
+      guideSlug: s.guideSlug,
+      covered: Boolean(s.guideSlug && have.has(s.guideSlug)),
+    }));
 }
