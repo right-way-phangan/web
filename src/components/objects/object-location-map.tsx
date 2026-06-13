@@ -23,11 +23,13 @@ export function ObjectLocationMap({
   lng,
   district,
   mapsUrl,
+  plotPolygon,
 }: {
   lat?: number;
   lng?: number;
   district?: string;
   mapsUrl?: string;
+  plotPolygon?: Array<[number, number]>;
 }) {
   // Defer the Leaflet chunk + tiles until the section scrolls near — it sits
   // well below the fold on the object page.
@@ -40,16 +42,26 @@ export function ObjectLocationMap({
     <section className="print:hidden">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
         <h2 className="font-serif text-3xl text-forest-900">{t.location}</h2>
-        {mapsUrl ? (
+        <div className="flex flex-wrap gap-4">
           <a
-            href={mapsUrl}
+            href={`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm text-forest-500 underline-offset-4 hover:underline"
+            className="text-sm font-medium text-brass-500 underline-offset-4 hover:underline"
           >
-            {t.openInGoogleMaps}
+            {t.directions}
           </a>
-        ) : null}
+          {mapsUrl ? (
+            <a
+              href={mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-forest-500 underline-offset-4 hover:underline"
+            >
+              {t.openInGoogleMaps}
+            </a>
+          ) : null}
+        </div>
       </div>
       {district ? (
         <p className="mt-2 text-sm text-forest-500/70">
@@ -57,7 +69,7 @@ export function ObjectLocationMap({
         </p>
       ) : null}
       <div ref={ref} className="mt-6 h-[360px] w-full">
-        {inView ? <Leaflet lat={lat} lng={lng} /> : <MapSkeleton />}
+        {inView ? <Leaflet lat={lat} lng={lng} plotPolygon={plotPolygon} /> : <MapSkeleton />}
       </div>
     </section>
   );

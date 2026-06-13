@@ -1,0 +1,66 @@
+/**
+ * Caching proxy for the Longdo tile layers the object map uses (DOL cadastral
+ * parcels + DPT city-plan zoning). Two jobs:
+ *  1. Resilience — ms.longdo.com is an undocumented endpoint; Vercel's CDN
+ *     keeps serving cached tiles (s-maxage 30 d + SWR 1 y) through upstream
+ *     hiccups, and the bounded Phangan tile set stays warm.
+ *  2. Single switch-off point — if the endpoint ever closes for good, only
+ *     this route needs a new upstream.
+ *
+ * Not an open proxy: layer/zoom whitelisted per layer, x/y clamped to the
+ * Thailand bounding box at the requested zoom.
+ */
+
+const UPSTREAM = "https://ms.longdo.com/mmmap/img.php";
+
+const LAYERS: Record<string, { mode: string; minZ: number; maxZ: number }> = {
+  parcels: { mode: "dol_hd", minZ: 17, maxZ: 19 },
+  zoning: { mode: "cityplan_thailand", minZ: 14, maxZ: 16 },
+};
+
+// Thailand bbox — same envelope the zone-lookup uses.
+const LAT_MIN = 5, LAT_MAX = 21, LNG_MIN = 97, LNG_MAX = 106;
+
+function tileX(lng: number, z: number): number {
+  return Math.floor(((lng + 180) / 360) * 2 ** z);
+}
+function tileY(lat: number, z: number): number {
+  const r = (lat * Math.PI) / 180;
+  return Math.floor(((1 - Math.log(Math.tan(r) + 1 / Math.cos(r)) / Math.PI) / 2) * 2 ** z);
+}
+
+export async function GET(
+  _req: Request,
+  { params }: { params: Promise<{ layer: string; z: string; x: string; y: string }> },
+) {
+  const { layer, z: zs, x: xs, y: ys } = await params;
+  const cfg = LAYERS[layer];
+  const z = Number(zs), x = Number(xs), y = Number(ys);
+  if (!cfg || !Number.isInteger(z) || !Number.isInteger(x) || !Number.isInteger(y)) {
+    return new Response("bad tile", { status: 400 });
+  }
+  if (z < cfg.minZ || z > cfg.maxZ) return new Response("zoom out of range", { status: 404 });
+  // y grows southward, so max latitude gives the smallest y.
+  if (x < tileX(LNG_MIN, z) || x > tileX(LNG_MAX, z) || y < tileY(LAT_MAX, z) || y > tileY(LAT_MIN, z)) {
+    return new Response("outside Thailand", { status: 404 });
+  }
+
+  try {
+    const res = await fetch(
+      `${UPSTREAM}?mode=${cfg.mode}&proj=epsg3857&zoom=${z}&x=${x}&y=${y}`,
+      { next: { revalidate: 2592000 } }, // 30 d in the Next data cache
+    );
+    if (!res.ok || !(res.headers.get("content-type") ?? "").includes("image/png")) {
+      return new Response("upstream error", { status: 502, headers: { "Cache-Control": "no-store" } });
+    }
+    return new Response(await res.arrayBuffer(), {
+      headers: {
+        "Content-Type": "image/png",
+        // CDN: 30 d fresh, serve stale up to a year while revalidating.
+        "Cache-Control": "public, s-maxage=2592000, stale-while-revalidate=31536000",
+      },
+    });
+  } catch {
+    return new Response("upstream unreachable", { status: 502, headers: { "Cache-Control": "no-store" } });
+  }
+}

@@ -874,6 +874,7 @@ export interface ObjectDict {
   locationCountry: string;
   openInMaps: string;
   openInGoogleMaps: string;
+  directions: string;
   location: string;
   // interactive map controls (cadastre / zoning / geolocation)
   map: {
@@ -992,6 +993,7 @@ const objectDict: Record<Locale, ObjectDict> = {
     locationCountry: "Koh Phangan, Thailand",
     openInMaps: "Open in Maps",
     openInGoogleMaps: "Open in Google Maps",
+    directions: "Directions",
     location: "Location",
     map: {
       baseMap: "Map",
@@ -1106,6 +1108,7 @@ const objectDict: Record<Locale, ObjectDict> = {
     locationCountry: "Ко Панган, Таиланд",
     openInMaps: "Открыть в картах",
     openInGoogleMaps: "Открыть в Google Maps",
+    directions: "Маршрут",
     location: "Расположение",
     map: {
       baseMap: "Карта",

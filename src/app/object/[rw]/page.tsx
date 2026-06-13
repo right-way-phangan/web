@@ -262,6 +262,7 @@ export default async function ObjectPage({ params }: Props) {
               lng={object.lng}
               district={object.district}
               mapsUrl={object.locationUrl}
+              plotPolygon={object.plotPolygon}
             />
 
             {object.buildingRules ? (

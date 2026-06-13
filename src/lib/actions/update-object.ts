@@ -16,6 +16,7 @@ export type ObjectPatch = Partial<{
   leaseTermYears: number | null;
   locationUrl: string;
   unitsAvailable: number | null;
+  plotPolygon: Array<[number, number]> | null; // traced contour; null clears
 }>;
 
 export type UpdateObjectResult = { ok: boolean; error?: string };

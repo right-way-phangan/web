@@ -254,6 +254,7 @@ export default async function RussianObjectPage({ params }: Props) {
               lng={object.lng}
               district={object.district}
               mapsUrl={object.locationUrl}
+              plotPolygon={object.plotPolygon}
             />
 
             {object.buildingRules ? (

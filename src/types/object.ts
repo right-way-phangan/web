@@ -117,6 +117,7 @@ export interface RealEstateObject {
   locationUrl?: string;       // Google Maps
   lat?: number;               // parsed from locationUrl, for map pins
   lng?: number;
+  plotPolygon?: Array<[number, number]>; // traced plot contour, [lat, lng] ring (own DB only)
   siteUrl?: string;           // current Laravel site (legacy)
 
   // Photos (resolved separately from Drive). Public.

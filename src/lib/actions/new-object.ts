@@ -96,6 +96,26 @@ function isImage(file: File): boolean {
   return !DOC_EXT.test(file.name); // no MIME: doc only if it looks like one
 }
 
+/**
+ * Traced plot contour from the map editor (hidden input, JSON). Client sends
+ * [[lat, lng], …]; backend re-validates (Phangan bbox, ≥3 vertices) — here we
+ * only guard against malformed JSON so a broken value never blocks intake.
+ */
+function parsePlotPolygon(raw?: string): Array<[number, number]> | undefined {
+  if (!raw) return undefined;
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    if (!Array.isArray(parsed) || parsed.length < 3) return undefined;
+    const pts = parsed.filter(
+      (p): p is [number, number] =>
+        Array.isArray(p) && p.length === 2 && Number.isFinite(p[0]) && Number.isFinite(p[1]),
+    );
+    return pts.length >= 3 ? pts : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 async function uploadBlob(file: File, folder: string): Promise<string> {
   const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
   const blob = await put(`${folder}/${Date.now()}-${safeName}`, file, {
@@ -178,6 +198,7 @@ export async function createObject(
     owner: str(formData.get("owner")),
     commission: str(formData.get("commission")),
     locationUrl: str(formData.get("locationUrl")),
+    plotPolygon: parsePlotPolygon(str(formData.get("plotPolygon"))),
     zone: str(formData.get("zone")),
     roadType: str(formData.get("roadType")),
     waterType: str(formData.get("waterType")),
