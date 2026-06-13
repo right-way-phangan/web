@@ -492,7 +492,7 @@ export function ObjectGallery({ rwNumber, type, gallery, title }: Props) {
                     type="button"
                     onClick={prev}
                     aria-label={t.prevPhoto}
-                    className="absolute left-2 top-1/2 hidden -translate-y-1/2 rounded-full bg-forest-900/40 p-2 text-cream-50 transition-colors hover:bg-forest-900/70 sm:block md:left-6 md:p-3"
+                    className="absolute left-2 top-1/2 hidden -translate-y-1/2 rounded-full bg-forest-900/40 p-2 text-cream-50 transition-colors hover:bg-forest-900/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-cream-50/60 sm:block md:left-6 md:p-3"
                   >
                     <ChevronLeft className="h-6 w-6" />
                   </button>
@@ -500,7 +500,7 @@ export function ObjectGallery({ rwNumber, type, gallery, title }: Props) {
                     type="button"
                     onClick={next}
                     aria-label={t.nextPhoto}
-                    className="absolute right-2 top-1/2 hidden -translate-y-1/2 rounded-full bg-forest-900/40 p-2 text-cream-50 transition-colors hover:bg-forest-900/70 sm:block md:right-6 md:p-3"
+                    className="absolute right-2 top-1/2 hidden -translate-y-1/2 rounded-full bg-forest-900/40 p-2 text-cream-50 transition-colors hover:bg-forest-900/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-cream-50/60 sm:block md:right-6 md:p-3"
                   >
                     <ChevronRight className="h-6 w-6" />
                   </button>

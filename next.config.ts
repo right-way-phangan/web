@@ -40,6 +40,11 @@ const nextConfig: NextConfig = {
     // AVIF first (≈25% lighter than WebP at same quality) — island connections
     // feel every photo byte; browsers without AVIF fall through to WebP.
     formats: ["image/avif", "image/webp"],
+    // Catalog photos are immutable per object (cover/gallery don't change once
+    // a listing is up) — keep optimized variants on the CDN for 30 days so the
+    // slow cold AVIF/WebP transform hits at most one visitor per size, not the
+    // long tail. Default TTL re-transforms far too eagerly for static media.
+    minimumCacheTTL: 2592000,
     remotePatterns: [
       { protocol: "https", hostname: "drive.google.com" },
       { protocol: "https", hostname: "lh3.googleusercontent.com" },

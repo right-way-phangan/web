@@ -68,7 +68,7 @@ export function Floorplans({ urls }: { urls: string[] }) {
               <span className="text-sm tabular-nums text-cream-50/80">
                 {index + 1} / {urls.length}
               </span>
-              <Dialog.Close className="rounded-sm p-2 opacity-80 transition-opacity hover:opacity-100">
+              <Dialog.Close className="rounded-sm p-2 opacity-80 transition-opacity hover:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-cream-50/60">
                 <X className="h-6 w-6" />
                 <span className="sr-only">Close</span>
               </Dialog.Close>
@@ -86,7 +86,7 @@ export function Floorplans({ urls }: { urls: string[] }) {
                     type="button"
                     onClick={prev}
                     aria-label="Previous"
-                    className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-forest-900/40 p-2 text-cream-50 transition-colors hover:bg-forest-900/70 md:left-6 md:p-3"
+                    className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-forest-900/40 p-2 text-cream-50 transition-colors hover:bg-forest-900/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-cream-50/60 md:left-6 md:p-3"
                   >
                     <ChevronLeft className="h-6 w-6" />
                   </button>
@@ -94,7 +94,7 @@ export function Floorplans({ urls }: { urls: string[] }) {
                     type="button"
                     onClick={next}
                     aria-label="Next"
-                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-forest-900/40 p-2 text-cream-50 transition-colors hover:bg-forest-900/70 md:right-6 md:p-3"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-forest-900/40 p-2 text-cream-50 transition-colors hover:bg-forest-900/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-cream-50/60 md:right-6 md:p-3"
                   >
                     <ChevronRight className="h-6 w-6" />
                   </button>
