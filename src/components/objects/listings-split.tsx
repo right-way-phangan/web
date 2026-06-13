@@ -131,7 +131,7 @@ export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
             </div>
           ) : (
             <div ref={listRef} className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
-              {visibleObjects.map((o) => (
+              {visibleObjects.map((o, i) => (
                 <div
                   key={o.id}
                   data-rw={o.rwNumber}
@@ -143,7 +143,7 @@ export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
                       "ring-2 ring-brass-500 ring-offset-2 ring-offset-cream-100",
                   )}
                 >
-                  <ObjectCard object={o} />
+                  <ObjectCard object={o} priority={i < 4} />
                 </div>
               ))}
             </div>

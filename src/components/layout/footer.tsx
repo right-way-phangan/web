@@ -43,13 +43,13 @@ export function Footer() {
             <p className="mt-4 text-sm text-forest-500/70 leading-relaxed">
               {siteConfig.description}
             </p>
-            <p className="mt-6 text-xs text-forest-500/50 leading-relaxed">{f.blurb}</p>
+            <p className="mt-6 text-xs text-forest-500/70 leading-relaxed">{f.blurb}</p>
           </div>
 
           <div>
-            <h4 className="text-xs font-medium uppercase tracking-[0.2em] text-forest-500/50">
+            <h2 className="text-xs font-medium uppercase tracking-[0.2em] text-forest-500/70">
               {f.explore}
-            </h4>
+            </h2>
             <ul className="mt-5 space-y-3">
               {exploreLinks.map((item) => (
                 <li key={`${item.label}-${item.href}`}>
@@ -65,9 +65,9 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="text-xs font-medium uppercase tracking-[0.2em] text-forest-500/50">
+            <h2 className="text-xs font-medium uppercase tracking-[0.2em] text-forest-500/70">
               {f.contact}
-            </h4>
+            </h2>
             <ul className="mt-5 space-y-3 text-sm">
               <li>
                 <a
@@ -112,10 +112,10 @@ export function Footer() {
         </div>
 
         <div className="mt-16 flex flex-col gap-3 border-t border-forest-500/10 pt-8 md:flex-row md:items-center md:justify-between">
-          <p className="text-xs text-forest-500/50">
+          <p className="text-xs text-forest-500/70">
             © {currentYear} Right Way Phangan Group. {f.rights}
           </p>
-          <div className="flex flex-col gap-2 text-xs text-forest-500/50 md:flex-row md:items-center md:gap-6">
+          <div className="flex flex-col gap-2 text-xs text-forest-500/70 md:flex-row md:items-center md:gap-6">
             <Link
               href={privacyHref}
               className="hover:text-brass-500 transition-colors"

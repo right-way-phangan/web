@@ -49,6 +49,10 @@ export default async function ListingsPage({ searchParams }: PageProps) {
 
   return (
     <section className="container-prose py-10 md:py-14">
+      {/* Map tiles (CARTO) load as soon as the split map mounts — warm the
+          connection up front to shave the handshake (Lighthouse flagged it). */}
+      <link rel="preconnect" href="https://a.basemaps.cartocdn.com" crossOrigin="" />
+      <link rel="dns-prefetch" href="https://b.basemaps.cartocdn.com" />
       <ItemListJsonLd name="Koh Phangan property listings — Right Way" objects={sorted} />
       <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
         Listings

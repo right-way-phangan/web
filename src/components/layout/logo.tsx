@@ -25,13 +25,12 @@ export function Logo({
         sizes[size],
         className,
       )}
-      aria-label="Right Way Phangan — home"
     >
       <span className="font-semibold">Right Way</span>
       <span
         className={cn(
           "text-xs uppercase tracking-[0.2em] transition-colors group-hover:text-brass-500",
-          light ? "text-cream-100/60 group-hover:text-brass-300" : "text-forest-500/50",
+          light ? "text-cream-100/70 group-hover:text-brass-300" : "text-forest-500/70",
         )}
       >
         Phangan
