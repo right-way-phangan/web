@@ -31,6 +31,8 @@ export interface CrmLead {
   overdueTasks?: number;
   /** When the lead landed on its current stage (last event) — "days on stage". */
   stageSince?: string | null;
+  /** Last real touch (call/message/meeting via one-tap log) — staleness signal. */
+  lastTouchAt?: string | null;
   lostReason?: string | null;
   /** Expected deal size, THB — pipeline money. */
   dealValue?: number | null;
@@ -163,6 +165,7 @@ export async function getEvents(limit = 200): Promise<CrmEvent[]> {
 
 export interface CrmLeadDetail extends CrmLead {
   updatedAt: string;
+  contactId?: number | null;
   notes: CrmNote[];
   tasks: CrmTask[];
   events?: CrmEvent[];

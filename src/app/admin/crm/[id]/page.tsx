@@ -11,6 +11,9 @@ import { LeadWonLost } from "@/components/crm/lead-won-lost";
 import { ContactActions } from "@/components/crm/contact-actions";
 import { DealValue } from "@/components/crm/deal-value";
 import { CommissionValue } from "@/components/crm/commission-value";
+import { TouchButtons } from "@/components/crm/touch-buttons";
+import { ShareShortlist } from "@/components/crm/share-shortlist";
+import { makeShortlistToken } from "@/lib/shortlist-token";
 import { LeadMatches, type MatchItem } from "@/components/crm/lead-matches";
 import { MessageTemplates } from "@/components/crm/message-templates";
 import { addNoteAction, addTaskAction } from "@/lib/actions/lead-actions";
@@ -147,14 +150,17 @@ export default async function LeadDetailPage({
     return `https://calendar.google.com/calendar/render?${p.toString()}`;
   };
 
-  // How long the lead sits on the current stage: since the last stage event
-  // (events come desc), else since creation.
+  // How long the lead sits on the current stage: since the last STAGE event
+  // (events come desc; touch-события не двигают стадию), else since creation.
   const events = lead.events ?? [];
-  const stageSinceIso = events[0]?.createdAt ?? lead.createdAt;
+  const stageSinceIso =
+    events.find((e) => e.type !== "touch")?.createdAt ?? lead.createdAt;
   const daysOnStage = Math.max(
     0,
     Math.floor((Date.now() - new Date(stageSinceIso).getTime()) / 86_400_000),
   );
+  // Last real touch — the one-tap журнал касаний writes type='touch' events.
+  const lastTouchAt = events.find((e) => e.type === "touch")?.createdAt ?? null;
 
   return (
     <section className="container-prose py-8">
@@ -186,6 +192,11 @@ export default async function LeadDetailPage({
       {/* One-tap contact actions */}
       <div className="mt-4">
         <ContactActions phone={lead.phone} email={lead.email} />
+      </div>
+
+      {/* Touch log — честный «когда реально общались» */}
+      <div className="mt-3">
+        <TouchButtons leadId={lead.id} lastTouchAt={lastTouchAt} />
       </div>
 
       {/* Message templates (copy / WhatsApp prefill) */}
@@ -352,6 +363,15 @@ export default async function LeadDetailPage({
           shortlist={shortlist}
           contactName={lead.contactName}
         />
+        {shortlist.length > 0 && (
+          <div className="mt-3">
+            <ShareShortlist
+              url={`https://rightwaygroup.co/s/${makeShortlistToken(lead.id)}`}
+              phone={lead.phone}
+              count={shortlist.length}
+            />
+          </div>
+        )}
       </div>
 
       {/* Tasks */}
@@ -433,6 +453,8 @@ export default async function LeadDetailPage({
                   <span className="text-forest-900/70">
                     Лид создан{e.toStage ? <> → <b className="font-medium">{e.toStage}</b></> : null}
                   </span>
+                ) : e.type === "touch" ? (
+                  <span className="text-forest-900/55">{e.toStage ?? "Касание"}</span>
                 ) : (
                   <span className="text-forest-900/70">
                     {e.fromStage ?? "—"} → <b className="font-medium text-forest-900">{e.toStage}</b>

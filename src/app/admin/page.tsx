@@ -4,7 +4,7 @@ import Link from "next/link";
 import { getAllObjects, getPublicObjects } from "@/lib/data/objects";
 
 type Href = ComponentProps<typeof Link>["href"];
-import { getLeads, getPipelines, getEvents, CRM_ENABLED } from "@/lib/data/leads";
+import { getLeads, getPipelines, getEvents, getTasks, CRM_ENABLED } from "@/lib/data/leads";
 import { AdminNav } from "@/components/admin/admin-nav";
 import type { RealEstateObject } from "@/types/object";
 
@@ -53,13 +53,36 @@ function Stat({
 }
 
 export default async function AdminHomePage() {
-  const [all, publicObjs, leads, pipelines, events] = await Promise.all([
+  const [all, publicObjs, leads, pipelines, events, openTasks] = await Promise.all([
     getAllObjects(),
     getPublicObjects(),
     CRM_ENABLED ? getLeads() : Promise.resolve([]),
     CRM_ENABLED ? getPipelines() : Promise.resolve([]),
     CRM_ENABLED ? getEvents(500) : Promise.resolve([]),
+    CRM_ENABLED ? getTasks() : Promise.resolve([]),
   ]);
+
+  // «Сегодня»: просроченные + сегодняшние задачи прямо на дашборде (Bangkok).
+  const bkkDay = (iso: string) =>
+    new Date(new Date(iso).getTime() + 7 * 3_600_000).toISOString().slice(0, 10);
+  const todayBkk = bkkDay(new Date().toISOString());
+  const isDateOnly = (iso: string) => {
+    const d = new Date(iso);
+    return d.getUTCHours() === 0 && d.getUTCMinutes() === 0;
+  };
+  const todayTasks = openTasks
+    .filter((t) => {
+      if (!t.dueAt) return false;
+      const due = new Date(t.dueAt).getTime();
+      return isDateOnly(t.dueAt)
+        ? bkkDay(t.dueAt) <= todayBkk
+        : due < Date.now() || bkkDay(t.dueAt) === todayBkk;
+    })
+    .slice(0, 6);
+  // «Реанимация»: авто-задачи 🔁 по потерянным, у которых срок подошёл.
+  const revivalTasks = openTasks
+    .filter((t) => t.title.startsWith("🔁") && t.dueAt && bkkDay(t.dueAt) <= todayBkk)
+    .slice(0, 5);
 
   // Objects exclude off-plan unit sub-cards from the headline count.
   const objects = all.filter((o) => !isUnit(o.rwNumber));
@@ -204,6 +227,7 @@ export default async function AdminHomePage() {
   const byLeadEvents = new Map<number, typeof events>();
   for (const e of events) {
     if (e.leadId == null) continue;
+    if (e.type === "touch") continue; // касания не двигают стадию — в цикле не участвуют
     const arr = byLeadEvents.get(e.leadId) ?? [];
     arr.push(e);
     byLeadEvents.set(e.leadId, arr);
@@ -330,6 +354,64 @@ export default async function AdminHomePage() {
               hint={closed > 0 ? `${won} из ${closed} закрытых` : "нет закрытых сделок"}
             />
           </div>
+
+          {/* Сегодня: просроченные + сегодняшние задачи и реанимация потерянных */}
+          {(todayTasks.length > 0 || revivalTasks.length > 0) && (
+            <div className="mb-7 grid gap-4 md:grid-cols-2">
+              {todayTasks.length > 0 && (
+                <div className="rounded-2xl border border-brass-500/25 bg-brass-500/[0.04] p-4">
+                  <p className="mb-2 flex items-baseline justify-between text-xs font-semibold uppercase tracking-wide text-forest-900/50">
+                    <span>☑ Сегодня</span>
+                    <Link
+                      href={{ pathname: "/admin/crm/tasks" }}
+                      className="font-normal normal-case text-brass-600 hover:underline"
+                    >
+                      все задачи →
+                    </Link>
+                  </p>
+                  <ul className="space-y-1.5">
+                    {todayTasks.map((t) => (
+                      <li key={t.id} className="text-sm">
+                        <Link
+                          href={{ pathname: `/admin/crm/${t.leadId}` }}
+                          className="flex items-baseline gap-2 hover:text-brass-700"
+                        >
+                          <span className="min-w-0 flex-1 truncate text-forest-900">{t.title}</span>
+                          <span className="shrink-0 text-xs text-forest-900/45">
+                            {t.contactName || t.leadName || `#${t.leadId}`}
+                          </span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {revivalTasks.length > 0 && (
+                <div className="rounded-2xl border border-forest-900/10 bg-white p-4">
+                  <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
+                    🔁 На реанимацию
+                  </p>
+                  <ul className="space-y-1.5">
+                    {revivalTasks.map((t) => (
+                      <li key={t.id} className="text-sm">
+                        <Link
+                          href={{ pathname: `/admin/crm/${t.leadId}` }}
+                          className="flex items-baseline gap-2 hover:text-brass-700"
+                        >
+                          <span className="min-w-0 flex-1 truncate text-forest-900">
+                            {t.contactName || t.leadName || `#${t.leadId}`}
+                          </span>
+                          <span className="shrink-0 text-xs text-forest-900/45">
+                            потерян, пора спросить снова
+                          </span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          )}
 
           {/* Funnel per pipeline */}
           {funnels.length > 0 && (
@@ -573,7 +655,9 @@ export default async function AdminHomePage() {
                         <span className="ml-2 text-xs text-forest-900/55">
                           {e.type === "created"
                             ? `создан → ${e.toStage ?? "—"}`
-                            : `${e.fromStage ?? "—"} → ${e.toStage ?? "—"}`}
+                            : e.type === "touch"
+                              ? (e.toStage ?? "касание")
+                              : `${e.fromStage ?? "—"} → ${e.toStage ?? "—"}`}
                         </span>
                       </span>
                       <span className="shrink-0 text-[11px] tabular-nums text-forest-900/40">

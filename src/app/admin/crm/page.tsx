@@ -42,8 +42,10 @@ export default async function CrmPage({
     { key: "notasks", label: "📋 Без задач" },
   ] as const;
   const quick = QUICK.some((x) => x.key === f) ? (f as string) : "";
-  const daysSince = (l: { updatedAt?: string | null; createdAt: string }) => {
-    const t = new Date(l.updatedAt || l.createdAt).getTime();
+  // Staleness counts from the last REAL touch (one-tap журнал касаний) when
+  // there is one — updatedAt дёргается любой правкой и врёт про общение.
+  const daysSince = (l: { lastTouchAt?: string | null; updatedAt?: string | null; createdAt: string }) => {
+    const t = new Date(l.lastTouchAt || l.updatedAt || l.createdAt).getTime();
     return Number.isFinite(t) ? Math.floor((Date.now() - t) / 86_400_000) : 0;
   };
   type Lead = (typeof leads)[number];
@@ -103,6 +105,31 @@ export default async function CrmPage({
           </p>
         </div>
         <div className="flex shrink-0 items-center gap-2">
+          {(() => {
+            const queue = leads.filter(
+              (l) =>
+                l.pipelineKey === "legacy" &&
+                (l.status ?? "open") === "open" &&
+                l.stageKey === "incoming",
+            ).length;
+            return queue > 0 ? (
+              <Link
+                href={{ pathname: "/admin/crm/triage" }}
+                className="rounded-full border border-brass-500/40 bg-brass-500/10 px-3 py-2 text-sm font-medium text-brass-700 hover:bg-brass-500/20"
+              >
+                🧹 Разбор
+                <span className="ml-1.5 rounded-full bg-brass-500/20 px-1.5 py-0.5 text-xs font-semibold">
+                  {queue}
+                </span>
+              </Link>
+            ) : null;
+          })()}
+          <Link
+            href={{ pathname: "/admin/crm/stats" }}
+            className="rounded-full border border-forest-900/15 px-3 py-2 text-sm font-medium text-forest-900/70 hover:bg-forest-900/5"
+          >
+            📈 Метрики
+          </Link>
           <Link
             href={{ pathname: "/admin/crm/stats" }}
             className="rounded-full border border-forest-900/15 px-3 py-2 text-sm font-medium text-forest-900/70 hover:bg-forest-900/5"

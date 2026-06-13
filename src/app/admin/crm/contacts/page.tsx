@@ -44,12 +44,20 @@ export default async function CrmContactsPage({
             {withLeads}. Вся книга, включая перенесённую из amoCRM.
           </p>
         </div>
-        <Link
-          href={{ pathname: "/admin/crm/new" }}
-          className="rounded-full bg-forest-900 px-4 py-2 text-sm font-medium text-white hover:bg-forest-900/90"
-        >
-          + Новый лид
-        </Link>
+        <div className="flex shrink-0 items-center gap-2">
+          <Link
+            href={{ pathname: "/admin/crm/contacts/dupes" }}
+            className="rounded-full border border-forest-900/15 px-3 py-2 text-sm font-medium text-forest-900/70 hover:bg-forest-900/5"
+          >
+            👯 Дубли
+          </Link>
+          <Link
+            href={{ pathname: "/admin/crm/new" }}
+            className="rounded-full bg-forest-900 px-4 py-2 text-sm font-medium text-white hover:bg-forest-900/90"
+          >
+            + Новый лид
+          </Link>
+        </div>
       </div>
 
       <form action="/admin/crm/contacts" className="mt-4 flex w-full max-w-md items-center gap-2">
