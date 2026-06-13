@@ -1,5 +1,28 @@
 import type { NextConfig } from "next";
 
+// CSP in Report-Only mode: it never blocks anything, only reports violations to
+// the browser console — a safe first step before an enforcing policy. The
+// allow-lists below cover what the site actually loads today: GTM + GA4,
+// Vercel analytics/insights, the map tile providers (CARTO/Longdo/ArcGIS),
+// Vercel Blob photos and Google-hosted images. Watch the console for a week,
+// tighten, then flip the header name to `Content-Security-Policy` to enforce.
+const CSP_REPORT_ONLY = [
+  "default-src 'self'",
+  "base-uri 'self'",
+  "object-src 'none'",
+  "frame-ancestors 'self'",
+  // 'unsafe-inline' stays for now (Next hydration + GTM inline snippets); a
+  // nonce-based tightening is a later step once the report is clean.
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com https://va.vercel-scripts.com https://*.vercel-insights.com",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: blob: https://*.public.blob.vercel-storage.com https://*.basemaps.cartocdn.com https://*.longdo.com https://server.arcgisonline.com https://drive.google.com https://lh3.googleusercontent.com https://*.google-analytics.com https://www.googletagmanager.com",
+  "font-src 'self' data:",
+  "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.vercel-insights.com https://www.googletagmanager.com",
+  "frame-src 'self' https://www.googletagmanager.com",
+  "worker-src 'self' blob:",
+  "manifest-src 'self'",
+].join("; ");
+
 const nextConfig: NextConfig = {
   // Leaflet maps initialize against a DOM container by id. StrictMode's dev
   // double-mount re-inits a map on a container mid-teardown, which corrupts
@@ -38,8 +61,9 @@ const nextConfig: NextConfig = {
       {
         source: "/:path*",
         headers: [
-          // CSP is deliberately absent: GTM + Vercel injectors + Leaflet tiles
-          // need a careful audit first — a broken CSP is worse than none.
+          // Report-Only: collects violations without blocking. Flip to
+          // "Content-Security-Policy" to enforce once the report is clean.
+          { key: "Content-Security-Policy-Report-Only", value: CSP_REPORT_ONLY },
           { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains" },
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "X-Frame-Options", value: "SAMEORIGIN" },
