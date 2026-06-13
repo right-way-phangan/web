@@ -8,6 +8,7 @@ import { MoveLeadSelect } from "@/components/crm/move-lead-select";
 import { LostReasonDialog } from "@/components/crm/lost-reason-dialog";
 import type { CrmLead, CrmStage } from "@/lib/data/leads";
 import { leadScore } from "@/lib/crm/score";
+import { dealProgress, DEAL_STAGE_KEYS } from "@/lib/crm/deal-checklist";
 
 /**
  * Kanban board with native HTML5 drag-and-drop. Drag a card onto a column to
@@ -254,6 +255,17 @@ export function CrmBoard({
                               : new Intl.NumberFormat("en-US").format(lead.dealValue!)}
                           </span>
                         )}
+                        {lead.stageKey && DEAL_STAGE_KEYS.has(lead.stageKey) && (() => {
+                          const p = dealProgress(lead.dealChecklist);
+                          return (
+                            <span
+                              title={p.nextGroup ? `Далее: ${p.nextGroup}` : "Сделка закрыта по чек-листу"}
+                              className="rounded bg-forest-900/5 px-1.5 py-0.5 text-[10px] font-medium text-forest-900/60"
+                            >
+                              📋 {p.doneCount}/{p.total}
+                            </span>
+                          );
+                        })()}
                         {lead.rwNumber && (
                           <span className="rounded bg-brass-500/10 px-1.5 py-0.5 text-[10px] font-medium text-brass-600">
                             {lead.rwNumber}

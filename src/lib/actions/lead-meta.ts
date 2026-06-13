@@ -45,3 +45,28 @@ export async function updateLeadCommission(
   revalidatePath("/admin/finance");
   return ok;
 }
+
+/** Toggle one transaction-checklist step on a deal (reservation→transfer). */
+export async function toggleDealStep(
+  leadId: number,
+  key: string,
+  done: boolean,
+): Promise<boolean> {
+  if (!API) return false;
+  try {
+    const r = await backendFetch(`/leads/${leadId}/deal-checklist`, {
+      method: "PATCH",
+      headers: JSON_HEADERS,
+      cache: "no-store",
+      body: JSON.stringify({ key, done }),
+    });
+    if (!r.ok) return false;
+  } catch (err) {
+    console.error("[crm] toggleDealStep failed:", err);
+    return false;
+  } finally {
+    revalidatePath(`/admin/crm/${leadId}`);
+    revalidatePath("/admin/crm");
+  }
+  return true;
+}

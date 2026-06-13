@@ -14,6 +14,8 @@ import { CommissionValue } from "@/components/crm/commission-value";
 import { TouchButtons } from "@/components/crm/touch-buttons";
 import { leadScore } from "@/lib/crm/score";
 import { LeadSnooze } from "@/components/crm/lead-snooze";
+import { DealChecklist } from "@/components/crm/deal-checklist";
+import { DEAL_STAGE_KEYS } from "@/lib/crm/deal-checklist";
 import { ShareShortlist } from "@/components/crm/share-shortlist";
 import { makeShortlistToken } from "@/lib/shortlist-token";
 import { LeadMatches, type MatchItem } from "@/components/crm/lead-matches";
@@ -342,6 +344,16 @@ export default async function LeadDetailPage({
           </div>
         )}
       </dl>
+
+      {lead.stageKey && DEAL_STAGE_KEYS.has(lead.stageKey) && (
+        <div className="mt-4">
+          <DealChecklist
+            leadId={lead.id}
+            checklist={lead.dealChecklist ?? null}
+            currentStageKey={lead.stageKey}
+          />
+        </div>
+      )}
 
       {(lead.tags ?? []).length > 0 && (
         <div className="mt-3 flex flex-wrap gap-1">

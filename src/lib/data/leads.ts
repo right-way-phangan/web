@@ -38,6 +38,8 @@ export interface CrmLead {
   dealValue?: number | null;
   /** Actual commission earned, THB (won deals; co-agency/referral splits make it ≠ formula). */
   commissionValue?: number | null;
+  /** Transaction execution checklist (stepKey → ISO done-at) — deal in progress. */
+  dealChecklist?: Record<string, string> | null;
   /** Concatenated notes (truncated) — board search looks into them. */
   notesText?: string;
 }
