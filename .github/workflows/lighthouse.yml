@@ -1,0 +1,43 @@
+# Еженедельный Lighthouse по ключевым страницам с бюджетами качества.
+# Публичная квота PageSpeed API общая на всех и вечно исчерпана — свой прогон
+# на раннере надёжнее. Просадка ниже бюджета — алерт в @rightway_admin_notify_bot.
+name: Lighthouse
+
+on:
+  schedule:
+    - cron: "0 3 * * 1" # понедельник 03:00 UTC = 10:00 на Пангане
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Pick a live object page
+        id: pick
+        run: |
+          rw=$(curl -s --max-time 30 https://rightwaygroup.co/listings \
+            | grep -o 'href="/object/RW-[A-Z0-9-]*"' | head -1 \
+            | sed 's/href="\/object\///;s/"//')
+          [ -n "$rw" ] || { echo "no listing found"; exit 1; }
+          echo "rw=$rw" >> "$GITHUB_OUTPUT"
+
+      - name: Lighthouse
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: |
+            https://rightwaygroup.co/
+            https://rightwaygroup.co/listings
+            https://rightwaygroup.co/object/${{ steps.pick.outputs.rw }}
+          configPath: .lighthouserc.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+      - name: Alert Telegram
+        if: failure()
+        run: |
+          curl -s --max-time 20 "https://api.telegram.org/bot${{ secrets.TELEGRAM_NOTIFY_BOT_TOKEN }}/sendMessage" \
+            -d chat_id="${{ secrets.TELEGRAM_NOTIFY_CHAT_ID }}" \
+            --data-urlencode text="🟠 rightwaygroup.co — Lighthouse ниже бюджета (perf<0.55 / a11y<0.9 / seo<0.9). Отчёт: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            >/dev/null

@@ -3,7 +3,7 @@ import { PageHero } from "@/components/sections/page-hero";
 import { RoiCalculator } from "@/components/calculator/roi-calculator";
 import { MarketMiniBlock } from "@/components/calculator/market-preset";
 import { BuildProForma } from "@/components/calculator/build-proforma";
-import { getPublicObjects } from "@/lib/data/objects";
+import { getPublicObjects, slimObjectForCard } from "@/lib/data/objects";
 import { getRentalMarket } from "@/lib/data/rental-market";
 
 export const metadata: Metadata = {
@@ -20,7 +20,7 @@ export default async function CalculatorPage({
 }: {
   searchParams: Promise<{ price?: string; mode?: string; tenure?: string; lease?: string; phase?: string }>;
 }) {
-  const catalog = await getPublicObjects();
+  const catalog = (await getPublicObjects()).map(slimObjectForCard);
   const market = getRentalMarket();
   const params = await searchParams;
 

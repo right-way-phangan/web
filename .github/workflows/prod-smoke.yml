@@ -26,10 +26,26 @@ jobs:
           rw=$(grep -o 'href="/object/RW-[A-Z0-9-]*"' /tmp/listings.html | head -1 | sed 's/href="\/object\///;s/"//')
           [ -n "$rw" ] || fail "no listing cards on /listings (amoCRM feed down?)"
 
-          code=$(curl -s --max-time 30 -o /dev/null -w '%{http_code}' "https://rightwaygroup.co/object/$rw") || fail "object page unreachable"
+          code=$(curl -s --max-time 30 -o /tmp/object.html -w '%{http_code}' "https://rightwaygroup.co/object/$rw") || fail "object page unreachable"
           [ "$code" = "200" ] || fail "object $rw HTTP $code"
 
-          echo "OK: home, listings ($rw), object page"
+          # Content guard: EN pages must not leak Cyrillic (amoCRM fields slip
+          # straight into the payload — it has happened twice already).
+          for f in /tmp/home.html /tmp/listings.html /tmp/object.html; do
+            cyr=$(grep -o '[А-Яа-яЁё]' "$f" | wc -l)
+            [ "$cyr" -eq 0 ] || fail "cyrillic on EN page ($(basename "$f"): $cyr chars)"
+          done
+
+          # Content guard: cover photos must resolve — a deleted blob otherwise
+          # sits as a silently broken card until someone happens to look.
+          covers=$(grep -o 'coverImage\\":\\"https:[^"\\]*' /tmp/listings.html | sed 's/coverImage\\":\\"//' | head -12)
+          [ -n "$covers" ] || fail "no cover URLs in listings payload"
+          while IFS= read -r u; do
+            c=$(curl -s --max-time 20 -o /dev/null -w '%{http_code}' -I "$u") || c=000
+            [ "$c" = "200" ] || fail "broken cover ($c): $u"
+          done <<< "$covers"
+
+          echo "OK: home, listings ($rw), object page, no cyrillic, covers alive"
 
       - name: Alert Telegram
         if: failure()

@@ -4,7 +4,7 @@ import Link from "next/link";
 import type { Route } from "next";
 import { MapPin } from "lucide-react";
 import { DISTRICTS } from "@/content/districts";
-import { getObjectByRwNumber, getAnyObjectByRwNumber, getPublicObjects } from "@/lib/data/objects";
+import { getObjectByRwNumber, getAnyObjectByRwNumber, getPublicObjects, slimObjectForCard } from "@/lib/data/objects";
 import { UnavailableObject } from "@/components/objects/unavailable-object";
 import { isProjectUnit, parentProjectRw, projectSlug, getPublicProjects } from "@/lib/data/projects";
 import { formatPriceTHB, formatPricePerRai, formatApproxUSD } from "@/lib/utils/price";
@@ -72,11 +72,13 @@ export default async function ObjectPage({ params }: Props) {
   if (!object) {
     const gone = await getAnyObjectByRwNumber(rw);
     if (!gone) notFound();
-    const catalog = await getPublicObjects();
+    const catalog = (await getPublicObjects()).map(slimObjectForCard);
     return <UnavailableObject object={gone} catalog={catalog} locale="en" />;
   }
 
-  const catalog = await getPublicObjects();
+  // Карточные поля: полный каталог (галереи, описания, RU-заметки) иначе
+  // сериализуется в payload каждой страницы объекта через похожие/калькулятор.
+  const catalog = (await getPublicObjects()).map(slimObjectForCard);
   const usdPerThb = await getUsdPerThb();
   const siteUrl = getSiteUrl();
   const pageUrl = `${siteUrl}/object/${object.rwNumber}`;

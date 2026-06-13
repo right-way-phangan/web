@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getPublicObjects, slimObjectForList } from "@/lib/data/objects";
+import { ItemListJsonLd } from "@/components/seo/item-list-json-ld";
 import { isProjectUnit } from "@/lib/data/projects";
 import { ListingsFilterBar } from "@/components/objects/listings-filter-bar";
 import { ListingsEmpty } from "@/components/objects/listings-empty";
@@ -50,6 +51,7 @@ export default async function RussianListingsPage({ searchParams }: PageProps) {
 
   return (
     <section className="container-prose py-10 md:py-14">
+      <ItemListJsonLd name="Объекты недвижимости на Пангане — Right Way" objects={sorted} />
       <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">{t.eyebrow}</p>
       <h1 className="mt-3 max-w-3xl text-balance scroll-mt-24">{t.title}</h1>
       <p className="mt-3 max-w-xl text-base text-forest-500/70">

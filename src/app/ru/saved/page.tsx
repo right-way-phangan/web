@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { getPublicObjects } from "@/lib/data/objects";
+import { getPublicObjects, slimObjectForCard } from "@/lib/data/objects";
 import { SavedListings } from "@/components/objects/saved-listings";
 import { SavedSearches } from "@/components/objects/saved-searches";
 
@@ -17,7 +17,7 @@ export const revalidate = 300;
 export default async function RussianSavedPage() {
   // The saved set lives in the browser; we hand the full catalog to the client
   // component, which filters it to the visitor's shortlist.
-  const catalog = await getPublicObjects();
+  const catalog = (await getPublicObjects()).map(slimObjectForCard);
 
   return (
     <section className="container-prose py-16 md:py-24">

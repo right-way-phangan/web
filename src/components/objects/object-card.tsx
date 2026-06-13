@@ -14,7 +14,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import type { RealEstateObject, ObjectType } from "@/types/object";
-import { formatPriceCompact } from "@/lib/utils/price";
+import { formatPriceCompact, formatUsdCompact } from "@/lib/utils/price";
 import { BLUR_PLACEHOLDER } from "@/lib/utils/blur";
 import { useLocale, localeHref } from "@/lib/i18n/use-locale";
 import { getListingsDict, type ListingsDict } from "@/lib/i18n/dictionaries";
@@ -145,6 +145,11 @@ export function ObjectCard({ object }: Props) {
         {object.priceThb ? (
           <p className="num text-lg text-forest-900">
             {formatPriceCompact(object.priceThb)}
+            {object.priceUsd ? (
+              <span className="ml-2 text-xs font-sans font-normal text-forest-500/60">
+                {formatUsdCompact(object.priceUsd)}
+              </span>
+            ) : null}
             {object.type === "Land" && object.pricePerRai ? (
               <span className="ml-2 text-xs font-sans text-forest-500/70">
                 {formatPriceCompact(object.pricePerRai)}{t.perRai}

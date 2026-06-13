@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getPublicObjects, slimObjectForList } from "@/lib/data/objects";
+import { ItemListJsonLd } from "@/components/seo/item-list-json-ld";
 import { isProjectUnit } from "@/lib/data/projects";
 import { ListingsFilterBar } from "@/components/objects/listings-filter-bar";
 import { ListingsEmpty } from "@/components/objects/listings-empty";
@@ -48,6 +49,7 @@ export default async function ListingsPage({ searchParams }: PageProps) {
 
   return (
     <section className="container-prose py-10 md:py-14">
+      <ItemListJsonLd name="Koh Phangan property listings — Right Way" objects={sorted} />
       <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
         Listings
       </p>

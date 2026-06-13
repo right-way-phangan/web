@@ -8,7 +8,8 @@ import { DISTRICTS_RU, getDistrictRuBySlug } from "@/content/districts.ru";
 import { districtHasHero } from "@/content/districts";
 import { Button } from "@/components/ui/button";
 import { ObjectCard } from "@/components/objects/object-card";
-import { getPublicObjects } from "@/lib/data/objects";
+import { getPublicObjects, slimObjectForCard } from "@/lib/data/objects";
+import { ItemListJsonLd } from "@/components/seo/item-list-json-ld";
 import { getDistrictMarket } from "@/lib/data/rental-market";
 import { DistrictMarketPanel } from "@/components/insights/district-market";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
@@ -49,12 +50,13 @@ export default async function RussianDistrictPage({ params }: Props) {
 
   const all = await getPublicObjects();
   const inDistrict = all.filter((o) => o.district === d.amoName);
-  const preview = inDistrict.slice(0, 6);
+  const preview = inDistrict.slice(0, 6).map(slimObjectForCard);
   const districtMarket = getDistrictMarket(d.amoName);
   const others = DISTRICTS_RU.filter((x) => x.slug !== d.slug).slice(0, 3);
 
   return (
     <article>
+      <ItemListJsonLd name={`Объекты в районе ${name} — Right Way`} objects={inDistrict} />
       <BreadcrumbJsonLd
         crumbs={[
           { name: "Главная", url: `${siteUrl}/ru` },

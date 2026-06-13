@@ -39,6 +39,8 @@ export interface RealEstateObject {
   // Pricing (Land sale)
   priceThb?: number;
   pricePerRai?: number;
+  /** Derived at fetch time from the daily THB→USD rate — not stored in CRM. */
+  priceUsd?: number;
 
   // Pricing (Leasehold)
   rentPerRaiMonth?: number;

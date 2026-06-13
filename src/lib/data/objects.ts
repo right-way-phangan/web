@@ -2,6 +2,7 @@ import "server-only";
 import { listCatalogElements, AmoApiError } from "@/lib/amocrm/client";
 import { mapElementToObject } from "@/lib/amocrm/mapper";
 import { backendFetch } from "@/lib/api/backend";
+import { getUsdPerThb } from "@/lib/data/fx";
 import type { RealEstateObject, ObjectStatus } from "@/types/object";
 
 /**
@@ -76,11 +77,15 @@ export function slimObjectForCard(o: RealEstateObject): RealEstateObject {
     district: o.district,
     documentType: o.documentType,
     priceThb: o.priceThb,
+    priceUsd: o.priceUsd,
     pricePerRai: o.pricePerRai,
     rentPerRaiMonth: o.rentPerRaiMonth,
     areaRai: o.areaRai,
     areaSqm: o.areaSqm,
     bedrooms: o.bedrooms,
+    // compare-таблица на /saved читает форму владения
+    tenure: o.tenure,
+    leaseTermYears: o.leaseTermYears,
     coverImage: o.coverImage,
     dateAdded: o.dateAdded,
     // ранжирование похожих (dist2) и карты работают по координатам — публичны
@@ -94,6 +99,18 @@ export function slimObjectForCard(o: RealEstateObject): RealEstateObject {
     quiet: o.quiet,
     electricity: o.electricity,
   };
+}
+
+/**
+ * Attach the "≈ $" hint to every priced object once per fetch — cards across
+ * the site read o.priceUsd instead of each page threading an FX rate down
+ * through client components. Rate is day-cached with a constant fallback.
+ */
+async function withUsd(objs: RealEstateObject[]): Promise<RealEstateObject[]> {
+  const rate = await getUsdPerThb();
+  return objs.map((o) =>
+    o.priceThb ? { ...o, priceUsd: Math.round(o.priceThb * rate) } : o,
+  );
 }
 
 // Last successful fetch, kept per server instance: an amoCRM hiccup serves
@@ -123,7 +140,9 @@ async function apiObjects(path: string): Promise<RealEstateObject[]> {
 export async function getPublicObjects(): Promise<RealEstateObject[]> {
   if (OBJECTS_API_URL) {
     try {
-      lastGoodPublic = (await apiObjects("/objects")).map(sanitizePublicObject);
+      lastGoodPublic = await withUsd(
+        (await apiObjects("/objects")).map(sanitizePublicObject),
+      );
       return lastGoodPublic;
     } catch (err) {
       console.error("[objects] own-API failed:", err);
@@ -133,12 +152,14 @@ export async function getPublicObjects(): Promise<RealEstateObject[]> {
   try {
     const elements = await listCatalogElements();
     const all = elements.map(mapElementToObject);
-    lastGoodPublic = all
-      .filter(
-        (o) => o.rwNumber && PUBLIC_STATUSES.includes(o.status) && !!o.coverImage,
-      )
-      .map(sanitizePublicObject)
-      .sort(sortByRecentAndPremium);
+    lastGoodPublic = await withUsd(
+      all
+        .filter(
+          (o) => o.rwNumber && PUBLIC_STATUSES.includes(o.status) && !!o.coverImage,
+        )
+        .map(sanitizePublicObject)
+        .sort(sortByRecentAndPremium),
+    );
     return lastGoodPublic;
   } catch (err) {
     if (err instanceof AmoApiError) {
@@ -186,7 +207,9 @@ export async function getAnyObjectByRwNumber(
 ): Promise<RealEstateObject | null> {
   const all = await getAllObjects();
   const found = all.find((o) => o.rwNumber === rw);
-  return found ? slimObjectForList(sanitizePublicObject(found)) : null;
+  // Card fields only: the object feeds the client-side related strip, so a
+  // fuller cut would serialize description/notes into the page payload.
+  return found ? slimObjectForCard(sanitizePublicObject(found)) : null;
 }
 
 /**

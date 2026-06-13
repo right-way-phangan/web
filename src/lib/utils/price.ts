@@ -32,6 +32,16 @@ export function formatPricePerRai(thbPerRai: number): string {
   return `${formatPriceCompact(thbPerRai)} / rai`;
 }
 
+/** "≈ $260K" — compact dollar hint for cards (o.priceUsd is pre-derived). */
+export function formatUsdCompact(usd: number): string {
+  if (usd >= 1_000_000) {
+    const m = usd / 1_000_000;
+    return `≈ $${m.toFixed(m >= 100 || Number.isInteger(m) ? 0 : 1)}M`;
+  }
+  if (usd >= 1_000) return `≈ $${Math.round(usd / 1_000)}K`;
+  return `≈ $${Math.round(usd).toLocaleString("en-US")}`;
+}
+
 /**
  * "≈ $445,000" — dollar hint next to the THB headline price. Rounded to
  * 3 significant figures: the FX rate moves daily, false precision would

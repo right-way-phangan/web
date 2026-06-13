@@ -1,0 +1,31 @@
+# Ежедневный IndexNow-пинг: Bing/Yandex (и партнёры протокола) узнают о новых
+# и обновлённых объектах из /feed.xml в день появления, а не при перекраулинге.
+# Ключ публичен по протоколу — public/<key>.txt подтверждает владение хостом.
+name: IndexNow
+
+on:
+  schedule:
+    - cron: "30 3 * * *" # ежедневно 03:30 UTC
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Submit fresh URLs
+        run: |
+          KEY="7c6de11a5efe4193acb9398e264e97c5"
+          HOST="rightwaygroup.co"
+          urls=$(curl -s --max-time 30 "https://$HOST/feed.xml" \
+            | grep -o '<link>https://[^<]*</link>' \
+            | sed 's/<\/\?link>//g' | sort -u)
+          [ -n "$urls" ] || { echo "feed empty — skip"; exit 0; }
+          list=$(printf '%s\n' "$urls" "https://$HOST/" "https://$HOST/listings" \
+            | python3 -c 'import json,sys; print(json.dumps([l.strip() for l in sys.stdin if l.strip()]))')
+          code=$(curl -s --max-time 30 -o /tmp/resp -w '%{http_code}' \
+            -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json; charset=utf-8" \
+            -d "{\"host\":\"$HOST\",\"key\":\"$KEY\",\"keyLocation\":\"https://$HOST/$KEY.txt\",\"urlList\":$list}")
+          echo "IndexNow → HTTP $code"; cat /tmp/resp || true
+          # 200/202 = принято; прочее — показать, но не алертить (не критичный путь)
+          case "$code" in 200|202) exit 0;; *) echo "non-2xx (informational)";; esac
