@@ -7,6 +7,7 @@ import { Footer } from "@/components/layout/footer";
 import { MessengerFab } from "@/components/layout/messenger-fab";
 import { SavedProvider } from "@/lib/saved/saved-context";
 import { OrganizationJsonLd } from "@/components/seo/organization-json-ld";
+import { WebsiteJsonLd } from "@/components/seo/website-json-ld";
 import { GtmScript, GtmNoScript } from "@/components/analytics/gtm";
 import { Ga4Script } from "@/components/analytics/ga4";
 import { ContactClickTracker } from "@/components/analytics/contact-click-tracker";
@@ -107,6 +108,7 @@ export default function RootLayout({
           }}
         />
         <OrganizationJsonLd siteUrl={siteUrl} />
+        <WebsiteJsonLd siteUrl={siteUrl} />
         <SavedProvider>
           <Header />
           <main id="main-content" className="flex-1">{children}</main>

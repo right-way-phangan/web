@@ -11,7 +11,9 @@ const buttonVariants = cva(
         primary:
           "bg-forest-500 text-cream-100 hover:bg-forest-400 hover:shadow-md hover:shadow-forest-900/15 active:bg-forest-900 active:shadow-none",
         accent:
-          "bg-brass-500 text-cream-100 hover:bg-brass-400 hover:shadow-md hover:shadow-brass-600/20 active:bg-brass-600 active:shadow-none",
+          // brass-600 (not 500): cream-100 on brass-500 is 4.05:1, just under
+          // the 4.5:1 AA floor. One palette step darker clears it (~5.9:1).
+          "bg-brass-600 text-cream-100 hover:bg-brass-500 hover:shadow-md hover:shadow-brass-600/20 active:bg-brass-600 active:shadow-none",
         outline:
           "border border-forest-500/30 text-forest-500 hover:bg-forest-500 hover:text-cream-100 hover:border-forest-500",
         ghost:
