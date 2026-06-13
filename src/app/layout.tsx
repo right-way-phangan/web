@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Cormorant_Garamond } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -32,6 +32,12 @@ const serif = Cormorant_Garamond({
 });
 
 const siteUrl = getSiteUrl();
+
+// Brand-tints the mobile browser chrome (address bar) — forest from the
+// palette. Without it Android/iOS render a default grey bar.
+export const viewport: Viewport = {
+  themeColor: "#1F3A2E",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
