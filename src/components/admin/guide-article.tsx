@@ -1,5 +1,7 @@
 import Link from "next/link";
 import type { Route } from "next";
+import { GuideChecklist } from "@/components/admin/guide-checklist";
+import { GuideQuiz } from "@/components/admin/guide-quiz";
 
 /**
  * Markdown-рендерер внутреннего справочника (/admin/guide). Расширенный
@@ -90,9 +92,11 @@ type Block =
   | { kind: "h2" | "h3"; text: string }
   | { kind: "p"; text: string }
   | { kind: "ul" | "ol"; items: string[] }
+  | { kind: "tasklist"; items: string[] }
   | { kind: "quote"; lines: string[] }
   | { kind: "code"; lines: string[] }
   | { kind: "table"; header: string[]; rows: string[][] }
+  | { kind: "quiz" }
   | { kind: "hr" };
 
 function splitRow(line: string): string[] {
@@ -129,6 +133,12 @@ function parseBlocks(md: string): Block[] {
       i++;
       continue;
     }
+    // Маркер встраивания квиза самопроверки (страница «Проверь себя»).
+    if (t === "{{quiz}}") {
+      blocks.push({ kind: "quiz" });
+      i++;
+      continue;
+    }
     if (t.startsWith(">")) {
       const quote: string[] = [];
       while (i < lines.length && lines[i].trim().startsWith(">")) {
@@ -160,6 +170,13 @@ function parseBlocks(md: string): Block[] {
         items.push(it.replace(ordered ? /^\d+[.)]\s+/ : /^[-*]\s+/, ""));
         i++;
       }
+      // Чек-лист: маркированный список, где каждый пункт начинается с `[ ]`/`[x]`
+      // → интерактивные чекбоксы с сохранением прогресса (онбординг агента).
+      const TASK = /^\[[ xX]\]\s+/;
+      if (!ordered && items.length > 0 && items.every((it) => TASK.test(it))) {
+        blocks.push({ kind: "tasklist", items: items.map((it) => it.replace(TASK, "").trim()) });
+        continue;
+      }
       blocks.push({ kind: ordered ? "ol" : "ul", items });
       continue;
     }
@@ -188,7 +205,7 @@ function parseBlocks(md: string): Block[] {
 
 // ─── Рендер ───
 
-export function GuideArticle({ md }: { md: string }) {
+export function GuideArticle({ md, slug }: { md: string; slug: string }) {
   const blocks = parseBlocks(md);
   return (
     <div className="space-y-5 text-[15px] leading-relaxed text-forest-900/80">
@@ -236,6 +253,10 @@ export function GuideArticle({ md }: { md: string }) {
                 ))}
               </ol>
             );
+          case "tasklist":
+            return <GuideChecklist key={i} items={b.items} storageKey={`${slug}:${i}`} />;
+          case "quiz":
+            return <GuideQuiz key={i} />;
           case "quote": {
             const text = b.lines.join(" ");
             const alarm = /^[⚠🔴❗]/u.test(text);
