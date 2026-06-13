@@ -32,6 +32,10 @@ export interface AdminObjectRow {
   /** First-party views (object_views_daily): last 7 / last 30 days. */
   views7: number;
   views30: number;
+  /** Unique viewers (30d), weighted engagement index, messenger clicks (30d). */
+  uniques30: number;
+  engagement: number;
+  clicks30: number;
   // edit-modal fields
   priceThb?: number | null;
   pricePerRai?: number | null;
@@ -138,7 +142,7 @@ export function ObjectsTable({
           <tbody>
             {rows.length === 0 ? (
               <tr>
-                <td colSpan={13} className="px-3 py-8 text-center text-sm text-forest-900/40">
+                <td colSpan={14} className="px-3 py-8 text-center text-sm text-forest-900/40">
                   Ничего не найдено.
                 </td>
               </tr>
@@ -209,13 +213,33 @@ export function ObjectsTable({
                     </td>
                     <td
                       className="whitespace-nowrap px-3 py-2 text-center text-xs text-forest-900/60"
-                      title="Просмотры на сайте: за 7 дней / за 30 дней (своя БД, не зависит от блокировщиков)"
+                      title="Просмотры 7д / 30д · уник. за 30д. Своя БД, не зависит от блокировщиков."
                     >
                       {o.views30 > 0 ? (
                         <>
                           <span className="font-medium text-forest-900/80">{o.views7}</span>
                           <span className="text-forest-900/35"> / {o.views30}</span>
+                          {o.uniques30 > 0 ? (
+                            <span className="text-forest-900/40"> · {o.uniques30}👤</span>
+                          ) : null}
                         </>
+                      ) : (
+                        <span className="text-forest-900/25">—</span>
+                      )}
+                    </td>
+                    <td
+                      className="whitespace-nowrap px-3 py-2 text-center text-xs"
+                      title="Индекс интереса (30д): взвешенная сумма клик×5 / калькулятор×4 / сохранение×3 / брошюра×3 / шер×2. 💬 = клики в мессенджеры."
+                    >
+                      {o.engagement > 0 ? (
+                        <span className="inline-flex items-center gap-1">
+                          <span className="rounded-full bg-brass-500/10 px-1.5 py-0.5 font-medium text-brass-700">
+                            ★ {o.engagement}
+                          </span>
+                          {o.clicks30 > 0 ? (
+                            <span className="text-emerald-700/80">💬{o.clicks30}</span>
+                          ) : null}
+                        </span>
                       ) : (
                         <span className="text-forest-900/25">—</span>
                       )}

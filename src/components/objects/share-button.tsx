@@ -6,6 +6,7 @@ import { track } from "@vercel/analytics";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { getObjectDict } from "@/lib/i18n/dictionaries";
 import { UTM } from "@/lib/analytics/utm";
+import { trackObjectEvent } from "@/lib/analytics/track-event";
 import { cn } from "@/lib/utils/cn";
 
 /**
@@ -30,6 +31,7 @@ export function ShareButton({
     // Tag the shared link so peer-forwarded visits attribute to "share".
     const url = typeof window !== "undefined" ? UTM.share(window.location.href) : "";
     const shareTitle = title ? `${title} — ${rw}` : `Right Way listing ${rw}`;
+    trackObjectEvent("share", rw);
 
     if (navigator.share) {
       try {

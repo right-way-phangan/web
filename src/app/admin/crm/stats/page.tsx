@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getLeads, getPipelines, getEvents, CRM_ENABLED, type CrmLead } from "@/lib/data/leads";
-import { getViewsByRw } from "@/lib/data/views";
+import { getViewsByRw, getCrossShoppers } from "@/lib/data/views";
+import { getSiteEventStats } from "@/lib/data/events";
+import { getReferrals, referralLabel } from "@/lib/data/referrals";
+import { classifyReferrer, isAiChannel } from "@/lib/analytics/referrer";
 import { AdminNav } from "@/components/admin/admin-nav";
 
 export const metadata: Metadata = {
@@ -46,7 +49,12 @@ function sourceOf(l: CrmLead): string {
   const utm = tags.find((t) => t.startsWith("utm-source:"));
   if (utm) return `🎯 ${utm.slice("utm-source:".length)}`;
   const ref = tags.find((t) => t.startsWith("ref:"));
-  if (ref) return `🔗 ${ref.slice("ref:".length)}`;
+  if (ref) {
+    const host = ref.slice("ref:".length);
+    const channel = classifyReferrer(host); // ai:/search:/social:/ref:host
+    if (isAiChannel(channel)) return `🤖 ${host}`;
+    return `🔗 ${host}`;
+  }
   if (tags.includes("calculator")) return "🧮 калькулятор";
   if (tags.includes("market-report")) return "📊 market report";
   if (tags.includes("shortlist")) return "⭐ shortlist";
@@ -90,12 +98,16 @@ export default async function CrmStatsPage() {
     );
   }
 
-  const [leads, pipelines, events, viewsByRw] = await Promise.all([
-    getLeads(),
-    getPipelines(),
-    getEvents(500),
-    getViewsByRw(),
-  ]);
+  const [leads, pipelines, events, viewsByRw, siteEvents, crossShoppers, referrals] =
+    await Promise.all([
+      getLeads(),
+      getPipelines(),
+      getEvents(500),
+      getViewsByRw(),
+      getSiteEventStats(),
+      getCrossShoppers(),
+      getReferrals(),
+    ]);
 
   const isLegacyPipe = (name?: string | null) => /legacy|разбор/i.test(name ?? "");
   const work = leads.filter((l) => !isLegacyPipe(l.pipeline));
@@ -332,8 +344,17 @@ export default async function CrmStatsPage() {
           Просмотры — свой first-party счётчик (не зависит от блокировщиков). Связывает трафик
           с результатом.
         </p>
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
           <Card label="Просмотры объектов" value={nf.format(views30Total)} hint="за 30 дней" />
+          <Card
+            label="💬 Клики в мессенджеры"
+            value={nf.format(siteEvents.clicks.total)}
+            hint={
+              siteEvents.clicks.total > 0
+                ? `WA ${siteEvents.clicks.wa} · TG ${siteEvents.clicks.tg} · тел ${siteEvents.clicks.phone}`
+                : "WhatsApp/TG/звонок — основной путь"
+            }
+          />
           <Card
             label="→ Лиды по объектам"
             value={String(leadsWithObject30.length)}
@@ -352,6 +373,30 @@ export default async function CrmStatsPage() {
             label="Смотрят, не пишут"
             value={String(viewedNoLeads.length)}
             hint="объектов ≥5 просмотров, 0 лидов"
+          />
+        </div>
+
+        <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-3">
+          <Card
+            label="Доходимость форм"
+            value={
+              siteEvents.form.starts > 0
+                ? `${Math.round((siteEvents.form.submits / siteEvents.form.starts) * 100)}%`
+                : "—"
+            }
+            hint={`${siteEvents.form.submits} из ${siteEvents.form.starts} начатых · 30д`}
+          />
+          <Card
+            label="Кросс-шопперы"
+            value={String(crossShoppers)}
+            hint="смотрели ≥2 объектов за 30д"
+          />
+          <Card
+            label="🤖 ИИ-визиты · 30д"
+            value={nf.format(
+              referrals.filter((r) => r.source.startsWith("ai:")).reduce((s, r) => s + r.d30, 0),
+            )}
+            hint="нашли нас через ИИ-ассистентов"
           />
         </div>
 
@@ -413,6 +458,29 @@ export default async function CrmStatsPage() {
                 ))}
               </tbody>
             </table>
+          </div>
+        )}
+      </div>
+
+      {/* Каналы привлечения (визиты, не лиды) */}
+      <div className="mt-10">
+        <h2 className="mb-1 text-lg font-semibold text-forest-900">Каналы привлечения · визиты</h2>
+        <p className="mb-3 text-xs text-forest-900/50">
+          Откуда приходят на сайт (раз в сессию, first-party). 🤖 ИИ-ассистенты — измеряем ставку
+          на GEO/AEO. Это визиты, а не лиды.
+        </p>
+        {referrals.length === 0 ? (
+          <p className="text-sm text-forest-900/45">Пока нет данных по каналам.</p>
+        ) : (
+          <div className="space-y-2">
+            {referrals.map((r) => (
+              <BarRow
+                key={r.source}
+                label={referralLabel(r.source)}
+                count={r.d30}
+                max={referrals[0]?.d30 ?? 0}
+              />
+            ))}
           </div>
         )}
       </div>

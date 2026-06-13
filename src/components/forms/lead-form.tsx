@@ -13,6 +13,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { submitInquiry, type FormState } from "@/lib/actions/inquiry";
 import { getAttribution } from "@/lib/analytics/attribution";
+import { trackObjectEvent } from "@/lib/analytics/track-event";
 import { getFormDict, type Locale } from "@/lib/i18n/dictionaries";
 import { cn } from "@/lib/utils/cn";
 
@@ -47,6 +48,15 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
   const [state, formAction] = useActionState(submitInquiry, initialState);
   const utm = useUtmParams();
   const formRef = useRef<HTMLFormElement | null>(null);
+  const startedRef = useRef(false);
+
+  // Form abandonment: one form_start the first time a visitor focuses any field,
+  // paired with form_submit on success → start-vs-submit funnel in /admin/crm/stats.
+  const onFirstInteraction = () => {
+    if (startedRef.current) return;
+    startedRef.current = true;
+    trackObjectEvent("form_start", rwNumber);
+  };
 
   // Reset form on success + emit analytics event
   useEffect(() => {
@@ -63,6 +73,7 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
         rw: rwNumber ?? "n/a",
         kind: kind ?? "inquiry",
       });
+      trackObjectEvent("form_submit", rwNumber);
       onSuccess?.();
     } else if (state.status === "error") {
       track("inquiry_error", { source, rwNumber: rwNumber ?? "n/a" });
@@ -80,6 +91,7 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
     <form
       ref={formRef}
       action={formAction}
+      onFocusCapture={onFirstInteraction}
       className={cn(layout === "card" ? "space-y-4" : "space-y-5")}
       aria-label={rwNumber ? `Enquiry about ${rwNumber}` : "Contact form"}
     >

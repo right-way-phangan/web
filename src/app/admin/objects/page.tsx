@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getAllObjects, getPublicObjects } from "@/lib/data/objects";
 import { getLeads } from "@/lib/data/leads";
 import { getViewsByRw } from "@/lib/data/views";
+import { getEngagementByRw } from "@/lib/data/events";
 import { AdminNav } from "@/components/admin/admin-nav";
 import { ObjectsTable, type AdminObjectRow } from "@/components/admin/objects-table";
 import type { RealEstateObject } from "@/types/object";
@@ -30,7 +31,7 @@ const VIS_TABS = [
 ] as const;
 type VisTab = (typeof VIS_TABS)[number]["key"];
 
-const SORT_KEYS = ["rw", "type", "status", "price", "area", "photos", "site", "views"] as const;
+const SORT_KEYS = ["rw", "type", "status", "price", "area", "photos", "site", "views", "interest"] as const;
 type SortKey = (typeof SORT_KEYS)[number];
 
 function nf(n: number): string {
@@ -75,11 +76,12 @@ export default async function ObjectsPage({
   }>;
 }) {
   const sp = await searchParams;
-  const [all, publicObjs, leads, viewsByRw] = await Promise.all([
+  const [all, publicObjs, leads, viewsByRw, engagementByRw] = await Promise.all([
     getAllObjects(),
     getPublicObjects(),
     getLeads(),
     getViewsByRw(),
+    getEngagementByRw(),
   ]);
 
   // How many leads reference each object (by RW) — object→leads link.
@@ -181,6 +183,10 @@ export default async function ObjectsPage({
         cmp =
           (viewsByRw.get(a.rwNumber)?.d30 ?? 0) - (viewsByRw.get(b.rwNumber)?.d30 ?? 0);
         break;
+      case "interest":
+        cmp =
+          (engagementByRw.get(a.rwNumber)?.score ?? 0) - (engagementByRw.get(b.rwNumber)?.score ?? 0);
+        break;
       default:
         cmp = a.rwNumber.localeCompare(b.rwNumber);
     }
@@ -207,6 +213,9 @@ export default async function ObjectsPage({
     leadCount: leadsByRw.get(o.rwNumber) ?? 0,
     views7: viewsByRw.get(o.rwNumber)?.d7 ?? 0,
     views30: viewsByRw.get(o.rwNumber)?.d30 ?? 0,
+    uniques30: viewsByRw.get(o.rwNumber)?.uniques30 ?? 0,
+    engagement: engagementByRw.get(o.rwNumber)?.score ?? 0,
+    clicks30: engagementByRw.get(o.rwNumber)?.clicks ?? 0,
     priceThb: o.priceThb,
     pricePerRai: o.pricePerRai,
     rentPerRaiMonth: o.rentPerRaiMonth,
@@ -255,6 +264,7 @@ export default async function ObjectsPage({
       <SortTh label="Фото" k="photos" center />
       <SortTh label="Сайт" k="site" center />
       <SortTh label="👁 7д/30д" k="views" center />
+      <SortTh label="★ Интерес" k="interest" center />
     </>
   );
 

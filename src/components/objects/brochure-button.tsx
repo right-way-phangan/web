@@ -2,6 +2,7 @@
 
 import { Printer } from "lucide-react";
 import { track } from "@vercel/analytics";
+import { trackObjectEvent } from "@/lib/analytics/track-event";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { getObjectDict } from "@/lib/i18n/dictionaries";
 import { cn } from "@/lib/utils/cn";
@@ -18,6 +19,7 @@ export function BrochureButton({ rw, className }: { rw: string; className?: stri
       type="button"
       onClick={() => {
         track("brochure_print", { rw });
+        trackObjectEvent("brochure", rw);
         window.print();
       }}
       aria-label={t.brochure}

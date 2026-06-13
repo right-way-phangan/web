@@ -30,6 +30,7 @@ import { CalcLeadButton } from "@/components/calculator/calc-lead-button";
 import { MarketPreset } from "@/components/calculator/market-preset";
 import { buildCalcReportHtml } from "@/lib/calculator/report";
 import { track } from "@/lib/analytics/track";
+import { trackObjectEvent } from "@/lib/analytics/track-event";
 import type { RealEstateObject } from "@/types/object";
 import { getAppreciation, type RentalMarket } from "@/lib/data/rental-market";
 import { calcDict, type CalcDict, type CalcLocale } from "@/lib/i18n/calculator";
@@ -141,6 +142,15 @@ export function RoiCalculator({
   useEffect(() => {
     fetchRates().then((r) => r && setRates(r));
   }, []);
+
+  // Object engagement: one "calc" event per mount when the calculator is opened
+  // for a specific listing (excludeRw). The standalone /calculator (no rw) is
+  // not an object signal, so it's skipped.
+  useEffect(() => {
+    if (excludeRw && typeof navigator !== "undefined" && !navigator.webdriver) {
+      trackObjectEvent("calc", excludeRw);
+    }
+  }, [excludeRw]);
 
   useEffect(() => {
     const el = rootRef.current;

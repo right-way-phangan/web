@@ -2,6 +2,7 @@
 
 import { Heart } from "lucide-react";
 import { track } from "@vercel/analytics";
+import { trackObjectEvent } from "@/lib/analytics/track-event";
 import { useSaved } from "@/lib/saved/saved-context";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { getObjectDict } from "@/lib/i18n/dictionaries";
@@ -36,6 +37,8 @@ export function SaveButton({
         e.stopPropagation();
         toggle(rw);
         track("save_toggle", { rw, saved: !active });
+        // Count only adds (not un-saves) toward the object engagement index.
+        if (!active) trackObjectEvent("save", rw);
       }}
       className={cn(
         "inline-flex h-8 w-8 items-center justify-center rounded-full transition-colors",

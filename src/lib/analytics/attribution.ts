@@ -12,7 +12,11 @@
  * organic browsing never erases the campaign that brought the visitor.
  */
 
+import { classifyReferrer } from "@/lib/analytics/referrer";
+import { trackReferral } from "@/lib/analytics/track-event";
+
 const KEY = "rw_attribution";
+const REF_SENT_KEY = "rw_ref_sent";
 const ATTRIBUTION_TTL_DAYS = 30;
 
 export interface Attribution {
@@ -83,5 +87,41 @@ export function captureAttribution(): void {
     window.localStorage.setItem(KEY, JSON.stringify(record));
   } catch {
     /* storage unavailable (private mode etc.) — attribution is best-effort */
+  }
+}
+
+/**
+ * Once per browser session, record the arrival channel into referrals_daily —
+ * AI assistant / search / social / direct. This is the visit-level GEO/AEO
+ * signal (broader than leads): how many people the site got from each channel.
+ */
+export function captureReferralOncePerSession(): void {
+  if (typeof window === "undefined") return;
+  try {
+    if (window.sessionStorage.getItem(REF_SENT_KEY)) return;
+    window.sessionStorage.setItem(REF_SENT_KEY, "1");
+
+    const sp = new URLSearchParams(window.location.search);
+    let source: string | null = null;
+
+    // External referrer wins (it names HOW they arrived); classify it.
+    try {
+      const ref = document.referrer ? new URL(document.referrer) : null;
+      if (ref && ref.hostname !== window.location.hostname) {
+        source = classifyReferrer(ref.hostname);
+      }
+    } catch {
+      /* malformed referrer */
+    }
+    // Our own tagged links (feed/share) or campaigns name the channel too.
+    if (!source && sp.get("utm_source")) {
+      source = `${(sp.get("utm_medium") || "ref").toLowerCase()}:${sp.get("utm_source")!.toLowerCase()}`.slice(0, 40);
+    }
+    if (!source && (sp.has("gclid") || sp.has("fbclid"))) {
+      source = sp.has("gclid") ? "search:google" : "social:facebook";
+    }
+    trackReferral(source || "direct");
+  } catch {
+    /* best-effort */
   }
 }
