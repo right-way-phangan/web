@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import dynamic from "next/dynamic";
 import { MapSkeleton } from "./map-skeleton";
 import { useInView } from "@/lib/hooks/use-in-view";
@@ -25,6 +26,7 @@ export function ObjectLocationMap({
   mapsUrl,
   plotPolygon,
   showSunset,
+  chips,
 }: {
   lat?: number;
   lng?: number;
@@ -32,6 +34,8 @@ export function ObjectLocationMap({
   mapsUrl?: string;
   plotPolygon?: Array<[number, number]>;
   showSunset?: boolean;
+  // Distance chips (server-rendered, passed in so they stay in the HTML).
+  chips?: ReactNode;
 }) {
   // Defer the Leaflet chunk + tiles until the section scrolls near — it sits
   // well below the fold on the object page.
@@ -70,6 +74,7 @@ export function ObjectLocationMap({
           {district} · {t.locationCountry}
         </p>
       ) : null}
+      {chips}
       <div ref={ref} className="mt-6 h-[360px] w-full">
         {inView ? (
           <Leaflet lat={lat} lng={lng} plotPolygon={plotPolygon} showSunset={showSunset} />

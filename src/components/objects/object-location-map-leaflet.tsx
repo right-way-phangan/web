@@ -24,25 +24,18 @@ import {
   LONGDO_ATTRIBUTION,
 } from "@/lib/leaflet/tiles";
 import { sunsetBearing, offsetPoint } from "@/lib/utils/geo";
+import {
+  type BaseLayer,
+  type LayerPrefs,
+  loadLayerPrefs,
+  saveLayerPrefs,
+} from "@/lib/leaflet/layer-prefs";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { getObjectDict } from "@/lib/i18n/dictionaries";
 import { cn } from "@/lib/utils/cn";
+import { MapLegend } from "./map-legend";
 
 const MAX_ZOOM = 20;
-
-type BaseLayer = "map" | "sat" | "terrain";
-
-// Persisted layer choice — survives across object pages (localStorage).
-const LS_KEY = "rw-map-layers";
-type LayerPrefs = { base: BaseLayer; parcels: boolean; zoning: boolean };
-function loadPrefs(): Partial<LayerPrefs> {
-  if (typeof window === "undefined") return {};
-  try {
-    return JSON.parse(localStorage.getItem(LS_KEY) || "{}") as Partial<LayerPrefs>;
-  } catch {
-    return {};
-  }
-}
 
 // Brass teardrop pin (matches the listings map's idle pin shape).
 const pinIcon = L.divIcon({
@@ -91,7 +84,7 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
   const hasPolygon = (plotPolygon?.length ?? 0) >= 3;
   // Restore the visitor's last layer choice; otherwise a contour reads best
   // over imagery, so default to satellite when one is present.
-  const prefs = useRef<Partial<LayerPrefs>>(loadPrefs()).current;
+  const prefs = useRef<Partial<LayerPrefs>>(loadLayerPrefs()).current;
   const [base, setBase] = useState<BaseLayer>(prefs.base ?? (hasPolygon ? "sat" : "map"));
   const [parcels, setParcels] = useState(prefs.parcels ?? false);
   const [zoning, setZoning] = useState(prefs.zoning ?? false);
@@ -160,13 +153,9 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
 
   useEffect(() => stopWatch, []);
 
-  // Remember the layer choice for the next object page.
+  // Remember the layer choice for the next map (object detail / listings).
   useEffect(() => {
-    try {
-      localStorage.setItem(LS_KEY, JSON.stringify({ base, parcels, zoning } satisfies LayerPrefs));
-    } catch {
-      /* private mode / quota — non-essential */
-    }
+    saveLayerPrefs({ base, parcels, zoning });
   }, [base, parcels, zoning]);
 
   // Sunset-direction arrow from the pin (sea-view / beachfront plots).
@@ -329,44 +318,8 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
         </button>
       </div>
 
-      {/* Zoning legend + source note. */}
-      {zoning || parcels ? (
-        <div className="absolute bottom-2 left-2 z-[1000] max-w-[230px] rounded-sm border border-forest-500/15 bg-cream-100/95 p-2.5 shadow-sm">
-          {zoning ? (
-            <>
-              <p className="text-[10px] font-medium uppercase tracking-wide text-forest-500/70">
-                {t.legendTitle}
-              </p>
-              <ul className="mt-1.5 space-y-1 text-[11px] leading-tight text-forest-900">
-                {(
-                  [
-                    [{ background: "#37A700" }, t.legendRural],
-                    [
-                      { background: "repeating-linear-gradient(45deg,#4BE500 0 3px,#fff 3px 5px)" },
-                      t.legendConservation,
-                    ],
-                    [{ background: "#AFF38E" }, t.legendRecreation],
-                    [{ background: "#FEFE00" }, t.legendResidential],
-                    [{ background: "#ACACAC" }, t.legendOther],
-                  ] as Array<[React.CSSProperties, string]>
-                ).map(([style, label]) => (
-                  <li key={label} className="flex items-center gap-1.5">
-                    <i
-                      className="inline-block h-3 w-3 shrink-0 rounded-[2px] border border-black/10"
-                      style={style}
-                      aria-hidden
-                    />
-                    {label}
-                  </li>
-                ))}
-              </ul>
-            </>
-          ) : null}
-          <p className={cn("text-[10px] leading-snug text-forest-500/70", zoning && "mt-1.5 border-t border-forest-500/10 pt-1.5")}>
-            {t.overlayNote}
-          </p>
-        </div>
-      ) : null}
+      {/* Zoning legend + source note (collapsible, shared with /listings). */}
+      {zoning || parcels ? <MapLegend zoning={zoning} t={t} /> : null}
 
       {/* Transient hints: geolocation error / zoom-in prompt. */}
       {geoError || (parcels && zoom < PARCEL_MIN_ZOOM) ? (
