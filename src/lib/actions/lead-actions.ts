@@ -246,6 +246,33 @@ export async function addTaskAction(formData: FormData): Promise<void> {
   revalidatePath(`/admin/crm/${leadId}`);
 }
 
+/**
+ * One-tap snooze: drop a dated follow-up task on the lead N days out (date-only
+ * → caught by the morning digest). The fast "remind me about this one later"
+ * button on the card, no form.
+ */
+export async function remindLeadAction(leadId: number, days: number): Promise<void> {
+  if (API && leadId && days > 0) {
+    const due = new Date();
+    due.setUTCDate(due.getUTCDate() + days);
+    try {
+      await backendFetch(`/leads/${leadId}/tasks`, {
+        method: "POST",
+        headers: JSON_HEADERS,
+        cache: "no-store",
+        body: JSON.stringify({
+          title: "🔔 Напомнить о лиде",
+          dueAt: due.toISOString().slice(0, 10),
+        }),
+      });
+    } catch (err) {
+      console.error("[crm] remindLead failed:", err);
+    }
+  }
+  revalidatePath(`/admin/crm/${leadId}`);
+  revalidatePath("/admin/crm/tasks");
+}
+
 /** Toggle a task done/undone. */
 export async function toggleTaskAction(
   taskId: number,

@@ -13,6 +13,7 @@ import { DealValue } from "@/components/crm/deal-value";
 import { CommissionValue } from "@/components/crm/commission-value";
 import { TouchButtons } from "@/components/crm/touch-buttons";
 import { leadScore } from "@/lib/crm/score";
+import { LeadSnooze } from "@/components/crm/lead-snooze";
 import { ShareShortlist } from "@/components/crm/share-shortlist";
 import { makeShortlistToken } from "@/lib/shortlist-token";
 import { LeadMatches, type MatchItem } from "@/components/crm/lead-matches";
@@ -424,6 +425,11 @@ export default async function LeadDetailPage({
       <h2 className="mt-8 text-sm font-semibold uppercase tracking-wide text-forest-900/70">
         Задачи
       </h2>
+      {lead.status === "open" && (
+        <div className="mt-2">
+          <LeadSnooze leadId={lead.id} />
+        </div>
+      )}
       <ul className="mt-2 space-y-1.5">
         {lead.tasks.length === 0 && (
           <li className="text-sm text-forest-900/40">Пока нет задач.</li>

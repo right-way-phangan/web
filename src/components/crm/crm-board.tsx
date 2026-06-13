@@ -7,6 +7,7 @@ import { bulkMoveLeads, bulkDeleteLeads } from "@/lib/actions/bulk-leads";
 import { MoveLeadSelect } from "@/components/crm/move-lead-select";
 import { LostReasonDialog } from "@/components/crm/lost-reason-dialog";
 import type { CrmLead, CrmStage } from "@/lib/data/leads";
+import { leadScore } from "@/lib/crm/score";
 
 /**
  * Kanban board with native HTML5 drag-and-drop. Drag a card onto a column to
@@ -191,6 +192,17 @@ export function CrmBoard({
                             href={`/admin/crm/${lead.id}`}
                             className="text-sm font-medium leading-snug text-forest-900 hover:text-brass-600 hover:underline"
                           >
+                            {isOpen && (() => {
+                              const s = leadScore(lead);
+                              return s.level !== "cold" ? (
+                                <span
+                                  title={`Готовность ${s.score}/100`}
+                                  className="mr-1"
+                                >
+                                  {s.emoji}
+                                </span>
+                              ) : null;
+                            })()}
                             {lead.contactName || "—"}
                           </Link>
                         </span>
