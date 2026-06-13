@@ -6,7 +6,16 @@ import { AdminNav } from "@/components/admin/admin-nav";
 import { GuideNav } from "@/components/admin/guide-nav";
 import { GuideArticle } from "@/components/admin/guide-article";
 import { GuideToc } from "@/components/admin/guide-toc";
-import { GUIDE_SECTIONS, extractGuideHeadings, getGuidePage, getGuidePages } from "@/lib/data/guide";
+import {
+  GUIDE_SECTIONS,
+  extractGuideHeadings,
+  getGuidePage,
+  getGuidePages,
+  type GuideLiveData,
+} from "@/lib/data/guide";
+import { ADMIN_SECTIONS } from "@/lib/admin-sections";
+import { getPipelines, getLeads, CRM_ENABLED } from "@/lib/data/leads";
+import { getAllObjects } from "@/lib/data/objects";
 
 export const dynamic = "force-dynamic";
 
@@ -42,6 +51,40 @@ export default async function GuidePageView({ params }: { params: Params }) {
   const sectionTitle = GUIDE_SECTIONS.find((s) => s.id === page.section)?.title ?? "";
   const headings = extractGuideHeadings(page.body);
 
+  // Живые данные собираем только если страница их использует (маркеры {{…}}),
+  // чтобы не дёргать CRM/каталог на страницах без них.
+  const live: GuideLiveData = {};
+  if (page.body.includes("{{stages}}") && CRM_ENABLED) {
+    try {
+      const pipes = await getPipelines();
+      live.stages = pipes
+        .filter((p) => p.stages.length > 0)
+        .map((p) => ({
+          pipeline: p.name,
+          stages: [...p.stages].sort((a, b) => a.sort - b.sort).map((s) => s.name),
+        }));
+    } catch {
+      /* CRM недоступен — маркер покажет fallback */
+    }
+  }
+  if (page.body.includes("{{admin-sections}}")) {
+    live.adminSections = ADMIN_SECTIONS.filter((s) => s.needsGuide).map((s) => ({
+      label: s.label,
+      href: s.href,
+    }));
+  }
+  if (page.body.includes("{{stats}}")) {
+    try {
+      const [objects, leads] = await Promise.all([
+        getAllObjects(),
+        CRM_ENABLED ? getLeads() : Promise.resolve([]),
+      ]);
+      live.stats = { objects: objects.length, leads: leads.length };
+    } catch {
+      /* источники недоступны — маркер покажет fallback */
+    }
+  }
+
   return (
     <section className="px-4 py-8 md:px-8">
       <AdminNav active="guide" />
@@ -58,8 +101,15 @@ export default async function GuidePageView({ params }: { params: Params }) {
           {page.updated ? (
             <p className="mt-2 text-xs text-forest-900/45">обновлено {fmtDate(page.updated)}</p>
           ) : null}
+          {page.draft && (
+            <div className="mt-4 rounded-xl border border-brass-500/40 bg-brass-500/[0.07] px-4 py-3 text-sm text-forest-900/85">
+              <strong className="font-semibold text-brass-600">✎ Черновик на проверке.</strong>{" "}
+              Эта страница сгенерирована автоматически под новую фишку и ждёт твоего
+              подтверждения — прочитай, поправь при необходимости и сними статус черновика.
+            </div>
+          )}
           <div className="mt-6">
-            <GuideArticle md={page.body} slug={slug} />
+            <GuideArticle md={page.body} slug={slug} live={live} />
           </div>
 
           {/* Перелистывание по оглавлению */}

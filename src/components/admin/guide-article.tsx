@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Route } from "next";
 import { GuideChecklist } from "@/components/admin/guide-checklist";
 import { GuideQuiz } from "@/components/admin/guide-quiz";
+import type { GuideLiveData } from "@/lib/data/guide";
 
 /**
  * Markdown-рендерер внутреннего справочника (/admin/guide). Расширенный
@@ -97,6 +98,7 @@ type Block =
   | { kind: "code"; lines: string[] }
   | { kind: "table"; header: string[]; rows: string[][] }
   | { kind: "quiz" }
+  | { kind: "live"; name: "stages" | "admin-sections" | "stats" }
   | { kind: "hr" };
 
 function splitRow(line: string): string[] {
@@ -136,6 +138,13 @@ function parseBlocks(md: string): Block[] {
     // Маркер встраивания квиза самопроверки (страница «Проверь себя»).
     if (t === "{{quiz}}") {
       blocks.push({ kind: "quiz" });
+      i++;
+      continue;
+    }
+    // Живые данные: маркер подставляет актуальное состояние системы.
+    const liveM = /^\{\{(stages|admin-sections|stats)\}\}$/.exec(t);
+    if (liveM) {
+      blocks.push({ kind: "live", name: liveM[1] as "stages" | "admin-sections" | "stats" });
       i++;
       continue;
     }
@@ -205,7 +214,90 @@ function parseBlocks(md: string): Block[] {
 
 // ─── Рендер ───
 
-export function GuideArticle({ md, slug }: { md: string; slug: string }) {
+/** Рендер live-маркера. Данных нет (источник недоступен) — короткий fallback. */
+function LiveBlock({ name, live }: { name: "stages" | "admin-sections" | "stats"; live?: GuideLiveData }) {
+  const wrap = "rounded-xl border border-forest-900/10 bg-forest-50/40 p-4";
+  const tag = (
+    <span className="mb-2 inline-block rounded bg-forest-500/10 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-forest-500">
+      ● актуально из системы
+    </span>
+  );
+  if (name === "stages") {
+    const pipes = live?.stages ?? [];
+    if (pipes.length === 0)
+      return <p className="text-sm text-forest-900/50">Стадии воронок подгружаются из CRM.</p>;
+    return (
+      <div className={wrap}>
+        {tag}
+        <div className="space-y-3">
+          {pipes.map((p) => (
+            <div key={p.pipeline}>
+              <p className="text-sm font-semibold text-forest-900">{p.pipeline}</p>
+              <div className="mt-1 flex flex-wrap items-center gap-1.5 text-sm text-forest-900/70">
+                {p.stages.map((s, i) => (
+                  <span key={i} className="inline-flex items-center gap-1.5">
+                    {i > 0 && <span className="text-forest-900/30">→</span>}
+                    <span className="rounded-full bg-white px-2 py-0.5 ring-1 ring-forest-900/10">{s}</span>
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+  if (name === "admin-sections") {
+    const secs = live?.adminSections ?? [];
+    if (secs.length === 0)
+      return <p className="text-sm text-forest-900/50">Разделы админки подгружаются.</p>;
+    return (
+      <div className={wrap}>
+        {tag}
+        <ul className="flex flex-wrap gap-2">
+          {secs.map((s) => (
+            <li key={s.href}>
+              <Link
+                href={s.href as Route}
+                className="inline-block rounded-full bg-white px-3 py-1 text-sm text-forest-900/80 ring-1 ring-forest-900/10 hover:text-brass-600"
+              >
+                {s.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+  // stats
+  const st = live?.stats;
+  if (!st) return <p className="text-sm text-forest-900/50">Счётчики подгружаются.</p>;
+  return (
+    <div className={wrap}>
+      {tag}
+      <div className="flex gap-6">
+        <div>
+          <p className="font-serif text-2xl text-forest-900">{st.objects}</p>
+          <p className="text-xs text-forest-900/55">объектов в каталоге</p>
+        </div>
+        <div>
+          <p className="font-serif text-2xl text-forest-900">{st.leads}</p>
+          <p className="text-xs text-forest-900/55">лидов в CRM</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function GuideArticle({
+  md,
+  slug,
+  live,
+}: {
+  md: string;
+  slug: string;
+  live?: GuideLiveData;
+}) {
   const blocks = parseBlocks(md);
   return (
     <div className="space-y-5 text-[15px] leading-relaxed text-forest-900/80">
@@ -257,6 +349,8 @@ export function GuideArticle({ md, slug }: { md: string; slug: string }) {
             return <GuideChecklist key={i} items={b.items} storageKey={`${slug}:${i}`} />;
           case "quiz":
             return <GuideQuiz key={i} />;
+          case "live":
+            return <LiveBlock key={i} name={b.name} live={live} />;
           case "quote": {
             const text = b.lines.join(" ");
             const alarm = /^[⚠🔴❗]/u.test(text);
