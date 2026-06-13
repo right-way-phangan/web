@@ -19,6 +19,9 @@ const SP = {
     plots: (n: number) => `${n} ${n === 1 ? "plot" : "plots"}`,
     footnote:
       "Medians from a live snapshot of active listings — indicative, not a valuation. Plots vary by access, zoning, and frontage.",
+    ctaPre: "Own land or a villa here? ",
+    ctaLink: "Get a free estimate of your property",
+    ctaPost: " — built on this same data.",
   },
   ru: {
     title: "Цены на землю по районам",
@@ -32,6 +35,9 @@ const SP = {
     plots: (n: number) => `${n} ${pluralPlots(n)}`,
     footnote:
       "Медианы по живому срезу активных объявлений — ориентир, не оценка. Участки различаются по доступу, зонированию и фронту.",
+    ctaPre: "Владеете тут участком или виллой? ",
+    ctaLink: "Получите бесплатную оценку",
+    ctaPost: " — по этим же данным.",
   },
 } as const;
 
@@ -119,6 +125,16 @@ export function SalePrices({
       </div>
 
       <p className="mt-3 text-[11px] text-forest-500/45">{t.footnote}</p>
+      <p className="mt-4 text-sm text-forest-900/80">
+        {t.ctaPre}
+        <Link
+          href={`${base}/tools/estimate` as Route}
+          className="font-medium text-brass-500 underline underline-offset-2 hover:text-brass-600"
+        >
+          {t.ctaLink}
+        </Link>
+        {t.ctaPost}
+      </p>
     </section>
   );
 }
