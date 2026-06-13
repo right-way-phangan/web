@@ -1,6 +1,8 @@
 "use client";
 
 import { useActionState, useEffect, useState, useRef } from "react";
+import Link from "next/link";
+import type { Route } from "next";
 import { useFormStatus } from "react-dom";
 import { track } from "@vercel/analytics";
 import { track as gtmTrack } from "@/lib/analytics/track";
@@ -198,7 +200,16 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
 
       <SubmitButton label={submitLabel ?? t.submit} sendingLabel={t.sending} />
 
-      <p className="text-center text-[11px] text-forest-500/50">{t.privacy}</p>
+      <p className="text-center text-[11px] text-forest-500/50">
+        {t.privacyConsent}{" "}
+        <Link
+          href={(locale === "ru" ? "/ru/privacy" : "/privacy") as Route}
+          className="underline underline-offset-2 hover:text-brass-500"
+        >
+          {t.privacyLink}
+        </Link>
+        .
+      </p>
     </form>
   );
 }

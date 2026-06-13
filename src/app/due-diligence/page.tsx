@@ -130,6 +130,15 @@ export default function DueDiligencePage() {
             handle, and we&rsquo;ll introduce you to lawyers we trust if you don&rsquo;t
             have your own.
           </p>
+          <p className="mt-4 max-w-prose text-sm leading-relaxed text-forest-500/60">
+            The <strong className="font-medium text-forest-500/80">Vetted by Right Way</strong>{" "}
+            badge means a property passed these listing-stage checks on the date shown — a
+            good-faith screen using the documents and public records available to us at
+            that time. It is not a legal guarantee of title, boundaries or buildability,
+            and conditions can change after the date of the check. The binding
+            verification is the transaction-stage due diligence and the independent legal
+            review before any transfer.
+          </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
             <Button asChild variant="primary" size="md">
               <Link href="/listings">Browse verified listings</Link>

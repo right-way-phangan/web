@@ -300,6 +300,8 @@ export interface FormDict {
   sending: string;
   success: string;
   privacy: string;
+  privacyConsent: string; // префикс перед ссылкой на /privacy
+  privacyLink: string; // текст ссылки на политику
 }
 
 const form: Record<Locale, FormDict> = {
@@ -316,6 +318,8 @@ const form: Record<Locale, FormDict> = {
     sending: "Sending…",
     success: "Thanks — we'll be in touch within the working day.",
     privacy: "We reply within the working day. No spam, ever.",
+    privacyConsent: "By sending, you agree we may contact you about your enquiry. See our",
+    privacyLink: "privacy policy",
   },
   ru: {
     name: "Имя",
@@ -330,6 +334,8 @@ const form: Record<Locale, FormDict> = {
     sending: "Отправляем…",
     success: "Спасибо — ответим в течение рабочего дня.",
     privacy: "Отвечаем в течение рабочего дня. Без спама.",
+    privacyConsent: "Отправляя, вы соглашаетесь, что мы можем связаться с вами по вашему обращению. См.",
+    privacyLink: "политику конфиденциальности",
   },
 };
 

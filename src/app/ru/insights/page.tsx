@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/sections/page-hero";
+import { Disclaimer } from "@/components/legal/disclaimer";
 import { RentalInsights } from "@/components/insights/rental-insights";
 import { SalePrices } from "@/components/insights/sale-prices";
 import { DatasetJsonLd } from "@/components/seo/dataset-json-ld";
@@ -34,6 +35,7 @@ export default async function RussianInsightsPage() {
       <div className="container-prose mt-12 space-y-14 md:mt-16 md:space-y-20">
         <SalePrices stats={salePrices} locale="ru" />
         <RentalInsights data={data} inventory={inventory} />
+        <Disclaimer locale="ru" />
       </div>
     </section>
   );

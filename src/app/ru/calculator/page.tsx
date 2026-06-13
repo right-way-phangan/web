@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/sections/page-hero";
+import { Disclaimer } from "@/components/legal/disclaimer";
 import { RoiCalculator } from "@/components/calculator/roi-calculator";
 import { MarketMiniBlock } from "@/components/calculator/market-preset";
 import { BuildProForma } from "@/components/calculator/build-proforma";
@@ -56,6 +57,7 @@ export default async function RussianCalculatorPage({
         <div className="mt-6 md:mt-8">
           <BuildProForma market={market} />
         </div>
+        <Disclaimer locale="ru" />
       </div>
     </section>
   );
