@@ -58,9 +58,15 @@ function thumbHue(rw: string): number {
 
 interface Props {
   object: RealEstateObject;
+  /**
+   * Eager-load the cover (priority) for the few cards above the fold. The grid's
+   * first photo is the page LCP on /listings; left at the default lazy it loads
+   * late and pushed LCP to ~6s. Pass for the first ~4 cards only.
+   */
+  priority?: boolean;
 }
 
-export function ObjectCard({ object }: Props) {
+export function ObjectCard({ object, priority = false }: Props) {
   const TypeIcon = TYPE_ICON[object.type];
   const hue = thumbHue(object.rwNumber);
   const locale = useLocale();
@@ -97,6 +103,7 @@ export function ObjectCard({ object }: Props) {
             sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
             placeholder="blur"
             blurDataURL={BLUR_PLACEHOLDER}
+            priority={priority}
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (

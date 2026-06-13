@@ -134,13 +134,19 @@ export function HeroBackground({
               aria-label={`Show scene ${i + 1}`}
               aria-current={i === idx}
               onClick={() => setIdx(i)}
-              className={[
-                "h-1.5 rounded-full transition-all duration-300",
-                i === idx
-                  ? "w-6 bg-cream-50"
-                  : "w-1.5 bg-cream-50/40 hover:bg-cream-50/70",
-              ].join(" ")}
-            />
+              // 24×24 tap target (WCAG 2.5.8) via the flex box; the visible dot
+              // stays small inside it.
+              className="group/dot flex h-6 w-6 items-center justify-center"
+            >
+              <span
+                className={[
+                  "h-1.5 rounded-full transition-all duration-300",
+                  i === idx
+                    ? "w-6 bg-cream-50"
+                    : "w-1.5 bg-cream-50/40 group-hover/dot:bg-cream-50/70",
+                ].join(" ")}
+              />
+            </button>
           ))}
         </div>
       ) : null}
