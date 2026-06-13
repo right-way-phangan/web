@@ -11,6 +11,18 @@ import { getPublicProjects, projectSlug, isProjectUnit, getDevelopers } from "@/
 
 export const revalidate = 3600; // 1 hour — fresh enough for new listings
 
+/**
+ * amoCRM `dateAdded` is a Unix-seconds string ("1755018000"); some rows may
+ * also carry an ISO date or junk. Return a valid Date or the fallback — never
+ * an Invalid Date (which would throw on serialization).
+ */
+function parseListingDate(raw: string | undefined, fallback: Date): Date {
+  if (!raw) return fallback;
+  const secs = Number(raw);
+  const d = Number.isFinite(secs) && secs > 0 ? new Date(secs * 1000) : new Date(raw);
+  return Number.isNaN(d.getTime()) ? fallback : d;
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = getSiteUrl();
   const now = new Date();
@@ -114,10 +126,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     };
     // Honest lastmod from the listing's own date — `now` on every entry tells
     // Google "everything changed this hour", which erodes trust in the signal.
-    // dateAdded is free-form from amoCRM; an unparseable value would make
-    // Date#toISOString() throw and kill the whole sitemap prerender → fall back.
-    const parsed = o.dateAdded ? new Date(o.dateAdded) : now;
-    const lastModified = Number.isNaN(parsed.getTime()) ? now : parsed;
+    // dateAdded comes from amoCRM as a Unix-seconds STRING ("1755018000"), not
+    // ISO; new Date(thatString) is Invalid → toISOString() throws and kills the
+    // whole sitemap prerender. Parse seconds when numeric, tolerate ISO, fall
+    // back to `now` on anything unparseable.
+    const lastModified = parseListingDate(o.dateAdded, now);
     return [
       {
         url: `${base}/object/${o.rwNumber}`,
