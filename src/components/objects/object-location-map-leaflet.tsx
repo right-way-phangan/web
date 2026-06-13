@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { MapContainer, TileLayer, Marker, Circle, Polygon, Polyline, useMapEvents } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Circle, Polygon, Polyline, AttributionControl, useMapEvents } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { LocateFixed } from "lucide-react";
@@ -184,7 +184,10 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
         scrollWheelZoom={false}
         className="h-full w-full"
         style={{ background: "#e8e4da" }}
+        // Tile credits are ToS-required, but kept tiny (CSS) + no "Leaflet" prefix.
+        attributionControl={false}
       >
+        <AttributionControl prefix={false} />
         <ZoomWatcher onZoom={setZoom} />
         {base === "sat" ? (
           <TileLayer

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, AttributionControl, useMap, useMapEvents } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -216,7 +216,10 @@ export default function ListingsMap({
         // /listings are Leaflet's decorative basemap tiles (third-party); the
         // accessible handle belongs on the map container, not each tile.
         aria-label="Interactive map of Koh Phangan property listings"
+        // Tile credits are ToS-required, but kept tiny (CSS) + no "Leaflet" prefix.
+        attributionControl={false}
       >
+        <AttributionControl prefix={false} />
         {base === "sat" ? (
           <TileLayer
             key="base-sat"
