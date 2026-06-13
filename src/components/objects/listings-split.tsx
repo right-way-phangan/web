@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { track } from "@vercel/analytics";
 import { LayoutGrid, Map as MapIcon } from "lucide-react";
@@ -54,8 +54,20 @@ export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
   const listRef = useRef<HTMLDivElement>(null);
 
   const isDesktop = useMediaQuery("(min-width: 1024px)");
+  // Desktop: defer the Leaflet chunk until the browser is idle so its hydration
+  // doesn't compete with the photo-grid LCP. The map area shows a skeleton until
+  // then. `{ timeout }` guarantees it still mounts under sustained load.
+  const [mapReady, setMapReady] = useState(false);
+  useEffect(() => {
+    if (typeof window.requestIdleCallback === "function") {
+      const id = window.requestIdleCallback(() => setMapReady(true), { timeout: 2000 });
+      return () => window.cancelIdleCallback(id);
+    }
+    const id = window.setTimeout(() => setMapReady(true), 1200);
+    return () => window.clearTimeout(id);
+  }, []);
   // Don't load the Leaflet chunk on mobile until the map tab is actually opened.
-  const mountMap = isDesktop || mobileView === "map";
+  const mountMap = (isDesktop && mapReady) || mobileView === "map";
 
   // Pin click → select the card and bring it into view.
   const handleSelect = useCallback((rw: string) => {

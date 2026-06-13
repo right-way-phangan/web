@@ -24,9 +24,12 @@ const sans = Inter({
   display: "swap",
 });
 
+// Only 400 (default) and 600 (one semibold spot) are used across the site —
+// declaring 500/700 preloaded two font files that never paint. Trimming to the
+// two real weights halves the serif payload on the LCP path.
 const serif = Cormorant_Garamond({
   subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "600"],
   variable: "--font-serif",
   display: "swap",
 });
