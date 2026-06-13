@@ -104,6 +104,12 @@ export interface RealEstateObject {
   ddLawyer?: string;   // кто дал вердикт — НЕ публичное (режется в sanitizePublicObject)
   ddChecklist?: Record<string, boolean>; // пункты V1–V7 — НЕ публичное
 
+  // Обзвон собственников (/admin/outreach) — НЕ публичное
+  outreachStatus?: string; // confirmed | archived | leasehold_ok | no_answer
+  outreachNote?: string;
+  outreachDate?: string;
+  outreachAttempts?: number;
+
   // External
   driveFolder?: string;       // Google Drive
   locationUrl?: string;       // Google Maps

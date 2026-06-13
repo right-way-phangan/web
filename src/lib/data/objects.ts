@@ -29,13 +29,21 @@ const OBJECTS_API_URL = process.env.OBJECTS_API_URL;
  * getAllObjects, which stays unsanitized.
  */
 export function sanitizePublicObject(o: RealEstateObject): RealEstateObject {
-  const { ownerName, driveFolder, docs, circleCode, ddLawyer, ddChecklist, ...pub } = o;
+  const {
+    ownerName, driveFolder, docs, circleCode, ddLawyer, ddChecklist,
+    outreachStatus, outreachNote, outreachDate, outreachAttempts,
+    ...pub
+  } = o;
   void ownerName;
   void driveFolder;
   void docs;
   void circleCode;
   void ddLawyer; // имя юриста — внутреннее; публично только ddStatus/ddDate
   void ddChecklist;
+  void outreachStatus; // обзвон собственников — целиком внутреннее
+  void outreachNote;
+  void outreachDate;
+  void outreachAttempts;
   return pub;
 }
 
@@ -75,6 +83,9 @@ export function slimObjectForCard(o: RealEstateObject): RealEstateObject {
     bedrooms: o.bedrooms,
     coverImage: o.coverImage,
     dateAdded: o.dateAdded,
+    // ранжирование похожих (dist2) и карты работают по координатам — публичны
+    lat: o.lat,
+    lng: o.lng,
     seaView: o.seaView,
     beachfront: o.beachfront,
     mountainView: o.mountainView,
