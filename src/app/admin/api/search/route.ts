@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getLeads, type CrmLead } from "@/lib/data/leads";
 import { getAllObjects } from "@/lib/data/objects";
+import { getGuidePages } from "@/lib/data/guide";
 import type { RealEstateObject } from "@/types/object";
 
 export const dynamic = "force-dynamic";
@@ -54,6 +55,23 @@ export async function GET(req: Request) {
     if (matches([p.title, p.keywords], q)) {
       hits.push({ kind: "page", title: p.title, subtitle: "страница", href: p.href });
     }
+  }
+
+  // Страницы справочника — ищутся по заголовку, аннотации и keywords из
+  // фронтматтера (файлы маленькие, читаются с диска на каждый запрос).
+  try {
+    for (const g of getGuidePages()) {
+      if (matches([g.title, g.summary, g.keywords, "справочник guide"], q)) {
+        hits.push({
+          kind: "page",
+          title: `Справочник · ${g.title}`,
+          subtitle: "справочник",
+          href: `/admin/guide/${g.slug}`,
+        });
+      }
+    }
+  } catch {
+    /* справочник недоступен — поиск работает дальше */
   }
 
   let n = 0;
