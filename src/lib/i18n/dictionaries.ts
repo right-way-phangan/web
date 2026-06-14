@@ -244,7 +244,7 @@ const chrome: Record<Locale, ChromeDict> = {
           { label: "Калькулятор", href: "/ru/calculator" },
           { label: "Аналитика", href: "/ru/insights" },
           { label: "База знаний", href: "/ru/knowledge" },
-          { label: "Что мы проверяем", href: "/due-diligence" },
+          { label: "Что мы проверяем", href: "/ru/due-diligence" },
           { label: "FAQ", href: "/ru/faq" },
         ],
       },
