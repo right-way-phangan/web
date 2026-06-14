@@ -190,6 +190,27 @@ export default async function KnowledgeArticlePage({ params }: Props) {
           </div>
         </section>
       ) : null}
+
+      <section className="border-t border-forest-500/10 bg-cream-50">
+        <div className="container-prose py-16 md:py-20">
+          <h2 className="font-serif text-3xl text-forest-900 md:text-4xl">
+            From reading to doing.
+          </h2>
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-forest-500/75">
+            Every property we list passes checks like these — title, zoning,
+            access and the real numbers — before it goes live. Browse what&rsquo;s
+            available, or find out what your own land or villa is worth.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
+            <Button asChild variant="primary" size="md">
+              <Link href="/listings">Browse listings</Link>
+            </Button>
+            <Button asChild variant="outline" size="md">
+              <Link href="/sell">Sell with us</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
     </article>
   );
 }

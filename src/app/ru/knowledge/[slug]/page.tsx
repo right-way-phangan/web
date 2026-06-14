@@ -183,6 +183,27 @@ export default async function RussianKnowledgeArticlePage({ params }: Props) {
           </div>
         </section>
       ) : null}
+
+      <section className="border-t border-forest-500/10 bg-cream-50">
+        <div className="container-prose py-16 md:py-20">
+          <h2 className="font-serif text-3xl text-forest-900 md:text-4xl">
+            От чтения — к делу.
+          </h2>
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-forest-500/75">
+            Каждый наш объект до публикации проходит такие же проверки — титул,
+            зонирование, доступ и реальные цифры. Посмотрите, что есть в продаже,
+            или узнайте, сколько стоит ваша земля или вилла.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
+            <Button asChild variant="primary" size="md">
+              <Link href={"/ru/listings" as Route}>Смотреть объекты</Link>
+            </Button>
+            <Button asChild variant="outline" size="md">
+              <Link href={"/ru/sell" as Route}>Продать с нами</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
     </article>
   );
 }
