@@ -101,8 +101,10 @@ const CHECKS: CheckDef[] = [
   },
 ];
 
-export async function getCatalogHealth(): Promise<CatalogHealth> {
-  const inPlay = (await getAllObjects()).filter(
+// Чистое ядро — над уже загруженным списком объектов, чтобы дашборд
+// переиспользовал свой getAllObjects() без второго запроса к amoCRM.
+export function computeCatalogHealth(objects: RealEstateObject[]): CatalogHealth {
+  const inPlay = objects.filter(
     (o) => !isUnit(o.rwNumber) && ["Active", "Reserved", "Hold"].includes(o.status),
   );
 
@@ -124,4 +126,8 @@ export async function getCatalogHealth(): Promise<CatalogHealth> {
     });
 
   return { checked: inPlay.length, okObjects: inPlay.length - flagged.size, checks };
+}
+
+export async function getCatalogHealth(): Promise<CatalogHealth> {
+  return computeCatalogHealth(await getAllObjects());
 }

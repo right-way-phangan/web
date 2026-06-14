@@ -1,0 +1,70 @@
+# Утренний разбор здоровья каталога: панель /admin/health реактивна (надо зайти).
+# Раз в день дёргаем токен-защищённый /api/health-summary и, если есть critical
+# (Active без фото / пустая дата, ломавшая билд / кириллица в EN), шлём в
+# @rightway_admin_notify_bot — чтобы ловить тихие баги за сутки, а не «когда
+# заметят». Переиспользует Telegram-секреты prod-smoke; логика health не дублируется.
+#
+# Чтобы «вооружить»: задать одинаковую случайную строку HEALTH_PING_TOKEN
+#   (1) repo secret и (2) Vercel env (Production). Без неё эндпоинт = 404,
+#   воркфлоу тихо пропускает (secure-by-default).
+name: Catalog health
+
+on:
+  schedule:
+    - cron: "31 1 * * *" # 01:31 UTC ≈ 08:31 Asia/Bangkok, daily
+  workflow_dispatch:
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull health summary
+        id: pull
+        env:
+          TOKEN: ${{ secrets.HEALTH_PING_TOKEN }}
+        run: |
+          if [ -z "${TOKEN}" ]; then
+            echo "HEALTH_PING_TOKEN не задан — алерт не вооружён, пропускаю."
+            echo "armed=no" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          code=$(curl -s --max-time 40 -o /tmp/health.json -w '%{http_code}' \
+            -H "Authorization: Bearer ${TOKEN}" \
+            https://rightwaygroup.co/api/health-summary) || code=000
+          echo "HTTP ${code}"
+          if [ "$code" = "404" ]; then
+            echo "Эндпоинт 404 — HEALTH_PING_TOKEN не задан в Vercel env. Пропускаю."
+            echo "armed=no" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [ "$code" != "200" ]; then
+            echo "::warning::health-summary вернул HTTP ${code} (не 200) — проверь токен/деплой."
+            echo "armed=no" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          crit=$(jq -r '.criticalCount // 0' /tmp/health.json)
+          warn=$(jq -r '.warnCount // 0' /tmp/health.json)
+          echo "armed=yes" >> "$GITHUB_OUTPUT"
+          echo "critical=${crit}" >> "$GITHUB_OUTPUT"
+          echo "warn=${warn}" >> "$GITHUB_OUTPUT"
+
+      - name: Alert Telegram (critical only)
+        if: steps.pull.outputs.armed == 'yes' && steps.pull.outputs.critical != '0'
+        env:
+          BOT: ${{ secrets.TELEGRAM_NOTIFY_BOT_TOKEN }}
+          CHAT: ${{ secrets.TELEGRAM_NOTIFY_CHAT_ID }}
+        run: |
+          lines=$(jq -r '
+            .items[] | select(.severity=="critical")
+            | "• \(.label): \(.count) (\(.rwNumbers | join(", ")))"
+          ' /tmp/health.json)
+          warn=$(jq -r '.warnCount // 0' /tmp/health.json)
+          msg="🟠 Здоровье каталога — критичные пробелы:
+          ${lines}
+
+          Предупреждений (warn): ${warn}.
+          Разбор: https://rightwaygroup.co/admin/health"
+          curl -s --max-time 20 "https://api.telegram.org/bot${BOT}/sendMessage" \
+            -d chat_id="${CHAT}" \
+            --data-urlencode text="${msg}" \
+            -d disable_web_page_preview=true >/dev/null
