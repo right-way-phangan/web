@@ -59,6 +59,12 @@ export const FACTOR_DEFS: FactorDef[] = [
   { key: "beach.near", group: "location", label: "Близко к пляжу (~1 км)", value: 1, note: "Якорь-нейтраль" },
   { key: "beach.mid", group: "location", label: "Средне от пляжа (~3 км)", value: 0.95 },
   { key: "beach.far", group: "location", label: "Далеко от пляжа (≥6 км)", value: 0.88, note: "Вглубь острова — дешевле за рай" },
+  // Удобство/доступность — расстояние до Тонгсалы (город/паром/услуги), отдельно
+  // от пляжа. Скромная; ось «центрально ↔ удалённо». Только при координатах.
+  { key: "town.central", group: "location", label: "Центрально (≤2 км до Тонгсалы)", value: 1.04 },
+  { key: "town.near", group: "location", label: "Близко к городу (~6 км)", value: 1, note: "Якорь-нейтраль" },
+  { key: "town.mid", group: "location", label: "Средне от города (~12 км)", value: 0.96 },
+  { key: "town.far", group: "location", label: "Удалённо (≥20 км)", value: 0.93 },
 
   // Дорога до участка
   { key: "road.paved", group: "road", label: "Дорога: асфальт/бетон", value: 1 },

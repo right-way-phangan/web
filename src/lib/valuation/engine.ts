@@ -147,6 +147,8 @@ export interface ValuationResult {
     rentVerdict?: "fair" | "over" | "under";
   };
   askingVerdict?: { askingPrice: number; deltaPct: number; verdict: "fair" | "over" | "under" };
+  /** Ликвидность сегмента: типичное время на рынке у похожих объявлений (не цена). */
+  liquidity?: { medianMonths: number; staleSharePct: number; n: number; verdict: "fast" | "normal" | "slow" };
   /** Рычаги: на сколько % двигает оценку каждый фактор (аргументы для торга, админка). */
   sensitivity?: Array<{ label: string; deltaPct: number; applied: boolean }>;
   caveats: string[];
@@ -302,6 +304,44 @@ function beachFactor(
     mult = ma + (mb - ma) * t;
   }
   return { label: `До пляжа ${km.toFixed(1)} км`, mult, km };
+}
+
+/** Тонгсала — главный город/паромный хаб острова, опора «центрально ↔ удалённо». */
+const THONG_SALA: readonly [number, number] = [9.7095, 100.013];
+
+/**
+ * Поправка «удобство/доступность» — расстояние до Тонгсалы (город, паром, услуги).
+ * Ось, ОТДЕЛЬНАЯ от близости к пляжу: удалённый северный пляж бывает и
+ * туристически ценным, и неудобным по логистике. Скромная (±~6%), непрерывная,
+ * редактируемые точки town.*; нужны координаты (иначе null, как у beachFactor).
+ */
+function townFactor(
+  lat: number | null | undefined,
+  lng: number | null | undefined,
+  f: FactorMap,
+): { label: string; mult: number; km: number } | null {
+  if (lat == null || lng == null || !Number.isFinite(lat) || !Number.isFinite(lng)) return null;
+  if (lat < 9.5 || lat > 9.9 || lng < 99.8 || lng > 100.2) return null;
+  const km = haversineKm(lat, lng, THONG_SALA[0], THONG_SALA[1]);
+  const val = (key: string, dflt: number) => (f[key] !== undefined ? f[key] : dflt);
+  const pts: Array<[number, number]> = [
+    [2, val("town.central", 1.04)],
+    [6, val("town.near", 1.0)],
+    [12, val("town.mid", 0.96)],
+    [20, val("town.far", 0.93)],
+  ];
+  let mult: number;
+  if (km <= pts[0][0]) mult = pts[0][1];
+  else if (km >= pts[pts.length - 1][0]) mult = pts[pts.length - 1][1];
+  else {
+    let i = 0;
+    while (i < pts.length - 2 && km > pts[i + 1][0]) i++;
+    const [a, ma] = pts[i];
+    const [b, mb] = pts[i + 1];
+    const t = (km - a) / (b - a);
+    mult = ma + (mb - ma) * t;
+  }
+  return { label: `До Тонгсалы ${km.toFixed(1)} км`, mult, km };
 }
 
 function zoneFactorKey(s: string | null | undefined): { key: string; label: string } | null {
@@ -517,6 +557,8 @@ function landFactor(
     const bf = beachFactor(p.lat, p.lng, f);
     if (bf && Math.abs(bf.mult - 1) > 1e-6) parts.push({ label: bf.label, mult: bf.mult });
   }
+  const tf = townFactor(p.lat, p.lng, f);
+  if (tf && Math.abs(tf.mult - 1) > 1e-6) parts.push({ label: tf.label, mult: tf.mult });
   return { mult: parts.reduce((m, x) => m * x.mult, 1), parts };
 }
 
@@ -543,6 +585,8 @@ function villaFactor(
     const bf = beachFactor(p.lat, p.lng, f);
     if (bf && Math.abs(bf.mult - 1) > 1e-6) parts.push({ label: bf.label, mult: bf.mult });
   }
+  const tf = townFactor(p.lat, p.lng, f);
+  if (tf && Math.abs(tf.mult - 1) > 1e-6) parts.push({ label: tf.label, mult: tf.mult });
   return { mult: parts.reduce((m, x) => m * x.mult, 1), parts };
 }
 
@@ -1000,7 +1044,36 @@ function buildSensitivity(
     const bf = beachFactor(subject.lat, subject.lng, f);
     if (bf) addActual(bf.label, bf.mult);
   }
+  const tf = townFactor(subject.lat, subject.lng, f);
+  if (tf) addActual(tf.label, tf.mult);
   return out.sort((a, b) => Math.abs(b.deltaPct) - Math.abs(a.deltaPct));
+}
+
+/**
+ * Сигнал ликвидности сегмента (не цена): типичное время на рынке у похожих
+ * активных объявлений + доля «зависших». Из `onMarketMonths` компсов того же типа
+ * (район при ≥5, иначе остров). Это время для ещё НЕ проданных (правый цензор) —
+ * относительный индикатор «как долго стоит сегмент», не «время до продажи».
+ * Аргумент для стратегии цены: медленный сегмент → агрессивнее или дольше держать.
+ */
+function computeLiquidity(subject: ValuationSubject, data: EngineData): ValuationResult["liquidity"] {
+  const subjType = typeNorm(subject.type);
+  const staleMo = data.factors["market.stale_months"] ?? 9;
+  const sameType = data.comps.filter((c) => typeNorm(c.type) === subjType);
+  const inDistrict = subject.district
+    ? sameType.filter((c) => (c.district ?? "").toLowerCase() === subject.district!.toLowerCase())
+    : [];
+  const pool = inDistrict.length >= 5 ? inDistrict : sameType;
+  const withMonths = pool.filter((c) => c.onMarketMonths != null && c.onMarketMonths >= 0);
+  if (withMonths.length < 3) return undefined;
+  const months = withMonths.map((c) => c.onMarketMonths!).sort((a, b) => a - b);
+  const staleShare = withMonths.filter((c) => c.onMarketMonths! > staleMo).length / withMonths.length;
+  return {
+    medianMonths: Math.round(quantile(months, 0.5) * 10) / 10,
+    staleSharePct: Math.round(staleShare * 100),
+    n: withMonths.length,
+    verdict: staleShare >= 0.5 ? "slow" : staleShare <= 0.2 ? "fast" : "normal",
+  };
 }
 
 export function estimate(subject: ValuationSubject, data: EngineData): ValuationResult {
@@ -1115,6 +1188,7 @@ export function estimate(subject: ValuationSubject, data: EngineData): Valuation
     uncertaintyPct: Math.round(u * 100),
     methods,
     adjustments: fs.parts,
+    liquidity: computeLiquidity(subject, data),
     sensitivity: buildSensitivity(subject, f, subjType === "land"),
     caveats,
   };

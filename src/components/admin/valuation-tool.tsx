@@ -291,6 +291,15 @@ function ResultPanel({
             {av.verdict === "fair" ? "в рынке" : av.verdict === "over" ? "переоценён" : "ниже рынка"}.
           </p>
         )}
+        {r.liquidity && (
+          <p className="mt-3 text-sm text-forest-900/70">
+            <span className="text-forest-900/50">Ликвидность сегмента:</span>{" "}
+            <span className={cn("font-medium", r.liquidity.verdict === "slow" ? "text-red-700" : r.liquidity.verdict === "fast" ? "text-forest-700" : "text-brass-700")}>
+              {r.liquidity.verdict === "slow" ? "медленный" : r.liquidity.verdict === "fast" ? "быстрый" : "обычный"}
+            </span>{" "}
+            — похожие объявления стоят на рынке типично {r.liquidity.medianMonths} мес, {r.liquidity.staleSharePct}% висят дольше порога ({r.liquidity.n} шт).
+          </p>
+        )}
         {r.adjustments.length > 0 && (
           <div className="mt-3 flex flex-wrap gap-1.5">
             {r.adjustments.map((a, i) => (
