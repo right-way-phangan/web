@@ -18,7 +18,10 @@ export const metadata: Metadata = {
   title: "What we verify — due diligence on every listing",
   description:
     "The checks behind every Right Way listing on Koh Phangan: title deed at the Land Office, encumbrances, zoning, legal road access, GPS-surveyed boundaries, utilities, seller authority and building permits.",
-  alternates: { canonical: "/due-diligence" },
+  alternates: {
+    canonical: "/due-diligence",
+    languages: { en: "/due-diligence", ru: "/ru/due-diligence", "x-default": "/due-diligence" },
+  },
 };
 
 const CHECKS = [
