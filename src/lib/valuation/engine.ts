@@ -429,6 +429,22 @@ function similarityWeight(
   return 1 + strength * (sim - 1); // strength=0 → 1; strength=1 → sim
 }
 
+/**
+ * Приведение цены компса к ASKING-шкале для пула. Проданные/снятые компсы несут
+ * РЕАЛИЗОВАННУЮ (сделочную) цену; asking-компсы — запрашиваемую. Чтобы медиана не
+ * смешивала шкалы, сделочную цену грубим до asking-эквивалента (÷ask_discount).
+ * Тогда финальный ×ask_discount даёт честный сделочный уровень без двойного
+ * дисконта (систематический −8% сдвиг, выявленный бэктестом №1 на sold-компсах).
+ */
+function toAskingScale(price: number, c: CompPoint, f: FactorMap): number {
+  const st = (c.status ?? "").toLowerCase();
+  if (st.includes("sold") || st.includes("gone")) {
+    const d = f["market.ask_discount"] ?? 0.92;
+    if (d > 0) return price / d;
+  }
+  return price;
+}
+
 interface WV {
   district?: string | null;
   v: number;
@@ -635,7 +651,7 @@ function comparativeLand(
           : null;
     if (!perRai || perRai < PER_RAI_MIN || perRai > PER_RAI_MAX) continue;
     const date = parseCompDate(c.date);
-    const adj = timeAdjust(perRai, date, apprPct); // прошлую цену → к сегодня
+    const adj = timeAdjust(toAskingScale(perRai, c, f), date, apprPct); // sold→asking-шкала, затем прошлую цену → к сегодня
     const fc = landFactor(useBeach ? c : { ...c, lat: null, lng: null }, f);
     if (fc.mult <= 0) continue;
     const baseTag = compTag(c, f);
@@ -708,7 +724,7 @@ function comparativeBuilt(
     else if (basisKey === "bedroom") unit = c.bedrooms && c.bedrooms > 0 ? c.priceThb! / c.bedrooms : null;
     else unit = c.priceThb!;
     if (!unit || unit <= 0) continue;
-    const adj = timeAdjust(unit, parseCompDate(c.date), apprPct);
+    const adj = timeAdjust(toAskingScale(unit, c, f), parseCompDate(c.date), apprPct);
     const baseTag = compTag(c, f);
     const tag = adj !== unit ? (baseTag ? `${baseTag} · ↑время` : "↑время") : baseTag;
     const w = compWeight(c, f) * similarityWeight(subject, c, "built", f);
