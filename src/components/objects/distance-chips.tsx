@@ -1,13 +1,13 @@
-import { Waves, Ship } from "lucide-react";
+import { Waves, Ship, Hospital } from "lucide-react";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { haversineMeters, formatDistance } from "@/lib/utils/geo";
-import { PHANGAN_BEACHES, THONG_SALA } from "@/lib/data/phangan-poi";
+import { PHANGAN_BEACHES, THONG_SALA, PHANGAN_AMENITIES } from "@/lib/data/phangan-poi";
 
 /**
- * "Beach 350 m · Thong Sala 4.2 km" orientation chips for an object card —
- * straight-line distance from the plot to the nearest named beach and to the
- * island's main town/pier. Server component; renders nothing without coords.
- * Distances are approximate (≈), which the chips show.
+ * "Beach 350 m · Thong Sala 4.2 km · Hospital 6 km" orientation chips for an
+ * object card — straight-line distance from the plot to the nearest named
+ * beach, the island's main town/pier and the nearest hospital. Server
+ * component; renders nothing without coords. Distances are approximate (≈).
  */
 export function DistanceChips({
   lat,
@@ -29,12 +29,23 @@ export function DistanceChips({
   );
   const townM = haversineMeters(lat, lng, THONG_SALA.lat, THONG_SALA.lng);
 
+  const hospitals = PHANGAN_AMENITIES.filter((a) => a.cat === "hospital");
+  const nearestHospital = hospitals.reduce(
+    (best, h) => {
+      const d = haversineMeters(lat, lng, h.lat, h.lng);
+      return d < best.d ? { poi: h, d } : best;
+    },
+    { poi: hospitals[0], d: Infinity },
+  );
+
   const beachName = locale === "ru" ? nearestBeach.poi.ru : nearestBeach.poi.en;
   const townName = locale === "ru" ? THONG_SALA.ru : THONG_SALA.en;
+  const hospitalName = locale === "ru" ? nearestHospital.poi.ru : nearestHospital.poi.en;
 
   const chips: Array<{ icon: typeof Waves; label: string }> = [
     { icon: Waves, label: `${beachName} ≈ ${formatDistance(nearestBeach.d, locale)}` },
     { icon: Ship, label: `${townName} ≈ ${formatDistance(townM, locale)}` },
+    { icon: Hospital, label: `${hospitalName} ≈ ${formatDistance(nearestHospital.d, locale)}` },
   ];
 
   return (

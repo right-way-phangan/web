@@ -4,6 +4,7 @@ import { Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import type { Locale, ObjectDict } from "@/lib/i18n/dictionaries";
 import { PHANGAN_AMENITIES, type AmenityCat } from "@/lib/data/phangan-poi";
+import { haversineMeters, formatDistance } from "@/lib/utils/geo";
 
 /**
  * "Nearby" amenity overlay shared by the object-detail and /listings maps —
@@ -39,21 +40,39 @@ function amenityIcon(cat: AmenityCat): L.DivIcon {
   });
 }
 
-export function PoiMarkers({ locale, t }: { locale: Locale; t: ObjectDict["map"] }) {
+export function PoiMarkers({
+  locale,
+  t,
+  origin,
+}: {
+  locale: Locale;
+  t: ObjectDict["map"];
+  // When set (object-detail map), each popup shows the straight-line distance
+  // from this plot. Omitted on /listings (no single origin).
+  origin?: { lat: number; lng: number };
+}) {
   return (
     <>
-      {PHANGAN_AMENITIES.map((a) => (
-        <Marker key={`${a.cat}-${a.en}`} position={[a.lat, a.lng]} icon={amenityIcon(a.cat)}>
-          <Popup>
-            <span className="block text-[11px] uppercase tracking-wide text-forest-500/70">
-              {t[CAT_LABEL[a.cat]]}
-            </span>
-            <span className="block font-serif text-sm leading-snug text-forest-900">
-              {locale === "ru" ? a.ru : a.en}
-            </span>
-          </Popup>
-        </Marker>
-      ))}
+      {PHANGAN_AMENITIES.map((a) => {
+        const dist = origin
+          ? formatDistance(haversineMeters(origin.lat, origin.lng, a.lat, a.lng), locale)
+          : null;
+        return (
+          <Marker key={`${a.cat}-${a.en}`} position={[a.lat, a.lng]} icon={amenityIcon(a.cat)}>
+            <Popup>
+              <span className="block text-[11px] uppercase tracking-wide text-forest-500/70">
+                {t[CAT_LABEL[a.cat]]}
+              </span>
+              <span className="block font-serif text-sm leading-snug text-forest-900">
+                {locale === "ru" ? a.ru : a.en}
+              </span>
+              {dist ? (
+                <span className="num mt-0.5 block text-xs text-forest-500/80">≈ {dist}</span>
+              ) : null}
+            </Popup>
+          </Marker>
+        );
+      })}
     </>
   );
 }
