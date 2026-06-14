@@ -11,7 +11,12 @@ import { Button } from "@/components/ui/button";
 import { ArticleBody } from "@/components/sections/article-body";
 import { ArticleByline } from "@/components/sections/article-byline";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
-import { DEFAULT_AUTHOR, authorPersonSchema } from "@/content/authors";
+import {
+  DEFAULT_AUTHOR,
+  authorPersonSchema,
+  legalReviewerFor,
+  reviewerPersonSchema,
+} from "@/content/authors";
 import { siteConfig } from "@/lib/site-config";
 import { getSiteUrl } from "@/lib/site-url";
 
@@ -43,6 +48,7 @@ export default async function KnowledgeArticlePage({ params }: Props) {
   if (!a) notFound();
 
   const siteUrl = getSiteUrl();
+  const reviewer = legalReviewerFor(a.faqCategory);
   const others = KB_ARTICLES.filter((x) => x.slug !== a.slug).slice(0, 3);
 
   const articleSchema = {
@@ -54,6 +60,7 @@ export default async function KnowledgeArticlePage({ params }: Props) {
     dateModified: a.updated,
     inLanguage: "en",
     author: authorPersonSchema(DEFAULT_AUTHOR, siteUrl, "en"),
+    ...(reviewer ? { reviewedBy: reviewerPersonSchema(reviewer, siteUrl, "en") } : {}),
     publisher: { "@type": "Organization", name: siteConfig.name },
     mainEntityOfPage: `${siteUrl}/knowledge/${a.slug}`,
   };
@@ -90,7 +97,7 @@ export default async function KnowledgeArticlePage({ params }: Props) {
         <p className="mt-5 max-w-2xl text-lg leading-relaxed text-forest-500/75 md:text-xl">
           {a.short}
         </p>
-        <ArticleByline author={DEFAULT_AUTHOR} dateISO={a.updated} locale="en" dateKind="updated" />
+        <ArticleByline author={DEFAULT_AUTHOR} dateISO={a.updated} locale="en" dateKind="updated" reviewer={reviewer} />
       </header>
 
       <section className="container-prose py-12 md:py-16">

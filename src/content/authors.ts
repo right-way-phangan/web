@@ -10,6 +10,8 @@
  * markup, so the `@id` here resolves to a real bio rather than a dead link.
  */
 
+import type { FaqCategoryId } from "@/content/faq";
+
 export interface Author {
   /** Stable slug; doubles as the /about anchor id. */
   slug: string;
@@ -87,5 +89,55 @@ export function authorPersonSchema(
     knowsAbout: author.knowsAbout,
     worksFor: { "@id": `${siteUrl}#org` },
     ...(author.sameAs.length ? { sameAs: author.sameAs } : {}),
+  };
+}
+
+/* ── Legal review (YMYL) ─────────────────────────────────────────────────────
+ *
+ * Knowledge-base guides in these categories make legal/financial claims about
+ * Thai property — the kind of content Google weighs hardest (YMYL). A named,
+ * licensed reviewer is the strongest E-E-A-T signal we can add to them.
+ *
+ * The slot is wired but DORMANT: `LEGAL_REVIEWER` is null until a Thai lawyer
+ * is onboarded (see the DD work — lawyer Anas). While null, nothing renders and
+ * no `reviewedBy` is emitted. To activate, replace null with a populated Author
+ * (name, jobTitle "Licensed Thai lawyer", bio, knowsAbout) — every legal-category
+ * guide then shows "Legally reviewed by …" + reviewedBy schema automatically.
+ */
+
+/** FAQ categories whose guides assert Thai legal/financial facts → want review. */
+export const LEGAL_REVIEW_CATEGORIES: ReadonlySet<FaqCategoryId> = new Set<FaqCategoryId>([
+  "ownership",
+  "documents",
+  "structures",
+  "costs",
+]);
+
+/** The licensed reviewer. Null until onboarded — keep the type so activation is one edit. */
+export const LEGAL_REVIEWER: Author | null = null;
+
+/**
+ * Reviewer for a guide, or null. Returns the reviewer only when (a) one exists
+ * and (b) the guide is in a legal-sensitive category. Pass the article's
+ * faqCategory (undefined for journal posts → no review by default).
+ */
+export function legalReviewerFor(faqCategory?: FaqCategoryId): Author | null {
+  if (!LEGAL_REVIEWER) return null;
+  if (!faqCategory || !LEGAL_REVIEW_CATEGORIES.has(faqCategory)) return null;
+  return LEGAL_REVIEWER;
+}
+
+/** schema.org Person for an Article's `reviewedBy` (accuracy/completeness check). */
+export function reviewerPersonSchema(
+  reviewer: Author,
+  siteUrl: string,
+  locale: "en" | "ru",
+) {
+  return {
+    "@type": "Person",
+    name: reviewer.name,
+    jobTitle: reviewer.jobTitle[locale],
+    knowsAbout: reviewer.knowsAbout,
+    ...(reviewer.sameAs.length ? { sameAs: reviewer.sameAs } : {}),
   };
 }

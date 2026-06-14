@@ -8,7 +8,12 @@ import { Button } from "@/components/ui/button";
 import { ArticleBody } from "@/components/sections/article-body";
 import { ArticleByline } from "@/components/sections/article-byline";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
-import { DEFAULT_AUTHOR, authorPersonSchema } from "@/content/authors";
+import {
+  DEFAULT_AUTHOR,
+  authorPersonSchema,
+  legalReviewerFor,
+  reviewerPersonSchema,
+} from "@/content/authors";
 import { siteConfig } from "@/lib/site-config";
 import { getSiteUrl } from "@/lib/site-url";
 
@@ -40,6 +45,7 @@ export default async function RussianKnowledgeArticlePage({ params }: Props) {
   if (!a) notFound();
 
   const siteUrl = getSiteUrl();
+  const reviewer = legalReviewerFor(a.faqCategory);
   const others = KB_ARTICLES_RU.filter((x) => x.slug !== a.slug).slice(0, 3);
 
   const articleSchema = {
@@ -51,6 +57,7 @@ export default async function RussianKnowledgeArticlePage({ params }: Props) {
     dateModified: a.updated,
     inLanguage: "ru",
     author: authorPersonSchema(DEFAULT_AUTHOR, siteUrl, "ru"),
+    ...(reviewer ? { reviewedBy: reviewerPersonSchema(reviewer, siteUrl, "ru") } : {}),
     publisher: { "@type": "Organization", name: siteConfig.name },
     mainEntityOfPage: `${siteUrl}/ru/knowledge/${a.slug}`,
   };
@@ -85,7 +92,7 @@ export default async function RussianKnowledgeArticlePage({ params }: Props) {
         <p className="mt-5 max-w-2xl text-lg leading-relaxed text-forest-500/75 md:text-xl">
           {a.short}
         </p>
-        <ArticleByline author={DEFAULT_AUTHOR} dateISO={a.updated} locale="ru" dateKind="updated" />
+        <ArticleByline author={DEFAULT_AUTHOR} dateISO={a.updated} locale="ru" dateKind="updated" reviewer={reviewer} />
       </header>
 
       <section className="container-prose py-12 md:py-16">
