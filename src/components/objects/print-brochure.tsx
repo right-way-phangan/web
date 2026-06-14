@@ -11,6 +11,7 @@ export function PrintBrochure({ object }: { object: RealEstateObject }) {
   const photos = (object.gallery ?? []).filter(Boolean).slice(0, 4);
   const host = getSiteUrl().replace(/^https?:\/\//, "");
   const phone = `+${siteConfig.contact.whatsapp}`;
+  const hasCoords = object.lat != null && object.lng != null;
 
   return (
     <div className="hidden print:block">
@@ -26,6 +27,18 @@ export function PrintBrochure({ object }: { object: RealEstateObject }) {
               loading="eager"
             />
           ))}
+        </div>
+      ) : null}
+      {hasCoords ? (
+        <div className="mt-2">
+          {/* Server-composed static map (interactive Leaflet is print-hidden). */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={`/staticmap?lat=${object.lat}&lng=${object.lng}&z=15&w=720&h=300`}
+            alt={`Location of ${object.titleEn} (${object.rwNumber}) on Koh Phangan`}
+            className="aspect-[12/5] w-full object-cover"
+            loading="eager"
+          />
         </div>
       ) : null}
       <p className="mt-3 text-xs text-forest-500">
