@@ -332,14 +332,9 @@ export const FAQ_ITEMS: FaqItem[] = [
     category: "costs",
     question: "Who pays the agent commission?",
     answer: [
-      "**Standard practice on Phangan:** the seller pays the agent commission. Foreign buyers typically pay zero commission for listed properties.",
-      "Our published commission structure is on the [Services page](/services) — base fee plus search fee paid by the seller, with a small premium for complex company structures paid by the buyer.",
-      "Exceptions exist:",
-      { ul: [
-        "**Buyer-side representation** — if you engage Right Way as your advocate (DD only, market analysis, multiple-property assessment) without a property of ours, we negotiate a flat advisory fee, typically 1.5–2% of eventual purchase price.",
-        "**Exclusive search mandate** — if you want Right Way to search the market beyond our listed inventory for a specific brief, we may charge a retainer plus success fee.",
-      ] },
-      "All commission terms are transparent before the first viewing.",
+      "**Standard practice on Phangan:** the seller pays the agent commission, and it's built into the asking price. As a buyer of a listed property, you pay us nothing — only the statutory Land Office fees on registration.",
+      "If you engage Right Way purely as your buyer-side advocate — due diligence, market analysis, or assessing a property that isn't one of ours — we agree the terms with you upfront, in writing, before any work begins.",
+      "No buyer-side surprises, no hidden add-ons, no kickbacks.",
     ],
   },
   {
