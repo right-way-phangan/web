@@ -651,6 +651,173 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "Is now a good time to buy property on Koh Phangan, and what do the market numbers show?",
   },
+  {
+    slug: "due-diligence-checklist-koh-phangan",
+    kbId: "kb-0015",
+    topic: "Process",
+    title: "Due diligence before buying on Koh Phangan: the complete checklist",
+    short:
+      "The due diligence stage is where you confirm you're buying what's advertised — and that it will hold up. The core check is the Land Office record on the back of the deed; from there: seller identity, encumbrances, boundaries, road access, buildability and utilities.",
+    updated: "2026-06-14",
+    body: [
+      "Due diligence is the stage between signing a reservation and signing the real contracts. For a purchase on Koh Phangan it covers five areas: the title deed and Land Office record, the seller's identity and authority, encumbrances and registered claims, physical boundaries and road access, and buildability under the zoning rules. Shortcut any of these and you're either buying a risk or trusting a story.",
+      { h: "Start at the Land Office" },
+      "The back of any Chanote or Nor Sor 3 Gor deed is the most important document in the transaction. It records every ownership transfer, every registered mortgage, lease, usufruct, servitude and court order — all dated and stamped by the Land Department. Bring the deed (or its number) to the Koh Phangan Land Office and compare it against the official record copy. This is not a formality — it is the check.",
+      { h: "1. Title class and condition" },
+      {
+        ul: [
+          "Aim for **Chanote** (full GPS-surveyed ownership deed) or **Nor Sor 3 Gor** (usable with care). Por Bor Tor 5 is a tax receipt, not a title — it cannot be legally owned or transferred. Sor Por Kor land is reserved for Thai farmers. See [Land titles on Koh Phangan](/knowledge/land-titles-chanote-vs-nor-sor-3).",
+          "Hold the deed against light to verify the Garuda watermark and the Land Department officer's signature with red official stamp.",
+          "Check that the deed number, plot number and province match exactly what was represented by the seller.",
+          "Confirm the title has not been split, subdivided or altered since the last transfer.",
+        ],
+      },
+      { h: "2. Seller identity and authority" },
+      {
+        ul: [
+          "The seller's name on the deed must match their Thai national ID exactly — no exceptions.",
+          "If the seller is a company, verify its registration at the Department of Business Development: that it is active, tax-compliant and not under investigation. Obtain a board resolution authorising the sale, signed by directors listed in the registration.",
+          "Post-2025: if a company seller is involved, also check whether it sits on a high-density registered address — a classic indicator of nominee structures. See [Leasehold vs freehold](/knowledge/leasehold-vs-freehold).",
+          "For a leasehold transfer, confirm the original lessee has the right to assign under the lease contract — if there is no assignment clause, the transfer may be blocked.",
+        ],
+      },
+      { h: "3. Encumbrances and registered claims" },
+      {
+        ul: [
+          "Read the back of the deed for mortgages, leases, usufructs and servitudes. These do not disappear on a sale unless expressly released before or at transfer.",
+          "Request a formal encumbrance search (สารบัญจดทะเบียน) at the Land Office to get the complete current picture.",
+          "Check for court seizure orders or injunctions — these are also registered on the deed and would freeze any transfer.",
+          "**For a leasehold purchase specifically**: confirm the lease is registered on the back of the deed with the correct term and dates. A lease over three years that is not registered there is only enforceable for three years, regardless of what the contract says.",
+        ],
+      },
+      { h: "4. Boundaries, survey and road access" },
+      {
+        ul: [
+          "Walk the entire plot with a licensed surveyor and confirm the concrete boundary markers (ลูกบาน) are present, numbered and match the deed's cadastral plan.",
+          "Commission a GPS boundary survey if any marker is missing, displaced or the plot shares a contested boundary with a neighbour.",
+          "**Verify registered road access** — a right of way to the public road that is registered on the deed, not merely assumed or verbal. A landlocked plot with only verbal access is one of the most common traps on the island.",
+          "Match the deed's stated area (in rai/ngan/talang wah) against the physical survey. Discrepancies need resolution before exchange.",
+        ],
+      },
+      { h: "5. Buildability and the 2025 zoning rules" },
+      "A clean title tells you what you own — it does not tell you what you're allowed to build. Under the 2025 environmental protection rules, Koh Phangan has seven construction zones with different height limits, setbacks and footprint maximums. Hillside (80 m+ elevation) and beachfront plots carry the tightest restrictions. Check the plot's elevation and distance from the shore against the rules before you commit. A plot you can't build the intended villa on is not the asset you priced it as. See [Building zones on Koh Phangan](/knowledge/koh-phangan-building-zones).",
+      { h: "6. Utilities, permits and the physical plot" },
+      {
+        ul: [
+          "Confirm the source and reliability of water supply — government main, private well or shared tank are all common on Phangan, and reliability varies significantly.",
+          "Verify electricity meter registration with the Provincial Electricity Authority.",
+          "If a building already exists on the plot, check that the construction permit (Por Ror 1) exists and that the structure matches the approved plans. Unauthorised additions are common and become the buyer's problem at transfer.",
+          "Ask neighbours about flooding, drainage and the dry-season road condition — photos don't capture these.",
+        ],
+      },
+      "Independent legal due diligence is the step that separates a sound purchase from one that transfers someone else's problem to you. Use a lawyer who is not also acting for the seller or developer — that independence is the point. For where due diligence fits into the full purchase timeline, see [How to buy property on Koh Phangan step by step](/knowledge/how-to-buy-property-step-by-step).",
+    ],
+    takeaways: [
+      "The back of the deed at the Land Office is the authoritative record — compare every seller claim against it.",
+      "Seller name, plot number and area on the deed must match exactly what is represented.",
+      "A registered right of way to the public road is essential — verbal access is one of the island's most common traps.",
+      "A lease over three years is only enforceable if registered on the back of the deed with the correct term.",
+      "A clean title doesn't guarantee buildability — verify the 2025 ecozone rules separately for the specific plot.",
+    ],
+    sources: [
+      {
+        title: "Siam Legal International — Due Diligence in Thailand",
+        url: "https://www.siam-legal.com/realestate/Due-Diligence-in-Thailand.php",
+      },
+      {
+        title: "Jirawat Law Office — Essential Due Diligence for Foreign Property Buyers in Thailand",
+        url: "https://jirawatlawoffice.co.th/essential-due-diligence/",
+      },
+      {
+        title: "Thai Land Code — title deed classes, Land Office encumbrance registration, right of way (general practice)",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "What due diligence should I do before buying property on Koh Phangan?",
+  },
+  {
+    slug: "selling-leasehold-villa-exit-liquidity",
+    kbId: "kb-0016",
+    topic: "Ownership",
+    title: "Selling your leasehold villa on Koh Phangan: assignment, taxes and exit planning",
+    short:
+      "A registered leasehold can be sold — but only if the lease contract explicitly permits assignment. Taxes at exit are moderate and mostly drop after five years. The harder practical challenge is liquidity: leasehold villas on Phangan can take several months to sell, and a shorter remaining term directly compresses what a buyer will pay.",
+    updated: "2026-06-14",
+    body: [
+      "At some point you'll want to sell. Before you do — ideally before you buy — it's worth understanding what you actually hold, how it transfers, what it costs you, and what affects how long you wait. The answers depend on how the asset is structured.",
+      { h: "What you own and what you can sell" },
+      "In the standard structure for a foreign buyer, you hold two things separately: the remaining term on a registered land lease, and ownership of the villa building (through the construction permit and a registered superficies). When you sell, both need to transfer to the buyer.",
+      {
+        ul: [
+          "**The land lease** is assigned to the buyer — the buyer steps into your position as lessee for the remaining term. This only works if the lease explicitly permits assignment. Without that clause, the transfer needs the landlord's active cooperation and may effectively be blocked. Check this clause before you buy.",
+          "**The building** is sold as a structure. Under a registered superficies, this can be done independently of the lease and binds future landowners — a meaningful protection for both buyer and seller.",
+          "**The residual lease term** is what the buyer is paying for. A 28-year lease is worth significantly more than a 15-year one. Renewal clauses improve marketability, but they are contractual promises, not guaranteed rights — courts in Thailand have held that automatic renewal provisions are not enforceable as property rights. Don't plan an exit around renewals that haven't happened.",
+        ],
+      },
+      { h: "Taxes when you sell" },
+      "The seller side at the Land Office typically carries:",
+      {
+        ul: [
+          "**Specific Business Tax (SBT) — 3.3%** of the higher of the appraised or sale price, if you held the property for under five years. Waived entirely after five years.",
+          "**Stamp duty — 0.5%**, applying only when SBT doesn't — i.e., when you've held five years or more.",
+          "**Withholding tax** — for an individual seller, calculated progressively on the Land Office's appraised value with deductions based on the number of years held. For a foreign non-resident this is withheld at the Land Office. For a company seller, 1% of the higher of appraised or sale price.",
+          "**Transfer fee — 2%** of the appraised value, often split with the buyer by local practice.",
+        ],
+      },
+      "There is no separate capital gains tax in Thailand — the withholding tax system is how gains are taxed at source. The five-year holding threshold matters: passing it eliminates the 3.3% SBT and replaces it with just 0.5% stamp duty. Consult a Thai accountant for the exact calculation; it depends on the holding period and the Land Office's appraised value, which is typically below market. For the full tax picture including what you paid on the way in, see [Costs, taxes and the FET form](/knowledge/cost-of-buying-taxes-and-fees).",
+      { h: "Getting your money out: the FET form" },
+      "To repatriate your sale proceeds out of Thailand, you need the original Foreign Exchange Transaction (FET) form that your Thai bank issued when you brought the purchase funds in. Present the FET form, the Land Office sale agreement and the tax receipt to your bank — they process the international wire transfer. Without the FET form, repatriation is significantly harder and some banks will refuse it outright. Keep this document from the day you buy.",
+      { h: "Liquidity and time to sell" },
+      "Once you have a buyer, Land Office registration takes one day. Finding the buyer is the longer part.",
+      {
+        ul: [
+          "A leasehold villa with 25+ years remaining and a clear assignment clause is a marketable asset. One with 15 years and an assignment clause that is unclear will take considerably longer.",
+          "Well-maintained, turnkey properties in well-connected locations sell faster. Western-coast and beachfront villas are more liquid than inland plots.",
+          "The buyer pool is almost entirely cash buyers — very few banks will lend against a leasehold villa in Thailand — which limits the pool and means pricing needs to be realistic.",
+          "Budget **3–9 months** from listing to completion for a realistically priced leasehold villa in the current market. Properties priced above market can sit for 12–18 months or longer.",
+        ],
+      },
+      { h: "What to plan at the buying stage with exit in mind" },
+      "If liquidity on exit matters — and for most buyers it should — the time to address it is when you buy:",
+      {
+        ul: [
+          "Confirm the lease explicitly permits assignment to a third party.",
+          "Ensure the building transfer mechanism (superficies) is clearly registered and separable from the lease.",
+          "Verify how renewal provisions are worded — and treat them as a bonus, not a guarantee; plan around the primary term.",
+          "Keep the FET form the day funds arrive.",
+        ],
+      },
+      "The mechanics of the leasehold structure and building ownership are covered in [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa). For the full purchase process, including what to check in the contracts stage, see [How to buy property on Koh Phangan](/knowledge/how-to-buy-property-step-by-step).",
+    ],
+    takeaways: [
+      "A leasehold can only be assigned to a buyer if the lease contract explicitly permits it — verify this clause before you buy.",
+      "Holding 5+ years eliminates the 3.3% Specific Business Tax; after that only 0.5% stamp duty applies.",
+      "Keep the original FET form from your purchase — it is required to repatriate proceeds when you sell.",
+      "A shorter remaining lease term directly compresses what a buyer will pay; plan the exit around the primary term, not renewal promises.",
+      "Budget 3–9 months to find a buyer in the current market; the pool is cash-only, which limits depth.",
+    ],
+    sources: [
+      {
+        title: "Integrity Legal — Selling, Assignment, or Sublease of Lease in Thailand",
+        url: "https://www.legal.co.th/resources/thailand-real-estate-property-law/title/selling-assignment-or-sublease-lease-thailand/",
+      },
+      {
+        title: "Siam Legal International — Transfer of Property in Thailand",
+        url: "https://www.siam-legal.com/realestate/Transfer-of-Property-in-Thailand.php",
+      },
+      {
+        title: "Esales International — How to Sell Property in Thailand: The Definitive Guide (2026)",
+        url: "https://esalesinternational.com/2026/05/14/how-to-sell-property-in-thailand-the-definitive-guide-for-foreign-owners/",
+      },
+      {
+        title: "Thai property transfer taxes — SBT 3.3%, stamp duty 0.5%, transfer fee 2%, withholding tax (general practice)",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "ownership",
+    faqQuestion: "How do I sell my leasehold villa on Koh Phangan, and what taxes will I pay?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

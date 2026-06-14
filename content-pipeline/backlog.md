@@ -21,8 +21,8 @@ Status: ⏳ queued · ✅ published.
 
 | Topic | faqCategory | Priority | Status |
 |---|---|---|---|
-| Due diligence before buying: checklist for vetting the plot and the seller | process | 🟢 | ⏳ |
-| Selling your leasehold villa later (exit and liquidity) | process | 🟢 | ⏳ |
+| Due diligence before buying: checklist for vetting the plot and the seller | process | 🟢 | ✅ |
+| Selling your leasehold villa later (exit and liquidity) | process | 🟢 | ✅ |
 | A day at the Land Office: what happens when a deal is registered | process | 🟢 | ⏳ |
 | Bringing money into Thailand correctly: the FET form step by step | costs | 🟢 | ⏳ |
 | Superficies vs usufruct vs lease: three ways to anchor your building | structures | 🟢 | ⏳ |
