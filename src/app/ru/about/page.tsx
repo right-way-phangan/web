@@ -7,6 +7,8 @@ import { PrincipleGrid } from "@/components/sections/principle-grid";
 import { Button } from "@/components/ui/button";
 import { whatsappLink } from "@/lib/site-config";
 import { getAboutDict } from "@/lib/i18n/dictionaries";
+import { DEFAULT_AUTHOR, authorPersonSchema } from "@/content/authors";
+import { getSiteUrl } from "@/lib/site-url";
 
 export const metadata: Metadata = {
   title: "О нас",
@@ -17,9 +19,19 @@ export const metadata: Metadata = {
 
 export default function RussianAboutPage() {
   const d = getAboutDict("ru");
+  const siteUrl = getSiteUrl();
+  const profileSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    mainEntity: authorPersonSchema(DEFAULT_AUTHOR, siteUrl, "ru"),
+  };
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(profileSchema) }}
+      />
       <PageHero
         eyebrow={d.hero.eyebrow}
         title={d.hero.title}
@@ -40,7 +52,7 @@ export default function RussianAboutPage() {
         ))}
       </ContentSection>
 
-      <section className="container-prose py-16 md:py-24">
+      <section id={DEFAULT_AUTHOR.slug} className="container-prose scroll-mt-24 py-16 md:py-24">
         <div className="grid gap-10 md:grid-cols-[1fr_2fr] md:gap-16">
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">

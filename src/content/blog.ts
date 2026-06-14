@@ -20,6 +20,10 @@ export interface BlogPost {
   topic: string;
   /** ISO date "2026-06-07". */
   published: string;
+  /** ISO date of last substantive edit. Falls back to `published` when unset
+   *  (static posts); DB-backed posts carry the real `updatedAt`. Feeds
+   *  Article.dateModified — a freshness signal for search/answer engines. */
+  updated?: string;
   /** Reading time in minutes (rough). */
   readMins: number;
   body: KbBlock[];
