@@ -10,6 +10,7 @@ import {
 import { AdminNav } from "@/components/admin/admin-nav";
 import { TaskRow } from "@/components/crm/task-row";
 import { leadScore } from "@/lib/crm/score";
+import { forecastByMonth } from "@/lib/crm/forecast";
 
 export const metadata: Metadata = {
   title: "CRM — сегодня",
@@ -112,6 +113,23 @@ export default async function CrmTodayPage() {
     (l) => l.pipelineKey === "legacy" && (l.status ?? "open") === "open" && l.stageKey === "incoming",
   ).length;
 
+  // ── Темп месяца: факт won + прогноз закрытия этого месяца ──
+  const nowD = new Date();
+  const monthKey = `${nowD.getFullYear()}-${String(nowD.getMonth() + 1).padStart(2, "0")}`;
+  const monthLabel = new Intl.DateTimeFormat("ru-RU", { month: "long" }).format(nowD);
+  const work = leads.filter((l) => l.pipelineKey !== "legacy");
+  const wonMonthCommission = work
+    .filter((l) => {
+      if (l.status !== "won") return false;
+      const d = new Date(l.updatedAt ?? l.createdAt);
+      return d.getFullYear() === nowD.getFullYear() && d.getMonth() === nowD.getMonth();
+    })
+    .reduce((s, l) => s + (l.commissionValue ?? 0), 0);
+  const openWork = work.filter((l) => (l.status ?? "open") === "open");
+  const monthFcThis =
+    forecastByMonth(openWork, 1, nowD).find((m) => m.key === monthKey)?.weightedCommission ?? 0;
+  const monthProjection = wonMonthCommission + monthFcThis;
+
   const nothing = urgent.length === 0 && callNow.length === 0 && triageQueue === 0;
 
   return (
@@ -128,6 +146,18 @@ export default async function CrmTodayPage() {
             {callNow.length} горячих звонков · {triageQueue} на разбор.
           </p>
         </div>
+        {monthProjection > 0 && (
+          <div className="rounded-xl bg-forest-900 px-4 py-2.5 text-right text-white">
+            <p className="text-[11px] uppercase tracking-wide text-white/55 capitalize">
+              Темп · {monthLabel}
+            </p>
+            <p className="text-lg font-semibold">≈ ฿{nf.format(Math.round(monthProjection))}</p>
+            <p className="text-[11px] text-white/55">
+              won ฿{nf.format(Math.round(wonMonthCommission))} + прогноз ฿
+              {nf.format(Math.round(monthFcThis))}
+            </p>
+          </div>
+        )}
       </div>
 
       {nothing ? (

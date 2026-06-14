@@ -180,6 +180,21 @@ export default async function CrmStatsPage() {
   const monthForecast = forecastByMonth(open, 6);
   const monthMax = Math.max(...monthForecast.map((m) => m.weightedCommission), 1);
 
+  // ── Темп месяца: факт won + прогноз закрытия этого месяца → проекция ──
+  const nowD = new Date();
+  const monthKey = `${nowD.getFullYear()}-${String(nowD.getMonth() + 1).padStart(2, "0")}`;
+  const monthLabel = new Intl.DateTimeFormat("ru-RU", { month: "long", year: "numeric" }).format(nowD);
+  const inThisMonth = (iso?: string | null) => {
+    if (!iso) return false;
+    const d = new Date(iso);
+    return d.getFullYear() === nowD.getFullYear() && d.getMonth() === nowD.getMonth();
+  };
+  const wonMonthCommission = work
+    .filter((l) => l.status === "won" && inThisMonth(l.updatedAt ?? l.createdAt))
+    .reduce((s, l) => s + (l.commissionValue ?? 0), 0);
+  const monthFcThis = monthForecast.find((m) => m.key === monthKey)?.weightedCommission ?? 0;
+  const monthProjection = wonMonthCommission + monthFcThis;
+
   // ── Конверсия воронки (по истории lead_events) ──
   const funnel =
     workPipes[0] != null ? computeFunnel(work, workPipes[0].stages, events) : [];
@@ -291,6 +306,28 @@ export default async function CrmStatsPage() {
             комиссия по модели max(5%; ฿150k) · вес = вероятность стадии · ₽ по живому курсу
             {liveRates ? ` (${liveRates.date})` : " (учётный)"}
           </span>
+        </div>
+
+        {/* Темп месяца: факт + прогноз закрытия этого месяца */}
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-xl bg-forest-900 px-4 py-3 text-white">
+          <div>
+            <p className="text-xs uppercase tracking-wide text-white/55 capitalize">
+              Темп · {monthLabel}
+            </p>
+            <p className="mt-0.5 text-2xl font-semibold">
+              ≈ ฿{nf.format(Math.round(monthProjection))}
+              <span className="ml-2 text-sm font-normal text-white/65">
+                ≈ ₽{nf.format(Math.round(toRub(monthProjection)))}
+              </span>
+            </p>
+          </div>
+          <p className="text-xs text-white/70">
+            won ฿{nf.format(Math.round(wonMonthCommission))}
+            <span className="text-white/45"> (закрыто)</span>
+            {" + "}
+            прогноз ฿{nf.format(Math.round(monthFcThis))}
+            <span className="text-white/45"> (ожид. в этом месяце)</span>
+          </p>
         </div>
         <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
           <div className="rounded-xl border border-brass-500/30 bg-white p-4">
