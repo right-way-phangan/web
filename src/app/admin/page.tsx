@@ -6,6 +6,7 @@ import { getAllObjects, getPublicObjects } from "@/lib/data/objects";
 type Href = ComponentProps<typeof Link>["href"];
 import { getLeads, getPipelines, getEvents, getTasks, CRM_ENABLED } from "@/lib/data/leads";
 import { matchLeadsToObject } from "@/lib/crm/matching";
+import { computeCatalogHealth } from "@/lib/data/catalog-health";
 import { AdminNav } from "@/components/admin/admin-nav";
 import type { RealEstateObject } from "@/types/object";
 
@@ -93,6 +94,12 @@ export default async function AdminHomePage() {
   const active = objects.filter((o: RealEstateObject) => o.status === "Active").length;
   const sold = objects.filter((o) => o.status === "Sold").length;
   const noPhoto = objects.filter((o) => o.status === "Active" && !o.coverImage).length;
+
+  // Здоровье каталога: считаем из уже загруженного `all` (без второго запроса).
+  // Баннер показываем только при критичных пробелах — иначе дашборд не засоряем.
+  const health = computeCatalogHealth(all);
+  const healthCritical = health.checks.filter((c) => c.severity === "critical");
+  const healthCriticalCount = healthCritical.reduce((n, c) => n + c.objects.length, 0);
 
   // «Активация базы»: Active-объекты с числом тёплых лидов под них — обратный
   // подбор. Показываем те, под кого больше всего ждущих лидов: кому звонить.
@@ -332,6 +339,28 @@ export default async function AdminHomePage() {
           </Link>
         ))}
       </div>
+
+      {healthCriticalCount > 0 && (
+        <Link href={{ pathname: "/admin/health" }} className="mb-8 block">
+          <div className="rounded-2xl border border-red-500/30 bg-red-500/[0.06] p-4 transition hover:border-red-500/50 hover:shadow-sm">
+            <div className="flex items-start gap-3">
+              <span className="text-lg leading-none">🔴</span>
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-red-700">
+                  Здоровье каталога: {healthCriticalCount}{" "}
+                  {healthCriticalCount === 1 ? "критичная проблема" : "критичных проблем"}
+                </p>
+                <p className="mt-0.5 text-xs text-forest-900/60">
+                  {healthCritical.map((c) => `${c.label} (${c.objects.length})`).join(" · ")}
+                </p>
+                <p className="mt-1 text-xs font-medium text-red-700/80">
+                  Открыть разбор → /admin/health
+                </p>
+              </div>
+            </div>
+          </div>
+        </Link>
+      )}
 
       {/* CRM */}
       <h2 className="mb-2 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
