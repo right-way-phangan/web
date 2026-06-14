@@ -12,6 +12,7 @@ import { GtmScript, GtmNoScript } from "@/components/analytics/gtm";
 import { Ga4Script } from "@/components/analytics/ga4";
 import { ContactClickTracker } from "@/components/analytics/contact-click-tracker";
 import { AttributionCapture } from "@/components/analytics/attribution-capture";
+import { HtmlLang } from "@/components/i18n/html-lang";
 import { siteConfig } from "@/lib/site-config";
 import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
@@ -95,6 +96,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${sans.variable} ${serif.variable}`}>
       <body className="flex min-h-screen flex-col">
+        <HtmlLang />
         {/* Every photo lives on Vercel Blob — warming the connection early
             shaves the TLS handshake off the LCP image. rel=preconnect is a
             body-ok link element, no <head> access needed. */}
