@@ -513,7 +513,7 @@ const services: Record<Locale, ServicesDict> = {
       {
         title: "Standalone transaction support",
         text: "For clients who already found their property — directly, through another agent, or via a private contact — but want professional support through the closing process. We work as your representative at the Land Office and through legal proceedings.",
-        meta: "Fixed fee from 60,000 THB",
+        meta: "Fixed-fee engagement",
       },
     ],
     boundaries: {
@@ -525,15 +525,11 @@ const services: Record<Locale, ServicesDict> = {
       ],
     },
     commission: {
-      eyebrow: "Commission",
-      title: "Honest about the fee.",
-      lede: "The commission is paid by the seller and built into the price, in line with island norms. As a buyer, you pay us nothing — only the statutory Land Office fees on registration.",
-      rows: [
-        { label: "Commission", value: "5% of the deal", detail: "Due diligence, sale agreement, and transaction representation included.", payer: "Paid by the seller" },
-        { label: "Minimum fee", value: "150,000 THB", detail: "On smaller deals, the higher of 5% or this floor applies — due diligence costs the same regardless of price.", payer: "Paid by the seller" },
-        { label: "Complex structure", value: "+0.5–1%", detail: "Thai company setup, multi-property or non-trivial leasehold deals.", payer: "Paid by the seller" },
-      ],
-      note: "Nothing charged to the buyer, no hidden add-ons, no kickbacks. On a leasehold villa the commission is based on the full transaction value — the land lease prepayment plus the building.",
+      eyebrow: "Transparent pricing",
+      title: "Honest about cost.",
+      lede: "As a buyer, you pay us nothing — only the statutory Land Office fees on registration. Our work is settled within the deal: no buyer-side commission, no surprises at the table. Every engagement includes the full due diligence, the sale agreement, and representation through to transfer.",
+      rows: [],
+      note: "No hidden add-ons, no kickbacks — the number you see is the number you pay. For a standalone engagement, the fee is agreed upfront in writing before any work begins.",
     },
     cta: {
       title: "Ready to start?",
@@ -562,7 +558,7 @@ const services: Record<Locale, ServicesDict> = {
       {
         title: "Сопровождение отдельной сделки",
         text: "Для тех, кто уже нашёл объект — напрямую, через другого агента или по личным контактам — но хочет профессиональной поддержки на этапе закрытия. Представляем ваши интересы в Земельном управлении и в юридических процедурах.",
-        meta: "Фикс. гонорар от 60 000 THB",
+        meta: "Фиксированный гонорар",
       },
     ],
     boundaries: {
@@ -574,15 +570,11 @@ const services: Record<Locale, ServicesDict> = {
       ],
     },
     commission: {
-      eyebrow: "Комиссия",
-      title: "Честно о вознаграждении.",
-      lede: "Комиссию платит продавец, она зашита в цену — по нормам острова. Как покупатель, вы не платите нам ничего, только государственные сборы Земельного управления при регистрации.",
-      rows: [
-        { label: "Комиссия", value: "5% от сделки", detail: "Включает due diligence, договор купли-продажи и представление интересов в сделке.", payer: "Платит продавец" },
-        { label: "Минимальный гонорар", value: "150 000 THB", detail: "На небольших сделках применяется большее из 5% или этого минимума — проверка стоит одинаково независимо от цены.", payer: "Платит продавец" },
-        { label: "Сложная структура", value: "+0,5–1%", detail: "Регистрация тайской компании, несколько объектов или нетривиальный лизхолд.", payer: "Платит продавец" },
-      ],
-      note: "С покупателя — ничего, без скрытых надбавок и откатов. По лизхолд-вилле комиссия считается от полной стоимости сделки — предоплата аренды земли плюс строение.",
+      eyebrow: "Прозрачные условия",
+      title: "Честно о стоимости.",
+      lede: "Как покупатель, вы не платите нам ничего — только государственные сборы Земельного управления при регистрации. Наша работа учтена внутри сделки: без комиссии со стороны покупателя и без сюрпризов за столом. Каждое сопровождение включает полный due diligence, договор купли-продажи и представление интересов вплоть до передачи.",
+      rows: [],
+      note: "Без скрытых надбавок и откатов — сколько видите, столько и платите. По отдельному сопровождению гонорар оговаривается заранее, письменно, до начала работ.",
     },
     cta: {
       title: "Готовы начать?",
