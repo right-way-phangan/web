@@ -183,6 +183,7 @@ const chrome: Record<Locale, ChromeDict> = {
       { label: "Listings", href: "/listings" },
       { label: "Projects", href: "/projects" },
       { label: "Districts", href: "/districts" },
+      { label: "Sell", href: "/sell" },
     ],
     groups: [
       {
@@ -233,6 +234,7 @@ const chrome: Record<Locale, ChromeDict> = {
       { label: "Объекты", href: "/ru/listings" },
       { label: "Проекты", href: "/ru/projects" },
       { label: "Районы", href: "/ru/districts" },
+      { label: "Продать", href: "/ru/sell" },
     ],
     groups: [
       {
