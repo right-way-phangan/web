@@ -269,7 +269,9 @@ function ResultPanel({
             <p className="text-xl font-semibold text-forest-900">{fmt(r.fairValue)}</p>
           </div>
           <div>
-            <p className="text-xs text-forest-900/50">Вилка (p25–p75)</p>
+            <p className="text-xs text-forest-900/50">
+              Вилка{r.uncertaintyPct != null ? ` (±${r.uncertaintyPct}%)` : ""}
+            </p>
             <p className="text-xl font-semibold text-forest-900">
               {fmtM(r.low)} – {fmtM(r.high)}
             </p>
@@ -913,7 +915,11 @@ function AccuracyPanel() {
               hint={res.biasPct > 3 ? "склонны завышать" : res.biasPct < -3 ? "склонны занижать" : "сдвига почти нет"}
             />
             <Metric label="В пределах ±10%" value={`${res.within10Pct}%`} hint={`сделок: ${res.n}`} />
-            <Metric label="В пределах ±20%" value={`${res.within20Pct}%`} />
+            <Metric
+              label="Покрытие полосой"
+              value={`${res.bandCoveragePct}%`}
+              hint={`средняя ±${res.avgBandPct}% · цель ~80%`}
+            />
           </div>
 
           {res.caveat && (
@@ -942,6 +948,7 @@ function AccuracyPanel() {
                   <th className="px-3 py-2 font-medium">Факт</th>
                   <th className="px-3 py-2 font-medium">Оценка</th>
                   <th className="px-3 py-2 font-medium">Ошибка</th>
+                  <th className="px-3 py-2 font-medium">Полоса</th>
                   <th className="px-3 py-2 font-medium">Увер.</th>
                 </tr>
               </thead>
@@ -955,6 +962,9 @@ function AccuracyPanel() {
                     <td className="px-3 py-2">{fmtM(p.predicted)}</td>
                     <td className={cn("px-3 py-2 font-medium tabular-nums", Math.abs(p.errorPct) <= 10 ? "text-forest-700" : Math.abs(p.errorPct) <= 20 ? "text-brass-700" : "text-red-700")}>
                       {p.errorPct > 0 ? "+" : ""}{p.errorPct}%
+                    </td>
+                    <td className={cn("px-3 py-2 tabular-nums", p.covered ? "text-forest-700" : "text-red-700")}>
+                      ±{p.bandPct}% {p.covered ? "✓" : "✗"}
                     </td>
                     <td className="px-3 py-2">{CONFIDENCE_LABEL[p.confidence]}</td>
                   </tr>

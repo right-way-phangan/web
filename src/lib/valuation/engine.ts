@@ -134,6 +134,8 @@ export interface ValuationResult {
   high?: number;
   perRai?: number;
   confidence?: "high" | "medium" | "low";
+  /** Относительная полу-ширина честной полосы неопределённости, % (±). */
+  uncertaintyPct?: number;
   methods: MethodResult[];
   adjustments: Array<{ label: string; mult: number }>;
   leasehold?: {
@@ -1065,15 +1067,36 @@ export function estimate(subject: ValuationSubject, data: EngineData): Valuation
     confidence = confidence === "high" ? "medium" : "low";
   }
 
+  // #3 Честная полоса неопределённости. Берём полу-ширину из распределения компсов
+  // (p25/p75) и РАСШИРЯЕМ штрафами за слабые сигналы — мало компсов, island-fallback,
+  // грубое сравнение, расхождение методов. Иначе тесный, но скудный набор даёт ложно
+  // узкую вилку. Все коэффициенты редактируемы → ширина калибруется по «покрытию» в
+  // бэктесте (доля реальных сделок, попавших в полосу, целимся ~80%).
+  const distHalf = listValue > 0 ? Math.max(high - listValue, listValue - low) / listValue : 0;
+  let u = Math.max(distHalf, f["market.uncertainty_base"] ?? 0.08);
+  u += (f["market.uncertainty_few_comps"] ?? 0.4) / Math.sqrt(Math.max(n, 1));
+  if (tier === "island") u += f["market.uncertainty_island"] ?? 0.05;
+  if (rough) u += f["market.uncertainty_rough"] ?? 0.08;
+  if (usable.length > 1) {
+    const vals = usable.map((m) => m.value!);
+    const spread = Math.max(...vals) / Math.min(...vals) - 1;
+    if (spread > 0) u += (f["market.uncertainty_disagreement"] ?? 0.5) * spread;
+  }
+  u = Math.min(u, f["market.uncertainty_cap"] ?? 0.6);
+  // Финальная полоса: не уже распределения и симметрично не уже принципиальной u.
+  const loFinal = round1k(Math.min(low, listValue * (1 - u)));
+  const hiFinal = round1k(Math.max(high, listValue * (1 + u)));
+
   const fs = subjType === "land" ? landFactor(subject, f) : villaFactor(subject, f);
 
   const result: ValuationResult = {
     ok: true,
     listValue,
     fairValue,
-    low,
-    high,
+    low: loFinal,
+    high: hiFinal,
     confidence,
+    uncertaintyPct: Math.round(u * 100),
     methods,
     adjustments: fs.parts,
     sensitivity: buildSensitivity(subject, f, subjType === "land"),

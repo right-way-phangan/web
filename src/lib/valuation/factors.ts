@@ -115,6 +115,12 @@ export const FACTOR_DEFS: FactorDef[] = [
   { key: "market.similarity_strength", group: "market", label: "Сила взвешивания по схожести", value: 0.6, note: "0..1; 0 = выкл (как раньше). Близкие по гео/размеру компсы весомее. A/B бэктестом" },
   { key: "market.sim_geo_halfweight_km", group: "market", label: "Гео-полувес, км", value: 3, note: "На этом расстоянии до субъекта вес компса халвится" },
   { key: "market.sim_size_tolerance", group: "market", label: "Допуск размера (кратность)", value: 2, note: "Во сколько раз отличие площади халвит вес компса" },
+  { key: "market.uncertainty_base", group: "market", label: "Полоса: базовый пол, ±доля", value: 0.08, note: "Минимальная полу-ширина вилки (±8%)" },
+  { key: "market.uncertainty_few_comps", group: "market", label: "Полоса: штраф за мало компсов", value: 0.2, note: "Добавка ±доли = коэф/√n; меньше компсов → шире" },
+  { key: "market.uncertainty_island", group: "market", label: "Полоса: штраф island-fallback", value: 0.05, note: "Шире, когда база — весь остров, а не район" },
+  { key: "market.uncertainty_rough", group: "market", label: "Полоса: штраф грубого сравнения", value: 0.08, note: "Шире для виллы «целиком» без площади/спален" },
+  { key: "market.uncertainty_disagreement", group: "market", label: "Полоса: штраф расхождения методов", value: 0.5, note: "× относительный разброс оценок методов" },
+  { key: "market.uncertainty_cap", group: "market", label: "Полоса: потолок, ±доля", value: 0.6, note: "Полу-ширина не больше ±60%" },
 
   // Веса методов при сведении (перенормируются по доступным)
   { key: "weight.comparative", group: "weight", label: "Вес: сравнительный", value: 0.45 },

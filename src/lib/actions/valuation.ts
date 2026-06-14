@@ -328,6 +328,8 @@ export interface BacktestPoint {
   actual: number; // реальная цена сделки
   predicted: number; // оценка движка (ожидаемая сделка), субъект построен из компса
   errorPct: number; // (predicted/actual − 1)·100; >0 = переоценка
+  bandPct: number; // ±полу-ширина предсказанной полосы, %
+  covered: boolean; // факт попал в полосу (|errorPct| ≤ bandPct)
   confidence: "high" | "medium" | "low";
 }
 
@@ -338,6 +340,8 @@ export interface BacktestResult {
   biasPct: number; // средняя ЗНАКОВАЯ ошибка (>0 = систематически завышаем)
   within10Pct: number; // доля |ошибки| ≤ 10%
   within20Pct: number;
+  bandCoveragePct: number; // доля сделок, попавших в полосу неопределённости (цель ~80%)
+  avgBandPct: number; // средняя ±ширина полосы
   points: BacktestPoint[];
   bySegment: Array<{ segment: string; n: number; mapePct: number; biasPct: number }>;
   caveat?: string;
@@ -382,6 +386,7 @@ function medianOf(a: number[]): number {
 export async function backtestAccuracy(): Promise<BacktestResult> {
   const empty: BacktestResult = {
     n: 0, mapePct: 0, medianAbsPct: 0, biasPct: 0, within10Pct: 0, within20Pct: 0,
+    bandCoveragePct: 0, avgBandPct: 0,
     points: [], bySegment: [], caveat: "Нет реализованных сделок (компсов со статусом sold/gone) для бэктеста.",
   };
   const [objects, overrides, external] = await Promise.all([
@@ -408,13 +413,17 @@ export async function backtestAccuracy(): Promise<BacktestResult> {
     const comps = [...catalogComps, ...allExternal.filter((c) => c.ref !== selfRef)];
     const r = estimate(subject, { comps, market, factors });
     if (!r.ok || r.fairValue == null || r.fairValue <= 0) continue;
+    const errorPct = Math.round((r.fairValue / g.priceThb - 1) * 100);
+    const bandPct = r.uncertaintyPct ?? 0;
     points.push({
       ref: selfRef,
       type: g.type,
       district: g.district,
       actual: g.priceThb,
       predicted: r.fairValue,
-      errorPct: Math.round((r.fairValue / g.priceThb - 1) * 100),
+      errorPct,
+      bandPct,
+      covered: Math.abs(errorPct) <= bandPct,
       confidence: r.confidence ?? "low",
     });
   }
@@ -435,6 +444,8 @@ export async function backtestAccuracy(): Promise<BacktestResult> {
     biasPct: Math.round(mean(errs)),
     within10Pct: Math.round((abs.filter((e) => e <= 10).length / abs.length) * 100),
     within20Pct: Math.round((abs.filter((e) => e <= 20).length / abs.length) * 100),
+    bandCoveragePct: Math.round((points.filter((p) => p.covered).length / points.length) * 100),
+    avgBandPct: Math.round(mean(points.map((p) => p.bandPct))),
     points: points.sort((a, b) => Math.abs(b.errorPct) - Math.abs(a.errorPct)),
     bySegment: [...segMap.entries()].map(([segment, es]) => ({
       segment, n: es.length, mapePct: Math.round(mean(es.map(Math.abs))), biasPct: Math.round(mean(es)),
