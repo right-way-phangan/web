@@ -49,12 +49,35 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
   const utm = useUtmParams();
   const formRef = useRef<HTMLFormElement | null>(null);
   const startedRef = useRef(false);
+  const viewedRef = useRef(false);
+
+  // Top of the funnel: fire once when the form scrolls into view, so the
+  // view → start → submit drop-off is measurable per surface (source/kind) in
+  // Vercel Analytics — the biggest gap is people who see a form but never touch it.
+  useEffect(() => {
+    const el = formRef.current;
+    if (!el || viewedRef.current) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting) && !viewedRef.current) {
+          viewedRef.current = true;
+          track("form_view", { source, kind: kind ?? "inquiry" });
+          io.disconnect();
+        }
+      },
+      { threshold: 0.4 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [source, kind]);
 
   // Form abandonment: one form_start the first time a visitor focuses any field,
   // paired with form_submit on success → start-vs-submit funnel in /admin/crm/stats.
+  // The Vercel event carries source/kind so the funnel slices by surface.
   const onFirstInteraction = () => {
     if (startedRef.current) return;
     startedRef.current = true;
+    track("form_start", { source, kind: kind ?? "inquiry", rwNumber: rwNumber ?? "n/a" });
     trackObjectEvent("form_start", rwNumber);
   };
 
