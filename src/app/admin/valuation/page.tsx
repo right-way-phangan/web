@@ -3,6 +3,7 @@ import { AdminNav } from "@/components/admin/admin-nav";
 import { ValuationTool, type ValuationHistoryRow } from "@/components/admin/valuation-tool";
 import { backendFetch } from "@/lib/api/backend";
 import type { ExternalComp } from "@/lib/actions/valuation";
+import { isValuationLlmEnabled } from "@/lib/valuation/llm-explain";
 
 export const metadata: Metadata = {
   title: "Оценка · RW Estimate",
@@ -56,7 +57,7 @@ export default async function AdminValuationPage() {
           официальный appraisal.
         </p>
       </div>
-      <ValuationTool overrides={overrides} comps={comps} history={history} />
+      <ValuationTool overrides={overrides} comps={comps} history={history} llmEnabled={isValuationLlmEnabled()} />
     </section>
   );
 }

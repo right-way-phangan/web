@@ -28,6 +28,7 @@ import {
   setCompStatus,
   deleteExternalComp,
   scanCatalog,
+  explainValuationAction,
   type ExternalComp,
   type ScanRow,
 } from "@/lib/actions/valuation";
@@ -216,7 +217,26 @@ function MethodCard({ m }: { m: MethodResult }) {
   );
 }
 
-function ResultPanel({ r, subject }: { r: ValuationResult; subject: ValuationSubject }) {
+function ResultPanel({
+  r,
+  subject,
+  llmEnabled,
+}: {
+  r: ValuationResult;
+  subject: ValuationSubject;
+  llmEnabled: boolean;
+}) {
+  const [explanation, setExplanation] = useState<string | null>(null);
+  const [explainErr, setExplainErr] = useState<string | null>(null);
+  const [explaining, startExplain] = useTransition();
+  const explain = () => {
+    setExplainErr(null);
+    startExplain(async () => {
+      const res = await explainValuationAction(subject, r);
+      if (res.ok && res.text) setExplanation(res.text);
+      else setExplainErr(res.error ?? "Не удалось получить обоснование.");
+    });
+  };
   if (!r.ok) {
     return (
       <div className="rounded-sm border border-red-500/30 bg-red-500/5 p-4 text-sm text-red-800">
@@ -386,6 +406,33 @@ function ResultPanel({ r, subject }: { r: ValuationResult; subject: ValuationSub
             </li>
           ))}
         </ul>
+      )}
+
+      {llmEnabled && (
+        <div className="rounded-sm border border-forest-900/10 bg-white p-4">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <p className="text-xs font-medium uppercase tracking-[0.15em] text-brass-500">
+              Обоснование оценки
+            </p>
+            <button
+              type="button"
+              onClick={explain}
+              disabled={explaining}
+              className="rounded-sm border border-forest-900/20 px-3 py-1 text-xs text-forest-900 hover:bg-forest-900/5 disabled:opacity-50"
+            >
+              {explaining ? "Готовлю…" : explanation ? "Обновить" : "Объяснить оценку"}
+            </button>
+          </div>
+          <p className="mt-1 text-xs text-forest-900/45">
+            ИИ пересказывает посчитанные движком числа и факторы — цифры не меняет.
+          </p>
+          {explainErr && <p className="mt-2 text-sm text-red-700">{explainErr}</p>}
+          {explanation && (
+            <div className="mt-3 space-y-2 whitespace-pre-wrap text-sm leading-relaxed text-forest-900/90">
+              {explanation}
+            </div>
+          )}
+        </div>
       )}
     </div>
   );
@@ -828,10 +875,12 @@ export function ValuationTool({
   overrides,
   comps,
   history,
+  llmEnabled = false,
 }: {
   overrides: Array<{ key: string; value: number }>;
   comps: ExternalComp[];
   history: ValuationHistoryRow[];
+  llmEnabled?: boolean;
 }) {
   const [tab, setTab] = useState<Tab>("estimate");
   const [v, setV] = useState<SubjectForm>(emptySubject);
@@ -953,7 +1002,7 @@ export function ValuationTool({
               </Button>
             </div>
           </div>
-          {result && <ResultPanel r={result.r} subject={result.s} />}
+          {result && <ResultPanel r={result.r} subject={result.s} llmEnabled={llmEnabled} />}
         </div>
       )}
 

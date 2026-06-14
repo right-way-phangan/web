@@ -7,6 +7,7 @@ import { getRentalMarket } from "@/lib/data/rental-market";
 import { estimate, type ValuationSubject, type CompPoint, type ValuationResult } from "@/lib/valuation/engine";
 import { buildFactorMap } from "@/lib/valuation/factors";
 import { lookupZoneByLocation } from "@/lib/actions/zone-lookup";
+import { explainValuation } from "@/lib/valuation/llm-explain";
 import type { RealEstateObject } from "@/types/object";
 
 const API = process.env.OBJECTS_API_URL;
@@ -152,6 +153,25 @@ export async function runValuation(
     }).catch(() => {});
   }
   return result;
+}
+
+/**
+ * LLM-обоснование готовой оценки (админка). Оживает с `ANTHROPIC_API_KEY`; без
+ * ключа возвращает {ok:false} — кнопка в UI показывается только когда фича
+ * включена (флаг прокидывается со страницы). Модель пересказывает посчитанные
+ * движком числа, ничего не считая сама.
+ */
+export async function explainValuationAction(
+  subject: ValuationSubject,
+  result: ValuationResult,
+): Promise<{ ok: boolean; text?: string; error?: string }> {
+  try {
+    const text = await explainValuation(subject, result);
+    if (!text) return { ok: false, error: "LLM не подключён или не дал ответ." };
+    return { ok: true, text };
+  } catch (err) {
+    return { ok: false, error: err instanceof Error ? err.message : "ошибка LLM" };
+  }
 }
 
 // ---- Скан каталога: asking против оценки по всем объектам ----
