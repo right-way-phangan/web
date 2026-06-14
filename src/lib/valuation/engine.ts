@@ -884,8 +884,13 @@ function leaseholdBlock(
 
 /**
  * Рычаги чувствительности: на сколько % каждый признак двигает оценку (значения
- * множителей из карты факторов). Аргументы для торга — какие фичи поднимают цену
- * и есть ли они у объекта. Только админка (в публичный выход не идёт).
+ * множителей из карты факторов). Аргументы для торга. Два рода рычагов:
+ *  - boolean-фичи (вид/бассейн): applied = есть ли у объекта; отсутствие = «потенциал»;
+ *  - категориальные драйверы объекта (документ/дорога/рельеф/зона/размер для
+ *    земли, состояние для виллы): всегда applied — показываем вклад ФАКТИЧЕСКОЙ
+ *    категории (слабый документ −60% / зелёная зона −10% / крупный лот −13% — это
+ *    и есть прямые аргументы для торга).
+ * Только админка (в публичный выход не идёт).
  */
 function buildSensitivity(
   subject: ValuationSubject,
@@ -893,22 +898,53 @@ function buildSensitivity(
   isLand: boolean,
 ): Array<{ label: string; deltaPct: number; applied: boolean }> {
   const out: Array<{ label: string; deltaPct: number; applied: boolean }> = [];
-  const add = (label: string, key: string, applied: boolean) => {
-    const m = f[key];
-    if (m !== undefined && m !== 1) out.push({ label, deltaPct: Math.round((m - 1) * 100), applied });
+  // Отсекаем рычаги слабее 2% — в основном шум непрерывного size-фактора у
+  // около-нейтральных лотов (Размер 1.5 рай ≈ −1%): не аргумент для торга.
+  const MIN_LEVER_PCT = 2;
+  const push = (label: string, mult: number | undefined, applied: boolean) => {
+    if (mult === undefined) return;
+    const d = Math.round((mult - 1) * 100);
+    if (Math.abs(d) >= MIN_LEVER_PCT) out.push({ label, deltaPct: d, applied });
   };
-  add("Вид на море", "feature.sea_view", !!subject.seaView);
-  add("Первая линия", "feature.beachfront", !!subject.beachfront);
-  add("Вид на горы", "feature.mountain_view", !!subject.mountainView);
+  const add = (label: string, key: string, applied: boolean) => push(label, f[key], applied);
+  // Категориальный драйвер по фактической категории объекта (всегда applied).
+  const addActual = (label: string, mult: number | undefined) => push(label, mult, true);
+
+  // Видовые фичи фиксированы локацией — показываем ТОЛЬКО когда есть у объекта
+  // (гипотетический «потенциал вида» для участка без вида — вводящий в заблуждение
+  // шум: вид нельзя получить торгом). Электричество/бассейн улучшаемы → показываем
+  // и как потенциал (реальный апгрейд: подвести свет, построить бассейн).
+  if (subject.seaView) add("Вид на море", "feature.sea_view", true);
+  if (subject.beachfront) add("Первая линия", "feature.beachfront", true);
+  if (subject.mountainView) add("Вид на горы", "feature.mountain_view", true);
   add("Электричество на участке", "feature.electricity", !!subject.electricity);
-  if (!isLand) add("Бассейн", "feature.pool", !!subject.pool);
-  // Близость к пляжу — измеренный (не гипотетический) рычаг: показываем
-  // фактический вклад, когда есть координаты и это не первая линия.
+
+  if (isLand) {
+    // Главные драйверы цены земли — категориальные. Показываем вклад текущей
+    // категории объекта (нейтральные = базовая ×1 — пропускаются в addActual).
+    const dk = docFactorKey(subject.documentType);
+    if (dk) addActual(`Документ: ${dk.label}`, f[dk.key]);
+    const rk = roadFactorKey(subject.roadType);
+    if (rk) addActual(rk.label, f[rk.key]);
+    const tk = terrainFactorKey(subject.terrain);
+    if (tk) addActual(tk.label, f[tk.key]);
+    const zk = zoneFactorKey(subject.zone);
+    if (zk) addActual(zk.label, f[zk.key]);
+    if (subject.areaRai && subject.areaRai > 0) {
+      const sz = sizeFactor(subject.areaRai, f);
+      addActual(sz.label, sz.mult);
+    }
+  } else {
+    add("Бассейн", "feature.pool", !!subject.pool);
+    const ck = conditionFactorKey(subject.condition);
+    if (ck) addActual(`Состояние: ${ck.label}`, f[ck.key]);
+  }
+
+  // Близость к пляжу — измеренный (не гипотетический) рычаг: фактический вклад,
+  // когда есть координаты и это не первая линия (порог 2% отсекает ~1 км нейтраль).
   if (!subject.beachfront) {
     const bf = beachFactor(subject.lat, subject.lng, f);
-    if (bf && Math.abs(bf.mult - 1) > 1e-6) {
-      out.push({ label: bf.label, deltaPct: Math.round((bf.mult - 1) * 100), applied: true });
-    }
+    if (bf) addActual(bf.label, bf.mult);
   }
   return out.sort((a, b) => Math.abs(b.deltaPct) - Math.abs(a.deltaPct));
 }
