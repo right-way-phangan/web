@@ -112,6 +112,9 @@ export const FACTOR_DEFS: FactorDef[] = [
   { key: "market.comp_sold_weight", group: "market", label: "Вес компса: продан", value: 1.5, note: "Реальная сделка весомее asking-объявления" },
   { key: "market.comp_stale_weight", group: "market", label: "Вес компса: завис на рынке", value: 0.5, note: "Долго не продаётся по своей цене → слабый сигнал" },
   { key: "market.stale_months", group: "market", label: "Порог «завис», мес", value: 9, note: "Дольше — asking-компс считается заскоревшим" },
+  { key: "market.similarity_strength", group: "market", label: "Сила взвешивания по схожести", value: 0.6, note: "0..1; 0 = выкл (как раньше). Близкие по гео/размеру компсы весомее. A/B бэктестом" },
+  { key: "market.sim_geo_halfweight_km", group: "market", label: "Гео-полувес, км", value: 3, note: "На этом расстоянии до субъекта вес компса халвится" },
+  { key: "market.sim_size_tolerance", group: "market", label: "Допуск размера (кратность)", value: 2, note: "Во сколько раз отличие площади халвит вес компса" },
 
   // Веса методов при сведении (перенормируются по доступным)
   { key: "weight.comparative", group: "weight", label: "Вес: сравнительный", value: 0.45 },

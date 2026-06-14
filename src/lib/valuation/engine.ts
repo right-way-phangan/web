@@ -393,6 +393,40 @@ function compWeight(c: CompPoint, f: FactorMap): number {
   return 1;
 }
 
+/**
+ * Вес схожести компса с субъектом (kNN-подход): близкие по ГЕОГРАФИИ и РАЗМЕРУ
+ * компсы релевантнее далёких/непохожих. Множится в общий вес компса поверх
+ * sold/stale — так взвешенная медиана смещается к настоящим аналогам, а бинарный
+ * tier (район/остров) перестаёт быть грубым «всё поровну».
+ *  - гео: 1/(1+(d/half)²) — d=0→1, d=half→0.5; нужны координаты у обоих, иначе 1;
+ *  - размер: 1/(1+((ratio−1)/(tol−1))²) — одинаковый размер→1, кратно разный→ниже.
+ * Сила `market.similarity_strength` (0..1): 0 = выкл (точно прежнее поведение),
+ * 1 = полный эффект — тюнится и A/B-тестируется бэктестом (вкладка «Точность»).
+ */
+function similarityWeight(
+  subject: { areaRai?: number; builtSqm?: number; bedrooms?: number; lat?: number; lng?: number },
+  c: CompPoint,
+  basis: "land" | "built",
+  f: FactorMap,
+): number {
+  const strength = Math.max(0, Math.min(1, f["market.similarity_strength"] ?? 0.6));
+  if (strength <= 0) return 1;
+  let sim = 1;
+  if (subject.lat != null && subject.lng != null && c.lat != null && c.lng != null) {
+    const d = haversineKm(subject.lat, subject.lng, c.lat, c.lng);
+    const half = f["market.sim_geo_halfweight_km"] ?? 3;
+    if (half > 0) sim *= 1 / (1 + (d / half) ** 2);
+  }
+  const sSize = basis === "land" ? subject.areaRai : subject.builtSqm ?? subject.bedrooms;
+  const cSize = basis === "land" ? c.areaRai ?? undefined : c.builtSqm ?? c.bedrooms ?? undefined;
+  if (sSize && cSize && sSize > 0 && cSize > 0) {
+    const ratio = Math.max(sSize, cSize) / Math.min(sSize, cSize); // ≥1
+    const tol = f["market.sim_size_tolerance"] ?? 2;
+    if (tol > 1) sim *= 1 / (1 + ((ratio - 1) / (tol - 1)) ** 2);
+  }
+  return 1 + strength * (sim - 1); // strength=0 → 1; strength=1 → sim
+}
+
 interface WV {
   district?: string | null;
   v: number;
@@ -604,7 +638,8 @@ function comparativeLand(
     if (fc.mult <= 0) continue;
     const baseTag = compTag(c, f);
     const tag = adj !== perRai ? (baseTag ? `${baseTag} · ↑время` : "↑время") : baseTag;
-    normalized.push({ district: c.district, v: adj / fc.mult, w: compWeight(c, f), ref: c.ref, raw: adj, tag });
+    const w = compWeight(c, f) * similarityWeight(subject, c, "land", f);
+    normalized.push({ district: c.district, v: adj / fc.mult, w, ref: c.ref, raw: adj, tag });
   }
   const stats = tierStats(normalized, subject.district);
   if (!stats) {
@@ -674,7 +709,8 @@ function comparativeBuilt(
     const adj = timeAdjust(unit, parseCompDate(c.date), apprPct);
     const baseTag = compTag(c, f);
     const tag = adj !== unit ? (baseTag ? `${baseTag} · ↑время` : "↑время") : baseTag;
-    normalized.push({ district: c.district, v: adj / fc.mult, w: compWeight(c, f), ref: c.ref, raw: adj, tag });
+    const w = compWeight(c, f) * similarityWeight(subject, c, "built", f);
+    normalized.push({ district: c.district, v: adj / fc.mult, w, ref: c.ref, raw: adj, tag });
   }
   const stats = tierStats(normalized, subject.district);
   if (!stats) {
