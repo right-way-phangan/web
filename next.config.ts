@@ -53,6 +53,10 @@ const nextConfig: NextConfig = {
     ],
   },
   typedRoutes: true,
+  // sharp is a native module — keep it external so Next loads it from
+  // node_modules at runtime (the /staticmap brochure renderer uses it) instead
+  // of trying to bundle the .node binary into the serverless function.
+  serverExternalPackages: ["sharp"],
   // Справочник (/admin/guide) читает markdown с диска на рантайме (страницы
   // dynamic из-за AdminNav) — без явного include Vercel не положит файлы в
   // серверный бандл и fs.readFileSync вернёт ENOENT.
