@@ -29,8 +29,10 @@ import {
   deleteExternalComp,
   scanCatalog,
   explainValuationAction,
+  backtestAccuracy,
   type ExternalComp,
   type ScanRow,
+  type BacktestResult,
 } from "@/lib/actions/valuation";
 
 const fmt = (v: number | undefined | null) =>
@@ -867,9 +869,108 @@ function CatalogScanPanel() {
   );
 }
 
+// ---- Точность: бэктест по реализованным сделкам ----
+
+function Metric({ label, value, hint }: { label: string; value: string; hint?: string }) {
+  return (
+    <div className="rounded-sm border border-forest-900/10 bg-white p-4">
+      <p className="text-xs text-forest-900/50">{label}</p>
+      <p className="mt-1 text-2xl font-semibold tabular-nums text-forest-900">{value}</p>
+      {hint && <p className="mt-0.5 text-xs text-forest-900/45">{hint}</p>}
+    </div>
+  );
+}
+
+function AccuracyPanel() {
+  const [res, setRes] = useState<BacktestResult | null>(null);
+  const [pending, startTransition] = useTransition();
+  const run = () => startTransition(async () => setRes(await backtestAccuracy()));
+
+  return (
+    <div className="space-y-4">
+      <p className="text-xs text-forest-900/60">
+        Бэктест «leave-one-out»: каждую реализованную сделку (компс sold/gone) оцениваем по всем остальным —
+        сам объект исключён, без подглядывания в ответ — и сравниваем с фактической ценой. Превращает
+        «проверяемую методологию» в число и показывает систематический сдвиг (что тюнить). В журнал не пишет.
+      </p>
+      <Button onClick={run} disabled={pending}>
+        {pending ? "Считаем…" : res ? "Пересчитать" : "Прогнать бэктест"}
+      </Button>
+
+      {res && res.n === 0 && (
+        <p className="rounded-sm border border-brass-500/20 bg-brass-500/5 p-4 text-sm text-forest-900/70">
+          {res.caveat ?? "Нет данных для бэктеста."}
+        </p>
+      )}
+
+      {res && res.n > 0 && (
+        <div className="space-y-4">
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <Metric label="Средняя ошибка (MAPE)" value={`${res.mapePct}%`} hint={`медиана ${res.medianAbsPct}%`} />
+            <Metric
+              label="Систематический сдвиг"
+              value={`${res.biasPct > 0 ? "+" : ""}${res.biasPct}%`}
+              hint={res.biasPct > 3 ? "склонны завышать" : res.biasPct < -3 ? "склонны занижать" : "сдвига почти нет"}
+            />
+            <Metric label="В пределах ±10%" value={`${res.within10Pct}%`} hint={`сделок: ${res.n}`} />
+            <Metric label="В пределах ±20%" value={`${res.within20Pct}%`} />
+          </div>
+
+          {res.caveat && (
+            <p className="rounded-sm border border-brass-500/20 bg-brass-500/5 p-3 text-xs text-forest-900/70">
+              ⚠ {res.caveat}
+            </p>
+          )}
+
+          {res.bySegment.length > 1 && (
+            <div className="flex flex-wrap gap-2 text-xs">
+              {res.bySegment.map((s) => (
+                <span key={s.segment} className="rounded-sm border border-forest-900/10 bg-cream-50 px-2.5 py-1 text-forest-900/70">
+                  {s.segment}: MAPE {s.mapePct}% · сдвиг {s.biasPct > 0 ? "+" : ""}{s.biasPct}% (n={s.n})
+                </span>
+              ))}
+            </div>
+          )}
+
+          <div className="overflow-x-auto rounded-sm border border-forest-900/10 bg-white">
+            <table className="w-full text-left text-xs">
+              <thead>
+                <tr className="border-b border-forest-900/10 text-forest-900/50">
+                  <th className="px-3 py-2 font-medium">Сделка</th>
+                  <th className="px-3 py-2 font-medium">Тип</th>
+                  <th className="px-3 py-2 font-medium">Район</th>
+                  <th className="px-3 py-2 font-medium">Факт</th>
+                  <th className="px-3 py-2 font-medium">Оценка</th>
+                  <th className="px-3 py-2 font-medium">Ошибка</th>
+                  <th className="px-3 py-2 font-medium">Увер.</th>
+                </tr>
+              </thead>
+              <tbody>
+                {res.points.map((p) => (
+                  <tr key={p.ref} className="border-b border-forest-900/5">
+                    <td className="px-3 py-2 text-forest-900/60">{p.ref}</td>
+                    <td className="px-3 py-2 text-forest-900">{p.type}</td>
+                    <td className="px-3 py-2 text-forest-900/70">{p.district ?? "—"}</td>
+                    <td className="px-3 py-2">{fmtM(p.actual)}</td>
+                    <td className="px-3 py-2">{fmtM(p.predicted)}</td>
+                    <td className={cn("px-3 py-2 font-medium tabular-nums", Math.abs(p.errorPct) <= 10 ? "text-forest-700" : Math.abs(p.errorPct) <= 20 ? "text-brass-700" : "text-red-700")}>
+                      {p.errorPct > 0 ? "+" : ""}{p.errorPct}%
+                    </td>
+                    <td className="px-3 py-2">{CONFIDENCE_LABEL[p.confidence]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ---- Корневой компонент ----
 
-type Tab = "estimate" | "catalog" | "factors" | "comps" | "history";
+type Tab = "estimate" | "catalog" | "accuracy" | "factors" | "comps" | "history";
 
 export function ValuationTool({
   overrides,
@@ -902,6 +1003,7 @@ export function ValuationTool({
   const tabs: Array<{ key: Tab; label: string }> = [
     { key: "estimate", label: "Оценка" },
     { key: "catalog", label: "Скан каталога" },
+    { key: "accuracy", label: "Точность" },
     { key: "factors", label: `Факторы${overrides.length ? ` (${overrides.length} изм.)` : ""}` },
     { key: "comps", label: `Компсы (${comps.length})` },
     { key: "history", label: "История" },
@@ -1009,6 +1111,7 @@ export function ValuationTool({
       {tab === "factors" && <FactorsEditor overrides={overrides} />}
       {tab === "comps" && <CompsPanel comps={comps} />}
       {tab === "catalog" && <CatalogScanPanel />}
+      {tab === "accuracy" && <AccuracyPanel />}
       {tab === "history" && <HistoryPanel rows={history} />}
     </div>
   );

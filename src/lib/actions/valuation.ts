@@ -319,6 +319,130 @@ export async function scanCatalog(): Promise<ScanRow[]> {
   return rows;
 }
 
+// ---- Бэктест точности: leave-one-out по реализованным сделкам ----
+
+export interface BacktestPoint {
+  ref: string;
+  type: string;
+  district: string | null;
+  actual: number; // реальная цена сделки
+  predicted: number; // оценка движка (ожидаемая сделка), субъект построен из компса
+  errorPct: number; // (predicted/actual − 1)·100; >0 = переоценка
+  confidence: "high" | "medium" | "low";
+}
+
+export interface BacktestResult {
+  n: number;
+  mapePct: number; // средняя абсолютная ошибка, %
+  medianAbsPct: number;
+  biasPct: number; // средняя ЗНАКОВАЯ ошибка (>0 = систематически завышаем)
+  within10Pct: number; // доля |ошибки| ≤ 10%
+  within20Pct: number;
+  points: BacktestPoint[];
+  bySegment: Array<{ segment: string; n: number; mapePct: number; biasPct: number }>;
+  caveat?: string;
+}
+
+/** Реконструкция оцениваемого субъекта из внешнего компса (для leave-one-out). */
+function externalCompToSubject(c: ExternalComp): ValuationSubject {
+  return {
+    type: (["Land", "Villa", "House", "Apartment"].includes(c.type) ? c.type : "Land") as ValuationSubject["type"],
+    district: c.district ?? undefined,
+    zone: c.zone ?? undefined,
+    areaRai: c.areaRai ?? undefined,
+    builtSqm: c.builtSqm ?? undefined,
+    bedrooms: c.bedrooms ?? undefined,
+    documentType: c.documentType ?? undefined,
+    roadType: c.roadType ?? undefined,
+    terrain: c.terrain ?? undefined,
+    seaView: c.seaView,
+    beachfront: c.beachfront,
+    electricity: c.electricity,
+  };
+}
+
+const mean = (a: number[]) => (a.length ? a.reduce((s, x) => s + x, 0) / a.length : 0);
+function medianOf(a: number[]): number {
+  if (!a.length) return 0;
+  const s = [...a].sort((x, y) => x - y);
+  const m = Math.floor(s.length / 2);
+  return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
+}
+
+/**
+ * Бэктест точности движка: для каждой РЕАЛИЗОВАННОЙ сделки (внешний компс со
+ * статусом sold/gone и известной ценой) строим субъект из её атрибутов и
+ * оцениваем по всем ОСТАЛЬНЫМ компсам (leave-one-out — сам компс исключён,
+ * без подглядывания в ответ). Сравниваем оценку (ожидаемая сделка `fairValue`,
+ * т.е. сделочный уровень) с фактической ценой. Так «проверяемая методология»
+ * становится числом: MAPE, медиана, систематический сдвиг, доля в пределах ±10/20%.
+ * Малая выборка (7 сид-сделок сейчас) — индикативно; растёт по мере пометки
+ * компсов sold. В журнал не пишет.
+ */
+export async function backtestAccuracy(): Promise<BacktestResult> {
+  const empty: BacktestResult = {
+    n: 0, mapePct: 0, medianAbsPct: 0, biasPct: 0, within10Pct: 0, within20Pct: 0,
+    points: [], bySegment: [], caveat: "Нет реализованных сделок (компсов со статусом sold/gone) для бэктеста.",
+  };
+  const [objects, overrides, external] = await Promise.all([
+    getAllObjects(),
+    fetchFactorOverrides(),
+    fetchExternalComps(),
+  ]);
+  const factors = buildFactorMap(overrides);
+  const market = getRentalMarket();
+  const catalogComps = objects.filter((o) => !isUnit(o.rwNumber) && o.type !== "Project").map(catalogComp);
+  const allExternal = external.map(externalComp);
+
+  const truth = external.filter((c) => {
+    const st = (c.status ?? "").toLowerCase();
+    return (st.includes("sold") || st.includes("gone")) && c.priceThb > 0 &&
+      ["Land", "Villa", "House", "Apartment"].includes(c.type);
+  });
+  if (truth.length === 0) return empty;
+
+  const points: BacktestPoint[] = [];
+  for (const g of truth) {
+    const subject = externalCompToSubject(g);
+    const selfRef = `ext#${g.id}`;
+    const comps = [...catalogComps, ...allExternal.filter((c) => c.ref !== selfRef)];
+    const r = estimate(subject, { comps, market, factors });
+    if (!r.ok || r.fairValue == null || r.fairValue <= 0) continue;
+    points.push({
+      ref: selfRef,
+      type: g.type,
+      district: g.district,
+      actual: g.priceThb,
+      predicted: r.fairValue,
+      errorPct: Math.round((r.fairValue / g.priceThb - 1) * 100),
+      confidence: r.confidence ?? "low",
+    });
+  }
+  if (points.length === 0) return empty;
+
+  const errs = points.map((p) => p.errorPct);
+  const abs = errs.map((e) => Math.abs(e));
+  const segMap = new Map<string, number[]>();
+  for (const p of points) {
+    const seg = p.type === "Villa" || p.type === "House" ? "Виллы/дома" : p.type === "Apartment" ? "Апартаменты" : "Земля";
+    if (!segMap.has(seg)) segMap.set(seg, []);
+    segMap.get(seg)!.push(p.errorPct);
+  }
+  return {
+    n: points.length,
+    mapePct: Math.round(mean(abs)),
+    medianAbsPct: Math.round(medianOf(abs)),
+    biasPct: Math.round(mean(errs)),
+    within10Pct: Math.round((abs.filter((e) => e <= 10).length / abs.length) * 100),
+    within20Pct: Math.round((abs.filter((e) => e <= 20).length / abs.length) * 100),
+    points: points.sort((a, b) => Math.abs(b.errorPct) - Math.abs(a.errorPct)),
+    bySegment: [...segMap.entries()].map(([segment, es]) => ({
+      segment, n: es.length, mapePct: Math.round(mean(es.map(Math.abs))), biasPct: Math.round(mean(es)),
+    })),
+    caveat: points.length < 15 ? `Малая выборка (${points.length} сделок) — оценка точности индикативная, не статистически устойчивая.` : undefined,
+  };
+}
+
 export type FactorActionResult = { ok: boolean; error?: string };
 
 /** Сохранить переопределения факторов (value=null — вернуть дефолт). */
