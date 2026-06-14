@@ -910,6 +910,8 @@ export interface ObjectDict {
     poiSchool: string;
     poiShop: string;
     poiAtm: string;
+    fullscreen: string;
+    fullscreenExit: string;
   };
   perRaiMonth: string;
   priceOnRequest: string;
@@ -1037,6 +1039,8 @@ const objectDict: Record<Locale, ObjectDict> = {
       poiSchool: "School",
       poiShop: "Shop / supermarket",
       poiAtm: "Banks & ATMs",
+      fullscreen: "Fullscreen",
+      fullscreenExit: "Exit fullscreen",
     },
     perRaiMonth: "/ rai / month",
     priceOnRequest: "Price on request",
@@ -1161,6 +1165,8 @@ const objectDict: Record<Locale, ObjectDict> = {
       poiSchool: "Школа",
       poiShop: "Магазин / супермаркет",
       poiAtm: "Банки и банкоматы",
+      fullscreen: "На весь экран",
+      fullscreenExit: "Выйти из полноэкранного",
     },
     perRaiMonth: "/ рай / мес",
     priceOnRequest: "Цена по запросу",

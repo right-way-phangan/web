@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { MapContainer, TileLayer, Marker, Circle, Polygon, Polyline, AttributionControl, useMapEvents } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { LocateFixed } from "lucide-react";
+import { LocateFixed, Maximize2, Minimize2 } from "lucide-react";
 import {
   TILE_URL,
   TILE_ATTRIBUTION,
@@ -33,6 +33,7 @@ import {
 import { useLocale } from "@/lib/i18n/use-locale";
 import { getObjectDict } from "@/lib/i18n/dictionaries";
 import { cn } from "@/lib/utils/cn";
+import { useFullscreen } from "@/lib/leaflet/use-fullscreen";
 import { MapLegend } from "./map-legend";
 import { PoiMarkers } from "./poi-markers";
 
@@ -81,7 +82,9 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
   const locale = useLocale();
   const t = getObjectDict(locale).map;
   const mapRef = useRef<L.Map | null>(null);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
   const watchId = useRef<number | null>(null);
+  const { isFull, supported: fsSupported, toggle: toggleFull } = useFullscreen(wrapperRef, mapRef);
 
   const hasPolygon = (plotPolygon?.length ?? 0) >= 3;
   // Restore the visitor's last layer choice; otherwise a contour reads best
@@ -171,7 +174,10 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
   const pillOff = "bg-cream-100/95 text-forest-900 hover:bg-cream-100";
 
   return (
-    <div className="relative h-full w-full overflow-hidden rounded-sm border border-forest-500/10">
+    <div
+      ref={wrapperRef}
+      className="relative h-full w-full overflow-hidden rounded-sm border border-forest-500/10 bg-[#e8e4da]"
+    >
       <MapContainer
         ref={mapRef}
         center={[lat, lng]}
@@ -253,7 +259,7 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
             <Marker position={sunsetTip} icon={sunsetIcon(t.sunset)} interactive={false} />
           </>
         ) : null}
-        {poi ? <PoiMarkers locale={locale} t={t} /> : null}
+        {poi ? <PoiMarkers locale={locale} t={t} origin={{ lat, lng }} /> : null}
         <Marker position={[lat, lng]} icon={pinIcon} />
         {me ? (
           <>
@@ -331,6 +337,20 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
         >
           <LocateFixed size={16} className={geoBusy ? "animate-pulse" : undefined} aria-hidden />
         </button>
+        {fsSupported ? (
+          <button
+            type="button"
+            aria-label={isFull ? t.fullscreenExit : t.fullscreen}
+            aria-pressed={isFull}
+            className={cn(
+              "rounded-sm border border-forest-500/20 p-2.5 shadow-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brass-500",
+              isFull ? pillOn : pillOff,
+            )}
+            onClick={toggleFull}
+          >
+            {isFull ? <Minimize2 size={16} aria-hidden /> : <Maximize2 size={16} aria-hidden />}
+          </button>
+        ) : null}
       </div>
 
       {/* Zoning + nearby legend / source note (collapsible, shared with /listings). */}
