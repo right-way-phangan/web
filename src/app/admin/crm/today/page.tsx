@@ -12,6 +12,7 @@ import { TaskRow } from "@/components/crm/task-row";
 import { leadScore } from "@/lib/crm/score";
 import { forecastByMonth } from "@/lib/crm/forecast";
 import { getMonthlyTargetThb } from "@/lib/data/settings";
+import { nextAction, URGENCY_STYLE, type NextAction } from "@/lib/crm/next-action";
 
 export const metadata: Metadata = {
   title: "CRM — сегодня",
@@ -113,6 +114,20 @@ export default async function CrmTodayPage() {
     .sort((a, b) => b.score.score - a.score.score || (b.lead.dealValue ?? 0) - (a.lead.dealValue ?? 0))
     .slice(0, 20);
 
+  // ── Требуют хода сейчас: «Следующий шаг» горит красным (urgency=now) ──
+  // Просрочки по задачам уже выше (секция задач), legacy — в разборе: исключаем,
+  // чтобы не дублировать. Остаётся SLA, нет контакта, объект не помечен, First Reply.
+  const needAction = leads
+    .filter(
+      (l) =>
+        (l.status ?? "open") === "open" &&
+        l.pipelineKey !== "legacy" &&
+        (l.overdueTasks ?? 0) === 0,
+    )
+    .map((l) => ({ lead: l, nba: nextAction(l) }))
+    .filter((x): x is { lead: (typeof leads)[number]; nba: NextAction } => x.nba?.urgency === "now")
+    .slice(0, 25);
+
   // ── Очередь разбора (legacy incoming) ──
   const triageQueue = leads.filter(
     (l) => l.pipelineKey === "legacy" && (l.status ?? "open") === "open" && l.stageKey === "incoming",
@@ -136,7 +151,8 @@ export default async function CrmTodayPage() {
   const monthProjection = wonMonthCommission + monthFcThis;
   const projPct = monthlyTarget ? Math.min(100, Math.round((monthProjection / monthlyTarget) * 100)) : null;
 
-  const nothing = urgent.length === 0 && callNow.length === 0 && triageQueue === 0;
+  const nothing =
+    urgent.length === 0 && needAction.length === 0 && callNow.length === 0 && triageQueue === 0;
 
   return (
     <section className="px-4 py-8 md:px-8">
@@ -149,7 +165,8 @@ export default async function CrmTodayPage() {
           <h1 className="text-2xl font-semibold text-forest-900 md:text-3xl">Сегодня</h1>
           <p className="mt-1 text-sm text-forest-900/60">
             С чего начать день: {urgent.length} срочных задач ({overdueCount} просрочено) ·{" "}
-            {callNow.length} горячих звонков · {triageQueue} на разбор.
+            {needAction.length} требуют хода · {callNow.length} горячих звонков · {triageQueue} на
+            разбор.
           </p>
         </div>
         {monthProjection > 0 && (
@@ -210,6 +227,43 @@ export default async function CrmTodayPage() {
                     />
                   );
                 })}
+              </ul>
+            </div>
+          )}
+
+          {/* Требуют хода сейчас (next-best-action = now) */}
+          {needAction.length > 0 && (
+            <div>
+              <h2 className="mb-2 text-sm font-semibold uppercase tracking-wide text-red-700">
+                🧭 Требуют хода сейчас
+                <span className="ml-1 font-normal text-forest-900/40">· {needAction.length}</span>
+              </h2>
+              <p className="mb-2 text-xs text-forest-900/45">
+                «Следующий шаг» горит красным — кроме задач выше (SLA, нет контакта, объект не
+                помечен, ждёт первого ответа).
+              </p>
+              <ul className="space-y-1.5">
+                {needAction.map(({ lead, nba }) => (
+                  <li
+                    key={lead.id}
+                    className={`flex flex-wrap items-center gap-x-2 gap-y-1 rounded-lg border px-3 py-2 text-sm ${URGENCY_STYLE[nba.urgency]}`}
+                  >
+                    <span className="shrink-0">{nba.icon}</span>
+                    <span className="shrink-0 font-semibold">{nba.label}</span>
+                    {nba.detail && <span className="shrink-0 text-xs opacity-70">· {nba.detail}</span>}
+                    <Link
+                      href={{ pathname: `/admin/crm/${lead.id}` }}
+                      className="ml-auto min-w-0 max-w-[12rem] truncate text-xs font-medium underline-offset-2 hover:underline"
+                    >
+                      {lead.contactName || lead.name || `Лид #${lead.id}`}
+                    </Link>
+                    {lead.phone && (
+                      <a href={`tel:${lead.phone}`} className="shrink-0 text-xs hover:opacity-70">
+                        📞
+                      </a>
+                    )}
+                  </li>
+                ))}
               </ul>
             </div>
           )}

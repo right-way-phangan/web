@@ -4,6 +4,7 @@ import { getLeads, getPipelines, CRM_ENABLED } from "@/lib/data/leads";
 import { CrmBoard } from "@/components/crm/crm-board";
 import { AdminNav } from "@/components/admin/admin-nav";
 import { leadScore } from "@/lib/crm/score";
+import { nextAction } from "@/lib/crm/next-action";
 
 export const metadata: Metadata = {
   title: "CRM — лиды",
@@ -38,6 +39,7 @@ export default async function CrmPage({
   const query = (q ?? "").trim().toLowerCase();
   const QUICK = [
     { key: "shift", label: "🎯 Мой движ" },
+    { key: "now", label: "🧭 Сейчас" },
     { key: "ripe", label: "🌡 Созрел" },
     { key: "hot", label: "🔥 Горячие" },
     { key: "stale", label: "💤 Остывающие" },
@@ -56,6 +58,9 @@ export default async function CrmPage({
     if (key === "hot") return (l.tags ?? []).includes("hot");
     if (key === "stale") return open && daysSince(l) >= 3;
     if (key === "notasks") return open && (l.openTasks ?? 0) === 0;
+    // "Сейчас" — лиды, у которых «Следующий шаг» горит красным (urgency=now):
+    // нет контакта, просрочка/SLA, объект не помечен, ждёт первого ответа.
+    if (key === "now") return open && nextAction(l)?.urgency === "now";
     // "Созрел" — сигналы говорят, что лид готов (level=hot), но вручную ещё не
     // помечен 🔥: кандидаты на повышение, которые легко прозевать.
     if (key === "ripe")
