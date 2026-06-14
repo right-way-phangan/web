@@ -100,6 +100,7 @@ export function dbArticleToBlogPost(a: DbArticle): BlogPost {
     excerpt: a.excerpt,
     topic: a.topic,
     published: toDateStr(a.publishedAt, a.createdAt),
+    updated: toDateStr(a.updatedAt, a.publishedAt ?? a.createdAt),
     readMins: a.readMins ?? 1,
     body: mdToBlocks(a.bodyMd),
     takeaways: a.takeaways ?? undefined,

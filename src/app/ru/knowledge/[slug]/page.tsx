@@ -6,7 +6,9 @@ import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { KB_ARTICLES_RU, getKbArticleRuBySlug } from "@/content/knowledge-base.ru";
 import { Button } from "@/components/ui/button";
 import { ArticleBody } from "@/components/sections/article-body";
+import { ArticleByline } from "@/components/sections/article-byline";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
+import { DEFAULT_AUTHOR, authorPersonSchema } from "@/content/authors";
 import { siteConfig } from "@/lib/site-config";
 import { getSiteUrl } from "@/lib/site-url";
 
@@ -48,7 +50,7 @@ export default async function RussianKnowledgeArticlePage({ params }: Props) {
     datePublished: a.updated,
     dateModified: a.updated,
     inLanguage: "ru",
-    author: { "@type": "Organization", name: siteConfig.name },
+    author: authorPersonSchema(DEFAULT_AUTHOR, siteUrl, "ru"),
     publisher: { "@type": "Organization", name: siteConfig.name },
     mainEntityOfPage: `${siteUrl}/ru/knowledge/${a.slug}`,
   };
@@ -83,14 +85,7 @@ export default async function RussianKnowledgeArticlePage({ params }: Props) {
         <p className="mt-5 max-w-2xl text-lg leading-relaxed text-forest-500/75 md:text-xl">
           {a.short}
         </p>
-        <p className="mt-4 text-sm text-forest-500/50">
-          Обновлено{" "}
-          {new Date(a.updated).toLocaleDateString("ru-RU", {
-            day: "numeric",
-            month: "long",
-            year: "numeric",
-          })}
-        </p>
+        <ArticleByline author={DEFAULT_AUTHOR} dateISO={a.updated} locale="ru" dateKind="updated" />
       </header>
 
       <section className="container-prose py-12 md:py-16">

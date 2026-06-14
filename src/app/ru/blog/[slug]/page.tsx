@@ -7,7 +7,9 @@ import { BLOG_POSTS_RU } from "@/content/blog.ru";
 import { getBlogPost, getAllBlogPosts } from "@/lib/data/articles";
 import { Button } from "@/components/ui/button";
 import { ArticleBody } from "@/components/sections/article-body";
+import { ArticleByline } from "@/components/sections/article-byline";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
+import { DEFAULT_AUTHOR, authorPersonSchema } from "@/content/authors";
 import { siteConfig } from "@/lib/site-config";
 import { getSiteUrl } from "@/lib/site-url";
 
@@ -35,14 +37,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-function fmtDate(iso: string): string {
-  return new Date(iso).toLocaleDateString("ru-RU", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-}
-
 export default async function RussianBlogPostPage({ params }: Props) {
   const { slug } = await params;
   const p = await getBlogPost(slug, "ru");
@@ -57,9 +51,9 @@ export default async function RussianBlogPostPage({ params }: Props) {
     headline: p.title,
     description: p.excerpt,
     datePublished: p.published,
-    dateModified: p.published,
+    dateModified: p.updated ?? p.published,
     inLanguage: "ru",
-    author: { "@type": "Organization", name: siteConfig.name },
+    author: authorPersonSchema(DEFAULT_AUTHOR, siteUrl, "ru"),
     publisher: { "@type": "Organization", name: siteConfig.name },
     mainEntityOfPage: `${siteUrl}/ru/blog/${p.slug}`,
   };
@@ -98,7 +92,7 @@ export default async function RussianBlogPostPage({ params }: Props) {
         <p className="mt-5 max-w-2xl text-lg leading-relaxed text-forest-500/75 md:text-xl">
           {p.excerpt}
         </p>
-        <p className="mt-4 text-sm text-forest-500/50">{fmtDate(p.published)}</p>
+        <ArticleByline author={DEFAULT_AUTHOR} dateISO={p.updated ?? p.published} locale="ru" />
       </header>
 
       <section className="container-prose py-12 md:py-16">

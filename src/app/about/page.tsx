@@ -5,6 +5,8 @@ import { ContentSection } from "@/components/sections/content-section";
 import { PrincipleGrid } from "@/components/sections/principle-grid";
 import { Button } from "@/components/ui/button";
 import { whatsappLink } from "@/lib/site-config";
+import { DEFAULT_AUTHOR, authorPersonSchema } from "@/content/authors";
+import { getSiteUrl } from "@/lib/site-url";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/about", languages: { en: "/about", ru: "/ru/about", "x-default": "/about" } },
@@ -29,8 +31,20 @@ const PRINCIPLES = [
 ] as const;
 
 export default function AboutPage() {
+  const siteUrl = getSiteUrl();
+  // ProfilePage wrapping the founder Person — makes the #vladimir-buryi anchor
+  // an authoritative bio entity that every article's author @id resolves to.
+  const profileSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    mainEntity: authorPersonSchema(DEFAULT_AUTHOR, siteUrl, "en"),
+  };
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(profileSchema) }}
+      />
       <PageHero
         eyebrow="About"
         title="A specialised advisory, not a listing portal."
@@ -57,7 +71,7 @@ export default function AboutPage() {
         </p>
       </ContentSection>
 
-      <section className="container-prose py-16 md:py-24">
+      <section id={DEFAULT_AUTHOR.slug} className="container-prose scroll-mt-24 py-16 md:py-24">
         <div className="grid gap-10 md:grid-cols-[1fr_2fr] md:gap-16">
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
