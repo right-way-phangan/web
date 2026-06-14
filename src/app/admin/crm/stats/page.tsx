@@ -9,6 +9,8 @@ import { AdminNav } from "@/components/admin/admin-nav";
 import { forecastPipeline, forecastByMonth } from "@/lib/crm/forecast";
 import { computeFunnel } from "@/lib/crm/funnel";
 import { getLiveRatesTHB } from "@/lib/data/fx-live";
+import { getMonthlyTargetThb } from "@/lib/data/settings";
+import { TargetEditor } from "@/components/crm/target-editor";
 
 export const metadata: Metadata = {
   title: "CRM — метрики",
@@ -101,7 +103,7 @@ export default async function CrmStatsPage() {
     );
   }
 
-  const [leads, pipelines, events, viewsByRw, siteEvents, crossShoppers, referrals, liveRates] =
+  const [leads, pipelines, events, viewsByRw, siteEvents, crossShoppers, referrals, liveRates, monthlyTarget] =
     await Promise.all([
       getLeads(),
       getPipelines(),
@@ -111,6 +113,7 @@ export default async function CrmStatsPage() {
       getCrossShoppers(),
       getReferrals(),
       getLiveRatesTHB(),
+      getMonthlyTargetThb(),
     ]);
 
   // THB → RUB for the money views (Vladimir reads income «домой» in ₽). Live
@@ -194,6 +197,10 @@ export default async function CrmStatsPage() {
     .reduce((s, l) => s + (l.commissionValue ?? 0), 0);
   const monthFcThis = monthForecast.find((m) => m.key === monthKey)?.weightedCommission ?? 0;
   const monthProjection = wonMonthCommission + monthFcThis;
+  // Прогресс к цели месяца (если задана): факт won и проекция в % от цели.
+  const wonPct = monthlyTarget ? Math.min(100, (wonMonthCommission / monthlyTarget) * 100) : null;
+  const projPct = monthlyTarget ? Math.min(100, (monthProjection / monthlyTarget) * 100) : null;
+  const targetGap = monthlyTarget ? monthlyTarget - monthProjection : null;
 
   // ── Конверсия воронки (по истории lead_events) ──
   const funnel =
@@ -308,26 +315,53 @@ export default async function CrmStatsPage() {
           </span>
         </div>
 
-        {/* Темп месяца: факт + прогноз закрытия этого месяца */}
-        <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-xl bg-forest-900 px-4 py-3 text-white">
-          <div>
-            <p className="text-xs uppercase tracking-wide text-white/55 capitalize">
-              Темп · {monthLabel}
-            </p>
-            <p className="mt-0.5 text-2xl font-semibold">
-              ≈ ฿{nf.format(Math.round(monthProjection))}
-              <span className="ml-2 text-sm font-normal text-white/65">
-                ≈ ₽{nf.format(Math.round(toRub(monthProjection)))}
-              </span>
-            </p>
+        {/* Темп месяца: факт + прогноз закрытия этого месяца, прогресс к цели */}
+        <div className="mb-4 rounded-xl bg-forest-900 px-4 py-3 text-white">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <p className="text-xs uppercase tracking-wide text-white/55 capitalize">
+                Темп · {monthLabel}
+              </p>
+              <p className="mt-0.5 text-2xl font-semibold">
+                ≈ ฿{nf.format(Math.round(monthProjection))}
+                <span className="ml-2 text-sm font-normal text-white/65">
+                  ≈ ₽{nf.format(Math.round(toRub(monthProjection)))}
+                </span>
+              </p>
+            </div>
+            <div className="text-right">
+              <p className="text-xs text-white/70">
+                won ฿{nf.format(Math.round(wonMonthCommission))}
+                <span className="text-white/45"> + </span>
+                прогноз ฿{nf.format(Math.round(monthFcThis))}
+              </p>
+              <p className="mt-1">
+                {monthlyTarget ? (
+                  <span className="text-xs text-white/70">
+                    Цель ฿{nf.format(monthlyTarget)} · <TargetEditor value={monthlyTarget} />
+                  </span>
+                ) : (
+                  <TargetEditor value={null} />
+                )}
+              </p>
+            </div>
           </div>
-          <p className="text-xs text-white/70">
-            won ฿{nf.format(Math.round(wonMonthCommission))}
-            <span className="text-white/45"> (закрыто)</span>
-            {" + "}
-            прогноз ฿{nf.format(Math.round(monthFcThis))}
-            <span className="text-white/45"> (ожид. в этом месяце)</span>
-          </p>
+
+          {monthlyTarget && projPct != null && wonPct != null && (
+            <div className="mt-3">
+              <div className="flex h-2.5 w-full overflow-hidden rounded-full bg-white/15">
+                {/* закрыто (won) — сплошной; прогноз — полупрозрачный сверху */}
+                <div className="h-full bg-emerald-400" style={{ width: `${wonPct}%` }} />
+                <div className="h-full bg-brass-400/70" style={{ width: `${projPct - wonPct}%` }} />
+              </div>
+              <p className="mt-1 text-xs text-white/65">
+                {Math.round(projPct)}% от цели по проекции · won {Math.round(wonPct)}% ·{" "}
+                {targetGap != null && targetGap > 0
+                  ? `до цели ещё ฿${nf.format(Math.round(targetGap))}`
+                  : "цель закрывается проекцией ✓"}
+              </p>
+            </div>
+          )}
         </div>
         <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
           <div className="rounded-xl border border-brass-500/30 bg-white p-4">

@@ -11,6 +11,7 @@ import { AdminNav } from "@/components/admin/admin-nav";
 import { TaskRow } from "@/components/crm/task-row";
 import { leadScore } from "@/lib/crm/score";
 import { forecastByMonth } from "@/lib/crm/forecast";
+import { getMonthlyTargetThb } from "@/lib/data/settings";
 
 export const metadata: Metadata = {
   title: "CRM — сегодня",
@@ -85,7 +86,11 @@ export default async function CrmTodayPage() {
     );
   }
 
-  const [leads, tasks] = await Promise.all([getLeads(), getTasks()]);
+  const [leads, tasks, monthlyTarget] = await Promise.all([
+    getLeads(),
+    getTasks(),
+    getMonthlyTargetThb(),
+  ]);
   const nowMs = Date.now();
 
   // ── Срочные задачи: просрочено + сегодня ──
@@ -129,6 +134,7 @@ export default async function CrmTodayPage() {
   const monthFcThis =
     forecastByMonth(openWork, 1, nowD).find((m) => m.key === monthKey)?.weightedCommission ?? 0;
   const monthProjection = wonMonthCommission + monthFcThis;
+  const projPct = monthlyTarget ? Math.min(100, Math.round((monthProjection / monthlyTarget) * 100)) : null;
 
   const nothing = urgent.length === 0 && callNow.length === 0 && triageQueue === 0;
 
@@ -151,7 +157,12 @@ export default async function CrmTodayPage() {
             <p className="text-[11px] uppercase tracking-wide text-white/55 capitalize">
               Темп · {monthLabel}
             </p>
-            <p className="text-lg font-semibold">≈ ฿{nf.format(Math.round(monthProjection))}</p>
+            <p className="text-lg font-semibold">
+              ≈ ฿{nf.format(Math.round(monthProjection))}
+              {projPct != null && (
+                <span className="ml-1.5 text-xs font-normal text-brass-300">{projPct}% цели</span>
+              )}
+            </p>
             <p className="text-[11px] text-white/55">
               won ฿{nf.format(Math.round(wonMonthCommission))} + прогноз ฿
               {nf.format(Math.round(monthFcThis))}
