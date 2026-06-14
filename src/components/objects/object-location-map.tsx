@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import dynamic from "next/dynamic";
+import type { NearbyListing } from "@/types/object";
 import { MapSkeleton } from "./map-skeleton";
 import { useInView } from "@/lib/hooks/use-in-view";
 import { useLocale } from "@/lib/i18n/use-locale";
@@ -26,6 +27,7 @@ export function ObjectLocationMap({
   mapsUrl,
   plotPolygon,
   showSunset,
+  nearby,
   chips,
 }: {
   lat?: number;
@@ -34,6 +36,8 @@ export function ObjectLocationMap({
   mapsUrl?: string;
   plotPolygon?: Array<[number, number]>;
   showSunset?: boolean;
+  // Other published listings near this plot — shown as small map pins.
+  nearby?: NearbyListing[];
   // Distance chips (server-rendered, passed in so they stay in the HTML).
   chips?: ReactNode;
 }) {
@@ -77,7 +81,7 @@ export function ObjectLocationMap({
       {chips}
       <div ref={ref} className="mt-6 h-[360px] w-full">
         {inView ? (
-          <Leaflet lat={lat} lng={lng} plotPolygon={plotPolygon} showSunset={showSunset} />
+          <Leaflet lat={lat} lng={lng} plotPolygon={plotPolygon} showSunset={showSunset} nearby={nearby} />
         ) : (
           <MapSkeleton />
         )}
