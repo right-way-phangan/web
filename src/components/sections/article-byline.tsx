@@ -10,6 +10,8 @@ interface Props {
   locale: "en" | "ru";
   /** "updated" prefixes the date with Updated/Обновлено (knowledge base). */
   dateKind?: "published" | "updated";
+  /** Licensed reviewer for legal/YMYL guides — adds a "Legally reviewed by" line. */
+  reviewer?: Author | null;
 }
 
 function initials(name: string): string {
@@ -26,7 +28,13 @@ function initials(name: string): string {
  * signal that the Person JSON-LD makes machine-readable. Links to the founder's
  * bio on /about — the same entity the schema `@id` resolves to.
  */
-export function ArticleByline({ author, dateISO, locale, dateKind = "published" }: Props) {
+export function ArticleByline({
+  author,
+  dateISO,
+  locale,
+  dateKind = "published",
+  reviewer,
+}: Props) {
   const href = authorPath(author, locale) as Route;
   const date = new Date(dateISO).toLocaleDateString(locale === "ru" ? "ru-RU" : "en-GB", {
     day: "numeric",
@@ -35,6 +43,7 @@ export function ArticleByline({ author, dateISO, locale, dateKind = "published" 
   });
   const dateLabel =
     dateKind === "updated" ? (locale === "ru" ? "Обновлено " : "Updated ") : "";
+  const reviewLabel = locale === "ru" ? "Юридически проверено — " : "Legally reviewed by ";
 
   return (
     <div className="mt-6 flex items-center gap-3">
@@ -57,6 +66,17 @@ export function ArticleByline({ author, dateISO, locale, dateKind = "published" 
           {dateLabel}
           {date}
         </span>
+        {reviewer ? (
+          <>
+            <br />
+            <span className="text-forest-500/50">
+              {reviewLabel}
+              <span className="text-forest-500/70">{reviewer.name}</span>
+              {" · "}
+              {reviewer.jobTitle[locale]}
+            </span>
+          </>
+        ) : null}
       </p>
     </div>
   );
