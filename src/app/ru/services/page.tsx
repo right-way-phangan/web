@@ -47,20 +47,7 @@ export default function RussianServicesPage() {
             {d.commission.lede}
           </p>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-3 md:gap-8">
-            {d.commission.rows.map((r) => (
-              <div key={r.label} className="rounded-sm border border-forest-500/10 bg-cream-50 p-6">
-                <p className="text-xs font-medium uppercase tracking-[0.15em] text-brass-500">
-                  {r.label}
-                </p>
-                <p className="num mt-3 text-2xl text-forest-900">{r.value}</p>
-                <p className="mt-3 text-sm text-forest-500/75">{r.detail}</p>
-                <p className="mt-4 text-xs text-forest-500/55">{r.payer}</p>
-              </div>
-            ))}
-          </div>
-
-          <p className="mt-10 max-w-2xl text-sm text-forest-500/70">{d.commission.note}</p>
+          <p className="mt-8 max-w-2xl text-sm text-forest-500/70">{d.commission.note}</p>
         </div>
       </section>
 

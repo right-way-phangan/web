@@ -26,7 +26,7 @@ const SERVICES = [
   {
     title: "Standalone transaction support",
     text: "For clients who already found their property — directly, through another agent, or via a private contact — but want professional support through the closing process. We work as your representative at the Land Office and through legal proceedings.",
-    meta: "Fixed fee from 60,000 THB",
+    meta: "Fixed-fee engagement",
   },
 ] as const;
 
@@ -59,42 +59,25 @@ export default function ServicesPage() {
       <section className="bg-cream-200/30">
         <div className="container-prose py-16 md:py-24">
           <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
-            Commission
+            Transparent pricing
           </p>
           <h2 className="mt-3 font-serif text-3xl text-forest-900 md:text-4xl">
-            Honest about the fee.
+            Honest about cost.
           </h2>
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-forest-500/80 md:text-lg">
-            The commission is paid by the seller and built into the price, in
-            line with island norms. As a buyer, you pay us nothing — only the
-            statutory Land Office fees on registration.
+            As a buyer, you pay us nothing — only the statutory Land Office fees
+            on registration. Our work is settled within the deal: no buyer-side
+            commission, no surprises at the table.
           </p>
-
-          <div className="mt-10 grid gap-6 md:grid-cols-3 md:gap-8">
-            <FeeRow
-              label="Commission"
-              detail="Due diligence, sale agreement, and transaction representation included."
-              value="5% of the deal"
-              payer="Paid by the seller"
-            />
-            <FeeRow
-              label="Minimum fee"
-              detail="On smaller deals, the higher of 5% or this floor applies — due diligence costs the same regardless of price."
-              value="150,000 THB"
-              payer="Paid by the seller"
-            />
-            <FeeRow
-              label="Complex structure"
-              detail="Thai company setup, multi-property or non-trivial leasehold deals."
-              value="+0.5–1%"
-              payer="Paid by the seller"
-            />
-          </div>
-
-          <p className="mt-10 max-w-2xl text-sm text-forest-500/70">
-            Nothing charged to the buyer, no hidden add-ons, no kickbacks. On a
-            leasehold villa the commission is based on the full transaction value
-            — the land lease prepayment plus the building.
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-forest-500/80">
+            Every engagement includes the full due diligence, the sale
+            agreement, and representation through to transfer — the same
+            documentation and care whether the deal is large or small.
+          </p>
+          <p className="mt-8 max-w-2xl text-sm text-forest-500/70">
+            No hidden add-ons, no kickbacks — the number you see is the number
+            you pay. For a standalone engagement, the fee is agreed upfront in
+            writing before any work begins.
           </p>
         </div>
       </section>
@@ -119,28 +102,5 @@ export default function ServicesPage() {
         </div>
       </section>
     </>
-  );
-}
-
-function FeeRow({
-  label,
-  detail,
-  value,
-  payer,
-}: {
-  label: string;
-  detail: string;
-  value: string;
-  payer: string;
-}) {
-  return (
-    <div className="rounded-sm border border-forest-500/10 bg-cream-50 p-6">
-      <p className="text-xs font-medium uppercase tracking-[0.15em] text-brass-500">
-        {label}
-      </p>
-      <p className="num mt-3 text-2xl text-forest-900">{value}</p>
-      <p className="mt-3 text-sm text-forest-500/75">{detail}</p>
-      <p className="mt-4 text-xs text-forest-500/55">{payer}</p>
-    </div>
   );
 }
