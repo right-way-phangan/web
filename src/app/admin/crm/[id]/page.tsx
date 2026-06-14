@@ -19,6 +19,7 @@ import { DEAL_STAGE_KEYS } from "@/lib/crm/deal-checklist";
 import { ExpectedClose } from "@/components/crm/expected-close";
 import { ObjectStatusSync } from "@/components/crm/object-status-sync";
 import { slaStatus } from "@/lib/crm/sla";
+import { nextAction, URGENCY_STYLE } from "@/lib/crm/next-action";
 import { ShareShortlist } from "@/components/crm/share-shortlist";
 import { makeShortlistToken } from "@/lib/shortlist-token";
 import { LeadMatches, type MatchItem } from "@/components/crm/lead-matches";
@@ -183,6 +184,10 @@ export default async function LeadDetailPage({
       : lead.stageKey && ["reservation", "dd", "spa", "transfer"].includes(lead.stageKey)
         ? "Reserved"
         : null;
+  // Следующий шаг — учитываем рассогласование статуса объекта (если он ещё Active).
+  const nba = nextAction(lead, {
+    objectMismatch: objSuggested && obj?.status === "Active" ? objSuggested : null,
+  });
 
   return (
     <section className="container-prose py-8">
@@ -220,6 +225,20 @@ export default async function LeadDetailPage({
       <div className="mt-3">
         <TouchButtons leadId={lead.id} lastTouchAt={lastTouchAt} />
       </div>
+
+      {/* Следующий шаг — что сделать с лидом прямо сейчас */}
+      {nba && (
+        <div className={`mt-3 flex items-center gap-2.5 rounded-xl border px-3.5 py-2.5 ${URGENCY_STYLE[nba.urgency]}`}>
+          <span className="text-lg">{nba.icon}</span>
+          <span className="min-w-0">
+            <span className="text-[10px] font-semibold uppercase tracking-wide opacity-60">
+              Следующий шаг
+            </span>
+            <span className="block text-sm font-semibold leading-tight">{nba.label}</span>
+            {nba.detail && <span className="block text-xs opacity-70">{nba.detail}</span>}
+          </span>
+        </div>
+      )}
 
       {lastShortlistViewAt && (
         <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-700">

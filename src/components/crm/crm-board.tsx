@@ -10,6 +10,7 @@ import type { CrmLead, CrmStage } from "@/lib/data/leads";
 import { leadScore } from "@/lib/crm/score";
 import { dealProgress, DEAL_STAGE_KEYS } from "@/lib/crm/deal-checklist";
 import { slaStatus } from "@/lib/crm/sla";
+import { nextAction, URGENCY_STYLE } from "@/lib/crm/next-action";
 
 /**
  * Kanban board with native HTML5 drag-and-drop. Drag a card onto a column to
@@ -291,6 +292,18 @@ export function CrmBoard({
                             </span>
                           ))}
                       </div>
+                      {isOpen && (() => {
+                        const nba = nextAction(lead);
+                        return nba ? (
+                          <div
+                            title={nba.detail}
+                            className={`mt-2 flex items-center gap-1.5 rounded-md border px-1.5 py-1 text-[11px] font-medium ${URGENCY_STYLE[nba.urgency]}`}
+                          >
+                            <span>{nba.icon}</span>
+                            <span className="truncate">{nba.label}</span>
+                          </div>
+                        ) : null;
+                      })()}
                       <div className="mt-2">
                         <MoveLeadSelect
                           leadId={lead.id}
