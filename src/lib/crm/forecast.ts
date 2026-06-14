@@ -71,6 +71,59 @@ export interface Forecast {
   byStage: ForecastRow[];
 }
 
+export interface MonthBucket {
+  /** "YYYY-MM" for dated buckets; "none" / "later" for the catch-alls. */
+  key: string;
+  label: string;
+  count: number;
+  weightedCommission: number;
+}
+
+/**
+ * Expected-revenue calendar: weighted commission grouped by the deal's expected
+ * close month. Leads close in time, not just "in the pipeline" — this answers
+ * «сколько прилетит в июле». Open leads with an `expectedCloseAt` fall into
+ * their month (next `monthsAhead`); past-due-but-open months collapse into the
+ * nearest current month; further-out → «позже»; no date → «без даты».
+ */
+export function forecastByMonth(
+  openLeads: Pick<CrmLead, "dealValue" | "stageKey" | "expectedCloseAt">[],
+  monthsAhead = 6,
+  now: Date = new Date(),
+): MonthBucket[] {
+  const monthFmt = new Intl.DateTimeFormat("ru-RU", { month: "long", year: "numeric" });
+  const startY = now.getFullYear();
+  const startM = now.getMonth();
+  const months: MonthBucket[] = [];
+  const idxByKey = new Map<string, number>();
+  for (let i = 0; i < monthsAhead; i++) {
+    const d = new Date(startY, startM + i, 1);
+    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+    idxByKey.set(key, months.length);
+    months.push({ key, label: monthFmt.format(d), count: 0, weightedCommission: 0 });
+  }
+  const later: MonthBucket = { key: "later", label: "Позже", count: 0, weightedCommission: 0 };
+  const none: MonthBucket = { key: "none", label: "Без даты", count: 0, weightedCommission: 0 };
+  const firstKey = months[0]?.key;
+
+  for (const l of openLeads) {
+    const wc = estimateCommission(l.dealValue) * stageProbability(l.stageKey);
+    let bucket = none;
+    if (l.expectedCloseAt) {
+      const d = new Date(l.expectedCloseAt);
+      if (!Number.isNaN(d.getTime())) {
+        const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+        if (idxByKey.has(key)) bucket = months[idxByKey.get(key)!];
+        else if (firstKey && key < firstKey) bucket = months[0]; // просрочено, но открыто → текущий месяц
+        else bucket = later;
+      }
+    }
+    bucket.count += 1;
+    bucket.weightedCommission += wc;
+  }
+  return [...months, later, none].filter((b) => b.count > 0);
+}
+
 export function forecastPipeline(
   openLeads: Pick<CrmLead, "dealValue" | "stageKey">[],
   stageOrder: string[],

@@ -31,6 +31,14 @@ export async function updateLeadValue(leadId: number, dealValue: number | null):
   return patchLead(leadId, { dealValue });
 }
 
+/** Set / clear the forecasted close date (ISO date string, or null). */
+export async function updateExpectedClose(
+  leadId: number,
+  expectedCloseAt: string | null,
+): Promise<boolean> {
+  return patchLead(leadId, { expectedCloseAt });
+}
+
 /** Replace the lead's tags — used by the shortlist (object:RW-… tags). */
 export async function updateLeadTags(leadId: number, tags: string[]): Promise<boolean> {
   return patchLead(leadId, { tags });

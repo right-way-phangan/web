@@ -16,6 +16,9 @@ import { leadScore } from "@/lib/crm/score";
 import { LeadSnooze } from "@/components/crm/lead-snooze";
 import { DealChecklist } from "@/components/crm/deal-checklist";
 import { DEAL_STAGE_KEYS } from "@/lib/crm/deal-checklist";
+import { ExpectedClose } from "@/components/crm/expected-close";
+import { ObjectStatusSync } from "@/components/crm/object-status-sync";
+import { slaStatus } from "@/lib/crm/sla";
 import { ShareShortlist } from "@/components/crm/share-shortlist";
 import { makeShortlistToken } from "@/lib/shortlist-token";
 import { LeadMatches, type MatchItem } from "@/components/crm/lead-matches";
@@ -170,6 +173,16 @@ export default async function LeadDetailPage({
     events.find((e) => e.type === "shortlist_view")?.createdAt ?? null;
   // Derived temperature + what's missing to advance.
   const readiness = leadScore(lead);
+  // Stage SLA — is the lead overdue on its current stage?
+  const sla = slaStatus(lead.stageKey, stageSinceIso);
+  // Object↔deal sync: what site status the deal stage implies (won → Sold,
+  // reservation+ → Reserved). Only when the deal links an object.
+  const objSuggested: "Reserved" | "Sold" | null =
+    lead.status === "won"
+      ? "Sold"
+      : lead.stageKey && ["reservation", "dd", "spa", "transfer"].includes(lead.stageKey)
+        ? "Reserved"
+        : null;
 
   return (
     <section className="container-prose py-8">
@@ -305,7 +318,31 @@ export default async function LeadDetailPage({
           </dd>
         </div>
         <Meta label="Создан" value={fmt(lead.createdAt)} />
-        <Meta label="На стадии" value={daysOnStage === 0 ? "сегодня" : `${daysOnStage} дн`} />
+        <div>
+          <dt className="text-xs uppercase tracking-wide text-forest-900/40">На стадии</dt>
+          <dd className="mt-1 flex flex-wrap items-center gap-1.5 text-forest-900">
+            {daysOnStage === 0 ? "сегодня" : `${daysOnStage} дн`}
+            {sla.breached && (
+              <span
+                className="rounded-full bg-red-100 px-1.5 py-0.5 text-[11px] font-semibold text-red-700"
+                title={`SLA стадии ${sla.sla} дн — просрочка ${sla.over} дн`}
+              >
+                ⏰ SLA +{sla.over}д
+              </span>
+            )}
+            {!sla.breached && sla.sla != null && (
+              <span className="text-[11px] text-forest-900/35">SLA {sla.sla}д</span>
+            )}
+          </dd>
+        </div>
+        {lead.status === "open" && (
+          <div>
+            <dt className="text-xs uppercase tracking-wide text-forest-900/40">Ожид. закрытие</dt>
+            <dd className="mt-1">
+              <ExpectedClose leadId={lead.id} value={lead.expectedCloseAt ?? null} />
+            </dd>
+          </div>
+        )}
         {lead.status === "lost" && lead.lostReason && (
           <Meta label="Причина потери" value={lead.lostReason} />
         )}
@@ -410,6 +447,15 @@ export default async function LeadDetailPage({
             </span>
             <span className="shrink-0 text-forest-900/30">›</span>
           </Link>
+          {objSuggested && (
+            <div className="mt-2">
+              <ObjectStatusSync
+                rwNumber={obj.rwNumber}
+                currentStatus={obj.status}
+                suggested={objSuggested}
+              />
+            </div>
+          )}
         </div>
       )}
 

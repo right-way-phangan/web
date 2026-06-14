@@ -40,6 +40,8 @@ export interface CrmLead {
   commissionValue?: number | null;
   /** Transaction execution checklist (stepKey → ISO done-at) — deal in progress. */
   dealChecklist?: Record<string, string> | null;
+  /** Forecasted close date (ISO) — feeds the monthly revenue forecast. */
+  expectedCloseAt?: string | null;
   /** Concatenated notes (truncated) — board search looks into them. */
   notesText?: string;
 }

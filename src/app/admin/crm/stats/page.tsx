@@ -6,7 +6,7 @@ import { getSiteEventStats } from "@/lib/data/events";
 import { getReferrals, referralLabel } from "@/lib/data/referrals";
 import { classifyReferrer, isAiChannel } from "@/lib/analytics/referrer";
 import { AdminNav } from "@/components/admin/admin-nav";
-import { forecastPipeline } from "@/lib/crm/forecast";
+import { forecastPipeline, forecastByMonth } from "@/lib/crm/forecast";
 import { computeFunnel } from "@/lib/crm/funnel";
 import { getLiveRatesTHB } from "@/lib/data/fx-live";
 
@@ -177,6 +177,8 @@ export default async function CrmStatsPage() {
     .map((s) => s.key);
   const stageName = new Map((workPipes[0]?.stages ?? []).map((s) => [s.key, s.name] as const));
   const forecast = forecastPipeline(open, stageOrder);
+  const monthForecast = forecastByMonth(open, 6);
+  const monthMax = Math.max(...monthForecast.map((m) => m.weightedCommission), 1);
 
   // ── Конверсия воронки (по истории lead_events) ──
   const funnel =
@@ -359,6 +361,44 @@ export default async function CrmStatsPage() {
               Вклад каждой стадии в ожидаемую комиссию (сумма × вероятность). Вероятности — приоры,
               калибруются по воронке ниже, когда накопятся закрытия.
             </p>
+          </div>
+        )}
+
+        {/* Прогноз по месяцам */}
+        {monthForecast.length > 0 && (
+          <div className="mt-5 border-t border-brass-500/20 pt-4">
+            <p className="mb-2 text-sm font-medium text-forest-900">
+              По месяцам закрытия
+              <span className="ml-2 text-xs font-normal text-forest-900/45">
+                ставьте «ожид. закрытие» в карточке лида — план наполнится
+              </span>
+            </p>
+            <div className="space-y-1.5">
+              {monthForecast.map((m) => {
+                const pct = Math.max(2, Math.round((m.weightedCommission / monthMax) * 100));
+                const muted = m.key === "none";
+                return (
+                  <div key={m.key} className="flex items-center gap-3 text-sm">
+                    <span className="w-32 shrink-0 truncate capitalize text-forest-900/75">
+                      {m.label}
+                      <span className="ml-1 text-forest-900/40">· {m.count}</span>
+                    </span>
+                    <div className="h-4 flex-1 rounded-sm bg-forest-900/[0.04]">
+                      <div
+                        className={"h-4 rounded-sm " + (muted ? "bg-forest-900/15" : "bg-brass-500/60")}
+                        style={{ width: `${pct}%` }}
+                      />
+                    </div>
+                    <span className="w-44 shrink-0 text-right font-medium text-forest-900">
+                      ฿{nf.format(Math.round(m.weightedCommission))}
+                      <span className="ml-1 text-xs font-normal text-forest-900/45">
+                        ≈ ₽{nf.format(Math.round(toRub(m.weightedCommission)))}
+                      </span>
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         )}
       </div>

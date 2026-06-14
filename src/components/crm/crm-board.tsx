@@ -9,6 +9,7 @@ import { LostReasonDialog } from "@/components/crm/lost-reason-dialog";
 import type { CrmLead, CrmStage } from "@/lib/data/leads";
 import { leadScore } from "@/lib/crm/score";
 import { dealProgress, DEAL_STAGE_KEYS } from "@/lib/crm/deal-checklist";
+import { slaStatus } from "@/lib/crm/sla";
 
 /**
  * Kanban board with native HTML5 drag-and-drop. Drag a card onto a column to
@@ -236,14 +237,21 @@ export function CrmBoard({
                         </p>
                       )}
                       {(() => {
-                        const sinceIso = lead.stageSince || lead.createdAt;
-                        const t = sinceIso ? new Date(sinceIso).getTime() : NaN;
-                        const onStage = Number.isFinite(t)
-                          ? Math.floor((Date.now() - t) / 86_400_000)
-                          : 0;
-                        return isOpen && onStage >= 1 ? (
+                        if (!isOpen) return null;
+                        const sla = slaStatus(lead.stageKey, lead.stageSince || lead.createdAt);
+                        if (sla.breached) {
+                          return (
+                            <p
+                              className="mt-1 text-[10px] font-semibold text-red-600"
+                              title={`SLA стадии ${sla.sla} дн — просрочка ${sla.over} дн`}
+                            >
+                              ⏰ SLA +{sla.over}д · на стадии {sla.days} дн
+                            </p>
+                          );
+                        }
+                        return sla.days >= 1 ? (
                           <p className="mt-1 text-[10px] text-forest-900/40">
-                            ⏳ на стадии {onStage} дн
+                            ⏳ на стадии {sla.days} дн
                           </p>
                         ) : null;
                       })()}

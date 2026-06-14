@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getLeads, CRM_ENABLED, type CrmLead } from "@/lib/data/leads";
+import { getAllObjects } from "@/lib/data/objects";
+import { slaStatus } from "@/lib/crm/sla";
 import { AdminNav } from "@/components/admin/admin-nav";
 
 export const metadata: Metadata = {
@@ -33,7 +35,9 @@ interface Issue {
  * each row links to the lead to fix by hand.
  */
 export default async function CrmHealthPage() {
-  const leads = CRM_ENABLED ? await getLeads() : [];
+  const [leads, objects] = CRM_ENABLED
+    ? await Promise.all([getLeads(), getAllObjects()])
+    : [[], []];
   const open = leads.filter((l) => (l.status ?? "open") === "open");
   const working = open.filter((l) => l.pipelineKey !== "legacy"); // legacy идёт через конвейер разбора
 
@@ -43,11 +47,28 @@ export default async function CrmHealthPage() {
     const d = daysAgo(l.stageSince ?? l.createdAt);
     return d !== null && d >= STUCK_DAYS;
   });
+  const slaBreached = working.filter(
+    (l) => slaStatus(l.stageKey, l.stageSince ?? l.createdAt).breached,
+  );
   const silent = working.filter((l) => {
     const d = daysAgo(l.lastTouchAt ?? l.updatedAt ?? l.createdAt);
     return d !== null && d >= SILENT_DAYS;
   });
   const noPipeline = open.filter((l) => !l.pipelineKey || !l.stageKey);
+
+  // Объект↔сделка: продвинутая сделка, а объект ещё публичен (Active) — риск
+  // двойной брони / продажи занятого. Won без Sold — каталог врёт.
+  const objStatusByRw = new Map(objects.map((o) => [o.rwNumber, o.status]));
+  const advancedStages = new Set(["reservation", "dd", "spa", "transfer"]);
+  const objectOutOfSync = leads.filter((l) => {
+    if (!l.rwNumber) return false;
+    const st = objStatusByRw.get(l.rwNumber);
+    if (!st) return false;
+    if (l.status === "won") return st !== "Sold";
+    if ((l.status ?? "open") === "open" && l.stageKey && advancedStages.has(l.stageKey))
+      return st === "Active";
+    return false;
+  });
 
   const issues: Issue[] = [
     {
@@ -61,6 +82,18 @@ export default async function CrmHealthPage() {
       title: "Без следующего шага",
       hint: "нет открытой задачи — лид выпадет из поля зрения",
       leads: noNextStep,
+    },
+    {
+      key: "sla",
+      title: "Просрочка SLA стадии",
+      hint: "висят на стадии дольше норматива (incoming 1д · viewing 7д · DD 14д…)",
+      leads: slaBreached,
+    },
+    {
+      key: "objectOutOfSync",
+      title: "Объект сделки ещё на сайте",
+      hint: "бронь/сделка идёт, а объект публичен (Active) — снять с продажи в карточке лида",
+      leads: objectOutOfSync,
     },
     {
       key: "stuck",
