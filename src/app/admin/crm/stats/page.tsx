@@ -6,6 +6,9 @@ import { getSiteEventStats } from "@/lib/data/events";
 import { getReferrals, referralLabel } from "@/lib/data/referrals";
 import { classifyReferrer, isAiChannel } from "@/lib/analytics/referrer";
 import { AdminNav } from "@/components/admin/admin-nav";
+import { forecastPipeline } from "@/lib/crm/forecast";
+import { computeFunnel } from "@/lib/crm/funnel";
+import { getLiveRatesTHB } from "@/lib/data/fx-live";
 
 export const metadata: Metadata = {
   title: "CRM — метрики",
@@ -98,7 +101,7 @@ export default async function CrmStatsPage() {
     );
   }
 
-  const [leads, pipelines, events, viewsByRw, siteEvents, crossShoppers, referrals] =
+  const [leads, pipelines, events, viewsByRw, siteEvents, crossShoppers, referrals, liveRates] =
     await Promise.all([
       getLeads(),
       getPipelines(),
@@ -107,7 +110,13 @@ export default async function CrmStatsPage() {
       getSiteEventStats(),
       getCrossShoppers(),
       getReferrals(),
+      getLiveRatesTHB(),
     ]);
+
+  // THB → RUB for the money views (Vladimir reads income «домой» in ₽). Live
+  // rate is THB-per-RUB; fall back to the accounting rate when the feed is down.
+  const thbPerRub = liveRates?.RUB ?? 0.42;
+  const toRub = (thb: number) => thb / thbPerRub;
 
   const isLegacyPipe = (name?: string | null) => /legacy|разбор/i.test(name ?? "");
   const work = leads.filter((l) => !isLegacyPipe(l.pipeline));
@@ -159,6 +168,19 @@ export default async function CrmStatsPage() {
 
   // ── Доска по стадиям (рабочие воронки) ──
   const workPipes = pipelines.filter((p) => !isLegacyPipe(p.name));
+
+  // ── Взвешенный прогноз выручки ──
+  // Рабочие воронки делят один цикл стадий — берём порядок из первой как канон.
+  const stageOrder = (workPipes[0]?.stages ?? [])
+    .slice()
+    .sort((a, b) => a.sort - b.sort)
+    .map((s) => s.key);
+  const stageName = new Map((workPipes[0]?.stages ?? []).map((s) => [s.key, s.name] as const));
+  const forecast = forecastPipeline(open, stageOrder);
+
+  // ── Конверсия воронки (по истории lead_events) ──
+  const funnel =
+    workPipes[0] != null ? computeFunnel(work, workPipes[0].stages, events) : [];
   const stageCount = (pipeKey: string, stageKey: string) =>
     open.filter((l) => l.pipelineKey === pipeKey && l.stageKey === stageKey).length;
 
@@ -257,6 +279,88 @@ export default async function CrmStatsPage() {
           hint={wonCommission30 > 0 ? `комиссия ฿${nf.format(wonCommission30)}` : undefined}
         />
         <Card label="Остывшие ≥3д" value={String(stale.length)} hint="открытые без движения" />
+      </div>
+
+      {/* Взвешенный прогноз выручки */}
+      <div className="mt-8 rounded-2xl border border-brass-500/25 bg-brass-500/[0.04] p-5">
+        <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
+          <h2 className="text-lg font-semibold text-forest-900">Прогноз выручки</h2>
+          <span className="text-xs text-forest-900/50">
+            комиссия по модели max(5%; ฿150k) · вес = вероятность стадии · ₽ по живому курсу
+            {liveRates ? ` (${liveRates.date})` : " (учётный)"}
+          </span>
+        </div>
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+          <div className="rounded-xl border border-brass-500/30 bg-white p-4">
+            <p className="text-xs uppercase tracking-wide text-forest-900/45">
+              Ожидаемая комиссия · взвеш.
+            </p>
+            <p className="mt-1.5 text-2xl font-semibold text-forest-900">
+              ฿{nf.format(Math.round(forecast.weightedCommission))}
+            </p>
+            <p className="mt-1 text-xs text-forest-900/55">
+              ≈ ₽{nf.format(Math.round(toRub(forecast.weightedCommission)))} · честная цифра «что
+              реально прилетит»
+            </p>
+          </div>
+          <div className="rounded-xl border border-forest-900/10 bg-white p-4">
+            <p className="text-xs uppercase tracking-wide text-forest-900/45">
+              Комиссия при полном закрытии
+            </p>
+            <p className="mt-1.5 text-2xl font-semibold text-forest-900">
+              ฿{nf.format(Math.round(forecast.commission))}
+            </p>
+            <p className="mt-1 text-xs text-forest-900/55">
+              ≈ ₽{nf.format(Math.round(toRub(forecast.commission)))} · если закроются все открытые
+            </p>
+          </div>
+          <div className="rounded-xl border border-forest-900/10 bg-white p-4">
+            <p className="text-xs uppercase tracking-wide text-forest-900/45">
+              Объём сделок · взвеш.
+            </p>
+            <p className="mt-1.5 text-2xl font-semibold text-forest-900">
+              ฿{nf.format(Math.round(forecast.weightedGmv))}
+            </p>
+            <p className="mt-1 text-xs text-forest-900/55">
+              GMV ฿{nf.format(Math.round(forecast.gmv))} · {forecast.withValue}/{forecast.open} с
+              указанной суммой
+            </p>
+          </div>
+        </div>
+        {forecast.byStage.length > 0 && (
+          <div className="mt-4 space-y-1.5">
+            {forecast.byStage
+              .filter((r) => r.count > 0)
+              .map((r) => {
+                const max = Math.max(...forecast.byStage.map((x) => x.weightedCommission), 1);
+                const pct = Math.max(2, Math.round((r.weightedCommission / max) * 100));
+                return (
+                  <div key={r.stageKey} className="flex items-center gap-3 text-sm">
+                    <span className="w-40 shrink-0 truncate text-forest-900/75">
+                      {stageName.get(r.stageKey) ?? r.stageKey}
+                      <span className="ml-1 text-forest-900/40">· {r.count}</span>
+                    </span>
+                    <span className="w-10 shrink-0 text-right text-xs text-forest-900/45">
+                      {Math.round(r.probability * 100)}%
+                    </span>
+                    <div className="h-4 flex-1 rounded-sm bg-forest-900/[0.04]">
+                      <div
+                        className="h-4 rounded-sm bg-brass-500/60"
+                        style={{ width: `${pct}%` }}
+                      />
+                    </div>
+                    <span className="w-28 shrink-0 text-right font-medium text-forest-900">
+                      ฿{nf.format(Math.round(r.weightedCommission))}
+                    </span>
+                  </div>
+                );
+              })}
+            <p className="pt-1 text-xs text-forest-900/45">
+              Вклад каждой стадии в ожидаемую комиссию (сумма × вероятность). Вероятности — приоры,
+              калибруются по воронке ниже, когда накопятся закрытия.
+            </p>
+          </div>
+        )}
       </div>
 
       <div className="mt-8 grid gap-8 lg:grid-cols-2">
@@ -484,6 +588,60 @@ export default async function CrmStatsPage() {
           </div>
         )}
       </div>
+
+      {/* Конверсия воронки */}
+      {(() => {
+        const steps = funnel.filter((f) => f.reached > 0);
+        if (steps.length < 2) return null;
+        const top = steps[0].reached;
+        return (
+          <div className="mt-10">
+            <h2 className="mb-1 text-lg font-semibold text-forest-900">Конверсия воронки</h2>
+            <p className="mb-3 text-xs text-forest-900/50">
+              Из дошедших до стадии — какая доля прошла дальше, и сколько дней лиды на ней сидят.
+              По истории смен стадий (последние 500 событий). Где конверсия проседает — там
+              горлышко.
+            </p>
+            <div className="space-y-1.5">
+              {steps.map((f, i) => {
+                const pct = top > 0 ? Math.max(3, Math.round((f.reached / top) * 100)) : 0;
+                const drop = f.convFromPrev != null && f.convFromPrev < 0.5 && i > 0;
+                return (
+                  <div key={f.key} className="flex items-center gap-3 text-sm">
+                    <span className="w-36 shrink-0 truncate text-forest-900/75">{f.name}</span>
+                    <div className="h-5 flex-1 rounded-sm bg-forest-900/[0.04]">
+                      <div
+                        className={
+                          "flex h-5 items-center justify-end rounded-sm pr-2 text-xs font-medium text-white " +
+                          (drop ? "bg-red-400/80" : "bg-forest-700/70")
+                        }
+                        style={{ width: `${pct}%` }}
+                      >
+                        {f.reached}
+                      </div>
+                    </div>
+                    <span
+                      className={
+                        "w-14 shrink-0 text-right text-xs " +
+                        (drop ? "font-semibold text-red-600" : "text-forest-900/55")
+                      }
+                    >
+                      {f.convFromPrev != null ? `${Math.round(f.convFromPrev * 100)}%` : "—"}
+                    </span>
+                    <span className="w-16 shrink-0 text-right text-xs text-forest-900/45">
+                      {f.medianDays != null ? `${f.medianDays.toFixed(f.medianDays < 10 ? 1 : 0)}д` : "—"}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+            <p className="mt-2 text-xs text-forest-900/40">
+              Колонки: дошло лидов · конверсия со стадии выше · медиана дней на стадии. Красным —
+              переходы с конверсией &lt; 50%.
+            </p>
+          </div>
+        );
+      })()}
 
       {/* Legacy-разбор */}
       {legacy.length > 0 ? (

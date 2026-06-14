@@ -111,6 +111,12 @@ export default async function CrmPage({
           </p>
         </div>
         <div className="flex shrink-0 items-center gap-2">
+          <Link
+            href={{ pathname: "/admin/crm/today" }}
+            className="rounded-full border border-brass-500/50 bg-brass-500/15 px-3 py-2 text-sm font-semibold text-brass-700 hover:bg-brass-500/25"
+          >
+            ☀️ Сегодня
+          </Link>
           {(() => {
             const queue = leads.filter(
               (l) =>
