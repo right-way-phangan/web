@@ -912,6 +912,8 @@ export interface ObjectDict {
     poiAtm: string;
     fullscreen: string;
     fullscreenExit: string;
+    measure: string;
+    measureHint: string;
   };
   perRaiMonth: string;
   priceOnRequest: string;
@@ -1041,6 +1043,8 @@ const objectDict: Record<Locale, ObjectDict> = {
       poiAtm: "Banks & ATMs",
       fullscreen: "Fullscreen",
       fullscreenExit: "Exit fullscreen",
+      measure: "Measure",
+      measureHint: "Tap the map to measure distance",
     },
     perRaiMonth: "/ rai / month",
     priceOnRequest: "Price on request",
@@ -1167,6 +1171,8 @@ const objectDict: Record<Locale, ObjectDict> = {
       poiAtm: "Банки и банкоматы",
       fullscreen: "На весь экран",
       fullscreenExit: "Выйти из полноэкранного",
+      measure: "Линейка",
+      measureHint: "Нажимайте по карте, чтобы измерить расстояние",
     },
     perRaiMonth: "/ рай / мес",
     priceOnRequest: "Цена по запросу",

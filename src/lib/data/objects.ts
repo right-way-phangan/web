@@ -3,7 +3,8 @@ import { listCatalogElements, AmoApiError } from "@/lib/amocrm/client";
 import { mapElementToObject } from "@/lib/amocrm/mapper";
 import { backendFetch } from "@/lib/api/backend";
 import { getUsdPerThb } from "@/lib/data/fx";
-import type { RealEstateObject, ObjectStatus } from "@/types/object";
+import { haversineMeters } from "@/lib/utils/geo";
+import type { RealEstateObject, ObjectStatus, NearbyListing } from "@/types/object";
 
 /**
  * Cache TTL for catalog fetches (Next.js fetch revalidation).
@@ -99,6 +100,35 @@ export function slimObjectForCard(o: RealEstateObject): RealEstateObject {
     quiet: o.quiet,
     electricity: o.electricity,
   };
+}
+
+/**
+ * Other published listings near a plot — straight-line within `radiusM`,
+ * nearest first, capped at `limit`. Feeds the object map's "nearby" pins.
+ * Self and coord-less objects are excluded. Returns [] without origin coords.
+ */
+export function nearbyListings(
+  catalog: RealEstateObject[],
+  origin: { rwNumber?: string; lat?: number; lng?: number },
+  { radiusM = 6000, limit = 8 }: { radiusM?: number; limit?: number } = {},
+): NearbyListing[] {
+  if (origin.lat == null || origin.lng == null) return [];
+  const oLat = origin.lat;
+  const oLng = origin.lng;
+  return catalog
+    .filter((o) => o.rwNumber && o.rwNumber !== origin.rwNumber && o.lat != null && o.lng != null)
+    .map((o) => ({ o, d: haversineMeters(oLat, oLng, o.lat as number, o.lng as number) }))
+    .filter((x) => x.d <= radiusM)
+    .sort((a, b) => a.d - b.d)
+    .slice(0, limit)
+    .map(({ o }) => ({
+      rw: o.rwNumber as string,
+      lat: o.lat as number,
+      lng: o.lng as number,
+      title: o.titleEn || (o.rwNumber as string),
+      type: o.type ?? "",
+      priceThb: o.priceThb,
+    }));
 }
 
 /**

@@ -4,7 +4,7 @@ import Link from "next/link";
 import type { Route } from "next";
 import { MapPin } from "lucide-react";
 import { DISTRICTS } from "@/content/districts";
-import { getObjectByRwNumber, getAnyObjectByRwNumber, getPublicObjects, slimObjectForCard } from "@/lib/data/objects";
+import { getObjectByRwNumber, getAnyObjectByRwNumber, getPublicObjects, slimObjectForCard, nearbyListings } from "@/lib/data/objects";
 import { UnavailableObject } from "@/components/objects/unavailable-object";
 import { isProjectUnit, parentProjectRw, projectSlug, getPublicProjects } from "@/lib/data/projects";
 import { formatPriceTHB, formatPricePerRai, formatApproxUSD } from "@/lib/utils/price";
@@ -81,6 +81,7 @@ export default async function ObjectPage({ params }: Props) {
   // Карточные поля: полный каталог (галереи, описания, RU-заметки) иначе
   // сериализуется в payload каждой страницы объекта через похожие/калькулятор.
   const catalog = (await getPublicObjects()).map(slimObjectForCard);
+  const nearby = nearbyListings(catalog, object);
   const usdPerThb = await getUsdPerThb();
   const siteUrl = getSiteUrl();
   const pageUrl = `${siteUrl}/object/${object.rwNumber}`;
@@ -266,6 +267,7 @@ export default async function ObjectPage({ params }: Props) {
               mapsUrl={object.locationUrl}
               plotPolygon={object.plotPolygon}
               showSunset={object.seaView || object.beachfront}
+              nearby={nearby}
               chips={<DistanceChips lat={object.lat} lng={object.lng} locale="en" />}
             />
 

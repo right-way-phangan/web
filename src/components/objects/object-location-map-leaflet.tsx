@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { MapContainer, TileLayer, Marker, Circle, Polygon, Polyline, AttributionControl, useMapEvents } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, Circle, Polygon, Polyline, AttributionControl, useMapEvents } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { LocateFixed, Maximize2, Minimize2 } from "lucide-react";
+import { LocateFixed, Maximize2, Minimize2, Ruler } from "lucide-react";
 import {
   TILE_URL,
   TILE_ATTRIBUTION,
@@ -23,7 +23,7 @@ import {
   CITYPLAN_MAX_NATIVE_ZOOM,
   LONGDO_ATTRIBUTION,
 } from "@/lib/leaflet/tiles";
-import { sunsetBearing, offsetPoint } from "@/lib/utils/geo";
+import { sunsetBearing, offsetPoint, haversineMeters, formatDistance } from "@/lib/utils/geo";
 import {
   type BaseLayer,
   type LayerPrefs,
@@ -32,8 +32,10 @@ import {
 } from "@/lib/leaflet/layer-prefs";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { getObjectDict } from "@/lib/i18n/dictionaries";
+import { formatPriceCompact } from "@/lib/utils/price";
 import { cn } from "@/lib/utils/cn";
 import { useFullscreen } from "@/lib/leaflet/use-fullscreen";
+import type { NearbyListing } from "@/types/object";
 import { MapLegend } from "./map-legend";
 import { PoiMarkers } from "./poi-markers";
 
@@ -65,8 +67,36 @@ function sunsetIcon(label: string) {
   });
 }
 
+// Small forest dot for "other listings nearby" — distinct from the main brass
+// pin; off-screen at the default close view, surfaces as the visitor zooms out.
+const nearbyIcon = L.divIcon({
+  className: "",
+  html: `<span style="display:block;width:12px;height:12px;border-radius:50%;background:#1F3A2E;border:2px solid #FEFCF9;box-shadow:0 1px 4px rgba(0,0,0,.35)"></span>`,
+  iconSize: [12, 12],
+  iconAnchor: [6, 6],
+  popupAnchor: [0, -6],
+});
+
+// Tiny vertex dot for the measuring polyline.
+const measureDotIcon = L.divIcon({
+  className: "",
+  html: `<span style="display:block;width:8px;height:8px;border-radius:50%;background:#B5651D;border:1.5px solid #FEFCF9"></span>`,
+  iconSize: [8, 8],
+  iconAnchor: [4, 4],
+});
+
 function ZoomWatcher({ onZoom }: { onZoom: (z: number) => void }) {
   useMapEvents({ zoomend: (e) => onZoom((e.target as L.Map).getZoom()) });
+  return null;
+}
+
+// Collects map clicks into measure points while the ruler is active.
+function MeasureClicks({ active, onAdd }: { active: boolean; onAdd: (p: [number, number]) => void }) {
+  useMapEvents({
+    click: (e) => {
+      if (active) onAdd([e.latlng.lat, e.latlng.lng]);
+    },
+  });
   return null;
 }
 
@@ -76,9 +106,11 @@ interface Props {
   plotPolygon?: Array<[number, number]>;
   // Sea-view / beachfront plots get a sunset-direction arrow from the pin.
   showSunset?: boolean;
+  // Other published listings near this plot — shown as small map pins.
+  nearby?: NearbyListing[];
 }
 
-export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSunset }: Props) {
+export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSunset, nearby }: Props) {
   const locale = useLocale();
   const t = getObjectDict(locale).map;
   const mapRef = useRef<L.Map | null>(null);
@@ -98,6 +130,18 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
   const [me, setMe] = useState<{ lat: number; lng: number; acc: number } | null>(null);
   const [geoBusy, setGeoBusy] = useState(false);
   const [geoError, setGeoError] = useState<string | null>(null);
+  const [measuring, setMeasuring] = useState(false);
+  const [measurePts, setMeasurePts] = useState<Array<[number, number]>>([]);
+
+  // Running length of the measuring polyline (straight segments, haversine).
+  const measureTotal = measurePts.reduce(
+    (sum, p, i) => (i === 0 ? 0 : sum + haversineMeters(measurePts[i - 1][0], measurePts[i - 1][1], p[0], p[1])),
+    0,
+  );
+  function toggleMeasure() {
+    setMeasuring((m) => !m);
+    setMeasurePts([]);
+  }
 
   // Parcel tiles only exist at z17+; bring the user there when they ask for them.
   function toggleParcels() {
@@ -188,13 +232,14 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
           : {})}
         maxZoom={MAX_ZOOM}
         scrollWheelZoom={false}
-        className="h-full w-full"
+        className={cn("h-full w-full", measuring && "!cursor-crosshair")}
         style={{ background: "#e8e4da" }}
         // Tile credits are ToS-required, but kept tiny (CSS) + no "Leaflet" prefix.
         attributionControl={false}
       >
         <AttributionControl prefix={false} />
         <ZoomWatcher onZoom={setZoom} />
+        <MeasureClicks active={measuring} onAdd={(p) => setMeasurePts((pts) => [...pts, p])} />
         {base === "sat" ? (
           <TileLayer
             key="base-sat"
@@ -260,6 +305,21 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
           </>
         ) : null}
         {poi ? <PoiMarkers locale={locale} t={t} origin={{ lat, lng }} /> : null}
+        {(nearby ?? []).map((n) => (
+          <Marker key={n.rw} position={[n.lat, n.lng]} icon={nearbyIcon}>
+            <Popup>
+              <a href={`/object/${n.rw}`} className="block w-40 no-underline">
+                <span className="block text-[11px] uppercase tracking-wide text-forest-500/70">
+                  {n.rw} · {n.type}
+                </span>
+                <span className="block font-serif text-sm leading-snug text-forest-900">{n.title}</span>
+                {n.priceThb ? (
+                  <span className="num mt-1 block text-sm text-forest-900">{formatPriceCompact(n.priceThb)}</span>
+                ) : null}
+              </a>
+            </Popup>
+          </Marker>
+        ))}
         <Marker position={[lat, lng]} icon={pinIcon} />
         {me ? (
           <>
@@ -269,6 +329,17 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
               pathOptions={{ color: "#2A81CB", weight: 1, opacity: 0.6, fillOpacity: 0.12 }}
             />
             <Marker position={[me.lat, me.lng]} icon={meIcon} />
+          </>
+        ) : null}
+        {measuring && measurePts.length > 0 ? (
+          <>
+            <Polyline
+              positions={measurePts}
+              pathOptions={{ color: "#B5651D", weight: 2.5, opacity: 0.9, dashArray: "6 4" }}
+            />
+            {measurePts.map((p, i) => (
+              <Marker key={i} position={p} icon={measureDotIcon} interactive={false} />
+            ))}
           </>
         ) : null}
       </MapContainer>
@@ -351,6 +422,18 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
             {isFull ? <Minimize2 size={16} aria-hidden /> : <Maximize2 size={16} aria-hidden />}
           </button>
         ) : null}
+        <button
+          type="button"
+          aria-label={t.measure}
+          aria-pressed={measuring}
+          className={cn(
+            "rounded-sm border border-forest-500/20 p-2.5 shadow-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brass-500",
+            measuring ? pillOn : pillOff,
+          )}
+          onClick={toggleMeasure}
+        >
+          <Ruler size={16} aria-hidden />
+        </button>
       </div>
 
       {/* Zoning + nearby legend / source note (collapsible, shared with /listings). */}
@@ -358,8 +441,12 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
         <MapLegend zoning={zoning} poi={poi} showSource={zoning || parcels} t={t} />
       ) : null}
 
-      {/* Transient hints: geolocation error / zoom-in prompt. */}
-      {geoError || (parcels && zoom < PARCEL_MIN_ZOOM) ? (
+      {/* Measuring: hint until 2 points, then the running total. */}
+      {measuring ? (
+        <div className="absolute bottom-2 left-1/2 z-[1000] -translate-x-1/2 rounded-sm bg-brass-500/90 px-3 py-1.5 text-[11px] font-medium text-cream-100 shadow-sm">
+          {measurePts.length < 2 ? t.measureHint : `${t.measure} ≈ ${formatDistance(measureTotal, locale)}`}
+        </div>
+      ) : geoError || (parcels && zoom < PARCEL_MIN_ZOOM) ? (
         <div className="absolute bottom-2 left-1/2 z-[1000] -translate-x-1/2 rounded-sm bg-forest-900/85 px-3 py-1.5 text-[11px] text-cream-100 shadow-sm">
           {geoError ?? t.parcelZoomHint}
         </div>

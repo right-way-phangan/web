@@ -131,3 +131,13 @@ export interface RealEstateObject {
   // Description
   descriptionRaw?: string;    // legacy textarea
 }
+
+/** Compact neighbour for the object map's "other listings nearby" pins. */
+export interface NearbyListing {
+  rw: string;
+  lat: number;
+  lng: number;
+  title: string;
+  type: string;
+  priceThb?: number;
+}
