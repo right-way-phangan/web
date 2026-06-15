@@ -1,24 +1,26 @@
 import type { NextConfig } from "next";
 
-// CSP in Report-Only mode: it never blocks anything, only reports violations to
-// the browser console — a safe first step before an enforcing policy. The
-// allow-lists below cover what the site actually loads today: GTM + GA4,
-// Vercel analytics/insights, the map tile providers (CARTO/Longdo/ArcGIS),
-// Vercel Blob photos and Google-hosted images. Watch the console for a week,
-// tighten, then flip the header name to `Content-Security-Policy` to enforce.
-const CSP_REPORT_ONLY = [
+// CSP now ENFORCED (was Report-Only through 2026-06-15). The allow-lists below
+// were validated by a static audit of every client-side resource the site
+// loads: GTM + GA4, Vercel analytics/insights, the map tile providers
+// (CARTO/Longdo/ArcGIS, served as <img>), Vercel Blob photos and Google-hosted
+// images, project-video embeds (YouTube-nocookie/Vimeo) and the calculator's
+// live-FX fetch (open.er-api.com). No 'unsafe-eval' is needed (no eval/Function
+// in client code; Leaflet doesn't require it). 'unsafe-inline' stays for Next
+// hydration + GTM inline snippets; nonce-based tightening is a later step.
+const CSP = [
   "default-src 'self'",
   "base-uri 'self'",
   "object-src 'none'",
   "frame-ancestors 'self'",
-  // 'unsafe-inline' stays for now (Next hydration + GTM inline snippets); a
-  // nonce-based tightening is a later step once the report is clean.
   "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com https://va.vercel-scripts.com https://*.vercel-insights.com",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https://*.public.blob.vercel-storage.com https://*.basemaps.cartocdn.com https://*.longdo.com https://server.arcgisonline.com https://drive.google.com https://lh3.googleusercontent.com https://*.google-analytics.com https://www.googletagmanager.com",
   "font-src 'self' data:",
-  "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.vercel-insights.com https://www.googletagmanager.com",
-  "frame-src 'self' https://www.googletagmanager.com",
+  // open.er-api.com: live FX fetched client-side by the ROI calculator.
+  "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.vercel-insights.com https://www.googletagmanager.com https://open.er-api.com",
+  // youtube-nocookie/vimeo: project-landing video embeds (<iframe>).
+  "frame-src 'self' https://www.googletagmanager.com https://www.youtube-nocookie.com https://player.vimeo.com",
   "worker-src 'self' blob:",
   "manifest-src 'self'",
 ].join("; ");
@@ -70,9 +72,9 @@ const nextConfig: NextConfig = {
       {
         source: "/:path*",
         headers: [
-          // Report-Only: collects violations without blocking. Flip to
-          // "Content-Security-Policy" to enforce once the report is clean.
-          { key: "Content-Security-Policy-Report-Only", value: CSP_REPORT_ONLY },
+          // Enforced. Revert to "Content-Security-Policy-Report-Only" if a
+          // legitimate resource gets blocked (then add it to the allow-list).
+          { key: "Content-Security-Policy", value: CSP },
           { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains" },
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "X-Frame-Options", value: "SAMEORIGIN" },
