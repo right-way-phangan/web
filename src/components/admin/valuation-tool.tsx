@@ -30,9 +30,11 @@ import {
   scanCatalog,
   explainValuationAction,
   backtestAccuracy,
+  catalogCompleteness,
   type ExternalComp,
   type ScanRow,
   type BacktestResult,
+  type CompletenessReport,
 } from "@/lib/actions/valuation";
 
 const fmt = (v: number | undefined | null) =>
@@ -987,9 +989,91 @@ function AccuracyPanel() {
   );
 }
 
+// ---- Полнота данных каталога ----
+
+function CompletenessPanel() {
+  const [rep, setRep] = useState<CompletenessReport | null>(null);
+  const [pending, startTransition] = useTransition();
+  const run = () => startTransition(async () => setRep(await catalogCompleteness()));
+
+  const pct = (u: number, t: number) => (t ? Math.round((u / t) * 100) : 0);
+  return (
+    <div className="space-y-4">
+      <p className="text-xs text-forest-900/60">
+        Сколько каталога реально пригодно для оценки. Без цены/площади/района объект бесполезен как компс —
+        движок его молча отбрасывает. Заполнить пропуски (интейк/правка) или архивировать пустые оболочки.
+        Главное узкое место точности — полнота данных, не алгоритм.
+      </p>
+      <Button onClick={run} disabled={pending}>
+        {pending ? "Считаю…" : rep ? "Пересчитать" : "Проверить полноту"}
+      </Button>
+
+      {rep && (
+        <div className="space-y-4">
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Metric
+              label="Земля: пригодно для оценки"
+              value={`${rep.landUsable}/${rep.landTotal}`}
+              hint={`${pct(rep.landUsable, rep.landTotal)}% · ${rep.landTotal - rep.landUsable} пустых оболочек`}
+            />
+            <Metric
+              label="Вилла/дом: пригодно"
+              value={`${rep.villaUsable}/${rep.villaTotal}`}
+              hint={`${pct(rep.villaUsable, rep.villaTotal)}%`}
+            />
+          </div>
+
+          <div className="rounded-sm border border-forest-900/10 bg-white p-4">
+            <p className="text-xs font-medium uppercase tracking-[0.15em] text-brass-500">Пропуски по полям</p>
+            <div className="mt-2 flex flex-wrap gap-2 text-xs">
+              {rep.fieldGaps.map((g) => {
+                const p = pct(g.missing, g.total);
+                return (
+                  <span
+                    key={`${g.scope}-${g.field}`}
+                    className={cn("rounded-sm border px-2.5 py-1", p >= 50 ? "border-red-500/30 bg-red-500/5 text-red-700" : p >= 20 ? "border-brass-500/30 bg-brass-500/5 text-brass-700" : "border-forest-900/10 bg-cream-50 text-forest-900/60")}
+                  >
+                    {g.scope === "land" ? "🟫" : "🏠"} {g.field}: нет у {g.missing}/{g.total} ({p}%)
+                  </span>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="overflow-x-auto rounded-sm border border-forest-900/10 bg-white">
+            <table className="w-full text-left text-xs">
+              <thead>
+                <tr className="border-b border-forest-900/10 text-forest-900/50">
+                  <th className="px-3 py-2 font-medium">RW</th>
+                  <th className="px-3 py-2 font-medium">Тип</th>
+                  <th className="px-3 py-2 font-medium">Статус</th>
+                  <th className="px-3 py-2 font-medium">🔴 Критично (нет компса)</th>
+                  <th className="px-3 py-2 font-medium">🟡 Желательно</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rep.incomplete.map((r) => (
+                  <tr key={r.rwNumber} className="border-b border-forest-900/5">
+                    <td className="px-3 py-2 text-forest-900">{r.rwNumber}{r.onSite ? " 🌐" : ""}</td>
+                    <td className="px-3 py-2 text-forest-900/70">{r.type}</td>
+                    <td className="px-3 py-2 text-forest-900/60">{r.status}</td>
+                    <td className="px-3 py-2 text-red-700">{r.missing.join(", ")}</td>
+                    <td className="px-3 py-2 text-forest-900/45">{r.weak.join(", ") || "—"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {rep.incomplete.length === 0 && <p className="text-xs text-forest-700">Все объекты заполнены — пробелов нет.</p>}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ---- Корневой компонент ----
 
-type Tab = "estimate" | "catalog" | "accuracy" | "factors" | "comps" | "history";
+type Tab = "estimate" | "catalog" | "accuracy" | "completeness" | "factors" | "comps" | "history";
 
 export function ValuationTool({
   overrides,
@@ -1023,6 +1107,7 @@ export function ValuationTool({
     { key: "estimate", label: "Оценка" },
     { key: "catalog", label: "Скан каталога" },
     { key: "accuracy", label: "Точность" },
+    { key: "completeness", label: "Полнота данных" },
     { key: "factors", label: `Факторы${overrides.length ? ` (${overrides.length} изм.)` : ""}` },
     { key: "comps", label: `Компсы (${comps.length})` },
     { key: "history", label: "История" },
@@ -1131,6 +1216,7 @@ export function ValuationTool({
       {tab === "comps" && <CompsPanel comps={comps} />}
       {tab === "catalog" && <CatalogScanPanel />}
       {tab === "accuracy" && <AccuracyPanel />}
+      {tab === "completeness" && <CompletenessPanel />}
       {tab === "history" && <HistoryPanel rows={history} />}
     </div>
   );

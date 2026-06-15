@@ -454,6 +454,92 @@ export async function backtestAccuracy(): Promise<BacktestResult> {
   };
 }
 
+// ---- Полнота данных каталога (детектор пробелов для оценки) ----
+
+export interface CompletenessRow {
+  rwNumber: string;
+  type: string;
+  titleEn: string | null;
+  status: string;
+  onSite: boolean;
+  missing: string[]; // критичные пропуски, делающие объект бесполезным как компс
+  weak: string[]; // важные, но не блокирующие (документ/дорога/зона/координаты…)
+}
+
+export interface CompletenessReport {
+  landTotal: number;
+  landUsable: number;
+  villaTotal: number;
+  villaUsable: number;
+  fieldGaps: Array<{ field: string; scope: "land" | "villa"; missing: number; total: number }>;
+  incomplete: CompletenessRow[]; // объекты с критичными пропусками, худшие сверху
+}
+
+/**
+ * Детектор пробелов: сколько каталога реально пригодно для сравнительной оценки.
+ * Компс бесполезен без цены/площади/района (движок его молча отбрасывает). Эта
+ * сводка делает «пустые оболочки» видимыми → их заполняют в интейке или
+ * архивируют. Главное узкое место точности — не алгоритм, а полнота данных.
+ */
+export async function catalogCompleteness(): Promise<CompletenessReport> {
+  const objects = await getAllObjects();
+  const objs = objects.filter((o) => !isUnit(o.rwNumber) && o.type !== "Project");
+  const has = (v: unknown) => v != null && String(v).trim() !== "";
+  const hasArea = (o: RealEstateObject) => (o.areaRai ?? 0) > 0 || (o.areaSqm ?? 0) > 0;
+  const hasPrice = (o: RealEstateObject) => (o.priceThb ?? 0) > 0 || (o.pricePerRai ?? 0) > 0;
+  const hasCoords = (o: RealEstateObject) => o.lat != null && o.lng != null;
+
+  const land = objs.filter((o) => o.type === "Land");
+  const villa = objs.filter((o) => o.type === "Villa" || o.type === "House");
+  const usable = (o: RealEstateObject) => hasPrice(o) && hasArea(o) && has(o.district);
+
+  const rowOf = (o: RealEstateObject): CompletenessRow => {
+    const isLand = o.type === "Land";
+    const missing: string[] = [];
+    if (!hasPrice(o)) missing.push("цена");
+    if (!hasArea(o)) missing.push("площадь");
+    if (!has(o.district)) missing.push("район");
+    const weak: string[] = [];
+    if (isLand) {
+      if (!has(o.documentType)) weak.push("документ");
+      if (!has(o.roadType)) weak.push("дорога");
+      if (!has(o.terrain)) weak.push("рельеф");
+      if (!has(o.zone)) weak.push("зона");
+    } else {
+      if (!((o.bedrooms ?? 0) > 0)) weak.push("спальни");
+      if (!((o.buildYear ?? 0) > 0)) weak.push("год");
+      if (!has(o.condition)) weak.push("состояние");
+    }
+    if (!hasCoords(o)) weak.push("координаты");
+    return {
+      rwNumber: o.rwNumber, type: o.type, titleEn: o.titleEn ?? null, status: o.status,
+      onSite: o.status === "Active" && !!o.coverImage, missing, weak,
+    };
+  };
+
+  const gap = (scope: "land" | "villa", set: RealEstateObject[], field: string, ok: (o: RealEstateObject) => boolean) =>
+    ({ field, scope, missing: set.filter((o) => !ok(o)).length, total: set.length });
+  const fieldGaps = [
+    gap("land", land, "цена", hasPrice), gap("land", land, "площадь", hasArea),
+    gap("land", land, "район", (o) => has(o.district)), gap("land", land, "документ", (o) => has(o.documentType)),
+    gap("land", land, "дорога", (o) => has(o.roadType)), gap("land", land, "зона", (o) => has(o.zone)),
+    gap("land", land, "координаты", hasCoords),
+    gap("villa", villa, "цена", hasPrice), gap("villa", villa, "площадь", hasArea),
+    gap("villa", villa, "район", (o) => has(o.district)), gap("villa", villa, "спальни", (o) => (o.bedrooms ?? 0) > 0),
+  ];
+
+  const incomplete = objs
+    .map(rowOf)
+    .filter((r) => r.missing.length > 0)
+    .sort((a, b) => b.missing.length - a.missing.length || Number(b.onSite) - Number(a.onSite));
+
+  return {
+    landTotal: land.length, landUsable: land.filter(usable).length,
+    villaTotal: villa.length, villaUsable: villa.filter(usable).length,
+    fieldGaps, incomplete,
+  };
+}
+
 export type FactorActionResult = { ok: boolean; error?: string };
 
 /** Сохранить переопределения факторов (value=null — вернуть дефолт). */
