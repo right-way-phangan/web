@@ -304,7 +304,7 @@ export function effectiveAnnualThb(d: RmDistrict, meta: RmMeta): number {
 }
 
 /** Measured forward-90d occupancy of *active* listings in a district, or null. */
-export function measuredOccupancy(d: RmDistrict | null, meta: RmMeta): number | null {
+export function measuredOccupancy(d: RmDistrict | null, _meta: RmMeta): number | null {
   if (d && d.occupancyMeasured != null && (d.nOccupancy ?? 0) >= OCC_MIN_SAMPLE) {
     return d.occupancyMeasured;
   }

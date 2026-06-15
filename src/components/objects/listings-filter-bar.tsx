@@ -59,7 +59,8 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
 
   function toggleMulti(key: string, value: string, currentList: string[]) {
     const set = new Set(currentList);
-    set.has(value) ? set.delete(value) : set.add(value);
+    if (set.has(value)) set.delete(value);
+    else set.add(value);
     update((p) => {
       if (set.size === 0) p.delete(key);
       else p.set(key, [...set].join(","));

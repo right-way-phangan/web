@@ -39,8 +39,7 @@ interface Props {
   locale?: Locale;
 }
 
-const FIELDS = ["name", "email", "phone", "message"] as const;
-type FieldKey = (typeof FIELDS)[number];
+type FieldKey = "name" | "email" | "phone" | "message";
 
 export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", kind, submitLabel, showViewingDate, onSuccess, locale = "en" }: Props) {
   const t = getFormDict(locale);

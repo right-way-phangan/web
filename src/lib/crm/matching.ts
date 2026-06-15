@@ -87,7 +87,7 @@ export function matchLeadsToObject(
   }
 
   return out
-    .filter((m) => !isUnit(object.rwNumber)) // off-plan unit cards don't drive calls
+    .filter(() => !isUnit(object.rwNumber)) // off-plan unit cards don't drive calls
     .sort((a, b) => b.score - a.score || (b.lead.dealValue ?? 0) - (a.lead.dealValue ?? 0))
     .slice(0, limit);
 }

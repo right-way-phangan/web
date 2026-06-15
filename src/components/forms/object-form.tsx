@@ -317,7 +317,8 @@ export function ObjectForm() {
   const toggle = (key: "tenure" | "features" | "villaFeatures", code: string) =>
     setV((prev) => {
       const next = new Set(prev[key]);
-      next.has(code) ? next.delete(code) : next.add(code);
+      if (next.has(code)) next.delete(code);
+      else next.add(code);
       return { ...prev, [key]: next };
     });
 
@@ -427,7 +428,8 @@ export function ObjectForm() {
     const f = photos[i];
     if (!f) return;
     const next = new Set(docFlags);
-    next.has(f) ? next.delete(f) : next.add(f);
+    if (next.has(f)) next.delete(f);
+    else next.add(f);
     setDocFlags(next);
   };
   // Current indices of doc-flagged photos, in submit order — sent to the server.
