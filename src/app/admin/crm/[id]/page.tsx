@@ -184,10 +184,25 @@ export default async function LeadDetailPage({
       : lead.stageKey && ["reservation", "dd", "spa", "transfer"].includes(lead.stageKey)
         ? "Reserved"
         : null;
-  // Следующий шаг — учитываем рассогласование статуса объекта (если он ещё Active).
-  const nba = nextAction(lead, {
-    objectMismatch: objSuggested && obj?.status === "Active" ? objSuggested : null,
-  });
+  // Следующий шаг. getLead (деталь) НЕ отдаёт производные поля, которые
+  // считает listLeads (stageSince, lastTouchAt, openTasks, overdueTasks) — без
+  // них nextAction откатывался бы на createdAt (врёт про SLA) и считал бы, что
+  // у лида нет задач. Заполняем их из того, что на карточке уже есть (события +
+  // массив задач), чтобы «Следующий шаг» совпадал с доской.
+  const openTasksCount = lead.tasks.filter((t) => !t.done).length;
+  const overdueTasksCount = lead.tasks.filter(
+    (t) => !t.done && t.dueAt && new Date(t.dueAt).getTime() < Date.now(),
+  ).length;
+  const nba = nextAction(
+    {
+      ...lead,
+      stageSince: stageSinceIso,
+      lastTouchAt,
+      openTasks: openTasksCount,
+      overdueTasks: overdueTasksCount,
+    },
+    { objectMismatch: objSuggested && obj?.status === "Active" ? objSuggested : null },
+  );
 
   return (
     <section className="container-prose py-8">
