@@ -110,13 +110,64 @@ export const deals: Deal[] = [];
 
 export type PlannedQuarter = { q: string; deals: number; thb: number };
 
-/** Плановый график приходов Year 1 (финмодель, сценарий A — база). */
+/** Плановый график приходов Year 1 (финмодель v0.2, сценарий A — база, 5%). */
 export const plannedRevenue: PlannedQuarter[] = [
-  { q: "Q1 · Aug–Oct", deals: 1, thb: 960000 },
-  { q: "Q2 · Nov–Jan", deals: 1, thb: 960000 },
-  { q: "Q3 · Feb–Apr", deals: 2, thb: 1920000 },
-  { q: "Q4 · May–Jul", deals: 2, thb: 1920000 },
+  { q: "Q1 · Aug–Oct", deals: 1, thb: 750000 },
+  { q: "Q2 · Nov–Jan", deals: 1, thb: 1000000 },
+  { q: "Q3 · Feb–Apr", deals: 2, thb: 2200000 },
+  { q: "Q4 · May–Jul", deals: 2, thb: 2400000 },
 ];
+
+// ── Личные расходы + runway (bootstrap) ─────────────────────────────────────
+//
+// Временно (пока компании нет) ведём личные расходы здесь же, чтобы видеть ОДИН
+// runway: бизнес-burn крошечный, реальный счётчик выживания — личные траты до
+// первой сделки. См. финмодель «Старт почти без капитала» + OpEx tracker §1.
+// estimate=true — прикидка, заменить реальной цифрой.
+
+export type PersonalExpense = {
+  item: string;
+  thbPerMonth: number;
+  estimate?: boolean;
+  note?: string;
+};
+
+/** Личные расходы основателя в месяц (Панган, режим bootstrap). */
+export const personalExpenses: PersonalExpense[] = [
+  { item: "Домик (аренда)", thbPerMonth: 27000 },
+  { item: "Виза (border run ~раз/мес)", thbPerMonth: 8000, note: "старая компания закрывается → нет визы; проверить DTV" },
+  { item: "Бензин", thbPerMonth: 5000 },
+  { item: "Еда", thbPerMonth: 12000, estimate: true, note: "уточнить реальную" },
+  { item: "Прочее (электр./вода/связь/здоровье)", thbPerMonth: 5000, estimate: true },
+];
+
+/**
+ * Наличные на руках сейчас (THB). ВПИШИ реальную цифру — от неё считается,
+ * на сколько месяцев хватит. 0 = не задано (runway не показывается).
+ */
+export const cashOnHand = 0;
+
+/** Сумма личных расходов в месяц. */
+export function personalMonthly(exp: PersonalExpense[] = personalExpenses): number {
+  return exp.reduce((s, e) => s + e.thbPerMonth, 0);
+}
+
+/**
+ * Совокупный burn в месяц на время bootstrap: бизнес OpEx (активный, без утечки)
+ * + активные постоянные расходы + личные расходы. Это «сколько горит» всего.
+ */
+export function combinedBurnMonthly(
+  subs: Subscription[] = subscriptions,
+  exp: PersonalExpense[] = personalExpenses,
+): number {
+  return opexActiveMonthly(subs) + recurringByStatus("active") + personalMonthly(exp);
+}
+
+/** На сколько месяцев хватит наличных при заданном burn. null если cash не задан. */
+export function runwayMonths(cash: number, burn: number): number | null {
+  if (cash <= 0 || burn <= 0) return null;
+  return cash / burn;
+}
 
 // ── Хелперы расчёта ────────────────────────────────────────────────────────
 

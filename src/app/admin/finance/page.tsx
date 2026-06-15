@@ -19,6 +19,11 @@ import {
   ledgerIncomeTHB,
   ledgerMonthlySeries,
   opexBreakdown,
+  personalExpenses,
+  cashOnHand,
+  personalMonthly,
+  combinedBurnMonthly,
+  runwayMonths,
   fmtMoney,
   FX,
   FX_DATE,
@@ -163,6 +168,12 @@ export default async function FinancePage({
     ? Math.round((breakdown[0].value / breakdown.reduce((s, x) => s + x.value, 0)) * 100)
     : 0;
 
+  // Runway (bootstrap): личные расходы + бизнес-burn = «сколько горит» всего;
+  // делим наличные на это → на сколько месяцев хватит до первой сделки.
+  const personalTotal = personalMonthly();
+  const combinedBurn = combinedBurnMonthly(subs);
+  const runway = runwayMonths(cashOnHand, combinedBurn);
+
   return (
     <section className="px-4 py-8 md:px-8">
       <AdminNav active="finance" />
@@ -235,6 +246,78 @@ export default async function FinancePage({
           hint="приходы − расходы"
           negative={balance < 0}
         />
+      </div>
+
+      {/* Runway / выживание (bootstrap) */}
+      <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
+        🪙 Runway / выживание (bootstrap){" "}
+        <span className="font-normal normal-case text-forest-900/40">
+          — личные + бизнес, пока нет компании и капитала
+        </span>
+      </h2>
+      <div className="mb-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <Stat
+          label="Совокупный burn / мес"
+          value={money(combinedBurn)}
+          hint="личные + бизнес — «сколько горит» всего"
+          negative
+        />
+        <Stat label="Личные / мес" value={money(personalTotal)} hint="домик, виза, еда, бензин…" />
+        <Stat label="Бизнес / мес" value={money(opex)} hint={`${claudeShare}% — Claude`} />
+        <Stat
+          label="Runway"
+          value={runway != null ? `${runway.toFixed(1)} мес` : "—"}
+          hint={
+            runway != null
+              ? `наличные ${money(cashOnHand)} ÷ burn`
+              : "впиши наличные (cashOnHand в finance.ts)"
+          }
+          accent
+        />
+      </div>
+      <div className="mb-8 overflow-hidden rounded-2xl border border-forest-900/10 bg-white">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b border-forest-900/10 text-left text-xs uppercase tracking-wide text-forest-900/45">
+              <th className="px-4 py-2.5 font-medium">Личная статья</th>
+              <th className="px-4 py-2.5 text-right font-medium">THB / мес</th>
+              <th className="px-4 py-2.5 font-medium">Примечание</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-forest-900/5">
+            {personalExpenses.map((e) => (
+              <tr key={e.item}>
+                <td className="px-4 py-2.5 font-medium text-forest-900">
+                  {e.item}
+                  {e.estimate && (
+                    <span className="ml-2 rounded bg-brass-500/10 px-1.5 py-0.5 text-[11px] font-medium text-brass-600">
+                      оценка
+                    </span>
+                  )}
+                </td>
+                <td className="px-4 py-2.5 text-right tabular-nums text-forest-900">
+                  {money(e.thbPerMonth)}
+                </td>
+                <td className="px-4 py-2.5 text-xs text-forest-900/45">{e.note ?? ""}</td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr className="border-t border-forest-900/10 font-medium">
+              <td className="px-4 py-2.5 text-forest-900/70">Итого личных / мес</td>
+              <td className="px-4 py-2.5 text-right tabular-nums text-forest-900">
+                {money(personalTotal)}
+              </td>
+              <td className="px-4 py-2.5" />
+            </tr>
+          </tfoot>
+        </table>
+        <p className="border-t border-forest-900/5 px-4 py-2 text-xs text-forest-900/45">
+          Цель bootstrap — дожить до первой сделки (комиссия ~750k–1 000k ฿ перекрывает всё). При
+          burn {money(combinedBurn)}/мес на 4–6 мес нужно ≈ {money(combinedBurn * 4)}–
+          {money(combinedBurn * 6)}. Главный рычаг — домик и виза (DTV вместо border run). Цифры
+          правятся в <code>finance.ts</code> (personalExpenses, cashOnHand).
+        </p>
       </div>
 
       {/* Структура расходов */}
@@ -486,8 +569,8 @@ export default async function FinancePage({
       </h2>
       {crmDeals.length === 0 ? (
         <div className="mb-4 rounded-2xl border border-dashed border-forest-900/15 bg-white p-6 text-sm text-forest-900/55">
-          Пока нет закрытых сделок (стадия запуска). Первая сделка — Этап 1. Комиссия Hybrid C
-          (~4.8%): сделка 20M ≈ 960k ฿ перекроет ~10 лет текущего OpEx.
+          Пока нет закрытых сделок (стадия запуска). Первая сделка — Этап 1. Комиссия
+          max(5%; 150k): сделка 20M ≈ 1 000k ฿ перекроет ~10 лет текущего OpEx.
         </div>
       ) : (
         <div className="mb-4 overflow-x-auto rounded-2xl border border-forest-900/10 bg-white">
@@ -570,7 +653,7 @@ export default async function FinancePage({
           })}
         </ul>
         <p className="mt-4 text-xs text-forest-900/45">
-          Итого Year 1: 6 сделок · {money(totalRev)} приходов · EBITDA ~4.0M ฿. Первая же сделка
+          Итого Year 1: 6 сделок · {money(totalRev)} приходов · EBITDA ~4.25M ฿. Первая же сделка
           перекрывает ~10 лет текущего OpEx.
         </p>
       </div>
