@@ -1,4 +1,4 @@
-# Last run — 2026-06-14
+# Last run — 2026-06-15
 
 **Guides published:** 2
 
@@ -6,29 +6,31 @@
 
 ## Guide 1
 
-- **slug:** `due-diligence-checklist-koh-phangan`
-- **kbId:** `kb-0015`
-- **title (EN):** Due diligence before buying on Koh Phangan: the complete checklist
-- **title (RU):** Юридическая проверка при покупке на Ко Пангане: полный чеклист
+- **slug:** `land-office-registration-day`
+- **kbId:** `kb-0017`
+- **title (EN):** A day at the Land Office: what happens when a deal is registered in Thailand
+- **title (RU):** День в Земельном офисе: что происходит при регистрации сделки в Таиланде
 - **faqCategory:** `process`
-- **faqQuestion:** What due diligence should I do before buying property on Koh Phangan?
+- **faqQuestion:** What happens at the Thailand Land Office on the day a property deal is registered?
 - **Sources used:**
-  - Siam Legal International — Due Diligence in Thailand (siam-legal.com) — encumbrance search process, Land Office procedure, seller identity verification
-  - Jirawat Law Office — Essential Due Diligence for Foreign Property Buyers (jirawatlawoffice.co.th) — boundary survey process, building permits, utility checks
-  - Thai Land Code (general practice) — title class hierarchy, registration requirements for leases >3 years, road access registration
+  - IRES Thailand — Thailand Property Transfer Process (iresthailand.com) — step-by-step on-day process, documents, fees, leasehold vs freehold distinction
+  - Forbes & Partners — The Final Handshake: Your Definitive 2025 Guide to the Title Deed Transfer at Thailand's Land Office — document checklist, same-day registration confirmation
+  - My Thailand Lawyer — Land Registration Process in Thailand (mythailandlawyer.com) — who must be present, identity verification, title check procedure
+  - Thai Land Code (general practice) — 1% lease registration fee + 0.1% stamp duty, 30-year maximum per instrument
 
 ---
 
 ## Guide 2
 
-- **slug:** `selling-leasehold-villa-exit-liquidity`
-- **kbId:** `kb-0016`
-- **title (EN):** Selling your leasehold villa on Koh Phangan: assignment, taxes and exit planning
-- **title (RU):** Продажа виллы на лизхолде на Ко Пангане: уступка, налоги и планирование выхода
-- **faqCategory:** `ownership`
-- **faqQuestion:** How do I sell my leasehold villa on Koh Phangan, and what taxes will I pay?
+- **slug:** `superficies-vs-usufruct-vs-lease`
+- **kbId:** `kb-0018`
+- **title (EN):** Superficies, usufruct and lease: three ways to anchor a building on Thai land
+- **title (RU):** Superficies, узуфрукт и аренда: три способа закрепить строение на тайской земле
+- **faqCategory:** `structures`
+- **faqQuestion:** What is the difference between superficies, usufruct and a lease for a foreign property buyer in Thailand?
 - **Sources used:**
-  - Integrity Legal — Selling, Assignment, or Sublease of Lease in Thailand (legal.co.th) — assignment clause requirement, Section 544 Civil & Commercial Code, lessor consent rules
-  - Siam Legal International — Transfer of Property in Thailand (siam-legal.com) — Land Office transfer procedure, withholding tax, SBT structure
-  - Esales International — How to Sell Property in Thailand: The Definitive Guide 2026 (esalesinternational.com) — FET form repatriation, timeline estimates, liquidity analysis
-  - Thai property transfer taxes (general practice) — SBT 3.3%/stamp duty 0.5% thresholds, transfer fee 2%, withholding tax rates
+  - Thai Civil and Commercial Code Sections 1410–1416 (Superficies), 1417–1428 (Usufruct), 537–571 (Lease) — primary legal text, via Siam Legal library and JusLaws
+  - Siam Legal International — Supreme Court Ruling on Long-Term Leases in Thailand — Case No. 4655/2566, March 2025, voiding pre-agreed 30+30 renewal structures beyond the initial 30-year term
+  - Houseviser — Usufruct, superficies, habitation: alternative real rights for foreigners — comparative table (term, transferability, inheritability, income rights)
+  - JusLaws — A Complete Legal Guide to Property Law in Thailand for Foreigners — practical distinctions and when each right is appropriate
+  - SILQ Law — Thai Supreme Court Limits Foreign Leases: No more 30-30-30 (March 2025) — enforcement context for the ruling

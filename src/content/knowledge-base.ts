@@ -818,6 +818,165 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "ownership",
     faqQuestion: "How do I sell my leasehold villa on Koh Phangan, and what taxes will I pay?",
   },
+  {
+    slug: "land-office-registration-day",
+    kbId: "kb-0017",
+    topic: "Process",
+    title: "A day at the Land Office: what happens when a deal is registered in Thailand",
+    short:
+      "The Land Office is where a deal becomes legally real. Both buyer and seller appear in person, documents are verified, taxes are paid at the cashier window, and the transfer is endorsed on the back of the title deed — all on the same day. Knowing what to bring and what to expect takes the uncertainty out of it.",
+    updated: "2026-06-15",
+    body: [
+      "Until the Land Department officer stamps the title deed, nothing has legally changed hands. The Land Office registration day is the moment a signed agreement becomes a registered property right — and it runs to a predictable script. Both buyer and seller must appear in person, or send a holder of a properly executed power of attorney in their place.",
+      { h: "Who needs to be there" },
+      {
+        ul: [
+          "**Buyer and seller** — or each party's authorised representative. A representative needs a power of attorney signed by the principal, with a copy of the principal's Thai national ID (for Thai nationals) or passport (for foreigners). For a foreign buyer, the POA typically needs notarisation and, from Hague Convention countries, an apostille.",
+          "**Company sellers** — an authorised director must attend and bring the company's corporate documents: a current affidavit from the Department of Business Development (DBD), a board resolution authorising the sale, and the list of authorised signatories.",
+          "**Lawyer or agent** — often present as representative of one or both parties; the Land Office is comfortable with this arrangement and the process runs faster with a familiar face at the counter.",
+        ],
+      },
+      { h: "Documents to bring" },
+      {
+        ul: [
+          "**Original title deed** (Chanote or Nor Sor 3 Gor) — the seller holds this and presents it on the day.",
+          "**Identification** — Thai national ID for Thai nationals; passport with multiple copies for foreigners.",
+          "**Signed sale and purchase agreement** — the contract signed at reservation stage.",
+          "**FET form (Foreign Exchange Transaction form)** — for a foreign buyer of a condominium this is required by the Land Office to confirm foreign-sourced funds (part of the 49% foreign-quota check). For a leasehold villa the Land Office does not always require it for registration itself — but keep it regardless, since you need it to repatriate proceeds when you sell. See [Costs, taxes and the FET form](/knowledge/cost-of-buying-taxes-and-fees).",
+          "**Power of attorney with ID copy** — if either party is using a representative rather than attending in person.",
+          "**Corporate documents** — if buyer or seller is a company (DBD affidavit, board resolution, authorised signatory list).",
+        ],
+      },
+      { h: "What happens, step by step" },
+      {
+        ul: [
+          "**Take a queue number.** Arrive early — the Koh Phangan Land Office does not always offer advance appointment booking, and morning slots go first. Your lawyer or agent usually handles the queue.",
+          "**ID and document check.** When called, the officer verifies the identity of both parties and inspects the original title deed.",
+          "**Title verification.** The officer checks the deed against the official Land Office record — confirms the seller's ownership, reveals any unresolved mortgages or encumbrances, and validates the right to transfer.",
+          "**Price declaration.** Both parties declare the agreed sale price. The Land Office uses the higher of the declared price or the official government appraised value as the tax base.",
+          "**Tax calculation.** The officer calculates all applicable taxes: transfer fee (2% of appraised value), Specific Business Tax if applicable (3.3%), or stamp duty (0.5% if held 5+ years), and withholding tax. The contract should have settled who pays what before this moment.",
+          "**Payment at the cashier.** Fees are paid — in cash, by bank draft (cashier's cheque), or at many offices by bank transfer. Bring the agreed amounts ready; the full tax bill must be cleared before the transfer is processed.",
+          "**Signing.** Both parties sign the Land Office's official transfer forms in front of the officer. For a leasehold, separate lease-registration forms are used.",
+          "**Endorsement on the deed.** The transfer — or the lease — is recorded on the back of the title deed and in the official register. For a freehold transfer, the new owner's name is entered. For a lease, the lessee's name, the term and the registered rent are entered.",
+          "**Updated deed issued.** For a freehold transfer, the deed is re-issued with the new owner's details. For a leasehold, the original deed stays with the landowner — your proof is the stamped registered lease copy.",
+        ],
+      },
+      { h: "Leasehold registration: how it differs" },
+      "When you register a lease rather than a freehold transfer, the title deed does not change ownership — it stays in the landowner's name. What is registered on the back of the deed is the lessee's name, the term and the rental figure. The registration fee is **1% of the total rent payable over the registered term**, plus **0.1% stamp duty** — calculated on contracted rent, not market value.",
+      "You do not receive the title deed at the end of the day. The landowner keeps the original. Your documentary proof is the stamped copy of the registered lease contract. Store it as securely as you would a title deed.",
+      "One key limit: the maximum term registrable in a single lease instrument is 30 years. After the March 2025 Supreme Court ruling (Case No. 4655/2566), a pre-agreed renewal for further 30-year periods signed at the same time as the original lease is void for the renewal periods — only the initial registered term is enforceable as a property right. See [Superficies, usufruct and lease: the three anchors](/knowledge/superficies-vs-usufruct-vs-lease) for the legal background.",
+      { h: "What you leave with" },
+      {
+        ul: [
+          "For a **freehold transfer**: the updated title deed with your name on it.",
+          "For a **leasehold**: the original registered lease contract stamped by the Land Office — this is your title document.",
+          "Tax and fee receipts — keep these for accounting and future sale.",
+          "The FET form from your original bank transfer — required to repatriate proceeds when you eventually sell.",
+        ],
+      },
+      "From queue to completion, a clean day at the Land Office typically takes two to four hours — longer when documents are incomplete or a tax figure is disputed. The registration day itself is rarely the problem; issues that surface there usually have roots in the due diligence stage. Once the deed is endorsed, you hold what you bought. See [How to buy property on Koh Phangan step by step](/knowledge/how-to-buy-property-step-by-step) for where this day fits in the full purchase timeline.",
+    ],
+    takeaways: [
+      "Both parties must appear in person or through a power of attorney — bring the original title deed, passports and the agreed payment amounts.",
+      "Taxes are calculated on the higher of declared price or the Land Office appraised value — settle in the contract who pays what before the day.",
+      "For a leasehold, you do not receive the title deed — the landowner keeps it; your proof is the stamped registered lease contract copy.",
+      "Leasehold registration costs 1% of total contracted rent over the term plus 0.1% stamp duty, endorsed on the back of the deed.",
+      "Keep the tax receipts and the FET form from your original bank transfer — both are needed when you eventually sell.",
+    ],
+    sources: [
+      {
+        title: "IRES Thailand — Thailand Property Transfer Process",
+        url: "https://iresthailand.com/pattaya/transfer-process/",
+      },
+      {
+        title: "Forbes & Partners — The Final Handshake: Your Definitive 2025 Guide to the Title Deed Transfer at Thailand's Land Office",
+        url: "https://www.forbesandpartners.com/thailand-property-title-deed-transfer-guide-2025/",
+      },
+      {
+        title: "My Thailand Lawyer — Land Registration Process in Thailand",
+        url: "https://mythailandlawyer.com/land-registration-process-in-thailand/",
+      },
+      {
+        title: "Thai Land Code — lease registration maximum 30 years, fee 1% of total rent plus 0.1% stamp duty (general practice)",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "What happens at the Thailand Land Office on the day a property deal is registered?",
+  },
+  {
+    slug: "superficies-vs-usufruct-vs-lease",
+    kbId: "kb-0018",
+    topic: "Structures",
+    title: "Superficies, usufruct and lease: three ways to anchor a building on Thai land",
+    short:
+      "Three registered rights under Thailand's Civil and Commercial Code each give a foreigner different security, transferability and inheritance outcomes. For a villa, the standard is lease plus superficies — the lease covers occupancy, the superficies separately titles the building. Usufruct suits a different situation: protecting a foreign spouse on land the Thai partner owns.",
+    updated: "2026-06-15",
+    body: [
+      "A foreigner buying a villa on Koh Phangan cannot own the land — but can own the building on it, and can hold a registered right to be on the land. Three distinct mechanisms in the Thai Civil and Commercial Code each do something different. Getting the combination right at purchase determines whether you can sell the asset later, pass it to your heirs, or lose it the moment you die.",
+      { h: "The three rights at a glance" },
+      {
+        ul: [
+          "**Superficies (สิทธิเหนือพื้นดิน)** — Code Sections 1410–1416. The right to own buildings or structures on someone else's land. If granted for a fixed term: transferable (sellable), inheritable, mortgageable. If granted for a lifetime: lapses at the holder's death.",
+          "**Usufruct (สิทธิเก็บกิน)** — Sections 1417–1428. The right to possess, use, enjoy, manage and take income from another person's property. Cannot be sold or left to heirs. A lifetime usufruct terminates at the holder's death. Survives a change of landowner once registered.",
+          "**Lease** — Sections 537–571. A tenancy right to occupy for a fixed term, capped at 30 years for residential property. Registered leases survive a change of landowner. Pre-agreed renewals beyond 30 years are void per the March 2025 Supreme Court ruling (Case No. 4655/2566).",
+        ],
+      },
+      { h: "Superficies: owning the building, not the land" },
+      "Section 1410 of the Civil and Commercial Code creates the right to 'own buildings, structures or plantations upon land belonging to another person.' For a foreign villa buyer this means the building is titled separately from the land it sits on — you own the house, a Thai national owns the ground. The superficies is the legal instrument that makes that separation enforceable against the world, including future landowners.",
+      "For a **fixed-term superficies** — the form used in most commercial transactions — the right is transferable to a buyer, inheritable by heirs and mortgageable. The maximum term is 30 years per instrument, after which it can be renewed. If granted for the lifetime of a party rather than a fixed term, it cannot be sold or inherited and lapses at death, making it unsuitable for most villa purchases where exit and succession matter.",
+      "Registration at the Land Office is mandatory. An unregistered superficies creates only a personal obligation between the original parties — it has no legal effect against a third party who acquires the land. Always confirm the superficies is endorsed on the back of the title deed. See [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa).",
+      { h: "Usufruct: use and income, but not yours to sell" },
+      "Under Sections 1417–1428, a usufructuary has the right to occupy, manage and earn income from a property — sub-lease it to tenants (up to 3 years at a time), live in it and cover maintenance. What a usufructuary cannot do is assign the right to another person or leave it to heirs. A lifetime usufruct terminates at the holder's death.",
+      "A usufruct does survive a change of landowner when properly registered — a meaningful protection. This makes it useful in specific situations: most commonly, where a Thai spouse or relative holds the freehold and the foreign partner needs a registered lifetime right to use and earn income from the property. It is not the right tool for a commercial villa purchase where the buyer intends to sell or bequeath the asset, because the non-transferability constraint is fundamental.",
+      { h: "Lease: occupancy for a fixed term" },
+      "A registered lease of more than three years gives the lessee a real property right that survives a change of landowner — the new owner steps into the original landlord's position. For a villa, the lease is the foreigner's occupancy anchor: the right to be on the land and use it for the registered term.",
+      "**The March 2025 Supreme Court ruling (Case No. 4655/2566) settled a long-debated question.** A lease that pre-commits to multiple consecutive 30-year terms — the 30+30 or 30+30+30 structure widely used before the ruling — is valid only for the initial 30-year term. Renewal periods signed on the same day as the original lease, even when paid for in full, are void. Renewal is only enforceable when the then-current landowner agrees at the time of that renewal. Section 540 of the Civil and Commercial Code has always capped leases at 30 years; the ruling removes the legal ambiguity many contracts were relying on.",
+      "The practical consequence: the occupancy security of a lease ends at 30 years unless the landowner at that time agrees to renew. Plan the exit timeline around the primary term and treat any renewal promise as a bonus, not a guarantee. This is an additional reason the superficies is essential alongside the lease — building ownership survives independently of what happens to the lease at renewal.",
+      { h: "Why the standard villa structure is lease + superficies" },
+      "The two rights are complementary. The lease anchors your right to be on the land for 30 years. The fixed-term superficies separately titles the building — which you can sell, mortgage and leave to your heirs regardless of what happens to the lease. Together they give you: occupancy security for the term, separately owned building equity, and the ability to transfer either right.",
+      {
+        ul: [
+          "A lease alone does not give you building ownership — only the right to occupy the land.",
+          "A superficies alone does not give you the right to access the land beneath the building.",
+          "A usufruct as the sole instrument means the property right can never be sold or left to heirs.",
+          "The standard structure — 30-year registered lease plus fixed-term registered superficies — closes all three gaps.",
+        ],
+      },
+      "Both must be registered at the Land Office and endorsed on the back of the title deed to bind future landowners. See [A day at the Land Office](/knowledge/land-office-registration-day) for what that registration looks like in practice, and [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa) for the full combined structure.",
+    ],
+    takeaways: [
+      "Superficies (Sections 1410–1416): own a building on Thai land; if fixed-term, it is transferable, inheritable and mortgageable.",
+      "Usufruct (Sections 1417–1428): use and earn income from someone else's property — cannot be sold, assigned or inherited; a lifetime usufruct terminates at death.",
+      "Lease (capped at 30 years by Section 540): gives occupancy only; a pre-agreed renewal beyond 30 years is void per the March 2025 Supreme Court ruling (Case No. 4655/2566).",
+      "The standard villa structure is a 30-year registered lease (occupancy) plus a fixed-term registered superficies (building ownership) — both must be registered at the Land Office.",
+      "Both superficies and registered usufruct survive a change of landowner; an unregistered right binds only the original parties.",
+    ],
+    sources: [
+      {
+        title: "Thai Civil and Commercial Code — Superficies Sections 1410–1416, Usufruct Sections 1417–1428, Lease Sections 537–571",
+      },
+      {
+        title: "Siam Legal International — Supreme Court Ruling on Long-Term Leases in Thailand",
+        url: "https://www.siam-legal.com/thailand-law/supreme-court-ruling-on-long-term-leases-in-thailand/",
+      },
+      {
+        title: "Houseviser — Usufruct, superficies, habitation: alternative real rights for foreigners in Thailand",
+        url: "https://houseviser.com/guide/legal/usufruct-superficies-habitation",
+      },
+      {
+        title: "JusLaws — A Complete Legal Guide to Property Law in Thailand for Foreigners",
+        url: "https://www.juslaws.com/articles/property-law-thailand-legal-guide-foreigners",
+      },
+      {
+        title: "SILQ Law — Thai Supreme Court Limits Foreign Leases: No more 30-30-30 (March 2025)",
+        url: "https://silqlaw.com/2025/thailand-supreme-court-lease-ruling-2025-silq-law/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "What is the difference between superficies, usufruct and a lease for a foreign property buyer in Thailand?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
