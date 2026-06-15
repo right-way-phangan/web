@@ -32,6 +32,7 @@ import { PrintBrochure } from "@/components/objects/print-brochure";
 import { ObjectJsonLd } from "@/components/objects/object-json-ld";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { getSiteUrl } from "@/lib/site-url";
+import { cleanMetaDescription } from "@/lib/utils/meta";
 
 interface Props {
   params: Promise<{ rw: string }>;
@@ -54,7 +55,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const districtSuffix = object.district ? ` in ${object.district}` : "";
   const ogTitle = `${object.titleEn} — ${object.rwNumber}`;
   const description =
-    object.descriptionRaw?.slice(0, 160) ??
+    cleanMetaDescription(object.descriptionRaw) ??
     `${object.type} on Koh Phangan${districtSuffix} — Right Way listing ${object.rwNumber}.`;
   return {
     title: ogTitle,

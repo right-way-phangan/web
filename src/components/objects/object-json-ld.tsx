@@ -1,5 +1,6 @@
 import type { RealEstateObject } from "@/types/object";
 import { siteConfig } from "@/lib/site-config";
+import { cleanMetaDescription } from "@/lib/utils/meta";
 
 interface Props {
   object: RealEstateObject;
@@ -47,7 +48,7 @@ export function ObjectJsonLd({ object, url }: Props) {
     name: object.titleEn,
     sku: object.rwNumber,
     category: object.type,
-    description: object.descriptionRaw?.slice(0, 500) ?? object.titleEn,
+    description: cleanMetaDescription(object.descriptionRaw, 500) ?? object.titleEn,
     ...(images.length ? { image: images } : {}),
     ...(offers ? { offers } : {}),
     brand: {

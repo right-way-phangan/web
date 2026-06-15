@@ -32,6 +32,7 @@ import { ObjectJsonLd } from "@/components/objects/object-json-ld";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { getSiteUrl } from "@/lib/site-url";
 import { getObjectDict, getListingsDict } from "@/lib/i18n/dictionaries";
+import { cleanMetaDescription } from "@/lib/utils/meta";
 
 interface Props {
   params: Promise<{ rw: string }>;
@@ -52,7 +53,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
   const ogTitle = `${object.titleEn} — ${object.rwNumber}`;
   const description =
-    object.descriptionRaw?.slice(0, 160) ??
+    cleanMetaDescription(object.descriptionRaw) ??
     `${object.type} на Ко Пангане — объект Right Way ${object.rwNumber}.`;
   return {
     title: ogTitle,
