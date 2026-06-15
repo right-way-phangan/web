@@ -50,14 +50,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       robots: { index: false },
     };
   }
+  const ogTitle = `${object.titleEn} — ${object.rwNumber}`;
+  const description =
+    object.descriptionRaw?.slice(0, 160) ??
+    `${object.type} на Ко Пангане — объект Right Way ${object.rwNumber}.`;
   return {
-    title: `${object.titleEn} — ${object.rwNumber}`,
-    description:
-      object.descriptionRaw?.slice(0, 160) ??
-      `${object.type} на Ко Пангане — объект Right Way ${object.rwNumber}.`,
+    title: ogTitle,
+    description,
     alternates: {
       canonical: `/ru/object/${object.rwNumber}`,
       languages: { en: `/object/${object.rwNumber}`, ru: `/ru/object/${object.rwNumber}`, "x-default": `/object/${object.rwNumber}` },
+    },
+    // og:title/og:description иначе наследуются generic из layout (см. EN-версию).
+    openGraph: {
+      title: ogTitle,
+      description,
+      url: `/ru/object/${object.rwNumber}`,
+    },
+    twitter: {
+      title: ogTitle,
+      description,
     },
   };
 }

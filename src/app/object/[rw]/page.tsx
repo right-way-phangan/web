@@ -52,11 +52,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
   const districtSuffix = object.district ? ` in ${object.district}` : "";
+  const ogTitle = `${object.titleEn} — ${object.rwNumber}`;
+  const description =
+    object.descriptionRaw?.slice(0, 160) ??
+    `${object.type} on Koh Phangan${districtSuffix} — Right Way listing ${object.rwNumber}.`;
   return {
-    title: `${object.titleEn} — ${object.rwNumber}`,
-    description:
-      object.descriptionRaw?.slice(0, 160) ??
-      `${object.type} on Koh Phangan${districtSuffix} — Right Way listing ${object.rwNumber}.`,
+    title: ogTitle,
+    description,
     alternates: {
       canonical: `/object/${object.rwNumber}`,
       languages: {
@@ -64,6 +66,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         ru: `/ru/object/${object.rwNumber}`,
         "x-default": `/object/${object.rwNumber}`,
       },
+    },
+    // Без этого og:title/og:description наследуются generic из layout — при
+    // шеринге листинга в TG/FB/WhatsApp превью показывало общий заголовок сайта,
+    // а не конкретный объект. og:image подхватывается из opengraph-image.tsx сам.
+    openGraph: {
+      title: ogTitle,
+      description,
+      url: `/object/${object.rwNumber}`,
+    },
+    twitter: {
+      title: ogTitle,
+      description,
     },
   };
 }
