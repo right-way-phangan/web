@@ -172,8 +172,9 @@ export default async function LeadDetailPage({
   // Client engagement: when they last opened their shared shortlist.
   const lastShortlistViewAt =
     events.find((e) => e.type === "shortlist_view")?.createdAt ?? null;
-  // Derived temperature + what's missing to advance.
-  const readiness = leadScore(lead);
+  // Derived temperature + what's missing to advance. getLead не отдаёт
+  // lastTouchAt — передаём вычисленный из событий, иначе сигнал «Касание» врёт.
+  const readiness = leadScore({ ...lead, lastTouchAt });
   // Stage SLA — is the lead overdue on its current stage?
   const sla = slaStatus(lead.stageKey, stageSinceIso);
   // Object↔deal sync: what site status the deal stage implies (won → Sold,
