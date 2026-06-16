@@ -256,7 +256,7 @@ export default async function ObjectPage({ params }: Props) {
                   <h2 className="font-serif text-3xl text-forest-900">
                     About this property
                   </h2>
-                  <div className="mt-6 max-w-prose space-y-4 text-base leading-relaxed text-forest-500/85 whitespace-pre-line">
+                  <div className="dropcap mt-6 max-w-prose space-y-4 text-base leading-relaxed text-forest-500/85 whitespace-pre-line">
                     {object.descriptionRaw}
                   </div>
                 </section>

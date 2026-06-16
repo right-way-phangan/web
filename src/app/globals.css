@@ -112,6 +112,52 @@
   }
 }
 
+/* Плёночная зернистость поверх тёмных секций (hero, island-CTA) — приём из
+   luxury/fashion: едва заметный фрактальный шум через mix-blend, добавляет
+   «плёночную» глубину forest-фону. Статичная, декоративная (aria-hidden). */
+.grain-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+/* Буквица для длинных текстов (описание объекта, статьи) — редакторская
+   деталь в духе печатных изданий. Латунная заглавная в serif. */
+.dropcap::first-letter {
+  float: left;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 3.3em;
+  line-height: 0.82;
+  padding-right: 0.09em;
+  margin-top: 0.06em;
+  font-weight: 600;
+  @apply text-brass-500;
+}
+
+/* Анимированное латунное подчёркивание пунктов навигации — выезжает слева
+   по наведению и на активной странице. Цвет наследует текст (брасс). */
+.nav-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.nav-underline:hover::after,
+.nav-underline[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
 @layer components {
   .container-prose {
     @apply mx-auto px-6 md:px-8 max-w-container;
