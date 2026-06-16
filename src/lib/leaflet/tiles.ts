@@ -28,35 +28,38 @@ export const SATELLITE_ATTRIBUTION =
 export const SATELLITE_MAX_NATIVE_ZOOM = 19;
 
 /**
- * Terrain layer — a two-tile composite (built in the map components):
+ * Terrain layer — a two-tile composite of Esri relief, built in the map
+ * components. Goal (per user feedback): relief is the star — strong and clean,
+ * land vs. water obvious, and nothing else on it (no roads, no labels). An
+ * earlier OpenTopoMap base was dropped: its roads/contours/Thai labels buried
+ * the relief and read as clutter.
  *
- *  1. BASE — OpenTopoMap (below): a coloured topographic map. Gives three
- *     things the bare hillshade never did: contour lines (slope reads down to
- *     parcel zoom), a crisp coastline with blue sea (land↔water boundary the
- *     land buyer asked for), and native tiles to z17 (sharp close-up). Served
- *     through our /tiles proxy for CDN caching + OTM's tile-usage policy.
+ *  1. BASE — Esri World Shaded Relief (below): coloured shaded relief on land +
+ *     a flat blue ocean, so the coastline / land↔water boundary reads at a
+ *     glance. No labels, no roads.
  *  2. SHADE — Esri World Hillshade (above, `mix-blend-mode: multiply`): darkens
- *     the slopes so relief pops over OTM's pale shading ("more visible relief").
+ *     the slopes so ridges and valleys pop. Multiply barely touches the flat
+ *     ocean, so the sea stays blue.
  *
- * Esri hillshade native data over Koh Phangan stops at z13 — the free global
- * hillshade is SRTM-derived (~30 m) and Esri has no higher-res DEM here, so
- * z14+ return a grey "Map data not yet available" placeholder (verified
- * 2026-06-16). maxNativeZoom must therefore be 13: Leaflet upscales the real
- * z13 relief for closer zooms (soft, but the OTM contours carry the detail).
+ * Both are SRTM-derived and native only to z13 over Koh Phangan (z14+ return a
+ * grey "Map data not yet available" placeholder — verified 2026-06-16), so
+ * maxNativeZoom is 13: Leaflet upscales the z13 relief for closer zooms (soft,
+ * but relief reads fine). Sharp close-ups are the satellite layer's job.
  */
-export const TERRAIN_TOPO_TILE_URL = "/tiles/topo/{z}/{x}/{y}";
-export const TERRAIN_TOPO_ATTRIBUTION =
-  'Topo &copy; <a href="https://opentopomap.org/">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)';
-export const TERRAIN_TOPO_MAX_NATIVE_ZOOM = 17;
+export const TERRAIN_RELIEF_TILE_URL =
+  "https://server.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}";
+export const TERRAIN_RELIEF_ATTRIBUTION =
+  'Relief &copy; <a href="https://www.esri.com/">Esri</a>';
+export const TERRAIN_RELIEF_MAX_NATIVE_ZOOM = 13;
 
 export const TERRAIN_TILE_URL =
   "https://server.arcgisonline.com/ArcGIS/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}";
 export const TERRAIN_ATTRIBUTION =
   "Hillshade &copy; <a href=\"https://www.esri.com/\">Esri</a>, USGS, NGA";
 export const TERRAIN_MAX_NATIVE_ZOOM = 13;
-// Strength of the multiply hillshade over the topo base. ~0.65 makes slopes
-// read clearly without muddying OTM's blue water and contour lines.
-export const TERRAIN_HILLSHADE_OPACITY = 0.65;
+// Strength of the multiply hillshade over the shaded-relief base. ~0.6 makes
+// slopes pop without darkening the blue ocean.
+export const TERRAIN_HILLSHADE_OPACITY = 0.6;
 
 /**
  * DOL cadastral parcel outlines (โฉนด boundaries) — Longdo's dol_hd layer (the
