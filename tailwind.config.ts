@@ -50,10 +50,9 @@ const config: Config = {
           DEFAULT: withVar("--c-panel"),
           fg: withVar("--c-panel-fg"),
         },
-        // Brand jade — dark-theme structural accent (kant, badges, duotone,
-        // header edge). Named `jade` (not `emerald`) to avoid clobbering
-        // Tailwind's default emerald-* scale used for success states in admin.
-        jade: withVar("--c-emerald"),
+        // Warm bronze — dark-theme structural accent (kant, badges, duotone,
+        // header edge, nav). A darker warm sibling of gold.
+        bronze: withVar("--c-bronze"),
         // Reserved orange — urgency/scarcity only (e.g. "N units left"). Dosed
         // so it stays an alert signal, not a second brand accent.
         urgent: withVar("--c-orange"),

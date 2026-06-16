@@ -116,11 +116,11 @@ export function ObjectCard({ object, priority = false }: Props) {
           </div>
         )}
 
-        {/* Hover-дуотон (только dark): мягкий изумрудный грейд обложки при
+        {/* Hover-дуотон (только dark): мягкий бронзовый грейд обложки при
             наведении — премиальный «оживающий» эффект. */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 z-[1] hidden bg-jade/25 opacity-0 mix-blend-soft-light transition-opacity duration-500 group-hover:opacity-100 motion-reduce:transition-none dark:block"
+          className="pointer-events-none absolute inset-0 z-[1] hidden bg-bronze/25 opacity-0 mix-blend-soft-light transition-opacity duration-500 group-hover:opacity-100 motion-reduce:transition-none dark:block"
         />
 
         <div className="absolute left-3 top-3 flex items-center gap-1.5">

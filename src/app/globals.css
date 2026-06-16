@@ -29,17 +29,17 @@
   --c-panel: 14 31 24; /* dark surface (= forest-900) */
   --c-panel-fg: 254 252 249; /* light text on panel (= cream-50) */
 
-  --c-emerald: 47 85 70; /* brand forest (light); dark theme overrides brighter */
+  --c-bronze: 154 122 74; /* muted bronze (light fallback; accent is dark-only) */
   --c-orange: 199 121 41; /* #C77929 warm orange — reserved for urgency/scarcity */
 
   color-scheme: light;
 }
 
 .dark {
-  /* Neutral GRAPHITE surfaces (a whisper of warmth, not brown, not green) with
-     clear elevation steps. Brand green returns only as an EMERALD edge accent
-     on cards (--c-emerald), with gold for typography/CTAs — graphite canvas,
-     gold light, emerald structure. */
+  /* Neutral GRAPHITE surfaces (a whisper of warmth) with clear elevation steps.
+     Warm monochrome accent system: gold (brass) = money/CTAs, bronze
+     (--c-bronze) = structure (nav, kant, dividers, focus, Vetted, data),
+     orange (--c-orange) = urgency only. */
   --c-cream-100: 24 24 21; /* #181815 page background (lifted a touch) */
   --c-cream-200: 34 34 30; /* #222220 alt sections / footer */
   --c-cream-50: 46 46 38; /* #2E2E26 raised surfaces / cards (more contrast) */
@@ -59,10 +59,10 @@
   --c-brass-500: 229 174 112; /* #E5AE70 gold accent */
   --c-brass-600: 205 137 64; /* #CD8940 */
 
-  /* Brand emerald — deep, slightly muted so it harmonizes with the warm gold
-     instead of clashing as bright mint. Structural accent (kant, nav, dividers,
-     focus, Vetted). Ties the dark theme back to the light forest brand. */
-  --c-emerald: 60 113 86; /* #3C7156 deep emerald */
+  /* Warm muted BRONZE — second accent for structure (kant, nav, dividers,
+     focus, Vetted, data). Harmonizes with the brighter gold as a darker warm
+     sibling (replaces the earlier emerald, which clashed as cool green). */
+  --c-bronze: 176 140 90; /* #B08C5A muted bronze */
   --c-orange: 224 130 56; /* #E08238 vivid orange — urgency/scarcity only, dosed */
 
   --c-panel: 36 36 32; /* #242420 raised dark surface (sections / scrims) */
@@ -261,8 +261,8 @@
   background:
     radial-gradient(95% 60% at 50% -6%, rgba(229, 174, 112, 0.12), transparent 58%),
     radial-gradient(55% 48% at 90% 2%, rgba(255, 255, 255, 0.06), transparent 55%),
-    radial-gradient(75% 65% at 4% 104%, rgba(60, 113, 86, 0.09), transparent 60%),
-    radial-gradient(55% 45% at 100% 92%, rgba(60, 113, 86, 0.05), transparent 60%),
+    radial-gradient(75% 65% at 4% 104%, rgba(176, 140, 90, 0.09), transparent 60%),
+    radial-gradient(55% 45% at 100% 92%, rgba(176, 140, 90, 0.05), transparent 60%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 26%);
 }
 @media print {
@@ -288,7 +288,7 @@
   pointer-events: none;
   background:
     radial-gradient(44% 100% at 52% 0%, rgba(229, 174, 112, 0.13), transparent 72%),
-    radial-gradient(58% 95% at 16% 2%, rgba(60, 113, 86, 0.12), transparent 70%),
+    radial-gradient(58% 95% at 16% 2%, rgba(176, 140, 90, 0.12), transparent 70%),
     radial-gradient(50% 80% at 86% 8%, rgba(255, 255, 255, 0.04), transparent 64%);
 }
 @media print {
@@ -314,7 +314,7 @@
     0 24px 52px -24px rgba(0, 0, 0, 0.78),
     0 10px 22px -12px rgba(0, 0, 0, 0.6);
 }
-/* Изумрудный «кант» — тонкая брендовая линия по верхнему краю карточки,
+/* Бронзовый «кант» — тонкая брендовая линия по верхнему краю карточки,
    тающая к углам. Над обложкой (z-10), обрезается скруглением. */
 .dark .card-elevated::after {
   content: "";
@@ -328,27 +328,27 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(60, 113, 86, 0.85) 22%,
-    rgba(60, 113, 86, 0.85) 78%,
+    rgba(176, 140, 90, 0.85) 22%,
+    rgba(176, 140, 90, 0.85) 78%,
     transparent
   );
 }
-/* Hover в тёмной: подъём + изумрудный ореол по краю и яркий кант — карточка
+/* Hover в тёмной: подъём + бронзовый ореол по краю и яркий кант — карточка
    «оживает» в брендовом зелёном. (object/project-card двигают transform.) */
 .dark .card-elevated:hover {
   box-shadow:
-    inset 0 1px 0 0 rgba(60, 113, 86, 0.22),
+    inset 0 1px 0 0 rgba(176, 140, 90, 0.22),
     0 1px 2px 0 rgba(0, 0, 0, 0.45),
     0 30px 60px -22px rgba(0, 0, 0, 0.82),
-    0 0 0 1px rgba(60, 113, 86, 0.2),
-    0 14px 42px -16px rgba(60, 113, 86, 0.22);
+    0 0 0 1px rgba(176, 140, 90, 0.2),
+    0 14px 42px -16px rgba(176, 140, 90, 0.22);
 }
 .dark .card-elevated:hover::after {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(60, 113, 86, 1) 14%,
-    rgba(60, 113, 86, 1) 86%,
+    rgba(176, 140, 90, 1) 14%,
+    rgba(176, 140, 90, 1) 86%,
     transparent
   );
 }
@@ -359,7 +359,7 @@
 }
 
 /* Разделитель секций — тонкая линия, тающая к краям. В светлой теме едва
-   заметный forest, в тёмной — изумрудный градиент (брендовый ритм страницы).
+   заметный forest, в тёмной — бронзовый градиент (брендовый ритм страницы).
    Использовать: <hr className="section-divider" /> или <div ...>. */
 .section-divider {
   height: 1px;
@@ -370,27 +370,27 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(60, 113, 86, 0.45),
+    rgba(176, 140, 90, 0.45),
     transparent
   );
 }
 
-/* Навигация изумрудная в тёмной теме (брендовый структурный акцент), тогда как
+/* Навигация бронзовая в тёмной теме (брендовый структурный акцент), тогда как
    контентные ссылки/CTA остаются золотыми. Цель — по структуре: nav-ссылки и
    кнопки-триггеры, активный пункт (aria-current) и ссылки футера. Покрывает
    меню, выпадашки, мобильное меню (портал) и футер без правки классов. */
 .dark nav a:hover,
 .dark nav button:hover,
 .dark footer a:hover {
-  color: rgb(var(--c-emerald));
+  color: rgb(var(--c-bronze));
 }
 .dark nav a[aria-current="page"] {
-  color: rgb(var(--c-emerald));
+  color: rgb(var(--c-bronze));
 }
 
-/* Фокус-кольца изумрудные в тёмной теме: перекрашиваем переменную Tailwind
+/* Фокус-кольца бронзовые в тёмной теме: перекрашиваем переменную Tailwind
    ring у всех focus-visible (доступность + брендовый акцент). Светлую не
    трогаем. */
 .dark *:focus-visible {
-  --tw-ring-color: rgb(var(--c-emerald) / 0.6);
+  --tw-ring-color: rgb(var(--c-bronze) / 0.6);
 }
