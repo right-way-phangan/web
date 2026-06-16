@@ -2,12 +2,15 @@ import Link from "next/link";
 import { jsonLdHtml } from "@/lib/seo/json-ld";
 import type { Route } from "next";
 import { ChevronDown, ArrowRight } from "lucide-react";
-import type { ObjectType } from "@/types/object";
+import type { ObjectType, RealEstateObject } from "@/types/object";
 import type { FaqBlock } from "@/content/faq";
 import { FAQ_ITEMS } from "@/content/faq";
 import { FAQ_ITEMS_RU } from "@/content/faq.ru";
 import { FaqAnswer } from "@/components/faq/faq-blocks";
+import { buildabilityFaq } from "@/lib/data/zone-rules";
 import { getObjectDict, type Locale } from "@/lib/i18n/dictionaries";
+
+type FaqItem = { id: string; question: string; answer: FaqBlock[] };
 
 /**
  * Three FAQ answers matched to the object type, straight from the existing
@@ -38,12 +41,27 @@ function blocksToText(blocks: FaqBlock[]): string {
     .slice(0, 1200);
 }
 
-export function ObjectFaq({ type, locale }: { type: ObjectType; locale: Locale }) {
+export function ObjectFaq({
+  type,
+  locale,
+  object,
+}: {
+  type: ObjectType;
+  locale: Locale;
+  /** When given, prepends a per-listing "Can I build on RW-XXXX?" Q&A. */
+  object?: RealEstateObject;
+}) {
   const t = getObjectDict(locale);
   const source = locale === "ru" ? FAQ_ITEMS_RU : FAQ_ITEMS;
-  const items = PICKS[type]
+  const picked: FaqItem[] = PICKS[type]
     .map((id) => source.find((q) => q.id === id))
     .filter((q): q is NonNullable<typeof q> => !!q);
+
+  // Per-listing buildability Q&A first — the most specific, GEO/AEO-friendly.
+  const build = object ? buildabilityFaq(object, locale) : null;
+  const items: FaqItem[] = build
+    ? [{ id: "buildability", question: build.question, answer: build.answer }, ...picked]
+    : picked;
   if (items.length === 0) return null;
 
   const faqHref = (locale === "ru" ? "/ru/faq" : "/faq") as Route;

@@ -284,7 +284,7 @@ export default async function ObjectPage({ params }: Props) {
             </Appear>
 
             <Appear>
-              <ObjectFaq type={object.type} locale="en" />
+              <ObjectFaq type={object.type} locale="en" object={object} />
             </Appear>
 
             <ObjectLocationMap

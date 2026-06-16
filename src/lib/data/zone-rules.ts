@@ -149,3 +149,46 @@ export function zoneBuildInfo(o: RealEstateObject, locale: RuleLocale): ZoneBuil
 
   return { zone: zoneDef ? pick(zoneDef.name, locale) : undefined, lines, flags };
 }
+
+/**
+ * A synthesized "Can I build on RW-XXXX?" Q&A for the listing FAQ — plain-text
+ * paragraphs (good for FAQPage JSON-LD + LLM answer engines / GEO-AEO). Built
+ * from the same indicative data as the visible block; null when we have nothing
+ * to say. The answer never asserts hard figures — it points to DD.
+ */
+export function buildabilityFaq(
+  o: RealEstateObject,
+  locale: RuleLocale,
+): { question: string; answer: string[] } | null {
+  const info = zoneBuildInfo(o, locale);
+  if (!info) return null;
+
+  const rw = o.rwNumber;
+  const where = o.district ? (locale === "ru" ? ` в районе ${o.district}` : ` in ${o.district}`) : "";
+  const question =
+    locale === "ru"
+      ? `Можно ли строить на участке ${rw}${where}?`
+      : `Can I build on ${rw}${where}?`;
+
+  const answer: string[] = [];
+  answer.push(
+    info.zone
+      ? locale === "ru"
+        ? `${rw} находится в зоне «${info.zone}».`
+        : `${rw} is in a ${info.zone.toLowerCase()} zone.`
+      : locale === "ru"
+        ? `Зона участка ${rw} ещё не классифицирована по карте — уточняется в DD.`
+        : `The city-plan zone for ${rw} is not yet classified — confirmed in DD.`,
+  );
+  for (const line of info.lines) answer.push(line.text);
+  if (info.flags.length) {
+    const lead = locale === "ru" ? "Перед стройкой проверьте: " : "Before you build, check: ";
+    answer.push(lead + info.flags.map((f) => f.text).join(" "));
+  }
+  answer.push(
+    locale === "ru"
+      ? "Точные высота, пятно застройки, отступы и разрешённое использование подтверждаются в нашем Due Diligence до сделки."
+      : "Exact height, footprint, setbacks and permitted use are confirmed in our due diligence before any deal.",
+  );
+  return { question, answer };
+}
