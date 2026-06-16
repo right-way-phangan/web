@@ -21,11 +21,16 @@ import {
   opexBreakdown,
   personalExpenses,
   cashOnHand,
+  monthlyIncome,
   receivables,
   receivablesTotal,
   personalMonthly,
   combinedBurnMonthly,
   runwayMonths,
+  netBurnMonthly,
+  cashOutDate,
+  savingsLevers,
+  leversTotal,
   fmtMoney,
   FX,
   FX_DATE,
@@ -35,7 +40,7 @@ import {
   type DisplayCurrency,
 } from "@/lib/data/finance";
 import { getLiveRatesTHB } from "@/lib/data/fx-live";
-import { loadFinanceFromSheet } from "@/lib/data/finance-sheet";
+import { loadFinanceFromSheet, loadRunwayFromSheet } from "@/lib/data/finance-sheet";
 import { getLeads, getEvents } from "@/lib/data/leads";
 import Link from "next/link";
 
@@ -114,9 +119,10 @@ export default async function FinancePage({
   const { cur: curParam } = await searchParams;
   const cur: DisplayCurrency = curParam === "usd" ? "USD" : curParam === "rub" ? "RUB" : "THB";
 
-  const [live, sheet, crmLeads, crmEvents] = await Promise.all([
+  const [live, sheet, runwaySheet, crmLeads, crmEvents] = await Promise.all([
     getLiveRatesTHB(),
     loadFinanceFromSheet(),
+    loadRunwayFromSheet(),
     getLeads(),
     getEvents(500),
   ]);
@@ -170,13 +176,22 @@ export default async function FinancePage({
     ? Math.round((breakdown[0].value / breakdown.reduce((s, x) => s + x.value, 0)) * 100)
     : 0;
 
-  // Runway (bootstrap): личные расходы + бизнес-burn = «сколько горит» всего;
-  // делим наличные на это → на сколько месяцев хватит до первой сделки.
+  // Runway (bootstrap): личные расходы + бизнес-burn = «сколько горит» всего.
+  // Наличные/доход — из таблицы (лист Runway), иначе из кода. Чистый отток =
+  // burn − доход; делим наличные на него → месяцы и дата истечения кэша.
+  const cash = runwaySheet?.cashOnHand ?? cashOnHand;
+  const income = runwaySheet?.monthlyIncome ?? monthlyIncome;
   const personalTotal = personalMonthly();
   const combinedBurn = combinedBurnMonthly(subs);
-  const runway = runwayMonths(cashOnHand, combinedBurn);
+  const netBurn = netBurnMonthly(subs, personalExpenses, income);
+  const runway = runwayMonths(cash, netBurn);
   const receivableTotal = receivablesTotal();
-  const runwayWithRec = runwayMonths(cashOnHand + receivableTotal, combinedBurn);
+  const runwayWithRec = runwayMonths(cash + receivableTotal, netBurn);
+  const outDate = cashOutDate(cash, netBurn);
+  const leversSaving = leversTotal();
+  const burnAfterCuts = combinedBurn - leversSaving;
+  const dateFmt = (d: Date) =>
+    d.toLocaleDateString("ru-RU", { day: "numeric", month: "short", year: "numeric" });
 
   return (
     <section className="px-4 py-8 md:px-8">
@@ -261,29 +276,55 @@ export default async function FinancePage({
       </h2>
       <div className="mb-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Stat
-          label="Совокупный burn / мес"
-          value={money(combinedBurn)}
-          hint={`личные ${money(personalTotal)} + бизнес ${money(opex)}`}
+          label="Чистый отток / мес"
+          value={money(netBurn)}
+          hint={
+            income > 0
+              ? `burn ${money(combinedBurn)} − доход ${money(income)}`
+              : `личные ${money(personalTotal)} + бизнес ${money(opex)} · дохода нет`
+          }
           negative
         />
         <Stat
           label="Наличные сейчас"
-          value={money(cashOnHand)}
+          value={money(cash)}
           hint={`+ дебиторка ${money(receivableTotal)} (Серёжа)`}
         />
         <Stat
-          label="Runway на наличные"
-          value={runway != null ? `${runway.toFixed(1)} мес` : "—"}
-          hint="🔴 без сбора долгов"
+          label="🔴 Деньги кончатся"
+          value={outDate ? dateFmt(outDate) : income >= combinedBurn ? "не убывают" : "—"}
+          hint={
+            runway != null
+              ? `${runway.toFixed(1)} мес на наличные · без сбора долгов`
+              : "впиши наличные"
+          }
           negative
         />
         <Stat
           label="Runway с дебиторкой"
           value={runwayWithRec != null ? `${runwayWithRec.toFixed(1)} мес` : "—"}
-          hint="наличные + долги ÷ burn"
+          hint="наличные + долги ÷ отток"
           accent
         />
       </div>
+      <div className="mb-4 flex flex-wrap items-center gap-x-4 gap-y-1 rounded-xl border border-forest-900/10 bg-white px-4 py-3 text-xs text-forest-900/60">
+        <span className="font-medium text-forest-900/75">Рычаги экономии:</span>
+        {savingsLevers.map((l) => (
+          <span key={l.label}>
+            {l.label} <span className="tabular-nums text-forest-900/80">−{money(l.thbPerMonth)}</span>
+          </span>
+        ))}
+        <span className="ml-auto">
+          burn после всех:{" "}
+          <span className="font-medium text-forest-900">{money(burnAfterCuts)}/мес</span> (−
+          {money(leversSaving)})
+        </span>
+      </div>
+      <p className="mb-4 text-xs text-forest-900/45">
+        ⚠️ Это <strong>операционный</strong> runway (жильё + жизнь + бизнес). Он <strong>не</strong>{" "}
+        включает личные долговые обязательства (содержание детей, кредиты, налоги) — они в проекте
+        «Сам себе Я» и сильно больше; полную картину своди там.
+      </p>
       <div className="mb-8 overflow-hidden rounded-2xl border border-forest-900/10 bg-white">
         <table className="w-full text-sm">
           <thead>
