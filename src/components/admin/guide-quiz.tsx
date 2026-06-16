@@ -121,7 +121,7 @@ export function GuideQuiz() {
   return (
     <div className="space-y-5">
       {QUESTIONS.map((item, qi) => (
-        <div key={qi} className="rounded-xl border border-forest-900/10 bg-white p-4">
+        <div key={qi} className="rounded-xl border border-forest-900/10 bg-cream-50 p-4">
           <p className="font-semibold text-forest-900">
             {qi + 1}. {item.q}
           </p>
@@ -168,7 +168,7 @@ export function GuideQuiz() {
             type="button"
             onClick={() => setChecked(true)}
             disabled={!allAnswered}
-            className="rounded-full bg-forest-900 px-5 py-2 text-sm font-medium text-white transition enabled:hover:bg-forest-900/90 disabled:opacity-40"
+            className="rounded-full bg-panel px-5 py-2 text-sm font-medium text-panel-fg transition enabled:hover:bg-panel/90 disabled:opacity-40"
           >
             Проверить ответы
           </button>

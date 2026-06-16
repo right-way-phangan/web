@@ -205,7 +205,7 @@ export default function ListingsMap({
 
   const pill =
     "px-2.5 py-2 text-xs font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brass-500";
-  const pillOn = "bg-forest-500 text-cream-100";
+  const pillOn = "bg-panel text-panel-fg";
   const pillOff = "bg-cream-100/95 text-forest-900 hover:bg-cream-100";
 
   return (

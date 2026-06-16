@@ -163,7 +163,7 @@ export function SavedListings({ catalog }: { catalog: RealEstateObject[] }) {
         ) : null}
         <Link
           href={localeHref(locale, "/listings") as Route}
-          className="mt-6 inline-flex items-center gap-2 rounded-sm bg-forest-500 px-6 py-3 text-sm font-medium text-cream-100 transition-colors hover:bg-forest-400"
+          className="mt-6 inline-flex items-center gap-2 rounded-sm bg-panel px-6 py-3 text-sm font-medium text-panel-fg transition-colors hover:bg-forest-400"
         >
           {t.browse}
           <ArrowRight className="h-4 w-4" />

@@ -39,7 +39,7 @@ export function DealChecklist({
   }
 
   return (
-    <div className="rounded-xl border border-forest-900/10 bg-white p-4">
+    <div className="rounded-xl border border-forest-900/10 bg-cream-50 p-4">
       <div className="mb-3 flex items-baseline justify-between gap-3">
         <h3 className="text-sm font-semibold text-forest-900">Чек-лист сделки</h3>
         <span className="text-xs text-forest-900/55">

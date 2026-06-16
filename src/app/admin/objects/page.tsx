@@ -295,7 +295,7 @@ export default async function ObjectsPage({
               className={
                 "rounded-full px-3 py-1.5 text-sm font-medium transition " +
                 (on
-                  ? "bg-forest-900 text-white"
+                  ? "bg-panel text-panel-fg"
                   : "bg-forest-900/5 text-forest-900/70 hover:bg-forest-900/10")
               }
             >
@@ -314,7 +314,7 @@ export default async function ObjectsPage({
             name="q"
             defaultValue={query}
             placeholder="RW / название / район…"
-            className="w-56 rounded-full border border-forest-900/15 bg-white px-3 py-1.5 text-sm outline-none focus:border-brass-500"
+            className="w-56 rounded-full border border-forest-900/15 bg-cream-50 px-3 py-1.5 text-sm outline-none focus:border-brass-500"
           />
         </form>
       </div>
@@ -335,7 +335,7 @@ export default async function ObjectsPage({
                 className={
                   "rounded-full px-2.5 py-1 text-xs font-medium transition " +
                   (on
-                    ? "bg-brass-500 text-white"
+                    ? "bg-brass-500 text-panel-fg"
                     : "bg-forest-900/5 text-forest-900/60 hover:bg-forest-900/10")
                 }
               >
@@ -357,7 +357,7 @@ export default async function ObjectsPage({
                 className={
                   "rounded-full px-2.5 py-1 text-xs font-medium transition " +
                   (on
-                    ? "bg-forest-900 text-white"
+                    ? "bg-panel text-panel-fg"
                     : "bg-forest-900/5 text-forest-900/60 hover:bg-forest-900/10")
                 }
               >

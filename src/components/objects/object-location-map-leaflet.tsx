@@ -214,7 +214,7 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
 
   const pill =
     "px-2.5 py-2 text-xs font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brass-500";
-  const pillOn = "bg-forest-500 text-cream-100";
+  const pillOn = "bg-panel text-panel-fg";
   const pillOff = "bg-cream-100/95 text-forest-900 hover:bg-cream-100";
 
   return (
@@ -443,11 +443,11 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
 
       {/* Measuring: hint until 2 points, then the running total. */}
       {measuring ? (
-        <div className="absolute bottom-2 left-1/2 z-[1000] -translate-x-1/2 rounded-sm bg-brass-500/90 px-3 py-1.5 text-[11px] font-medium text-cream-100 shadow-sm">
+        <div className="absolute bottom-2 left-1/2 z-[1000] -translate-x-1/2 rounded-sm bg-brass-500/90 px-3 py-1.5 text-[11px] font-medium text-panel-fg shadow-sm">
           {measurePts.length < 2 ? t.measureHint : `${t.measure} ≈ ${formatDistance(measureTotal, locale)}`}
         </div>
       ) : geoError || (parcels && zoom < PARCEL_MIN_ZOOM) ? (
-        <div className="absolute bottom-2 left-1/2 z-[1000] -translate-x-1/2 rounded-sm bg-forest-900/85 px-3 py-1.5 text-[11px] text-cream-100 shadow-sm">
+        <div className="absolute bottom-2 left-1/2 z-[1000] -translate-x-1/2 rounded-sm bg-panel/85 px-3 py-1.5 text-[11px] text-panel-fg shadow-sm">
           {geoError ?? t.parcelZoomHint}
         </div>
       ) : null}

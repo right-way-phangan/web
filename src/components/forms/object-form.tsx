@@ -138,7 +138,7 @@ function CheckGroup({
             className={cn(
               "cursor-pointer select-none rounded-sm border px-3 py-1.5 text-sm transition-colors",
               on
-                ? "border-forest-500 bg-forest-500 text-cream-100"
+                ? "border-forest-500 bg-panel text-panel-fg"
                 : "border-forest-500/20 bg-cream-50 text-forest-900 hover:border-forest-500/40",
             )}
           >
@@ -1016,7 +1016,7 @@ export function ObjectForm() {
               accept="image/*"
               multiple
               onChange={(e) => onPhotosPicked(e.target.files)}
-              className="block w-full text-sm text-forest-900 file:mr-3 file:rounded-sm file:border-0 file:bg-forest-500 file:px-4 file:py-2 file:text-cream-100 hover:file:bg-forest-400"
+              className="block w-full text-sm text-forest-900 file:mr-3 file:rounded-sm file:border-0 file:bg-panel file:px-4 file:py-2 file:text-panel-fg hover:file:bg-forest-400"
             />
             {/* Indices the user marked as documents → server routes them to DOCS. */}
             <input type="hidden" name="photoDocFlags" value={docFlagIdx.join(",")} />
@@ -1040,21 +1040,21 @@ export function ObjectForm() {
                     )}
                   />
                   {flagged ? (
-                    <span className="absolute left-1 top-1 rounded-sm bg-forest-900/80 px-1.5 py-0.5 text-[10px] font-medium text-cream-100">
+                    <span className="absolute left-1 top-1 rounded-sm bg-panel/80 px-1.5 py-0.5 text-[10px] font-medium text-panel-fg">
                       Документ
                     </span>
                   ) : i === 0 ? (
-                    <span className="absolute left-1 top-1 rounded-sm bg-brass-500 px-1.5 py-0.5 text-[10px] font-medium text-cream-100">
+                    <span className="absolute left-1 top-1 rounded-sm bg-brass-500 px-1.5 py-0.5 text-[10px] font-medium text-panel-fg">
                       Обложка
                     </span>
                   ) : null}
-                  <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-1 bg-forest-900/70 px-1 py-1 opacity-0 transition-opacity group-hover:opacity-100">
+                  <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-1 bg-panel/70 px-1 py-1 opacity-0 transition-opacity group-hover:opacity-100">
                     <button
                       type="button"
                       title={flagged ? "Это фото (публиковать)" : "Это документ (не публиковать)"}
                       onClick={() => toggleDoc(i)}
                       className={cn(
-                        "text-cream-100 hover:text-brass-400",
+                        "text-panel-fg hover:text-brass-400",
                         flagged && "text-brass-400",
                       )}
                     >
@@ -1064,7 +1064,7 @@ export function ObjectForm() {
                       type="button"
                       title="Сделать обложкой"
                       onClick={() => setCover(i)}
-                      className="text-cream-100 hover:text-brass-400"
+                      className="text-panel-fg hover:text-brass-400"
                     >
                       <Star className="size-4" />
                     </button>
@@ -1072,7 +1072,7 @@ export function ObjectForm() {
                       type="button"
                       title="Левее"
                       onClick={() => movePhoto(i, -1)}
-                      className="text-cream-100 hover:text-brass-400"
+                      className="text-panel-fg hover:text-brass-400"
                     >
                       <ChevronUp className="size-4 -rotate-90" />
                     </button>
@@ -1080,7 +1080,7 @@ export function ObjectForm() {
                       type="button"
                       title="Правее"
                       onClick={() => movePhoto(i, 1)}
-                      className="text-cream-100 hover:text-brass-400"
+                      className="text-panel-fg hover:text-brass-400"
                     >
                       <ChevronDown className="size-4 -rotate-90" />
                     </button>
@@ -1088,7 +1088,7 @@ export function ObjectForm() {
                       type="button"
                       title="Убрать"
                       onClick={() => removePhoto(i)}
-                      className="text-cream-100 hover:text-red-400"
+                      className="text-panel-fg hover:text-red-400"
                     >
                       <X className="size-4" />
                     </button>
@@ -1107,7 +1107,7 @@ export function ObjectForm() {
               name="docs"
               multiple
               onChange={(e) => onDocsPicked(e.target.files)}
-              className="block w-full text-sm text-forest-900 file:mr-3 file:rounded-sm file:border-0 file:bg-forest-500/70 file:px-4 file:py-2 file:text-cream-100 hover:file:bg-forest-500"
+              className="block w-full text-sm text-forest-900 file:mr-3 file:rounded-sm file:border-0 file:bg-forest-500/70 file:px-4 file:py-2 file:text-panel-fg hover:file:bg-panel"
             />
           </Field>
           {docNames.length > 0 ? (

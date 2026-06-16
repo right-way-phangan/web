@@ -77,7 +77,7 @@ export default async function AdminArticlesPage() {
                   <Link
                     key={a.id}
                     href={`/admin/articles/${a.id}` as Route}
-                    className="flex flex-col rounded-2xl border border-forest-900/10 bg-white p-4 transition hover:border-brass-500/40 hover:shadow-sm"
+                    className="flex flex-col rounded-2xl border border-forest-900/10 bg-cream-50 p-4 transition hover:border-brass-500/40 hover:shadow-sm"
                   >
                     <div className="flex items-center justify-between gap-2">
                       <span className="text-xs font-medium uppercase tracking-wide text-brass-600">

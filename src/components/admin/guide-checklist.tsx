@@ -64,11 +64,11 @@ export function GuideChecklist({
   const allDone = count === items.length && items.length > 0;
 
   return (
-    <div className="rounded-xl border border-forest-900/10 bg-white p-4">
+    <div className="rounded-xl border border-forest-900/10 bg-cream-50 p-4">
       <div className="mb-3 flex items-center justify-between gap-3">
         <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-forest-900/10">
           <div
-            className={"h-full rounded-full transition-all " + (allDone ? "bg-forest-500" : "bg-brass-500")}
+            className={"h-full rounded-full transition-all " + (allDone ? "bg-panel" : "bg-brass-500")}
             style={{ width: `${pct}%` }}
           />
         </div>
@@ -89,7 +89,7 @@ export function GuideChecklist({
                 className={
                   "mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded border text-[10px] transition " +
                   (done[i]
-                    ? "border-forest-500 bg-forest-500 text-white"
+                    ? "border-forest-500 bg-panel text-panel-fg"
                     : "border-forest-900/30 text-transparent")
                 }
               >

@@ -11,7 +11,7 @@ import { Appear } from "@/components/motion/appear";
  */
 export function IslandCta() {
   return (
-    <section className="relative isolate overflow-hidden bg-forest-900">
+    <section className="relative isolate overflow-hidden bg-panel">
       <Image
         src="/images/scenes/coast-aerial.jpg"
         alt="Aerial view of the Koh Phangan coastline"
@@ -20,7 +20,7 @@ export function IslandCta() {
         className="object-cover"
       />
       <div
-        className="absolute inset-0 bg-gradient-to-t from-forest-900/90 via-forest-900/50 to-forest-900/30"
+        className="absolute inset-0 bg-gradient-to-t from-panel/90 via-panel/50 to-panel/30"
         aria-hidden
       />
 
@@ -28,10 +28,10 @@ export function IslandCta() {
         <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-300">
           Ready when you are
         </p>
-        <h2 className="mt-4 max-w-2xl text-balance text-cream-50">
+        <h2 className="mt-4 max-w-2xl text-balance text-panel-fg">
           Find your place on Phangan.
         </h2>
-        <p className="mt-6 max-w-xl text-lg leading-relaxed text-cream-100/85">
+        <p className="mt-6 max-w-xl text-lg leading-relaxed text-panel-fg/85">
           Tell us what matters — a sunset view, walking distance to the beach,
           a buildable plot in a quiet district — and we&rsquo;ll narrow the
           island down to the handful worth seeing.
@@ -48,7 +48,7 @@ export function IslandCta() {
             asChild
             variant="outline"
             size="lg"
-            className="border-cream-100/40 text-cream-50 hover:border-cream-50 hover:bg-cream-50 hover:text-forest-900"
+            className="border-panel-fg/40 text-panel-fg hover:border-panel-fg hover:bg-cream-50 hover:text-forest-900"
           >
             <Link href="/contact">Talk to us</Link>
           </Button>

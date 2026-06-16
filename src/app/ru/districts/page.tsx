@@ -65,7 +65,7 @@ export default async function RussianDistrictsPage() {
                 href={`/ru/districts/${d.slug}` as Route}
                 className="group flex flex-col overflow-hidden rounded-sm border border-forest-500/10 bg-cream-50 transition-all hover:border-forest-500/30 hover:shadow-lg"
               >
-                <div className="relative aspect-[16/9] overflow-hidden bg-forest-900">
+                <div className="relative aspect-[16/9] overflow-hidden bg-panel">
                   {districtHasHero(d.slug) ? (
                     <Image
                       src={`/images/districts/${d.slug}.jpg`}
@@ -76,12 +76,12 @@ export default async function RussianDistrictsPage() {
                     />
                   ) : null}
                   <div
-                    className="absolute inset-0 bg-gradient-to-t from-forest-900/80 via-forest-900/10 to-transparent"
+                    className="absolute inset-0 bg-gradient-to-t from-panel/80 via-panel/10 to-transparent"
                     aria-hidden
                   />
                   <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
-                    <h2 className="font-serif text-2xl text-cream-50 md:text-3xl">{name}</h2>
-                    <p className="mt-0.5 text-sm text-cream-100/85">{subtitle}</p>
+                    <h2 className="font-serif text-2xl text-panel-fg md:text-3xl">{name}</h2>
+                    <p className="mt-0.5 text-sm text-panel-fg/85">{subtitle}</p>
                   </div>
                 </div>
                 <div className="flex flex-1 flex-col gap-3 p-6 md:p-8">
@@ -112,7 +112,7 @@ export default async function RussianDistrictsPage() {
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 href={"/ru/contact" as Route}
-                className="inline-flex items-center gap-2 rounded-sm bg-forest-500 px-6 py-3 text-sm font-medium text-cream-100 transition-colors hover:bg-forest-400"
+                className="inline-flex items-center gap-2 rounded-sm bg-panel px-6 py-3 text-sm font-medium text-panel-fg transition-colors hover:bg-forest-400"
               >
                 Записаться на вводный звонок
                 <ArrowRight className="h-4 w-4" />

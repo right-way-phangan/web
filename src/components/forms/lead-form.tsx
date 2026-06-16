@@ -193,7 +193,7 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
           {(["whatsapp", "telegram", "email"] as const).map((ch) => (
             <label
               key={ch}
-              className="flex-1 cursor-pointer rounded-sm border border-forest-500/20 px-2 py-2 text-center text-xs font-medium text-forest-500 transition-colors has-[:checked]:border-forest-500 has-[:checked]:bg-forest-500 has-[:checked]:text-cream-50"
+              className="flex-1 cursor-pointer rounded-sm border border-forest-500/20 px-2 py-2 text-center text-xs font-medium text-forest-500 transition-colors has-[:checked]:border-forest-500 has-[:checked]:bg-panel has-[:checked]:text-panel-fg"
             >
               <input type="radio" name="replyVia" value={ch} className="sr-only" />
               {ch === "whatsapp" ? "WhatsApp" : ch === "telegram" ? "Telegram" : "Email"}

@@ -27,13 +27,13 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
   return (
     <>
       {/* Hero */}
-      <section aria-label="Hero" className="relative isolate overflow-hidden bg-forest-900">
+      <section aria-label="Hero" className="relative isolate overflow-hidden bg-panel">
         <HeroBackground
           fallbackSrc="/hero-phangan.jpg"
           fallbackAlt="Aerial view of a beachfront on Koh Phangan"
         />
         <div
-          className="absolute inset-0 bg-gradient-to-tr from-forest-900/85 via-forest-900/55 to-forest-900/25"
+          className="absolute inset-0 bg-gradient-to-tr from-panel/85 via-panel/55 to-panel/25"
           aria-hidden
         />
         <div
@@ -44,12 +44,12 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
           <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-300">
             {dict.hero.eyebrow}
           </p>
-          <h1 className="mt-6 max-w-4xl text-balance text-5xl leading-[1.05] text-cream-50 md:text-7xl md:leading-[1.02]">
+          <h1 className="mt-6 max-w-4xl text-balance text-5xl leading-[1.05] text-panel-fg md:text-7xl md:leading-[1.02]">
             {titleBefore}
-            {titleEm ? <span className="italic text-cream-100/80">{titleEm}</span> : null}
+            {titleEm ? <span className="italic text-panel-fg/80">{titleEm}</span> : null}
             {titleAfter}
           </h1>
-          <p className="mt-8 max-w-xl text-lg leading-relaxed text-cream-100/85 md:text-xl">
+          <p className="mt-8 max-w-xl text-lg leading-relaxed text-panel-fg/85 md:text-xl">
             {dict.hero.lede}
           </p>
           <div className="mt-12 flex flex-col gap-3 sm:flex-row sm:gap-4">
@@ -63,7 +63,7 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
               asChild
               variant="outline"
               size="lg"
-              className="border-cream-100/40 text-cream-50 hover:border-cream-50 hover:bg-cream-50 hover:text-forest-900"
+              className="border-panel-fg/40 text-panel-fg hover:border-panel-fg hover:bg-cream-50 hover:text-forest-900"
             >
               <Link href={processHref}>{dict.hero.ctaProcess}</Link>
             </Button>
@@ -74,7 +74,7 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
       {/* The in-progress notice sits under the hero: the header floats
           transparent over the hero photo, so a strip above it would hide. */}
       {dict.inProgress ? (
-        <p className="bg-forest-900 px-6 py-2 text-center text-xs text-cream-100/80">
+        <p className="bg-panel px-6 py-2 text-center text-xs text-panel-fg/80">
           {dict.inProgress}
         </p>
       ) : null}
@@ -110,7 +110,7 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
 
       {/* Closing CTA — full-bleed coastal scene bookending the dark hero
           (mirrors the EN IslandCta so the two locales don't drift). */}
-      <section className="relative isolate overflow-hidden bg-forest-900">
+      <section className="relative isolate overflow-hidden bg-panel">
         <Image
           src="/images/scenes/coast-aerial.jpg"
           alt="Aerial view of the Koh Phangan coastline"
@@ -119,7 +119,7 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
           className="object-cover"
         />
         <div
-          className="absolute inset-0 bg-gradient-to-t from-forest-900/90 via-forest-900/50 to-forest-900/30"
+          className="absolute inset-0 bg-gradient-to-t from-panel/90 via-panel/50 to-panel/30"
           aria-hidden
         />
 
@@ -127,8 +127,8 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
           <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-300">
             {dict.cta.eyebrow}
           </p>
-          <h2 className="mt-4 max-w-2xl text-balance text-cream-50">{dict.cta.title}</h2>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-cream-100/85">
+          <h2 className="mt-4 max-w-2xl text-balance text-panel-fg">{dict.cta.title}</h2>
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-panel-fg/85">
             {dict.cta.lede}
           </p>
           <div className="mt-10 flex w-full max-w-sm flex-col gap-3 sm:w-auto sm:max-w-none sm:flex-row sm:gap-4">
@@ -142,7 +142,7 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
               asChild
               variant="outline"
               size="lg"
-              className="border-cream-100/40 text-cream-50 hover:border-cream-50 hover:bg-cream-50 hover:text-forest-900"
+              className="border-panel-fg/40 text-panel-fg hover:border-panel-fg hover:bg-cream-50 hover:text-forest-900"
             >
               <Link href={contactHref}>{dict.cta.talk}</Link>
             </Button>

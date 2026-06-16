@@ -83,7 +83,7 @@ export function ObjectCard({ object, priority = false }: Props) {
         href={localeHref(locale, `/object/${object.rwNumber}`) as Route}
         target="_blank"
         rel="noopener"
-        className="flex h-full flex-col overflow-hidden rounded-sm border border-forest-500/10 bg-cream-50 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1.5 hover:border-forest-500/25 hover:shadow-2xl hover:shadow-forest-900/15 motion-reduce:hover:translate-y-0"
+        className="flex h-full flex-col overflow-hidden rounded-sm border border-forest-500/10 bg-cream-50 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1.5 hover:border-forest-500/25 hover:shadow-2xl hover:shadow-panel/15 motion-reduce:hover:translate-y-0"
       >
       <div
         className="relative aspect-[4/3] overflow-hidden bg-forest-500/5"
@@ -121,7 +121,7 @@ export function ObjectCard({ object, priority = false }: Props) {
             {object.rwNumber}
           </span>
           {isFreshListing(object.dateAdded) ? (
-            <span className="rounded-sm bg-brass-500 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-cream-50">
+            <span className="rounded-sm bg-brass-500 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-panel-fg">
               {t.newBadge}
             </span>
           ) : null}
@@ -213,7 +213,7 @@ function FeatureBadge({
   label: string;
 }) {
   return (
-    <div className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-sm bg-forest-500/85 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.15em] text-cream-100 backdrop-blur-sm">
+    <div className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-sm bg-panel/85 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.15em] text-panel-fg backdrop-blur-sm">
       <Icon className="h-3 w-3" />
       {label}
     </div>

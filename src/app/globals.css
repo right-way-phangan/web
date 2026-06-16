@@ -2,6 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Theme palette as RGB triplets — consumed by tailwind.config.ts via
+   rgb(var(--x) / <alpha-value>). Light keeps the exact warm-premium hexes;
+   .dark inverts the roles (forest→light text, cream→dark surfaces, brass→
+   brighter accent) and shifts the non-inverting panel surface a touch lighter
+   than the page so headers/dark bands stay legible. next-themes toggles the
+   `.dark` class on <html>, so the whole site repaints from these values. */
+:root {
+  --c-cream-50: 254 252 249; /* #FEFCF9 raised surfaces / cards */
+  --c-cream-100: 250 247 242; /* #FAF7F2 page background */
+  --c-cream-200: 242 237 227; /* #F2EDE3 */
+  --c-cream-300: 232 224 207; /* #E8E0CF */
+
+  --c-forest-50: 232 238 234; /* #E8EEEA */
+  --c-forest-100: 197 210 203; /* #C5D2CB */
+  --c-forest-400: 47 85 70; /* #2F5546 */
+  --c-forest-500: 31 58 46; /* #1F3A2E secondary text / borders */
+  --c-forest-900: 14 31 24; /* #0E1F18 primary text */
+
+  --c-brass-200: 232 201 160; /* #E8C9A0 */
+  --c-brass-300: 221 168 106; /* #DDA86A */
+  --c-brass-400: 199 121 41; /* #C77929 */
+  --c-brass-500: 181 101 29; /* #B5651D accent */
+  --c-brass-600: 150 83 24; /* #965318 */
+
+  --c-panel: 14 31 24; /* dark surface (= forest-900) */
+  --c-panel-fg: 254 252 249; /* light text on panel (= cream-50) */
+
+  color-scheme: light;
+}
+
+.dark {
+  /* Surfaces (cream → warm charcoal-green). Page is darkest; cards/raised
+     surfaces sit a step lighter so elevation reads. */
+  --c-cream-50: 24 42 33; /* #182A21 raised surfaces / cards */
+  --c-cream-100: 17 32 26; /* #11201A page background */
+  --c-cream-200: 30 49 39; /* #1E3127 alt sections */
+  --c-cream-300: 36 58 46; /* #243A2E */
+
+  /* Text / borders / tints (forest → light). 900 = main text, 500 = muted. */
+  --c-forest-50: 35 53 41; /* #233529 hover tints */
+  --c-forest-100: 166 181 172;
+  --c-forest-400: 191 204 196; /* #BFCCC4 */
+  --c-forest-500: 166 181 172; /* #A6B5AC muted text / borders */
+  --c-forest-900: 242 239 232; /* #F2EFE8 primary text */
+
+  /* Accent (brass → brighter so it sings on dark). */
+  --c-brass-200: 240 215 180;
+  --c-brass-300: 230 185 130;
+  --c-brass-400: 221 168 106;
+  --c-brass-500: 221 168 106; /* #DDA86A accent on dark */
+  --c-brass-600: 199 121 41; /* #C77929 */
+
+  --c-panel: 22 38 30; /* #16261E raised dark surface */
+  --c-panel-fg: 243 239 232; /* #F3EFE8 */
+
+  color-scheme: dark;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -9,6 +67,17 @@
   body {
     @apply bg-cream-100 text-forest-900 font-sans antialiased;
     text-rendering: optimizeLegibility;
+  }
+  /* Ease the light↔dark flip. Scoped to color properties so it never fights
+     layout or transforms; reduced-motion zeroes it via the rule below. */
+  body,
+  header,
+  footer,
+  aside {
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease,
+      color 0.3s ease;
   }
   h1, h2, h3, h4 {
     @apply font-serif tracking-tight;

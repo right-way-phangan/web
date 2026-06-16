@@ -115,7 +115,7 @@ export default async function CrmCalendarPage() {
               <div
                 key={key}
                 className={`rounded-2xl border p-3 ${
-                  isToday ? "border-brass-500/40 bg-brass-500/[0.05]" : "border-forest-900/10 bg-white"
+                  isToday ? "border-brass-500/40 bg-brass-500/[0.05]" : "border-forest-900/10 bg-cream-50"
                 }`}
               >
                 <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-forest-900/60">

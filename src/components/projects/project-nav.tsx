@@ -105,7 +105,7 @@ export function ProjectNav({
           <a
             href="#enquire"
             onClick={(e) => onClick(e, "enquire")}
-            className="hidden shrink-0 items-center rounded-sm bg-forest-900 px-4 py-1.5 text-sm font-medium text-cream-50 transition-colors hover:bg-forest-900/90 lg:inline-flex"
+            className="hidden shrink-0 items-center rounded-sm bg-panel px-4 py-1.5 text-sm font-medium text-panel-fg transition-colors hover:bg-panel/90 lg:inline-flex"
           >
             {ctaLabel}
           </a>

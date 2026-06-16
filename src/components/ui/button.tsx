@@ -8,12 +8,17 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
+        // Dark: forest is inverted to a muted light, so a solid forest button
+        // would read as washed grey-green. Override to a confident bright pill
+        // with dark text (panel-fg / panel never invert). outline/ghost/link
+        // need no dark override — their forest tints/borders invert correctly.
         primary:
-          "bg-forest-500 text-cream-100 hover:bg-forest-400 hover:shadow-md hover:shadow-forest-900/15 active:bg-forest-900 active:shadow-none",
+          "bg-forest-500 text-cream-100 hover:bg-forest-400 hover:shadow-md hover:shadow-forest-900/15 active:bg-forest-900 active:shadow-none dark:bg-panel-fg dark:text-panel dark:hover:bg-panel-fg/90 dark:hover:shadow-none dark:active:bg-panel-fg/80",
         accent:
           // brass-600 (not 500): cream-100 on brass-500 is 4.05:1, just under
           // the 4.5:1 AA floor. One palette step darker clears it (~5.9:1).
-          "bg-brass-600 text-cream-100 hover:bg-brass-500 hover:shadow-md hover:shadow-brass-600/20 active:bg-brass-600 active:shadow-none",
+          // Dark: brass is brighter, so flip to dark text on the bright brass.
+          "bg-brass-600 text-cream-100 hover:bg-brass-500 hover:shadow-md hover:shadow-brass-600/20 active:bg-brass-600 active:shadow-none dark:bg-brass-500 dark:text-panel dark:hover:bg-brass-300 dark:hover:shadow-none dark:active:bg-brass-500",
         outline:
           "border border-forest-500/30 text-forest-500 hover:bg-forest-500 hover:text-cream-100 hover:border-forest-500",
         ghost:

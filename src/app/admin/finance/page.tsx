@@ -63,7 +63,7 @@ function Stat({
     <div
       className={
         "rounded-2xl border p-5 " +
-        (accent ? "border-brass-500/30 bg-brass-500/[0.06]" : "border-forest-900/10 bg-white")
+        (accent ? "border-brass-500/30 bg-brass-500/[0.06]" : "border-forest-900/10 bg-cream-50")
       }
     >
       <p className="text-xs font-medium uppercase tracking-wide text-forest-900/45">{label}</p>
@@ -196,7 +196,7 @@ export default async function FinancePage({
           <p className="mt-1 inline-flex items-center gap-1.5 text-xs text-forest-900/45">
             <span
               className={
-                "h-1.5 w-1.5 rounded-full " + (liveData ? "bg-emerald-500" : "bg-forest-900/30")
+                "h-1.5 w-1.5 rounded-full " + (liveData ? "bg-emerald-500" : "bg-panel/30")
               }
             />
             {liveData
@@ -213,7 +213,7 @@ export default async function FinancePage({
                 href={c === "THB" ? "/admin/finance" : `/admin/finance?cur=${c.toLowerCase()}`}
                 className={
                   "px-3 py-1.5 font-medium transition " +
-                  (on ? "bg-forest-900 text-white" : "text-forest-900/60 hover:bg-forest-900/5")
+                  (on ? "bg-panel text-panel-fg" : "text-forest-900/60 hover:bg-forest-900/5")
                 }
               >
                 {c}
@@ -284,7 +284,7 @@ export default async function FinancePage({
           accent
         />
       </div>
-      <div className="mb-8 overflow-hidden rounded-2xl border border-forest-900/10 bg-white">
+      <div className="mb-8 overflow-hidden rounded-2xl border border-forest-900/10 bg-cream-50">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-forest-900/10 text-left text-xs uppercase tracking-wide text-forest-900/45">
@@ -330,7 +330,7 @@ export default async function FinancePage({
       </div>
 
       {/* Дебиторка — мне должны */}
-      <div className="mb-8 overflow-hidden rounded-2xl border border-forest-900/10 bg-white">
+      <div className="mb-8 overflow-hidden rounded-2xl border border-forest-900/10 bg-cream-50">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-forest-900/10 text-left text-xs uppercase tracking-wide text-forest-900/45">
@@ -381,7 +381,7 @@ export default async function FinancePage({
       <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
         Структура расходов (OpEx / мес)
       </h2>
-      <div className="mb-8 rounded-2xl border border-forest-900/10 bg-white p-6">
+      <div className="mb-8 rounded-2xl border border-forest-900/10 bg-cream-50 p-6">
         <FinanceDonut
           segments={breakdown}
           centerValue={money(opex)}
@@ -395,7 +395,7 @@ export default async function FinancePage({
       <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
         Подписки и сервисы
       </h2>
-      <div className="mb-8 overflow-hidden rounded-2xl border border-forest-900/10 bg-white">
+      <div className="mb-8 overflow-hidden rounded-2xl border border-forest-900/10 bg-cream-50">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-forest-900/10 text-left text-xs uppercase tracking-wide text-forest-900/45">
@@ -467,7 +467,7 @@ export default async function FinancePage({
 
       {/* Прогноз будущего run-rate */}
       <div className="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
-        <div className="rounded-xl border border-forest-900/10 bg-white px-4 py-3">
+        <div className="rounded-xl border border-forest-900/10 bg-cream-50 px-4 py-3">
           <p className="text-xs text-forest-900/45">Сейчас постоянных / мес</p>
           <p className="mt-0.5 text-xl font-semibold text-forest-900">{money(0)}</p>
           <p className="text-xs text-forest-900/45">home-office solo</p>
@@ -477,14 +477,14 @@ export default async function FinancePage({
           <p className="mt-0.5 text-xl font-semibold text-forest-900">{money(stage1)}</p>
           <p className="text-xs text-forest-900/45">подписки + операционка {money(plannedRecurring)}</p>
         </div>
-        <div className="rounded-xl border border-forest-900/10 bg-white px-4 py-3">
+        <div className="rounded-xl border border-forest-900/10 bg-cream-50 px-4 py-3">
           <p className="text-xs text-forest-900/45">+ при найме агента / мес</p>
           <p className="mt-0.5 text-xl font-semibold text-forest-900">+{money(onHireRecurring)}</p>
           <p className="text-xs text-forest-900/45">зарплата + офис</p>
         </div>
       </div>
 
-      <div className="mb-8 overflow-hidden rounded-2xl border border-forest-900/10 bg-white">
+      <div className="mb-8 overflow-hidden rounded-2xl border border-forest-900/10 bg-cream-50">
         <table className="w-full text-sm">
           <tbody className="divide-y divide-forest-900/5">
             {recurring.map((r) => {
@@ -528,7 +528,7 @@ export default async function FinancePage({
           — pre-incorporation, к возмещению основателю
         </span>
       </h2>
-      <div className="mb-8 overflow-hidden rounded-2xl border border-forest-900/10 bg-white">
+      <div className="mb-8 overflow-hidden rounded-2xl border border-forest-900/10 bg-cream-50">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-forest-900/10 text-left text-xs uppercase tracking-wide text-forest-900/45">
@@ -609,7 +609,7 @@ export default async function FinancePage({
               — из журнала платежей, записи без даты не учитываются
             </span>
           </h2>
-          <div className="mb-8 rounded-2xl border border-forest-900/10 bg-white p-6">
+          <div className="mb-8 rounded-2xl border border-forest-900/10 bg-cream-50 p-6">
             <FinanceTrend data={monthSeries} currency={cur} fx={fxDisp} />
           </div>
         </>
@@ -625,12 +625,12 @@ export default async function FinancePage({
         )}
       </h2>
       {crmDeals.length === 0 ? (
-        <div className="mb-4 rounded-2xl border border-dashed border-forest-900/15 bg-white p-6 text-sm text-forest-900/55">
+        <div className="mb-4 rounded-2xl border border-dashed border-forest-900/15 bg-cream-50 p-6 text-sm text-forest-900/55">
           Пока нет закрытых сделок (стадия запуска). Первая сделка — Этап 1. Комиссия
           max(5%; 150k): сделка 20M ≈ 1 000k ฿ перекроет ~10 лет текущего OpEx.
         </div>
       ) : (
-        <div className="mb-4 overflow-x-auto rounded-2xl border border-forest-900/10 bg-white">
+        <div className="mb-4 overflow-x-auto rounded-2xl border border-forest-900/10 bg-cream-50">
           <table className="w-full min-w-[34rem] text-sm">
             <thead>
               <tr className="border-b border-forest-900/10 text-left text-xs uppercase tracking-wide text-forest-900/40">
@@ -683,7 +683,7 @@ export default async function FinancePage({
         </div>
       )}
 
-      <div className="mb-6 rounded-2xl border border-forest-900/10 bg-white p-6">
+      <div className="mb-6 rounded-2xl border border-forest-900/10 bg-cream-50 p-6">
         <p className="mb-4 text-sm font-medium text-forest-900">
           Плановый график приходов — Year 1{" "}
           <span className="font-normal text-forest-900/45">(финмодель, сценарий A)</span>

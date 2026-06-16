@@ -67,7 +67,7 @@ export default function GuideIndexPage() {
                 <Link
                   key={p.slug}
                   href={`/admin/guide/${p.slug}` as Route}
-                  className="group rounded-xl border border-brass-500/30 bg-white p-4 transition hover:shadow-sm"
+                  className="group rounded-xl border border-brass-500/30 bg-cream-50 p-4 transition hover:shadow-sm"
                 >
                   <p className="font-semibold text-forest-900 group-hover:text-brass-600">
                     {p.title}
@@ -94,7 +94,7 @@ export default function GuideIndexPage() {
                     <Link
                       key={p.slug}
                       href={`/admin/guide/${p.slug}` as Route}
-                      className="group rounded-2xl border border-forest-900/10 bg-white p-4 transition hover:border-brass-500/50 hover:shadow-sm"
+                      className="group rounded-2xl border border-forest-900/10 bg-cream-50 p-4 transition hover:border-brass-500/50 hover:shadow-sm"
                     >
                       <p className="font-semibold text-forest-900 group-hover:text-brass-600">
                         {p.title}
@@ -116,7 +116,7 @@ export default function GuideIndexPage() {
         <div className="mt-10 grid gap-5 lg:grid-cols-2">
           {/* Что нового */}
           {log.length > 0 && (
-            <div className="rounded-2xl border border-forest-900/10 bg-white p-5">
+            <div className="rounded-2xl border border-forest-900/10 bg-cream-50 p-5">
               <h2 className="font-serif text-xl text-forest-900">Что нового</h2>
               <ul className="mt-4 space-y-2.5">
                 {log.map((e, i) => (
@@ -145,7 +145,7 @@ export default function GuideIndexPage() {
           )}
 
           {/* Покрытие обучением — детектор пробелов */}
-          <div className="rounded-2xl border border-forest-900/10 bg-white p-5">
+          <div className="rounded-2xl border border-forest-900/10 bg-cream-50 p-5">
             <h2 className="font-serif text-xl text-forest-900">
               Покрытие обучением{" "}
               <span className="text-sm font-normal text-forest-900/50">

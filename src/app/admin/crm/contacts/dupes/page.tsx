@@ -65,7 +65,7 @@ export default async function ContactDupesPage() {
           {dupeGroups.map(({ key, contacts }) => {
             const [primary] = contacts;
             return (
-              <div key={key} className="rounded-2xl border border-forest-900/10 bg-white p-4">
+              <div key={key} className="rounded-2xl border border-forest-900/10 bg-cream-50 p-4">
                 <p className="mb-2 text-xs text-forest-900/45">
                   совпадение: {key.startsWith("p:") ? `📞 …${key.slice(2)}` : `✉️ ${key.slice(2)}`}
                 </p>
