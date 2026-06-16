@@ -22,13 +22,16 @@ import { getListingsDict, type ListingsDict } from "@/lib/i18n/dictionaries";
 import { zoneCategory, buildWarnLabels } from "@/lib/data/zone-rules";
 import { SaveButton } from "./save-button";
 import { MagicCard } from "@/components/ui/magic-card";
+import { parseListingDate } from "@/lib/utils/listing-date";
 
 const NEW_BADGE_DAYS = 14;
 
 function isFreshListing(dateAdded?: string): boolean {
   if (!dateAdded) return false;
-  const added = Date.parse(dateAdded);
-  if (Number.isNaN(added)) return false;
+  // `dateAdded` is a Unix-seconds string — Date.parse can't read it; use the
+  // tolerant parser. Unparseable → treated as not fresh (sentinel epoch 0).
+  const added = parseListingDate(dateAdded, new Date(0)).getTime();
+  if (added === 0) return false;
   return Date.now() - added < NEW_BADGE_DAYS * 24 * 60 * 60 * 1000;
 }
 
