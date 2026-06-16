@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { jsonLdHtml } from "@/lib/seo/json-ld";
 import Link from "next/link";
 import type { Route } from "next";
 import {
@@ -95,7 +96,7 @@ export default function DueDiligencePageRu() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdHtml(jsonLd) }}
       />
 
       <PageHero
