@@ -1,16 +1,14 @@
 /**
- * Caching proxy for the third-party tile layers the maps use — Longdo (DOL
- * cadastral parcels + DPT city-plan zoning) and OpenTopoMap (terrain base).
- * Three jobs:
- *  1. Resilience — Vercel's CDN keeps serving cached tiles (s-maxage 30 d +
- *     SWR 1 y) through upstream hiccups, and the bounded Phangan tile set
- *     stays warm. (Longdo's ms.longdo.com is also an undocumented endpoint.)
+ * Caching proxy for the Longdo tile layers the maps use (DOL cadastral parcels
+ * + DPT city-plan zoning). Two jobs:
+ *  1. Resilience — ms.longdo.com is an undocumented endpoint; Vercel's CDN
+ *     keeps serving cached tiles (s-maxage 30 d + SWR 1 y) through upstream
+ *     hiccups, and the bounded Phangan tile set stays warm.
  *  2. Single switch-off point — if an upstream closes, only this route changes.
- *  3. Politeness — OpenTopoMap's usage policy asks consumers to cache tiles and
- *     send a real User-Agent; the proxy does both for the whole site.
  *
  * Not an open proxy: layer/zoom whitelisted per layer, x/y clamped to the
- * Thailand bounding box at the requested zoom.
+ * Thailand bounding box at the requested zoom. Per-layer `url`/`headers` keep
+ * it easy to add a future upstream.
  */
 
 type LayerCfg = {
@@ -26,18 +24,6 @@ const LONGDO = (mode: string) => (z: number, x: number, y: number) =>
 const LAYERS: Record<string, LayerCfg> = {
   parcels: { url: LONGDO("dol_hd"), minZ: 17, maxZ: 19 },
   zoning: { url: LONGDO("cityplan_thailand"), minZ: 14, maxZ: 16 },
-  // OpenTopoMap — terrain base. Native to z17; rotate a/b/c by tile to spread
-  // load. OTM rejects requests without a real User-Agent, so we send one.
-  topo: {
-    url: (z, x, y) =>
-      `https://${["a", "b", "c"][(x + y) % 3]}.tile.opentopomap.org/${z}/${x}/${y}.png`,
-    minZ: 5,
-    maxZ: 17,
-    headers: {
-      "User-Agent": "RightWayPhangan/1.0 (+https://rightwaygroup.co)",
-      Referer: "https://rightwaygroup.co",
-    },
-  },
 };
 
 // Thailand bbox — same envelope the zone-lookup uses.

@@ -12,9 +12,9 @@ import {
   SATELLITE_TILE_URL,
   SATELLITE_ATTRIBUTION,
   SATELLITE_MAX_NATIVE_ZOOM,
-  TERRAIN_TOPO_TILE_URL,
-  TERRAIN_TOPO_ATTRIBUTION,
-  TERRAIN_TOPO_MAX_NATIVE_ZOOM,
+  TERRAIN_RELIEF_TILE_URL,
+  TERRAIN_RELIEF_ATTRIBUTION,
+  TERRAIN_RELIEF_MAX_NATIVE_ZOOM,
   TERRAIN_TILE_URL,
   TERRAIN_ATTRIBUTION,
   TERRAIN_MAX_NATIVE_ZOOM,
@@ -253,16 +253,16 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
             maxZoom={MAX_ZOOM}
           />
         ) : base === "terrain" ? (
-          // Topo base + hillshade (multiply) — see tiles.ts. Custom panes keep
-          // the shade below the zoning/parcel overlays (tilePane, z 200) so it
-          // only multiplies against the topo base, never the overlay colours.
+          // Shaded-relief base + hillshade (multiply) — see tiles.ts. Custom
+          // panes keep the shade below the zoning/parcel overlays (tilePane,
+          // z 200) so it only multiplies against the relief, not the overlays.
           <>
             <Pane name="terrainBase" style={{ zIndex: 190 }}>
               <TileLayer
-                key="base-topo"
-                attribution={TERRAIN_TOPO_ATTRIBUTION}
-                url={TERRAIN_TOPO_TILE_URL}
-                maxNativeZoom={TERRAIN_TOPO_MAX_NATIVE_ZOOM}
+                key="base-relief"
+                attribution={TERRAIN_RELIEF_ATTRIBUTION}
+                url={TERRAIN_RELIEF_TILE_URL}
+                maxNativeZoom={TERRAIN_RELIEF_MAX_NATIVE_ZOOM}
                 maxZoom={MAX_ZOOM}
               />
             </Pane>
