@@ -33,29 +33,31 @@
 }
 
 .dark {
-  /* Surfaces (cream → warm charcoal-green). Page is darkest; cards/raised
-     surfaces sit a step lighter so elevation reads. */
-  --c-cream-50: 24 42 33; /* #182A21 raised surfaces / cards */
-  --c-cream-100: 17 32 26; /* #11201A page background */
-  --c-cream-200: 30 49 39; /* #1E3127 alt sections */
-  --c-cream-300: 36 58 46; /* #243A2E */
+  /* Warm GRAPHITE surfaces (not green) with clear elevation steps so cards and
+     sections separate from the page — the earlier all-forest dark read flat.
+     Page is darkest; each surface is a distinct luminance step lighter. */
+  --c-cream-100: 22 20 17; /* #161411 page background (deepest) */
+  --c-cream-200: 31 28 24; /* #1F1C18 alt sections / footer */
+  --c-cream-50: 39 35 30; /* #27231E raised surfaces / cards (clear step up) */
+  --c-cream-300: 51 46 39; /* #332E27 most elevated / hover */
 
-  /* Text / borders / tints (forest → light). 900 = main text, 500 = muted. */
-  --c-forest-50: 35 53 41; /* #233529 hover tints */
-  --c-forest-100: 166 181 172;
-  --c-forest-400: 191 204 196; /* #BFCCC4 */
-  --c-forest-500: 166 181 172; /* #A6B5AC muted text / borders */
-  --c-forest-900: 242 239 232; /* #F2EFE8 primary text */
+  /* Text / borders / tints — warm neutral grey on graphite (not green).
+     900 = primary text, 500 = muted text & borders. */
+  --c-forest-900: 241 238 231; /* #F1EEE7 primary text */
+  --c-forest-500: 169 162 152; /* #A9A298 muted text / borders */
+  --c-forest-400: 198 191 181; /* #C6BFB5 */
+  --c-forest-100: 169 162 152;
+  --c-forest-50: 47 42 36; /* #2F2A24 hover tints */
 
-  /* Accent (brass → brighter so it sings on dark). */
-  --c-brass-200: 240 215 180;
-  --c-brass-300: 230 185 130;
-  --c-brass-400: 221 168 106;
-  --c-brass-500: 221 168 106; /* #DDA86A accent on dark */
-  --c-brass-600: 199 121 41; /* #C77929 */
+  /* Accent — brass warms + brightens so the gold sings against graphite. */
+  --c-brass-200: 242 218 184;
+  --c-brass-300: 233 190 142;
+  --c-brass-400: 226 171 108;
+  --c-brass-500: 227 171 107; /* #E3AB6B accent on graphite */
+  --c-brass-600: 201 132 58; /* #C9843A */
 
-  --c-panel: 22 38 30; /* #16261E raised dark surface */
-  --c-panel-fg: 243 239 232; /* #F3EFE8 */
+  --c-panel: 33 29 25; /* #211D19 raised dark surface (sections / scrims) */
+  --c-panel-fg: 242 239 233; /* #F2EFE9 */
 
   color-scheme: dark;
 }
