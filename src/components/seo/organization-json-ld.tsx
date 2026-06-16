@@ -1,4 +1,5 @@
 import { siteConfig } from "@/lib/site-config";
+import { jsonLdHtml } from "@/lib/seo/json-ld";
 
 /**
  * Sitewide Organization markup. Rendered once from RootLayout — Google uses
@@ -54,7 +55,7 @@ export function OrganizationJsonLd({ siteUrl }: { siteUrl: string }) {
     <script
       type="application/ld+json"
        
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: jsonLdHtml(data) }}
     />
   );
 }

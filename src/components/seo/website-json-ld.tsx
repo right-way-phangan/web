@@ -1,4 +1,5 @@
 import { siteConfig } from "@/lib/site-config";
+import { jsonLdHtml } from "@/lib/seo/json-ld";
 
 /**
  * Sitewide WebSite markup with a SearchAction. Tells Google the site is
@@ -29,7 +30,7 @@ export function WebsiteJsonLd({ siteUrl }: { siteUrl: string }) {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: jsonLdHtml(data) }}
     />
   );
 }

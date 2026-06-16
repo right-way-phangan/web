@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { backendFetch } from "@/lib/api/backend";
 import { signSession, SESSION_COOKIE, SESSION_DAYS } from "@/lib/auth/session";
+import { rateLimit } from "@/lib/ratelimit";
 
 export type LoginState = { error?: string };
 
@@ -15,6 +16,11 @@ export async function loginAction(
   const email = String(formData.get("email") ?? "").trim();
   const password = String(formData.get("password") ?? "");
   if (!email || !password) return { error: "Введите email и пароль." };
+
+  // Throttle password attempts per IP (10 / 15 min) — blunts brute-force.
+  if (!(await rateLimit("login", 10, 15 * 60))) {
+    return { error: "Слишком много попыток входа. Подождите несколько минут." };
+  }
 
   let user: { id: number; email: string; name?: string | null; role: string };
   try {

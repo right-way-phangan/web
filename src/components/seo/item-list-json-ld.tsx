@@ -1,4 +1,5 @@
 import type { RealEstateObject } from "@/types/object";
+import { jsonLdHtml } from "@/lib/seo/json-ld";
 import { getSiteUrl } from "@/lib/site-url";
 
 /**
@@ -31,7 +32,7 @@ export function ItemListJsonLd({
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: jsonLdHtml(data) }}
     />
   );
 }

@@ -1,3 +1,5 @@
+import { jsonLdHtml } from "@/lib/seo/json-ld";
+
 interface Crumb {
   name: string;
   url: string;
@@ -22,7 +24,7 @@ export function BreadcrumbJsonLd({ crumbs }: { crumbs: Crumb[] }) {
     <script
       type="application/ld+json"
        
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: jsonLdHtml(data) }}
     />
   );
 }

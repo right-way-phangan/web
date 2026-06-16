@@ -6,6 +6,7 @@ import { amoEnv } from "@/lib/amocrm/env";
 import { backendFetch } from "@/lib/api/backend";
 import { getObjectByRwNumber } from "@/lib/data/objects";
 import { notifyLeadCreated } from "@/lib/notify/telegram";
+import { rateLimit } from "@/lib/ratelimit";
 import type { ObjectType } from "@/types/object";
 
 export type FormState =
@@ -128,6 +129,15 @@ export async function submitInquiry(
       status: "ok",
       leadId: 0,
       message: "Thanks — we'll be in touch.",
+    };
+  }
+
+  // Per-IP throttle (8 / hour) so the form can't be used to flood the CRM with
+  // lead spam past the honeypot. Fail-open if the backend is unreachable.
+  if (!(await rateLimit("inquiry", 8, 60 * 60))) {
+    return {
+      status: "error",
+      message: "Too many requests. Please try again in a little while.",
     };
   }
 

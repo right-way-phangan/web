@@ -1,4 +1,5 @@
 import type { RealEstateObject } from "@/types/object";
+import { jsonLdHtml } from "@/lib/seo/json-ld";
 import { siteConfig } from "@/lib/site-config";
 import { cleanMetaDescription } from "@/lib/utils/meta";
 
@@ -84,7 +85,7 @@ export function ObjectJsonLd({ object, url }: Props) {
     <script
       type="application/ld+json"
        
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: jsonLdHtml(data) }}
     />
   );
 }

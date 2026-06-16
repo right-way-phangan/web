@@ -11,6 +11,8 @@ const MAX_FILE_BYTES = 25 * 1024 * 1024; // 25MB each
 export type AddPhotosResult = { ok: boolean; added: number; coverSet?: boolean; error?: string };
 
 function isImage(file: File): boolean {
+  // SVG может нести встроенный <script> → не публикуем как фото (XSS на blob-домене).
+  if (file.type === "image/svg+xml" || /\.svg$/i.test(file.name)) return false;
   return file.type.startsWith("image/");
 }
 

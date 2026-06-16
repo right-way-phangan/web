@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { jsonLdHtml } from "@/lib/seo/json-ld";
 import { PageHero } from "@/components/sections/page-hero";
 import { EstimateTool } from "@/components/tools/estimate-tool";
 import { getSiteUrl } from "@/lib/site-url";
@@ -39,7 +40,7 @@ export default function EstimatePage() {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdHtml(jsonLd) }} />
       <PageHero
         eyebrow="Free property estimate"
         title="What's your Koh Phangan property worth?"

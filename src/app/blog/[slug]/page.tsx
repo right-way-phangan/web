@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { jsonLdHtml } from "@/lib/seo/json-ld";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Route } from "next";
@@ -70,7 +71,7 @@ export default async function BlogPostPage({ params }: Props) {
       <script
         type="application/ld+json"
          
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdHtml(articleSchema) }}
       />
 
       <div className="container-prose pt-8">

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { jsonLdHtml } from "@/lib/seo/json-ld";
 import type { Route } from "next";
 import { ChevronDown, ArrowRight } from "lucide-react";
 import type { ObjectType } from "@/types/object";
@@ -61,7 +62,7 @@ export function ObjectFaq({ type, locale }: { type: ObjectType; locale: Locale }
     <section>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdHtml(jsonLd) }}
       />
       <h2 className="font-serif text-3xl text-forest-900">{t.faqTitle}</h2>
       <div className="mt-6 divide-y divide-forest-500/10 border-y border-forest-500/10">

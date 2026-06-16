@@ -91,6 +91,9 @@ const MAX_FILE_BYTES = 25 * 1024 * 1024; // 25MB each
  */
 const DOC_EXT = /\.(pdf|docx?|xlsx?|pptx?|csv|txt|rtf|dwg|dxf|zip|rar|7z|kml|kmz|gpx)$/i;
 function isImage(file: File): boolean {
+  // SVG может нести встроенный <script> → как публичное фото не берём (XSS на
+  // blob-домене); уходит в DOCS как любой не-image.
+  if (file.type === "image/svg+xml" || /\.svg$/i.test(file.name)) return false;
   if (file.type.startsWith("image/")) return true;
   if (file.type) return false; // a non-image MIME was declared → treat as doc
   return !DOC_EXT.test(file.name); // no MIME: doc only if it looks like one

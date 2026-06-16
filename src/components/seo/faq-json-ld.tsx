@@ -1,4 +1,5 @@
 import type { FaqBlock, FaqItem } from "@/content/faq";
+import { jsonLdHtml } from "@/lib/seo/json-ld";
 
 /**
  * FAQPage structured data. Each Q&A becomes a Question/acceptedAnswer pair so
@@ -22,7 +23,7 @@ export function FaqJsonLd({ items }: { items: readonly FaqItem[] }) {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: jsonLdHtml(data) }}
     />
   );
 }

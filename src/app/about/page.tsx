@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { jsonLdHtml } from "@/lib/seo/json-ld";
 import Link from "next/link";
 import { PageHero } from "@/components/sections/page-hero";
 import { ContentSection } from "@/components/sections/content-section";
@@ -43,7 +44,7 @@ export default function AboutPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(profileSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdHtml(profileSchema) }}
       />
       <PageHero
         eyebrow="About"

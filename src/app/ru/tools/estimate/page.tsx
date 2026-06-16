@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { jsonLdHtml } from "@/lib/seo/json-ld";
 import { PageHero } from "@/components/sections/page-hero";
 import { EstimateTool } from "@/components/tools/estimate-tool";
 import { getSiteUrl } from "@/lib/site-url";
@@ -38,7 +39,7 @@ export default function RussianEstimatePage() {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdHtml(jsonLd) }} />
       <PageHero
         eyebrow="Бесплатная оценка"
         title="Сколько стоит ваша недвижимость на Пангане?"
