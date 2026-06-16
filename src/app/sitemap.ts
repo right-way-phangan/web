@@ -8,20 +8,9 @@ import { KB_ARTICLES_RU } from "@/content/knowledge-base.ru";
 import { BLOG_POSTS_RU } from "@/content/blog.ru";
 import { getPublicObjects } from "@/lib/data/objects";
 import { getPublicProjects, projectSlug, isProjectUnit, getDevelopers } from "@/lib/data/projects";
+import { parseListingDate } from "@/lib/utils/listing-date";
 
 export const revalidate = 3600; // 1 hour — fresh enough for new listings
-
-/**
- * amoCRM `dateAdded` is a Unix-seconds string ("1755018000"); some rows may
- * also carry an ISO date or junk. Return a valid Date or the fallback — never
- * an Invalid Date (which would throw on serialization).
- */
-function parseListingDate(raw: string | undefined, fallback: Date): Date {
-  if (!raw) return fallback;
-  const secs = Number(raw);
-  const d = Number.isFinite(secs) && secs > 0 ? new Date(secs * 1000) : new Date(raw);
-  return Number.isNaN(d.getTime()) ? fallback : d;
-}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = getSiteUrl();
