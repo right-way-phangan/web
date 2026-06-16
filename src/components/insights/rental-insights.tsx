@@ -1153,7 +1153,9 @@ function DemandSeasonality({ seasonality }: { seasonality: RmSeasonality }) {
   );
 }
 
-const SEASON_COLORS = ["#1F3A2E", "#C77929", "#2F5546", "#B5651D"];
+// CSS vars (globals.css) so the lines stay readable in the dark theme — the
+// raw forest hexes would vanish on graphite. Light = brand hexes.
+const SEASON_COLORS = ["var(--season-1)", "var(--season-2)", "var(--season-3)", "var(--season-4)"];
 
 function Seasonality({ seasonal, fmt }: { seasonal: RmSeasonal; fmt: MoneyFmt }) {
   const t = INS[useLocale()];
@@ -1203,7 +1205,7 @@ function Seasonality({ seasonal, fmt }: { seasonal: RmSeasonal; fmt: MoneyFmt })
                 key={s.name}
                 points={pts}
                 fill="none"
-                stroke={s.color}
+                style={{ stroke: s.color }}
                 strokeWidth={2}
                 strokeLinejoin="round"
               />

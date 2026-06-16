@@ -1591,8 +1591,8 @@ function GrowthChart({
         >
           <defs>
             <linearGradient id="propFill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#B5651D" stopOpacity="0.18" />
-              <stop offset="100%" stopColor="#B5651D" stopOpacity="0" />
+              <stop offset="0%" style={{ stopColor: "var(--chart-accent)" }} stopOpacity="0.18" />
+              <stop offset="100%" style={{ stopColor: "var(--chart-accent)" }} stopOpacity="0" />
             </linearGradient>
           </defs>
           {grid.map((gy, i) => (
@@ -1600,12 +1600,12 @@ function GrowthChart({
           ))}
           <polygon points={area} fill="url(#propFill)" />
           <polyline points={bankLine} fill="none" stroke="currentColor" strokeOpacity="0.35" strokeWidth="2" strokeDasharray="5 4" />
-          <polyline points={propLine} fill="none" stroke="#B5651D" strokeWidth="2.5" />
-          {pts.map((p, i) => (i === 0 || i === n ? <circle key={i} cx={x(i)} cy={y(valueOf(p))} r="3.5" fill="#B5651D" /> : null))}
+          <polyline points={propLine} fill="none" style={{ stroke: "var(--chart-accent)" }} strokeWidth="2.5" />
+          {pts.map((p, i) => (i === 0 || i === n ? <circle key={i} cx={x(i)} cy={y(valueOf(p))} r="3.5" style={{ fill: "var(--chart-accent)" }} /> : null))}
           {hi != null && hp ? (
             <g>
               <line x1={x(hi)} y1={pad.t} x2={x(hi)} y2={H - pad.b} stroke="currentColor" strokeOpacity="0.25" strokeWidth="1" />
-              <circle cx={x(hi)} cy={y(valueOf(hp))} r="4" fill="#B5651D" />
+              <circle cx={x(hi)} cy={y(valueOf(hp))} r="4" style={{ fill: "var(--chart-accent)" }} />
               <circle cx={x(hi)} cy={y(hp.bankValue)} r="3.5" fill="currentColor" fillOpacity="0.5" />
             </g>
           ) : null}
@@ -1626,7 +1626,7 @@ function GrowthChart({
         <span className="text-brass-600">{t.yearN(n)} · {money(valueOf(pts[n]))}</span>
       </div>
       <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-forest-500/60">
-        <span className="inline-flex items-center gap-1.5"><span className="h-0.5 w-4 bg-brass-500" /> {lineLabel}</span>
+        <span className="inline-flex items-center gap-1.5"><span className="h-0.5 w-4" style={{ backgroundColor: "var(--chart-accent)" }} /> {lineLabel}</span>
         <span className="inline-flex items-center gap-1.5"><span className="h-0.5 w-4 border-t-2 border-dashed border-forest-500/40" /> {t.legendBank}</span>
       </div>
     </div>
@@ -1923,14 +1923,14 @@ function FanChart({ band, money, t }: { band: { year: number; p10: number; p50: 
     <div className="mt-4">
       <p className="text-[11px] text-forest-500/60">{t.fanHint}</p>
       <svg viewBox={`0 0 ${W} ${H}`} className="mt-2 h-auto w-full select-none" role="img" aria-label="Range of outcomes over time">
-        <polygon points={areaPoints} fill="#B5651D" fillOpacity="0.15" />
-        <polyline points={band.map((b, i) => `${x(i)},${y(b.p90)}`).join(" ")} fill="none" stroke="#B5651D" strokeOpacity="0.4" strokeWidth="1" />
-        <polyline points={band.map((b, i) => `${x(i)},${y(b.p10)}`).join(" ")} fill="none" stroke="#B5651D" strokeOpacity="0.4" strokeWidth="1" />
-        <polyline points={midLine} fill="none" stroke="#B5651D" strokeWidth="2.5" />
+        <polygon points={areaPoints} style={{ fill: "var(--chart-accent)" }} fillOpacity="0.15" />
+        <polyline points={band.map((b, i) => `${x(i)},${y(b.p90)}`).join(" ")} fill="none" style={{ stroke: "var(--chart-accent)" }} strokeOpacity="0.4" strokeWidth="1" />
+        <polyline points={band.map((b, i) => `${x(i)},${y(b.p10)}`).join(" ")} fill="none" style={{ stroke: "var(--chart-accent)" }} strokeOpacity="0.4" strokeWidth="1" />
+        <polyline points={midLine} fill="none" style={{ stroke: "var(--chart-accent)" }} strokeWidth="2.5" />
       </svg>
       <div className="mt-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-[11px] text-forest-500/60">
-        <span className="inline-flex items-center gap-1.5"><span className="h-0.5 w-4 bg-brass-500" /> {t.fanMid}</span>
-        <span className="inline-flex items-center gap-1.5"><span className="h-2 w-4 bg-brass-500/20" /> {t.fanBand}</span>
+        <span className="inline-flex items-center gap-1.5"><span className="h-0.5 w-4" style={{ backgroundColor: "var(--chart-accent)" }} /> {t.fanMid}</span>
+        <span className="inline-flex items-center gap-1.5"><span className="h-2 w-4" style={{ backgroundColor: "var(--chart-accent)", opacity: 0.2 }} /> {t.fanBand}</span>
         <span className="tabular-nums">{t.yearN(last.year)}: {money(last.p10)} … {money(last.p90)}</span>
       </div>
     </div>

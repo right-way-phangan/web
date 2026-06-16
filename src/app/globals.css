@@ -32,6 +32,22 @@
   --c-bronze: 154 122 74; /* muted bronze (light fallback; accent is dark-only) */
   --c-orange: 199 121 41; /* #C77929 warm orange — reserved for urgency/scarcity */
 
+  /* Data-viz palette (SVG charts can't theme via the alpha tokens, so charts
+     read these directly). Light = brand hexes; dark variants live in .dark. */
+  --chart-accent: #b5651d; /* main data line (ROI growth, fan band) — brass */
+  --donut-track: #f2ede3; /* finance donut empty ring — cream-200 */
+  --season-1: #1f3a2e; /* seasonal lines: island overall */
+  --season-2: #c77929; /* district A */
+  --season-3: #2f5546; /* district B */
+  --season-4: #b5651d; /* district C */
+  --seg-1: #b5651d; /* donut segments (brass → forest → light) */
+  --seg-2: #2f5546;
+  --seg-3: #dda86a;
+  --seg-4: #1f3a2e;
+  --seg-5: #e8c9a0;
+  --seg-6: #c5d2cb;
+  --seg-7: #e8e0cf;
+
   color-scheme: light;
 }
 
@@ -64,6 +80,22 @@
      sibling (replaces the earlier emerald, which clashed as cool green). */
   --c-bronze: 176 140 90; /* #B08C5A muted bronze */
   --c-orange: 224 130 56; /* #E08238 vivid orange — urgency/scarcity only, dosed */
+
+  /* Data-viz on graphite: the dark-green brand hexes vanish, so charts get a
+     readable warm set led by bronze/gold + light sage (one nod to forest). */
+  --chart-accent: #b08c5a; /* main data line → bronze (matches the structure accent) */
+  --donut-track: #3a3a31; /* empty ring = cream-300 graphite */
+  --season-1: #d6d6cc; /* island overall — bright neutral (primary series) */
+  --season-2: #e5ae70; /* district A — gold */
+  --season-3: #8fb0a0; /* district B — light sage (forest nod, readable on graphite) */
+  --season-4: #b08c5a; /* district C — bronze */
+  --seg-1: #e5ae70; /* gold */
+  --seg-2: #8fb0a0; /* sage */
+  --seg-3: #b08c5a; /* bronze */
+  --seg-4: #c8d0cb; /* light grey-green */
+  --seg-5: #d8b98a; /* light tan */
+  --seg-6: #6e8c7e; /* deeper sage */
+  --seg-7: #9a9a90; /* warm grey */
 
   --c-panel: 36 36 32; /* #242420 raised dark surface (sections / scrims) */
   --c-panel-fg: 242 242 236; /* #F2F2EC */
