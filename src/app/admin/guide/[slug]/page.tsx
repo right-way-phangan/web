@@ -6,11 +6,13 @@ import { AdminNav } from "@/components/admin/admin-nav";
 import { GuideNav } from "@/components/admin/guide-nav";
 import { GuideArticle } from "@/components/admin/guide-article";
 import { GuideToc } from "@/components/admin/guide-toc";
+import { GuidePublishButton } from "@/components/admin/guide-publish-button";
 import {
   GUIDE_SECTIONS,
   extractGuideHeadings,
   getGuidePage,
-  getGuidePages,
+  getResolvedGuidePages,
+  isGuidePagePublished,
   type GuideLiveData,
 } from "@/lib/data/guide";
 import { ADMIN_SECTIONS } from "@/lib/admin-sections";
@@ -44,7 +46,12 @@ export default async function GuidePageView({ params }: { params: Params }) {
   const page = getGuidePage(slug);
   if (!page) notFound();
 
-  const pages = getGuidePages();
+  const [pages, publishedOverride] = await Promise.all([
+    getResolvedGuidePages(),
+    isGuidePagePublished(slug),
+  ]);
+  // Черновик «по факту»: фронтматтер draft и НЕ снят кнопкой в админке.
+  const isDraft = page.draft && !publishedOverride;
   const idx = pages.findIndex((p) => p.slug === slug);
   const prev = idx > 0 ? pages[idx - 1] : null;
   const next = idx >= 0 && idx < pages.length - 1 ? pages[idx + 1] : null;
@@ -103,13 +110,25 @@ export default async function GuidePageView({ params }: { params: Params }) {
           {page.updated ? (
             <p className="mt-2 text-xs text-forest-900/45">обновлено {fmtDate(page.updated)}</p>
           ) : null}
-          {page.draft && (
-            <div className="mt-4 rounded-xl border border-brass-500/40 bg-brass-500/[0.07] px-4 py-3 text-sm text-forest-900/85">
-              <strong className="font-semibold text-brass-600">✎ Черновик на проверке.</strong>{" "}
-              Эта страница сгенерирована автоматически под новую фишку и ждёт твоего
-              подтверждения — прочитай, поправь при необходимости и сними статус черновика.
-            </div>
-          )}
+          {page.draft &&
+            (isDraft ? (
+              <div className="mt-4 rounded-xl border border-brass-500/40 bg-brass-500/[0.07] px-4 py-3 text-sm text-forest-900/85">
+                <strong className="font-semibold text-brass-600">✎ Черновик на проверке.</strong>{" "}
+                Эта страница сгенерирована автоматически под новую фишку и ждёт твоего
+                подтверждения — прочитай, поправь при необходимости и опубликуй.
+                <div className="mt-3">
+                  <GuidePublishButton slug={slug} published={false} />
+                </div>
+              </div>
+            ) : (
+              <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-forest-500/20 bg-forest-500/[0.05] px-4 py-3 text-sm text-forest-900/85">
+                <span>
+                  <strong className="font-semibold text-forest-600">✓ Опубликовано.</strong>{" "}
+                  Снято с черновика из админки.
+                </span>
+                <GuidePublishButton slug={slug} published={true} />
+              </div>
+            ))}
           <div className="mt-6">
             <GuideArticle md={page.body} slug={slug} live={live} />
           </div>

@@ -6,7 +6,7 @@ import {
   GUIDE_SECTIONS,
   getGuideChangelog,
   getGuideCoverage,
-  getGuidePages,
+  getResolvedGuidePages,
 } from "@/lib/data/guide";
 import { ADMIN_SECTIONS } from "@/lib/admin-sections";
 
@@ -29,8 +29,8 @@ function fmtDate(d: string): string {
   });
 }
 
-export default function GuideIndexPage() {
-  const allPages = getGuidePages();
+export default async function GuideIndexPage() {
+  const allPages = await getResolvedGuidePages();
   const pages = allPages.filter((p) => !p.draft);
   const drafts = allPages.filter((p) => p.draft);
   const log = getGuideChangelog().slice(0, 8);
