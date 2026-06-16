@@ -140,3 +140,39 @@ export async function loadFinanceFromSheet(): Promise<SheetFinance | null> {
     return null;
   }
 }
+
+/**
+ * Быстро меняющиеся числа runway из необязательного листа `Runway` таблицы —
+ * чтобы править наличные/доход без редеплоя. Формат листа: колонка A — ключ
+ * (`cash` / `income`), колонка B — сумма в THB. Любая ошибка / нет листа / нет
+ * env → null, и дашборд берёт значения из кода (finance.ts). Отдельный запрос,
+ * чтобы отсутствие листа не ломало чтение OpEx/Ledger.
+ */
+export type SheetRunway = { cashOnHand?: number; monthlyIncome?: number };
+
+export async function loadRunwayFromSheet(): Promise<SheetRunway | null> {
+  const token = await getAccessToken();
+  if (!token) return null;
+  try {
+    const url =
+      `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/` +
+      `${encodeURIComponent("Runway!A2:B20")}`;
+    const res = await fetch(url, {
+      headers: { Authorization: `Bearer ${token}` },
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) return null;
+    const data = (await res.json()) as { values?: string[][] };
+    const rows = data.values ?? [];
+    const out: SheetRunway = {};
+    for (const r of rows) {
+      const key = (r[0] ?? "").trim().toLowerCase();
+      if (!r[1]) continue;
+      if (key.includes("cash") || key.includes("налич")) out.cashOnHand = num(r[1]);
+      else if (key.includes("income") || key.includes("доход")) out.monthlyIncome = num(r[1]);
+    }
+    return Object.keys(out).length ? out : null;
+  } catch {
+    return null;
+  }
+}

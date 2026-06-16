@@ -195,6 +195,50 @@ export function runwayMonths(cash: number, burn: number): number | null {
   return cash / burn;
 }
 
+/**
+ * Текущий регулярный доход в месяц (THB). 0 — pre-revenue (старая компания
+ * закрывается, у RW ещё нет сделок). Может прийти из таблицы (лист Runway).
+ */
+export const monthlyIncome = 0;
+
+/** Чистый отток в месяц: burn − доход (положительное = проедание наличных). */
+export function netBurnMonthly(
+  subs: Subscription[] = subscriptions,
+  exp: PersonalExpense[] = personalExpenses,
+  income: number = monthlyIncome,
+): number {
+  return combinedBurnMonthly(subs, exp) - income;
+}
+
+/**
+ * Дата, когда наличные кончатся при заданном чистом оттоке/мес. null если
+ * оттока нет (доход ≥ burn) или нет наличных. Месяц ≈ 30.44 дня.
+ */
+export function cashOutDate(
+  cash: number,
+  netBurnPerMonth: number,
+  from: Date = new Date(),
+): Date | null {
+  if (cash <= 0 || netBurnPerMonth <= 0) return null;
+  const days = (cash / netBurnPerMonth) * 30.44;
+  const d = new Date(from);
+  d.setDate(d.getDate() + Math.round(days));
+  return d;
+}
+
+/** Рычаги экономии (THB/мес), которые можно включить в режиме bootstrap. */
+export type SavingLever = { label: string; thbPerMonth: number; note?: string };
+export const savingsLevers: SavingLever[] = [
+  { label: "Виза → DTV (вместо border run)", thbPerMonth: 8000, note: "нужен барьер 500k на счету 3 мес" },
+  { label: "Claude Max → Pro", thbPerMonth: 3650, note: "движок остаётся, лимит меньше" },
+  { label: "Еда: готовка вместо кафе", thbPerMonth: 6000, note: "оценка" },
+];
+
+/** Суммарная экономия при включении всех рычагов, THB/мес. */
+export function leversTotal(lev: SavingLever[] = savingsLevers): number {
+  return lev.reduce((s, l) => s + l.thbPerMonth, 0);
+}
+
 // ── Хелперы расчёта ────────────────────────────────────────────────────────
 
 /** THB/мес для подписки: цена × курс, год → /12, нулевые/none → 0. */
