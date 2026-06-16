@@ -29,6 +29,10 @@ export function HeroBackground({
   // Монтировать все шесть сразу — это ~400KB полноэкранных AVIF, душивших
   // канал и оттягивавших LCP-отрисовку fallback'а до ~6s на мобильном 4G.
   const [warm, setWarm] = useState<number[]>([]);
+  // Сцены, чьё фото не загрузилось (битый/недоступный blob, лимит оптимизации
+  // изображений и т.п.) — выкидываем из показа, чтобы браузер не отрисовал их
+  // alt-текст поверх hero. Под ними всегда виден локальный fallback.
+  const [failed, setFailed] = useState<Set<string>>(new Set());
   const reducedMotion = useRef(false);
 
   useEffect(() => {
@@ -106,15 +110,24 @@ export function HeroBackground({
         />
 
         {scenes.map((scene, i) =>
-          warm.includes(i) ? (
+          warm.includes(i) && !failed.has(scene.src) ? (
             <Image
               key={scene.src}
               src={scene.src}
-              alt={scene.alt || fallbackAlt}
+              // Сцены декоративны (дубль fallback'а, у которого есть осмысленный
+              // alt) — пустой alt, чтобы при сбое загрузки не всплыл текст.
+              alt=""
               fill
               sizes="100vw"
               quality={60}
-              aria-hidden={i !== idx}
+              aria-hidden
+              onError={() =>
+                setFailed((prev) => {
+                  const next = new Set(prev);
+                  next.add(scene.src);
+                  return next;
+                })
+              }
               className={[
                 "object-cover transition-opacity duration-[1200ms] ease-in-out",
                 i === idx ? "opacity-100" : "opacity-0",
