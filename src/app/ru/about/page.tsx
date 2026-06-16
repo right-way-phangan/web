@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { jsonLdHtml } from "@/lib/seo/json-ld";
 import Link from "next/link";
 import type { Route } from "next";
 import { PageHero } from "@/components/sections/page-hero";
@@ -30,7 +31,7 @@ export default function RussianAboutPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(profileSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdHtml(profileSchema) }}
       />
       <PageHero
         eyebrow={d.hero.eyebrow}
