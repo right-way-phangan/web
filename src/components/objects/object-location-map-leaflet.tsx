@@ -124,9 +124,13 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
 
   const hasPolygon = (plotPolygon?.length ?? 0) >= 3;
   // Restore the visitor's last layer choice; otherwise a contour reads best
-  // over imagery, so default to satellite when one is present.
+  // over imagery, so default to satellite when one is present, else plain map.
+  // Never *open* in terrain here: relief is native only to z13, so at the
+  // parcel zoom this map uses it's blurry — it stays a manual toggle only.
   const prefs = useRef<Partial<LayerPrefs>>(loadLayerPrefs()).current;
-  const [base, setBase] = useState<BaseLayer>(prefs.base ?? (hasPolygon ? "sat" : "map"));
+  const initialBase: BaseLayer =
+    prefs.base && prefs.base !== "terrain" ? prefs.base : hasPolygon ? "sat" : "map";
+  const [base, setBase] = useState<BaseLayer>(initialBase);
   const [parcels, setParcels] = useState(prefs.parcels ?? false);
   const [zoning, setZoning] = useState(prefs.zoning ?? false);
   const [poi, setPoi] = useState(prefs.poi ?? false);
