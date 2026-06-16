@@ -179,13 +179,18 @@ export default async function FinancePage({
   // Runway (bootstrap): личные расходы + бизнес-burn = «сколько горит» всего.
   // Наличные/доход — из таблицы (лист Runway), иначе из кода. Чистый отток =
   // burn − доход; делим наличные на него → месяцы и дата истечения кэша.
+  // Личные цифры — из приватной таблицы (листы Runway/Personal/Receivables),
+  // иначе из кода (пусто — реальные суммы не лежат в публичном репо).
   const cash = runwaySheet?.cashOnHand ?? cashOnHand;
   const income = runwaySheet?.monthlyIncome ?? monthlyIncome;
-  const personalTotal = personalMonthly();
-  const combinedBurn = combinedBurnMonthly(subs);
-  const netBurn = netBurnMonthly(subs, personalExpenses, income);
+  const personal = runwaySheet?.personalExpenses ?? personalExpenses;
+  const recs = runwaySheet?.receivables ?? receivables;
+  const hasPersonal = personal.length > 0 || cash > 0;
+  const personalTotal = personalMonthly(personal);
+  const combinedBurn = combinedBurnMonthly(subs, personal);
+  const netBurn = netBurnMonthly(subs, personal, income);
   const runway = runwayMonths(cash, netBurn);
-  const receivableTotal = receivablesTotal();
+  const receivableTotal = receivablesTotal(recs);
   const runwayWithRec = runwayMonths(cash + receivableTotal, netBurn);
   const outDate = cashOutDate(cash, netBurn);
   const leversSaving = leversTotal();
@@ -288,7 +293,7 @@ export default async function FinancePage({
         <Stat
           label="Наличные сейчас"
           value={money(cash)}
-          hint={`+ дебиторка ${money(receivableTotal)} (Серёжа)`}
+          hint={`+ дебиторка ${money(receivableTotal)} (к получению)`}
         />
         <Stat
           label="🔴 Деньги кончатся"
@@ -325,6 +330,14 @@ export default async function FinancePage({
         включает личные долговые обязательства (содержание детей, кредиты, налоги) — они в проекте
         «Сам себе Я» и сильно больше; полную картину своди там.
       </p>
+      {!hasPersonal && (
+        <div className="mb-8 rounded-2xl border border-dashed border-forest-900/15 bg-white p-6 text-sm text-forest-900/55">
+          🔒 Личные цифры ведутся <strong>приватно</strong> — не в публичном репо. Заполни листы{" "}
+          <code>Runway</code> / <code>Personal</code> / <code>Receivables</code> в финансовой
+          Google-таблице, и runway появится здесь. Полная картина — личный проект «Сам себе Я».
+        </div>
+      )}
+      {hasPersonal && (
       <div className="mb-8 overflow-hidden rounded-2xl border border-forest-900/10 bg-white">
         <table className="w-full text-sm">
           <thead>
@@ -335,7 +348,7 @@ export default async function FinancePage({
             </tr>
           </thead>
           <tbody className="divide-y divide-forest-900/5">
-            {personalExpenses.map((e) => (
+            {personal.map((e) => (
               <tr key={e.item}>
                 <td className="px-4 py-2.5 font-medium text-forest-900">
                   {e.item}
@@ -365,12 +378,14 @@ export default async function FinancePage({
         <p className="border-t border-forest-900/5 px-4 py-2 text-xs text-forest-900/45">
           Цель bootstrap — дожить до первой сделки (комиссия ~750k–1 000k ฿ перекрывает всё). При
           burn {money(combinedBurn)}/мес на 4–6 мес нужно ≈ {money(combinedBurn * 4)}–
-          {money(combinedBurn * 6)}. Главный рычаг — домик и виза (DTV вместо border run). Цифры
-          правятся в <code>finance.ts</code> (personalExpenses, cashOnHand).
+          {money(combinedBurn * 6)}. Главный рычаг — домик и виза (DTV вместо border run). 🔒 Цифры
+          правятся в приватной Google-таблице (листы Personal / Runway), не в публичном репо.
         </p>
       </div>
+      )}
 
       {/* Дебиторка — мне должны */}
+      {recs.length > 0 && (
       <div className="mb-8 overflow-hidden rounded-2xl border border-forest-900/10 bg-white">
         <table className="w-full text-sm">
           <thead>
@@ -381,7 +396,7 @@ export default async function FinancePage({
             </tr>
           </thead>
           <tbody className="divide-y divide-forest-900/5">
-            {receivables.map((r) => (
+            {recs.map((r) => (
               <tr key={r.from} className={r.status === "overdue" ? "bg-red-50/40" : undefined}>
                 <td className="px-4 py-2.5 font-medium text-forest-900">
                   {r.from}
@@ -412,11 +427,12 @@ export default async function FinancePage({
           </tfoot>
         </table>
         <p className="border-t border-forest-900/5 px-4 py-2 text-xs text-forest-900/45">
-          Источник: личный проект «Сам себе Я» (<code>finances/долги-серёжи.md</code>). Сбор этих
-          долгов — фактический runway: главный приоритет кэша до первой сделки. ✅ Доля Circle
-          114 457 ฿ возвращена 16.06.2026.
+          🔒 Приватно: данные из листа <code>Receivables</code> таблицы (детали — личный проект
+          «Сам себе Я»). Сбор этих долгов — фактический runway: главный приоритет кэша до первой
+          сделки.
         </p>
       </div>
+      )}
 
       {/* Структура расходов */}
       <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
