@@ -25,8 +25,12 @@ export interface ZoneBuildInfo {
   zone?: string;
   /** Labelled lines: permitted use, typical build form, permit. */
   lines: { label: string; text: string }[];
-  /** Location-driven constraint notes (coastal / hillside). */
-  notes: string[];
+  /**
+   * "Check before you build" flags from what we know about the plot — the DD
+   * differentiator ("we tell you what you can't build"). `warn` = a real
+   * buildability constraint; `info` = softer, verify in DD.
+   */
+  flags: { level: "warn" | "info"; text: string }[];
 }
 
 type Bi = { en: string; ru: string };
@@ -96,6 +100,16 @@ const NEAR_COAST: Bi = {
   ru: "Рядом с морем — могут действовать прибрежные ограничения высоты и отступы; уточняется по точному расстоянию участка до воды в DD.",
 };
 
+const ROAD_ACCESS: Bi = {
+  en: "Access is an unpaved/no road — a building permit needs a legal road access; confirm right-of-way in DD.",
+  ru: "Подъезд — грунтовка/без дороги — для разрешения нужен легальный доступ; проверяем право проезда (сервитут) в DD.",
+};
+
+const AGRI_USE: Bi = {
+  en: "Agricultural zone — confirm a private villa is permitted (and the title is not Sor Por Kor, which can't be built on).",
+  ru: "Сельхоз-зона — подтверждаем, что частная вилла разрешена (и что документ не Сор Пор Кор, на котором строить нельзя).",
+};
+
 /**
  * Build the indicative rule set for an object, or null if we can say nothing
  * useful (no zone and no coastal/hillside signal).
@@ -105,7 +119,7 @@ export function zoneBuildInfo(o: RealEstateObject, locale: RuleLocale): ZoneBuil
   const zoneDef = ZONE_USE[key];
 
   const lines: { label: string; text: string }[] = [];
-  const notes: string[] = [];
+  const flags: { level: "warn" | "info"; text: string }[] = [];
 
   const L = locale === "ru"
     ? { use: "Использование", form: "Типовая застройка", permit: "Разрешение" }
@@ -119,15 +133,19 @@ export function zoneBuildInfo(o: RealEstateObject, locale: RuleLocale): ZoneBuil
     }
   }
 
-  // Environmental overlay — only from signals we actually have.
-  if (o.beachfront) notes.push(pick(COASTAL, locale));
-  else if (o.seaView) notes.push(pick(NEAR_COAST, locale));
-  if (o.mountainView) notes.push(pick(HILLSIDE, locale));
+  // "Check before you build" flags — only from signals we actually have.
+  if (o.beachfront) flags.push({ level: "warn", text: pick(COASTAL, locale) });
+  else if (o.seaView) flags.push({ level: "info", text: pick(NEAR_COAST, locale) });
+  if (o.mountainView) flags.push({ level: "warn", text: pick(HILLSIDE, locale) });
+  if (o.roadType === "Dirt" || o.roadType === "None") {
+    flags.push({ level: "warn", text: pick(ROAD_ACCESS, locale) });
+  }
+  if (key === "green") flags.push({ level: "info", text: pick(AGRI_USE, locale) });
 
-  if (lines.length === 0 && notes.length === 0) return null;
+  if (lines.length === 0 && flags.length === 0) return null;
 
   // Permit note is worth showing whenever we're saying anything about building.
   if (o.type === "Land") lines.push({ label: L.permit, text: pick(PERMIT, locale) });
 
-  return { zone: zoneDef ? pick(zoneDef.name, locale) : undefined, lines, notes };
+  return { zone: zoneDef ? pick(zoneDef.name, locale) : undefined, lines, flags };
 }
