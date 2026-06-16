@@ -190,6 +190,9 @@ export interface ScanRow {
   deltaPct: number; // asking против рекомендации размещения
   verdict: "fair" | "over" | "under";
   confidence: "high" | "medium" | "low";
+  grossYieldPct?: number; // валовая доходность посуточной аренды к оценке (built)
+  netYieldPct?: number; // чистая доходность посуточной аренды (built)
+  paybackYears?: number; // окупаемость, лет (built)
 }
 
 function areaRaiOf(o: RealEstateObject): number | undefined {
@@ -299,6 +302,7 @@ export async function scanCatalog(): Promise<ScanRow[]> {
     const r = estimate(objectToSubject(o), { comps, market, factors });
     if (!r.ok || r.listValue == null) continue;
     const deltaPct = Math.round((asking / r.listValue - 1) * 100);
+    const short = r.rental?.scenarios.find((s) => s.mode === "short");
     rows.push({
       rwNumber: o.rwNumber,
       titleEn: o.titleEn ?? null,
@@ -313,6 +317,9 @@ export async function scanCatalog(): Promise<ScanRow[]> {
       deltaPct,
       verdict: deltaPct > 10 ? "over" : deltaPct < -10 ? "under" : "fair",
       confidence: r.confidence ?? "low",
+      grossYieldPct: short?.grossYieldPct,
+      netYieldPct: short?.netYieldPct,
+      paybackYears: short?.paybackYears,
     });
   }
   rows.sort((a, b) => Math.abs(b.deltaPct) - Math.abs(a.deltaPct));

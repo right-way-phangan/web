@@ -143,6 +143,24 @@ export interface RentalScenario {
   high: number;
   basis: string;
   details: string[];
+  /** Валовая доходность к ожидаемой цене сделки, % (built-сценарии). */
+  grossYieldPct?: number;
+  /** Чистая доходность (после расходов), % (только посуточно). */
+  netYieldPct?: number;
+  /** Окупаемость = цена / чистый годовой доход, лет (built-сценарии). */
+  paybackYears?: number;
+}
+
+/** Контекст к прогнозу аренды built-объекта (загрузка, сезон). */
+export interface RentalMeta {
+  /** Модельная (assumed) загрузка, %. */
+  occupancyAssumedPct: number;
+  /** Измеренная forward-90d загрузка активных листингов района, % (или null). */
+  occupancyMeasuredPct?: number | null;
+  /** Месяц пика спроса (Google Trends), если есть. */
+  peakMonth?: string;
+  /** Месяц спада спроса (Google Trends), если есть. */
+  lowMonth?: string;
 }
 
 export interface ValuationResult {
@@ -168,8 +186,8 @@ export interface ValuationResult {
     fairNpv?: number;
     rentVerdict?: "fair" | "over" | "under";
   };
-  /** Прогноз арендной ставки («за сколько сдать»): сценарии + оговорки. */
-  rental?: { scenarios: RentalScenario[]; caveats: string[] };
+  /** Прогноз арендной ставки («за сколько сдать»): сценарии + оговорки + контекст. */
+  rental?: { scenarios: RentalScenario[]; caveats: string[]; meta?: RentalMeta };
   askingVerdict?: { askingPrice: number; deltaPct: number; verdict: "fair" | "over" | "under" };
   /** Ликвидность сегмента: типичное время на рынке у похожих объявлений (не цена). */
   liquidity?: { medianMonths: number; staleSharePct: number; n: number; verdict: "fast" | "normal" | "slow" };
@@ -947,16 +965,21 @@ function incomeMethod(subject: ValuationSubject, data: EngineData, caveats: stri
 
 const DAYS_PER_MONTH = 30.4;
 
+const OCC_MIN_SAMPLE = 5; // зеркалит rental-market.measuredOccupancy
+const pct1 = (v: number) => Math.round(v * 1000) / 10;
+
 /**
  * «За сколько сдать» застроенный объект: посуточно (ADR × загрузка) и
  * долгосрочно помесячно. Долгосрочная ставка выводится как доля годовой
  * посуточной выручки (`income.longterm_factor`): ниже посуточной, но без
- * простоев и затрат на смену гостей. null, когда нет аналитики/спален.
+ * простоев и затрат на смену гостей. К каждому сценарию — доходность и
+ * окупаемость к ожидаемой цене сделки (`fairValue`). null без аналитики/спален.
  */
 function rentalBuilt(
   subject: ValuationSubject,
   data: EngineData,
-): { scenarios: RentalScenario[]; caveats: string[] } | null {
+  fairValue: number,
+): { scenarios: RentalScenario[]; caveats: string[]; meta?: RentalMeta } | null {
   const f = data.factors;
   const m = data.market;
   if (!m || m.districts.length === 0) return null;
@@ -969,8 +992,10 @@ function rentalBuilt(
   const occLow = m.meta.occupancy.conservative;
   const occHigh = m.meta.occupancy.high;
   const opex = f["income.opex_pct"] ?? 0.35;
+  const yieldable = fairValue > 0;
 
   const annualShort = adrAdj * 365 * occBase;
+  const annualShortNet = annualShort * (1 - opex);
   const monthlyShort = adrAdj * DAYS_PER_MONTH * occBase;
   const scenarios: RentalScenario[] = [
     {
@@ -978,14 +1003,17 @@ function rentalBuilt(
       label: "Посуточно (Airbnb/Booking)",
       monthly: round1k(monthlyShort),
       annual: round1k(annualShort),
-      annualNet: round1k(annualShort * (1 - opex)),
+      annualNet: round1k(annualShortNet),
       low: round1k(adrAdj * 365 * occLow),
       high: round1k(adrAdj * 365 * occHigh),
       basis,
+      grossYieldPct: yieldable ? pct1(annualShort / fairValue) : undefined,
+      netYieldPct: yieldable ? pct1(annualShortNet / fairValue) : undefined,
+      paybackYears: annualShortNet > 0 && yieldable ? Math.round((fairValue / annualShortNet) * 10) / 10 : undefined,
       details: [
         `${basis}: ${Math.round(adr)} THB/ночь${adrAdj !== adr ? ` → с премиями ${Math.round(adrAdj)}` : ""}.`,
         `Загрузка ${Math.round(occBase * 100)}% → ~${fmt0(monthlyShort)} THB/мес, ${fmtM(annualShort)}/год валовыми.`,
-        `После расходов ${Math.round(opex * 100)}% → ${fmtM(annualShort * (1 - opex))}/год чистыми.`,
+        `После расходов ${Math.round(opex * 100)}% → ${fmtM(annualShortNet)}/год чистыми.`,
       ],
     },
   ];
@@ -1001,6 +1029,8 @@ function rentalBuilt(
       low: round1k(adrAdj * 365 * occLow * ltFactor),
       high: round1k(adrAdj * 365 * occHigh * ltFactor),
       basis: `${Math.round(ltFactor * 100)}% годовой посуточной выручки`,
+      grossYieldPct: yieldable ? pct1(annualLong / fairValue) : undefined,
+      paybackYears: annualLong > 0 && yieldable ? Math.round((fairValue / annualLong) * 10) / 10 : undefined,
       details: [
         `~${fmt0(annualLong / 12)} THB/мес по долгосрочному контракту.`,
         "Ниже посуточной выручки, но стабильно и без простоев/затрат на смену гостей.",
@@ -1008,9 +1038,23 @@ function rentalBuilt(
     });
   }
 
+  // Контекст: измеренная загрузка района (текущий спрос) + сезон спроса.
+  const d = subject.district
+    ? m.districts.find((x) => x.name.toLowerCase() === subject.district!.toLowerCase())
+    : undefined;
+  const measuredOcc =
+    d && d.occupancyMeasured != null && (d.nOccupancy ?? 0) >= OCC_MIN_SAMPLE ? d.occupancyMeasured : null;
+  const meta: RentalMeta = {
+    occupancyAssumedPct: Math.round(occBase * 100),
+    occupancyMeasuredPct: measuredOcc != null ? Math.round(measuredOcc * 100) : null,
+    peakMonth: m.seasonality?.peakMonth,
+    lowMonth: m.seasonality?.lowMonth,
+  };
+
   caveats.push("Загрузка — модельное допущение (Airbnb её не публикует); вилка = сценарии загрузки.");
   caveats.push("Долгосрочная ставка — ориентир от посуточной выручки; реальная зависит от меблировки, сезона и срока.");
-  return { scenarios, caveats };
+  caveats.push("Доходность считается к ожидаемой цене сделки; OpEx посуточной аренды — модельные 35% от выручки.");
+  return { scenarios, caveats, meta };
 }
 
 // ---- Прогноз аренды: земля (leasehold) ----
@@ -1374,7 +1418,7 @@ export function estimate(subject: ValuationSubject, data: EngineData): Valuation
     result.rental = rentalLand(subject, result.perRai, listValue, loFinal, hiFinal, f);
   }
   if (subjType === "villa" || subjType === "apartment") {
-    const rb = rentalBuilt(subject, data);
+    const rb = rentalBuilt(subject, data, fairValue);
     if (rb) result.rental = rb;
   }
   if (subject.askingPrice && subject.askingPrice > 0) {

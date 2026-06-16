@@ -4,6 +4,7 @@ import { ValuationTool, type ValuationHistoryRow } from "@/components/admin/valu
 import { backendFetch } from "@/lib/api/backend";
 import type { ExternalComp } from "@/lib/actions/valuation";
 import { isValuationLlmEnabled } from "@/lib/valuation/llm-explain";
+import { getLiveRatesTHB } from "@/lib/data/fx-live";
 
 export const metadata: Metadata = {
   title: "Оценка · RW Estimate",
@@ -34,11 +35,13 @@ async function fetchJson<T>(path: string, fallback: T): Promise<T> {
  * а market estimate для интейка и переговоров.
  */
 export default async function AdminValuationPage() {
-  const [overrides, comps, history] = await Promise.all([
+  const [overrides, comps, history, rates] = await Promise.all([
     fetchJson<Array<{ key: string; value: number }>>("/valuation/factors", []),
     fetchJson<ExternalComp[]>("/valuation/comps", []),
     fetchJson<ValuationHistoryRow[]>("/valuations?limit=15", []),
+    getLiveRatesTHB(),
   ]);
+  const fx = rates ? { USD: rates.USD, RUB: rates.RUB, date: rates.date } : null;
 
   return (
     <section className="container-prose py-12 md:py-16">
@@ -57,7 +60,7 @@ export default async function AdminValuationPage() {
           официальный appraisal.
         </p>
       </div>
-      <ValuationTool overrides={overrides} comps={comps} history={history} llmEnabled={isValuationLlmEnabled()} />
+      <ValuationTool overrides={overrides} comps={comps} history={history} llmEnabled={isValuationLlmEnabled()} fx={fx} />
     </section>
   );
 }

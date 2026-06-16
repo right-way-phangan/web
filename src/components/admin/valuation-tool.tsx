@@ -42,6 +42,24 @@ const fmt = (v: number | undefined | null) =>
 const fmtM = (v: number | undefined | null) =>
   v == null ? "—" : v >= 1e6 ? `฿${(v / 1e6).toFixed(2)}M` : `฿${Math.round(v / 1000)}k`;
 
+/** Живые курсы: THB за 1 единицу валюты (с /admin/valuation page). */
+export type Fx = { USD: number; RUB: number; date?: string } | null;
+type Cur = "THB" | "USD" | "RUB";
+const CUR_SYM: Record<Cur, string> = { THB: "฿", USD: "$", RUB: "₽" };
+
+/** Денежный форматтер в выбранной валюте (THB-вход). compact → ..M/..k. */
+function makeMoney(cur: Cur, fx: Fx) {
+  const rate = cur === "USD" ? fx?.USD : cur === "RUB" ? fx?.RUB : 1; // THB за единицу
+  return (thb: number | null | undefined, compact = false): string => {
+    if (thb == null) return "—";
+    const v = cur === "THB" || !rate ? thb : thb / rate;
+    const sym = cur === "THB" ? "฿" : CUR_SYM[cur];
+    if (compact && Math.abs(v) >= 1e6) return `${sym}${(v / 1e6).toFixed(2)}M`;
+    if (compact && Math.abs(v) >= 1e4) return `${sym}${Math.round(v / 1000)}k`;
+    return `${sym}${Math.round(v).toLocaleString("en-US")}`;
+  };
+}
+
 const selectCls = cn(
   "flex h-11 w-full rounded-sm border border-forest-500/20 bg-cream-50 px-4 py-2 text-sm text-forest-900",
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500/30 focus-visible:border-forest-500",
@@ -225,14 +243,18 @@ function ResultPanel({
   r,
   subject,
   llmEnabled,
+  fx,
 }: {
   r: ValuationResult;
   subject: ValuationSubject;
   llmEnabled: boolean;
+  fx: Fx;
 }) {
   const [explanation, setExplanation] = useState<string | null>(null);
   const [explainErr, setExplainErr] = useState<string | null>(null);
   const [explaining, startExplain] = useTransition();
+  const [rentCur, setRentCur] = useState<Cur>("THB");
+  const money = makeMoney(rentCur, fx);
   const explain = () => {
     setExplainErr(null);
     startExplain(async () => {
@@ -315,22 +337,77 @@ function ResultPanel({
 
       {r.rental && r.rental.scenarios.length > 0 && (
         <div className="rounded-sm border border-forest-900/10 bg-white p-5">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
-            Аренда — за сколько можно сдать
-          </p>
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+              Аренда — за сколько можно сдать
+            </p>
+            <div className="flex gap-1 text-xs">
+              {(["THB", "USD", "RUB"] as const).map((c) => {
+                const disabled = c !== "THB" && !fx;
+                return (
+                  <button
+                    key={c}
+                    type="button"
+                    disabled={disabled}
+                    onClick={() => setRentCur(c)}
+                    className={cn(
+                      "rounded-sm px-2 py-0.5 transition-colors",
+                      rentCur === c ? "bg-forest-500 text-cream-50" : "bg-cream-100 text-forest-900/60 hover:bg-cream-200",
+                      disabled && "cursor-not-allowed opacity-40 hover:bg-cream-100",
+                    )}
+                    title={disabled ? "Курс недоступен" : `${CUR_SYM[c]} ${c}`}
+                  >
+                    {CUR_SYM[c]} {c}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {r.rental.meta && (
+            <p className="mt-2 text-xs text-forest-900/55">
+              Загрузка: модель {r.rental.meta.occupancyAssumedPct}%
+              {r.rental.meta.occupancyMeasuredPct != null
+                ? ` · измеренная сейчас ${r.rental.meta.occupancyMeasuredPct}%`
+                : ""}
+              {r.rental.meta.peakMonth
+                ? ` · пик спроса ${r.rental.meta.peakMonth}${r.rental.meta.lowMonth ? `, спад ${r.rental.meta.lowMonth}` : ""}`
+                : ""}
+            </p>
+          )}
+
           <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {r.rental.scenarios.map((s) => (
               <div key={s.mode} className="rounded-sm border border-forest-900/10 bg-cream-50/40 p-4">
                 <p className="text-sm font-medium text-forest-900">{s.label}</p>
                 <p className="mt-1 text-xl font-semibold text-forest-900">
-                  {fmt(s.monthly)} <span className="text-xs font-normal text-forest-900/50">/мес</span>
+                  {money(s.monthly)} <span className="text-xs font-normal text-forest-900/50">/мес</span>
                 </p>
                 <p className="text-xs text-forest-900/50">
-                  {fmtM(s.annual)}/год{s.annualNet != null ? ` · ${fmtM(s.annualNet)} чистыми` : ""}
+                  {money(s.annual, true)}/год{s.annualNet != null ? ` · ${money(s.annualNet, true)} чистыми` : ""}
                 </p>
                 <p className="mt-0.5 text-xs text-forest-900/45">
-                  вилка {fmtM(s.low)} – {fmtM(s.high)}/год
+                  вилка {money(s.low, true)} – {money(s.high, true)}/год
                 </p>
+                {(s.grossYieldPct != null || s.paybackYears != null) && (
+                  <div className="mt-2 flex flex-wrap gap-1.5">
+                    {s.netYieldPct != null && (
+                      <span className="rounded-full bg-forest-500/10 px-2 py-0.5 text-xs text-forest-700">
+                        доходность {s.netYieldPct}% чистыми
+                      </span>
+                    )}
+                    {s.netYieldPct == null && s.grossYieldPct != null && (
+                      <span className="rounded-full bg-forest-500/10 px-2 py-0.5 text-xs text-forest-700">
+                        доходность {s.grossYieldPct}%
+                      </span>
+                    )}
+                    {s.paybackYears != null && s.paybackYears > 0 && (
+                      <span className="rounded-full bg-cream-100 px-2 py-0.5 text-xs text-forest-900/65">
+                        окупаемость ~{s.paybackYears} лет
+                      </span>
+                    )}
+                  </div>
+                )}
                 <ul className="mt-2 space-y-1">
                   {s.details.map((d, i) => (
                     <li key={i} className="text-xs text-forest-900/60">
@@ -889,6 +966,8 @@ function CatalogScanPanel() {
                 <th className="px-3 py-2 font-medium">Цена</th>
                 <th className="px-3 py-2 font-medium">Оценка (сделка)</th>
                 <th className="px-3 py-2 font-medium">Δ к рынку</th>
+                <th className="px-3 py-2 font-medium">Доходность</th>
+                <th className="px-3 py-2 font-medium">Окуп.</th>
                 <th className="px-3 py-2 font-medium">Увер.</th>
               </tr>
             </thead>
@@ -907,6 +986,12 @@ function CatalogScanPanel() {
                   <td className="px-3 py-2">{fmtM(r.estimateMid)} <span className="text-forest-900/40">({fmtM(r.low)}–{fmtM(r.high)})</span></td>
                   <td className={cn("px-3 py-2 font-medium", VERDICT_CLS[r.verdict])}>
                     {r.deltaPct > 0 ? "+" : ""}{r.deltaPct}% · {VERDICT_LABEL[r.verdict]}
+                  </td>
+                  <td className="px-3 py-2 text-forest-900/70">
+                    {r.netYieldPct != null ? `${r.netYieldPct}% чист.` : r.grossYieldPct != null ? `${r.grossYieldPct}%` : "—"}
+                  </td>
+                  <td className="px-3 py-2 text-forest-900/60">
+                    {r.paybackYears != null && r.paybackYears > 0 ? `${r.paybackYears} л` : "—"}
                   </td>
                   <td className="px-3 py-2 text-forest-900/50">
                     {r.confidence === "high" ? "выс." : r.confidence === "medium" ? "сред." : "низ."}
@@ -1120,11 +1205,13 @@ export function ValuationTool({
   comps,
   history,
   llmEnabled = false,
+  fx = null,
 }: {
   overrides: Array<{ key: string; value: number }>;
   comps: ExternalComp[];
   history: ValuationHistoryRow[];
   llmEnabled?: boolean;
+  fx?: Fx;
 }) {
   const [tab, setTab] = useState<Tab>("estimate");
   const [v, setV] = useState<SubjectForm>(emptySubject);
@@ -1248,7 +1335,7 @@ export function ValuationTool({
               </Button>
             </div>
           </div>
-          {result && <ResultPanel r={result.r} subject={result.s} llmEnabled={llmEnabled} />}
+          {result && <ResultPanel r={result.r} subject={result.s} llmEnabled={llmEnabled} fx={fx} />}
         </div>
       )}
 
