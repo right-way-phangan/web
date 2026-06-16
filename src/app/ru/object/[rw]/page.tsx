@@ -12,6 +12,7 @@ import { getUsdPerThb } from "@/lib/data/fx";
 import { RoiCalculator } from "@/components/calculator/roi-calculator";
 import { Breadcrumbs } from "@/components/objects/breadcrumbs";
 import { BuyingCosts } from "@/components/objects/buying-costs";
+import { BuildingRules } from "@/components/objects/building-rules";
 import { ObjectFaq } from "@/components/objects/object-faq";
 import { MobileCtaBar } from "@/components/objects/mobile-cta-bar";
 import { ObjectGallery } from "@/components/objects/object-gallery";
@@ -275,14 +276,7 @@ export default async function RussianObjectPage({ params }: Props) {
               chips={<DistanceChips lat={object.lat} lng={object.lng} locale="ru" />}
             />
 
-            {object.buildingRules ? (
-              <section>
-                <h2 className="font-serif text-3xl text-forest-900">{t.buildingRules}</h2>
-                <p className="mt-4 max-w-prose text-base leading-relaxed text-forest-500/85 whitespace-pre-line">
-                  {object.buildingRules}
-                </p>
-              </section>
-            ) : null}
+            <BuildingRules object={object} locale="ru" />
           </div>
 
           <InquiryForm rwNumber={object.rwNumber} />
