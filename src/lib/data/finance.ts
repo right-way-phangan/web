@@ -132,20 +132,18 @@ export type PersonalExpense = {
   note?: string;
 };
 
-/** Личные расходы основателя в месяц (Панган, режим bootstrap). */
-export const personalExpenses: PersonalExpense[] = [
-  { item: "Домик (аренда)", thbPerMonth: 27000 },
-  { item: "Еда", thbPerMonth: 20000 },
-  { item: "Виза (border run ~раз/мес)", thbPerMonth: 8000, note: "старая компания закрывается → нет визы; проверить DTV" },
-  { item: "Бензин", thbPerMonth: 5000 },
-  { item: "Спортзал", thbPerMonth: 2700 },
-  { item: "Прочее (электр./вода/связь/здоровье)", thbPerMonth: 5000, estimate: true },
-];
+/**
+ * Личные расходы основателя в месяц (Панган, режим bootstrap).
+ * 🔒 ПРИВАТНО: реальные суммы НЕ в публичном репо — они в приватной Google-таблице,
+ * лист `Personal` (item | thb | estimate | note). Здесь пусто; дашборд подставляет
+ * значения из таблицы (см. loadPersonalFromSheet). Fallback без таблицы — пусто.
+ */
+export const personalExpenses: PersonalExpense[] = [];
 
-/** Наличные на руках сейчас (THB). Источник — личный проект «Сам себе Я». */
-export const cashOnHand = 20000;
+/** Наличные на руках (THB). 🔒 Приватно: реальное — лист `Runway` таблицы (cash). */
+export const cashOnHand = 0;
 
-/** Дебиторка — мне должны (THB). Источник: ~/Сам себе Я/finances/долги-серёжи.md. */
+/** Дебиторка — мне должны (THB). 🔒 Приватно: реальное — лист `Receivables` таблицы. */
 export type Receivable = {
   from: string;
   thb: number;
@@ -154,14 +152,7 @@ export type Receivable = {
   note?: string;
 };
 
-export const receivables: Receivable[] = [
-  // Серёжа · доля Circle 114 457 ฿ — ✅ возвращён 16.06.2026 (убран из дебиторки)
-  { from: "Серёжа · дом Игоря", thb: 325000, due: "2026-09-01", status: "expected", note: "ближайший крупный — за 2 нед до 01.09 напомнить" },
-  { from: "Серёжа · Африкантес", thb: 187500, due: "2026-12-31", status: "expected" },
-  { from: "Серёжа · проект Макса", thb: 100000, due: "2026-12-31", status: "expected" },
-  { from: "Серёжа · Эдик/Вова", thb: 45000, due: "2026-12-31", status: "expected" },
-  { from: "Серёжа · 12 рай (Пи Ну)", thb: 30000, due: "2026-12-31", status: "expected" },
-];
+export const receivables: Receivable[] = [];
 
 /** Вся дебиторка, THB. */
 export function receivablesTotal(rec: Receivable[] = receivables): number {
