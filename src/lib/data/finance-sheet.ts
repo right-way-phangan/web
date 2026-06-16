@@ -185,7 +185,7 @@ export async function loadRunwayFromSheet(): Promise<SheetPersonal | null> {
   if (!token) return null;
   const out: SheetPersonal = {};
 
-  const runwayRows = await getRange(token, "Runway!A2:B20");
+  const runwayRows = await getRange(token, "Runway!A1:B20"); // key-value, без заголовка
   for (const r of runwayRows ?? []) {
     const key = (r[0] ?? "").trim().toLowerCase();
     if (!r[1]) continue;
