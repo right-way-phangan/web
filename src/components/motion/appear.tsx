@@ -56,12 +56,16 @@ export function Appear({
     return () => obs.disconnect();
   }, [reduce]);
 
-  if (reduce) return <div className={className}>{children}</div>;
+  // Класс `appear` нужен для print-оверрайда в globals.css: при печати
+  // (брошюра объекта) блоки ниже сгиба иначе остались бы скрытыми (opacity:0).
+  const cls = ["appear", className].filter(Boolean).join(" ");
+
+  if (reduce) return <div className={cls}>{children}</div>;
 
   return (
     <motion.div
       ref={ref}
-      className={className}
+      className={cls}
       initial={false}
       animate={phase === "hidden" ? { opacity: 0, y } : { opacity: 1, y: 0 }}
       // Прятать — мгновенно (как .reveal через класс), проявлять — плавно.

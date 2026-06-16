@@ -42,6 +42,7 @@ import { Floorplans } from "./floorplans";
 import { PriceStages } from "./price-stages";
 import { ProjectTimeline } from "./project-timeline";
 import { ProjectTeam } from "./project-team";
+import { Appear } from "@/components/motion/appear";
 
 interface Props {
   project: RealEstateObject;
@@ -367,13 +368,14 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
         <section className="mt-16 border-t border-forest-500/10 pt-12 md:mt-20">
           <h2 className="font-serif text-2xl text-forest-900">{t.otherProjects}</h2>
           <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {otherProjects.map((p) => (
-              <ProjectCard
-                key={p.rwNumber}
-                project={p}
-                href={localePath(locale, `/projects/${projectSlug(p, allProjects)}`)}
-                availability={projectAvailability(p, getProjectUnits(p, allObjects))}
-              />
+            {otherProjects.map((p, i) => (
+              <Appear key={p.rwNumber} delay={(i % 3) * 0.08} className="h-full">
+                <ProjectCard
+                  project={p}
+                  href={localePath(locale, `/projects/${projectSlug(p, allProjects)}`)}
+                  availability={projectAvailability(p, getProjectUnits(p, allObjects))}
+                />
+              </Appear>
             ))}
           </div>
         </section>
