@@ -63,7 +63,7 @@ export default async function AdminArticlePage({ params }: Props) {
 
       <div className="grid gap-6 lg:grid-cols-[1fr_340px]">
         {/* Preview — exactly how it renders on the public blog */}
-        <article className="rounded-2xl border border-forest-900/10 bg-white p-6 md:p-8">
+        <article className="rounded-2xl border border-forest-900/10 bg-cream-50 p-6 md:p-8">
           <div className="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-brass-600">
             <span>{article.topic}</span>
             <span aria-hidden className="text-forest-900/20">·</span>

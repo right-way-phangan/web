@@ -14,6 +14,7 @@ import { Ga4Script } from "@/components/analytics/ga4";
 import { ContactClickTracker } from "@/components/analytics/contact-click-tracker";
 import { AttributionCapture } from "@/components/analytics/attribution-capture";
 import { HtmlLang } from "@/components/i18n/html-lang";
+import { ThemeProvider, ThemeScript } from "@/lib/theme/theme-context";
 import { siteConfig } from "@/lib/site-config";
 import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
@@ -39,9 +40,13 @@ const serif = Cormorant_Garamond({
 const siteUrl = getSiteUrl();
 
 // Brand-tints the mobile browser chrome (address bar) — forest from the
-// palette. Without it Android/iOS render a default grey bar.
+// palette in light, the dark page background in dark. Without it Android/iOS
+// render a default grey bar.
 export const viewport: Viewport = {
-  themeColor: "#1F3A2E",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#1F3A2E" },
+    { media: "(prefers-color-scheme: dark)", color: "#181815" },
+  ],
 };
 
 export const metadata: Metadata = {
@@ -95,8 +100,15 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${sans.variable} ${serif.variable}`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${sans.variable} ${serif.variable}`}
+    >
       <body className="flex min-h-screen flex-col">
+        {/* Render-blocking, first in <body>: applies the persisted/system theme
+            to <html> before paint so dark visitors never flash light. */}
+        <ThemeScript />
         <HtmlLang />
         {/* Every photo lives on Vercel Blob — warming the connection early
             shaves the TLS handshake off the LCP image. rel=preconnect is a
@@ -107,7 +119,7 @@ export default function RootLayout({
         />
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-sm focus:bg-forest-900 focus:px-4 focus:py-2 focus:text-sm focus:text-cream-50"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-sm focus:bg-panel focus:px-4 focus:py-2 focus:text-sm focus:text-panel-fg"
         >
           Skip to content
         </a>
@@ -128,13 +140,15 @@ export default function RootLayout({
         />
         <OrganizationJsonLd siteUrl={siteUrl} />
         <WebsiteJsonLd siteUrl={siteUrl} />
-        <SavedProvider>
-          <ScrollProgress />
-          <Header />
-          <main id="main-content" className="flex-1">{children}</main>
-          <Footer />
-          <MessengerFab />
-        </SavedProvider>
+        <ThemeProvider>
+          <SavedProvider>
+            <ScrollProgress />
+            <Header />
+            <main id="main-content" className="flex-1">{children}</main>
+            <Footer />
+            <MessengerFab />
+          </SavedProvider>
+        </ThemeProvider>
         <ContactClickTracker />
         <AttributionCapture />
         <GtmScript />

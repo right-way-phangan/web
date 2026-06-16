@@ -329,7 +329,7 @@ export function ObjectGallery({ rwNumber, type, gallery, title }: Props) {
 
         {photos.length > 1 ? (
           <>
-            <span className="num pointer-events-none absolute right-3 top-3 rounded-sm bg-forest-900/60 px-2 py-1 text-xs text-cream-50 backdrop-blur-sm">
+            <span className="num pointer-events-none absolute right-3 top-3 rounded-sm bg-panel/60 px-2 py-1 text-xs text-panel-fg backdrop-blur-sm">
               {mobileIndex + 1} / {photos.length}
             </span>
             {photos.length <= MAX_DOTS ? (
@@ -399,7 +399,7 @@ export function ObjectGallery({ rwNumber, type, gallery, title }: Props) {
               />
               <span className="absolute inset-0 bg-forest-900/0 transition-colors duration-300 group-hover:bg-forest-900/10" />
               {isLastVisible && remaining > 0 ? (
-                <span className="absolute inset-0 flex items-center justify-center bg-forest-900/55 text-lg font-medium text-cream-50 transition-colors duration-300 group-hover:bg-forest-900/65">
+                <span className="absolute inset-0 flex items-center justify-center bg-panel/55 text-lg font-medium text-panel-fg transition-colors duration-300 group-hover:bg-panel/65">
                   +{remaining}
                 </span>
               ) : null}
@@ -413,7 +413,7 @@ export function ObjectGallery({ rwNumber, type, gallery, title }: Props) {
       {/* Lightbox */}
       <Dialog.Root open={open} onOpenChange={setOpen}>
         <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 z-50 bg-forest-900/90 backdrop-blur-sm motion-safe:animate-[lbFade_200ms_ease-out]" />
+          <Dialog.Overlay className="fixed inset-0 z-50 bg-panel/90 backdrop-blur-sm motion-safe:animate-[lbFade_200ms_ease-out]" />
           <Dialog.Content
             className="fixed inset-0 z-50 focus:outline-none"
             aria-describedby={undefined}
@@ -424,11 +424,11 @@ export function ObjectGallery({ rwNumber, type, gallery, title }: Props) {
 
             {/* Top bar — overlays the photo as a gradient so the stage gets
                 the full viewport in every orientation. */}
-            <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between bg-gradient-to-b from-forest-900/70 to-transparent px-4 py-3 text-cream-50 md:px-8">
-              <span className="text-sm tabular-nums text-cream-50/80">
+            <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between bg-gradient-to-b from-panel/70 to-transparent px-4 py-3 text-panel-fg md:px-8">
+              <span className="text-sm tabular-nums text-panel-fg/80">
                 {index + 1} / {photos.length}
               </span>
-              <Dialog.Close className="rounded-sm p-2 opacity-80 transition-opacity hover:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-cream-50/40">
+              <Dialog.Close className="rounded-sm p-2 opacity-80 transition-opacity hover:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-panel-fg/40">
                 <X className="h-6 w-6" />
                 <span className="sr-only">Close</span>
               </Dialog.Close>
@@ -492,7 +492,7 @@ export function ObjectGallery({ rwNumber, type, gallery, title }: Props) {
                     type="button"
                     onClick={prev}
                     aria-label={t.prevPhoto}
-                    className="absolute left-2 top-1/2 hidden -translate-y-1/2 rounded-full bg-forest-900/40 p-2 text-cream-50 transition-colors hover:bg-forest-900/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-cream-50/60 sm:block md:left-6 md:p-3"
+                    className="absolute left-2 top-1/2 hidden -translate-y-1/2 rounded-full bg-panel/40 p-2 text-panel-fg transition-colors hover:bg-panel/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-panel-fg/60 sm:block md:left-6 md:p-3"
                   >
                     <ChevronLeft className="h-6 w-6" />
                   </button>
@@ -500,7 +500,7 @@ export function ObjectGallery({ rwNumber, type, gallery, title }: Props) {
                     type="button"
                     onClick={next}
                     aria-label={t.nextPhoto}
-                    className="absolute right-2 top-1/2 hidden -translate-y-1/2 rounded-full bg-forest-900/40 p-2 text-cream-50 transition-colors hover:bg-forest-900/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-cream-50/60 sm:block md:right-6 md:p-3"
+                    className="absolute right-2 top-1/2 hidden -translate-y-1/2 rounded-full bg-panel/40 p-2 text-panel-fg transition-colors hover:bg-panel/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-panel-fg/60 sm:block md:right-6 md:p-3"
                   >
                     <ChevronRight className="h-6 w-6" />
                   </button>
@@ -512,7 +512,7 @@ export function ObjectGallery({ rwNumber, type, gallery, title }: Props) {
             {photos.length > 1 ? (
               <div
                 ref={stripRef}
-                className="no-scrollbar absolute inset-x-0 bottom-0 z-10 flex gap-2 overflow-x-auto bg-gradient-to-t from-forest-900/70 to-transparent px-4 pb-3 pt-8 md:justify-center md:px-8 [@media(max-height:500px)]:hidden"
+                className="no-scrollbar absolute inset-x-0 bottom-0 z-10 flex gap-2 overflow-x-auto bg-gradient-to-t from-panel/70 to-transparent px-4 pb-3 pt-8 md:justify-center md:px-8 [@media(max-height:500px)]:hidden"
               >
                 {photos.map((url, i) => (
                   <button
@@ -526,7 +526,7 @@ export function ObjectGallery({ rwNumber, type, gallery, title }: Props) {
                       "relative h-12 w-16 shrink-0 overflow-hidden rounded-sm transition-all duration-200 md:h-14 md:w-20",
                       i === index
                         ? "opacity-100 ring-2 ring-brass-300"
-                        : "opacity-55 ring-1 ring-cream-50/20 hover:opacity-90",
+                        : "opacity-55 ring-1 ring-panel-fg/20 hover:opacity-90",
                     )}
                   >
                     <Image

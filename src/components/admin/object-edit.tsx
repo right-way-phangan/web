@@ -119,7 +119,7 @@ export function ObjectEditButton({ object }: { object: EditableObject }) {
   }
 
   const field =
-    "w-full rounded-md border border-forest-900/15 bg-white px-2.5 py-1.5 text-sm text-forest-900 outline-none focus:border-brass-500";
+    "w-full rounded-md border border-forest-900/15 bg-cream-50 px-2.5 py-1.5 text-sm text-forest-900 outline-none focus:border-brass-500";
   const labelCls = "block text-xs font-medium text-forest-900/55";
 
   return (
@@ -135,7 +135,7 @@ export function ObjectEditButton({ object }: { object: EditableObject }) {
 
       {open && (
         <div
-          className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-forest-900/40 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-panel/40 p-4 backdrop-blur-sm"
           onClick={() => !pending && setOpen(false)}
         >
           <div
@@ -262,7 +262,7 @@ export function ObjectEditButton({ object }: { object: EditableObject }) {
             </div>
 
             {/* Photo upload — closes the photo-less → live loop */}
-            <div className="mt-4 rounded-xl border border-forest-900/10 bg-white/60 p-3">
+            <div className="mt-4 rounded-xl border border-forest-900/10 bg-cream-50/60 p-3">
               <p className="text-xs font-medium text-forest-900/55">
                 Добавить фото {object.type === "Land" ? "(аэро на обложку)" : "(экстерьер на обложку)"}
               </p>
@@ -279,7 +279,7 @@ export function ObjectEditButton({ object }: { object: EditableObject }) {
                   type="button"
                   disabled={photoPending || fileCount === 0}
                   onClick={uploadPhotos}
-                  className="rounded-full bg-brass-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-brass-600/90 disabled:opacity-40"
+                  className="rounded-full bg-brass-600 px-3 py-1.5 text-xs font-medium text-panel-fg hover:bg-brass-600/90 disabled:opacity-40"
                 >
                   {photoPending ? "Загружаю…" : fileCount > 0 ? `Загрузить ${fileCount}` : "Загрузить"}
                 </button>
@@ -306,7 +306,7 @@ export function ObjectEditButton({ object }: { object: EditableObject }) {
                 type="button"
                 disabled={pending}
                 onClick={save}
-                className="rounded-full bg-forest-900 px-4 py-1.5 text-sm font-medium text-white hover:bg-forest-900/90 disabled:opacity-50"
+                className="rounded-full bg-panel px-4 py-1.5 text-sm font-medium text-panel-fg hover:bg-panel/90 disabled:opacity-50"
               >
                 {pending ? "Сохраняю…" : "Сохранить"}
               </button>

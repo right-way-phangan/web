@@ -229,8 +229,8 @@ function Row({
 
 function Big({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-sm bg-forest-900 p-3 text-center text-cream-50">
-      <div className="text-[10px] uppercase tracking-wide text-cream-100/70">{label}</div>
+    <div className="rounded-sm bg-panel p-3 text-center text-panel-fg">
+      <div className="text-[10px] uppercase tracking-wide text-panel-fg/70">{label}</div>
       <div className="mt-0.5 text-xl font-semibold tabular-nums">{value}</div>
     </div>
   );

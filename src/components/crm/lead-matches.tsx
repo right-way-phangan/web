@@ -59,7 +59,7 @@ export function LeadMatches({
 
   function Card({ m }: { m: MatchItem }) {
     return (
-      <div className="flex items-center gap-2 rounded-lg border border-forest-900/10 bg-white p-2">
+      <div className="flex items-center gap-2 rounded-lg border border-forest-900/10 bg-cream-50 p-2">
         <span className="h-12 w-16 shrink-0 overflow-hidden rounded bg-forest-900/5">
           {m.cover ? (
             // eslint-disable-next-line @next/next/no-img-element -- admin thumb

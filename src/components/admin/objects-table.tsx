@@ -103,7 +103,7 @@ export function ObjectsTable({
               type="button"
               disabled={pending}
               onClick={() => applyBulk(s)}
-              className="rounded-full bg-white px-3 py-1 text-xs font-medium text-forest-900/80 ring-1 ring-forest-900/10 hover:bg-forest-900 hover:text-white disabled:opacity-50"
+              className="rounded-full bg-cream-50 px-3 py-1 text-xs font-medium text-forest-900/80 ring-1 ring-forest-900/10 hover:bg-panel hover:text-panel-fg disabled:opacity-50"
             >
               {s}
             </button>

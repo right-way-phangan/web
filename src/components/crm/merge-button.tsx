@@ -20,7 +20,7 @@ export function MergeButton({ keepId, mergeId }: { keepId: number; mergeId: numb
           router.refresh();
         })
       }
-      className="rounded-full bg-forest-900 px-3 py-1 text-xs font-medium text-white hover:bg-forest-900/90 disabled:opacity-40"
+      className="rounded-full bg-panel px-3 py-1 text-xs font-medium text-panel-fg hover:bg-panel/90 disabled:opacity-40"
     >
       {pending ? "…" : error ? "ошибка ↻" : `слить в #${keepId}`}
     </button>

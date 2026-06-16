@@ -42,12 +42,12 @@ export function LanguageSwitcher({
     <div
       className={cn(
         "inline-flex items-center gap-1 text-xs font-medium",
-        light ? "text-cream-100/70" : "text-forest-500/70",
+        light ? "text-panel-fg/70" : "text-forest-500/70",
         className,
       )}
     >
       <Globe
-        className={cn("h-3.5 w-3.5", light ? "text-cream-100/50" : "text-forest-500/50")}
+        className={cn("h-3.5 w-3.5", light ? "text-panel-fg/50" : "text-forest-500/50")}
         aria-hidden
       />
       <Link
@@ -56,19 +56,19 @@ export function LanguageSwitcher({
         className={cn(
           "rounded-sm px-1.5 py-0.5 transition-colors",
           light ? "hover:text-brass-300" : "hover:text-brass-500",
-          !isRu && (light ? "text-cream-50" : "text-forest-500"),
+          !isRu && (light ? "text-panel-fg" : "text-forest-500"),
         )}
       >
         EN
       </Link>
-      <span aria-hidden className={light ? "text-cream-100/30" : "text-forest-500/25"}>/</span>
+      <span aria-hidden className={light ? "text-panel-fg/30" : "text-forest-500/25"}>/</span>
       <Link
         href={ruHref as Route}
         aria-current={isRu ? "page" : undefined}
         className={cn(
           "rounded-sm px-1.5 py-0.5 transition-colors",
           light ? "hover:text-brass-300" : "hover:text-brass-500",
-          isRu && (light ? "text-cream-50" : "text-forest-500"),
+          isRu && (light ? "text-panel-fg" : "text-forest-500"),
         )}
       >
         RU

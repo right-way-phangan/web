@@ -104,7 +104,7 @@ export function OutreachList({ rows }: { rows: OutreachRow[] }) {
             className={
               "rounded-full px-3 py-1.5 text-sm font-medium transition " +
               (filter === f.key
-                ? "bg-forest-900 text-cream-50"
+                ? "bg-panel text-panel-fg"
                 : "bg-forest-900/5 text-forest-900 hover:bg-forest-900/10")
             }
           >
@@ -124,7 +124,7 @@ export function OutreachList({ rows }: { rows: OutreachRow[] }) {
           return (
             <li
               key={r.rwNumber}
-              className="rounded-sm border border-forest-900/10 bg-white p-4"
+              className="rounded-sm border border-forest-900/10 bg-cream-50 p-4"
             >
               <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                 <Link
@@ -231,7 +231,7 @@ export function OutreachList({ rows }: { rows: OutreachRow[] }) {
           );
         })}
         {visible.length === 0 ? (
-          <li className="rounded-sm border border-forest-900/10 bg-white p-8 text-center text-forest-500/70">
+          <li className="rounded-sm border border-forest-900/10 bg-cream-50 p-8 text-center text-forest-500/70">
             Пусто.
           </li>
         ) : null}

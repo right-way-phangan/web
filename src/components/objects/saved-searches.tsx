@@ -107,7 +107,7 @@ export function SavedSearches() {
         <button
           type="button"
           onClick={() => setNotifyOpen(true)}
-          className="mt-5 inline-flex items-center gap-2 rounded-sm bg-forest-500 px-5 py-2.5 text-sm font-medium text-cream-100 transition-colors hover:bg-forest-400"
+          className="mt-5 inline-flex items-center gap-2 rounded-sm bg-panel px-5 py-2.5 text-sm font-medium text-panel-fg transition-colors hover:bg-forest-400"
         >
           <BellRing className="h-4 w-4" />
           {t.alertButton}

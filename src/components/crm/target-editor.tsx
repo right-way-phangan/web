@@ -25,7 +25,7 @@ export function TargetEditor({ value }: { value: number | null }) {
       <button
         type="button"
         onClick={() => setEditing(true)}
-        className="text-[11px] font-medium text-white/70 underline-offset-2 hover:text-white hover:underline"
+        className="text-[11px] font-medium text-panel-fg/70 underline-offset-2 hover:text-panel-fg hover:underline"
       >
         {value != null ? "изменить цель" : "+ задать цель месяца"}
       </button>
@@ -34,7 +34,7 @@ export function TargetEditor({ value }: { value: number | null }) {
 
   return (
     <span className="inline-flex items-center gap-1.5">
-      <span className="text-xs text-white/70">฿</span>
+      <span className="text-xs text-panel-fg/70">฿</span>
       <input
         autoFocus
         inputMode="numeric"
@@ -43,13 +43,13 @@ export function TargetEditor({ value }: { value: number | null }) {
         onChange={(e) => setDraft(e.target.value)}
         onKeyDown={(e) => e.key === "Enter" && save()}
         placeholder="цель, THB"
-        className="w-28 rounded border border-white/25 bg-white/10 px-2 py-0.5 text-xs text-white placeholder:text-white/40 outline-none focus:border-white/60"
+        className="w-28 rounded border border-white/25 bg-cream-50/10 px-2 py-0.5 text-xs text-panel-fg placeholder:text-panel-fg/40 outline-none focus:border-white/60"
       />
       <button
         type="button"
         disabled={pending}
         onClick={save}
-        className="rounded bg-white/90 px-2 py-0.5 text-xs font-medium text-forest-900 disabled:opacity-40"
+        className="rounded bg-cream-50/90 px-2 py-0.5 text-xs font-medium text-forest-900 disabled:opacity-40"
       >
         ОК
       </button>
@@ -60,7 +60,7 @@ export function TargetEditor({ value }: { value: number | null }) {
           setDraft(value != null ? String(value) : "");
           setEditing(false);
         }}
-        className="text-xs text-white/50 hover:text-white/80"
+        className="text-xs text-panel-fg/50 hover:text-panel-fg/80"
       >
         ✕
       </button>

@@ -63,7 +63,7 @@ export function NlSearch({ initialQuery = "" }: { initialQuery?: string }) {
         <button
           type="submit"
           disabled={pending || !value.trim()}
-          className="inline-flex items-center justify-center gap-1.5 rounded-sm bg-forest-500 px-5 py-2.5 text-sm font-medium text-cream-100 transition-colors hover:bg-forest-400 disabled:opacity-50"
+          className="inline-flex items-center justify-center gap-1.5 rounded-sm bg-panel px-5 py-2.5 text-sm font-medium text-panel-fg transition-colors hover:bg-forest-400 disabled:opacity-50"
         >
           {pending ? t.nlSearching : t.nlSearch}
           {!pending ? <ArrowRight className="h-4 w-4" /> : null}

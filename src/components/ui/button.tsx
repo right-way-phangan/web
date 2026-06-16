@@ -8,12 +8,20 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
+        // Dark: forest is inverted to a muted light, so a solid forest button
+        // would read as washed grey-green. Override to a confident bright pill
+        // with dark text (panel-fg / panel never invert). outline/ghost/link
+        // need no dark override — their forest tints/borders invert correctly.
         primary:
-          "bg-forest-500 text-cream-100 hover:bg-forest-400 hover:shadow-md hover:shadow-forest-900/15 active:bg-forest-900 active:shadow-none",
+          // Dark: bright pill (panel-fg) with a soft lift shadow so it sits
+          // above the graphite page instead of floating flat.
+          "bg-forest-500 text-cream-100 hover:bg-forest-400 hover:shadow-md hover:shadow-forest-900/15 active:bg-forest-900 active:shadow-none dark:bg-panel-fg dark:text-panel dark:shadow-[0_10px_28px_-14px_rgba(0,0,0,0.7)] dark:hover:bg-panel-fg/90 dark:active:bg-panel-fg/80",
         accent:
           // brass-600 (not 500): cream-100 on brass-500 is 4.05:1, just under
           // the 4.5:1 AA floor. One palette step darker clears it (~5.9:1).
-          "bg-brass-600 text-cream-100 hover:bg-brass-500 hover:shadow-md hover:shadow-brass-600/20 active:bg-brass-600 active:shadow-none",
+          // Dark: warm gold gradient + soft brass glow — a premium CTA, dark
+          // text for contrast on the bright brass.
+          "bg-brass-600 text-cream-100 hover:bg-brass-500 hover:shadow-md hover:shadow-brass-600/20 active:bg-brass-600 active:shadow-none dark:bg-gradient-to-b dark:from-brass-400 dark:to-brass-600 dark:text-panel dark:shadow-[0_10px_30px_-10px_rgba(229,174,112,0.5)] dark:hover:from-brass-300 dark:hover:to-brass-500 dark:active:from-brass-400 dark:active:to-brass-600",
         outline:
           "border border-forest-500/30 text-forest-500 hover:bg-forest-500 hover:text-cream-100 hover:border-forest-500",
         ghost:

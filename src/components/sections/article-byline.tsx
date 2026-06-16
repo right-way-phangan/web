@@ -49,7 +49,7 @@ export function ArticleByline({
     <div className="mt-6 flex items-center gap-3">
       <span
         aria-hidden
-        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-forest-900 font-serif text-sm text-cream-50"
+        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-panel font-serif text-sm text-panel-fg"
       >
         {initials(author.name)}
       </span>

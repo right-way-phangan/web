@@ -48,7 +48,7 @@ export default async function ListingsPage({ searchParams }: PageProps) {
   const q = (Array.isArray(qRaw) ? qRaw[0] : qRaw) ?? "";
 
   return (
-    <section className="container-prose py-10 md:py-14">
+    <section className="container-prose py-10 md:py-14 aura">
       {/* Map tiles (CARTO) load as soon as the split map mounts — warm the
           connection up front to shave the handshake (Lighthouse flagged it). */}
       <link rel="preconnect" href="https://a.basemaps.cartocdn.com" crossOrigin="" />

@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import { Menu, X, Heart, ChevronDown } from "lucide-react";
 import { Logo } from "./logo";
 import { HeaderSearch } from "./header-search";
+import { ThemeToggle } from "./theme-toggle";
 import { LanguageSwitcher } from "@/components/i18n/language-switcher";
 import { Button } from "@/components/ui/button";
 import { useSaved } from "@/lib/saved/saved-context";
@@ -78,7 +79,7 @@ export function Header() {
         isHome ? "fixed" : "sticky",
         overlay
           ? "border-transparent bg-transparent"
-          : "border-forest-500/10 bg-cream-100/80 backdrop-blur-md",
+          : "border-forest-500/10 bg-cream-100/80 backdrop-blur-md dark:border-bronze/25 dark:bg-cream-100/60 dark:backdrop-blur-xl dark:shadow-[0_8px_24px_-16px_rgba(0,0,0,0.7)]",
       )}
     >
       <div className="container-prose flex h-16 items-center justify-between md:h-20">
@@ -98,7 +99,7 @@ export function Header() {
                     ? "text-brass-300"
                     : "text-brass-500"
                   : overlay
-                    ? "text-cream-100"
+                    ? "text-panel-fg"
                     : "text-forest-500",
               )}
             >
@@ -117,6 +118,7 @@ export function Header() {
 
         <div className="hidden lg:flex lg:items-center lg:gap-3">
           <HeaderSearch light={overlay} />
+          <ThemeToggle light={overlay} />
           <LanguageSwitcher tone={overlay ? "light" : "default"} />
           <SavedLink
             count={savedCount}
@@ -130,7 +132,7 @@ export function Header() {
             size="sm"
             className={cn(
               overlay &&
-                "border-cream-100/40 text-cream-50 hover:border-cream-50 hover:bg-cream-50 hover:text-forest-900",
+                "border-panel-fg/40 text-panel-fg hover:border-panel-fg hover:bg-panel-fg hover:text-panel",
             )}
           >
             <Link href={contactHref}>{chrome.getInTouch}</Link>
@@ -139,6 +141,7 @@ export function Header() {
 
         <div className="flex items-center gap-1 lg:hidden">
           <HeaderSearch light={overlay} />
+          <ThemeToggle light={overlay} />
           <SavedLink
             count={savedCount}
             label={chrome.savedAria}
@@ -153,7 +156,7 @@ export function Header() {
             onClick={() => setOpen(true)}
             className={cn(
               "flex h-11 w-11 items-center justify-center rounded-sm transition-colors",
-              overlay ? "text-cream-50" : "text-forest-500",
+              overlay ? "text-panel-fg" : "text-forest-500",
             )}
           >
             <Menu className="h-5 w-5" />
@@ -335,7 +338,7 @@ function NavDropdown({
               ? "text-brass-300"
               : "text-brass-500"
             : light
-              ? "text-cream-100"
+              ? "text-panel-fg"
               : "text-forest-500",
         )}
       >
@@ -353,7 +356,7 @@ function NavDropdown({
           "group-focus-within:visible group-focus-within:opacity-100",
         )}
       >
-        <ul className="min-w-44 rounded-md border border-forest-500/10 bg-cream-50 p-2 shadow-lg shadow-forest-900/10">
+        <ul className="min-w-44 rounded-md border border-forest-500/10 bg-cream-50 p-2 shadow-lg shadow-panel/10">
           {group.items.map((item) => {
             const active = isActive(item.href);
             return (
@@ -394,12 +397,12 @@ function SavedLink({
       aria-label={`${label}${count ? ` (${count})` : ""}`}
       className={cn(
         "relative flex h-11 w-11 items-center justify-center rounded-sm transition-colors",
-        light ? "text-cream-50 hover:text-brass-300" : "text-forest-500 hover:text-brass-500",
+        light ? "text-panel-fg hover:text-brass-300" : "text-forest-500 hover:text-brass-500",
       )}
     >
       <Heart className={cn("h-5 w-5", count > 0 && "fill-brass-500 text-brass-500")} />
       {count > 0 ? (
-        <span className="absolute right-1.5 top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-brass-500 px-1 text-[10px] font-semibold leading-none text-cream-50">
+        <span className="absolute right-1.5 top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-brass-500 px-1 text-[10px] font-semibold leading-none text-panel-fg">
           {count}
         </span>
       ) : null}
