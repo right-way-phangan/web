@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Rise } from "@/components/motion/rise";
 import { HeroBackground } from "./hero-background";
 
 export function Hero() {
@@ -28,13 +27,12 @@ export function Hero() {
       />
 
       <div className="container-prose relative z-10 flex min-h-[80vh] flex-col justify-center py-24 md:min-h-[88vh] md:py-32">
-        <Rise>
-          <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-300">
-            Koh Phangan · Thailand
-          </p>
-        </Rise>
+        {/* Entrance — чистый CSS (.rise-in), работает и без JS, не прячет
+            контент от no-JS/AT. H1 и лид статичны (важный текст для SEO/AEO). */}
+        <p className="rise-in text-xs font-medium uppercase tracking-[0.3em] text-brass-300">
+          Koh Phangan · Thailand
+        </p>
 
-        {/* H1 и лид — статичны в SSR (важный текст для SEO/AEO, не прячем). */}
         <h1 className="mt-6 max-w-4xl text-balance text-5xl leading-[1.05] text-cream-50 md:text-7xl md:leading-[1.02]">
           Land, villas, and homes —{" "}
           <span className="italic text-cream-100/80">curated</span> on Phangan.
@@ -46,7 +44,10 @@ export function Hero() {
           island, done properly.
         </p>
 
-        <Rise delay={0.15} className="mt-12 flex flex-col gap-3 sm:flex-row sm:gap-4">
+        <div
+          className="rise-in mt-12 flex flex-col gap-3 sm:flex-row sm:gap-4"
+          style={{ animationDelay: "0.15s" }}
+        >
           <Button asChild variant="primary" size="lg">
             <Link href="/listings">
               Browse listings
@@ -61,7 +62,7 @@ export function Hero() {
           >
             <Link href="/process">How we work</Link>
           </Button>
-        </Rise>
+        </div>
       </div>
     </section>
   );
