@@ -26,7 +26,7 @@ export async function AdminNav({
   const pending = pendingArticles ?? (await getPendingArticleCount());
   // Бейдж на «Справочник» — число страниц-черновиков, ждущих вычитки
   // (видно с любой страницы админки, не только с обзора справочника).
-  const drafts = getGuideDraftCount();
+  const drafts = await getGuideDraftCount();
   // Контекстная справка: каждая рабочая страница ведёт на свой раздел учебника
   // (/admin/guide), в новой вкладке — чтобы не терять рабочий контекст.
   const helpHref = helpHrefFor(active);
