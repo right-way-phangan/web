@@ -132,20 +132,18 @@ export type PersonalExpense = {
   note?: string;
 };
 
-/** Личные расходы основателя в месяц (Панган, режим bootstrap). */
-export const personalExpenses: PersonalExpense[] = [
-  { item: "Домик (аренда)", thbPerMonth: 27000 },
-  { item: "Еда", thbPerMonth: 20000 },
-  { item: "Виза (border run ~раз/мес)", thbPerMonth: 8000, note: "старая компания закрывается → нет визы; проверить DTV" },
-  { item: "Бензин", thbPerMonth: 5000 },
-  { item: "Спортзал", thbPerMonth: 2700 },
-  { item: "Прочее (электр./вода/связь/здоровье)", thbPerMonth: 5000, estimate: true },
-];
+/**
+ * Личные расходы основателя в месяц (Панган, режим bootstrap).
+ * 🔒 ПРИВАТНО: реальные суммы НЕ в публичном репо — они в приватной Google-таблице,
+ * лист `Personal` (item | thb | estimate | note). Здесь пусто; дашборд подставляет
+ * значения из таблицы (см. loadPersonalFromSheet). Fallback без таблицы — пусто.
+ */
+export const personalExpenses: PersonalExpense[] = [];
 
-/** Наличные на руках сейчас (THB). Источник — личный проект «Сам себе Я». */
-export const cashOnHand = 20000;
+/** Наличные на руках (THB). 🔒 Приватно: реальное — лист `Runway` таблицы (cash). */
+export const cashOnHand = 0;
 
-/** Дебиторка — мне должны (THB). Источник: ~/Сам себе Я/finances/долги-серёжи.md. */
+/** Дебиторка — мне должны (THB). 🔒 Приватно: реальное — лист `Receivables` таблицы. */
 export type Receivable = {
   from: string;
   thb: number;
@@ -154,14 +152,7 @@ export type Receivable = {
   note?: string;
 };
 
-export const receivables: Receivable[] = [
-  // Серёжа · доля Circle 114 457 ฿ — ✅ возвращён 16.06.2026 (убран из дебиторки)
-  { from: "Серёжа · дом Игоря", thb: 325000, due: "2026-09-01", status: "expected", note: "ближайший крупный — за 2 нед до 01.09 напомнить" },
-  { from: "Серёжа · Африкантес", thb: 187500, due: "2026-12-31", status: "expected" },
-  { from: "Серёжа · проект Макса", thb: 100000, due: "2026-12-31", status: "expected" },
-  { from: "Серёжа · Эдик/Вова", thb: 45000, due: "2026-12-31", status: "expected" },
-  { from: "Серёжа · 12 рай (Пи Ну)", thb: 30000, due: "2026-12-31", status: "expected" },
-];
+export const receivables: Receivable[] = [];
 
 /** Вся дебиторка, THB. */
 export function receivablesTotal(rec: Receivable[] = receivables): number {
@@ -193,6 +184,50 @@ export function combinedBurnMonthly(
 export function runwayMonths(cash: number, burn: number): number | null {
   if (cash <= 0 || burn <= 0) return null;
   return cash / burn;
+}
+
+/**
+ * Текущий регулярный доход в месяц (THB). 0 — pre-revenue (старая компания
+ * закрывается, у RW ещё нет сделок). Может прийти из таблицы (лист Runway).
+ */
+export const monthlyIncome = 0;
+
+/** Чистый отток в месяц: burn − доход (положительное = проедание наличных). */
+export function netBurnMonthly(
+  subs: Subscription[] = subscriptions,
+  exp: PersonalExpense[] = personalExpenses,
+  income: number = monthlyIncome,
+): number {
+  return combinedBurnMonthly(subs, exp) - income;
+}
+
+/**
+ * Дата, когда наличные кончатся при заданном чистом оттоке/мес. null если
+ * оттока нет (доход ≥ burn) или нет наличных. Месяц ≈ 30.44 дня.
+ */
+export function cashOutDate(
+  cash: number,
+  netBurnPerMonth: number,
+  from: Date = new Date(),
+): Date | null {
+  if (cash <= 0 || netBurnPerMonth <= 0) return null;
+  const days = (cash / netBurnPerMonth) * 30.44;
+  const d = new Date(from);
+  d.setDate(d.getDate() + Math.round(days));
+  return d;
+}
+
+/** Рычаги экономии (THB/мес), которые можно включить в режиме bootstrap. */
+export type SavingLever = { label: string; thbPerMonth: number; note?: string };
+export const savingsLevers: SavingLever[] = [
+  { label: "Виза → DTV (вместо border run)", thbPerMonth: 8000, note: "нужен барьер 500k на счету 3 мес" },
+  { label: "Claude Max → Pro", thbPerMonth: 3650, note: "движок остаётся, лимит меньше" },
+  { label: "Еда: готовка вместо кафе", thbPerMonth: 6000, note: "оценка" },
+];
+
+/** Суммарная экономия при включении всех рычагов, THB/мес. */
+export function leversTotal(lev: SavingLever[] = savingsLevers): number {
+  return lev.reduce((s, l) => s + l.thbPerMonth, 0);
 }
 
 // ── Хелперы расчёта ────────────────────────────────────────────────────────

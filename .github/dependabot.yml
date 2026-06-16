@@ -1,0 +1,18 @@
+version: 2
+updates:
+  # npm-зависимости сайта. Minor/patch собираются в один PR, чтобы не плодить
+  # шум; major идут отдельными PR (могут ломать). npm audit (security-audit.yml)
+  # отдельно стережёт уязвимости — Dependabot держит версии свежими в принципе.
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    groups:
+      npm-minor-patch:
+        update-types: ["minor", "patch"]
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"

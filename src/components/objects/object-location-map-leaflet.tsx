@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup, Circle, Polygon, Polyline, AttributionControl, useMapEvents } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, Circle, Polygon, Polyline, Pane, AttributionControl, useMapEvents } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { LocateFixed, Maximize2, Minimize2, Ruler } from "lucide-react";
@@ -12,9 +12,13 @@ import {
   SATELLITE_TILE_URL,
   SATELLITE_ATTRIBUTION,
   SATELLITE_MAX_NATIVE_ZOOM,
+  TERRAIN_RELIEF_TILE_URL,
+  TERRAIN_RELIEF_ATTRIBUTION,
+  TERRAIN_RELIEF_MAX_NATIVE_ZOOM,
   TERRAIN_TILE_URL,
   TERRAIN_ATTRIBUTION,
   TERRAIN_MAX_NATIVE_ZOOM,
+  TERRAIN_HILLSHADE_OPACITY,
   PARCEL_TILE_URL,
   PARCEL_MIN_ZOOM,
   PARCEL_MAX_NATIVE_ZOOM,
@@ -120,9 +124,13 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
 
   const hasPolygon = (plotPolygon?.length ?? 0) >= 3;
   // Restore the visitor's last layer choice; otherwise a contour reads best
-  // over imagery, so default to satellite when one is present.
+  // over imagery, so default to satellite when one is present, else plain map.
+  // Never *open* in terrain here: relief is native only to z13, so at the
+  // parcel zoom this map uses it's blurry — it stays a manual toggle only.
   const prefs = useRef<Partial<LayerPrefs>>(loadLayerPrefs()).current;
-  const [base, setBase] = useState<BaseLayer>(prefs.base ?? (hasPolygon ? "sat" : "map"));
+  const initialBase: BaseLayer =
+    prefs.base && prefs.base !== "terrain" ? prefs.base : hasPolygon ? "sat" : "map";
+  const [base, setBase] = useState<BaseLayer>(initialBase);
   const [parcels, setParcels] = useState(prefs.parcels ?? false);
   const [zoning, setZoning] = useState(prefs.zoning ?? false);
   const [poi, setPoi] = useState(prefs.poi ?? false);
@@ -249,13 +257,30 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
             maxZoom={MAX_ZOOM}
           />
         ) : base === "terrain" ? (
-          <TileLayer
-            key="base-terrain"
-            attribution={TERRAIN_ATTRIBUTION}
-            url={TERRAIN_TILE_URL}
-            maxNativeZoom={TERRAIN_MAX_NATIVE_ZOOM}
-            maxZoom={MAX_ZOOM}
-          />
+          // Shaded-relief base + hillshade (multiply) — see tiles.ts. Custom
+          // panes keep the shade below the zoning/parcel overlays (tilePane,
+          // z 200) so it only multiplies against the relief, not the overlays.
+          <>
+            <Pane name="terrainBase" style={{ zIndex: 190 }}>
+              <TileLayer
+                key="base-relief"
+                attribution={TERRAIN_RELIEF_ATTRIBUTION}
+                url={TERRAIN_RELIEF_TILE_URL}
+                maxNativeZoom={TERRAIN_RELIEF_MAX_NATIVE_ZOOM}
+                maxZoom={MAX_ZOOM}
+              />
+            </Pane>
+            <Pane name="terrainShade" style={{ zIndex: 195, mixBlendMode: "multiply" }}>
+              <TileLayer
+                key="base-hillshade"
+                attribution={TERRAIN_ATTRIBUTION}
+                url={TERRAIN_TILE_URL}
+                maxNativeZoom={TERRAIN_MAX_NATIVE_ZOOM}
+                maxZoom={MAX_ZOOM}
+                opacity={TERRAIN_HILLSHADE_OPACITY}
+              />
+            </Pane>
+          </>
         ) : (
           <TileLayer
             key="base-map"

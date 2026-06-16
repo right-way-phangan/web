@@ -28,16 +28,38 @@ export const SATELLITE_ATTRIBUTION =
 export const SATELLITE_MAX_NATIVE_ZOOM = 19;
 
 /**
- * Terrain / hillshade basemap — Esri World Hillshade. Shaded relief makes plot
- * slope read at a glance (slope matters for land buyers). Same reliable Esri
- * infra as the satellite layer, no key, {z}/{y}/{x}. Native to ~z16; Leaflet
- * upscales past that.
+ * Terrain layer — a two-tile composite of Esri relief, built in the map
+ * components. Goal (per user feedback): relief is the star — strong and clean,
+ * land vs. water obvious, and nothing else on it (no roads, no labels). An
+ * earlier OpenTopoMap base was dropped: its roads/contours/Thai labels buried
+ * the relief and read as clutter.
+ *
+ *  1. BASE — Esri World Shaded Relief (below): coloured shaded relief on land +
+ *     a flat blue ocean, so the coastline / land↔water boundary reads at a
+ *     glance. No labels, no roads.
+ *  2. SHADE — Esri World Hillshade (above, `mix-blend-mode: multiply`): darkens
+ *     the slopes so ridges and valleys pop. Multiply barely touches the flat
+ *     ocean, so the sea stays blue.
+ *
+ * Both are SRTM-derived and native only to z13 over Koh Phangan (z14+ return a
+ * grey "Map data not yet available" placeholder — verified 2026-06-16), so
+ * maxNativeZoom is 13: Leaflet upscales the z13 relief for closer zooms (soft,
+ * but relief reads fine). Sharp close-ups are the satellite layer's job.
  */
+export const TERRAIN_RELIEF_TILE_URL =
+  "https://server.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}";
+export const TERRAIN_RELIEF_ATTRIBUTION =
+  'Relief &copy; <a href="https://www.esri.com/">Esri</a>';
+export const TERRAIN_RELIEF_MAX_NATIVE_ZOOM = 13;
+
 export const TERRAIN_TILE_URL =
   "https://server.arcgisonline.com/ArcGIS/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}";
 export const TERRAIN_ATTRIBUTION =
   "Hillshade &copy; <a href=\"https://www.esri.com/\">Esri</a>, USGS, NGA";
-export const TERRAIN_MAX_NATIVE_ZOOM = 16;
+export const TERRAIN_MAX_NATIVE_ZOOM = 13;
+// Strength of the multiply hillshade over the shaded-relief base. ~0.6 makes
+// slopes pop without darkening the blue ocean.
+export const TERRAIN_HILLSHADE_OPACITY = 0.6;
 
 /**
  * DOL cadastral parcel outlines (โฉนด boundaries) — Longdo's dol_hd layer (the

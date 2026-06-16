@@ -12,7 +12,15 @@
  * ENV (Vercel): GOOGLE_SA_EMAIL, GOOGLE_SA_PRIVATE_KEY, FINANCE_SHEET_ID.
  */
 import { SignJWT, importPKCS8 } from "jose";
-import type { Subscription, LedgerEntry, Currency, Period, SubStatus } from "./finance";
+import type {
+  Subscription,
+  LedgerEntry,
+  Currency,
+  Period,
+  SubStatus,
+  PersonalExpense,
+  Receivable,
+} from "./finance";
 
 const SHEET_ID =
   process.env.FINANCE_SHEET_ID ?? "15IieST1ekdkHbUuJo_gLcH0JX8fdLW3i2nHvVbDrs0E";
@@ -139,4 +147,74 @@ export async function loadFinanceFromSheet(): Promise<SheetFinance | null> {
   } catch {
     return null;
   }
+}
+
+/** Один диапазон значений из таблицы. null при ошибке/отсутствии листа. */
+async function getRange(token: string, range: string): Promise<string[][] | null> {
+  try {
+    const res = await fetch(
+      `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(range)}`,
+      { headers: { Authorization: `Bearer ${token}` }, next: { revalidate: 60 } },
+    );
+    if (!res.ok) return null;
+    return ((await res.json()) as { values?: string[][] }).values ?? [];
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * 🔒 Приватные личные числа runway из таблицы — чтобы реальные суммы НЕ лежали
+ * в публичном репо и правились без редеплоя. Необязательные листы:
+ *  • `Runway`      — A: ключ (`cash`/`income`), B: сумма ฿
+ *  • `Personal`    — A: статья, B: ฿/мес, C: оценка (да/true), D: примечание
+ *  • `Receivables` — A: кто, B: ฿, C: срок (ISO), D: статус (overdue/expected), E: примечание
+ * Любой лист отсутствует / нет env → его часть просто не подставится (fallback —
+ * пустые значения из кода). Каждый лист читается отдельным запросом (частичная
+ * настройка не ломает остальное и не трогает OpEx/Ledger).
+ */
+export type SheetPersonal = {
+  cashOnHand?: number;
+  monthlyIncome?: number;
+  personalExpenses?: PersonalExpense[];
+  receivables?: Receivable[];
+};
+
+export async function loadRunwayFromSheet(): Promise<SheetPersonal | null> {
+  const token = await getAccessToken();
+  if (!token) return null;
+  const out: SheetPersonal = {};
+
+  const runwayRows = await getRange(token, "Runway!A1:B20"); // key-value, без заголовка
+  for (const r of runwayRows ?? []) {
+    const key = (r[0] ?? "").trim().toLowerCase();
+    if (!r[1]) continue;
+    if (key.includes("cash") || key.includes("налич")) out.cashOnHand = num(r[1]);
+    else if (key.includes("income") || key.includes("доход")) out.monthlyIncome = num(r[1]);
+  }
+
+  const personalRows = await getRange(token, "Personal!A2:D200");
+  const personal = (personalRows ?? [])
+    .filter((r) => (r[0] ?? "").trim() && !/^итого/i.test(r[0]))
+    .map((r) => ({
+      item: r[0] ?? "",
+      thbPerMonth: num(r[1]),
+      estimate: /да|true|yes|оцен/i.test(r[2] ?? "") || undefined,
+      note: (r[3] ?? "").trim() || undefined,
+    }));
+  if (personal.length) out.personalExpenses = personal;
+
+  const recRows = await getRange(token, "Receivables!A2:E200");
+  const recs = (recRows ?? [])
+    .filter((r) => (r[0] ?? "").trim() && !/^итого/i.test(r[0]))
+    .map((r) => ({
+      from: r[0] ?? "",
+      thb: num(r[1]),
+      due: (r[2] ?? "").trim(),
+      status: /overdue|просроч/i.test(r[3] ?? "") ? ("overdue" as const) : ("expected" as const),
+      note: (r[4] ?? "").trim() || undefined,
+    }));
+  if (recs.length) out.receivables = recs;
+
+  return Object.keys(out).length ? out : null;
 }

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Appear } from "@/components/motion/appear";
+import { Magnetic } from "@/components/motion/magnetic";
 
 /**
  * Closing call-to-action — a full-bleed coastal scene that bookends the dark
@@ -23,6 +24,7 @@ export function IslandCta() {
         className="absolute inset-0 bg-gradient-to-t from-panel/90 via-panel/50 to-panel/30"
         aria-hidden
       />
+      <div className="grain-overlay" aria-hidden />
 
       <Appear className="container-prose relative z-10 flex min-h-[55vh] flex-col items-center justify-center py-24 text-center md:min-h-[65vh] md:py-32">
         <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-300">
@@ -38,12 +40,14 @@ export function IslandCta() {
         </p>
 
         <div className="mt-10 flex w-full max-w-sm flex-col gap-3 sm:w-auto sm:max-w-none sm:flex-row sm:gap-4">
-          <Button asChild variant="accent" size="lg">
-            <Link href="/listings">
-              Browse listings
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </Button>
+          <Magnetic>
+            <Button asChild variant="accent" size="lg">
+              <Link href="/listings">
+                Browse listings
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+          </Magnetic>
           <Button
             asChild
             variant="outline"

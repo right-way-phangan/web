@@ -92,7 +92,7 @@ export function Header() {
               href={item.href as Route}
               aria-current={isActive(item.href) ? "page" : undefined}
               className={cn(
-                "whitespace-nowrap text-sm transition-colors",
+                "nav-underline relative whitespace-nowrap text-sm transition-colors",
                 overlay ? "hover:text-brass-300" : "hover:text-brass-500",
                 isActive(item.href)
                   ? overlay

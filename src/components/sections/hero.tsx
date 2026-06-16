@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Magnetic } from "@/components/motion/magnetic";
 import { HeroBackground } from "./hero-background";
 
 export function Hero() {
@@ -25,6 +26,8 @@ export function Hero() {
         className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-cream-100"
         aria-hidden
       />
+      {/* Плёночная зернистость поверх сцены */}
+      <div className="grain-overlay" aria-hidden />
 
       <div className="container-prose relative z-10 flex min-h-[80vh] flex-col justify-center py-24 md:min-h-[88vh] md:py-32">
         {/* Каскадный entrance первого экрана — чистый CSS (.rise-in) со
@@ -56,12 +59,14 @@ export function Hero() {
           className="rise-in mt-12 flex flex-col gap-3 sm:flex-row sm:gap-4"
           style={{ animationDelay: "0.3s" }}
         >
-          <Button asChild variant="primary" size="lg">
-            <Link href="/listings">
-              Browse listings
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </Button>
+          <Magnetic>
+            <Button asChild variant="primary" size="lg">
+              <Link href="/listings">
+                Browse listings
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+          </Magnetic>
           <Button
             asChild
             variant="outline"

@@ -1,6 +1,7 @@
 import "server-only";
 import fs from "node:fs";
 import path from "node:path";
+import { getPublishedGuideSlugs } from "./settings";
 
 /**
  * Внутренний справочник компании (/admin/guide) — «как тут всё работает».
@@ -121,9 +122,30 @@ export function getGuidePage(slug: string): GuidePage | null {
   return readPage(`${slug}.md`);
 }
 
+/**
+ * Страницы с учётом ручной публикации из админки: страница, чей slug снят с
+ * черновика кнопкой «Опубликовать» (оверрайд в app_settings), теряет `draft`.
+ * Так фронтматтер-черновик можно согласовать без правки .md и редеплоя.
+ */
+export async function getResolvedGuidePages(): Promise<GuidePage[]> {
+  const [pages, published] = await Promise.all([
+    Promise.resolve(getGuidePages()),
+    getPublishedGuideSlugs(),
+  ]);
+  if (published.size === 0) return pages;
+  return pages.map((p) =>
+    p.draft && published.has(p.slug) ? { ...p, draft: false } : p,
+  );
+}
+
+/** Опубликована ли страница вручную (оверрайд поверх фронтматтер-черновика). */
+export async function isGuidePagePublished(slug: string): Promise<boolean> {
+  return (await getPublishedGuideSlugs()).has(slug);
+}
+
 /** Сколько страниц-черновиков ждёт проверки — бейдж на пункте «Справочник». */
-export function getGuideDraftCount(): number {
-  return getGuidePages().filter((p) => p.draft).length;
+export async function getGuideDraftCount(): Promise<number> {
+  return (await getResolvedGuidePages()).filter((p) => p.draft).length;
 }
 
 /** Якорь заголовка — должен совпадать с id в GuideArticle (один алгоритм). */
