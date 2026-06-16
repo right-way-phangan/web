@@ -69,6 +69,25 @@
     transform 0.6s ease;
 }
 
+/* Лёгкий entrance над сгибом (hero) — чисто на CSS, поэтому работает и без JS:
+   анимация проигрывается и заканчивается видимой (fill-mode both), а никакой
+   inline opacity:0 не оставляет no-JS/AT-пользователей с невидимым контентом.
+   Глобальный prefers-reduced-motion выше сводит длительность к 0.01ms → мгновенно
+   виден. Задержка для каскада — через inline style animationDelay. */
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise-in {
+  animation: riseIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 @layer components {
   .container-prose {
     @apply mx-auto px-6 md:px-8 max-w-container;
@@ -94,9 +113,11 @@
   body {
     background: #fff;
   }
-  .reveal {
+  .reveal,
+  .rise-in {
     opacity: 1 !important;
     transform: none !important;
+    animation: none !important;
   }
   a {
     text-decoration: none;
