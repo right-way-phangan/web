@@ -26,7 +26,7 @@ export function AvailabilityBar({
       aria-valuemax={total}
     >
       <div
-        className="h-full rounded-full bg-brass-500/70 transition-[width]"
+        className="h-full rounded-full bg-brass-500/70 transition-[width] dark:bg-jade/85"
         style={{ width: `${soldPct}%` }}
       />
     </div>

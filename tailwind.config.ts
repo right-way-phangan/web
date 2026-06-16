@@ -50,9 +50,13 @@ const config: Config = {
           DEFAULT: withVar("--c-panel"),
           fg: withVar("--c-panel-fg"),
         },
-        // Brand emerald — dark-theme structural accent (nav/links, badges,
-        // dividers, focus). Light value ≈ brand forest; dark = brighter.
-        emerald: withVar("--c-emerald"),
+        // Brand jade — dark-theme structural accent (kant, badges, duotone,
+        // header edge). Named `jade` (not `emerald`) to avoid clobbering
+        // Tailwind's default emerald-* scale used for success states in admin.
+        jade: withVar("--c-emerald"),
+        // Reserved orange — urgency/scarcity only (e.g. "N units left"). Dosed
+        // so it stays an alert signal, not a second brand accent.
+        urgent: withVar("--c-orange"),
       },
       fontFamily: {
         // loaded via next/font in layout.tsx

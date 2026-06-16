@@ -79,7 +79,7 @@ export function Header() {
         isHome ? "fixed" : "sticky",
         overlay
           ? "border-transparent bg-transparent"
-          : "border-forest-500/10 bg-cream-100/80 backdrop-blur-md",
+          : "border-forest-500/10 bg-cream-100/80 backdrop-blur-md dark:border-jade/25 dark:bg-cream-100/60 dark:backdrop-blur-xl dark:shadow-[0_8px_24px_-16px_rgba(0,0,0,0.7)]",
       )}
     >
       <div className="container-prose flex h-16 items-center justify-between md:h-20">

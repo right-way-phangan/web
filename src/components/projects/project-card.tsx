@@ -105,7 +105,7 @@ export function ProjectCard({ project, href, availability }: Props) {
               className={cn(
                 "text-xs",
                 (available ?? 0) > 0 && (available ?? 0) <= 2
-                  ? "font-medium text-brass-600"
+                  ? "font-medium text-brass-600 dark:text-urgent"
                   : "text-forest-500/60",
               )}
             >
