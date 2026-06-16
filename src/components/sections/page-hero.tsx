@@ -48,7 +48,7 @@ export function PageHero({ eyebrow, title, lede, image, imageAlt }: Props) {
   }
 
   return (
-    <header className="container-prose pt-16 md:pt-24">
+    <header className="container-prose pt-16 md:pt-24 aura">
       <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
         {eyebrow}
       </p>

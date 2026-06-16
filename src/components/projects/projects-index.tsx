@@ -13,7 +13,7 @@ export async function ProjectsIndex({ locale }: { locale: Locale }) {
   const allObjects = await getAllObjects();
 
   return (
-    <section className="container-prose py-10 md:py-14">
+    <section className="container-prose py-10 md:py-14 aura">
       <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">{t.eyebrow}</p>
       <h1 className="mt-3 max-w-3xl text-balance">{t.indexTitle}</h1>
       <p className="mt-3 max-w-2xl text-base text-forest-500/70">{t.indexLede}</p>
