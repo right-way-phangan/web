@@ -17,6 +17,7 @@ import { MobileCtaBar } from "@/components/objects/mobile-cta-bar";
 import { ObjectGallery } from "@/components/objects/object-gallery";
 import { VettedBadge } from "@/components/objects/vetted-badge";
 import { SpecTable } from "@/components/objects/spec-table";
+import { BuildingRules } from "@/components/objects/building-rules";
 import { InvestmentHighlights } from "@/components/objects/investment-highlights";
 import { InquiryForm } from "@/components/objects/inquiry-form";
 import { ObjectLocationMap } from "@/components/objects/object-location-map";
@@ -297,18 +298,7 @@ export default async function ObjectPage({ params }: Props) {
               chips={<DistanceChips lat={object.lat} lng={object.lng} locale="en" />}
             />
 
-            {object.buildingRules ? (
-              <Appear>
-                <section>
-                  <h2 className="font-serif text-3xl text-forest-900">
-                    Building rules
-                  </h2>
-                  <p className="mt-4 max-w-prose text-base leading-relaxed text-forest-500/85 whitespace-pre-line">
-                    {object.buildingRules}
-                  </p>
-                </section>
-              </Appear>
-            ) : null}
+            <BuildingRules object={object} locale="en" />
           </div>
 
           {/* Right: sticky inquiry form on desktop, below content on mobile */}
