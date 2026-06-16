@@ -96,16 +96,20 @@ export function ObjectCard({ object, priority = false }: Props) {
         }
       >
         {object.coverImage ? (
-          <Image
-            src={object.coverImage}
-            alt={object.titleEn}
-            fill
-            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-            placeholder="blur"
-            blurDataURL={BLUR_PLACEHOLDER}
-            priority={priority}
-            className="object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08] motion-reduce:group-hover:scale-100"
-          />
+          // Обёртка крупнее контейнера несёт scroll-parallax (.cover-parallax);
+          // зум при наведении — на самом <img>, чтобы трансформации не конфликтовали.
+          <div className="cover-parallax absolute -inset-[8%]">
+            <Image
+              src={object.coverImage}
+              alt={object.titleEn}
+              fill
+              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+              placeholder="blur"
+              blurDataURL={BLUR_PLACEHOLDER}
+              priority={priority}
+              className="object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08] motion-reduce:group-hover:scale-100"
+            />
+          </div>
         ) : (
           <div className="absolute inset-0 flex items-center justify-center text-forest-500/30 transition-transform duration-500 group-hover:scale-105">
             <TypeIcon className="h-16 w-16" strokeWidth={1} />
