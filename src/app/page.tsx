@@ -4,7 +4,6 @@ import { HeroStats } from "@/components/sections/hero-stats";
 import { Values } from "@/components/sections/values";
 import { FeaturedListings } from "@/components/sections/featured-listings";
 import { IslandCta } from "@/components/sections/island-cta";
-import { Reveal } from "@/components/sections/reveal";
 
 export const metadata: Metadata = {
   alternates: {
@@ -21,12 +20,8 @@ export default function HomePage() {
     <>
       <Hero />
       <HeroStats locale="en" />
-      <Reveal>
-        <Values />
-      </Reveal>
-      <Reveal>
-        <FeaturedListings />
-      </Reveal>
+      <Values />
+      <FeaturedListings />
       <IslandCta />
     </>
   );

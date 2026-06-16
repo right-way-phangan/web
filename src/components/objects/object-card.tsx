@@ -83,7 +83,7 @@ export function ObjectCard({ object, priority = false }: Props) {
         href={localeHref(locale, `/object/${object.rwNumber}`) as Route}
         target="_blank"
         rel="noopener"
-        className="flex h-full flex-col overflow-hidden rounded-sm border border-forest-500/10 bg-cream-50 transition-all duration-300 hover:-translate-y-0.5 hover:border-forest-500/25 hover:shadow-lg hover:shadow-forest-900/10 motion-reduce:hover:translate-y-0"
+        className="flex h-full flex-col overflow-hidden rounded-sm border border-forest-500/10 bg-cream-50 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1.5 hover:border-forest-500/25 hover:shadow-2xl hover:shadow-forest-900/15 motion-reduce:hover:translate-y-0"
       >
       <div
         className="relative aspect-[4/3] overflow-hidden bg-forest-500/5"
@@ -104,7 +104,7 @@ export function ObjectCard({ object, priority = false }: Props) {
             placeholder="blur"
             blurDataURL={BLUR_PLACEHOLDER}
             priority={priority}
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08] motion-reduce:group-hover:scale-100"
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center text-forest-500/30 transition-transform duration-500 group-hover:scale-105">

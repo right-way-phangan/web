@@ -5,6 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { MessengerFab } from "@/components/layout/messenger-fab";
+import { ScrollProgress } from "@/components/motion/scroll-progress";
 import { SavedProvider } from "@/lib/saved/saved-context";
 import { OrganizationJsonLd } from "@/components/seo/organization-json-ld";
 import { WebsiteJsonLd } from "@/components/seo/website-json-ld";
@@ -128,6 +129,7 @@ export default function RootLayout({
         <OrganizationJsonLd siteUrl={siteUrl} />
         <WebsiteJsonLd siteUrl={siteUrl} />
         <SavedProvider>
+          <ScrollProgress />
           <Header />
           <main id="main-content" className="flex-1">{children}</main>
           <Footer />

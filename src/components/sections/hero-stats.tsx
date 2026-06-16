@@ -1,5 +1,6 @@
 import { getPublicObjects } from "@/lib/data/objects";
 import { getHomeDict, type Locale } from "@/lib/i18n/dictionaries";
+import { AnimatedNumber } from "@/components/motion/animated-number";
 
 /**
  * Thin proof strip under the hero: live counts from the catalog plus our
@@ -20,9 +21,10 @@ export async function HeroStats({ locale }: { locale: Locale }) {
   }
   if (listings === 0) return null;
 
-  const stats: Array<{ value: string; label: string }> = [
-    { value: String(listings), label: t.listings },
-    { value: String(districts), label: t.districts },
+  // count — числовое значение анимируется счётчиком; иначе показываем текст.
+  const stats: Array<{ value: string; count?: number; label: string }> = [
+    { value: String(listings), count: listings, label: t.listings },
+    { value: String(districts), count: districts, label: t.districts },
     { value: t.replyValue, label: t.reply },
   ];
 
@@ -31,7 +33,13 @@ export async function HeroStats({ locale }: { locale: Locale }) {
       <div className="container-prose flex flex-wrap items-start justify-center gap-x-14 gap-y-4 py-6 md:py-8">
         {stats.map((s) => (
           <div key={s.label} className="text-center">
-            <p className="num text-2xl text-forest-900 md:text-3xl">{s.value}</p>
+            <p className="num text-2xl text-forest-900 md:text-3xl">
+              {s.count !== undefined ? (
+                <AnimatedNumber value={s.count} />
+              ) : (
+                s.value
+              )}
+            </p>
             <p className="mt-1 text-[11px] font-medium uppercase tracking-[0.2em] text-forest-500/70">
               {s.label}
             </p>
