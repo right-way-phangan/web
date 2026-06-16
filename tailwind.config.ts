@@ -50,6 +50,9 @@ const config: Config = {
           DEFAULT: withVar("--c-panel"),
           fg: withVar("--c-panel-fg"),
         },
+        // Brand emerald — dark-theme structural accent (nav/links, badges,
+        // dividers, focus). Light value ≈ brand forest; dark = brighter.
+        emerald: withVar("--c-emerald"),
       },
       fontFamily: {
         // loaded via next/font in layout.tsx

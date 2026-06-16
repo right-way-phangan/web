@@ -81,6 +81,8 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
 
       <HeroStats locale={locale} />
 
+      <div className="container-prose"><hr className="section-divider" /></div>
+
       {/* Values */}
       <section className="container-prose py-24 md:py-32">
         <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
@@ -103,6 +105,8 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
           })}
         </div>
       </section>
+
+      <div className="container-prose"><hr className="section-divider" /></div>
 
       <Reveal>
         <FeaturedListings />
