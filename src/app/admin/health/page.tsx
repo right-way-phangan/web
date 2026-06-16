@@ -83,9 +83,8 @@ export default async function HealthPage() {
                     {c.objects.map((o) => (
                       <Link
                         key={o.rwNumber}
-                        href={`/object/${o.rwNumber}` as Route}
-                        target="_blank"
-                        title={o.titleEn}
+                        href={{ pathname: "/admin/objects", query: { q: o.rwNumber } }}
+                        title={`${o.titleEn} — открыть в Базе объектов для правки`}
                         className="inline-block rounded-full bg-forest-900/5 px-2.5 py-1 text-xs text-forest-900/75 transition hover:bg-forest-900/10 hover:text-forest-900"
                       >
                         {o.rwNumber}
@@ -99,11 +98,11 @@ export default async function HealthPage() {
         )}
 
         <p className="mt-8 text-xs text-forest-900/45">
-          Править объекты — в{" "}
+          Клик по объекту открывает его в{" "}
           <Link href={"/admin/objects" as Route} className="text-forest-500 hover:text-brass-500">
             Базе объектов
-          </Link>
-          . Как заводить и какие поля обязательны — в{" "}
+          </Link>{" "}
+          с правкой прямо в строке (✎). Как заводить и какие поля обязательны — в{" "}
           <Link href={"/admin/guide/objects" as Route} className="text-forest-500 hover:text-brass-500">
             справочнике
           </Link>
