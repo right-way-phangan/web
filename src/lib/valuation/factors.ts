@@ -105,6 +105,7 @@ export const FACTOR_DEFS: FactorDef[] = [
   { key: "income.cap_rate", group: "income", label: "Ставка капитализации", value: 0.07, note: "NOI / стоимость; Панган ~6–8%" },
   { key: "income.adr_pool_premium", group: "income", label: "ADR-премия за бассейн", value: 1.25, note: "Демпфировано с измеренных +42%" },
   { key: "income.adr_seaview_premium", group: "income", label: "ADR-премия за вид на море", value: 1.2, note: "Демпфировано с измеренных +59%" },
+  { key: "income.longterm_factor", group: "income", label: "Долгосрочная аренда, доля от посуточной выручки", value: 0.65, note: "Помесячный контракт даёт меньше валовой выручки, чем посуточно, но без простоев/затрат на смену гостей" },
 
   // Затратный метод (вилла/дом)
   { key: "cost.build_sqm", group: "cost", label: "Стройка, THB за м²", value: 28000, note: "Качественная вилла под ключ" },

@@ -123,6 +123,28 @@ export interface MethodResult {
   rough?: boolean;
 }
 
+/**
+ * Прогноз арендной ставки — «за сколько можно сдать». Отдельный выход рядом с
+ * оценкой стоимости: для виллы/дома/кондо — посуточно (Airbnb) и долгосрочно
+ * помесячно; для земли — аренда участка (leasehold-ставка). Все суммы в THB.
+ */
+export interface RentalScenario {
+  /** "short" — посуточно (Airbnb/Booking); "long" — долгосрочный контракт; "land" — аренда участка. */
+  mode: "short" | "long" | "land";
+  label: string;
+  /** Ориентир дохода в месяц (валовый), THB. */
+  monthly: number;
+  /** Ориентир дохода в год (валовый), THB. */
+  annual: number;
+  /** Чистый годовой доход после расходов (только посуточно; иначе не задан). */
+  annualNet?: number;
+  /** Годовая вилка (валовая). */
+  low: number;
+  high: number;
+  basis: string;
+  details: string[];
+}
+
 export interface ValuationResult {
   ok: boolean;
   reason?: string;
@@ -146,6 +168,8 @@ export interface ValuationResult {
     fairNpv?: number;
     rentVerdict?: "fair" | "over" | "under";
   };
+  /** Прогноз арендной ставки («за сколько сдать»): сценарии + оговорки. */
+  rental?: { scenarios: RentalScenario[]; caveats: string[] };
   askingVerdict?: { askingPrice: number; deltaPct: number; verdict: "fair" | "over" | "under" };
   /** Ликвидность сегмента: типичное время на рынке у похожих объявлений (не цена). */
   liquidity?: { medianMonths: number; staleSharePct: number; n: number; verdict: "fast" | "normal" | "slow" };
@@ -391,6 +415,8 @@ function round1k(v: number): number {
 }
 
 const fmtM = (v: number) => `${(v / 1e6).toFixed(2)}M`;
+const fmt0 = (v: number) => Math.round(v).toLocaleString("en-US");
+const round100 = (v: number) => Math.round(v / 100) * 100;
 
 // ---- Поправка на время + вес компса (улучшения 2026-06-13) ----
 
@@ -800,27 +826,30 @@ function comparativeBuilt(
   return res;
 }
 
-// ---- Доходный метод (вилла/дом/кондо) ----
+// ---- Подбор ADR (общий для доходного метода и прогноза аренды) ----
 
-function incomeMethod(subject: ValuationSubject, data: EngineData, caveats: string[]): MethodResult {
-  const f = data.factors;
-  const res: MethodResult = {
-    key: "income",
-    label: "Доходный (ADR × загрузка / cap rate)",
-    available: false,
-    weight: f["weight.income"] ?? 0.35,
-    details: [],
-  };
-  const m = data.market;
-  if (!m || m.districts.length === 0) {
-    res.details.push("Нет данных аналитики аренды.");
-    return res;
-  }
-  if (!subject.bedrooms || subject.bedrooms <= 0) {
-    res.details.push("Не указано число спален — метод недоступен.");
-    return res;
-  }
-  // ADR: район+спальни → район → остров по спальням → остров
+interface AdrPick {
+  /** Базовая медианная ставка за ночь, THB. */
+  adr: number;
+  /** Ставка с премиями за фичи (бассейн/вид). */
+  adrAdj: number;
+  basis: string;
+  n: number;
+}
+
+/**
+ * Подбор посуточной ставки (ADR) по аналитике аренды: район+спальни → район →
+ * остров по спальням → общий медианный ADR острова. Накидывает редактируемые
+ * премии за бассейн/вид на море (медианы их не учитывают). null, когда нет
+ * аналитики или спален. Оговорки про огрубление базы кладутся в `caveats`.
+ */
+function pickAdr(
+  subject: ValuationSubject,
+  m: RentalMarket,
+  f: FactorMap,
+  caveats: string[],
+): AdrPick | null {
+  if (!subject.bedrooms || subject.bedrooms <= 0) return null;
   let adr: number | null = null;
   let basis = "";
   let n = 0;
@@ -859,15 +888,40 @@ function incomeMethod(subject: ValuationSubject, data: EngineData, caveats: stri
       }
     }
   }
-  if (!adr) {
-    res.details.push("Не удалось подобрать ADR.");
-    return res;
-  }
-  // Премии к ADR за фичи (медианы их не учитывают) — только если базис не "район+спальни с фичами"
+  if (!adr) return null;
+  // Премии к ADR за фичи (медианы их не учитывают).
   let adrAdj = adr;
   if (subject.pool) adrAdj *= f["income.adr_pool_premium"] ?? 1.25;
   if (subject.seaView) adrAdj *= f["income.adr_seaview_premium"] ?? 1.2;
+  return { adr, adrAdj, basis, n };
+}
 
+// ---- Доходный метод (вилла/дом/кондо) ----
+
+function incomeMethod(subject: ValuationSubject, data: EngineData, caveats: string[]): MethodResult {
+  const f = data.factors;
+  const res: MethodResult = {
+    key: "income",
+    label: "Доходный (ADR × загрузка / cap rate)",
+    available: false,
+    weight: f["weight.income"] ?? 0.35,
+    details: [],
+  };
+  const m = data.market;
+  if (!m || m.districts.length === 0) {
+    res.details.push("Нет данных аналитики аренды.");
+    return res;
+  }
+  if (!subject.bedrooms || subject.bedrooms <= 0) {
+    res.details.push("Не указано число спален — метод недоступен.");
+    return res;
+  }
+  const pick = pickAdr(subject, m, f, caveats);
+  if (!pick) {
+    res.details.push("Не удалось подобрать ADR.");
+    return res;
+  }
+  const { adr, adrAdj, basis, n } = pick;
   const occBase = f["income.occupancy"] ?? m.meta.occupancy.base;
   const opex = f["income.opex_pct"] ?? 0.35;
   const cap = f["income.cap_rate"] ?? 0.07;
@@ -887,6 +941,125 @@ function incomeMethod(subject: ValuationSubject, data: EngineData, caveats: stri
   );
   caveats.push("Загрузка — модельное допущение (Airbnb её не публикует); вилка = сценарии 40/55/70%.");
   return res;
+}
+
+// ---- Прогноз аренды: вилла/дом/кондо ----
+
+const DAYS_PER_MONTH = 30.4;
+
+/**
+ * «За сколько сдать» застроенный объект: посуточно (ADR × загрузка) и
+ * долгосрочно помесячно. Долгосрочная ставка выводится как доля годовой
+ * посуточной выручки (`income.longterm_factor`): ниже посуточной, но без
+ * простоев и затрат на смену гостей. null, когда нет аналитики/спален.
+ */
+function rentalBuilt(
+  subject: ValuationSubject,
+  data: EngineData,
+): { scenarios: RentalScenario[]; caveats: string[] } | null {
+  const f = data.factors;
+  const m = data.market;
+  if (!m || m.districts.length === 0) return null;
+  const caveats: string[] = [];
+  const pick = pickAdr(subject, m, f, caveats);
+  if (!pick) return null;
+  const { adr, adrAdj, basis } = pick;
+
+  const occBase = f["income.occupancy"] ?? m.meta.occupancy.base;
+  const occLow = m.meta.occupancy.conservative;
+  const occHigh = m.meta.occupancy.high;
+  const opex = f["income.opex_pct"] ?? 0.35;
+
+  const annualShort = adrAdj * 365 * occBase;
+  const monthlyShort = adrAdj * DAYS_PER_MONTH * occBase;
+  const scenarios: RentalScenario[] = [
+    {
+      mode: "short",
+      label: "Посуточно (Airbnb/Booking)",
+      monthly: round1k(monthlyShort),
+      annual: round1k(annualShort),
+      annualNet: round1k(annualShort * (1 - opex)),
+      low: round1k(adrAdj * 365 * occLow),
+      high: round1k(adrAdj * 365 * occHigh),
+      basis,
+      details: [
+        `${basis}: ${Math.round(adr)} THB/ночь${adrAdj !== adr ? ` → с премиями ${Math.round(adrAdj)}` : ""}.`,
+        `Загрузка ${Math.round(occBase * 100)}% → ~${fmt0(monthlyShort)} THB/мес, ${fmtM(annualShort)}/год валовыми.`,
+        `После расходов ${Math.round(opex * 100)}% → ${fmtM(annualShort * (1 - opex))}/год чистыми.`,
+      ],
+    },
+  ];
+
+  const ltFactor = f["income.longterm_factor"] ?? 0.65;
+  if (ltFactor > 0) {
+    const annualLong = annualShort * ltFactor;
+    scenarios.push({
+      mode: "long",
+      label: "Долгосрочно (контракт 6–12 мес)",
+      monthly: round1k(annualLong / 12),
+      annual: round1k(annualLong),
+      low: round1k(adrAdj * 365 * occLow * ltFactor),
+      high: round1k(adrAdj * 365 * occHigh * ltFactor),
+      basis: `${Math.round(ltFactor * 100)}% годовой посуточной выручки`,
+      details: [
+        `~${fmt0(annualLong / 12)} THB/мес по долгосрочному контракту.`,
+        "Ниже посуточной выручки, но стабильно и без простоев/затрат на смену гостей.",
+      ],
+    });
+  }
+
+  caveats.push("Загрузка — модельное допущение (Airbnb её не публикует); вилка = сценарии загрузки.");
+  caveats.push("Долгосрочная ставка — ориентир от посуточной выручки; реальная зависит от меблировки, сезона и срока.");
+  return { scenarios, caveats };
+}
+
+// ---- Прогноз аренды: земля (leasehold) ----
+
+/**
+ * «За сколько сдать» землю: leasehold-ставка = freehold-база × годовая
+ * доходность ÷ 12. Freehold-база — сделочная цена за рай (perRai × ask_discount),
+ * как в leaseholdBlock. Годовая вилка пропорциональна вилке стоимости участка.
+ */
+function rentalLand(
+  subject: ValuationSubject,
+  perRaiListing: number,
+  listValue: number,
+  low: number,
+  high: number,
+  f: FactorMap,
+): { scenarios: RentalScenario[]; caveats: string[] } {
+  const askDiscount = f["market.ask_discount"] ?? 0.92;
+  const freeholdPerRai = perRaiListing * askDiscount;
+  const yieldYr = f["market.leasehold_yield"] ?? 0.05;
+  const fairMonthPerRai = (freeholdPerRai * yieldYr) / 12;
+  const hasArea = !!(subject.areaRai && subject.areaRai > 0);
+  const area = hasArea ? subject.areaRai! : 1;
+  const monthly = fairMonthPerRai * area;
+  const annual = monthly * 12;
+  const lowR = listValue > 0 ? low / listValue : 0.85;
+  const highR = listValue > 0 ? high / listValue : 1.15;
+  return {
+    scenarios: [
+      {
+        mode: "land",
+        label: hasArea ? "Аренда участка (leasehold)" : "Аренда земли (за рай, leasehold)",
+        monthly: round100(monthly),
+        annual: round1k(annual),
+        low: round1k(annual * lowR),
+        high: round1k(annual * highR),
+        basis: `freehold-база × доходность ${Math.round(yieldYr * 100)}%/год`,
+        details: [
+          `Freehold-база ${fmtM(freeholdPerRai)} за рай × ${Math.round(yieldYr * 100)}%/год → ${fmt0(round100(fairMonthPerRai))} THB/рай/мес.`,
+          hasArea
+            ? `Участок ${subject.areaRai} рай → ~${fmt0(round100(monthly))} THB/мес, ${fmtM(annual)}/год.`
+            : "Укажите площадь — посчитаю ставку за весь участок.",
+        ],
+      },
+    ],
+    caveats: [
+      "Ставка аренды земли — модельная (freehold × leasehold-доходность); реальная зависит от назначения (жильё/коммерция/сельхоз), срока и спроса.",
+    ],
+  };
 }
 
 // ---- Затратный метод (вилла/дом) ----
@@ -1197,6 +1370,12 @@ export function estimate(subject: ValuationSubject, data: EngineData): Valuation
     if (subject.tenure === "Leasehold" || (subject.rentPerRaiMonth ?? 0) > 0) {
       result.leasehold = leaseholdBlock(subject, result.perRai, f, caveats);
     }
+    // «За сколько сдать» землю — всегда, не только для leasehold-сделки.
+    result.rental = rentalLand(subject, result.perRai, listValue, loFinal, hiFinal, f);
+  }
+  if (subjType === "villa" || subjType === "apartment") {
+    const rb = rentalBuilt(subject, data);
+    if (rb) result.rental = rb;
   }
   if (subject.askingPrice && subject.askingPrice > 0) {
     const deltaPct = (subject.askingPrice / listValue - 1) * 100;

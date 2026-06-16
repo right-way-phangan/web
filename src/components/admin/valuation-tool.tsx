@@ -313,6 +313,46 @@ function ResultPanel({
         )}
       </div>
 
+      {r.rental && r.rental.scenarios.length > 0 && (
+        <div className="rounded-sm border border-forest-900/10 bg-white p-5">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+            Аренда — за сколько можно сдать
+          </p>
+          <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {r.rental.scenarios.map((s) => (
+              <div key={s.mode} className="rounded-sm border border-forest-900/10 bg-cream-50/40 p-4">
+                <p className="text-sm font-medium text-forest-900">{s.label}</p>
+                <p className="mt-1 text-xl font-semibold text-forest-900">
+                  {fmt(s.monthly)} <span className="text-xs font-normal text-forest-900/50">/мес</span>
+                </p>
+                <p className="text-xs text-forest-900/50">
+                  {fmtM(s.annual)}/год{s.annualNet != null ? ` · ${fmtM(s.annualNet)} чистыми` : ""}
+                </p>
+                <p className="mt-0.5 text-xs text-forest-900/45">
+                  вилка {fmtM(s.low)} – {fmtM(s.high)}/год
+                </p>
+                <ul className="mt-2 space-y-1">
+                  {s.details.map((d, i) => (
+                    <li key={i} className="text-xs text-forest-900/60">
+                      {d}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          {r.rental.caveats.length > 0 && (
+            <ul className="mt-3 space-y-1">
+              {r.rental.caveats.map((c, i) => (
+                <li key={i} className="text-xs text-forest-900/50">
+                  ⚠ {c}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
+
       {r.leasehold && (
         <div className="rounded-sm border border-forest-900/10 bg-white p-5">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">Leasehold</p>

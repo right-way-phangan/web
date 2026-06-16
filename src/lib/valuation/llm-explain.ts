@@ -85,6 +85,14 @@ function factsBlock(subject: ValuationSubject, r: ValuationResult): string {
         `${l.rentVerdict ? ` — ставка ${l.rentVerdict === "over" ? "выше" : l.rentVerdict === "under" ? "ниже" : "в"} рынка` : ""}.`,
     );
   }
+  if (r.rental?.scenarios.length) {
+    lines.push(
+      "Прогноз аренды: " +
+        r.rental.scenarios
+          .map((s) => `${s.label} ~${s.monthly.toLocaleString()} THB/мес (${fmt(s.annual)}/год)`)
+          .join("; ") + ".",
+    );
+  }
   if (r.askingVerdict) {
     const v = r.askingVerdict;
     lines.push(
