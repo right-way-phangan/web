@@ -977,6 +977,149 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "structures",
     faqQuestion: "What is the difference between superficies, usufruct and a lease for a foreign property buyer in Thailand?",
   },
+  {
+    slug: "bringing-money-into-thailand-fet-form",
+    kbId: "kb-0019",
+    topic: "Costs",
+    title: "Bringing money into Thailand correctly: the FET form, step by step",
+    short:
+      "The Foreign Exchange Transaction form is issued by your Thai bank when foreign currency arrives and converts to baht. For a condo it is mandatory at the Land Office; for a leasehold villa you will need it to repatriate proceeds when you sell. The process is straightforward — but the form must be requested correctly and kept for the life of the investment.",
+    updated: "2026-06-16",
+    body: [
+      "Moving your purchase funds into Thailand sounds simple, but the one step most buyers skip at the time is the one that causes trouble years later: correctly requesting the Foreign Exchange Transaction (FET) form from the receiving Thai bank. Miss this, and repatriating your money when you sell becomes significantly harder.",
+      { h: "What the FET form is" },
+      "The FET form — formerly known as Thor Tor 3 (ต.ท.3) — is an official certificate issued by an authorised Thai bank. It records that foreign currency arrived from abroad, was converted to Thai baht, and was received for a stated purpose. The Bank of Thailand uses it to track inbound foreign exchange. For a property buyer it has two practical functions: it proves the funds came from outside Thailand (a requirement for condo registration), and it is the document you present to your bank when you eventually want to repatriate the sale proceeds.",
+      { h: "When it is required" },
+      {
+        ul: [
+          "**Condominium purchase** — the Land Office will not register a condo in a foreign buyer's name without the original FET form. It is non-negotiable for this transaction.",
+          "**Leasehold villa** — the Land Office does not always require the FET form for lease registration itself. But you still need it to take your proceeds out of Thailand when you sell — so 'not required at the desk today' is not a reason to skip it.",
+          "**Transfers under USD 50,000** — for amounts below the threshold, the bank issues a credit note or bank letter of guarantee instead of an FET form. These contain the same information and serve the same legal purpose. Keep them equally carefully.",
+        ],
+      },
+      { h: "Step by step: how to get it" },
+      {
+        ul: [
+          "**Transfer funds from abroad in foreign currency.** Send by SWIFT from your overseas bank account to the Thai bank account designated for the purchase — your personal Thai account, the lawyer's escrow account, or the developer's account. The funds must arrive as foreign currency (USD, EUR, GBP, etc.), not as pre-converted baht.",
+          "**Include the correct purpose statement.** In the SWIFT transfer instructions, state the purpose clearly: for example, 'Purchase of property — [property address or unit reference] — [your full name as per passport].' The Thai bank uses this to populate the FET form correctly.",
+          "**The receiving Thai bank converts the currency to baht.** Once the SWIFT arrives, the Thai bank converts it at the prevailing exchange rate and credits the baht to the designated account.",
+          "**Request the FET form from the bank.** Visit or contact the branch that received the foreign-currency transfer and request the FET form. Bring your passport. The bank issues the form based on the conversion record — amounts, your name and the stated purpose.",
+          "**Verify the form before you leave.** Check: your full name matches your passport exactly; the foreign currency amount is correct; the purpose wording matches the property being purchased; the baht conversion amount is stated.",
+          "**Keep the original permanently.** You will need it again when you sell. A photocopy is not sufficient for repatriation; Thai banks require the original.",
+        ],
+      },
+      { h: "What the form must show" },
+      "The FET form must contain: your full legal name (matching your passport exactly), the foreign currency amount transferred, the Thai baht amount after conversion, the sending bank and account, the receiving bank and account, and the stated purpose of the transfer. If issued for a specific property, the reference should appear on it. A name mismatch between the FET and the title or lease registration is a problem — check this immediately.",
+      { h: "Wise, third-party platforms and smaller transfers" },
+      "For smaller transfers, services such as Wise are commonly used and generally cheaper on exchange rates. Wise routes funds through correspondent banking, and the money arrives at a Thai bank. The FET form (or credit note for amounts below USD 50,000) is still issued by the receiving Thai bank, not by Wise. If you transfer to a lawyer's or developer's account rather than your own, the FET will name them as recipient — request the bank confirmation document yourself, or ensure your lawyer secures and passes it to you.",
+      { h: "Using the FET to repatriate proceeds when you sell" },
+      "When you sell and want to wire the proceeds abroad, the Thai bank's compliance team will ask for: the original FET form from your purchase, the Land Office sale agreement (the stamped transfer document), and the Land Office tax and fee receipts. Together these prove the original investment was foreign-sourced and that the proceeds are the return on that foreign capital. Present them as a bundle — the bank will not initiate a foreign outward transfer without them. For the full picture of taxes when you sell, see [Costs, taxes and the FET form](/knowledge/cost-of-buying-taxes-and-fees) and [Selling your leasehold villa](/knowledge/selling-leasehold-villa-exit-liquidity).",
+      { h: "If you think you have lost it" },
+      "Contact the issuing Thai bank directly. Banks maintain records of foreign exchange transactions, and some branches can issue a certified replacement letter confirming the original transaction — though this is at the bank's discretion and not guaranteed. Keeping a high-resolution scan in cloud storage alongside the physical original is strongly recommended.",
+    ],
+    takeaways: [
+      "For a condo purchase, the Land Office will not register without the original FET form — it is non-negotiable.",
+      "For a leasehold villa, the FET may not be required at the desk on registration day, but you need it to repatriate proceeds when you sell.",
+      "Transfers below USD 50,000 receive a credit note or bank letter rather than an FET; both serve the same legal purpose — keep them.",
+      "The form is issued by the receiving Thai bank; include a clear purpose statement in the SWIFT transfer instructions.",
+      "Keep the original FET permanently — a photocopy is not sufficient for repatriation.",
+    ],
+    sources: [
+      {
+        title: "PropertyScout — The FET: All there is to know about foreign transaction forms in Thailand",
+        url: "https://propertyscout.co.th/en/guides/the-fet-all-there-is-to-know-about-foreign-transaction-forms-in-thailand/",
+      },
+      {
+        title: "SunwayEstates — The Foreign Exchange Transaction (FET) Form in Thailand",
+        url: "https://sunwayestates.com/blog/post/The-Foreign-Exchange-TransactionFET-Form-in-Thailand",
+      },
+      {
+        title: "Thavorn Asia Property — FET Form in Thailand: Complete Guide for Foreign Buyers 2025",
+        url: "https://thavorn.asia/en/news/foreign-exchange-transaction-fet-form-in-thailand-complete-guide-for-foreign-buyers-2025-520",
+      },
+      {
+        title: "Bank of Thailand — foreign exchange transaction reporting regulations (general practice)",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion:
+      "How do I transfer money into Thailand correctly to buy property, and what is the FET form?",
+  },
+  {
+    slug: "renewing-30-year-lease-risks",
+    kbId: "kb-0020",
+    topic: "Structures",
+    title: "Renewing a 30-year lease in Thailand: what actually happens and the real risks",
+    short:
+      "After the March 2025 Supreme Court ruling, there is no ambiguity: pre-agreed automatic renewals beyond 30 years are void. Renewal requires the then-current landowner to agree at the time. That makes planning around the exit critical from day one — along with the right protective clauses within the initial term.",
+    updated: "2026-06-16",
+    body: [
+      "The single most persistent misconception in Thai property is 'my lease renews automatically.' It does not — and after the March 2025 Supreme Court ruling (Case No. 4655/2566), there is no longer legal ambiguity about this. Understanding what actually happens at the end of a 30-year term changes how you should buy, what clauses to insist on, and how to plan the exit.",
+      { h: "What the law says: Section 540" },
+      "Section 540 of the Civil and Commercial Code sets an absolute ceiling: a lease of immovable property cannot exceed 30 years. The section explicitly permits renewal — but only at expiration, and only for a fresh term that also cannot exceed 30 years. No contract can override this. A lease that purports to grant more than 30 years from inception violates a mandatory rule of law and is void for the excess.",
+      { h: "What the Supreme Court settled in March 2025" },
+      "Judgment No. 4655/2566, issued in March 2025, settled a long-debated question about so-called '30+30+30' structures. These were leases in which all three 30-year terms were signed simultaneously — often with a single up-front payment covering all three periods — marketed as giving 60 or 90 years of secure tenure.",
+      "The Court ruled that treating this arrangement as a single long-term lease disguised as sequential terms violates Section 540. The two renewal periods signed at the same time as the initial lease — even if paid for — are void. Only the initial registered 30 years constitutes a real property right. The ruling also highlighted renewals with identical terms as a marker of the circumvention intent; future renewals negotiated fresh, with adjusted rents, may be on stronger footing — but that is a fresh negotiation at expiry, not an enforceable pre-agreed commitment.",
+      { h: "How renewal actually works post-ruling" },
+      "At the end of the registered 30-year term, a further lease is legally possible under Section 540. But renewal depends entirely on the person who owns the land at that point agreeing to grant a new lease. They are under no legal obligation to do so.",
+      {
+        ul: [
+          "**The original lessor may no longer own the land.** It may have been sold, inherited by heirs or passed through corporate succession. A new owner steps into the contractual shoes of the original landlord for the duration of the registered lease — but has no obligation to grant a new one.",
+          "**Renewal can be on entirely new commercial terms.** There is nothing stopping the landowner from demanding a substantially higher rent, a shorter term, or different conditions.",
+          "**No automatic compensation.** If the landowner declines to renew, there is generally no legal obligation to compensate you for the expiry — unless the original lease contract specifically included such a provision.",
+          "**Renewal cannot be pre-registered.** You cannot go to the Land Office with a renewal signed before the original lease expires and register it as a property right for the next period.",
+        ],
+      },
+      { h: "What is still enforceable within the initial 30 years" },
+      "The ruling does not invalidate rights and protections that operate within the initial registered term. These are enforceable and worth negotiating when the lease is drafted:",
+      {
+        ul: [
+          "**Succession clause** — the right of your heirs to step into your position as lessee if you die during the term. Without this, the lease may end at your death. See [Inheritance on Koh Phangan](/knowledge/inheritance-leasehold-and-villa).",
+          "**Assignment clause** — the right to sell the lease to a third party. Without an explicit assignment clause, transferring the lease to a buyer may require the landowner's active cooperation. See [Selling your leasehold villa](/knowledge/selling-leasehold-villa-exit-liquidity).",
+          "**Right of first refusal to purchase** — if the landowner wants to sell the land during your tenancy, you get the first option at whatever price they are offering. This may eventually give you a path to converting to freehold.",
+          "**Compensation clause on early termination** — if the landowner materially breaches the lease or sells the land in a way that triggers early termination, the clause specifies the compensation you receive.",
+          "**Registered superficies on the building** — separately titles the villa from the land. The superficies itself can carry a renewal clause for a further 30-year term, and building ownership survives independently of what happens to the lease. See [Superficies, usufruct and lease](/knowledge/superficies-vs-usufruct-vs-lease).",
+        ],
+      },
+      { h: "If you already hold a 30+30 or 30+30+30 lease" },
+      "Your initial 30-year registered term remains fully valid and enforceable as a property right. The ruling does not retroactively cancel the first period. What it settles is that renewal periods signed simultaneously with the original are void beyond year 30.",
+      "The practical advice from Thai property lawyers is to begin renewal conversations with the landowner well before the term expires — ideally five to ten years out — while the leverage of a good relationship still exists. The worst time to negotiate is in year 29 under pressure. If the landowner has changed, trace the new owner early and establish a relationship. Some lawyers also advise exploring conversion (BOI-promoted structure or condominium freehold if the building qualifies) while the original lease still has years left and your position is strong.",
+      { h: "For new buyers: price and plan around the primary term" },
+      "A leasehold purchase on Koh Phangan today should be priced and planned as a 30-year asset. Renewals are possible but not guaranteed — treat any renewal promise as a bonus that may materialise, not as a committed additional term. The planning question is: can you achieve your financial goals within the primary 30-year period? A lease with 25 years remaining is quite different from one with 12. See [Selling your leasehold villa](/knowledge/selling-leasehold-villa-exit-liquidity) for how the remaining term affects exit liquidity and pricing.",
+    ],
+    takeaways: [
+      "Section 540 caps leases at 30 years; the March 2025 Supreme Court ruling (Case No. 4655/2566) makes pre-agreed automatic renewals beyond 30 years void.",
+      "Renewal requires the then-current landowner to agree — they are under no legal obligation to do so, and may have changed.",
+      "Plan and price around the primary 30-year term; treat renewal promises as contractual aspirations, not property rights.",
+      "Within the initial 30 years, negotiate: succession clause, assignment clause, right of first refusal to purchase, and a registered superficies on the building.",
+      "Existing 30+30+30 holders: the first term is valid; begin renewal conversations 5–10 years before expiry while leverage remains.",
+    ],
+    sources: [
+      {
+        title:
+          "Addleshaw Goddard — Thai Supreme Court strikes down 'automatic' long-term lease renewals (2025)",
+        url: "https://www.addleshawgoddard.com/en/insights/insights-briefings/2025/real-estate/thai-supreme-court-strikes-down-automatic-long-term-lease-renewals/",
+      },
+      {
+        title:
+          "Lawyers for Expats Thailand — The 30-Year Maximum Lease and the End of '30+30+30'",
+        url: "https://www.lawyersforexpatsthailand.com/post/the-30-year-maximum-lease-and-the-end-of-30-30-30-why-pre-agreed-lease-renewals-are-now-void-and",
+      },
+      {
+        title: "Siam Legal International — Supreme Court Ruling on Long-Term Leases in Thailand",
+        url: "https://www.siam-legal.com/thailand-law/supreme-court-ruling-on-long-term-leases-in-thailand/",
+      },
+      {
+        title:
+          "Thai Civil and Commercial Code — Section 540, lease of immovable property, 30-year maximum (general practice)",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion:
+      "Can I renew my 30-year lease in Thailand, and are renewal clauses enforceable?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

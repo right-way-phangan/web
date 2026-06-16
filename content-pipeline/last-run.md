@@ -1,4 +1,4 @@
-# Last run — 2026-06-15
+# Last run — 2026-06-16
 
 **Guides published:** 2
 
@@ -6,31 +6,30 @@
 
 ## Guide 1
 
-- **slug:** `land-office-registration-day`
-- **kbId:** `kb-0017`
-- **title (EN):** A day at the Land Office: what happens when a deal is registered in Thailand
-- **title (RU):** День в Земельном офисе: что происходит при регистрации сделки в Таиланде
-- **faqCategory:** `process`
-- **faqQuestion:** What happens at the Thailand Land Office on the day a property deal is registered?
+- **slug:** `bringing-money-into-thailand-fet-form`
+- **kbId:** `kb-0019`
+- **title (EN):** Bringing money into Thailand correctly: the FET form, step by step
+- **title (RU):** Ввоз денег в Таиланд правильно: FET-форма пошагово
+- **faqCategory:** `costs`
+- **faqQuestion:** How do I transfer money into Thailand correctly to buy property, and what is the FET form?
 - **Sources used:**
-  - IRES Thailand — Thailand Property Transfer Process (iresthailand.com) — step-by-step on-day process, documents, fees, leasehold vs freehold distinction
-  - Forbes & Partners — The Final Handshake: Your Definitive 2025 Guide to the Title Deed Transfer at Thailand's Land Office — document checklist, same-day registration confirmation
-  - My Thailand Lawyer — Land Registration Process in Thailand (mythailandlawyer.com) — who must be present, identity verification, title check procedure
-  - Thai Land Code (general practice) — 1% lease registration fee + 0.1% stamp duty, 30-year maximum per instrument
+  - PropertyScout — "The FET: All there is to know about foreign transaction forms in Thailand" — step-by-step process, USD 50,000 threshold, credit-note alternative for smaller amounts
+  - SunwayEstates — "The Foreign Exchange Transaction (FET) Form in Thailand" — required information on the form, repatriation bundle requirements
+  - Thavorn Asia Property — "FET Form in Thailand: Complete Guide for Foreign Buyers 2025" — purpose-statement wording, condo registration requirement, fund-transfer process
+  - Bank of Thailand foreign exchange reporting regulations (general practice)
 
 ---
 
 ## Guide 2
 
-- **slug:** `superficies-vs-usufruct-vs-lease`
-- **kbId:** `kb-0018`
-- **title (EN):** Superficies, usufruct and lease: three ways to anchor a building on Thai land
-- **title (RU):** Superficies, узуфрукт и аренда: три способа закрепить строение на тайской земле
+- **slug:** `renewing-30-year-lease-risks`
+- **kbId:** `kb-0020`
+- **title (EN):** Renewing a 30-year lease in Thailand: what actually happens and the real risks
+- **title (RU):** Продление 30-летней аренды в Таиланде: как это работает на самом деле и реальные риски
 - **faqCategory:** `structures`
-- **faqQuestion:** What is the difference between superficies, usufruct and a lease for a foreign property buyer in Thailand?
+- **faqQuestion:** Can I renew my 30-year lease in Thailand, and are renewal clauses enforceable?
 - **Sources used:**
-  - Thai Civil and Commercial Code Sections 1410–1416 (Superficies), 1417–1428 (Usufruct), 537–571 (Lease) — primary legal text, via Siam Legal library and JusLaws
-  - Siam Legal International — Supreme Court Ruling on Long-Term Leases in Thailand — Case No. 4655/2566, March 2025, voiding pre-agreed 30+30 renewal structures beyond the initial 30-year term
-  - Houseviser — Usufruct, superficies, habitation: alternative real rights for foreigners — comparative table (term, transferability, inheritability, income rights)
-  - JusLaws — A Complete Legal Guide to Property Law in Thailand for Foreigners — practical distinctions and when each right is appropriate
-  - SILQ Law — Thai Supreme Court Limits Foreign Leases: No more 30-30-30 (March 2025) — enforcement context for the ruling
+  - Addleshaw Goddard — "Thai Supreme Court strikes down 'automatic' long-term lease renewals" (2025) — Section 540 analysis, what is and isn't enforceable post-ruling, nuance on rent-adjusted renewals
+  - Lawyers for Expats Thailand — "The 30-Year Maximum Lease and the End of '30+30+30'" — legal foundation, risks at lease expiry, practical guidance for existing and new holders
+  - Siam Legal International — "Supreme Court Ruling on Long-Term Leases in Thailand" — Judgment No. 4655/2566, how renewal actually works post-ruling, surviving protective clauses
+  - Thai Civil and Commercial Code Section 540 (general practice)

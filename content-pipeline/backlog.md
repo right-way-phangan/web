@@ -24,9 +24,9 @@ Status: ⏳ queued · ✅ published.
 | Due diligence before buying: checklist for vetting the plot and the seller | process | 🟢 | ✅ |
 | Selling your leasehold villa later (exit and liquidity) | process | 🟢 | ✅ |
 | A day at the Land Office: what happens when a deal is registered | process | 🟢 | ✅ |
-| Bringing money into Thailand correctly: the FET form step by step | costs | 🟢 | ⏳ |
+| Bringing money into Thailand correctly: the FET form step by step | costs | 🟢 | ✅ |
 | Superficies vs usufruct vs lease: three ways to anchor your building | structures | 🟢 | ✅ |
-| Renewing a 30-year lease: how it really works and the risks | structures | 🟢 | ⏳ |
+| Renewing a 30-year lease: how it really works and the risks | structures | 🟢 | ✅ |
 | A Thai company for property (49/51): when it makes sense, when it's toxic | structures | 🟢 | ⏳ |
 | Building a villa on the island: permits, zones, timelines, budgets | phangan | 🟢 | ⏳ |
 | Island eco-zoning (2025 law): where you can and can't build | phangan | 🟢 | ⏳ |
