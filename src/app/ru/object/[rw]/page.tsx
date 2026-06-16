@@ -263,7 +263,7 @@ export default async function RussianObjectPage({ params }: Props) {
 
             <BuyingCosts object={object} locale="ru" />
 
-            <ObjectFaq type={object.type} locale="ru" />
+            <ObjectFaq type={object.type} locale="ru" object={object} />
 
             <ObjectLocationMap
               lat={object.lat}
