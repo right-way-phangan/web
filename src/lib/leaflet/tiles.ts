@@ -30,14 +30,19 @@ export const SATELLITE_MAX_NATIVE_ZOOM = 19;
 /**
  * Terrain / hillshade basemap — Esri World Hillshade. Shaded relief makes plot
  * slope read at a glance (slope matters for land buyers). Same reliable Esri
- * infra as the satellite layer, no key, {z}/{y}/{x}. Native to ~z16; Leaflet
- * upscales past that.
+ * infra as the satellite layer, no key, {z}/{y}/{x}.
+ *
+ * Native data over Koh Phangan stops at z13 — the free global hillshade is
+ * SRTM-derived (~30 m) and Esri has no higher-res DEM here, so z14+ return a
+ * grey "Map data not yet available" placeholder tile (verified 2026-06-16).
+ * maxNativeZoom must therefore be 13: Leaflet then upscales the real z13 relief
+ * for closer zooms (soft but readable) instead of requesting the placeholders.
  */
 export const TERRAIN_TILE_URL =
   "https://server.arcgisonline.com/ArcGIS/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}";
 export const TERRAIN_ATTRIBUTION =
   "Hillshade &copy; <a href=\"https://www.esri.com/\">Esri</a>, USGS, NGA";
-export const TERRAIN_MAX_NATIVE_ZOOM = 16;
+export const TERRAIN_MAX_NATIVE_ZOOM = 13;
 
 /**
  * DOL cadastral parcel outlines (โฉนด boundaries) — Longdo's dol_hd layer (the
