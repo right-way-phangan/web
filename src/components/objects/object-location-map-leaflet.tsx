@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup, Circle, Polygon, Polyline, AttributionControl, useMapEvents } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, Circle, Polygon, Polyline, Pane, AttributionControl, useMapEvents } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { LocateFixed, Maximize2, Minimize2, Ruler } from "lucide-react";
@@ -12,9 +12,13 @@ import {
   SATELLITE_TILE_URL,
   SATELLITE_ATTRIBUTION,
   SATELLITE_MAX_NATIVE_ZOOM,
+  TERRAIN_TOPO_TILE_URL,
+  TERRAIN_TOPO_ATTRIBUTION,
+  TERRAIN_TOPO_MAX_NATIVE_ZOOM,
   TERRAIN_TILE_URL,
   TERRAIN_ATTRIBUTION,
   TERRAIN_MAX_NATIVE_ZOOM,
+  TERRAIN_HILLSHADE_OPACITY,
   PARCEL_TILE_URL,
   PARCEL_MIN_ZOOM,
   PARCEL_MAX_NATIVE_ZOOM,
@@ -249,13 +253,30 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
             maxZoom={MAX_ZOOM}
           />
         ) : base === "terrain" ? (
-          <TileLayer
-            key="base-terrain"
-            attribution={TERRAIN_ATTRIBUTION}
-            url={TERRAIN_TILE_URL}
-            maxNativeZoom={TERRAIN_MAX_NATIVE_ZOOM}
-            maxZoom={MAX_ZOOM}
-          />
+          // Topo base + hillshade (multiply) — see tiles.ts. Custom panes keep
+          // the shade below the zoning/parcel overlays (tilePane, z 200) so it
+          // only multiplies against the topo base, never the overlay colours.
+          <>
+            <Pane name="terrainBase" style={{ zIndex: 190 }}>
+              <TileLayer
+                key="base-topo"
+                attribution={TERRAIN_TOPO_ATTRIBUTION}
+                url={TERRAIN_TOPO_TILE_URL}
+                maxNativeZoom={TERRAIN_TOPO_MAX_NATIVE_ZOOM}
+                maxZoom={MAX_ZOOM}
+              />
+            </Pane>
+            <Pane name="terrainShade" style={{ zIndex: 195, mixBlendMode: "multiply" }}>
+              <TileLayer
+                key="base-hillshade"
+                attribution={TERRAIN_ATTRIBUTION}
+                url={TERRAIN_TILE_URL}
+                maxNativeZoom={TERRAIN_MAX_NATIVE_ZOOM}
+                maxZoom={MAX_ZOOM}
+                opacity={TERRAIN_HILLSHADE_OPACITY}
+              />
+            </Pane>
+          </>
         ) : (
           <TileLayer
             key="base-map"

@@ -28,21 +28,35 @@ export const SATELLITE_ATTRIBUTION =
 export const SATELLITE_MAX_NATIVE_ZOOM = 19;
 
 /**
- * Terrain / hillshade basemap — Esri World Hillshade. Shaded relief makes plot
- * slope read at a glance (slope matters for land buyers). Same reliable Esri
- * infra as the satellite layer, no key, {z}/{y}/{x}.
+ * Terrain layer — a two-tile composite (built in the map components):
  *
- * Native data over Koh Phangan stops at z13 — the free global hillshade is
- * SRTM-derived (~30 m) and Esri has no higher-res DEM here, so z14+ return a
- * grey "Map data not yet available" placeholder tile (verified 2026-06-16).
- * maxNativeZoom must therefore be 13: Leaflet then upscales the real z13 relief
- * for closer zooms (soft but readable) instead of requesting the placeholders.
+ *  1. BASE — OpenTopoMap (below): a coloured topographic map. Gives three
+ *     things the bare hillshade never did: contour lines (slope reads down to
+ *     parcel zoom), a crisp coastline with blue sea (land↔water boundary the
+ *     land buyer asked for), and native tiles to z17 (sharp close-up). Served
+ *     through our /tiles proxy for CDN caching + OTM's tile-usage policy.
+ *  2. SHADE — Esri World Hillshade (above, `mix-blend-mode: multiply`): darkens
+ *     the slopes so relief pops over OTM's pale shading ("more visible relief").
+ *
+ * Esri hillshade native data over Koh Phangan stops at z13 — the free global
+ * hillshade is SRTM-derived (~30 m) and Esri has no higher-res DEM here, so
+ * z14+ return a grey "Map data not yet available" placeholder (verified
+ * 2026-06-16). maxNativeZoom must therefore be 13: Leaflet upscales the real
+ * z13 relief for closer zooms (soft, but the OTM contours carry the detail).
  */
+export const TERRAIN_TOPO_TILE_URL = "/tiles/topo/{z}/{x}/{y}";
+export const TERRAIN_TOPO_ATTRIBUTION =
+  'Topo &copy; <a href="https://opentopomap.org/">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)';
+export const TERRAIN_TOPO_MAX_NATIVE_ZOOM = 17;
+
 export const TERRAIN_TILE_URL =
   "https://server.arcgisonline.com/ArcGIS/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}";
 export const TERRAIN_ATTRIBUTION =
   "Hillshade &copy; <a href=\"https://www.esri.com/\">Esri</a>, USGS, NGA";
 export const TERRAIN_MAX_NATIVE_ZOOM = 13;
+// Strength of the multiply hillshade over the topo base. ~0.65 makes slopes
+// read clearly without muddying OTM's blue water and contour lines.
+export const TERRAIN_HILLSHADE_OPACITY = 0.65;
 
 /**
  * DOL cadastral parcel outlines (โฉนด boundaries) — Longdo's dol_hd layer (the

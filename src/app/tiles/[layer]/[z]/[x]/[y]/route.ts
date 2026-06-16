@@ -1,21 +1,43 @@
 /**
- * Caching proxy for the Longdo tile layers the object map uses (DOL cadastral
- * parcels + DPT city-plan zoning). Two jobs:
- *  1. Resilience — ms.longdo.com is an undocumented endpoint; Vercel's CDN
- *     keeps serving cached tiles (s-maxage 30 d + SWR 1 y) through upstream
- *     hiccups, and the bounded Phangan tile set stays warm.
- *  2. Single switch-off point — if the endpoint ever closes for good, only
- *     this route needs a new upstream.
+ * Caching proxy for the third-party tile layers the maps use — Longdo (DOL
+ * cadastral parcels + DPT city-plan zoning) and OpenTopoMap (terrain base).
+ * Three jobs:
+ *  1. Resilience — Vercel's CDN keeps serving cached tiles (s-maxage 30 d +
+ *     SWR 1 y) through upstream hiccups, and the bounded Phangan tile set
+ *     stays warm. (Longdo's ms.longdo.com is also an undocumented endpoint.)
+ *  2. Single switch-off point — if an upstream closes, only this route changes.
+ *  3. Politeness — OpenTopoMap's usage policy asks consumers to cache tiles and
+ *     send a real User-Agent; the proxy does both for the whole site.
  *
  * Not an open proxy: layer/zoom whitelisted per layer, x/y clamped to the
  * Thailand bounding box at the requested zoom.
  */
 
-const UPSTREAM = "https://ms.longdo.com/mmmap/img.php";
+type LayerCfg = {
+  url: (z: number, x: number, y: number) => string;
+  minZ: number;
+  maxZ: number;
+  headers?: Record<string, string>;
+};
 
-const LAYERS: Record<string, { mode: string; minZ: number; maxZ: number }> = {
-  parcels: { mode: "dol_hd", minZ: 17, maxZ: 19 },
-  zoning: { mode: "cityplan_thailand", minZ: 14, maxZ: 16 },
+const LONGDO = (mode: string) => (z: number, x: number, y: number) =>
+  `https://ms.longdo.com/mmmap/img.php?mode=${mode}&proj=epsg3857&zoom=${z}&x=${x}&y=${y}`;
+
+const LAYERS: Record<string, LayerCfg> = {
+  parcels: { url: LONGDO("dol_hd"), minZ: 17, maxZ: 19 },
+  zoning: { url: LONGDO("cityplan_thailand"), minZ: 14, maxZ: 16 },
+  // OpenTopoMap — terrain base. Native to z17; rotate a/b/c by tile to spread
+  // load. OTM rejects requests without a real User-Agent, so we send one.
+  topo: {
+    url: (z, x, y) =>
+      `https://${["a", "b", "c"][(x + y) % 3]}.tile.opentopomap.org/${z}/${x}/${y}.png`,
+    minZ: 5,
+    maxZ: 17,
+    headers: {
+      "User-Agent": "RightWayPhangan/1.0 (+https://rightwaygroup.co)",
+      Referer: "https://rightwaygroup.co",
+    },
+  },
 };
 
 // Thailand bbox — same envelope the zone-lookup uses.
@@ -46,10 +68,10 @@ export async function GET(
   }
 
   try {
-    const res = await fetch(
-      `${UPSTREAM}?mode=${cfg.mode}&proj=epsg3857&zoom=${z}&x=${x}&y=${y}`,
-      { next: { revalidate: 2592000 } }, // 30 d in the Next data cache
-    );
+    const res = await fetch(cfg.url(z, x, y), {
+      headers: cfg.headers,
+      next: { revalidate: 2592000 }, // 30 d in the Next data cache
+    });
     if (!res.ok || !(res.headers.get("content-type") ?? "").includes("image/png")) {
       return new Response("upstream error", { status: 502, headers: { "Cache-Control": "no-store" } });
     }
