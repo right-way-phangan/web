@@ -31,6 +31,7 @@ import { BrochureButton } from "@/components/objects/brochure-button";
 import { PrintBrochure } from "@/components/objects/print-brochure";
 import { ObjectJsonLd } from "@/components/objects/object-json-ld";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
+import { Appear } from "@/components/motion/appear";
 import { getSiteUrl } from "@/lib/site-url";
 import { cleanMetaDescription } from "@/lib/utils/meta";
 
@@ -250,30 +251,40 @@ export default async function ObjectPage({ params }: Props) {
           {/* Left: content */}
           <div className="space-y-16">
             {object.descriptionRaw ? (
-              <section>
-                <h2 className="font-serif text-3xl text-forest-900">
-                  About this property
-                </h2>
-                <div className="mt-6 max-w-prose space-y-4 text-base leading-relaxed text-forest-500/85 whitespace-pre-line">
-                  {object.descriptionRaw}
-                </div>
-              </section>
+              <Appear>
+                <section>
+                  <h2 className="font-serif text-3xl text-forest-900">
+                    About this property
+                  </h2>
+                  <div className="mt-6 max-w-prose space-y-4 text-base leading-relaxed text-forest-500/85 whitespace-pre-line">
+                    {object.descriptionRaw}
+                  </div>
+                </section>
+              </Appear>
             ) : null}
 
-            <InvestmentHighlights object={object} />
+            <Appear>
+              <InvestmentHighlights object={object} />
+            </Appear>
 
-            <section>
-              <h2 className="font-serif text-3xl text-forest-900">
-                Specifications
-              </h2>
-              <div className="mt-8">
-                <SpecTable object={object} />
-              </div>
-            </section>
+            <Appear>
+              <section>
+                <h2 className="font-serif text-3xl text-forest-900">
+                  Specifications
+                </h2>
+                <div className="mt-8">
+                  <SpecTable object={object} />
+                </div>
+              </section>
+            </Appear>
 
-            <BuyingCosts object={object} locale="en" />
+            <Appear>
+              <BuyingCosts object={object} locale="en" />
+            </Appear>
 
-            <ObjectFaq type={object.type} locale="en" />
+            <Appear>
+              <ObjectFaq type={object.type} locale="en" />
+            </Appear>
 
             <ObjectLocationMap
               lat={object.lat}
@@ -287,14 +298,16 @@ export default async function ObjectPage({ params }: Props) {
             />
 
             {object.buildingRules ? (
-              <section>
-                <h2 className="font-serif text-3xl text-forest-900">
-                  Building rules
-                </h2>
-                <p className="mt-4 max-w-prose text-base leading-relaxed text-forest-500/85 whitespace-pre-line">
-                  {object.buildingRules}
-                </p>
-              </section>
+              <Appear>
+                <section>
+                  <h2 className="font-serif text-3xl text-forest-900">
+                    Building rules
+                  </h2>
+                  <p className="mt-4 max-w-prose text-base leading-relaxed text-forest-500/85 whitespace-pre-line">
+                    {object.buildingRules}
+                  </p>
+                </section>
+              </Appear>
             ) : null}
           </div>
 
@@ -326,8 +339,12 @@ export default async function ObjectPage({ params }: Props) {
           </section>
         ) : null}
 
-        <RelatedListings current={object} catalog={catalog} />
-        <RecentlyViewed catalog={catalog} excludeRw={object.rwNumber} />
+        <Appear>
+          <RelatedListings current={object} catalog={catalog} />
+        </Appear>
+        <Appear>
+          <RecentlyViewed catalog={catalog} excludeRw={object.rwNumber} />
+        </Appear>
       </article>
       <MobileCtaBar rwNumber={object.rwNumber} priceLabel={mobilePriceLabel} />
       <TrackView rw={object.rwNumber} />

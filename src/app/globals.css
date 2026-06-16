@@ -114,7 +114,8 @@
     background: #fff;
   }
   .reveal,
-  .rise-in {
+  .rise-in,
+  .appear {
     opacity: 1 !important;
     transform: none !important;
     animation: none !important;

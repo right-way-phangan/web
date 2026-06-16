@@ -4,6 +4,7 @@ import type { Locale } from "@/lib/i18n/dictionaries";
 import { getProjectsDict } from "@/lib/i18n/dictionaries";
 import { localePath } from "@/lib/i18n/locale-path";
 import { ProjectCard } from "./project-card";
+import { Appear } from "@/components/motion/appear";
 
 /** Shared index grid for /projects and /ru/projects. */
 export async function ProjectsIndex({ locale }: { locale: Locale }) {
@@ -24,17 +25,18 @@ export async function ProjectsIndex({ locale }: { locale: Locale }) {
         </p>
       ) : (
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => {
+          {projects.map((project, i) => {
             const units = getProjectUnits(project, allObjects);
             const availability = projectAvailability(project, units);
             const href = localePath(locale, `/projects/${projectSlug(project, projects)}`);
             return (
-              <ProjectCard
-                key={project.rwNumber}
-                project={project}
-                href={href}
-                availability={availability}
-              />
+              <Appear key={project.rwNumber} delay={(i % 3) * 0.08} className="h-full">
+                <ProjectCard
+                  project={project}
+                  href={href}
+                  availability={availability}
+                />
+              </Appear>
             );
           })}
         </div>
