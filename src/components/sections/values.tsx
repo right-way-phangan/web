@@ -1,4 +1,5 @@
 import { MapPin, ShieldCheck, Sparkles } from "lucide-react";
+import { Appear } from "@/components/motion/appear";
 
 const VALUES = [
   {
@@ -32,8 +33,8 @@ export function Values() {
       </p>
 
       <div className="mt-16 grid gap-12 md:grid-cols-3 md:gap-8">
-        {VALUES.map(({ icon: Icon, title, text }) => (
-          <div key={title} className="flex flex-col">
+        {VALUES.map(({ icon: Icon, title, text }, i) => (
+          <Appear key={title} delay={i * 0.1} className="flex flex-col">
             <div className="flex h-12 w-12 items-center justify-center rounded-sm border border-forest-500/15 text-forest-500">
               <Icon className="h-5 w-5" />
             </div>
@@ -43,7 +44,7 @@ export function Values() {
             <p className="mt-3 text-base leading-relaxed text-forest-500/75">
               {text}
             </p>
-          </div>
+          </Appear>
         ))}
       </div>
     </section>

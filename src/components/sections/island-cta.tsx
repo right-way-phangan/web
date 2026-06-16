@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Appear } from "@/components/motion/appear";
 
 /**
  * Closing call-to-action — a full-bleed coastal scene that bookends the dark
@@ -23,7 +24,7 @@ export function IslandCta() {
         aria-hidden
       />
 
-      <div className="container-prose relative z-10 flex min-h-[55vh] flex-col items-center justify-center py-24 text-center md:min-h-[65vh] md:py-32">
+      <Appear className="container-prose relative z-10 flex min-h-[55vh] flex-col items-center justify-center py-24 text-center md:min-h-[65vh] md:py-32">
         <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-300">
           Ready when you are
         </p>
@@ -52,7 +53,7 @@ export function IslandCta() {
             <Link href="/contact">Talk to us</Link>
           </Button>
         </div>
-      </div>
+      </Appear>
     </section>
   );
 }
