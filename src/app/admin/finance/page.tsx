@@ -21,6 +21,8 @@ import {
   opexBreakdown,
   personalExpenses,
   cashOnHand,
+  receivables,
+  receivablesTotal,
   personalMonthly,
   combinedBurnMonthly,
   runwayMonths,
@@ -173,6 +175,8 @@ export default async function FinancePage({
   const personalTotal = personalMonthly();
   const combinedBurn = combinedBurnMonthly(subs);
   const runway = runwayMonths(cashOnHand, combinedBurn);
+  const receivableTotal = receivablesTotal();
+  const runwayWithRec = runwayMonths(cashOnHand + receivableTotal, combinedBurn);
 
   return (
     <section className="px-4 py-8 md:px-8">
@@ -259,19 +263,24 @@ export default async function FinancePage({
         <Stat
           label="Совокупный burn / мес"
           value={money(combinedBurn)}
-          hint="личные + бизнес — «сколько горит» всего"
+          hint={`личные ${money(personalTotal)} + бизнес ${money(opex)}`}
           negative
         />
-        <Stat label="Личные / мес" value={money(personalTotal)} hint="домик, виза, еда, бензин…" />
-        <Stat label="Бизнес / мес" value={money(opex)} hint={`${claudeShare}% — Claude`} />
         <Stat
-          label="Runway"
+          label="Наличные сейчас"
+          value={money(cashOnHand)}
+          hint={`+ дебиторка ${money(receivableTotal)} (Серёжа)`}
+        />
+        <Stat
+          label="Runway на наличные"
           value={runway != null ? `${runway.toFixed(1)} мес` : "—"}
-          hint={
-            runway != null
-              ? `наличные ${money(cashOnHand)} ÷ burn`
-              : "впиши наличные (cashOnHand в finance.ts)"
-          }
+          hint="🔴 без сбора долгов"
+          negative
+        />
+        <Stat
+          label="Runway с дебиторкой"
+          value={runwayWithRec != null ? `${runwayWithRec.toFixed(1)} мес` : "—"}
+          hint="наличные + долги ÷ burn"
           accent
         />
       </div>
@@ -317,6 +326,54 @@ export default async function FinancePage({
           burn {money(combinedBurn)}/мес на 4–6 мес нужно ≈ {money(combinedBurn * 4)}–
           {money(combinedBurn * 6)}. Главный рычаг — домик и виза (DTV вместо border run). Цифры
           правятся в <code>finance.ts</code> (personalExpenses, cashOnHand).
+        </p>
+      </div>
+
+      {/* Дебиторка — мне должны */}
+      <div className="mb-8 overflow-hidden rounded-2xl border border-forest-900/10 bg-white">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b border-forest-900/10 text-left text-xs uppercase tracking-wide text-forest-900/45">
+              <th className="px-4 py-2.5 font-medium">Мне должны (дебиторка)</th>
+              <th className="px-4 py-2.5 text-right font-medium">THB</th>
+              <th className="px-4 py-2.5 font-medium">Срок</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-forest-900/5">
+            {receivables.map((r) => (
+              <tr key={r.from} className={r.status === "overdue" ? "bg-red-50/40" : undefined}>
+                <td className="px-4 py-2.5 font-medium text-forest-900">
+                  {r.from}
+                  {r.note && <span className="ml-2 text-xs text-forest-900/45">{r.note}</span>}
+                </td>
+                <td className="px-4 py-2.5 text-right tabular-nums text-forest-900">
+                  {money(r.thb)}
+                </td>
+                <td className="px-4 py-2.5 text-xs text-forest-900/55">
+                  {r.due}
+                  {r.status === "overdue" && (
+                    <span className="ml-1.5 rounded bg-red-50 px-1.5 py-0.5 text-[11px] font-medium text-red-600">
+                      просрочен
+                    </span>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr className="border-t border-forest-900/10 font-medium">
+              <td className="px-4 py-2.5 text-forest-900/70">Итого к получению</td>
+              <td className="px-4 py-2.5 text-right tabular-nums text-forest-900">
+                {money(receivableTotal)}
+              </td>
+              <td className="px-4 py-2.5" />
+            </tr>
+          </tfoot>
+        </table>
+        <p className="border-t border-forest-900/5 px-4 py-2 text-xs text-forest-900/45">
+          Источник: личный проект «Сам себе Я» (<code>finances/долги-серёжи.md</code>). Сбор этих
+          долгов — фактический runway: главный приоритет кэша до первой сделки. ✅ Доля Circle
+          114 457 ฿ возвращена 16.06.2026.
         </p>
       </div>
 

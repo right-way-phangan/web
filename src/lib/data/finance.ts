@@ -135,17 +135,43 @@ export type PersonalExpense = {
 /** Личные расходы основателя в месяц (Панган, режим bootstrap). */
 export const personalExpenses: PersonalExpense[] = [
   { item: "Домик (аренда)", thbPerMonth: 27000 },
+  { item: "Еда", thbPerMonth: 20000 },
   { item: "Виза (border run ~раз/мес)", thbPerMonth: 8000, note: "старая компания закрывается → нет визы; проверить DTV" },
   { item: "Бензин", thbPerMonth: 5000 },
-  { item: "Еда", thbPerMonth: 12000, estimate: true, note: "уточнить реальную" },
+  { item: "Спортзал", thbPerMonth: 2700 },
   { item: "Прочее (электр./вода/связь/здоровье)", thbPerMonth: 5000, estimate: true },
 ];
 
-/**
- * Наличные на руках сейчас (THB). ВПИШИ реальную цифру — от неё считается,
- * на сколько месяцев хватит. 0 = не задано (runway не показывается).
- */
-export const cashOnHand = 0;
+/** Наличные на руках сейчас (THB). Источник — личный проект «Сам себе Я». */
+export const cashOnHand = 20000;
+
+/** Дебиторка — мне должны (THB). Источник: ~/Сам себе Я/finances/долги-серёжи.md. */
+export type Receivable = {
+  from: string;
+  thb: number;
+  due: string; // ISO срок погашения
+  status: "overdue" | "expected";
+  note?: string;
+};
+
+export const receivables: Receivable[] = [
+  // Серёжа · доля Circle 114 457 ฿ — ✅ возвращён 16.06.2026 (убран из дебиторки)
+  { from: "Серёжа · дом Игоря", thb: 325000, due: "2026-09-01", status: "expected", note: "ближайший крупный — за 2 нед до 01.09 напомнить" },
+  { from: "Серёжа · Африкантес", thb: 187500, due: "2026-12-31", status: "expected" },
+  { from: "Серёжа · проект Макса", thb: 100000, due: "2026-12-31", status: "expected" },
+  { from: "Серёжа · Эдик/Вова", thb: 45000, due: "2026-12-31", status: "expected" },
+  { from: "Серёжа · 12 рай (Пи Ну)", thb: 30000, due: "2026-12-31", status: "expected" },
+];
+
+/** Вся дебиторка, THB. */
+export function receivablesTotal(rec: Receivable[] = receivables): number {
+  return rec.reduce((s, r) => s + r.thb, 0);
+}
+
+/** Просроченная (взыскать сейчас) дебиторка, THB. */
+export function receivablesOverdue(rec: Receivable[] = receivables): number {
+  return rec.filter((r) => r.status === "overdue").reduce((s, r) => s + r.thb, 0);
+}
 
 /** Сумма личных расходов в месяц. */
 export function personalMonthly(exp: PersonalExpense[] = personalExpenses): number {
