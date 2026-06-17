@@ -29,6 +29,8 @@ import { SaveButton } from "@/components/objects/save-button";
 import { ShareButton } from "@/components/objects/share-button";
 import { BrochureButton } from "@/components/objects/brochure-button";
 import { PrintBrochure } from "@/components/objects/print-brochure";
+import { ObjectDescription } from "@/components/objects/object-description";
+import { objectDescriptionText } from "@/lib/generate/object-description";
 import { ObjectJsonLd } from "@/components/objects/object-json-ld";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { getSiteUrl } from "@/lib/site-url";
@@ -55,6 +57,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const ogTitle = `${object.titleEn} — ${object.rwNumber}`;
   const description =
     cleanMetaDescription(object.descriptionRaw) ??
+    cleanMetaDescription(objectDescriptionText(object, "ru")) ??
     `${object.type} на Ко Пангане — объект Right Way ${object.rwNumber}.`;
   return {
     title: ogTitle,
@@ -243,14 +246,7 @@ export default async function RussianObjectPage({ params }: Props) {
 
         <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_360px] lg:gap-16">
           <div className="space-y-16">
-            {object.descriptionRaw ? (
-              <section>
-                <h2 className="font-serif text-3xl text-forest-900">{t.aboutProperty}</h2>
-                <div className="mt-6 max-w-prose space-y-4 text-base leading-relaxed text-forest-500/85 whitespace-pre-line">
-                  {object.descriptionRaw}
-                </div>
-              </section>
-            ) : null}
+            <ObjectDescription object={object} locale="ru" />
 
             <InvestmentHighlights object={object} />
 

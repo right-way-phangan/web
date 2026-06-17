@@ -30,6 +30,8 @@ import { SaveButton } from "@/components/objects/save-button";
 import { ShareButton } from "@/components/objects/share-button";
 import { BrochureButton } from "@/components/objects/brochure-button";
 import { PrintBrochure } from "@/components/objects/print-brochure";
+import { ObjectDescription } from "@/components/objects/object-description";
+import { objectDescriptionText } from "@/lib/generate/object-description";
 import { ObjectJsonLd } from "@/components/objects/object-json-ld";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { Appear } from "@/components/motion/appear";
@@ -58,6 +60,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const ogTitle = `${object.titleEn} — ${object.rwNumber}`;
   const description =
     cleanMetaDescription(object.descriptionRaw) ??
+    cleanMetaDescription(objectDescriptionText(object, "en")) ??
     `${object.type} on Koh Phangan${districtSuffix} — Right Way listing ${object.rwNumber}.`;
   return {
     title: ogTitle,
@@ -251,18 +254,9 @@ export default async function ObjectPage({ params }: Props) {
         <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_360px] lg:gap-16">
           {/* Left: content */}
           <div className="space-y-16">
-            {object.descriptionRaw ? (
-              <Appear>
-                <section>
-                  <h2 className="font-serif text-3xl text-forest-900">
-                    About this property
-                  </h2>
-                  <div className="dropcap mt-6 max-w-prose space-y-4 text-base leading-relaxed text-forest-500/85 whitespace-pre-line">
-                    {object.descriptionRaw}
-                  </div>
-                </section>
-              </Appear>
-            ) : null}
+            <Appear>
+              <ObjectDescription object={object} locale="en" />
+            </Appear>
 
             <Appear>
               <InvestmentHighlights object={object} />
