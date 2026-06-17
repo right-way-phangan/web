@@ -150,7 +150,7 @@ function Toggle({ label, on, set }: { label: string; on: boolean; set: (v: boole
       className={cn(
         "rounded-full border px-3.5 py-1.5 text-sm transition-colors",
         on
-          ? "border-forest-500 bg-forest-500 text-cream-50"
+          ? "border-forest-500 bg-panel text-panel-fg"
           : "border-forest-500/25 bg-cream-50 text-forest-900/70 hover:border-forest-500/50",
       )}
     >
@@ -235,7 +235,7 @@ export function EstimateTool({ lang }: { lang: Lang }) {
   return (
     <div className="space-y-8">
       {/* Форма */}
-      <div className="rounded-sm border border-forest-900/10 bg-white p-5 md:p-6">
+      <div className="rounded-sm border border-forest-900/10 bg-cream-50 p-5 md:p-6">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <div className="space-y-1.5">
             <Label>{t.typeLabel}</Label>
@@ -248,7 +248,7 @@ export function EstimateTool({ lang }: { lang: Lang }) {
                   className={cn(
                     "flex-1 rounded-sm border px-3 py-2 text-sm transition-colors",
                     v.type === tp
-                      ? "border-forest-500 bg-forest-500 text-cream-50"
+                      ? "border-forest-500 bg-panel text-panel-fg"
                       : "border-forest-500/25 bg-cream-50 text-forest-900/70 hover:border-forest-500/50",
                   )}
                 >
@@ -357,7 +357,7 @@ export function EstimateTool({ lang }: { lang: Lang }) {
 
       {/* Лид-форма: показываем после любой попытки оценки */}
       {result && (
-        <div className="rounded-sm border border-forest-900/10 bg-white p-5 md:p-6">
+        <div className="rounded-sm border border-forest-900/10 bg-cream-50 p-5 md:p-6">
           <h2 className="text-xl font-semibold text-forest-900">{t.leadHeading}</h2>
           <p className="mt-1.5 max-w-2xl text-sm text-forest-900/70">{t.leadLede}</p>
           <div className="mt-5">

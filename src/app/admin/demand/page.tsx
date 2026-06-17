@@ -25,7 +25,7 @@ function nf(n: number): string {
 
 function Card({ label, value, hint }: { label: string; value: string; hint?: string }) {
   return (
-    <div className="rounded-xl border border-forest-900/10 bg-white p-4">
+    <div className="rounded-xl border border-forest-900/10 bg-cream-50 p-4">
       <p className="text-xs uppercase tracking-wide text-forest-900/45">{label}</p>
       <p className="mt-1.5 text-2xl font-semibold text-forest-900">{value}</p>
       {hint ? <p className="mt-1 text-xs text-forest-900/50">{hint}</p> : null}
@@ -113,7 +113,7 @@ export default async function DemandPage({
               className={
                 "rounded-full px-3 py-1.5 text-sm font-medium transition " +
                 (w === days
-                  ? "bg-forest-900 text-white"
+                  ? "bg-panel text-panel-fg"
                   : "bg-forest-900/5 text-forest-900/70 hover:bg-forest-900/10")
               }
             >

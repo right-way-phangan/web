@@ -78,7 +78,7 @@ export default async function DistrictPage({ params }: Props) {
       </div>
 
       <header className="container-prose pt-6 md:pt-8">
-        <div className="relative isolate overflow-hidden rounded-sm bg-forest-900">
+        <div className="relative isolate overflow-hidden rounded-sm bg-panel">
           {districtHasHero(d.slug) ? (
             <Image
               src={`/images/districts/${d.slug}.jpg`}
@@ -90,19 +90,19 @@ export default async function DistrictPage({ params }: Props) {
             />
           ) : null}
           <div
-            className="absolute inset-0 bg-gradient-to-t from-forest-900/92 via-forest-900/55 to-forest-900/25"
+            className="absolute inset-0 bg-gradient-to-t from-panel/92 via-panel/55 to-panel/25"
             aria-hidden
           />
           <div
-            className="absolute inset-0 bg-gradient-to-r from-forest-900/75 via-forest-900/30 to-transparent"
+            className="absolute inset-0 bg-gradient-to-r from-panel/75 via-panel/30 to-transparent"
             aria-hidden
           />
           <div className="relative z-10 flex min-h-[42vh] flex-col justify-end p-7 md:min-h-[48vh] md:p-12">
             <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-300">
               District
             </p>
-            <h1 className="mt-3 max-w-3xl text-balance text-cream-50">{name}</h1>
-            <p className="mt-3 max-w-2xl text-lg text-cream-100/85 md:text-xl">
+            <h1 className="mt-3 max-w-3xl text-balance text-panel-fg">{name}</h1>
+            <p className="mt-3 max-w-2xl text-lg text-panel-fg/85 md:text-xl">
               {subtitle}
             </p>
           </div>

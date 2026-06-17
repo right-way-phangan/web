@@ -191,7 +191,7 @@ function CatChip({
       className={cn(
         "shrink-0 whitespace-nowrap rounded-sm border px-3 py-1.5 text-xs font-medium transition-colors",
         active
-          ? "border-forest-500 bg-forest-500 text-cream-100"
+          ? "border-forest-500 bg-panel text-panel-fg"
           : "border-forest-500/20 bg-cream-50 text-forest-500 hover:border-forest-500/50",
       )}
     >

@@ -4,6 +4,7 @@ import type { RealEstateObject } from "@/types/object";
 import { zoneBuildInfo } from "@/lib/data/zone-rules";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { Appear } from "@/components/motion/appear";
+import { cn } from "@/lib/utils/cn";
 
 /**
  * "What you can build here" — indicative building rules derived from the plot's
@@ -18,6 +19,7 @@ const COPY = {
   en: {
     heading: "What you can build here",
     zone: "Zone",
+    check: "Check before you build",
     note: "Agent note for this plot",
     disclaimer:
       "Indicative, based on the Phangan zoning maps (May 2025). The exact height, footprint, setbacks and permitted use for this plot are verified in our",
@@ -27,6 +29,7 @@ const COPY = {
   ru: {
     heading: "Что здесь можно строить",
     zone: "Зона",
+    check: "Проверить до стройки",
     note: "Заметка агента по участку",
     disclaimer:
       "Индикативно, по картам зонирования Пангана (май 2025). Точные высота, пятно застройки, отступы и разрешённое использование для этого участка проверяются в нашем",
@@ -72,15 +75,22 @@ export function BuildingRules({
         </dl>
       ) : null}
 
-      {info && info.notes.length > 0 ? (
-        <ul className="mt-5 max-w-prose space-y-2">
-          {info.notes.map((note) => (
-            <li key={note} className="flex gap-2 text-base leading-relaxed text-forest-500/85">
-              <span aria-hidden className="mt-1 shrink-0 text-brass-500">▸</span>
-              <span>{note}</span>
-            </li>
-          ))}
-        </ul>
+      {info && info.flags.length > 0 ? (
+        <div className="mt-6 max-w-prose rounded-lg border border-amber-600/20 bg-amber-50/60 p-4 dark:border-amber-500/25 dark:bg-amber-500/10">
+          <p className="text-xs font-medium uppercase tracking-[0.15em] text-amber-700 dark:text-amber-300">
+            {t.check}
+          </p>
+          <ul className="mt-2 space-y-2">
+            {info.flags.map((f) => (
+              <li key={f.text} className="flex gap-2 text-base leading-relaxed text-forest-500/85">
+                <span aria-hidden className={cn("mt-0.5 shrink-0", f.level === "warn" ? "text-amber-600 dark:text-amber-400" : "text-forest-500/50")}>
+                  {f.level === "warn" ? "▲" : "▸"}
+                </span>
+                <span>{f.text}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       ) : null}
 
       {manual ? (

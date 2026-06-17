@@ -426,8 +426,8 @@ export function RoiCalculator({
             </button>
           </div>
           <div className="inline-flex overflow-hidden rounded-sm border border-forest-500/20 text-[11px] font-medium" role="group" aria-label={t.langLabel}>
-            <button type="button" onClick={() => setLocale("en")} className={`px-2.5 py-1 transition-colors ${locale === "en" ? "bg-forest-500 text-cream-50" : "text-forest-500/60 hover:bg-forest-500/8"}`}>EN</button>
-            <button type="button" onClick={() => setLocale("ru")} className={`px-2.5 py-1 transition-colors ${locale === "ru" ? "bg-forest-500 text-cream-50" : "text-forest-500/60 hover:bg-forest-500/8"}`}>RU</button>
+            <button type="button" onClick={() => setLocale("en")} className={`px-2.5 py-1 transition-colors ${locale === "en" ? "bg-panel text-panel-fg" : "text-forest-500/60 hover:bg-forest-500/8"}`}>EN</button>
+            <button type="button" onClick={() => setLocale("ru")} className={`px-2.5 py-1 transition-colors ${locale === "ru" ? "bg-panel text-panel-fg" : "text-forest-500/60 hover:bg-forest-500/8"}`}>RU</button>
           </div>
         </div>
 
@@ -491,7 +491,7 @@ export function RoiCalculator({
                   onClick={() => set({ annualGrowthPct: s.growthPct })}
                   className={`flex-1 rounded-sm border px-2 py-2 text-xs font-medium transition-colors ${
                     activeScenario === s.key
-                      ? "border-forest-500 bg-forest-500 text-cream-100"
+                      ? "border-forest-500 bg-panel text-panel-fg"
                       : "border-forest-500/20 bg-cream-50 text-forest-500 hover:border-forest-500/50"
                   }`}
                 >
@@ -998,7 +998,7 @@ export function RoiCalculator({
           </div>
           <a
             href="#calc-results"
-            className="rounded-sm bg-forest-500 px-3 py-2 text-xs font-medium text-cream-100"
+            className="rounded-sm bg-panel px-3 py-2 text-xs font-medium text-panel-fg"
           >
             {t.resultsBtn}
           </a>
@@ -1015,7 +1015,7 @@ function PhaseTab({ active, onClick, label }: { active: boolean; onClick: () => 
       type="button"
       onClick={onClick}
       className={`flex-1 rounded-sm px-3 py-1.5 text-xs font-medium transition-colors ${
-        active ? "bg-forest-500 text-cream-100" : "text-forest-500/70 hover:text-forest-500"
+        active ? "bg-panel text-panel-fg" : "text-forest-500/70 hover:text-forest-500"
       }`}
     >
       {label}
@@ -1029,7 +1029,7 @@ function TenureTab({ active, onClick, label }: { active: boolean; onClick: () =>
       type="button"
       onClick={onClick}
       className={`flex-1 rounded-sm px-3 py-1.5 text-xs font-medium transition-colors ${
-        active ? "bg-brass-500 text-cream-100" : "text-forest-500/70 hover:text-forest-500"
+        active ? "bg-brass-500 text-panel-fg" : "text-forest-500/70 hover:text-forest-500"
       }`}
     >
       {label}
@@ -1080,7 +1080,7 @@ function InfoTip({ text }: { text: string }) {
   return (
     <span className="group relative ml-1 inline-flex cursor-help align-middle" tabIndex={0}>
       <Info className="h-3 w-3 text-forest-500/40" />
-      <span className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-1 w-44 -translate-x-1/2 rounded-sm border border-forest-500/15 bg-forest-900 px-2 py-1.5 text-[10px] font-normal normal-case leading-snug tracking-normal text-cream-50 opacity-0 shadow-lg transition-opacity group-hover:opacity-100 group-focus:opacity-100">
+      <span className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-1 w-44 -translate-x-1/2 rounded-sm border border-forest-500/15 bg-panel px-2 py-1.5 text-[10px] font-normal normal-case leading-snug tracking-normal text-panel-fg opacity-0 shadow-lg transition-opacity group-hover:opacity-100 group-focus:opacity-100">
         {text}
       </span>
     </span>
@@ -1345,7 +1345,7 @@ function PctOrMoneyField({
           <button
             type="button"
             onClick={() => setMode("pct")}
-            className={`px-1.5 py-0.5 transition-colors ${mode === "pct" ? "bg-forest-500 text-cream-50" : "text-forest-500/60 hover:bg-forest-500/8"}`}
+            className={`px-1.5 py-0.5 transition-colors ${mode === "pct" ? "bg-panel text-panel-fg" : "text-forest-500/60 hover:bg-forest-500/8"}`}
           >
             %
           </button>
@@ -1355,7 +1355,7 @@ function PctOrMoneyField({
               setMoneyText(toMoneyText(amountThb));
               setMode("money");
             }}
-            className={`px-1.5 py-0.5 transition-colors ${mode === "money" ? "bg-forest-500 text-cream-50" : "text-forest-500/60 hover:bg-forest-500/8"}`}
+            className={`px-1.5 py-0.5 transition-colors ${mode === "money" ? "bg-panel text-panel-fg" : "text-forest-500/60 hover:bg-forest-500/8"}`}
           >
             {currency}
           </button>
@@ -1585,28 +1585,28 @@ function GrowthChart({
       >
         <svg
           viewBox={`0 0 ${W} ${H}`}
-          className="h-auto w-full select-none"
+          className="h-auto w-full select-none text-forest-500"
           role="img"
           aria-label="Projected return vs bank deposit over time"
         >
           <defs>
             <linearGradient id="propFill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#B5651D" stopOpacity="0.18" />
-              <stop offset="100%" stopColor="#B5651D" stopOpacity="0" />
+              <stop offset="0%" style={{ stopColor: "var(--chart-accent)" }} stopOpacity="0.18" />
+              <stop offset="100%" style={{ stopColor: "var(--chart-accent)" }} stopOpacity="0" />
             </linearGradient>
           </defs>
           {grid.map((gy, i) => (
-            <line key={i} x1={pad.l} y1={gy} x2={W - pad.r} y2={gy} stroke="#3f4a40" strokeOpacity="0.08" strokeWidth="1" />
+            <line key={i} x1={pad.l} y1={gy} x2={W - pad.r} y2={gy} stroke="currentColor" strokeOpacity="0.08" strokeWidth="1" />
           ))}
           <polygon points={area} fill="url(#propFill)" />
-          <polyline points={bankLine} fill="none" stroke="#3f4a40" strokeOpacity="0.35" strokeWidth="2" strokeDasharray="5 4" />
-          <polyline points={propLine} fill="none" stroke="#B5651D" strokeWidth="2.5" />
-          {pts.map((p, i) => (i === 0 || i === n ? <circle key={i} cx={x(i)} cy={y(valueOf(p))} r="3.5" fill="#B5651D" /> : null))}
+          <polyline points={bankLine} fill="none" stroke="currentColor" strokeOpacity="0.35" strokeWidth="2" strokeDasharray="5 4" />
+          <polyline points={propLine} fill="none" style={{ stroke: "var(--chart-accent)" }} strokeWidth="2.5" />
+          {pts.map((p, i) => (i === 0 || i === n ? <circle key={i} cx={x(i)} cy={y(valueOf(p))} r="3.5" style={{ fill: "var(--chart-accent)" }} /> : null))}
           {hi != null && hp ? (
             <g>
-              <line x1={x(hi)} y1={pad.t} x2={x(hi)} y2={H - pad.b} stroke="#3f4a40" strokeOpacity="0.25" strokeWidth="1" />
-              <circle cx={x(hi)} cy={y(valueOf(hp))} r="4" fill="#B5651D" />
-              <circle cx={x(hi)} cy={y(hp.bankValue)} r="3.5" fill="#3f4a40" fillOpacity="0.5" />
+              <line x1={x(hi)} y1={pad.t} x2={x(hi)} y2={H - pad.b} stroke="currentColor" strokeOpacity="0.25" strokeWidth="1" />
+              <circle cx={x(hi)} cy={y(valueOf(hp))} r="4" style={{ fill: "var(--chart-accent)" }} />
+              <circle cx={x(hi)} cy={y(hp.bankValue)} r="3.5" fill="currentColor" fillOpacity="0.5" />
             </g>
           ) : null}
         </svg>
@@ -1626,7 +1626,7 @@ function GrowthChart({
         <span className="text-brass-600">{t.yearN(n)} · {money(valueOf(pts[n]))}</span>
       </div>
       <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-forest-500/60">
-        <span className="inline-flex items-center gap-1.5"><span className="h-0.5 w-4 bg-brass-500" /> {lineLabel}</span>
+        <span className="inline-flex items-center gap-1.5"><span className="h-0.5 w-4" style={{ backgroundColor: "var(--chart-accent)" }} /> {lineLabel}</span>
         <span className="inline-flex items-center gap-1.5"><span className="h-0.5 w-4 border-t-2 border-dashed border-forest-500/40" /> {t.legendBank}</span>
       </div>
     </div>
@@ -1765,7 +1765,7 @@ function Verdict({
   const dealWord = grade === "strong" ? t.dealStrong : grade === "fair" ? t.dealFair : t.dealWeak;
   const bank = r.vsBankThb >= 0 ? t.verdictBeats(money(r.vsBankThb)) : t.verdictTrails(money(Math.abs(r.vsBankThb)));
   const pay = r.paybackYears != null ? t.verdictProfitFrom(r.paybackYears.toFixed(1)) : t.verdictNoProfit;
-  const dot = grade === "strong" ? "bg-forest-500" : grade === "fair" ? "bg-brass-500" : "bg-red-500/70";
+  const dot = grade === "strong" ? "bg-panel" : grade === "fair" ? "bg-brass-500" : "bg-red-500/70";
   return (
     <p className="mt-3 flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-sm leading-relaxed text-forest-500/75">
       <span className={`inline-block h-2 w-2 shrink-0 rounded-full ${dot}`} />
@@ -1813,7 +1813,7 @@ function Waterfall({ r, money, isRent, t }: { r: RoiResult; money: Money; isRent
           const positive = b.delta >= 0;
           const color = isTotal
             ? total >= 0
-              ? "bg-forest-500"
+              ? "bg-panel"
               : "bg-red-500/70"
             : positive
               ? "bg-forest-500/65"
@@ -1889,7 +1889,7 @@ function Tornado({
             <div key={d.label} className="grid grid-cols-[6.5rem_1fr_auto] items-center gap-3">
               <span className="truncate text-xs text-forest-500/70">{d.label}</span>
               <div className="relative h-4 rounded-sm bg-forest-500/[0.04]">
-                <div className="absolute top-0 z-10 h-full w-px bg-forest-900/40" style={{ left: `${xPct(base)}%` }} />
+                <div className="absolute top-0 z-10 h-full w-px bg-panel/40" style={{ left: `${xPct(base)}%` }} />
                 <div className="absolute top-0 h-full rounded-sm bg-brass-500/55" style={{ left: `${xPct(left)}%`, width: `${Math.max(1, xPct(right) - xPct(left))}%` }} />
               </div>
               <span className="w-24 shrink-0 text-right text-[11px] tabular-nums text-forest-500/70">
@@ -1923,14 +1923,14 @@ function FanChart({ band, money, t }: { band: { year: number; p10: number; p50: 
     <div className="mt-4">
       <p className="text-[11px] text-forest-500/60">{t.fanHint}</p>
       <svg viewBox={`0 0 ${W} ${H}`} className="mt-2 h-auto w-full select-none" role="img" aria-label="Range of outcomes over time">
-        <polygon points={areaPoints} fill="#B5651D" fillOpacity="0.15" />
-        <polyline points={band.map((b, i) => `${x(i)},${y(b.p90)}`).join(" ")} fill="none" stroke="#B5651D" strokeOpacity="0.4" strokeWidth="1" />
-        <polyline points={band.map((b, i) => `${x(i)},${y(b.p10)}`).join(" ")} fill="none" stroke="#B5651D" strokeOpacity="0.4" strokeWidth="1" />
-        <polyline points={midLine} fill="none" stroke="#B5651D" strokeWidth="2.5" />
+        <polygon points={areaPoints} style={{ fill: "var(--chart-accent)" }} fillOpacity="0.15" />
+        <polyline points={band.map((b, i) => `${x(i)},${y(b.p90)}`).join(" ")} fill="none" style={{ stroke: "var(--chart-accent)" }} strokeOpacity="0.4" strokeWidth="1" />
+        <polyline points={band.map((b, i) => `${x(i)},${y(b.p10)}`).join(" ")} fill="none" style={{ stroke: "var(--chart-accent)" }} strokeOpacity="0.4" strokeWidth="1" />
+        <polyline points={midLine} fill="none" style={{ stroke: "var(--chart-accent)" }} strokeWidth="2.5" />
       </svg>
       <div className="mt-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-[11px] text-forest-500/60">
-        <span className="inline-flex items-center gap-1.5"><span className="h-0.5 w-4 bg-brass-500" /> {t.fanMid}</span>
-        <span className="inline-flex items-center gap-1.5"><span className="h-2 w-4 bg-brass-500/20" /> {t.fanBand}</span>
+        <span className="inline-flex items-center gap-1.5"><span className="h-0.5 w-4" style={{ backgroundColor: "var(--chart-accent)" }} /> {t.fanMid}</span>
+        <span className="inline-flex items-center gap-1.5"><span className="h-2 w-4" style={{ backgroundColor: "var(--chart-accent)", opacity: 0.2 }} /> {t.fanBand}</span>
         <span className="tabular-nums">{t.yearN(last.year)}: {money(last.p10)} … {money(last.p90)}</span>
       </div>
     </div>
@@ -2144,7 +2144,7 @@ function SimilarObjects({
       </div>
       <Link
         href={href}
-        className="mt-6 inline-flex items-center gap-2 rounded-sm bg-forest-500 px-5 py-2.5 text-sm font-medium text-cream-100 transition-colors hover:bg-forest-400"
+        className="mt-6 inline-flex items-center gap-2 rounded-sm bg-panel px-5 py-2.5 text-sm font-medium text-panel-fg transition-colors hover:bg-forest-400"
       >
         {t.findForBudget}
         <ArrowRight className="h-4 w-4" />

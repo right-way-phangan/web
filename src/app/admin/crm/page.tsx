@@ -194,7 +194,7 @@ export default async function CrmPage({
           </Link>
           <Link
             href={{ pathname: "/admin/crm/new" }}
-            className="rounded-full bg-forest-900 px-4 py-2 text-sm font-medium text-white hover:bg-forest-900/90"
+            className="rounded-full bg-panel px-4 py-2 text-sm font-medium text-panel-fg hover:bg-panel/90"
           >
             + Новый лид
           </Link>
@@ -211,7 +211,7 @@ export default async function CrmPage({
             name="q"
             defaultValue={query}
             placeholder="Имя / телефон / email / RW / тег / заметки…"
-            className="w-full rounded-full border border-forest-900/15 bg-white px-3 py-1.5 text-sm outline-none focus:border-brass-500 sm:w-64"
+            className="w-full rounded-full border border-forest-900/15 bg-cream-50 px-3 py-1.5 text-sm outline-none focus:border-brass-500 sm:w-64"
           />
         </form>
         {QUICK.map((x) => {
@@ -226,7 +226,7 @@ export default async function CrmPage({
               className={
                 "rounded-full px-3 py-1.5 text-sm font-medium transition " +
                 (on
-                  ? "bg-amber-500 text-white"
+                  ? "bg-amber-500 text-panel-fg"
                   : "bg-forest-900/5 text-forest-900/70 hover:bg-forest-900/10")
               }
             >
@@ -256,7 +256,7 @@ export default async function CrmPage({
               className={
                 "rounded-full px-3 py-1.5 text-sm font-medium transition " +
                 (on
-                  ? "bg-forest-900 text-white"
+                  ? "bg-panel text-panel-fg"
                   : "bg-forest-900/5 text-forest-900/70 hover:bg-forest-900/10")
               }
             >

@@ -96,18 +96,18 @@ export function CommandPalette() {
         onClick={() => setOpen(true)}
         title="Поиск по админке (⌘K)"
         aria-label="Поиск по админке"
-        className="fixed bottom-5 right-5 z-40 flex h-11 w-11 items-center justify-center rounded-full bg-forest-900 text-lg text-white shadow-lg hover:bg-forest-900/90"
+        className="fixed bottom-5 right-5 z-40 flex h-11 w-11 items-center justify-center rounded-full bg-panel text-lg text-panel-fg shadow-lg hover:bg-panel/90"
       >
         🔍
       </button>
 
       {open && (
         <div
-          className="fixed inset-0 z-50 flex items-start justify-center bg-forest-900/40 p-4 pt-[12vh]"
+          className="fixed inset-0 z-50 flex items-start justify-center bg-panel/40 p-4 pt-[12vh]"
           onClick={() => setOpen(false)}
         >
           <div
-            className="w-full max-w-lg overflow-hidden rounded-2xl bg-white shadow-2xl"
+            className="w-full max-w-lg overflow-hidden rounded-2xl bg-cream-50 shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <input

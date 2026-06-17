@@ -175,7 +175,7 @@ export function CrmBoard({
                         setOverStage(null);
                       }}
                       className={
-                        "cursor-grab rounded-lg border bg-white p-3 shadow-sm active:cursor-grabbing " +
+                        "cursor-grab rounded-lg border bg-cream-50 p-3 shadow-sm active:cursor-grabbing " +
                         (stale
                           ? "border-forest-900/10 border-l-2 border-l-amber-400 "
                           : "border-forest-900/10 ") +
@@ -335,12 +335,12 @@ export function CrmBoard({
     {/* Bulk bar — appears when at least one card is checked */}
     {selected.size > 0 && (
       <div className="fixed inset-x-0 bottom-4 z-40 flex justify-center px-4">
-        <div className="flex flex-wrap items-center gap-2 rounded-2xl bg-forest-900 px-4 py-3 shadow-xl">
-          <span className="text-sm font-medium text-white">Выбрано: {selected.size}</span>
+        <div className="flex flex-wrap items-center gap-2 rounded-2xl bg-panel px-4 py-3 shadow-xl">
+          <span className="text-sm font-medium text-panel-fg">Выбрано: {selected.size}</span>
           <select
             value={bulkStage}
             onChange={(e) => setBulkStage(e.target.value)}
-            className="rounded-md border border-white/20 bg-white/10 px-2 py-1.5 text-sm text-white outline-none [&>option]:text-forest-900"
+            className="rounded-md border border-white/20 bg-cream-50/10 px-2 py-1.5 text-sm text-panel-fg outline-none [&>option]:text-forest-900"
           >
             <option value="">Стадия…</option>
             {stages.map((s) => (
@@ -353,7 +353,7 @@ export function CrmBoard({
             type="button"
             disabled={!bulkStage || pending}
             onClick={runBulkMove}
-            className="rounded-md bg-brass-500 px-3 py-1.5 text-sm font-medium text-white hover:bg-brass-600 disabled:opacity-40"
+            className="rounded-md bg-brass-500 px-3 py-1.5 text-sm font-medium text-panel-fg hover:bg-brass-600 disabled:opacity-40"
           >
             Переместить
           </button>
@@ -361,14 +361,14 @@ export function CrmBoard({
             type="button"
             disabled={pending}
             onClick={runBulkDelete}
-            className="rounded-md bg-white/10 px-3 py-1.5 text-sm font-medium text-red-300 hover:bg-white/20 disabled:opacity-40"
+            className="rounded-md bg-cream-50/10 px-3 py-1.5 text-sm font-medium text-red-300 hover:bg-cream-50/20 disabled:opacity-40"
           >
             🗑 Удалить
           </button>
           <button
             type="button"
             onClick={() => setSelected(new Set())}
-            className="px-2 py-1.5 text-sm text-white/60 hover:text-white"
+            className="px-2 py-1.5 text-sm text-panel-fg/60 hover:text-panel-fg"
           >
             Отмена
           </button>

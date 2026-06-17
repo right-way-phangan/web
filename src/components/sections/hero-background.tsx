@@ -92,7 +92,7 @@ export function HeroBackground({
   }, [scenes.length]);
 
   return (
-    <div className="absolute inset-0 overflow-hidden bg-forest-900">
+    <div className="absolute inset-0 overflow-hidden bg-panel">
       {/* One continuous Ken-Burns drift on the whole image stack — never a
           per-frame transform toggle (that snapped scale back on the fading
           frame and caused a visible jerk just before each crossfade). The

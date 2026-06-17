@@ -55,7 +55,7 @@ export function GuideOnboardingProgress() {
   const allDone = done === total;
 
   return (
-    <div className="rounded-xl border border-forest-900/10 bg-white p-4">
+    <div className="rounded-xl border border-forest-900/10 bg-cream-50 p-4">
       <div className="mb-2 flex items-center justify-between gap-3">
         <span className="text-sm font-semibold text-forest-900">
           {allDone ? "Онбординг пройден 🎉" : "Прогресс онбординга"}
@@ -66,7 +66,7 @@ export function GuideOnboardingProgress() {
       </div>
       <div className="h-2 overflow-hidden rounded-full bg-forest-900/10">
         <div
-          className={"h-full rounded-full transition-all " + (allDone ? "bg-forest-500" : "bg-brass-500")}
+          className={"h-full rounded-full transition-all " + (allDone ? "bg-panel" : "bg-brass-500")}
           style={{ width: `${pct}%` }}
         />
       </div>

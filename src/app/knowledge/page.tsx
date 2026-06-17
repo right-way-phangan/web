@@ -63,7 +63,7 @@ export default function KnowledgePage() {
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 rounded-sm bg-forest-500 px-6 py-3 text-sm font-medium text-cream-100 transition-colors hover:bg-forest-400"
+                className="inline-flex items-center gap-2 rounded-sm bg-panel px-6 py-3 text-sm font-medium text-panel-fg transition-colors hover:bg-forest-400"
               >
                 Ask us
                 <ArrowRight className="h-4 w-4" />

@@ -199,7 +199,7 @@ export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
                   <button
                     type="button"
                     onClick={() => setAreaSync(false)}
-                    className="ml-1 rounded-sm bg-forest-500 px-2 py-0.5 text-[11px] font-medium text-cream-100 hover:bg-forest-400"
+                    className="ml-1 rounded-sm bg-panel px-2 py-0.5 text-[11px] font-medium text-panel-fg hover:bg-forest-400"
                   >
                     {t.showAll}
                   </button>
@@ -240,7 +240,7 @@ function MobileTab({
       aria-pressed={active}
       className={cn(
         "inline-flex items-center gap-1.5 rounded-sm px-3 py-1.5 text-xs font-medium transition-colors",
-        active ? "bg-forest-500 text-cream-100" : "text-forest-500/70 hover:text-forest-500",
+        active ? "bg-panel text-panel-fg" : "text-forest-500/70 hover:text-forest-500",
       )}
     >
       <Icon className="h-3.5 w-3.5" />

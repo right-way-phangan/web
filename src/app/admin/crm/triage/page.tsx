@@ -56,7 +56,7 @@ export default async function TriagePage({
       {!CRM_ENABLED ? (
         <p className="mt-8 text-sm text-forest-900/55">CRM-бэкенд не подключён.</p>
       ) : !current || !detail ? (
-        <div className="mt-8 max-w-xl rounded-2xl border border-forest-900/10 bg-white p-8 text-center">
+        <div className="mt-8 max-w-xl rounded-2xl border border-forest-900/10 bg-cream-50 p-8 text-center">
           <p className="text-2xl">🎉</p>
           <p className="mt-2 font-medium text-forest-900">Очередь разобрана.</p>
           <p className="mt-1 text-sm text-forest-900/55">
@@ -65,7 +65,7 @@ export default async function TriagePage({
         </div>
       ) : (
         <div className="mt-6 max-w-xl">
-          <div className="rounded-2xl border border-forest-900/10 bg-white p-5">
+          <div className="rounded-2xl border border-forest-900/10 bg-cream-50 p-5">
             <div className="flex items-baseline justify-between gap-3">
               <h2 className="text-lg font-semibold text-forest-900">
                 {detail.contactName || detail.name}

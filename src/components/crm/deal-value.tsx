@@ -36,14 +36,14 @@ export function DealValue({
         value={draft}
         onChange={(e) => setDraft(e.target.value)}
         placeholder="сумма сделки, THB"
-        className="w-36 rounded-md border border-forest-900/15 bg-white px-2 py-1 text-sm outline-none focus:border-brass-500"
+        className="w-36 rounded-md border border-forest-900/15 bg-cream-50 px-2 py-1 text-sm outline-none focus:border-brass-500"
       />
       {dirty && (
         <button
           type="button"
           disabled={pending}
           onClick={() => save(Number.isFinite(parsed) && parsed > 0 ? parsed : null)}
-          className="rounded-md bg-forest-900 px-2.5 py-1 text-xs font-medium text-white disabled:opacity-40"
+          className="rounded-md bg-panel px-2.5 py-1 text-xs font-medium text-panel-fg disabled:opacity-40"
         >
           Сохранить
         </button>

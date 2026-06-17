@@ -47,7 +47,7 @@ export async function AdminNav({
             className={
               "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition " +
               (on
-                ? "bg-forest-900 text-white"
+                ? "bg-panel text-panel-fg"
                 : "bg-forest-900/5 text-forest-900/70 hover:bg-forest-900/10")
             }
           >
@@ -56,7 +56,7 @@ export async function AdminNav({
               <span
                 className={
                   "inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full px-1.5 text-xs font-semibold " +
-                  (on ? "bg-white/20 text-white" : "bg-brass-500 text-white")
+                  (on ? "bg-cream-50/20 text-panel-fg" : "bg-brass-500 text-panel-fg")
                 }
               >
                 {it.badge}

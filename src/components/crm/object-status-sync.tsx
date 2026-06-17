@@ -53,7 +53,7 @@ export function ObjectStatusSync({
     <div
       className={
         "rounded-xl border p-3 " +
-        (mismatch ? "border-amber-400/50 bg-amber-50" : "border-forest-900/10 bg-white")
+        (mismatch ? "border-amber-400/50 bg-amber-50" : "border-forest-900/10 bg-cream-50")
       }
     >
       <div className="flex flex-wrap items-baseline justify-between gap-2">
@@ -96,9 +96,9 @@ export function ObjectStatusSync({
               className={
                 "rounded-md px-2.5 py-1 text-xs font-medium transition disabled:cursor-default " +
                 (isCur
-                  ? "bg-forest-900 text-white"
+                  ? "bg-panel text-panel-fg"
                   : isSuggested
-                    ? "bg-amber-500 text-white hover:bg-amber-600"
+                    ? "bg-amber-500 text-panel-fg hover:bg-amber-600"
                     : "border border-forest-900/15 text-forest-900/70 hover:bg-forest-900/5")
               }
             >

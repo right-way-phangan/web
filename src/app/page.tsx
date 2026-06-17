@@ -20,7 +20,9 @@ export default function HomePage() {
     <>
       <Hero />
       <HeroStats locale="en" />
+      <div className="container-prose"><hr className="section-divider" /></div>
       <Values />
+      <div className="container-prose"><hr className="section-divider" /></div>
       <FeaturedListings />
       <IslandCta />
     </>

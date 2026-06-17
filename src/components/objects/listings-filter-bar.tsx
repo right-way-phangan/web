@@ -267,7 +267,7 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
           <SlidersHorizontal className="h-3 w-3" />
           {dict.more}
           {secondaryActiveCount > 0 ? (
-            <span className="inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-forest-500 px-1 text-[10px] text-cream-100">
+            <span className="inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-panel px-1 text-[10px] text-panel-fg">
               {secondaryActiveCount}
             </span>
           ) : null}
@@ -448,7 +448,7 @@ function Chip({
       className={cn(
         "inline-flex items-center gap-1.5 rounded-sm border px-3 py-1.5 text-xs font-medium transition-colors",
         active
-          ? "border-forest-500 bg-forest-500 text-cream-100"
+          ? "border-forest-500 bg-panel text-panel-fg"
           : "border-forest-500/20 bg-cream-50 text-forest-500 hover:border-forest-500/50",
       )}
     >
@@ -597,7 +597,7 @@ function MultiSelect({
                   className={cn(
                     "flex h-3.5 w-3.5 items-center justify-center rounded-[3px] border",
                     active
-                      ? "border-forest-500 bg-forest-500 text-cream-100"
+                      ? "border-forest-500 bg-panel text-panel-fg"
                       : "border-forest-500/30",
                   )}
                 >

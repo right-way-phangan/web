@@ -135,7 +135,7 @@ export default async function CrmHealthPage() {
       ) : (
         <div className="mt-6 space-y-5">
           {issues.map((issue) => (
-            <div key={issue.key} className="rounded-2xl border border-forest-900/10 bg-white p-4">
+            <div key={issue.key} className="rounded-2xl border border-forest-900/10 bg-cream-50 p-4">
               <p className="flex flex-wrap items-baseline gap-2">
                 <span className="text-sm font-semibold text-forest-900">{issue.title}</span>
                 <span className="rounded-full bg-red-100 px-2 py-0.5 text-xs font-semibold text-red-700">

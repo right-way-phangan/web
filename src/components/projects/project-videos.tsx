@@ -12,7 +12,7 @@ export function ProjectVideos({ urls, watchLabel }: { urls: string[]; watchLabel
           return (
             <div
               key={url}
-              className="relative aspect-video overflow-hidden rounded-sm border border-forest-500/10 bg-forest-900"
+              className="relative aspect-video overflow-hidden rounded-sm border border-forest-500/10 bg-panel"
             >
               <iframe
                 src={v.src}
@@ -32,7 +32,7 @@ export function ProjectVideos({ urls, watchLabel }: { urls: string[]; watchLabel
               src={v.src}
               controls
               preload="metadata"
-              className="aspect-video w-full rounded-sm border border-forest-500/10 bg-forest-900"
+              className="aspect-video w-full rounded-sm border border-forest-500/10 bg-panel"
             />
           );
         }

@@ -38,7 +38,7 @@ export function ExpectedClose({ leadId, value }: { leadId: number; value: string
           setDraft(e.target.value);
           save(e.target.value);
         }}
-        className="rounded-md border border-forest-900/15 bg-white px-2 py-1 text-sm text-forest-900/80 outline-none focus:border-brass-500 disabled:opacity-50"
+        className="rounded-md border border-forest-900/15 bg-cream-50 px-2 py-1 text-sm text-forest-900/80 outline-none focus:border-brass-500 disabled:opacity-50"
       />
       {draft && (
         <button

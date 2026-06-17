@@ -170,8 +170,8 @@ export default async function CrmTodayPage() {
           </p>
         </div>
         {monthProjection > 0 && (
-          <div className="rounded-xl bg-forest-900 px-4 py-2.5 text-right text-white">
-            <p className="text-[11px] uppercase tracking-wide text-white/55 capitalize">
+          <div className="rounded-xl bg-panel px-4 py-2.5 text-right text-panel-fg">
+            <p className="text-[11px] uppercase tracking-wide text-panel-fg/55 capitalize">
               Темп · {monthLabel}
             </p>
             <p className="text-lg font-semibold">
@@ -180,7 +180,7 @@ export default async function CrmTodayPage() {
                 <span className="ml-1.5 text-xs font-normal text-brass-300">{projPct}% цели</span>
               )}
             </p>
-            <p className="text-[11px] text-white/55">
+            <p className="text-[11px] text-panel-fg/55">
               won ฿{nf.format(Math.round(wonMonthCommission))} + прогноз ฿
               {nf.format(Math.round(monthFcThis))}
             </p>
@@ -189,7 +189,7 @@ export default async function CrmTodayPage() {
       </div>
 
       {nothing ? (
-        <div className="mt-8 rounded-2xl border border-forest-900/10 bg-white p-8 text-center">
+        <div className="mt-8 rounded-2xl border border-forest-900/10 bg-cream-50 p-8 text-center">
           <p className="text-lg font-medium text-forest-900">Всё под контролем ✨</p>
           <p className="mt-1 text-sm text-forest-900/55">
             Срочных задач нет, горячие лиды на связи, очередь разбора пуста. Хороший день, чтобы
@@ -282,7 +282,7 @@ export default async function CrmTodayPage() {
                 {callNow.map(({ lead, score, days }) => (
                   <li
                     key={lead.id}
-                    className="flex flex-wrap items-center gap-x-2 gap-y-1 rounded-lg border border-forest-900/10 bg-white px-3 py-2 text-sm"
+                    className="flex flex-wrap items-center gap-x-2 gap-y-1 rounded-lg border border-forest-900/10 bg-cream-50 px-3 py-2 text-sm"
                   >
                     <span className="shrink-0" title={`score ${score.score}`}>
                       {score.emoji}

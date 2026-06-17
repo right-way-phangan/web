@@ -51,7 +51,7 @@ export function LeadEdit({
   }
 
   const field =
-    "w-full rounded-md border border-forest-900/15 bg-white px-2.5 py-1.5 text-sm text-forest-900 outline-none focus:border-brass-500";
+    "w-full rounded-md border border-forest-900/15 bg-cream-50 px-2.5 py-1.5 text-sm text-forest-900 outline-none focus:border-brass-500";
   const labelCls = "block text-xs font-medium text-forest-900/55";
 
   if (!open) {
@@ -67,7 +67,7 @@ export function LeadEdit({
   }
 
   return (
-    <div className="rounded-xl border border-forest-900/10 bg-white p-4">
+    <div className="rounded-xl border border-forest-900/10 bg-cream-50 p-4">
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <label className="space-y-1">
           <span className={labelCls}>Имя контакта</span>
@@ -99,7 +99,7 @@ export function LeadEdit({
           type="button"
           disabled={pending}
           onClick={save}
-          className="rounded-full bg-forest-900 px-4 py-1.5 text-sm font-medium text-white hover:bg-forest-900/90 disabled:opacity-50"
+          className="rounded-full bg-panel px-4 py-1.5 text-sm font-medium text-panel-fg hover:bg-panel/90 disabled:opacity-50"
         >
           {pending ? "Сохраняю…" : "Сохранить"}
         </button>

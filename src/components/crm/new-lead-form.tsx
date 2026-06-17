@@ -46,9 +46,9 @@ export function NewLeadForm() {
   }
 
   const field =
-    "w-full rounded-md border border-forest-900/15 bg-white px-3 py-2 text-sm text-forest-900 outline-none focus:border-brass-500";
+    "w-full rounded-md border border-forest-900/15 bg-cream-50 px-3 py-2 text-sm text-forest-900 outline-none focus:border-brass-500";
   const labelCls = "block text-xs font-medium text-forest-900/55";
-  const sectionCls = "rounded-xl border border-forest-900/10 bg-white/60 p-4";
+  const sectionCls = "rounded-xl border border-forest-900/10 bg-cream-50/60 p-4";
   const sectionTitle = "mb-3 text-xs font-semibold uppercase tracking-wide text-forest-900/50";
 
   return (
@@ -204,7 +204,7 @@ export function NewLeadForm() {
         <button
           type="submit"
           disabled={pending}
-          className="rounded-full bg-forest-900 px-5 py-2 text-sm font-medium text-white hover:bg-forest-900/90 disabled:opacity-50"
+          className="rounded-full bg-panel px-5 py-2 text-sm font-medium text-panel-fg hover:bg-panel/90 disabled:opacity-50"
         >
           {pending ? "Создаю…" : "Создать лид"}
         </button>

@@ -152,7 +152,7 @@ export function ProjectHero({ project, availability, locale, developerHref }: Pr
               sizes="(min-width: 1024px) 55vw, 100vw"
               className="object-cover"
             />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-forest-900/35 via-transparent to-transparent" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-panel/35 via-transparent to-transparent" />
             <StageBadge
               stage={project.stage}
               locale={locale}

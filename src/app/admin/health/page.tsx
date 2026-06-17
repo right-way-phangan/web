@@ -32,11 +32,11 @@ export default async function HealthPage() {
 
         {/* Сводка */}
         <div className="mt-6 flex flex-wrap gap-3">
-          <div className="rounded-2xl border border-forest-900/10 bg-white px-5 py-3">
+          <div className="rounded-2xl border border-forest-900/10 bg-cream-50 px-5 py-3">
             <p className="font-serif text-2xl text-forest-900">{okObjects}</p>
             <p className="text-xs text-forest-900/55">без замечаний из {checked}</p>
           </div>
-          <div className="rounded-2xl border border-forest-900/10 bg-white px-5 py-3">
+          <div className="rounded-2xl border border-forest-900/10 bg-cream-50 px-5 py-3">
             <p className={"font-serif text-2xl " + (criticalCount ? "text-red-600" : "text-forest-500")}>
               {criticalCount}
             </p>
@@ -56,7 +56,7 @@ export default async function HealthPage() {
                 <div
                   key={c.key}
                   className={
-                    "rounded-2xl border bg-white p-5 " +
+                    "rounded-2xl border bg-cream-50 p-5 " +
                     (crit ? "border-red-500/40" : "border-forest-900/10")
                   }
                 >
