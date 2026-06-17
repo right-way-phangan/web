@@ -20,6 +20,7 @@ import { useLocale, localeHref } from "@/lib/i18n/use-locale";
 import { getListingsDict, type ListingsDict } from "@/lib/i18n/dictionaries";
 import { zoneCategory, buildWarnLabels } from "@/lib/data/zone-rules";
 import { SaveButton } from "./save-button";
+import { MagicCard } from "@/components/ui/magic-card";
 
 const NEW_BADGE_DAYS = 14;
 
@@ -86,8 +87,11 @@ export function ObjectCard({ object, priority = false }: Props) {
         href={localeHref(locale, `/object/${object.rwNumber}`) as Route}
         target="_blank"
         rel="noopener"
-        className="flex h-full flex-col overflow-hidden rounded-sm border border-forest-500/10 bg-cream-50 card-elevated transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1.5 hover:border-forest-500/25 hover:shadow-2xl hover:shadow-panel/15 motion-reduce:hover:translate-y-0"
+        className="flex h-full flex-col overflow-hidden rounded-sm card-elevated transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-panel/15 motion-reduce:hover:translate-y-0"
       >
+      {/* MagicCard несёт поверхность + рамку-spotlight (brass, следит за
+          курсором). card-elevated/бронзовый кант/parallax остаются на Link. */}
+      <MagicCard className="flex h-full flex-col">
       <div
         className="relative aspect-[4/3] overflow-hidden bg-forest-500/5"
         style={
@@ -222,6 +226,7 @@ export function ObjectCard({ object, priority = false }: Props) {
           ) : null}
         </div>
         </div>
+      </MagicCard>
       </Link>
     </div>
   );
