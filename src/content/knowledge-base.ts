@@ -1120,6 +1120,155 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "Can I renew my 30-year lease in Thailand, and are renewal clauses enforceable?",
   },
+  {
+    slug: "thai-company-for-property-49-51",
+    kbId: "kb-0021",
+    topic: "Structures",
+    title: "A Thai company for property (49/51): when it makes sense, when it's toxic",
+    short:
+      "For decades, foreign buyers used a Thai-majority company to access land they couldn't own in their own name. The 49/51 structure was always legally fragile; since 2025 the nominee-enforcement campaign has made it actively dangerous for a private villa purchase. For a genuine operating business with real Thai partners, a different analysis applies.",
+    updated: "2026-06-17",
+    body: [
+      "A Thai company with 49% foreign and 51% Thai shareholding was the default workaround for Thailand's land-ownership prohibition for much of the 2000s and 2010s. Foreigners cannot own land in their own name; but a Thai company can — so the logic was to park the land inside a company the foreigner controlled in practice, with Thai shareholders holding majority shares on paper. That logic has not changed. What has changed is the cost of being caught using it.",
+      { h: "What the structure actually is" },
+      "Under the Foreign Business Act (FBA) B.E. 2542 (1999), a company is 'foreign' if 50% or more of its shares are beneficially held by non-Thai nationals. A company with 51% Thai and 49% foreign shareholding is therefore classified as a Thai company — able to own land and operate in restricted sectors. The structure is not inherently illegal: a Thai majority company with genuine Thai co-investors running a real business is lawful.",
+      "The illegal version — the nominee structure — replaces genuine Thai investors with Thai nationals who hold shares only on paper, with no real capital contribution, no economic stake and no involvement in decisions. The foreigner controls the business and receives its economic benefit. That arrangement is what Sections 36–37 of the FBA and Sections 111–113 of the Land Code criminalise.",
+      { h: "How authorities now detect it" },
+      {
+        ul: [
+          "**DBD Order No. 2/2568** (effective January 2026): all new company incorporations require Thai shareholders to produce bank statements and source-of-funds documentation proving they genuinely funded their shares.",
+          "**DBD Order No. 1/2569** (effective April 2026): any company amendment involving a foreign director triggers signed Investment Confirmation Letters and supporting bank evidence for every Thai shareholder.",
+          "**IBAS cross-referencing**: the DBD's Intelligence Business Analytic System checks company filings, tax records and land registers against each other. A capital-to-land-value mismatch triggers a forensic audit.",
+          "**Multi-agency coordination**: the DBD, Department of Lands, DSI and AMLO now share data. A nominee pattern found by one agency opens investigations by all four.",
+        ],
+      },
+      { h: "The criminal consequences" },
+      "Both the Thai nominee and the foreign beneficiary face criminal liability. Under the FBA (Sections 36–37): up to **3 years imprisonment** and fines of **THB 100,000–1,000,000**, plus daily penalties of THB 10,000–50,000. Under the Land Code (Sections 111–113): up to **2 years** and fines up to **THB 20,000**. Beyond criminal penalties, Land Code Section 94 permits the authorities to order the company to **sell the land within 180 days to 1 year** at whatever price the forced sale yields. The land itself is at risk, not only the company.",
+      "Enforcement since 2025 has not been selective. An estimated 857–875 cases were prosecuted by December 2025, with total seized asset value of roughly THB 15.1–15.3 billion. Over 46,918 companies were flagged, with 26,830 targeted for inspection in 2025 alone. For the specific enforcement track record on Koh Phangan and its spread to Krabi, see [Nominee-ownership enforcement spreads to Krabi](/knowledge/nominee-crackdown-krabi-islands-2026).",
+      { h: "When a Thai company structure is genuinely different" },
+      "A 49/51 company is not automatically a nominee arrangement. The structure makes sense — and operates within the law — when:",
+      {
+        ul: [
+          "**Genuine Thai co-investors** hold their shares with documented capital from their own verified funds, and are actively involved in the business's decisions and financial outcomes.",
+          "**The company runs a real operating business** — property development, rental management, a hospitality operation — that independently justifies the company's existence and the land it holds.",
+          "**BOI-promoted projects**: Board of Investment promotion allows specific foreign-majority or fully foreign-owned companies to own land for their promoted business activities, though recent BOI notifications have narrowed this to operational necessity; residential use for the foreign owner is generally excluded.",
+          "**The company is not a shell**: it files and pays taxes, has employees or contractors, and generates documented income from operations — not merely from holding an asset a foreigner lives in.",
+        ],
+      },
+      "The test is substance over form. A company that exists solely to let a foreigner use a villa they couldn't otherwise own is a nominee arrangement regardless of how carefully the paperwork is drafted. A company that operates a genuine rental business, employs staff and pays corporate income tax on its earnings is a different animal.",
+      { h: "For a private villa buyer: the practical answer" },
+      "For a foreign buyer seeking to own a villa for personal use or occasional rental on Koh Phangan, the Thai company route is not the answer — and hasn't been since 2025. The criminal exposure for both buyer and Thai shareholders, and the forced-sale risk for the land itself, make it the wrong vehicle for a personal home. The clean, durable route is a registered leasehold combined with a fixed-term superficies on the building. See [Leasehold vs freehold](/knowledge/leasehold-vs-freehold) and [Superficies, usufruct and lease](/knowledge/superficies-vs-usufruct-vs-lease).",
+    ],
+    takeaways: [
+      "A 49/51 company is only lawful if the 51% Thai shareholders are genuine investors who funded their own shares with verifiable funds — nominees are criminal.",
+      "Both the Thai nominee and the foreign beneficiary face up to 3 years imprisonment and fines of THB 100,000–1,000,000 under the FBA.",
+      "Land Code Section 94 permits forced sale of the land within 180 days to 1 year if a nominee structure is found — the asset itself is at risk.",
+      "Since January 2026, new company incorporations require bank statement proof of genuine shareholder investment; any amendment with a foreign director requires sworn Investment Confirmation Letters.",
+      "For a private villa on Koh Phangan, the correct structure is leasehold + superficies — not a Thai company holding the land.",
+    ],
+    sources: [
+      {
+        title: "Global Law Experts — How Foreign Property Owners Can Protect Themselves in Thailand After the 2026 Nominee Company Crackdown",
+        url: "https://globallawexperts.com/how-foreign-property-owners-can-protect-themselves-in-thailand-after-the-2026-nominee-company-crackdown/",
+      },
+      {
+        title: "Terms.Law — Thailand Nominee Structures: Why They Fail and Who Goes to Prison",
+        url: "https://terms.law/Thai/business/nominee-structures-risks.html",
+      },
+      {
+        title: "Lex Bangkok — Nominee Land Ownership Thailand: Confiscation Risk (2026)",
+        url: "https://lexbangkok.com/nominee-land-ownership-thailand-confiscation-risk/",
+      },
+      {
+        title: "Foreign Business Act B.E. 2542 (1999), Sections 36–37; Land Code Sections 111–113, Section 94 (general practice)",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "Can a foreigner use a Thai company (49/51) to hold land or a villa on Koh Phangan?",
+  },
+  {
+    slug: "building-a-villa-koh-phangan",
+    kbId: "kb-0022",
+    topic: "Phangan",
+    title: "Building a villa on Koh Phangan: permits, zones, timelines and budget",
+    short:
+      "A foreign lessee can legally build on Koh Phangan — the construction permit titles the building in the builder's name, and a registered superficies separates that ownership from the land. The 2025 environmental zones constrain what you can build where, plans must be signed by licensed Thai professionals, and island logistics add 8–15% to mainland construction cost. Budget ฿18,000–60,000+/m² depending on finish, and 4–6 months for permit approval.",
+    updated: "2026-06-17",
+    body: [
+      "Building your own villa on Koh Phangan is possible as a foreign buyer — and for buyers who want a custom design on a specific plot, it often makes more sense than buying a finished unit. The mechanism by which a foreigner ends up owning a building on land they lease is actually the heart of Thai property law: the construction permit (Por. Ror. 1) registers the building in the applicant's name, and a registered superficies makes that ownership enforceable against the world, including future landowners.",
+      { h: "Can a foreigner build? The legal basis" },
+      "A foreigner cannot own land in Thailand but can own a building. The right to build on a leasehold plot is typically granted in the lease agreement and the superficies instrument. The construction permit is applied for by the landowner or by the person authorised to build — in a leasehold, the lessee, with the landowner's written consent. The finished building is titled in the permit applicant's name. Paired with a registered superficies, that building ownership is separately transferable and inheritable. For the ownership structure that makes this work, see [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa) and [Superficies, usufruct and lease](/knowledge/superficies-vs-usufruct-vs-lease).",
+      { h: "The building permit (Por. Ror. 1)" },
+      "The building permit — **Por. Ror. 1** (ปร.1) — is issued by the relevant local administrative authority (on Koh Phangan, the Subdistrict Administrative Organisation, known as OrBorTor). A permit is required before any new construction, structural alteration or demolition under the Building Control Act B.E. 2522. Building without one exposes you to a demolition order and fines, and an unpermitted structure creates problems when you try to sell the building later.",
+      { h: "Documents required" },
+      {
+        ul: [
+          "**Licensed Thai architect's plans** — all design drawings must be signed by a registered Thai architect with their licence number. An overseas architect's drawings alone are not accepted.",
+          "**Licensed Thai structural engineer's certification** — signed calculations and structural drawings from a registered Thai civil engineer.",
+          "**Copy of the land title deed** — to confirm the plot and establish the applicant's authority to build; the lease agreement is typically included.",
+          "**Site plan and boundary survey** — showing the building footprint, setbacks from boundaries, access roads and utility connections.",
+          "**Construction specification documents** — materials, construction method, floor plans, elevations and sections.",
+          "**Environmental compliance**: for projects triggering review thresholds (usable area ≥2,500 m², ≥50 guest rooms, or significant land alteration), an Initial Environmental Examination (IEE) or full EIA must be completed before the permit is issued — adding 6–14 months.",
+        ],
+      },
+      { h: "The 2025 environmental zones: what limits apply where" },
+      "Since May 2025, Koh Phangan is an environmental protection area with seven defined zones. The zone of the specific plot determines what you can build — and in some cases whether you can build at all.",
+      {
+        ul: [
+          "**Zone 2 — beachfront/coastal** (within roughly 50 m of shore): hotel-type developments face size caps and wastewater requirements; small single-storey residential construction only within the tightest setback band.",
+          "**Zone 3(1) — hillside (≥80 m elevation)**: one single house per parcel, maximum height 6 m, minimum 50% green space, natural-coloured roof with ≥80% pitch. No land subdivision, no resort-style retaining works.",
+          "**Zone 3(2) — high elevation (≥140 m)**: maximum footprint 90 m², 70% open space (50% green), no terrain alteration. The tightest residential zone.",
+          "**Zones 5–6 (sensitive/conservation islands)**: construction is generally prohibited except for government use.",
+          "**Lower-elevation unzoned plots**: the general Building Control Act rules apply — height limits, setback ratios, plot coverage. Typically more permissive than the hillside zones.",
+        ],
+      },
+      "Check the zone before you fall in love with a plot. A sea-view hillside plot at 90 m elevation will be subject to Zone 3(1) limits, not the more permissive general rules. For the full zone breakdown, see [Building zones on Koh Phangan](/knowledge/koh-phangan-building-zones).",
+      { h: "Permit timeline" },
+      "The Building Control Act gives the local authority **45 days** to respond to a complete permit application. In practice — accounting for plan revisions, authority workload and requests for additional documents — the realistic window from submission to permit approval is **4–6 months** for a straightforward project at standard elevation. For a hillside build triggering extra environmental checks, or any project requiring an IEE or EIA, add 6–14 months for the environmental assessment alone.",
+      "Total project timeline from concept to handover: design brief and architect engagement (1–2 months), detailed design development (2–4 months), permit submission and approval (4–6 months standard), construction (6–18 months depending on scale and finish). A realistic end-to-end schedule for a custom villa is **18–36 months**.",
+      { h: "Construction cost: what to budget" },
+      "On Koh Phangan, construction is quoted per square metre of built area. Current (2025–2026) market bands:",
+      {
+        ul: [
+          "**Basic / Thai standard — ฿18,000–25,000/m²**: simple layouts, local materials, functional finishes.",
+          "**Mid-range / Western standard — ฿25,000–40,000/m²**: the most common band for foreign-buyer villas — modern design, imported fixtures, quality tiling.",
+          "**Premium / luxury — ฿40,000–60,000+/m²**: high-spec materials, bespoke joinery, smart-home systems, imported bathrooms and kitchen.",
+        ],
+      },
+      "These figures are for built area only and **exclude**: the swimming pool (typically ฿400,000–800,000+ depending on size and finish), external works (driveways, retaining walls, landscaping), professional fees (architect, engineer, project manager — typically 8–15% of build cost), permit and connection fees, furniture, and utility hookups.",
+      "**Island logistics uplift**: Koh Phangan runs 8–15% above equivalent mainland costs. The island has a smaller contractor base; specialist trades often need to be ferried in from the mainland, and all materials arrive by barge. Factor in scheduling delays around rough-sea periods and high-season labour shortages.",
+      { h: "The permit puts the building in your name" },
+      "The construction permit is the document that makes the building legally yours. For a foreign lessee, it is applied for with the landowner's written consent, issued in the lessee's name, and — combined with a registered superficies at the Land Office — creates an asset you can sell, mortgage and leave to your heirs independently of the land lease. Do not start any work before the permit is in hand. An unpermitted structure is a liability at the point of sale and cannot be formally titled.",
+    ],
+    takeaways: [
+      "A foreign lessee can build on a leasehold plot with the landowner's consent — the construction permit (Por. Ror. 1) titles the building in the builder's name.",
+      "Plans must be drawn and signed by a licensed Thai architect and licensed Thai structural engineer — overseas credentials alone are not accepted.",
+      "The 2025 zones impose firm limits: hillside (80m+) is capped at 6 m height and 50% green space; above 140 m the footprint is capped at 90 m².",
+      "Budget ฿18,000–25,000/m² (basic) to ฿40,000–60,000+/m² (premium), plus an 8–15% island logistics uplift; pool, external works and professional fees are additional.",
+      "Allow 4–6 months for permit approval on a standard build; hillside projects requiring an environmental assessment take significantly longer.",
+    ],
+    sources: [
+      {
+        title: "Thaim To Build — Cost to Build a Villa in Phuket vs Samui vs Koh Phangan (Price/m² 2025)",
+        url: "https://thaimtobuild.com/villa-build-cost-phuket-samui-koh-phangan",
+      },
+      {
+        title: "Sukhothai Inter Law — New Zoning Law for Koh Samui, Koh Phangan & Koh Tao (May 2025 Update)",
+        url: "https://re.sukhothaiinterlaw.com/new-zoning-law-for-koh-samui-koh-phangan-koh-tao-what-property-owners-developers-need-to-know-may-2025-update/",
+      },
+      {
+        title: "BOI Thailand — Dealing with Construction Permits",
+        url: "https://osos.boi.go.th/en/how-to/139/Dealing-with-Construction-Permits/",
+      },
+      {
+        title: "Building Control Act B.E. 2522 (1979) — permit required before construction; 45-day review period (general practice)",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "What permits and costs are involved in building a villa on Koh Phangan?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
