@@ -18,8 +18,10 @@
  * сделкам): цену/аренду показываем только для доступных и зарезервированных
  * участков; для проданных/арендованных цена скрыта — публично только статус.
  *
- * Конфиденциальность: контакты собственника/застройщика и лидов НЕ кладём в этот
- * файл и НЕ выводим на сайт — они в рабочем хабе (оперативка). Лиды — в CRM.
+ * Конфиденциальность: контакты собственника/застройщика и лидов, а также
+ * КОМИССИИ застройщика (3%/5%) и цена за рай — НЕ в этом файле и НЕ на сайте.
+ * Публичная цена = только «цена за участок» (asking price). Комиссии и расчёты —
+ * в рабочем хабе (оперативка), лиды — в CRM. → feedback_media_publication_rule.
  */
 
 export type PlotStatus = "available" | "reserved" | "sold" | "rented";
@@ -79,14 +81,14 @@ export interface LandEstate {
 
 /**
  * Реальная подборка: склон над Хад Яо (запад Пангана), один собственник нарезал
- * родительский титул на лоты двух рядов — R (верхний, закатный вид на море) и
- * M (ниже, вид на горы/долину). Часть продана, часть свободна. Площади и коды
- * лотов — с мастер-плана собственника; цены R1/R7 — из открытого каталога
- * застройщика, по остальным свободным — «по запросу» (уточняем).
+ * землю на лоты двух рядов — R (верхний, закатный вид на море) и M (ниже, вид на
+ * горы/долину), плюс отдельный премиум-лот C10. Часть продана, часть свободна.
+ * Площади/коды — с мастер-плана собственника; цены за участок — из последнего
+ * прайса собственника (2026-06-17). Продано: лоты, которых нет в прайсе.
  *
- * ⚠️ Перед публичным анонсом подтвердить у собственника: статусы лотов, цены по
- * M1/M2/R10/M10 и индивидуальный чанот по каждому лоту (по M10 чанот ещё не
- * оформлен — отражено в заметке лота). Контакты собственника/лида — в рабочем хабе.
+ * ⚠️ Комиссии застройщика (3%/5%) и цена за рай в этот файл НЕ кладём — они в
+ * рабочем хабе. На сайте — только цена за участок (свободные/резерв). По M10 чанот
+ * ещё не оформлен (отражено в заметке лота). Контакты собственника/лида — в хабе.
  */
 export const LAND_ESTATES: LandEstate[] = [
   {
@@ -98,17 +100,17 @@ export const LAND_ESTATES: LandEstate[] = [
     },
     district: "Haad Yao",
     tagline: {
-      en: "Sunset sea-view and mountain-view building plots from one owner on the same hillside — one parent title, bought individually.",
-      ru: "Участки под застройку с видом на закатное море и на горы от одного собственника на одном склоне — один родительский титул, покупка по отдельности.",
+      en: "Sunset sea-view and mountain-view building plots from one owner on the same hillside — bought individually.",
+      ru: "Участки под застройку с видом на закатное море и на горы от одного собственника на одном склоне — покупка по отдельности.",
     },
     description: {
       en: [
-        "A hillside above Haad Yao on Koh Phangan's west coast, divided by a single owner into building plots across two rows. The upper R-row opens to 360° sunset sea views over Haad Yao, Haad Salad and the Ang Thong Marine Park; the M-row sits a little lower with green mountain-and-valley views. Concrete road access and underground three-phase electricity are already in across the development.",
-        "Because every lot comes from one owner under one parent title, due diligence is done once and inherited by each plot. Before any reservation we verify the individual Chanote title lot by lot — a step that matters here: not every lot is fully titled yet (M10's Chanote conversion is still in progress, see the note on that plot). Availability is tracked live below — as lots are sold, they are marked, and we keep it current.",
+        "A hillside above Haad Yao on Koh Phangan's west coast, divided by a single owner into building plots across two rows. The upper R-row opens to 360° sunset sea views over Haad Yao, Haad Salad and the Ang Thong Marine Park; the M-row sits a little lower with green mountain-and-valley views. A standalone premium plot (C10), bordering protected agricultural land, rounds out the collection. Concrete road access and underground three-phase electricity are already in across the development.",
+        "Every lot comes from one trusted owner, so due diligence is streamlined — and before any reservation we verify the individual Chanote title lot by lot. That step matters here: not every lot is fully titled yet (M10's Chanote conversion is still in progress, see the note on that plot). Availability is tracked live below — as lots are sold, they are marked, and we keep it current.",
       ],
       ru: [
-        "Склон над Хад Яо на западном берегу Пангана, разбитый одним собственником на участки под застройку в два ряда. Верхний ряд R открывает закатный вид на море 360° — на Хад Яо, Хад Салад и морской парк Анг Тонг; ряд M расположен чуть ниже, с видом на зелёные горы и долину. По всей территории уже проложены бетонные дороги и подземное трёхфазное электричество.",
-        "Поскольку все лоты — от одного собственника под единым родительским титулом, due diligence делается один раз и наследуется каждым участком. Перед любым резервом мы проверяем индивидуальный чанот по каждому лоту — здесь это важно: не на каждый лот чанот уже оформлен (по M10 перевод в чанот ещё идёт, см. заметку к лоту). Доступность отслеживаем вживую ниже — по мере продажи лоты помечаются, поддерживаем актуальность.",
+        "Склон над Хад Яо на западном берегу Пангана, разбитый одним собственником на участки под застройку в два ряда. Верхний ряд R открывает закатный вид на море 360° — на Хад Яо, Хад Салад и морской парк Анг Тонг; ряд M расположен чуть ниже, с видом на зелёные горы и долину. Подборку дополняет отдельный премиум-лот C10 на границе с охраняемой сельхозземлёй. По всей территории уже проложены бетонные дороги и подземное трёхфазное электричество.",
+        "Все лоты — от одного надёжного собственника, поэтому due diligence упрощён, и перед любым резервом мы проверяем индивидуальный чанот по каждому лоту. Здесь это важно: не на каждый лот чанот уже оформлен (по M10 перевод в чанот ещё идёт, см. заметку к лоту). Доступность отслеживаем вживую ниже — по мере продажи лоты помечаются, поддерживаем актуальность.",
       ],
     },
     cover: undefined, // /images/estates/haad-yao-hillside/cover.jpg — добавить фото
@@ -116,7 +118,7 @@ export const LAND_ESTATES: LandEstate[] = [
     lng: 99.975139,
     locationUrl: "https://maps.google.com/?q=9.776124,99.975139",
     highlights: [
-      { en: "One owner, one parent title — DD done once", ru: "Один собственник, один родительский титул — DD один раз" },
+      { en: "One owner across the hillside — DD streamlined", ru: "Один собственник на весь склон — DD упрощён" },
       { en: "Two view tiers: sunset sea-view (R) & mountain-view (M)", ru: "Два ряда: закатный вид на море (R) и вид на горы (M)" },
       { en: "Concrete roads + underground 3-phase power in place", ru: "Бетонные дороги + подземное 3-фазное электричество готовы" },
       { en: "Individual Chanote verified per lot before reservation", ru: "Индивидуальный чанот проверяем по каждому лоту до резерва" },
@@ -127,7 +129,7 @@ export const LAND_ESTATES: LandEstate[] = [
         status: "available",
         tenure: "Freehold",
         areaSqm: 2252,
-        priceThb: 18_300_000,
+        priceThb: 18_297_500,
         seaView: true,
         flatLand: true,
         note: {
@@ -159,7 +161,7 @@ export const LAND_ESTATES: LandEstate[] = [
         status: "available",
         tenure: "Freehold",
         areaSqm: 3232,
-        priceThb: 30_300_000,
+        priceThb: 30_262_500,
         seaView: true,
         flatLand: true,
         note: {
@@ -169,10 +171,37 @@ export const LAND_ESTATES: LandEstate[] = [
         // photos: ["/images/estates/haad-yao-hillside/r7-1.jpg", ...],
       },
       {
+        code: "R8",
+        status: "available",
+        tenure: "Freehold",
+        areaSqm: 3540,
+        priceThb: 28_762_500,
+        seaView: true,
+        note: {
+          en: "Large R-row lot, sunset sea view.",
+          ru: "Большой лот ряда R, закатный вид на море.",
+        },
+        // photos: ["/images/estates/haad-yao-hillside/r8-1.jpg", ...],
+      },
+      {
+        code: "R9",
+        status: "available",
+        tenure: "Freehold",
+        areaSqm: 7540,
+        priceThb: 47_125_000,
+        seaView: true,
+        note: {
+          en: "Largest plot in the collection — nearly 5 rai, sunset sea view.",
+          ru: "Самый большой лот подборки — почти 5 рай, закатный вид на море.",
+        },
+        // photos: ["/images/estates/haad-yao-hillside/r9-1.jpg", ...],
+      },
+      {
         code: "R10",
         status: "available",
         tenure: "Freehold",
         areaSqm: 2420,
+        priceThb: 22_687_500,
         seaView: true,
         note: {
           en: "Sea view from the upper part, quiet end of the loop road.",
@@ -191,6 +220,7 @@ export const LAND_ESTATES: LandEstate[] = [
         status: "available",
         tenure: "Freehold",
         areaSqm: 2448,
+        priceThb: 12_240_000,
         seaView: false,
         note: {
           en: "Mountain & valley view; Chanote being confirmed.",
@@ -203,6 +233,7 @@ export const LAND_ESTATES: LandEstate[] = [
         status: "available",
         tenure: "Freehold",
         areaSqm: 2444,
+        priceThb: 12_220_000,
         seaView: false,
         note: {
           en: "Mountain & valley view; Chanote being confirmed.",
@@ -227,6 +258,7 @@ export const LAND_ESTATES: LandEstate[] = [
         status: "available",
         tenure: "Freehold",
         areaSqm: 3152,
+        priceThb: 10_835_000,
         seaView: false,
         note: {
           en: "Largest M-row lot; mountain & valley view. Chanote being confirmed.",
@@ -239,6 +271,7 @@ export const LAND_ESTATES: LandEstate[] = [
         status: "available",
         tenure: "Freehold",
         areaSqm: 2404,
+        priceThb: 12_000_000,
         seaView: false,
         note: {
           en: "Mountain & valley view. Chanote being confirmed.",
@@ -251,6 +284,7 @@ export const LAND_ESTATES: LandEstate[] = [
         status: "available",
         tenure: "Freehold",
         areaSqm: 2403,
+        priceThb: 12_000_000,
         seaView: false,
         note: {
           en: "Mountain & valley view. Chanote being confirmed.",
@@ -263,6 +297,7 @@ export const LAND_ESTATES: LandEstate[] = [
         status: "available",
         tenure: "Freehold",
         areaSqm: 1382,
+        priceThb: 4_743_750,
         seaView: false,
         note: {
           en: "Compact M-row lot; mountain & valley view. Chanote being confirmed.",
@@ -281,12 +316,26 @@ export const LAND_ESTATES: LandEstate[] = [
         status: "available",
         tenure: "Freehold",
         areaSqm: 2372,
+        priceThb: 13_376_250,
         seaView: false,
         note: {
           en: "Mountain view. Chanote conversion still in progress — title is under the parent deed for now (verify before reserving).",
           ru: "Вид на горы. Перевод в чанот ещё идёт — пока титул в составе родительского (проверить до резерва).",
         },
         // photos: ["/images/estates/haad-yao-hillside/m10-1.jpg", ...],
+      },
+      {
+        code: "C10",
+        status: "available",
+        tenure: "Freehold",
+        areaSqm: 2476,
+        priceThb: 14_701_250,
+        seaView: true,
+        note: {
+          en: "Standalone premium sunset plot (separate Chanote), bordering 37 rai of protected agricultural land — open views that stay.",
+          ru: "Отдельный премиум-лот с закатным видом (свой чанот), граничит с 37 рай охраняемой сельхозземли — открытый вид сохранится.",
+        },
+        // photos: ["/images/estates/haad-yao-hillside/c10-1.jpg", ...],
       },
     ],
   },
