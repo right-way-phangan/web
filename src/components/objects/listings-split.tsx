@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { track } from "@vercel/analytics";
 import { LayoutGrid, Map as MapIcon } from "lucide-react";
 import type { RealEstateObject } from "@/types/object";
+import type { ViewMode } from "@/lib/filters/listings";
 import { ObjectCard } from "./object-card";
 import { MapSkeleton } from "./map-skeleton";
 import type { MapPoint, MapBounds } from "./listings-map";
@@ -24,7 +25,13 @@ const ListingsMap = dynamic(() => import("./listings-map"), {
  * the right (desktop). Hovering a card highlights its pin; clicking a pin selects
  * and scrolls to the matching card. On mobile it collapses to a List/Map toggle.
  */
-export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
+export function ListingsSplit({
+  objects,
+  mode = "buy",
+}: {
+  objects: RealEstateObject[];
+  mode?: ViewMode;
+}) {
   const t = getListingsDict(useLocale());
   // Stable identity — recomputing each render would re-trigger the map's
   // FitBounds (deps on `points`) and snap the zoom back on every state change.
@@ -39,6 +46,7 @@ export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
           lat: o.lat!,
           lng: o.lng!,
           priceThb: o.priceThb,
+          rentPerRaiMonth: o.rentPerRaiMonth,
           cover: o.coverImage,
         })),
     [objects],
@@ -155,7 +163,7 @@ export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
                       "ring-2 ring-brass-500 ring-offset-2 ring-offset-cream-100",
                   )}
                 >
-                  <ObjectCard object={o} priority={i < 4} />
+                  <ObjectCard object={o} priority={i < 4} priceMode={mode} />
                 </div>
               ))}
             </div>
@@ -180,6 +188,7 @@ export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
               {mountMap ? (
                 <ListingsMap
                   points={points}
+                  mode={mode}
                   activeRw={activeRw}
                   hoveredRw={hoveredRw}
                   onSelect={handleSelect}

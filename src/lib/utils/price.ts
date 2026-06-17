@@ -32,6 +32,15 @@ export function formatPricePerRai(thbPerRai: number): string {
   return `${formatPriceCompact(thbPerRai)} / rai`;
 }
 
+/**
+ * Monthly lease rate for the Rent view — compact like a sale price but with a
+ * per-month marker. `suffix` is localized ("/mo" / "/мес") so map pins and
+ * cards read right in both languages: "฿25K/mo".
+ */
+export function formatRentCompact(thbPerMonth: number, suffix = "/mo"): string {
+  return `${formatPriceCompact(thbPerMonth)}${suffix}`;
+}
+
 /** "≈ $260K" — compact dollar hint for cards (o.priceUsd is pre-derived). */
 export function formatUsdCompact(usd: number): string {
   if (usd >= 1_000_000) {

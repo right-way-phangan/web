@@ -182,6 +182,7 @@ const chrome: Record<Locale, ChromeDict> = {
     nav: [
       { label: "Listings", href: "/listings" },
       { label: "Projects", href: "/projects" },
+      { label: "Estates", href: "/estates" },
       { label: "Districts", href: "/districts" },
       { label: "Sell", href: "/sell" },
     ],
@@ -233,6 +234,7 @@ const chrome: Record<Locale, ChromeDict> = {
     nav: [
       { label: "Объекты", href: "/ru/listings" },
       { label: "Проекты", href: "/ru/projects" },
+      { label: "Участки", href: "/ru/estates" },
       { label: "Районы", href: "/ru/districts" },
       { label: "Продать", href: "/ru/sell" },
     ],
@@ -667,9 +669,14 @@ export interface ListingsDict {
   nlInterpreted: string;
   nlNoMatch: string;
   // filter bar
+  buy: string;
+  rent: string;
+  viewMode: string;
   anyDistrict: string;
   minPrice: string;
   maxPrice: string;
+  minRent: string;
+  maxRent: string;
   freehold: string;
   leasehold: string;
   beachfront: string;
@@ -700,6 +707,7 @@ export interface ListingsDict {
   priceOnRequest: string;
   perRai: string;
   perRaiMonth: string;
+  perMonthShort: string;
   rai: string;
   bed: string;
   newBadge: string;
@@ -739,9 +747,14 @@ const listings: Record<Locale, ListingsDict> = {
     nlTry: "Try:",
     nlInterpreted: "Interpreted as:",
     nlNoMatch: "Couldn’t pin that to a filter — showing everything. Try terms like a district, type, price, or “sea view”.",
+    buy: "Buy",
+    rent: "Rent",
+    viewMode: "Buy or rent",
     anyDistrict: "Any district",
     minPrice: "Min ฿",
     maxPrice: "Max ฿",
+    minRent: "Min ฿/mo",
+    maxRent: "Max ฿/mo",
     freehold: "Freehold",
     leasehold: "Leasehold",
     beachfront: "Beachfront",
@@ -770,6 +783,7 @@ const listings: Record<Locale, ListingsDict> = {
     priceOnRequest: "Price on request",
     perRai: "/rai",
     perRaiMonth: "/rai/mo",
+    perMonthShort: "/mo",
     rai: "rai",
     bed: "bed",
     newBadge: "New",
@@ -802,9 +816,14 @@ const listings: Record<Locale, ListingsDict> = {
     nlTry: "Примеры:",
     nlInterpreted: "Поняли так:",
     nlNoMatch: "Не удалось привязать к фильтру — показываем всё. Попробуйте район, тип, цену или «вид на море».",
+    buy: "Купить",
+    rent: "Аренда",
+    viewMode: "Покупка или аренда",
     anyDistrict: "Любой район",
     minPrice: "Цена от ฿",
     maxPrice: "Цена до ฿",
+    minRent: "Аренда от ฿/мес",
+    maxRent: "Аренда до ฿/мес",
     freehold: "Freehold",
     leasehold: "Leasehold",
     beachfront: "Первая линия",
@@ -833,6 +852,7 @@ const listings: Record<Locale, ListingsDict> = {
     priceOnRequest: "Цена по запросу",
     perRai: "/рай",
     perRaiMonth: "/рай/мес",
+    perMonthShort: "/мес",
     rai: "рай",
     bed: "сп.",
     newBadge: "Новое",
@@ -908,6 +928,7 @@ export interface ObjectDict {
     fullscreenExit: string;
     measure: string;
     measureHint: string;
+    perMonth: string;
   };
   perRaiMonth: string;
   priceOnRequest: string;
@@ -1039,6 +1060,7 @@ const objectDict: Record<Locale, ObjectDict> = {
       fullscreenExit: "Exit fullscreen",
       measure: "Measure",
       measureHint: "Tap the map to measure distance",
+      perMonth: "/mo",
     },
     perRaiMonth: "/ rai / month",
     priceOnRequest: "Price on request",
@@ -1167,6 +1189,7 @@ const objectDict: Record<Locale, ObjectDict> = {
       fullscreenExit: "Выйти из полноэкранного",
       measure: "Линейка",
       measureHint: "Нажимайте по карте, чтобы измерить расстояние",
+      perMonth: "/мес",
     },
     perRaiMonth: "/ рай / мес",
     priceOnRequest: "Цена по запросу",
@@ -1467,4 +1490,172 @@ const projectsDict: Record<Locale, ProjectsDict> = {
 
 export function getProjectsDict(locale: Locale): ProjectsDict {
   return projectsDict[locale];
+}
+
+// ---- Land estates (подборки участков от одного собственника) ----
+
+export interface EstatesDict {
+  eyebrow: string;
+  indexTitle: string;
+  indexLede: string;
+  count: (n: number) => string;
+  empty: string;
+  viewEstate: string;
+  home: string;
+  breadcrumb: string;
+  /** счётчики/строки доступности */
+  plots: string;
+  available: string;
+  reserved: string;
+  sold: string;
+  rented: string;
+  taken: string;
+  availableOf: (a: number, total: number) => string;
+  soldOut: string;
+  plotsLeft: (n: number) => string;
+  /** статусные бейджи */
+  status: Record<PlotStatusKey, string>;
+  /** заголовки секций */
+  sections: {
+    overview: string;
+    highlights: string;
+    plotsTitle: string;
+    plotsLede: string;
+    gallery: string;
+    location: string;
+  };
+  /** столбцы таблицы лотов */
+  table: {
+    plot: string;
+    area: string;
+    tenure: string;
+    price: string;
+    statusCol: string;
+  };
+  tenure: Record<"Freehold" | "Leasehold", string>;
+  priceOnRequest: string;
+  perRaiMonth: string;
+  forSale: string;
+  forLease: string;
+  viewPlot: string;
+  enquire: string;
+  enquireTitle: string;
+  otherEstates: string;
+  seeDistrict: string;
+  ddNote: string;
+}
+
+type PlotStatusKey = "available" | "reserved" | "sold" | "rented";
+
+const estatesDict: Record<Locale, EstatesDict> = {
+  en: {
+    eyebrow: "Land estates",
+    indexTitle: "Plot collections on Phangan.",
+    indexLede:
+      "Land sold by the plot — several building plots from a single owner under one title, offered individually. Buy freehold or lease long-term; we track which plots are still available, reserved, sold or leased.",
+    count: (n) => `${n} ${n === 1 ? "collection" : "collections"} on the island.`,
+    empty: "No plot collections published yet. New estates appear here as they go live.",
+    viewEstate: "View collection",
+    home: "Home",
+    breadcrumb: "Land estates",
+    plots: "Plots",
+    available: "Available",
+    reserved: "Reserved",
+    sold: "Sold",
+    rented: "Leased",
+    taken: "Taken",
+    availableOf: (a, total) => `${a} of ${total} available`,
+    soldOut: "Fully taken",
+    plotsLeft: (n) => `${n} ${n === 1 ? "plot" : "plots"} left`,
+    status: {
+      available: "Available",
+      reserved: "Reserved",
+      sold: "Sold",
+      rented: "Leased",
+    },
+    sections: {
+      overview: "About this collection",
+      highlights: "Why this estate",
+      plotsTitle: "Plots & availability",
+      plotsLede: "Live status across the estate — available, reserved, sold or leased.",
+      gallery: "On-site photos",
+      location: "Location",
+    },
+    table: {
+      plot: "Plot",
+      area: "Area",
+      tenure: "Tenure",
+      price: "Price",
+      statusCol: "Status",
+    },
+    tenure: { Freehold: "Freehold", Leasehold: "Leasehold" },
+    priceOnRequest: "Price on request",
+    perRaiMonth: "/ rai · month",
+    forSale: "For sale",
+    forLease: "For lease",
+    viewPlot: "View plot",
+    enquire: "Enquire about this collection",
+    enquireTitle: "Enquire",
+    otherEstates: "Other collections",
+    seeDistrict: "See all listings in this district",
+    ddNote:
+      "One owner, one parent title — due diligence is done once and inherited by every plot.",
+  },
+  ru: {
+    eyebrow: "Земельные проекты",
+    indexTitle: "Подборки участков на Пангане.",
+    indexLede:
+      "Земля по участкам — несколько участков под застройку от одного собственника под единым титулом, предлагаются по отдельности. Покупка во фрихолд или долгосрочная аренда; отслеживаем, какие участки свободны, в резерве, проданы или сданы.",
+    count: (n) => `${n} ${n === 1 ? "подборка" : n < 5 ? "подборки" : "подборок"} на острове.`,
+    empty: "Пока нет опубликованных подборок. Новые появляются здесь по мере выхода.",
+    viewEstate: "Смотреть подборку",
+    home: "Главная",
+    breadcrumb: "Земельные проекты",
+    plots: "Участки",
+    available: "Свободно",
+    reserved: "Резерв",
+    sold: "Продано",
+    rented: "Сдано",
+    taken: "Занято",
+    availableOf: (a, total) => `свободно ${a} из ${total}`,
+    soldOut: "Всё занято",
+    plotsLeft: (n) => `осталось ${n} ${n === 1 ? "участок" : n < 5 ? "участка" : "участков"}`,
+    status: {
+      available: "Свободен",
+      reserved: "Резерв",
+      sold: "Продан",
+      rented: "Арендован",
+    },
+    sections: {
+      overview: "Об этой подборке",
+      highlights: "Почему этот проект",
+      plotsTitle: "Участки и доступность",
+      plotsLede: "Актуальный статус по подборке — свободен, резерв, продан или арендован.",
+      gallery: "Фото с участков",
+      location: "Расположение",
+    },
+    table: {
+      plot: "Участок",
+      area: "Площадь",
+      tenure: "Владение",
+      price: "Цена",
+      statusCol: "Статус",
+    },
+    tenure: { Freehold: "Фрихолд", Leasehold: "Лизхолд" },
+    priceOnRequest: "Цена по запросу",
+    perRaiMonth: "/ рай · мес",
+    forSale: "Продажа",
+    forLease: "Аренда",
+    viewPlot: "Открыть участок",
+    enquire: "Запросить по подборке",
+    enquireTitle: "Заявка",
+    otherEstates: "Другие подборки",
+    seeDistrict: "Все объекты этого района",
+    ddNote:
+      "Один собственник, один родительский титул — due diligence делается один раз и наследуется каждым участком.",
+  },
+};
+
+export function getEstatesDict(locale: Locale): EstatesDict {
+  return estatesDict[locale];
 }

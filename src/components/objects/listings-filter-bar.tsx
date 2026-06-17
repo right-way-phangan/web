@@ -5,7 +5,7 @@ import type { Route } from "next";
 import { useEffect, useRef, useState, useTransition } from "react";
 import { Check, X, ChevronDown, BellPlus, BellRing, SlidersHorizontal } from "lucide-react";
 import type { ObjectType, TenureType } from "@/types/object";
-import type { ListingsFilter, SortOption } from "@/lib/filters/listings";
+import type { ListingsFilter, SortOption, ViewMode } from "@/lib/filters/listings";
 import { describeFilter } from "@/lib/filters/listings";
 import { useSavedSearches } from "@/lib/saved/saved-searches";
 import { useLocale } from "@/lib/i18n/use-locale";
@@ -28,6 +28,10 @@ const BEDROOM_OPTIONS = [1, 2, 3, 4, 5];
 // Price stops in millions of THB (URL params ?pmin / ?pmax are in millions).
 const PRICE_STOPS = [5, 10, 15, 20, 25, 30, 40, 50, 75, 100];
 const priceLabel = (m: number) => `฿${m}M`;
+
+// Rent stops in thousands of THB / month (URL params ?rmin / ?rmax are in
+// thousands). Land lease is quoted per rai per month — tune as inventory lands.
+const RENT_STOPS = [5, 10, 15, 20, 30, 50, 75, 100];
 
 export function ListingsFilterBar({ current, options, totalCount }: Props) {
   const router = useRouter();
@@ -74,9 +78,29 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
     });
   }
 
+  // Buy/Rent switch. Mode is preserved by "Clear all" (it's a view, not a
+  // filter), but the *other* mode's price range is dropped on switch so a stale
+  // ฿M range never leaks into a ฿/mo view (different orders of magnitude).
+  const isRent = current.mode === "rent";
+  function setMode(next: ViewMode) {
+    update((p) => {
+      if (next === "rent") {
+        p.set("mode", "rent");
+        p.delete("pmin");
+        p.delete("pmax");
+      } else {
+        p.delete("mode");
+        p.delete("rmin");
+        p.delete("rmax");
+      }
+    });
+  }
+
   function clearAll() {
     update((p) => {
       [...p.keys()].forEach((k) => p.delete(k));
+      // Keep the visitor on the Buy/Rent tab they're viewing.
+      if (isRent) p.set("mode", "rent");
     });
   }
 
@@ -87,6 +111,8 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
     current.bedroomsMin !== undefined ||
     current.priceMinThb !== undefined ||
     current.priceMaxThb !== undefined ||
+    current.rentMinThb !== undefined ||
+    current.rentMaxThb !== undefined ||
     current.beachfront ||
     current.seaView ||
     current.mountainView ||
@@ -94,18 +120,23 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
 
   const priceMinM = current.priceMinThb ? current.priceMinThb / 1_000_000 : undefined;
   const priceMaxM = current.priceMaxThb ? current.priceMaxThb / 1_000_000 : undefined;
+  const rentMinK = current.rentMinThb ? current.rentMinThb / 1_000 : undefined;
+  const rentMaxK = current.rentMaxThb ? current.rentMaxThb / 1_000 : undefined;
 
   // Demand signal: once a filter selection settles (2.5s after the last change),
   // beacon the snapshot to /api/track-search. Debounced + deduped so dragging
   // through several toggles logs one intent, not every intermediate state. Sort
   // alone isn't demand, so it's excluded from the signature.
   const demandSig = [
+    current.mode,
     current.type.join(","),
     current.district.join(","),
     current.tenure.join(","),
     current.bedroomsMin ?? "",
     priceMinM ?? "",
     priceMaxM ?? "",
+    rentMinK ?? "",
+    rentMaxK ?? "",
     current.beachfront ? "b" : "",
     current.seaView ? "s" : "",
     current.mountainView ? "m" : "",
@@ -117,6 +148,8 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
     current.bedroomsMin !== undefined ||
     current.priceMinThb !== undefined ||
     current.priceMaxThb !== undefined ||
+    current.rentMinThb !== undefined ||
+    current.rentMaxThb !== undefined ||
     current.beachfront ||
     current.seaView ||
     current.mountainView;
@@ -130,12 +163,15 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
       if (current.seaView) features.push("seaView");
       if (current.mountainView) features.push("mountainView");
       const body = JSON.stringify({
+        mode: current.mode,
         types: current.type,
         districts: current.district,
         tenure: current.tenure,
         features,
         priceMinM: priceMinM ?? null,
         priceMaxM: priceMaxM ?? null,
+        rentMinK: rentMinK ?? null,
+        rentMaxK: rentMaxK ?? null,
         bedroomsMin: current.bedroomsMin ?? null,
         resultCount: totalCount,
         locale,
@@ -146,7 +182,7 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
       }
     }, 2500);
     return () => clearTimeout(id);
-  }, [demandSig, hasDemand, totalCount, locale, current, priceMinM, priceMaxM]);
+  }, [demandSig, hasDemand, totalCount, locale, current, priceMinM, priceMaxM, rentMinK, rentMaxK]);
 
   // Saved-search identity ignores sort order (not part of intent), so featured
   // vs price-sorted views of the same filters don't become two saved searches.
@@ -190,8 +226,10 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
       label: tn === "Freehold" ? dict.freehold : dict.leasehold,
       remove: () => toggleMulti("tenure", tn, current.tenure),
     })),
-    ...(priceMinM ? [{ key: "pmin", label: `≥ ฿${priceMinM}M`, remove: () => setSingle("pmin", undefined) }] : []),
-    ...(priceMaxM ? [{ key: "pmax", label: `≤ ฿${priceMaxM}M`, remove: () => setSingle("pmax", undefined) }] : []),
+    ...(!isRent && priceMinM ? [{ key: "pmin", label: `≥ ฿${priceMinM}M`, remove: () => setSingle("pmin", undefined) }] : []),
+    ...(!isRent && priceMaxM ? [{ key: "pmax", label: `≤ ฿${priceMaxM}M`, remove: () => setSingle("pmax", undefined) }] : []),
+    ...(isRent && rentMinK ? [{ key: "rmin", label: `≥ ฿${rentMinK}K${dict.perMonthShort}`, remove: () => setSingle("rmin", undefined) }] : []),
+    ...(isRent && rentMaxK ? [{ key: "rmax", label: `≤ ฿${rentMaxK}K${dict.perMonthShort}`, remove: () => setSingle("rmax", undefined) }] : []),
     ...(current.bedroomsMin ? [{ key: "beds", label: `${current.bedroomsMin}+ ${dict.bed}`, remove: () => setSingle("bedrooms", undefined) }] : []),
     ...(current.beachfront ? [{ key: "beachfront", label: dict.beachfront, remove: () => setSingle("beachfront", undefined) }] : []),
     ...(current.seaView ? [{ key: "seaview", label: dict.seaView, remove: () => setSingle("seaview", undefined) }] : []),
@@ -207,6 +245,22 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
       )}
     >
       <div className="flex flex-wrap items-center gap-2">
+        {/* Buy / Rent — primary mode switch (the market is pivoting to leasehold) */}
+        <div
+          role="tablist"
+          aria-label={dict.viewMode}
+          className="inline-flex overflow-hidden rounded-sm border border-forest-500/20 bg-cream-50"
+        >
+          <ModeTab active={!isRent} onClick={() => setMode("buy")}>
+            {dict.buy}
+          </ModeTab>
+          <ModeTab active={isRent} onClick={() => setMode("rent")}>
+            {dict.rent}
+          </ModeTab>
+        </div>
+
+        <Divider />
+
         {/* Type chips */}
         {options.types.map((ty) => {
           const active = current.type.includes(ty);
@@ -235,27 +289,54 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
           onClear={() => setSingle("district", undefined)}
         />
 
-        {/* Price range (millions THB) */}
-        <Select
-          label={dict.minPrice}
-          placeholder={dict.minPrice}
-          value={priceMinM?.toString() ?? ""}
-          options={PRICE_STOPS.filter((m) => !priceMaxM || m < priceMaxM).map((m) => ({
-            value: String(m),
-            label: priceLabel(m),
-          }))}
-          onChange={(v) => setSingle("pmin", v || undefined)}
-        />
-        <Select
-          label={dict.maxPrice}
-          placeholder={dict.maxPrice}
-          value={priceMaxM?.toString() ?? ""}
-          options={PRICE_STOPS.filter((m) => !priceMinM || m > priceMinM).map((m) => ({
-            value: String(m),
-            label: priceLabel(m),
-          }))}
-          onChange={(v) => setSingle("pmax", v || undefined)}
-        />
+        {/* Price range — sale price (฿M) in Buy mode, monthly rent (฿K/mo) in Rent mode */}
+        {isRent ? (
+          <>
+            <Select
+              label={dict.minRent}
+              placeholder={dict.minRent}
+              value={rentMinK?.toString() ?? ""}
+              options={RENT_STOPS.filter((k) => !rentMaxK || k < rentMaxK).map((k) => ({
+                value: String(k),
+                label: `฿${k}K${dict.perMonthShort}`,
+              }))}
+              onChange={(v) => setSingle("rmin", v || undefined)}
+            />
+            <Select
+              label={dict.maxRent}
+              placeholder={dict.maxRent}
+              value={rentMaxK?.toString() ?? ""}
+              options={RENT_STOPS.filter((k) => !rentMinK || k > rentMinK).map((k) => ({
+                value: String(k),
+                label: `฿${k}K${dict.perMonthShort}`,
+              }))}
+              onChange={(v) => setSingle("rmax", v || undefined)}
+            />
+          </>
+        ) : (
+          <>
+            <Select
+              label={dict.minPrice}
+              placeholder={dict.minPrice}
+              value={priceMinM?.toString() ?? ""}
+              options={PRICE_STOPS.filter((m) => !priceMaxM || m < priceMaxM).map((m) => ({
+                value: String(m),
+                label: priceLabel(m),
+              }))}
+              onChange={(v) => setSingle("pmin", v || undefined)}
+            />
+            <Select
+              label={dict.maxPrice}
+              placeholder={dict.maxPrice}
+              value={priceMaxM?.toString() ?? ""}
+              options={PRICE_STOPS.filter((m) => !priceMinM || m > priceMinM).map((m) => ({
+                value: String(m),
+                label: priceLabel(m),
+              }))}
+              onChange={(v) => setSingle("pmax", v || undefined)}
+            />
+          </>
+        )}
 
         {/* Mobile-only toggle for the secondary filters below */}
         <button
@@ -460,6 +541,34 @@ function Chip({
 
 function Divider() {
   return <span className="hidden h-5 w-px bg-forest-500/10 md:inline-block" />;
+}
+
+/** One half of the Buy/Rent segmented control. */
+function ModeTab({
+  active,
+  onClick,
+  children,
+}: {
+  active: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      role="tab"
+      aria-selected={active}
+      onClick={onClick}
+      className={cn(
+        "px-3.5 py-1.5 text-xs font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brass-500",
+        active
+          ? "bg-forest-500 text-cream-100"
+          : "text-forest-500/70 hover:bg-forest-500/5 hover:text-forest-500",
+      )}
+    >
+      {children}
+    </button>
+  );
 }
 
 function Select({
