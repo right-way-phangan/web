@@ -215,7 +215,7 @@ export default function ListingsMap({
   return (
     <div
       ref={wrapperRef}
-      className="relative h-full w-full overflow-hidden rounded-sm border border-forest-500/10 bg-[#e8e4da]"
+      className="relative h-full w-full overflow-hidden rounded-sm border border-forest-500/10 bg-cream-300"
     >
       <MapContainer
         ref={mapRef}
