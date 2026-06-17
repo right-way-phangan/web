@@ -15,7 +15,7 @@ const CSP = [
   "frame-ancestors 'self'",
   "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com https://va.vercel-scripts.com https://*.vercel-insights.com",
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https://*.public.blob.vercel-storage.com https://*.basemaps.cartocdn.com https://*.longdo.com https://server.arcgisonline.com https://drive.google.com https://lh3.googleusercontent.com https://*.google-analytics.com https://www.googletagmanager.com",
+  "img-src 'self' data: blob: https://*.public.blob.vercel-storage.com https://*.r2.dev https://*.r2.cloudflarestorage.com https://*.basemaps.cartocdn.com https://*.longdo.com https://server.arcgisonline.com https://drive.google.com https://lh3.googleusercontent.com https://*.google-analytics.com https://www.googletagmanager.com",
   "font-src 'self' data:",
   // open.er-api.com: live FX fetched client-side by the ROI calculator.
   "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.vercel-insights.com https://www.googletagmanager.com https://open.er-api.com",
@@ -50,6 +50,10 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "drive.google.com" },
       { protocol: "https", hostname: "lh3.googleusercontent.com" },
+      // R2 public bucket (pub-*.r2.dev) is where object photos move after the
+      // Vercel Blob store was blocked; *.r2.cloudflarestorage.com is the S3
+      // endpoint kept for completeness. → memory project_image_optimization_limit
+      { protocol: "https", hostname: "**.r2.dev" },
       { protocol: "https", hostname: "**.r2.cloudflarestorage.com" },
       { protocol: "https", hostname: "**.public.blob.vercel-storage.com" },
     ],
