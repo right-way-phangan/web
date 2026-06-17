@@ -7,7 +7,8 @@ import L from "leaflet";
 import { Maximize2, Minimize2 } from "lucide-react";
 import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
-import { formatPriceCompact } from "@/lib/utils/price";
+import { formatPriceCompact, formatRentCompact } from "@/lib/utils/price";
+import type { ViewMode } from "@/lib/filters/listings";
 import {
   TILE_URL,
   TILE_ATTRIBUTION,
@@ -51,6 +52,7 @@ export interface MapPoint {
   lat: number;
   lng: number;
   priceThb?: number;
+  rentPerRaiMonth?: number;
   cover?: string;
 }
 
@@ -69,11 +71,20 @@ const COLORS = {
   cream: "#FEFCF9",
 };
 
+// The figure a pin shows, given the active view: monthly rent (Rent) or sale
+// price (Buy). Falls back to the type label when the relevant figure is missing.
+function pinLabel(p: MapPoint, mode: ViewMode, perMonth: string): string {
+  if (mode === "rent") {
+    return p.rentPerRaiMonth ? formatRentCompact(p.rentPerRaiMonth, perMonth) : p.type;
+  }
+  return p.priceThb ? formatPriceCompact(p.priceThb) : p.type;
+}
+
 // Airbnb-style price pill, anchored by its bottom tip at the coordinate. We size
 // the icon to [0,0] and let the inner <span> grow with the label, shifting it up
 // and left so the visual bottom-centre sits on the point.
-function pricePin(p: MapPoint, state: PinState): L.DivIcon {
-  const label = p.priceThb ? formatPriceCompact(p.priceThb) : p.type;
+function pricePin(p: MapPoint, state: PinState, mode: ViewMode, perMonth: string): L.DivIcon {
+  const label = pinLabel(p, mode, perMonth);
   const bg = state === "idle" ? COLORS.forest : COLORS.brass;
   const z = state === "active" ? "z-index:10000;" : state === "hover" ? "z-index:9000;" : "";
   const scale = state === "idle" ? "" : "transform:translate(-50%,-100%) scale(1.08);";
@@ -174,6 +185,7 @@ function PanToActive({ points, activeRw }: { points: MapPoint[]; activeRw: strin
 
 interface Props {
   points: MapPoint[];
+  mode?: ViewMode;
   activeRw?: string | null;
   hoveredRw?: string | null;
   onSelect?: (rw: string) => void;
@@ -184,6 +196,7 @@ interface Props {
 
 export default function ListingsMap({
   points,
+  mode = "buy",
   activeRw = null,
   hoveredRw = null,
   onSelect,
@@ -317,7 +330,7 @@ export default function ListingsMap({
               <Marker
                 key={p.rw}
                 position={[p.lat, p.lng]}
-                icon={pricePin(p, state)}
+                icon={pricePin(p, state, mode, t.perMonth)}
                 eventHandlers={{
                   click: () => onSelect?.(p.rw),
                   mouseover: () => onHover?.(p.rw),
@@ -352,7 +365,13 @@ export default function ListingsMap({
                     <span className="block font-serif text-sm leading-snug text-forest-900">
                       {p.title}
                     </span>
-                    {p.priceThb ? (
+                    {mode === "rent" ? (
+                      p.rentPerRaiMonth ? (
+                        <span className="num mt-1 block text-sm text-forest-900">
+                          {formatRentCompact(p.rentPerRaiMonth, t.perMonth)}
+                        </span>
+                      ) : null
+                    ) : p.priceThb ? (
                       <span className="num mt-1 block text-sm text-forest-900">
                         {formatPriceCompact(p.priceThb)}
                       </span>

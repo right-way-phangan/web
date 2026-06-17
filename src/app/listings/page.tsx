@@ -42,7 +42,7 @@ export default async function ListingsPage({ searchParams }: PageProps) {
     .map(slimObjectForList);
   const options = deriveFilterOptions(all);
   const filtered = all.filter(makeFilterPredicate(filter));
-  const sorted = applySort(filtered, filter.sort);
+  const sorted = applySort(filtered, filter.sort, filter.mode);
   const isAnyFilter = isFiltered(filter);
   const qRaw = sp.q;
   const q = (Array.isArray(qRaw) ? qRaw[0] : qRaw) ?? "";
@@ -78,12 +78,14 @@ export default async function ListingsPage({ searchParams }: PageProps) {
 
       {sorted.length === 0 ? (
         <ListingsEmpty
-          filtered={isAnyFilter}
+          // Rent has no inventory yet — treat an empty Rent view as "filtered"
+          // so visitors get the "send a brief" prompt, not "catalogue refreshing".
+          filtered={isAnyFilter || filter.mode === "rent"}
           clearHref="/listings"
           briefMessage={summarizeForBrief(filter, q)}
         />
       ) : (
-        <ListingsSplit objects={sorted} />
+        <ListingsSplit objects={sorted} mode={filter.mode} />
       )}
 
       <RecentlyViewed catalog={all} />

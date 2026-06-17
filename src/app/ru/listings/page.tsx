@@ -44,7 +44,7 @@ export default async function RussianListingsPage({ searchParams }: PageProps) {
     .map(slimObjectForList);
   const options = deriveFilterOptions(all);
   const filtered = all.filter(makeFilterPredicate(filter));
-  const sorted = applySort(filtered, filter.sort);
+  const sorted = applySort(filtered, filter.sort, filter.mode);
   const isAnyFilter = isFiltered(filter);
   const qRaw = sp.q;
   const q = (Array.isArray(qRaw) ? qRaw[0] : qRaw) ?? "";
@@ -68,12 +68,14 @@ export default async function RussianListingsPage({ searchParams }: PageProps) {
 
       {sorted.length === 0 ? (
         <ListingsEmpty
-          filtered={isAnyFilter}
+          // Аренда пока без инвентаря — пустой rent-режим показываем как
+          // «отфильтровано», чтобы вёл к брифу, а не к «каталог обновляется».
+          filtered={isAnyFilter || filter.mode === "rent"}
           clearHref="/ru/listings"
           briefMessage={summarizeForBrief(filter, q)}
         />
       ) : (
-        <ListingsSplit objects={sorted} />
+        <ListingsSplit objects={sorted} mode={filter.mode} />
       )}
 
       <RecentlyViewed catalog={all} />
