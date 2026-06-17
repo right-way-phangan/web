@@ -246,6 +246,19 @@ export async function getAnyObjectByRwNumber(
 }
 
 /**
+ * Admin-only: the full, UNsanitized object (keeps driveFolder, docs, owner,
+ * coords). For authenticated /admin pages that link out to the object's Drive
+ * folder or working docs — never call from a public page (would leak
+ * sanitizePublicObject fields into world-readable page source).
+ */
+export async function getAdminObjectByRwNumber(
+  rw: string,
+): Promise<RealEstateObject | null> {
+  const all = await getAllObjects();
+  return all.find((o) => o.rwNumber === rw) ?? null;
+}
+
+/**
  * Fetch ALL catalog objects regardless of status (Active/Sold/Reserved/…).
  * Used only to resolve a project's unit cards — a project page must show sold
  * and reserved units (with their status badge), not just the publicly listable
