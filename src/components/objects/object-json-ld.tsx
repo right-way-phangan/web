@@ -51,7 +51,6 @@ export function ObjectJsonLd({ object, url }: Props) {
     sku: object.rwNumber,
     category: object.type,
     description:
-      cleanMetaDescription(object.descriptionRaw, 500) ??
       cleanMetaDescription(objectDescriptionText(object, "en"), 500) ??
       object.titleEn,
     ...(images.length ? { image: images } : {}),
