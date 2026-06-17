@@ -36,6 +36,7 @@ import {
   type BacktestResult,
   type CompletenessReport,
 } from "@/lib/actions/valuation";
+import { updateObjectAction, type ObjectPatch } from "@/lib/actions/update-object";
 
 const fmt = (v: number | undefined | null) =>
   v == null ? "—" : `${Math.round(v).toLocaleString("en-US")} ฿`;
@@ -147,6 +148,7 @@ interface SubjectForm {
   electricity: boolean;
   pool: boolean;
   askingPrice: string;
+  currentRentMonth: string;
   rentPerRaiMonth: string;
   leaseTermYears: string;
   leaseEscPercent: string;
@@ -172,6 +174,7 @@ const emptySubject: SubjectForm = {
   electricity: false,
   pool: false,
   askingPrice: "",
+  currentRentMonth: "",
   rentPerRaiMonth: "",
   leaseTermYears: "",
   leaseEscPercent: "",
@@ -202,6 +205,7 @@ function toSubject(v: SubjectForm): ValuationSubject {
     electricity: v.electricity,
     pool: v.pool,
     askingPrice: num(v.askingPrice),
+    currentRentMonth: num(v.currentRentMonth),
     rentPerRaiMonth: num(v.rentPerRaiMonth),
     leaseTermYears: num(v.leaseTermYears),
     leaseEscPercent: num(v.leaseEscPercent),
@@ -365,14 +369,39 @@ function ResultPanel({
           </div>
 
           {r.rental.meta && (
-            <p className="mt-2 text-xs text-forest-900/55">
-              Загрузка: модель {r.rental.meta.occupancyAssumedPct}%
-              {r.rental.meta.occupancyMeasuredPct != null
-                ? ` · измеренная сейчас ${r.rental.meta.occupancyMeasuredPct}%`
-                : ""}
-              {r.rental.meta.peakMonth
-                ? ` · пик спроса ${r.rental.meta.peakMonth}${r.rental.meta.lowMonth ? `, спад ${r.rental.meta.lowMonth}` : ""}`
-                : ""}
+            <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-forest-900/55">
+              <span>
+                Загрузка: модель {r.rental.meta.occupancyAssumedPct}%
+                {r.rental.meta.occupancyMeasuredPct != null
+                  ? ` · измеренная сейчас ${r.rental.meta.occupancyMeasuredPct}%`
+                  : ""}
+                {r.rental.meta.peakMonth
+                  ? ` · пик спроса ${r.rental.meta.peakMonth}${r.rental.meta.lowMonth ? `, спад ${r.rental.meta.lowMonth}` : ""}`
+                  : ""}
+              </span>
+              <span className={cn("rounded-full border px-2 py-0.5", CONFIDENCE_CLS[r.rental.meta.adrConfidence])}>
+                прогноз: {CONFIDENCE_LABEL[r.rental.meta.adrConfidence]} (ADR n={r.rental.meta.adrSampleN})
+              </span>
+            </div>
+          )}
+
+          {r.rental.meta?.rentVerdict && (
+            <p
+              className={cn(
+                "mt-3 rounded-sm border px-3 py-2 text-sm",
+                r.rental.meta.rentVerdict.verdict === "fair" && "border-forest-500/30 bg-forest-500/5 text-forest-800",
+                r.rental.meta.rentVerdict.verdict === "above" && "border-forest-500/30 bg-forest-500/5 text-forest-800",
+                r.rental.meta.rentVerdict.verdict === "below" && "border-brass-500/30 bg-brass-500/5 text-brass-700",
+              )}
+            >
+              Сейчас сдаётся за {money(r.rental.meta.rentVerdict.currentRentMonth)}/мес — {r.rental.meta.rentVerdict.deltaPct > 0 ? "+" : ""}
+              {r.rental.meta.rentVerdict.deltaPct}% к {r.rental.meta.rentVerdict.mode === "long" ? "долгосрочному" : "посуточному"} прогнозу
+              ({money(r.rental.meta.rentVerdict.expectedMonth)}/мес):{" "}
+              {r.rental.meta.rentVerdict.verdict === "fair"
+                ? "в рынке"
+                : r.rental.meta.rentVerdict.verdict === "above"
+                  ? "выше рынка"
+                  : "ниже рынка — есть потенциал поднять"}.
             </p>
           )}
 
@@ -418,6 +447,39 @@ function ResultPanel({
               </div>
             ))}
           </div>
+
+          {r.rental.meta?.occScenarios && r.rental.meta.occScenarios.length > 0 && (
+            <div className="mt-4">
+              <p className="mb-1.5 text-xs font-medium text-forest-900/70">
+                Посуточная аренда при разной загрузке
+              </p>
+              <div className="overflow-x-auto rounded-sm border border-forest-900/10">
+                <table className="w-full text-left text-xs">
+                  <thead>
+                    <tr className="border-b border-forest-900/10 text-forest-900/50">
+                      <th className="px-3 py-1.5 font-medium">Сценарий</th>
+                      <th className="px-3 py-1.5 font-medium">Загрузка</th>
+                      <th className="px-3 py-1.5 font-medium">Доход/год (валовый)</th>
+                      <th className="px-3 py-1.5 font-medium">Чистыми/год</th>
+                      <th className="px-3 py-1.5 font-medium">Доходность</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {r.rental.meta.occScenarios.map((o) => (
+                      <tr key={o.label} className="border-b border-forest-900/5 last:border-0">
+                        <td className="px-3 py-1.5 text-forest-900">{o.label}</td>
+                        <td className="px-3 py-1.5 text-forest-900/70">{o.occPct}%</td>
+                        <td className="px-3 py-1.5">{money(o.annualGross, true)}</td>
+                        <td className="px-3 py-1.5">{money(o.annualNet, true)}</td>
+                        <td className="px-3 py-1.5 text-forest-700">{o.netYieldPct != null ? `${o.netYieldPct}%` : "—"}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
           {r.rental.caveats.length > 0 && (
             <ul className="mt-3 space-y-1">
               {r.rental.caveats.map((c, i) => (
@@ -1116,6 +1178,122 @@ function AccuracyPanel() {
 
 // ---- Полнота данных каталога ----
 
+/** Какие пропуски заполняемы инлайн (координаты — через редактор карты, не здесь). */
+const GAP_FIELDS = new Set(["цена", "площадь", "район", "документ", "дорога", "рельеф", "зона", "спальни", "год", "состояние"]);
+
+/** Строка детектора полноты с инлайн-редактором заполнения пропусков. */
+function CompletenessRow({ r }: { r: CompletenessReport["incomplete"][number] }) {
+  const isLand = r.type === "Land";
+  const gaps = [...r.missing, ...r.weak].filter((g) => GAP_FIELDS.has(g));
+  const [open, setOpen] = useState(false);
+  const [d, setD] = useState<Record<string, string>>({});
+  const [pending, start] = useTransition();
+  const [msg, setMsg] = useState<string | null>(null);
+  const [saved, setSaved] = useState(false);
+  const set = (k: string, v: string) => setD((p) => ({ ...p, [k]: v }));
+  const numV = (s: string | undefined) => {
+    if (s == null || s.trim() === "") return undefined;
+    const n = Number(s.replace(/[\s,]/g, ""));
+    return Number.isFinite(n) && n > 0 ? n : undefined;
+  };
+
+  const save = () => {
+    const patch: ObjectPatch = {};
+    if (numV(d.priceThb) != null) patch.priceThb = numV(d.priceThb)!;
+    if (isLand && numV(d.pricePerRai) != null) patch.pricePerRai = numV(d.pricePerRai)!;
+    if (numV(d.areaRai) != null) patch.areaRai = numV(d.areaRai)!;
+    if (numV(d.areaSqm) != null) patch.areaSqm = numV(d.areaSqm)!;
+    if (numV(d.bedrooms) != null) patch.bedrooms = numV(d.bedrooms)!;
+    if (numV(d.buildYear) != null) patch.buildYear = numV(d.buildYear)!;
+    if (d.district) patch.district = d.district;
+    if (d.documentType) patch.documentType = d.documentType;
+    if (d.roadType) patch.roadType = d.roadType;
+    if (d.terrain) patch.terrain = d.terrain;
+    if (d.zone) patch.zone = d.zone;
+    if (d.condition) patch.condition = d.condition;
+    if (Object.keys(patch).length === 0) {
+      setMsg("Нечего сохранять.");
+      return;
+    }
+    start(async () => {
+      const res = await updateObjectAction(r.rwNumber, patch);
+      if (res.ok) {
+        setSaved(true);
+        setOpen(false);
+        setMsg(null);
+      } else setMsg(res.error ?? "Ошибка.");
+    });
+  };
+
+  const numField = (key: string, label: string, ph: string) => (
+    <Field label={label}>
+      <Input value={d[key] ?? ""} onChange={(e) => set(key, e.target.value)} placeholder={ph} />
+    </Field>
+  );
+  const selField = (key: string, label: string, opts: readonly string[]) => (
+    <Field label={label}>
+      <Select value={d[key] ?? ""} onChange={(v) => set(key, v)} options={opts} />
+    </Field>
+  );
+
+  return (
+    <>
+      <tr className={cn("border-b border-forest-900/5", saved && "opacity-50")}>
+        <td className="px-3 py-2 text-forest-900">{r.rwNumber}{r.onSite ? " 🌐" : ""}</td>
+        <td className="px-3 py-2 text-forest-900/70">{r.type}</td>
+        <td className="px-3 py-2 text-forest-900/60">{r.status}</td>
+        <td className="px-3 py-2 text-red-700">{r.missing.join(", ") || "—"}</td>
+        <td className="px-3 py-2 text-forest-900/45">{r.weak.join(", ") || "—"}</td>
+        <td className="px-3 py-2 text-right">
+          {saved ? (
+            <span className="text-forest-700">сохранено ✓</span>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setOpen((o) => !o)}
+              disabled={gaps.length === 0}
+              className="text-brass-600 hover:text-brass-700 disabled:opacity-40"
+            >
+              {open ? "свернуть" : "заполнить"}
+            </button>
+          )}
+        </td>
+      </tr>
+      {open && !saved && (
+        <tr className="border-b border-forest-900/10 bg-cream-50/40">
+          <td colSpan={6} className="px-3 py-3">
+            <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-4">
+              {gaps.includes("цена") && numField("priceThb", "Цена, THB", "4 500 000")}
+              {gaps.includes("цена") && isLand && numField("pricePerRai", "Цена за рай, THB", "3 000 000")}
+              {gaps.includes("площадь") && isLand && numField("areaRai", "Площадь, рай", "1.5")}
+              {gaps.includes("площадь") && !isLand && numField("areaSqm", "Площадь участка, м²", "800")}
+              {gaps.includes("район") && selField("district", "Район", DISTRICTS)}
+              {gaps.includes("документ") && selField("documentType", "Документ", DOCUMENT_TYPES)}
+              {gaps.includes("дорога") && selField("roadType", "Дорога", ROAD_TYPES)}
+              {gaps.includes("рельеф") && selField("terrain", "Рельеф", TERRAIN_TYPES)}
+              {gaps.includes("зона") && selField("zone", "Зона", ZONES)}
+              {gaps.includes("спальни") && numField("bedrooms", "Спальни", "3")}
+              {gaps.includes("год") && numField("buildYear", "Год постройки", "2021")}
+              {gaps.includes("состояние") && selField("condition", "Состояние", CONDITIONS)}
+            </div>
+            <div className="mt-3 flex items-center gap-3">
+              <Button onClick={save} disabled={pending} size="sm">
+                {pending ? "Сохраняем…" : "Сохранить"}
+              </Button>
+              {r.weak.includes("координаты") && (
+                <a href={`/admin/objects?q=${r.rwNumber}`} className="text-xs text-forest-900/50 underline">
+                  координаты — в редакторе карты
+                </a>
+              )}
+              {msg && <span className="text-xs text-red-700">{msg}</span>}
+            </div>
+          </td>
+        </tr>
+      )}
+    </>
+  );
+}
+
 function CompletenessPanel() {
   const [rep, setRep] = useState<CompletenessReport | null>(null);
   const [pending, startTransition] = useTransition();
@@ -1174,17 +1352,12 @@ function CompletenessPanel() {
                   <th className="px-3 py-2 font-medium">Статус</th>
                   <th className="px-3 py-2 font-medium">🔴 Критично (нет компса)</th>
                   <th className="px-3 py-2 font-medium">🟡 Желательно</th>
+                  <th className="px-3 py-2 font-medium text-right">Заполнить</th>
                 </tr>
               </thead>
               <tbody>
                 {rep.incomplete.map((r) => (
-                  <tr key={r.rwNumber} className="border-b border-forest-900/5">
-                    <td className="px-3 py-2 text-forest-900">{r.rwNumber}{r.onSite ? " 🌐" : ""}</td>
-                    <td className="px-3 py-2 text-forest-900/70">{r.type}</td>
-                    <td className="px-3 py-2 text-forest-900/60">{r.status}</td>
-                    <td className="px-3 py-2 text-red-700">{r.missing.join(", ")}</td>
-                    <td className="px-3 py-2 text-forest-900/45">{r.weak.join(", ") || "—"}</td>
-                  </tr>
+                  <CompletenessRow key={r.rwNumber} r={r} />
                 ))}
               </tbody>
             </table>
@@ -1301,6 +1474,9 @@ export function ValuationTool({
                   </Field>
                   <Field label="Год постройки">
                     <Input value={v.buildYear} onChange={(e) => setV((p) => ({ ...p, buildYear: e.target.value }))} placeholder="2021" />
+                  </Field>
+                  <Field label="Текущая аренда, THB/мес" hint="если уже сдаётся — для вердикта">
+                    <Input value={v.currentRentMonth} onChange={(e) => setV((p) => ({ ...p, currentRentMonth: e.target.value }))} placeholder="45 000" />
                   </Field>
                 </>
               )}

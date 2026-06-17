@@ -1524,6 +1524,7 @@ export interface EstatesDict {
     highlights: string;
     plotsTitle: string;
     plotsLede: string;
+    plan: string;
     gallery: string;
     location: string;
   };
@@ -1546,6 +1547,18 @@ export interface EstatesDict {
   otherEstates: string;
   seeDistrict: string;
   ddNote: string;
+  /** план разбивки */
+  planLede: string;
+  /** фильтр и сортировка лотов */
+  filter: { all: string; available: string; sea: string; mountain: string };
+  sortLabel: string;
+  sort: { recommended: string; priceLow: string; priceHigh: string; areaLarge: string };
+  /** вид с участка (чип) */
+  view: { sea: string; mountain: string };
+  /** заявка по конкретному лоту */
+  enquireLot: (code: string) => string;
+  lotPrefill: (code: string) => string;
+  noMatch: string;
 }
 
 type PlotStatusKey = "available" | "reserved" | "sold" | "rented";
@@ -1581,6 +1594,7 @@ const estatesDict: Record<Locale, EstatesDict> = {
       highlights: "Why this estate",
       plotsTitle: "Plots & availability",
       plotsLede: "Live status across the estate — available, reserved, sold or leased.",
+      plan: "Site plan",
       gallery: "On-site photos",
       location: "Location",
     },
@@ -1603,6 +1617,14 @@ const estatesDict: Record<Locale, EstatesDict> = {
     seeDistrict: "See all listings in this district",
     ddNote:
       "One owner, one parent title — due diligence is done once and inherited by every plot.",
+    planLede: "Hover a plot to highlight it in the table; tap it to jump to its photos. Colour shows status; the arrow points to the sunset sea side.",
+    filter: { all: "All", available: "Available", sea: "Sea view", mountain: "Mountain view" },
+    sortLabel: "Sort",
+    sort: { recommended: "Recommended", priceLow: "Price ↑", priceHigh: "Price ↓", areaLarge: "Largest" },
+    view: { sea: "Sea view", mountain: "Mountain view" },
+    enquireLot: (code) => `Enquire about ${code}`,
+    lotPrefill: (code) => `I'm interested in plot ${code} at Haad Yao Hillside.`,
+    noMatch: "No plots match this filter.",
   },
   ru: {
     eyebrow: "Земельные проекты",
@@ -1634,6 +1656,7 @@ const estatesDict: Record<Locale, EstatesDict> = {
       highlights: "Почему этот проект",
       plotsTitle: "Участки и доступность",
       plotsLede: "Актуальный статус по подборке — свободен, резерв, продан или арендован.",
+      plan: "План разбивки",
       gallery: "Фото с участков",
       location: "Расположение",
     },
@@ -1656,6 +1679,14 @@ const estatesDict: Record<Locale, EstatesDict> = {
     seeDistrict: "Все объекты этого района",
     ddNote:
       "Один собственник, один родительский титул — due diligence делается один раз и наследуется каждым участком.",
+    planLede: "Наведи на участок — подсветится в таблице; нажми — перейдёшь к его фото. Цвет = статус; стрелка указывает на закатную, морскую сторону.",
+    filter: { all: "Все", available: "Свободные", sea: "Вид на море", mountain: "Вид на горы" },
+    sortLabel: "Сортировка",
+    sort: { recommended: "Рекомендуем", priceLow: "Цена ↑", priceHigh: "Цена ↓", areaLarge: "Площадь" },
+    view: { sea: "Вид на море", mountain: "Вид на горы" },
+    enquireLot: (code) => `Запросить ${code}`,
+    lotPrefill: (code) => `Интересует участок ${code} в подборке Хад Яо.`,
+    noMatch: "Под фильтр ничего не подходит.",
   },
 };
 

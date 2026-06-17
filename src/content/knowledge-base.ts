@@ -303,7 +303,7 @@ export const KB_ARTICLES: KbArticle[] = [
       { h: "Annual property tax" },
       "Under the Land and Building Tax Act (2019), an owner-occupied home is taxed at **0.02–0.10%** of appraised value per year. Vacant or rented residential property is taxed higher (up to around 0.3%), commercial use higher still, and long-vacant land escalates over time. Right Way doesn't file taxes for clients — use a Thai accountant for compliance.",
       { h: "Getting money into Thailand — and the FET form" },
-      "Funds usually move by SWIFT to the lawyer's escrow account or the seller at closing; Wise is common and cheaper on FX for smaller amounts. Receive into a major Thai bank (Bangkok Bank, Kasikorn, SCB).",
+      "Funds usually move by SWIFT to the partner law firm's client account — or a licensed bank escrow account for larger deals — or to the seller at closing; Wise is common and cheaper on FX for smaller amounts. Receive into a major Thai bank (Bangkok Bank, Kasikorn, SCB).",
       "The detail that matters most: keep the **Foreign Exchange Transaction (FET) form** the receiving Thai bank issues when foreign currency arrives from abroad. You will need it to remit the proceeds back out of Thailand when you sell. Without it, repatriating your money is much harder.",
       { h: "What you'll pay when you sell" },
       "When you sell, the seller side typically carries the SBT (3.3% if held under 5 years, waived after), withholding tax (1% of appraised value), personal income tax on the gain (progressive, with deductions after 5 years), and the transfer fee (2%, often split). A Thai company selling pays corporate income tax (20% on profit) instead of personal income tax.",
@@ -342,7 +342,7 @@ export const KB_ARTICLES: KbArticle[] = [
           "**4. Reservation.** A reservation agreement plus a deposit takes the property off the market. The deposit is normally refundable if due diligence later fails.",
           "**5. Legal due diligence.** The deed checked against the Land Office record, encumbrances, access, and what you can build under the 2025 zoning. See [Land titles](/knowledge/land-titles-chanote-vs-nor-sor-3) and [Building zones](/knowledge/koh-phangan-building-zones).",
           "**6. Contracts.** A registered land lease, a sale of the building, and a registered superficies — drafted and reviewed before you sign.",
-          "**7. Transfer the funds.** By SWIFT or Wise to the lawyer's escrow. Keep the FET form — you'll need it to take proceeds back out when you sell. See [Costs, taxes and the FET form](/knowledge/cost-of-buying-taxes-and-fees).",
+          "**7. Transfer the funds.** By SWIFT or Wise to the partner law firm's client account (or a licensed bank escrow account). Keep the FET form — you'll need it to take proceeds back out when you sell. See [Costs, taxes and the FET form](/knowledge/cost-of-buying-taxes-and-fees).",
           "**8. Register at the Land Office.** The lease is registered on the back of the deed and the building transferred; transfer taxes and fees are paid at this point.",
           "**9. Post-deal.** Switch utilities into your name, store the originals safely, and set up tax compliance with a Thai accountant.",
         ],
@@ -1000,7 +1000,7 @@ export const KB_ARTICLES: KbArticle[] = [
       { h: "Step by step: how to get it" },
       {
         ul: [
-          "**Transfer funds from abroad in foreign currency.** Send by SWIFT from your overseas bank account to the Thai bank account designated for the purchase — your personal Thai account, the lawyer's escrow account, or the developer's account. The funds must arrive as foreign currency (USD, EUR, GBP, etc.), not as pre-converted baht.",
+          "**Transfer funds from abroad in foreign currency.** Send by SWIFT from your overseas bank account to the Thai bank account designated for the purchase — your personal Thai account, the partner law firm's client account (or a licensed bank escrow account), or the developer's account. The funds must arrive as foreign currency (USD, EUR, GBP, etc.), not as pre-converted baht.",
           "**Include the correct purpose statement.** In the SWIFT transfer instructions, state the purpose clearly: for example, 'Purchase of property — [property address or unit reference] — [your full name as per passport].' The Thai bank uses this to populate the FET form correctly.",
           "**The receiving Thai bank converts the currency to baht.** Once the SWIFT arrives, the Thai bank converts it at the prevailing exchange rate and credits the baht to the designated account.",
           "**Request the FET form from the bank.** Visit or contact the branch that received the foreign-currency transfer and request the FET form. Bring your passport. The bank issues the form based on the conversion record — amounts, your name and the stated purpose.",

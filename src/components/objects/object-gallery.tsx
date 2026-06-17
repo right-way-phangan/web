@@ -35,6 +35,66 @@ function hueFor(seed: string, offset = 0): number {
   return (h + offset) % 360;
 }
 
+/**
+ * `next/image` that degrades to the same deterministic gradient panel used for
+ * photo-less objects when the source can't load (e.g. the optimizer hits its
+ * monthly cap → 402, or the blob store is blocked → 403). Without this the
+ * browser paints the raw `alt` text over a grey box — see
+ * memory `project_image_optimization_limit`. Keeps working photos as-is.
+ */
+function SafeImage({
+  src,
+  alt,
+  seed,
+  hueOffset,
+  icon: Icon,
+  sizes,
+  className,
+  priority,
+  draggable,
+  iconClassName = "h-10 w-10",
+}: {
+  src: string;
+  alt: string;
+  seed: string;
+  hueOffset: number;
+  icon: typeof Home;
+  sizes: string;
+  className?: string;
+  priority?: boolean;
+  draggable?: boolean;
+  iconClassName?: string;
+}) {
+  const [failed, setFailed] = useState(false);
+  if (failed) {
+    return (
+      <div
+        className="absolute inset-0 flex items-center justify-center bg-forest-500/5"
+        style={{
+          backgroundImage: `linear-gradient(135deg, hsl(${hueFor(seed, hueOffset)} 30% 86%) 0%, hsl(${hueFor(seed, hueOffset + 40)} 25% 76%) 100%)`,
+        }}
+        aria-hidden
+      >
+        <Icon className={cn(iconClassName, "text-forest-500/25")} strokeWidth={0.8} />
+      </div>
+    );
+  }
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      fill
+      priority={priority}
+      sizes={sizes}
+      placeholder="blur"
+      blurDataURL={BLUR_PLACEHOLDER}
+      className={className}
+      draggable={draggable}
+      onError={() => setFailed(true)}
+    />
+  );
+}
+
 const SWIPE_THRESHOLD_PX = 48;
 const MAX_DOTS = 8;
 const MAX_ZOOM = 4;
@@ -313,14 +373,14 @@ export function ObjectGallery({ rwNumber, type, gallery, title }: Props) {
               aria-label={t.viewPhoto(i + 1)}
               className="relative aspect-[4/3] w-full shrink-0 snap-center overflow-hidden bg-forest-500/5"
             >
-              <Image
+              <SafeImage
                 src={url}
                 alt={altFor(i + 1)}
-                fill
+                seed={rwNumber}
+                hueOffset={i * 60}
+                icon={Icon}
                 priority={i === 0}
                 sizes="100vw"
-                placeholder="blur"
-                blurDataURL={BLUR_PLACEHOLDER}
                 className="object-cover"
               />
             </button>
@@ -363,14 +423,15 @@ export function ObjectGallery({ rwNumber, type, gallery, title }: Props) {
             heroSpansFull ? "md:col-span-4 md:aspect-[2/1]" : "md:col-span-2"
           }`}
         >
-          <Image
+          <SafeImage
             src={photos[0]}
             alt={altFor(1)}
-            fill
+            seed={rwNumber}
+            hueOffset={0}
+            icon={Icon}
             priority
+            iconClassName="h-24 w-24"
             sizes="(min-width: 768px) 50vw, 100vw"
-            placeholder="blur"
-            blurDataURL={BLUR_PLACEHOLDER}
             className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
           />
           <span className="absolute inset-0 bg-forest-900/0 transition-colors duration-300 group-hover:bg-forest-900/10" />
@@ -388,13 +449,13 @@ export function ObjectGallery({ rwNumber, type, gallery, title }: Props) {
               aria-label={t.viewPhoto(photoIndex + 1)}
               className="group relative aspect-[4/3] overflow-hidden rounded-sm bg-forest-500/5"
             >
-              <Image
+              <SafeImage
                 src={url}
                 alt={altFor(photoIndex + 1)}
-                fill
+                seed={rwNumber}
+                hueOffset={photoIndex * 60}
+                icon={Icon}
                 sizes="25vw"
-                placeholder="blur"
-                blurDataURL={BLUR_PLACEHOLDER}
                 className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
               />
               <span className="absolute inset-0 bg-forest-900/0 transition-colors duration-300 group-hover:bg-forest-900/10" />
@@ -455,10 +516,13 @@ export function ObjectGallery({ rwNumber, type, gallery, title }: Props) {
                   transition: gesturing ? "none" : "transform 200ms ease-out",
                 }}
               >
-                <Image
+                <SafeImage
                   src={photos[index]}
                   alt={altFor(index + 1)}
-                  fill
+                  seed={rwNumber}
+                  hueOffset={index * 60}
+                  icon={Icon}
+                  iconClassName="h-24 w-24"
                   sizes="100vw"
                   className="object-contain"
                   draggable={false}
@@ -529,13 +593,14 @@ export function ObjectGallery({ rwNumber, type, gallery, title }: Props) {
                         : "opacity-55 ring-1 ring-cream-50/20 hover:opacity-90",
                     )}
                   >
-                    <Image
+                    <SafeImage
                       src={url}
                       alt=""
-                      fill
+                      seed={rwNumber}
+                      hueOffset={i * 60}
+                      icon={Icon}
+                      iconClassName="h-5 w-5"
                       sizes="80px"
-                      placeholder="blur"
-                      blurDataURL={BLUR_PLACEHOLDER}
                       className="object-cover"
                     />
                   </button>

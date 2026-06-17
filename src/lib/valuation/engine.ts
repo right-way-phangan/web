@@ -47,6 +47,8 @@ export interface ValuationSubject {
   lat?: number;
   lng?: number;
   askingPrice?: number;
+  /** Текущая месячная аренда built-объекта (если уже сдаётся) — для вердикта. */
+  currentRentMonth?: number;
   // leasehold-контракт (земля)
   leaseTermYears?: number;
   rentPerRaiMonth?: number;
@@ -151,7 +153,7 @@ export interface RentalScenario {
   paybackYears?: number;
 }
 
-/** Контекст к прогнозу аренды built-объекта (загрузка, сезон). */
+/** Контекст к прогнозу аренды built-объекта (загрузка, сезон, уверенность). */
 export interface RentalMeta {
   /** Модельная (assumed) загрузка, %. */
   occupancyAssumedPct: number;
@@ -161,6 +163,26 @@ export interface RentalMeta {
   peakMonth?: string;
   /** Месяц спада спроса (Google Trends), если есть. */
   lowMonth?: string;
+  /** Сколько листингов в основе подобранного ADR. */
+  adrSampleN: number;
+  /** Уверенность прогноза аренды по размеру выборки ADR. */
+  adrConfidence: "high" | "medium" | "low";
+  /** Доход/доходность при консервативной/базовой/высокой загрузке (посуточно). */
+  occScenarios?: Array<{
+    label: string;
+    occPct: number;
+    annualGross: number;
+    annualNet: number;
+    netYieldPct?: number;
+  }>;
+  /** Вердикт по текущей арендной ставке объекта, если она задана. */
+  rentVerdict?: {
+    currentRentMonth: number;
+    expectedMonth: number;
+    mode: "long" | "short";
+    deltaPct: number;
+    verdict: "above" | "fair" | "below";
+  };
 }
 
 export interface ValuationResult {
@@ -1044,12 +1066,53 @@ function rentalBuilt(
     : undefined;
   const measuredOcc =
     d && d.occupancyMeasured != null && (d.nOccupancy ?? 0) >= OCC_MIN_SAMPLE ? d.occupancyMeasured : null;
+
+  // #2 Доход/доходность при трёх сценариях загрузки (наглядность инвесткейса).
+  const occRow = (label: string, occ: number) => {
+    const gross = adrAdj * 365 * occ;
+    const net = gross * (1 - opex);
+    return {
+      label,
+      occPct: Math.round(occ * 100),
+      annualGross: round1k(gross),
+      annualNet: round1k(net),
+      netYieldPct: yieldable ? pct1(net / fairValue) : undefined,
+    };
+  };
+
+  // #4 Уверенность прогноза аренды по размеру выборки ADR.
+  const n = pick.n;
+  const adrConfidence: RentalMeta["adrConfidence"] = n < 5 ? "low" : n < 12 ? "medium" : "high";
+
   const meta: RentalMeta = {
     occupancyAssumedPct: Math.round(occBase * 100),
     occupancyMeasuredPct: measuredOcc != null ? Math.round(measuredOcc * 100) : null,
     peakMonth: m.seasonality?.peakMonth,
     lowMonth: m.seasonality?.lowMonth,
+    adrSampleN: n,
+    adrConfidence,
+    occScenarios: [
+      occRow("Консервативно", occLow),
+      occRow("База", occBase),
+      occRow("Оптимистично", occHigh),
+    ],
   };
+
+  // #3 Вердикт по текущей арендной ставке (сравниваем с релевантным сценарием:
+  // долгосрочный помесячный, если он есть, иначе посуточный месячный эквивалент).
+  if (subject.currentRentMonth && subject.currentRentMonth > 0) {
+    const longSc = scenarios.find((s) => s.mode === "long");
+    const expectedMonth = longSc ? longSc.monthly : scenarios[0].monthly;
+    const mode: "long" | "short" = longSc ? "long" : "short";
+    const deltaPct = Math.round((subject.currentRentMonth / expectedMonth - 1) * 100);
+    meta.rentVerdict = {
+      currentRentMonth: subject.currentRentMonth,
+      expectedMonth,
+      mode,
+      deltaPct,
+      verdict: deltaPct > 10 ? "above" : deltaPct < -10 ? "below" : "fair",
+    };
+  }
 
   caveats.push("Загрузка — модельное допущение (Airbnb её не публикует); вилка = сценарии загрузки.");
   caveats.push("Долгосрочная ставка — ориентир от посуточной выручки; реальная зависит от меблировки, сезона и срока.");
