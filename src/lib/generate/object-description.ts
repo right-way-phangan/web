@@ -280,7 +280,9 @@ function bodyEn(f: Facts): string {
   if (f.quiet) parts.push("Set in a quiet, private spot");
   else if (f.central) parts.push("Central and well-connected");
   if (f.flat && f.isLand) parts.push("the ground is level and build-ready");
-  if (f.road && f.road !== "None") parts.push(`reached by ${L.en.roads[f.road]}`);
+  // Guard the map lookup: roadType in the DB can be a dirty value outside the
+  // enum (e.g. "Government Road") → skip rather than render "undefined".
+  if (f.road && f.road !== "None" && L.en.roads[f.road]) parts.push(`reached by ${L.en.roads[f.road]}`);
   let s = parts.length ? tidy(parts.join(", ")) + "." : "";
   if (s) s = s.charAt(0).toUpperCase() + s.slice(1);
   if (f.leasehold && !f.freehold) s += " Offered on a registered long lease.";
@@ -293,7 +295,7 @@ function bodyRu(f: Facts): string {
   if (f.quiet) parts.push("Расположен в тихом, уединённом месте");
   else if (f.central) parts.push("Центрально и с удобным доступом");
   if (f.flat && f.isLand) parts.push("участок ровный, готов под застройку");
-  if (f.road && f.road !== "None") parts.push(`подъезд — ${L.ru.roads[f.road]}`);
+  if (f.road && f.road !== "None" && L.ru.roads[f.road]) parts.push(`подъезд — ${L.ru.roads[f.road]}`);
   let s = parts.length ? tidy(parts.join(", ")) + "." : "";
   if (s) s = s.charAt(0).toUpperCase() + s.slice(1);
   if (f.leasehold && !f.freehold) s += " Оформляется в долгосрочную аренду (registered lease).";
@@ -309,7 +311,8 @@ function bullets(f: Facts, locale: Locale): string[] {
   const bb = b.bedbath(f.beds, f.baths);
   if (!f.isLand && bb) out.push(bb);
   const tenure = b.tenure(f.freehold, f.leasehold);
-  const docLabel = f.doc ? L[locale].docLabel[f.doc] : "";
+  // Fall back to the raw value if documentType isn't a known enum key (dirty data).
+  const docLabel = f.doc ? (L[locale].docLabel[f.doc] ?? f.doc) : "";
   if (docLabel || tenure) out.push([docLabel, tenure].filter(Boolean).join(" · "));
   if (f.isProject) {
     if (f.unitsTotal && f.unitsAvailable != null) out.push(b.unitsLeft(f.unitsAvailable, f.unitsTotal));
