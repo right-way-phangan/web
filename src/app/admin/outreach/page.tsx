@@ -30,7 +30,7 @@ export default async function AdminOutreachPage() {
       const missing: string[] = [];
       if (!o.district) missing.push("район");
       if (!o.coverImage) missing.push("фото");
-      if (!o.priceThb && !o.pricePerRai && !o.rentPerRaiMonth) missing.push("цена");
+      if (!o.priceThb && !o.pricePerRai && !o.rentPerMonth && !o.rentPerRaiMonth) missing.push("цена");
       if (!o.areaRai && !o.areaSqm && !o.areaNote) missing.push("площадь");
       return {
         rwNumber: o.rwNumber,
@@ -45,9 +45,11 @@ export default async function AdminOutreachPage() {
           ? `฿${nf(o.priceThb)}`
           : o.pricePerRai
             ? `฿${nf(o.pricePerRai)}/rai`
-            : o.rentPerRaiMonth
-              ? `฿${nf(o.rentPerRaiMonth)}/rai·mo`
-              : "цена?",
+            : o.rentPerMonth
+              ? `฿${nf(o.rentPerMonth)}/mo`
+              : o.rentPerRaiMonth
+                ? `฿${nf(o.rentPerRaiMonth)}/rai·mo`
+                : "цена?",
         contacts: o.contacts ?? [],
         onSite: o.status === "Active" && !!o.coverImage,
         missing,

@@ -128,9 +128,11 @@ export default async function ObjectPage({ params }: Props) {
     ? formatPriceTHB(object.priceThb)
     : object.pricePerRai
       ? formatPricePerRai(object.pricePerRai)
-      : object.rentPerRaiMonth
-        ? `${formatPriceTHB(object.rentPerRaiMonth)} /rai/mo`
-        : undefined;
+      : object.rentPerMonth
+        ? `${formatPriceTHB(object.rentPerMonth)} /mo`
+        : object.rentPerRaiMonth
+          ? `${formatPriceTHB(object.rentPerRaiMonth)} /rai/mo`
+          : undefined;
 
   return (
     <>
@@ -200,6 +202,13 @@ export default async function ObjectPage({ params }: Props) {
               <span className="num text-3xl text-forest-900 md:text-4xl">
                 {formatPricePerRai(object.pricePerRai)}
               </span>
+            </div>
+          ) : object.rentPerMonth ? (
+            <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <span className="num text-3xl text-forest-900 md:text-4xl">
+                {formatPriceTHB(object.rentPerMonth)}
+              </span>
+              <span className="text-sm text-forest-500/70">/ month</span>
             </div>
           ) : object.rentPerRaiMonth ? (
             <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">

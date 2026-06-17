@@ -43,6 +43,7 @@ export interface AdminObjectRow {
   priceThb?: number | null;
   pricePerRai?: number | null;
   rentPerRaiMonth?: number | null;
+  rentPerMonth?: number | null;
   leaseTermYears?: number | null;
   unitsAvailable?: number | null;
   locationUrl?: string | null;
@@ -291,6 +292,7 @@ export function ObjectsTable({
                           priceThb: o.priceThb,
                           pricePerRai: o.pricePerRai,
                           rentPerRaiMonth: o.rentPerRaiMonth,
+                          rentPerMonth: o.rentPerMonth,
                           leaseTermYears: o.leaseTermYears,
                           unitsAvailable: o.unitsAvailable,
                           locationUrl: o.locationUrl,
