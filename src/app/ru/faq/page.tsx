@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Route } from "next";
 import { PageHero } from "@/components/sections/page-hero";
 import { FaqExplorer } from "@/components/faq/faq-explorer";
+import { WhatsIncluded } from "@/components/faq/whats-included";
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { Button } from "@/components/ui/button";
 import { FAQ_CATEGORIES_RU } from "@/content/faq.ru";
@@ -31,6 +32,8 @@ export default function RussianFaqPage() {
       <section className="container-prose py-12 md:py-16">
         <FaqExplorer items={ALL_FAQ_ITEMS_RU} categories={FAQ_CATEGORIES_RU} locale="ru" />
       </section>
+
+      <WhatsIncluded locale="ru" />
 
       <section className="border-t border-forest-500/10 bg-cream-200/30">
         <div className="container-prose py-16 md:py-20">

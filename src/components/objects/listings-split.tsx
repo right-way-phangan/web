@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { track } from "@vercel/analytics";
+import { motion, useReducedMotion } from "motion/react";
 import { LayoutGrid, Map as MapIcon } from "lucide-react";
 import type { RealEstateObject } from "@/types/object";
 import { ObjectCard } from "./object-card";
@@ -27,6 +28,7 @@ const ListingsMap = dynamic(() => import("./listings-map"), {
  */
 export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
   const t = getListingsDict(useLocale());
+  const reduce = useReducedMotion();
   // Stable identity — recomputing each render would re-trigger the map's
   // FitBounds (deps on `points`) and snap the zoom back on every state change.
   const points: MapPoint[] = useMemo(
@@ -145,8 +147,11 @@ export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
           ) : (
             <div ref={listRef} className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
               {visibleObjects.map((o, i) => (
-                <div
+                <motion.div
                   key={o.id}
+                  // Плавное перетекание к новым позициям при фильтрации по карте
+                  // (area-sync). Только позиция, без размера; reduced-motion off.
+                  layout={reduce ? false : "position"}
                   data-rw={o.rwNumber}
                   onMouseEnter={() => setHoveredRw(o.rwNumber)}
                   onMouseLeave={() => setHoveredRw(null)}
@@ -161,7 +166,7 @@ export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
                   <Appear className="h-full" y={20} delay={Math.min(i, 7) * 0.06}>
                     <ObjectCard object={o} priority={i < 4} />
                   </Appear>
-                </div>
+                </motion.div>
               ))}
             </div>
           )}
