@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import type { Route } from "next";
@@ -71,6 +72,11 @@ interface Props {
 export function ObjectCard({ object, priority = false }: Props) {
   const TypeIcon = TYPE_ICON[object.type];
   const hue = thumbHue(object.rwNumber);
+  // Cover can 402 (optimizer cap) / 403 (blob store blocked) — fall back to the
+  // gradient panel rather than a broken-image box. See object-gallery SafeImage
+  // and memory project_image_optimization_limit.
+  const [coverFailed, setCoverFailed] = useState(false);
+  const showCover = Boolean(object.coverImage) && !coverFailed;
   const locale = useLocale();
   const t = getListingsDict(locale);
   // Explicit locale so server/client number formatting matches (hydration).
@@ -95,25 +101,26 @@ export function ObjectCard({ object, priority = false }: Props) {
       <div
         className="relative aspect-[4/3] overflow-hidden bg-forest-500/5"
         style={
-          object.coverImage
+          showCover
             ? undefined
             : {
                 backgroundImage: `linear-gradient(135deg, hsl(${hue} 30% 88%) 0%, hsl(${(hue + 40) % 360} 25% 78%) 100%)`,
               }
         }
       >
-        {object.coverImage ? (
+        {showCover ? (
           // Обёртка крупнее контейнера несёт scroll-parallax (.cover-parallax);
           // зум при наведении — на самом <img>, чтобы трансформации не конфликтовали.
           <div className="cover-parallax absolute -inset-[8%]">
             <Image
-              src={object.coverImage}
+              src={object.coverImage!}
               alt={object.titleEn}
               fill
               sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
               placeholder="blur"
               blurDataURL={BLUR_PLACEHOLDER}
               priority={priority}
+              onError={() => setCoverFailed(true)}
               className="object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08] motion-reduce:group-hover:scale-100"
             />
           </div>

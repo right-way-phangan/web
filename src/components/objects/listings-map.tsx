@@ -337,6 +337,13 @@ export default function ListingsMap({
                         src={p.cover}
                         alt={p.title}
                         className="mb-2 h-24 w-full rounded-sm object-cover"
+                        // Hide gracefully if the cover 402s (optimizer cap) or
+                        // 403s (blob store blocked) — a broken-image box in a
+                        // tiny popup looks worse than no image. The title/price
+                        // below still render. → memory project_image_optimization_limit
+                        onError={(e) => {
+                          e.currentTarget.style.display = "none";
+                        }}
                       />
                     ) : null}
                     <span className="block text-[11px] uppercase tracking-wide text-forest-500/70">

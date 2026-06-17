@@ -20,7 +20,10 @@ export function BrochureButton({ rw, className }: { rw: string; className?: stri
       onClick={() => {
         track("brochure_print", { rw });
         trackObjectEvent("brochure", rw);
-        window.print();
+        // PrintBrochure's <BrochureMedia> (always mounted on the object page)
+        // listens for this, preloads the photos — mounted only on demand to
+        // spare the blob quota — then calls window.print().
+        window.dispatchEvent(new CustomEvent("rw:brochure", { detail: { rw } }));
       }}
       aria-label={t.brochure}
       title={t.brochure}
