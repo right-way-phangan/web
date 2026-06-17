@@ -5,6 +5,8 @@ import { CrmBoard } from "@/components/crm/crm-board";
 import { AdminNav } from "@/components/admin/admin-nav";
 import { leadScore } from "@/lib/crm/score";
 import { nextAction } from "@/lib/crm/next-action";
+import { EmptyState } from "@/components/ui/empty-state";
+import { Workflow } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "CRM — лиды",
@@ -267,7 +269,11 @@ export default async function CrmPage({
       </div>
 
       {!active ? (
-        <p className="text-sm text-forest-900/60">Нет воронок. Проверьте сидинг CRM на backend.</p>
+        <EmptyState
+          icon={Workflow}
+          title="Нет воронок"
+          hint="Проверьте сидинг CRM на backend."
+        />
       ) : (
         (() => {
           const pipelineLeads = filteredLeads.filter((l) => l.pipelineKey === active.key);
