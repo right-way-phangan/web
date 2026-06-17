@@ -4,25 +4,35 @@ import { Button } from "@/components/ui/button";
 import { LeadForm } from "@/components/forms/lead-form";
 import { whatsappLink, telegramDmLink } from "@/lib/site-config";
 import { useLocale } from "@/lib/i18n/use-locale";
-import { getObjectDict } from "@/lib/i18n/dictionaries";
+import { getObjectDict, getEstatesDict } from "@/lib/i18n/dictionaries";
 
 interface Props {
   /** Slug подборки — для чистого Telegram start-payload. */
   slug: string;
   /** Название подборки — заголовок формы и текст обращения. */
   name: string;
+  /** Выбранный лот (по кнопке «Запросить <лот>») — предзаполняет форму. */
+  selectedLot?: string | null;
 }
 
 /**
  * Sticky-форма заявки на лендинге подборки участков. Как InquiryForm, но
  * привязана к подборке: в CRM уходит читаемая ссылка на название, Telegram
- * payload собирается из slug (без пробелов).
+ * payload собирается из slug (без пробелов). При выборе лота форма
+ * предзаполняется обращением по нему (ремоунт по ключу selectedLot).
  */
-export function EstateInquiry({ slug, name }: Props) {
+export function EstateInquiry({ slug, name, selectedLot }: Props) {
   const locale = useLocale();
   const t = getObjectDict(locale);
-  const reference = locale === "ru" ? `Подборка: ${name}` : `Collection: ${name}`;
-  const defaultMessage = t.inquiryDefaultMessage(name);
+  const te = getEstatesDict(locale);
+  const reference = selectedLot
+    ? locale === "ru"
+      ? `Подборка: ${name} · Участок ${selectedLot}`
+      : `Collection: ${name} · Plot ${selectedLot}`
+    : locale === "ru"
+      ? `Подборка: ${name}`
+      : `Collection: ${name}`;
+  const defaultMessage = selectedLot ? te.lotPrefill(selectedLot) : t.inquiryDefaultMessage(name);
 
   return (
     <aside
@@ -37,6 +47,7 @@ export function EstateInquiry({ slug, name }: Props) {
 
       <div className="mt-6">
         <LeadForm
+          key={selectedLot ?? "all"}
           rwNumber={reference}
           source="object"
           defaultMessage={defaultMessage}

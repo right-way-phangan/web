@@ -53,6 +53,22 @@ export interface EstatePlot {
    * оставляем пустым (без битых картинок); владелец кладёт файлы и заполняет.
    */
   photos?: string[];
+  /**
+   * Контур лота на схеме плана — полигон в координатах estate.plan.viewBox
+   * (нормализованная схема разбивки, НЕ геокарта). Рендерится EstateSitePlan,
+   * красится по статусу. Нет контура → лот просто не показан на схеме.
+   */
+  plotShape?: [number, number][];
+}
+
+/** Схема плана разбивки участка (стилизованная, не кадастровая). */
+export interface EstatePlan {
+  /** SVG viewBox, напр. "0 0 100 96". */
+  viewBox: string;
+  /** Дороги — массив SVG path `d` (рисуются под лотами). */
+  roads?: string[];
+  /** Сторона моря/заката для стрелки-ориентира. */
+  seaSide?: "left" | "right" | "top" | "bottom";
 }
 
 export interface LandEstate {
@@ -76,6 +92,8 @@ export interface LandEstate {
   totalAreaRai?: number;
   /** Преимущества подборки (буллеты). */
   highlights?: { en: string; ru: string }[];
+  /** Схема плана разбивки (опц.) — рендерится EstateSitePlan, если задана и у лотов есть plotShape. */
+  plan?: EstatePlan;
   plots: EstatePlot[];
 }
 
@@ -113,7 +131,7 @@ export const LAND_ESTATES: LandEstate[] = [
         "Все лоты — от одного надёжного собственника, поэтому due diligence упрощён, и перед любым резервом мы проверяем индивидуальный чанот по каждому лоту. Здесь это важно: не на каждый лот чанот уже оформлен (по M10 перевод в чанот ещё идёт, см. заметку к лоту). Доступность отслеживаем вживую ниже — по мере продажи лоты помечаются, поддерживаем актуальность.",
       ],
     },
-    cover: undefined, // /images/estates/haad-yao-hillside/cover.jpg — добавить фото
+    cover: "/images/estates/haad-yao-hillside/r7-2.jpg", // закатный кадр R7
     lat: 9.776124,
     lng: 99.975139,
     locationUrl: "https://maps.google.com/?q=9.776124,99.975139",
@@ -123,9 +141,20 @@ export const LAND_ESTATES: LandEstate[] = [
       { en: "Concrete roads + underground 3-phase power in place", ru: "Бетонные дороги + подземное 3-фазное электричество готовы" },
       { en: "Individual Chanote verified per lot before reservation", ru: "Индивидуальный чанот проверяем по каждому лоту до резерва" },
     ],
+    plan: {
+      viewBox: "0 0 100 116",
+      roads: [
+      "M3,52 C30,49 70,49 97,52",
+      "M52,95 L52,53",
+      "M30,95 L30,74",
+      "M72,95 L72,74",
+    ],
+      seaSide: "left",
+    },
     plots: [
       {
         code: "R1",
+        plotShape: [[24.8, 28.9], [41.8, 28.2], [41.4, 47.5], [24.2, 47.5]],
         status: "available",
         tenure: "Freehold",
         areaSqm: 2252,
@@ -147,24 +176,28 @@ export const LAND_ESTATES: LandEstate[] = [
       },
       {
         code: "R2",
+        plotShape: [[43.6, 30.8], [60.0, 30.7], [60.4, 47.6], [43.5, 48.4]],
         status: "sold",
         tenure: "Freehold",
         seaView: true,
       },
       {
         code: "R5",
+        plotShape: [[4.4, 29.2], [23.7, 29.2], [23.3, 48.0], [3.3, 48.4]],
         status: "sold",
         tenure: "Freehold",
         seaView: true,
       },
       {
         code: "R6",
+        plotShape: [[72.7, 6.4], [94.2, 5.2], [94.7, 25.2], [71.9, 25.3]],
         status: "sold",
         tenure: "Freehold",
         seaView: true,
       },
       {
         code: "R7",
+        plotShape: [[29.4, 4.4], [49.2, 5.5], [49.0, 26.7], [29.6, 26.3]],
         status: "available",
         tenure: "Freehold",
         areaSqm: 3232,
@@ -186,6 +219,7 @@ export const LAND_ESTATES: LandEstate[] = [
       },
       {
         code: "R8",
+        plotShape: [[50.1, 4.7], [71.4, 4.8], [70.2, 26.0], [50.4, 25.8]],
         status: "available",
         tenure: "Freehold",
         areaSqm: 3540,
@@ -199,6 +233,7 @@ export const LAND_ESTATES: LandEstate[] = [
       },
       {
         code: "R9",
+        plotShape: [[4.5, 5.7], [28.3, 4.2], [27.4, 26.2], [3.6, 26.8]],
         status: "available",
         tenure: "Freehold",
         areaSqm: 7540,
@@ -212,6 +247,7 @@ export const LAND_ESTATES: LandEstate[] = [
       },
       {
         code: "R10",
+        plotShape: [[78.3, 29.2], [94.2, 30.6], [94.2, 49.0], [78.7, 48.5]],
         status: "available",
         tenure: "Freehold",
         areaSqm: 2420,
@@ -232,12 +268,14 @@ export const LAND_ESTATES: LandEstate[] = [
       },
       {
         code: "R34",
+        plotShape: [[60.8, 30.4], [77.1, 30.8], [77.2, 47.2], [60.5, 48.2]],
         status: "sold",
         tenure: "Freehold",
         seaView: true,
       },
       {
         code: "M1",
+        plotShape: [[22.3, 56.4], [40.1, 57.2], [40.2, 73.2], [23.6, 74.3]],
         status: "available",
         tenure: "Freehold",
         areaSqm: 2448,
@@ -258,6 +296,7 @@ export const LAND_ESTATES: LandEstate[] = [
       },
       {
         code: "M2",
+        plotShape: [[41.4, 56.8], [56.4, 56.2], [56.9, 74.2], [40.8, 74.7]],
         status: "available",
         tenure: "Freehold",
         areaSqm: 2444,
@@ -278,18 +317,21 @@ export const LAND_ESTATES: LandEstate[] = [
       },
       {
         code: "M3",
+        plotShape: [[58.2, 58.4], [73.0, 58.2], [72.6, 74.3], [58.2, 73.8]],
         status: "sold",
         tenure: "Freehold",
         seaView: false,
       },
       {
         code: "M4",
+        plotShape: [[3.6, 57.3], [22.3, 56.8], [22.6, 74.3], [3.2, 73.9]],
         status: "sold",
         tenure: "Freehold",
         seaView: false,
       },
       {
         code: "M5",
+        plotShape: [[73.7, 55.4], [95.2, 55.6], [94.7, 73.9], [73.7, 74.3]],
         status: "available",
         tenure: "Freehold",
         areaSqm: 3152,
@@ -310,6 +352,7 @@ export const LAND_ESTATES: LandEstate[] = [
       },
       {
         code: "M6",
+        plotShape: [[22.7, 76.6], [38.0, 77.0], [38.8, 93.6], [21.8, 92.3]],
         status: "available",
         tenure: "Freehold",
         areaSqm: 2404,
@@ -330,6 +373,7 @@ export const LAND_ESTATES: LandEstate[] = [
       },
       {
         code: "M7",
+        plotShape: [[39.1, 76.3], [54.4, 77.1], [55.6, 93.4], [38.8, 93.0]],
         status: "available",
         tenure: "Freehold",
         areaSqm: 2403,
@@ -350,6 +394,7 @@ export const LAND_ESTATES: LandEstate[] = [
       },
       {
         code: "M8",
+        plotShape: [[56.2, 78.7], [67.8, 77.3], [67.9, 93.3], [55.4, 93.4]],
         status: "available",
         tenure: "Freehold",
         areaSqm: 1382,
@@ -370,12 +415,14 @@ export const LAND_ESTATES: LandEstate[] = [
       },
       {
         code: "M9",
+        plotShape: [[69.3, 78.0], [85.1, 78.1], [84.5, 92.7], [69.0, 93.1]],
         status: "sold",
         tenure: "Freehold",
         seaView: false,
       },
       {
         code: "M10",
+        plotShape: [[3.3, 77.8], [20.2, 77.4], [20.8, 92.3], [4.5, 93.3]],
         status: "available",
         tenure: "Freehold",
         areaSqm: 2372,
@@ -396,6 +443,7 @@ export const LAND_ESTATES: LandEstate[] = [
       },
       {
         code: "C10",
+        plotShape: [[8.7, 99.9], [42.5, 100.5], [41.5, 113.5], [7.7, 113.3]],
         status: "available",
         tenure: "Freehold",
         areaSqm: 2476,

@@ -1,17 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Route } from "next";
-import { ChevronRight, Check, ShieldCheck, MapPin, Layers, ArrowRight } from "lucide-react";
+import { ChevronRight, Check, ShieldCheck, MapPin, Layers } from "lucide-react";
 import type { LandEstate } from "@/content/land-estates";
-import { estateStats, estatePhotoPlots, getPublishedEstates } from "@/content/land-estates";
+import { estateStats, getPublishedEstates } from "@/content/land-estates";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getEstatesDict } from "@/lib/i18n/dictionaries";
 import { localePath } from "@/lib/i18n/locale-path";
-import { ObjectLocationMap } from "@/components/objects/object-location-map";
-import { EstatePlotsTable } from "./estate-plots-table";
-import { EstateInquiry } from "./estate-inquiry";
+import { EstateExplorer } from "./estate-explorer";
 import { EstateCard } from "./estate-card";
-import { PlotStatusBadge } from "./plot-status-badge";
 import { Appear } from "@/components/motion/appear";
 
 interface Props {
@@ -23,8 +20,6 @@ interface Props {
 export function LandEstateLanding({ estate, locale }: Props) {
   const t = getEstatesDict(locale);
   const s = estateStats(estate);
-  const photoPlots = estatePhotoPlots(estate);
-  const hasLocation = Boolean(estate.lat && estate.lng) || Boolean(estate.locationUrl);
 
   const homeHref = localePath(locale, "/") as Route;
   const estatesHref = localePath(locale, "/estates") as Route;
@@ -59,6 +54,7 @@ export function LandEstateLanding({ estate, locale }: Props) {
             alt={estate.name[locale]}
             fill
             priority
+            unoptimized
             sizes="(min-width: 1280px) 1216px, 100vw"
             className="object-cover"
           />
@@ -91,108 +87,41 @@ export function LandEstateLanding({ estate, locale }: Props) {
         </div>
       </header>
 
-      <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_360px] lg:gap-16">
-        <div className="min-w-0 space-y-16">
-          {/* Overview */}
-          <section id="overview" className="scroll-mt-32">
-            <h2 className="font-serif text-3xl text-forest-900">{t.sections.overview}</h2>
-            <div className="mt-6 max-w-prose space-y-4 text-base leading-relaxed text-forest-500/85">
-              {estate.description[locale].map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
-            </div>
-
-            {/* DD-наследование */}
-            <div className="mt-6 flex items-start gap-3 rounded-sm border border-brass-500/20 bg-brass-500/5 p-4">
-              <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-brass-500" />
-              <p className="text-sm leading-relaxed text-forest-500/85">{t.ddNote}</p>
-            </div>
-
-            {/* Highlights */}
-            {estate.highlights && estate.highlights.length > 0 ? (
-              <div className="mt-8">
-                <h3 className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
-                  {t.sections.highlights}
-                </h3>
-                <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-                  {estate.highlights.map((hl, i) => (
-                    <li key={i} className="flex items-center gap-2 text-sm text-forest-500/85">
-                      <Check className="h-4 w-4 shrink-0 text-brass-500" />
-                      {hl[locale]}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
-          </section>
-
-          {/* Plots & availability */}
-          <section id="plots" className="scroll-mt-32">
-            <h2 className="font-serif text-3xl text-forest-900">{t.sections.plotsTitle}</h2>
-            <p className="mt-2 text-sm text-forest-500/70">{t.sections.plotsLede}</p>
-            <div className="mt-6">
-              <EstatePlotsTable estate={estate} locale={locale} />
-            </div>
-
-            <Link
-              href={localePath(locale, `/listings?district=${encodeURIComponent(estate.district)}`) as Route}
-              className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-brass-500 transition-colors hover:text-brass-600"
-            >
-              {t.seeDistrict}
-              <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
-          </section>
-
-          {/* Gallery — фото с участков, сгруппированы по лоту */}
-          {photoPlots.length > 0 ? (
-            <section id="gallery" className="scroll-mt-32">
-              <h2 className="font-serif text-3xl text-forest-900">{t.sections.gallery}</h2>
-              <div className="mt-6 space-y-8">
-                {photoPlots.map((plot) => (
-                  <div key={plot.code}>
-                    <div className="mb-3 flex items-center gap-2.5">
-                      <span className="text-sm font-medium text-forest-900">{plot.code}</span>
-                      <PlotStatusBadge status={plot.status} locale={locale} />
-                    </div>
-                    <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-                      {plot.photos!.map((src, i) => (
-                        <div
-                          key={src}
-                          className="relative aspect-[4/3] overflow-hidden rounded-sm bg-forest-900/5"
-                        >
-                          <Image
-                            src={src}
-                            alt={`${estate.name[locale]} — ${plot.code} (${i + 1})`}
-                            fill
-                            unoptimized
-                            sizes="(min-width: 640px) 33vw, 50vw"
-                            className="object-cover"
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-          ) : null}
-
-          {/* Location */}
-          {hasLocation ? (
-            <section id="location" className="scroll-mt-32">
-              <ObjectLocationMap
-                lat={estate.lat}
-                lng={estate.lng}
-                district={estate.district}
-                mapsUrl={estate.locationUrl}
-              />
-            </section>
-          ) : null}
+      {/* Overview (статика) */}
+      <section id="overview" className="mt-12 scroll-mt-32">
+        <h2 className="font-serif text-3xl text-forest-900">{t.sections.overview}</h2>
+        <div className="mt-6 max-w-prose space-y-4 text-base leading-relaxed text-forest-500/85">
+          {estate.description[locale].map((p, i) => (
+            <p key={i}>{p}</p>
+          ))}
         </div>
 
-        {/* Sticky inquiry */}
-        <EstateInquiry slug={estate.slug} name={estate.name[locale]} />
-      </div>
+        {/* DD-наследование */}
+        <div className="mt-6 flex max-w-prose items-start gap-3 rounded-sm border border-brass-500/20 bg-brass-500/5 p-4">
+          <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-brass-500" />
+          <p className="text-sm leading-relaxed text-forest-500/85">{t.ddNote}</p>
+        </div>
+
+        {/* Highlights */}
+        {estate.highlights && estate.highlights.length > 0 ? (
+          <div className="mt-8">
+            <h3 className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+              {t.sections.highlights}
+            </h3>
+            <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+              {estate.highlights.map((hl, i) => (
+                <li key={i} className="flex items-center gap-2 text-sm text-forest-500/85">
+                  <Check className="h-4 w-4 shrink-0 text-brass-500" />
+                  {hl[locale]}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+      </section>
+
+      {/* Интерактив: план + участки + галерея + карта + заявка */}
+      <EstateExplorer estate={estate} locale={locale} />
 
       {/* Other collections */}
       {others.length > 0 ? (

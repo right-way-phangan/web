@@ -1,35 +1,38 @@
-import Link from "next/link";
-import type { Route } from "next";
-import { ExternalLink } from "lucide-react";
+"use client";
+
+import { ArrowRight } from "lucide-react";
 import type { LandEstate, EstatePlot } from "@/content/land-estates";
 import { plotPriceVisible } from "@/content/land-estates";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getEstatesDict } from "@/lib/i18n/dictionaries";
 import { formatPriceCompact } from "@/lib/utils/price";
-import { localePath } from "@/lib/i18n/locale-path";
 import { cn } from "@/lib/utils/cn";
 import { AvailabilityBar } from "@/components/projects/availability-bar";
 import { PlotStatusBadge } from "./plot-status-badge";
 
 interface Props {
+  /** Полная подборка — для сводных счётчиков. */
   estate: LandEstate;
+  /** Отфильтрованный/отсортированный список лотов для строк. */
+  plots: EstatePlot[];
   locale: Locale;
+  hovered: string | null;
+  onHover: (code: string | null) => void;
+  onEnquire: (code: string) => void;
 }
 
 /**
- * Таблица участков подборки + сводные счётчики и прогресс-бар занятости.
- * Каждый ряд: лот, площадь, вид владения, цена/аренда (только для свободных и
- * резерва), статусный бейдж. Лоты с привязкой к реальной карточке (rwNumber) и
- * статусом «свободен» кликабельны → /object/RW-L####.
+ * Таблица участков: сводные счётчики + прогресс-бар (по всей подборке) и строки
+ * по отфильтрованному списку. Строка подсвечивается при наведении на неё или на
+ * лот в схеме плана (hovered). У свободных лотов — чип вида и кнопка «Запросить».
  */
-export function EstatePlotsTable({ estate, locale }: Props) {
+export function EstatePlotsTable({ estate, plots, locale, hovered, onHover, onEnquire }: Props) {
   const t = getEstatesDict(locale);
   const total = estate.plots.length;
   const available = estate.plots.filter((p) => p.status === "available").length;
 
   return (
     <div className="space-y-6">
-      {/* Сводные счётчики */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Stat value={total} label={t.plots} />
         <Stat value={available} label={t.available} highlight={available > 0} />
@@ -48,7 +51,6 @@ export function EstatePlotsTable({ estate, locale }: Props) {
         )}
       </div>
 
-      {/* Заголовок таблицы (desktop) */}
       <div className="hidden border-b border-forest-500/10 pb-2 text-[11px] font-medium uppercase tracking-[0.12em] text-forest-500/50 sm:grid sm:grid-cols-[auto_1fr_auto_auto_auto] sm:gap-3">
         <span>{t.table.plot}</span>
         <span>{t.table.area}</span>
@@ -57,16 +59,39 @@ export function EstatePlotsTable({ estate, locale }: Props) {
         <span className="justify-self-end">{t.table.statusCol}</span>
       </div>
 
-      <dl className="divide-y divide-forest-500/10 border-b border-forest-500/10">
-        {estate.plots.map((plot) => (
-          <PlotRow key={plot.code} plot={plot} locale={locale} />
-        ))}
-      </dl>
+      {plots.length === 0 ? (
+        <p className="py-8 text-center text-sm text-forest-500/60">{t.noMatch}</p>
+      ) : (
+        <dl className="divide-y divide-forest-500/10 border-b border-forest-500/10">
+          {plots.map((plot) => (
+            <PlotRow
+              key={plot.code}
+              plot={plot}
+              locale={locale}
+              hovered={hovered === plot.code}
+              onHover={onHover}
+              onEnquire={onEnquire}
+            />
+          ))}
+        </dl>
+      )}
     </div>
   );
 }
 
-function PlotRow({ plot, locale }: { plot: EstatePlot; locale: Locale }) {
+function PlotRow({
+  plot,
+  locale,
+  hovered,
+  onHover,
+  onEnquire,
+}: {
+  plot: EstatePlot;
+  locale: Locale;
+  hovered: boolean;
+  onHover: (code: string | null) => void;
+  onEnquire: (code: string) => void;
+}) {
   const t = getEstatesDict(locale);
   const taken = plot.status === "sold" || plot.status === "rented";
 
@@ -91,15 +116,32 @@ function PlotRow({ plot, locale }: { plot: EstatePlot; locale: Locale }) {
     <span className="text-forest-500/35">—</span>
   );
 
-  const inner = (
+  const viewChip = (
+    <span
+      className="inline-flex items-center gap-1 text-[11px] text-forest-500/55"
+      title={plot.seaView ? t.view.sea : t.view.mountain}
+    >
+      <span aria-hidden>{plot.seaView ? "🌊" : "⛰"}</span>
+      <span className="sr-only">{plot.seaView ? t.view.sea : t.view.mountain}</span>
+    </span>
+  );
+
+  return (
     <div
+      id={`row-${plot.code}`}
+      onMouseEnter={() => onHover(plot.code)}
+      onMouseLeave={() => onHover(null)}
       className={cn(
-        "grid grid-cols-[1fr_auto] items-center gap-x-3 gap-y-1 py-3.5 sm:grid-cols-[auto_1fr_auto_auto_auto]",
+        "scroll-mt-28 grid grid-cols-[1fr_auto] items-center gap-x-3 gap-y-1 px-1 py-3.5 transition-colors sm:grid-cols-[auto_1fr_auto_auto_auto]",
         taken && "opacity-70",
+        hovered && "bg-brass-500/5",
       )}
     >
-      <dt className="text-sm font-medium text-forest-900">{plot.code}</dt>
-      <dd className="text-sm text-forest-500/75 sm:order-none order-3 col-span-2 sm:col-span-1">
+      <dt className="flex items-center gap-2 text-sm font-medium text-forest-900">
+        {plot.code}
+        {viewChip}
+      </dt>
+      <dd className="order-3 col-span-2 text-sm text-forest-500/75 sm:order-none sm:col-span-1">
         {area}
         {plot.note ? (
           <span className="block text-xs text-forest-500/50 sm:inline sm:before:mx-1.5 sm:before:content-['·']">
@@ -109,28 +151,21 @@ function PlotRow({ plot, locale }: { plot: EstatePlot; locale: Locale }) {
       </dd>
       <dd className="hidden text-sm text-forest-500/70 sm:block">{t.tenure[plot.tenure]}</dd>
       <dd className="text-sm sm:text-right">{priceNode}</dd>
-      <dd className="justify-self-end">
+      <dd className="flex items-center justify-end gap-2 justify-self-end">
         <PlotStatusBadge status={plot.status} locale={locale} />
+        {plot.status === "available" ? (
+          <button
+            type="button"
+            onClick={() => onEnquire(plot.code)}
+            className="hidden items-center gap-1 rounded-sm border border-brass-500/40 px-2 py-1 text-[11px] font-medium text-brass-600 transition-colors hover:bg-brass-500/10 sm:inline-flex"
+          >
+            {t.enquireLot(plot.code)}
+            <ArrowRight className="h-3 w-3" />
+          </button>
+        ) : null}
       </dd>
     </div>
   );
-
-  // Кликабельны только свободные лоты с реальной карточкой каталога.
-  const reachable = plot.status === "available" && !!plot.rwNumber;
-  if (reachable) {
-    return (
-      <Link
-        href={localePath(locale, `/object/${plot.rwNumber}`) as Route}
-        className="group block transition-colors hover:bg-forest-500/5"
-      >
-        <div className="relative">
-          {inner}
-          <ExternalLink className="pointer-events-none absolute right-0 top-3.5 h-3.5 w-3.5 text-forest-500/0 transition-colors group-hover:text-brass-500 sm:hidden" />
-        </div>
-      </Link>
-    );
-  }
-  return inner;
 }
 
 function Stat({
