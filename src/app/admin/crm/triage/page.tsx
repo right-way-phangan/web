@@ -16,7 +16,14 @@ export const dynamic = "force-dynamic";
  * Triage conveyor for the legacy (Circle-era) queue: one lead at a time,
  * three verdicts — revive into a working pipeline / dead / later — then the
  * next one. Turns a 400-lead backlog into an evening of swiping.
+ *
+ * Scope is limited to leads created within the last {@link TRIAGE_WINDOW_MONTHS}
+ * months — ancient Circle records (2023–2024) are cold and not worth swiping,
+ * so they drop out of the conveyor. They stay in the DB and on the lead board;
+ * this only narrows what we triage.
  */
+const TRIAGE_WINDOW_MONTHS = 7;
+
 export default async function TriagePage({
   searchParams,
 }: {
@@ -26,7 +33,15 @@ export default async function TriagePage({
   const afterId = Number(after) || 0;
   const leads = CRM_ENABLED ? await getLeads() : [];
 
-  const legacy = leads.filter((l) => l.pipelineKey === "legacy");
+  const cutoff = new Date();
+  cutoff.setMonth(cutoff.getMonth() - TRIAGE_WINDOW_MONTHS);
+  const cutoffMs = cutoff.getTime();
+  const isRecent = (createdAt: string) => {
+    const t = new Date(createdAt).getTime();
+    return Number.isFinite(t) && t >= cutoffMs;
+  };
+
+  const legacy = leads.filter((l) => l.pipelineKey === "legacy" && isRecent(l.createdAt));
   const queue = legacy
     .filter((l) => (l.status ?? "open") === "open" && l.stageKey === "incoming")
     .sort((a, b) => a.id - b.id);
@@ -48,6 +63,9 @@ export default async function TriagePage({
       <h1 className="mt-2 text-2xl font-semibold text-forest-900 md:text-3xl">Разбор legacy</h1>
       <p className="mt-1 text-sm text-forest-900/60">
         Разобрано {done} из {legacy.length} · осталось {queue.length}
+      </p>
+      <p className="mt-0.5 text-xs text-forest-900/40">
+        Только лиды за последние {TRIAGE_WINDOW_MONTHS} мес. — более старые в разбор не попадают.
       </p>
       <div className="mt-2 h-2 w-full max-w-md overflow-hidden rounded-full bg-forest-900/10">
         <div className="h-full rounded-full bg-brass-500" style={{ width: `${pct}%` }} />
