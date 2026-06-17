@@ -32,6 +32,7 @@ const inquirySchema = z
     // Hidden / context fields
     rwNumber: z.string().optional(),       // present on object inquiry, absent on /contact
     source: z.enum(["object", "contact"]), // discriminator
+    lang: z.enum(["en", "ru"]).optional(), // UI language the visitor submitted in → reply in their language
     kind: z.enum(["inquiry", "calculator", "market-report", "shortlist", "saved-search", "valuation"]).optional(), // calculator = ROI-calc; market-report = /insights unlock; shortlist = saved-listings batch; saved-search = new-listing alert request; valuation = /tools/estimate seller lead
     utm_source: z.string().max(200).optional(),
     utm_medium: z.string().max(200).optional(),
@@ -170,6 +171,7 @@ export async function submitInquiry(
     ...(isViewing ? ["viewing"] : []),
     ...(wantsVideoTour ? ["video-tour"] : []),
     ...(data.replyVia ? [`reply:${data.replyVia}`] : []),
+    ...(data.lang ? [`lang:${data.lang}`] : []),
     ...(data.rwNumber ? [`object:${data.rwNumber}`] : []),
     ...utmTags(data),
   ];
@@ -177,6 +179,7 @@ export async function submitInquiry(
   // Fold the extras into the message that becomes the lead note and the
   // Telegram ping, so the agent sees them without opening custom fields.
   const extras = [
+    data.lang === "ru" ? "🗣️ Submitted on the RU site — reply in Russian" : null,
     isViewing ? `Preferred viewing date: ${data.viewingDate}` : null,
     wantsVideoTour ? "🎥 Video tour requested" : null,
     data.replyVia ? `Reply via: ${data.replyVia}` : null,

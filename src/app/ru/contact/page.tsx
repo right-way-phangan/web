@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
-import { MessageCircle, Phone, Mail } from "lucide-react";
+import { MessageCircle, Send, Phone, Mail } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { LeadForm } from "@/components/forms/lead-form";
 import {
   siteConfig,
   whatsappLink,
   telegramDmLink,
+  phoneDisplay,
+  telLink,
 } from "@/lib/site-config";
 import { getContactDict } from "@/lib/i18n/dictionaries";
 
@@ -47,7 +49,7 @@ export default function RussianContactPage() {
               className="flex items-center gap-3 rounded-sm border border-forest-500/10 bg-cream-50 p-4 transition-colors hover:border-forest-500/30"
             >
               <MessageCircle className="h-5 w-5 text-forest-500" />
-              <span className="text-sm text-forest-900">WhatsApp · +66 800-04-4960</span>
+              <span className="text-sm text-forest-900">WhatsApp · {phoneDisplay()}</span>
             </a>
             <a
               href={telegramDmLink()}
@@ -55,8 +57,15 @@ export default function RussianContactPage() {
               rel="noopener noreferrer"
               className="flex items-center gap-3 rounded-sm border border-forest-500/10 bg-cream-50 p-4 transition-colors hover:border-forest-500/30"
             >
-              <Phone className="h-5 w-5 text-forest-500" />
+              <Send className="h-5 w-5 text-forest-500" />
               <span className="text-sm text-forest-900">Telegram</span>
+            </a>
+            <a
+              href={telLink()}
+              className="flex items-center gap-3 rounded-sm border border-forest-500/10 bg-cream-50 p-4 transition-colors hover:border-forest-500/30"
+            >
+              <Phone className="h-5 w-5 text-forest-500" />
+              <span className="text-sm text-forest-900">Позвонить · {phoneDisplay()}</span>
             </a>
             <a
               href={`mailto:${siteConfig.contact.email}`}
