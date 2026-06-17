@@ -184,6 +184,42 @@ export async function createObject(
     };
   }
 
+  // Structured seller contact captured at intake — one primary contact (usually
+  // the owner); extra contacts/roles are added on the object card afterwards.
+  // A legacy `owner` string is also composed so the amoCRM fallback path keeps
+  // populating its OWNER field.
+  const contactName = str(formData.get("contactName"));
+  const contactPhone = str(formData.get("contactPhone"));
+  const contactLine = str(formData.get("contactLine"));
+  const contactWhatsapp = str(formData.get("contactWhatsapp"));
+  const contactTelegram = str(formData.get("contactTelegram"));
+  const contactRole = str(formData.get("contactRole")) ?? "owner";
+  const hasContact = !!(
+    contactName || contactPhone || contactLine || contactWhatsapp || contactTelegram
+  );
+  const contacts = hasContact
+    ? [
+        {
+          role: contactRole,
+          name: contactName,
+          phone: contactPhone,
+          line: contactLine,
+          whatsapp: contactWhatsapp,
+          telegram: contactTelegram,
+          isPrimary: true,
+        },
+      ]
+    : undefined;
+  const ownerFallback =
+    [
+      contactName,
+      contactPhone,
+      contactLine ? `LINE ${contactLine}` : "",
+      contactTelegram,
+    ]
+      .filter(Boolean)
+      .join(" · ") || undefined;
+
   const input: NewObjectInput = {
     type,
     district: str(formData.get("district")),
@@ -198,7 +234,8 @@ export async function createObject(
     leaseAddTerms: str(formData.get("leaseAddTerms")),
     buildingRules: str(formData.get("buildingRules")),
     priceThb: toInt(formData.get("priceThb") as string | null),
-    owner: str(formData.get("owner")),
+    owner: ownerFallback,
+    contacts,
     commission: str(formData.get("commission")),
     locationUrl: str(formData.get("locationUrl")),
     plotPolygon: parsePlotPolygon(str(formData.get("plotPolygon"))),
