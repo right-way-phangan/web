@@ -173,7 +173,14 @@ interface FormValues {
   leaseAddTerms: string;
   buildingRules: string;
   priceThb: string;
-  owner: string;
+  // Контакт продавца (первый, обычно собственник) — структурно. Остальные
+  // контакты и роли добавляются на карточке объекта после создания.
+  contactRole: string;
+  contactName: string;
+  contactPhone: string;
+  contactLine: string;
+  contactWhatsapp: string;
+  contactTelegram: string;
   commission: string;
   locationUrl: string;
   zone: string;
@@ -221,7 +228,12 @@ const emptyValues: FormValues = {
   leaseAddTerms: "",
   buildingRules: "",
   priceThb: "",
-  owner: "",
+  contactRole: "owner",
+  contactName: "",
+  contactPhone: "",
+  contactLine: "",
+  contactWhatsapp: "",
+  contactTelegram: "",
   commission: "",
   locationUrl: "",
   zone: "",
@@ -962,23 +974,83 @@ export function ObjectForm() {
           <h2 className="text-sm font-semibold uppercase tracking-wide text-forest-500/60">
             Контакты, локация, медиа
           </h2>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <Field label="Собственник / контакт">
-              <Input
-                name="owner"
-                value={v.owner}
-                onChange={(e) => set("owner", e.target.value)}
-                placeholder="Имя, телефон, telegram"
-              />
-            </Field>
-            <Field label="Комиссия">
-              <Input
-                name="commission"
-                value={v.commission}
-                onChange={(e) => set("commission", e.target.value)}
-              />
-            </Field>
+          <div className="space-y-3 rounded-sm border border-forest-500/15 bg-cream-50/40 p-4">
+            <p className="text-sm font-medium text-forest-900">
+              Контакт продавца{" "}
+              <span className="font-normal text-forest-500/60">
+                — с кем связываться (на сайт не попадает)
+              </span>
+            </p>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Field label="Имя">
+                <Input
+                  name="contactName"
+                  value={v.contactName}
+                  onChange={(e) => set("contactName", e.target.value)}
+                  placeholder="Имя собственника / посредника"
+                />
+              </Field>
+              <Field label="Роль">
+                <select
+                  name="contactRole"
+                  value={v.contactRole}
+                  onChange={(e) => set("contactRole", e.target.value)}
+                  className="flex h-11 w-full rounded-sm border border-forest-500/20 bg-cream-50 px-4 py-2 text-sm text-forest-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500/30 focus-visible:border-forest-500"
+                >
+                  <option value="owner">Собственник</option>
+                  <option value="broker">Посредник / брокер</option>
+                  <option value="caretaker">Смотритель / ключи</option>
+                  <option value="lawyer">Юрист</option>
+                  <option value="other">Другое</option>
+                </select>
+              </Field>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              <Field label="Телефон">
+                <Input
+                  name="contactPhone"
+                  value={v.contactPhone}
+                  onChange={(e) => set("contactPhone", e.target.value)}
+                  placeholder="+66…"
+                />
+              </Field>
+              <Field label="LINE">
+                <Input
+                  name="contactLine"
+                  value={v.contactLine}
+                  onChange={(e) => set("contactLine", e.target.value)}
+                  placeholder="LINE ID"
+                />
+              </Field>
+              <Field label="WhatsApp">
+                <Input
+                  name="contactWhatsapp"
+                  value={v.contactWhatsapp}
+                  onChange={(e) => set("contactWhatsapp", e.target.value)}
+                  placeholder="WhatsApp"
+                />
+              </Field>
+              <Field label="Telegram">
+                <Input
+                  name="contactTelegram"
+                  value={v.contactTelegram}
+                  onChange={(e) => set("contactTelegram", e.target.value)}
+                  placeholder="@username"
+                />
+              </Field>
+            </div>
+            <p className="text-xs text-forest-500/50">
+              Это первый контакт по объекту. Остальные (посредник, смотритель, юрист) и правки —
+              на карточке объекта после создания.
+            </p>
           </div>
+          <Field label="Комиссия">
+            <Input
+              name="commission"
+              value={v.commission}
+              onChange={(e) => set("commission", e.target.value)}
+            />
+          </Field>
           <Field label="Локация (Google Maps URL)" hint="Или поставьте пин на карте ниже — URL заполнится сам.">
             <Input
               name="locationUrl"
@@ -1225,6 +1297,14 @@ function orderPhotos(files: File[], type: string): File[] {
     .map((x) => x.f);
 }
 
+const CONTACT_ROLE_LABEL: Record<string, string> = {
+  owner: "Собственник",
+  broker: "Посредник",
+  caretaker: "Смотритель",
+  lawyer: "Юрист",
+  other: "Контакт",
+};
+
 // Build a readable label/value list for the preview from the current form values.
 function buildPreviewRows(
   v: FormValues,
@@ -1270,7 +1350,16 @@ function buildPreviewRows(
   push("Дорога", v.roadType);
   push("Вода", v.waterType);
   push("Интернет", v.internetType);
-  push("Собственник", v.owner);
+  const contactSummary = [
+    v.contactName,
+    v.contactPhone,
+    v.contactLine ? `LINE ${v.contactLine}` : "",
+    v.contactWhatsapp ? `WA ${v.contactWhatsapp}` : "",
+    v.contactTelegram ? `TG ${v.contactTelegram}` : "",
+  ]
+    .filter(Boolean)
+    .join(" · ");
+  push(CONTACT_ROLE_LABEL[v.contactRole] ?? "Контакт", contactSummary);
   push("Комиссия", v.commission);
   push("Локация", v.locationUrl);
   if (plotPoly.length >= 3)
