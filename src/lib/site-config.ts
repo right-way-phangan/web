@@ -51,3 +51,22 @@ export function telegramDmLink(start?: string) {
 export function telegramChannelLink() {
   return `https://t.me/${siteConfig.contact.telegram.channel}`;
 }
+
+/**
+ * Human-readable phone, derived from the single E164 source so the displayed
+ * number can never drift from the wa.me/tel: link. Thai mobile (66 + 9 digits)
+ * → "+66 84 362 7784"; any other length falls back to a "+<digits>" form.
+ */
+export function phoneDisplay() {
+  const e164 = siteConfig.contact.whatsapp.replace(/\D/g, "");
+  if (e164.startsWith("66") && e164.length === 11) {
+    const n = e164.slice(2); // 9 national digits
+    return `+66 ${n.slice(0, 2)} ${n.slice(2, 5)} ${n.slice(5)}`;
+  }
+  return `+${e164}`;
+}
+
+/** tel: link off the same E164 source (for click-to-call). */
+export function telLink() {
+  return `tel:+${siteConfig.contact.whatsapp.replace(/\D/g, "")}`;
+}

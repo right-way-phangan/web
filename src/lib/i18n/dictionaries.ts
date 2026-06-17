@@ -305,6 +305,9 @@ export interface FormDict {
   submit: string;
   sending: string;
   success: string;
+  replyChannelHint: string; // подсказка, когда выбран мессенджер, но нет телефона
+  successLede: string; // префикс блока «напишите напрямую» после успешной отправки
+  successBrowse: string; // ссылка «смотреть ещё объекты» после отправки
   privacy: string;
   privacyConsent: string; // префикс перед ссылкой на /privacy
   privacyLink: string; // текст ссылки на политику
@@ -323,6 +326,9 @@ const form: Record<Locale, FormDict> = {
     submit: "Send enquiry",
     sending: "Sending…",
     success: "Thanks — we'll be in touch within the working day.",
+    replyChannelHint: "Add a phone number so we can reach you there.",
+    successLede: "Meanwhile, message us directly —",
+    successBrowse: "Browse more listings",
     privacy: "We reply within the working day. No spam, ever.",
     privacyConsent: "By sending, you agree we may contact you about your enquiry. See our",
     privacyLink: "privacy policy",
@@ -339,6 +345,9 @@ const form: Record<Locale, FormDict> = {
     submit: "Отправить запрос",
     sending: "Отправляем…",
     success: "Спасибо — ответим в течение рабочего дня.",
+    replyChannelHint: "Добавьте номер телефона, чтобы мы могли там связаться.",
+    successLede: "А пока — напишите нам напрямую:",
+    successBrowse: "Смотреть ещё объекты",
     privacy: "Отвечаем в течение рабочего дня. Без спама.",
     privacyConsent: "Отправляя, вы соглашаетесь, что мы можем связаться с вами по вашему обращению. См.",
     privacyLink: "политику конфиденциальности",

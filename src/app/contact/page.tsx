@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { MessageCircle, Phone, Mail, MapPin } from "lucide-react";
+import { MessageCircle, Send, Phone, Mail, MapPin } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { LeadForm } from "@/components/forms/lead-form";
 import {
@@ -7,6 +7,8 @@ import {
   whatsappLink,
   telegramDmLink,
   telegramChannelLink,
+  phoneDisplay,
+  telLink,
 } from "@/lib/site-config";
 
 export const metadata: Metadata = {
@@ -65,16 +67,22 @@ export default async function ContactPage({ searchParams }: PageProps) {
                 href={whatsappLink()}
               />
               <ContactRow
-                icon={Phone}
+                icon={Send}
                 label="Telegram chat"
                 value={`@${siteConfig.contact.telegram.bot.replace(/_/g, " ").trim()}`}
                 href={telegramDmLink()}
               />
               <ContactRow
-                icon={Phone}
+                icon={Send}
                 label="Telegram channel"
                 value={`@${siteConfig.contact.telegram.channel}`}
                 href={telegramChannelLink()}
+              />
+              <ContactRow
+                icon={Phone}
+                label="Call"
+                value={phoneDisplay()}
+                href={telLink()}
               />
               <ContactRow
                 icon={Mail}

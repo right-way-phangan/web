@@ -76,6 +76,21 @@ export function Hero() {
             <Link href="/process">How we work</Link>
           </Button>
         </div>
+
+        {/* Direct contact path off the hero — for a DM-first audience that
+            arrives ready to talk, not browse. */}
+        <p
+          className="rise-in mt-5 text-sm text-panel-fg/75"
+          style={{ animationDelay: "0.4s" }}
+        >
+          Already know what you&apos;re after?{" "}
+          <Link
+            href="/contact"
+            className="font-medium text-brass-300 underline-offset-4 hover:underline"
+          >
+            Talk to us →
+          </Link>
+        </p>
       </div>
     </section>
   );
