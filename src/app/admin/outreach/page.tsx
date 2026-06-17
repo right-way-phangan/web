@@ -48,7 +48,7 @@ export default async function AdminOutreachPage() {
             : o.rentPerRaiMonth
               ? `฿${nf(o.rentPerRaiMonth)}/rai·mo`
               : "цена?",
-        ownerName: o.ownerName,
+        contacts: o.contacts ?? [],
         onSite: o.status === "Active" && !!o.coverImage,
         missing,
         outreachStatus: o.outreachStatus,
