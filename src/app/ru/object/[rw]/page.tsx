@@ -55,8 +55,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
   const ogTitle = `${object.titleEn} — ${object.rwNumber}`;
+  // Авто-описание первично; legacy descriptionRaw в архиве (решение 2026-06-17).
   const description =
-    cleanMetaDescription(object.descriptionRaw) ??
     cleanMetaDescription(objectDescriptionText(object, "ru")) ??
     `${object.type} на Ко Пангане — объект Right Way ${object.rwNumber}.`;
   return {

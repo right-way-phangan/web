@@ -58,8 +58,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
   const districtSuffix = object.district ? ` in ${object.district}` : "";
   const ogTitle = `${object.titleEn} — ${object.rwNumber}`;
+  // Авто-описание первично (legacy amoCRM-заметки в descriptionRaw в архиве —
+  // решение 2026-06-17). Generic-строка — только если генератор вернул пусто.
   const description =
-    cleanMetaDescription(object.descriptionRaw) ??
     cleanMetaDescription(objectDescriptionText(object, "en")) ??
     `${object.type} on Koh Phangan${districtSuffix} — Right Way listing ${object.rwNumber}.`;
   return {

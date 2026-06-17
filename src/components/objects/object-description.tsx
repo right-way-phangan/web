@@ -3,10 +3,15 @@ import { getObjectDict, type Locale } from "@/lib/i18n/dictionaries";
 import { buildObjectDescription } from "@/lib/generate/object-description";
 
 /**
- * «About this property» — описание объекта. По умолчанию собирается
- * автоматически из структурных полей (buildObjectDescription, EN+RU). Ручной
- * текст `descriptionRaw` (если заполнен в админке) перебивает авто — это
- * «override-lock». Server-компонент.
+ * «About this property» — описание листинга. Всегда собирается автоматически из
+ * структурных полей (buildObjectDescription, EN+RU). Старые amoCRM-заметки в
+ * `object.descriptionRaw` сознательно НЕ показываются (решение 2026-06-17 «авто
+ * везде, заметки в архив») — поле остаётся в БД, но на листинг-страницу не идёт.
+ * Кураторская копия проектов живёт отдельно на /projects/[slug] (там
+ * descriptionRaw продолжает использоваться). Server-компонент.
+ *
+ * Будущий «deliberate override» (ручное описание под конкретный объект) делать
+ * отдельным флагом в админке, а не через legacy descriptionRaw.
  */
 export function ObjectDescription({
   object,
@@ -16,27 +21,13 @@ export function ObjectDescription({
   locale: Locale;
 }) {
   const t = getObjectDict(locale);
-  const manual = object.descriptionRaw?.trim();
+  const { lead, body, bullets } = buildObjectDescription(object, locale);
 
   return (
     <section>
       <h2 className="font-serif text-3xl text-forest-900">{t.aboutProperty}</h2>
 
-      {manual ? (
-        <div className="dropcap mt-6 max-w-prose space-y-4 whitespace-pre-line text-base leading-relaxed text-forest-500/85">
-          {manual}
-        </div>
-      ) : (
-        <GeneratedBody object={object} locale={locale} />
-      )}
-    </section>
-  );
-}
-
-function GeneratedBody({ object, locale }: { object: RealEstateObject; locale: Locale }) {
-  const { lead, body, bullets } = buildObjectDescription(object, locale);
-  return (
-    <div className="mt-6 max-w-prose">
+      <div className="mt-6 max-w-prose">
       <p className="text-lg leading-relaxed text-forest-900">{lead}</p>
       {body ? (
         <p className="mt-4 text-base leading-relaxed text-forest-500/85">{body}</p>
@@ -51,6 +42,7 @@ function GeneratedBody({ object, locale }: { object: RealEstateObject; locale: L
           ))}
         </ul>
       ) : null}
-    </div>
+      </div>
+    </section>
   );
 }
