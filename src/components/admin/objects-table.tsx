@@ -297,6 +297,8 @@ export function ObjectsTable({
                           unitsAvailable: o.unitsAvailable,
                           locationUrl: o.locationUrl,
                           plotPolygon: o.plotPolygon,
+                          descriptionManualEn: o.descriptionManualEn,
+                          descriptionManualRu: o.descriptionManualRu,
                         }}
                       />
                     </td>

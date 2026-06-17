@@ -2,7 +2,11 @@
 
 import { useState, useRef, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { updateObjectAction, type ObjectPatch } from "@/lib/actions/update-object";
+import {
+  updateObjectAction,
+  regenerateDescriptionAction,
+  type ObjectPatch,
+} from "@/lib/actions/update-object";
 import { addObjectPhotosAction } from "@/lib/actions/object-photos";
 import { CoordPicker } from "@/components/forms/coord-picker";
 import { parseLatLngText } from "@/lib/utils/geo";
@@ -24,6 +28,8 @@ export interface EditableObject {
   unitsAvailable?: number | null;
   locationUrl?: string | null;
   plotPolygon?: Array<[number, number]> | null;
+  descriptionManualEn?: string | null;
+  descriptionManualRu?: string | null;
 }
 
 function numOrNull(v: string): number | null {
@@ -92,6 +98,25 @@ export function ObjectEditButton({ object }: { object: EditableObject }) {
   );
   const [locationUrl, setLocationUrl] = useState(object.locationUrl ?? "");
   const [plotPoly, setPlotPoly] = useState<Array<[number, number]>>(object.plotPolygon ?? []);
+  const [descEn, setDescEn] = useState(object.descriptionManualEn ?? "");
+  const [descRu, setDescRu] = useState(object.descriptionManualRu ?? "");
+  const [descGen, setDescGen] = useState(false);
+  const [descMsg, setDescMsg] = useState<string | null>(null);
+
+  function regenDesc() {
+    setDescMsg(null);
+    setDescGen(true);
+    regenerateDescriptionAction(object.rwNumber).then((r) => {
+      setDescGen(false);
+      if (r.ok) {
+        setDescEn(r.en ?? "");
+        setDescRu(r.ru ?? "");
+        setDescMsg("Черновик сгенерирован — проверьте и сохраните.");
+      } else {
+        setDescMsg(r.error ?? "Ошибка генерации.");
+      }
+    });
+  }
 
   function save() {
     setError(null);
@@ -111,6 +136,8 @@ export function ObjectEditButton({ object }: { object: EditableObject }) {
       patch.rentPerMonth = numOrNull(rentPerMonth);
     }
     if (isProject) patch.unitsAvailable = numOrNull(unitsAvailable);
+    patch.descriptionManualEn = descEn.trim() || null;
+    patch.descriptionManualRu = descRu.trim() || null;
 
     start(async () => {
       const res = await updateObjectAction(object.rwNumber, patch);
@@ -299,6 +326,39 @@ export function ObjectEditButton({ object }: { object: EditableObject }) {
                 </button>
               </div>
               {photoMsg && <p className="mt-2 text-xs text-emerald-700">{photoMsg}</p>}
+            </div>
+
+            {/* Ручное описание (override). Пусто → на сайте авто-описание.
+                Кнопка собирает черновик (Claude при ключе, иначе шаблон). */}
+            <div className="mt-4 rounded-xl border border-forest-900/10 bg-cream-50/60 p-3">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p className="text-xs font-medium text-forest-900/55">
+                  Описание (override) — пусто = авто на сайте
+                </p>
+                <button
+                  type="button"
+                  disabled={descGen}
+                  onClick={regenDesc}
+                  className="rounded-full bg-forest-900/5 px-3 py-1.5 text-xs font-medium text-forest-900/70 hover:bg-forest-900/10 disabled:opacity-40"
+                >
+                  {descGen ? "Генерирую…" : "✨ Сгенерировать черновик"}
+                </button>
+              </div>
+              {descMsg && <p className="mt-2 text-xs text-emerald-700">{descMsg}</p>}
+              <textarea
+                value={descEn}
+                onChange={(e) => setDescEn(e.target.value)}
+                rows={4}
+                placeholder="EN — оставьте пустым для авто-описания"
+                className="mt-2 w-full rounded-md border border-forest-900/15 bg-cream-50 px-3 py-2 text-sm text-forest-900 placeholder:text-forest-900/35"
+              />
+              <textarea
+                value={descRu}
+                onChange={(e) => setDescRu(e.target.value)}
+                rows={4}
+                placeholder="RU — оставьте пустым для авто-описания"
+                className="mt-2 w-full rounded-md border border-forest-900/15 bg-cream-50 px-3 py-2 text-sm text-forest-900 placeholder:text-forest-900/35"
+              />
             </div>
 
             {error && (

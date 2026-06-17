@@ -10,8 +10,8 @@ import { buildObjectDescription } from "@/lib/generate/object-description";
  * Кураторская копия проектов живёт отдельно на /projects/[slug] (там
  * descriptionRaw продолжает использоваться). Server-компонент.
  *
- * Будущий «deliberate override» (ручное описание под конкретный объект) делать
- * отдельным флагом в админке, а не через legacy descriptionRaw.
+ * Deliberate override: `descriptionManualEn/Ru` (заданные в админке) перебивают
+ * авто — это намеренная копия под конкретный объект, НЕ legacy-заметка.
  */
 export function ObjectDescription({
   object,
@@ -21,13 +21,27 @@ export function ObjectDescription({
   locale: Locale;
 }) {
   const t = getObjectDict(locale);
-  const { lead, body, bullets } = buildObjectDescription(object, locale);
+  const manual = (locale === "ru" ? object.descriptionManualRu : object.descriptionManualEn)?.trim();
 
   return (
     <section>
       <h2 className="font-serif text-3xl text-forest-900">{t.aboutProperty}</h2>
 
-      <div className="mt-6 max-w-prose">
+      {manual ? (
+        <div className="dropcap mt-6 max-w-prose space-y-4 whitespace-pre-line text-base leading-relaxed text-forest-500/85">
+          {manual}
+        </div>
+      ) : (
+        <AutoBody object={object} locale={locale} />
+      )}
+    </section>
+  );
+}
+
+function AutoBody({ object, locale }: { object: RealEstateObject; locale: Locale }) {
+  const { lead, body, bullets } = buildObjectDescription(object, locale);
+  return (
+    <div className="mt-6 max-w-prose">
       <p className="text-lg leading-relaxed text-forest-900">{lead}</p>
       {body ? (
         <p className="mt-4 text-base leading-relaxed text-forest-500/85">{body}</p>
@@ -42,7 +56,6 @@ export function ObjectDescription({
           ))}
         </ul>
       ) : null}
-      </div>
-    </section>
+    </div>
   );
 }
