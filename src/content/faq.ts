@@ -358,12 +358,12 @@ export const FAQ_ITEMS: FaqItem[] = [
     answer: [
       "Buyers typically transfer funds from a home-country bank to Thailand via:",
       { ul: [
-        "**SWIFT international transfer** to the lawyer's escrow account or to the seller directly at closing. Bank charges $50–200 per transfer.",
+        "**SWIFT international transfer** to the partner law firm's client account — or a licensed bank escrow account for larger deals — or to the seller directly at closing. Bank charges $50–200 per transfer.",
         "**Wise (formerly TransferWise)** for amounts up to ~5M THB per transaction — significantly cheaper FX (0.4–0.6% spread vs 2–3% bank).",
         "**Multiple smaller Wise transfers** are common for larger purchases, though banks may flag patterns; structure with the lawyer's input.",
       ] },
       "**Important:** keep the **Foreign Exchange Transaction Form (FET)** — a document the receiving Thai bank issues when funds arrive from abroad in foreign currency. The FET is required to remit funds back out of Thailand when you eventually sell. Without it, repatriating proceeds is much harder.",
-      "Receiving bank should be a major Thai bank (Bangkok Bank, Kasikorn, SCB). The lawyer typically opens an account or uses their client escrow.",
+      "Receiving bank should be a major Thai bank (Bangkok Bank, Kasikorn, SCB). The lawyer typically opens or uses a dedicated client account; note that under Thai law only licensed banks — not lawyers or agents — can act as a formal escrow agent, so a true bank escrow account is arranged separately for larger transactions.",
     ],
   },
   {
