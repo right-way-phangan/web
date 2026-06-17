@@ -192,3 +192,41 @@ export function buildabilityFaq(
   );
   return { question, answer };
 }
+
+/** Short localized zone name for compare (e.g. "Low-density residential"). */
+export function zoneShort(o: RealEstateObject, locale: RuleLocale): string | null {
+  const def = ZONE_USE[(o.zone ?? "").trim().toLowerCase()];
+  return def ? pick(def.name, locale) : null;
+}
+
+const ZONE_CAT: Record<string, Bi> = {
+  green: { en: "Agricultural", ru: "Сельхоз" },
+  yellow: { en: "Residential", ru: "Жилая" },
+  orange: { en: "Residential", ru: "Жилая" },
+  red: { en: "Commercial", ru: "Коммерч." },
+  purple: { en: "Industrial", ru: "Пром." },
+};
+
+/** One-word zone category for the tight listing-card meta row. */
+export function zoneCategory(o: RealEstateObject, locale: RuleLocale): string | null {
+  const c = ZONE_CAT[(o.zone ?? "").trim().toLowerCase()];
+  return c ? pick(c, locale) : null;
+}
+
+const WARN_SHORT = {
+  coastal: { en: "Coastal limits", ru: "Прибрежные" },
+  hillside: { en: "Hillside", ru: "Склон" },
+  road: { en: "Access road", ru: "Подъезд" },
+} as const;
+
+/**
+ * Short "check before building" warning tags for cards / compare — only the
+ * hard (warn-level) signals we actually have: coastal, hillside, road access.
+ */
+export function buildWarnLabels(o: RealEstateObject, locale: RuleLocale): string[] {
+  const out: string[] = [];
+  if (o.beachfront) out.push(pick(WARN_SHORT.coastal, locale));
+  if (o.mountainView) out.push(pick(WARN_SHORT.hillside, locale));
+  if (o.roadType === "Dirt" || o.roadType === "None") out.push(pick(WARN_SHORT.road, locale));
+  return out;
+}

@@ -84,6 +84,9 @@ export function slimObjectForCard(o: RealEstateObject): RealEstateObject {
     areaRai: o.areaRai,
     areaSqm: o.areaSqm,
     bedrooms: o.bedrooms,
+    // зона + тип дороги → чип зоны и флаги «проверить» на карточке/в сравнении
+    zone: o.zone,
+    roadType: o.roadType,
     // compare-таблица на /saved читает форму владения
     tenure: o.tenure,
     leaseTermYears: o.leaseTermYears,

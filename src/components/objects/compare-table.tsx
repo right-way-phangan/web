@@ -8,6 +8,7 @@ import { useSaved } from "@/lib/saved/saved-context";
 import { formatPriceCompact } from "@/lib/utils/price";
 import { cn } from "@/lib/utils/cn";
 import { useLocale, localeHref } from "@/lib/i18n/use-locale";
+import { zoneShort, buildWarnLabels } from "@/lib/data/zone-rules";
 
 interface Row {
   label: string;
@@ -38,6 +39,8 @@ const CT = {
     rLease: "Lease term",
     rBedrooms: "Bedrooms",
     rView: "View",
+    rZone: "Zone",
+    rCheck: "Check before building",
     vBeachfront: "Beachfront",
     vSeaView: "Sea view",
     vMountain: "Mountain",
@@ -64,6 +67,8 @@ const CT = {
     rLease: "Срок аренды",
     rBedrooms: "Спальни",
     rView: "Вид",
+    rZone: "Зона",
+    rCheck: "Проверить до стройки",
     vBeachfront: "Первая линия",
     vSeaView: "Вид на море",
     vMountain: "На горы",
@@ -71,7 +76,7 @@ const CT = {
   },
 } as const;
 
-function buildRows(t: (typeof CT)[keyof typeof CT]): Row[] {
+function buildRows(t: (typeof CT)[keyof typeof CT], locale: keyof typeof CT): Row[] {
   return [
     {
       label: t.rPrice,
@@ -118,6 +123,14 @@ function buildRows(t: (typeof CT)[keyof typeof CT]): Row[] {
                 ? t.vJungle
                 : "—",
     },
+    { label: t.rZone, get: (o) => zoneShort(o, locale) ?? "—" },
+    {
+      label: t.rCheck,
+      get: (o) => {
+        const w = buildWarnLabels(o, locale);
+        return w.length ? w.join(" · ") : "—";
+      },
+    },
   ];
 }
 
@@ -130,7 +143,7 @@ function buildRows(t: (typeof CT)[keyof typeof CT]): Row[] {
 export function CompareTable({ items }: { items: RealEstateObject[] }) {
   const locale = useLocale();
   const t = CT[locale];
-  const ROWS = buildRows(t);
+  const ROWS = buildRows(t, locale);
   const { remove } = useSaved();
   if (items.length < 2) return null;
 

@@ -18,6 +18,7 @@ import { formatPriceCompact, formatUsdCompact } from "@/lib/utils/price";
 import { BLUR_PLACEHOLDER } from "@/lib/utils/blur";
 import { useLocale, localeHref } from "@/lib/i18n/use-locale";
 import { getListingsDict, type ListingsDict } from "@/lib/i18n/dictionaries";
+import { zoneCategory, buildWarnLabels } from "@/lib/data/zone-rules";
 import { SaveButton } from "./save-button";
 
 const NEW_BADGE_DAYS = 14;
@@ -73,6 +74,8 @@ export function ObjectCard({ object, priority = false }: Props) {
   const t = getListingsDict(locale);
   // Explicit locale so server/client number formatting matches (hydration).
   const nl = locale === "ru" ? "ru-RU" : "en-US";
+  const zoneCat = zoneCategory(object, locale);
+  const buildWarns = buildWarnLabels(object, locale);
 
   return (
     <div className="group relative flex h-full flex-col">
@@ -197,6 +200,18 @@ export function ObjectCard({ object, priority = false }: Props) {
 
           {object.bedrooms ? (
             <span>· {object.bedrooms} {t.bed}</span>
+          ) : null}
+
+          {zoneCat || buildWarns.length > 0 ? (
+            <span
+              className="inline-flex items-center gap-1"
+              title={buildWarns.length > 0 ? buildWarns.join(" · ") : undefined}
+            >
+              {buildWarns.length > 0 ? (
+                <span aria-hidden className="text-amber-600 dark:text-amber-400">▲</span>
+              ) : null}
+              {zoneCat ? <span>{zoneCat}</span> : null}
+            </span>
           ) : null}
 
           {object.documentType ? (
