@@ -155,7 +155,9 @@ export interface RealEstateObject {
   docs?: Array<{ name: string; url: string }>;
 
   // Description
-  descriptionRaw?: string;    // legacy textarea
+  descriptionRaw?: string;    // legacy amoCRM notes — archived, NOT shown publicly
+  descriptionManualEn?: string; // deliberate manual override (admin) — wins over auto
+  descriptionManualRu?: string;
 }
 
 /** Compact neighbour for the object map's "other listings nearby" pins. */

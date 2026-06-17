@@ -28,6 +28,8 @@ export type ObjectPatch = Partial<{
   roadType: string;
   zone: string;
   terrain: string;
+  descriptionManualEn: string | null; // ручной override описания (перебивает авто)
+  descriptionManualRu: string | null;
 }>;
 
 export type UpdateObjectResult = { ok: boolean; error?: string };
@@ -60,5 +62,30 @@ export async function updateObjectAction(
   revalidatePath("/admin/objects");
   revalidatePath("/listings");
   revalidatePath(`/object/${rwNumber}`);
+  revalidatePath(`/ru/object/${rwNumber}`);
   return { ok: true };
+}
+
+/**
+ * Generate a draft description (EN+RU) for the admin editor's manual-override
+ * fields. Uses Claude when ANTHROPIC_API_KEY is set, deterministic template
+ * otherwise — the human reviews/edits before saving.
+ */
+export async function regenerateDescriptionAction(
+  rwNumber: string,
+): Promise<{ ok: boolean; en?: string; ru?: string; error?: string }> {
+  const { getObjectByRwNumber } = await import("@/lib/data/objects");
+  const { generateObjectDescription } = await import("@/lib/generate/object-description");
+  const obj = await getObjectByRwNumber(rwNumber);
+  if (!obj) return { ok: false, error: "Объект не найден" };
+  try {
+    const [en, ru] = await Promise.all([
+      generateObjectDescription(obj, "en"),
+      generateObjectDescription(obj, "ru"),
+    ]);
+    return { ok: true, en, ru };
+  } catch (err) {
+    console.error("[admin] regenerateDescription failed:", err);
+    return { ok: false, error: "Ошибка генерации" };
+  }
 }
