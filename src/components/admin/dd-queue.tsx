@@ -12,6 +12,7 @@ import {
   Check,
   X,
 } from "lucide-react";
+import { EmptyState } from "@/components/ui/empty-state";
 import { setDdStatus, saveDdChecklist } from "@/lib/actions/dd-status";
 import { DD_STATUSES, DD_CHECKLIST, type DdStatus, isVetted } from "@/lib/dd";
 
@@ -272,8 +273,13 @@ export function DdQueue({ rows, defaultLawyer }: { rows: DdRow[]; defaultLawyer:
             })}
             {visible.length === 0 ? (
               <tr>
-                <td colSpan={8} className="px-3 py-8 text-center text-forest-500/70">
-                  Пусто.
+                <td colSpan={8} className="px-3 py-8">
+                  <EmptyState
+                    icon={ShieldCheck}
+                    title="Очередь пуста"
+                    hint="Нет объектов под текущий фильтр — все проверки разобраны."
+                    className="border-0 bg-transparent py-2"
+                  />
                 </td>
               </tr>
             ) : null}

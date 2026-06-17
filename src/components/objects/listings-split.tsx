@@ -6,6 +6,7 @@ import { track } from "@vercel/analytics";
 import { LayoutGrid, Map as MapIcon } from "lucide-react";
 import type { RealEstateObject } from "@/types/object";
 import { ObjectCard } from "./object-card";
+import { Appear } from "@/components/motion/appear";
 import { MapSkeleton } from "./map-skeleton";
 import type { MapPoint, MapBounds } from "./listings-map";
 import { useMediaQuery } from "@/lib/hooks/use-media-query";
@@ -150,12 +151,16 @@ export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
                   onMouseEnter={() => setHoveredRw(o.rwNumber)}
                   onMouseLeave={() => setHoveredRw(null)}
                   className={cn(
-                    "scroll-mt-24 rounded-sm transition-shadow",
+                    "scroll-mt-24 h-full rounded-sm transition-shadow",
                     activeRw === o.rwNumber &&
                       "ring-2 ring-brass-500 ring-offset-2 ring-offset-cream-100",
                   )}
                 >
-                  <ObjectCard object={o} priority={i < 4} />
+                  {/* Каскадное проявление при выходе в кадр (Appear: SSR-safe,
+                      над сгибом — мгновенно, reduced-motion отключает). */}
+                  <Appear className="h-full" y={20} delay={Math.min(i, 7) * 0.06}>
+                    <ObjectCard object={o} priority={i < 4} />
+                  </Appear>
                 </div>
               ))}
             </div>

@@ -144,14 +144,19 @@ export function ProjectHero({ project, availability, locale, developerHref }: Pr
       <div className="relative aspect-[4/3] overflow-hidden rounded-sm bg-forest-500/5 lg:aspect-[5/4]">
         {hasCover ? (
           <>
-            <Image
-              src={project.coverImage!}
-              alt={project.titleEn}
-              fill
-              priority
-              sizes="(min-width: 1024px) 55vw, 100vw"
-              className="object-cover"
-            />
+            {/* Scroll-параллакс обложки тем же CSS-механизмом, что и в карточке
+                объекта (.cover-parallax: animation-timeline: view(), reduced-motion
+                выключает). Обёртка крупнее контейнера, чтобы дрейф не оголял края. */}
+            <div className="cover-parallax absolute -inset-[8%]">
+              <Image
+                src={project.coverImage!}
+                alt={project.titleEn}
+                fill
+                priority
+                sizes="(min-width: 1024px) 55vw, 100vw"
+                className="object-cover"
+              />
+            </div>
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-panel/35 via-transparent to-transparent" />
             <StageBadge
               stage={project.stage}
