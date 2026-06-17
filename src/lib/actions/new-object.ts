@@ -1,12 +1,12 @@
 "use server";
 
-import { put } from "@vercel/blob";
 import { createObjectCard, ObjectInputError, type NewObjectInput } from "@/lib/amocrm/object-writer";
 import { AmoApiError } from "@/lib/amocrm/client";
 import { notifyObjectCreated } from "@/lib/notify/telegram";
 import { OBJECT_TYPES } from "@/lib/amocrm/dictionaries";
 import { classifyImageIsDocument } from "@/lib/classify/image-doc";
 import { backendFetch } from "@/lib/api/backend";
+import { uploadImageToR2 } from "@/lib/storage/r2";
 
 /**
  * Migration off amoCRM (Phase A): when OBJECTS_API_URL is set, new objects are
@@ -120,12 +120,7 @@ function parsePlotPolygon(raw?: string): Array<[number, number]> | undefined {
 }
 
 async function uploadBlob(file: File, folder: string): Promise<string> {
-  const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-  const blob = await put(`${folder}/${Date.now()}-${safeName}`, file, {
-    access: "public",
-    addRandomSuffix: true,
-  });
-  return blob.url;
+  return uploadImageToR2(file, folder);
 }
 
 export async function createObject(
