@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { getAnyObjectByRwNumber } from "@/lib/data/objects";
+import { getAdminObjectByRwNumber } from "@/lib/data/objects";
 import { getLeads, CRM_ENABLED } from "@/lib/data/leads";
 import { matchLeadsToObject } from "@/lib/crm/matching";
 import { AdminNav } from "@/components/admin/admin-nav";
@@ -39,7 +39,7 @@ export default async function AdminObjectPage({
   params: Promise<{ rw: string }>;
 }) {
   const { rw } = await params;
-  const object = await getAnyObjectByRwNumber(rw);
+  const object = await getAdminObjectByRwNumber(rw);
   if (!object) notFound();
 
   const leads = CRM_ENABLED ? await getLeads() : [];
@@ -89,7 +89,7 @@ export default async function AdminObjectPage({
             {object.titleEn || `${object.type} на Пангане`}
           </h1>
           <p className="mt-1 text-sm font-medium text-forest-900/80">{objPrice(object)}</p>
-          <div className="mt-2 flex gap-3 text-xs">
+          <div className="mt-2 flex flex-wrap gap-3 text-xs">
             <Link
               href={`/object/${object.rwNumber}` as `/object/${string}`}
               className="text-brass-600 hover:underline"
@@ -97,7 +97,43 @@ export default async function AdminObjectPage({
             >
               публичная карточка →
             </Link>
+            {object.driveFolder && (
+              <a
+                href={object.driveFolder}
+                className="text-brass-600 hover:underline"
+                target="_blank"
+                rel="noreferrer"
+              >
+                📁 Drive (фото и документы) →
+              </a>
+            )}
+            {object.lat != null && object.lng != null && (
+              <a
+                href={`https://www.google.com/maps?q=${object.lat},${object.lng}`}
+                className="text-brass-600 hover:underline"
+                target="_blank"
+                rel="noreferrer"
+              >
+                📍 {object.lat.toFixed(5)}, {object.lng.toFixed(5)} →
+              </a>
+            )}
           </div>
+          {object.docs && object.docs.length > 0 && (
+            <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs text-forest-900/60">
+              <span className="text-forest-900/45">📄 Документы:</span>
+              {object.docs.map((d) => (
+                <a
+                  key={d.url}
+                  href={d.url}
+                  className="text-brass-600 hover:underline"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {d.name}
+                </a>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
