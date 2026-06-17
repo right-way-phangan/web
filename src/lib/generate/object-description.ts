@@ -354,3 +354,115 @@ export function objectDescriptionText(o: RealEstateObject, locale: Locale): stri
   const sep = locale === "ru" ? "Ключевое: " : "Key facts: ";
   return tidy([d.lead, d.body, d.bullets.length ? sep + d.bullets.join("; ") + "." : ""].filter(Boolean).join(" "));
 }
+
+// ---- LLM polish layer (optional, auto-enabled when ANTHROPIC_API_KEY is set) ----
+// Mirrors object-title.ts. NOT called at render (per-request LLM is too slow/
+// costly) — it's the hook for a generate-and-store path (admin «Сгенерировать
+// через Claude» button / intake). Without the key it returns the deterministic
+// template flatten, so callers never depend on the LLM.
+
+const MODEL = process.env.ANTHROPIC_MODEL ?? "claude-haiku-4-5-20251001";
+const API_URL = "https://api.anthropic.com/v1/messages";
+
+const SYSTEM_PROMPT: Record<Locale, string> = {
+  en: `You write property listing descriptions for Right Way, a specialised real-estate agency on Koh Phangan, Thailand. Given JSON facts about ONE property, write its description in English.
+Rules:
+- Open with one answer-shaped sentence stating what it is (type, district, standout feature) — so AI answer engines can quote it.
+- Then 1–2 short paragraphs of useful context (setting, access, tenure, what is verified). 4–6 sentences total.
+- Factual and calm: NO hype words (luxury, paradise, dream, stunning, best), NO emoji, NO markdown, NO headings.
+- NEVER mention price, commission or yield figures.
+- Use only facts present in the JSON; do not invent amenities, distances or numbers.
+- Output ONLY the description prose.`,
+  ru: `Ты пишешь описания объектов недвижимости для Right Way — агентства на острове Ко Панган (Таиланд). По JSON-фактам об ОДНОМ объекте напиши описание на русском.
+Правила:
+- Начни с одного предложения-ответа: что это (тип, район, ключевая особенность) — чтобы ИИ-ответчики могли его процитировать.
+- Затем 1–2 коротких абзаца полезного контекста (окружение, доступ, вид владения, что проверено). Всего 4–6 предложений.
+- Фактично и спокойно: БЕЗ рекламных слов (люкс, рай, мечта, потрясающий, лучший), БЕЗ эмодзи, без markdown и заголовков.
+- НИКОГДА не упоминай цену, комиссию или доходность.
+- Используй только факты из JSON; не выдумывай удобства, расстояния и числа.
+- Выведи ТОЛЬКО прозу описания.`,
+};
+
+function factsFor(o: RealEstateObject): string {
+  const f = extract(o);
+  const facts: Record<string, unknown> = {
+    type: f.isProject ? "off-plan villa project" : o.type,
+    district: f.district,
+    standoutFeature: f.feature ?? undefined,
+    documentType: f.doc,
+    tenure:
+      f.leasehold && !f.freehold ? "leasehold"
+      : f.freehold && !f.leasehold ? "freehold"
+      : f.freehold ? "freehold or leasehold"
+      : undefined,
+    vetted: f.vetted || undefined,
+    quiet: f.quiet || undefined,
+    flatBuildReady: f.flat || undefined,
+    road: f.road,
+    electricity: f.electricity || undefined,
+  };
+  if (f.rai) facts.plotSizeRai = f.rai;
+  if (f.sqm) facts.areaSqm = f.sqm;
+  if (f.beds) facts.bedrooms = f.beds;
+  if (f.baths) facts.bathrooms = f.baths;
+  if (f.pool) facts.pool = true;
+  if (f.brandNew) facts.condition = "brand new";
+  if (f.buildYear) facts.buildYear = f.buildYear;
+  if (f.isProject) {
+    if (f.unitsTotal) facts.unitsTotal = f.unitsTotal;
+    if (f.unitsAvailable != null) facts.unitsAvailable = f.unitsAvailable;
+    if (f.completion) facts.completion = f.completion;
+    if (f.developer) facts.developer = f.developer;
+  }
+  return JSON.stringify(facts);
+}
+
+function sanitiseLlm(raw: string, locale: Locale): string | null {
+  const t = (raw ?? "").trim().replace(/^["'“”«»]+|["'“”«»]+$/g, "").trim();
+  if (!t) return null;
+  const hasCyr = /[А-Яа-яЁё]/.test(t);
+  if (locale === "ru" && !hasCyr) return null; // RU output must be Russian
+  if (locale === "en" && hasCyr) return null; // EN output must be English
+  if (t.length < 40 || t.length > 1400) return null;
+  return t.replace(/[*#`]/g, "").trim(); // strip stray markdown
+}
+
+async function llmDescription(o: RealEstateObject, locale: Locale): Promise<string | null> {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) return null;
+  try {
+    const resp = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "x-api-key": apiKey,
+        "anthropic-version": "2023-06-01",
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        model: MODEL,
+        max_tokens: 400,
+        system: SYSTEM_PROMPT[locale],
+        messages: [{ role: "user", content: factsFor(o) }],
+      }),
+    });
+    if (!resp.ok) {
+      console.error(`[description] anthropic ${resp.status}`);
+      return null;
+    }
+    const data = (await resp.json()) as { content?: Array<{ text?: string }> };
+    const text = (data.content ?? []).map((c) => c.text ?? "").join(" ");
+    return sanitiseLlm(text, locale);
+  } catch (err) {
+    console.error("[description] call failed:", err);
+    return null;
+  }
+}
+
+/**
+ * Listing description as natural prose — Claude when ANTHROPIC_API_KEY is set,
+ * deterministic template flatten otherwise. For a generate-and-store path
+ * (admin regenerate / intake), NOT per-request render.
+ */
+export async function generateObjectDescription(o: RealEstateObject, locale: Locale): Promise<string> {
+  return (await llmDescription(o, locale)) ?? objectDescriptionText(o, locale);
+}
