@@ -42,7 +42,7 @@ function r2Config(): R2Config {
   return cfg;
 }
 
-const sha256hex = (b: Buffer | string): string => createHash("sha256").update(b).digest("hex");
+const sha256hex = (b: Uint8Array | string): string => createHash("sha256").update(b).digest("hex");
 const hmac = (key: Buffer | string, data: string): Buffer =>
   createHmac("sha256", key).update(data).digest();
 
@@ -58,7 +58,7 @@ function encodeKey(key: string): string {
  */
 export async function r2PutObject(
   key: string,
-  body: Buffer,
+  body: Uint8Array,
   contentType: string,
 ): Promise<string> {
   const cfg = r2Config();
@@ -130,6 +130,6 @@ export async function uploadImageToR2(file: File, folder = "objects"): Promise<s
   const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
   const rand = Math.random().toString(36).slice(2, 10);
   const key = `${folder}/${Date.now()}-${rand}-${safeName}`;
-  const body = Buffer.from(await file.arrayBuffer());
+  const body = new Uint8Array(await file.arrayBuffer());
   return r2PutObject(key, body, file.type || "image/jpeg");
 }
