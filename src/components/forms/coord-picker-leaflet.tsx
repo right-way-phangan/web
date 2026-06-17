@@ -28,6 +28,15 @@ import { cn } from "@/lib/utils/cn";
 const MAX_ZOOM = 20;
 const PHANGAN_CENTER: [number, number] = [9.738, 100.0135];
 
+// Why the auto-trace fell back to manual, in plain RU for the admin.
+const TRACE_FALLBACK: Record<string, string> = {
+  open: "Граница участка не замкнута на кадастре — обведите вручную.",
+  "on-line": "Пин стоит на линии границы — сдвиньте его внутрь участка и повторите.",
+  "too-small": "Не удалось выделить участок — обведите вручную.",
+  "no-tiles": "Кадастр недоступен в этой точке — обведите вручную.",
+  "out-of-range": "Точка вне зоны кадастра — обведите вручную.",
+};
+
 const pinIcon = L.divIcon({
   className: "",
   html: `<span style="display:block;width:22px;height:22px;border-radius:50% 50% 50% 0;background:#B5651D;border:2px solid #FEFCF9;transform:rotate(-45deg);box-shadow:0 1px 5px rgba(0,0,0,.4)"></span>`,
@@ -66,8 +75,43 @@ export default function CoordPickerLeaflet({ pin, polygon, onPin, onPolygon }: C
   const [base, setBase] = useState<"map" | "sat">("sat");
   const [cadastre, setCadastre] = useState(true);
   const [mode, setMode] = useState<"pin" | "poly">("pin");
+  const [tracing, setTracing] = useState(false);
+  const [trace, setTrace] = useState<{ ok: boolean; msg: string } | null>(null);
 
   const areaSqm = polygonAreaSqm(polygon);
+
+  // Auto-trace the plot from the cadastral layer around the pin, then drop the
+  // result into the same editable polygon — the admin verifies and tweaks it.
+  async function autoTrace() {
+    if (!pin) {
+      setTrace({ ok: false, msg: "Сначала поставьте пин на участок." });
+      return;
+    }
+    setTracing(true);
+    setTrace(null);
+    try {
+      const res = await fetch("/admin/api/parcel-trace", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ lat: pin.lat, lng: pin.lng }),
+      });
+      const data = await res.json();
+      if (data?.ok && Array.isArray(data.polygon) && data.polygon.length >= 3) {
+        onPolygon(data.polygon);
+        setMode("poly");
+        setTrace({
+          ok: true,
+          msg: `✓ Контур построен (${data.polygon.length} точек). Проверьте и при необходимости поправьте вершины.`,
+        });
+      } else {
+        setTrace({ ok: false, msg: TRACE_FALLBACK[data?.reason] ?? "Не удалось определить контур — обведите вручную." });
+      }
+    } catch {
+      setTrace({ ok: false, msg: "Сбой связи с сервером — попробуйте ещё раз." });
+    } finally {
+      setTracing(false);
+    }
+  }
 
   function handlePick(m: "pin" | "poly", lat: number, lng: number) {
     if (m === "pin") onPin(lat, lng);
@@ -183,13 +227,26 @@ export default function CoordPickerLeaflet({ pin, polygon, onPin, onPolygon }: C
           </button>
         </div>
 
-        <div className="absolute left-2 top-2 z-[1000] flex overflow-hidden rounded-sm border border-forest-500/20 shadow-sm">
-          <button type="button" aria-pressed={mode === "pin"} className={cn(pill, mode === "pin" ? pillOn : pillOff)} onClick={() => setMode("pin")}>
-            📍 Пин
-          </button>
-          <button type="button" aria-pressed={mode === "poly"} className={cn(pill, mode === "poly" ? pillOn : pillOff)} onClick={() => setMode("poly")}>
-            ⬠ Контур
-          </button>
+        <div className="absolute left-2 top-2 z-[1000] flex flex-col items-start gap-1.5">
+          <div className="flex overflow-hidden rounded-sm border border-forest-500/20 shadow-sm">
+            <button type="button" aria-pressed={mode === "pin"} className={cn(pill, mode === "pin" ? pillOn : pillOff)} onClick={() => setMode("pin")}>
+              📍 Пин
+            </button>
+            <button type="button" aria-pressed={mode === "poly"} className={cn(pill, mode === "poly" ? pillOn : pillOff)} onClick={() => setMode("poly")}>
+              ⬠ Контур
+            </button>
+          </div>
+          {pin ? (
+            <button
+              type="button"
+              disabled={tracing}
+              className={cn(pill, "rounded-sm border border-forest-500/20 shadow-sm disabled:opacity-60", pillOff)}
+              onClick={autoTrace}
+              title="Определить контур участка по кадастру вокруг пина"
+            >
+              {tracing ? "⏳ Определяю…" : "✨ Авто-контур"}
+            </button>
+          ) : null}
         </div>
       </div>
 
@@ -221,6 +278,9 @@ export default function CoordPickerLeaflet({ pin, polygon, onPin, onPolygon }: C
           <span className="font-medium text-forest-900">Контур: {polygon.length} точек · {formatAreaRu(areaSqm)}</span>
         ) : polygon.length > 0 ? (
           <span>Вершин: {polygon.length} (нужно ≥ 3)</span>
+        ) : null}
+        {trace ? (
+          <span className={cn("font-medium", trace.ok ? "text-forest-700" : "text-red-700")}>{trace.msg}</span>
         ) : null}
       </div>
     </div>
