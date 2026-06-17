@@ -3,12 +3,66 @@
 import { useMemo, useState, useTransition } from "react";
 import Link from "next/link";
 import type { Route } from "next";
-import { Phone, PhoneOff, Archive, FileSignature, CheckCircle2, Search } from "lucide-react";
-import {
-  recordCallOutcome,
-  saveOwnerContact,
-  type OutreachOutcome,
-} from "@/lib/actions/outreach";
+import { Phone, PhoneOff, Archive, FileSignature, CheckCircle2, Star, Pencil } from "lucide-react";
+import { recordCallOutcome, type OutreachOutcome } from "@/lib/actions/outreach";
+import { saveObjectContacts } from "@/lib/actions/object-contacts";
+import type { ContactRole, ObjectContact } from "@/types/object";
+
+const ROLE_LABEL: Record<ContactRole, string> = {
+  owner: "Собственник",
+  broker: "Посредник",
+  caretaker: "Смотритель",
+  lawyer: "Юрист",
+  other: "Контакт",
+};
+
+/** Основной контакт-владелец, на который смотрит быстрая правка в обзвоне. */
+function primaryOwner(list: ObjectContact[]): ObjectContact | undefined {
+  return (
+    list.find((c) => c.role === "owner" && c.isPrimary) ??
+    list.find((c) => c.role === "owner") ??
+    list.find((c) => c.isPrimary) ??
+    list[0]
+  );
+}
+
+/** Текст быстрого поля «Имя · телефон» из основного контакта. */
+function ownerQuickText(list: ObjectContact[]): string {
+  const c = primaryOwner(list);
+  if (!c) return "";
+  return [c.name, c.phone].filter(Boolean).join(" · ") || c.name || c.phone || "";
+}
+
+/** Разобрать быстрый ввод «Имя · 084…» → {name, phone}. */
+function parseQuick(text: string): { name?: string; phone?: string } {
+  const s = text.trim();
+  const m = s.match(/\+?\d[\d\s().-]{6,}\d/);
+  const phone = m ? m[0].trim() : undefined;
+  const name = (phone ? s.replace(m![0], "") : s)
+    .replace(/[·,|]+/g, " ")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+  return { name: name || undefined, phone };
+}
+
+/** Вписать правку имени/телефона в основной контакт-владелец (или создать его). */
+function mergeOwner(
+  list: ObjectContact[],
+  edit: { name?: string; phone?: string },
+): ObjectContact[] {
+  const target = primaryOwner(list);
+  if (target) {
+    return list.map((c) =>
+      c === target
+        ? { ...c, name: edit.name, phone: edit.phone, role: "owner", isPrimary: true }
+        : { ...c, isPrimary: false },
+    );
+  }
+  return [
+    ...list.map((c) => ({ ...c, isPrimary: false })),
+    { role: "owner" as ContactRole, name: edit.name, phone: edit.phone, isPrimary: true },
+  ];
+}
 
 /** Row prepared by /admin/outreach (unsanitized objects, internal-only). */
 export interface OutreachRow {
@@ -17,7 +71,7 @@ export interface OutreachRow {
   district?: string;
   areaLabel: string;
   priceLabel: string;
-  ownerName?: string;
+  contacts: ObjectContact[];
   onSite: boolean;
   missing: string[]; // чего не хватает в карточке (район/фото/цена…)
   outreachStatus?: string;
@@ -57,7 +111,7 @@ export function OutreachList({ rows }: { rows: OutreachRow[] }) {
   const [error, setError] = useState<string | null>(null);
   // локальные правки до сохранения
   const [notes, setNotes] = useState<Record<string, string>>({});
-  const [contacts, setContacts] = useState<Record<string, string>>({});
+  const [ownerText, setOwnerText] = useState<Record<string, string>>({});
   const [, start] = useTransition();
 
   const counts = useMemo(() => {
@@ -86,10 +140,11 @@ export function OutreachList({ rows }: { rows: OutreachRow[] }) {
   }
 
   function saveContact(r: OutreachRow) {
-    const v = contacts[r.rwNumber];
-    if (v == null || v === (r.ownerName ?? "")) return;
+    const v = ownerText[r.rwNumber];
+    if (v == null || v === ownerQuickText(r.contacts)) return; // поле не трогали / без изменений
+    const list = mergeOwner(r.contacts, parseQuick(v));
     start(async () => {
-      const res = await saveOwnerContact(r.rwNumber, v);
+      const res = await saveObjectContacts(r.rwNumber, list);
       if (!res.ok) setError(res.error ?? "Не удалось сохранить контакт");
     });
   }
@@ -120,7 +175,7 @@ export function OutreachList({ rows }: { rows: OutreachRow[] }) {
       <ul className="space-y-3">
         {visible.map((r) => {
           const busy = busyRw === r.rwNumber;
-          const contact = contacts[r.rwNumber] ?? r.ownerName ?? "";
+          const contact = ownerText[r.rwNumber] ?? ownerQuickText(r.contacts);
           return (
             <li
               key={r.rwNumber}
@@ -158,24 +213,57 @@ export function OutreachList({ rows }: { rows: OutreachRow[] }) {
                 </p>
               ) : null}
 
+              {r.contacts.length > 0 ? (
+                <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1 text-xs text-forest-500">
+                  {r.contacts.map((c, i) => (
+                    <span key={i} className="inline-flex items-center gap-1">
+                      {c.isPrimary ? <Star className="h-3 w-3 fill-brass-500 text-brass-500" /> : null}
+                      <span className="font-medium text-forest-900/75">
+                        {ROLE_LABEL[c.role]}
+                        {c.name ? `: ${c.name}` : ""}
+                      </span>
+                      {c.phone ? (
+                        <a href={`tel:${c.phone}`} className="text-brass-600 hover:underline">
+                          {c.phone}
+                        </a>
+                      ) : null}
+                      {c.line ? <span className="text-forest-500/80">LINE {c.line}</span> : null}
+                      {c.whatsapp ? (
+                        <a
+                          href={`https://wa.me/${c.whatsapp.replace(/\D/g, "")}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-brass-600 hover:underline"
+                        >
+                          WA
+                        </a>
+                      ) : null}
+                      {c.telegram ? (
+                        <span className="text-forest-500/80">TG {c.telegram}</span>
+                      ) : null}
+                    </span>
+                  ))}
+                </div>
+              ) : null}
+
               <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-center">
                 <div className="flex flex-1 items-center gap-1.5">
                   <input
                     value={contact}
                     onChange={(e) =>
-                      setContacts((c) => ({ ...c, [r.rwNumber]: e.target.value }))
+                      setOwnerText((c) => ({ ...c, [r.rwNumber]: e.target.value }))
                     }
                     onBlur={() => saveContact(r)}
                     placeholder="Собственник · телефон"
+                    title="Быстрая правка основного контакта. Роли и мессенджеры — в карточке объекта."
                     className="min-h-[44px] w-full rounded-sm border border-forest-900/15 px-3 py-2 text-sm text-forest-900"
                   />
                   <Link
-                    href={"/admin/crm/contacts" as Route}
-                    target="_blank"
-                    title="Искать в книге контактов"
+                    href={`/admin/objects/${r.rwNumber}` as Route}
+                    title="Открыть карточку: все контакты, роли, мессенджеры"
                     className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-sm border border-forest-900/15 text-forest-500 hover:text-forest-900"
                   >
-                    <Search className="h-4 w-4" />
+                    <Pencil className="h-4 w-4" />
                   </Link>
                 </div>
                 <input

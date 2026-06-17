@@ -7,6 +7,7 @@ import { getLeads, CRM_ENABLED } from "@/lib/data/leads";
 import { matchLeadsToObject } from "@/lib/crm/matching";
 import { AdminNav } from "@/components/admin/admin-nav";
 import { ObjectWarmLeads, type WarmLeadRow } from "@/components/admin/object-warm-leads";
+import { ObjectContactsEditor } from "@/components/admin/object-contacts-editor";
 
 export const metadata: Metadata = {
   title: "Объект — тёплые лиды",
@@ -135,6 +136,10 @@ export default async function AdminObjectPage({
             </div>
           )}
         </div>
+      </div>
+
+      <div className="mt-8">
+        <ObjectContactsEditor rwNumber={object.rwNumber} initial={object.contacts ?? []} />
       </div>
 
       {!CRM_ENABLED ? (

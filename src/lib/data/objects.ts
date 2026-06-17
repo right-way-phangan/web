@@ -32,11 +32,12 @@ const OBJECTS_API_URL = process.env.OBJECTS_API_URL;
  */
 export function sanitizePublicObject(o: RealEstateObject): RealEstateObject {
   const {
-    ownerName, driveFolder, docs, circleCode, ddLawyer, ddChecklist,
+    ownerName, contacts, driveFolder, docs, circleCode, ddLawyer, ddChecklist,
     outreachStatus, outreachNote, outreachDate, outreachAttempts,
     ...pub
   } = o;
   void ownerName;
+  void contacts; // контакты продавца (имя/телефон/мессенджеры) — строго внутренние
   void driveFolder;
   void docs;
   void circleCode;

@@ -62,6 +62,15 @@ function isUnit(rw: string): boolean {
   return /^RW-P\d+-\d+$/i.test(rw);
 }
 
+/** Короткий ярлык основного контакта (имя · телефон/канал) для тултипа в таблице. */
+function primaryContactLabel(o: RealEstateObject): string | null {
+  const list = o.contacts ?? [];
+  if (list.length === 0) return null;
+  const c = list.find((x) => x.isPrimary) ?? list[0];
+  const channel = c.phone || c.line || c.whatsapp || c.telegram;
+  return [c.name, channel].filter(Boolean).join(" · ") || "Контакт без имени";
+}
+
 export default async function ObjectsPage({
   searchParams,
 }: {
@@ -210,6 +219,8 @@ export default async function ObjectsPage({
     photos: photoCount(o),
     isPublic: publicSet.has(o.rwNumber),
     isUnit: isUnit(o.rwNumber),
+    contactCount: o.contacts?.length ?? 0,
+    contactLabel: primaryContactLabel(o),
     leadCount: leadsByRw.get(o.rwNumber) ?? 0,
     views7: viewsByRw.get(o.rwNumber)?.d7 ?? 0,
     views30: viewsByRw.get(o.rwNumber)?.d30 ?? 0,
