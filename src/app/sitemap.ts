@@ -8,6 +8,7 @@ import { KB_ARTICLES_RU } from "@/content/knowledge-base.ru";
 import { BLOG_POSTS_RU } from "@/content/blog.ru";
 import { getPublicObjects } from "@/lib/data/objects";
 import { getPublicProjects, projectSlug, isProjectUnit, getDevelopers } from "@/lib/data/projects";
+import { getPublishedEstates } from "@/content/land-estates";
 
 export const revalidate = 3600; // 1 hour — fresh enough for new listings
 
@@ -51,6 +52,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/listings`, lastModified: now, changeFrequency: "daily", priority: 0.9 },
     { url: `${base}/projects`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${base}/ru/projects`, lastModified: now, changeFrequency: "weekly", priority: 0.6 },
+    { url: `${base}/estates`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${base}/ru/estates`, lastModified: now, changeFrequency: "weekly", priority: 0.6 },
     { url: `${base}/districts`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/insights`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/services`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
@@ -182,6 +185,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/ru/developers/${d.slug}`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.5 },
   ]);
 
+  // Land estates (подборки участков) — content-driven, only published ones.
+  const estateEntries: MetadataRoute.Sitemap = getPublishedEstates().flatMap((e) => {
+    const languages = { en: `${base}/estates/${e.slug}`, ru: `${base}/ru/estates/${e.slug}` };
+    return [
+      { url: `${base}/estates/${e.slug}`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.8, alternates: { languages } },
+      { url: `${base}/ru/estates/${e.slug}`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.6, alternates: { languages } },
+    ];
+  });
+
   return [
     ...staticEntries,
     ...districtEntries,
@@ -193,5 +205,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...objectEntries,
     ...projectEntries,
     ...developerEntries,
+    ...estateEntries,
   ];
 }
