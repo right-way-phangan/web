@@ -67,9 +67,15 @@ interface Props {
    * late and pushed LCP to ~6s. Pass for the first ~4 cards only.
    */
   priority?: boolean;
+  /**
+   * In the Rent view (/listings Buy/Rent toggle), lead with the monthly lease
+   * rate instead of the sale price. Defaults to "buy" — every other surface
+   * keeps the sale-price-first headline unchanged.
+   */
+  priceMode?: "buy" | "rent";
 }
 
-export function ObjectCard({ object, priority = false }: Props) {
+export function ObjectCard({ object, priority = false, priceMode = "buy" }: Props) {
   const TypeIcon = TYPE_ICON[object.type];
   const hue = thumbHue(object.rwNumber);
   // Cover can 402 (optimizer cap) / 403 (blob store blocked) — fall back to the
@@ -174,7 +180,13 @@ export function ObjectCard({ object, priority = false }: Props) {
           {object.titleEn}
         </h3>
 
-        {object.priceThb ? (
+        {priceMode === "rent" && object.rentPerRaiMonth ? (
+          // Rent view: lead with the monthly lease rate, not the sale price.
+          <p className="num text-lg text-forest-900">
+            {formatPriceCompact(object.rentPerRaiMonth)}
+            <span className="ml-2 text-xs font-sans text-forest-500/70">{t.perRaiMonth}</span>
+          </p>
+        ) : object.priceThb ? (
           <p className="num text-lg text-forest-900">
             {formatPriceCompact(object.priceThb)}
             {object.priceUsd ? (

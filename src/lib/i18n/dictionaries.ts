@@ -669,9 +669,14 @@ export interface ListingsDict {
   nlInterpreted: string;
   nlNoMatch: string;
   // filter bar
+  buy: string;
+  rent: string;
+  viewMode: string;
   anyDistrict: string;
   minPrice: string;
   maxPrice: string;
+  minRent: string;
+  maxRent: string;
   freehold: string;
   leasehold: string;
   beachfront: string;
@@ -702,6 +707,7 @@ export interface ListingsDict {
   priceOnRequest: string;
   perRai: string;
   perRaiMonth: string;
+  perMonthShort: string;
   rai: string;
   bed: string;
   newBadge: string;
@@ -741,9 +747,14 @@ const listings: Record<Locale, ListingsDict> = {
     nlTry: "Try:",
     nlInterpreted: "Interpreted as:",
     nlNoMatch: "Couldn’t pin that to a filter — showing everything. Try terms like a district, type, price, or “sea view”.",
+    buy: "Buy",
+    rent: "Rent",
+    viewMode: "Buy or rent",
     anyDistrict: "Any district",
     minPrice: "Min ฿",
     maxPrice: "Max ฿",
+    minRent: "Min ฿/mo",
+    maxRent: "Max ฿/mo",
     freehold: "Freehold",
     leasehold: "Leasehold",
     beachfront: "Beachfront",
@@ -772,6 +783,7 @@ const listings: Record<Locale, ListingsDict> = {
     priceOnRequest: "Price on request",
     perRai: "/rai",
     perRaiMonth: "/rai/mo",
+    perMonthShort: "/mo",
     rai: "rai",
     bed: "bed",
     newBadge: "New",
@@ -804,9 +816,14 @@ const listings: Record<Locale, ListingsDict> = {
     nlTry: "Примеры:",
     nlInterpreted: "Поняли так:",
     nlNoMatch: "Не удалось привязать к фильтру — показываем всё. Попробуйте район, тип, цену или «вид на море».",
+    buy: "Купить",
+    rent: "Аренда",
+    viewMode: "Покупка или аренда",
     anyDistrict: "Любой район",
     minPrice: "Цена от ฿",
     maxPrice: "Цена до ฿",
+    minRent: "Аренда от ฿/мес",
+    maxRent: "Аренда до ฿/мес",
     freehold: "Freehold",
     leasehold: "Leasehold",
     beachfront: "Первая линия",
@@ -835,6 +852,7 @@ const listings: Record<Locale, ListingsDict> = {
     priceOnRequest: "Цена по запросу",
     perRai: "/рай",
     perRaiMonth: "/рай/мес",
+    perMonthShort: "/мес",
     rai: "рай",
     bed: "сп.",
     newBadge: "Новое",
@@ -910,6 +928,7 @@ export interface ObjectDict {
     fullscreenExit: string;
     measure: string;
     measureHint: string;
+    perMonth: string;
   };
   perRaiMonth: string;
   priceOnRequest: string;
@@ -1041,6 +1060,7 @@ const objectDict: Record<Locale, ObjectDict> = {
       fullscreenExit: "Exit fullscreen",
       measure: "Measure",
       measureHint: "Tap the map to measure distance",
+      perMonth: "/mo",
     },
     perRaiMonth: "/ rai / month",
     priceOnRequest: "Price on request",
@@ -1169,6 +1189,7 @@ const objectDict: Record<Locale, ObjectDict> = {
       fullscreenExit: "Выйти из полноэкранного",
       measure: "Линейка",
       measureHint: "Нажимайте по карте, чтобы измерить расстояние",
+      perMonth: "/мес",
     },
     perRaiMonth: "/ рай / мес",
     priceOnRequest: "Цена по запросу",

@@ -6,6 +6,7 @@ import { track } from "@vercel/analytics";
 import { motion, useReducedMotion } from "motion/react";
 import { LayoutGrid, Map as MapIcon } from "lucide-react";
 import type { RealEstateObject } from "@/types/object";
+import type { ViewMode } from "@/lib/filters/listings";
 import { ObjectCard } from "./object-card";
 import { Appear } from "@/components/motion/appear";
 import { MapSkeleton } from "./map-skeleton";
@@ -26,7 +27,13 @@ const ListingsMap = dynamic(() => import("./listings-map"), {
  * the right (desktop). Hovering a card highlights its pin; clicking a pin selects
  * and scrolls to the matching card. On mobile it collapses to a List/Map toggle.
  */
-export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
+export function ListingsSplit({
+  objects,
+  mode = "buy",
+}: {
+  objects: RealEstateObject[];
+  mode?: ViewMode;
+}) {
   const t = getListingsDict(useLocale());
   const reduce = useReducedMotion();
   // Stable identity — recomputing each render would re-trigger the map's
@@ -42,6 +49,7 @@ export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
           lat: o.lat!,
           lng: o.lng!,
           priceThb: o.priceThb,
+          rentPerRaiMonth: o.rentPerRaiMonth,
           cover: o.coverImage,
         })),
     [objects],
@@ -164,7 +172,7 @@ export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
                   {/* Каскадное проявление при выходе в кадр (Appear: SSR-safe,
                       над сгибом — мгновенно, reduced-motion отключает). */}
                   <Appear className="h-full" y={20} delay={Math.min(i, 7) * 0.06}>
-                    <ObjectCard object={o} priority={i < 4} />
+                    <ObjectCard object={o} priority={i < 4} priceMode={mode} />
                   </Appear>
                 </motion.div>
               ))}
@@ -190,6 +198,7 @@ export function ListingsSplit({ objects }: { objects: RealEstateObject[] }) {
               {mountMap ? (
                 <ListingsMap
                   points={points}
+                  mode={mode}
                   activeRw={activeRw}
                   hoveredRw={hoveredRw}
                   onSelect={handleSelect}

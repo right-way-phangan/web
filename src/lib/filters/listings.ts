@@ -2,13 +2,26 @@ import type { RealEstateObject, ObjectType, TenureType } from "@/types/object";
 
 export type SortOption = "featured" | "newest" | "price-asc" | "price-desc";
 
+/**
+ * Buy vs Rent view. The market is pivoting toward leasehold land, so /listings
+ * carries a Buy/Rent toggle: the *price dimension* (filter range, sort, map pins,
+ * card headline) switches between the sale price (`priceThb`) in Buy mode and the
+ * monthly lease rate (`rentPerRaiMonth`) in Rent mode. The toggle also partitions
+ * inventory — see `makeFilterPredicate`: a listing with a monthly rent is a rental
+ * (Rent tab); everything else is for sale (Buy tab).
+ */
+export type ViewMode = "buy" | "rent";
+
 export interface ListingsFilter {
+  mode: ViewMode;            // buy (sale price) | rent (monthly lease)
   type: ObjectType[];        // multi: Land/Villa/House/Apartment/Project
   district: string[];        // multi
   tenure: TenureType[];      // multi: Freehold/Leasehold
   bedroomsMin?: number;      // min beds (Villa/House/Apartment)
-  priceMinThb?: number;      // min asking price (THB)
-  priceMaxThb?: number;      // max asking price (THB)
+  priceMinThb?: number;      // min asking price (THB) — Buy mode
+  priceMaxThb?: number;      // max asking price (THB) — Buy mode
+  rentMinThb?: number;       // min monthly rent (THB/rai/mo) — Rent mode
+  rentMaxThb?: number;       // max monthly rent (THB/rai/mo) — Rent mode
   beachfront: boolean;
   seaView: boolean;
   mountainView: boolean;
@@ -24,6 +37,27 @@ function parseMillions(raw: string | undefined): number | undefined {
   if (!raw) return undefined;
   const m = Number(raw);
   return Number.isFinite(m) && m > 0 ? m * 1_000_000 : undefined;
+}
+
+/** URL rent params are in thousands of THB/mo (e.g. ?rmin=10&rmax=30). */
+function parseThousands(raw: string | undefined): number | undefined {
+  if (!raw) return undefined;
+  const k = Number(raw);
+  return Number.isFinite(k) && k > 0 ? k * 1_000 : undefined;
+}
+
+/**
+ * The price figure a listing is ranked/filtered by, given the active view:
+ * sale price (Buy) or monthly lease rate (Rent). Used by the sort and by the
+ * map/cards so one accessor keeps every surface consistent.
+ */
+export function priceFieldOf(o: RealEstateObject, mode: ViewMode): number | undefined {
+  return mode === "rent" ? o.rentPerRaiMonth : o.priceThb;
+}
+
+/** A listing with a monthly rent is a rental; otherwise it is for sale. */
+export function isRental(o: RealEstateObject): boolean {
+  return o.rentPerRaiMonth != null;
 }
 
 function multi<T extends string>(raw: string | undefined, allowed: readonly T[]): T[] {
@@ -55,7 +89,10 @@ export function parseListingsSearchParams(
       ? (sortRaw as SortOption)
       : "featured";
 
+  const mode: ViewMode = get("mode") === "rent" ? "rent" : "buy";
+
   return {
+    mode,
     type: multi(get("type"), VALID_TYPES),
     district: (get("district") ?? "")
       .split(",")
@@ -65,6 +102,8 @@ export function parseListingsSearchParams(
     bedroomsMin: Number.isFinite(bedroomsMin) && bedroomsMin! > 0 ? bedroomsMin : undefined,
     priceMinThb: parseMillions(get("pmin")),
     priceMaxThb: parseMillions(get("pmax")),
+    rentMinThb: parseThousands(get("rmin")),
+    rentMaxThb: parseThousands(get("rmax")),
     beachfront: get("beachfront") === "1",
     seaView: get("seaview") === "1",
     mountainView: get("mountainview") === "1",
@@ -78,6 +117,11 @@ export function parseListingsSearchParams(
  */
 export function makeFilterPredicate(f: ListingsFilter): (o: RealEstateObject) => boolean {
   return (o) => {
+    // Buy/Rent partition: the Rent tab shows only rentals (a monthly rate is
+    // set); the Buy tab shows everything else. Keeps the toggle a clean split
+    // instead of mixing two price axes in one list.
+    if (f.mode === "rent" ? !isRental(o) : isRental(o)) return false;
+
     if (f.type.length > 0 && !f.type.includes(o.type)) return false;
     if (f.district.length > 0 && (!o.district || !f.district.includes(o.district))) return false;
     if (f.tenure.length > 0) {
@@ -88,11 +132,13 @@ export function makeFilterPredicate(f: ListingsFilter): (o: RealEstateObject) =>
     if (f.bedroomsMin !== undefined) {
       if (!o.bedrooms || o.bedrooms < f.bedroomsMin) return false;
     }
-    if (f.priceMinThb !== undefined) {
-      if (!o.priceThb || o.priceThb < f.priceMinThb) return false;
-    }
-    if (f.priceMaxThb !== undefined) {
-      if (!o.priceThb || o.priceThb > f.priceMaxThb) return false;
+    // Price range runs on the active dimension (sale price vs monthly rent).
+    if (f.mode === "rent") {
+      if (f.rentMinThb !== undefined && (!o.rentPerRaiMonth || o.rentPerRaiMonth < f.rentMinThb)) return false;
+      if (f.rentMaxThb !== undefined && (!o.rentPerRaiMonth || o.rentPerRaiMonth > f.rentMaxThb)) return false;
+    } else {
+      if (f.priceMinThb !== undefined && (!o.priceThb || o.priceThb < f.priceMinThb)) return false;
+      if (f.priceMaxThb !== undefined && (!o.priceThb || o.priceThb > f.priceMaxThb)) return false;
     }
     if (f.beachfront && !o.beachfront) return false;
     if (f.seaView && !o.seaView) return false;
@@ -101,21 +147,26 @@ export function makeFilterPredicate(f: ListingsFilter): (o: RealEstateObject) =>
   };
 }
 
-export function applySort(objects: RealEstateObject[], sort: SortOption): RealEstateObject[] {
+export function applySort(
+  objects: RealEstateObject[],
+  sort: SortOption,
+  mode: ViewMode = "buy",
+): RealEstateObject[] {
   if (sort === "newest") {
     return [...objects].sort((a, b) =>
       (b.dateAdded ?? "").localeCompare(a.dateAdded ?? ""),
     );
   }
   if (sort === "price-asc" || sort === "price-desc") {
-    // Objects without a price always sink to the bottom, regardless of direction.
+    // Sort by the active price dimension (sale price in Buy, monthly rent in
+    // Rent). Objects without that figure always sink to the bottom.
     return [...objects].sort((a, b) => {
-      if (a.priceThb == null && b.priceThb == null) return 0;
-      if (a.priceThb == null) return 1;
-      if (b.priceThb == null) return -1;
-      return sort === "price-asc"
-        ? a.priceThb - b.priceThb
-        : b.priceThb - a.priceThb;
+      const pa = priceFieldOf(a, mode);
+      const pb = priceFieldOf(b, mode);
+      if (pa == null && pb == null) return 0;
+      if (pa == null) return 1;
+      if (pb == null) return -1;
+      return sort === "price-asc" ? pa - pb : pb - pa;
     });
   }
   // 'featured' is already the upstream default sort in getPublicObjects()
@@ -126,6 +177,8 @@ export function applySort(objects: RealEstateObject[], sort: SortOption): RealEs
  * Has any filter been applied? Used by UI to show "Clear all" affordance.
  */
 export function isFiltered(f: ListingsFilter): boolean {
+  // `mode` is a view toggle, not a filter — "Clear all" keeps the visitor on the
+  // Buy/Rent tab they chose and only drops the criteria below.
   return (
     f.type.length > 0 ||
     f.district.length > 0 ||
@@ -133,6 +186,8 @@ export function isFiltered(f: ListingsFilter): boolean {
     f.bedroomsMin !== undefined ||
     f.priceMinThb !== undefined ||
     f.priceMaxThb !== undefined ||
+    f.rentMinThb !== undefined ||
+    f.rentMaxThb !== undefined ||
     f.beachfront ||
     f.seaView ||
     f.mountainView ||
@@ -147,11 +202,17 @@ export function isFiltered(f: ListingsFilter): boolean {
  */
 export function describeFilter(f: ListingsFilter, query?: string): string {
   const bits: string[] = [];
+  if (f.mode === "rent") bits.push("For rent");
   if (query?.trim()) bits.push(`"${query.trim()}"`);
   if (f.type.length) bits.push(f.type.join(" / "));
   if (f.district.length) bits.push(`in ${f.district.join(", ")}`);
-  if (f.priceMinThb) bits.push(`from ฿${f.priceMinThb / 1_000_000}M`);
-  if (f.priceMaxThb) bits.push(`up to ฿${f.priceMaxThb / 1_000_000}M`);
+  if (f.mode === "rent") {
+    if (f.rentMinThb) bits.push(`from ฿${f.rentMinThb / 1_000}K/mo`);
+    if (f.rentMaxThb) bits.push(`up to ฿${f.rentMaxThb / 1_000}K/mo`);
+  } else {
+    if (f.priceMinThb) bits.push(`from ฿${f.priceMinThb / 1_000_000}M`);
+    if (f.priceMaxThb) bits.push(`up to ฿${f.priceMaxThb / 1_000_000}M`);
+  }
   if (f.bedroomsMin) bits.push(`${f.bedroomsMin}+ bed`);
   if (f.tenure.length) bits.push(f.tenure.join(" / "));
   if (f.beachfront) bits.push("beachfront");
@@ -167,10 +228,16 @@ export function describeFilter(f: ListingsFilter, query?: string): string {
  */
 export function summarizeForBrief(f: ListingsFilter, query?: string): string | undefined {
   const bits: string[] = [];
+  if (f.mode === "rent") bits.push("for rent");
   if (f.type.length) bits.push(f.type.join(" / "));
   if (f.district.length) bits.push(`in ${f.district.join(", ")}`);
-  if (f.priceMinThb) bits.push(`from ฿${f.priceMinThb / 1_000_000}M`);
-  if (f.priceMaxThb) bits.push(`up to ฿${f.priceMaxThb / 1_000_000}M`);
+  if (f.mode === "rent") {
+    if (f.rentMinThb) bits.push(`from ฿${f.rentMinThb / 1_000}K/mo`);
+    if (f.rentMaxThb) bits.push(`up to ฿${f.rentMaxThb / 1_000}K/mo`);
+  } else {
+    if (f.priceMinThb) bits.push(`from ฿${f.priceMinThb / 1_000_000}M`);
+    if (f.priceMaxThb) bits.push(`up to ฿${f.priceMaxThb / 1_000_000}M`);
+  }
   if (f.bedroomsMin) bits.push(`${f.bedroomsMin}+ bed`);
   if (f.tenure.length) bits.push(f.tenure.join(" / "));
   if (f.beachfront) bits.push("beachfront");
