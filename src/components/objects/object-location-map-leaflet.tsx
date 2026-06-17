@@ -222,8 +222,14 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
 
   const pill =
     "px-2.5 py-2 text-xs font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brass-500";
-  const pillOn = "bg-panel text-panel-fg";
-  const pillOff = "bg-cream-100/95 text-forest-900 hover:bg-cream-100";
+  // Active fills the brand accent (forest in light, gold in dark so it reads as
+  // "selected" against the light map tiles, which never invert with the theme).
+  const pillOn = "bg-panel text-panel-fg dark:bg-brass-500 dark:text-cream-100";
+  // Inactive is a raised surface — in dark it must sit above the page background
+  // (cream-50 #2E2E26), not collapse onto it (cream-100 = page bg), or every
+  // control reads as dark/"pressed" over the map.
+  const pillOff =
+    "bg-cream-100/95 text-forest-900 hover:bg-cream-100 dark:bg-cream-50/95 dark:hover:bg-cream-300";
 
   return (
     <div
