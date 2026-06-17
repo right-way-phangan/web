@@ -48,6 +48,8 @@ export interface AdminObjectRow {
   unitsAvailable?: number | null;
   locationUrl?: string | null;
   plotPolygon?: Array<[number, number]> | null;
+  descriptionManualEn?: string | null;
+  descriptionManualRu?: string | null;
 }
 
 export function ObjectsTable({

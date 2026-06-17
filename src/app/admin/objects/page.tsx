@@ -236,6 +236,8 @@ export default async function ObjectsPage({
     unitsAvailable: o.unitsAvailable,
     locationUrl: o.locationUrl,
     plotPolygon: o.plotPolygon,
+    descriptionManualEn: o.descriptionManualEn,
+    descriptionManualRu: o.descriptionManualRu,
   }));
 
   const counts = {
