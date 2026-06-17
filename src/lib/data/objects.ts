@@ -82,6 +82,7 @@ export function slimObjectForCard(o: RealEstateObject): RealEstateObject {
     priceUsd: o.priceUsd,
     pricePerRai: o.pricePerRai,
     rentPerRaiMonth: o.rentPerRaiMonth,
+    rentPerMonth: o.rentPerMonth,
     areaRai: o.areaRai,
     areaSqm: o.areaSqm,
     bedrooms: o.bedrooms,

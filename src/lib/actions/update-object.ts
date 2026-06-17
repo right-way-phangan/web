@@ -13,10 +13,21 @@ export type ObjectPatch = Partial<{
   priceThb: number | null;
   pricePerRai: number | null;
   rentPerRaiMonth: number | null;
+  rentPerMonth: number | null;
   leaseTermYears: number | null;
   locationUrl: string;
   unitsAvailable: number | null;
   plotPolygon: Array<[number, number]> | null; // traced contour; null clears
+  // дозаполнение каталога для оценки (детектор полноты /admin/valuation)
+  areaRai: number | null;
+  areaSqm: number | null;
+  bedrooms: number | null;
+  documentType: string;
+  condition: string;
+  buildYear: number | null;
+  roadType: string;
+  zone: string;
+  terrain: string;
 }>;
 
 export type UpdateObjectResult = { ok: boolean; error?: string };

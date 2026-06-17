@@ -21,9 +21,11 @@ function objPrice(o: {
   priceThb?: number;
   pricePerRai?: number;
   rentPerRaiMonth?: number;
+  rentPerMonth?: number;
 }): string {
   if (o.priceThb) return `฿${nf.format(o.priceThb)}`;
   if (o.pricePerRai) return `฿${nf.format(o.pricePerRai)}/rai`;
+  if (o.rentPerMonth) return `฿${nf.format(o.rentPerMonth)}/мес`;
   if (o.rentPerRaiMonth) return `฿${nf.format(o.rentPerRaiMonth)}/rai·мес`;
   return "Цена по запросу";
 }

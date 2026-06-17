@@ -75,6 +75,7 @@ function nf(n: number): string {
 function objPrice(o: RealEstateObject): string {
   if (o.priceThb) return `฿${nf(o.priceThb)}`;
   if (o.pricePerRai) return `฿${nf(o.pricePerRai)}/rai`;
+  if (o.rentPerMonth) return `฿${nf(o.rentPerMonth)}/мес`;
   if (o.rentPerRaiMonth) return `฿${nf(o.rentPerRaiMonth)}/rai·мес`;
   return "Цена по запросу";
 }
@@ -112,7 +113,7 @@ export default async function LeadDetailPage({
     rwNumber: o.rwNumber,
     title: o.titleEn || o.rwNumber,
     cover: o.coverImage ?? null,
-    priceLabel: o.priceThb || o.pricePerRai || o.rentPerRaiMonth ? objPrice(o) : "",
+    priceLabel: o.priceThb || o.pricePerRai || o.rentPerMonth || o.rentPerRaiMonth ? objPrice(o) : "",
     district: o.district ?? null,
     inShortlist,
   });

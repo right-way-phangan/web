@@ -19,6 +19,7 @@ export interface EditableObject {
   priceThb?: number | null;
   pricePerRai?: number | null;
   rentPerRaiMonth?: number | null;
+  rentPerMonth?: number | null;
   leaseTermYears?: number | null;
   unitsAvailable?: number | null;
   locationUrl?: string | null;
@@ -80,6 +81,9 @@ export function ObjectEditButton({ object }: { object: EditableObject }) {
   const [rentPerRaiMonth, setRentPerRaiMonth] = useState(
     object.rentPerRaiMonth?.toString() ?? "",
   );
+  const [rentPerMonth, setRentPerMonth] = useState(
+    object.rentPerMonth?.toString() ?? "",
+  );
   const [leaseTermYears, setLeaseTermYears] = useState(
     object.leaseTermYears?.toString() ?? "",
   );
@@ -104,6 +108,7 @@ export function ObjectEditButton({ object }: { object: EditableObject }) {
       patch.leaseTermYears = numOrNull(leaseTermYears);
     } else {
       patch.priceThb = numOrNull(priceThb);
+      patch.rentPerMonth = numOrNull(rentPerMonth);
     }
     if (isProject) patch.unitsAvailable = numOrNull(unitsAvailable);
 
@@ -223,6 +228,15 @@ export function ObjectEditButton({ object }: { object: EditableObject }) {
                       inputMode="numeric"
                       value={priceThb}
                       onChange={(e) => setPriceThb(e.target.value)}
+                      className={field}
+                    />
+                  </label>
+                  <label className="space-y-1">
+                    <span className={labelCls}>฿ / мес (аренда)</span>
+                    <input
+                      inputMode="numeric"
+                      value={rentPerMonth}
+                      onChange={(e) => setRentPerMonth(e.target.value)}
                       className={field}
                     />
                   </label>

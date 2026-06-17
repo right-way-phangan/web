@@ -38,7 +38,7 @@ function nf(n: number): string {
   return new Intl.NumberFormat("en-US").format(Math.round(n));
 }
 function priceValue(o: RealEstateObject): number {
-  return o.priceThb ?? o.pricePerRai ?? o.rentPerRaiMonth ?? 0;
+  return o.priceThb ?? o.pricePerRai ?? o.rentPerMonth ?? o.rentPerRaiMonth ?? 0;
 }
 function areaValue(o: RealEstateObject): number {
   return o.areaSqm ?? (o.areaRai ? o.areaRai * 1600 : 0);
@@ -49,6 +49,7 @@ function photoCount(o: RealEstateObject): number {
 function fmtPrice(o: RealEstateObject): string {
   if (o.priceThb) return `฿${nf(o.priceThb)}`;
   if (o.pricePerRai) return `฿${nf(o.pricePerRai)}/rai`;
+  if (o.rentPerMonth) return `฿${nf(o.rentPerMonth)}/mo`;
   if (o.rentPerRaiMonth) return `฿${nf(o.rentPerRaiMonth)}/rai·mo`;
   return "—";
 }
@@ -230,6 +231,7 @@ export default async function ObjectsPage({
     priceThb: o.priceThb,
     pricePerRai: o.pricePerRai,
     rentPerRaiMonth: o.rentPerRaiMonth,
+    rentPerMonth: o.rentPerMonth,
     leaseTermYears: o.leaseTermYears,
     unitsAvailable: o.unitsAvailable,
     locationUrl: o.locationUrl,

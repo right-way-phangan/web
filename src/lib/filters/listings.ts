@@ -47,17 +47,26 @@ function parseThousands(raw: string | undefined): number | undefined {
 }
 
 /**
+ * The monthly rent a rental is ranked/filtered by: whole-unit rent for buildings
+ * (villa/house — THB/month), or the per-rai land lease rate (THB/rai/month).
+ * One object carries only one of the two, so the coalesce picks the right figure.
+ */
+export function monthlyRentOf(o: RealEstateObject): number | undefined {
+  return o.rentPerMonth ?? o.rentPerRaiMonth;
+}
+
+/**
  * The price figure a listing is ranked/filtered by, given the active view:
- * sale price (Buy) or monthly lease rate (Rent). Used by the sort and by the
+ * sale price (Buy) or monthly rent (Rent). Used by the sort and by the
  * map/cards so one accessor keeps every surface consistent.
  */
 export function priceFieldOf(o: RealEstateObject, mode: ViewMode): number | undefined {
-  return mode === "rent" ? o.rentPerRaiMonth : o.priceThb;
+  return mode === "rent" ? monthlyRentOf(o) : o.priceThb;
 }
 
-/** A listing with a monthly rent is a rental; otherwise it is for sale. */
+/** A listing with any monthly rent (whole-unit or per-rai) is a rental. */
 export function isRental(o: RealEstateObject): boolean {
-  return o.rentPerRaiMonth != null;
+  return o.rentPerMonth != null || o.rentPerRaiMonth != null;
 }
 
 function multi<T extends string>(raw: string | undefined, allowed: readonly T[]): T[] {
@@ -134,8 +143,9 @@ export function makeFilterPredicate(f: ListingsFilter): (o: RealEstateObject) =>
     }
     // Price range runs on the active dimension (sale price vs monthly rent).
     if (f.mode === "rent") {
-      if (f.rentMinThb !== undefined && (!o.rentPerRaiMonth || o.rentPerRaiMonth < f.rentMinThb)) return false;
-      if (f.rentMaxThb !== undefined && (!o.rentPerRaiMonth || o.rentPerRaiMonth > f.rentMaxThb)) return false;
+      const rent = monthlyRentOf(o);
+      if (f.rentMinThb !== undefined && (!rent || rent < f.rentMinThb)) return false;
+      if (f.rentMaxThb !== undefined && (!rent || rent > f.rentMaxThb)) return false;
     } else {
       if (f.priceMinThb !== undefined && (!o.priceThb || o.priceThb < f.priceMinThb)) return false;
       if (f.priceMaxThb !== undefined && (!o.priceThb || o.priceThb > f.priceMaxThb)) return false;

@@ -64,6 +64,11 @@ export interface RealEstateObject {
 
   // Pricing (Leasehold)
   rentPerRaiMonth?: number;
+  /**
+   * Whole-unit monthly rent for buildings (villa/house/apartment), THB/month.
+   * The Rent view's price axis for non-land; land uses rentPerRaiMonth instead.
+   */
+  rentPerMonth?: number;
   leaseTermYears?: number;
   leaseEscPercent?: number;
   leaseEscPeriodYears?: number;

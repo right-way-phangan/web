@@ -192,6 +192,7 @@ export async function createObject(
     area: str(formData.get("area")),
     pricePerRai: toInt(formData.get("pricePerRai") as string | null),
     rentPerRaiMonth: toInt(formData.get("rentPerRaiMonth") as string | null),
+    rentPerMonth: toInt(formData.get("rentPerMonth") as string | null),
     leasePrepayment: toInt(formData.get("leasePrepayment") as string | null),
     leaseTermYears: toInt(formData.get("leaseTermYears") as string | null),
     leaseEscalation: str(formData.get("leaseEscalation")),
