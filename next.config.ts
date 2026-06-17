@@ -39,6 +39,16 @@ const nextConfig: NextConfig = {
   htmlLimitedBots:
     /Googlebot|Googlebot-Image|bingbot|Yandex(Bot|Images)?|Baiduspider|DuckDuckBot|Applebot|GPTBot|ClaudeBot|Claude-Web|PerplexityBot|CCBot|Bytespider|Mediapartners-Google|Slurp|vkShare|Slackbot|Discordbot|facebookexternalhit|facebookcatalog|Twitterbot|LinkedInBot|WhatsApp|SkypeUriPreview|BingPreview|ia_archiver|TelegramBot/i,
   images: {
+    // Serve images straight from source instead of through Vercel's optimizer.
+    // Why: the Hobby image-optimization quota is exhausted (every uncached
+    // /_next/image returns 402 OPTIMIZED_IMAGE_REQUEST_PAYMENT_REQUIRED), which
+    // was breaking catalog photos site-wide. Object photos now live on
+    // Cloudflare R2 (zero egress) behind Cloudflare's global CDN and are already
+    // pre-resized to 2000px/q85 by the migration, so going direct both fixes the
+    // 402 AND takes all image bandwidth off Vercel. Revert to optimized once the
+    // quota resets or a paid plan / Cloudflare Image Resizing is in place.
+    // → memory project_image_optimization_limit
+    unoptimized: true,
     // AVIF first (≈25% lighter than WebP at same quality) — island connections
     // feel every photo byte; browsers without AVIF fall through to WebP.
     formats: ["image/avif", "image/webp"],
