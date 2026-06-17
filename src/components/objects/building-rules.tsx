@@ -76,14 +76,14 @@ export function BuildingRules({
       ) : null}
 
       {info && info.flags.length > 0 ? (
-        <div className="mt-6 max-w-prose rounded-lg border border-amber-600/20 bg-amber-50/60 p-4">
-          <p className="text-xs font-medium uppercase tracking-[0.15em] text-amber-700">
+        <div className="mt-6 max-w-prose rounded-lg border border-amber-600/20 bg-amber-50/60 p-4 dark:border-amber-500/25 dark:bg-amber-500/10">
+          <p className="text-xs font-medium uppercase tracking-[0.15em] text-amber-700 dark:text-amber-300">
             {t.check}
           </p>
           <ul className="mt-2 space-y-2">
             {info.flags.map((f) => (
               <li key={f.text} className="flex gap-2 text-base leading-relaxed text-forest-500/85">
-                <span aria-hidden className={cn("mt-0.5 shrink-0", f.level === "warn" ? "text-amber-600" : "text-forest-500/50")}>
+                <span aria-hidden className={cn("mt-0.5 shrink-0", f.level === "warn" ? "text-amber-600 dark:text-amber-400" : "text-forest-500/50")}>
                   {f.level === "warn" ? "▲" : "▸"}
                 </span>
                 <span>{f.text}</span>
