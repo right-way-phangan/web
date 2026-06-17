@@ -13,6 +13,7 @@ export type ObjectPatch = Partial<{
   priceThb: number | null;
   pricePerRai: number | null;
   rentPerRaiMonth: number | null;
+  rentPerMonth: number | null;
   leaseTermYears: number | null;
   locationUrl: string;
   unitsAvailable: number | null;

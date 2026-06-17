@@ -168,6 +168,7 @@ interface FormValues {
   area: string;
   pricePerRai: string;
   rentPerRaiMonth: string;
+  rentPerMonth: string;
   leaseTermYears: string;
   leaseEscalation: string;
   leaseAddTerms: string;
@@ -223,6 +224,7 @@ const emptyValues: FormValues = {
   area: "",
   pricePerRai: "",
   rentPerRaiMonth: "",
+  rentPerMonth: "",
   leaseTermYears: "",
   leaseEscalation: "",
   leaseAddTerms: "",
@@ -622,6 +624,15 @@ export function ObjectForm() {
                 inputMode="numeric"
                 value={v.rentPerRaiMonth}
                 onChange={(e) => set("rentPerRaiMonth", e.target.value)}
+              />
+            </Field>
+            <Field label="Аренда объекта / мес, THB" hint="Вилла/дом/кондо помесячно (вкладка «Аренда»)">
+              <Input
+                name="rentPerMonth"
+                inputMode="numeric"
+                value={v.rentPerMonth}
+                onChange={(e) => set("rentPerMonth", e.target.value)}
+                placeholder="напр. 80 000"
               />
             </Field>
             <Field label="Срок аренды, лет">
@@ -1323,6 +1334,7 @@ function buildPreviewRows(
   push("Цена объекта", v.priceThb);
   push("Предоплата земли", v.leasePrepayment);
   push("Аренда/рай/мес", v.rentPerRaiMonth);
+  push("Аренда объекта/мес", v.rentPerMonth);
   push("Срок аренды", v.leaseTermYears ? `${v.leaseTermYears} лет` : undefined);
   push("Индексация", v.leaseEscalation);
   if (v.type === "Project" || v.stage === "Off-plan" || v.stage === "Under construction") {

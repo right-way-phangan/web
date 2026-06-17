@@ -53,6 +53,7 @@ export interface MapPoint {
   lng: number;
   priceThb?: number;
   rentPerRaiMonth?: number;
+  rentPerMonth?: number;
   cover?: string;
 }
 
@@ -72,10 +73,13 @@ const COLORS = {
 };
 
 // The figure a pin shows, given the active view: monthly rent (Rent) or sale
-// price (Buy). Falls back to the type label when the relevant figure is missing.
-function pinLabel(p: MapPoint, mode: ViewMode, perMonth: string): string {
+// price (Buy). In Rent, buildings show whole-unit rent (฿/mo); land shows the
+// per-rai lease (฿/rai·mo). Falls back to the type label when no figure is set.
+function pinLabel(p: MapPoint, mode: ViewMode, perMonth: string, perRaiMonth: string): string {
   if (mode === "rent") {
-    return p.rentPerRaiMonth ? formatRentCompact(p.rentPerRaiMonth, perMonth) : p.type;
+    if (p.rentPerMonth) return formatRentCompact(p.rentPerMonth, perMonth);
+    if (p.rentPerRaiMonth) return formatRentCompact(p.rentPerRaiMonth, perRaiMonth);
+    return p.type;
   }
   return p.priceThb ? formatPriceCompact(p.priceThb) : p.type;
 }
@@ -83,8 +87,8 @@ function pinLabel(p: MapPoint, mode: ViewMode, perMonth: string): string {
 // Airbnb-style price pill, anchored by its bottom tip at the coordinate. We size
 // the icon to [0,0] and let the inner <span> grow with the label, shifting it up
 // and left so the visual bottom-centre sits on the point.
-function pricePin(p: MapPoint, state: PinState, mode: ViewMode, perMonth: string): L.DivIcon {
-  const label = pinLabel(p, mode, perMonth);
+function pricePin(p: MapPoint, state: PinState, mode: ViewMode, perMonth: string, perRaiMonth: string): L.DivIcon {
+  const label = pinLabel(p, mode, perMonth, perRaiMonth);
   const bg = state === "idle" ? COLORS.forest : COLORS.brass;
   const z = state === "active" ? "z-index:10000;" : state === "hover" ? "z-index:9000;" : "";
   const scale = state === "idle" ? "" : "transform:translate(-50%,-100%) scale(1.08);";
@@ -330,7 +334,7 @@ export default function ListingsMap({
               <Marker
                 key={p.rw}
                 position={[p.lat, p.lng]}
-                icon={pricePin(p, state, mode, t.perMonth)}
+                icon={pricePin(p, state, mode, t.perMonth, t.perRaiMonth)}
                 eventHandlers={{
                   click: () => onSelect?.(p.rw),
                   mouseover: () => onHover?.(p.rw),
@@ -366,9 +370,13 @@ export default function ListingsMap({
                       {p.title}
                     </span>
                     {mode === "rent" ? (
-                      p.rentPerRaiMonth ? (
+                      p.rentPerMonth ? (
                         <span className="num mt-1 block text-sm text-forest-900">
-                          {formatRentCompact(p.rentPerRaiMonth, t.perMonth)}
+                          {formatRentCompact(p.rentPerMonth, t.perMonth)}
+                        </span>
+                      ) : p.rentPerRaiMonth ? (
+                        <span className="num mt-1 block text-sm text-forest-900">
+                          {formatRentCompact(p.rentPerRaiMonth, t.perRaiMonth)}
                         </span>
                       ) : null
                     ) : p.priceThb ? (

@@ -50,6 +50,7 @@ export function ListingsSplit({
           lng: o.lng!,
           priceThb: o.priceThb,
           rentPerRaiMonth: o.rentPerRaiMonth,
+          rentPerMonth: o.rentPerMonth,
           cover: o.coverImage,
         })),
     [objects],

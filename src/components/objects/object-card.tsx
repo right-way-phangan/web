@@ -180,11 +180,21 @@ export function ObjectCard({ object, priority = false, priceMode = "buy" }: Prop
           {object.titleEn}
         </h3>
 
-        {priceMode === "rent" && object.rentPerRaiMonth ? (
-          // Rent view: lead with the monthly lease rate, not the sale price.
+        {priceMode === "rent" && (object.rentPerMonth || object.rentPerRaiMonth) ? (
+          // Rent view: lead with the monthly rent — whole-unit for buildings
+          // (฿/mo), per-rai land lease for land (฿/rai/mo).
           <p className="num text-lg text-forest-900">
-            {formatPriceCompact(object.rentPerRaiMonth)}
-            <span className="ml-2 text-xs font-sans text-forest-500/70">{t.perRaiMonth}</span>
+            {object.rentPerMonth ? (
+              <>
+                {formatPriceCompact(object.rentPerMonth)}
+                <span className="ml-2 text-xs font-sans text-forest-500/70">{t.perMonthShort}</span>
+              </>
+            ) : (
+              <>
+                {formatPriceCompact(object.rentPerRaiMonth!)}
+                <span className="ml-2 text-xs font-sans text-forest-500/70">{t.perRaiMonth}</span>
+              </>
+            )}
           </p>
         ) : object.priceThb ? (
           <p className="num text-lg text-forest-900">
@@ -204,6 +214,11 @@ export function ObjectCard({ object, priority = false, priceMode = "buy" }: Prop
           <p className="num text-lg text-forest-900">
             {formatPriceCompact(object.pricePerRai)}
             <span className="ml-2 text-xs font-sans text-forest-500/70">{t.perRai}</span>
+          </p>
+        ) : object.rentPerMonth ? (
+          <p className="num text-lg text-forest-900">
+            {formatPriceCompact(object.rentPerMonth)}
+            <span className="ml-2 text-xs font-sans text-forest-500/70">{t.perMonthShort}</span>
           </p>
         ) : object.rentPerRaiMonth ? (
           <p className="num text-lg text-forest-900">
