@@ -14,6 +14,26 @@ export type Condition = "New" | "Good" | "Needs renovation" | "Off-plan";
 export type Stage = "Ready" | "Under construction" | "Off-plan";
 export type Furnishing = "Full" | "Partial" | "None";
 
+/** Роль контакта по объекту — кто это в сделке. */
+export type ContactRole = "owner" | "broker" | "caretaker" | "lawyer" | "other";
+
+/**
+ * Контакт продавца по объекту («кто собственник / с кем связываться»).
+ * Конфиденциально (PII): режется в sanitizePublicObject, на публичный сайт не
+ * попадает. Несколько на объект, у каждого роль и свои каналы связи.
+ */
+export interface ObjectContact {
+  id?: number;
+  role: ContactRole;
+  name?: string;
+  phone?: string;
+  line?: string;       // основной канал у тайских собственников
+  whatsapp?: string;
+  telegram?: string;
+  note?: string;
+  isPrimary?: boolean; // с кого начинать — показывается в обзвоне и таблице
+}
+
 export interface RealEstateObject {
   // Identity
   id: number;             // amoCRM element id
@@ -94,7 +114,8 @@ export interface RealEstateObject {
   team?: Array<{ role: string; name: string }>;          // TEAM — "role | name"
 
   // Operational
-  ownerName?: string;
+  ownerName?: string;             // legacy free-text owner (мигрирован в contacts)
+  contacts?: ObjectContact[];     // структурные контакты продавца — НЕ публичное
   buildingRules?: string;
   reasonForSelling?: string;
   timeOnMarketMonths?: number;

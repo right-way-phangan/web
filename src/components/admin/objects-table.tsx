@@ -28,6 +28,9 @@ export interface AdminObjectRow {
   photos: number;
   isPublic: boolean;
   isUnit: boolean;
+  /** Контакты продавца: сколько заведено + ярлык основного (имя · телефон). */
+  contactCount: number;
+  contactLabel?: string | null;
   leadCount: number;
   /** First-party views (object_views_daily): last 7 / last 30 days. */
   views7: number;
@@ -135,6 +138,7 @@ export function ObjectsTable({
                 />
               </th>
               {headerCells}
+              <th className="px-3 py-2 text-center font-medium">Контакт</th>
               <th className="px-3 py-2 text-center font-medium">Лиды</th>
               <th className="px-3 py-2 text-center font-medium">Правка</th>
             </tr>
@@ -142,7 +146,7 @@ export function ObjectsTable({
           <tbody>
             {rows.length === 0 ? (
               <tr>
-                <td colSpan={14} className="px-3 py-8 text-center text-sm text-forest-900/40">
+                <td colSpan={15} className="px-3 py-8 text-center text-sm text-forest-900/40">
                   Ничего не найдено.
                 </td>
               </tr>
@@ -242,6 +246,25 @@ export function ObjectsTable({
                         </span>
                       ) : (
                         <span className="text-forest-900/25">—</span>
+                      )}
+                    </td>
+                    <td className="px-3 py-2 text-center">
+                      {o.contactCount > 0 ? (
+                        <Link
+                          href={`/admin/objects/${o.rwNumber}`}
+                          title={o.contactLabel ?? "Контакты продавца"}
+                          className="inline-flex items-center gap-0.5 rounded-full bg-forest-900/[0.06] px-2 py-0.5 text-xs font-medium text-forest-900/70 hover:bg-forest-900/10"
+                        >
+                          📞 {o.contactCount}
+                        </Link>
+                      ) : (
+                        <Link
+                          href={`/admin/objects/${o.rwNumber}`}
+                          title="Контактов нет — добавить"
+                          className="text-forest-900/25 hover:text-brass-600"
+                        >
+                          +
+                        </Link>
                       )}
                     </td>
                     <td className="px-3 py-2 text-center">

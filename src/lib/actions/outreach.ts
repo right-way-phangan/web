@@ -69,14 +69,6 @@ export async function recordCallOutcome(
   return { ok: true };
 }
 
-/** Инлайн-обогащение контакта собственника (имя · телефон) по ходу обзвона. */
-export async function saveOwnerContact(
-  rwNumber: string,
-  ownerName: string,
-): Promise<OutreachResult> {
-  if (!API) return { ok: false, error: "Backend не подключён (OBJECTS_API_URL)." };
-  const res = await patchObject(rwNumber, { ownerName: ownerName.trim() || null });
-  if (!res.ok) return res;
-  revalidatePath("/admin/outreach");
-  return { ok: true };
-}
+// Контакт собственника теперь структурный (object_contacts): быстрая правка в
+// обзвоне идёт через saveObjectContacts (@/lib/actions/object-contacts), а не
+// через legacy-поле ownerName. См. ObjectContactsEditor на карточке объекта.

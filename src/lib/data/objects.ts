@@ -32,11 +32,12 @@ const OBJECTS_API_URL = process.env.OBJECTS_API_URL;
  */
 export function sanitizePublicObject(o: RealEstateObject): RealEstateObject {
   const {
-    ownerName, driveFolder, docs, circleCode, ddLawyer, ddChecklist,
+    ownerName, contacts, driveFolder, docs, circleCode, ddLawyer, ddChecklist,
     outreachStatus, outreachNote, outreachDate, outreachAttempts,
     ...pub
   } = o;
   void ownerName;
+  void contacts; // контакты продавца (имя/телефон/мессенджеры) — строго внутренние
   void driveFolder;
   void docs;
   void circleCode;
@@ -240,6 +241,19 @@ export async function getAnyObjectByRwNumber(
   // Card fields only: the object feeds the client-side related strip, so a
   // fuller cut would serialize description/notes into the page payload.
   return found ? slimObjectForCard(sanitizePublicObject(found)) : null;
+}
+
+/**
+ * Admin-only: the full, UNsanitized object (keeps driveFolder, docs, owner,
+ * coords). For authenticated /admin pages that link out to the object's Drive
+ * folder or working docs — never call from a public page (would leak
+ * sanitizePublicObject fields into world-readable page source).
+ */
+export async function getAdminObjectByRwNumber(
+  rw: string,
+): Promise<RealEstateObject | null> {
+  const all = await getAllObjects();
+  return all.find((o) => o.rwNumber === rw) ?? null;
 }
 
 /**
