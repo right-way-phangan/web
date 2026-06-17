@@ -44,7 +44,7 @@ const STEPS = [
   {
     number: 6,
     title: "Sale and Purchase Agreement",
-    text: "A bilingual agreement (English–Thai) drafted by our partner law firm. We review every clause with you and explain Thai-specific provisions in plain language. Deposit is held in escrow until closing.",
+    text: "A bilingual agreement (English–Thai) drafted by our partner law firm. We review every clause with you and explain Thai-specific provisions in plain language. Your deposit is held by the law firm in a dedicated client account — never paid to the seller up front — and released only at closing; for larger deals we can arrange a licensed bank escrow account.",
   },
   {
     number: 7,
