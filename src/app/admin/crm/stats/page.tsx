@@ -123,7 +123,18 @@ export default async function CrmStatsPage() {
 
   const isLegacyPipe = (name?: string | null) => /legacy|разбор/i.test(name ?? "");
   const work = leads.filter((l) => !isLegacyPipe(l.pipeline));
-  const legacy = leads.filter((l) => isLegacyPipe(l.pipeline));
+  // Scope the legacy-разбор widget to the same window as the triage conveyor
+  // (/admin/crm/triage): only leads created within the last LEGACY_WINDOW_MONTHS
+  // months are in scope — ancient Circle records aren't worth swiping.
+  const LEGACY_WINDOW_MONTHS = 7;
+  const legacyCutoff = new Date();
+  legacyCutoff.setMonth(legacyCutoff.getMonth() - LEGACY_WINDOW_MONTHS);
+  const legacyCutoffMs = legacyCutoff.getTime();
+  const legacy = leads.filter((l) => {
+    if (!isLegacyPipe(l.pipeline)) return false;
+    const t = new Date(l.createdAt).getTime();
+    return Number.isFinite(t) && t >= legacyCutoffMs;
+  });
 
   // ── Поток новых лидов ──
   const new7 = work.filter((l) => daysAgo(l.createdAt) <= 7);
@@ -767,7 +778,8 @@ export default async function CrmStatsPage() {
             </span>
           </div>
           <p className="mt-2 text-xs text-forest-900/50">
-            Разобранным считается лид, ушедший с первой стадии или закрытый.
+            Разобранным считается лид, ушедший с первой стадии или закрытый. Учитываются только
+            лиды за последние {LEGACY_WINDOW_MONTHS} мес.
           </p>
         </div>
       ) : null}
