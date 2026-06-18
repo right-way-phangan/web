@@ -35,6 +35,9 @@ import {
   txInMonth,
   txTotals,
   txBreakdown,
+  bangkokToday,
+  walletFor,
+  walletState,
   fmtMoney,
   FX,
   FX_DATE,
@@ -48,6 +51,7 @@ import {
   loadFinanceFromSheet,
   loadRunwayFromSheet,
   loadTransactionsFromSheet,
+  loadWalletsFromSheet,
 } from "@/lib/data/finance-sheet";
 import { getLeads, getEvents } from "@/lib/data/leads";
 import Link from "next/link";
@@ -122,18 +126,19 @@ function priceLabel(s: (typeof subscriptions)[number]): string {
 export default async function FinancePage({
   searchParams,
 }: {
-  searchParams: Promise<{ cur?: string; added?: string }>;
+  searchParams: Promise<{ cur?: string; added?: string; wallets?: string }>;
 }) {
-  const { cur: curParam, added } = await searchParams;
+  const { cur: curParam, added, wallets: walletsSaved } = await searchParams;
   const cur: DisplayCurrency = curParam === "usd" ? "USD" : curParam === "rub" ? "RUB" : "THB";
 
-  const [live, sheet, runwaySheet, crmLeads, crmEvents, txSheet] = await Promise.all([
+  const [live, sheet, runwaySheet, crmLeads, crmEvents, txSheet, walletsSheet] = await Promise.all([
     getLiveRatesTHB(),
     loadFinanceFromSheet(),
     loadRunwayFromSheet(),
     getLeads(),
     getEvents(500),
     loadTransactionsFromSheet(),
+    loadWalletsFromSheet(),
   ]);
 
   // Рубли пересчитываем по живому рыночному курсу (переводы домой в ₽ — важен
@@ -217,6 +222,19 @@ export default async function FinancePage({
   const recentTx = [...monthTx].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 12);
   const pct = (part: number) => (txT.total ? `${Math.round((part / txT.total) * 100)}%` : undefined);
 
+  // Две кассы (лист Wallets): старт на дату + авто-вычет трат сферы → текущий остаток.
+  const today = bangkokToday();
+  const allWallets = walletsSheet ?? [];
+  const hasWallets = allWallets.length > 0;
+  const personalWallet = walletState(walletFor("личное", allWallets, today), allTx);
+  const businessWallet = walletState(walletFor("бизнес", allWallets, today), allTx);
+  const asOfFmt = (iso: string) => {
+    const d = new Date(iso + "T00:00:00");
+    return Number.isNaN(d.getTime())
+      ? iso
+      : d.toLocaleDateString("ru-RU", { day: "numeric", month: "short" });
+  };
+
   return (
     <section className="px-4 py-8 md:px-8">
       <AdminNav active="finance" />
@@ -260,6 +278,70 @@ export default async function FinancePage({
             );
           })}
         </div>
+      </div>
+
+      {/* Две кассы: личное / Right Way (старт + авто-вычет трат) */}
+      {walletsSaved && (
+        <p className="mb-3 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-700">
+          ✅ Кассы обновлены.
+        </p>
+      )}
+      <div className="mb-7">
+        <div className="mb-2 flex items-center justify-between">
+          <h2 className="text-xs font-semibold uppercase tracking-wide text-forest-900/50">
+            💼 Сколько денег где
+          </h2>
+          <Link
+            href="/admin/finance/wallets"
+            className="text-xs font-medium text-forest-900/55 hover:text-brass-600"
+          >
+            ✏️ Обновить кассы
+          </Link>
+        </div>
+        {!hasWallets ? (
+          <div className="rounded-2xl border border-dashed border-forest-900/15 bg-cream-50 p-5 text-sm text-forest-900/55">
+            Задай стартовые остатки двух касс —{" "}
+            <Link href="/admin/finance/wallets" className="font-medium text-brass-600">
+              «Обновить кассы»
+            </Link>{" "}
+            — и здесь будет видно, сколько 🏠 личных денег и 🏢 у Right Way, с авто-вычетом трат
+            дневника.
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {[personalWallet, businessWallet].map((w) => {
+              const isP = w.scope === "личное";
+              const neg = w.current < 0;
+              return (
+                <div
+                  key={w.scope}
+                  className={
+                    "rounded-2xl border p-5 " +
+                    (isP
+                      ? "border-forest-900/10 bg-cream-50"
+                      : "border-brass-500/30 bg-brass-500/[0.06]")
+                  }
+                >
+                  <p className="text-xs font-medium uppercase tracking-wide text-forest-900/45">
+                    {isP ? "🏠 Личные деньги" : "🏢 Деньги Right Way"}
+                  </p>
+                  <p
+                    className={
+                      "mt-1 text-3xl font-semibold tabular-nums " +
+                      (neg ? "text-red-600" : "text-forest-900")
+                    }
+                  >
+                    {money(w.current)}
+                  </p>
+                  <p className="mt-1 text-xs text-forest-900/50">
+                    старт {money(w.start)} ({asOfFmt(w.asOf)})
+                    {w.spent > 0 ? ` − потрачено ${money(w.spent)}` : ""}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       {/* Сводка */}

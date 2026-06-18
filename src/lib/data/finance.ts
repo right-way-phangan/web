@@ -467,3 +467,34 @@ export function txMonthlySplit(txs: Transaction[]): TxMonthSplit[] {
   }
   return [...map.values()].sort((a, b) => a.month.localeCompare(b.month));
 }
+
+// ── Две кассы: личное / Right Way (гибрид: старт + авто-вычет трат) ──────────
+//
+// Каждая касса — текущий остаток наличных, заданный на дату (as-of), от которого
+// автоматически вычитаются траты дневника той же сферы с датой ≥ as-of. Источник
+// стартовых сумм — лист `Wallets` (личное/бизнес · баланс · дата), правится через
+// /admin/finance/wallets. Это «сколько у меня» (личное) и «сколько в компании»
+// (Right Way) раздельно. Пре-инкорпорейшн бизнес-касса часто ≤ 0 (вложено лично).
+
+export type Wallet = { scope: TxScope; balance: number; asOf: string };
+
+export type WalletState = {
+  scope: TxScope;
+  start: number; // заданный остаток на дату asOf
+  asOf: string; // ISO-дата, с которой вычитаются траты
+  spent: number; // потрачено по сфере с asOf
+  current: number; // start − spent
+};
+
+/** Текущий остаток кассы = старт − траты сферы с даты as-of (ISO-сравнение строк). */
+export function walletState(w: Wallet, txs: Transaction[]): WalletState {
+  const spent = txs
+    .filter((t) => t.scope === w.scope && t.date >= w.asOf)
+    .reduce((s, t) => s + t.thb, 0);
+  return { scope: w.scope, start: w.balance, asOf: w.asOf, spent, current: w.balance - spent };
+}
+
+/** Касса сферы из набора (или нулевая на fallback-дату, если не задана). */
+export function walletFor(scope: TxScope, wallets: Wallet[], fallbackDate: string): Wallet {
+  return wallets.find((w) => w.scope === scope) ?? { scope, balance: 0, asOf: fallbackDate };
+}

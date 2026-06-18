@@ -23,6 +23,7 @@ import type {
   Receivable,
   Transaction,
   TxScope,
+  Wallet,
 } from "./finance";
 
 const SHEET_ID =
@@ -343,6 +344,81 @@ export async function appendTransactionToSheet(input: AppendTxInput): Promise<Ap
     }
     if (!res.ok) return { ok: false, error: `sheets ${res.status}` };
     return { ok: true, thb, date };
+  } catch (e) {
+    return { ok: false, error: String(e) };
+  }
+}
+
+// ── Кассы (лист Wallets) ────────────────────────────────────────────────────
+//
+// Колонки: Касса (личное/бизнес) · Баланс · Дата (as-of, ISO). Ровно две строки.
+// Стартовые остатки правятся через /admin/finance/wallets; траты вычитаются в
+// finance.ts (walletState). Лист создаётся при первой записи.
+
+const WALLETS_SHEET = "Wallets";
+const WALLETS_HEADER = ["Касса", "Баланс", "Дата"];
+
+/** Читает кассы из листа Wallets. null → касс нет (нет env/листа). */
+export async function loadWalletsFromSheet(): Promise<Wallet[] | null> {
+  const token = await getAccessToken();
+  if (!token) return null;
+  const rows = await getRange(token, `${WALLETS_SHEET}!A2:C`);
+  if (rows == null) return null;
+  const out: Wallet[] = [];
+  for (const r of rows) {
+    const name = (r[0] ?? "").trim().toLowerCase();
+    if (!name) continue;
+    const scope: TxScope = name.startsWith("биз") ? "бизнес" : "личное";
+    out.push({ scope, balance: num(r[1]), asOf: (r[2] ?? "").trim() || bangkokToday() });
+  }
+  return out;
+}
+
+async function ensureWalletsSheet(token: string): Promise<void> {
+  const meta = await fetch(
+    `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}?fields=sheets.properties.title`,
+    { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" },
+  );
+  if (!meta.ok) return;
+  const j = (await meta.json()) as { sheets?: Array<{ properties?: { title?: string } }> };
+  const titles = (j.sheets ?? []).map((s) => s.properties?.title);
+  if (titles.includes(WALLETS_SHEET)) return;
+  await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}:batchUpdate`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ requests: [{ addSheet: { properties: { title: WALLETS_SHEET } } }] }),
+    cache: "no-store",
+  });
+}
+
+/** Перезаписывает обе кассы (личное/бизнес) с сегодняшней датой as-of. */
+export async function updateWalletsInSheet(
+  personal: number,
+  business: number,
+): Promise<{ ok: boolean; error?: string }> {
+  const token = await getAccessToken(SCOPE_WRITE);
+  if (!token) return { ok: false, error: "no-credentials" };
+  const today = bangkokToday();
+  const values = [WALLETS_HEADER, ["личное", personal, today], ["бизнес", business, today]];
+  const put = () =>
+    fetch(
+      `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/` +
+        `${encodeURIComponent(`${WALLETS_SHEET}!A1:C3`)}?valueInputOption=USER_ENTERED`,
+      {
+        method: "PUT",
+        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ values }),
+        cache: "no-store",
+      },
+    );
+  try {
+    let res = await put();
+    if (res.status === 400) {
+      await ensureWalletsSheet(token);
+      res = await put();
+    }
+    if (!res.ok) return { ok: false, error: `sheets ${res.status}` };
+    return { ok: true };
   } catch (e) {
     return { ok: false, error: String(e) };
   }
