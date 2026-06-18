@@ -365,3 +365,105 @@ export function financeSummary(
     note: "Pre-incorporation: OpEx RW оплачивается лично основателем = личный расход (категория «Бизнес / Right Way»). После Co.Ltd — возмещение через director's loan.",
   };
 }
+
+// ── Дневник разовых трат: личное/бизнес + категории ─────────────────────────
+//
+// Источник — лист `Transactions` мастер-таблицы (loadTransactionsFromSheet),
+// куда пишет Telegram-бот (голос/текст) и форма /admin/finance/add. Отдельно
+// от ledger (у того семантика pre-incorporation возмещений). Личные суммы
+// приватны — лежат в таблице, не в коде. Дашборд сводит разрез личное/бизнес.
+
+export type TxScope = "личное" | "бизнес";
+
+export type Transaction = {
+  date: string; // ISO YYYY-MM-DD
+  scope: TxScope;
+  amountOrig: number;
+  currency: Currency;
+  thb: number;
+  category: string;
+  note: string;
+  account: string;
+  source: string; // bot-voice | bot-text | bot-cmd | web | …
+};
+
+/** Категории по сферам — синхронны с `bot/finance_writer.py`. «Прочее» в конце. */
+export const BUSINESS_CATEGORIES = [
+  "ИИ/софт", "Хостинг/домены", "CRM", "Маркетинг/реклама", "Юр/бухгалтерия",
+  "Хранилище", "Транспорт по делам", "Представительские", "Прочее",
+] as const;
+export const PERSONAL_CATEGORIES = [
+  "Продукты", "Кафе/рестораны", "Транспорт/байк/бензин", "Жильё/аренда",
+  "Связь/интернет", "Здоровье", "Виза/документы", "Быт", "Развлечения", "Прочее",
+] as const;
+
+/** Список категорий для сферы (для формы/валидации). */
+export function categoriesForScope(scope: TxScope): readonly string[] {
+  return scope === "бизнес" ? BUSINESS_CATEGORIES : PERSONAL_CATEGORIES;
+}
+
+/** Текущая дата 'YYYY-MM-DD' в таймзоне Бангкока (день траты — местный). */
+export function bangkokToday(now: Date = new Date()): string {
+  // en-CA даёт ISO-формат YYYY-MM-DD.
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Bangkok",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(now);
+}
+
+/** Текущий месяц 'YYYY-MM' в таймзоне Бангкока. */
+export function currentYM(now: Date = new Date()): string {
+  return bangkokToday(now).slice(0, 7);
+}
+
+/** Траты за месяц ym (по префиксу ISO-даты). */
+export function txInMonth(txs: Transaction[], ym: string): Transaction[] {
+  return txs.filter((t) => t.date.startsWith(ym));
+}
+
+export type TxTotals = { personal: number; business: number; total: number };
+
+/** Суммы THB по сферам. */
+export function txTotals(txs: Transaction[]): TxTotals {
+  let personal = 0;
+  let business = 0;
+  for (const t of txs) {
+    if (t.scope === "бизнес") business += t.thb;
+    else personal += t.thb;
+  }
+  return { personal, business, total: personal + business };
+}
+
+/** Разбивка THB по категориям внутри сферы (для доната), по убыванию. */
+export function txBreakdown(
+  txs: Transaction[],
+  scope: TxScope,
+): Array<{ label: string; value: number }> {
+  const map = new Map<string, number>();
+  for (const t of txs) {
+    if (t.scope !== scope) continue;
+    map.set(t.category, (map.get(t.category) ?? 0) + t.thb);
+  }
+  return [...map.entries()]
+    .map(([label, value]) => ({ label, value }))
+    .filter((x) => x.value > 0)
+    .sort((a, b) => b.value - a.value);
+}
+
+export type TxMonthSplit = { month: string; personal: number; business: number };
+
+/** Помесячный разрез личное/бизнес (для тренда). */
+export function txMonthlySplit(txs: Transaction[]): TxMonthSplit[] {
+  const map = new Map<string, TxMonthSplit>();
+  for (const t of txs) {
+    if (!t.date) continue;
+    const m = t.date.slice(0, 7);
+    const p = map.get(m) ?? { month: m, personal: 0, business: 0 };
+    if (t.scope === "бизнес") p.business += t.thb;
+    else p.personal += t.thb;
+    map.set(m, p);
+  }
+  return [...map.values()].sort((a, b) => a.month.localeCompare(b.month));
+}

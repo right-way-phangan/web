@@ -12,6 +12,7 @@
  * ENV (Vercel): GOOGLE_SA_EMAIL, GOOGLE_SA_PRIVATE_KEY, FINANCE_SHEET_ID.
  */
 import { SignJWT, importPKCS8 } from "jose";
+import { FX, bangkokToday } from "./finance";
 import type {
   Subscription,
   LedgerEntry,
@@ -20,6 +21,8 @@ import type {
   SubStatus,
   PersonalExpense,
   Receivable,
+  Transaction,
+  TxScope,
 } from "./finance";
 
 const SHEET_ID =
@@ -63,7 +66,10 @@ function mapKind(v: string): LedgerEntry["kind"] {
   return "OpEx";
 }
 
-async function getAccessToken(): Promise<string | null> {
+const SCOPE_READ = "https://www.googleapis.com/auth/spreadsheets.readonly";
+const SCOPE_WRITE = "https://www.googleapis.com/auth/spreadsheets";
+
+async function getAccessToken(scope: string = SCOPE_READ): Promise<string | null> {
   const email = process.env.GOOGLE_SA_EMAIL;
   const rawKey = process.env.GOOGLE_SA_PRIVATE_KEY;
   if (!email || !rawKey) return null;
@@ -71,9 +77,7 @@ async function getAccessToken(): Promise<string | null> {
     const pem = rawKey.replace(/\\n/g, "\n");
     const key = await importPKCS8(pem, "RS256");
     const now = Math.floor(Date.now() / 1000);
-    const assertion = await new SignJWT({
-      scope: "https://www.googleapis.com/auth/spreadsheets.readonly",
-    })
+    const assertion = await new SignJWT({ scope })
       .setProtectedHeader({ alg: "RS256" })
       .setIssuer(email)
       .setSubject(email)
@@ -217,4 +221,129 @@ export async function loadRunwayFromSheet(): Promise<SheetPersonal | null> {
   if (recs.length) out.receivables = recs;
 
   return Object.keys(out).length ? out : null;
+}
+
+// ── Дневник трат (лист Transactions) ────────────────────────────────────────
+//
+// Колонки: Дата · Сфера · Сумма_ориг · Валюта · THB · Категория · Заметка ·
+// Счёт · Источник. Пишет Telegram-бот (голос/текст) и форма /admin/finance/add.
+
+const TX_SHEET = "Transactions";
+const TX_HEADER = [
+  "Дата", "Сфера", "Сумма_ориг", "Валюта", "THB",
+  "Категория", "Заметка", "Счёт", "Источник",
+];
+
+/** Читает лист Transactions. null → дашборд показывает пусто (нет env/листа). */
+export async function loadTransactionsFromSheet(): Promise<Transaction[] | null> {
+  const token = await getAccessToken();
+  if (!token) return null;
+  const rows = await getRange(token, `${TX_SHEET}!A2:I`);
+  if (rows == null) return null;
+  return rows
+    .filter((r) => (r[0] ?? "").trim() && (r[2] ?? "").toString().trim())
+    .map((r) => {
+      const scope: TxScope = (r[1] ?? "").trim().toLowerCase().startsWith("биз")
+        ? "бизнес"
+        : "личное";
+      return {
+        date: (r[0] ?? "").trim(),
+        scope,
+        amountOrig: num(r[2]),
+        currency: mapCurrency(r[3] ?? ""),
+        thb: num(r[4]),
+        category: (r[5] ?? "").trim() || "Прочее",
+        note: (r[6] ?? "").trim(),
+        account: (r[7] ?? "").trim() || "личная",
+        source: (r[8] ?? "").trim(),
+      };
+    });
+}
+
+/** Создаёт лист Transactions с заголовком, если его ещё нет (идемпотентно). */
+async function ensureTransactionsSheet(token: string): Promise<void> {
+  const meta = await fetch(
+    `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}?fields=sheets.properties.title`,
+    { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" },
+  );
+  if (!meta.ok) return;
+  const j = (await meta.json()) as {
+    sheets?: Array<{ properties?: { title?: string } }>;
+  };
+  const titles = (j.sheets ?? []).map((s) => s.properties?.title);
+  if (titles.includes(TX_SHEET)) return;
+  await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}:batchUpdate`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ requests: [{ addSheet: { properties: { title: TX_SHEET } } }] }),
+    cache: "no-store",
+  });
+  await fetch(
+    `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(
+      `${TX_SHEET}!A1:I1`,
+    )}?valueInputOption=USER_ENTERED`,
+    {
+      method: "PUT",
+      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ values: [TX_HEADER] }),
+      cache: "no-store",
+    },
+  );
+}
+
+export type AppendTxInput = {
+  scope: TxScope;
+  amountOrig: number;
+  currency: Currency;
+  category: string;
+  note: string;
+  account?: string;
+  source?: string;
+};
+
+export type AppendTxResult = { ok: boolean; thb?: number; date?: string; error?: string };
+
+/** Добавляет строку траты в лист Transactions (write-scope). Создаёт лист при нужде. */
+export async function appendTransactionToSheet(input: AppendTxInput): Promise<AppendTxResult> {
+  const token = await getAccessToken(SCOPE_WRITE);
+  if (!token) return { ok: false, error: "no-credentials" };
+
+  const thb = Math.round(input.amountOrig * (FX[input.currency] ?? 1));
+  const date = bangkokToday();
+  const row = [
+    date,
+    input.scope,
+    input.amountOrig,
+    input.currency,
+    thb,
+    input.category,
+    input.note,
+    input.account ?? "личная",
+    input.source ?? "web",
+  ];
+  const url =
+    `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/` +
+    `${encodeURIComponent(`${TX_SHEET}!A:I`)}:append` +
+    `?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`;
+
+  const post = () =>
+    fetch(url, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ values: [row] }),
+      cache: "no-store",
+    });
+
+  try {
+    let res = await post();
+    if (res.status === 400) {
+      // Лист, вероятно, ещё не создан — создаём и пробуем снова.
+      await ensureTransactionsSheet(token);
+      res = await post();
+    }
+    if (!res.ok) return { ok: false, error: `sheets ${res.status}` };
+    return { ok: true, thb, date };
+  } catch (e) {
+    return { ok: false, error: String(e) };
+  }
 }
