@@ -51,15 +51,10 @@ export function EstateSitePlan({ estate, locale, hovered, onHover, onSelect }: P
   const t = getEstatesDict(locale);
   const plan = estate.plan;
   const lots = estate.plots.filter((p) => p.plotShape && p.plotShape.length >= 3);
-  if (!plan || lots.length === 0) return null;
 
-  const seaSide = plan.seaSide ?? "left";
-  const statusesPresent = (["available", "reserved", "sold", "rented"] as PlotStatus[]).filter(
-    (s) => estate.plots.some((p) => p.status === s),
-  );
-
-  // Каскадное проявление лотов при выходе схемы в кадр. SSR/no-JS: "ready" =
-  // всё видимо сразу (как в <Appear>), скрываем и анимируем только после гидрации.
+  // Хуки — ДО любого раннего return (rules-of-hooks). Каскадное проявление лотов
+  // при выходе схемы в кадр. SSR/no-JS: "ready" = всё видимо сразу (как в
+  // <Appear>), скрываем и анимируем только после гидрации.
   const figRef = useRef<HTMLElement>(null);
   const [phase, setPhase] = useState<"ready" | "hidden" | "shown">("ready");
   useEffect(() => {
@@ -93,6 +88,13 @@ export function EstateSitePlan({ estate, locale, hovered, onHover, onSelect }: P
       : phase === "hidden"
         ? { opacity: 0 }
         : { opacity: 1, transition: `opacity 0.5s ease ${0.04 * i}s` };
+
+  if (!plan || lots.length === 0) return null;
+
+  const seaSide = plan.seaSide ?? "left";
+  const statusesPresent = (["available", "reserved", "sold", "rented"] as PlotStatus[]).filter(
+    (s) => estate.plots.some((p) => p.status === s),
+  );
 
   return (
     <figure ref={figRef} className="overflow-hidden rounded-sm border border-forest-500/10 bg-cream-50 shadow-sm">
