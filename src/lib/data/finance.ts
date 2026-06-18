@@ -468,13 +468,14 @@ export function txMonthlySplit(txs: Transaction[]): TxMonthSplit[] {
   return [...map.values()].sort((a, b) => a.month.localeCompare(b.month));
 }
 
-// ── Две кассы: личное / Right Way (гибрид: старт + авто-вычет трат) ──────────
+// ── Две кассы: личное / Right Way ───────────────────────────────────────────
 //
-// Каждая касса — текущий остаток наличных, заданный на дату (as-of), от которого
-// автоматически вычитаются траты дневника той же сферы с датой ≥ as-of. Источник
-// стартовых сумм — лист `Wallets` (личное/бизнес · баланс · дата), правится через
-// /admin/finance/wallets. Это «сколько у меня» (личное) и «сколько в компании»
-// (Right Way) раздельно. Пре-инкорпорейшн бизнес-касса часто ≤ 0 (вложено лично).
+// Модель «реальный кошелёк + долг RW» (выбор Vladimir 2026-06-19): пока компании
+// нет, всё платится с личной карты, поэтому:
+//   🏠 Личное   = старт − ВСЕ траты (личные + бизнес) с as-of = реальные деньги на руках.
+//   🏢 Right Way = старт − бизнес-траты с as-of → минус = «компания должна тебе»
+//      (вложено лично, к возмещению через director's loan; с комиссиями выйдет в плюс).
+// Старты/даты — лист `Wallets`, правятся через /admin/finance/wallets (re-sync).
 
 export type Wallet = { scope: TxScope; balance: number; asOf: string };
 
@@ -482,16 +483,41 @@ export type WalletState = {
   scope: TxScope;
   start: number; // заданный остаток на дату asOf
   asOf: string; // ISO-дата, с которой вычитаются траты
-  spent: number; // потрачено по сфере с asOf
+  spent: number; // вычтено из кассы с asOf
   current: number; // start − spent
 };
 
-/** Текущий остаток кассы = старт − траты сферы с даты as-of (ISO-сравнение строк). */
-export function walletState(w: Wallet, txs: Transaction[]): WalletState {
-  const spent = txs
-    .filter((t) => t.scope === w.scope && t.date >= w.asOf)
+/**
+ * Состояния обеих касс. Личная вычитает ВСЕ траты (реальный кэш на руках), бизнес —
+ * только бизнес-траты (позиция RW; минус = долг компании перед тобой). ISO-сравнение строк.
+ */
+export function walletStates(
+  personal: Wallet,
+  business: Wallet,
+  txs: Transaction[],
+): { personal: WalletState; business: WalletState } {
+  const personalSpent = txs
+    .filter((t) => t.date >= personal.asOf)
     .reduce((s, t) => s + t.thb, 0);
-  return { scope: w.scope, start: w.balance, asOf: w.asOf, spent, current: w.balance - spent };
+  const businessSpent = txs
+    .filter((t) => t.scope === "бизнес" && t.date >= business.asOf)
+    .reduce((s, t) => s + t.thb, 0);
+  return {
+    personal: {
+      scope: "личное",
+      start: personal.balance,
+      asOf: personal.asOf,
+      spent: personalSpent,
+      current: personal.balance - personalSpent,
+    },
+    business: {
+      scope: "бизнес",
+      start: business.balance,
+      asOf: business.asOf,
+      spent: businessSpent,
+      current: business.balance - businessSpent,
+    },
+  };
 }
 
 /** Касса сферы из набора (или нулевая на fallback-дату, если не задана). */

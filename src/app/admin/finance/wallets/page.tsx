@@ -3,7 +3,7 @@ import Link from "next/link";
 import { AdminNav } from "@/components/admin/admin-nav";
 import { WalletsForm } from "@/components/admin/wallets-form";
 import { loadTransactionsFromSheet, loadWalletsFromSheet } from "@/lib/data/finance-sheet";
-import { bangkokToday, walletFor, walletState, fmtTHB } from "@/lib/data/finance";
+import { bangkokToday, walletFor, walletStates, fmtTHB } from "@/lib/data/finance";
 
 export const metadata: Metadata = {
   title: "Кассы",
@@ -30,8 +30,11 @@ export default async function WalletsPage({
   const allTx = txSheet ?? [];
   const today = bangkokToday();
   const wallets = walletsSheet ?? [];
-  const personal = walletState(walletFor("личное", wallets, today), allTx);
-  const business = walletState(walletFor("бизнес", wallets, today), allTx);
+  const { personal, business } = walletStates(
+    walletFor("личное", wallets, today),
+    walletFor("бизнес", wallets, today),
+    allTx,
+  );
 
   return (
     <section className="px-4 py-8 md:px-8">
@@ -42,8 +45,9 @@ export default async function WalletsPage({
         </p>
         <h1 className="mt-2 text-2xl font-semibold text-forest-900">Кассы — личное / Right Way</h1>
         <p className="mb-6 mt-1 text-sm text-forest-900/60">
-          Укажи текущий остаток наличных в каждой кассе. Сейчас в расчёте:{" "}
-          🏠 {fmtTHB(personal.current)} · 🏢 {fmtTHB(business.current)}.
+          🏠 <strong>Личные</strong> — реальные деньги на руках (вычитаются все траты). 🏢{" "}
+          <strong>Right Way</strong> — наличные компании (пока счёта нет — обычно 0; минус на дашборде =
+          вложено лично). Сейчас в расчёте: 🏠 {fmtTHB(personal.current)} · 🏢 {fmtTHB(business.current)}.
         </p>
         {err && ERR[err] && (
           <p className="mb-4 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-600">

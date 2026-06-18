@@ -37,7 +37,7 @@ import {
   txBreakdown,
   bangkokToday,
   walletFor,
-  walletState,
+  walletStates,
   fmtMoney,
   FX,
   FX_DATE,
@@ -222,12 +222,16 @@ export default async function FinancePage({
   const recentTx = [...monthTx].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 12);
   const pct = (part: number) => (txT.total ? `${Math.round((part / txT.total) * 100)}%` : undefined);
 
-  // Две кассы (лист Wallets): старт на дату + авто-вычет трат сферы → текущий остаток.
+  // Две кассы (лист Wallets): «реальный кошелёк + долг RW». Личная вычитает ВСЕ
+  // траты (реальные деньги на руках), бизнес — только бизнес-траты (долг RW тебе).
   const today = bangkokToday();
   const allWallets = walletsSheet ?? [];
   const hasWallets = allWallets.length > 0;
-  const personalWallet = walletState(walletFor("личное", allWallets, today), allTx);
-  const businessWallet = walletState(walletFor("бизнес", allWallets, today), allTx);
+  const { personal: personalWallet, business: businessWallet } = walletStates(
+    walletFor("личное", allWallets, today),
+    walletFor("бизнес", allWallets, today),
+    allTx,
+  );
   const asOfFmt = (iso: string) => {
     const d = new Date(iso + "T00:00:00");
     return Number.isNaN(d.getTime())
@@ -308,39 +312,54 @@ export default async function FinancePage({
             дневника.
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            {[personalWallet, businessWallet].map((w) => {
-              const isP = w.scope === "личное";
-              const neg = w.current < 0;
-              return (
-                <div
-                  key={w.scope}
+          <>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {/* 🏠 Личные — реальные деньги на руках (минус ВСЕ траты) */}
+              <div className="rounded-2xl border border-forest-900/10 bg-cream-50 p-5">
+                <p className="text-xs font-medium uppercase tracking-wide text-forest-900/45">
+                  🏠 Личные деньги · на руках
+                </p>
+                <p
                   className={
-                    "rounded-2xl border p-5 " +
-                    (isP
-                      ? "border-forest-900/10 bg-cream-50"
-                      : "border-brass-500/30 bg-brass-500/[0.06]")
+                    "mt-1 text-3xl font-semibold tabular-nums " +
+                    (personalWallet.current < 0 ? "text-red-600" : "text-forest-900")
                   }
                 >
-                  <p className="text-xs font-medium uppercase tracking-wide text-forest-900/45">
-                    {isP ? "🏠 Личные деньги" : "🏢 Деньги Right Way"}
-                  </p>
-                  <p
-                    className={
-                      "mt-1 text-3xl font-semibold tabular-nums " +
-                      (neg ? "text-red-600" : "text-forest-900")
-                    }
-                  >
-                    {money(w.current)}
-                  </p>
-                  <p className="mt-1 text-xs text-forest-900/50">
-                    старт {money(w.start)} ({asOfFmt(w.asOf)})
-                    {w.spent > 0 ? ` − потрачено ${money(w.spent)}` : ""}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
+                  {money(personalWallet.current)}
+                </p>
+                <p className="mt-1 text-xs text-forest-900/50">
+                  старт {money(personalWallet.start)} ({asOfFmt(personalWallet.asOf)})
+                  {personalWallet.spent > 0 ? ` − все траты ${money(personalWallet.spent)}` : ""}
+                </p>
+              </div>
+              {/* 🏢 Right Way — позиция: минус = компания должна тебе */}
+              <div className="rounded-2xl border border-brass-500/30 bg-brass-500/[0.06] p-5">
+                <p className="text-xs font-medium uppercase tracking-wide text-forest-900/45">
+                  🏢 Right Way{businessWallet.current < 0 ? " · должна тебе" : " · в кассе"}
+                </p>
+                <p
+                  className={
+                    "mt-1 text-3xl font-semibold tabular-nums " +
+                    (businessWallet.current < 0 ? "text-red-600" : "text-forest-900")
+                  }
+                >
+                  {money(businessWallet.current)}
+                </p>
+                <p className="mt-1 text-xs text-forest-900/50">
+                  {businessWallet.current < 0
+                    ? `вложено лично, к возмещению · бизнес-траты ${money(businessWallet.spent)}`
+                    : `старт ${money(businessWallet.start)} (${asOfFmt(businessWallet.asOf)})${
+                        businessWallet.spent > 0 ? ` − бизнес ${money(businessWallet.spent)}` : ""
+                      }`}
+                </p>
+              </div>
+            </div>
+            <p className="mt-2 text-xs text-forest-900/45">
+              🏠 — реальные деньги на руках (минус <strong>все</strong> траты, включая бизнес с личной
+              карты). 🏢 — позиция Right Way: минус = вложено лично, компания вернёт после первых сделок
+              (director&apos;s loan).
+            </p>
+          </>
         )}
       </div>
 
