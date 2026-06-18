@@ -31,6 +31,10 @@ import {
   cashOutDate,
   savingsLevers,
   leversTotal,
+  currentYM,
+  txInMonth,
+  txTotals,
+  txBreakdown,
   fmtMoney,
   FX,
   FX_DATE,
@@ -40,7 +44,11 @@ import {
   type DisplayCurrency,
 } from "@/lib/data/finance";
 import { getLiveRatesTHB } from "@/lib/data/fx-live";
-import { loadFinanceFromSheet, loadRunwayFromSheet } from "@/lib/data/finance-sheet";
+import {
+  loadFinanceFromSheet,
+  loadRunwayFromSheet,
+  loadTransactionsFromSheet,
+} from "@/lib/data/finance-sheet";
 import { getLeads, getEvents } from "@/lib/data/leads";
 import Link from "next/link";
 
@@ -114,17 +122,18 @@ function priceLabel(s: (typeof subscriptions)[number]): string {
 export default async function FinancePage({
   searchParams,
 }: {
-  searchParams: Promise<{ cur?: string }>;
+  searchParams: Promise<{ cur?: string; added?: string }>;
 }) {
-  const { cur: curParam } = await searchParams;
+  const { cur: curParam, added } = await searchParams;
   const cur: DisplayCurrency = curParam === "usd" ? "USD" : curParam === "rub" ? "RUB" : "THB";
 
-  const [live, sheet, runwaySheet, crmLeads, crmEvents] = await Promise.all([
+  const [live, sheet, runwaySheet, crmLeads, crmEvents, txSheet] = await Promise.all([
     getLiveRatesTHB(),
     loadFinanceFromSheet(),
     loadRunwayFromSheet(),
     getLeads(),
     getEvents(500),
+    loadTransactionsFromSheet(),
   ]);
 
   // Рубли пересчитываем по живому рыночному курсу (переводы домой в ₽ — важен
@@ -197,6 +206,16 @@ export default async function FinancePage({
   const burnAfterCuts = combinedBurn - leversSaving;
   const dateFmt = (d: Date) =>
     d.toLocaleDateString("ru-RU", { day: "numeric", month: "short", year: "numeric" });
+
+  // Дневник трат (лист Transactions): разрез личное/бизнес за текущий месяц.
+  const allTx = txSheet ?? [];
+  const txYM = currentYM();
+  const monthTx = txInMonth(allTx, txYM);
+  const txT = txTotals(monthTx);
+  const personalBreakdown = txBreakdown(monthTx, "личное");
+  const businessBreakdown = txBreakdown(monthTx, "бизнес");
+  const recentTx = [...monthTx].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 12);
+  const pct = (part: number) => (txT.total ? `${Math.round((part / txT.total) * 100)}%` : undefined);
 
   return (
     <section className="px-4 py-8 md:px-8">
@@ -432,6 +451,97 @@ export default async function FinancePage({
           сделки.
         </p>
       </div>
+      )}
+
+      {/* Дневник трат — личное / бизнес */}
+      {added && (
+        <p className="mb-3 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-700">
+          ✅ Трата записана.
+        </p>
+      )}
+      <h2 className="mb-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
+        🧾 Траты — личное / бизнес
+        <span className="font-normal normal-case text-forest-900/40">
+          — дневник (бот + форма), {txYM}
+        </span>
+        <Link
+          href="/admin/finance/add"
+          className="ml-auto rounded-full bg-panel px-3 py-1 text-xs font-medium normal-case text-panel-fg transition hover:bg-panel/90"
+        >
+          ＋ Добавить трату
+        </Link>
+      </h2>
+      {txT.total === 0 ? (
+        <div className="mb-8 rounded-2xl border border-dashed border-forest-900/15 bg-cream-50 p-6 text-sm text-forest-900/55">
+          Пока нет записей за {txYM}. Жми <strong>«＋ Добавить трату»</strong> или надиктуй боту 🎤
+          голосовое («800 бат бензин») — появится здесь с разрезом 🏠 личное / 🏢 бизнес.
+        </div>
+      ) : (
+        <>
+          <div className="mb-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
+            <Stat label="Всего трат / мес" value={money(txT.total)} accent />
+            <Stat label="🏠 Личное / мес" value={money(txT.personal)} hint={pct(txT.personal)} />
+            <Stat label="🏢 Бизнес / мес" value={money(txT.business)} hint={pct(txT.business)} />
+          </div>
+          <div className="mb-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
+            {personalBreakdown.length > 0 && (
+              <div className="rounded-2xl border border-forest-900/10 bg-cream-50 p-6">
+                <p className="mb-4 text-sm font-medium text-forest-900">🏠 Личное по категориям</p>
+                <FinanceDonut
+                  segments={personalBreakdown}
+                  centerValue={money(txT.personal)}
+                  centerLabel="личное"
+                  currency={cur}
+                  fx={fxDisp}
+                />
+              </div>
+            )}
+            {businessBreakdown.length > 0 && (
+              <div className="rounded-2xl border border-forest-900/10 bg-cream-50 p-6">
+                <p className="mb-4 text-sm font-medium text-forest-900">🏢 Бизнес по категориям</p>
+                <FinanceDonut
+                  segments={businessBreakdown}
+                  centerValue={money(txT.business)}
+                  centerLabel="бизнес"
+                  currency={cur}
+                  fx={fxDisp}
+                />
+              </div>
+            )}
+          </div>
+          <div className="mb-8 overflow-hidden rounded-2xl border border-forest-900/10 bg-cream-50">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-forest-900/10 text-left text-xs uppercase tracking-wide text-forest-900/45">
+                  <th className="px-4 py-2.5 font-medium">Дата</th>
+                  <th className="px-4 py-2.5 font-medium">Сфера</th>
+                  <th className="px-4 py-2.5 font-medium">Категория</th>
+                  <th className="px-4 py-2.5 font-medium">Заметка</th>
+                  <th className="px-4 py-2.5 text-right font-medium">Сумма</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-forest-900/5">
+                {recentTx.map((t, i) => (
+                  <tr key={`${t.date}-${i}`}>
+                    <td className="px-4 py-2.5 tabular-nums text-forest-900/55">{t.date.slice(5)}</td>
+                    <td className="px-4 py-2.5 text-forest-900/65">
+                      {t.scope === "бизнес" ? "🏢" : "🏠"} {t.scope}
+                    </td>
+                    <td className="px-4 py-2.5 text-forest-900/75">{t.category}</td>
+                    <td className="px-4 py-2.5 text-forest-900/55">{t.note}</td>
+                    <td className="px-4 py-2.5 text-right tabular-nums text-forest-900">
+                      {money(t.thb)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <p className="border-t border-forest-900/5 px-4 py-2 text-xs text-forest-900/45">
+              Последние записи за {txYM}. Полный журнал — лист <code>Transactions</code> таблицы. Ввод:
+              форма выше или 🎤 голосовое боту.
+            </p>
+          </div>
+        </>
       )}
 
       {/* Структура расходов */}
