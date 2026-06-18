@@ -180,6 +180,16 @@
   }
 }
 
+/* Right-side slide-in for the estate lot drawer (estate-lot-drawer.tsx). */
+@keyframes drawerIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+
 /* Scroll reveal (see sections/reveal.tsx — only applied when JS confirms the
    element is below the fold, so no-JS visitors never get hidden content). */
 .reveal {

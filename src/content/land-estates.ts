@@ -519,3 +519,23 @@ export function plotPriceVisible(status: PlotStatus): boolean {
 export function estatePhotoPlots(estate: LandEstate): EstatePlot[] {
   return estate.plots.filter((p) => p.photos && p.photos.length > 0);
 }
+
+export interface BuildPotential {
+  /** Ориентировочная застраиваемая площадь, м² (≈30% покрытия — типовая норма Таиланда). */
+  coverageSqm: number;
+  /** Ориентировочное число вилл (≈1 на 1500 м²), минимум 1. */
+  villas: number;
+}
+
+/**
+ * Грубая оценка «что можно построить» на лоте — ТОЛЬКО ориентир для интереса
+ * (не юр.заключение): застраиваемая площадь при ~30% покрытии и индикативное
+ * число вилл. Без areaSqm — null.
+ */
+export function buildPotential(plot: EstatePlot): BuildPotential | null {
+  if (!plot.areaSqm) return null;
+  return {
+    coverageSqm: Math.round((plot.areaSqm * 0.3) / 10) * 10,
+    villas: Math.max(1, Math.round(plot.areaSqm / 1500)),
+  };
+}

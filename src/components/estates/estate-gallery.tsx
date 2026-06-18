@@ -2,10 +2,11 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { X, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import type { EstatePlot } from "@/content/land-estates";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getEstatesDict } from "@/lib/i18n/dictionaries";
+import { EstateLotCarousel } from "./estate-lot-carousel";
 import { PlotStatusBadge } from "./plot-status-badge";
 
 interface Props {
@@ -49,43 +50,29 @@ export function EstateGallery({ photoPlots, estateName, locale }: Props) {
   }, [open, close, step]);
 
   if (flat.length === 0) return null;
-  let flatIndex = -1;
+  // Базовый плоский индекс для первого фото каждого лота (для лайтбокса).
+  const starts: number[] = [];
+  let acc = 0;
+  for (const p of photoPlots) {
+    starts.push(acc);
+    acc += p.photos?.length ?? 0;
+  }
 
   return (
     <>
-      <div className="space-y-8">
-        {photoPlots.map((plot) => (
+      <div className="grid gap-6 sm:grid-cols-2">
+        {photoPlots.map((plot, pi) => (
           <div key={plot.code} id={`lot-${plot.code}`} className="scroll-mt-28">
-            <div className="mb-3 flex items-center gap-2.5">
+            <div className="mb-2.5 flex items-center gap-2.5">
               <span className="text-sm font-medium text-forest-900">{plot.code}</span>
               <PlotStatusBadge status={plot.status} locale={locale} />
             </div>
-            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-              {(plot.photos ?? []).map((src, i) => {
-                flatIndex += 1;
-                const idx = flatIndex;
-                return (
-                  <button
-                    key={src}
-                    type="button"
-                    onClick={() => setOpen(idx)}
-                    className="group relative aspect-[4/3] overflow-hidden rounded-sm bg-forest-900/5"
-                  >
-                    <Image
-                      src={src}
-                      alt={`${estateName} — ${plot.code} (${i + 1})`}
-                      fill
-                      unoptimized
-                      sizes="(min-width: 640px) 33vw, 50vw"
-                      className="object-cover transition-transform duration-300 group-hover:scale-[1.04]"
-                    />
-                    <span className="pointer-events-none absolute inset-0 flex items-center justify-center bg-forest-900/0 opacity-0 transition group-hover:bg-forest-900/25 group-hover:opacity-100">
-                      <ZoomIn className="h-6 w-6 text-cream-50 drop-shadow" />
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
+            <EstateLotCarousel
+              photos={plot.photos ?? []}
+              altPrefix={`${estateName} — ${plot.code}`}
+              onOpen={(i) => setOpen(starts[pi] + i)}
+              sizes="(min-width: 640px) 50vw, 100vw"
+            />
           </div>
         ))}
       </div>

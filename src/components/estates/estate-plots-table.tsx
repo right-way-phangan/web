@@ -19,6 +19,8 @@ interface Props {
   hovered: string | null;
   onHover: (code: string | null) => void;
   onEnquire: (code: string) => void;
+  /** Открыть драуэр лота (по клику на код участка). */
+  onOpenLot: (code: string) => void;
 }
 
 /**
@@ -26,7 +28,7 @@ interface Props {
  * по отфильтрованному списку. Строка подсвечивается при наведении на неё или на
  * лот в схеме плана (hovered). У свободных лотов — чип вида и кнопка «Запросить».
  */
-export function EstatePlotsTable({ estate, plots, locale, hovered, onHover, onEnquire }: Props) {
+export function EstatePlotsTable({ estate, plots, locale, hovered, onHover, onEnquire, onOpenLot }: Props) {
   const t = getEstatesDict(locale);
   const total = estate.plots.length;
   const available = estate.plots.filter((p) => p.status === "available").length;
@@ -71,6 +73,7 @@ export function EstatePlotsTable({ estate, plots, locale, hovered, onHover, onEn
               hovered={hovered === plot.code}
               onHover={onHover}
               onEnquire={onEnquire}
+              onOpenLot={onOpenLot}
             />
           ))}
         </dl>
@@ -85,12 +88,14 @@ function PlotRow({
   hovered,
   onHover,
   onEnquire,
+  onOpenLot,
 }: {
   plot: EstatePlot;
   locale: Locale;
   hovered: boolean;
   onHover: (code: string | null) => void;
   onEnquire: (code: string) => void;
+  onOpenLot: (code: string) => void;
 }) {
   const t = getEstatesDict(locale);
   const taken = plot.status === "sold" || plot.status === "rented";
@@ -138,7 +143,13 @@ function PlotRow({
       )}
     >
       <dt className="flex items-center gap-2 text-sm font-medium text-forest-900">
-        {plot.code}
+        <button
+          type="button"
+          onClick={() => onOpenLot(plot.code)}
+          className="rounded-sm underline-offset-2 transition-colors hover:text-brass-600 hover:underline"
+        >
+          {plot.code}
+        </button>
         {viewChip}
       </dt>
       <dd className="order-3 col-span-2 text-sm text-forest-500/75 sm:order-none sm:col-span-1">

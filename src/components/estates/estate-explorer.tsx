@@ -3,9 +3,9 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import type { Route } from "next";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Map as MapIcon, Satellite } from "lucide-react";
 import type { LandEstate } from "@/content/land-estates";
-import { estatePhotoPlots } from "@/content/land-estates";
+import { estatePhotoPlots, estateStats } from "@/content/land-estates";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getEstatesDict } from "@/lib/i18n/dictionaries";
 import { localePath } from "@/lib/i18n/locale-path";
@@ -13,12 +13,16 @@ import { cn } from "@/lib/utils/cn";
 import { Appear } from "@/components/motion/appear";
 import { ObjectLocationMap } from "@/components/objects/object-location-map";
 import { EstateSitePlan } from "./estate-site-plan";
+import { EstateSatelliteView } from "./estate-satellite-view";
 import { EstatePlotsTable } from "./estate-plots-table";
 import { EstateGallery } from "./estate-gallery";
 import { EstateInquiry } from "./estate-inquiry";
+import { EstateLotDrawer } from "./estate-lot-drawer";
+import { EstateCompare } from "./estate-compare";
 
 type Filter = "all" | "available" | "sea" | "mountain";
 type Sort = "recommended" | "priceLow" | "priceHigh" | "areaLarge";
+type PlanMode = "plan" | "satellite";
 
 interface Props {
   estate: LandEstate;
@@ -26,20 +30,26 @@ interface Props {
 }
 
 /**
- * Клиентский «исследователь» подборки: связывает схему плана, таблицу, галерею и
- * форму заявки общим состоянием — наведение (план↔таблица), фильтр (все/свободные/
- * море/горы), сортировка, выбор лота для предзаполнения заявки. Статика (шапка,
- * описание, DD, преимущества) остаётся в серверном лендинге выше.
+ * Клиентский «исследователь» подборки: связывает схему плана (+ режим «Спутник»),
+ * таблицу, галерею, драуэр лота, сравнение и форму заявки общим состоянием —
+ * наведение (план↔таблица), фильтр/сортировка, выбор лота (драуэр), сравнение до
+ * 3 лотов, предзаполнение заявки. Статика (шапка/описание/DD) — в серверном
+ * лендинге выше.
  */
 export function EstateExplorer({ estate, locale }: Props) {
   const t = getEstatesDict(locale);
+  const s = estateStats(estate);
   const [hovered, setHovered] = useState<string | null>(null);
   const [selectedLot, setSelectedLot] = useState<string | null>(null);
+  const [drawerLot, setDrawerLot] = useState<string | null>(null);
+  const [compareCodes, setCompareCodes] = useState<string[]>([]);
   const [filter, setFilter] = useState<Filter>("all");
   const [sort, setSort] = useState<Sort>("recommended");
+  const [planMode, setPlanMode] = useState<PlanMode>("plan");
 
   const photoPlots = estatePhotoPlots(estate);
-  const hasLocation = Boolean(estate.lat && estate.lng) || Boolean(estate.locationUrl);
+  const hasCoords = Boolean(estate.lat && estate.lng);
+  const hasLocation = hasCoords || Boolean(estate.locationUrl);
 
   const plots = useMemo(() => {
     let list = estate.plots.filter((p) => {
@@ -58,16 +68,17 @@ export function EstateExplorer({ estate, locale }: Props) {
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "center" });
   };
-  const onSelectFromPlan = (code: string) => {
-    setHovered(code);
-    const plot = estate.plots.find((p) => p.code === code);
-    const target = plot?.photos?.length ? `lot-${code}` : `row-${code}`;
-    scrollTo(target);
-  };
   const onEnquire = (code: string) => {
     setSelectedLot(code);
-    scrollTo("enquire");
+    setDrawerLot(null);
+    setTimeout(() => scrollTo("enquire"), 60);
   };
+  const toggleCompare = (code: string) =>
+    setCompareCodes((cur) =>
+      cur.includes(code) ? cur.filter((c) => c !== code) : cur.length >= 3 ? cur : [...cur, code],
+    );
+
+  const drawerPlot = drawerLot ? (estate.plots.find((p) => p.code === drawerLot) ?? null) : null;
 
   const filters: { key: Filter; label: string }[] = [
     { key: "all", label: t.filter.all },
@@ -79,19 +90,27 @@ export function EstateExplorer({ estate, locale }: Props) {
   return (
     <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_360px] lg:gap-16">
       <div className="min-w-0 space-y-16">
-        {/* План разбивки */}
+        {/* План разбивки + режим «Спутник» */}
         {estate.plan ? (
           <section id="plan" className="scroll-mt-32">
-            <h2 className="font-serif text-3xl text-forest-900">{t.sections.plan}</h2>
-            <p className="mt-2 max-w-prose text-sm text-forest-500/70">{t.planLede}</p>
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <h2 className="font-serif text-3xl text-forest-900">{t.sections.plan}</h2>
+                <p className="mt-2 max-w-prose text-sm text-forest-500/70">{t.planLede}</p>
+              </div>
+              {hasCoords ? (
+                <div className="flex shrink-0 gap-1 rounded-full border border-forest-500/15 bg-cream-50 p-1">
+                  <ModeBtn active={planMode === "plan"} onClick={() => setPlanMode("plan")} icon={<MapIcon className="h-3.5 w-3.5" />} label={t.planView.plan} />
+                  <ModeBtn active={planMode === "satellite"} onClick={() => setPlanMode("satellite")} icon={<Satellite className="h-3.5 w-3.5" />} label={t.planView.satellite} />
+                </div>
+              ) : null}
+            </div>
             <div className="mt-6">
-              <EstateSitePlan
-                estate={estate}
-                locale={locale}
-                hovered={hovered}
-                onHover={setHovered}
-                onSelect={onSelectFromPlan}
-              />
+              {planMode === "satellite" && estate.lat && estate.lng ? (
+                <EstateSatelliteView lat={estate.lat} lng={estate.lng} mapsUrl={estate.locationUrl} locale={locale} />
+              ) : (
+                <EstateSitePlan estate={estate} locale={locale} hovered={hovered} onHover={setHovered} onSelect={setDrawerLot} />
+              )}
             </div>
           </section>
         ) : null}
@@ -99,8 +118,18 @@ export function EstateExplorer({ estate, locale }: Props) {
         {/* Участки и доступность */}
         <Appear className="scroll-mt-32">
         <section id="plots" className="scroll-mt-32">
-          <h2 className="font-serif text-3xl text-forest-900">{t.sections.plotsTitle}</h2>
-          <p className="mt-2 text-sm text-forest-500/70">{t.sections.plotsLede}</p>
+          <div className="flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <h2 className="font-serif text-3xl text-forest-900">{t.sections.plotsTitle}</h2>
+              <p className="mt-2 text-sm text-forest-500/70">{t.sections.plotsLede}</p>
+            </div>
+            {s.taken > 0 ? (
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-forest-500/8 px-3 py-1.5 text-xs font-medium text-forest-500/75">
+                <span className="h-1.5 w-1.5 rounded-full bg-brass-500" aria-hidden />
+                {t.momentum(s.taken, s.total)}
+              </span>
+            ) : null}
+          </div>
 
           {/* Фильтр + сортировка */}
           <div className="mt-6 flex flex-wrap items-center gap-2">
@@ -144,6 +173,7 @@ export function EstateExplorer({ estate, locale }: Props) {
               hovered={hovered}
               onHover={setHovered}
               onEnquire={onEnquire}
+              onOpenLot={setDrawerLot}
             />
           </div>
 
@@ -186,6 +216,45 @@ export function EstateExplorer({ estate, locale }: Props) {
 
       {/* Sticky-заявка */}
       <EstateInquiry slug={estate.slug} name={estate.name[locale]} selectedLot={selectedLot} />
+
+      {/* Драуэр лота */}
+      <EstateLotDrawer
+        estate={estate}
+        plot={drawerPlot}
+        locale={locale}
+        estateName={estate.name[locale]}
+        onClose={() => setDrawerLot(null)}
+        onEnquire={onEnquire}
+        onToggleCompare={toggleCompare}
+        inCompare={drawerLot ? compareCodes.includes(drawerLot) : false}
+      />
+
+      {/* Сравнение лотов */}
+      <EstateCompare
+        estate={estate}
+        codes={compareCodes}
+        locale={locale}
+        onRemove={(code) => setCompareCodes((cur) => cur.filter((c) => c !== code))}
+        onClear={() => setCompareCodes([])}
+        hidden={Boolean(drawerLot)}
+      />
     </div>
+  );
+}
+
+function ModeBtn({ active, onClick, icon, label }: { active: boolean; onClick: () => void; icon: React.ReactNode; label: string }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      className={cn(
+        "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
+        active ? "bg-forest-900 text-cream-50" : "text-forest-500/70 hover:text-forest-900",
+      )}
+    >
+      {icon}
+      {label}
+    </button>
   );
 }
