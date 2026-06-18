@@ -112,7 +112,9 @@ export async function r2PutObject(
       Authorization: authorization,
       "Cache-Control": "public, max-age=31536000, immutable",
     },
-    body,
+    // body — Uint8Array; cast to BodyInit (TS 5.7/@types/node 22:
+    // Uint8Array<ArrayBufferLike> не присваивается BodyInit напрямую).
+    body: body as BodyInit,
   });
   if (!res.ok) {
     const txt = await res.text().catch(() => "");
