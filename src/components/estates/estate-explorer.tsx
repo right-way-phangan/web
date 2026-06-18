@@ -10,6 +10,7 @@ import type { Locale } from "@/lib/i18n/dictionaries";
 import { getEstatesDict } from "@/lib/i18n/dictionaries";
 import { localePath } from "@/lib/i18n/locale-path";
 import { cn } from "@/lib/utils/cn";
+import { Appear } from "@/components/motion/appear";
 import { ObjectLocationMap } from "@/components/objects/object-location-map";
 import { EstateSitePlan } from "./estate-site-plan";
 import { EstatePlotsTable } from "./estate-plots-table";
@@ -96,6 +97,7 @@ export function EstateExplorer({ estate, locale }: Props) {
         ) : null}
 
         {/* Участки и доступность */}
+        <Appear className="scroll-mt-32">
         <section id="plots" className="scroll-mt-32">
           <h2 className="font-serif text-3xl text-forest-900">{t.sections.plotsTitle}</h2>
           <p className="mt-2 text-sm text-forest-500/70">{t.sections.plotsLede}</p>
@@ -153,19 +155,23 @@ export function EstateExplorer({ estate, locale }: Props) {
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </section>
+        </Appear>
 
         {/* Фото с участков */}
         {photoPlots.length > 0 ? (
+          <Appear className="scroll-mt-32">
           <section id="gallery" className="scroll-mt-32">
             <h2 className="font-serif text-3xl text-forest-900">{t.sections.gallery}</h2>
             <div className="mt-6">
               <EstateGallery photoPlots={photoPlots} estateName={estate.name[locale]} locale={locale} />
             </div>
           </section>
+          </Appear>
         ) : null}
 
         {/* Расположение */}
         {hasLocation ? (
+          <Appear className="scroll-mt-32">
           <section id="location" className="scroll-mt-32">
             <ObjectLocationMap
               lat={estate.lat}
@@ -174,6 +180,7 @@ export function EstateExplorer({ estate, locale }: Props) {
               mapsUrl={estate.locationUrl}
             />
           </section>
+          </Appear>
         ) : null}
       </div>
 

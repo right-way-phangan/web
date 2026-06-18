@@ -1535,6 +1535,8 @@ export interface EstatesDict {
     gallery: string;
     location: string;
   };
+  /** короткие подписи липкой навигации по странице */
+  nav: { overview: string; plan: string; plots: string; gallery: string; location: string };
   /** столбцы таблицы лотов */
   table: {
     plot: string;
@@ -1605,6 +1607,7 @@ const estatesDict: Record<Locale, EstatesDict> = {
       gallery: "On-site photos",
       location: "Location",
     },
+    nav: { overview: "Overview", plan: "Site plan", plots: "Plots", gallery: "Photos", location: "Location" },
     table: {
       plot: "Plot",
       area: "Area",
@@ -1667,6 +1670,7 @@ const estatesDict: Record<Locale, EstatesDict> = {
       gallery: "Фото с участков",
       location: "Расположение",
     },
+    nav: { overview: "Обзор", plan: "План", plots: "Участки", gallery: "Фото", location: "На карте" },
     table: {
       plot: "Участок",
       area: "Площадь",

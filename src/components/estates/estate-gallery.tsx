@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
 import type { EstatePlot } from "@/content/land-estates";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getEstatesDict } from "@/lib/i18n/dictionaries";
@@ -79,6 +79,9 @@ export function EstateGallery({ photoPlots, estateName, locale }: Props) {
                       sizes="(min-width: 640px) 33vw, 50vw"
                       className="object-cover transition-transform duration-300 group-hover:scale-[1.04]"
                     />
+                    <span className="pointer-events-none absolute inset-0 flex items-center justify-center bg-forest-900/0 opacity-0 transition group-hover:bg-forest-900/25 group-hover:opacity-100">
+                      <ZoomIn className="h-6 w-6 text-cream-50 drop-shadow" />
+                    </span>
                   </button>
                 );
               })}
@@ -89,7 +92,8 @@ export function EstateGallery({ photoPlots, estateName, locale }: Props) {
 
       {open !== null ? (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-forest-900/92 p-4 print:hidden"
+          className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-3 bg-forest-900/92 p-4 print:hidden"
+          style={{ animation: "lbFade 0.2s ease" }}
           onClick={close}
           role="dialog"
           aria-modal="true"
@@ -98,7 +102,7 @@ export function EstateGallery({ photoPlots, estateName, locale }: Props) {
           <button
             type="button"
             onClick={close}
-            className="absolute right-4 top-4 rounded-full bg-cream-50/10 p-2 text-cream-50 transition-colors hover:bg-cream-50/20"
+            className="absolute right-4 top-4 z-10 rounded-full bg-cream-50/10 p-2 text-cream-50 transition-colors hover:bg-cream-50/20"
             aria-label="Close"
           >
             <X className="h-5 w-5" />
@@ -108,7 +112,7 @@ export function EstateGallery({ photoPlots, estateName, locale }: Props) {
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); step(-1); }}
-                className="absolute left-3 rounded-full bg-cream-50/10 p-2.5 text-cream-50 transition-colors hover:bg-cream-50/20"
+                className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-cream-50/10 p-2.5 text-cream-50 transition-colors hover:bg-cream-50/20"
                 aria-label="Previous"
               >
                 <ChevronLeft className="h-6 w-6" />
@@ -116,26 +120,49 @@ export function EstateGallery({ photoPlots, estateName, locale }: Props) {
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); step(1); }}
-                className="absolute right-3 rounded-full bg-cream-50/10 p-2.5 text-cream-50 transition-colors hover:bg-cream-50/20"
+                className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-cream-50/10 p-2.5 text-cream-50 transition-colors hover:bg-cream-50/20"
                 aria-label="Next"
               >
                 <ChevronRight className="h-6 w-6" />
               </button>
             </>
           ) : null}
-          <figure className="relative max-h-[88vh] w-full max-w-5xl" onClick={(e) => e.stopPropagation()}>
+          <figure className="relative flex min-h-0 flex-1 items-center justify-center" onClick={(e) => e.stopPropagation()}>
             <Image
+              key={open}
               src={flat[open].src}
               alt={flat[open].alt}
               width={1280}
               height={960}
               unoptimized
-              className="mx-auto max-h-[88vh] w-auto rounded-sm object-contain"
+              style={{ animation: "lbZoom 0.28s cubic-bezier(0.22,1,0.36,1)" }}
+              className="max-h-[78vh] w-auto rounded-sm object-contain"
             />
-            <figcaption className="mt-3 text-center text-xs text-cream-100/70">
-              {flat[open].code} · {open + 1} / {flat.length}
-            </figcaption>
           </figure>
+          <figcaption className="text-center text-xs text-cream-100/70" onClick={(e) => e.stopPropagation()}>
+            {flat[open].code} · {open + 1} / {flat.length}
+          </figcaption>
+          {flat.length > 1 ? (
+            <div
+              className="flex max-w-full gap-1.5 overflow-x-auto pb-1 [scrollbar-width:thin]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {flat.map((f, i) => (
+                <button
+                  key={`${f.src}-${i}`}
+                  type="button"
+                  onClick={() => setOpen(i)}
+                  className={`relative h-11 w-16 shrink-0 overflow-hidden rounded-sm ring-2 transition ${
+                    i === open ? "ring-brass-400" : "opacity-50 ring-transparent hover:opacity-90"
+                  }`}
+                  aria-label={`${f.code} ${i + 1}`}
+                  aria-current={i === open}
+                >
+                  <Image src={f.src} alt="" fill unoptimized sizes="64px" className="object-cover" />
+                </button>
+              ))}
+            </div>
+          ) : null}
         </div>
       ) : null}
     </>

@@ -168,6 +168,18 @@
   }
 }
 
+/* Lightbox image zoom-in on open / slide change (estate-gallery.tsx). */
+@keyframes lbZoom {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* Scroll reveal (see sections/reveal.tsx — only applied when JS confirms the
    element is below the fold, so no-JS visitors never get hidden content). */
 .reveal {

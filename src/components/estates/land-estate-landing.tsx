@@ -3,11 +3,12 @@ import Image from "next/image";
 import type { Route } from "next";
 import { ChevronRight, Check, ShieldCheck, MapPin, Layers } from "lucide-react";
 import type { LandEstate } from "@/content/land-estates";
-import { estateStats, getPublishedEstates } from "@/content/land-estates";
+import { estateStats, estatePhotoPlots, getPublishedEstates } from "@/content/land-estates";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getEstatesDict } from "@/lib/i18n/dictionaries";
 import { localePath } from "@/lib/i18n/locale-path";
 import { EstateExplorer } from "./estate-explorer";
+import { EstateSectionNav, type NavSection } from "./estate-section-nav";
 import { EstateCard } from "./estate-card";
 import { Appear } from "@/components/motion/appear";
 
@@ -27,6 +28,15 @@ export function LandEstateLanding({ estate, locale }: Props) {
   const others = getPublishedEstates()
     .filter((e) => e.slug !== estate.slug)
     .slice(0, 3);
+
+  // Состав липкой навигации — только реально присутствующие секции.
+  const navSections: NavSection[] = [
+    { id: "overview", label: t.nav.overview },
+    ...(estate.plan ? [{ id: "plan", label: t.nav.plan }] : []),
+    { id: "plots", label: t.nav.plots },
+    ...(estatePhotoPlots(estate).length > 0 ? [{ id: "gallery", label: t.nav.gallery }] : []),
+    ...(estate.lat && estate.lng ? [{ id: "location", label: t.nav.location }] : []),
+  ];
 
   return (
     <article className="container-prose py-8 md:py-10">
@@ -87,8 +97,15 @@ export function LandEstateLanding({ estate, locale }: Props) {
         </div>
       </header>
 
+      {/* Липкая навигация по странице */}
+      <EstateSectionNav
+        sections={navSections}
+        enquireLabel={t.enquireTitle}
+        availabilityLabel={s.available > 0 ? t.availableOf(s.available, s.total) : t.soldOut}
+      />
+
       {/* Overview (статика) */}
-      <section id="overview" className="mt-12 scroll-mt-32">
+      <section id="overview" className="mt-10 scroll-mt-32">
         <h2 className="font-serif text-3xl text-forest-900">{t.sections.overview}</h2>
         <div className="mt-6 max-w-prose space-y-4 text-base leading-relaxed text-forest-500/85">
           {estate.description[locale].map((p, i) => (
