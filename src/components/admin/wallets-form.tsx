@@ -42,7 +42,7 @@ export function WalletsForm({
       </div>
       <div>
         <label className="mb-1 block text-xs uppercase tracking-wide text-forest-900/50">
-          🏢 Деньги Right Way, ฿
+          🏢 Right Way — наличные компании, ฿
         </label>
         <input
           name="business"
@@ -51,11 +51,15 @@ export function WalletsForm({
           defaultValue={String(defaultBusiness)}
           className={inputCls}
         />
+        <p className="mt-1 text-xs text-forest-900/45">
+          Пока счёта компании нет — оставь 0. Бизнес-траты сделают баланс отрицательным = «компания
+          должна тебе» (к возмещению).
+        </p>
       </div>
       <SubmitButton />
       <p className="text-xs text-forest-900/45">
-        Сохранение ставит дату «сегодня». Дальше траты дневника после этой даты уменьшают остаток
-        автоматически — на дашборде видно «было → сейчас».
+        🏠 Личные = реальные деньги на руках (вычитаются <strong>все</strong> траты, включая бизнес с
+        личной карты). Сохранение ставит дату «сегодня» — дальше траты уменьшают остатки сами.
       </p>
     </form>
   );
