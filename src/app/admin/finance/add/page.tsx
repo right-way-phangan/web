@@ -6,6 +6,14 @@ import { AddTransactionForm } from "@/components/admin/add-transaction-form";
 export const metadata: Metadata = {
   title: "Добавить трату",
   robots: { index: false, follow: false },
+  // Отдельный PWA-фокус: иконка «RW Финансы» открывается прямо на этой форме
+  // (переопределяет admin-манифест RW CRM из layout).
+  manifest: "/finance-manifest.json",
+  appleWebApp: {
+    capable: true,
+    title: "RW Финансы",
+    statusBarStyle: "default",
+  },
 };
 
 export const dynamic = "force-dynamic";
@@ -37,6 +45,11 @@ export default async function AddTransactionPage({
           </p>
         )}
         <AddTransactionForm />
+        <div className="mt-5 rounded-xl border border-forest-900/10 bg-cream-50 px-4 py-3 text-xs text-forest-900/55">
+          📲 <strong className="text-forest-900/75">Иконка на телефон:</strong> в Safari нажми
+          «Поделиться» → «На экран Домой». Появится иконка «RW Финансы», которая открывает сразу эту
+          форму на весь экран — быстрый ввод текстом и диктовкой.
+        </div>
         <Link
           href="/admin/finance"
           className="mt-4 inline-block text-sm text-forest-900/55 hover:text-brass-600"
