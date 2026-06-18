@@ -26,10 +26,10 @@ export function EstateSatelliteView({ lat, lng, mapsUrl, locale }: Props) {
 
   return (
     <figure className="overflow-hidden rounded-sm border border-forest-500/15 bg-forest-900 shadow-md">
-      <div className="relative aspect-[1000/640] w-full">
+      <div className="relative w-full" style={{ aspectRatio: "25 / 16" }}>
         {/* Внешний тайл Esri — обычный <img> (без next/image-домена/оптимизатора). */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={src} alt="" className="h-full w-full object-cover" loading="lazy" />
+        <img src={src} alt="" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
         {/* Пин по центру */}
         <span className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-full drop-shadow-lg">
           <MapPin className="h-8 w-8 fill-brass-500/90 text-cream-50" strokeWidth={1.5} />

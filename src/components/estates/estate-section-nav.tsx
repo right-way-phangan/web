@@ -55,8 +55,8 @@ export function EstateSectionNav({ sections, enquireLabel, availabilityLabel }: 
   };
 
   return (
-    <div className="sticky top-16 z-30 -mx-4 mt-8 border-y border-forest-500/10 bg-cream-50/85 px-4 backdrop-blur-md print:hidden">
-      <nav className="flex items-center gap-1 overflow-x-auto py-2.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+    <div className="sticky top-[4.5rem] z-30 mt-8 md:top-[5.5rem] print:hidden">
+      <nav className="flex items-center gap-1 overflow-x-auto rounded-full border border-forest-500/12 bg-cream-50/92 px-2 py-1.5 shadow-[0_6px_24px_-12px_rgba(31,58,46,0.45)] backdrop-blur-md [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {sections.map((s) => (
           <a
             key={s.id}

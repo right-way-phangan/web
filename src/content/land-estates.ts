@@ -265,7 +265,6 @@ export const LAND_ESTATES: LandEstate[] = [
           ru: "Вид на море из верхней части, тихий конец кольцевой дороги.",
         },
         photos: [
-          "/images/estates/haad-yao-hillside/r10-1.jpg",
           "/images/estates/haad-yao-hillside/r10-2.jpg",
           "/images/estates/haad-yao-hillside/r10-3.jpg",
           "/images/estates/haad-yao-hillside/r10-4.jpg",
@@ -319,7 +318,6 @@ export const LAND_ESTATES: LandEstate[] = [
           "/images/estates/haad-yao-hillside/m2-3.jpg",
           "/images/estates/haad-yao-hillside/m2-4.jpg",
           "/images/estates/haad-yao-hillside/m2-5.jpg",
-          "/images/estates/haad-yao-hillside/m2-6.jpg",
         ],
       },
       {
@@ -350,7 +348,6 @@ export const LAND_ESTATES: LandEstate[] = [
         },
         photos: [
           "/images/estates/haad-yao-hillside/m5-1.jpg",
-          "/images/estates/haad-yao-hillside/m5-2.jpg",
           "/images/estates/haad-yao-hillside/m5-3.jpg",
           "/images/estates/haad-yao-hillside/m5-4.jpg",
           "/images/estates/haad-yao-hillside/m5-5.jpg",
@@ -396,7 +393,6 @@ export const LAND_ESTATES: LandEstate[] = [
           "/images/estates/haad-yao-hillside/m7-3.jpg",
           "/images/estates/haad-yao-hillside/m7-4.jpg",
           "/images/estates/haad-yao-hillside/m7-5.jpg",
-          "/images/estates/haad-yao-hillside/m7-6.jpg",
         ],
       },
       {
@@ -412,7 +408,6 @@ export const LAND_ESTATES: LandEstate[] = [
           ru: "Компактный лот ряда M; вид на горы и долину. Чанот уточняется.",
         },
         photos: [
-          "/images/estates/haad-yao-hillside/m8-1.jpg",
           "/images/estates/haad-yao-hillside/m8-2.jpg",
           "/images/estates/haad-yao-hillside/m8-3.jpg",
           "/images/estates/haad-yao-hillside/m8-4.jpg",
@@ -440,7 +435,6 @@ export const LAND_ESTATES: LandEstate[] = [
           ru: "Вид на горы. Перевод в чанот ещё идёт — пока титул в составе родительского (проверить до резерва).",
         },
         photos: [
-          "/images/estates/haad-yao-hillside/m10-1.jpg",
           "/images/estates/haad-yao-hillside/m10-2.jpg",
           "/images/estates/haad-yao-hillside/m10-3.jpg",
           "/images/estates/haad-yao-hillside/m10-4.jpg",
