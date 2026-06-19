@@ -9,6 +9,8 @@ interface Props {
   estate: LandEstate;
   locale: Locale;
   hovered: string | null;
+  /** Выбранный лот (открыт драуэр) — подсвечивается, остальные приглушаются. */
+  selected?: string | null;
   onHover: (code: string | null) => void;
   onSelect: (code: string) => void;
 }
@@ -29,14 +31,15 @@ const CONTOURS = [
 
 /**
  * Стилизованная «аэро»-схема разбивки участка «в стиле RW» — выглядит как
- * настоящий мастер-план: процедурная текстура полога (feTurbulence) как
- * подложка-склон, белые контуры лотов с мягкими тенями, лейбл-чипы у свободных,
- * дороги-коридоры, стрелка севера, солнце на закатной/морской стороне и картуш
- * с названием. Цвета — через <defs>-градиенты (Tailwind fill-opacity для SVG
- * ненадёжен). Наведение/клик синхронизированы с таблицей/драуэром; лоты
- * проявляются каскадом при выходе в кадр. Геометрия — схема (не кадастр).
+ * настоящий мастер-план: мягкая текстура полога (feTurbulence) подложкой-склоном,
+ * тонкие тёплые контуры лотов, аккуратные лейбл-чипы, дороги-коридоры, стрелка
+ * севера, солнце на закатной/морской стороне и картуш с названием. Цвета — через
+ * <defs>-градиенты (Tailwind fill-opacity для SVG ненадёжен). Наведение/выбор
+ * синхронизированы с таблицей/драуэром: выбранный лот подсвечивается брасс-
+ * свечением, остальные деликатно приглушаются (спот-эффект). Браузерный фокус-
+ * ринг подавлен — рисуем собственную индикацию. Геометрия — схема (не кадастр).
  */
-export function EstateSitePlan({ estate, locale, hovered, onHover, onSelect }: Props) {
+export function EstateSitePlan({ estate, locale, hovered, selected, onHover, onSelect }: Props) {
   const t = getEstatesDict(locale);
   const plan = estate.plan;
   const lots = estate.plots.filter((p) => p.plotShape && p.plotShape.length >= 3);
@@ -69,64 +72,72 @@ export function EstateSitePlan({ estate, locale, hovered, onHover, onSelect }: P
     obs.observe(el);
     return () => obs.disconnect();
   }, []);
-  const reveal = (i: number): React.CSSProperties =>
-    phase === "ready"
-      ? {}
-      : phase === "hidden"
-        ? { opacity: 0 }
-        : { opacity: 1, transition: `opacity 0.5s ease ${0.04 * i}s` };
 
   if (!plan || lots.length === 0) return null;
 
   const [, , vbW, vbH] = plan.viewBox.split(/\s+/).map(Number);
   const seaSide = plan.seaSide ?? "left";
   const title = estate.name[locale].split("—")[0].trim();
+  const anySel = Boolean(selected);
   const statusesPresent = (["available", "reserved", "sold", "rented"] as PlotStatus[]).filter(
     (s) => estate.plots.some((p) => p.status === s),
   );
   const legendFill: Record<PlotStatus, string> = {
-    available: "rgba(199,121,41,0.4)",
+    available: "rgba(199,121,41,0.42)",
     reserved: "rgba(199,121,41,0.18)",
-    sold: "rgba(31,58,46,0.34)",
-    rented: "rgba(31,58,46,0.45)",
+    sold: "rgba(31,58,46,0.32)",
+    rented: "rgba(31,58,46,0.44)",
+  };
+
+  // Стиль группы лота: проявление каскадом + приглушение невыбранных (спот).
+  const groupStyle = (i: number, dimmed: boolean): React.CSSProperties => {
+    if (phase === "hidden") return { opacity: 0, outline: "none" };
+    const op = dimmed ? 0.4 : 1;
+    if (phase === "ready") return { opacity: op, outline: "none" };
+    return { opacity: op, transition: `opacity 0.45s ease ${Math.min(i, 9) * 0.04}s`, outline: "none" };
   };
 
   return (
     <figure ref={figRef} className="overflow-hidden rounded-sm border border-forest-500/15 bg-cream-50 shadow-md">
       <svg viewBox={plan.viewBox} className="block w-full select-none" role="img" aria-label={t.sections.plan}>
         <defs>
-          <radialGradient id="esp-bg" cx="34%" cy="22%" r="100%">
-            <stop offset="0%" stopColor="#F4ECDB" />
-            <stop offset="60%" stopColor="#E7DCC6" />
-            <stop offset="100%" stopColor="#D9CDB2" />
+          <radialGradient id="esp-bg" cx="33%" cy="20%" r="105%">
+            <stop offset="0%" stopColor="#F6EFDF" />
+            <stop offset="58%" stopColor="#E9DEC9" />
+            <stop offset="100%" stopColor="#D7CBB0" />
           </radialGradient>
-          {/* Процедурная текстура полога/склона — мягкое «аэро»-ощущение без растра. */}
+          {/* Мягкая процедурная текстура полога/склона — «аэро» без растра. */}
           <filter id="esp-canopy" x="0" y="0" width="100%" height="100%">
-            <feTurbulence type="fractalNoise" baseFrequency="0.028 0.045" numOctaves="4" seed="11" result="n" />
-            <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.21  0 0 0 0 0.34  0 0 0 0 0.20  0 0 0 0.3 0" />
-            <feGaussianBlur stdDeviation="0.25" />
+            <feTurbulence type="fractalNoise" baseFrequency="0.021 0.036" numOctaves="4" seed="11" result="n" />
+            <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.23  0 0 0 0 0.35  0 0 0 0 0.22  0 0 0 0.16 0" />
+            <feGaussianBlur stdDeviation="0.45" />
           </filter>
-          <linearGradient id="esp-avail" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#E7B57F" stopOpacity="0.5" />
-            <stop offset="100%" stopColor="#B5651D" stopOpacity="0.2" />
+          <linearGradient id="esp-avail" x1="0" y1="0" x2="0.25" y2="1">
+            <stop offset="0%" stopColor="#E9B981" stopOpacity="0.52" />
+            <stop offset="100%" stopColor="#BB6C22" stopOpacity="0.24" />
           </linearGradient>
-          <linearGradient id="esp-availH" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#EFAE63" stopOpacity="0.82" />
-            <stop offset="100%" stopColor="#B5651D" stopOpacity="0.5" />
+          <linearGradient id="esp-availH" x1="0" y1="0" x2="0.25" y2="1">
+            <stop offset="0%" stopColor="#F1B468" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#BB6C22" stopOpacity="0.56" />
           </linearGradient>
-          <linearGradient id="esp-reserved" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#C77929" stopOpacity="0.32" />
-            <stop offset="100%" stopColor="#C77929" stopOpacity="0.12" />
+          <linearGradient id="esp-reserved" x1="0" y1="0" x2="0.25" y2="1">
+            <stop offset="0%" stopColor="#C77929" stopOpacity="0.34" />
+            <stop offset="100%" stopColor="#C77929" stopOpacity="0.13" />
           </linearGradient>
-          <linearGradient id="esp-sold" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#33543F" stopOpacity="0.34" />
+          <linearGradient id="esp-sold" x1="0" y1="0" x2="0.25" y2="1">
+            <stop offset="0%" stopColor="#33543F" stopOpacity="0.32" />
             <stop offset="100%" stopColor="#1F3A2E" stopOpacity="0.2" />
           </linearGradient>
+          {/* Тончайшая тень лотов */}
           <filter id="esp-sh" x="-20%" y="-20%" width="140%" height="140%">
-            <feDropShadow dx="0" dy="0.35" stdDeviation="0.45" floodColor="#16271E" floodOpacity="0.22" />
+            <feDropShadow dx="0" dy="0.3" stdDeviation="0.38" floodColor="#16271E" floodOpacity="0.18" />
+          </filter>
+          {/* Свечение выбранного лота (брасс) */}
+          <filter id="esp-sel" x="-60%" y="-60%" width="220%" height="220%">
+            <feDropShadow dx="0" dy="0" stdDeviation="1.15" floodColor="#C77929" floodOpacity="0.6" />
           </filter>
           <filter id="esp-csh" x="-50%" y="-50%" width="200%" height="200%">
-            <feDropShadow dx="0" dy="0.25" stdDeviation="0.4" floodColor="#16271E" floodOpacity="0.22" />
+            <feDropShadow dx="0" dy="0.22" stdDeviation="0.35" floodColor="#16271E" floodOpacity="0.2" />
           </filter>
           <radialGradient id="esp-sun" cx="50%" cy="50%" r="50%">
             <stop offset="0%" stopColor="#F6CE84" />
@@ -135,19 +146,19 @@ export function EstateSitePlan({ estate, locale, hovered, onHover, onSelect }: P
           </radialGradient>
         </defs>
 
-        {/* Подложка-склон: градиент + текстура полога + горизонтали рельефа */}
+        {/* Подложка-склон: градиент + мягкая текстура полога + горизонтали рельефа */}
         <rect x="0" y="0" width="100%" height="100%" fill="url(#esp-bg)" />
         <rect x="0" y="0" width="100%" height="100%" fill="#3a5a40" filter="url(#esp-canopy)" />
         {CONTOURS.map((d, i) => (
-          <path key={`c${i}`} d={d} fill="none" stroke="#1F3A2E" strokeOpacity={0.07} strokeWidth={0.5} />
+          <path key={`c${i}`} d={d} fill="none" stroke="#1F3A2E" strokeOpacity={0.06} strokeWidth={0.4} />
         ))}
 
-        {/* Дороги — коридором (мягкая обочина + светлая сплошная середина) */}
+        {/* Дороги — тонким коридором (мягкая обочина + светлая сплошная середина) */}
         {plan.roads?.map((d, i) => (
-          <path key={`rc${i}`} d={d} fill="none" stroke="#C9BD9F" strokeOpacity={0.85} strokeWidth={4} strokeLinecap="round" strokeLinejoin="round" style={reveal(0)} />
+          <path key={`rc${i}`} d={d} fill="none" stroke="#C7BB9C" strokeOpacity={0.62} strokeWidth={3.1} strokeLinecap="round" strokeLinejoin="round" />
         ))}
         {plan.roads?.map((d, i) => (
-          <path key={`rm${i}`} d={d} fill="none" stroke="#F1EAD8" strokeWidth={2.1} strokeLinecap="round" strokeLinejoin="round" style={reveal(0)} />
+          <path key={`rm${i}`} d={d} fill="none" stroke="#F2ECDB" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" />
         ))}
 
         {/* Лоты */}
@@ -155,18 +166,23 @@ export function EstateSitePlan({ estate, locale, hovered, onHover, onSelect }: P
           const pts = p.plotShape!;
           const [cx, cy] = centroid(pts);
           const isHover = hovered === p.code;
+          const isSel = selected === p.code;
+          const isActive = isHover || isSel;
+          const dimmed = anySel && !isSel;
           const pointsAttr = pts.map((pt) => pt.join(",")).join(" ");
           const fill =
             p.status === "available"
-              ? isHover ? "url(#esp-availH)" : "url(#esp-avail)"
+              ? isActive ? "url(#esp-availH)" : "url(#esp-avail)"
               : p.status === "reserved" ? "url(#esp-reserved)" : "url(#esp-sold)";
+          const stroke = isSel ? "#C77929" : isHover ? "#FFFFFF" : "#FBF7EE";
+          const strokeWidth = isSel ? 0.6 : isHover ? 0.46 : 0.26;
           const showChip = p.status === "available" || p.status === "reserved";
-          const chipW = 12.5;
-          const chipH = p.areaSqm ? 8 : 5;
+          const chipW = 11.8;
+          const chipH = p.areaSqm ? 7.4 : 4.8;
           return (
             <g
               key={p.code}
-              className="cursor-pointer"
+              className="cursor-pointer [outline:none] focus:outline-none focus-visible:outline-none"
               onMouseEnter={() => onHover(p.code)}
               onMouseLeave={() => onHover(null)}
               onClick={() => onSelect(p.code)}
@@ -181,19 +197,19 @@ export function EstateSitePlan({ estate, locale, hovered, onHover, onSelect }: P
               tabIndex={0}
               role="button"
               aria-label={`${p.code} — ${t.status[p.status]}`}
-              style={reveal(idx)}
+              style={groupStyle(idx, dimmed)}
             >
               <polygon
                 points={pointsAttr}
-                filter="url(#esp-sh)"
+                filter={isSel ? "url(#esp-sel)" : "url(#esp-sh)"}
                 style={{
                   fill,
-                  stroke: "#FBF7EE",
-                  strokeWidth: isHover ? 0.85 : 0.42,
-                  strokeOpacity: p.status === "sold" ? 0.5 : isHover ? 1 : 0.85,
+                  stroke,
+                  strokeWidth,
+                  strokeOpacity: p.status === "sold" ? 0.45 : isActive ? 1 : 0.8,
                   strokeLinejoin: "round",
-                  ...(p.status === "reserved" ? { strokeDasharray: "1.6 1.2" } : {}),
-                  transition: "fill 140ms, stroke-width 140ms, stroke-opacity 140ms",
+                  ...(p.status === "reserved" ? { strokeDasharray: "1.4 1.1" } : {}),
+                  transition: "fill 160ms, stroke 160ms, stroke-width 160ms, stroke-opacity 160ms",
                 }}
               />
               {showChip ? (
@@ -204,32 +220,32 @@ export function EstateSitePlan({ estate, locale, hovered, onHover, onSelect }: P
                       y={cy - chipH / 2}
                       width={chipW}
                       height={chipH}
-                      rx={1.2}
+                      rx={1.4}
                       style={{
-                        fill: isHover ? "#FFFDF8" : "#FCF9F2",
-                        fillOpacity: 0.96,
-                        stroke: "#B5651D",
-                        strokeOpacity: isHover ? 0.55 : 0.28,
-                        strokeWidth: 0.22,
-                        transition: "fill 140ms",
+                        fill: isSel ? "#FBEFD9" : isHover ? "#FFFDF8" : "#FCF9F2",
+                        fillOpacity: 0.97,
+                        stroke: isSel ? "#C77929" : "#1F3A2E",
+                        strokeOpacity: isSel ? 0.5 : 0.14,
+                        strokeWidth: 0.16,
+                        transition: "fill 160ms, stroke 160ms",
                       }}
                     />
                   </g>
-                  <text x={cx} y={p.areaSqm ? cy - 0.3 : cy + 1.2} textAnchor="middle" style={{ fill: "#1F3A2E", fontSize: 3.5, fontWeight: 600, letterSpacing: 0.2 }}>
+                  <text x={cx} y={p.areaSqm ? cy - 0.4 : cy + 1.1} textAnchor="middle" style={{ fill: isSel ? "#8A5418" : "#1F3A2E", fontSize: 3.3, fontWeight: 600, letterSpacing: 0.2 }}>
                     {p.code}
                   </text>
                   {p.areaSqm ? (
-                    <text x={cx} y={cy + 3.1} textAnchor="middle" style={{ fill: "#9B7A47", fontSize: 2, fontWeight: 400 }}>
+                    <text x={cx} y={cy + 2.9} textAnchor="middle" style={{ fill: "#9B7A47", fontSize: 1.95, fontWeight: 400, letterSpacing: 0.1 }}>
                       {p.areaSqm.toLocaleString(locale === "ru" ? "ru-RU" : "en-US")} m²
                     </text>
                   ) : null}
                 </>
               ) : (
                 <>
-                  <text x={cx} y={cy - 0.4} textAnchor="middle" style={{ fill: "#EDF2ED", fontSize: 3.5, fontWeight: 600, opacity: 0.85 }}>
+                  <text x={cx} y={cy - 0.4} textAnchor="middle" style={{ fill: "#EDF2ED", fontSize: 3.3, fontWeight: 600, opacity: 0.82 }}>
                     {p.code}
                   </text>
-                  <text x={cx} y={cy + 2.8} textAnchor="middle" style={{ fill: "#EDF2ED", fontSize: 1.9, letterSpacing: 0.6, opacity: 0.62 }}>
+                  <text x={cx} y={cy + 2.7} textAnchor="middle" style={{ fill: "#EDF2ED", fontSize: 1.85, letterSpacing: 0.7, opacity: 0.6 }}>
                     {t.status[p.status].toUpperCase()}
                   </text>
                 </>
@@ -242,8 +258,8 @@ export function EstateSitePlan({ estate, locale, hovered, onHover, onSelect }: P
 
         {/* Стрелка севера (правый верх) */}
         <g aria-hidden transform={`translate(${vbW - 7.5}, 11)`}>
-          <polygon points="0,-5.4 -2.1,1.8 0,0.2 2.1,1.8" fill="#1F3A2E" fillOpacity={0.82} />
-          <text x={0} y={6.2} textAnchor="middle" style={{ fill: "#1F3A2E", fillOpacity: 0.82, fontSize: 3, fontWeight: 600 }}>
+          <polygon points="0,-5 -1.9,1.6 0,0.3 1.9,1.6" fill="#1F3A2E" fillOpacity={0.8} />
+          <text x={0} y={5.8} textAnchor="middle" style={{ fill: "#1F3A2E", fillOpacity: 0.8, fontSize: 2.8, fontWeight: 600 }}>
             N
           </text>
         </g>
@@ -251,12 +267,12 @@ export function EstateSitePlan({ estate, locale, hovered, onHover, onSelect }: P
         {/* Картуш с названием (левый низ) */}
         <g aria-hidden>
           <g filter="url(#esp-csh)">
-            <rect x={5} y={vbH - 12.5} width={54} height={8.6} rx={1.2} fill="#1F3A2E" opacity={0.88} />
+            <rect x={5} y={vbH - 12} width={52} height={8.2} rx={1.4} fill="#1F3A2E" opacity={0.9} />
           </g>
-          <text x={8} y={vbH - 8.1} className="font-serif" style={{ fill: "#F4C879", fontSize: 3, letterSpacing: 0.5 }}>
+          <text x={8} y={vbH - 7.8} className="font-serif" style={{ fill: "#F4C879", fontSize: 3, letterSpacing: 0.4 }}>
             {title}
           </text>
-          <text x={8} y={vbH - 5} style={{ fill: "#E8E0CF", fontSize: 1.9, opacity: 0.78 }}>
+          <text x={8} y={vbH - 4.8} style={{ fill: "#E8E0CF", fontSize: 1.85, opacity: 0.76 }}>
             {locale === "ru" ? "ориентировочная разбивка · не в масштабе" : "indicative subdivision · not to scale"}
           </text>
         </g>
@@ -292,7 +308,7 @@ function Sun({ side, vbW, vbH, label }: { side: string; vbW: number; vbH: number
           : { x: vbW * 0.5, y: vbH - 12, lx: vbW * 0.5, ly: vbH - 24, anchor: "middle" as const };
   const rays = [];
   for (let a = 0; a < 360; a += 45) {
-    const rad = (a * Math.PI) / 180, r0 = 3.8, r1 = 5.3;
+    const rad = (a * Math.PI) / 180, r0 = 3.6, r1 = 5;
     rays.push(
       <line
         key={a}
@@ -301,17 +317,17 @@ function Sun({ side, vbW, vbH, label }: { side: string; vbW: number; vbH: number
         x2={pos.x + r1 * Math.cos(rad)}
         y2={pos.y + r1 * Math.sin(rad)}
         stroke="#E0922F"
-        strokeWidth={0.6}
+        strokeWidth={0.5}
         strokeLinecap="round"
       />,
     );
   }
   return (
     <g aria-hidden>
-      <circle cx={pos.x} cy={pos.y} r={9.5} fill="url(#esp-sun)" />
-      <circle cx={pos.x} cy={pos.y} r={2.6} fill="#E0922F" />
+      <circle cx={pos.x} cy={pos.y} r={9} fill="url(#esp-sun)" />
+      <circle cx={pos.x} cy={pos.y} r={2.4} fill="#E0922F" />
       {rays}
-      <text x={pos.lx} y={pos.ly} textAnchor={pos.anchor} style={{ fill: "#7A4E18", fontSize: 2.9, fontWeight: 600, letterSpacing: 0.2 }}>
+      <text x={pos.lx} y={pos.ly} textAnchor={pos.anchor} style={{ fill: "#7A4E18", fontSize: 2.8, fontWeight: 600, letterSpacing: 0.2 }}>
         {label}
       </text>
     </g>

@@ -109,7 +109,7 @@ export function EstateExplorer({ estate, locale }: Props) {
               {planMode === "satellite" && estate.lat && estate.lng ? (
                 <EstateSatelliteView lat={estate.lat} lng={estate.lng} mapsUrl={estate.locationUrl} locale={locale} />
               ) : (
-                <EstateSitePlan estate={estate} locale={locale} hovered={hovered} onHover={setHovered} onSelect={setDrawerLot} />
+                <EstateSitePlan estate={estate} locale={locale} hovered={hovered} selected={drawerLot} onHover={setHovered} onSelect={setDrawerLot} />
               )}
             </div>
           </section>
