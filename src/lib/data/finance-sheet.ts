@@ -351,25 +351,39 @@ export async function appendTransactionToSheet(input: AppendTxInput): Promise<Ap
 
 // ── Кассы (лист Wallets) ────────────────────────────────────────────────────
 //
-// Колонки: Касса (личное/бизнес) · Баланс · Дата (as-of, ISO). Ровно две строки.
-// Стартовые остатки правятся через /admin/finance/wallets; траты вычитаются в
-// finance.ts (walletState). Лист создаётся при первой записи.
+// Колонки: Касса · ฿ (THB) · ₽ (RUB) · $ (USD) · Дата (as-of, ISO). Две строки.
+// Наличка по валютам; старт = их сумма в THB по курсу (finance.ts walletStates).
+// Правится через /admin/finance/wallets. Лист создаётся при первой записи.
+// Старый формат (Касса · Баланс · Дата) читается как ฿=Баланс, ₽/$=0.
 
 const WALLETS_SHEET = "Wallets";
-const WALLETS_HEADER = ["Касса", "Баланс", "Дата"];
+const WALLETS_HEADER = ["Касса", "฿ (THB)", "₽ (RUB)", "$ (USD)", "Дата"];
 
-/** Читает кассы из листа Wallets. null → касс нет (нет env/листа). */
+const isISODate = (s: string) => /^\d{4}-\d{2}-\d{2}/.test(s.trim());
+
+/** Читает кассы из листа Wallets (новый 5-кол. или старый 3-кол. формат). null → нет. */
 export async function loadWalletsFromSheet(): Promise<Wallet[] | null> {
   const token = await getAccessToken();
   if (!token) return null;
-  const rows = await getRange(token, `${WALLETS_SHEET}!A2:C`);
+  const rows = await getRange(token, `${WALLETS_SHEET}!A2:E`);
   if (rows == null) return null;
   const out: Wallet[] = [];
   for (const r of rows) {
     const name = (r[0] ?? "").trim().toLowerCase();
     if (!name) continue;
     const scope: TxScope = name.startsWith("биз") ? "бизнес" : "личное";
-    out.push({ scope, balance: num(r[1]), asOf: (r[2] ?? "").trim() || bangkokToday() });
+    // Старый формат: колонка C — дата (Касса·Баланс·Дата). Новый: C=₽, D=$, E=дата.
+    if (isISODate(r[2] ?? "")) {
+      out.push({ scope, thb: num(r[1]), rub: 0, usd: 0, asOf: (r[2] ?? "").trim() });
+    } else {
+      out.push({
+        scope,
+        thb: num(r[1]),
+        rub: num(r[2]),
+        usd: num(r[3]),
+        asOf: (r[4] ?? "").trim() || bangkokToday(),
+      });
+    }
   }
   return out;
 }
@@ -391,19 +405,25 @@ async function ensureWalletsSheet(token: string): Promise<void> {
   });
 }
 
-/** Перезаписывает обе кассы (личное/бизнес) с сегодняшней датой as-of. */
+export type WalletCash = { thb: number; rub: number; usd: number };
+
+/** Перезаписывает обе кассы (личное/бизнес, наличка ฿/₽/$) с сегодняшней датой as-of. */
 export async function updateWalletsInSheet(
-  personal: number,
-  business: number,
+  personal: WalletCash,
+  business: WalletCash,
 ): Promise<{ ok: boolean; error?: string }> {
   const token = await getAccessToken(SCOPE_WRITE);
   if (!token) return { ok: false, error: "no-credentials" };
   const today = bangkokToday();
-  const values = [WALLETS_HEADER, ["личное", personal, today], ["бизнес", business, today]];
+  const values = [
+    WALLETS_HEADER,
+    ["личное", personal.thb, personal.rub, personal.usd, today],
+    ["бизнес", business.thb, business.rub, business.usd, today],
+  ];
   const put = () =>
     fetch(
       `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/` +
-        `${encodeURIComponent(`${WALLETS_SHEET}!A1:C3`)}?valueInputOption=USER_ENTERED`,
+        `${encodeURIComponent(`${WALLETS_SHEET}!A1:E3`)}?valueInputOption=USER_ENTERED`,
       {
         method: "PUT",
         headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },

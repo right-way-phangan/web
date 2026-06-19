@@ -3,7 +3,8 @@ import Link from "next/link";
 import { AdminNav } from "@/components/admin/admin-nav";
 import { WalletsForm } from "@/components/admin/wallets-form";
 import { loadTransactionsFromSheet, loadWalletsFromSheet } from "@/lib/data/finance-sheet";
-import { bangkokToday, walletFor, walletStates, fmtTHB } from "@/lib/data/finance";
+import { getLiveRatesTHB } from "@/lib/data/fx-live";
+import { bangkokToday, walletFor, walletStates, fmtTHB, FX, type Currency } from "@/lib/data/finance";
 
 export const metadata: Metadata = {
   title: "Кассы",
@@ -23,18 +24,18 @@ export default async function WalletsPage({
   searchParams: Promise<{ err?: string }>;
 }) {
   const { err } = await searchParams;
-  const [txSheet, walletsSheet] = await Promise.all([
+  const [txSheet, walletsSheet, live] = await Promise.all([
     loadTransactionsFromSheet(),
     loadWalletsFromSheet(),
+    getLiveRatesTHB(),
   ]);
   const allTx = txSheet ?? [];
   const today = bangkokToday();
   const wallets = walletsSheet ?? [];
-  const { personal, business } = walletStates(
-    walletFor("личное", wallets, today),
-    walletFor("бизнес", wallets, today),
-    allTx,
-  );
+  const fxDisp: Record<Currency, number> = { ...FX, RUB: live?.RUB ?? FX.RUB };
+  const personalRaw = walletFor("личное", wallets, today);
+  const businessRaw = walletFor("бизнес", wallets, today);
+  const { personal, business } = walletStates(personalRaw, businessRaw, allTx, fxDisp);
 
   return (
     <section className="px-4 py-8 md:px-8">
@@ -54,7 +55,10 @@ export default async function WalletsPage({
             {ERR[err]}
           </p>
         )}
-        <WalletsForm defaultPersonal={personal.current} defaultBusiness={business.current} />
+        <WalletsForm
+          personal={{ thb: personalRaw.thb, rub: personalRaw.rub, usd: personalRaw.usd }}
+          business={{ thb: businessRaw.thb, rub: businessRaw.rub, usd: businessRaw.usd }}
+        />
         <Link
           href="/admin/finance"
           className="mt-4 inline-block text-sm text-forest-900/55 hover:text-brass-600"
