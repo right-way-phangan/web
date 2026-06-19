@@ -13,6 +13,7 @@
  */
 import { SignJWT, importPKCS8 } from "jose";
 import { FX, bangkokToday } from "./finance";
+import { getLiveRatesTHB } from "./fx-live";
 import type {
   Subscription,
   LedgerEntry,
@@ -304,12 +305,27 @@ export type AppendTxInput = {
 
 export type AppendTxResult = { ok: boolean; thb?: number; date?: string; error?: string };
 
+/**
+ * THB-эквивалент траты, замороженный по курсу НА МОМЕНТ записи (best practice
+ * мультивалютных трекеров: исторические строки не должны «плыть» при изменении
+ * курса). Живой рыночный курс (open.er-api.com, free/без ключа, кэш 6 ч);
+ * при недоступности — статичный учётный FX из finance.ts. THB-в-THB не трогаем.
+ * NB: учётный FX остаётся базой для предоплаченных сумм OpEx/Ledger — здесь же
+ * фиксируем реальную разовую трату наличными, ей нужен курс дня.
+ */
+async function thbAtEntry(amountOrig: number, currency: Currency): Promise<number> {
+  if (currency === "THB") return Math.round(amountOrig);
+  const live = await getLiveRatesTHB();
+  const rate = live?.[currency] ?? FX[currency] ?? 1; // THB за 1 единицу валюты
+  return Math.round(amountOrig * rate);
+}
+
 /** Добавляет строку траты в лист Transactions (write-scope). Создаёт лист при нужде. */
 export async function appendTransactionToSheet(input: AppendTxInput): Promise<AppendTxResult> {
   const token = await getAccessToken(SCOPE_WRITE);
   if (!token) return { ok: false, error: "no-credentials" };
 
-  const thb = Math.round(input.amountOrig * (FX[input.currency] ?? 1));
+  const thb = await thbAtEntry(input.amountOrig, input.currency);
   const date = bangkokToday();
   const row = [
     date,
