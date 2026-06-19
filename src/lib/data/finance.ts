@@ -159,6 +159,26 @@ export function receivablesTotal(rec: Receivable[] = receivables): number {
   return rec.reduce((s, r) => s + r.thb, 0);
 }
 
+export type ReceivablesSummary = {
+  count: number;
+  total: number;
+  nearest: Receivable | null;
+  items: Receivable[]; // по сроку
+};
+
+/** Свод дебиторки: счёт, общий остаток, ближайший по сроку, список по сроку. */
+export function receivablesSummary(rec: Receivable[]): ReceivablesSummary {
+  const items = [...rec]
+    .filter((r) => r.thb > 0)
+    .sort((a, b) => (a.due || "9999").localeCompare(b.due || "9999"));
+  return {
+    count: items.length,
+    total: Math.round(items.reduce((s, r) => s + r.thb, 0)),
+    nearest: items[0] ?? null,
+    items,
+  };
+}
+
 /** Просроченная (взыскать сейчас) дебиторка, THB. */
 export function receivablesOverdue(rec: Receivable[] = receivables): number {
   return rec.filter((r) => r.status === "overdue").reduce((s, r) => s + r.thb, 0);
