@@ -265,6 +265,16 @@ export default async function FinancePage({
     fxDisp,
   );
   const debtSum = debtsSummary(debtsSheet ?? [], fxDisp);
+  // Симулятор первой сделки: комиссия → месяцы runway + закрытие долгов людям.
+  const peopleDebtThb = (debtsSheet ?? [])
+    .filter((d) => d.type.toLowerCase().startsWith("люди") && d.remaining > 0)
+    .reduce((s, d) => s + d.remaining * (fxDisp[d.currency] ?? 1), 0);
+  const dealScenarios = [500_000, 750_000, 1_000_000].map((commission) => ({
+    commission,
+    months: netBurn > 0 ? commission / netBurn : null,
+    clearsPeople: peopleDebtThb > 0 && commission >= peopleDebtThb,
+    afterPeople: Math.max(commission - peopleDebtThb, 0),
+  }));
   const debtSymbols: Record<string, string> = { THB: "฿", RUB: "₽", USD: "$", EUR: "€" };
   const debtByCur = Object.entries(debtSum.byCurrency)
     .map(([c, v]) => `${new Intl.NumberFormat("ru-RU").format(Math.round(v as number))} ${debtSymbols[c] ?? c}`)
@@ -615,6 +625,39 @@ export default async function FinancePage({
         включает личные долговые обязательства (содержание детей, кредиты, налоги) — они в проекте
         «Сам себе Я» и сильно больше; полную картину своди там.
       </p>
+      {netBurn > 0 && peopleDebtThb > 0 && (
+        <div className="mb-6 rounded-2xl border border-brass-500/30 bg-brass-500/[0.06] p-5">
+          <h3 className="text-xs font-semibold uppercase tracking-wide text-forest-900/55">
+            🚀 Первая сделка = личное выживание
+          </h3>
+          <p className="mt-1 text-xs text-forest-900/50">
+            Комиссия с одной сделки покрывает месяцы runway и закрывает долги людям одним заходом.
+          </p>
+          <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-3">
+            {dealScenarios.map((s) => (
+              <div key={s.commission} className="rounded-xl border border-forest-900/10 bg-panel p-4">
+                <p className="text-sm font-semibold text-forest-900">{money(s.commission)}</p>
+                <p className="mt-1 text-xs text-forest-900/60">
+                  {s.months != null ? `+${s.months.toFixed(1)} мес runway` : "—"}
+                </p>
+                <p className="mt-0.5 text-xs">
+                  {s.clearsPeople ? (
+                    <span className="text-emerald-600">
+                      ✅ закрывает всех людей + ещё {money(s.afterPeople)}
+                    </span>
+                  ) : (
+                    <span className="text-forest-900/45">часть людей (из {money(peopleDebtThb)})</span>
+                  )}
+                </p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-3 text-xs text-forest-900/45">
+            Поэтому первая сделка — не «бизнес-цель», а личное выживание. Долги людям сейчас:{" "}
+            {money(peopleDebtThb)}.
+          </p>
+        </div>
+      )}
       {!hasPersonal && (
         <div className="mb-8 rounded-2xl border border-dashed border-forest-900/15 bg-cream-50 p-6 text-sm text-forest-900/55">
           🔒 Личные цифры ведутся <strong>приватно</strong> — не в публичном репо. Заполни листы{" "}
