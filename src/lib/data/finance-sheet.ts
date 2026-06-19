@@ -26,6 +26,7 @@ import type {
   TxScope,
   Wallet,
   Debt,
+  Payment,
 } from "./finance";
 
 const SHEET_ID =
@@ -261,6 +262,27 @@ export async function loadTransactionsFromSheet(): Promise<Transaction[] | null>
         source: (r[8] ?? "").trim(),
       };
     });
+}
+
+const PAYMENTS_SHEET = "Payments";
+
+/** Читает лист Payments (дат-обязательства). null → секция платежей скрыта. */
+export async function loadPaymentsFromSheet(): Promise<Payment[] | null> {
+  const token = await getAccessToken();
+  if (!token) return null;
+  const rows = await getRange(token, `${PAYMENTS_SHEET}!A2:G`);
+  if (rows == null) return null;
+  return rows
+    .filter((r) => (r[0] ?? "").trim() && (r[1] ?? "").toString().trim())
+    .map((r) => ({
+      title: (r[0] ?? "").trim(),
+      amount: num(r[1]),
+      currency: mapCurrency(r[2] ?? ""),
+      day: (r[3] ?? "").toString().trim(),
+      recurrence: (r[4] ?? "").trim() || "разовый",
+      type: (r[5] ?? "").trim(),
+      note: (r[6] ?? "").trim(),
+    }));
 }
 
 const DEBTS_SHEET = "Debts";
