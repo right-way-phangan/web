@@ -6,6 +6,7 @@ import { Images } from "lucide-react";
 import type { EstatePlot } from "@/content/land-estates";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { BLUR_PLACEHOLDER } from "@/lib/utils/blur";
+import { estateThumb } from "@/lib/utils/thumb";
 import { PhotoLightbox } from "@/components/media/photo-lightbox";
 
 interface Props {
@@ -50,7 +51,7 @@ export function EstateLeadGallery({ photoPlots, estateName, locale }: Props) {
           className="group relative col-span-4 aspect-[16/10] overflow-hidden rounded-sm bg-forest-900/5"
         >
           <Image
-            src={hero.src}
+            src={estateThumb(hero.src)}
             alt={`${estateName} — ${hero.code}`}
             fill
             unoptimized
@@ -79,7 +80,7 @@ export function EstateLeadGallery({ photoPlots, estateName, locale }: Props) {
               className="group relative col-span-1 aspect-square overflow-hidden rounded-sm bg-forest-900/5"
             >
               <Image
-                src={tile.src}
+                src={estateThumb(tile.src)}
                 alt={`${estateName} — ${tile.code}`}
                 fill
                 unoptimized

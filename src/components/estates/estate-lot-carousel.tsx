@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, MoveHorizontal } from "lucide-react";
 import { BLUR_PLACEHOLDER } from "@/lib/utils/blur";
+import { estateThumb } from "@/lib/utils/thumb";
 
 interface Props {
   photos: string[];
@@ -104,7 +105,7 @@ export function EstateLotCarousel({
             className="relative h-full w-full shrink-0 snap-center"
           >
             <Image
-              src={src}
+              src={estateThumb(src)}
               alt={`${altPrefix} (${idx + 1})`}
               fill
               unoptimized
