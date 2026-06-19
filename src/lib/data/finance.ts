@@ -584,3 +584,59 @@ export function debtsSummary(debts: Debt[], fx: Record<Currency, number> = FX): 
   });
   return { creditors: active.length, byCurrency, thbTotal: Math.round(thbTotal), items };
 }
+
+// ── Календарь платежей (лист Payments) ──────────────────────────────────────
+// Дат-обязательства, чтобы ничего не застало врасплох (кредитка ₽4800 до 8-го,
+// Ксюша ₽100k 15-го). Периодичность: «ежемесячно» (по дню месяца) или «разовый»
+// (ISO-дата). Дашборд показывает ближайшие N дней + дни до списания.
+export type Payment = {
+  title: string;
+  amount: number;
+  currency: Currency;
+  day: string; // "08"/"15" (день месяца) или "2026-07-08" (разовый)
+  recurrence: string; // ежемесячно / разовый
+  type: string; // долг / дети / виза / софт …
+  note: string;
+};
+
+export type UpcomingPayment = Payment & { nextDate: string; daysUntil: number };
+
+function isoDate(d: Date): string {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
+function dayDiff(from: Date, to: Date): number {
+  return Math.round((to.getTime() - from.getTime()) / 86_400_000);
+}
+
+/** Ближайшая дата платежа от today. null — если разовый уже в прошлом. */
+export function nextPaymentDate(p: Payment, today: Date): { date: string; days: number } | null {
+  const rec = (p.recurrence || "").toLowerCase();
+  const raw = (p.day || "").trim();
+  if (rec.startsWith("ежемес") || /^\d{1,2}$/.test(raw)) {
+    const dom = parseInt(raw, 10);
+    if (!dom || dom < 1 || dom > 31) return null;
+    let d = new Date(today.getFullYear(), today.getMonth(), dom);
+    if (dayDiff(today, d) < 0) d = new Date(today.getFullYear(), today.getMonth() + 1, dom);
+    return { date: isoDate(d), days: dayDiff(today, d) };
+  }
+  const d = new Date(raw + "T00:00:00");
+  if (Number.isNaN(d.getTime())) return null;
+  const days = dayDiff(today, d);
+  return days < 0 ? null : { date: isoDate(d), days };
+}
+
+/** Платежи в ближайшие horizonDays дней, отсортированные по дате. */
+export function upcomingPayments(
+  payments: Payment[],
+  todayISO: string,
+  horizonDays = 45,
+): UpcomingPayment[] {
+  const today = new Date(todayISO + "T00:00:00");
+  const out: UpcomingPayment[] = [];
+  for (const p of payments) {
+    const occ = nextPaymentDate(p, today);
+    if (occ && occ.days <= horizonDays) out.push({ ...p, nextDate: occ.date, daysUntil: occ.days });
+  }
+  return out.sort((a, b) => a.daysUntil - b.daysUntil);
+}

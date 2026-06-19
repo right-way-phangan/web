@@ -39,6 +39,7 @@ import {
   walletFor,
   walletStates,
   debtsSummary,
+  upcomingPayments,
   fmtMoney,
   FX,
   FX_DATE,
@@ -54,6 +55,7 @@ import {
   loadTransactionsFromSheet,
   loadWalletsFromSheet,
   loadDebtsFromSheet,
+  loadPaymentsFromSheet,
 } from "@/lib/data/finance-sheet";
 import { getLeads, getEvents } from "@/lib/data/leads";
 import Link from "next/link";
@@ -133,7 +135,7 @@ export default async function FinancePage({
   const { cur: curParam, added, wallets: walletsSaved } = await searchParams;
   const cur: DisplayCurrency = curParam === "usd" ? "USD" : curParam === "rub" ? "RUB" : "THB";
 
-  const [live, sheet, runwaySheet, crmLeads, crmEvents, txSheet, walletsSheet, debtsSheet] =
+  const [live, sheet, runwaySheet, crmLeads, crmEvents, txSheet, walletsSheet, debtsSheet, paymentsSheet] =
     await Promise.all([
       getLiveRatesTHB(),
       loadFinanceFromSheet(),
@@ -143,6 +145,7 @@ export default async function FinancePage({
       loadTransactionsFromSheet(),
       loadWalletsFromSheet(),
       loadDebtsFromSheet(),
+      loadPaymentsFromSheet(),
     ]);
 
   // Рубли пересчитываем по живому рыночному курсу (переводы домой в ₽ — важен
@@ -215,6 +218,15 @@ export default async function FinancePage({
   const burnAfterCuts = combinedBurn - leversSaving;
   const dateFmt = (d: Date) =>
     d.toLocaleDateString("ru-RU", { day: "numeric", month: "short", year: "numeric" });
+
+  // Дни на наличные (острый runway) + календарь дат-платежей (лист Payments).
+  const cashDays = netBurn > 0 ? Math.round((cash / netBurn) * 30) : null;
+  const upcoming = upcomingPayments(paymentsSheet ?? [], bangkokToday(), 45);
+  const paySym: Record<string, string> = { THB: "฿", RUB: "₽", USD: "$", EUR: "€" };
+  const fmtCur2 = (n: number, c: string) =>
+    `${new Intl.NumberFormat("ru-RU").format(Math.round(n))} ${paySym[c] ?? c}`;
+  const dueLabel = (days: number) =>
+    days === 0 ? "сегодня" : days === 1 ? "завтра" : `через ${days} дн.`;
 
   // Дневник трат (лист Transactions): разрез личное/бизнес за текущий месяц.
   const allTx = txSheet ?? [];
@@ -486,7 +498,7 @@ export default async function FinancePage({
           value={outDate ? dateFmt(outDate) : income >= combinedBurn ? "не убывают" : "—"}
           hint={
             runway != null
-              ? `${runway.toFixed(1)} мес на наличные · без сбора долгов`
+              ? `${cashDays != null ? `≈${cashDays} дн · ` : ""}${runway.toFixed(1)} мес на наличные`
               : "впиши наличные"
           }
           negative
@@ -498,6 +510,38 @@ export default async function FinancePage({
           accent
         />
       </div>
+      {upcoming.length > 0 && (
+        <div className="mb-4 rounded-2xl border border-forest-900/10 bg-panel p-4">
+          <div className="mb-2 flex items-baseline justify-between">
+            <h3 className="text-xs font-semibold uppercase tracking-wide text-forest-900/50">
+              📅 Ближайшие платежи
+            </h3>
+            <span className="text-[11px] text-forest-900/40">чтобы ничего не застало врасплох</span>
+          </div>
+          <ul className="space-y-1.5">
+            {upcoming.map((p) => {
+              const soon = p.daysUntil <= 3;
+              return (
+                <li
+                  key={p.title + p.nextDate}
+                  className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5 text-sm"
+                >
+                  <span className="text-forest-900/80">
+                    <span className={soon ? "font-semibold text-red-600" : "text-forest-900/55"}>
+                      {dueLabel(p.daysUntil)}
+                    </span>{" "}
+                    · {p.title}
+                    {p.note && <span className="ml-1 text-xs text-forest-900/45">— {p.note}</span>}
+                  </span>
+                  <span className="shrink-0 font-medium tabular-nums text-forest-900">
+                    {fmtCur2(p.amount, p.currency)}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
       <div className="mb-4 flex flex-wrap items-center gap-x-4 gap-y-1 rounded-xl border border-forest-900/10 bg-cream-50 px-4 py-3 text-xs text-forest-900/60">
         <span className="font-medium text-forest-900/75">Рычаги экономии:</span>
         {savingsLevers.map((l) => (
