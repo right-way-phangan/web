@@ -38,6 +38,7 @@ import {
   bangkokToday,
   walletFor,
   walletStates,
+  debtsSummary,
   fmtMoney,
   FX,
   FX_DATE,
@@ -52,6 +53,7 @@ import {
   loadRunwayFromSheet,
   loadTransactionsFromSheet,
   loadWalletsFromSheet,
+  loadDebtsFromSheet,
 } from "@/lib/data/finance-sheet";
 import { getLeads, getEvents } from "@/lib/data/leads";
 import Link from "next/link";
@@ -131,15 +133,17 @@ export default async function FinancePage({
   const { cur: curParam, added, wallets: walletsSaved } = await searchParams;
   const cur: DisplayCurrency = curParam === "usd" ? "USD" : curParam === "rub" ? "RUB" : "THB";
 
-  const [live, sheet, runwaySheet, crmLeads, crmEvents, txSheet, walletsSheet] = await Promise.all([
-    getLiveRatesTHB(),
-    loadFinanceFromSheet(),
-    loadRunwayFromSheet(),
-    getLeads(),
-    getEvents(500),
-    loadTransactionsFromSheet(),
-    loadWalletsFromSheet(),
-  ]);
+  const [live, sheet, runwaySheet, crmLeads, crmEvents, txSheet, walletsSheet, debtsSheet] =
+    await Promise.all([
+      getLiveRatesTHB(),
+      loadFinanceFromSheet(),
+      loadRunwayFromSheet(),
+      getLeads(),
+      getEvents(500),
+      loadTransactionsFromSheet(),
+      loadWalletsFromSheet(),
+      loadDebtsFromSheet(),
+    ]);
 
   // Рубли пересчитываем по живому рыночному курсу (переводы домой в ₽ — важен
   // курс «сейчас»), fallback — учётный. USD остаётся учётным (round-trip $-цен).
@@ -233,6 +237,11 @@ export default async function FinancePage({
     allTx,
     fxDisp,
   );
+  const debtSum = debtsSummary(debtsSheet ?? [], fxDisp);
+  const debtSymbols: Record<string, string> = { THB: "฿", RUB: "₽", USD: "$", EUR: "€" };
+  const debtByCur = Object.entries(debtSum.byCurrency)
+    .map(([c, v]) => `${new Intl.NumberFormat("ru-RU").format(Math.round(v as number))} ${debtSymbols[c] ?? c}`)
+    .join(" · ");
   // Состав наличной кассы по валютам (только ненулевые): «36 000 ฿ · 200 000 ₽ · $100».
   const cashMix = (w: { thb: number; rub: number; usd: number }): string => {
     const fmt = (n: number) => new Intl.NumberFormat("ru-RU").format(Math.round(n));
@@ -378,6 +387,47 @@ export default async function FinancePage({
           </>
         )}
       </div>
+
+      {/* Долги — кому и сколько (живой трекер, лист Debts) */}
+      {debtsSheet && debtSum.creditors > 0 && (
+        <div className="mb-7">
+          <div className="mb-2 flex items-center justify-between">
+            <h2 className="text-xs font-semibold uppercase tracking-wide text-forest-900/50">
+              📕 Долги — кому и сколько
+            </h2>
+            <Link
+              href="/admin/finance/debts"
+              className="text-xs font-medium text-forest-900/55 hover:text-brass-600"
+            >
+              Все долги →
+            </Link>
+          </div>
+          <Link
+            href="/admin/finance/debts"
+            className="block rounded-2xl border border-forest-900/10 bg-cream-50 p-5 transition hover:border-brass-500/40"
+          >
+            <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+              <p className="text-sm text-forest-900/70">
+                <strong className="text-forest-900">{debtSum.creditors}</strong> кредиторов · осталось{" "}
+                <strong className="text-forest-900">{money(debtSum.thbTotal)}</strong>
+                {debtByCur && <span className="text-forest-900/45"> ({debtByCur})</span>}
+              </p>
+              {debtSum.items[0] && (
+                <p className="text-xs text-forest-900/55">
+                  первой:{" "}
+                  <strong className="text-forest-900/80">{debtSum.items[0].creditor}</strong>{" "}
+                  {new Intl.NumberFormat("ru-RU").format(Math.round(debtSum.items[0].remaining))}{" "}
+                  {debtSymbols[debtSum.items[0].currency] ?? debtSum.items[0].currency}
+                </p>
+              )}
+            </div>
+            <p className="mt-2 text-xs text-forest-900/45">
+              Стратегия: Инне частями + мелких закрывать целиком, чтобы кредиторов становилось меньше.
+              Гасить — бот <code className="rounded bg-cream-100 px-1">/payback</code>.
+            </p>
+          </Link>
+        </div>
+      )}
 
       {/* Сводка */}
       <div className="mb-7 grid grid-cols-2 gap-3 sm:grid-cols-4">
