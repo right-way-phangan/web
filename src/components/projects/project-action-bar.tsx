@@ -6,6 +6,7 @@ import { formatPriceCompact } from "@/lib/utils/price";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { getProjectsDict } from "@/lib/i18n/dictionaries";
 import { whatsappLink, telegramDmLink } from "@/lib/site-config";
+import { track } from "@/lib/analytics/track";
 import { cn } from "@/lib/utils/cn";
 
 interface Props {
@@ -39,6 +40,7 @@ export function ProjectActionBar({ rwNumber, titleEn, priceThb }: Props) {
 
   const scrollToForm = (e: React.MouseEvent) => {
     e.preventDefault();
+    track("project_enquire", { rw: rwNumber });
     const el = document.getElementById("enquire");
     if (!el) return;
     const top = el.getBoundingClientRect().top + window.scrollY - 80;
@@ -73,6 +75,7 @@ export function ProjectActionBar({ rwNumber, titleEn, priceThb }: Props) {
           href={whatsappLink(msg)}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => track("project_whatsapp", { rw: rwNumber })}
           aria-label="WhatsApp"
           className="flex h-10 w-10 shrink-0 items-center justify-center rounded-sm border border-forest-500/20 text-forest-600 transition-colors hover:border-brass-500 hover:text-brass-500"
         >
@@ -82,6 +85,7 @@ export function ProjectActionBar({ rwNumber, titleEn, priceThb }: Props) {
           href={telegramDmLink(`interest_${rwNumber}`)}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => track("project_telegram", { rw: rwNumber })}
           aria-label="Telegram"
           className="flex h-10 w-10 shrink-0 items-center justify-center rounded-sm border border-forest-500/20 text-forest-600 transition-colors hover:border-brass-500 hover:text-brass-500"
         >
@@ -90,7 +94,7 @@ export function ProjectActionBar({ rwNumber, titleEn, priceThb }: Props) {
         <a
           href="#enquire"
           onClick={scrollToForm}
-          className="inline-flex h-10 shrink-0 items-center rounded-sm bg-panel px-4 text-sm font-medium text-panel-fg transition-colors hover:bg-panel/90"
+          className="inline-flex h-10 shrink-0 items-center rounded-sm bg-forest-900 px-4 text-sm font-medium text-cream-50 transition-colors hover:bg-forest-900/90"
         >
           {t.nav.enquire}
         </a>
