@@ -44,14 +44,27 @@ export async function submitTransaction(formData: FormData): Promise<void> {
  * Пишет суммы с сегодняшней датой as-of; дальше траты вычитаются автоматически.
  */
 export async function setWalletBalances(formData: FormData): Promise<void> {
-  const personal = Number(String(formData.get("personal") ?? "").replace(",", ".").trim());
-  const business = Number(String(formData.get("business") ?? "").replace(",", ".").trim());
+  const numOf = (k: string) => Number(String(formData.get(k) ?? "0").replace(",", ".").trim() || "0");
+  const personal = {
+    thb: numOf("personalThb"),
+    rub: numOf("personalRub"),
+    usd: numOf("personalUsd"),
+  };
+  const business = {
+    thb: numOf("businessThb"),
+    rub: numOf("businessRub"),
+    usd: numOf("businessUsd"),
+  };
 
-  if (!Number.isFinite(personal) || !Number.isFinite(business)) {
-    redirect("/admin/finance/wallets?err=amount");
-  }
+  const allFinite = [personal, business].every((w) =>
+    [w.thb, w.rub, w.usd].every((n) => Number.isFinite(n)),
+  );
+  if (!allFinite) redirect("/admin/finance/wallets?err=amount");
 
-  const res = await updateWalletsInSheet(Math.round(personal), Math.round(business));
+  const res = await updateWalletsInSheet(
+    { thb: Math.round(personal.thb), rub: Math.round(personal.rub), usd: Math.round(personal.usd) },
+    { thb: Math.round(business.thb), rub: Math.round(business.rub), usd: Math.round(business.usd) },
+  );
   if (!res.ok) redirect("/admin/finance/wallets?err=save");
 
   revalidatePath("/admin/finance");

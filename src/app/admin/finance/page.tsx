@@ -231,7 +231,17 @@ export default async function FinancePage({
     walletFor("личное", allWallets, today),
     walletFor("бизнес", allWallets, today),
     allTx,
+    fxDisp,
   );
+  // Состав наличной кассы по валютам (только ненулевые): «36 000 ฿ · 200 000 ₽ · $100».
+  const cashMix = (w: { thb: number; rub: number; usd: number }): string => {
+    const fmt = (n: number) => new Intl.NumberFormat("ru-RU").format(Math.round(n));
+    const parts: string[] = [];
+    if (w.thb) parts.push(`${fmt(w.thb)} ฿`);
+    if (w.rub) parts.push(`${fmt(w.rub)} ₽`);
+    if (w.usd) parts.push(`$${fmt(w.usd)}`);
+    return parts.join(" · ");
+  };
   const asOfFmt = (iso: string) => {
     const d = new Date(iso + "T00:00:00");
     return Number.isNaN(d.getTime())
@@ -327,7 +337,10 @@ export default async function FinancePage({
                 >
                   {money(personalWallet.current)}
                 </p>
-                <p className="mt-1 text-xs text-forest-900/50">
+                {cashMix(personalWallet) && (
+                  <p className="mt-1 text-xs text-forest-900/60">💵 {cashMix(personalWallet)}</p>
+                )}
+                <p className="mt-0.5 text-xs text-forest-900/50">
                   старт {money(personalWallet.start)} ({asOfFmt(personalWallet.asOf)})
                   {personalWallet.spent > 0 ? ` − все траты ${money(personalWallet.spent)}` : ""}
                 </p>
@@ -345,7 +358,10 @@ export default async function FinancePage({
                 >
                   {money(businessWallet.current)}
                 </p>
-                <p className="mt-1 text-xs text-forest-900/50">
+                {cashMix(businessWallet) && (
+                  <p className="mt-1 text-xs text-forest-900/60">💵 {cashMix(businessWallet)}</p>
+                )}
+                <p className="mt-0.5 text-xs text-forest-900/50">
                   {businessWallet.current < 0
                     ? `вложено лично, к возмещению · бизнес-траты ${money(businessWallet.spent)}`
                     : `старт ${money(businessWallet.start)} (${asOfFmt(businessWallet.asOf)})${

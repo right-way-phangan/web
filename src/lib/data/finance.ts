@@ -468,33 +468,52 @@ export function txMonthlySplit(txs: Transaction[]): TxMonthSplit[] {
   return [...map.values()].sort((a, b) => a.month.localeCompare(b.month));
 }
 
-// ── Две кассы: личное / Right Way ───────────────────────────────────────────
+// ── Две кассы: личное / Right Way (мультивалютная наличка ฿/₽/$) ─────────────
 //
 // Модель «реальный кошелёк + долг RW» (выбор Vladimir 2026-06-19): пока компании
 // нет, всё платится с личной карты, поэтому:
 //   🏠 Личное   = старт − ВСЕ траты (личные + бизнес) с as-of = реальные деньги на руках.
 //   🏢 Right Way = старт − бизнес-траты с as-of → минус = «компания должна тебе»
 //      (вложено лично, к возмещению через director's loan; с комиссиями выйдет в плюс).
-// Старты/даты — лист `Wallets`, правятся через /admin/finance/wallets (re-sync).
+// Наличка хранится по валютам (฿/₽/$) — старт кассы = их сумма в THB по курсу
+// (RUB — живой, см. fx). Старты/даты — лист `Wallets`, правятся через
+// /admin/finance/wallets (re-sync состава). Траты вычитаются из общего остатка.
 
-export type Wallet = { scope: TxScope; balance: number; asOf: string };
+/** Состав наличной кассы по валютам (как держишь физически). */
+export type Wallet = {
+  scope: TxScope;
+  thb: number;
+  rub: number;
+  usd: number;
+  asOf: string;
+};
 
 export type WalletState = {
   scope: TxScope;
-  start: number; // заданный остаток на дату asOf
-  asOf: string; // ISO-дата, с которой вычитаются траты
-  spent: number; // вычтено из кассы с asOf
-  current: number; // start − spent
+  thb: number; // состав на asOf
+  rub: number;
+  usd: number;
+  start: number; // эквивалент состава в THB по курсу fx
+  asOf: string;
+  spent: number; // вычтено из кассы с asOf (в THB)
+  current: number; // start − spent (THB)
 };
+
+/** Эквивалент состава кассы в THB по курсу fx (RUB — живой). */
+export function walletEquivTHB(w: Wallet, fx: Record<Currency, number>): number {
+  return w.thb * fx.THB + w.rub * fx.RUB + w.usd * fx.USD;
+}
 
 /**
  * Состояния обеих касс. Личная вычитает ВСЕ траты (реальный кэш на руках), бизнес —
- * только бизнес-траты (позиция RW; минус = долг компании перед тобой). ISO-сравнение строк.
+ * только бизнес-траты (позиция RW; минус = долг компании перед тобой). Старт каждой —
+ * сумма наличной разбивки ฿/₽/$ в THB по курсу fx. ISO-сравнение дат строк.
  */
 export function walletStates(
   personal: Wallet,
   business: Wallet,
   txs: Transaction[],
+  fx: Record<Currency, number> = FX,
 ): { personal: WalletState; business: WalletState } {
   const personalSpent = txs
     .filter((t) => t.date >= personal.asOf)
@@ -502,25 +521,23 @@ export function walletStates(
   const businessSpent = txs
     .filter((t) => t.scope === "бизнес" && t.date >= business.asOf)
     .reduce((s, t) => s + t.thb, 0);
-  return {
-    personal: {
-      scope: "личное",
-      start: personal.balance,
-      asOf: personal.asOf,
-      spent: personalSpent,
-      current: personal.balance - personalSpent,
-    },
-    business: {
-      scope: "бизнес",
-      start: business.balance,
-      asOf: business.asOf,
-      spent: businessSpent,
-      current: business.balance - businessSpent,
-    },
+  const state = (w: Wallet, spent: number): WalletState => {
+    const start = walletEquivTHB(w, fx);
+    return {
+      scope: w.scope,
+      thb: w.thb,
+      rub: w.rub,
+      usd: w.usd,
+      start,
+      asOf: w.asOf,
+      spent,
+      current: start - spent,
+    };
   };
+  return { personal: state(personal, personalSpent), business: state(business, businessSpent) };
 }
 
 /** Касса сферы из набора (или нулевая на fallback-дату, если не задана). */
 export function walletFor(scope: TxScope, wallets: Wallet[], fallbackDate: string): Wallet {
-  return wallets.find((w) => w.scope === scope) ?? { scope, balance: 0, asOf: fallbackDate };
+  return wallets.find((w) => w.scope === scope) ?? { scope, thb: 0, rub: 0, usd: 0, asOf: fallbackDate };
 }
