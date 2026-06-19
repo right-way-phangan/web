@@ -10,6 +10,7 @@ import { localePath } from "@/lib/i18n/locale-path";
 import { EstateExplorer } from "./estate-explorer";
 import { EstateSectionNav, type NavSection } from "./estate-section-nav";
 import { EstateCard } from "./estate-card";
+import { EstateLeadGallery } from "./estate-lead-gallery";
 import { Appear } from "@/components/motion/appear";
 
 interface Props {
@@ -21,6 +22,8 @@ interface Props {
 export function LandEstateLanding({ estate, locale }: Props) {
   const t = getEstatesDict(locale);
   const s = estateStats(estate);
+  const photoPlots = estatePhotoPlots(estate);
+  const hasLeadPhotos = photoPlots.length > 0;
 
   const homeHref = localePath(locale, "/") as Route;
   const estatesHref = localePath(locale, "/estates") as Route;
@@ -104,37 +107,73 @@ export function LandEstateLanding({ estate, locale }: Props) {
         availabilityLabel={s.available > 0 ? t.availableOf(s.available, s.total) : t.soldOut}
       />
 
-      {/* Overview (статика) */}
+      {/* Overview (статика). На десктопе — 2 колонки: текст слева, «продающие»
+          фото + переход к плану справа (чтобы фото шли первыми и не пустовало). */}
       <section id="overview" className="mt-10 scroll-mt-32">
-        <h2 className="font-serif text-3xl text-forest-900">{t.sections.overview}</h2>
-        <div className="mt-6 max-w-prose space-y-4 text-base leading-relaxed text-forest-500/85">
-          {estate.description[locale].map((p, i) => (
-            <p key={i}>{p}</p>
-          ))}
-        </div>
-
-        {/* DD-наследование */}
-        <div className="mt-6 flex max-w-prose items-start gap-3 rounded-sm border border-brass-500/20 bg-brass-500/5 p-4">
-          <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-brass-500" />
-          <p className="text-sm leading-relaxed text-forest-500/85">{t.ddNote}</p>
-        </div>
-
-        {/* Highlights */}
-        {estate.highlights && estate.highlights.length > 0 ? (
-          <div className="mt-8">
-            <h3 className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
-              {t.sections.highlights}
-            </h3>
-            <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-              {estate.highlights.map((hl, i) => (
-                <li key={i} className="flex items-center gap-2 text-sm text-forest-500/85">
-                  <Check className="h-4 w-4 shrink-0 text-brass-500" />
-                  {hl[locale]}
-                </li>
+        <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,30rem)] lg:items-start lg:gap-12">
+          {/* Левая колонка — рассказ */}
+          <div className="min-w-0">
+            <h2 className="font-serif text-3xl text-forest-900">{t.sections.overview}</h2>
+            <div className="mt-6 max-w-prose space-y-4 text-base leading-relaxed text-forest-500/85">
+              {estate.description[locale].map((p, i) => (
+                <p key={i}>{p}</p>
               ))}
-            </ul>
+            </div>
+
+            {/* DD-наследование */}
+            <div className="mt-6 flex max-w-prose items-start gap-3 rounded-sm border border-brass-500/20 bg-brass-500/5 p-4">
+              <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-brass-500" />
+              <p className="text-sm leading-relaxed text-forest-500/85">{t.ddNote}</p>
+            </div>
+
+            {/* Highlights */}
+            {estate.highlights && estate.highlights.length > 0 ? (
+              <div className="mt-8">
+                <h3 className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+                  {t.sections.highlights}
+                </h3>
+                <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                  {estate.highlights.map((hl, i) => (
+                    <li key={i} className="flex items-center gap-2 text-sm text-forest-500/85">
+                      <Check className="h-4 w-4 shrink-0 text-brass-500" />
+                      {hl[locale]}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
           </div>
-        ) : null}
+
+          {/* Правая колонка — продающие фото + быстрые переходы */}
+          {hasLeadPhotos ? (
+            <aside className="mt-10 lg:sticky lg:top-28 lg:mt-0">
+              <EstateLeadGallery photoPlots={photoPlots} estateName={estate.name[locale]} locale={locale} />
+              <div className="mt-3 grid grid-cols-2 gap-2.5">
+                {estate.plan ? (
+                  <a
+                    href="#plan"
+                    className="inline-flex items-center justify-center gap-1.5 rounded-sm border border-forest-500/20 px-3 py-2.5 text-xs font-medium text-forest-900 transition-colors hover:border-brass-500 hover:text-brass-700"
+                  >
+                    <Layers className="h-3.5 w-3.5" />
+                    {t.sections.plan}
+                  </a>
+                ) : null}
+                <a
+                  href="#gallery"
+                  className="inline-flex items-center justify-center gap-1.5 rounded-sm border border-forest-500/20 px-3 py-2.5 text-xs font-medium text-forest-900 transition-colors hover:border-brass-500 hover:text-brass-700"
+                >
+                  {t.sections.gallery}
+                  <ChevronRight className="h-3.5 w-3.5" />
+                </a>
+              </div>
+              {s.available > 0 ? (
+                <p className="mt-3 text-center text-xs text-forest-500/60">
+                  {t.availableOf(s.available, s.total)}
+                </p>
+              ) : null}
+            </aside>
+          ) : null}
+        </div>
       </section>
 
       {/* Интерактив: план + участки + галерея + карта + заявка */}
