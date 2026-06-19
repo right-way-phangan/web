@@ -40,6 +40,7 @@ import {
   walletStates,
   debtsSummary,
   upcomingPayments,
+  budgetVsActual,
   fmtMoney,
   FX,
   FX_DATE,
@@ -56,6 +57,7 @@ import {
   loadWalletsFromSheet,
   loadDebtsFromSheet,
   loadPaymentsFromSheet,
+  loadBudgetFromSheet,
 } from "@/lib/data/finance-sheet";
 import { getLeads, getEvents } from "@/lib/data/leads";
 import Link from "next/link";
@@ -135,18 +137,21 @@ export default async function FinancePage({
   const { cur: curParam, added, wallets: walletsSaved } = await searchParams;
   const cur: DisplayCurrency = curParam === "usd" ? "USD" : curParam === "rub" ? "RUB" : "THB";
 
-  const [live, sheet, runwaySheet, crmLeads, crmEvents, txSheet, walletsSheet, debtsSheet, paymentsSheet] =
-    await Promise.all([
-      getLiveRatesTHB(),
-      loadFinanceFromSheet(),
-      loadRunwayFromSheet(),
-      getLeads(),
-      getEvents(500),
-      loadTransactionsFromSheet(),
-      loadWalletsFromSheet(),
-      loadDebtsFromSheet(),
-      loadPaymentsFromSheet(),
-    ]);
+  const [
+    live, sheet, runwaySheet, crmLeads, crmEvents,
+    txSheet, walletsSheet, debtsSheet, paymentsSheet, budgetSheet,
+  ] = await Promise.all([
+    getLiveRatesTHB(),
+    loadFinanceFromSheet(),
+    loadRunwayFromSheet(),
+    getLeads(),
+    getEvents(500),
+    loadTransactionsFromSheet(),
+    loadWalletsFromSheet(),
+    loadDebtsFromSheet(),
+    loadPaymentsFromSheet(),
+    loadBudgetFromSheet(),
+  ]);
 
   // Рубли пересчитываем по живому рыночному курсу (переводы домой в ₽ — важен
   // курс «сейчас»), fallback — учётный. USD остаётся учётным (round-trip $-цен).
@@ -237,6 +242,14 @@ export default async function FinancePage({
   const businessBreakdown = txBreakdown(monthTx, "бизнес");
   const recentTx = [...monthTx].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 12);
   const pct = (part: number) => (txT.total ? `${Math.round((part / txT.total) * 100)}%` : undefined);
+
+  // Бюджет vs факт за текущий месяц (лист Budget): контроль burn, перерасход — красным.
+  const budgetLines = budgetVsActual(budgetSheet ?? [], monthTx)
+    .filter((b) => b.limit > 0)
+    .sort((a, b) => b.pct - a.pct);
+  const budgetOver = budgetLines.filter((b) => b.over).length;
+  const budgetLimitTotal = budgetLines.reduce((s, b) => s + b.limit, 0);
+  const budgetActualTotal = budgetLines.reduce((s, b) => s + b.actual, 0);
 
   // Две кассы (лист Wallets): «реальный кошелёк + долг RW». Личная вычитает ВСЕ
   // траты (реальные деньги на руках), бизнес — только бизнес-траты (долг RW тебе).
@@ -669,6 +682,64 @@ export default async function FinancePage({
         <p className="mb-3 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-700">
           ✅ Трата записана.
         </p>
+      )}
+      {budgetLines.length > 0 && (
+        <div className="mb-8">
+          <h2 className="mb-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
+            🎯 Бюджет vs факт
+            <span className="font-normal normal-case text-forest-900/40">
+              — лимиты по категориям, {txYM}
+            </span>
+            {budgetOver > 0 && (
+              <span className="ml-auto rounded-full bg-red-50 px-2 py-0.5 text-xs font-medium normal-case text-red-600">
+                ⚠️ перерасход в {budgetOver}
+              </span>
+            )}
+          </h2>
+          <div className="rounded-2xl border border-forest-900/10 bg-panel p-4">
+            <div className="mb-3 flex flex-wrap justify-between gap-2 text-xs text-forest-900/55">
+              <span>
+                Факт <strong className="text-forest-900">{money(budgetActualTotal)}</strong> из{" "}
+                {money(budgetLimitTotal)}
+              </span>
+              <span>
+                {budgetLimitTotal > 0 ? Math.round((budgetActualTotal / budgetLimitTotal) * 100) : 0}%
+                месячного лимита
+              </span>
+            </div>
+            <ul className="space-y-2.5">
+              {budgetLines.map((b) => (
+                <li key={b.scope + b.category}>
+                  <div className="flex items-baseline justify-between gap-2 text-sm">
+                    <span className="text-forest-900/80">
+                      {b.scope === "бизнес" ? "🏢" : "🏠"} {b.category}
+                    </span>
+                    <span
+                      className={
+                        b.over ? "font-semibold tabular-nums text-red-600" : "tabular-nums text-forest-900/70"
+                      }
+                    >
+                      {money(b.actual)} / {money(b.limit)} · {b.pct}%
+                    </span>
+                  </div>
+                  <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-forest-900/10">
+                    <div
+                      className={
+                        "h-full rounded-full " +
+                        (b.over ? "bg-red-500" : b.pct >= 80 ? "bg-amber-500" : "bg-brass-500")
+                      }
+                      style={{ width: `${Math.min(b.pct, 100)}%` }}
+                    />
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-3 text-xs text-forest-900/45">
+              Факт — из дневника трат за {txYM}. Bootstrap: чем меньше, тем лучше; красное = перерасход
+              лимита.
+            </p>
+          </div>
+        </div>
       )}
       <h2 className="mb-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
         🧾 Траты — личное / бизнес
