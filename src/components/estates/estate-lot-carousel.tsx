@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, MoveHorizontal } from "lucide-react";
+import { BLUR_PLACEHOLDER } from "@/lib/utils/blur";
 
 interface Props {
   photos: string[];
@@ -107,6 +108,8 @@ export function EstateLotCarousel({
               alt={`${altPrefix} (${idx + 1})`}
               fill
               unoptimized
+              placeholder="blur"
+              blurDataURL={BLUR_PLACEHOLDER}
               sizes={sizes}
               className="object-cover"
               draggable={false}

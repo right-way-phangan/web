@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Images } from "lucide-react";
 import type { EstatePlot } from "@/content/land-estates";
 import type { Locale } from "@/lib/i18n/dictionaries";
+import { BLUR_PLACEHOLDER } from "@/lib/utils/blur";
 import { PhotoLightbox } from "@/components/media/photo-lightbox";
 
 interface Props {
@@ -54,6 +55,8 @@ export function EstateLeadGallery({ photoPlots, estateName, locale }: Props) {
             fill
             unoptimized
             priority
+            placeholder="blur"
+            blurDataURL={BLUR_PLACEHOLDER}
             sizes="(min-width: 1024px) 30rem, 100vw"
             className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
           />
@@ -80,6 +83,8 @@ export function EstateLeadGallery({ photoPlots, estateName, locale }: Props) {
                 alt={`${estateName} — ${tile.code}`}
                 fill
                 unoptimized
+                placeholder="blur"
+                blurDataURL={BLUR_PLACEHOLDER}
                 sizes="(min-width: 1024px) 7rem, 25vw"
                 className="object-cover transition-transform duration-500 group-hover:scale-[1.05]"
               />

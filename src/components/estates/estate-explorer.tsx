@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import type { Route } from "next";
 import { ArrowRight, Map as MapIcon, Satellite } from "lucide-react";
 import type { LandEstate } from "@/content/land-estates";
-import { estatePhotoPlots, estateStats } from "@/content/land-estates";
+import { estatePhotoPlots, estateStats, estatePriceFrom } from "@/content/land-estates";
+import { formatPriceCompact } from "@/lib/utils/price";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getEstatesDict } from "@/lib/i18n/dictionaries";
 import { localePath } from "@/lib/i18n/locale-path";
@@ -46,7 +47,27 @@ export function EstateExplorer({ estate, locale }: Props) {
   const [filter, setFilter] = useState<Filter>("all");
   const [sort, setSort] = useState<Sort>("recommended");
   const [planMode, setPlanMode] = useState<PlanMode>("plan");
+  const [enquireSeen, setEnquireSeen] = useState(false);
 
+  // Deep-link ?lot=R7 → открыть драуэр этого лота при заходе.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const code = new URLSearchParams(window.location.search).get("lot");
+    if (code && estate.plots.some((p) => p.code === code)) setDrawerLot(code);
+  }, [estate.plots]);
+
+  // Скрывать мобильную CTA-панель, когда форма заявки уже в кадре.
+  useEffect(() => {
+    const el = document.getElementById("enquire");
+    if (!el || !("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver(([e]) => setEnquireSeen(e.isIntersecting), {
+      rootMargin: "0px 0px -35% 0px",
+    });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  const priceFrom = estatePriceFrom(estate);
   const photoPlots = estatePhotoPlots(estate);
   const hasCoords = Boolean(estate.lat && estate.lng);
   const hasLocation = hasCoords || Boolean(estate.locationUrl);
@@ -240,6 +261,34 @@ export function EstateExplorer({ estate, locale }: Props) {
         onClear={() => setCompareCodes([])}
         hidden={Boolean(drawerLot)}
       />
+
+      {/* Мобильная липкая CTA-панель (на десктопе есть липкая форма справа) */}
+      {!drawerLot && compareCodes.length === 0 && !enquireSeen ? (
+        <div
+          className="fixed inset-x-0 bottom-0 z-30 border-t border-forest-500/12 bg-cream-50/95 px-4 py-3 backdrop-blur lg:hidden print:hidden"
+          style={{ paddingBottom: "calc(0.75rem + env(safe-area-inset-bottom))" }}
+        >
+          <div className="flex items-center justify-between gap-3">
+            <span className="text-xs text-forest-500/75">
+              {s.available > 0 ? t.availableOf(s.available, s.total) : t.soldOut}
+              {priceFrom ? (
+                <span className="text-forest-900">
+                  {" · "}
+                  {locale === "ru" ? "от" : "from"} {formatPriceCompact(priceFrom)}
+                </span>
+              ) : null}
+            </span>
+            <button
+              type="button"
+              onClick={() => scrollTo("enquire")}
+              className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-brass-500 px-4 py-2 text-xs font-semibold text-cream-50 transition-colors hover:bg-brass-600"
+            >
+              {t.enquireTitle}
+              <ArrowRight className="h-3.5 w-3.5" />
+            </button>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

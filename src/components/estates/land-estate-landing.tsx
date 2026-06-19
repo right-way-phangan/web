@@ -3,10 +3,11 @@ import Image from "next/image";
 import type { Route } from "next";
 import { ChevronRight, Check, ShieldCheck, MapPin, Layers } from "lucide-react";
 import type { LandEstate } from "@/content/land-estates";
-import { estateStats, estatePhotoPlots, getPublishedEstates } from "@/content/land-estates";
+import { estateStats, estatePhotoPlots, estatePriceFrom, getPublishedEstates } from "@/content/land-estates";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getEstatesDict } from "@/lib/i18n/dictionaries";
 import { localePath } from "@/lib/i18n/locale-path";
+import { formatPriceCompact } from "@/lib/utils/price";
 import { EstateExplorer } from "./estate-explorer";
 import { EstateSectionNav, type NavSection } from "./estate-section-nav";
 import { EstateCard } from "./estate-card";
@@ -24,6 +25,8 @@ export function LandEstateLanding({ estate, locale }: Props) {
   const s = estateStats(estate);
   const photoPlots = estatePhotoPlots(estate);
   const hasLeadPhotos = photoPlots.length > 0;
+  const priceFrom = estatePriceFrom(estate);
+  const fromLabel = locale === "ru" ? "от" : "from";
 
   const homeHref = localePath(locale, "/") as Route;
   const estatesHref = localePath(locale, "/estates") as Route;
@@ -88,6 +91,9 @@ export function LandEstateLanding({ estate, locale }: Props) {
             </span>
             {s.areaRai > 0 ? (
               <span>· {s.areaRai} {locale === "ru" ? "рай всего" : "rai total"}</span>
+            ) : null}
+            {priceFrom ? (
+              <span className="text-brass-200">· {fromLabel} {formatPriceCompact(priceFrom)}</span>
             ) : null}
           </div>
           <p className="mt-3 text-xs font-medium uppercase tracking-[0.3em] text-brass-300">
@@ -169,6 +175,7 @@ export function LandEstateLanding({ estate, locale }: Props) {
               {s.available > 0 ? (
                 <p className="mt-3 text-center text-xs text-forest-500/60">
                   {t.availableOf(s.available, s.total)}
+                  {priceFrom ? ` · ${fromLabel} ${formatPriceCompact(priceFrom)}` : ""}
                 </p>
               ) : null}
             </aside>

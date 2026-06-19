@@ -45,6 +45,8 @@ export interface EstatePlot {
   leaseTermYears?: number;
   seaView?: boolean;
   flatLand?: boolean;
+  /** Статус чанота (тайтл-дид): «ready» (по умолчанию) или «inProgress». */
+  chanote?: "ready" | "inProgress";
   /** Короткая бейзлайн-заметка по лоту (двуязычно). */
   note?: { en: string; ru: string };
   /**
@@ -92,6 +94,8 @@ export interface LandEstate {
   totalAreaRai?: number;
   /** Преимущества подборки (буллеты). */
   highlights?: { en: string; ru: string }[];
+  /** Готовность инфраструктуры (estate-wide) — для бейджей доверия на лотах. */
+  utilities?: { road?: boolean; power?: boolean; water?: boolean };
   /** Схема плана разбивки (опц.) — рендерится EstateSitePlan, если задана и у лотов есть plotShape. */
   plan?: EstatePlan;
   plots: EstatePlot[];
@@ -147,6 +151,7 @@ export const LAND_ESTATES: LandEstate[] = [
     // M1–M4 → дорога → M10, справа M5–M9 к нижнему острию; C10 — отдельный лот
     // (свой чанот) ниже R10 через дорогу. Дороги — коридорами. Закат/море = слева
     // (сторона R6–R10).
+    utilities: { road: true, power: true },
     plan: {
       viewBox: "0 0 100 152",
       roads: [
@@ -435,6 +440,7 @@ export const LAND_ESTATES: LandEstate[] = [
         areaSqm: 2372,
         priceThb: 13_376_250,
         seaView: false,
+        chanote: "inProgress",
         note: {
           en: "Mountain view. Chanote conversion still in progress — title is under the parent deed for now (verify before reserving).",
           ru: "Вид на горы. Перевод в чанот ещё идёт — пока титул в составе родительского (проверить до резерва).",
@@ -512,6 +518,14 @@ export function estateStats(estate: LandEstate): EstateStats {
 /** Показывать ли цену/аренду лота публично (только свободные и зарезервированные). */
 export function plotPriceVisible(status: PlotStatus): boolean {
   return status === "available" || status === "reserved";
+}
+
+/** Минимальная цена среди свободных freehold-лотов (для «от ฿X»). null — нет. */
+export function estatePriceFrom(estate: LandEstate): number | null {
+  const prices = estate.plots
+    .filter((p) => p.status === "available" && p.tenure === "Freehold" && p.priceThb)
+    .map((p) => p.priceThb as number);
+  return prices.length ? Math.min(...prices) : null;
 }
 
 /** Лоты подборки с приложенными фото — для секции «Галерея» (группировка по лоту). */

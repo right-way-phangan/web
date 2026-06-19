@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import * as Dialog from "@radix-ui/react-dialog";
 import { ChevronLeft, ChevronRight, X, ImageOff } from "lucide-react";
+import { BLUR_PLACEHOLDER } from "@/lib/utils/blur";
 import { cn } from "@/lib/utils/cn";
 
 const SWIPE_THRESHOLD_PX = 48;
@@ -54,6 +55,8 @@ function LBImage({ src, alt, unoptimized }: { src: string; alt: string; unoptimi
       alt={alt}
       fill
       unoptimized={unoptimized}
+      placeholder="blur"
+      blurDataURL={BLUR_PLACEHOLDER}
       sizes="100vw"
       className="object-contain"
       draggable={false}

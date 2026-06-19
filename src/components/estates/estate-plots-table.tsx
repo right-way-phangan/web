@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Clock } from "lucide-react";
 import type { LandEstate, EstatePlot } from "@/content/land-estates";
 import { plotPriceVisible } from "@/content/land-estates";
 import type { Locale } from "@/lib/i18n/dictionaries";
@@ -154,6 +154,12 @@ function PlotRow({
       </dt>
       <dd className="order-3 col-span-2 text-sm text-forest-500/75 sm:order-none sm:col-span-1">
         {area}
+        {plot.chanote === "inProgress" ? (
+          <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-brass-500/12 px-2 py-0.5 align-middle text-[10px] font-medium text-brass-700">
+            <Clock className="h-3 w-3" />
+            {locale === "ru" ? "чанот в процессе" : "title in progress"}
+          </span>
+        ) : null}
         {plot.note ? (
           <span className="block text-xs text-forest-500/50 sm:inline sm:before:mx-1.5 sm:before:content-['·']">
             {plot.note[locale]}
