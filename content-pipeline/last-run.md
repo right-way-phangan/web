@@ -1,4 +1,4 @@
-# Last run — 2026-06-17
+# Last run — 2026-06-19
 
 **Guides published:** 2
 
@@ -6,30 +6,36 @@
 
 ## Guide 1
 
-- **slug:** `thai-company-for-property-49-51`
-- **kbId:** `kb-0021`
-- **title (EN):** A Thai company for property (49/51): when it makes sense, when it's toxic
-- **title (RU):** Тайская компания для владения недвижимостью (49/51): когда имеет смысл, когда опасна
-- **faqCategory:** `structures`
-- **faqQuestion:** Can a foreigner use a Thai company (49/51) to hold land or a villa on Koh Phangan?
+- **slug:** `lease-contract-clauses-to-check`
+- **kbId:** `kb-0023`
+- **title (EN):** The lease contract on Koh Phangan: clauses a foreign buyer must check
+- **title (RU):** Договор аренды на Ко Пангане: пункты, которые обязан проверить иностранный покупатель
+- **faqCategory:** `documents`
+- **faqQuestion:** What clauses must I check in a Thai leasehold property contract before signing?
 - **Sources used:**
-  - Global Law Experts — 2026 DBD Orders No. 2/2568 and No. 1/2569, IBAS cross-referencing, enforcement consequences
-  - Terms.Law — FBA Sections 36–37 criminal penalties, enforcement statistics (857–875 cases, THB 15.1–15.3 billion seized by Dec 2025)
-  - Lex Bangkok — Land Code Section 94 forced-sale mechanism, 180-day disposal order
-  - Foreign Business Act B.E. 2542 Sections 36–37 and Land Code Sections 111–113, Section 94 (general practice)
+  - Thai Civil and Commercial Code Sections 537–571 (lease), 538 (registration), 540 (30-year cap), 544 (sublease prohibition default) — primary statutory authority
+  - Integrity Legal — Selling, Assignment, or Sublease of Lease in Thailand — confirmed assignment clause and Land Office re-registration requirement
+  - Siam Legal International — Supreme Court Ruling on Long-Term Leases (March 2025, Case No. 4655/2566) — pre-agreed renewal voidability
+  - Lawyers for Expats Thailand — Thailand Property Guide for Foreign Investors — succession and clause framework
 
 ---
 
 ## Guide 2
 
-- **slug:** `building-a-villa-koh-phangan`
-- **kbId:** `kb-0022`
-- **title (EN):** Building a villa on Koh Phangan: permits, zones, timelines and budget
-- **title (RU):** Строительство виллы на Ко Пангане: разрешения, зоны, сроки и бюджет
+- **slug:** `buying-in-sri-thanu`
+- **kbId:** `kb-0024`
+- **title (EN):** Buying property in Sri Thanu, Koh Phangan: who it suits, prices and what to expect
+- **title (RU):** Покупка недвижимости в Шри Тхану, Ко Панган: кому подходит, цены и что ожидать
 - **faqCategory:** `phangan`
-- **faqQuestion:** What permits and costs are involved in building a villa on Koh Phangan?
+- **faqQuestion:** What is it like to buy property in Sri Thanu on Koh Phangan, and who is it best for?
 - **Sources used:**
-  - Thaim To Build — construction cost bands by finish tier (฿18k–฿60k+/m²), 8–15% island logistics uplift vs mainland
-  - Sukhothai Inter Law — 2025 environmental zone specifications (Zone 3(1) 6m height/50% green, Zone 3(2) 90m² cap, EIA thresholds)
-  - BOI Thailand — permit document requirements, 45-day review period under Building Control Act
-  - Building Control Act B.E. 2522 (1979) — permit requirement, demolition-order risk (general practice)
+  - Nation Thailand — condo project count (4 projects, 66 units, ~THB 380m across Sri Thanu/Haad Yao), buyer demographics (European, Israeli, Australian)
+  - Digital Nomad World / Nestopa — BeacHub on-beach coworking, wellness community infrastructure, digital nomad character of the area
+  - Koh Phangan Homes (phanganlandandhome.com) — Sri Thanu land price range (THB 3–5m per rai), title mix, active listings
+
+---
+
+## Backlog dedup actions (marked ✅ without publishing)
+
+- **Island eco-zoning (2025 law)** — content fully covered by existing `koh-phangan-building-zones` (kb-0003); marked ✅ to prevent duplicate
+- **Chanote vs Nor Sor 3 Gor in practice** — content fully covered by existing `land-titles-chanote-vs-nor-sor-3` (kb-0005); marked ✅ to prevent duplicate

@@ -29,11 +29,11 @@ Status: ⏳ queued · ✅ published.
 | Renewing a 30-year lease: how it really works and the risks | structures | 🟢 | ✅ |
 | A Thai company for property (49/51): when it makes sense, when it's toxic | structures | 🟢 | ✅ |
 | Building a villa on the island: permits, zones, timelines, budgets | phangan | 🟢 | ✅ |
-| Island eco-zoning (2025 law): where you can and can't build | phangan | 🟢 | ⏳ |
+| Island eco-zoning (2025 law): where you can and can't build | phangan | 🟢 | ✅ |
 | Utilities: water, power, internet and road access to a plot | phangan | 🟡 | ⏳ |
 | Owner's taxes: annual land tax and tax on taking income out | costs | 🟡 | ⏳ |
-| The lease contract: clauses you must check (succession, renewal, assignment) | documents | 🟢 | ⏳ |
-| Chanote vs Nor Sor 3 Gor in practice: how to read a cadastral plan | documents | 🟡 | ⏳ |
+| The lease contract: clauses you must check (succession, renewal, assignment) | documents | 🟢 | ✅ |
+| Chanote vs Nor Sor 3 Gor in practice: how to read a cadastral plan | documents | 🟡 | ✅ |
 | Visa and residency for a property owner: what a purchase does and doesn't give | phangan | 🟡 | ⏳ |
 | Phangan market seasonality: when to buy and when to sell | costs | ⚪️ | ⏳ |
 
@@ -41,7 +41,7 @@ Status: ⏳ queued · ✅ published.
 
 | Topic | faqCategory | Priority | Status |
 |---|---|---|---|
-| Buying in Sri Thanu: who it suits, prices, property types | phangan | 🟢 | ⏳ |
+| Buying in Sri Thanu: who it suits, prices, property types | phangan | 🟢 | ✅ |
 | Buying in Thong Sala: the island hub, liquidity | phangan | 🟢 | ⏳ |
 | Buying in Chaloklum: northern fishing village | phangan | 🟡 | ⏳ |
 | Buying in Haad Yao / Haad Salad | phangan | 🟡 | ⏳ |

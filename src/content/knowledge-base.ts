@@ -1269,6 +1269,159 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "phangan",
     faqQuestion: "What permits and costs are involved in building a villa on Koh Phangan?",
   },
+  {
+    slug: "lease-contract-clauses-to-check",
+    kbId: "kb-0023",
+    topic: "Documents",
+    title: "The lease contract on Koh Phangan: clauses a foreign buyer must check",
+    short:
+      "A registered lease is only as strong as the clauses it contains. The default developer draft almost never includes the four provisions that protect you most: succession, assignment, sublease rights and a right of first refusal on the land. Here is what to look for — and why each one matters.",
+    updated: "2026-06-19",
+    body: [
+      "When a draft lease lands in front of you, you are looking at the document that defines your property rights for the next 30 years. Most buyers focus on the term and the rental figure — and miss the clauses that decide whether you can sell the lease, leave it to your heirs, rent to tenants, or have any recourse if the landowner breaches. A developer's default template rarely includes the strongest versions of these protections. Here is what to check before you sign.",
+      { h: "Start with the basics" },
+      {
+        ul: [
+          "**Term**: exactly stated start and end dates — 30 years is the maximum. Section 540 of the Civil and Commercial Code is an absolute ceiling; any clause purporting to grant a longer initial term is void for the excess.",
+          "**Registration**: the lease must be registered at the Land Office and endorsed on the back of the title deed. Section 538 makes this mandatory for terms over three years to be enforceable beyond year three. Confirm the registration has actually happened — not just that you hold a signed contract.",
+          "**Rental and payment**: amount, frequency, payment method, and any rent-escalation clause. Understand the total contracted rent over the full 30 years — that figure determines the Land Office registration fee (1% of total rent plus 0.1% stamp duty).",
+          "**Permitted use**: what you can and cannot do. This is where restrictions on alterations, subletting and commercial activity usually appear — read it carefully.",
+        ],
+      },
+      { h: "Succession clause: what happens when you die" },
+      "Under Thai law, a lease may not automatically continue on the lessee's death — the standard position is that a lease is a personal contract, and without clear contractual provision your heirs may face difficulty asserting the right to continue for the remaining term. A succession clause provides certainty and should be treated as essential.",
+      "The clause to seek: an express provision naming your heirs or estate as entitled to step into your position as lessee for the remaining term. The stronger version is to register co-lessees on the original lease — a surviving co-lessee (for example, a spouse) continues automatically without relying on a clause being invoked. The lease and the building must also be inherited together to keep the asset intact; see [Inheritance on Koh Phangan](/knowledge/inheritance-leasehold-and-villa).",
+      { h: "Assignment clause: what happens when you sell" },
+      "By default, a Thai lease cannot be assigned to a third party without the lessor's active consent. Without an explicit assignment clause, the lessor can effectively veto your ability to sell the remaining lease term — or use that consent as leverage on the exit price.",
+      "The clause to seek: an express right to assign the remaining lease term to any third party without requiring prior lessor consent (or with consent not to be unreasonably withheld). Any assignment must also be registered at the Land Office — an unregistered assignment creates only a personal obligation and may not bind a new landowner or third party. For how the assignment clause affects exit planning and resale value, see [Selling your leasehold villa](/knowledge/selling-leasehold-villa-exit-liquidity).",
+      { h: "Sublease rights: renting to tenants" },
+      "Section 544 of the Civil and Commercial Code prevents the lessee from subleasing without the lessor's consent unless the lease explicitly permits it. For a villa you plan to rent out — even to long-stay tenants on monthly contracts — an express sublease clause is essential, or the landowner can claim you are in breach.",
+      "Note the overlap with the Hotel Act: stays under 30 days require a hotel licence regardless of what the lease says about subleasing. The sublease clause matters most for 30-day-plus tenancies, which are legally straightforward. See [Renting out your villa](/knowledge/renting-out-your-villa-rules-and-taxes).",
+      { h: "Right of first refusal on the land" },
+      "This clause does not appear in most standard leases but is worth negotiating. If the landowner decides to sell the freehold during your tenancy, you receive the first option at the offered price before it goes to anyone else.",
+      "Why it matters: a registered lease survives a sale of the land (the new buyer steps into the lessor's position for your remaining term), but the new landowner has no obligation to renew at year 30. A right of first refusal gives you a path to converting from leasehold to freehold if the land becomes available — and prevents the land moving to an unknown buyer whose relationship to you is untested.",
+      { h: "Renewal: what can and cannot be promised" },
+      "The March 2025 Supreme Court ruling (Case No. 4655/2566) settled this definitively: pre-agreed automatic renewal clauses for periods beyond the initial 30 years are void. Only the initial registered term is a property right. See [Renewing a 30-year lease](/knowledge/renewing-30-year-lease-risks) for the full legal background.",
+      "What a contract can legitimately contain: a good-faith obligation on the current landowner to offer renewal at expiry, or a right of first refusal on the new lease term. These are contractual promises against the original lessor — they do not automatically bind a successor landowner and are not registrable property rights. Plan the purchase around the primary 30-year term; treat any renewal language as a bonus, not a guarantee.",
+      { h: "Protecting you during the term" },
+      {
+        ul: [
+          "**Prohibition on mortgaging or selling without consent**: not automatic — the lease must include this. Without it, the land can be mortgaged or sold during your tenancy. A registered lease survives a change of landowner, but an undisclosed mortgage on the land creates real risk if the landowner defaults and a lender enforces.",
+          "**Quiet enjoyment**: the lessor may not interfere with your use of the property during the term — state it explicitly.",
+          "**Maintenance division**: structural repairs are the lessor's responsibility under the CCC; day-to-day maintenance is the lessee's. Specify in the contract who handles disputed middle ground — pool equipment, roofing, shared access roads.",
+          "**Compensation on early termination**: define what you receive if the lessor materially breaches. Without a specific clause, you are left to litigation to establish the amount and timeline.",
+          "**Alterations and construction**: if you plan to build or extend, the lease must authorise it — and the construction permit (Por. Ror. 1) must be applied for with the landowner's written consent. See [Building a villa on Koh Phangan](/knowledge/building-a-villa-koh-phangan).",
+        ],
+      },
+      { h: "The building is a separate matter" },
+      "The lease alone does not give you building ownership — it is occupancy of the land. Ownership of the villa itself must be secured by a separately registered superficies (สิทธิเหนือพื้นดิน) at the Land Office. That registration must appear on the back of the title deed, distinct from the lease registration. An unregistered superficies creates only a personal right between you and the original landowner and does not bind a future buyer of the land. See [Superficies, usufruct and lease](/knowledge/superficies-vs-usufruct-vs-lease) and [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa).",
+      { h: "Practical requirements at registration" },
+      "The lease must be in Thai for Land Office registration. Insist on a certified English translation alongside it — the Thai version governs, but you need to know what you signed. The registration endorsement appears on the back of the title deed, which the landowner keeps. Your documentary proof of the leasehold is the stamped registered lease copy — store it with the same care as a title deed.",
+      "No developer's default draft will contain all of these protections. The review and negotiation stage — before you sign — is where to add them. Use an independent lawyer, not the developer's own lawyer; that independence is the point. Once a contract is signed and registered, adding protections that were not in it requires renegotiating the whole agreement. For where the lease review fits in the full purchase process, see [How to buy property on Koh Phangan step by step](/knowledge/how-to-buy-property-step-by-step).",
+    ],
+    takeaways: [
+      "A Thai lease may not automatically pass to your heirs on death — a succession clause (or registered co-lessee) provides the certainty that is otherwise missing.",
+      "Without an assignment clause, the lessor can block or delay your ability to sell the remaining lease term — negotiate this before signing.",
+      "Section 544 of the CCC prevents subleasing by default; an express sublease clause is required if you plan to rent the property to tenants.",
+      "Post March 2025 Supreme Court ruling (Case No. 4655/2566), pre-agreed automatic renewals beyond 30 years are void — plan around the primary registered term.",
+      "Use an independent lawyer to review the draft; protective clauses generally cannot be added after the contract is registered.",
+    ],
+    sources: [
+      {
+        title:
+          "Thai Civil and Commercial Code — Sections 537–571 (lease), Section 538 (registration), Section 540 (30-year cap), Section 544 (subleasing without permission)",
+      },
+      {
+        title: "Integrity Legal — Selling, Assignment, or Sublease of Lease in Thailand",
+        url: "https://www.legal.co.th/resources/thailand-real-estate-property-law/title/selling-assignment-or-sublease-lease-thailand/",
+      },
+      {
+        title:
+          "Siam Legal International — Supreme Court Ruling on Long-Term Leases in Thailand (March 2025, Case No. 4655/2566)",
+        url: "https://www.siam-legal.com/thailand-law/supreme-court-ruling-on-long-term-leases-in-thailand/",
+      },
+      {
+        title: "Lawyers for Expats Thailand — Thailand Property Guide for Foreign Investors",
+        url: "https://www.lawyersforexpatsthailand.com/post/thailand-property-guide-for-foreign-investors",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion: "What clauses must I check in a Thai leasehold property contract before signing?",
+  },
+  {
+    slug: "buying-in-sri-thanu",
+    kbId: "kb-0024",
+    topic: "Phangan",
+    title: "Buying property in Sri Thanu, Koh Phangan: who it suits, prices and what to expect",
+    short:
+      "Sri Thanu is Koh Phangan's wellness and long-stay community hub — the densest concentration of foreign residents on the island. It suits buyers who want to be part of an established expat community and whose rental model relies on monthly stays rather than nightly bookings. It is not the optimal choice for pure short-stay yield maximisation.",
+    updated: "2026-06-19",
+    body: [
+      "Sri Thanu (Ban Sri Thanu) sits on the southwest coast of Koh Phangan, around 7 km north of the main ferry port at Thong Sala. It is the closest thing the island has to a settled residential neighbourhood — not a beach resort and not a tourist zone, but an area where yoga studios, organic cafés, a beach coworking space, medical services and an international community have built up over the better part of a decade. That character shapes who buys here, what sells and what yields.",
+      { h: "The character of the area" },
+      "Sri Thanu is the commercial and community core of what the island's long-stay foreign population calls the 'wellness belt' — the corridor running south from Haad Yao along the southwest coast. The area is anchored by a mix of residential streets, small businesses and wellness venues that have made it the primary draw for European and Israeli expats, digital nomads and long-stay wellness visitors who choose to base themselves on Koh Phangan permanently or for extended periods.",
+      "Unlike Haad Rin to the south (Full Moon Party tourism), Thong Nai Pan to the northeast (secluded luxury villas) or Thong Sala (the island's commercial and administrative hub), Sri Thanu is the district you choose when you want to live in a community rather than a resort. The social infrastructure — coworking space (BeacHub, a member workspace directly on the beach), gyms, health food venues, regular community events — is real and established, not aspirational.",
+      { h: "What is available to buy" },
+      {
+        ul: [
+          "**Pool villas (1–3 bedrooms)** — the dominant category for foreign buyers. Most are garden or jungle villas rather than direct beachfront (Hin Kong beach is a short walk from the community core, but most properties are set back from the shore). Modern pool villas with Western-standard finishes are the main new-build product in the area.",
+          "**Land plots** — flat and gentle-slope plots are available in and around the community core. The majority of Sri Thanu sits below 80 m elevation, keeping most plots out of the Zone 3(1) hillside restrictions that apply from 80 m upward under the 2025 environmental rules. This means more permissive build constraints than much of the elevated western coast — a practical advantage for a buyer who wants to develop. See [Building zones on Koh Phangan](/knowledge/koh-phangan-building-zones).",
+          "**Condominiums** — Sri Thanu and the adjacent Haad Yao area host Koh Phangan's highest concentration of condominium projects: four active projects totalling roughly 66 units, valued at approximately THB 380 million. This is the part of the island where a foreign buyer is most likely to find a freehold condo unit within the 49% foreign-ownership quota.",
+        ],
+      },
+      { h: "Typical prices" },
+      "Land in Sri Thanu currently runs roughly **THB 3–5 million per rai**, varying with proximity to the beach, sea view, road access and title class. The west coast overall has seen 2–4× appreciation since early 2022, driven by community-driven demand; Sri Thanu sits within this trend. Plots with registered road access and a Chanote title command the upper end of the range. See [Land titles on Koh Phangan](/knowledge/land-titles-chanote-vs-nor-sor-3) and [How land is priced](/knowledge/how-land-is-priced-price-per-rai) for context on what drives price differences.",
+      "Completed pool villas typically range from roughly **THB 8–20 million** for one to three bedrooms on a leasehold basis, with larger or premium-finish properties higher. Condominiums start at around THB 3–5 million for a one-bedroom. Off-plan entry prices are generally 15–25% below the completed comparable — with the developer and completion risk that entails. See [Buying off-plan on Koh Phangan](/knowledge/buying-off-plan-new-developments).",
+      "All villa and land purchases by foreign buyers in Sri Thanu are structured as leasehold — a 30-year registered land lease combined with ownership of the building through a registered superficies. Condominium freehold is available within the 49% foreign quota. See [Leasehold vs freehold](/knowledge/leasehold-vs-freehold) and [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa).",
+      { h: "The rental case" },
+      "Sri Thanu's natural tenant base is long-stay: wellness retreat visitors, digital nomads and expats typically renting for one to three months at a time. That stay profile lines up well with the Hotel Act's licensing boundary — lets of 30 days or more sit outside the hotel-licence requirement that applies to stays under 30 days. For an owner who wants steady rental income without navigating short-stay licensing, Sri Thanu's tenant demographic is a practical advantage.",
+      "Monthly villa rents in the area typically run **THB 25,000–70,000** depending on size, specification and season. The dry season (November–April) is high-occupancy; May to October is the wet season and demand softens. A realistic net-yield model runs nightly rate (or monthly equivalent) times occupancy, minus management costs (typically around 25% of gross), maintenance and annual property tax. See [Renting out your villa](/knowledge/renting-out-your-villa-rules-and-taxes) for the full calculation.",
+      { h: "What to verify when buying here" },
+      "Standard due diligence applies everywhere on the island — see [Due diligence before buying on Koh Phangan](/knowledge/due-diligence-checklist-koh-phangan). A few points specific to Sri Thanu:",
+      {
+        ul: [
+          "**Title class**: the area has a mix of Chanote and Nor Sor 3 Gor titles. Both are workable with proper verification; confirm the class and condition before making an offer.",
+          "**Road access**: properties off secondary or unpaved roads — particularly on hillside land above the main community core — need registered rights of way confirmed. Verbal access is one of the most common traps on the island.",
+          "**Elevation**: most of the Sri Thanu commercial area sits below 80 m. Some hillside land above the valley floor may cross into Zone 3(1) restrictions (6 m height cap, 50% green space minimum). Check the specific plot's elevation before you commit to a build.",
+          "**Utilities**: mains water and electricity are available in the main community area; confirm meter registration and water source for the specific property. Reliability on secondary roads and newer developments can vary.",
+          "**Neighbouring development**: given the density of new-build activity since 2022, confirm whether adjacent vacant plots already carry permits that could affect sea views or privacy.",
+        ],
+      },
+      { h: "Who Sri Thanu is not the optimal choice for" },
+      "If the primary goal is maximising short-stay rental yield, a beachfront property or a premium hillside villa in Haad Yao (north) or Thong Nai Pan commands higher nightly rates from tourism-oriented guests — at the cost of requiring a hotel licence for stays under 30 days. For a buyer whose priority is total privacy and seclusion, the community density of Sri Thanu works against them. And for someone primarily motivated by sea views from the property itself, the Sri Thanu core is mostly garden and valley rather than elevated sea-view hillside; look to Haad Yao immediately north for that.",
+      "Sri Thanu is the right choice for a buyer who wants to be part of Koh Phangan's most established foreign community, who values proximity to wellness and co-working culture, and whose investment approach suits long-stay tenants rather than short-vacation bookings. It is the most neighbourhood-like district on the island — and that is both its appeal and its constraint.",
+    ],
+    takeaways: [
+      "Sri Thanu is Koh Phangan's established wellness and long-stay community hub — the highest-density expat and digital-nomad area on the island, with real social infrastructure.",
+      "Land prices typically run THB 3–5 million per rai; completed pool villas from roughly THB 8–20 million (leasehold); condominiums from around THB 3–5 million.",
+      "Most of Sri Thanu sits below 80 m elevation, keeping the majority of plots outside the tightest Zone 3(1) hillside construction restrictions of the 2025 environmental rules.",
+      "The natural tenant base of monthly-stay wellness visitors and digital nomads aligns well with the Hotel Act — long lets require no hotel licence, simplifying the rental model.",
+      "For short-stay yield maximisation or sea-view hillside properties, neighbouring Haad Yao to the north is likely a stronger fit.",
+    ],
+    sources: [
+      {
+        title:
+          "Nation Thailand — Israel, Europe and Australia Anchor in Koh Phangan, Driving Property Investment Past THB7.9bn",
+        url: "https://www.nationthailand.com/business/property/40067434",
+      },
+      {
+        title: "Digital Nomad World — Digital Nomad Guide to Koh Phangan 2025",
+        url: "https://digitalnomads.world/city-guide/ko-pha-ngan/",
+      },
+      {
+        title: "Nestopa — Digital Nomad Guide for Koh Phangan (BeacHub coworking)",
+        url: "https://nestopa.com/th-en/articles/digital-nomad-guide-for-koh-phangan",
+      },
+      {
+        title: "Koh Phangan Homes — Sri Thanu area listings and land prices",
+        url: "https://phanganlandandhome.com/area/sri-thanu/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "What is it like to buy property in Sri Thanu on Koh Phangan, and who is it best for?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
