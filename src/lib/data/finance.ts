@@ -159,6 +159,24 @@ export function receivablesTotal(rec: Receivable[] = receivables): number {
   return rec.reduce((s, r) => s + r.thb, 0);
 }
 
+// ── Финансовые цели (лист Goals) ────────────────────────────────────────────
+// Напр. DTV-виза: ฿500k держать 3 мес → виза на 5 лет, съехать с border run.
+export type Goal = {
+  name: string;
+  target: number;
+  saved: number;
+  currency: Currency;
+  deadline: string;
+  note: string;
+};
+
+export type GoalProgress = Goal & { pct: number; left: number };
+
+export function goalProgress(g: Goal): GoalProgress {
+  const pct = g.target > 0 ? Math.min(Math.round((g.saved / g.target) * 100), 100) : 0;
+  return { ...g, pct, left: Math.max(g.target - g.saved, 0) };
+}
+
 export type ReceivablesSummary = {
   count: number;
   total: number;

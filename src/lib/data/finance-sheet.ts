@@ -28,6 +28,7 @@ import type {
   Debt,
   Payment,
   Budget,
+  Goal,
 } from "./finance";
 
 const SHEET_ID =
@@ -263,6 +264,26 @@ export async function loadTransactionsFromSheet(): Promise<Transaction[] | null>
         source: (r[8] ?? "").trim(),
       };
     });
+}
+
+const GOALS_SHEET = "Goals";
+
+/** Читает лист Goals (Цель·Цель_сумма·Накоплено·Валюта·Дедлайн·Заметка). null → скрыто. */
+export async function loadGoalsFromSheet(): Promise<Goal[] | null> {
+  const token = await getAccessToken();
+  if (!token) return null;
+  const rows = await getRange(token, `${GOALS_SHEET}!A2:F`);
+  if (rows == null) return null;
+  return rows
+    .filter((r) => (r[0] ?? "").trim() && (r[1] ?? "").toString().trim())
+    .map((r) => ({
+      name: (r[0] ?? "").trim(),
+      target: num(r[1]),
+      saved: num(r[2]),
+      currency: mapCurrency(r[3] ?? ""),
+      deadline: (r[4] ?? "").trim(),
+      note: (r[5] ?? "").trim(),
+    }));
 }
 
 const BUDGET_SHEET = "Budget";
