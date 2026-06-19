@@ -12,15 +12,19 @@ import { EstateExplorer } from "./estate-explorer";
 import { EstateSectionNav, type NavSection } from "./estate-section-nav";
 import { EstateCard } from "./estate-card";
 import { EstateLeadGallery } from "./estate-lead-gallery";
+import { EstatePrintButton } from "./estate-print-button";
+import { DistanceChips } from "@/components/objects/distance-chips";
 import { Appear } from "@/components/motion/appear";
 
 interface Props {
   estate: LandEstate;
   locale: Locale;
+  /** Лот, открытый в драуэре при заходе (страница /estates/<slug>/<lot>). */
+  initialLot?: string;
 }
 
 /** Лендинг одной подборки участков (аналог project-landing для земли). */
-export function LandEstateLanding({ estate, locale }: Props) {
+export function LandEstateLanding({ estate, locale, initialLot }: Props) {
   const t = getEstatesDict(locale);
   const s = estateStats(estate);
   const photoPlots = estatePhotoPlots(estate);
@@ -178,13 +182,17 @@ export function LandEstateLanding({ estate, locale }: Props) {
                   {priceFrom ? ` · ${fromLabel} ${formatPriceCompact(priceFrom)}` : ""}
                 </p>
               ) : null}
+              <DistanceChips lat={estate.lat} lng={estate.lng} locale={locale} />
+              <div className="mt-3">
+                <EstatePrintButton label={locale === "ru" ? "Печать / PDF" : "Print / PDF"} slug={estate.slug} />
+              </div>
             </aside>
           ) : null}
         </div>
       </section>
 
       {/* Интерактив: план + участки + галерея + карта + заявка */}
-      <EstateExplorer estate={estate} locale={locale} />
+      <EstateExplorer estate={estate} locale={locale} initialLot={initialLot} />
 
       {/* Other collections */}
       {others.length > 0 ? (

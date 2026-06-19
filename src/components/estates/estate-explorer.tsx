@@ -20,6 +20,7 @@ import { EstateGallery } from "./estate-gallery";
 import { EstateInquiry } from "./estate-inquiry";
 import { EstateLotDrawer } from "./estate-lot-drawer";
 import { EstateCompare } from "./estate-compare";
+import { EstateCurrencyProvider, CurrencyToggle } from "./estate-currency";
 
 type Filter = "all" | "available" | "sea" | "mountain";
 type Sort = "recommended" | "priceLow" | "priceHigh" | "areaLarge";
@@ -28,6 +29,8 @@ type PlanMode = "plan" | "satellite";
 interface Props {
   estate: LandEstate;
   locale: Locale;
+  /** Лот, открытый в драуэре при заходе (со страницы /estates/<slug>/<lot>). */
+  initialLot?: string;
 }
 
 /**
@@ -37,12 +40,12 @@ interface Props {
  * 3 лотов, предзаполнение заявки. Статика (шапка/описание/DD) — в серверном
  * лендинге выше.
  */
-export function EstateExplorer({ estate, locale }: Props) {
+export function EstateExplorer({ estate, locale, initialLot }: Props) {
   const t = getEstatesDict(locale);
   const s = estateStats(estate);
   const [hovered, setHovered] = useState<string | null>(null);
   const [selectedLot, setSelectedLot] = useState<string | null>(null);
-  const [drawerLot, setDrawerLot] = useState<string | null>(null);
+  const [drawerLot, setDrawerLot] = useState<string | null>(initialLot ?? null);
   const [compareCodes, setCompareCodes] = useState<string[]>([]);
   const [filter, setFilter] = useState<Filter>("all");
   const [sort, setSort] = useState<Sort>("recommended");
@@ -109,6 +112,7 @@ export function EstateExplorer({ estate, locale }: Props) {
   ];
 
   return (
+    <EstateCurrencyProvider>
     <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_360px] lg:gap-16">
       <div className="min-w-0 space-y-16">
         {/* План разбивки + режим «Спутник» */}
@@ -171,19 +175,22 @@ export function EstateExplorer({ estate, locale }: Props) {
                 </button>
               ))}
             </div>
-            <label className="ml-auto flex items-center gap-2 text-xs text-forest-500/60">
-              {t.sortLabel}
-              <select
-                value={sort}
-                onChange={(e) => setSort(e.target.value as Sort)}
-                className="rounded-sm border border-forest-500/15 bg-cream-50 px-2 py-1.5 text-xs text-forest-900"
-              >
-                <option value="recommended">{t.sort.recommended}</option>
-                <option value="priceLow">{t.sort.priceLow}</option>
-                <option value="priceHigh">{t.sort.priceHigh}</option>
-                <option value="areaLarge">{t.sort.areaLarge}</option>
-              </select>
-            </label>
+            <div className="ml-auto flex items-center gap-2">
+              <CurrencyToggle />
+              <label className="flex items-center gap-2 text-xs text-forest-500/60">
+                {t.sortLabel}
+                <select
+                  value={sort}
+                  onChange={(e) => setSort(e.target.value as Sort)}
+                  className="rounded-sm border border-forest-500/15 bg-cream-50 px-2 py-1.5 text-xs text-forest-900"
+                >
+                  <option value="recommended">{t.sort.recommended}</option>
+                  <option value="priceLow">{t.sort.priceLow}</option>
+                  <option value="priceHigh">{t.sort.priceHigh}</option>
+                  <option value="areaLarge">{t.sort.areaLarge}</option>
+                </select>
+              </label>
+            </div>
           </div>
 
           <div className="mt-6">
@@ -290,6 +297,7 @@ export function EstateExplorer({ estate, locale }: Props) {
         </div>
       ) : null}
     </div>
+    </EstateCurrencyProvider>
   );
 }
 

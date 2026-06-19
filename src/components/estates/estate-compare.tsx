@@ -6,7 +6,7 @@ import type { LandEstate } from "@/content/land-estates";
 import { plotPriceVisible, buildPotential } from "@/content/land-estates";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getEstatesDict } from "@/lib/i18n/dictionaries";
-import { formatPriceCompact } from "@/lib/utils/price";
+import { useEstateCurrency } from "./estate-currency";
 
 interface Props {
   estate: LandEstate;
@@ -26,6 +26,7 @@ interface Props {
  */
 export function EstateCompare({ estate, codes, locale, onRemove, onClear, hidden }: Props) {
   const t = getEstatesDict(locale);
+  const { fmt } = useEstateCurrency();
   const [open, setOpen] = useState(false);
   if (codes.length === 0 || hidden) return null;
 
@@ -38,7 +39,7 @@ export function EstateCompare({ estate, codes, locale, onRemove, onClear, hidden
   const fmtPrice = (code: string) => {
     const p = estate.plots.find((x) => x.code === code);
     if (!p || !plotPriceVisible(p.status)) return "—";
-    return p.priceThb ? formatPriceCompact(p.priceThb) : t.priceOnRequest;
+    return p.priceThb ? fmt(p.priceThb) : t.priceOnRequest;
   };
   const fmtPerSqm = (code: string) => {
     const p = estate.plots.find((x) => x.code === code);

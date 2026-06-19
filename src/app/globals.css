@@ -495,3 +495,22 @@
 .dark *:focus-visible {
   --tw-ring-color: rgb(var(--c-bronze) / 0.6);
 }
+
+/* Печать (кнопка «Печать / PDF» на страницах подборок): убираем хром и
+   оверлеи, печатаем на белом. Интерактивные слои уже помечены `print:hidden`. */
+@media print {
+  header,
+  footer {
+    display: none !important;
+  }
+  html,
+  body {
+    background: #fff !important;
+  }
+  /* Не разрывать ключевые блоки между страницами */
+  figure,
+  table,
+  section {
+    break-inside: avoid;
+  }
+}

@@ -9,12 +9,13 @@ import { plotPriceVisible, buildPotential } from "@/content/land-estates";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getEstatesDict } from "@/lib/i18n/dictionaries";
 import { localePath } from "@/lib/i18n/locale-path";
-import { formatPriceCompact } from "@/lib/utils/price";
 import { whatsappLink, telegramDmLink } from "@/lib/site-config";
 import { cn } from "@/lib/utils/cn";
 import { EstateLotCarousel } from "./estate-lot-carousel";
 import { PlotStatusBadge } from "./plot-status-badge";
 import { PhotoLightbox } from "@/components/media/photo-lightbox";
+import { useEstateCurrency } from "./estate-currency";
+import { track } from "@/lib/analytics/track";
 
 interface Props {
   estate: LandEstate;
@@ -52,6 +53,12 @@ export function EstateLotDrawer({
   const [lb, setLb] = useState<number | null>(null);
   const [copied, setCopied] = useState(false);
   const swipe = useRef<{ x: number; y: number } | null>(null);
+  const { fmt } = useEstateCurrency();
+
+  // Аналитика: открытие панели лота (тепловая карта интереса по лотам).
+  useEffect(() => {
+    if (plot) track("estate_lot_open", { estate: estate.slug, lot: plot.code });
+  }, [plot, estate.slug]);
 
   useEffect(() => {
     if (!plot) return;
@@ -122,15 +129,16 @@ export function EstateLotDrawer({
   };
 
   const ru = locale === "ru";
-  // Глубокая ссылка на лот (?lot=) — открывает этот драуэр при заходе.
+  // Каноническая страница лота /estates/<slug>/<code> (свой OG/мета).
   const origin = typeof window !== "undefined" ? window.location.origin : "https://rightwaygroup.co";
-  const lotUrl = `${origin}${localePath(locale, `/estates/${estate.slug}`)}?lot=${plot.code}`;
+  const lotUrl = `${origin}${localePath(locale, `/estates/${estate.slug}/${plot.code}`)}`;
   const waText = ru
     ? `Здравствуйте! Интересует участок ${plot.code} — ${estateName}. ${lotUrl}`
     : `Hi! I'm interested in plot ${plot.code} — ${estateName}. ${lotUrl}`;
 
   // Поделиться лотом: Web Share API → fallback в буфер обмена.
   const onShare = async () => {
+    track("estate_lot_share", { estate: estate.slug, lot: plot.code });
     const url = lotUrl;
     const title = `${estateName} — ${plot.code}`;
     if (typeof navigator !== "undefined" && navigator.share) {
@@ -220,12 +228,15 @@ export function EstateLotDrawer({
               <EstateLotCarousel
                 photos={plot.photos!}
                 altPrefix={`${estateName} — ${plot.code}`}
-                onOpen={setLb}
+                onOpen={(i) => {
+                  track("estate_lot_photos", { estate: estate.slug, lot: plot.code });
+                  setLb(i);
+                }}
                 sizes="(min-width: 768px) 28rem, 100vw"
                 info={{
                   seaView: plot.seaView,
                   viewLabel: plot.seaView ? t.view.sea : t.view.mountain,
-                  priceLabel: priceVisible && plot.priceThb ? formatPriceCompact(plot.priceThb) : null,
+                  priceLabel: priceVisible && plot.priceThb ? fmt(plot.priceThb) : null,
                 }}
                 hint
                 hintLabel={locale === "ru" ? "Листайте" : "Swipe"}
@@ -251,7 +262,7 @@ export function EstateLotDrawer({
                 label={t.table.price}
                 value={
                   priceVisible && plot.priceThb
-                    ? formatPriceCompact(plot.priceThb)
+                    ? fmt(plot.priceThb)
                     : priceVisible
                       ? t.priceOnRequest
                       : "—"
@@ -332,7 +343,10 @@ export function EstateLotDrawer({
           {plot.status === "available" ? (
             <button
               type="button"
-              onClick={() => onEnquire(plot.code)}
+              onClick={() => {
+                track("estate_lot_enquire", { estate: estate.slug, lot: plot.code });
+                onEnquire(plot.code);
+              }}
               className="flex w-full items-center justify-center gap-2 rounded-sm bg-brass-500 px-4 py-3 text-sm font-semibold text-cream-50 transition-colors hover:bg-brass-600"
             >
               {t.enquireLot(plot.code)}
@@ -345,6 +359,7 @@ export function EstateLotDrawer({
                 href={whatsappLink(waText)}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => track("estate_lot_whatsapp", { estate: estate.slug, lot: plot.code })}
                 className="flex flex-1 items-center justify-center gap-1.5 rounded-sm border border-forest-500/25 px-3 py-2.5 text-xs font-medium text-forest-500/80 transition-colors hover:border-forest-500/45 hover:text-forest-900"
               >
                 <MessageCircle className="h-3.5 w-3.5" />
@@ -354,6 +369,7 @@ export function EstateLotDrawer({
                 href={telegramDmLink(`lot_${plot.code}`)}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => track("estate_lot_telegram", { estate: estate.slug, lot: plot.code })}
                 className="flex flex-1 items-center justify-center gap-1.5 rounded-sm border border-forest-500/25 px-3 py-2.5 text-xs font-medium text-forest-500/80 transition-colors hover:border-forest-500/45 hover:text-forest-900"
               >
                 <Send className="h-3.5 w-3.5" />

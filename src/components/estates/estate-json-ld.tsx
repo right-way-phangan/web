@@ -50,7 +50,7 @@ export function EstateJsonLd({
           item: {
             "@type": "Offer",
             name: plot.code,
-            url: `${url}?lot=${plot.code}`,
+            url: `${url}/${plot.code}`,
             availability: AVAILABILITY[plot.status],
             ...(price
               ? { price, priceCurrency: "THB" }

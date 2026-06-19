@@ -5,10 +5,10 @@ import type { LandEstate, EstatePlot } from "@/content/land-estates";
 import { plotPriceVisible } from "@/content/land-estates";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getEstatesDict } from "@/lib/i18n/dictionaries";
-import { formatPriceCompact } from "@/lib/utils/price";
 import { cn } from "@/lib/utils/cn";
 import { AvailabilityBar } from "@/components/projects/availability-bar";
 import { PlotStatusBadge } from "./plot-status-badge";
+import { useEstateCurrency } from "./estate-currency";
 
 interface Props {
   /** Полная подборка — для сводных счётчиков. */
@@ -98,6 +98,7 @@ function PlotRow({
   onOpenLot: (code: string) => void;
 }) {
   const t = getEstatesDict(locale);
+  const { fmt } = useEstateCurrency();
   const taken = plot.status === "sold" || plot.status === "rented";
 
   const area = plot.areaRai
@@ -109,11 +110,11 @@ function PlotRow({
   const priceNode = plotPriceVisible(plot.status) ? (
     plot.tenure === "Leasehold" && plot.rentPerRaiMonth ? (
       <span className="num text-forest-900">
-        {formatPriceCompact(plot.rentPerRaiMonth)}
+        {fmt(plot.rentPerRaiMonth)}
         <span className="ml-1 font-sans text-[11px] text-forest-500/55">{t.perRaiMonth}</span>
       </span>
     ) : plot.priceThb ? (
-      <span className="num text-forest-900">{formatPriceCompact(plot.priceThb)}</span>
+      <span className="num text-forest-900">{fmt(plot.priceThb)}</span>
     ) : (
       <span className="text-forest-500/55">{t.priceOnRequest}</span>
     )
