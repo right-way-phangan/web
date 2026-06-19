@@ -223,6 +223,8 @@ export function EstateExplorer({ estate, locale }: Props) {
         plot={drawerPlot}
         locale={locale}
         estateName={estate.name[locale]}
+        codes={estate.plots.map((p) => p.code)}
+        onNavigate={setDrawerLot}
         onClose={() => setDrawerLot(null)}
         onEnquire={onEnquire}
         onToggleCompare={toggleCompare}

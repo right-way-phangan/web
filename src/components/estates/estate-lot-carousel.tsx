@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, MoveHorizontal } from "lucide-react";
 
 interface Props {
   photos: string[];
@@ -12,19 +12,62 @@ interface Props {
   /** Соотношение сторон рамки. */
   aspect?: string;
   sizes?: string;
+  /** Инфо-чип поверх кадра: вид (море/горы) + цена — видно при листании. */
+  info?: { seaView?: boolean; viewLabel?: string; priceLabel?: string | null };
+  /** Одноразовая подсказка свайпа на тач-устройстве (показываем один раз). */
+  hint?: boolean;
+  hintLabel?: string;
 }
+
+const HINT_KEY = "rw-estate-swipe-hint";
 
 /**
  * Карусель фото одного лота на нативной scroll-snap-ленте — как в мобильной
  * галерее карточки объекта ([[object-gallery]]): свайп пальцем работает «из
  * коробки» (overflow-x-auto + snap), счётчик/точки синхронятся по прокрутке.
  * Стрелки — для десктопа (по наведению). Тап по кадру → onOpen (лайтбокс).
+ * Доп.: инфо-чип (вид/цена) поверх кадра + одноразовая подсказка свайпа на моб.
  * Картинки — unoptimized (обход лимита оптимизатора).
  */
-export function EstateLotCarousel({ photos, altPrefix, onOpen, aspect = "4 / 3", sizes = "(min-width: 640px) 50vw, 100vw" }: Props) {
+export function EstateLotCarousel({
+  photos,
+  altPrefix,
+  onOpen,
+  aspect = "4 / 3",
+  sizes = "(min-width: 640px) 50vw, 100vw",
+  info,
+  hint,
+  hintLabel,
+}: Props) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [i, setI] = useState(0);
+  const [showHint, setShowHint] = useState(false);
   const n = photos.length;
+
+  // Одноразовая подсказка свайпа: только тач, только если не видели, + «нудж».
+  useEffect(() => {
+    if (!hint || n <= 1 || typeof window === "undefined") return;
+    if (!window.matchMedia?.("(pointer: coarse)")?.matches) return;
+    try {
+      if (localStorage.getItem(HINT_KEY) === "1") return;
+      localStorage.setItem(HINT_KEY, "1");
+    } catch {
+      /* приватный режим — просто покажем один раз за сессию */
+    }
+    const t1 = setTimeout(() => {
+      setShowHint(true);
+      const el = trackRef.current;
+      if (el) {
+        el.scrollTo({ left: 34, behavior: "smooth" });
+        setTimeout(() => trackRef.current?.scrollTo({ left: 0, behavior: "smooth" }), 650);
+      }
+    }, 600);
+    const t2 = setTimeout(() => setShowHint(false), 3600);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, [hint, n]);
 
   if (n === 0) return null;
 
@@ -45,6 +88,7 @@ export function EstateLotCarousel({ photos, altPrefix, onOpen, aspect = "4 / 3",
       <div
         ref={trackRef}
         onScroll={onScroll}
+        onTouchStart={() => showHint && setShowHint(false)}
         className="no-scrollbar flex h-full snap-x snap-mandatory overflow-x-auto overscroll-x-contain"
         role="region"
         aria-roledescription="carousel"
@@ -70,6 +114,30 @@ export function EstateLotCarousel({ photos, altPrefix, onOpen, aspect = "4 / 3",
           </button>
         ))}
       </div>
+
+      {/* Инфо-чип: вид + цена */}
+      {info && (info.viewLabel || info.priceLabel) ? (
+        <span className="pointer-events-none absolute bottom-2 left-2 inline-flex items-center gap-1 rounded-full bg-forest-900/55 px-2.5 py-1 text-[11px] font-medium text-cream-50 backdrop-blur-sm">
+          {info.viewLabel ? (
+            <>
+              <span aria-hidden>{info.seaView ? "🌊" : "⛰"}</span>
+              {info.viewLabel}
+            </>
+          ) : null}
+          {info.priceLabel ? <span className="text-brass-200">· {info.priceLabel}</span> : null}
+        </span>
+      ) : null}
+
+      {/* Подсказка свайпа (одноразовая, моб.) */}
+      {showHint ? (
+        <span
+          className="pointer-events-none absolute left-1/2 top-1/2 z-10 inline-flex -translate-x-1/2 -translate-y-1/2 items-center gap-1.5 rounded-full bg-forest-900/70 px-3 py-1.5 text-xs font-medium text-cream-50 backdrop-blur-sm"
+          style={{ animation: "lbFade 0.3s ease" }}
+        >
+          <MoveHorizontal className="h-4 w-4" />
+          {hintLabel ?? "Свайп"}
+        </span>
+      ) : null}
 
       {n > 1 ? (
         <>

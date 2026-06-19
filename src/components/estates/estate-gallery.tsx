@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import type { EstatePlot } from "@/content/land-estates";
+import { plotPriceVisible } from "@/content/land-estates";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getEstatesDict } from "@/lib/i18n/dictionaries";
+import { formatPriceCompact } from "@/lib/utils/price";
 import { EstateLotCarousel } from "./estate-lot-carousel";
 import { PlotStatusBadge } from "./plot-status-badge";
 import { PhotoLightbox } from "@/components/media/photo-lightbox";
@@ -51,6 +53,13 @@ export function EstateGallery({ photoPlots, estateName, locale }: Props) {
               altPrefix={`${estateName} — ${plot.code}`}
               onOpen={(i) => setOpen(starts[pi] + i)}
               sizes="(min-width: 640px) 50vw, 100vw"
+              info={{
+                seaView: plot.seaView,
+                viewLabel: plot.seaView ? t.view.sea : t.view.mountain,
+                priceLabel: plotPriceVisible(plot.status) && plot.priceThb ? formatPriceCompact(plot.priceThb) : null,
+              }}
+              hint={pi === 0}
+              hintLabel={locale === "ru" ? "Листайте" : "Swipe"}
             />
           </div>
         ))}

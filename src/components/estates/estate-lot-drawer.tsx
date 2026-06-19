@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import type { Route } from "next";
-import { X, ArrowRight, TrendingUp, Hammer, MapPin, ExternalLink, Scale } from "lucide-react";
+import { X, ArrowRight, TrendingUp, Hammer, MapPin, ExternalLink, Scale, ChevronLeft, ChevronRight, Share2, Check, Images } from "lucide-react";
 import type { LandEstate, EstatePlot } from "@/content/land-estates";
 import { plotPriceVisible, buildPotential } from "@/content/land-estates";
 import type { Locale } from "@/lib/i18n/dictionaries";
@@ -20,6 +20,10 @@ interface Props {
   plot: EstatePlot | null;
   locale: Locale;
   estateName: string;
+  /** Порядок кодов лотов для перелистывания ‹/› и свайпа между лотами. */
+  codes: string[];
+  /** Открыть другой лот (перелистывание внутри драуэра). */
+  onNavigate: (code: string) => void;
   onClose: () => void;
   onEnquire: (code: string) => void;
   onToggleCompare: (code: string) => void;
@@ -37,18 +41,31 @@ export function EstateLotDrawer({
   plot,
   locale,
   estateName,
+  codes,
+  onNavigate,
   onClose,
   onEnquire,
   onToggleCompare,
   inCompare,
 }: Props) {
   const [lb, setLb] = useState<number | null>(null);
+  const [copied, setCopied] = useState(false);
+  const swipe = useRef<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
     if (!plot) return;
     const onKey = (e: KeyboardEvent) => {
-      // Esc закрывает сперва лайтбокс, потом сам драуэр.
-      if (e.key === "Escape" && lb === null) onClose();
+      if (e.key === "Escape") {
+        if (lb === null) onClose(); // лайтбокс Esc закрывает сам (Radix)
+        return;
+      }
+      if (lb !== null) return; // при открытом лайтбоксе ←/→ листают фото
+      if ((e.key === "ArrowLeft" || e.key === "ArrowRight") && codes.length > 1) {
+        const ix = codes.indexOf(plot.code);
+        if (ix < 0) return;
+        const d = e.key === "ArrowLeft" ? -1 : 1;
+        onNavigate(codes[(ix + d + codes.length) % codes.length]);
+      }
     };
     window.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
@@ -56,7 +73,7 @@ export function EstateLotDrawer({
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
     };
-  }, [plot, onClose, lb]);
+  }, [plot, onClose, lb, codes, onNavigate]);
 
   // Смена лота — сбросить открытый лайтбокс.
   useEffect(() => setLb(null), [plot?.code]);
@@ -79,32 +96,140 @@ export function EstateLotDrawer({
       ? (`${localePath(locale, "/calculator")}?price=${plot.priceThb}&tenure=${plot.tenure === "Leasehold" ? "leasehold" : "freehold"}` as Route)
       : null;
 
+  // ‹/› — перелистывание лотов внутри драуэра (циклично).
+  const ix = codes.indexOf(plot.code);
+  const canNav = codes.length > 1 && ix >= 0;
+  const navTo = (d: number) => {
+    if (canNav) onNavigate(codes[(ix + d + codes.length) % codes.length]);
+  };
+
+  // Свайп по телу драуэра (вне карусели) листает лоты на тач-устройстве.
+  const onAsideDown = (e: React.PointerEvent) => {
+    if ((e.target as HTMLElement).closest("[data-noswipe]")) {
+      swipe.current = null;
+      return;
+    }
+    swipe.current = { x: e.clientX, y: e.clientY };
+  };
+  const onAsideUp = (e: React.PointerEvent) => {
+    const s = swipe.current;
+    swipe.current = null;
+    if (!s || e.pointerType !== "touch" || !canNav) return;
+    const dx = e.clientX - s.x;
+    const dy = e.clientY - s.y;
+    if (Math.abs(dx) >= 60 && Math.abs(dx) > Math.abs(dy) * 1.4) navTo(dx > 0 ? -1 : 1);
+  };
+
+  // Поделиться лотом: Web Share API → fallback в буфер обмена.
+  const onShare = async () => {
+    const url = `${window.location.origin}${window.location.pathname}#lot-${plot.code}`;
+    const title = `${estateName} — ${plot.code}`;
+    if (typeof navigator !== "undefined" && navigator.share) {
+      try {
+        await navigator.share({ title, text: title, url });
+      } catch {
+        /* пользователь отменил */
+      }
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    } catch {
+      /* буфер недоступен */
+    }
+  };
+
+  // Быстрый переход к фото-секции лота на странице (якоря lot-<code>).
+  const hasGallery = Boolean(plot.photos && plot.photos.length > 0);
+  const toPhotos = () => {
+    const id = `lot-${plot.code}`;
+    onClose();
+    setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" }), 80);
+  };
+
   return (
     <div className="fixed inset-0 z-[90] flex justify-end print:hidden" role="dialog" aria-modal="true" aria-label={plot.code}>
       <div className="absolute inset-0 bg-forest-900/50" style={{ animation: "lbFade 0.2s ease" }} onClick={onClose} />
       <aside
         className="relative flex h-full w-full max-w-md flex-col overflow-y-auto bg-cream-50 shadow-2xl"
         style={{ animation: "drawerIn 0.32s cubic-bezier(0.22,1,0.36,1)" }}
+        onPointerDown={onAsideDown}
+        onPointerUp={onAsideUp}
+        onPointerCancel={() => (swipe.current = null)}
       >
         {/* Шапка */}
-        <div className="sticky top-0 z-10 flex items-center justify-between gap-3 border-b border-forest-500/10 bg-cream-50/95 px-5 py-3.5 backdrop-blur">
-          <div className="flex items-center gap-2.5">
+        <div className="sticky top-0 z-10 flex items-center justify-between gap-2 border-b border-forest-500/10 bg-cream-50/95 px-4 py-3.5 backdrop-blur sm:px-5">
+          <div className="flex min-w-0 items-center gap-2.5">
             <span className="font-serif text-2xl text-forest-900">{plot.code}</span>
             <PlotStatusBadge status={plot.status} locale={locale} />
           </div>
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label="Close"
-            className="rounded-full p-1.5 text-forest-500/70 transition-colors hover:bg-forest-500/10 hover:text-forest-900"
-          >
-            <X className="h-5 w-5" />
-          </button>
+          <div className="flex shrink-0 items-center gap-0.5">
+            <button
+              type="button"
+              onClick={onShare}
+              aria-label={locale === "ru" ? "Поделиться" : "Share"}
+              className="rounded-full p-1.5 text-forest-500/70 transition-colors hover:bg-forest-500/10 hover:text-forest-900"
+            >
+              {copied ? <Check className="h-5 w-5 text-brass-600" /> : <Share2 className="h-5 w-5" />}
+            </button>
+            {canNav ? (
+              <>
+                <button
+                  type="button"
+                  onClick={() => navTo(-1)}
+                  aria-label={locale === "ru" ? "Предыдущий лот" : "Previous lot"}
+                  className="rounded-full p-1.5 text-forest-500/70 transition-colors hover:bg-forest-500/10 hover:text-forest-900"
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => navTo(1)}
+                  aria-label={locale === "ru" ? "Следующий лот" : "Next lot"}
+                  className="rounded-full p-1.5 text-forest-500/70 transition-colors hover:bg-forest-500/10 hover:text-forest-900"
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </button>
+              </>
+            ) : null}
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label={locale === "ru" ? "Закрыть" : "Close"}
+              className="rounded-full p-1.5 text-forest-500/70 transition-colors hover:bg-forest-500/10 hover:text-forest-900"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </div>
         </div>
 
         <div className="space-y-6 p-5">
-          {plot.photos && plot.photos.length > 0 ? (
-            <EstateLotCarousel photos={plot.photos} altPrefix={`${estateName} — ${plot.code}`} onOpen={setLb} sizes="(min-width: 768px) 28rem, 100vw" />
+          {hasGallery ? (
+            <div className="space-y-2" data-noswipe>
+              <EstateLotCarousel
+                photos={plot.photos!}
+                altPrefix={`${estateName} — ${plot.code}`}
+                onOpen={setLb}
+                sizes="(min-width: 768px) 28rem, 100vw"
+                info={{
+                  seaView: plot.seaView,
+                  viewLabel: plot.seaView ? t.view.sea : t.view.mountain,
+                  priceLabel: priceVisible && plot.priceThb ? formatPriceCompact(plot.priceThb) : null,
+                }}
+                hint
+                hintLabel={locale === "ru" ? "Листайте" : "Swipe"}
+              />
+              <button
+                type="button"
+                onClick={toPhotos}
+                className="flex w-full items-center justify-center gap-1.5 text-xs font-medium text-forest-500/70 transition-colors hover:text-brass-600"
+              >
+                <Images className="h-3.5 w-3.5" />
+                {locale === "ru" ? "Все фото участка в галерее" : "All plot photos in gallery"}
+              </button>
+            </div>
           ) : null}
 
           {/* Параметры */}
