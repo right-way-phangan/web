@@ -24,6 +24,7 @@ import {
   monthlyIncome,
   receivables,
   receivablesTotal,
+  receivablesSummary,
   personalMonthly,
   combinedBurnMonthly,
   runwayMonths,
@@ -217,6 +218,7 @@ export default async function FinancePage({
   const netBurn = netBurnMonthly(subs, personal, income);
   const runway = runwayMonths(cash, netBurn);
   const receivableTotal = receivablesTotal(recs);
+  const recvSum = receivablesSummary(recs);
   const runwayWithRec = runwayMonths(cash + receivableTotal, netBurn);
   const outDate = cashOutDate(cash, netBurn);
   const leversSaving = leversTotal();
@@ -449,6 +451,46 @@ export default async function FinancePage({
             <p className="mt-2 text-xs text-forest-900/45">
               Стратегия: Инне частями + мелких закрывать целиком, чтобы кредиторов становилось меньше.
               Гасить — бот <code className="rounded bg-cream-100 px-1">/payback</code>.
+            </p>
+          </Link>
+        </div>
+      )}
+
+      {/* Дебиторка — кто должен мне (зеркало долгов, лист Receivables) */}
+      {recvSum.count > 0 && (
+        <div className="mb-7">
+          <div className="mb-2 flex items-center justify-between">
+            <h2 className="text-xs font-semibold uppercase tracking-wide text-forest-900/50">
+              💵 Должны мне — спасательный круг
+            </h2>
+            <Link
+              href="/admin/finance/receivables"
+              className="text-xs font-medium text-forest-900/55 hover:text-brass-600"
+            >
+              Вся дебиторка →
+            </Link>
+          </div>
+          <Link
+            href="/admin/finance/receivables"
+            className="block rounded-2xl border border-brass-500/30 bg-brass-500/[0.06] p-5 transition hover:border-brass-500/60"
+          >
+            <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+              <p className="text-sm text-forest-900/70">
+                <strong className="text-forest-900">{recvSum.count}</strong> позиций · должны{" "}
+                <strong className="text-forest-900">{money(recvSum.total)}</strong>
+              </p>
+              {recvSum.nearest && (
+                <p className="text-xs text-forest-900/55">
+                  ближайший:{" "}
+                  <strong className="text-forest-900/80">{recvSum.nearest.from}</strong>{" "}
+                  {money(recvSum.nearest.thb)}
+                  {recvSum.nearest.due ? ` · ${recvSum.nearest.due}` : ""}
+                </p>
+              )}
+            </div>
+            <p className="mt-2 text-xs text-forest-900/45">
+              Пришёл платёж — бот <code className="rounded bg-cream-100 px-1">/received</code>: остаток ↓,
+              наличные ↑, дальше пусти на долги.
             </p>
           </Link>
         </div>
