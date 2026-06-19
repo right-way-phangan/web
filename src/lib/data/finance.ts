@@ -640,3 +640,26 @@ export function upcomingPayments(
   }
   return out.sort((a, b) => a.daysUntil - b.daysUntil);
 }
+
+// ── Бюджет vs факт (лист Budget) ────────────────────────────────────────────
+// Лимиты по категориям (в валюте дашборда THB) сравниваем с фактом из дневника
+// Transactions за текущий месяц — контроль burn (bootstrap: меньше — лучше).
+export type Budget = {
+  category: string;
+  scope: TxScope;
+  limit: number; // THB / мес
+  note: string;
+};
+
+export type BudgetLine = Budget & { actual: number; pct: number; over: boolean };
+
+/** Сравнивает лимиты с фактом за месяц (monthTx уже отфильтрован по месяцу). */
+export function budgetVsActual(budgets: Budget[], monthTx: Transaction[]): BudgetLine[] {
+  return budgets.map((b) => {
+    const actual = monthTx
+      .filter((t) => t.scope === b.scope && t.category === b.category)
+      .reduce((s, t) => s + t.thb, 0);
+    const pct = b.limit > 0 ? Math.round((actual / b.limit) * 100) : 0;
+    return { ...b, actual: Math.round(actual), pct, over: actual > b.limit };
+  });
+}

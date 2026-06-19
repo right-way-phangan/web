@@ -27,6 +27,7 @@ import type {
   Wallet,
   Debt,
   Payment,
+  Budget,
 } from "./finance";
 
 const SHEET_ID =
@@ -262,6 +263,24 @@ export async function loadTransactionsFromSheet(): Promise<Transaction[] | null>
         source: (r[8] ?? "").trim(),
       };
     });
+}
+
+const BUDGET_SHEET = "Budget";
+
+/** Читает лист Budget (лимиты по категориям, THB/мес). null → секция скрыта. */
+export async function loadBudgetFromSheet(): Promise<Budget[] | null> {
+  const token = await getAccessToken();
+  if (!token) return null;
+  const rows = await getRange(token, `${BUDGET_SHEET}!A2:D`);
+  if (rows == null) return null;
+  return rows
+    .filter((r) => (r[0] ?? "").trim() && (r[2] ?? "").toString().trim())
+    .map((r) => ({
+      category: (r[0] ?? "").trim(),
+      scope: ((r[1] ?? "").trim().toLowerCase().startsWith("биз") ? "бизнес" : "личное") as TxScope,
+      limit: num(r[2]),
+      note: (r[3] ?? "").trim(),
+    }));
 }
 
 const PAYMENTS_SHEET = "Payments";
