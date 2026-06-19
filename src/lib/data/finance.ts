@@ -541,3 +541,46 @@ export function walletStates(
 export function walletFor(scope: TxScope, wallets: Wallet[], fallbackDate: string): Wallet {
   return wallets.find((w) => w.scope === scope) ?? { scope, thb: 0, rub: 0, usd: 0, asOf: fallbackDate };
 }
+
+// ── Долги: живой трекер (лист Debts) ────────────────────────────────────────
+// Стратегия (19.06.2026): Инне частями (переживает) + мелких закрывать целиком,
+// чтобы число кредиторов уменьшалось. Лог погашений — через бота /payback.
+export type Debt = {
+  creditor: string;
+  currency: Currency;
+  initial: number;
+  paid: number;
+  remaining: number;
+  type: string; // люди-฿ / жёсткий-₽ / мягкий / заём
+  priority: string; // "1".."9", 1 = первым
+  note: string;
+};
+
+export type DebtsSummary = {
+  creditors: number;
+  byCurrency: Partial<Record<Currency, number>>;
+  thbTotal: number;
+  items: Debt[];
+};
+
+export function debtRemainingTHB(d: Debt, fx: Record<Currency, number> = FX): number {
+  return d.remaining * (fx[d.currency] ?? FX[d.currency] ?? 1);
+}
+
+/** Свод по активным (остаток>0) долгам: число кредиторов, остатки по валютам, эквивалент THB, список по приоритету. */
+export function debtsSummary(debts: Debt[], fx: Record<Currency, number> = FX): DebtsSummary {
+  const active = debts.filter((d) => d.remaining > 0);
+  const byCurrency: Partial<Record<Currency, number>> = {};
+  let thbTotal = 0;
+  for (const d of active) {
+    byCurrency[d.currency] = (byCurrency[d.currency] ?? 0) + d.remaining;
+    thbTotal += debtRemainingTHB(d, fx);
+  }
+  const items = [...active].sort((a, b) => {
+    const pa = a.priority || "9";
+    const pb = b.priority || "9";
+    if (pa !== pb) return pa < pb ? -1 : 1;
+    return b.remaining - a.remaining;
+  });
+  return { creditors: active.length, byCurrency, thbTotal: Math.round(thbTotal), items };
+}

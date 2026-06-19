@@ -25,6 +25,7 @@ import type {
   Transaction,
   TxScope,
   Wallet,
+  Debt,
 } from "./finance";
 
 const SHEET_ID =
@@ -258,6 +259,33 @@ export async function loadTransactionsFromSheet(): Promise<Transaction[] | null>
         note: (r[6] ?? "").trim(),
         account: (r[7] ?? "").trim() || "личная",
         source: (r[8] ?? "").trim(),
+      };
+    });
+}
+
+const DEBTS_SHEET = "Debts";
+
+/** Читает лист Debts. null → секция долгов скрыта (нет env/листа). */
+export async function loadDebtsFromSheet(): Promise<Debt[] | null> {
+  const token = await getAccessToken();
+  if (!token) return null;
+  const rows = await getRange(token, `${DEBTS_SHEET}!A2:I`);
+  if (rows == null) return null;
+  return rows
+    .filter((r) => (r[0] ?? "").trim())
+    .map((r) => {
+      const initial = num(r[2]);
+      const paid = num(r[3]);
+      const remaining = (r[4] ?? "").toString().trim() ? num(r[4]) : initial - paid;
+      return {
+        creditor: (r[0] ?? "").trim(),
+        currency: mapCurrency(r[1] ?? ""),
+        initial,
+        paid,
+        remaining,
+        type: (r[5] ?? "").trim(),
+        priority: (r[6] ?? "").trim(),
+        note: (r[7] ?? "").trim(),
       };
     });
 }
