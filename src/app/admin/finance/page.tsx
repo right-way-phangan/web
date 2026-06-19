@@ -42,6 +42,7 @@ import {
   debtsSummary,
   upcomingPayments,
   budgetVsActual,
+  goalProgress,
   fmtMoney,
   FX,
   FX_DATE,
@@ -59,6 +60,7 @@ import {
   loadDebtsFromSheet,
   loadPaymentsFromSheet,
   loadBudgetFromSheet,
+  loadGoalsFromSheet,
 } from "@/lib/data/finance-sheet";
 import { getLeads, getEvents } from "@/lib/data/leads";
 import Link from "next/link";
@@ -140,7 +142,7 @@ export default async function FinancePage({
 
   const [
     live, sheet, runwaySheet, crmLeads, crmEvents,
-    txSheet, walletsSheet, debtsSheet, paymentsSheet, budgetSheet,
+    txSheet, walletsSheet, debtsSheet, paymentsSheet, budgetSheet, goalsSheet,
   ] = await Promise.all([
     getLiveRatesTHB(),
     loadFinanceFromSheet(),
@@ -152,6 +154,7 @@ export default async function FinancePage({
     loadDebtsFromSheet(),
     loadPaymentsFromSheet(),
     loadBudgetFromSheet(),
+    loadGoalsFromSheet(),
   ]);
 
   // Рубли пересчитываем по живому рыночному курсу (переводы домой в ₽ — важен
@@ -275,6 +278,7 @@ export default async function FinancePage({
     clearsPeople: peopleDebtThb > 0 && commission >= peopleDebtThb,
     afterPeople: Math.max(commission - peopleDebtThb, 0),
   }));
+  const goals = (goalsSheet ?? []).map(goalProgress);
   const debtSymbols: Record<string, string> = { THB: "฿", RUB: "₽", USD: "$", EUR: "€" };
   const debtByCur = Object.entries(debtSum.byCurrency)
     .map(([c, v]) => `${new Intl.NumberFormat("ru-RU").format(Math.round(v as number))} ${debtSymbols[c] ?? c}`)
@@ -656,6 +660,36 @@ export default async function FinancePage({
             Поэтому первая сделка — не «бизнес-цель», а личное выживание. Долги людям сейчас:{" "}
             {money(peopleDebtThb)}.
           </p>
+        </div>
+      )}
+      {goals.length > 0 && (
+        <div className="mb-6">
+          <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
+            🎯 Финансовые цели
+          </h3>
+          <div className="space-y-3">
+            {goals.map((g) => (
+              <div key={g.name} className="rounded-2xl border border-forest-900/10 bg-panel p-4">
+                <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5">
+                  <p className="text-sm font-medium text-forest-900">{g.name}</p>
+                  <p className="text-sm tabular-nums text-forest-900/70">
+                    {money(g.saved)} / {money(g.target)} · {g.pct}%
+                  </p>
+                </div>
+                <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-forest-900/10">
+                  <div
+                    className={"h-full rounded-full " + (g.pct >= 100 ? "bg-emerald-500" : "bg-brass-500")}
+                    style={{ width: `${g.pct}%` }}
+                  />
+                </div>
+                <p className="mt-1.5 text-xs text-forest-900/45">
+                  {g.left > 0 ? `осталось накопить ${money(g.left)}` : "✅ цель достигнута"}
+                  {g.deadline ? ` · к ${g.deadline}` : ""}
+                  {g.note ? ` · ${g.note}` : ""}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       )}
       {!hasPersonal && (
