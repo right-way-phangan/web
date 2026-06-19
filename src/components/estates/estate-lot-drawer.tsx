@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import type { Route } from "next";
 import { X, ArrowRight, TrendingUp, Hammer, MapPin, ExternalLink, Scale } from "lucide-react";
@@ -13,6 +13,7 @@ import { formatPriceCompact } from "@/lib/utils/price";
 import { cn } from "@/lib/utils/cn";
 import { EstateLotCarousel } from "./estate-lot-carousel";
 import { PlotStatusBadge } from "./plot-status-badge";
+import { PhotoLightbox } from "@/components/media/photo-lightbox";
 
 interface Props {
   estate: LandEstate;
@@ -41,10 +42,13 @@ export function EstateLotDrawer({
   onToggleCompare,
   inCompare,
 }: Props) {
+  const [lb, setLb] = useState<number | null>(null);
+
   useEffect(() => {
     if (!plot) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      // Esc закрывает сперва лайтбокс, потом сам драуэр.
+      if (e.key === "Escape" && lb === null) onClose();
     };
     window.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
@@ -52,7 +56,10 @@ export function EstateLotDrawer({
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
     };
-  }, [plot, onClose]);
+  }, [plot, onClose, lb]);
+
+  // Смена лота — сбросить открытый лайтбокс.
+  useEffect(() => setLb(null), [plot?.code]);
 
   if (!plot) return null;
   const t = getEstatesDict(locale);
@@ -97,7 +104,7 @@ export function EstateLotDrawer({
 
         <div className="space-y-6 p-5">
           {plot.photos && plot.photos.length > 0 ? (
-            <EstateLotCarousel photos={plot.photos} altPrefix={`${estateName} — ${plot.code}`} sizes="(min-width: 768px) 28rem, 100vw" />
+            <EstateLotCarousel photos={plot.photos} altPrefix={`${estateName} — ${plot.code}`} onOpen={setLb} sizes="(min-width: 768px) 28rem, 100vw" />
           ) : null}
 
           {/* Параметры */}
@@ -210,6 +217,22 @@ export function EstateLotDrawer({
           </div>
         </div>
       </aside>
+
+      {plot.photos && plot.photos.length > 0 ? (
+        <PhotoLightbox
+          photos={plot.photos.map((src, i) => ({ src, alt: `${estateName} — ${plot.code} (${i + 1})`, caption: plot.code }))}
+          index={lb}
+          onIndexChange={setLb}
+          onClose={() => setLb(null)}
+          unoptimized
+          title={plot.code}
+          labels={{
+            prev: locale === "ru" ? "Назад" : "Previous",
+            next: locale === "ru" ? "Вперёд" : "Next",
+            close: locale === "ru" ? "Закрыть" : "Close",
+          }}
+        />
+      ) : null}
     </div>
   );
 }
