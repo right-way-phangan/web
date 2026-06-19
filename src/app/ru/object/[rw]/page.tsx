@@ -7,8 +7,6 @@ import { DISTRICTS } from "@/content/districts";
 import { getObjectByRwNumber, getAnyObjectByRwNumber, getPublicObjects, slimObjectForCard, nearbyListings } from "@/lib/data/objects";
 import { UnavailableObject } from "@/components/objects/unavailable-object";
 import { isProjectUnit, parentProjectRw, projectSlug, getPublicProjects } from "@/lib/data/projects";
-import { formatPriceTHB, formatPricePerRai, formatApproxUSD } from "@/lib/utils/price";
-import { getUsdPerThb } from "@/lib/data/fx";
 import { RoiCalculator } from "@/components/calculator/roi-calculator";
 import { Breadcrumbs } from "@/components/objects/breadcrumbs";
 import { BuyingCosts } from "@/components/objects/buying-costs";
@@ -25,6 +23,7 @@ import { RelatedListings } from "@/components/objects/related-listings";
 import { RecentlyViewed } from "@/components/objects/recently-viewed";
 import { TrackView } from "@/components/objects/track-view";
 import { PriceContextBadge } from "@/components/objects/price-context-badge";
+import { ObjectPrice } from "@/components/objects/object-price";
 import { SaveButton } from "@/components/objects/save-button";
 import { ShareButton } from "@/components/objects/share-button";
 import { BrochureButton } from "@/components/objects/brochure-button";
@@ -93,7 +92,6 @@ export default async function RussianObjectPage({ params }: Props) {
   // сериализуется в payload каждой страницы объекта через похожие/калькулятор.
   const catalog = (await getPublicObjects()).map(slimObjectForCard);
   const nearby = nearbyListings(catalog, object);
-  const usdPerThb = await getUsdPerThb();
   const siteUrl = getSiteUrl();
   const pageUrl = `${siteUrl}/ru/object/${object.rwNumber}`;
   const t = getObjectDict("ru");
@@ -115,15 +113,6 @@ export default async function RussianObjectPage({ params }: Props) {
     }
   }
 
-  const mobilePriceLabel = object.priceThb
-    ? formatPriceTHB(object.priceThb)
-    : object.pricePerRai
-      ? formatPricePerRai(object.pricePerRai)
-      : object.rentPerMonth
-        ? `${formatPriceTHB(object.rentPerMonth)} /мес`
-        : object.rentPerRaiMonth
-          ? `${formatPriceTHB(object.rentPerRaiMonth)} /рай/мес`
-          : undefined;
 
   return (
     <>
@@ -175,46 +164,15 @@ export default async function RussianObjectPage({ params }: Props) {
           </div>
           <h1 className="mt-3 max-w-3xl text-balance">{object.titleEn}</h1>
 
-          {object.priceThb ? (
-            <>
-              <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                <span className="num text-3xl text-forest-900 md:text-4xl">
-                  {formatPriceTHB(object.priceThb)}
-                </span>
-                <span className="num text-sm text-forest-500/60">
-                  {formatApproxUSD(object.priceThb, usdPerThb)}
-                </span>
-                {object.type === "Land" && object.pricePerRai ? (
-                  <span className="text-sm text-forest-500/70">
-                    {formatPricePerRai(object.pricePerRai)}
-                  </span>
-                ) : null}
-              </div>
-              <PriceContextBadge object={object} catalog={catalog} />
-            </>
-          ) : object.pricePerRai ? (
-            <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-              <span className="num text-3xl text-forest-900 md:text-4xl">
-                {formatPricePerRai(object.pricePerRai)}
-              </span>
-            </div>
-          ) : object.rentPerMonth ? (
-            <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-              <span className="num text-3xl text-forest-900 md:text-4xl">
-                {formatPriceTHB(object.rentPerMonth)}
-              </span>
-              <span className="text-sm text-forest-500/70">/ мес</span>
-            </div>
-          ) : object.rentPerRaiMonth ? (
-            <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-              <span className="num text-3xl text-forest-900 md:text-4xl">
-                {formatPriceTHB(object.rentPerRaiMonth)}
-              </span>
-              <span className="text-sm text-forest-500/70">{t.perRaiMonth}</span>
-            </div>
-          ) : (
-            <p className="mt-4 text-lg italic text-forest-500/70">{t.priceOnRequest}</p>
-          )}
+          <ObjectPrice
+            priceThb={object.priceThb}
+            pricePerRai={object.pricePerRai}
+            rentPerMonth={object.rentPerMonth}
+            rentPerRaiMonth={object.rentPerRaiMonth}
+            isLand={object.type === "Land"}
+            locale="ru"
+          />
+          {object.priceThb ? <PriceContextBadge object={object} catalog={catalog} /> : null}
 
           {object.district ? (
             <div className="mt-4 flex flex-wrap items-center gap-2 text-sm text-forest-500/70">
@@ -311,7 +269,13 @@ export default async function RussianObjectPage({ params }: Props) {
         <RelatedListings current={object} catalog={catalog} />
         <RecentlyViewed catalog={catalog} excludeRw={object.rwNumber} />
       </article>
-      <MobileCtaBar rwNumber={object.rwNumber} priceLabel={mobilePriceLabel} />
+      <MobileCtaBar
+        rwNumber={object.rwNumber}
+        priceThb={object.priceThb}
+        pricePerRai={object.pricePerRai}
+        rentPerMonth={object.rentPerMonth}
+        rentPerRaiMonth={object.rentPerRaiMonth}
+      />
       <TrackView rw={object.rwNumber} />
     </>
   );

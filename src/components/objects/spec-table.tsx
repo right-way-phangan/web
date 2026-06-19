@@ -1,9 +1,9 @@
 "use client";
 
 import type { RealEstateObject } from "@/types/object";
-import { formatPriceTHB, formatPricePerRai } from "@/lib/utils/price";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { getObjectDict, getListingsDict, type ObjectDict } from "@/lib/i18n/dictionaries";
+import { useCurrency } from "@/components/ui/currency";
 
 interface Row {
   label: string;
@@ -24,6 +24,10 @@ function buildGroups(
   // between Node and the browser (grouping + decimal separators) and caused a
   // hydration mismatch (React #418) on object pages with sqm/fractional-rai.
   nl: string,
+  // Currency formatters from the active toggle (THB → selected, full precision
+  // for the headline amount, compact for the per-rai figure).
+  fmt: (thb: number) => string,
+  fmtFull: (thb: number) => string,
 ): Group[] {
   const groups: Group[] = [];
   const rai = (r: number) =>
@@ -34,11 +38,11 @@ function buildGroups(
 
   // Pricing
   const priceRows: Row[] = [];
-  if (o.priceThb) priceRows.push({ label: L["Asking price"], value: formatPriceTHB(o.priceThb) });
+  if (o.priceThb) priceRows.push({ label: L["Asking price"], value: fmtFull(o.priceThb) });
   if (o.type === "Land" && o.pricePerRai)
-    priceRows.push({ label: L["Price per rai"], value: formatPricePerRai(o.pricePerRai) });
+    priceRows.push({ label: L["Price per rai"], value: `${fmt(o.pricePerRai)} / rai` });
   if (o.rentPerRaiMonth)
-    priceRows.push({ label: L["Lease rent"], value: `${formatPriceTHB(o.rentPerRaiMonth)} ${t.perRaiMonth}` });
+    priceRows.push({ label: L["Lease rent"], value: `${fmtFull(o.rentPerRaiMonth)} ${t.perRaiMonth}` });
   if (priceRows.length > 0) groups.push({ title: t.specGroups.Pricing, rows: priceRows });
 
   // Property
@@ -103,7 +107,8 @@ export function SpecTable({ object }: { object: RealEstateObject }) {
   const t = getObjectDict(locale);
   const typeName = getListingsDict(locale).types[object.type];
   const numberLocale = locale === "ru" ? "ru-RU" : "en-US";
-  const groups = buildGroups(object, t, typeName, numberLocale);
+  const { fmt, fmtFull } = useCurrency();
+  const groups = buildGroups(object, t, typeName, numberLocale, fmt, fmtFull);
 
   return (
     <div className="space-y-10">

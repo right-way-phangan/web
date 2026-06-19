@@ -7,7 +7,6 @@ import L from "leaflet";
 import { Maximize2, Minimize2 } from "lucide-react";
 import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
-import { formatPriceCompact, formatRentCompact } from "@/lib/utils/price";
 import type { ViewMode } from "@/lib/filters/listings";
 import {
   TILE_URL,
@@ -38,6 +37,7 @@ import {
 } from "@/lib/leaflet/layer-prefs";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { getObjectDict } from "@/lib/i18n/dictionaries";
+import { useCurrency } from "@/components/ui/currency";
 import { cn } from "@/lib/utils/cn";
 import { useFullscreen } from "@/lib/leaflet/use-fullscreen";
 import { MapLegend } from "./map-legend";
@@ -75,20 +75,33 @@ const COLORS = {
 // The figure a pin shows, given the active view: monthly rent (Rent) or sale
 // price (Buy). In Rent, buildings show whole-unit rent (฿/mo); land shows the
 // per-rai lease (฿/rai·mo). Falls back to the type label when no figure is set.
-function pinLabel(p: MapPoint, mode: ViewMode, perMonth: string, perRaiMonth: string): string {
+function pinLabel(
+  p: MapPoint,
+  mode: ViewMode,
+  fmt: (thb: number) => string,
+  perMonth: string,
+  perRaiMonth: string,
+): string {
   if (mode === "rent") {
-    if (p.rentPerMonth) return formatRentCompact(p.rentPerMonth, perMonth);
-    if (p.rentPerRaiMonth) return formatRentCompact(p.rentPerRaiMonth, perRaiMonth);
+    if (p.rentPerMonth) return `${fmt(p.rentPerMonth)}${perMonth}`;
+    if (p.rentPerRaiMonth) return `${fmt(p.rentPerRaiMonth)}${perRaiMonth}`;
     return p.type;
   }
-  return p.priceThb ? formatPriceCompact(p.priceThb) : p.type;
+  return p.priceThb ? fmt(p.priceThb) : p.type;
 }
 
 // Airbnb-style price pill, anchored by its bottom tip at the coordinate. We size
 // the icon to [0,0] and let the inner <span> grow with the label, shifting it up
 // and left so the visual bottom-centre sits on the point.
-function pricePin(p: MapPoint, state: PinState, mode: ViewMode, perMonth: string, perRaiMonth: string): L.DivIcon {
-  const label = pinLabel(p, mode, perMonth, perRaiMonth);
+function pricePin(
+  p: MapPoint,
+  state: PinState,
+  mode: ViewMode,
+  fmt: (thb: number) => string,
+  perMonth: string,
+  perRaiMonth: string,
+): L.DivIcon {
+  const label = pinLabel(p, mode, fmt, perMonth, perRaiMonth);
   const bg = state === "idle" ? COLORS.forest : COLORS.brass;
   const z = state === "active" ? "z-index:10000;" : state === "hover" ? "z-index:9000;" : "";
   const scale = state === "idle" ? "" : "transform:translate(-50%,-100%) scale(1.08);";
@@ -210,6 +223,7 @@ export default function ListingsMap({
 }: Props) {
   const locale = useLocale();
   const t = getObjectDict(locale).map;
+  const { fmt } = useCurrency();
   const mapRef = useRef<L.Map | null>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const { isFull, supported: fsSupported, toggle: toggleFull } = useFullscreen(wrapperRef, mapRef);
@@ -340,7 +354,7 @@ export default function ListingsMap({
               <Marker
                 key={p.rw}
                 position={[p.lat, p.lng]}
-                icon={pricePin(p, state, mode, t.perMonth, t.perRaiMonth)}
+                icon={pricePin(p, state, mode, fmt, t.perMonth, t.perRaiMonth)}
                 eventHandlers={{
                   click: () => onSelect?.(p.rw),
                   mouseover: () => onHover?.(p.rw),
@@ -378,16 +392,16 @@ export default function ListingsMap({
                     {mode === "rent" ? (
                       p.rentPerMonth ? (
                         <span className="num mt-1 block text-sm text-forest-900">
-                          {formatRentCompact(p.rentPerMonth, t.perMonth)}
+                          {fmt(p.rentPerMonth)}{t.perMonth}
                         </span>
                       ) : p.rentPerRaiMonth ? (
                         <span className="num mt-1 block text-sm text-forest-900">
-                          {formatRentCompact(p.rentPerRaiMonth, t.perRaiMonth)}
+                          {fmt(p.rentPerRaiMonth)}{t.perRaiMonth}
                         </span>
                       ) : null
                     ) : p.priceThb ? (
                       <span className="num mt-1 block text-sm text-forest-900">
-                        {formatPriceCompact(p.priceThb)}
+                        {fmt(p.priceThb)}
                       </span>
                     ) : null}
                   </a>

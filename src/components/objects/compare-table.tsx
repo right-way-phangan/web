@@ -5,7 +5,7 @@ import type { Route } from "next";
 import { X } from "lucide-react";
 import type { RealEstateObject } from "@/types/object";
 import { useSaved } from "@/lib/saved/saved-context";
-import { formatPriceCompact } from "@/lib/utils/price";
+import { useCurrency, CurrencyToggle } from "@/components/ui/currency";
 import { cn } from "@/lib/utils/cn";
 import { useLocale, localeHref } from "@/lib/i18n/use-locale";
 import { zoneShort, buildWarnLabels } from "@/lib/data/zone-rules";
@@ -76,23 +76,27 @@ const CT = {
   },
 } as const;
 
-function buildRows(t: (typeof CT)[keyof typeof CT], locale: keyof typeof CT): Row[] {
+function buildRows(
+  t: (typeof CT)[keyof typeof CT],
+  locale: keyof typeof CT,
+  fmt: (thb: number) => string,
+): Row[] {
   return [
     {
       label: t.rPrice,
       get: (o) =>
         o.priceThb
-          ? formatPriceCompact(o.priceThb)
+          ? fmt(o.priceThb)
           : o.pricePerRai
-            ? `${formatPriceCompact(o.pricePerRai)}${t.perRai}`
+            ? `${fmt(o.pricePerRai)}${t.perRai}`
             : o.rentPerRaiMonth
-              ? `${formatPriceCompact(o.rentPerRaiMonth)}${t.perRaiMo}`
+              ? `${fmt(o.rentPerRaiMonth)}${t.perRaiMo}`
               : t.onRequest,
       rank: (o) => o.priceThb ?? null,
     },
     {
       label: t.rPricePerRai,
-      get: (o) => (o.pricePerRai ? `${formatPriceCompact(o.pricePerRai)}` : "—"),
+      get: (o) => (o.pricePerRai ? `${fmt(o.pricePerRai)}` : "—"),
       rank: (o) => o.pricePerRai ?? null,
     },
     { label: t.rType, get: (o) => o.type },
@@ -143,14 +147,20 @@ function buildRows(t: (typeof CT)[keyof typeof CT], locale: keyof typeof CT): Ro
 export function CompareTable({ items }: { items: RealEstateObject[] }) {
   const locale = useLocale();
   const t = CT[locale];
-  const ROWS = buildRows(t, locale);
+  const { fmt } = useCurrency();
+  const ROWS = buildRows(t, locale, fmt);
   const { remove } = useSaved();
   if (items.length < 2) return null;
 
   return (
     <section>
-      <h2 className="font-serif text-2xl text-forest-900">{t.heading}</h2>
-      <p className="mt-1 text-sm text-forest-500/70">{t.lede}</p>
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h2 className="font-serif text-2xl text-forest-900">{t.heading}</h2>
+          <p className="mt-1 text-sm text-forest-500/70">{t.lede}</p>
+        </div>
+        <CurrencyToggle />
+      </div>
       <div className="mt-6 overflow-x-auto rounded-sm border border-forest-500/10">
         <table className="w-full min-w-[640px] border-collapse text-sm">
           <thead>

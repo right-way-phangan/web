@@ -36,7 +36,7 @@ import {
 } from "@/lib/leaflet/layer-prefs";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { getObjectDict } from "@/lib/i18n/dictionaries";
-import { formatPriceCompact } from "@/lib/utils/price";
+import { useCurrency } from "@/components/ui/currency";
 import { cn } from "@/lib/utils/cn";
 import { useFullscreen } from "@/lib/leaflet/use-fullscreen";
 import type { NearbyListing } from "@/types/object";
@@ -117,6 +117,7 @@ interface Props {
 export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSunset, nearby }: Props) {
   const locale = useLocale();
   const t = getObjectDict(locale).map;
+  const { fmt } = useCurrency();
   const mapRef = useRef<L.Map | null>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const watchId = useRef<number | null>(null);
@@ -345,7 +346,7 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
                 </span>
                 <span className="block font-serif text-sm leading-snug text-forest-900">{n.title}</span>
                 {n.priceThb ? (
-                  <span className="num mt-1 block text-sm text-forest-900">{formatPriceCompact(n.priceThb)}</span>
+                  <span className="num mt-1 block text-sm text-forest-900">{fmt(n.priceThb)}</span>
                 ) : null}
               </a>
             </Popup>

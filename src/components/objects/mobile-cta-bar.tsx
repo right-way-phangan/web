@@ -5,12 +5,16 @@ import { Button } from "@/components/ui/button";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { getObjectDict } from "@/lib/i18n/dictionaries";
 import { whatsappLink } from "@/lib/site-config";
+import { useCurrency } from "@/components/ui/currency";
 import { cn } from "@/lib/utils/cn";
 
 interface Props {
   rwNumber: string;
-  /** Pre-formatted headline price (server-side), or undefined → "on request". */
-  priceLabel?: string;
+  /** Raw THB amounts — formatted here in the active currency (฿/$/₽). */
+  priceThb?: number;
+  pricePerRai?: number;
+  rentPerMonth?: number;
+  rentPerRaiMonth?: number;
 }
 
 /**
@@ -19,9 +23,26 @@ interface Props {
  * a long page, so without this the main conversion action lives below ~6
  * screens of content. Slides away while the form itself is in view.
  */
-export function MobileCtaBar({ rwNumber, priceLabel }: Props) {
+export function MobileCtaBar({
+  rwNumber,
+  priceThb,
+  pricePerRai,
+  rentPerMonth,
+  rentPerRaiMonth,
+}: Props) {
   const t = getObjectDict(useLocale());
+  const { fmt } = useCurrency();
   const [formInView, setFormInView] = useState(false);
+
+  const priceLabel = priceThb
+    ? fmt(priceThb)
+    : pricePerRai
+      ? `${fmt(pricePerRai)} /rai`
+      : rentPerMonth
+        ? `${fmt(rentPerMonth)} /mo`
+        : rentPerRaiMonth
+          ? `${fmt(rentPerRaiMonth)} /rai/mo`
+          : undefined;
 
   useEffect(() => {
     const form = document.getElementById("inquiry");

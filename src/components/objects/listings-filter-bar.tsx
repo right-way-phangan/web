@@ -10,6 +10,7 @@ import { describeFilter } from "@/lib/filters/listings";
 import { useSavedSearches } from "@/lib/saved/saved-searches";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { getListingsDict } from "@/lib/i18n/dictionaries";
+import { CurrencyToggle } from "@/components/ui/currency";
 import { cn } from "@/lib/utils/cn";
 
 interface Props {
@@ -421,6 +422,10 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
         </div>
 
         <div className="ml-auto flex items-center gap-2">
+          {/* Currency — display only; prices stay THB underneath. Persists
+              site-wide (shared rw-currency key with estates/projects). */}
+          <CurrencyToggle />
+
           {/* Sort */}
           <Select
             label={dict.sort}

@@ -15,13 +15,13 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import type { RealEstateObject, ObjectType } from "@/types/object";
-import { formatPriceCompact, formatUsdCompact } from "@/lib/utils/price";
 import { BLUR_PLACEHOLDER } from "@/lib/utils/blur";
 import { useLocale, localeHref } from "@/lib/i18n/use-locale";
 import { getListingsDict, type ListingsDict } from "@/lib/i18n/dictionaries";
 import { zoneCategory, buildWarnLabels } from "@/lib/data/zone-rules";
 import { SaveButton } from "./save-button";
 import { MagicCard } from "@/components/ui/magic-card";
+import { useCurrency } from "@/components/ui/currency";
 
 const NEW_BADGE_DAYS = 14;
 
@@ -85,6 +85,7 @@ export function ObjectCard({ object, priority = false, priceMode = "buy" }: Prop
   const showCover = Boolean(object.coverImage) && !coverFailed;
   const locale = useLocale();
   const t = getListingsDict(locale);
+  const { fmt } = useCurrency();
   // Explicit locale so server/client number formatting matches (hydration).
   const nl = locale === "ru" ? "ru-RU" : "en-US";
   const zoneCat = zoneCategory(object, locale);
@@ -186,43 +187,38 @@ export function ObjectCard({ object, priority = false, priceMode = "buy" }: Prop
           <p className="num text-lg text-forest-900">
             {object.rentPerMonth ? (
               <>
-                {formatPriceCompact(object.rentPerMonth)}
+                {fmt(object.rentPerMonth)}
                 <span className="ml-2 text-xs font-sans text-forest-500/70">{t.perMonthShort}</span>
               </>
             ) : (
               <>
-                {formatPriceCompact(object.rentPerRaiMonth!)}
+                {fmt(object.rentPerRaiMonth!)}
                 <span className="ml-2 text-xs font-sans text-forest-500/70">{t.perRaiMonth}</span>
               </>
             )}
           </p>
         ) : object.priceThb ? (
           <p className="num text-lg text-forest-900">
-            {formatPriceCompact(object.priceThb)}
-            {object.priceUsd ? (
-              <span className="ml-2 text-xs font-sans font-normal text-forest-500/60">
-                {formatUsdCompact(object.priceUsd)}
-              </span>
-            ) : null}
+            {fmt(object.priceThb)}
             {object.type === "Land" && object.pricePerRai ? (
               <span className="ml-2 text-xs font-sans text-forest-500/70">
-                {formatPriceCompact(object.pricePerRai)}{t.perRai}
+                {fmt(object.pricePerRai)}{t.perRai}
               </span>
             ) : null}
           </p>
         ) : object.pricePerRai ? (
           <p className="num text-lg text-forest-900">
-            {formatPriceCompact(object.pricePerRai)}
+            {fmt(object.pricePerRai)}
             <span className="ml-2 text-xs font-sans text-forest-500/70">{t.perRai}</span>
           </p>
         ) : object.rentPerMonth ? (
           <p className="num text-lg text-forest-900">
-            {formatPriceCompact(object.rentPerMonth)}
+            {fmt(object.rentPerMonth)}
             <span className="ml-2 text-xs font-sans text-forest-500/70">{t.perMonthShort}</span>
           </p>
         ) : object.rentPerRaiMonth ? (
           <p className="num text-lg text-forest-900">
-            {formatPriceCompact(object.rentPerRaiMonth)}
+            {fmt(object.rentPerRaiMonth)}
             <span className="ml-2 text-xs font-sans text-forest-500/70">{t.perRaiMonth}</span>
           </p>
         ) : (

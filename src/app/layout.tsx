@@ -7,6 +7,7 @@ import { Footer } from "@/components/layout/footer";
 import { MessengerFab } from "@/components/layout/messenger-fab";
 import { ScrollProgress } from "@/components/motion/scroll-progress";
 import { SavedProvider } from "@/lib/saved/saved-context";
+import { CurrencyProvider } from "@/components/ui/currency";
 import { OrganizationJsonLd } from "@/components/seo/organization-json-ld";
 import { WebsiteJsonLd } from "@/components/seo/website-json-ld";
 import { GtmScript, GtmNoScript } from "@/components/analytics/gtm";
@@ -142,11 +143,13 @@ export default function RootLayout({
         <WebsiteJsonLd siteUrl={siteUrl} />
         <ThemeProvider>
           <SavedProvider>
-            <ScrollProgress />
-            <Header />
-            <main id="main-content" className="flex-1">{children}</main>
-            <Footer />
-            <MessengerFab />
+            <CurrencyProvider>
+              <ScrollProgress />
+              <Header />
+              <main id="main-content" className="flex-1">{children}</main>
+              <Footer />
+              <MessengerFab />
+            </CurrencyProvider>
           </SavedProvider>
         </ThemeProvider>
         <ContactClickTracker />
