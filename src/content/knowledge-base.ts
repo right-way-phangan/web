@@ -1422,6 +1422,190 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "phangan",
     faqQuestion: "What is it like to buy property in Sri Thanu on Koh Phangan, and who is it best for?",
   },
+  {
+    slug: "buying-in-thong-sala",
+    kbId: "kb-0025",
+    topic: "Phangan",
+    title: "Buying property in Thong Sala, Koh Phangan: the island's practical hub",
+    short:
+      "Thong Sala is Koh Phangan's main town, ferry port and commercial centre — the right choice for buyers who prioritise year-round rental demand and service infrastructure over beachfront lifestyle. Lower entry prices than the west coast, stable demand, and the island's best transport links trade against an urban rather than resort character.",
+    updated: "2026-06-20",
+    body: [
+      "Thong Sala is Koh Phangan's capital in practice: the main ferry port, the commercial hub, and the concentration point for the island's banks, hospitals, schools, supermarkets and administrative offices. Sitting on the southwest coast roughly 7 km south of Sri Thanu, it is where everything the island needs arrives — and where the island's day-to-day business gets done. That character makes it a different kind of property choice from the wellness belt or the beachfront areas.",
+      { h: "What the area offers" },
+      {
+        ul: [
+          "**Ferry port** — Thong Sala Pier is the main gateway for routes to Surat Thani on the mainland, Koh Samui and Koh Tao. The daily flow of goods, workers and visitors makes this the island's most connected location.",
+          "**Services hub** — within a short radius: Bangkok Bank, Kasikorn and SCB branches; the island's main hospital (Koh Phangan Hospital); Makro (~1.5 km), Big C and international pharmacies; hardware stores, dental and medical clinics, and government offices.",
+          "**Night market and dining** — the Thong Sala Walking Street night market operates weekly; restaurants, bars and international food options are concentrated here and open year-round, not just in high season.",
+          "**Commercial zoning** — parts of Thong Sala carry a commercial designation, creating flexible options for ground-floor business use alongside residential — relevant for investors who want a mixed-use or shop-house product.",
+        ],
+      },
+      "What Thong Sala is not: a beachfront location. The nearest swimmable beach is roughly 1 km from the town centre, and this part of the island does not offer the west-coast sea views or the wellness-community character of Sri Thanu. Buyers who want to live in the middle of the island's practical life choose Thong Sala; buyers who want to live on a beach choose elsewhere.",
+      { h: "What is available to buy" },
+      {
+        ul: [
+          "**Villas and houses** — a mix of older Thai houses, renovated properties and new small villa developments. Entry price is lower than the western coast. Recent developments near Thong Sala offer units from roughly ฿2.8–6.2 million for 56–215 sqm. The premium ceiling in this area is below that of beachfront or elevated sea-view locations elsewhere.",
+          "**Condominiums and apartments** — Thong Sala and adjacent Ban Tai have some apartment-block stock designed for the long-stay rental market. Freehold condominium units within the 49% foreign-ownership quota are less concentrated here than in the Sri Thanu/Haad Yao corridor.",
+          "**Land plots** — commercial and residential plots around the town. Most of Thong Sala sits at low elevation with no hillside-zone restrictions under the 2025 environmental rules. Check road access and utilities on any plot — urban does not automatically mean connected. See [Utilities on Koh Phangan](/knowledge/utilities-water-electricity-internet-koh-phangan).",
+          "**Adjacent Ban Tai** — the beach strip immediately south of Thong Sala has flat coastal land, some with Chanote title and genuine beach proximity. Ban Tai together with Thong Sala forms what investors call the island's logistical backbone; Ban Tai plots add a coastal dimension the town centre itself does not offer.",
+        ],
+      },
+      { h: "Prices and value positioning" },
+      "Thong Sala sits at the accessible end of the Koh Phangan market. Median property prices in the Thong Sala/Ban Tai zone run around ฿26.5 million — a figure skewed upward by larger villa developments. Entry-level apartments and smaller villas are substantially below that. Per-sqm values average around ฿37,000, below the premium of sea-view hillside or beachfront product on the western coast.",
+      "That lower entry cost reflects the character trade-off: urban convenience rather than lifestyle resort. For yield-focused investors, a lower purchase price can improve the arithmetic on net yield, particularly when the rental model relies on steady year-round occupancy rather than peak-season nightly rates. For general context on how land is priced and what moves value on the island, see [How land is priced on Koh Phangan](/knowledge/how-land-is-priced-price-per-rai).",
+      { h: "The rental case" },
+      "Thong Sala's rental demand is year-round rather than seasonal, and driven by a different tenant base from the wellness belt: island workers, medical-visit stays, service-sector professionals, short-term visiting families and budget-conscious long-stay foreigners who want town convenience more than a beach. Monthly rents for a well-positioned studio or one-bedroom apartment run roughly ฿8,000–20,000; for a two- to three-bedroom house or villa closer to ฿20,000–45,000.",
+      "The year-round nature of demand is a meaningful advantage over purely tourism-driven rental locations that soften in the May–October wet season. For the tax and legal framework on renting out, see [Renting out your villa on Koh Phangan](/knowledge/renting-out-your-villa-rules-and-taxes).",
+      { h: "Liquidity and exit" },
+      "Thong Sala properties tend to be more liquid than remote hillside or jungle villas, because a wider buyer base — Thai nationals, long-stay foreigners, service-sector investors and small-business operators — can use them. Lower price points also expand the pool. That said, the absence of a beach or sea view caps the price ceiling: a leasehold villa in Thong Sala commands a lower exit price per sqm than equivalent product on the western sea-view corridor. Plan the exit around realistic comparable sales, not the upper tier of the island market. For the mechanics of selling a leasehold, see [Selling your leasehold villa](/knowledge/selling-leasehold-villa-exit-liquidity).",
+      { h: "What to verify when buying here" },
+      "Standard due diligence applies throughout the island — see [Due diligence before buying on Koh Phangan](/knowledge/due-diligence-checklist-koh-phangan). Points specific to Thong Sala:",
+      {
+        ul: [
+          "**Title class** — a mix of Chanote and Nor Sor 3 Gor titles exists in the area. Confirm the class and verify the deed against the Land Office record before committing. See [Land titles on Koh Phangan](/knowledge/land-titles-chanote-vs-nor-sor-3).",
+          "**Road access** — even in the town area, secondary and unpaved roads exist. Confirm a registered right of way to the public road; landlocked plots are not limited to the hillside.",
+          "**Permitted commercial use** — if the property is in a commercially-zoned area and you plan business use, verify the permitted use matches the plan. Hotel licences, liquor licences and food-service permits each have their own requirements.",
+          "**Utilities** — mains water and electricity are generally available in main Thong Sala; verify meter registration on the specific property. For plots slightly off the main road or in newer developments, confirm supply rather than assuming it. See [Utilities on Koh Phangan](/knowledge/utilities-water-electricity-internet-koh-phangan).",
+          "**Building permits** — for existing structures, check that the construction permit (Por. Ror. 1) exists and the building matches the approved plans. Older Thong Sala stock may have unpermitted additions; these become the buyer's problem at transfer. See [Building a villa on Koh Phangan](/knowledge/building-a-villa-koh-phangan).",
+        ],
+      },
+      { h: "Who Thong Sala suits — and who it does not" },
+      "Thong Sala is for the buyer who prioritises practicality, service access or yield over lifestyle-resort character. It works well for: an investor who wants a well-occupied rental that does not depend on peak-season tourism; a business operator who needs proximity to the island's commercial core; or a buyer who values ferry connections, hospitals and banks over a sea view.",
+      "It is not the right choice for someone whose vision of island living centres on beach proximity, sunset views or the wellness community. For that, [Sri Thanu](/knowledge/buying-in-sri-thanu) (the wellness-community hub, 7 km north) is the most comparable alternative. For premium hillside sea-view product, the Haad Yao and Haad Salad corridor to the north offers that tier.",
+    ],
+    takeaways: [
+      "Thong Sala is Koh Phangan's ferry port and commercial hub — banks, hospital, supermarkets, admin — not a beachfront area.",
+      "Entry prices are lower than the west coast; newer small villa developments start around ฿2.8–6.2 million; median for the zone is roughly ฿26.5 million.",
+      "Rental demand is year-round from workers and service tenants, not seasonal-tourist-dependent — a meaningful stability advantage.",
+      "Low elevation means no 2025 hillside-zone restrictions, but road access and utility connections still require individual verification.",
+      "For beach proximity, wellness community or sunset views, Sri Thanu (north) or Ban Tai beachfront (south) are stronger fits.",
+    ],
+    sources: [
+      {
+        title: "Samui Phangan Real Estate — Koh Phangan real estate market overview",
+        url: "https://www.samui-phangan-real-estate.com/koh-phangan-real-estate-market/",
+      },
+      {
+        title: "Keller Henson — Phangan Tropical Villas Thong Sala (project overview)",
+        url: "https://kellerhenson.com/project/phangan-tropical-villas-thong-sala/",
+      },
+      {
+        title:
+          "Nation Thailand — Israel, Europe and Australia Anchor in Koh Phangan, Driving Property Investment Past THB7.9bn",
+        url: "https://www.nationthailand.com/business/property/40067434",
+      },
+      {
+        title: "Estate Samui Properties — Koh Phangan Guide for Property Buyers",
+        url: "https://www.estate-samui-properties.com/koh-phangan-guide-for-property-buyers/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion:
+      "What is Thong Sala on Koh Phangan like as a property area, and who should buy there?",
+  },
+  {
+    slug: "utilities-water-electricity-internet-koh-phangan",
+    kbId: "kb-0026",
+    topic: "Phangan",
+    title: "Utilities on Koh Phangan: water, electricity, internet and road access",
+    short:
+      "Island utilities are more variable than on the mainland, and two adjacent plots can have entirely different supply sources, reliability and running costs. Verify every utility against documentary evidence during due diligence — not after signing.",
+    updated: "2026-06-20",
+    body: [
+      "Utilities on Koh Phangan are not a given. Government mains water covers the main developed areas but the island has a chronic supply shortfall. Power is improving with a major submarine cable upgrade underway, but outages during peak season remain a known reality. Internet is workable in populated areas via 4G but limited compared to the mainland. And road access — which affects every other utility — ranges from the sealed ring road to steep unpaved tracks that become impassable in monsoon. Understanding a specific plot's utility situation is part of due diligence, not an afterthought.",
+      { h: "Water: the most variable utility" },
+      "Koh Phangan has a structural water shortage. The Royal Irrigation Department has established that annual water demand on the island is approximately 600,000 cubic metres — roughly double the available supply. Drought conditions have been officially declared during dry periods, with tap water rationed on parts of the island. Provincial waterworks mains coverage is concentrated in Thong Sala and the larger developed communities; coverage thins rapidly on hillside and remote plots.",
+      {
+        ul: [
+          "**Government main (Provincial Waterworks Authority)** — available in Thong Sala and the main established communities. Pressure and reliability can vary seasonally; supply cuts are possible in the dry season (November–April). Verify that the specific property has a registered meter and live account, not merely that a main passes nearby.",
+          "**Private well or borehole** — common on land plots away from main roads and on hillside properties. The island's granite and sandstone geology can hold groundwater, but yield and quality vary significantly by location. Have any existing well tested for yield and potability before relying on it as the primary supply.",
+          "**Rainwater collection tanks** — roof-catchment systems supplement or replace mains supply on some properties. Practical in the wet season (May–October); in the dry season a stored-water arrangement is needed.",
+          "**Tanker delivery** — plots without a well or mains connection receive water by truck. It functions, but it is a running cost and a supply dependency that should be confirmed and factored into holding costs before purchase.",
+        ],
+      },
+      "The Royal Irrigation Department is in the Environmental Impact Assessment stage of a 400 million baht subsurface dam project — the first of its kind in Thailand, based on Japan's Miyako Island model — designed to increase groundwater storage and address the structural deficit. Until this project is built, every non-mains plot should be assumed to require a verified alternative supply.",
+      { h: "Electricity: PEA connection and the upgrade underway" },
+      "Power is supplied by the Provincial Electricity Authority (PEA). The island currently receives electricity through four ageing submarine cable circuits — two at 115 kV and two at 33 kV — with a total design capacity of approximately 174 MW. Partial faults and capacity shortfalls during peak tourist season (November–April) are a known feature of island electricity supply.",
+      "A major upgrade is under construction. In February 2023, the Cabinet approved an EGAT project to install two 230 kV submarine cable circuits from Khanom Substation on the mainland to a new substation on Koh Samui — 50 km in total — adding 400 MW of transmission capacity (200 MW per circuit) to the wider island group that includes Koh Phangan and Koh Tao. When complete, this substantially upgrades grid stability and available capacity for all three islands.",
+      {
+        ul: [
+          "**In developed areas and near main roads** — a PEA meter connection is standard. Verify that the meter is registered to the specific property (not a shared meter with a landlord), and note whether the supply is single-phase or three-phase — relevant if you plan a pool pump or high-load equipment.",
+          "**On remote or hillside plots** — electricity may require a transformer extension at additional cost and with a lead time. Request evidence of an active, registered PEA meter at the plot address, not just assurance that 'electricity is nearby.'",
+          "**Solar** — increasingly used on new villas as a supplement or primary supply. Grid-tied systems require PEA approval; off-grid solar with battery storage is a practical alternative for remote plots where grid connection is delayed or expensive.",
+        ],
+      },
+      { h: "Internet and mobile connectivity" },
+      "Internet access in Koh Phangan's main communities is workable for most remote workers, but is substantially behind mainland Thailand in speed and reliability. Following the 2023 merger of DTAC and TrueMove H, the two providers are now AIS and True Corporation.",
+      {
+        ul: [
+          "**4G mobile data** — the primary internet for most island residents. AIS has marginally better island coverage than True. Coverage is reliable in Thong Sala, Sri Thanu, Haad Rin and the main western-coast communities. Interior and remote plots have patchy signal; physically check the signal at the specific plot with your intended SIM before buying to build.",
+          "**Fixed broadband** — available in parts of the main developed areas, but speeds and consistency are well below the 200–1,000 Mbps fibre standard available in Bangkok and major Thai cities. Plan around 4G as the primary connection, with fixed broadband as a backup where available.",
+          "**Congestion** — Full Moon Party nights in Haad Rin bring 10,000–30,000 people to a small area and severely overload both networks. Island-wide, all connections face higher loads in high season (November–April). Plan production-critical work around off-peak hours.",
+          "**Coworking** — venues such as BeacHub in Sri Thanu provide business-grade internet connections for members, effectively bypassing residential connectivity limitations for office hours.",
+        ],
+      },
+      { h: "Road access: the utility that determines all the others" },
+      "A plot with power, water and internet but no legally confirmed road access is effectively unusable. Road quality on Koh Phangan ranges from the sealed main ring road to steep concrete hillside paths to unpaved jungle tracks that become impassable in the wet season.",
+      {
+        ul: [
+          "**Main ring road** — the sealed perimeter road is well-maintained and year-round passable. Properties directly on or close to it have reliable access.",
+          "**Concrete secondary roads** — most established communities have concrete roads, generally usable in all seasons but subject to cracking, level drops and steep gradients on hillside approaches.",
+          "**Unpaved tracks** — particularly to remote hillside and interior plots. Passable in the dry season; some become mud channels in the wet season. Verify the condition in person during or after heavy rain, not only on a dry-day visit.",
+          "**Registered right of way** — the critical legal point. A visible track, a verbal agreement or a gentleman's understanding is not a protected legal right. The road access to the public road must be registered on the title deed as a servitude; without it, a new owner of any connecting plot can block access. See [Due diligence before buying on Koh Phangan](/knowledge/due-diligence-checklist-koh-phangan).",
+        ],
+      },
+      { h: "What to verify before you commit" },
+      "Each utility must be confirmed against documentary evidence — not a seller's assurance.",
+      {
+        ul: [
+          "**Water** — request the Provincial Waterworks account number and meter reference for the property, or a well-yield and quality test report, or the written supply arrangement if water comes from a shared tank or delivery service.",
+          "**Electricity** — request the PEA account number and meter serial number registered to the plot address. Confirm supply phase (single-phase or three-phase) if relevant to your planned use.",
+          "**Internet** — test 4G signal at the specific plot with the SIM of your preferred provider. For an existing building, check whether fibre or ADSL termination is physically present at the address.",
+          "**Road** — walk the complete route from the public road to the plot. Have your lawyer confirm a registered right of way on the title deed — not merely a track you can see.",
+        ],
+      },
+      "Utilities are not glamorous, but they are what makes a plot liveable and determine running costs for the life of ownership. A plot with government mains water, a registered PEA meter and sealed concrete road access is a meaningfully different asset from one that relies on tanker delivery, a distant transformer and an unregistered track.",
+    ],
+    takeaways: [
+      "Koh Phangan water demand is roughly double available supply — confirm whether a plot has mains connection, a tested well, or a tank/delivery arrangement before you buy.",
+      "PEA power is currently supplied through ageing 115/33 kV submarine cables; a major EGAT 230 kV cable upgrade (400 MW capacity) serving the island group is under construction but not yet complete.",
+      "Internet: AIS 4G is the primary reliable connection for most island residents; fixed broadband exists in some main areas but at lower speeds than mainland Thai cities.",
+      "All three utilities are less reliable on hillside and remote plots — check signal, meter registration and supply evidence at the actual location, not the nearest main road.",
+      "Road access must be a registered servitude on the title deed — a visible track or verbal agreement is not a legally protected right.",
+    ],
+    sources: [
+      {
+        title:
+          "Koh Phangan Island News — Koh Phangan subsurface dam to address freshwater shortage",
+        url: "https://kohphangannews.org/general-news/koh-phangan-subsurface-dam-to-address-freshwater-shortage-2077.html",
+      },
+      {
+        title:
+          "EGAT — 230 kV Submarine Cables Connect Ko Samui to a Sustainable Future of Energy",
+        url: "https://www.egat.co.th/home/en/230-kv-submarine-cables-connect-ko-samui-to-a-sustainable-future-of-energy/",
+      },
+      {
+        title: "Koh Phangan Island News — Koh Phangan tourist island declared drought zone",
+        url: "https://kohphangannews.org/high-alert/koh-phangan-tourist-island-declared-drought-zone-1826.html",
+      },
+      {
+        title:
+          "Koh Phangan Island News — Ways sought to improve Koh Phangan's infrastructure problems (May 2024)",
+        url: "https://kohphangannews.org/general-news/ways-sought-to-improve-koh-phangans-infrastructure-problems-4596.html",
+      },
+      {
+        title:
+          "eSIM Thailand Network Guide 2026 — AIS vs True Corp island signal coverage",
+        url: "https://esimy.net/best-esim-for-thailand-2026-complete-network-coverage-island-guide/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion:
+      "What are the utilities like on Koh Phangan — water, electricity, internet and road access?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
