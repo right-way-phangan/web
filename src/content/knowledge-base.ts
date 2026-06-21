@@ -1606,6 +1606,192 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "What are the utilities like on Koh Phangan — water, electricity, internet and road access?",
   },
+  {
+    slug: "owners-taxes-annual-land-and-income",
+    kbId: "kb-0027",
+    topic: "Costs",
+    title: "Owner's taxes on Koh Phangan: Land & Building Tax and rental income tax",
+    short:
+      "Two taxes run alongside owning property on Koh Phangan: the annual Land and Building Tax (assessed by the local authority on the official appraised value) and personal income tax on any rental income. For most foreign leasehold holders the Land and Building Tax is legally the landowner's liability, not yours — but rental income is taxed in your hands regardless of residency status.",
+    updated: "2026-06-21",
+    body: [
+      "Owning property in Thailand means two annual tax obligations. The Land and Building Tax (LBT) is a local property tax introduced under the Land and Building Tax Act B.E. 2562 (2019) and collected by the local administrative authority. Personal Income Tax on rental income flows to the Revenue Department. How each applies to you depends on how you hold the property — leasehold villa or freehold condominium — and how many days a year you spend in Thailand.",
+      { h: "Who actually pays the Land and Building Tax on a leasehold" },
+      "The LBT is assessed on the registered owner of the land or building — the person whose name appears on the title deed. For a foreign buyer holding a **leasehold villa**, the land title stays in the Thai landowner's name throughout the lease. That means the LBT falls on the landowner, not on you as lessee, as a matter of law. Your lease contract may or may not pass this cost through to you — check the wording. For a **freehold condo unit**, you are the registered owner and you pay the LBT yourself. For both, the tax base is the government's official appraised value, not the market price — appraised values on Koh Phangan run well below transaction prices.",
+      { h: "2026 rates by property category" },
+      "2026 is the first full-rate year without a pandemic-era across-the-board government discount. Tax is assessed and collected by the local Subdistrict Administrative Organisation (OrBorTor) on Koh Phangan.",
+      {
+        ul: [
+          "**Primary residence, land and building combined** — first ฿50 million of appraised value: exempt. ฿50–75M: 0.03%. ฿75–100M: 0.05%. Over ฿100M: 0.10%.",
+          "**Primary residence, building only (e.g., condo you own but not the land)** — first ฿10 million: exempt. ฿10–50M: 0.02%. ฿50–75M: 0.03%. ฿75–100M: 0.05%. Over ฿100M: 0.10%.",
+          "**Second or additional homes** — no exemption threshold. ฿0–50M: 0.02%. ฿50–75M: 0.03%. ฿75–100M: 0.05%. Over ฿100M: 0.10%.",
+          "**Rented residential or commercial use** — 0.30% to 0.70% of appraised value (rising with value in bands).",
+          "**Vacant or unused land** — same 0.30–0.70% range, with an escalator: each consecutive three-year period of vacancy adds a further 0.30%, capped at 3% total. Land left unused for six or nine years faces a sharply higher effective rate.",
+        ],
+      },
+      "**Practical note on condos:** A condo unit appraised at ฿5 million used as a primary residence is entirely inside the ฿10 million exemption threshold — LBT is ฿0. A similar unit rented out falls under the 0.30% commercial/rented rate: ฿15,000 per year. That difference is the clearest illustration of why rented property carries a meaningfully higher LBT burden than owner-occupied.",
+      "Payment deadline for the 2026 assessment year was extended by the Ministry of Interior to June 2026 (normally April). Bills of ฿3,000 or more may be paid in instalments across June–August.",
+      { h: "Income tax on rental income" },
+      "Rental income from Thai property is subject to Thai Personal Income Tax (PIT) regardless of whether you are a Thai tax resident or not. The Revenue Department allows a **30% standard deduction** on gross rental income from buildings and wharves — no itemisation needed. After that deduction, the remaining 70% is added to other Thai-source income and taxed at progressive rates:",
+      {
+        ul: [
+          "฿0–150,000 — **exempt**",
+          "฿150,001–300,000 — **5%**",
+          "฿300,001–500,000 — **10%**",
+          "฿500,001–750,000 — **15%**",
+          "฿750,001–1,000,000 — **20%**",
+          "฿1,000,001–2,000,000 — **25%**",
+          "฿2,000,001–4,000,000 — **30%**",
+          "Over ฿4,000,000 — **35%**",
+        ],
+      },
+      "These rates have been in place since 2013. Personal allowances (personal deduction, spousal, dependent child, insurance) reduce taxable income further for residents filing annually.",
+      { h: "Resident vs. non-resident treatment" },
+      "You are a Thai tax **resident** if you spend 180 or more days in Thailand during a calendar year. Residents are taxed on Thai-source income and on foreign income remitted to Thailand in the year it is earned. **Non-residents** are taxed only on Thai-source income — including rental income from a Thai property — at the same progressive rates. For non-residents, the tenant or payer may be required to withhold 15% of the rental payment at source and remit it to the Revenue Department; the non-resident can then file an annual return and claim a refund if the withholding exceeded the actual PIT liability (since the 30% deduction reduces the net taxable amount below what the withholding assumes).",
+      "The 2025 changes to the Revenue Department's rules on foreign-sourced income remittances affect residents who remit offshore income to Thailand — they do not change the position on Thai-source rental income, which has always been taxable regardless of remittance.",
+      { h: "Filing and compliance" },
+      {
+        ul: [
+          "**Land and Building Tax** — assessed and notified by OrBorTor (Koh Phangan's local administrative bodies) annually, typically January–April. Payment deadline: June 2026 (extended year). No self-assessment; you receive a notice.",
+          "**Personal Income Tax on rental income** — annual return (Por. Ngor. Dor. 90 for mixed income, or Por. Ngor. Dor. 91 for salary-only) filed with the Revenue Department by 31 March of the following year. A Thai tax ID number from the Revenue Department is required. Non-residents can also file online.",
+          "**Management commission**, maintenance costs and professional fees are not deductible under the standard 30% deduction method — but the 30% flat rate is simpler and usually more advantageous than itemising actual expenses for a typical villa.",
+        ],
+      },
+      "Right Way does not file taxes for clients. Use a Thai accountant for both LBT compliance and PIT returns. For the taxes that arise at purchase and at sale, see [The full cost of buying on Koh Phangan](/knowledge/cost-of-buying-taxes-and-fees). For the rental income framework, including the Hotel Act licensing requirement for stays under 30 days, see [Renting out your villa on Koh Phangan](/knowledge/renting-out-your-villa-rules-and-taxes).",
+    ],
+    takeaways: [
+      "For a leasehold villa, the Land and Building Tax falls on the Thai landowner (the registered title holder) by law — check your lease to see if it passes the cost to you.",
+      "For a freehold condo used as a primary residence with an appraised value under ฿10M, Land and Building Tax is typically ฿0 — entirely within the exemption threshold.",
+      "Rented or commercially used property faces 0.30–0.70% LBT, well above the owner-occupied residential rate.",
+      "Rental income is taxed at progressive PIT rates of 5–35% after a 30% standard deduction on gross rent from buildings — both residents and non-residents.",
+      "2026 is the first full-rate LBT year without a government-wide discount; the payment deadline for the 2026 year has been extended to June 2026.",
+    ],
+    sources: [
+      {
+        title: "Thailand Land and Building Tax Act B.E. 2562 (2019) — rates, exemptions, local administrative body assessment (general practice)",
+      },
+      {
+        title: "Revenue Department of Thailand — Personal Income Tax rates and rental income deduction (rd.go.th)",
+        url: "https://www.rd.go.th/english/6045.html",
+      },
+      {
+        title: "Lex Bangkok — New Land and Building Tax Thailand 2026 (B.E. 2569): Full Guide",
+        url: "https://lexbangkok.com/land-building-tax-thailand-2026/",
+      },
+      {
+        title: "HLB Thailand — Thai Rental Properties and Personal Income Tax 2026",
+        url: "https://www.hlbthai.com/thai-rental-properties-and-personal-income-tax-2/",
+      },
+      {
+        title: "Dan Siam Property — Thailand Land and Building Tax Full Enforcement 2026",
+        url: "https://dansiam-property.com/thailand-land-building-tax-full-enforcement-2026-property-investor-guide/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "What annual taxes does a foreign property owner pay on Koh Phangan?",
+  },
+  {
+    slug: "visa-residency-property-owner-koh-phangan",
+    kbId: "kb-0028",
+    topic: "Phangan",
+    title: "Visa and residency for property owners on Koh Phangan: what a purchase gives you",
+    short:
+      "Buying a leasehold villa or land on Koh Phangan does not come with any visa or right to stay in Thailand. The four main long-stay routes — Thailand Elite, Retirement (O-A), LTR and DTV — each suit a different buyer profile. The one program that ties residency directly to property ownership (the THB 3M investment visa) only accepts freehold condominiums, not leaseholds.",
+    updated: "2026-06-21",
+    body: [
+      "The first thing to understand is what a property purchase on Koh Phangan does not give you: a visa, a right of residency, or any change to your immigration status. Owning a leasehold villa or a plot of land in Thailand confers property rights — a registered lease, building ownership, a superficies — but zero immigration benefit. If you plan to spend significant time in Thailand after buying, you need to choose a visa route through a separate channel, and that choice depends on your age, income, work plans and how many months a year you expect to be here.",
+      { h: "The one property-linked route — and why it doesn't apply to most Phangan buyers" },
+      "Thailand operates a **Non-Immigrant B (Investment) visa pathway** for foreigners who purchase a freehold condominium valued at ฿3 million or more and registered in their name at the Department of Lands. This converts the condo purchase into a 1-year renewable right to stay (extendable annually as long as the condo is held). It is the only Thai immigration pathway that formally links property ownership to residency status.",
+      "For most foreign buyers on Koh Phangan, this route is not available. Villa and land purchases here are structured as leasehold — a registered land lease plus ownership of the building — not as freehold property in the buyer's name. The ฿3M investment pathway explicitly requires freehold condo registration. Leasehold villas and the rental-agreement route (฿85,000/month long-term lease) are currently suspended pending regulatory revision. For why leasehold is the standard structure on Phangan, see [Leasehold vs freehold on Koh Phangan](/knowledge/leasehold-vs-freehold).",
+      "The Phangan condo market is small — around 66 units across four active projects in the Sri Thanu/Haad Yao corridor. Foreign buyers who specifically want to use a condo purchase to anchor a visa should confirm the project is within the 49% foreign-ownership quota before buying. For everyone else — villa buyers and land investors — a visa must be arranged independently.",
+      { h: "The four main long-stay options" },
+      { h: "1. Thailand Elite (Privilege Entry Visa)" },
+      "The Thailand Elite programme — now officially the Privilege Entry Visa — is the most straightforward option for a buyer who has no income requirements or age constraints to meet. Membership comes in three tiers:",
+      {
+        ul: [
+          "**5 years** — ฿900,000 membership fee",
+          "**10 years** — ฿1,500,000",
+          "**20 years** — ฿2,500,000",
+        ],
+      },
+      "Each entry allows 180 days' stay, extendable by another 180 days at an immigration office without leaving Thailand. No income verification, no health insurance mandate, no age minimum, no investment in Thailand required. VIP airport reception and immigration facilitation are included. The visa does not include work rights — a separate work permit is needed for any employment — and carries no special tax treatment. It suits buyers who want simplicity: pay once, arrive whenever, extend in-country.",
+      { h: "2. Retirement Visa (Non-Immigrant O-A / O-X)" },
+      "The retirement visa is the classic long-stay route for buyers aged 50 and over. Requirements for the O-A (annual renewal):",
+      {
+        ul: [
+          "**Age 50+** on the date of application.",
+          "**Financial**: ฿800,000 held in a Thai bank account for at least two months before first application and maintained throughout the year (raised to 3 months before annual renewal); or ฿65,000/month verifiable income; or a combination totalling ฿80,000/month.",
+          "**Health insurance**: minimum ฿40,000 outpatient and ฿500,000 inpatient coverage per year (effectively available through most international health insurance products; many providers now require ฿3M+ inpatient in practice).",
+          "**No criminal record** in home country (police clearance) and clean Thai immigration history.",
+        ],
+      },
+      "The O-A visa is issued for one year and renewed annually. The O-X variant provides 5-year multiple-entry with annual in-country reporting. Both prohibit employment of any kind. No special tax benefits. The key advantage is cost: for someone who already holds ฿800,000 in a Thai bank or has a qualifying pension income, it is the most economical long-stay route. The key constraint: the 90-day reporting obligation (report to immigration every 90 consecutive days in-country) applies throughout.",
+      { h: "3. LTR Visa (Long-Term Resident)" },
+      "The Board of Investment's Long-Term Resident Visa provides a 10-year renewable stay and is the most powerful option for high-income buyers. It comes in four categories:",
+      {
+        ul: [
+          "**Wealthy Global Citizen**: $80,000/year personal income AND $500,000 invested in Thailand (qualifying assets include property, Thai government bonds and Thai equities).",
+          "**Wealthy Pensioner** (age 50+): $80,000/year passive income, OR $40,000/year income plus $250,000 Thai investment.",
+          "**Work-from-Thailand Professional**: $80,000/year income from an overseas employer (or $40,000 with a master's degree or IP); employer must have been in business 3+ years.",
+          "**Highly Skilled Professional**: employment in a specific qualifying sector with a salary of $80,000/year.",
+        ],
+      },
+      "LTR benefits include: a digital work permit allowing remote work for overseas clients, **17% flat income tax on Thai-source employment income** (well below the progressive rate for high earners), exemption from 90-day reporting, and four family members can be added as dependants. The Thai investment of $250,000–500,000 required for some tracks can be structured into real property under specific BOI guidance — however, the investment must comply with BOI conditions and is distinct from simply purchasing a leasehold villa. Get specialist advice before treating a property purchase as the LTR investment component.",
+      { h: "4. DTV (Destination Thailand Visa)" },
+      "Launched in 2024, the DTV is Thailand's first visa formally designed for remote workers and digital nomads. It is available to any age group with no property requirement:",
+      {
+        ul: [
+          "**Validity**: 5 years, multiple-entry.",
+          "**Stay per entry**: 180 days, extendable by a further 180 days in-country (giving up to 360 days in Thailand per visit before needing to re-enter).",
+          "**Financial**: $16,500/year verifiable income or $13,000 in savings.",
+          "**Work rights**: explicitly authorises remote work for overseas employers and overseas clients — the first Thai visa to do so.",
+          "**Tax**: standard Thai tax residency rules apply (resident if 180+ days in Thailand per year).",
+        ],
+      },
+      "The DTV suits a buyer who is a remote worker, does not need to employ Thai staff, and wants maximum flexibility without a large upfront fee. Standard Thai personal income tax rules mean that spending 180+ days in Thailand makes you a resident and potentially taxable on Thai-source income and remitted foreign income — take tax advice if you plan to spend close to or over the threshold.",
+      { h: "Permanent residency and citizenship" },
+      "Thailand allows applications for permanent residence after three consecutive years on an appropriate non-immigrant visa (O, B or LTR), subject to annual quota limits and an application window in the last quarter of each year. Property ownership is not a qualifying factor. Thai citizenship is available after 10 years of permanent residence; the process is lengthy and discretionary. Neither pathway is realistically accessible to most property buyers in the short to medium term.",
+      { h: "Practical planning: get the visa before you need it" },
+      "The common mistake is to buy the property first and sort the visa later. Visa applications — particularly the O-A (which requires a Thai bank account with the deposit seasoned for two months before first application) and the LTR (BOI review takes several weeks) — need lead time. If you plan to spend significant time on Phangan immediately after buying, line up the visa application in parallel with the conveyancing process, not after. For the full buying timeline and what the contracts stage involves, see [How to buy property on Koh Phangan step by step](/knowledge/how-to-buy-property-step-by-step).",
+    ],
+    takeaways: [
+      "A leasehold villa or land purchase on Koh Phangan gives you property rights only — no visa, no right of residency, no immigration benefit.",
+      "The THB 3M property investment visa requires a freehold condo registration at the Land Department; leasehold villas do not qualify.",
+      "Thailand Elite (5–20 years, no income requirement) is the simplest entry — pay a membership fee, no paperwork threshold to meet annually.",
+      "Retirement Visa (O-A): age 50+, ฿800,000 Thai bank deposit or ฿65,000/month income, health insurance — most cost-effective for retirees who qualify.",
+      "LTR Visa (10 years, BOI): requires $80,000/year income; includes a digital work permit and 17% flat income tax rate — strongest option for high earners.",
+    ],
+    sources: [
+      {
+        title: "BOI Thailand — LTR Visa programme (ltr.boi.go.th)",
+        url: "https://ltr.boi.go.th/",
+      },
+      {
+        title: "AIM Bangkok — 3M Property Investment Visa Thailand 2026: Confirmed Rules & Process",
+        url: "https://aimbangkok.com/investment-residency-thailand-3-million-baht/",
+      },
+      {
+        title: "Sukhothai Inter Law — Thailand Visa Property Purchase: Complete Guide for Foreign Buyers",
+        url: "https://re.sukhothaiinterlaw.com/real-estate-visa-thailand/",
+      },
+      {
+        title: "Terms.law — Thailand Long-Stay Visas 2026: DTV vs LTR vs Elite vs Retirement",
+        url: "https://terms.law/Thai/visas/visa-comparison-matrix.html",
+      },
+      {
+        title: "Siam Legal International — Retirement Visa Thailand 2026",
+        url: "https://www.siam-legal.com/thailand-visa/Thailand-Retirement-Visa.php",
+      },
+      {
+        title: "Thailand Elite Visa — official programme information",
+        url: "https://www.thaiembassy.com/thailand-visa/thai-elite-visa",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "Does buying property on Koh Phangan give me the right to live in Thailand?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

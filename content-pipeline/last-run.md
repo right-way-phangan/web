@@ -1,4 +1,4 @@
-# Last run — 2026-06-20
+# Last run — 2026-06-21
 
 **Guides published:** 2
 
@@ -6,30 +6,30 @@
 
 ## Guide 1
 
-- **slug:** `buying-in-thong-sala`
-- **kbId:** `kb-0025`
-- **title (EN):** Buying property in Thong Sala, Koh Phangan: the island's practical hub
-- **title (RU):** Покупка недвижимости в Тонг Сала, Ко Панган: практический центр острова
-- **faqCategory:** `phangan`
-- **faqQuestion:** What is Thong Sala on Koh Phangan like as a property area, and who should buy there?
+- **slug:** `owners-taxes-annual-land-and-income`
+- **kbId:** `kb-0027`
+- **title (EN):** Owner's taxes on Koh Phangan: Land & Building Tax and rental income tax
+- **title (RU):** Налоги владельца на Ко Пангане: налог на землю и строения и подоходный налог с аренды
+- **faqCategory:** `costs`
+- **faqQuestion:** What annual taxes does a foreign property owner pay on Koh Phangan?
 - **Sources used:**
-  - Samui Phangan Real Estate market overview — median price ฿26.5M, per-sqm average ฿37,074, area character and investment profile
-  - Keller Henson — Phangan Tropical Villas project data (฿2.8–6.2M, 56–215 sqm) for entry-level pricing evidence
-  - Nation Thailand — THB7.9bn investment hub article for Q1 2026 market context and investor demographics
-  - Estate Samui Properties — Koh Phangan buyer guide for Thong Sala's service-hub character and year-round rental demand profile
+  - Revenue Department of Thailand (rd.go.th) — official PIT rate table (0–35% progressive, 8 bands); 30% standard deduction on rental income from buildings; confirmed since 2013
+  - Lex Bangkok — 2026 full LBT rate table (by category/band), confirmation of no government discount for B.E. 2569, June 2026 payment deadline extension
+  - HLB Thailand — rental income PIT rules for foreign property owners, 15% withholding tax for non-residents, refund via annual filing
+  - Dan Siam Property — 2026 enforcement context, leaseholder tax position (tax on registered title holder, not lessee)
 
 ---
 
 ## Guide 2
 
-- **slug:** `utilities-water-electricity-internet-koh-phangan`
-- **kbId:** `kb-0026`
-- **title (EN):** Utilities on Koh Phangan: water, electricity, internet and road access
-- **title (RU):** Коммуникации на Ко Пангане: вода, электричество, интернет и доступ по дороге
+- **slug:** `visa-residency-property-owner-koh-phangan`
+- **kbId:** `kb-0028`
+- **title (EN):** Visa and residency for property owners on Koh Phangan: what a purchase gives you
+- **title (RU):** Виза и проживание для владельца недвижимости на Ко Пангане: что даёт покупка
 - **faqCategory:** `phangan`
-- **faqQuestion:** What are the utilities like on Koh Phangan — water, electricity, internet and road access?
+- **faqQuestion:** Does buying property on Koh Phangan give me the right to live in Thailand?
 - **Sources used:**
-  - Koh Phangan Island News / Royal Irrigation Department — 600,000 m³ annual demand vs ~300,000 m³ supply; proposed 400M THB subsurface dam (EIA stage, Japan Miyako Island model)
-  - EGAT official site — 230 kV submarine cable project (Cabinet-approved Feb 2023, 50 km from Khanom to Koh Samui, 400 MW in two circuits) benefiting Phangan/Tao grid stability
-  - Koh Phangan Island News — drought zone declaration; May 2024 infrastructure improvement meetings flagging water, power and roads as key issues
-  - eSIM Thailand Network Guide 2026 — AIS vs True Corp 4G coverage on island; congestion during Full Moon Party confirmed
+  - AIM Bangkok — confirmed the THB 3M investment visa requires freehold condo registration at the Land Department; leasehold/rental route currently suspended pending regulatory revision; 1-year renewable Non-Immigrant B status; no work rights
+  - Terms.law — visa comparison matrix 2026 (DTV, LTR, Elite, Retirement O-A): income requirements, duration, work rights, tax treatment confirmed for all four categories
+  - BOI Thailand LTR (ltr.boi.go.th) — four LTR categories, income/investment thresholds, digital work permit, 17% flat tax benefit, 90-day reporting exemption
+  - Sukhothai Inter Law — property visa guide (freehold-only eligibility confirmed); Siam Legal — Retirement O-A: age 50+, ฿800,000 bank deposit or ฿65,000/month, health insurance, 90-day reporting; Thailand Elite Visa — 5/10/20-year tiers, no income/age/property requirement
