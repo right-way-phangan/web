@@ -18,6 +18,7 @@ export type AdminSection =
   | "articles"
   | "finance"
   | "valuation"
+  | "agents"
   | "health"
   | "guide"
   | "new";
@@ -42,6 +43,7 @@ export const ADMIN_SECTIONS: AdminSectionMeta[] = [
   { key: "articles", label: "Статьи", href: "/admin/articles" as Route, guideSlug: "articles", needsGuide: true },
   { key: "finance", label: "Финансы", href: "/admin/finance" as Route, guideSlug: "analytics", needsGuide: true },
   { key: "valuation", label: "Оценка", href: "/admin/valuation" as Route, guideSlug: "valuation", needsGuide: true },
+  { key: "agents", label: "Агенты", href: "/admin/agents" as Route, guideSlug: "agents", needsGuide: true },
   { key: "health", label: "Здоровье", href: "/admin/health" as Route, needsGuide: false },
   { key: "guide", label: "Справочник", href: "/admin/guide" as Route, needsGuide: false },
   { key: "new", label: "+ Новый объект", href: "/admin/new" as Route, guideSlug: "objects", needsGuide: false },
