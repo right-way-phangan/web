@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Route } from "next";
 import { getPendingArticleCount } from "@/lib/data/articles";
 import { getGuideDraftCount } from "@/lib/data/guide";
+import { getOpenTaskCount } from "@/lib/data/agent-tasks";
 import { ADMIN_SECTIONS, helpHrefFor, type AdminSection } from "@/lib/admin-sections";
 
 /**
@@ -26,7 +27,8 @@ export async function AdminNav({
   const pending = pendingArticles ?? (await getPendingArticleCount());
   // Бейдж на «Справочник» — число страниц-черновиков, ждущих вычитки
   // (видно с любой страницы админки, не только с обзора справочника).
-  const drafts = await getGuideDraftCount();
+  // Бейдж «Агенты» — число открытых задач AI-команды.
+  const [drafts, openTasks] = await Promise.all([getGuideDraftCount(), getOpenTaskCount()]);
   // Контекстная справка: каждая рабочая страница ведёт на свой раздел учебника
   // (/admin/guide), в новой вкладке — чтобы не терять рабочий контекст.
   const helpHref = helpHrefFor(active);
@@ -34,7 +36,14 @@ export async function AdminNav({
     key: s.key,
     href: s.href,
     label: s.label,
-    badge: s.key === "articles" ? pending : s.key === "guide" ? drafts : undefined,
+    badge:
+      s.key === "articles"
+        ? pending
+        : s.key === "guide"
+          ? drafts
+          : s.key === "agents"
+            ? openTasks
+            : undefined,
   }));
   return (
     <nav className="mb-6 flex flex-wrap gap-2 border-b border-forest-900/10 pb-4">
