@@ -10,6 +10,29 @@ function revalidateAgents() {
   revalidatePath("/admin");
 }
 
+/**
+ * Веб-дверь «Спросить совет»: кладёт вопрос в очередь (status=pending). Считать
+ * совет может только локальный бот-«мозг» (claude на Max) — он заберёт pending
+ * поллером, посчитает и заполнит ответ. Здесь только постановка в очередь.
+ */
+export async function askCouncil(formData: FormData): Promise<void> {
+  if (!API) return;
+  const question = String(formData.get("question") ?? "").trim();
+  if (!question) return;
+  try {
+    const res = await backendFetch(`/council-sessions/ask`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      cache: "no-store",
+      body: JSON.stringify({ question, source: "web" }),
+    });
+    if (!res.ok) console.error(`[council] askCouncil → HTTP ${res.status}`);
+  } catch (err) {
+    console.error("[council] askCouncil failed:", err);
+  }
+  revalidateAgents();
+}
+
 /** Отметить задачу выполненной. */
 export async function markTaskDone(id: number): Promise<void> {
   if (!API) return;
