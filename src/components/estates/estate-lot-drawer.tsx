@@ -355,10 +355,14 @@ export function EstateLotDrawer({
           ) : null}
           {priceVisible ? (
             <div className="flex gap-2">
+              {/* data-rw lets the global ContactClickTracker attribute this
+                  messenger click to the lot's catalog object (own-DB funnel),
+                  not the site bucket. Omitted for synthetic lots without an RW. */}
               <a
                 href={whatsappLink(waText)}
                 target="_blank"
                 rel="noopener noreferrer"
+                data-rw={plot.rwNumber}
                 onClick={() => track("estate_lot_whatsapp", { estate: estate.slug, lot: plot.code })}
                 className="flex flex-1 items-center justify-center gap-1.5 rounded-sm border border-forest-500/25 px-3 py-2.5 text-xs font-medium text-forest-500/80 transition-colors hover:border-forest-500/45 hover:text-forest-900"
               >
@@ -369,6 +373,7 @@ export function EstateLotDrawer({
                 href={telegramDmLink(`lot_${plot.code}`)}
                 target="_blank"
                 rel="noopener noreferrer"
+                data-rw={plot.rwNumber}
                 onClick={() => track("estate_lot_telegram", { estate: estate.slug, lot: plot.code })}
                 className="flex flex-1 items-center justify-center gap-1.5 rounded-sm border border-forest-500/25 px-3 py-2.5 text-xs font-medium text-forest-500/80 transition-colors hover:border-forest-500/45 hover:text-forest-900"
               >
