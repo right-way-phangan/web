@@ -1792,6 +1792,171 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "phangan",
     faqQuestion: "Does buying property on Koh Phangan give me the right to live in Thailand?",
   },
+  {
+    slug: "buying-in-chaloklum",
+    kbId: "kb-0029",
+    topic: "Phangan",
+    title: "Buying property in Chaloklum, Koh Phangan: the island's northern fishing village",
+    short:
+      "Chaloklum is Koh Phangan's northern fishing capital — a quiet bay village that has built a second identity as the island's diving hub. It suits buyers who value authenticity, water-sports access and a slower pace over resort amenities or short-stay yield, and who accept a longer drive to the island's main services.",
+    updated: "2026-06-22",
+    body: [
+      "Chaloklum (Ban Chaloklum) occupies a broad semicircular bay on Koh Phangan's northern tip, 20–30 minutes by motorbike from the main port at Thong Sala. It is one of the least-changed corners of the island: a working fishing village with long-tail boat fleets and seafood restaurants that have co-existed with a growing diver community, resident artists and long-stay expats for the better part of two decades. That mix — authenticity and water sport, not nightlife and resort — defines who buys here and why.",
+      { h: "Character and community" },
+      "Chaloklum remains genuinely Thai in character. The village has 7-Elevens, ATMs, a Sunday evening market with grilled seafood and local produce, and a cluster of dive centres and boat-charter operators. The expat community — writers, artists, divers and long-stay residents — has grown steadily, but the area has not been transformed by the kind of mass tourism that reached Haad Rin or the wellness-industry boom that reshaped Sri Thanu. For a buyer who wants an existing neighbourhood rather than a new-build estate, Chaloklum offers that.",
+      "The dive community is the most distinctive element. Chaloklum is the island's primary dive departure point — most of Koh Phangan's dive centres operate from here, offering courses and day trips to the Gulf of Thailand's most celebrated site, Sail Rock (Hin Bai), a granite pinnacle between Phangan and Koh Tao that regularly produces whale shark sightings. This gives the area a specific tenant profile: dive instructors, water-sports enthusiasts and adventure travellers who seek an active base rather than a wellness retreat.",
+      { h: "Beaches" },
+      {
+        ul: [
+          "**Malibu Beach** — the main beach on the western arm of the bay. Fine white sand, calm and shallow water, well-suited to families; note that at low tide the water retreats far, so plan swimming around the tidal cycle.",
+          "**Haad Khom** — a quieter cove 1.5–2 km east of the village centre, with a fringing reef good for snorkelling. The beach is walkable and remains relatively undeveloped. Avoid standing on the coral.",
+          "**Bottle Beach (Hat Khuat)** — one of the island's most scenic north-coast beaches, accessible only by longtail boat from Chaloklum pier (approximately 20 minutes). It is a day-trip destination, not a residential area, but easy access from Chaloklum is a practical advantage for buyers in the village.",
+        ],
+      },
+      { h: "What is available to buy" },
+      {
+        ul: [
+          "**Pool villas and houses** — the range runs from smaller renovation-ready properties starting around THB 6–8 million to contemporary sea-view villas in the THB 20–30 million range. A recently listed 3-bedroom villa with sea views was priced at THB 29 million (542 m²). Turnkey and furnished options are available.",
+          "**Condominiums and apartments** — a smaller segment than on the western coast, but present. Entry-level 2-bedroom beachfront apartments have been listed from around THB 3.5 million. Developments including Gaia Residence (an eco-villa project on elevated land with panoramic views, scheduled Q3 2026) reflect growing developer interest.",
+          "**Land plots** — available across a wide range (THB 2.1–62 million depending on size, title and sea-view premium). Chaloklum's topography is mixed: the flat bay-front land carries a beachfront premium, while hillside plots with views are more affordable per rai but may cross into Zone 3(1) restrictions above 80 m elevation under the 2025 environmental rules. See [Building zones on Koh Phangan](/knowledge/koh-phangan-building-zones).",
+        ],
+      },
+      { h: "Prices and market context" },
+      "Chaloklum has historically been priced below the southwest coast wellness belt, reflecting its quieter character and longer service drive. That discount is narrowing as the area develops. Land with genuine sea views and Chanote title in the bay and on accessible hillside positions currently trades from roughly THB 3–8 million per rai, with premium plots higher. Developer interest — a 104-room beachfront hotel and six beachfront pool villas are in planning, alongside a proposed boardwalk project — signals confidence in the area's trajectory, though construction timelines in northern Koh Phangan are less predictable than in the more-developed west. See [How land is priced on Koh Phangan](/knowledge/how-land-is-priced-price-per-rai).",
+      "All villa and land transactions for foreign buyers are structured as leasehold — a 30-year registered land lease plus building ownership via a registered superficies. Standard legal structure applies island-wide. See [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa).",
+      { h: "The rental case" },
+      "Chaloklum's tenant profile is distinct from the rest of the island: dive instructors on monthly arrangements, water-sports visitors staying two to four weeks, and long-stay expats taking a house for a season or longer. That profile suits monthly-let structures, which sit outside the Hotel Act's short-stay licensing requirement. Nightly-rate tourism is lower here than at beachfront locations on the western coast — owners aiming at short-stay holiday rentals will achieve lower gross rates than comparable product in Haad Yao or Sri Thanu, though occupancy among the dive-community segment is consistent.",
+      "Monthly rental rates for a well-located house or villa in Chaloklum run approximately THB 20,000–60,000 depending on size and specification. High season (December–April) sees stronger demand; November can be challenging due to the northeast monsoon, which brings heavier rain and rougher seas to the north coast. Plan for reduced occupancy in the October–November trough. See [Renting out your villa on Koh Phangan](/knowledge/renting-out-your-villa-rules-and-taxes).",
+      { h: "What to verify when buying here" },
+      "Standard island-wide due diligence applies — see [Due diligence before buying on Koh Phangan](/knowledge/due-diligence-checklist-koh-phangan). Specific points for Chaloklum:",
+      {
+        ul: [
+          "**Road access to eastern beaches**: roads to Haad Khom and the eastern side of the bay include narrow unpaved tracks that can be difficult in wet weather. Confirm year-round access to any plot that does not front the main road.",
+          "**Title class**: the area has a mix of Chanote and lower-grade titles. Verify the document class and check it against the Land Office record. See [Land titles on Koh Phangan](/knowledge/land-titles-chanote-vs-nor-sor-3).",
+          "**Elevation and zoning**: Chaloklum's terrain rises steeply behind the bay. Hillside plots above 80 m elevation fall under Zone 3(1) restrictions (max 6 m building height, minimum 50% green space, slope-sensitive rules). Confirm the specific plot's elevation before committing to a build design. See [Building zones on Koh Phangan](/knowledge/koh-phangan-building-zones).",
+          "**Tidal range**: flat plots near Malibu Beach should be checked against tidal and storm-surge data — the bay is open to the north and exposed to northeast monsoon swells in October–December.",
+          "**Utilities**: mains water and electricity reach the village core, but coverage on hillside and secondary roads is patchy. Verify meter registration and confirm the actual supply source for any property away from the main village. See [Utilities on Koh Phangan](/knowledge/utilities-water-electricity-internet-koh-phangan).",
+        ],
+      },
+      { h: "Who Chaloklum suits — and who it does not" },
+      "Chaloklum is the right choice for a buyer who wants an authentic Thai-character neighbourhood, values dive and snorkelling access over resort facilities, and whose rental model suits monthly-stay tenants rather than nightly bookings. Families who want calm shallow water and a real village feel, and long-stay expats who appreciate a community that has built up organically, are well served here.",
+      "It is not the right choice for buyers focused on maximising short-stay vacation-rental income — the western sea-view corridor (Haad Yao, Sri Thanu) commands significantly higher nightly rates from tourism-oriented guests. Nor is it suited to buyers who need frequent access to the island's full range of services without a daily drive: major medical, banking, and commercial amenities require the trip to Thong Sala. For buyers who want the calm north of the island without committing to the diving-community character, [Thong Nai Pan](/knowledge/buying-in-thong-sala) on the northeast coast offers a comparable pace with a different profile.",
+    ],
+    takeaways: [
+      "Chaloklum is Koh Phangan's northern fishing village and the island's primary diving hub — a quiet, authentic community 20–30 minutes from Thong Sala.",
+      "Property ranges from entry-level apartments around THB 3.5 million to sea-view villas at THB 20–30 million; land from roughly THB 3–8 million per rai with Chanote title.",
+      "The natural tenant base is divers, water-sports visitors and long-stay expats — monthly-let structures, not nightly short-stay, suit this market best.",
+      "Hillside plots above 80 m are subject to Zone 3(1) building restrictions under the 2025 environmental rules; road access to eastern beaches requires individual verification.",
+      "Developer interest is growing (hotel, pool villas, boardwalk projects in planning), but Chaloklum remains below the west coast on price and short-stay rental yield.",
+    ],
+    sources: [
+      {
+        title: "Islanders Properties — Chaloklum, Koh Phangan: Malibu & Haad Khom beaches, Sail Rock diving, access and daily life",
+        url: "https://islanders-properties.com/blog/chaloklum-koh-phangan-malibu-haad-khom-beaches-sail-rock-diving-access-and-daily-life-193",
+      },
+      {
+        title: "Koh Phangan Property — Chaloklum area listings",
+        url: "https://islanders-properties.com/thailand/koh-phangan/chaloklum/",
+      },
+      {
+        title: "Samui Island Realty — Chaloklum Property",
+        url: "https://samui-island-realty.com/area/chaloklum/",
+      },
+      {
+        title: "Keller Henson — Zasa Malibu Villa (Chaloklum project overview)",
+        url: "https://kellerhenson.com/project/chaloklum-village",
+      },
+      {
+        title: "Sukhothai Inter Law — New Zoning Law for Koh Samui, Koh Phangan & Koh Tao (May 2025)",
+        url: "https://re.sukhothaiinterlaw.com/new-zoning-law-for-koh-samui-koh-phangan-koh-tao-what-property-owners-developers-need-to-know-may-2025-update/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "What is Chaloklum like for buying property on Koh Phangan, and who does it suit?",
+  },
+  {
+    slug: "buying-in-haad-yao-haad-salad",
+    kbId: "kb-0030",
+    topic: "Phangan",
+    title: "Buying property in Haad Yao and Haad Salad, Koh Phangan: sunset views and the sea-view premium",
+    short:
+      "Haad Yao and Haad Salad form the northwest coast's premier sea-view corridor — two bays separated by a headland, both facing west for full-front sunsets and views across Ang Thong Marine Park. They attract mid-to-high net worth buyers seeking elevated hillside villas with snorkelling access and strong vacation-rental potential, at the island's top price tier.",
+    updated: "2026-06-22",
+    body: [
+      "Haad Yao and Haad Salad sit on Koh Phangan's northwest coast, 15–20 minutes from Thong Sala by scooter or taxi. They form a single investment corridor — two west-facing bays divided by a low headland — though each has a distinct character. Haad Yao is a long, open arc of white sand with a coral reef 300–400 metres offshore and a beachfront strip of cafés and small resorts. Haad Salad, a few kilometres north, is smaller, quieter and more secluded, with a tighter bay and elevated hillside development accessed through gated villa communities. Both share the same defining asset: a west-facing position that delivers consistent sunset views across the 42 islands of Ang Thong Marine Park.",
+      { h: "The character of the two bays" },
+      "Haad Yao is the more developed of the two, with a functioning beachfront — cafés, bars, a dive shop, kayak and SUP rental — and a mix of backpacker bungalows and boutique hillside hotels. The beach itself is fine white sand with easy entry and a coral reef within snorkelling range. The buyer-facing product here is almost entirely hillside: most villas for sale sit on the western ridge above the beach, with elevated sea views and a short walk or scooter ride to the shore. Direct beachfront product is rare and priced at a significant premium.",
+      "Haad Salad is quieter and more exclusively residential. The bay is narrower, the beachfront is less developed, and the hillside above it concentrates most of the island's gated villa communities — secluded developments with private pools, managed common areas and security. The character is closer to a private resort than a village. Buyers who want total privacy and a manicured environment typically prefer Haad Salad; buyers who want more community life and beach-bar access choose Haad Yao.",
+      "Both areas share a growing wellness and yoga layer — studios and health-food venues in the broader northwest corridor that began in Sri Thanu have extended northward — and attract a similar demographic: affluent digital nomads, mid-to-high net worth families and investors targeting vacation-rental income.",
+      { h: "What is available to buy" },
+      {
+        ul: [
+          "**Hillside sea-view pool villas** — the dominant product. Most range from 2 to 4 bedrooms; a typical 3-bedroom sea-view villa in Haad Yao currently sells for THB 20–30 million. At the upper end, larger or custom-built properties exceed THB 30 million, with a small number of exceptional hillside estates significantly higher. Haad Salad has seen luxury 4-bedroom villas listed at around THB 23.9 million. Off-plan projects are active in both bays: recent completions and imminent launches include Dolcevita 2 (8 units), Samma Villas (5 units, from USD 203K) and Asteria Villas, among others.",
+          "**Land plots (sea-view and beachfront)** — good sea-view land on the northwest coast currently trades from approximately THB 9–15 million per rai; beachfront land commands a minimum of THB 20 million per rai. A Chanote-titled sea-view plot of 1,420 m² in Haad Yao was recently listed at THB 6.2 million (now sold), reflecting the range at the lower end of the sea-view tier. Rare dual-view plots with sight lines to both Haad Yao and Haad Salad carry additional premium.",
+          "**Condominium units** — Haad Yao forms part of the Sri Thanu/Haad Yao corridor that concentrates the island's highest density of condominium projects. Foreign buyers can acquire freehold units within the 49% foreign-quota limit. This is one of the island's best locations to find a freehold entry point if a full villa leasehold is not the right structure.",
+        ],
+      },
+      { h: "Prices and investment case" },
+      "The northwest coast has seen the island's strongest price appreciation over the past four years, driven by concentrated international buyer demand for sea-view product. House prices across Koh Phangan appreciated 8.9% year-on-year from mid-2024 to mid-2025, with the western and northwestern hillside positions leading that trend. Prime institutional and private buying activity has clustered here specifically, attracted by panoramic views, privacy and the vacation-rental yield profile.",
+      "For the rental case, hillside sea-view villas in Haad Yao attract well-paying short-stay guests — holiday travellers who book on Airbnb or villa platforms specifically for the sunset view. Occupancy rates at well-managed premium properties can exceed 70–80%. At these occupancy levels, a villa purchased for THB 25–30 million can generate gross nightly income that supports net yields in the 8–12% range — though achieving the top of this range requires professional management, competitive pricing and consistent platform presence. Nightly rates at luxury 4-bedroom villas in this area run from THB 15,000–40,000+ depending on season and specification. The Hotel Act licensing requirement applies: properties accepting short stays under 30 days need a hotel licence. See [Renting out your villa on Koh Phangan](/knowledge/renting-out-your-villa-rules-and-taxes).",
+      "All villa and land transactions for foreign buyers are leasehold — 30-year registered land lease plus building ownership via registered superficies. For context on the legal structure, see [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa) and [Leasehold vs freehold](/knowledge/leasehold-vs-freehold).",
+      { h: "Elevation and the 2025 building rules" },
+      "The hillside character of both bays is the source of the premium — and the source of the main planning constraint. The 2025 environmental protection rules for Surat Thani Province establish Zone 3(1) restrictions above 80 m elevation: maximum building height 6 m, minimum 50% green space, slope-sensitive roof requirements, and prohibition on subdivision or resort-style development in hillside areas. Many of the sea-view plots in Haad Yao and Haad Salad sit above this 80 m threshold. Before committing to any plot, confirm the specific elevation and verify which zone applies to that parcel. Plots that cross the 80 m line may have their buildable footprint and height significantly reduced compared to lower-altitude alternatives.",
+      "Plots within a development that already holds a building permit were generally grandfathered under the prior rules — verify the permit status of any off-plan project carefully. See [Building zones on Koh Phangan](/knowledge/koh-phangan-building-zones) and [Building a villa on Koh Phangan](/knowledge/building-a-villa-koh-phangan).",
+      { h: "What to verify when buying here" },
+      "Standard due diligence applies throughout the island — see [Due diligence before buying on Koh Phangan](/knowledge/due-diligence-checklist-koh-phangan). Points specific to this corridor:",
+      {
+        ul: [
+          "**Elevation and zone**: confirm the exact elevation of the plot against the Zone 3(1) threshold (80 m). Many hillside sea-view plots exceed this; verify before signing.",
+          "**Title class**: Chanote titles are available in both bays but the mix includes Nor Sor 3 Gor. A sea-view plot's price should be benchmarked against its title class and condition. See [Land titles on Koh Phangan](/knowledge/land-titles-chanote-vs-nor-sor-3).",
+          "**Road access and gradient**: hillside access roads vary from paved gated-community drives to steep tracks. Confirm year-round driveable access and whether the right of way is registered.",
+          "**Hotel licence for short-stay rentals**: villas accepting guests for stays under 30 days require a hotel licence (Establishment Act). If the investment case depends on nightly bookings, confirm the licence is in place or obtainable before purchase.",
+          "**Utilities**: underground electricity is available in some developments; confirm supply reliability on the specific plot. Water supply on elevated hillside plots may be via private tank, well or tanker delivery — not mains. See [Utilities on Koh Phangan](/knowledge/utilities-water-electricity-internet-koh-phangan).",
+          "**View protection**: confirm that adjacent plots do not carry existing permits that would block the sea view the price is premised on.",
+        ],
+      },
+      { h: "Who this corridor suits — and who it does not" },
+      "Haad Yao and Haad Salad are the right choice for buyers who place a high value on sunset sea views, premium hillside living and strong vacation-rental income from a short-stay guest profile. The corridor commands the island's highest price-per-sqm for finished villas — buyers get what they pay for, but the premium is real. The investment case works best for active rental management: a villa left unmanaged on this hillside generates less than its potential; professionally managed and marketed, it is among the island's strongest yield positions.",
+      "The corridor is not right for buyers focused on community integration (Sri Thanu, to the south, is better for that), urban convenience (Thong Sala), or entry-level price points. The 2025 hillside-zone restrictions mean that raw land above 80 m is subject to build constraints that require careful verification before assuming the development outcome the price implies. For a buyer who wants a comparable lifestyle at a lower price with less hillside complexity, [Sri Thanu](/knowledge/buying-in-sri-thanu) immediately to the south is the most direct alternative.",
+    ],
+    takeaways: [
+      "Haad Yao and Haad Salad are Koh Phangan's premier sunset sea-view corridor — west-facing bays 15–20 minutes from Thong Sala, with views across Ang Thong Marine Park.",
+      "Typical 3-bedroom hillside sea-view villa prices run THB 20–30 million; sea-view land from roughly THB 9–15 million per rai; beachfront land from THB 20 million per rai.",
+      "Premium vacation-rental yields are achievable — well-managed properties report 70–80%+ occupancy and potential net yields of 8–12% — but short-stay lets require a hotel licence.",
+      "Many sea-view plots sit above 80 m elevation and are subject to Zone 3(1) building restrictions under the 2025 environmental rules; verify before committing to any hillside purchase.",
+      "Haad Salad is more secluded and gated; Haad Yao has more community life. Both suit mid-to-high net worth buyers; for community living at lower prices, Sri Thanu immediately south is the closest alternative.",
+    ],
+    sources: [
+      {
+        title: "Islanders Properties — Haad Yao, Koh Phangan: comprehensive area guide",
+        url: "https://islanders-properties.com/blog/haad-yao-koh-phangan-comprehensive-area-guide-beach-reef-sunsets-182",
+      },
+      {
+        title: "Conrad Properties — Sea view land for sale in Haad Yao",
+        url: "https://www.conradproperties.asia/properties/koh-phangan-sea-view-land-for-sale-haad-yao",
+      },
+      {
+        title: "Koh Phangan Homes — Haad Yao area listings",
+        url: "https://phanganlandandhome.com/area/haad-yao/",
+      },
+      {
+        title: "Koh Phangan Estate — Annual housing appreciation on Koh Phangan: key drivers, market trends & investment insights",
+        url: "https://kohphangan.estate/blog/tpost/de0ng2hti1-annual-housing-appreciation-on-koh-phang",
+      },
+      {
+        title: "Samui Phangan Real Estate — Koh Phangan property investment",
+        url: "https://www.samui-phangan-real-estate.com/koh-phangan-property-investment/",
+      },
+      {
+        title: "Sukhothai Inter Law — New Zoning Law for Koh Samui, Koh Phangan & Koh Tao (May 2025)",
+        url: "https://re.sukhothaiinterlaw.com/new-zoning-law-for-koh-samui-koh-phangan-koh-tao-what-property-owners-developers-need-to-know-may-2025-update/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "What are Haad Yao and Haad Salad like for buying property on Koh Phangan, and is the sea-view premium worth it?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

@@ -1,4 +1,4 @@
-# Last run — 2026-06-21
+# Last run — 2026-06-22
 
 **Guides published:** 2
 
@@ -6,30 +6,33 @@
 
 ## Guide 1
 
-- **slug:** `owners-taxes-annual-land-and-income`
-- **kbId:** `kb-0027`
-- **title (EN):** Owner's taxes on Koh Phangan: Land & Building Tax and rental income tax
-- **title (RU):** Налоги владельца на Ко Пангане: налог на землю и строения и подоходный налог с аренды
-- **faqCategory:** `costs`
-- **faqQuestion:** What annual taxes does a foreign property owner pay on Koh Phangan?
+- **slug:** `buying-in-chaloklum`
+- **kbId:** `kb-0029`
+- **title (EN):** Buying property in Chaloklum, Koh Phangan: the island's northern fishing village
+- **title (RU):** Покупка недвижимости в Чалоклуме, Ко Панган: северная рыбацкая деревня острова
+- **faqCategory:** `phangan`
+- **faqQuestion:** What is Chaloklum like for buying property on Koh Phangan, and who does it suit?
 - **Sources used:**
-  - Revenue Department of Thailand (rd.go.th) — official PIT rate table (0–35% progressive, 8 bands); 30% standard deduction on rental income from buildings; confirmed since 2013
-  - Lex Bangkok — 2026 full LBT rate table (by category/band), confirmation of no government discount for B.E. 2569, June 2026 payment deadline extension
-  - HLB Thailand — rental income PIT rules for foreign property owners, 15% withholding tax for non-residents, refund via annual filing
-  - Dan Siam Property — 2026 enforcement context, leaseholder tax position (tax on registered title holder, not lessee)
+  - Islanders Properties blog — Chaloklum area guide (Malibu & Haad Khom beaches, Sail Rock diving, access and daily life): character, beach descriptions, buyer profile, amenities, tidal notes
+  - Islanders Properties area listings — Chaloklum: 134 properties, price ranges (villas ฿5.99M–59.5M, land ฿2.1M–62M, condos ฿3.2M–8.9M)
+  - Samui Island Realty Chaloklum area page: community character, diving identity, long-stay expat profile, 8–10% yield claim
+  - Keller Henson Zasa Malibu Villa (Chaloklum project): development activity, planned hotel + pool villas, boardwalk project
+  - Sukhothai Inter Law — New Zoning Law for Koh Phangan (May 2025): Zone 3(1) elevation ≥80 m restrictions
 
 ---
 
 ## Guide 2
 
-- **slug:** `visa-residency-property-owner-koh-phangan`
-- **kbId:** `kb-0028`
-- **title (EN):** Visa and residency for property owners on Koh Phangan: what a purchase gives you
-- **title (RU):** Виза и проживание для владельца недвижимости на Ко Пангане: что даёт покупка
+- **slug:** `buying-in-haad-yao-haad-salad`
+- **kbId:** `kb-0030`
+- **title (EN):** Buying property in Haad Yao and Haad Salad, Koh Phangan: sunset views and the sea-view premium
+- **title (RU):** Покупка недвижимости в Хад Яо и Хад Салат, Ко Панган: закатные виды и видовая премия
 - **faqCategory:** `phangan`
-- **faqQuestion:** Does buying property on Koh Phangan give me the right to live in Thailand?
+- **faqQuestion:** What are Haad Yao and Haad Salad like for buying property on Koh Phangan, and is the sea-view premium worth it?
 - **Sources used:**
-  - AIM Bangkok — confirmed the THB 3M investment visa requires freehold condo registration at the Land Department; leasehold/rental route currently suspended pending regulatory revision; 1-year renewable Non-Immigrant B status; no work rights
-  - Terms.law — visa comparison matrix 2026 (DTV, LTR, Elite, Retirement O-A): income requirements, duration, work rights, tax treatment confirmed for all four categories
-  - BOI Thailand LTR (ltr.boi.go.th) — four LTR categories, income/investment thresholds, digital work permit, 17% flat tax benefit, 90-day reporting exemption
-  - Sukhothai Inter Law — property visa guide (freehold-only eligibility confirmed); Siam Legal — Retirement O-A: age 50+, ฿800,000 bank deposit or ฿65,000/month, health insurance, 90-day reporting; Thailand Elite Visa — 5/10/20-year tiers, no income/age/property requirement
+  - Islanders Properties blog — Haad Yao comprehensive area guide (beach, reef, sunsets): location, beach quality, demographics, investment outlook, seasonal patterns
+  - Conrad Properties — sea view land listing in Haad Yao (sold): THB 6.2M / 1,420 m² Chanote — confirmed price reference
+  - Koh Phangan Homes — Haad Yao listings: price range, land and villa categories
+  - Koh Phangan Estate blog — Annual housing appreciation: 8.9% YoY mid-2024 to mid-2025; western/northwestern hillside as leading sub-market
+  - Samui Phangan Real Estate — property investment page: occupancy rates 70–80%+, net yield potential, active off-plan projects (Dolcevita 2, Samma Villas, Asteria Villas)
+  - Sukhothai Inter Law — New Zoning Law for Koh Phangan (May 2025): Zone 3(1) elevation ≥80 m restrictions
