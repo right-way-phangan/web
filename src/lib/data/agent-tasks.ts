@@ -22,7 +22,10 @@ export interface DbCouncilSession {
   id: number;
   question: string;
   answer: string;
-  source: string; // advice | task
+  source: string; // advice | task | web
+  status: "pending" | "processing" | "done" | "error";
+  errorText: string | null;
+  answeredAt: string | null;
   createdAt: string;
 }
 
