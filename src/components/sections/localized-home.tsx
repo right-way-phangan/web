@@ -83,7 +83,7 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
           aria-hidden
         />
         <div
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(110%_70%_at_50%_0%,rgba(201,133,77,0.16),transparent_60%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(110%_70%_at_50%_0%,rgba(217,138,30,0.20),transparent_60%)]"
           aria-hidden
         />
 

@@ -77,7 +77,7 @@ export async function Hero({ locale = "en" }: { locale?: Locale }) {
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_118%,rgba(201,133,77,0.20),transparent_62%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_118%,rgba(217,138,30,0.26),transparent_62%)]"
         aria-hidden
       />
       <div

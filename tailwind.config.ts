@@ -20,25 +20,29 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Light surfaces — warm sand / bone (was "cream")
+        // Light surfaces — warm sand / parchment (was "cream"). Clearly beige
+        // (hue ~38°), never plain white, so light sections read as "sand".
         cream: {
-          DEFAULT: "#F3EEE6",
-          50: "#FBF8F3", // lightest — elevated cards, stat strip
-          100: "#F3EEE6", // page background (body)
-          200: "#E9E1D3", // subtle panels / hairline fills
-          300: "#D8CDBA", // dividers, stone borders
-          400: "#C4B7A0", // deeper stone neutral
+          DEFAULT: "#F6EFE2",
+          50: "#FCF8F1", // lightest — elevated cards, stat strip
+          100: "#F6EFE2", // page background (body)
+          200: "#EDE1CC", // subtle panels / hairline fills
+          300: "#DCCBAB", // dividers, stone borders
+          400: "#C2A776", // deeper stone neutral
         },
-        // Dark brand colour — deep teal resolving to ink (was "forest")
+        // Dark brand colour — deep PETROL TEAL resolving to ink (was "forest").
+        // High-chroma cold teal (hue ~185–191°, sat ~84%): full-bleed in the
+        // hero/footer it reads unmistakably as ocean-at-dusk, never near-black
+        // green. THIS is the shade that signals the new palette.
         forest: {
-          DEFAULT: "#1C3D42",
-          50: "#E8EFEF", // lightest teal tint — light borders/bg
-          100: "#C6D7D8", // light teal
-          400: "#356A71", // lighter teal — hover
-          500: "#25565C", // strong teal — primary button base
-          600: "#1C3D42", // deep teal
-          700: "#122B30", // deeper
-          900: "#0C1B1E", // ink — darkest (hero/footer, dark sections)
+          DEFAULT: "#085860",
+          50: "#E6F3F3", // lightest teal tint — light borders/bg
+          100: "#C6E6E7", // light teal
+          400: "#15A8A8", // luminous cyan-teal — hover / bright accents
+          500: "#0A6E74", // strong teal — primary button base, links
+          600: "#085860", // deep petrol teal
+          700: "#06434B", // deeper
+          900: "#04262E", // ink — darkest petrol (hero/footer, dark sections)
         },
         // Accent — warm amber / sunset (was "brass"). The VIVID amber lives at
         // 300/400 for use on DARK teal-ink (hero, CTA band) where it glows like
@@ -47,13 +51,13 @@ const config: Config = {
         // fill — so the ~240 existing `*-brass-500` usages stay accessible with
         // zero per-file churn. Use 300 on dark, 500/600/700 on light.
         brass: {
-          DEFAULT: "#9A5A2A",
-          200: "#EAD0AE", // lightest — decor / display accent on dark
-          300: "#E0AE83", // vivid amber — eyebrow/text on DARK sections
-          400: "#C9854D", // signature vivid amber — fills/large text on dark
-          500: "#9A5A2A", // deep amber — AA as text on light + light text on fill
-          600: "#7E4A22", // hover / stronger on light
-          700: "#6A3F1E", // deepest — text on light (extra safe)
+          DEFAULT: "#985A0C",
+          200: "#F7D292", // lightest — decor / display accent on dark
+          300: "#F4BE5C", // glowing sunset GOLD — eyebrow/text on DARK sections
+          400: "#D98A1E", // vivid amber — fills/large text on dark
+          500: "#985A0C", // deep amber — AA as text on light + light text on fill
+          600: "#7F4E0B", // hover / stronger on light
+          700: "#5E3A08", // deepest — text on light (extra safe)
         },
       },
       fontFamily: {
