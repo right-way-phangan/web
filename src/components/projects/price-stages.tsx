@@ -18,7 +18,8 @@ export function PriceStages({ stages }: { stages: Array<{ label: string; value: 
   const finalVal = parseNum(stages[stages.length - 1]?.value ?? "");
 
   return (
-    <ol className="overflow-hidden rounded-sm border border-forest-500/10">
+    <div className="rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5">
+    <ol className="overflow-hidden rounded-core shadow-bezel">
       {stages.map((s, i) => {
         const isLast = i === stages.length - 1;
         const val = parseNum(s.value);
@@ -68,5 +69,6 @@ export function PriceStages({ stages }: { stages: Array<{ label: string; value: 
         );
       })}
     </ol>
+    </div>
   );
 }

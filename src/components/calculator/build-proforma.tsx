@@ -116,61 +116,63 @@ export function BuildProForma({ market }: { market: RentalMarket }) {
   }, [d, market.meta, plotSqm, builtSqm, landPerSqm, constrPerSqm, furnishPerSqm]);
 
   return (
-    <div className="rounded-sm border border-forest-500/10 bg-cream-50 p-6 md:p-8">
-      <p className="inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
-        <Hammer className="h-4 w-4" />
-        {t.badge}
-      </p>
-      <h3 className="mt-2 font-serif text-2xl text-forest-900">{t.title}</h3>
-      <p className="mt-2 max-w-2xl text-sm text-forest-500/75">{t.lede}</p>
+    <div className="rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5">
+      <div className="rounded-core bg-cream-50 p-6 shadow-bezel md:p-8">
+        <p className="inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-[0.2em] text-brass-700">
+          <Hammer className="h-4 w-4" />
+          {t.badge}
+        </p>
+        <h3 className="mt-2 font-serif text-2xl text-forest-900">{t.title}</h3>
+        <p className="mt-2 max-w-2xl text-sm text-forest-500/75">{t.lede}</p>
 
-      <div className="mt-6 grid gap-6 md:grid-cols-[1fr_1fr]">
-        {/* Inputs */}
-        <div className="space-y-3">
-          <label className="block">
-            <span className="mb-1 block text-[11px] font-medium text-forest-500/70">{t.district}</span>
-            <select
-              value={district}
-              onChange={(e) => pickDistrict(e.target.value)}
-              className="w-full rounded-sm border border-forest-500/20 bg-cream-50 px-2.5 py-1.5 text-sm text-forest-900 outline-none focus:border-brass-500"
-            >
-              {market.districts.map((x) => (
-                <option key={x.name} value={x.name}>
-                  {x.name}
-                </option>
-              ))}
-            </select>
-          </label>
-          <Num label={t.plot} value={plotSqm} onChange={setPlotSqm} step={50} />
-          <Num label={t.landPrice} value={landPerSqm} onChange={setLandPerSqm} step={500} />
-          <Num label={t.built} value={builtSqm} onChange={setBuiltSqm} step={10} />
-          <Num label={t.construction} value={constrPerSqm} onChange={setConstrPerSqm} step={1000} />
-          <Num label={t.furnishing} value={furnishPerSqm} onChange={setFurnishPerSqm} step={500} />
-        </div>
-
-        {/* Outputs */}
-        <div className="space-y-3">
-          <Row label={t.landCost} value={fmtThb(out.landCost, true)} />
-          <Row label={t.constructionCost} value={fmtThb(out.buildCost, true)} />
-          <Row label={t.furnishingCost} value={fmtThb(out.furnishCost, true)} />
-          <Row label={t.totalCapex} value={fmtThb(out.total, true)} bold />
-          <div className="my-1 border-t border-forest-500/10" />
-          <Row
-            label={t.netRentYr}
-            value={`${fmtThb(out.annualNet, true)}`}
-            sub={t.sub(
-              fmtThb(out.annualGross, true),
-              Math.round(out.occ * 100),
-              out.measuredNow != null ? t.bookedNow(Math.round(out.measuredNow * 100)) : "",
-            )}
-          />
-          <div className="grid grid-cols-2 gap-3 pt-1">
-            <Big label={t.yoc} value={`${out.yoc}%`} />
-            <Big label={t.payback} value={out.payback > 0 ? `${out.payback} ${t.yr}` : "—"} />
+        <div className="mt-6 grid gap-6 md:grid-cols-[1fr_1fr]">
+          {/* Inputs */}
+          <div className="space-y-3">
+            <label className="block">
+              <span className="mb-1 block text-[11px] font-medium text-forest-500/70">{t.district}</span>
+              <select
+                value={district}
+                onChange={(e) => pickDistrict(e.target.value)}
+                className="w-full rounded-sm border border-forest-500/20 bg-cream-50 px-2.5 py-1.5 text-sm text-forest-900 outline-none focus:border-brass-500"
+              >
+                {market.districts.map((x) => (
+                  <option key={x.name} value={x.name}>
+                    {x.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <Num label={t.plot} value={plotSqm} onChange={setPlotSqm} step={50} />
+            <Num label={t.landPrice} value={landPerSqm} onChange={setLandPerSqm} step={500} />
+            <Num label={t.built} value={builtSqm} onChange={setBuiltSqm} step={10} />
+            <Num label={t.construction} value={constrPerSqm} onChange={setConstrPerSqm} step={1000} />
+            <Num label={t.furnishing} value={furnishPerSqm} onChange={setFurnishPerSqm} step={500} />
           </div>
-          <p className="text-[11px] text-forest-500/50">
-            {t.footnote(Math.round(MGMT_FEE * 100), Math.round(OPEX_PCT * 100))}
-          </p>
+
+          {/* Outputs */}
+          <div className="space-y-3">
+            <Row label={t.landCost} value={fmtThb(out.landCost, true)} />
+            <Row label={t.constructionCost} value={fmtThb(out.buildCost, true)} />
+            <Row label={t.furnishingCost} value={fmtThb(out.furnishCost, true)} />
+            <Row label={t.totalCapex} value={fmtThb(out.total, true)} bold />
+            <div className="my-1 border-t border-forest-500/10" />
+            <Row
+              label={t.netRentYr}
+              value={`${fmtThb(out.annualNet, true)}`}
+              sub={t.sub(
+                fmtThb(out.annualGross, true),
+                Math.round(out.occ * 100),
+                out.measuredNow != null ? t.bookedNow(Math.round(out.measuredNow * 100)) : "",
+              )}
+            />
+            <div className="grid grid-cols-2 gap-3 pt-1">
+              <Big label={t.yoc} value={`${out.yoc}%`} />
+              <Big label={t.payback} value={out.payback > 0 ? `${out.payback} ${t.yr}` : "—"} />
+            </div>
+            <p className="text-[11px] text-forest-500/50">
+              {t.footnote(Math.round(MGMT_FEE * 100), Math.round(OPEX_PCT * 100))}
+            </p>
+          </div>
         </div>
       </div>
     </div>

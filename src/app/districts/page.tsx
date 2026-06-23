@@ -8,6 +8,8 @@ import { DISTRICTS, DISTRICT_COORDS, districtHasHero } from "@/content/districts
 import { DistrictsMap } from "@/components/districts/districts-map";
 import type { DistrictPoint } from "@/components/districts/districts-map-leaflet";
 import { getPublicObjects } from "@/lib/data/objects";
+import { Reveal } from "@/components/sections/reveal";
+import { Appear } from "@/components/motion/appear";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/districts", languages: { en: "/districts", ru: "/ru/districts", "x-default": "/districts" } },
@@ -61,77 +63,90 @@ export default async function DistrictsPage() {
         <p className="mb-6 text-sm text-forest-500/70">
           Tap a district on the map to jump straight to its live listings.
         </p>
-        <DistrictsMap points={districtPoints} />
+        <Appear delay={0.1}>
+          <DistrictsMap points={districtPoints} />
+        </Appear>
       </section>
 
       <section className="container-prose py-16 md:py-24">
-        <div className="grid gap-6 md:grid-cols-2 md:gap-8">
-          {DISTRICTS.map((d) => {
-            const [name, subtitle] = d.title.split(" — ");
-            return (
-              <Link
-                key={d.slug}
-                href={`/districts/${d.slug}` as Route}
-                className="group flex flex-col overflow-hidden rounded-sm border border-forest-500/10 bg-cream-50 transition-all hover:border-forest-500/30 hover:shadow-lg"
-              >
-                <div className="relative aspect-[16/9] overflow-hidden bg-forest-900">
-                  {districtHasHero(d.slug) ? (
-                    <Image
-                      src={`/images/districts/${d.slug}.jpg`}
-                      alt={`${name}, Koh Phangan`}
-                      fill
-                      sizes="(min-width: 768px) 50vw, 100vw"
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  ) : null}
-                  <div
-                    className="absolute inset-0 bg-gradient-to-t from-forest-900/80 via-forest-900/10 to-transparent"
-                    aria-hidden
-                  />
-                  <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
-                    <h2 className="font-serif text-2xl text-cream-50 md:text-3xl">
-                      {name}
-                    </h2>
-                    <p className="mt-0.5 text-sm text-cream-100/85">{subtitle}</p>
-                  </div>
-                </div>
-                <div className="flex flex-1 flex-col gap-3 p-6 md:p-8">
-                  <p className="text-sm leading-relaxed text-forest-500/85 md:text-base">
-                    {d.short}
-                  </p>
-                  <span className="mt-auto inline-flex items-center gap-1.5 pt-2 text-sm font-medium text-forest-500 transition-colors group-hover:text-brass-500">
-                    Read more
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </span>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
+        <Reveal>
+          <div className="grid gap-6 md:grid-cols-2 md:gap-8">
+            {DISTRICTS.map((d, i) => {
+              const [name, subtitle] = d.title.split(" — ");
+              return (
+                <Appear key={d.slug} delay={(i % 3) * 0.08} className="h-full">
+                  <Link
+                    href={`/districts/${d.slug}` as Route}
+                    className="group block h-full rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5 transition-all hover:shadow-soft"
+                  >
+                    <div className="flex h-full flex-col overflow-hidden rounded-core bg-cream-50 shadow-bezel">
+                      <div className="relative aspect-[16/9] overflow-hidden bg-forest-900">
+                        {districtHasHero(d.slug) ? (
+                          <Image
+                            src={`/images/districts/${d.slug}.jpg`}
+                            alt={`${name}, Koh Phangan`}
+                            fill
+                            sizes="(min-width: 768px) 50vw, 100vw"
+                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                          />
+                        ) : null}
+                        <div
+                          className="absolute inset-0 bg-gradient-to-t from-forest-900/80 via-forest-900/10 to-transparent"
+                          aria-hidden
+                        />
+                        <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
+                          <h2 className="font-serif text-2xl text-cream-50 md:text-3xl">
+                            {name}
+                          </h2>
+                          <p className="mt-0.5 text-sm text-cream-100/85">{subtitle}</p>
+                        </div>
+                      </div>
+                      <div className="flex flex-1 flex-col gap-3 p-6 md:p-8">
+                        <p className="text-sm leading-relaxed text-forest-500/85 md:text-base">
+                          {d.short}
+                        </p>
+                        <span className="mt-auto inline-flex items-center gap-1.5 pt-2 text-sm font-medium text-forest-500 transition-colors group-hover:text-brass-500">
+                          Read more
+                          <ArrowRight className="h-3.5 w-3.5" />
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                </Appear>
+              );
+            })}
+          </div>
+        </Reveal>
       </section>
 
       <section className="border-t border-forest-500/10 bg-cream-200/30">
         <div className="container-prose py-16 md:py-20">
-          <div className="max-w-2xl">
-            <h2 className="font-serif text-3xl text-forest-900 md:text-4xl">
-              Not sure which district fits?
-            </h2>
-            <p className="mt-4 text-lg text-forest-500/70">
-              A short discovery call usually narrows it down faster than
-              reading through every district page. Tell us what matters most — quiet,
-              community, beach access, infrastructure, build potential — and
-              we&rsquo;ll point you to one or two districts to explore first.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 rounded-sm bg-forest-500 px-6 py-3 text-sm font-medium text-cream-100 transition-colors hover:bg-forest-400"
-              >
-                Book a discovery call
-                <ArrowRight className="h-4 w-4" />
-              </Link>
+          <Appear delay={0.4}>
+            <div className="rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5">
+              <div className="rounded-core bg-cream-50 p-8 shadow-bezel md:p-10">
+                <div className="max-w-2xl">
+                  <h2 className="font-serif text-3xl text-forest-900 md:text-4xl">
+                    Not sure which district fits?
+                  </h2>
+                  <p className="mt-4 text-lg text-forest-500/70">
+                    A short discovery call usually narrows it down faster than
+                    reading through every district page. Tell us what matters most — quiet,
+                    community, beach access, infrastructure, build potential — and
+                    we&rsquo;ll point you to one or two districts to explore first.
+                  </p>
+                  <div className="mt-8 flex flex-wrap gap-3">
+                    <Link
+                      href="/contact"
+                      className="inline-flex items-center gap-2 rounded-sm bg-forest-500 px-6 py-3 text-sm font-medium text-cream-100 transition-colors hover:bg-forest-400"
+                    >
+                      Book a discovery call
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
+          </Appear>
         </div>
       </section>
     </>

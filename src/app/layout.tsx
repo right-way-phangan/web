@@ -38,10 +38,10 @@ const serif = Cormorant_Garamond({
 
 const siteUrl = getSiteUrl();
 
-// Brand-tints the mobile browser chrome (address bar) — forest from the
-// palette. Without it Android/iOS render a default grey bar.
+// Brand-tints the mobile browser chrome (address bar) — petrol ink (forest-900)
+// from the Coastal Twilight palette. Without it Android/iOS render a grey bar.
 export const viewport: Viewport = {
-  themeColor: "#1F3A2E",
+  themeColor: "#04262E",
 };
 
 export const metadata: Metadata = {

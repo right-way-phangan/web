@@ -77,7 +77,8 @@ export function LandEstateLanding({ estate, locale }: Props) {
               <span>· {s.areaRai} {locale === "ru" ? "рай всего" : "rai total"}</span>
             ) : null}
           </div>
-          <p className="mt-3 text-xs font-medium uppercase tracking-[0.3em] text-brass-300">
+          <p className="mt-3 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.3em] text-brass-300">
+            <span className="h-px w-10 bg-brass-300/70" aria-hidden />
             {t.eyebrow}
           </p>
           <h1 className="mt-2 max-w-3xl text-balance text-cream-50">{estate.name[locale]}</h1>
@@ -97,14 +98,14 @@ export function LandEstateLanding({ estate, locale }: Props) {
         </div>
 
         {/* DD-наследование */}
-        <div className="mt-6 flex max-w-prose items-start gap-3 rounded-sm border border-brass-500/20 bg-brass-500/5 p-4">
+        <div className="mt-6 flex max-w-prose items-start gap-3 rounded-bezel border border-brass-500/20 bg-brass-500/5 p-4 shadow-soft">
           <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-brass-500" />
           <p className="text-sm leading-relaxed text-forest-500/85">{t.ddNote}</p>
         </div>
 
         {/* Highlights */}
         {estate.highlights && estate.highlights.length > 0 ? (
-          <div className="mt-8">
+          <Appear className="mt-8">
             <h3 className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
               {t.sections.highlights}
             </h3>
@@ -116,7 +117,7 @@ export function LandEstateLanding({ estate, locale }: Props) {
                 </li>
               ))}
             </ul>
-          </div>
+          </Appear>
         ) : null}
       </section>
 

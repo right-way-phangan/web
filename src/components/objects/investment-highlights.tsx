@@ -50,10 +50,12 @@ export function InvestmentHighlights({ object }: { object: RealEstateObject }) {
         {items.map((item) => (
           <div
             key={item.title}
-            className="rounded-sm border border-forest-500/10 bg-cream-50 p-6"
+            className="rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5"
           >
-            <h3 className="font-serif text-xl text-forest-900">{item.title}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-forest-500/75">{item.text}</p>
+            <div className="rounded-core bg-cream-50 p-6 shadow-bezel">
+              <h3 className="font-serif text-xl text-forest-900">{item.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-forest-500/75">{item.text}</p>
+            </div>
           </div>
         ))}
       </div>

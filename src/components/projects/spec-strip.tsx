@@ -1,6 +1,7 @@
 import { Bed, Bath, Maximize2, ScrollText, CalendarClock, Hourglass, type LucideIcon } from "lucide-react";
 import type { RealEstateObject } from "@/types/object";
 import type { Locale } from "@/lib/i18n/dictionaries";
+import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 
 /** Compact key-facts strip under the hero — fast scanning without jumping to
  * the spec sections. Renders only the facts that are present. */
@@ -18,16 +19,19 @@ export function SpecStrip({ project: p, locale }: { project: RealEstateObject; l
   if (items.length === 0) return null;
 
   return (
-    <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 border-y border-forest-500/10 py-4">
-      {items.map((it, i) => {
-        const Icon = it.icon;
-        return (
-          <span key={i} className="inline-flex items-center gap-2 text-sm text-forest-500/85">
-            <Icon className="h-4 w-4 text-brass-500" />
-            {it.value}
-          </span>
-        );
-      })}
+    <div className="mt-8">
+      <SectionEyebrow className="mb-3">{ru ? "Ключевые факты" : "Key specs"}</SectionEyebrow>
+      <div className="flex flex-wrap items-center gap-x-6 gap-y-3 border-y border-forest-500/10 py-4">
+        {items.map((it, i) => {
+          const Icon = it.icon;
+          return (
+            <span key={i} className="inline-flex items-center gap-2 text-sm text-forest-500/85">
+              <Icon className="h-4 w-4 text-brass-500" />
+              {it.value}
+            </span>
+          );
+        })}
+      </div>
     </div>
   );
 }

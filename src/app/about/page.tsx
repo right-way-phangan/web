@@ -4,6 +4,8 @@ import Link from "next/link";
 import { PageHero } from "@/components/sections/page-hero";
 import { ContentSection } from "@/components/sections/content-section";
 import { PrincipleGrid } from "@/components/sections/principle-grid";
+import { SectionEyebrow } from "@/components/sections/section-eyebrow";
+import { Reveal } from "@/components/sections/reveal";
 import { Button } from "@/components/ui/button";
 import { whatsappLink } from "@/lib/site-config";
 import { DEFAULT_AUTHOR, authorPersonSchema } from "@/content/authors";
@@ -73,45 +75,49 @@ export default function AboutPage() {
       </ContentSection>
 
       <section id={DEFAULT_AUTHOR.slug} className="container-prose scroll-mt-24 py-16 md:py-24">
-        <div className="grid gap-10 md:grid-cols-[1fr_2fr] md:gap-16">
-          <div>
-            <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
-              The founder
-            </p>
-            <h2 className="mt-3 font-serif text-3xl text-forest-900 md:text-4xl">
-              Vladimir Buryi
-            </h2>
-            <p className="mt-2 text-sm text-forest-500/60">
-              Founder · Koh Phangan
-            </p>
-          </div>
+        <Reveal>
+          <div className="grid gap-10 md:grid-cols-[1fr_2fr] md:gap-16">
+            <div>
+              <SectionEyebrow>The founder</SectionEyebrow>
+              <h2 className="mt-3 font-serif text-3xl text-forest-900 md:text-4xl">
+                Vladimir Buryi
+              </h2>
+              <p className="mt-2 text-sm text-forest-500/60">
+                Founder · Koh Phangan
+              </p>
+            </div>
 
-          <div className="space-y-4 text-base leading-relaxed text-forest-500/85 md:text-lg">
-            <p>
-              Originally from Saint Petersburg, Russia. Four years operating
-              in the Phangan land market, with hundreds of land plots
-              assessed and over forty transactions supported in the local
-              market. Living on Koh Phangan year-round for over four years.
-            </p>
-            <p className="text-sm text-forest-500/70">
-              Languages: English, Russian.
-            </p>
-            <div className="flex flex-wrap gap-3 pt-4">
-              <Button asChild variant="outline" size="md">
-                <a
-                  href={whatsappLink("Hi Vladimir — I'd like to ask about Right Way Phangan.")}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Message on WhatsApp
-                </a>
-              </Button>
-              <Button asChild variant="ghost" size="md">
-                <Link href="/contact">Get in touch</Link>
-              </Button>
+            <div className="rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5">
+              <div className="rounded-core bg-cream-50 p-6 shadow-bezel md:p-8">
+                <div className="space-y-4 text-base leading-relaxed text-forest-500/85 md:text-lg">
+                  <p>
+                    Originally from Saint Petersburg, Russia. Four years operating
+                    in the Phangan land market, with hundreds of land plots
+                    assessed and over forty transactions supported in the local
+                    market. Living on Koh Phangan year-round for over four years.
+                  </p>
+                  <p className="text-sm text-forest-500/70">
+                    Languages: English, Russian.
+                  </p>
+                  <div className="flex flex-wrap gap-3 pt-4">
+                    <Button asChild variant="outline" size="md">
+                      <a
+                        href={whatsappLink("Hi Vladimir — I'd like to ask about Right Way Phangan.")}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Message on WhatsApp
+                      </a>
+                    </Button>
+                    <Button asChild variant="ghost" size="md">
+                      <Link href="/contact">Get in touch</Link>
+                    </Button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        </Reveal>
       </section>
     </>
   );

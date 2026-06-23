@@ -43,6 +43,7 @@ import { PriceStages } from "./price-stages";
 import { ProjectTimeline } from "./project-timeline";
 import { ProjectTeam } from "./project-team";
 import { Appear } from "@/components/motion/appear";
+import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 
 interface Props {
   project: RealEstateObject;
@@ -164,9 +165,11 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
       </div>
 
       <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_360px] lg:gap-16">
-        <div className="min-w-0 space-y-16">
+        <div className="min-w-0 space-y-24 lg:space-y-32">
           {/* Overview */}
+          <Appear>
           <section id="overview" className="scroll-mt-32">
+            <SectionEyebrow className="mb-3">{t.nav.overview}</SectionEyebrow>
             <h2 className="font-serif text-3xl text-forest-900">{t.sections.overview}</h2>
             {project.descriptionRaw ? (
               <div className="mt-6 max-w-prose space-y-4 whitespace-pre-line text-base leading-relaxed text-forest-500/85">
@@ -175,11 +178,13 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
             ) : null}
 
             {project.areaNote ? (
-              <div className="mt-6 rounded-sm border border-forest-500/10 bg-cream-50 p-5">
-                <h3 className="mb-2 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
-                  {locale === "ru" ? "Площади" : "Areas"}
-                </h3>
-                <p className="text-sm leading-relaxed text-forest-500/85">{project.areaNote}</p>
+              <div className="mt-6 rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5">
+                <div className="rounded-core bg-cream-50 p-5 shadow-bezel">
+                  <h3 className="mb-2 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+                    {locale === "ru" ? "Площади" : "Areas"}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-forest-500/85">{project.areaNote}</p>
+                </div>
               </div>
             ) : null}
 
@@ -205,45 +210,60 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
               </div>
             ) : null}
           </section>
+          </Appear>
 
           {/* Gallery */}
           {hasGallery ? (
+            <Appear delay={0.06}>
             <section id="gallery" className="scroll-mt-32">
+              <SectionEyebrow className="mb-3">{t.nav.gallery}</SectionEyebrow>
               <h2 className="mb-6 font-serif text-3xl text-forest-900">{t.sections.gallery}</h2>
               <ObjectGallery rwNumber={project.rwNumber} type={project.type} gallery={project.gallery} />
             </section>
+            </Appear>
           ) : null}
 
           {/* Floor plans & masterplan */}
           {hasPlans ? (
+            <Appear delay={0.06}>
             <section id="plans" className="scroll-mt-32">
+              <SectionEyebrow className="mb-3">{t.nav.plans}</SectionEyebrow>
               <h2 className="mb-6 font-serif text-3xl text-forest-900">{t.sections.plans}</h2>
               <Floorplans urls={project.floorplanUrls!} />
             </section>
+            </Appear>
           ) : null}
 
           {/* Video & tour */}
           {hasVideo ? (
+            <Appear delay={0.06}>
             <section id="video" className="scroll-mt-32">
+              <SectionEyebrow className="mb-3">{t.nav.video}</SectionEyebrow>
               <h2 className="mb-6 font-serif text-3xl text-forest-900">{t.sections.video}</h2>
               <ProjectVideos urls={project.videoUrls!} watchLabel={t.watchVideo} />
             </section>
+            </Appear>
           ) : null}
 
           {/* Units & availability */}
           {hasUnits ? (
+            <Appear delay={0.06}>
             <section id="units" className="scroll-mt-32">
+              <SectionEyebrow className="mb-3">{t.nav.units}</SectionEyebrow>
               <h2 className="font-serif text-3xl text-forest-900">{t.sections.units}</h2>
               <p className="mt-2 text-sm text-forest-500/70">{t.sections.unitsLede}</p>
               <div className="mt-6">
                 <UnitsTable units={units} availability={availability} />
               </div>
             </section>
+            </Appear>
           ) : null}
 
           {/* Pricing & payment */}
           {hasPricing ? (
+            <Appear delay={0.06}>
             <section id="pricing" className="scroll-mt-32">
+              <SectionEyebrow className="mb-3">{t.nav.pricing}</SectionEyebrow>
               <h2 className="font-serif text-3xl text-forest-900">{t.sections.pricing}</h2>
               {hasStages ? (
                 <div className="mt-6">
@@ -281,11 +301,14 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
                 </div>
               ) : null}
             </section>
+            </Appear>
           ) : null}
 
           {/* Projected returns */}
           {hasReturns ? (
+            <Appear delay={0.06}>
             <section id="returns" className="scroll-mt-32">
+              <SectionEyebrow className="mb-3">{t.nav.returns}</SectionEyebrow>
               <h2 className="font-serif text-3xl text-forest-900">{t.sections.returns}</h2>
               <p className="mt-2 max-w-2xl text-sm text-forest-500/70">{t.sections.returnsLede}</p>
               {project.netYieldPct || project.estNetIncomeYear ? (
@@ -326,27 +349,36 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
                 />
               </div>
             </section>
+            </Appear>
           ) : null}
 
           {/* Construction timeline */}
           {hasTimeline ? (
+            <Appear delay={0.06}>
             <section id="timeline" className="scroll-mt-32">
+              <SectionEyebrow className="mb-3">{t.nav.timeline}</SectionEyebrow>
               <h2 className="mb-6 font-serif text-3xl text-forest-900">{t.sections.timeline}</h2>
               <ProjectTimeline items={project.timeline!} />
             </section>
+            </Appear>
           ) : null}
 
           {/* Developer & team */}
           {hasTeam ? (
+            <Appear delay={0.06}>
             <section id="team" className="scroll-mt-32">
+              <SectionEyebrow className="mb-3">{t.nav.team}</SectionEyebrow>
               <h2 className="mb-6 font-serif text-3xl text-forest-900">{t.sections.team}</h2>
               <ProjectTeam members={project.team!} />
             </section>
+            </Appear>
           ) : null}
 
           {/* Location */}
           {hasLocation ? (
+            <Appear delay={0.06}>
             <section id="location" className="scroll-mt-32">
+              <SectionEyebrow className="mb-3">{t.nav.location}</SectionEyebrow>
               <ObjectLocationMap
                 lat={project.lat}
                 lng={project.lng}
@@ -354,6 +386,7 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
                 mapsUrl={project.locationUrl}
               />
             </section>
+            </Appear>
           ) : null}
         </div>
 

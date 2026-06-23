@@ -15,6 +15,8 @@ import { getProjectsDict } from "@/lib/i18n/dictionaries";
 import { localePath } from "@/lib/i18n/locale-path";
 import { Button } from "@/components/ui/button";
 import { ProjectCard } from "./project-card";
+import { SectionEyebrow } from "@/components/sections/section-eyebrow";
+import { Reveal } from "@/components/sections/reveal";
 
 /** Developer landing — all of one developer's projects in one place. */
 export async function DeveloperPage({ slug, locale }: { slug: string; locale: Locale }) {
@@ -26,7 +28,7 @@ export async function DeveloperPage({ slug, locale }: { slug: string; locale: Lo
   const allObjects = await getAllObjects();
 
   return (
-    <section className="container-prose py-10 md:py-14">
+    <section className="container-prose py-24 md:py-32">
       <Button asChild variant="ghost" size="sm" className="mb-6">
         <Link href={localePath(locale, "/projects") as Route}>
           <ArrowLeft className="h-4 w-4" />
@@ -34,11 +36,11 @@ export async function DeveloperPage({ slug, locale }: { slug: string; locale: Lo
         </Link>
       </Button>
 
-      <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">{t.developer}</p>
+      <SectionEyebrow>{t.developer}</SectionEyebrow>
       <h1 className="mt-3 max-w-3xl text-balance">{dev.name}</h1>
       <p className="mt-3 text-sm text-forest-500/55">{t.count(dev.projects.length)}</p>
 
-      <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <Reveal className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {dev.projects.map((project) => {
           const units = getProjectUnits(project, allObjects);
           const availability = projectAvailability(project, units);
@@ -52,7 +54,7 @@ export async function DeveloperPage({ slug, locale }: { slug: string; locale: Lo
             />
           );
         })}
-      </div>
+      </Reveal>
     </section>
   );
 }

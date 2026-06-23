@@ -33,6 +33,7 @@ import { PrintBrochure } from "@/components/objects/print-brochure";
 import { ObjectJsonLd } from "@/components/objects/object-json-ld";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { Appear } from "@/components/motion/appear";
+import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 import { getSiteUrl } from "@/lib/site-url";
 import { cleanMetaDescription } from "@/lib/utils/meta";
 
@@ -163,9 +164,9 @@ export default async function ObjectPage({ params }: Props) {
         <header className="mt-8 md:mt-12">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
+              <SectionEyebrow>
                 {object.rwNumber} · {object.type}
-              </p>
+              </SectionEyebrow>
               <VettedBadge ddStatus={object.ddStatus} ddDate={object.ddDate} />
             </div>
             <div className="flex shrink-0 items-center gap-2 print:hidden">

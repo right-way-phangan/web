@@ -10,11 +10,11 @@ export const OG_CONTENT_TYPE = "image/png";
 // Palette tokens duplicated here because ImageResponse evaluates outside the
 // Tailwind runtime — must use raw CSS.
 const COLORS = {
-  cream: "#FAF7F2",
-  creamMid: "#F2EDE3",
-  forest: "#1F3A2E",
-  forestSoft: "rgba(31, 58, 46, 0.65)",
-  brass: "#B5651D",
+  cream: "#F6EFE2",
+  creamMid: "#EDE1CC",
+  forest: "#04262E",
+  forestSoft: "rgba(4, 38, 46, 0.65)",
+  brass: "#985A0C",
 } as const;
 
 interface RenderArgs {
@@ -65,7 +65,7 @@ function renderOgPhoto({ eyebrow, title, features, photo }: RenderArgs) {
             position: "absolute",
             inset: 0,
             background:
-              "linear-gradient(to top, rgba(14,31,24,0.92) 0%, rgba(14,31,24,0.45) 45%, rgba(14,31,24,0.20) 100%)",
+              "linear-gradient(to top, rgba(4,38,46,0.92) 0%, rgba(4,38,46,0.45) 45%, rgba(4,38,46,0.20) 100%)",
           }}
         />
 
@@ -80,7 +80,7 @@ function renderOgPhoto({ eyebrow, title, features, photo }: RenderArgs) {
               fontWeight: 500,
               letterSpacing: 3,
               textTransform: "uppercase",
-              color: "rgba(250,247,242,0.65)",
+              color: "rgba(246,239,226,0.65)",
             }}
           >
             Phangan
@@ -95,7 +95,7 @@ function renderOgPhoto({ eyebrow, title, features, photo }: RenderArgs) {
               fontWeight: 600,
               letterSpacing: 3,
               textTransform: "uppercase",
-              color: "#DDA86A",
+              color: "#F4BE5C",
               marginBottom: 10,
             }}
           >
@@ -121,10 +121,10 @@ function renderOgPhoto({ eyebrow, title, features, photo }: RenderArgs) {
                   display: "flex",
                   padding: "5px 11px",
                   borderRadius: 4,
-                  border: "1px solid rgba(250,247,242,0.45)",
+                  border: "1px solid rgba(246,239,226,0.45)",
                   fontSize: 13,
                   color: COLORS.cream,
-                  background: "rgba(14,31,24,0.35)",
+                  background: "rgba(4,38,46,0.35)",
                 }}
               >
                 {f}

@@ -4,6 +4,7 @@ import { getEstatesDict } from "@/lib/i18n/dictionaries";
 import { localePath } from "@/lib/i18n/locale-path";
 import { EstateCard } from "./estate-card";
 import { Appear } from "@/components/motion/appear";
+import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 
 /** Общая индекс-сетка для /estates и /ru/estates. */
 export function EstatesIndex({ locale }: { locale: Locale }) {
@@ -11,8 +12,8 @@ export function EstatesIndex({ locale }: { locale: Locale }) {
   const estates = getPublishedEstates();
 
   return (
-    <section className="container-prose py-10 md:py-14">
-      <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">{t.eyebrow}</p>
+    <section className="container-prose py-16 md:py-24">
+      <SectionEyebrow>{t.eyebrow}</SectionEyebrow>
       <h1 className="mt-3 max-w-3xl text-balance">{t.indexTitle}</h1>
       <p className="mt-3 max-w-2xl text-base text-forest-500/70">{t.indexLede}</p>
       <p className="mt-2 text-sm text-forest-500/55">{t.count(estates.length)}</p>

@@ -13,6 +13,9 @@ import { getDistrictMarket } from "@/lib/data/rental-market";
 import { DistrictMarketPanel } from "@/components/insights/district-market";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { getSiteUrl } from "@/lib/site-url";
+import { Reveal } from "@/components/sections/reveal";
+import { Appear } from "@/components/motion/appear";
+import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -98,7 +101,8 @@ export default async function DistrictPage({ params }: Props) {
             aria-hidden
           />
           <div className="relative z-10 flex min-h-[42vh] flex-col justify-end p-7 md:min-h-[48vh] md:p-12">
-            <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-300">
+            <p className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.3em] text-brass-300">
+              <span className="h-px w-10 bg-brass-300/70" aria-hidden />
               District
             </p>
             <h1 className="mt-3 max-w-3xl text-balance text-cream-50">{name}</h1>
@@ -146,7 +150,11 @@ export default async function DistrictPage({ params }: Props) {
         </div>
       </section>
 
-      {districtMarket ? <DistrictMarketPanel dm={districtMarket} /> : null}
+      {districtMarket ? (
+        <Appear delay={0.1}>
+          <DistrictMarketPanel dm={districtMarket} />
+        </Appear>
+      ) : null}
 
       <section className="border-t border-forest-500/10 bg-cream-200/30">
         <div className="container-prose py-16 md:py-20">
@@ -164,11 +172,15 @@ export default async function DistrictPage({ params }: Props) {
           </div>
 
           {preview.length > 0 ? (
-            <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {preview.map((object) => (
-                <ObjectCard key={object.id} object={object} />
-              ))}
-            </div>
+            <Reveal>
+              <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {preview.map((object, i) => (
+                  <Appear key={object.id} delay={(i % 3) * 0.08} className="h-full">
+                    <ObjectCard object={object} />
+                  </Appear>
+                ))}
+              </div>
+            </Reveal>
           ) : null}
 
           <div className="mt-10 flex flex-wrap gap-3">
@@ -188,27 +200,28 @@ export default async function DistrictPage({ params }: Props) {
       </section>
 
       <section className="container-prose py-16 md:py-24">
-        <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
-          More districts
-        </p>
+        <SectionEyebrow>More districts</SectionEyebrow>
         <div className="mt-8 grid gap-6 md:grid-cols-3">
-          {others.map((o) => (
-            <Link
-              key={o.slug}
-              href={`/districts/${o.slug}` as Route}
-              className="group flex flex-col rounded-sm border border-forest-500/10 bg-cream-50 p-6 transition-colors hover:border-forest-500/30"
-            >
-              <h3 className="font-serif text-xl text-forest-900">
-                {o.title.split(" — ")[0]}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-forest-500/70 line-clamp-3">
-                {o.short}
-              </p>
-              <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-forest-500 transition-colors group-hover:text-brass-500">
-                Read
-                <ArrowRight className="h-3 w-3" />
-              </span>
-            </Link>
+          {others.map((o, i) => (
+            <Appear key={o.slug} delay={(i % 3) * 0.08} className="h-full">
+              <Link
+                href={`/districts/${o.slug}` as Route}
+                className="group block h-full rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5 transition-all hover:shadow-soft"
+              >
+                <div className="flex h-full flex-col rounded-core bg-cream-50 p-6 shadow-bezel">
+                  <h3 className="font-serif text-xl text-forest-900">
+                    {o.title.split(" — ")[0]}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-forest-500/70 line-clamp-3">
+                    {o.short}
+                  </p>
+                  <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-forest-500 transition-colors group-hover:text-brass-500">
+                    Read
+                    <ArrowRight className="h-3 w-3" />
+                  </span>
+                </div>
+              </Link>
+            </Appear>
           ))}
         </div>
       </section>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/sections/page-hero";
+import { Appear } from "@/components/motion/appear";
 import { Disclaimer } from "@/components/legal/disclaimer";
 import { RoiCalculator } from "@/components/calculator/roi-calculator";
 import { MarketMiniBlock } from "@/components/calculator/market-preset";
@@ -43,22 +44,24 @@ export default async function CalculatorPage({
         title="See what a Phangan property could be worth."
         lede="Set your own growth outlook and horizon. We'll project the value, ROI, and capital curve — then surface listings that fit the budget."
       />
-      <div className="container-prose mt-12 md:mt-16">
-        <RoiCalculator
-          catalog={catalog}
-          market={market}
-          initialPriceThb={initialPriceThb}
-          initialMode={initialMode}
-          initialTenure={initialTenure}
-          initialLeaseTermYears={initialLeaseTermYears}
-          initialOffplan={initialOffplan}
-        />
-        <div className="mt-10 md:mt-14">
+      <div className="container-prose mt-16 md:mt-24">
+        <Appear delay={0}>
+          <RoiCalculator
+            catalog={catalog}
+            market={market}
+            initialPriceThb={initialPriceThb}
+            initialMode={initialMode}
+            initialTenure={initialTenure}
+            initialLeaseTermYears={initialLeaseTermYears}
+            initialOffplan={initialOffplan}
+          />
+        </Appear>
+        <Appear delay={0.1} className="mt-16 md:mt-24">
           <MarketMiniBlock market={market} />
-        </div>
-        <div className="mt-6 md:mt-8">
+        </Appear>
+        <Appear delay={0.2} className="mt-16 md:mt-24">
           <BuildProForma market={market} />
-        </div>
+        </Appear>
         <Disclaimer locale="en" />
       </div>
     </section>

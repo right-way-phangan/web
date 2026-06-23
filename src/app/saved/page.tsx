@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { getPublicObjects, slimObjectForCard } from "@/lib/data/objects";
 import { SavedListings } from "@/components/objects/saved-listings";
 import { SavedSearches } from "@/components/objects/saved-searches";
+import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 
 export const metadata: Metadata = {
   title: "Saved",
@@ -19,9 +20,7 @@ export default async function SavedPage() {
 
   return (
     <section className="container-prose py-16 md:py-24">
-      <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
-        Shortlist
-      </p>
+      <SectionEyebrow>Shortlist</SectionEyebrow>
       <h1 className="mt-4 max-w-3xl text-balance">Your saved properties.</h1>
       <p className="mt-6 max-w-xl text-lg text-forest-500/70">
         Everything you&rsquo;ve hearted, in one place. Compare the details, then

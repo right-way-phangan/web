@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { MessageCircle, Phone, Mail, MapPin } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
+import { Reveal } from "@/components/sections/reveal";
 import { LeadForm } from "@/components/forms/lead-form";
 import {
   siteConfig,
@@ -44,58 +45,66 @@ export default async function ContactPage({ searchParams }: PageProps) {
         </div>
       ) : null}
 
-      <section className="container-prose py-16 md:py-24">
+      <section className="container-prose py-24 md:py-32">
       <div className="grid gap-12 lg:grid-cols-[1fr_320px] lg:gap-16">
         {/* Left: form */}
-        <div className="rounded-sm border border-forest-500/10 bg-cream-50 p-6 md:p-8">
-          <LeadForm source="contact" layout="block" defaultMessage={brief} />
-        </div>
+        <Reveal>
+          <div className="rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5">
+            <div className="rounded-core bg-cream-50 p-6 shadow-bezel md:p-8">
+              <LeadForm source="contact" layout="block" defaultMessage={brief} />
+            </div>
+          </div>
+        </Reveal>
 
         {/* Right: direct channels */}
         <aside className="space-y-6">
-          <div>
-            <h2 className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
-              Or message us directly
-            </h2>
-            <ul className="mt-4 space-y-3">
-              <ContactRow
-                icon={MessageCircle}
-                label="WhatsApp"
-                value="Reply within the hour"
-                href={whatsappLink()}
-              />
-              <ContactRow
-                icon={Phone}
-                label="Telegram chat"
-                value={`@${siteConfig.contact.telegram.bot.replace(/_/g, " ").trim()}`}
-                href={telegramDmLink()}
-              />
-              <ContactRow
-                icon={Phone}
-                label="Telegram channel"
-                value={`@${siteConfig.contact.telegram.channel}`}
-                href={telegramChannelLink()}
-              />
-              <ContactRow
-                icon={Mail}
-                label="Email"
-                value={siteConfig.contact.email}
-                href={`mailto:${siteConfig.contact.email}`}
-              />
-            </ul>
+          <div className="rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5">
+            <div className="rounded-core bg-cream-50 p-6 shadow-bezel">
+              <h2 className="text-xs font-medium uppercase tracking-[0.2em] text-brass-700">
+                Or message us directly
+              </h2>
+              <ul className="mt-4 space-y-3">
+                <ContactRow
+                  icon={MessageCircle}
+                  label="WhatsApp"
+                  value="Reply within the hour"
+                  href={whatsappLink()}
+                />
+                <ContactRow
+                  icon={Phone}
+                  label="Telegram chat"
+                  value={`@${siteConfig.contact.telegram.bot.replace(/_/g, " ").trim()}`}
+                  href={telegramDmLink()}
+                />
+                <ContactRow
+                  icon={Phone}
+                  label="Telegram channel"
+                  value={`@${siteConfig.contact.telegram.channel}`}
+                  href={telegramChannelLink()}
+                />
+                <ContactRow
+                  icon={Mail}
+                  label="Email"
+                  value={siteConfig.contact.email}
+                  href={`mailto:${siteConfig.contact.email}`}
+                />
+              </ul>
+            </div>
           </div>
 
-          <div className="border-t border-forest-500/10 pt-6">
-            <h2 className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
-              Office
-            </h2>
-            <div className="mt-4 flex items-start gap-3 text-sm text-forest-500">
-              <MapPin className="h-4 w-4 mt-0.5 text-forest-500/50" />
-              <div>
-                <p>Koh Phangan, Thailand</p>
-                <p className="mt-1 text-xs text-forest-500/60">
-                  We meet clients on the island for viewings and signings.
-                </p>
+          <div className="rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5">
+            <div className="rounded-core bg-cream-50 p-6 shadow-bezel">
+              <h2 className="text-xs font-medium uppercase tracking-[0.2em] text-brass-700">
+                Office
+              </h2>
+              <div className="mt-4 flex items-start gap-3 text-sm text-forest-500">
+                <MapPin className="h-4 w-4 mt-0.5 text-forest-500/50" />
+                <div>
+                  <p>Koh Phangan, Thailand</p>
+                  <p className="mt-1 text-xs text-forest-500/60">
+                    We meet clients on the island for viewings and signings.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
