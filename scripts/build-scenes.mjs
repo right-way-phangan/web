@@ -43,6 +43,29 @@ async function loadEnv() {
 }
 await loadEnv();
 
+// Read a JPEG's pixel dimensions straight from its SOF marker — no image lib.
+// Returns {w,h} or null if it isn't a JPEG we can size. Used to keep portrait
+// scans/screenshots out of the (landscape) hero.
+function jpegSize(buf) {
+  if (buf.length < 4 || buf[0] !== 0xff || buf[1] !== 0xd8) return null;
+  let off = 2;
+  while (off + 9 < buf.length) {
+    if (buf[off] !== 0xff) {
+      off++;
+      continue;
+    }
+    const marker = buf[off + 1];
+    // SOF0..SOF15 carry frame dimensions (skip DHT/DAT/DRI markers C4/C8/CC).
+    if (marker >= 0xc0 && marker <= 0xcf && marker !== 0xc4 && marker !== 0xc8 && marker !== 0xcc) {
+      const h = buf.readUInt16BE(off + 5);
+      const w = buf.readUInt16BE(off + 7);
+      return { w, h };
+    }
+    off += 2 + buf.readUInt16BE(off + 2); // jump to next marker by segment length
+  }
+  return null;
+}
+
 const API = (process.env.OBJECTS_API_URL || "").replace(/\/$/, "");
 const TOKEN = process.env.OBJECTS_API_TOKEN;
 if (!API || !TOKEN) {
@@ -97,7 +120,37 @@ async function main() {
   }
 
   candidates.sort((a, b) => b._score - a._score || String(b._added).localeCompare(String(a._added)));
-  const scenes = candidates.slice(0, MAX_SCENES).map(({ src, alt }) => ({ src, alt }));
+
+  // Cover guard. A cover can be (a) a dead link — Vercel Blob is blocked (403)
+  // and a few pre-R2 stragglers were never migrated; or (b) a portrait scan /
+  // phone screenshot (a chanote, a cadastral plot map, a LandsMaps grab) that a
+  // cold-call sourcer used in place of a real photo. Either ruins the full-bleed
+  // landscape hero: (a) paints a blank/broken frame, (b) shows a document. So we
+  // download the candidate's header bytes, confirm it loads AND is a real
+  // landscape photo (aspect ≥ 1.2 — every drone aerial is wide; scans/phone
+  // shots are portrait), and keep only those. Verified in score order, stop at
+  // MAX_SCENES. Без этого фильтра скан/скриншот снова утекал на главную.
+  async function landscapePhoto(url) {
+    try {
+      const r = await fetch(url);
+      if (!(r.status === 200 || r.status === 206)) return false;
+      const buf = Buffer.from(await r.arrayBuffer());
+      const dim = jpegSize(buf);
+      if (!dim) return false; // unreadable / not a JPEG we can size → skip
+      return dim.w / dim.h >= 1.2;
+    } catch {
+      return false;
+    }
+  }
+  const scenes = [];
+  let probed = 0;
+  for (const c of candidates) {
+    if (scenes.length >= MAX_SCENES) break;
+    probed++;
+    if (await landscapePhoto(c.src)) scenes.push({ src: c.src, alt: c.alt });
+    else console.error(`  ⨯ пропуск (битая/портретная обложка): ${c.src}`);
+  }
+  console.error(`Проверено обложек: ${probed} · годных в манифест: ${scenes.length}`);
 
   const manifest = {
     generatedAt: new Date().toISOString(),
