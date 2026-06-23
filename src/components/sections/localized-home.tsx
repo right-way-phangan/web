@@ -3,73 +3,30 @@ import Image from "next/image";
 import type { Route } from "next";
 import { ArrowRight, MapPin, ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Hero } from "@/components/sections/hero";
 import { FeaturedListings } from "@/components/sections/featured-listings";
-import { HeroBackground } from "@/components/sections/hero-background";
-import { HeroStats } from "@/components/sections/hero-stats";
 import { Reveal } from "@/components/sections/reveal";
+import { Appear } from "@/components/motion/appear";
+import { Magnetic } from "@/components/motion/magnetic";
 import type { HomeDict, Locale } from "@/lib/i18n/dictionaries";
 
 const VALUE_ICONS = [MapPin, ShieldCheck, Sparkles] as const;
 
 /**
- * Dictionary-driven home page, shared by the EN root (`/`) and RU (`/ru`).
- * Listing cards stay in their source language (amoCRM) for now; the marketing
- * chrome localizes. Keeping one component avoids the markup drift you'd get from
- * a parallel RU copy.
+ * The single home page, shared by the EN root (`/`) and RU (`/ru`) — one
+ * dict-driven component, so the two locales can never drift in markup. Listing
+ * cards stay in their source language (own DB) for now; the marketing chrome
+ * localizes. Redesign "Coastal Twilight": immersive hero, double-bezel value
+ * cards, cinematic scroll reveals, sand/teal/amber palette.
  */
 export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale }) {
-  // Render the single optional <em> in the hero title without a markdown parser.
-  const [titleBefore, titleEm, titleAfter] = splitEm(dict.hero.titleHtml);
-  const browseHref = "/listings" as Route;
-  const processHref = "/process" as Route;
-  const contactHref = "/contact" as Route;
+  const base = locale === "ru" ? "/ru" : "";
+  const browseHref = `${base}/listings` as Route;
+  const contactHref = `${base}/contact` as Route;
 
   return (
     <>
-      {/* Hero */}
-      <section aria-label="Hero" className="relative isolate overflow-hidden bg-forest-900">
-        <HeroBackground
-          fallbackSrc="/hero-phangan.jpg"
-          fallbackAlt="Aerial view of a beachfront on Koh Phangan"
-        />
-        <div
-          className="absolute inset-0 bg-gradient-to-tr from-forest-900/85 via-forest-900/55 to-forest-900/25"
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-cream-100"
-          aria-hidden
-        />
-        <div className="container-prose relative z-10 flex min-h-[80vh] flex-col justify-center py-24 md:min-h-[88vh] md:py-32">
-          <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-300">
-            {dict.hero.eyebrow}
-          </p>
-          <h1 className="mt-6 max-w-4xl text-balance text-5xl leading-[1.05] text-cream-50 md:text-7xl md:leading-[1.02]">
-            {titleBefore}
-            {titleEm ? <span className="italic text-cream-100/80">{titleEm}</span> : null}
-            {titleAfter}
-          </h1>
-          <p className="mt-8 max-w-xl text-lg leading-relaxed text-cream-100/85 md:text-xl">
-            {dict.hero.lede}
-          </p>
-          <div className="mt-12 flex flex-col gap-3 sm:flex-row sm:gap-4">
-            <Button asChild variant="primary" size="lg">
-              <Link href={browseHref}>
-                {dict.hero.ctaBrowse}
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-              className="border-cream-100/40 text-cream-50 hover:border-cream-50 hover:bg-cream-50 hover:text-forest-900"
-            >
-              <Link href={processHref}>{dict.hero.ctaProcess}</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+      <Hero locale={locale} />
 
       {/* The in-progress notice sits under the hero: the header floats
           transparent over the hero photo, so a strip above it would hide. */}
@@ -79,37 +36,40 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
         </p>
       ) : null}
 
-      <HeroStats locale={locale} />
-
-      {/* Values */}
+      {/* Values — double-bezel cards, machined like physical hardware */}
       <section className="container-prose py-24 md:py-32">
-        <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
+        <p className="flex items-center gap-3 text-xs font-medium uppercase tracking-eyebrow text-brass-700">
+          <span className="h-px w-10 bg-brass-600/60" aria-hidden />
           {dict.values.eyebrow}
         </p>
-        <h2 className="mt-4 max-w-3xl text-balance">{dict.values.title}</h2>
-        <p className="mt-6 max-w-xl text-lg text-forest-500/70">{dict.values.lede}</p>
-        <div className="mt-16 grid gap-12 md:grid-cols-3 md:gap-8">
+        <h2 className="mt-5 max-w-3xl text-balance">{dict.values.title}</h2>
+        <p className="mt-5 max-w-xl text-lg text-forest-600/70">{dict.values.lede}</p>
+
+        <div className="mt-16 grid gap-6 md:grid-cols-3">
           {dict.values.items.map((item, i) => {
             const Icon = VALUE_ICONS[i] ?? Sparkles;
             return (
-              <div key={item.title} className="flex flex-col">
-                <div className="flex h-12 w-12 items-center justify-center rounded-sm border border-forest-500/15 text-forest-500">
-                  <Icon className="h-5 w-5" />
+              <Appear key={item.title} delay={i * 0.1} className="h-full">
+                <div className="group h-full rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5 transition-shadow duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:shadow-soft">
+                  <div className="flex h-full flex-col rounded-core bg-cream-50 p-8 shadow-bezel">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-forest-900 text-cream-50 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:-translate-y-0.5">
+                      <Icon className="h-5 w-5" strokeWidth={1.5} />
+                    </div>
+                    <h3 className="mt-7 font-serif text-2xl text-forest-900">{item.title}</h3>
+                    <p className="mt-3 text-base leading-relaxed text-forest-600/75">{item.text}</p>
+                  </div>
                 </div>
-                <h3 className="mt-6 font-serif text-2xl text-forest-900">{item.title}</h3>
-                <p className="mt-3 text-base leading-relaxed text-forest-500/75">{item.text}</p>
-              </div>
+              </Appear>
             );
           })}
         </div>
       </section>
 
       <Reveal>
-        <FeaturedListings />
+        <FeaturedListings locale={locale} />
       </Reveal>
 
-      {/* Closing CTA — full-bleed coastal scene bookending the dark hero
-          (mirrors the EN IslandCta so the two locales don't drift). */}
+      {/* Closing CTA — full-bleed coastal scene bookending the dark hero */}
       <section className="relative isolate overflow-hidden bg-forest-900">
         <Image
           src="/images/scenes/coast-aerial.jpg"
@@ -119,25 +79,33 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
           className="object-cover"
         />
         <div
-          className="absolute inset-0 bg-gradient-to-t from-forest-900/90 via-forest-900/50 to-forest-900/30"
+          className="absolute inset-0 bg-gradient-to-t from-forest-900/92 via-forest-900/55 to-forest-900/30"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(110%_70%_at_50%_0%,rgba(201,133,77,0.16),transparent_60%)]"
           aria-hidden
         />
 
-        <div className="container-prose relative z-10 flex min-h-[55vh] flex-col items-center justify-center py-24 text-center md:min-h-[65vh] md:py-32">
-          <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-300">
+        <Appear className="container-prose relative z-10 flex min-h-[60vh] flex-col items-center justify-center py-24 text-center md:min-h-[68vh] md:py-32">
+          <p className="flex items-center gap-3 text-xs font-medium uppercase tracking-eyebrow text-brass-300">
+            <span className="h-px w-10 bg-brass-300/70" aria-hidden />
             {dict.cta.eyebrow}
           </p>
-          <h2 className="mt-4 max-w-2xl text-balance text-cream-50">{dict.cta.title}</h2>
+          <h2 className="mt-5 max-w-2xl text-balance text-cream-50">{dict.cta.title}</h2>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-cream-100/85">
             {dict.cta.lede}
           </p>
+
           <div className="mt-10 flex w-full max-w-sm flex-col gap-3 sm:w-auto sm:max-w-none sm:flex-row sm:gap-4">
-            <Button asChild variant="accent" size="lg">
-              <Link href={browseHref}>
-                {dict.cta.browse}
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
+            <Magnetic>
+              <Button asChild variant="accent" size="lg">
+                <Link href={browseHref}>
+                  {dict.cta.browse}
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
+            </Magnetic>
             <Button
               asChild
               variant="outline"
@@ -147,17 +115,8 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
               <Link href={contactHref}>{dict.cta.talk}</Link>
             </Button>
           </div>
-        </div>
+        </Appear>
       </section>
-      {/* locale kept for future per-section deep links */}
-      <span className="hidden" data-locale={locale} />
     </>
   );
-}
-
-/** Split "a <em>b</em> c" → ["a ", "b", " c"]. No <em> → [whole, "", ""]. */
-function splitEm(html: string): [string, string, string] {
-  const m = /^(.*?)<em>(.*?)<\/em>(.*)$/s.exec(html);
-  if (!m) return [html, "", ""];
-  return [m[1], m[2], m[3]];
 }

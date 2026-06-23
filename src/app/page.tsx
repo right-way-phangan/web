@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
-import { Hero } from "@/components/sections/hero";
-import { HeroStats } from "@/components/sections/hero-stats";
-import { Values } from "@/components/sections/values";
-import { FeaturedListings } from "@/components/sections/featured-listings";
-import { IslandCta } from "@/components/sections/island-cta";
+import { LocalizedHome } from "@/components/sections/localized-home";
+import { getHomeDict } from "@/lib/i18n/dictionaries";
 
 export const metadata: Metadata = {
   alternates: {
@@ -16,13 +13,5 @@ export const metadata: Metadata = {
 export const revalidate = 300;
 
 export default function HomePage() {
-  return (
-    <>
-      <Hero />
-      <HeroStats locale="en" />
-      <Values />
-      <FeaturedListings />
-      <IslandCta />
-    </>
-  );
+  return <LocalizedHome dict={getHomeDict("en")} locale="en" />;
 }

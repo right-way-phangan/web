@@ -135,6 +135,9 @@ export default function RootLayout({
           <Footer />
           <MessengerFab />
         </SavedProvider>
+        {/* Премиальное зерно/плёнка поверх всего — фиксированный неинтерактивный
+            слой (≈3.5%, soft-light). Под reduced-motion и при печати скрыт (CSS). */}
+        <div className="grain-overlay" aria-hidden />
         <ContactClickTracker />
         <AttributionCapture />
         <GtmScript />
