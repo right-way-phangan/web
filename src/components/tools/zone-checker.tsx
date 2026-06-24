@@ -4,15 +4,21 @@ import { useCallback, useState } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import type { Route } from "next";
-import { lookupZoneRules, type ZoneRulesLookupResult } from "@/lib/actions/zone-rules-lookup";
+import {
+  lookupZoneRules,
+  type ZoneRulesLookupResult,
+  type NormOverrides,
+} from "@/lib/actions/zone-rules-lookup";
 import type { ZoneSignals, RuleLocale } from "@/lib/data/zone-rules";
 import { cn } from "@/lib/utils/cn";
 
 /**
  * Standalone "paste a location → building rules" checker. Shared by the admin
  * tool (/admin/zoning) and the public page (/tools/zoning); the locale prop
- * switches copy and the DD link target. Pure wrapper over the lookupZoneRules
- * server action — no data of its own. Always indicative, links to DD.
+ * switches copy and the DD link target. Wrapper over the lookupZoneRules server
+ * action — no data of its own. Shows the qualitative zone use AND the precise
+ * quantitative norms (height/area/%/min plot) driven by sea distance, elevation
+ * and slope. Always indicative, links to DD.
  */
 
 // Leaflet touches `window` → map is client-only (ssr:false in a client file).
@@ -36,8 +42,17 @@ const COPY = {
     coords: "Point",
     noRules: "No specific land-use rule was detected for this point — the zone is confirmed in due diligence.",
     checkBeforeBuild: "Check before you build",
+    precise: "What you can build — precise limits",
+    notBuildable: "Building not permitted at this point",
+    geoSea: "Distance to sea",
+    geoElev: "Elevation",
+    geoSlope: "Slope",
+    aboveSea: "m a.s.l.",
+    metres: "m",
+    deg: "°",
+    estimatedNote: "Sea/elevation/slope are estimated from open data (~30 m). Edit elevation or slope if you have survey data.",
     disclaimerLead:
-      "Indicative, read from the Phangan city-plan colour (May 2025). The exact height, footprint, setbacks and permitted use for a plot are verified in our ",
+      "Indicative. Zone use is read from the Phangan city-plan colour; the precise limits come from the May-2025 environmental protection law applied to the estimated sea distance, elevation and slope. Exact figures for a plot are verified in our ",
     ddLink: "due diligence",
     disclaimerTail: " before any offer.",
     ddHref: "/due-diligence",
@@ -57,8 +72,17 @@ const COPY = {
     coords: "Точка",
     noRules: "Для этой точки конкретное правило использования не определено — зона уточняется в due diligence.",
     checkBeforeBuild: "Проверить до стройки",
+    precise: "Что можно строить — точные лимиты",
+    notBuildable: "Строительство в этой точке запрещено",
+    geoSea: "До моря",
+    geoElev: "Высота",
+    geoSlope: "Уклон",
+    aboveSea: "м н.у.м.",
+    metres: "м",
+    deg: "°",
+    estimatedNote: "Море/высота/уклон оценены по открытым данным (~30 м). Впишите высоту или уклон, если есть топосъёмка.",
     disclaimerLead:
-      "Индикативно, по цвету городского плана Пангана (май 2025). Точные высота, пятно застройки, отступы и разрешённое использование для конкретного участка проверяются в нашем ",
+      "Индикативно. Использование зоны — по цвету городского плана Пангана; точные лимиты — из закона об охране среды (май 2025), применённого к оценённым расстоянию до моря, высоте и уклону. Точные цифры для участка проверяются в нашем ",
     ddLink: "due diligence",
     disclaimerTail: " до сделки.",
     ddHref: "/ru/due-diligence",
@@ -76,15 +100,18 @@ export function ZoneChecker({ locale }: { locale: RuleLocale }) {
   const [marker, setMarker] = useState<{ lat: number; lng: number } | null>(null);
   const [status, setStatus] = useState<Status>("idle");
   const [result, setResult] = useState<ZoneRulesLookupResult | null>(null);
+  // Manual overrides (survey beats DEM); empty string = use the estimate.
+  const [elevStr, setElevStr] = useState("");
+  const [slopeStr, setSlopeStr] = useState("");
 
-  // Single lookup path — text input, map click and signal toggles all funnel
-  // through here so the result always matches the current point + signals.
+  // Single lookup path — text input, map click, signal toggles and geo
+  // overrides all funnel through here so the result always matches the inputs.
   const run = useCallback(
-    async (location: string, sig: ZoneSignals) => {
+    async (location: string, sig: ZoneSignals, ov: NormOverrides) => {
       const loc = location.trim();
       if (!loc) return;
       setStatus("busy");
-      const r = await lookupZoneRules(loc, locale, sig);
+      const r = await lookupZoneRules(loc, locale, sig, ov);
       setResult(r);
       if (r.ok && r.lat != null && r.lng != null) setMarker({ lat: r.lat, lng: r.lng });
       setStatus("done");
@@ -92,22 +119,42 @@ export function ZoneChecker({ locale }: { locale: RuleLocale }) {
     [locale],
   );
 
+  const parseOverrides = (elev: string, slope: string): NormOverrides => ({
+    elevationM: elev.trim() === "" ? undefined : Number(elev),
+    slopeDeg: slope.trim() === "" ? undefined : Number(slope),
+  });
+
   function onMapPick(lat: number, lng: number) {
     const loc = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
     setInput(loc);
     setMarker({ lat, lng });
-    void run(loc, signals);
+    // New location → drop any prior survey overrides, re-estimate from DEM.
+    setElevStr("");
+    setSlopeStr("");
+    void run(loc, signals, {});
   }
 
-  // Apply changed signals and re-run against the current point so the warnings
-  // update live (no need to press the button again).
+  function onSubmitLocation() {
+    setElevStr("");
+    setSlopeStr("");
+    void run(input, signals, {});
+  }
+
+  // Re-run against the current point with new signals or geo overrides.
+  function rerun(sig: ZoneSignals, ov: NormOverrides) {
+    const loc = marker ? `${marker.lat}, ${marker.lng}` : input;
+    if (loc.trim()) void run(loc, sig, ov);
+  }
   function applySignals(next: ZoneSignals) {
     setSignals(next);
-    const loc = marker ? `${marker.lat}, ${marker.lng}` : input;
-    if (loc.trim()) void run(loc, next);
+    rerun(next, parseOverrides(elevStr, slopeStr));
+  }
+  function applyOverrides() {
+    rerun(signals, parseOverrides(elevStr, slopeStr));
   }
 
   const rules = result?.ok ? result.rules : null;
+  const norms = result?.ok ? result.norms : null;
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1.05fr_1fr]">
@@ -116,7 +163,7 @@ export function ZoneChecker({ locale }: { locale: RuleLocale }) {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            void run(input, signals);
+            onSubmitLocation();
           }}
           className="flex flex-col gap-2 sm:flex-row"
         >
@@ -209,12 +256,84 @@ export function ZoneChecker({ locale }: { locale: RuleLocale }) {
               </div>
             </div>
 
-            {result.lat != null && result.lng != null ? (
-              <p className="num text-sm text-forest-500/55">
-                {t.coords}: {result.lat.toFixed(5)}, {result.lng.toFixed(5)}
-              </p>
+            {/* Geographic drivers — sea read-only, elevation/slope editable. */}
+            <div className="grid grid-cols-3 gap-2">
+              <div className="rounded-sm border border-forest-500/10 bg-cream-50 px-3 py-2">
+                <p className="text-[11px] uppercase tracking-wide text-forest-500/55">{t.geoSea}</p>
+                <p className="num text-base text-forest-900">
+                  {result.seaDistanceM != null ? `${result.seaDistanceM} ${t.metres}` : "—"}
+                </p>
+              </div>
+              <label className="rounded-sm border border-forest-500/10 bg-cream-50 px-3 py-2">
+                <span className="block text-[11px] uppercase tracking-wide text-forest-500/55">{t.geoElev}</span>
+                <span className="flex items-baseline gap-1">
+                  <input
+                    type="number"
+                    inputMode="numeric"
+                    value={elevStr}
+                    placeholder={result.elevationM != null ? String(result.elevationM) : ""}
+                    onChange={(e) => setElevStr(e.target.value)}
+                    onBlur={applyOverrides}
+                    onKeyDown={(e) => e.key === "Enter" && applyOverrides()}
+                    className="num w-full min-w-0 bg-transparent text-base text-forest-900 placeholder:text-forest-500/45 focus:outline-none"
+                  />
+                  <span className="text-xs text-forest-500/55">{t.aboveSea}</span>
+                </span>
+              </label>
+              <label className="rounded-sm border border-forest-500/10 bg-cream-50 px-3 py-2">
+                <span className="block text-[11px] uppercase tracking-wide text-forest-500/55">{t.geoSlope}</span>
+                <span className="flex items-baseline gap-1">
+                  <input
+                    type="number"
+                    inputMode="numeric"
+                    value={slopeStr}
+                    placeholder={result.slopeDeg != null ? String(result.slopeDeg) : ""}
+                    onChange={(e) => setSlopeStr(e.target.value)}
+                    onBlur={applyOverrides}
+                    onKeyDown={(e) => e.key === "Enter" && applyOverrides()}
+                    className="num w-full min-w-0 bg-transparent text-base text-forest-900 placeholder:text-forest-500/45 focus:outline-none"
+                  />
+                  <span className="text-xs text-forest-500/55">{t.deg}</span>
+                </span>
+              </label>
+            </div>
+            <p className="-mt-2 text-xs text-forest-500/50">{t.estimatedNote}</p>
+
+            {/* PRECISE NORMS — the quantitative answer. */}
+            {norms ? (
+              norms.buildable ? (
+                <div className="rounded-lg border border-forest-500/15 bg-forest-500/[0.03] p-4">
+                  <p className="text-xs font-medium uppercase tracking-[0.15em] text-forest-700">{t.precise}</p>
+                  <dl className="mt-3 space-y-2.5">
+                    {norms.lines.map((line, i) => (
+                      <div key={i} className="grid grid-cols-[8rem_1fr] gap-x-4 sm:grid-cols-[10rem_1fr]">
+                        <dt className="text-sm font-medium text-forest-500/70">{line.label}</dt>
+                        <dd className="num text-base font-semibold text-forest-900">{line.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                  {norms.notes.length > 0 ? (
+                    <ul className="mt-3 space-y-1.5 border-t border-forest-500/10 pt-3">
+                      {norms.notes.map((n) => (
+                        <li key={n} className="flex gap-2 text-sm leading-relaxed text-forest-500/75">
+                          <span aria-hidden className="mt-0.5 shrink-0 text-forest-500/45">▸</span>
+                          <span>{n}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
+                  <p className="mt-3 text-xs leading-relaxed text-forest-500/50">{norms.source}</p>
+                </div>
+              ) : (
+                <div className="rounded-lg border border-red-600/25 bg-red-50/70 p-4 dark:bg-red-500/10">
+                  <p className="text-sm font-semibold text-red-800 dark:text-red-300">⛔ {t.notBuildable}</p>
+                  <p className="mt-1 text-base leading-relaxed text-forest-500/85">{norms.noBuildReason}</p>
+                  <p className="mt-3 text-xs leading-relaxed text-forest-500/50">{norms.source}</p>
+                </div>
+              )
             ) : null}
 
+            {/* Qualitative zone use rules. */}
             {rules && rules.lines.length > 0 ? (
               <dl className="space-y-3">
                 {rules.lines.map((line) => (
@@ -224,9 +343,9 @@ export function ZoneChecker({ locale }: { locale: RuleLocale }) {
                   </div>
                 ))}
               </dl>
-            ) : (
+            ) : !norms ? (
               <p className="text-base leading-relaxed text-forest-500/70">{t.noRules}</p>
-            )}
+            ) : null}
 
             {rules && rules.flags.length > 0 ? (
               <div className="rounded-lg border border-amber-600/20 bg-amber-50/60 p-4 dark:border-amber-500/25 dark:bg-amber-500/10">
