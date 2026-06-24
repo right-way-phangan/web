@@ -29,7 +29,7 @@ export function MessengerFab() {
             href={whatsappLink()}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full bg-cream-50 px-4 py-2.5 text-sm font-medium text-forest-900 shadow-lg shadow-panel/15 ring-1 ring-forest-500/10"
+            className="flex min-h-[44px] items-center justify-center rounded-full bg-cream-50 px-4 py-2.5 text-sm font-medium text-forest-900 shadow-lg shadow-panel/15 ring-1 ring-forest-500/10"
           >
             WhatsApp
           </a>
@@ -37,7 +37,7 @@ export function MessengerFab() {
             href={telegramDmLink()}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full bg-cream-50 px-4 py-2.5 text-sm font-medium text-forest-900 shadow-lg shadow-panel/15 ring-1 ring-forest-500/10"
+            className="flex min-h-[44px] items-center justify-center rounded-full bg-cream-50 px-4 py-2.5 text-sm font-medium text-forest-900 shadow-lg shadow-panel/15 ring-1 ring-forest-500/10"
           >
             Telegram
           </a>

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { SectionEyebrow } from "./section-eyebrow";
 
 interface Props {
   eyebrow: string;
@@ -37,10 +38,7 @@ export function PageHero({ eyebrow, title, lede, image, imageAlt }: Props) {
             aria-hidden
           />
           <div className="relative z-10 flex min-h-[40vh] flex-col justify-end p-7 md:min-h-[46vh] md:p-12">
-            <p className="flex items-center gap-3 text-xs font-medium uppercase tracking-eyebrow text-brass-300">
-              <span className="h-px w-10 bg-brass-300/70" aria-hidden />
-              {eyebrow}
-            </p>
+            <SectionEyebrow tone="dark">{eyebrow}</SectionEyebrow>
             <h1 className="mt-3 max-w-3xl text-balance text-panel-fg">{title}</h1>
             {lede ? (
               <p className="mt-4 max-w-2xl text-lg leading-relaxed text-panel-fg/85 md:text-xl">
@@ -55,10 +53,7 @@ export function PageHero({ eyebrow, title, lede, image, imageAlt }: Props) {
 
   return (
     <header className="container-prose pt-16 md:pt-24">
-      <p className="flex items-center gap-3 text-xs font-medium uppercase tracking-eyebrow text-brass-700">
-        <span className="h-px w-10 bg-brass-600/60" aria-hidden />
-        {eyebrow}
-      </p>
+      <SectionEyebrow>{eyebrow}</SectionEyebrow>
       <h1 className="mt-5 max-w-3xl text-balance">{title}</h1>
       {lede ? (
         <p className="mt-6 max-w-2xl text-lg leading-relaxed text-forest-500/75 md:text-xl">

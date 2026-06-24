@@ -213,7 +213,7 @@ export function ListingsSplit({
               {/* Area-sync status (auto-on once the map is used). When active it's
                   a filter that hides listings, so make it unmistakable + easy to clear. */}
               {areaSync ? (
-                <span className="absolute right-3 top-3 z-[500] inline-flex items-center gap-2 rounded-sm border border-brass-500/40 bg-brass-500/15 px-3 py-1.5 text-[12px] font-semibold text-forest-900 shadow-sm backdrop-blur-sm">
+                <span className="absolute bottom-3 left-1/2 z-[500] inline-flex -translate-x-1/2 items-center gap-2 rounded-sm border border-brass-500/40 bg-brass-500/15 px-3 py-1.5 text-[12px] font-semibold text-forest-900 shadow-sm backdrop-blur-sm">
                   <MapIcon className="h-3.5 w-3.5 text-brass-500" />
                   {t.filteredToArea}
                   <button
@@ -225,7 +225,7 @@ export function ListingsSplit({
                   </button>
                 </span>
               ) : (
-                <span className="pointer-events-none absolute right-3 top-3 z-[500] rounded-sm bg-cream-50/90 px-3 py-1.5 text-[11px] text-forest-500/70 shadow-sm backdrop-blur-sm">
+                <span className="pointer-events-none absolute right-3 top-3 z-[500] hidden rounded-sm bg-cream-50/90 px-3 py-1.5 text-[11px] text-forest-500/70 shadow-sm backdrop-blur-sm sm:inline-block">
                   {t.moveMapHint}
                 </span>
               )}
@@ -259,7 +259,7 @@ function MobileTab({
       onClick={onClick}
       aria-pressed={active}
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-sm px-3 py-1.5 text-xs font-medium transition-colors",
+        "inline-flex min-h-[44px] items-center justify-center gap-1.5 rounded-sm px-3 py-1.5 text-xs font-medium transition-colors",
         active ? "bg-panel text-panel-fg" : "text-forest-500/70 hover:text-forest-500",
       )}
     >

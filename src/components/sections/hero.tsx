@@ -123,7 +123,7 @@ export async function Hero({ locale = "en" }: { locale?: Locale }) {
                 <Link
                   key={label}
                   href={href}
-                  className="group/chip inline-flex items-center gap-1.5 rounded-full border border-panel-fg/25 bg-panel-fg/5 px-4 py-2 text-sm text-panel-fg transition-[color,background-color,border-color] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-brass-300/60 hover:bg-panel-fg/10 hover:text-brass-200"
+                  className="group/chip inline-flex min-h-[44px] items-center gap-1.5 rounded-full border border-panel-fg/25 bg-panel-fg/5 px-4 py-2 text-sm text-panel-fg transition-[color,background-color,border-color] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-brass-300/60 hover:bg-panel-fg/10 hover:text-brass-200"
                 >
                   {label}
                   <ArrowRight className="h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all duration-300 group-hover/chip:translate-x-0 group-hover/chip:opacity-100" />

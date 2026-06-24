@@ -119,7 +119,7 @@ export default async function DistrictsPage() {
             <h2 className="mt-3 font-serif text-3xl text-forest-900 md:text-4xl">
               Not sure which district fits?
             </h2>
-            <p className="mt-4 text-lg text-forest-500/70">
+            <p className="mt-4 text-lg text-forest-600">
               A short discovery call usually narrows it down faster than
               reading through every district page. Tell us what matters most — quiet,
               community, beach access, infrastructure, build potential — and

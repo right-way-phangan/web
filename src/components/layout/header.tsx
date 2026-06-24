@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import type { Route } from "next";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
 import { Menu, X, Heart, ChevronDown } from "lucide-react";
@@ -325,11 +325,25 @@ function NavDropdown({
   light?: boolean;
 }) {
   const groupActive = group.items.some((item) => isActive(item.href));
+  // Mirror the CSS hover/focus visibility into state so aria-expanded is truthful
+  // for assistive tech (the panel itself stays driven by group-hover/focus-within).
+  const [open, setOpen] = useState(false);
+  const panelId = useId();
   return (
-    <div className="group relative">
+    <div
+      className="group relative"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+      onFocus={() => setOpen(true)}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node)) setOpen(false);
+      }}
+    >
       <button
         type="button"
         aria-haspopup="true"
+        aria-expanded={open}
+        aria-controls={panelId}
         className={cn(
           "flex items-center gap-1 whitespace-nowrap text-sm transition-colors",
           light ? "hover:text-brass-300" : "hover:text-brass-500",
@@ -356,7 +370,7 @@ function NavDropdown({
           "group-focus-within:visible group-focus-within:opacity-100",
         )}
       >
-        <ul className="min-w-44 rounded-md border border-forest-500/10 bg-cream-50 p-2 shadow-lg shadow-panel/10">
+        <ul id={panelId} className="min-w-44 rounded-md border border-forest-500/10 bg-cream-50 p-2 shadow-lg shadow-panel/10">
           {group.items.map((item) => {
             const active = isActive(item.href);
             return (

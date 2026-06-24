@@ -123,16 +123,17 @@ const selectCls = cn(
 );
 
 function Select({
-  value, onChange, options, placeholder, labels,
+  value, onChange, options, placeholder, labels, ariaLabel,
 }: {
   value: string;
   onChange: (v: string) => void;
   options: readonly string[];
   placeholder: string;
   labels?: Record<string, string>;
+  ariaLabel?: string;
 }) {
   return (
-    <select value={value} onChange={(e) => onChange(e.target.value)} className={selectCls}>
+    <select aria-label={ariaLabel} value={value} onChange={(e) => onChange(e.target.value)} className={selectCls}>
       <option value="">{placeholder}</option>
       {options.map((o) => (
         <option key={o} value={o}>{labels?.[o] ?? o}</option>
@@ -148,7 +149,7 @@ function Toggle({ label, on, set }: { label: string; on: boolean; set: (v: boole
       onClick={() => set(!on)}
       aria-pressed={on}
       className={cn(
-        "rounded-full border px-3.5 py-1.5 text-sm transition-colors",
+        "inline-flex min-h-[44px] items-center justify-center rounded-full border px-3.5 py-1.5 text-sm transition-colors",
         on
           ? "border-forest-500 bg-panel text-panel-fg"
           : "border-forest-500/25 bg-cream-50 text-forest-900/70 hover:border-forest-500/50",
@@ -238,15 +239,15 @@ export function EstimateTool({ lang }: { lang: Lang }) {
       <div className="rounded-sm border border-forest-900/10 bg-cream-50 p-5 md:p-6">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <div className="space-y-1.5">
-            <Label>{t.typeLabel}</Label>
-            <div className="flex gap-2">
+            <Label id="est-type-label">{t.typeLabel}</Label>
+            <div className="flex gap-2" role="group" aria-labelledby="est-type-label">
               {(["Land", "Villa", "House"] as const).map((tp) => (
                 <button
                   key={tp}
                   type="button"
                   onClick={() => setV((p) => ({ ...p, type: tp }))}
                   className={cn(
-                    "flex-1 rounded-sm border px-3 py-2 text-sm transition-colors",
+                    "inline-flex min-h-[44px] flex-1 items-center justify-center rounded-sm border px-3 py-2 text-sm transition-colors",
                     v.type === tp
                       ? "border-forest-500 bg-panel text-panel-fg"
                       : "border-forest-500/25 bg-cream-50 text-forest-900/70 hover:border-forest-500/50",
@@ -259,17 +260,17 @@ export function EstimateTool({ lang }: { lang: Lang }) {
           </div>
           <div className="space-y-1.5">
             <Label>{t.district}</Label>
-            <Select value={v.district} onChange={(x) => setV((p) => ({ ...p, district: x }))} options={DISTRICTS} placeholder={t.pick} />
+            <Select ariaLabel={t.district} value={v.district} onChange={(x) => setV((p) => ({ ...p, district: x }))} options={DISTRICTS} placeholder={t.pick} />
           </div>
           <div className="space-y-1.5">
             <Label>{t.tenure}</Label>
-            <Select value={v.tenure} onChange={(x) => setV((p) => ({ ...p, tenure: x }))} options={["Freehold", "Leasehold"]} placeholder={t.pick} labels={t.tenureOpts} />
+            <Select ariaLabel={t.tenure} value={v.tenure} onChange={(x) => setV((p) => ({ ...p, tenure: x }))} options={["Freehold", "Leasehold"]} placeholder={t.pick} labels={t.tenureOpts} />
           </div>
 
           {isLand && (
             <div className="space-y-1.5">
               <Label>{t.areaRai}</Label>
-              <Input value={v.areaRai} onChange={(e) => setV((p) => ({ ...p, areaRai: e.target.value }))} placeholder="1.5" inputMode="decimal" />
+              <Input aria-label={t.areaRai} value={v.areaRai} onChange={(e) => setV((p) => ({ ...p, areaRai: e.target.value }))} placeholder="1.5" inputMode="decimal" />
               <p className="text-xs text-forest-500/50">{t.areaHint}</p>
             </div>
           )}
@@ -277,29 +278,29 @@ export function EstimateTool({ lang }: { lang: Lang }) {
             <>
               <div className="space-y-1.5">
                 <Label>{t.builtSqm}</Label>
-                <Input value={v.builtSqm} onChange={(e) => setV((p) => ({ ...p, builtSqm: e.target.value }))} placeholder="180" inputMode="numeric" />
+                <Input aria-label={t.builtSqm} value={v.builtSqm} onChange={(e) => setV((p) => ({ ...p, builtSqm: e.target.value }))} placeholder="180" inputMode="numeric" />
               </div>
               <div className="space-y-1.5">
                 <Label>{t.bedrooms}</Label>
-                <Input value={v.bedrooms} onChange={(e) => setV((p) => ({ ...p, bedrooms: e.target.value }))} placeholder="3" inputMode="numeric" />
+                <Input aria-label={t.bedrooms} value={v.bedrooms} onChange={(e) => setV((p) => ({ ...p, bedrooms: e.target.value }))} placeholder="3" inputMode="numeric" />
               </div>
             </>
           )}
           <div className="space-y-1.5">
             <Label>{t.document}</Label>
-            <Select value={v.document} onChange={(x) => setV((p) => ({ ...p, document: x }))} options={DOCUMENTS} placeholder={t.pick} />
+            <Select ariaLabel={t.document} value={v.document} onChange={(x) => setV((p) => ({ ...p, document: x }))} options={DOCUMENTS} placeholder={t.pick} />
           </div>
           {isLand && (
             <div className="space-y-1.5">
               <Label>{t.road}</Label>
-              <Select value={v.road} onChange={(x) => setV((p) => ({ ...p, road: x }))} options={ROADS} placeholder={t.pick} />
+              <Select ariaLabel={t.road} value={v.road} onChange={(x) => setV((p) => ({ ...p, road: x }))} options={ROADS} placeholder={t.pick} />
             </div>
           )}
         </div>
 
         <div className="mt-4 space-y-1.5">
-          <Label>{t.features}</Label>
-          <div className="flex flex-wrap gap-2">
+          <Label id="est-features-label">{t.features}</Label>
+          <div className="flex flex-wrap gap-2" role="group" aria-labelledby="est-features-label">
             <Toggle label={t.seaView} on={v.seaView} set={(x) => setV((p) => ({ ...p, seaView: x }))} />
             <Toggle label={t.beachfront} on={v.beachfront} set={(x) => setV((p) => ({ ...p, beachfront: x }))} />
             <Toggle label={t.mountainView} on={v.mountainView} set={(x) => setV((p) => ({ ...p, mountainView: x }))} />

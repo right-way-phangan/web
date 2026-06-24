@@ -63,7 +63,7 @@ export function KnowledgeBrowser({ articles, basePath, labels }: KnowledgeBrowse
   }, [articles, topic, query]);
 
   const chipBase =
-    "inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-medium transition-colors whitespace-nowrap";
+    "inline-flex min-h-[44px] items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-medium transition-colors whitespace-nowrap";
 
   return (
     <div>
@@ -106,6 +106,7 @@ export function KnowledgeBrowser({ articles, basePath, labels }: KnowledgeBrowse
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={labels.searchPlaceholder}
+            aria-label={labels.searchPlaceholder}
             className="w-full rounded-full border border-forest-500/15 bg-cream-50 py-2 pl-9 pr-9 text-sm text-forest-900 placeholder:text-forest-500/40 focus:border-forest-500/40 focus:outline-none focus:ring-1 focus:ring-forest-500/20"
           />
           {query && (
@@ -130,7 +131,7 @@ export function KnowledgeBrowser({ articles, basePath, labels }: KnowledgeBrowse
             <Link
               key={a.slug}
               href={`${basePath}/${a.slug}` as Route}
-              className="group flex flex-col rounded-sm border border-forest-500/10 bg-cream-50 p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-forest-500/30 hover:shadow-lg md:p-7"
+              className="group flex flex-col rounded-sm border border-forest-500/10 bg-cream-50 card-elevated p-6 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1.5 hover:border-forest-500/30 hover:shadow-2xl hover:shadow-panel/15 motion-reduce:hover:translate-y-0 md:p-7"
             >
               <p className="text-xs font-medium uppercase tracking-[0.18em] text-brass-500">
                 {a.topic}

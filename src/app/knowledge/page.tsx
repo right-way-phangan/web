@@ -57,7 +57,7 @@ export default function KnowledgePage() {
             <h2 className="mt-3 font-serif text-3xl text-forest-900 md:text-4xl">
               Have a question we haven&rsquo;t covered?
             </h2>
-            <p className="mt-4 text-lg text-forest-500/70">
+            <p className="mt-4 text-lg text-forest-600">
               The <Link href="/faq" className="text-forest-500 underline-offset-4 hover:underline hover:text-brass-500">FAQ</Link> answers
               the most common ones. For anything specific to a plot or a deal, a
               short call is faster than reading — and that&rsquo;s the kind of
