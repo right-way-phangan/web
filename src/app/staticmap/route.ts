@@ -41,9 +41,9 @@ function range(a: number, b: number): number[] {
   return out;
 }
 
-// Brass marker (cream-ringed disc), anchored at its centre.
+// Amber marker (sand-ringed disc), anchored at its centre.
 const PIN = Buffer.from(
-  `<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26"><circle cx="13" cy="13" r="8.5" fill="#B5651D" stroke="#FEFCF9" stroke-width="3"/></svg>`,
+  `<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26"><circle cx="13" cy="13" r="8.5" fill="#985A0C" stroke="#FCF8F1" stroke-width="3"/></svg>`,
 );
 
 export async function GET(req: NextRequest): Promise<Response> {

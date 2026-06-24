@@ -11,6 +11,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { ArticleBody } from "@/components/sections/article-body";
 import { ArticleByline } from "@/components/sections/article-byline";
+import { Reveal } from "@/components/sections/reveal";
+import { Appear } from "@/components/motion/appear";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import {
   DEFAULT_AUTHOR,
@@ -91,7 +93,8 @@ export default async function KnowledgeArticlePage({ params }: Props) {
       </div>
 
       <header className="container-prose pt-10 md:pt-14">
-        <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
+        <p className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.3em] text-brass-700">
+          <span aria-hidden className="h-px w-10 bg-brass-600/60" />
           {a.topic}
         </p>
         <h1 className="mt-4 max-w-3xl text-balance">{a.title}</h1>
@@ -102,7 +105,9 @@ export default async function KnowledgeArticlePage({ params }: Props) {
       </header>
 
       <section className="container-prose py-12 md:py-16">
-        <ArticleBody blocks={a.body} />
+        <Reveal>
+          <ArticleBody blocks={a.body} />
+        </Reveal>
       </section>
 
       {a.takeaways.length > 0 ? (
@@ -165,27 +170,30 @@ export default async function KnowledgeArticlePage({ params }: Props) {
       {others.length > 0 ? (
         <section className="border-t border-forest-500/10 bg-cream-200/30">
           <div className="container-prose py-16 md:py-20">
-            <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
+            <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-700">
               More guides
             </p>
             <div className="mt-8 grid gap-6 md:grid-cols-3">
-              {others.map((o) => (
-                <Link
-                  key={o.slug}
-                  href={`/knowledge/${o.slug}` as Route}
-                  className="group flex flex-col rounded-sm border border-forest-500/10 bg-cream-50 p-6 transition-colors hover:border-forest-500/30"
-                >
-                  <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
-                    {o.topic}
-                  </p>
-                  <h3 className="mt-2 font-serif text-lg text-forest-900">
-                    {o.title}
-                  </h3>
-                  <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-forest-500 transition-colors group-hover:text-brass-500">
-                    Read
-                    <ArrowRight className="h-3 w-3" />
-                  </span>
-                </Link>
+              {others.map((o, i) => (
+                <Appear key={o.slug} delay={(i % 3) * 0.1} className="h-full">
+                  <Link
+                    href={`/knowledge/${o.slug}` as Route}
+                    className="group flex h-full flex-col rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5 transition-all hover:shadow-soft"
+                  >
+                    <div className="flex h-full flex-col rounded-core bg-cream-50 p-6 shadow-bezel">
+                      <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-700">
+                        {o.topic}
+                      </p>
+                      <h3 className="mt-2 font-serif text-lg text-forest-900">
+                        {o.title}
+                      </h3>
+                      <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-forest-500 transition-colors group-hover:text-brass-500">
+                        Read
+                        <ArrowRight className="h-3 w-3" />
+                      </span>
+                    </div>
+                  </Link>
+                </Appear>
               ))}
             </div>
           </div>

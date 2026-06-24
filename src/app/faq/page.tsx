@@ -4,6 +4,8 @@ import { PageHero } from "@/components/sections/page-hero";
 import { FaqExplorer } from "@/components/faq/faq-explorer";
 import { WhatsIncluded } from "@/components/faq/whats-included";
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
+import { Reveal } from "@/components/sections/reveal";
+import { Appear } from "@/components/motion/appear";
 import { Button } from "@/components/ui/button";
 import { ALL_FAQ_ITEMS } from "@/content/faq-derived";
 
@@ -27,32 +29,38 @@ export default function FaqPage() {
       />
 
       <section className="container-prose py-12 md:py-16">
-        <FaqExplorer />
+        <Reveal>
+          <FaqExplorer />
+        </Reveal>
       </section>
 
       <WhatsIncluded locale="en" />
 
       <section className="border-t border-forest-500/10 bg-cream-200/30">
         <div className="container-prose py-16 md:py-20">
-          <div className="max-w-2xl">
-            <h2 className="font-serif text-3xl text-forest-900 md:text-4xl">
-              Still have a question?
-            </h2>
-            <p className="mt-4 text-lg text-forest-500/70">
-              These cover the most common ground, but every buyer has an edge
-              case. Send us yours — we&rsquo;ll answer it directly,
-              and if it&rsquo;s a generally useful question, we&rsquo;ll add
-              it to this page.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild variant="primary" size="md">
-                <Link href="/contact">Ask us anything</Link>
-              </Button>
-              <Button asChild variant="outline" size="md">
-                <Link href="/process">See our process</Link>
-              </Button>
+          <Appear delay={0.2}>
+            <div className="max-w-2xl rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5">
+              <div className="rounded-core bg-cream-50 p-8 shadow-bezel">
+                <h2 className="font-serif text-3xl text-forest-900 md:text-4xl">
+                  Still have a question?
+                </h2>
+                <p className="mt-4 text-lg text-forest-500/70">
+                  These cover the most common ground, but every buyer has an edge
+                  case. Send us yours — we&rsquo;ll answer it directly,
+                  and if it&rsquo;s a generally useful question, we&rsquo;ll add
+                  it to this page.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Button asChild variant="primary" size="md">
+                    <Link href="/contact">Ask us anything</Link>
+                  </Button>
+                  <Button asChild variant="outline" size="md">
+                    <Link href="/process">See our process</Link>
+                  </Button>
+                </div>
+              </div>
             </div>
-          </div>
+          </Appear>
         </div>
       </section>
     </>

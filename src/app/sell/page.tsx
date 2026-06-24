@@ -3,6 +3,9 @@ import { jsonLdHtml } from "@/lib/seo/json-ld";
 import Link from "next/link";
 import { ShieldCheck, LineChart, Megaphone, FileCheck } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
+import { SectionEyebrow } from "@/components/sections/section-eyebrow";
+import { Reveal } from "@/components/sections/reveal";
+import { Appear } from "@/components/motion/appear";
 import { Button } from "@/components/ui/button";
 import { LeadForm } from "@/components/forms/lead-form";
 import { getSiteUrl } from "@/lib/site-url";
@@ -95,46 +98,50 @@ export default function SellPage() {
       />
 
       <section className="container-prose py-16 md:py-24">
-        <div className="grid gap-10 md:grid-cols-2 md:gap-x-14">
-          {REASONS.map((r) => (
-            <div key={r.title} className="flex gap-5">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-sm border border-forest-500/15 text-forest-500">
-                <r.icon className="h-5 w-5" />
-              </div>
-              <div>
-                <h2 className="font-serif text-2xl text-forest-900">{r.title}</h2>
-                <p className="mt-2 text-base leading-relaxed text-forest-500/75">
-                  {r.text}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
+        <Reveal>
+          <div className="grid gap-10 md:grid-cols-2 md:gap-x-14">
+            {REASONS.map((r, i) => (
+              <Appear key={r.title} delay={(i % 2) * 0.08} className="h-full">
+                <div className="flex gap-5">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-sm border border-forest-500/15 text-forest-500">
+                    <r.icon className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h2 className="font-serif text-2xl text-forest-900">{r.title}</h2>
+                    <p className="mt-2 text-base leading-relaxed text-forest-500/75">
+                      {r.text}
+                    </p>
+                  </div>
+                </div>
+              </Appear>
+            ))}
+          </div>
+        </Reveal>
       </section>
 
       <section className="bg-cream-200/30">
         <div className="container-prose py-16 md:py-24">
-          <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
-            How it works
-          </p>
-          <h2 className="mt-3 font-serif text-3xl text-forest-900 md:text-4xl">
-            From valuation to transfer.
-          </h2>
-          <div className="mt-10 grid gap-8 md:grid-cols-2 md:gap-x-14">
-            {STEPS.map((s, i) => (
-              <div key={s.title} className="flex gap-5">
-                <p className="num shrink-0 text-2xl text-brass-500">
-                  {String(i + 1).padStart(2, "0")}
-                </p>
-                <div>
-                  <h3 className="font-serif text-2xl text-forest-900">{s.title}</h3>
-                  <p className="mt-2 text-base leading-relaxed text-forest-500/75">
-                    {s.text}
+          <Reveal>
+            <SectionEyebrow>How it works</SectionEyebrow>
+            <h2 className="mt-3 font-serif text-3xl text-forest-900 md:text-4xl">
+              From valuation to transfer.
+            </h2>
+            <div className="mt-10 grid gap-8 md:grid-cols-2 md:gap-x-14">
+              {STEPS.map((s, i) => (
+                <div key={s.title} className="flex gap-5">
+                  <p className="num shrink-0 text-2xl text-brass-700">
+                    {String(i + 1).padStart(2, "0")}
                   </p>
+                  <div>
+                    <h3 className="font-serif text-2xl text-forest-900">{s.title}</h3>
+                    <p className="mt-2 text-base leading-relaxed text-forest-500/75">
+                      {s.text}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </Reveal>
         </div>
       </section>
 
@@ -160,22 +167,24 @@ export default function SellPage() {
             </div>
           </div>
 
-          <div className="rounded-sm border border-forest-500/10 bg-cream-50 p-6 md:p-8">
-            <h3 className="font-serif text-2xl text-forest-900">
-              Request a valuation
-            </h3>
-            <p className="mt-2 text-sm leading-relaxed text-forest-500/70">
-              Tell us where the property is and what you have. We reply within the
-              working day.
-            </p>
-            <div className="mt-6">
-              <LeadForm
-                source="contact"
-                kind="valuation"
-                layout="card"
-                submitLabel="Request a valuation"
-                defaultMessage="I'd like a valuation for my property. Location / type / size: "
-              />
+          <div className="rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5">
+            <div className="rounded-core bg-cream-50 p-6 shadow-bezel md:p-8">
+              <h3 className="font-serif text-2xl text-forest-900">
+                Request a valuation
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-forest-500/70">
+                Tell us where the property is and what you have. We reply within the
+                working day.
+              </p>
+              <div className="mt-6">
+                <LeadForm
+                  source="contact"
+                  kind="valuation"
+                  layout="card"
+                  submitLabel="Request a valuation"
+                  defaultMessage="I'd like a valuation for my property. Location / type / size: "
+                />
+              </div>
             </div>
           </div>
         </div>

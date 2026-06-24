@@ -1,21 +1,29 @@
 import Link from "next/link";
+import type { Route } from "next";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ObjectCard } from "@/components/objects/object-card";
 import { Appear } from "@/components/motion/appear";
 import { getPublicObjects, slimObjectForCard } from "@/lib/data/objects";
+import { getHomeDict, type Locale } from "@/lib/i18n/dictionaries";
 
 /**
  * Homepage showcase — the six most photogenic active listings. getPublicObjects()
  * already sorts cover-photo + premium objects to the top, so we prefer ones with
  * a real photo and fall back to the head of the list if the catalog is thin.
- * Renders nothing when the catalog is empty (amoCRM down) so the page degrades.
- * Cards are slimmed to ObjectCard fields — full objects would put six galleries
- * and raw descriptions into the homepage RSC payload.
+ * Renders nothing when the catalog is empty (DB down) so the page degrades.
+ * Cards are slimmed to ObjectCard fields. Dict-driven for EN/RU parity.
  */
-export async function FeaturedListings() {
+export async function FeaturedListings({ locale = "en" }: { locale?: Locale }) {
+  const dict = getHomeDict(locale).featured;
+  const base = locale === "ru" ? "/ru" : "";
+  const allHref = `${base}/listings` as Route;
+
   const all = await getPublicObjects();
   if (all.length === 0) return null;
+
+  const allLabel =
+    locale === "ru" ? `Все ${all.length} объектов` : `All ${all.length} listings`;
 
   const withPhotos = all.filter((o) => o.coverImage);
   const featured = (withPhotos.length >= 6 ? withPhotos : all)
@@ -26,26 +34,23 @@ export async function FeaturedListings() {
     <section className="container-prose py-24 md:py-32">
       <div className="flex flex-wrap items-end justify-between gap-6">
         <div>
-          <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
-            Featured
+          <p className="flex items-center gap-3 text-xs font-medium uppercase tracking-eyebrow text-brass-700">
+            <span className="h-px w-10 bg-brass-600/60" aria-hidden />
+            {dict.eyebrow}
           </p>
-          <h2 className="mt-4 max-w-3xl text-balance">
-            A few on the island right now.
-          </h2>
-          <p className="mt-6 max-w-xl text-lg text-forest-500/70">
-            Hand-picked land and homes across Phangan&apos;s best districts.
-          </p>
+          <h2 className="mt-5 max-w-3xl text-balance">{dict.title}</h2>
+          <p className="mt-5 max-w-xl text-lg text-forest-600/70">{dict.lede}</p>
         </div>
 
         <Button asChild variant="outline" size="lg" className="hidden sm:inline-flex">
-          <Link href="/listings">
-            All {all.length} listings
+          <Link href={allHref}>
+            {allLabel}
             <ArrowRight className="h-4 w-4" />
           </Link>
         </Button>
       </div>
 
-      <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {featured.map((object, i) => (
           <Appear key={object.id} delay={(i % 3) * 0.08} className="h-full">
             <ObjectCard object={object} />
@@ -55,8 +60,8 @@ export async function FeaturedListings() {
 
       <div className="mt-12 sm:hidden">
         <Button asChild variant="primary" size="lg" className="w-full">
-          <Link href="/listings">
-            All {all.length} listings
+          <Link href={allHref}>
+            {allLabel}
             <ArrowRight className="h-4 w-4" />
           </Link>
         </Button>

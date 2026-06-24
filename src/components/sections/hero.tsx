@@ -1,68 +1,146 @@
 import Link from "next/link";
+import type { Route } from "next";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Magnetic } from "@/components/motion/magnetic";
 import { HeroBackground } from "./hero-background";
+import { Parallax } from "@/components/motion/parallax";
+import { Magnetic } from "@/components/motion/magnetic";
+import { AnimatedNumber } from "@/components/motion/animated-number";
+import { getHomeDict, type Locale } from "@/lib/i18n/dictionaries";
+import { getPublicObjects } from "@/lib/data/objects";
 
-export function Hero() {
+/**
+ * Deep-links for the hero intent chips — zipped with dict.hero.intents BY INDEX,
+ * so the two arrays must stay the same length/order across locales. Each path
+ * maps onto a real /listings query filter (see lib/filters/listings.ts), so a
+ * chip drops the visitor straight into a pre-filtered search, not a dead link.
+ */
+const HERO_INTENT_PATHS = [
+  "/listings?beachfront=1",
+  "/listings?seaview=1",
+  "/listings?type=Land",
+  "/listings?type=Villa",
+  "/listings?tenure=Leasehold",
+] as const;
+
+/**
+ * Hero — "immersive depth layer". A photographic scene on a slow scroll-zoom
+ * (Parallax) sits under a directional teal scrim and a warm horizon glow; the
+ * foreground rises in line-by-line (CSS .mask-rise, SSR/no-JS safe). A kinetic
+ * intent bar routes into filtered search, and a live ticker docked at the foot
+ * proves the catalogue is real — counts only (public-copy rule). Dict-driven so
+ * the EN root (/) and RU (/ru) share one component with zero markup drift.
+ */
+export async function Hero({ locale = "en" }: { locale?: Locale }) {
+  const dict = getHomeDict(locale).hero;
+  const t = getHomeDict(locale).stats;
+  const base = locale === "ru" ? "/ru" : "";
+
+  // Live counts for the ticker. Degrade gracefully — if the catalog is
+  // unreachable the numeric items simply drop, the hero still paints.
+  let listings = 0;
+  let districts = 0;
+  try {
+    const objects = await getPublicObjects();
+    listings = objects.length;
+    districts = new Set(objects.map((o) => o.district).filter(Boolean)).size;
+  } catch {
+    /* leave at 0 */
+  }
+
+  const [titleBefore, titleEm, titleAfter] = splitEm(dict.titleHtml);
+  const browseHref = `${base}/listings` as Route;
+  const processHref = `${base}/process` as Route;
+
   return (
     <section
       aria-label="Hero"
-      className="relative isolate overflow-hidden bg-panel"
+      className="relative isolate flex min-h-[88vh] flex-col overflow-hidden bg-panel"
     >
-      {/* Crossfading Phangan scenes (self-refreshing from our catalog), with the
-          aerial of RW-0516 as the static LCP fallback underneath. */}
-      <HeroBackground
-        fallbackSrc="/hero-phangan.jpg"
-        fallbackAlt="Aerial view of a beachfront on Koh Phangan"
-      />
+      {/* Layer 1 — deep photographic scene on a slow scroll-zoom. Oversized so
+          the parallax shift never bares an edge. */}
+      <Parallax
+        speed={90}
+        zoom={1.12}
+        className="absolute -inset-y-[8%] inset-x-0"
+      >
+        <HeroBackground
+          fallbackSrc="/hero-phangan.jpg"
+          fallbackAlt="Aerial view of a beachfront on Koh Phangan"
+        />
+      </Parallax>
 
-      {/* Scrim for text legibility + fade into the cream section below */}
+      {/* Layer 2 — atmosphere: directional teal scrim for legibility, a warm
+          horizon glow for depth, and a fade into the sand section below. */}
       <div
-        className="absolute inset-0 bg-gradient-to-tr from-panel/85 via-panel/55 to-panel/25"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-panel/90 via-panel/55 to-panel/20"
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-cream-100"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_118%,rgba(217,138,30,0.26),transparent_62%)]"
         aria-hidden
       />
-      {/* Плёночная зернистость поверх сцены */}
-      <div className="grain-overlay" aria-hidden />
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-cream-100"
+        aria-hidden
+      />
 
-      <div className="container-prose relative z-10 flex min-h-[80vh] flex-col justify-center py-24 md:min-h-[88vh] md:py-32">
-        {/* Каскадный entrance первого экрана — чистый CSS (.rise-in) со
-            ступенчатой задержкой. Работает и без JS, ничего не прячет от
-            краулеров/AT (текст в разметке, анимация лишь поверх), под
-            reduced-motion гаснет. LCP — это фоновое фото (priority), не текст. */}
-        <p className="rise-in text-xs font-medium uppercase tracking-[0.3em] text-brass-300">
-          Koh Phangan · Thailand
+      {/* Layer 3 — content */}
+      <div className="container-prose relative z-10 flex flex-1 flex-col justify-center py-28 md:py-32">
+        <p className="mask-rise flex items-center gap-3 text-xs font-medium uppercase tracking-eyebrow text-brass-300">
+          <span className="h-px w-10 bg-brass-300/70" aria-hidden />
+          {dict.eyebrow}
         </p>
 
         <h1
-          className="rise-in mt-6 max-w-4xl text-balance text-5xl leading-[1.05] text-panel-fg md:text-7xl md:leading-[1.02]"
-          style={{ animationDelay: "0.1s" }}
+          className="mask-rise mt-7 max-w-4xl text-balance text-5xl leading-[1.04] text-panel-fg md:text-7xl md:leading-[1.01]"
+          style={{ animationDelay: "0.08s" }}
         >
-          Land, villas, and homes —{" "}
-          <span className="italic text-panel-fg/80">curated</span> on Phangan.
+          {titleBefore}
+          {titleEm ? <span className="italic text-brass-200">{titleEm}</span> : null}
+          {titleAfter}
         </h1>
 
         <p
-          className="rise-in mt-8 max-w-xl text-lg leading-relaxed text-panel-fg/85 md:text-xl"
-          style={{ animationDelay: "0.2s" }}
+          className="mask-rise mt-7 max-w-xl text-lg leading-relaxed text-panel-fg/85 md:text-xl"
+          style={{ animationDelay: "0.16s" }}
         >
-          Every property we list, we&apos;ve personally vetted — title, zoning,
-          the real numbers. No 600-listing feeds, no fantasy 30% returns. One
-          island, done properly.
+          {dict.lede}
         </p>
 
+        {/* Intent bar — kinetic chips into pre-filtered search */}
         <div
-          className="rise-in mt-12 flex flex-col gap-3 sm:flex-row sm:gap-4"
-          style={{ animationDelay: "0.3s" }}
+          className="mask-rise mt-9 flex flex-wrap items-center gap-2.5"
+          style={{ animationDelay: "0.24s" }}
+        >
+          <span className="mr-1 text-xs uppercase tracking-[0.2em] text-panel-fg/55">
+            {dict.intentLabel}
+          </span>
+          {dict.intents.map((label, i) => {
+            const path = HERO_INTENT_PATHS[i];
+            if (!path) return null;
+            const href = `${base}${path}` as Route;
+            return (
+              <Link
+                key={label}
+                href={href}
+                className="group/chip inline-flex items-center gap-1.5 rounded-full border border-panel-fg/25 bg-panel-fg/5 px-4 py-2 text-sm text-panel-fg transition-[color,background-color,border-color] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-brass-300/60 hover:bg-panel-fg/10 hover:text-brass-200"
+              >
+                {label}
+                <ArrowRight className="h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all duration-300 group-hover/chip:translate-x-0 group-hover/chip:opacity-100" />
+              </Link>
+            );
+          })}
+        </div>
+
+        <div
+          className="mask-rise mt-10 flex flex-col gap-3 sm:flex-row sm:gap-4"
+          style={{ animationDelay: "0.32s" }}
         >
           <Magnetic>
-            <Button asChild variant="primary" size="lg">
-              <Link href="/listings">
-                Browse listings
+            <Button asChild variant="accent" size="lg">
+              <Link href={browseHref}>
+                {dict.ctaBrowse}
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
@@ -71,27 +149,50 @@ export function Hero() {
             asChild
             variant="outline"
             size="lg"
-            className="border-panel-fg/40 text-panel-fg hover:border-panel-fg hover:bg-cream-50 hover:text-forest-900"
+            className="border-panel-fg/40 text-panel-fg hover:border-panel-fg hover:bg-panel-fg hover:text-panel"
           >
-            <Link href="/process">How we work</Link>
+            <Link href={processHref}>{dict.ctaProcess}</Link>
           </Button>
         </div>
+      </div>
 
-        {/* Direct contact path off the hero — for a DM-first audience that
-            arrives ready to talk, not browse. */}
-        <p
-          className="rise-in mt-5 text-sm text-panel-fg/75"
-          style={{ animationDelay: "0.4s" }}
-        >
-          Already know what you&apos;re after?{" "}
-          <Link
-            href="/contact"
-            className="font-medium text-brass-300 underline-offset-4 hover:underline"
-          >
-            Talk to us →
-          </Link>
-        </p>
+      {/* Ticker strip docked at the hero foot — live proof on a glassy hairline */}
+      <div className="relative z-10 border-t border-panel-fg/15 bg-panel/35">
+        <div className="container-prose flex flex-wrap items-center justify-center gap-x-10 gap-y-3 py-5 md:justify-between">
+          {listings > 0 ? (
+            <TickerItem value={<AnimatedNumber value={listings} />} label={t.listings} />
+          ) : null}
+          {districts > 0 ? (
+            <TickerItem value={<AnimatedNumber value={districts} />} label={t.districts} />
+          ) : null}
+          <TickerItem value={t.vettedValue} label={t.vetted} />
+          <TickerItem value={t.replyValue} label={t.reply} />
+        </div>
       </div>
     </section>
   );
+}
+
+function TickerItem({
+  value,
+  label,
+}: {
+  value: React.ReactNode;
+  label: string;
+}) {
+  return (
+    <div className="flex items-baseline gap-2">
+      <span className="num text-lg text-panel-fg md:text-xl">{value}</span>
+      <span className="text-[11px] uppercase tracking-[0.18em] text-panel-fg/60">
+        {label}
+      </span>
+    </div>
+  );
+}
+
+/** Split "a <em>b</em> c" → ["a ", "b", " c"]. No <em> → [whole, "", ""]. */
+function splitEm(html: string): [string, string, string] {
+  const m = /^(.*?)<em>(.*?)<\/em>(.*)$/s.exec(html);
+  if (!m) return [html, "", ""];
+  return [m[1], m[2], m[3]];
 }

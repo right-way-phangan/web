@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/sections/page-hero";
+import { Appear } from "@/components/motion/appear";
 import { Disclaimer } from "@/components/legal/disclaimer";
 import { RentalInsights } from "@/components/insights/rental-insights";
 import { SalePrices } from "@/components/insights/sale-prices";
@@ -25,16 +26,20 @@ export default async function InsightsPage() {
   const salePrices = buildSalePriceByDistrict(objects);
 
   return (
-    <section className="pb-24">
+    <section className="pb-24 md:pb-32">
       <DatasetJsonLd siteUrl={getSiteUrl()} meta={data.meta} />
       <PageHero
         eyebrow="Market insights"
         title="The Phangan market — in numbers."
         lede="What land costs per rai by district, how much a villa earns a night, what a pool or sea view adds, and which configuration pays back fastest. Live data, so you don't have to guess — then run your own numbers in the calculator."
       />
-      <div className="container-prose mt-12 space-y-14 md:mt-16 md:space-y-20">
-        <SalePrices stats={salePrices} />
-        <RentalInsights data={data} inventory={inventory} />
+      <div className="container-prose mt-16 space-y-16 md:mt-24 md:space-y-24">
+        <Appear delay={0.1}>
+          <SalePrices stats={salePrices} />
+        </Appear>
+        <Appear delay={0.3}>
+          <RentalInsights data={data} inventory={inventory} />
+        </Appear>
         <Disclaimer locale="en" />
       </div>
     </section>

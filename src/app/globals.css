@@ -10,44 +10,50 @@
    provider (src/lib/theme/theme-context.tsx — no next-themes) toggles the
    `.dark` class on <html>, so the whole site repaints from these values. */
 :root {
-  --c-cream-50: 254 252 249; /* #FEFCF9 raised surfaces / cards */
-  --c-cream-100: 250 247 242; /* #FAF7F2 page background */
-  --c-cream-200: 242 237 227; /* #F2EDE3 */
-  --c-cream-300: 232 224 207; /* #E8E0CF */
+  /* Coastal Twilight — warm SAND surfaces (parchment, hue ~38°). */
+  --c-cream-50: 252 248 241; /* #FCF8F1 raised surfaces / cards */
+  --c-cream-100: 246 239 226; /* #F6EFE2 page background */
+  --c-cream-200: 237 225 204; /* #EDE1CC */
+  --c-cream-300: 220 203 171; /* #DCCBAB */
+  --c-cream-400: 194 167 118; /* #C2A776 deeper stone neutral */
 
-  --c-forest-50: 232 238 234; /* #E8EEEA */
-  --c-forest-100: 197 210 203; /* #C5D2CB */
-  --c-forest-400: 47 85 70; /* #2F5546 */
-  --c-forest-500: 31 58 46; /* #1F3A2E secondary text / borders */
-  --c-forest-900: 14 31 24; /* #0E1F18 primary text */
+  /* Deep PETROL TEAL → ink (hue ~185–191°, sat ~84%). */
+  --c-forest-50: 230 243 243; /* #E6F3F3 */
+  --c-forest-100: 198 230 231; /* #C6E6E7 */
+  --c-forest-400: 21 168 168; /* #15A8A8 luminous cyan-teal */
+  --c-forest-500: 10 110 116; /* #0A6E74 strong teal — buttons/links/body */
+  --c-forest-600: 8 88 96; /* #085860 deep petrol teal */
+  --c-forest-700: 6 67 75; /* #06434B */
+  --c-forest-900: 4 38 46; /* #04262E ink — darkest petrol */
 
-  --c-brass-200: 232 201 160; /* #E8C9A0 */
-  --c-brass-300: 221 168 106; /* #DDA86A */
-  --c-brass-400: 199 121 41; /* #C77929 */
-  --c-brass-500: 181 101 29; /* #B5651D accent */
-  --c-brass-600: 150 83 24; /* #965318 */
+  /* Warm amber / sunset. Vivid 300/400 glow on dark; deep 500–700 is AA on sand. */
+  --c-brass-200: 247 210 168; /* #F7D2A8 */
+  --c-brass-300: 244 190 92; /* #F4BE5C glowing sunset gold (on dark) */
+  --c-brass-400: 217 138 30; /* #D98A1E vivid amber */
+  --c-brass-500: 152 90 12; /* #985A0C deep amber accent (AA on sand) */
+  --c-brass-600: 127 74 11; /* #7F4E0B */
+  --c-brass-700: 94 58 8; /* #5E3A08 deepest — text on light */
 
-  --c-panel: 14 31 24; /* dark surface (= forest-900) */
-  --c-panel-fg: 254 252 249; /* light text on panel (= cream-50) */
+  --c-panel: 4 38 46; /* always-dark surface = petrol ink (forest-900) */
+  --c-panel-fg: 252 248 241; /* light sand text on panel (= cream-50) */
 
-  --c-bronze: 154 122 74; /* muted bronze (light fallback; accent is dark-only) */
-  --c-orange: 199 121 41; /* #C77929 warm orange — reserved for urgency/scarcity */
+  --c-bronze: 152 90 12; /* deep amber (light fallback) */
+  --c-orange: 217 138 30; /* #D98A1E warm amber — reserved for urgency/scarcity */
 
-  /* Data-viz palette (SVG charts can't theme via the alpha tokens, so charts
-     read these directly). Light = brand hexes; dark variants live in .dark. */
-  --chart-accent: #b5651d; /* main data line (ROI growth, fan band) — brass */
-  --donut-track: #f2ede3; /* finance donut empty ring — cream-200 */
-  --season-1: #1f3a2e; /* seasonal lines: island overall */
-  --season-2: #c77929; /* district A */
-  --season-3: #2f5546; /* district B */
-  --season-4: #b5651d; /* district C */
-  --seg-1: #b5651d; /* donut segments (brass → forest → light) */
-  --seg-2: #2f5546;
-  --seg-3: #dda86a;
-  --seg-4: #1f3a2e;
-  --seg-5: #e8c9a0;
-  --seg-6: #c5d2cb;
-  --seg-7: #e8e0cf;
+  /* Data-viz palette (SVG charts read these directly). Light = Coastal Twilight. */
+  --chart-accent: #985a0c; /* main data line — deep amber */
+  --donut-track: #ede1cc; /* finance donut empty ring — sand-200 */
+  --season-1: #04262e; /* seasonal lines: island overall — ink */
+  --season-2: #985a0c; /* district A — amber */
+  --season-3: #0a6e74; /* district B — teal */
+  --season-4: #d98a1e; /* district C — vivid amber */
+  --seg-1: #985a0c; /* donut segments (amber → teal → light) */
+  --seg-2: #0a6e74;
+  --seg-3: #f4be5c;
+  --seg-4: #04262e;
+  --seg-5: #f7d2a8;
+  --seg-6: #c6e6e7;
+  --seg-7: #dccbab;
 
   color-scheme: light;
 }
@@ -61,6 +67,7 @@
   --c-cream-200: 34 34 30; /* #222220 alt sections / footer */
   --c-cream-50: 46 46 38; /* #2E2E26 raised surfaces / cards (more contrast) */
   --c-cream-300: 58 58 49; /* #3A3A31 most elevated / hover */
+  --c-cream-400: 70 70 59; /* #46463B deepest elevated / dividers */
 
   /* Text / borders / tints — neutral off-white & warm grey (not green). */
   --c-forest-900: 240 240 234; /* #F0F0EA primary text */
@@ -68,6 +75,8 @@
   --c-forest-400: 199 199 190; /* #C7C7BE */
   --c-forest-100: 168 168 159;
   --c-forest-50: 46 46 39; /* #2E2E27 hover tints */
+  --c-forest-600: 196 196 187; /* #C4C4BB light grey (was deep teal in light) */
+  --c-forest-700: 216 216 208; /* #D8D8D0 */
 
   /* Accent — warm gold for typography, links, CTAs. */
   --c-brass-200: 242 218 184;
@@ -75,6 +84,7 @@
   --c-brass-400: 226 171 108;
   --c-brass-500: 229 174 112; /* #E5AE70 gold accent */
   --c-brass-600: 205 137 64; /* #CD8940 */
+  --c-brass-700: 216 165 100; /* #D8A564 readable gold (was deep amber in light) */
 
   /* Warm muted BRONZE — second accent for structure (kant, nav, dividers,
      focus, Vetted, data). Harmonizes with the brighter gold as a darker warm
@@ -223,6 +233,25 @@
   animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+/* Построчный reveal заголовков героя: маска снизу вверх + лёгкий подъём.
+   clip-path + translateY на GPU; заканчивается полностью видимым (fill both),
+   reduced-motion гасит. Каскад строк — через inline animationDelay. */
+@keyframes maskRise {
+  from {
+    opacity: 0;
+    transform: translateY(0.9em);
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    clip-path: inset(0 0 -0.15em 0);
+  }
+}
+.mask-rise {
+  animation: maskRise 1s cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+
 /* Тонкий scroll-parallax обложек карточек — нативные CSS scroll-driven
    анимации (animation-timeline: view()): ноль JS, браузер оптимизирует сам,
    тянет даже десятки карточек. Прогрессивное улучшение: где не поддерживается
@@ -320,9 +349,11 @@
   }
   .reveal,
   .rise-in,
+  .mask-rise,
   .appear {
     opacity: 1 !important;
     transform: none !important;
+    clip-path: none !important;
     animation: none !important;
   }
   a {

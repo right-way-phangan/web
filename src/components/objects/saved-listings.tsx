@@ -8,6 +8,7 @@ import { Heart, ArrowRight, Share2, Check, Import } from "lucide-react";
 import type { RealEstateObject } from "@/types/object";
 import { useSaved } from "@/lib/saved/saved-context";
 import { ObjectCard } from "./object-card";
+import { Appear } from "@/components/motion/appear";
 import { CompareTable } from "./compare-table";
 import { LeadForm } from "@/components/forms/lead-form";
 import { formatPriceCompact } from "@/lib/utils/price";
@@ -221,8 +222,10 @@ export function SavedListings({ catalog }: { catalog: RealEstateObject[] }) {
 
       {/* Cards */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {items.map((o) => (
-          <ObjectCard key={o.id} object={o} />
+        {items.map((o, i) => (
+          <Appear key={o.id} delay={(i % 3) * 0.08} className="h-full">
+            <ObjectCard object={o} />
+          </Appear>
         ))}
       </div>
 
@@ -230,19 +233,21 @@ export function SavedListings({ catalog }: { catalog: RealEstateObject[] }) {
       {items.length > 1 ? <CompareTable items={items} /> : null}
 
       {/* Send shortlist */}
-      <section className="rounded-sm border border-forest-500/10 bg-cream-50 p-6 md:p-8">
-        <h2 className="font-serif text-2xl text-forest-900">{t.sendTitle}</h2>
-        <p className="mt-2 max-w-xl text-sm text-forest-500/70">{t.sendBody}</p>
-        <div className="mt-6 max-w-xl">
-          <LeadForm
-            source="contact"
-            kind="shortlist"
-            locale={locale}
-            defaultMessage={shortlistMessage}
-            submitLabel={t.sendSubmit}
-          />
-        </div>
-      </section>
+      <div className="rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5">
+        <section className="rounded-core bg-cream-50 p-6 shadow-bezel md:p-8">
+          <h2 className="font-serif text-2xl text-forest-900">{t.sendTitle}</h2>
+          <p className="mt-2 max-w-xl text-sm text-forest-500/70">{t.sendBody}</p>
+          <div className="mt-6 max-w-xl">
+            <LeadForm
+              source="contact"
+              kind="shortlist"
+              locale={locale}
+              defaultMessage={shortlistMessage}
+              submitLabel={t.sendSubmit}
+            />
+          </div>
+        </section>
+      </div>
     </div>
   );
 }

@@ -27,6 +27,7 @@ const config: Config = {
           100: withVar("--c-cream-100"),
           200: withVar("--c-cream-200"),
           300: withVar("--c-cream-300"),
+          400: withVar("--c-cream-400"),
         },
         forest: {
           DEFAULT: withVar("--c-forest-500"),
@@ -34,6 +35,8 @@ const config: Config = {
           100: withVar("--c-forest-100"),
           400: withVar("--c-forest-400"),
           500: withVar("--c-forest-500"),
+          600: withVar("--c-forest-600"),
+          700: withVar("--c-forest-700"),
           900: withVar("--c-forest-900"),
         },
         brass: {
@@ -43,6 +46,7 @@ const config: Config = {
           400: withVar("--c-brass-400"),
           500: withVar("--c-brass-500"),
           600: withVar("--c-brass-600"),
+          700: withVar("--c-brass-700"),
         },
         // Non-inverting: a deliberately dark surface + light text in *both*
         // themes — header-over-hero, dark CTA bands, solid buttons, badges.
@@ -65,6 +69,34 @@ const config: Config = {
       maxWidth: {
         prose: "65ch",
         container: "1280px",
+      },
+      letterSpacing: {
+        eyebrow: "0.3em",
+      },
+      transitionTimingFunction: {
+        // Premium spring-ish curves — never raw linear/ease-in-out.
+        smooth: "cubic-bezier(0.22, 1, 0.36, 1)",
+        silk: "cubic-bezier(0.32, 0.72, 0, 1)",
+      },
+      boxShadow: {
+        // Soft, diffuse ambient elevation (theme-tinted via panel ink).
+        soft: "0 1px 2px rgb(var(--c-panel) / 0.04), 0 8px 24px -12px rgb(var(--c-panel) / 0.18)",
+        lift: "0 2px 6px rgb(var(--c-panel) / 0.05), 0 24px 48px -20px rgb(var(--c-panel) / 0.28)",
+        bezel: "inset 0 1px 1px rgb(255 255 255 / 0.12)",
+      },
+      borderRadius: {
+        // Exaggerated squircles for the double-bezel architecture.
+        bezel: "1.75rem",
+        core: "1.375rem",
+      },
+      keyframes: {
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-50%)" },
+        },
+      },
+      animation: {
+        marquee: "marquee 40s linear infinite",
       },
     },
   },

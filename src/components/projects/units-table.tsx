@@ -77,16 +77,18 @@ function Stat({
   muted?: boolean;
 }) {
   return (
-    <div className="rounded-sm border border-forest-500/10 bg-cream-50 p-4">
-      <div
-        className={cn(
-          "num text-3xl",
-          highlight ? "text-brass-500" : muted ? "text-forest-500/50" : "text-forest-900",
-        )}
-      >
-        {value}
+    <div className="rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5">
+      <div className="rounded-core bg-cream-50 p-4 shadow-bezel">
+        <div
+          className={cn(
+            "num text-3xl",
+            highlight ? "text-brass-500" : muted ? "text-forest-500/50" : "text-forest-900",
+          )}
+        >
+          {value}
+        </div>
+        <div className="mt-1 text-xs uppercase tracking-[0.15em] text-forest-500/55">{label}</div>
       </div>
-      <div className="mt-1 text-xs uppercase tracking-[0.15em] text-forest-500/55">{label}</div>
     </div>
   );
 }

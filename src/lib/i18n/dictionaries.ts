@@ -21,6 +21,8 @@ export interface HomeDict {
     lede: string;
     ctaBrowse: string;
     ctaProcess: string;
+    intentLabel: string; // "I'm looking for"
+    intents: string[]; // chip labels — zipped with HERO_INTENT_PATHS by index
   };
   values: {
     eyebrow: string;
@@ -29,7 +31,14 @@ export interface HomeDict {
     items: { title: string; text: string }[];
   };
   featured: { eyebrow: string; title: string; lede: string };
-  stats: { listings: string; districts: string; reply: string; replyValue: string };
+  stats: {
+    listings: string;
+    districts: string;
+    reply: string;
+    replyValue: string;
+    vetted: string;
+    vettedValue: string;
+  };
   cta: { eyebrow: string; title: string; lede: string; browse: string; talk: string };
   inProgress: string;
 }
@@ -41,6 +50,8 @@ const en: HomeDict = {
     lede: "Every property we list, we've personally vetted — title, zoning, the real numbers. No 600-listing feeds, no fantasy 30% returns. One island, done properly.",
     ctaBrowse: "Browse listings",
     ctaProcess: "How we work",
+    intentLabel: "I'm looking for",
+    intents: ["Beachfront", "Sea view", "Land", "Villas", "Leasehold"],
   },
   values: {
     eyebrow: "Why Right Way",
@@ -71,6 +82,8 @@ const en: HomeDict = {
     districts: "districts covered",
     reply: "typical first reply",
     replyValue: "≈ 1 hour",
+    vetted: "personally vetted",
+    vettedValue: "100%",
   },
   cta: {
     eyebrow: "Ready when you are",
@@ -89,6 +102,8 @@ const ru: HomeDict = {
     lede: "Каждый объект в каталоге мы проверили лично — документ, зона, реальные цифры. Без витрин на 600 чужих листингов и сказок про 30% годовых. Один остров — сделанный правильно.",
     ctaBrowse: "Смотреть объекты",
     ctaProcess: "Как мы работаем",
+    intentLabel: "Я ищу",
+    intents: ["Первая линия", "Вид на море", "Землю", "Виллы", "Аренду земли"],
   },
   values: {
     eyebrow: "Почему Right Way",
@@ -119,6 +134,8 @@ const ru: HomeDict = {
     districts: "районов острова",
     reply: "обычное время ответа",
     replyValue: "≈ 1 час",
+    vetted: "проверено лично",
+    vettedValue: "100%",
   },
   cta: {
     eyebrow: "Когда будете готовы",

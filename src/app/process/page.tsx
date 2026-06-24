@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero } from "@/components/sections/page-hero";
 import { ProcessTimeline } from "@/components/sections/process-timeline";
+import { Reveal } from "@/components/sections/reveal";
+import { Appear } from "@/components/motion/appear";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
@@ -64,28 +66,34 @@ export default function ProcessPage() {
         imageAlt="Golden-hour aerial of a Koh Phangan cove"
       />
 
-      <ProcessTimeline steps={[...STEPS]} />
+      <Reveal>
+        <ProcessTimeline steps={[...STEPS]} />
+      </Reveal>
 
       <section className="border-t border-forest-500/10 bg-cream-200/30">
         <div className="container-prose py-16 md:py-24">
-          <div className="max-w-2xl">
-            <h2 className="font-serif text-3xl text-forest-900 md:text-4xl">
-              Ready when you are.
-            </h2>
-            <p className="mt-4 text-lg text-forest-500/70">
-              A discovery call is the cheapest hour we&rsquo;ll spend
-              together — and the most useful. Bring your questions, even the
-              ones that feel obvious.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild variant="primary" size="md">
-                <Link href="/contact">Book a call</Link>
-              </Button>
-              <Button asChild variant="outline" size="md">
-                <Link href="/listings">Browse listings first</Link>
-              </Button>
+          <Appear className="max-w-2xl">
+            <div className="rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5">
+              <div className="rounded-core bg-cream-50 p-6 shadow-bezel md:p-8">
+                <h2 className="font-serif text-3xl text-forest-900 md:text-4xl">
+                  Ready when you are.
+                </h2>
+                <p className="mt-4 text-lg text-forest-500/70">
+                  A discovery call is the cheapest hour we&rsquo;ll spend
+                  together — and the most useful. Bring your questions, even the
+                  ones that feel obvious.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Button asChild variant="primary" size="md">
+                    <Link href="/contact">Book a call</Link>
+                  </Button>
+                  <Button asChild variant="outline" size="md">
+                    <Link href="/listings">Browse listings first</Link>
+                  </Button>
+                </div>
+              </div>
             </div>
-          </div>
+          </Appear>
         </div>
       </section>
     </>

@@ -46,7 +46,7 @@ export default function EstimatePage() {
         title="What's your Koh Phangan property worth?"
         lede="An instant market estimate from our own deal data — sold plots, live listings and rental yields across the island. Free, no obligation. Then our team confirms the figure for your exact title and location."
       />
-      <section className="container-prose mt-10 md:mt-14">
+      <section className="container-prose mt-16 pb-24 md:mt-24 md:pb-32">
         <EstimateTool lang="en" />
       </section>
     </>

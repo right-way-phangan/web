@@ -45,7 +45,7 @@ const siteUrl = getSiteUrl();
 // render a default grey bar.
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#1F3A2E" },
+    { media: "(prefers-color-scheme: light)", color: "#04262E" },
     { media: "(prefers-color-scheme: dark)", color: "#181815" },
   ],
 };

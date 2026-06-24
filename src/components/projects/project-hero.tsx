@@ -19,6 +19,7 @@ import { getProjectsDict } from "@/lib/i18n/dictionaries";
 import { formatPriceTHB } from "@/lib/utils/price";
 import { whatsappLink, telegramDmLink } from "@/lib/site-config";
 import { Button } from "@/components/ui/button";
+import { Parallax } from "@/components/motion/parallax";
 import { ShareButton } from "@/components/objects/share-button";
 import { SaveButton } from "@/components/objects/save-button";
 import { StageBadge } from "./stage-badge";
@@ -43,7 +44,8 @@ export function ProjectHero({ project, availability, locale, developerHref }: Pr
       {/* Text */}
       <div>
         <div className="flex flex-wrap items-center gap-3">
-          <span className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
+          <span className="inline-flex items-center gap-2.5 text-xs font-medium uppercase tracking-eyebrow text-brass-700">
+            <span className="h-px w-7 bg-brass-600/60" aria-hidden />
             {project.rwNumber}
           </span>
           {/* When there's a cover, the stage badge lives on the image instead. */}
@@ -140,14 +142,12 @@ export function ProjectHero({ project, availability, locale, developerHref }: Pr
         </div>
       </div>
 
-      {/* Image */}
-      <div className="relative aspect-[4/3] overflow-hidden rounded-sm bg-forest-500/5 lg:aspect-[5/4]">
+      {/* Image — slow scroll-parallax behind a teal scrim + warm horizon glow */}
+      <div className="relative aspect-[4/3] overflow-hidden rounded-bezel bg-forest-500/5 shadow-soft lg:aspect-[5/4]">
         {hasCover ? (
           <>
-            {/* Scroll-параллакс обложки тем же CSS-механизмом, что и в карточке
-                объекта (.cover-parallax: animation-timeline: view(), reduced-motion
-                выключает). Обёртка крупнее контейнера, чтобы дрейф не оголял края. */}
-            <div className="cover-parallax absolute -inset-[8%]">
+            {/* Oversized so the parallax shift never bares an edge */}
+            <Parallax speed={44} className="absolute -inset-y-[6%] inset-x-0">
               <Image
                 src={project.coverImage!}
                 alt={project.titleEn}
@@ -156,12 +156,16 @@ export function ProjectHero({ project, availability, locale, developerHref }: Pr
                 sizes="(min-width: 1024px) 55vw, 100vw"
                 className="object-cover"
               />
-            </div>
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-panel/35 via-transparent to-transparent" />
+            </Parallax>
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-panel/45 via-transparent to-transparent" />
+            <div
+              className="pointer-events-none absolute inset-0 bg-[radial-gradient(90%_60%_at_85%_115%,rgba(217,138,30,0.16),transparent_60%)]"
+              aria-hidden
+            />
             <StageBadge
               stage={project.stage}
               locale={locale}
-              className="absolute bottom-3 left-3 bg-cream-50/90 backdrop-blur-sm"
+              className="absolute bottom-3 left-3 z-10 bg-cream-50/90 backdrop-blur-sm"
             />
           </>
         ) : (

@@ -7,6 +7,7 @@ import { Sparkles, ArrowRight } from "lucide-react";
 import { type RentalMarket, fmtThb, confidenceOf } from "@/lib/data/rental-market";
 import type { CalcDict } from "@/lib/i18n/calculator";
 import { useLocale } from "@/lib/i18n/use-locale";
+import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 
 type Scenario = "conservative" | "base" | "high" | "measured";
 
@@ -251,48 +252,48 @@ export function MarketMiniBlock({ market }: { market: RentalMarket }) {
     .sort((a, b) => (b.premiumPct ?? 0) - (a.premiumPct ?? 0))[0];
 
   return (
-    <div className="rounded-sm border border-forest-500/10 bg-cream-50 p-6 md:p-7">
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
-            {t.context}
-          </p>
-          <h3 className="mt-2 font-serif text-xl text-forest-900">{t.nightlyByDistrict}</h3>
+    <div className="rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5">
+      <div className="rounded-core bg-cream-50 p-6 shadow-bezel md:p-7">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <SectionEyebrow>{t.context}</SectionEyebrow>
+            <h3 className="mt-2 font-serif text-xl text-forest-900">{t.nightlyByDistrict}</h3>
+          </div>
+          <Link
+            href={"/insights" as Route}
+            className="inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-forest-500 hover:text-brass-500"
+          >
+            {t.fullReport}
+            <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
         </div>
-        <Link
-          href={"/insights" as Route}
-          className="inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-forest-500 hover:text-brass-500"
-        >
-          {t.fullReport}
-          <ArrowRight className="h-3.5 w-3.5" />
-        </Link>
-      </div>
 
-      <div className="mt-5 space-y-2.5">
-        {top.map((d) => {
-          const pct = Math.max(6, Math.round((d.adrMedian / max) * 100));
-          return (
-            <div key={d.name} className="grid grid-cols-[8rem_1fr_auto] items-center gap-3">
-              <span className="truncate text-sm text-forest-900">{d.name}</span>
-              <div className="h-2 overflow-hidden rounded-full bg-forest-500/8">
-                <div className="h-full rounded-full bg-forest-500/70" style={{ width: `${pct}%` }} />
+        <div className="mt-5 space-y-2.5">
+          {top.map((d) => {
+            const pct = Math.max(6, Math.round((d.adrMedian / max) * 100));
+            return (
+              <div key={d.name} className="grid grid-cols-[8rem_1fr_auto] items-center gap-3">
+                <span className="truncate text-sm text-forest-900">{d.name}</span>
+                <div className="h-2 overflow-hidden rounded-full bg-forest-500/8">
+                  <div className="h-full rounded-full bg-forest-500/70" style={{ width: `${pct}%` }} />
+                </div>
+                <span className="w-16 text-right text-sm font-semibold tabular-nums text-forest-900">
+                  {fmtThb(d.adrMedian)}
+                </span>
               </div>
-              <span className="w-16 text-right text-sm font-semibold tabular-nums text-forest-900">
-                {fmtThb(d.adrMedian)}
-              </span>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
 
-      {topFeature ? (
-        <p className="mt-4 text-sm text-forest-500/75">
-          {t.driver(topFeature.label, topFeature.premiumPct ?? 0)}
+        {topFeature ? (
+          <p className="mt-4 text-sm text-forest-500/75">
+            {t.driver(topFeature.label, topFeature.premiumPct ?? 0)}
+          </p>
+        ) : null}
+        <p className="mt-1 text-[11px] text-forest-500/50">
+          {t.median(market.meta.sample, market.meta.date)}
         </p>
-      ) : null}
-      <p className="mt-1 text-[11px] text-forest-500/50">
-        {t.median(market.meta.sample, market.meta.date)}
-      </p>
+      </div>
     </div>
   );
 }

@@ -3,6 +3,8 @@ import Link from "next/link";
 import { PageHero } from "@/components/sections/page-hero";
 import { ContentSection } from "@/components/sections/content-section";
 import { ServiceCards } from "@/components/sections/service-cards";
+import { SectionEyebrow } from "@/components/sections/section-eyebrow";
+import { Reveal } from "@/components/sections/reveal";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
@@ -57,33 +59,33 @@ export default function ServicesPage() {
       </ContentSection>
 
       <section className="bg-cream-200/30">
-        <div className="container-prose py-16 md:py-24">
-          <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
-            Transparent pricing
-          </p>
-          <h2 className="mt-3 font-serif text-3xl text-forest-900 md:text-4xl">
-            Honest about cost.
-          </h2>
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-forest-500/80 md:text-lg">
-            As a buyer, you pay us nothing — only the statutory Land Office fees
-            on registration. Our work is settled within the deal: no buyer-side
-            commission, no surprises at the table.
-          </p>
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-forest-500/80">
-            Every engagement includes the full due diligence, the sale
-            agreement, and representation through to transfer — the same
-            documentation and care whether the deal is large or small.
-          </p>
-          <p className="mt-8 max-w-2xl text-sm text-forest-500/70">
-            No hidden add-ons, no kickbacks — the number you see is the number
-            you pay. For a standalone engagement, the fee is agreed upfront in
-            writing before any work begins.
-          </p>
+        <div className="container-prose py-24 md:py-32">
+          <Reveal>
+            <SectionEyebrow>Transparent pricing</SectionEyebrow>
+            <h2 className="mt-3 font-serif text-3xl text-forest-900 md:text-4xl">
+              Honest about cost.
+            </h2>
+            <p className="mt-6 max-w-2xl text-base leading-relaxed text-forest-500/80 md:text-lg">
+              As a buyer, you pay us nothing — only the statutory Land Office fees
+              on registration. Our work is settled within the deal: no buyer-side
+              commission, no surprises at the table.
+            </p>
+            <p className="mt-6 max-w-2xl text-base leading-relaxed text-forest-500/80">
+              Every engagement includes the full due diligence, the sale
+              agreement, and representation through to transfer — the same
+              documentation and care whether the deal is large or small.
+            </p>
+            <p className="mt-8 max-w-2xl text-sm text-forest-500/70">
+              No hidden add-ons, no kickbacks — the number you see is the number
+              you pay. For a standalone engagement, the fee is agreed upfront in
+              writing before any work begins.
+            </p>
+          </Reveal>
         </div>
       </section>
 
-      <section className="container-prose py-20 md:py-28">
-        <div className="max-w-2xl">
+      <section className="container-prose py-24 md:py-32">
+        <Reveal className="max-w-2xl">
           <h2 className="font-serif text-3xl text-forest-900 md:text-4xl">
             Ready to start?
           </h2>
@@ -99,7 +101,7 @@ export default function ServicesPage() {
               <Link href="/process">See our process</Link>
             </Button>
           </div>
-        </div>
+        </Reveal>
       </section>
     </>
   );
