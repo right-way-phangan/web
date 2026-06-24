@@ -111,12 +111,38 @@ const AGRI_USE: Bi = {
 };
 
 /**
- * Build the indicative rule set for an object, or null if we can say nothing
- * useful (no zone and no coastal/hillside signal).
+ * Plot signals that refine the zone's indicative rules — all optional. The
+ * standalone location checker (no saved object yet) leaves them off unless the
+ * user ticks them; an object page fills them from the listing's own fields.
  */
-export function zoneBuildInfo(o: RealEstateObject, locale: RuleLocale): ZoneBuildInfo | null {
-  const key = (o.zone ?? "").trim().toLowerCase();
+export interface ZoneSignals {
+  /** Object type — "Land" (or unset, for the standalone checker) shows the
+   *  "typical build" + permit lines that only make sense for a vacant plot. */
+  type?: string;
+  beachfront?: boolean;
+  seaView?: boolean;
+  mountainView?: boolean;
+  /** "Dirt" | "None" | "Concrete" | … — only dirt/none raise the access flag. */
+  roadType?: string;
+}
+
+/**
+ * Indicative rules from a DPT zone key (green/yellow/orange/red/purple) plus
+ * whatever plot signals we know. Shared core: the object page calls it via
+ * zoneBuildInfo, the standalone location-zoning checker calls it directly.
+ * Null when there's nothing useful to say (unknown zone and no
+ * coastal/hillside/access signal).
+ */
+export function zoneRulesFromSignals(
+  zoneKey: string,
+  signals: ZoneSignals,
+  locale: RuleLocale,
+): ZoneBuildInfo | null {
+  const key = (zoneKey ?? "").trim().toLowerCase();
   const zoneDef = ZONE_USE[key];
+  // Standalone checker (type unset) is about an empty plot's buildability, so
+  // treat it as Land; an object page passes its real type, preserving behaviour.
+  const isLand = signals.type === "Land" || signals.type == null;
 
   const lines: { label: string; text: string }[] = [];
   const flags: { level: "warn" | "info"; text: string }[] = [];
@@ -128,16 +154,16 @@ export function zoneBuildInfo(o: RealEstateObject, locale: RuleLocale): ZoneBuil
   if (zoneDef) {
     lines.push({ label: L.use, text: pick(zoneDef.use, locale) });
     // "What you can build" form line only makes sense for a vacant plot.
-    if (o.type === "Land" && (key === "green" || key === "yellow" || key === "orange")) {
+    if (isLand && (key === "green" || key === "yellow" || key === "orange")) {
       lines.push({ label: L.form, text: pick(TYPICAL_FORM, locale) });
     }
   }
 
   // "Check before you build" flags — only from signals we actually have.
-  if (o.beachfront) flags.push({ level: "warn", text: pick(COASTAL, locale) });
-  else if (o.seaView) flags.push({ level: "info", text: pick(NEAR_COAST, locale) });
-  if (o.mountainView) flags.push({ level: "warn", text: pick(HILLSIDE, locale) });
-  if (o.roadType === "Dirt" || o.roadType === "None") {
+  if (signals.beachfront) flags.push({ level: "warn", text: pick(COASTAL, locale) });
+  else if (signals.seaView) flags.push({ level: "info", text: pick(NEAR_COAST, locale) });
+  if (signals.mountainView) flags.push({ level: "warn", text: pick(HILLSIDE, locale) });
+  if (signals.roadType === "Dirt" || signals.roadType === "None") {
     flags.push({ level: "warn", text: pick(ROAD_ACCESS, locale) });
   }
   if (key === "green") flags.push({ level: "info", text: pick(AGRI_USE, locale) });
@@ -145,9 +171,28 @@ export function zoneBuildInfo(o: RealEstateObject, locale: RuleLocale): ZoneBuil
   if (lines.length === 0 && flags.length === 0) return null;
 
   // Permit note is worth showing whenever we're saying anything about building.
-  if (o.type === "Land") lines.push({ label: L.permit, text: pick(PERMIT, locale) });
+  if (isLand) lines.push({ label: L.permit, text: pick(PERMIT, locale) });
 
   return { zone: zoneDef ? pick(zoneDef.name, locale) : undefined, lines, flags };
+}
+
+/**
+ * Build the indicative rule set for an object, or null if we can say nothing
+ * useful (no zone and no coastal/hillside signal). Thin wrapper feeding the
+ * listing's own fields into the shared zoneRulesFromSignals core.
+ */
+export function zoneBuildInfo(o: RealEstateObject, locale: RuleLocale): ZoneBuildInfo | null {
+  return zoneRulesFromSignals(
+    o.zone ?? "",
+    {
+      type: o.type,
+      beachfront: o.beachfront,
+      seaView: o.seaView,
+      mountainView: o.mountainView,
+      roadType: o.roadType,
+    },
+    locale,
+  );
 }
 
 /**
