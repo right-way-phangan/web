@@ -7,8 +7,6 @@ import { ListingsEmpty } from "@/components/objects/listings-empty";
 import { ListingsSplit } from "@/components/objects/listings-split";
 import { NlSearch } from "@/components/objects/nl-search";
 import { RecentlyViewed } from "@/components/objects/recently-viewed";
-import { SectionEyebrow } from "@/components/sections/section-eyebrow";
-import { Reveal } from "@/components/sections/reveal";
 import {
   parseListingsSearchParams,
   makeFilterPredicate,
@@ -50,13 +48,15 @@ export default async function ListingsPage({ searchParams }: PageProps) {
   const q = (Array.isArray(qRaw) ? qRaw[0] : qRaw) ?? "";
 
   return (
-    <section className="container-prose py-16 md:py-24">
+    <section className="container-prose py-10 md:py-14 aura">
       {/* Map tiles (CARTO) load as soon as the split map mounts — warm the
           connection up front to shave the handshake (Lighthouse flagged it). */}
       <link rel="preconnect" href="https://a.basemaps.cartocdn.com" crossOrigin="" />
       <link rel="dns-prefetch" href="https://b.basemaps.cartocdn.com" />
       <ItemListJsonLd name="Koh Phangan property listings — Right Way" objects={sorted} />
-      <SectionEyebrow>Listings</SectionEyebrow>
+      <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
+        Listings
+      </p>
       <h1 className="mt-3 max-w-3xl text-balance scroll-mt-24">
         Every active property on Phangan.
       </h1>
@@ -88,9 +88,7 @@ export default async function ListingsPage({ searchParams }: PageProps) {
         <ListingsSplit objects={sorted} mode={filter.mode} />
       )}
 
-      <Reveal>
-        <RecentlyViewed catalog={all} />
-      </Reveal>
+      <RecentlyViewed catalog={all} />
     </section>
   );
 }

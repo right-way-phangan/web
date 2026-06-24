@@ -2,6 +2,7 @@ import type { RealEstateObject } from "@/types/object";
 import { jsonLdHtml } from "@/lib/seo/json-ld";
 import { siteConfig } from "@/lib/site-config";
 import { cleanMetaDescription } from "@/lib/utils/meta";
+import { objectDescriptionText } from "@/lib/generate/object-description";
 
 interface Props {
   object: RealEstateObject;
@@ -49,7 +50,9 @@ export function ObjectJsonLd({ object, url }: Props) {
     name: object.titleEn,
     sku: object.rwNumber,
     category: object.type,
-    description: cleanMetaDescription(object.descriptionRaw, 500) ?? object.titleEn,
+    description:
+      cleanMetaDescription(objectDescriptionText(object, "en"), 500) ??
+      object.titleEn,
     ...(images.length ? { image: images } : {}),
     ...(offers ? { offers } : {}),
     brand: {

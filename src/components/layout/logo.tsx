@@ -21,7 +21,7 @@ export function Logo({
       href="/"
       className={cn(
         "group flex items-baseline gap-2 font-serif tracking-tight transition-colors",
-        light ? "text-cream-50" : "text-forest-500",
+        light ? "text-panel-fg" : "text-forest-500",
         sizes[size],
         className,
       )}
@@ -30,7 +30,7 @@ export function Logo({
       <span
         className={cn(
           "text-xs uppercase tracking-[0.2em] transition-colors group-hover:text-brass-500",
-          light ? "text-cream-100/70 group-hover:text-brass-300" : "text-forest-500/70",
+          light ? "text-panel-fg/70 group-hover:text-brass-300" : "text-forest-500/70",
         )}
       >
         Phangan

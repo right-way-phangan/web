@@ -1,0 +1,19 @@
+{
+  "name": "Right Way — Финансы",
+  "short_name": "RW Финансы",
+  "description": "Быстрый ввод трат — личное / Right Way",
+  "id": "/admin/finance",
+  "scope": "/admin",
+  "start_url": "/admin/finance/add",
+  "display": "standalone",
+  "background_color": "#FAF7F2",
+  "theme_color": "#1F3A2E",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "shortcuts": [
+    { "name": "Добавить трату", "short_name": "Трата", "url": "/admin/finance/add" },
+    { "name": "Финансовый дашборд", "short_name": "Финансы", "url": "/admin/finance" }
+  ]
+}

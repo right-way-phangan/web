@@ -43,7 +43,7 @@ export function ContactActions({
     <div className="flex flex-wrap items-center gap-2">
       {phone && (
         <>
-          <a href={`tel:${tel}`} className={btn + " bg-forest-900 text-white hover:bg-forest-900/90"}>
+          <a href={`tel:${tel}`} className={btn + " bg-panel text-panel-fg hover:bg-panel/90"}>
             📞 Позвонить
           </a>
           <a

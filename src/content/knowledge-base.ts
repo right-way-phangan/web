@@ -1120,6 +1120,843 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "Can I renew my 30-year lease in Thailand, and are renewal clauses enforceable?",
   },
+  {
+    slug: "thai-company-for-property-49-51",
+    kbId: "kb-0021",
+    topic: "Structures",
+    title: "A Thai company for property (49/51): when it makes sense, when it's toxic",
+    short:
+      "For decades, foreign buyers used a Thai-majority company to access land they couldn't own in their own name. The 49/51 structure was always legally fragile; since 2025 the nominee-enforcement campaign has made it actively dangerous for a private villa purchase. For a genuine operating business with real Thai partners, a different analysis applies.",
+    updated: "2026-06-17",
+    body: [
+      "A Thai company with 49% foreign and 51% Thai shareholding was the default workaround for Thailand's land-ownership prohibition for much of the 2000s and 2010s. Foreigners cannot own land in their own name; but a Thai company can — so the logic was to park the land inside a company the foreigner controlled in practice, with Thai shareholders holding majority shares on paper. That logic has not changed. What has changed is the cost of being caught using it.",
+      { h: "What the structure actually is" },
+      "Under the Foreign Business Act (FBA) B.E. 2542 (1999), a company is 'foreign' if 50% or more of its shares are beneficially held by non-Thai nationals. A company with 51% Thai and 49% foreign shareholding is therefore classified as a Thai company — able to own land and operate in restricted sectors. The structure is not inherently illegal: a Thai majority company with genuine Thai co-investors running a real business is lawful.",
+      "The illegal version — the nominee structure — replaces genuine Thai investors with Thai nationals who hold shares only on paper, with no real capital contribution, no economic stake and no involvement in decisions. The foreigner controls the business and receives its economic benefit. That arrangement is what Sections 36–37 of the FBA and Sections 111–113 of the Land Code criminalise.",
+      { h: "How authorities now detect it" },
+      {
+        ul: [
+          "**DBD Order No. 2/2568** (effective January 2026): all new company incorporations require Thai shareholders to produce bank statements and source-of-funds documentation proving they genuinely funded their shares.",
+          "**DBD Order No. 1/2569** (effective April 2026): any company amendment involving a foreign director triggers signed Investment Confirmation Letters and supporting bank evidence for every Thai shareholder.",
+          "**IBAS cross-referencing**: the DBD's Intelligence Business Analytic System checks company filings, tax records and land registers against each other. A capital-to-land-value mismatch triggers a forensic audit.",
+          "**Multi-agency coordination**: the DBD, Department of Lands, DSI and AMLO now share data. A nominee pattern found by one agency opens investigations by all four.",
+        ],
+      },
+      { h: "The criminal consequences" },
+      "Both the Thai nominee and the foreign beneficiary face criminal liability. Under the FBA (Sections 36–37): up to **3 years imprisonment** and fines of **THB 100,000–1,000,000**, plus daily penalties of THB 10,000–50,000. Under the Land Code (Sections 111–113): up to **2 years** and fines up to **THB 20,000**. Beyond criminal penalties, Land Code Section 94 permits the authorities to order the company to **sell the land within 180 days to 1 year** at whatever price the forced sale yields. The land itself is at risk, not only the company.",
+      "Enforcement since 2025 has not been selective. An estimated 857–875 cases were prosecuted by December 2025, with total seized asset value of roughly THB 15.1–15.3 billion. Over 46,918 companies were flagged, with 26,830 targeted for inspection in 2025 alone. For the specific enforcement track record on Koh Phangan and its spread to Krabi, see [Nominee-ownership enforcement spreads to Krabi](/knowledge/nominee-crackdown-krabi-islands-2026).",
+      { h: "When a Thai company structure is genuinely different" },
+      "A 49/51 company is not automatically a nominee arrangement. The structure makes sense — and operates within the law — when:",
+      {
+        ul: [
+          "**Genuine Thai co-investors** hold their shares with documented capital from their own verified funds, and are actively involved in the business's decisions and financial outcomes.",
+          "**The company runs a real operating business** — property development, rental management, a hospitality operation — that independently justifies the company's existence and the land it holds.",
+          "**BOI-promoted projects**: Board of Investment promotion allows specific foreign-majority or fully foreign-owned companies to own land for their promoted business activities, though recent BOI notifications have narrowed this to operational necessity; residential use for the foreign owner is generally excluded.",
+          "**The company is not a shell**: it files and pays taxes, has employees or contractors, and generates documented income from operations — not merely from holding an asset a foreigner lives in.",
+        ],
+      },
+      "The test is substance over form. A company that exists solely to let a foreigner use a villa they couldn't otherwise own is a nominee arrangement regardless of how carefully the paperwork is drafted. A company that operates a genuine rental business, employs staff and pays corporate income tax on its earnings is a different animal.",
+      { h: "For a private villa buyer: the practical answer" },
+      "For a foreign buyer seeking to own a villa for personal use or occasional rental on Koh Phangan, the Thai company route is not the answer — and hasn't been since 2025. The criminal exposure for both buyer and Thai shareholders, and the forced-sale risk for the land itself, make it the wrong vehicle for a personal home. The clean, durable route is a registered leasehold combined with a fixed-term superficies on the building. See [Leasehold vs freehold](/knowledge/leasehold-vs-freehold) and [Superficies, usufruct and lease](/knowledge/superficies-vs-usufruct-vs-lease).",
+    ],
+    takeaways: [
+      "A 49/51 company is only lawful if the 51% Thai shareholders are genuine investors who funded their own shares with verifiable funds — nominees are criminal.",
+      "Both the Thai nominee and the foreign beneficiary face up to 3 years imprisonment and fines of THB 100,000–1,000,000 under the FBA.",
+      "Land Code Section 94 permits forced sale of the land within 180 days to 1 year if a nominee structure is found — the asset itself is at risk.",
+      "Since January 2026, new company incorporations require bank statement proof of genuine shareholder investment; any amendment with a foreign director requires sworn Investment Confirmation Letters.",
+      "For a private villa on Koh Phangan, the correct structure is leasehold + superficies — not a Thai company holding the land.",
+    ],
+    sources: [
+      {
+        title: "Global Law Experts — How Foreign Property Owners Can Protect Themselves in Thailand After the 2026 Nominee Company Crackdown",
+        url: "https://globallawexperts.com/how-foreign-property-owners-can-protect-themselves-in-thailand-after-the-2026-nominee-company-crackdown/",
+      },
+      {
+        title: "Terms.Law — Thailand Nominee Structures: Why They Fail and Who Goes to Prison",
+        url: "https://terms.law/Thai/business/nominee-structures-risks.html",
+      },
+      {
+        title: "Lex Bangkok — Nominee Land Ownership Thailand: Confiscation Risk (2026)",
+        url: "https://lexbangkok.com/nominee-land-ownership-thailand-confiscation-risk/",
+      },
+      {
+        title: "Foreign Business Act B.E. 2542 (1999), Sections 36–37; Land Code Sections 111–113, Section 94 (general practice)",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "Can a foreigner use a Thai company (49/51) to hold land or a villa on Koh Phangan?",
+  },
+  {
+    slug: "building-a-villa-koh-phangan",
+    kbId: "kb-0022",
+    topic: "Phangan",
+    title: "Building a villa on Koh Phangan: permits, zones, timelines and budget",
+    short:
+      "A foreign lessee can legally build on Koh Phangan — the construction permit titles the building in the builder's name, and a registered superficies separates that ownership from the land. The 2025 environmental zones constrain what you can build where, plans must be signed by licensed Thai professionals, and island logistics add 8–15% to mainland construction cost. Budget ฿18,000–60,000+/m² depending on finish, and 4–6 months for permit approval.",
+    updated: "2026-06-17",
+    body: [
+      "Building your own villa on Koh Phangan is possible as a foreign buyer — and for buyers who want a custom design on a specific plot, it often makes more sense than buying a finished unit. The mechanism by which a foreigner ends up owning a building on land they lease is actually the heart of Thai property law: the construction permit (Por. Ror. 1) registers the building in the applicant's name, and a registered superficies makes that ownership enforceable against the world, including future landowners.",
+      { h: "Can a foreigner build? The legal basis" },
+      "A foreigner cannot own land in Thailand but can own a building. The right to build on a leasehold plot is typically granted in the lease agreement and the superficies instrument. The construction permit is applied for by the landowner or by the person authorised to build — in a leasehold, the lessee, with the landowner's written consent. The finished building is titled in the permit applicant's name. Paired with a registered superficies, that building ownership is separately transferable and inheritable. For the ownership structure that makes this work, see [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa) and [Superficies, usufruct and lease](/knowledge/superficies-vs-usufruct-vs-lease).",
+      { h: "The building permit (Por. Ror. 1)" },
+      "The building permit — **Por. Ror. 1** (ปร.1) — is issued by the relevant local administrative authority (on Koh Phangan, the Subdistrict Administrative Organisation, known as OrBorTor). A permit is required before any new construction, structural alteration or demolition under the Building Control Act B.E. 2522. Building without one exposes you to a demolition order and fines, and an unpermitted structure creates problems when you try to sell the building later.",
+      { h: "Documents required" },
+      {
+        ul: [
+          "**Licensed Thai architect's plans** — all design drawings must be signed by a registered Thai architect with their licence number. An overseas architect's drawings alone are not accepted.",
+          "**Licensed Thai structural engineer's certification** — signed calculations and structural drawings from a registered Thai civil engineer.",
+          "**Copy of the land title deed** — to confirm the plot and establish the applicant's authority to build; the lease agreement is typically included.",
+          "**Site plan and boundary survey** — showing the building footprint, setbacks from boundaries, access roads and utility connections.",
+          "**Construction specification documents** — materials, construction method, floor plans, elevations and sections.",
+          "**Environmental compliance**: for projects triggering review thresholds (usable area ≥2,500 m², ≥50 guest rooms, or significant land alteration), an Initial Environmental Examination (IEE) or full EIA must be completed before the permit is issued — adding 6–14 months.",
+        ],
+      },
+      { h: "The 2025 environmental zones: what limits apply where" },
+      "Since May 2025, Koh Phangan is an environmental protection area with seven defined zones. The zone of the specific plot determines what you can build — and in some cases whether you can build at all.",
+      {
+        ul: [
+          "**Zone 2 — beachfront/coastal** (within roughly 50 m of shore): hotel-type developments face size caps and wastewater requirements; small single-storey residential construction only within the tightest setback band.",
+          "**Zone 3(1) — hillside (≥80 m elevation)**: one single house per parcel, maximum height 6 m, minimum 50% green space, natural-coloured roof with ≥80% pitch. No land subdivision, no resort-style retaining works.",
+          "**Zone 3(2) — high elevation (≥140 m)**: maximum footprint 90 m², 70% open space (50% green), no terrain alteration. The tightest residential zone.",
+          "**Zones 5–6 (sensitive/conservation islands)**: construction is generally prohibited except for government use.",
+          "**Lower-elevation unzoned plots**: the general Building Control Act rules apply — height limits, setback ratios, plot coverage. Typically more permissive than the hillside zones.",
+        ],
+      },
+      "Check the zone before you fall in love with a plot. A sea-view hillside plot at 90 m elevation will be subject to Zone 3(1) limits, not the more permissive general rules. For the full zone breakdown, see [Building zones on Koh Phangan](/knowledge/koh-phangan-building-zones).",
+      { h: "Permit timeline" },
+      "The Building Control Act gives the local authority **45 days** to respond to a complete permit application. In practice — accounting for plan revisions, authority workload and requests for additional documents — the realistic window from submission to permit approval is **4–6 months** for a straightforward project at standard elevation. For a hillside build triggering extra environmental checks, or any project requiring an IEE or EIA, add 6–14 months for the environmental assessment alone.",
+      "Total project timeline from concept to handover: design brief and architect engagement (1–2 months), detailed design development (2–4 months), permit submission and approval (4–6 months standard), construction (6–18 months depending on scale and finish). A realistic end-to-end schedule for a custom villa is **18–36 months**.",
+      { h: "Construction cost: what to budget" },
+      "On Koh Phangan, construction is quoted per square metre of built area. Current (2025–2026) market bands:",
+      {
+        ul: [
+          "**Basic / Thai standard — ฿18,000–25,000/m²**: simple layouts, local materials, functional finishes.",
+          "**Mid-range / Western standard — ฿25,000–40,000/m²**: the most common band for foreign-buyer villas — modern design, imported fixtures, quality tiling.",
+          "**Premium / luxury — ฿40,000–60,000+/m²**: high-spec materials, bespoke joinery, smart-home systems, imported bathrooms and kitchen.",
+        ],
+      },
+      "These figures are for built area only and **exclude**: the swimming pool (typically ฿400,000–800,000+ depending on size and finish), external works (driveways, retaining walls, landscaping), professional fees (architect, engineer, project manager — typically 8–15% of build cost), permit and connection fees, furniture, and utility hookups.",
+      "**Island logistics uplift**: Koh Phangan runs 8–15% above equivalent mainland costs. The island has a smaller contractor base; specialist trades often need to be ferried in from the mainland, and all materials arrive by barge. Factor in scheduling delays around rough-sea periods and high-season labour shortages.",
+      { h: "The permit puts the building in your name" },
+      "The construction permit is the document that makes the building legally yours. For a foreign lessee, it is applied for with the landowner's written consent, issued in the lessee's name, and — combined with a registered superficies at the Land Office — creates an asset you can sell, mortgage and leave to your heirs independently of the land lease. Do not start any work before the permit is in hand. An unpermitted structure is a liability at the point of sale and cannot be formally titled.",
+    ],
+    takeaways: [
+      "A foreign lessee can build on a leasehold plot with the landowner's consent — the construction permit (Por. Ror. 1) titles the building in the builder's name.",
+      "Plans must be drawn and signed by a licensed Thai architect and licensed Thai structural engineer — overseas credentials alone are not accepted.",
+      "The 2025 zones impose firm limits: hillside (80m+) is capped at 6 m height and 50% green space; above 140 m the footprint is capped at 90 m².",
+      "Budget ฿18,000–25,000/m² (basic) to ฿40,000–60,000+/m² (premium), plus an 8–15% island logistics uplift; pool, external works and professional fees are additional.",
+      "Allow 4–6 months for permit approval on a standard build; hillside projects requiring an environmental assessment take significantly longer.",
+    ],
+    sources: [
+      {
+        title: "Thaim To Build — Cost to Build a Villa in Phuket vs Samui vs Koh Phangan (Price/m² 2025)",
+        url: "https://thaimtobuild.com/villa-build-cost-phuket-samui-koh-phangan",
+      },
+      {
+        title: "Sukhothai Inter Law — New Zoning Law for Koh Samui, Koh Phangan & Koh Tao (May 2025 Update)",
+        url: "https://re.sukhothaiinterlaw.com/new-zoning-law-for-koh-samui-koh-phangan-koh-tao-what-property-owners-developers-need-to-know-may-2025-update/",
+      },
+      {
+        title: "BOI Thailand — Dealing with Construction Permits",
+        url: "https://osos.boi.go.th/en/how-to/139/Dealing-with-Construction-Permits/",
+      },
+      {
+        title: "Building Control Act B.E. 2522 (1979) — permit required before construction; 45-day review period (general practice)",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "What permits and costs are involved in building a villa on Koh Phangan?",
+  },
+  {
+    slug: "lease-contract-clauses-to-check",
+    kbId: "kb-0023",
+    topic: "Documents",
+    title: "The lease contract on Koh Phangan: clauses a foreign buyer must check",
+    short:
+      "A registered lease is only as strong as the clauses it contains. The default developer draft almost never includes the four provisions that protect you most: succession, assignment, sublease rights and a right of first refusal on the land. Here is what to look for — and why each one matters.",
+    updated: "2026-06-19",
+    body: [
+      "When a draft lease lands in front of you, you are looking at the document that defines your property rights for the next 30 years. Most buyers focus on the term and the rental figure — and miss the clauses that decide whether you can sell the lease, leave it to your heirs, rent to tenants, or have any recourse if the landowner breaches. A developer's default template rarely includes the strongest versions of these protections. Here is what to check before you sign.",
+      { h: "Start with the basics" },
+      {
+        ul: [
+          "**Term**: exactly stated start and end dates — 30 years is the maximum. Section 540 of the Civil and Commercial Code is an absolute ceiling; any clause purporting to grant a longer initial term is void for the excess.",
+          "**Registration**: the lease must be registered at the Land Office and endorsed on the back of the title deed. Section 538 makes this mandatory for terms over three years to be enforceable beyond year three. Confirm the registration has actually happened — not just that you hold a signed contract.",
+          "**Rental and payment**: amount, frequency, payment method, and any rent-escalation clause. Understand the total contracted rent over the full 30 years — that figure determines the Land Office registration fee (1% of total rent plus 0.1% stamp duty).",
+          "**Permitted use**: what you can and cannot do. This is where restrictions on alterations, subletting and commercial activity usually appear — read it carefully.",
+        ],
+      },
+      { h: "Succession clause: what happens when you die" },
+      "Under Thai law, a lease may not automatically continue on the lessee's death — the standard position is that a lease is a personal contract, and without clear contractual provision your heirs may face difficulty asserting the right to continue for the remaining term. A succession clause provides certainty and should be treated as essential.",
+      "The clause to seek: an express provision naming your heirs or estate as entitled to step into your position as lessee for the remaining term. The stronger version is to register co-lessees on the original lease — a surviving co-lessee (for example, a spouse) continues automatically without relying on a clause being invoked. The lease and the building must also be inherited together to keep the asset intact; see [Inheritance on Koh Phangan](/knowledge/inheritance-leasehold-and-villa).",
+      { h: "Assignment clause: what happens when you sell" },
+      "By default, a Thai lease cannot be assigned to a third party without the lessor's active consent. Without an explicit assignment clause, the lessor can effectively veto your ability to sell the remaining lease term — or use that consent as leverage on the exit price.",
+      "The clause to seek: an express right to assign the remaining lease term to any third party without requiring prior lessor consent (or with consent not to be unreasonably withheld). Any assignment must also be registered at the Land Office — an unregistered assignment creates only a personal obligation and may not bind a new landowner or third party. For how the assignment clause affects exit planning and resale value, see [Selling your leasehold villa](/knowledge/selling-leasehold-villa-exit-liquidity).",
+      { h: "Sublease rights: renting to tenants" },
+      "Section 544 of the Civil and Commercial Code prevents the lessee from subleasing without the lessor's consent unless the lease explicitly permits it. For a villa you plan to rent out — even to long-stay tenants on monthly contracts — an express sublease clause is essential, or the landowner can claim you are in breach.",
+      "Note the overlap with the Hotel Act: stays under 30 days require a hotel licence regardless of what the lease says about subleasing. The sublease clause matters most for 30-day-plus tenancies, which are legally straightforward. See [Renting out your villa](/knowledge/renting-out-your-villa-rules-and-taxes).",
+      { h: "Right of first refusal on the land" },
+      "This clause does not appear in most standard leases but is worth negotiating. If the landowner decides to sell the freehold during your tenancy, you receive the first option at the offered price before it goes to anyone else.",
+      "Why it matters: a registered lease survives a sale of the land (the new buyer steps into the lessor's position for your remaining term), but the new landowner has no obligation to renew at year 30. A right of first refusal gives you a path to converting from leasehold to freehold if the land becomes available — and prevents the land moving to an unknown buyer whose relationship to you is untested.",
+      { h: "Renewal: what can and cannot be promised" },
+      "The March 2025 Supreme Court ruling (Case No. 4655/2566) settled this definitively: pre-agreed automatic renewal clauses for periods beyond the initial 30 years are void. Only the initial registered term is a property right. See [Renewing a 30-year lease](/knowledge/renewing-30-year-lease-risks) for the full legal background.",
+      "What a contract can legitimately contain: a good-faith obligation on the current landowner to offer renewal at expiry, or a right of first refusal on the new lease term. These are contractual promises against the original lessor — they do not automatically bind a successor landowner and are not registrable property rights. Plan the purchase around the primary 30-year term; treat any renewal language as a bonus, not a guarantee.",
+      { h: "Protecting you during the term" },
+      {
+        ul: [
+          "**Prohibition on mortgaging or selling without consent**: not automatic — the lease must include this. Without it, the land can be mortgaged or sold during your tenancy. A registered lease survives a change of landowner, but an undisclosed mortgage on the land creates real risk if the landowner defaults and a lender enforces.",
+          "**Quiet enjoyment**: the lessor may not interfere with your use of the property during the term — state it explicitly.",
+          "**Maintenance division**: structural repairs are the lessor's responsibility under the CCC; day-to-day maintenance is the lessee's. Specify in the contract who handles disputed middle ground — pool equipment, roofing, shared access roads.",
+          "**Compensation on early termination**: define what you receive if the lessor materially breaches. Without a specific clause, you are left to litigation to establish the amount and timeline.",
+          "**Alterations and construction**: if you plan to build or extend, the lease must authorise it — and the construction permit (Por. Ror. 1) must be applied for with the landowner's written consent. See [Building a villa on Koh Phangan](/knowledge/building-a-villa-koh-phangan).",
+        ],
+      },
+      { h: "The building is a separate matter" },
+      "The lease alone does not give you building ownership — it is occupancy of the land. Ownership of the villa itself must be secured by a separately registered superficies (สิทธิเหนือพื้นดิน) at the Land Office. That registration must appear on the back of the title deed, distinct from the lease registration. An unregistered superficies creates only a personal right between you and the original landowner and does not bind a future buyer of the land. See [Superficies, usufruct and lease](/knowledge/superficies-vs-usufruct-vs-lease) and [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa).",
+      { h: "Practical requirements at registration" },
+      "The lease must be in Thai for Land Office registration. Insist on a certified English translation alongside it — the Thai version governs, but you need to know what you signed. The registration endorsement appears on the back of the title deed, which the landowner keeps. Your documentary proof of the leasehold is the stamped registered lease copy — store it with the same care as a title deed.",
+      "No developer's default draft will contain all of these protections. The review and negotiation stage — before you sign — is where to add them. Use an independent lawyer, not the developer's own lawyer; that independence is the point. Once a contract is signed and registered, adding protections that were not in it requires renegotiating the whole agreement. For where the lease review fits in the full purchase process, see [How to buy property on Koh Phangan step by step](/knowledge/how-to-buy-property-step-by-step).",
+    ],
+    takeaways: [
+      "A Thai lease may not automatically pass to your heirs on death — a succession clause (or registered co-lessee) provides the certainty that is otherwise missing.",
+      "Without an assignment clause, the lessor can block or delay your ability to sell the remaining lease term — negotiate this before signing.",
+      "Section 544 of the CCC prevents subleasing by default; an express sublease clause is required if you plan to rent the property to tenants.",
+      "Post March 2025 Supreme Court ruling (Case No. 4655/2566), pre-agreed automatic renewals beyond 30 years are void — plan around the primary registered term.",
+      "Use an independent lawyer to review the draft; protective clauses generally cannot be added after the contract is registered.",
+    ],
+    sources: [
+      {
+        title:
+          "Thai Civil and Commercial Code — Sections 537–571 (lease), Section 538 (registration), Section 540 (30-year cap), Section 544 (subleasing without permission)",
+      },
+      {
+        title: "Integrity Legal — Selling, Assignment, or Sublease of Lease in Thailand",
+        url: "https://www.legal.co.th/resources/thailand-real-estate-property-law/title/selling-assignment-or-sublease-lease-thailand/",
+      },
+      {
+        title:
+          "Siam Legal International — Supreme Court Ruling on Long-Term Leases in Thailand (March 2025, Case No. 4655/2566)",
+        url: "https://www.siam-legal.com/thailand-law/supreme-court-ruling-on-long-term-leases-in-thailand/",
+      },
+      {
+        title: "Lawyers for Expats Thailand — Thailand Property Guide for Foreign Investors",
+        url: "https://www.lawyersforexpatsthailand.com/post/thailand-property-guide-for-foreign-investors",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion: "What clauses must I check in a Thai leasehold property contract before signing?",
+  },
+  {
+    slug: "buying-in-sri-thanu",
+    kbId: "kb-0024",
+    topic: "Phangan",
+    title: "Buying property in Sri Thanu, Koh Phangan: who it suits, prices and what to expect",
+    short:
+      "Sri Thanu is Koh Phangan's wellness and long-stay community hub — the densest concentration of foreign residents on the island. It suits buyers who want to be part of an established expat community and whose rental model relies on monthly stays rather than nightly bookings. It is not the optimal choice for pure short-stay yield maximisation.",
+    updated: "2026-06-19",
+    body: [
+      "Sri Thanu (Ban Sri Thanu) sits on the southwest coast of Koh Phangan, around 7 km north of the main ferry port at Thong Sala. It is the closest thing the island has to a settled residential neighbourhood — not a beach resort and not a tourist zone, but an area where yoga studios, organic cafés, a beach coworking space, medical services and an international community have built up over the better part of a decade. That character shapes who buys here, what sells and what yields.",
+      { h: "The character of the area" },
+      "Sri Thanu is the commercial and community core of what the island's long-stay foreign population calls the 'wellness belt' — the corridor running south from Haad Yao along the southwest coast. The area is anchored by a mix of residential streets, small businesses and wellness venues that have made it the primary draw for European and Israeli expats, digital nomads and long-stay wellness visitors who choose to base themselves on Koh Phangan permanently or for extended periods.",
+      "Unlike Haad Rin to the south (Full Moon Party tourism), Thong Nai Pan to the northeast (secluded luxury villas) or Thong Sala (the island's commercial and administrative hub), Sri Thanu is the district you choose when you want to live in a community rather than a resort. The social infrastructure — coworking space (BeacHub, a member workspace directly on the beach), gyms, health food venues, regular community events — is real and established, not aspirational.",
+      { h: "What is available to buy" },
+      {
+        ul: [
+          "**Pool villas (1–3 bedrooms)** — the dominant category for foreign buyers. Most are garden or jungle villas rather than direct beachfront (Hin Kong beach is a short walk from the community core, but most properties are set back from the shore). Modern pool villas with Western-standard finishes are the main new-build product in the area.",
+          "**Land plots** — flat and gentle-slope plots are available in and around the community core. The majority of Sri Thanu sits below 80 m elevation, keeping most plots out of the Zone 3(1) hillside restrictions that apply from 80 m upward under the 2025 environmental rules. This means more permissive build constraints than much of the elevated western coast — a practical advantage for a buyer who wants to develop. See [Building zones on Koh Phangan](/knowledge/koh-phangan-building-zones).",
+          "**Condominiums** — Sri Thanu and the adjacent Haad Yao area host Koh Phangan's highest concentration of condominium projects: four active projects totalling roughly 66 units, valued at approximately THB 380 million. This is the part of the island where a foreign buyer is most likely to find a freehold condo unit within the 49% foreign-ownership quota.",
+        ],
+      },
+      { h: "Typical prices" },
+      "Land in Sri Thanu currently runs roughly **THB 3–5 million per rai**, varying with proximity to the beach, sea view, road access and title class. The west coast overall has seen 2–4× appreciation since early 2022, driven by community-driven demand; Sri Thanu sits within this trend. Plots with registered road access and a Chanote title command the upper end of the range. See [Land titles on Koh Phangan](/knowledge/land-titles-chanote-vs-nor-sor-3) and [How land is priced](/knowledge/how-land-is-priced-price-per-rai) for context on what drives price differences.",
+      "Completed pool villas typically range from roughly **THB 8–20 million** for one to three bedrooms on a leasehold basis, with larger or premium-finish properties higher. Condominiums start at around THB 3–5 million for a one-bedroom. Off-plan entry prices are generally 15–25% below the completed comparable — with the developer and completion risk that entails. See [Buying off-plan on Koh Phangan](/knowledge/buying-off-plan-new-developments).",
+      "All villa and land purchases by foreign buyers in Sri Thanu are structured as leasehold — a 30-year registered land lease combined with ownership of the building through a registered superficies. Condominium freehold is available within the 49% foreign quota. See [Leasehold vs freehold](/knowledge/leasehold-vs-freehold) and [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa).",
+      { h: "The rental case" },
+      "Sri Thanu's natural tenant base is long-stay: wellness retreat visitors, digital nomads and expats typically renting for one to three months at a time. That stay profile lines up well with the Hotel Act's licensing boundary — lets of 30 days or more sit outside the hotel-licence requirement that applies to stays under 30 days. For an owner who wants steady rental income without navigating short-stay licensing, Sri Thanu's tenant demographic is a practical advantage.",
+      "Monthly villa rents in the area typically run **THB 25,000–70,000** depending on size, specification and season. The dry season (November–April) is high-occupancy; May to October is the wet season and demand softens. A realistic net-yield model runs nightly rate (or monthly equivalent) times occupancy, minus management costs (typically around 25% of gross), maintenance and annual property tax. See [Renting out your villa](/knowledge/renting-out-your-villa-rules-and-taxes) for the full calculation.",
+      { h: "What to verify when buying here" },
+      "Standard due diligence applies everywhere on the island — see [Due diligence before buying on Koh Phangan](/knowledge/due-diligence-checklist-koh-phangan). A few points specific to Sri Thanu:",
+      {
+        ul: [
+          "**Title class**: the area has a mix of Chanote and Nor Sor 3 Gor titles. Both are workable with proper verification; confirm the class and condition before making an offer.",
+          "**Road access**: properties off secondary or unpaved roads — particularly on hillside land above the main community core — need registered rights of way confirmed. Verbal access is one of the most common traps on the island.",
+          "**Elevation**: most of the Sri Thanu commercial area sits below 80 m. Some hillside land above the valley floor may cross into Zone 3(1) restrictions (6 m height cap, 50% green space minimum). Check the specific plot's elevation before you commit to a build.",
+          "**Utilities**: mains water and electricity are available in the main community area; confirm meter registration and water source for the specific property. Reliability on secondary roads and newer developments can vary.",
+          "**Neighbouring development**: given the density of new-build activity since 2022, confirm whether adjacent vacant plots already carry permits that could affect sea views or privacy.",
+        ],
+      },
+      { h: "Who Sri Thanu is not the optimal choice for" },
+      "If the primary goal is maximising short-stay rental yield, a beachfront property or a premium hillside villa in Haad Yao (north) or Thong Nai Pan commands higher nightly rates from tourism-oriented guests — at the cost of requiring a hotel licence for stays under 30 days. For a buyer whose priority is total privacy and seclusion, the community density of Sri Thanu works against them. And for someone primarily motivated by sea views from the property itself, the Sri Thanu core is mostly garden and valley rather than elevated sea-view hillside; look to Haad Yao immediately north for that.",
+      "Sri Thanu is the right choice for a buyer who wants to be part of Koh Phangan's most established foreign community, who values proximity to wellness and co-working culture, and whose investment approach suits long-stay tenants rather than short-vacation bookings. It is the most neighbourhood-like district on the island — and that is both its appeal and its constraint.",
+    ],
+    takeaways: [
+      "Sri Thanu is Koh Phangan's established wellness and long-stay community hub — the highest-density expat and digital-nomad area on the island, with real social infrastructure.",
+      "Land prices typically run THB 3–5 million per rai; completed pool villas from roughly THB 8–20 million (leasehold); condominiums from around THB 3–5 million.",
+      "Most of Sri Thanu sits below 80 m elevation, keeping the majority of plots outside the tightest Zone 3(1) hillside construction restrictions of the 2025 environmental rules.",
+      "The natural tenant base of monthly-stay wellness visitors and digital nomads aligns well with the Hotel Act — long lets require no hotel licence, simplifying the rental model.",
+      "For short-stay yield maximisation or sea-view hillside properties, neighbouring Haad Yao to the north is likely a stronger fit.",
+    ],
+    sources: [
+      {
+        title:
+          "Nation Thailand — Israel, Europe and Australia Anchor in Koh Phangan, Driving Property Investment Past THB7.9bn",
+        url: "https://www.nationthailand.com/business/property/40067434",
+      },
+      {
+        title: "Digital Nomad World — Digital Nomad Guide to Koh Phangan 2025",
+        url: "https://digitalnomads.world/city-guide/ko-pha-ngan/",
+      },
+      {
+        title: "Nestopa — Digital Nomad Guide for Koh Phangan (BeacHub coworking)",
+        url: "https://nestopa.com/th-en/articles/digital-nomad-guide-for-koh-phangan",
+      },
+      {
+        title: "Koh Phangan Homes — Sri Thanu area listings and land prices",
+        url: "https://phanganlandandhome.com/area/sri-thanu/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "What is it like to buy property in Sri Thanu on Koh Phangan, and who is it best for?",
+  },
+  {
+    slug: "buying-in-thong-sala",
+    kbId: "kb-0025",
+    topic: "Phangan",
+    title: "Buying property in Thong Sala, Koh Phangan: the island's practical hub",
+    short:
+      "Thong Sala is Koh Phangan's main town, ferry port and commercial centre — the right choice for buyers who prioritise year-round rental demand and service infrastructure over beachfront lifestyle. Lower entry prices than the west coast, stable demand, and the island's best transport links trade against an urban rather than resort character.",
+    updated: "2026-06-20",
+    body: [
+      "Thong Sala is Koh Phangan's capital in practice: the main ferry port, the commercial hub, and the concentration point for the island's banks, hospitals, schools, supermarkets and administrative offices. Sitting on the southwest coast roughly 7 km south of Sri Thanu, it is where everything the island needs arrives — and where the island's day-to-day business gets done. That character makes it a different kind of property choice from the wellness belt or the beachfront areas.",
+      { h: "What the area offers" },
+      {
+        ul: [
+          "**Ferry port** — Thong Sala Pier is the main gateway for routes to Surat Thani on the mainland, Koh Samui and Koh Tao. The daily flow of goods, workers and visitors makes this the island's most connected location.",
+          "**Services hub** — within a short radius: Bangkok Bank, Kasikorn and SCB branches; the island's main hospital (Koh Phangan Hospital); Makro (~1.5 km), Big C and international pharmacies; hardware stores, dental and medical clinics, and government offices.",
+          "**Night market and dining** — the Thong Sala Walking Street night market operates weekly; restaurants, bars and international food options are concentrated here and open year-round, not just in high season.",
+          "**Commercial zoning** — parts of Thong Sala carry a commercial designation, creating flexible options for ground-floor business use alongside residential — relevant for investors who want a mixed-use or shop-house product.",
+        ],
+      },
+      "What Thong Sala is not: a beachfront location. The nearest swimmable beach is roughly 1 km from the town centre, and this part of the island does not offer the west-coast sea views or the wellness-community character of Sri Thanu. Buyers who want to live in the middle of the island's practical life choose Thong Sala; buyers who want to live on a beach choose elsewhere.",
+      { h: "What is available to buy" },
+      {
+        ul: [
+          "**Villas and houses** — a mix of older Thai houses, renovated properties and new small villa developments. Entry price is lower than the western coast. Recent developments near Thong Sala offer units from roughly ฿2.8–6.2 million for 56–215 sqm. The premium ceiling in this area is below that of beachfront or elevated sea-view locations elsewhere.",
+          "**Condominiums and apartments** — Thong Sala and adjacent Ban Tai have some apartment-block stock designed for the long-stay rental market. Freehold condominium units within the 49% foreign-ownership quota are less concentrated here than in the Sri Thanu/Haad Yao corridor.",
+          "**Land plots** — commercial and residential plots around the town. Most of Thong Sala sits at low elevation with no hillside-zone restrictions under the 2025 environmental rules. Check road access and utilities on any plot — urban does not automatically mean connected. See [Utilities on Koh Phangan](/knowledge/utilities-water-electricity-internet-koh-phangan).",
+          "**Adjacent Ban Tai** — the beach strip immediately south of Thong Sala has flat coastal land, some with Chanote title and genuine beach proximity. Ban Tai together with Thong Sala forms what investors call the island's logistical backbone; Ban Tai plots add a coastal dimension the town centre itself does not offer.",
+        ],
+      },
+      { h: "Prices and value positioning" },
+      "Thong Sala sits at the accessible end of the Koh Phangan market. Median property prices in the Thong Sala/Ban Tai zone run around ฿26.5 million — a figure skewed upward by larger villa developments. Entry-level apartments and smaller villas are substantially below that. Per-sqm values average around ฿37,000, below the premium of sea-view hillside or beachfront product on the western coast.",
+      "That lower entry cost reflects the character trade-off: urban convenience rather than lifestyle resort. For yield-focused investors, a lower purchase price can improve the arithmetic on net yield, particularly when the rental model relies on steady year-round occupancy rather than peak-season nightly rates. For general context on how land is priced and what moves value on the island, see [How land is priced on Koh Phangan](/knowledge/how-land-is-priced-price-per-rai).",
+      { h: "The rental case" },
+      "Thong Sala's rental demand is year-round rather than seasonal, and driven by a different tenant base from the wellness belt: island workers, medical-visit stays, service-sector professionals, short-term visiting families and budget-conscious long-stay foreigners who want town convenience more than a beach. Monthly rents for a well-positioned studio or one-bedroom apartment run roughly ฿8,000–20,000; for a two- to three-bedroom house or villa closer to ฿20,000–45,000.",
+      "The year-round nature of demand is a meaningful advantage over purely tourism-driven rental locations that soften in the May–October wet season. For the tax and legal framework on renting out, see [Renting out your villa on Koh Phangan](/knowledge/renting-out-your-villa-rules-and-taxes).",
+      { h: "Liquidity and exit" },
+      "Thong Sala properties tend to be more liquid than remote hillside or jungle villas, because a wider buyer base — Thai nationals, long-stay foreigners, service-sector investors and small-business operators — can use them. Lower price points also expand the pool. That said, the absence of a beach or sea view caps the price ceiling: a leasehold villa in Thong Sala commands a lower exit price per sqm than equivalent product on the western sea-view corridor. Plan the exit around realistic comparable sales, not the upper tier of the island market. For the mechanics of selling a leasehold, see [Selling your leasehold villa](/knowledge/selling-leasehold-villa-exit-liquidity).",
+      { h: "What to verify when buying here" },
+      "Standard due diligence applies throughout the island — see [Due diligence before buying on Koh Phangan](/knowledge/due-diligence-checklist-koh-phangan). Points specific to Thong Sala:",
+      {
+        ul: [
+          "**Title class** — a mix of Chanote and Nor Sor 3 Gor titles exists in the area. Confirm the class and verify the deed against the Land Office record before committing. See [Land titles on Koh Phangan](/knowledge/land-titles-chanote-vs-nor-sor-3).",
+          "**Road access** — even in the town area, secondary and unpaved roads exist. Confirm a registered right of way to the public road; landlocked plots are not limited to the hillside.",
+          "**Permitted commercial use** — if the property is in a commercially-zoned area and you plan business use, verify the permitted use matches the plan. Hotel licences, liquor licences and food-service permits each have their own requirements.",
+          "**Utilities** — mains water and electricity are generally available in main Thong Sala; verify meter registration on the specific property. For plots slightly off the main road or in newer developments, confirm supply rather than assuming it. See [Utilities on Koh Phangan](/knowledge/utilities-water-electricity-internet-koh-phangan).",
+          "**Building permits** — for existing structures, check that the construction permit (Por. Ror. 1) exists and the building matches the approved plans. Older Thong Sala stock may have unpermitted additions; these become the buyer's problem at transfer. See [Building a villa on Koh Phangan](/knowledge/building-a-villa-koh-phangan).",
+        ],
+      },
+      { h: "Who Thong Sala suits — and who it does not" },
+      "Thong Sala is for the buyer who prioritises practicality, service access or yield over lifestyle-resort character. It works well for: an investor who wants a well-occupied rental that does not depend on peak-season tourism; a business operator who needs proximity to the island's commercial core; or a buyer who values ferry connections, hospitals and banks over a sea view.",
+      "It is not the right choice for someone whose vision of island living centres on beach proximity, sunset views or the wellness community. For that, [Sri Thanu](/knowledge/buying-in-sri-thanu) (the wellness-community hub, 7 km north) is the most comparable alternative. For premium hillside sea-view product, the Haad Yao and Haad Salad corridor to the north offers that tier.",
+    ],
+    takeaways: [
+      "Thong Sala is Koh Phangan's ferry port and commercial hub — banks, hospital, supermarkets, admin — not a beachfront area.",
+      "Entry prices are lower than the west coast; newer small villa developments start around ฿2.8–6.2 million; median for the zone is roughly ฿26.5 million.",
+      "Rental demand is year-round from workers and service tenants, not seasonal-tourist-dependent — a meaningful stability advantage.",
+      "Low elevation means no 2025 hillside-zone restrictions, but road access and utility connections still require individual verification.",
+      "For beach proximity, wellness community or sunset views, Sri Thanu (north) or Ban Tai beachfront (south) are stronger fits.",
+    ],
+    sources: [
+      {
+        title: "Samui Phangan Real Estate — Koh Phangan real estate market overview",
+        url: "https://www.samui-phangan-real-estate.com/koh-phangan-real-estate-market/",
+      },
+      {
+        title: "Keller Henson — Phangan Tropical Villas Thong Sala (project overview)",
+        url: "https://kellerhenson.com/project/phangan-tropical-villas-thong-sala/",
+      },
+      {
+        title:
+          "Nation Thailand — Israel, Europe and Australia Anchor in Koh Phangan, Driving Property Investment Past THB7.9bn",
+        url: "https://www.nationthailand.com/business/property/40067434",
+      },
+      {
+        title: "Estate Samui Properties — Koh Phangan Guide for Property Buyers",
+        url: "https://www.estate-samui-properties.com/koh-phangan-guide-for-property-buyers/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion:
+      "What is Thong Sala on Koh Phangan like as a property area, and who should buy there?",
+  },
+  {
+    slug: "utilities-water-electricity-internet-koh-phangan",
+    kbId: "kb-0026",
+    topic: "Phangan",
+    title: "Utilities on Koh Phangan: water, electricity, internet and road access",
+    short:
+      "Island utilities are more variable than on the mainland, and two adjacent plots can have entirely different supply sources, reliability and running costs. Verify every utility against documentary evidence during due diligence — not after signing.",
+    updated: "2026-06-20",
+    body: [
+      "Utilities on Koh Phangan are not a given. Government mains water covers the main developed areas but the island has a chronic supply shortfall. Power is improving with a major submarine cable upgrade underway, but outages during peak season remain a known reality. Internet is workable in populated areas via 4G but limited compared to the mainland. And road access — which affects every other utility — ranges from the sealed ring road to steep unpaved tracks that become impassable in monsoon. Understanding a specific plot's utility situation is part of due diligence, not an afterthought.",
+      { h: "Water: the most variable utility" },
+      "Koh Phangan has a structural water shortage. The Royal Irrigation Department has established that annual water demand on the island is approximately 600,000 cubic metres — roughly double the available supply. Drought conditions have been officially declared during dry periods, with tap water rationed on parts of the island. Provincial waterworks mains coverage is concentrated in Thong Sala and the larger developed communities; coverage thins rapidly on hillside and remote plots.",
+      {
+        ul: [
+          "**Government main (Provincial Waterworks Authority)** — available in Thong Sala and the main established communities. Pressure and reliability can vary seasonally; supply cuts are possible in the dry season (November–April). Verify that the specific property has a registered meter and live account, not merely that a main passes nearby.",
+          "**Private well or borehole** — common on land plots away from main roads and on hillside properties. The island's granite and sandstone geology can hold groundwater, but yield and quality vary significantly by location. Have any existing well tested for yield and potability before relying on it as the primary supply.",
+          "**Rainwater collection tanks** — roof-catchment systems supplement or replace mains supply on some properties. Practical in the wet season (May–October); in the dry season a stored-water arrangement is needed.",
+          "**Tanker delivery** — plots without a well or mains connection receive water by truck. It functions, but it is a running cost and a supply dependency that should be confirmed and factored into holding costs before purchase.",
+        ],
+      },
+      "The Royal Irrigation Department is in the Environmental Impact Assessment stage of a 400 million baht subsurface dam project — the first of its kind in Thailand, based on Japan's Miyako Island model — designed to increase groundwater storage and address the structural deficit. Until this project is built, every non-mains plot should be assumed to require a verified alternative supply.",
+      { h: "Electricity: PEA connection and the upgrade underway" },
+      "Power is supplied by the Provincial Electricity Authority (PEA). The island currently receives electricity through four ageing submarine cable circuits — two at 115 kV and two at 33 kV — with a total design capacity of approximately 174 MW. Partial faults and capacity shortfalls during peak tourist season (November–April) are a known feature of island electricity supply.",
+      "A major upgrade is under construction. In February 2023, the Cabinet approved an EGAT project to install two 230 kV submarine cable circuits from Khanom Substation on the mainland to a new substation on Koh Samui — 50 km in total — adding 400 MW of transmission capacity (200 MW per circuit) to the wider island group that includes Koh Phangan and Koh Tao. When complete, this substantially upgrades grid stability and available capacity for all three islands.",
+      {
+        ul: [
+          "**In developed areas and near main roads** — a PEA meter connection is standard. Verify that the meter is registered to the specific property (not a shared meter with a landlord), and note whether the supply is single-phase or three-phase — relevant if you plan a pool pump or high-load equipment.",
+          "**On remote or hillside plots** — electricity may require a transformer extension at additional cost and with a lead time. Request evidence of an active, registered PEA meter at the plot address, not just assurance that 'electricity is nearby.'",
+          "**Solar** — increasingly used on new villas as a supplement or primary supply. Grid-tied systems require PEA approval; off-grid solar with battery storage is a practical alternative for remote plots where grid connection is delayed or expensive.",
+        ],
+      },
+      { h: "Internet and mobile connectivity" },
+      "Internet access in Koh Phangan's main communities is workable for most remote workers, but is substantially behind mainland Thailand in speed and reliability. Following the 2023 merger of DTAC and TrueMove H, the two providers are now AIS and True Corporation.",
+      {
+        ul: [
+          "**4G mobile data** — the primary internet for most island residents. AIS has marginally better island coverage than True. Coverage is reliable in Thong Sala, Sri Thanu, Haad Rin and the main western-coast communities. Interior and remote plots have patchy signal; physically check the signal at the specific plot with your intended SIM before buying to build.",
+          "**Fixed broadband** — available in parts of the main developed areas, but speeds and consistency are well below the 200–1,000 Mbps fibre standard available in Bangkok and major Thai cities. Plan around 4G as the primary connection, with fixed broadband as a backup where available.",
+          "**Congestion** — Full Moon Party nights in Haad Rin bring 10,000–30,000 people to a small area and severely overload both networks. Island-wide, all connections face higher loads in high season (November–April). Plan production-critical work around off-peak hours.",
+          "**Coworking** — venues such as BeacHub in Sri Thanu provide business-grade internet connections for members, effectively bypassing residential connectivity limitations for office hours.",
+        ],
+      },
+      { h: "Road access: the utility that determines all the others" },
+      "A plot with power, water and internet but no legally confirmed road access is effectively unusable. Road quality on Koh Phangan ranges from the sealed main ring road to steep concrete hillside paths to unpaved jungle tracks that become impassable in the wet season.",
+      {
+        ul: [
+          "**Main ring road** — the sealed perimeter road is well-maintained and year-round passable. Properties directly on or close to it have reliable access.",
+          "**Concrete secondary roads** — most established communities have concrete roads, generally usable in all seasons but subject to cracking, level drops and steep gradients on hillside approaches.",
+          "**Unpaved tracks** — particularly to remote hillside and interior plots. Passable in the dry season; some become mud channels in the wet season. Verify the condition in person during or after heavy rain, not only on a dry-day visit.",
+          "**Registered right of way** — the critical legal point. A visible track, a verbal agreement or a gentleman's understanding is not a protected legal right. The road access to the public road must be registered on the title deed as a servitude; without it, a new owner of any connecting plot can block access. See [Due diligence before buying on Koh Phangan](/knowledge/due-diligence-checklist-koh-phangan).",
+        ],
+      },
+      { h: "What to verify before you commit" },
+      "Each utility must be confirmed against documentary evidence — not a seller's assurance.",
+      {
+        ul: [
+          "**Water** — request the Provincial Waterworks account number and meter reference for the property, or a well-yield and quality test report, or the written supply arrangement if water comes from a shared tank or delivery service.",
+          "**Electricity** — request the PEA account number and meter serial number registered to the plot address. Confirm supply phase (single-phase or three-phase) if relevant to your planned use.",
+          "**Internet** — test 4G signal at the specific plot with the SIM of your preferred provider. For an existing building, check whether fibre or ADSL termination is physically present at the address.",
+          "**Road** — walk the complete route from the public road to the plot. Have your lawyer confirm a registered right of way on the title deed — not merely a track you can see.",
+        ],
+      },
+      "Utilities are not glamorous, but they are what makes a plot liveable and determine running costs for the life of ownership. A plot with government mains water, a registered PEA meter and sealed concrete road access is a meaningfully different asset from one that relies on tanker delivery, a distant transformer and an unregistered track.",
+    ],
+    takeaways: [
+      "Koh Phangan water demand is roughly double available supply — confirm whether a plot has mains connection, a tested well, or a tank/delivery arrangement before you buy.",
+      "PEA power is currently supplied through ageing 115/33 kV submarine cables; a major EGAT 230 kV cable upgrade (400 MW capacity) serving the island group is under construction but not yet complete.",
+      "Internet: AIS 4G is the primary reliable connection for most island residents; fixed broadband exists in some main areas but at lower speeds than mainland Thai cities.",
+      "All three utilities are less reliable on hillside and remote plots — check signal, meter registration and supply evidence at the actual location, not the nearest main road.",
+      "Road access must be a registered servitude on the title deed — a visible track or verbal agreement is not a legally protected right.",
+    ],
+    sources: [
+      {
+        title:
+          "Koh Phangan Island News — Koh Phangan subsurface dam to address freshwater shortage",
+        url: "https://kohphangannews.org/general-news/koh-phangan-subsurface-dam-to-address-freshwater-shortage-2077.html",
+      },
+      {
+        title:
+          "EGAT — 230 kV Submarine Cables Connect Ko Samui to a Sustainable Future of Energy",
+        url: "https://www.egat.co.th/home/en/230-kv-submarine-cables-connect-ko-samui-to-a-sustainable-future-of-energy/",
+      },
+      {
+        title: "Koh Phangan Island News — Koh Phangan tourist island declared drought zone",
+        url: "https://kohphangannews.org/high-alert/koh-phangan-tourist-island-declared-drought-zone-1826.html",
+      },
+      {
+        title:
+          "Koh Phangan Island News — Ways sought to improve Koh Phangan's infrastructure problems (May 2024)",
+        url: "https://kohphangannews.org/general-news/ways-sought-to-improve-koh-phangans-infrastructure-problems-4596.html",
+      },
+      {
+        title:
+          "eSIM Thailand Network Guide 2026 — AIS vs True Corp island signal coverage",
+        url: "https://esimy.net/best-esim-for-thailand-2026-complete-network-coverage-island-guide/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion:
+      "What are the utilities like on Koh Phangan — water, electricity, internet and road access?",
+  },
+  {
+    slug: "owners-taxes-annual-land-and-income",
+    kbId: "kb-0027",
+    topic: "Costs",
+    title: "Owner's taxes on Koh Phangan: Land & Building Tax and rental income tax",
+    short:
+      "Two taxes run alongside owning property on Koh Phangan: the annual Land and Building Tax (assessed by the local authority on the official appraised value) and personal income tax on any rental income. For most foreign leasehold holders the Land and Building Tax is legally the landowner's liability, not yours — but rental income is taxed in your hands regardless of residency status.",
+    updated: "2026-06-21",
+    body: [
+      "Owning property in Thailand means two annual tax obligations. The Land and Building Tax (LBT) is a local property tax introduced under the Land and Building Tax Act B.E. 2562 (2019) and collected by the local administrative authority. Personal Income Tax on rental income flows to the Revenue Department. How each applies to you depends on how you hold the property — leasehold villa or freehold condominium — and how many days a year you spend in Thailand.",
+      { h: "Who actually pays the Land and Building Tax on a leasehold" },
+      "The LBT is assessed on the registered owner of the land or building — the person whose name appears on the title deed. For a foreign buyer holding a **leasehold villa**, the land title stays in the Thai landowner's name throughout the lease. That means the LBT falls on the landowner, not on you as lessee, as a matter of law. Your lease contract may or may not pass this cost through to you — check the wording. For a **freehold condo unit**, you are the registered owner and you pay the LBT yourself. For both, the tax base is the government's official appraised value, not the market price — appraised values on Koh Phangan run well below transaction prices.",
+      { h: "2026 rates by property category" },
+      "2026 is the first full-rate year without a pandemic-era across-the-board government discount. Tax is assessed and collected by the local Subdistrict Administrative Organisation (OrBorTor) on Koh Phangan.",
+      {
+        ul: [
+          "**Primary residence, land and building combined** — first ฿50 million of appraised value: exempt. ฿50–75M: 0.03%. ฿75–100M: 0.05%. Over ฿100M: 0.10%.",
+          "**Primary residence, building only (e.g., condo you own but not the land)** — first ฿10 million: exempt. ฿10–50M: 0.02%. ฿50–75M: 0.03%. ฿75–100M: 0.05%. Over ฿100M: 0.10%.",
+          "**Second or additional homes** — no exemption threshold. ฿0–50M: 0.02%. ฿50–75M: 0.03%. ฿75–100M: 0.05%. Over ฿100M: 0.10%.",
+          "**Rented residential or commercial use** — 0.30% to 0.70% of appraised value (rising with value in bands).",
+          "**Vacant or unused land** — same 0.30–0.70% range, with an escalator: each consecutive three-year period of vacancy adds a further 0.30%, capped at 3% total. Land left unused for six or nine years faces a sharply higher effective rate.",
+        ],
+      },
+      "**Practical note on condos:** A condo unit appraised at ฿5 million used as a primary residence is entirely inside the ฿10 million exemption threshold — LBT is ฿0. A similar unit rented out falls under the 0.30% commercial/rented rate: ฿15,000 per year. That difference is the clearest illustration of why rented property carries a meaningfully higher LBT burden than owner-occupied.",
+      "Payment deadline for the 2026 assessment year was extended by the Ministry of Interior to June 2026 (normally April). Bills of ฿3,000 or more may be paid in instalments across June–August.",
+      { h: "Income tax on rental income" },
+      "Rental income from Thai property is subject to Thai Personal Income Tax (PIT) regardless of whether you are a Thai tax resident or not. The Revenue Department allows a **30% standard deduction** on gross rental income from buildings and wharves — no itemisation needed. After that deduction, the remaining 70% is added to other Thai-source income and taxed at progressive rates:",
+      {
+        ul: [
+          "฿0–150,000 — **exempt**",
+          "฿150,001–300,000 — **5%**",
+          "฿300,001–500,000 — **10%**",
+          "฿500,001–750,000 — **15%**",
+          "฿750,001–1,000,000 — **20%**",
+          "฿1,000,001–2,000,000 — **25%**",
+          "฿2,000,001–4,000,000 — **30%**",
+          "Over ฿4,000,000 — **35%**",
+        ],
+      },
+      "These rates have been in place since 2013. Personal allowances (personal deduction, spousal, dependent child, insurance) reduce taxable income further for residents filing annually.",
+      { h: "Resident vs. non-resident treatment" },
+      "You are a Thai tax **resident** if you spend 180 or more days in Thailand during a calendar year. Residents are taxed on Thai-source income and on foreign income remitted to Thailand in the year it is earned. **Non-residents** are taxed only on Thai-source income — including rental income from a Thai property — at the same progressive rates. For non-residents, the tenant or payer may be required to withhold 15% of the rental payment at source and remit it to the Revenue Department; the non-resident can then file an annual return and claim a refund if the withholding exceeded the actual PIT liability (since the 30% deduction reduces the net taxable amount below what the withholding assumes).",
+      "The 2025 changes to the Revenue Department's rules on foreign-sourced income remittances affect residents who remit offshore income to Thailand — they do not change the position on Thai-source rental income, which has always been taxable regardless of remittance.",
+      { h: "Filing and compliance" },
+      {
+        ul: [
+          "**Land and Building Tax** — assessed and notified by OrBorTor (Koh Phangan's local administrative bodies) annually, typically January–April. Payment deadline: June 2026 (extended year). No self-assessment; you receive a notice.",
+          "**Personal Income Tax on rental income** — annual return (Por. Ngor. Dor. 90 for mixed income, or Por. Ngor. Dor. 91 for salary-only) filed with the Revenue Department by 31 March of the following year. A Thai tax ID number from the Revenue Department is required. Non-residents can also file online.",
+          "**Management commission**, maintenance costs and professional fees are not deductible under the standard 30% deduction method — but the 30% flat rate is simpler and usually more advantageous than itemising actual expenses for a typical villa.",
+        ],
+      },
+      "Right Way does not file taxes for clients. Use a Thai accountant for both LBT compliance and PIT returns. For the taxes that arise at purchase and at sale, see [The full cost of buying on Koh Phangan](/knowledge/cost-of-buying-taxes-and-fees). For the rental income framework, including the Hotel Act licensing requirement for stays under 30 days, see [Renting out your villa on Koh Phangan](/knowledge/renting-out-your-villa-rules-and-taxes).",
+    ],
+    takeaways: [
+      "For a leasehold villa, the Land and Building Tax falls on the Thai landowner (the registered title holder) by law — check your lease to see if it passes the cost to you.",
+      "For a freehold condo used as a primary residence with an appraised value under ฿10M, Land and Building Tax is typically ฿0 — entirely within the exemption threshold.",
+      "Rented or commercially used property faces 0.30–0.70% LBT, well above the owner-occupied residential rate.",
+      "Rental income is taxed at progressive PIT rates of 5–35% after a 30% standard deduction on gross rent from buildings — both residents and non-residents.",
+      "2026 is the first full-rate LBT year without a government-wide discount; the payment deadline for the 2026 year has been extended to June 2026.",
+    ],
+    sources: [
+      {
+        title: "Thailand Land and Building Tax Act B.E. 2562 (2019) — rates, exemptions, local administrative body assessment (general practice)",
+      },
+      {
+        title: "Revenue Department of Thailand — Personal Income Tax rates and rental income deduction (rd.go.th)",
+        url: "https://www.rd.go.th/english/6045.html",
+      },
+      {
+        title: "Lex Bangkok — New Land and Building Tax Thailand 2026 (B.E. 2569): Full Guide",
+        url: "https://lexbangkok.com/land-building-tax-thailand-2026/",
+      },
+      {
+        title: "HLB Thailand — Thai Rental Properties and Personal Income Tax 2026",
+        url: "https://www.hlbthai.com/thai-rental-properties-and-personal-income-tax-2/",
+      },
+      {
+        title: "Dan Siam Property — Thailand Land and Building Tax Full Enforcement 2026",
+        url: "https://dansiam-property.com/thailand-land-building-tax-full-enforcement-2026-property-investor-guide/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "What annual taxes does a foreign property owner pay on Koh Phangan?",
+  },
+  {
+    slug: "visa-residency-property-owner-koh-phangan",
+    kbId: "kb-0028",
+    topic: "Phangan",
+    title: "Visa and residency for property owners on Koh Phangan: what a purchase gives you",
+    short:
+      "Buying a leasehold villa or land on Koh Phangan does not come with any visa or right to stay in Thailand. The four main long-stay routes — Thailand Elite, Retirement (O-A), LTR and DTV — each suit a different buyer profile. The one program that ties residency directly to property ownership (the THB 3M investment visa) only accepts freehold condominiums, not leaseholds.",
+    updated: "2026-06-21",
+    body: [
+      "The first thing to understand is what a property purchase on Koh Phangan does not give you: a visa, a right of residency, or any change to your immigration status. Owning a leasehold villa or a plot of land in Thailand confers property rights — a registered lease, building ownership, a superficies — but zero immigration benefit. If you plan to spend significant time in Thailand after buying, you need to choose a visa route through a separate channel, and that choice depends on your age, income, work plans and how many months a year you expect to be here.",
+      { h: "The one property-linked route — and why it doesn't apply to most Phangan buyers" },
+      "Thailand operates a **Non-Immigrant B (Investment) visa pathway** for foreigners who purchase a freehold condominium valued at ฿3 million or more and registered in their name at the Department of Lands. This converts the condo purchase into a 1-year renewable right to stay (extendable annually as long as the condo is held). It is the only Thai immigration pathway that formally links property ownership to residency status.",
+      "For most foreign buyers on Koh Phangan, this route is not available. Villa and land purchases here are structured as leasehold — a registered land lease plus ownership of the building — not as freehold property in the buyer's name. The ฿3M investment pathway explicitly requires freehold condo registration. Leasehold villas and the rental-agreement route (฿85,000/month long-term lease) are currently suspended pending regulatory revision. For why leasehold is the standard structure on Phangan, see [Leasehold vs freehold on Koh Phangan](/knowledge/leasehold-vs-freehold).",
+      "The Phangan condo market is small — around 66 units across four active projects in the Sri Thanu/Haad Yao corridor. Foreign buyers who specifically want to use a condo purchase to anchor a visa should confirm the project is within the 49% foreign-ownership quota before buying. For everyone else — villa buyers and land investors — a visa must be arranged independently.",
+      { h: "The four main long-stay options" },
+      { h: "1. Thailand Elite (Privilege Entry Visa)" },
+      "The Thailand Elite programme — now officially the Privilege Entry Visa — is the most straightforward option for a buyer who has no income requirements or age constraints to meet. Membership comes in three tiers:",
+      {
+        ul: [
+          "**5 years** — ฿900,000 membership fee",
+          "**10 years** — ฿1,500,000",
+          "**20 years** — ฿2,500,000",
+        ],
+      },
+      "Each entry allows 180 days' stay, extendable by another 180 days at an immigration office without leaving Thailand. No income verification, no health insurance mandate, no age minimum, no investment in Thailand required. VIP airport reception and immigration facilitation are included. The visa does not include work rights — a separate work permit is needed for any employment — and carries no special tax treatment. It suits buyers who want simplicity: pay once, arrive whenever, extend in-country.",
+      { h: "2. Retirement Visa (Non-Immigrant O-A / O-X)" },
+      "The retirement visa is the classic long-stay route for buyers aged 50 and over. Requirements for the O-A (annual renewal):",
+      {
+        ul: [
+          "**Age 50+** on the date of application.",
+          "**Financial**: ฿800,000 held in a Thai bank account for at least two months before first application and maintained throughout the year (raised to 3 months before annual renewal); or ฿65,000/month verifiable income; or a combination totalling ฿80,000/month.",
+          "**Health insurance**: minimum ฿40,000 outpatient and ฿500,000 inpatient coverage per year (effectively available through most international health insurance products; many providers now require ฿3M+ inpatient in practice).",
+          "**No criminal record** in home country (police clearance) and clean Thai immigration history.",
+        ],
+      },
+      "The O-A visa is issued for one year and renewed annually. The O-X variant provides 5-year multiple-entry with annual in-country reporting. Both prohibit employment of any kind. No special tax benefits. The key advantage is cost: for someone who already holds ฿800,000 in a Thai bank or has a qualifying pension income, it is the most economical long-stay route. The key constraint: the 90-day reporting obligation (report to immigration every 90 consecutive days in-country) applies throughout.",
+      { h: "3. LTR Visa (Long-Term Resident)" },
+      "The Board of Investment's Long-Term Resident Visa provides a 10-year renewable stay and is the most powerful option for high-income buyers. It comes in four categories:",
+      {
+        ul: [
+          "**Wealthy Global Citizen**: $80,000/year personal income AND $500,000 invested in Thailand (qualifying assets include property, Thai government bonds and Thai equities).",
+          "**Wealthy Pensioner** (age 50+): $80,000/year passive income, OR $40,000/year income plus $250,000 Thai investment.",
+          "**Work-from-Thailand Professional**: $80,000/year income from an overseas employer (or $40,000 with a master's degree or IP); employer must have been in business 3+ years.",
+          "**Highly Skilled Professional**: employment in a specific qualifying sector with a salary of $80,000/year.",
+        ],
+      },
+      "LTR benefits include: a digital work permit allowing remote work for overseas clients, **17% flat income tax on Thai-source employment income** (well below the progressive rate for high earners), exemption from 90-day reporting, and four family members can be added as dependants. The Thai investment of $250,000–500,000 required for some tracks can be structured into real property under specific BOI guidance — however, the investment must comply with BOI conditions and is distinct from simply purchasing a leasehold villa. Get specialist advice before treating a property purchase as the LTR investment component.",
+      { h: "4. DTV (Destination Thailand Visa)" },
+      "Launched in 2024, the DTV is Thailand's first visa formally designed for remote workers and digital nomads. It is available to any age group with no property requirement:",
+      {
+        ul: [
+          "**Validity**: 5 years, multiple-entry.",
+          "**Stay per entry**: 180 days, extendable by a further 180 days in-country (giving up to 360 days in Thailand per visit before needing to re-enter).",
+          "**Financial**: $16,500/year verifiable income or $13,000 in savings.",
+          "**Work rights**: explicitly authorises remote work for overseas employers and overseas clients — the first Thai visa to do so.",
+          "**Tax**: standard Thai tax residency rules apply (resident if 180+ days in Thailand per year).",
+        ],
+      },
+      "The DTV suits a buyer who is a remote worker, does not need to employ Thai staff, and wants maximum flexibility without a large upfront fee. Standard Thai personal income tax rules mean that spending 180+ days in Thailand makes you a resident and potentially taxable on Thai-source income and remitted foreign income — take tax advice if you plan to spend close to or over the threshold.",
+      { h: "Permanent residency and citizenship" },
+      "Thailand allows applications for permanent residence after three consecutive years on an appropriate non-immigrant visa (O, B or LTR), subject to annual quota limits and an application window in the last quarter of each year. Property ownership is not a qualifying factor. Thai citizenship is available after 10 years of permanent residence; the process is lengthy and discretionary. Neither pathway is realistically accessible to most property buyers in the short to medium term.",
+      { h: "Practical planning: get the visa before you need it" },
+      "The common mistake is to buy the property first and sort the visa later. Visa applications — particularly the O-A (which requires a Thai bank account with the deposit seasoned for two months before first application) and the LTR (BOI review takes several weeks) — need lead time. If you plan to spend significant time on Phangan immediately after buying, line up the visa application in parallel with the conveyancing process, not after. For the full buying timeline and what the contracts stage involves, see [How to buy property on Koh Phangan step by step](/knowledge/how-to-buy-property-step-by-step).",
+    ],
+    takeaways: [
+      "A leasehold villa or land purchase on Koh Phangan gives you property rights only — no visa, no right of residency, no immigration benefit.",
+      "The THB 3M property investment visa requires a freehold condo registration at the Land Department; leasehold villas do not qualify.",
+      "Thailand Elite (5–20 years, no income requirement) is the simplest entry — pay a membership fee, no paperwork threshold to meet annually.",
+      "Retirement Visa (O-A): age 50+, ฿800,000 Thai bank deposit or ฿65,000/month income, health insurance — most cost-effective for retirees who qualify.",
+      "LTR Visa (10 years, BOI): requires $80,000/year income; includes a digital work permit and 17% flat income tax rate — strongest option for high earners.",
+    ],
+    sources: [
+      {
+        title: "BOI Thailand — LTR Visa programme (ltr.boi.go.th)",
+        url: "https://ltr.boi.go.th/",
+      },
+      {
+        title: "AIM Bangkok — 3M Property Investment Visa Thailand 2026: Confirmed Rules & Process",
+        url: "https://aimbangkok.com/investment-residency-thailand-3-million-baht/",
+      },
+      {
+        title: "Sukhothai Inter Law — Thailand Visa Property Purchase: Complete Guide for Foreign Buyers",
+        url: "https://re.sukhothaiinterlaw.com/real-estate-visa-thailand/",
+      },
+      {
+        title: "Terms.law — Thailand Long-Stay Visas 2026: DTV vs LTR vs Elite vs Retirement",
+        url: "https://terms.law/Thai/visas/visa-comparison-matrix.html",
+      },
+      {
+        title: "Siam Legal International — Retirement Visa Thailand 2026",
+        url: "https://www.siam-legal.com/thailand-visa/Thailand-Retirement-Visa.php",
+      },
+      {
+        title: "Thailand Elite Visa — official programme information",
+        url: "https://www.thaiembassy.com/thailand-visa/thai-elite-visa",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "Does buying property on Koh Phangan give me the right to live in Thailand?",
+  },
+  {
+    slug: "buying-in-chaloklum",
+    kbId: "kb-0029",
+    topic: "Phangan",
+    title: "Buying property in Chaloklum, Koh Phangan: the island's northern fishing village",
+    short:
+      "Chaloklum is Koh Phangan's northern fishing capital — a quiet bay village that has built a second identity as the island's diving hub. It suits buyers who value authenticity, water-sports access and a slower pace over resort amenities or short-stay yield, and who accept a longer drive to the island's main services.",
+    updated: "2026-06-22",
+    body: [
+      "Chaloklum (Ban Chaloklum) occupies a broad semicircular bay on Koh Phangan's northern tip, 20–30 minutes by motorbike from the main port at Thong Sala. It is one of the least-changed corners of the island: a working fishing village with long-tail boat fleets and seafood restaurants that have co-existed with a growing diver community, resident artists and long-stay expats for the better part of two decades. That mix — authenticity and water sport, not nightlife and resort — defines who buys here and why.",
+      { h: "Character and community" },
+      "Chaloklum remains genuinely Thai in character. The village has 7-Elevens, ATMs, a Sunday evening market with grilled seafood and local produce, and a cluster of dive centres and boat-charter operators. The expat community — writers, artists, divers and long-stay residents — has grown steadily, but the area has not been transformed by the kind of mass tourism that reached Haad Rin or the wellness-industry boom that reshaped Sri Thanu. For a buyer who wants an existing neighbourhood rather than a new-build estate, Chaloklum offers that.",
+      "The dive community is the most distinctive element. Chaloklum is the island's primary dive departure point — most of Koh Phangan's dive centres operate from here, offering courses and day trips to the Gulf of Thailand's most celebrated site, Sail Rock (Hin Bai), a granite pinnacle between Phangan and Koh Tao that regularly produces whale shark sightings. This gives the area a specific tenant profile: dive instructors, water-sports enthusiasts and adventure travellers who seek an active base rather than a wellness retreat.",
+      { h: "Beaches" },
+      {
+        ul: [
+          "**Malibu Beach** — the main beach on the western arm of the bay. Fine white sand, calm and shallow water, well-suited to families; note that at low tide the water retreats far, so plan swimming around the tidal cycle.",
+          "**Haad Khom** — a quieter cove 1.5–2 km east of the village centre, with a fringing reef good for snorkelling. The beach is walkable and remains relatively undeveloped. Avoid standing on the coral.",
+          "**Bottle Beach (Hat Khuat)** — one of the island's most scenic north-coast beaches, accessible only by longtail boat from Chaloklum pier (approximately 20 minutes). It is a day-trip destination, not a residential area, but easy access from Chaloklum is a practical advantage for buyers in the village.",
+        ],
+      },
+      { h: "What is available to buy" },
+      {
+        ul: [
+          "**Pool villas and houses** — the range runs from smaller renovation-ready properties starting around THB 6–8 million to contemporary sea-view villas in the THB 20–30 million range. A recently listed 3-bedroom villa with sea views was priced at THB 29 million (542 m²). Turnkey and furnished options are available.",
+          "**Condominiums and apartments** — a smaller segment than on the western coast, but present. Entry-level 2-bedroom beachfront apartments have been listed from around THB 3.5 million. Developments including Gaia Residence (an eco-villa project on elevated land with panoramic views, scheduled Q3 2026) reflect growing developer interest.",
+          "**Land plots** — available across a wide range (THB 2.1–62 million depending on size, title and sea-view premium). Chaloklum's topography is mixed: the flat bay-front land carries a beachfront premium, while hillside plots with views are more affordable per rai but may cross into Zone 3(1) restrictions above 80 m elevation under the 2025 environmental rules. See [Building zones on Koh Phangan](/knowledge/koh-phangan-building-zones).",
+        ],
+      },
+      { h: "Prices and market context" },
+      "Chaloklum has historically been priced below the southwest coast wellness belt, reflecting its quieter character and longer service drive. That discount is narrowing as the area develops. Land with genuine sea views and Chanote title in the bay and on accessible hillside positions currently trades from roughly THB 3–8 million per rai, with premium plots higher. Developer interest — a 104-room beachfront hotel and six beachfront pool villas are in planning, alongside a proposed boardwalk project — signals confidence in the area's trajectory, though construction timelines in northern Koh Phangan are less predictable than in the more-developed west. See [How land is priced on Koh Phangan](/knowledge/how-land-is-priced-price-per-rai).",
+      "All villa and land transactions for foreign buyers are structured as leasehold — a 30-year registered land lease plus building ownership via a registered superficies. Standard legal structure applies island-wide. See [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa).",
+      { h: "The rental case" },
+      "Chaloklum's tenant profile is distinct from the rest of the island: dive instructors on monthly arrangements, water-sports visitors staying two to four weeks, and long-stay expats taking a house for a season or longer. That profile suits monthly-let structures, which sit outside the Hotel Act's short-stay licensing requirement. Nightly-rate tourism is lower here than at beachfront locations on the western coast — owners aiming at short-stay holiday rentals will achieve lower gross rates than comparable product in Haad Yao or Sri Thanu, though occupancy among the dive-community segment is consistent.",
+      "Monthly rental rates for a well-located house or villa in Chaloklum run approximately THB 20,000–60,000 depending on size and specification. High season (December–April) sees stronger demand; November can be challenging due to the northeast monsoon, which brings heavier rain and rougher seas to the north coast. Plan for reduced occupancy in the October–November trough. See [Renting out your villa on Koh Phangan](/knowledge/renting-out-your-villa-rules-and-taxes).",
+      { h: "What to verify when buying here" },
+      "Standard island-wide due diligence applies — see [Due diligence before buying on Koh Phangan](/knowledge/due-diligence-checklist-koh-phangan). Specific points for Chaloklum:",
+      {
+        ul: [
+          "**Road access to eastern beaches**: roads to Haad Khom and the eastern side of the bay include narrow unpaved tracks that can be difficult in wet weather. Confirm year-round access to any plot that does not front the main road.",
+          "**Title class**: the area has a mix of Chanote and lower-grade titles. Verify the document class and check it against the Land Office record. See [Land titles on Koh Phangan](/knowledge/land-titles-chanote-vs-nor-sor-3).",
+          "**Elevation and zoning**: Chaloklum's terrain rises steeply behind the bay. Hillside plots above 80 m elevation fall under Zone 3(1) restrictions (max 6 m building height, minimum 50% green space, slope-sensitive rules). Confirm the specific plot's elevation before committing to a build design. See [Building zones on Koh Phangan](/knowledge/koh-phangan-building-zones).",
+          "**Tidal range**: flat plots near Malibu Beach should be checked against tidal and storm-surge data — the bay is open to the north and exposed to northeast monsoon swells in October–December.",
+          "**Utilities**: mains water and electricity reach the village core, but coverage on hillside and secondary roads is patchy. Verify meter registration and confirm the actual supply source for any property away from the main village. See [Utilities on Koh Phangan](/knowledge/utilities-water-electricity-internet-koh-phangan).",
+        ],
+      },
+      { h: "Who Chaloklum suits — and who it does not" },
+      "Chaloklum is the right choice for a buyer who wants an authentic Thai-character neighbourhood, values dive and snorkelling access over resort facilities, and whose rental model suits monthly-stay tenants rather than nightly bookings. Families who want calm shallow water and a real village feel, and long-stay expats who appreciate a community that has built up organically, are well served here.",
+      "It is not the right choice for buyers focused on maximising short-stay vacation-rental income — the western sea-view corridor (Haad Yao, Sri Thanu) commands significantly higher nightly rates from tourism-oriented guests. Nor is it suited to buyers who need frequent access to the island's full range of services without a daily drive: major medical, banking, and commercial amenities require the trip to Thong Sala. For buyers who want the calm north of the island without committing to the diving-community character, [Thong Nai Pan](/knowledge/buying-in-thong-sala) on the northeast coast offers a comparable pace with a different profile.",
+    ],
+    takeaways: [
+      "Chaloklum is Koh Phangan's northern fishing village and the island's primary diving hub — a quiet, authentic community 20–30 minutes from Thong Sala.",
+      "Property ranges from entry-level apartments around THB 3.5 million to sea-view villas at THB 20–30 million; land from roughly THB 3–8 million per rai with Chanote title.",
+      "The natural tenant base is divers, water-sports visitors and long-stay expats — monthly-let structures, not nightly short-stay, suit this market best.",
+      "Hillside plots above 80 m are subject to Zone 3(1) building restrictions under the 2025 environmental rules; road access to eastern beaches requires individual verification.",
+      "Developer interest is growing (hotel, pool villas, boardwalk projects in planning), but Chaloklum remains below the west coast on price and short-stay rental yield.",
+    ],
+    sources: [
+      {
+        title: "Islanders Properties — Chaloklum, Koh Phangan: Malibu & Haad Khom beaches, Sail Rock diving, access and daily life",
+        url: "https://islanders-properties.com/blog/chaloklum-koh-phangan-malibu-haad-khom-beaches-sail-rock-diving-access-and-daily-life-193",
+      },
+      {
+        title: "Koh Phangan Property — Chaloklum area listings",
+        url: "https://islanders-properties.com/thailand/koh-phangan/chaloklum/",
+      },
+      {
+        title: "Samui Island Realty — Chaloklum Property",
+        url: "https://samui-island-realty.com/area/chaloklum/",
+      },
+      {
+        title: "Keller Henson — Zasa Malibu Villa (Chaloklum project overview)",
+        url: "https://kellerhenson.com/project/chaloklum-village",
+      },
+      {
+        title: "Sukhothai Inter Law — New Zoning Law for Koh Samui, Koh Phangan & Koh Tao (May 2025)",
+        url: "https://re.sukhothaiinterlaw.com/new-zoning-law-for-koh-samui-koh-phangan-koh-tao-what-property-owners-developers-need-to-know-may-2025-update/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "What is Chaloklum like for buying property on Koh Phangan, and who does it suit?",
+  },
+  {
+    slug: "buying-in-haad-yao-haad-salad",
+    kbId: "kb-0030",
+    topic: "Phangan",
+    title: "Buying property in Haad Yao and Haad Salad, Koh Phangan: sunset views and the sea-view premium",
+    short:
+      "Haad Yao and Haad Salad form the northwest coast's premier sea-view corridor — two bays separated by a headland, both facing west for full-front sunsets and views across Ang Thong Marine Park. They attract mid-to-high net worth buyers seeking elevated hillside villas with snorkelling access and strong vacation-rental potential, at the island's top price tier.",
+    updated: "2026-06-22",
+    body: [
+      "Haad Yao and Haad Salad sit on Koh Phangan's northwest coast, 15–20 minutes from Thong Sala by scooter or taxi. They form a single investment corridor — two west-facing bays divided by a low headland — though each has a distinct character. Haad Yao is a long, open arc of white sand with a coral reef 300–400 metres offshore and a beachfront strip of cafés and small resorts. Haad Salad, a few kilometres north, is smaller, quieter and more secluded, with a tighter bay and elevated hillside development accessed through gated villa communities. Both share the same defining asset: a west-facing position that delivers consistent sunset views across the 42 islands of Ang Thong Marine Park.",
+      { h: "The character of the two bays" },
+      "Haad Yao is the more developed of the two, with a functioning beachfront — cafés, bars, a dive shop, kayak and SUP rental — and a mix of backpacker bungalows and boutique hillside hotels. The beach itself is fine white sand with easy entry and a coral reef within snorkelling range. The buyer-facing product here is almost entirely hillside: most villas for sale sit on the western ridge above the beach, with elevated sea views and a short walk or scooter ride to the shore. Direct beachfront product is rare and priced at a significant premium.",
+      "Haad Salad is quieter and more exclusively residential. The bay is narrower, the beachfront is less developed, and the hillside above it concentrates most of the island's gated villa communities — secluded developments with private pools, managed common areas and security. The character is closer to a private resort than a village. Buyers who want total privacy and a manicured environment typically prefer Haad Salad; buyers who want more community life and beach-bar access choose Haad Yao.",
+      "Both areas share a growing wellness and yoga layer — studios and health-food venues in the broader northwest corridor that began in Sri Thanu have extended northward — and attract a similar demographic: affluent digital nomads, mid-to-high net worth families and investors targeting vacation-rental income.",
+      { h: "What is available to buy" },
+      {
+        ul: [
+          "**Hillside sea-view pool villas** — the dominant product. Most range from 2 to 4 bedrooms; a typical 3-bedroom sea-view villa in Haad Yao currently sells for THB 20–30 million. At the upper end, larger or custom-built properties exceed THB 30 million, with a small number of exceptional hillside estates significantly higher. Haad Salad has seen luxury 4-bedroom villas listed at around THB 23.9 million. Off-plan projects are active in both bays: recent completions and imminent launches include Dolcevita 2 (8 units), Samma Villas (5 units, from USD 203K) and Asteria Villas, among others.",
+          "**Land plots (sea-view and beachfront)** — good sea-view land on the northwest coast currently trades from approximately THB 9–15 million per rai; beachfront land commands a minimum of THB 20 million per rai. A Chanote-titled sea-view plot of 1,420 m² in Haad Yao was recently listed at THB 6.2 million (now sold), reflecting the range at the lower end of the sea-view tier. Rare dual-view plots with sight lines to both Haad Yao and Haad Salad carry additional premium.",
+          "**Condominium units** — Haad Yao forms part of the Sri Thanu/Haad Yao corridor that concentrates the island's highest density of condominium projects. Foreign buyers can acquire freehold units within the 49% foreign-quota limit. This is one of the island's best locations to find a freehold entry point if a full villa leasehold is not the right structure.",
+        ],
+      },
+      { h: "Prices and investment case" },
+      "The northwest coast has seen the island's strongest price appreciation over the past four years, driven by concentrated international buyer demand for sea-view product. House prices across Koh Phangan appreciated 8.9% year-on-year from mid-2024 to mid-2025, with the western and northwestern hillside positions leading that trend. Prime institutional and private buying activity has clustered here specifically, attracted by panoramic views, privacy and the vacation-rental yield profile.",
+      "For the rental case, hillside sea-view villas in Haad Yao attract well-paying short-stay guests — holiday travellers who book on Airbnb or villa platforms specifically for the sunset view. Occupancy rates at well-managed premium properties can exceed 70–80%. At these occupancy levels, a villa purchased for THB 25–30 million can generate gross nightly income that supports net yields in the 8–12% range — though achieving the top of this range requires professional management, competitive pricing and consistent platform presence. Nightly rates at luxury 4-bedroom villas in this area run from THB 15,000–40,000+ depending on season and specification. The Hotel Act licensing requirement applies: properties accepting short stays under 30 days need a hotel licence. See [Renting out your villa on Koh Phangan](/knowledge/renting-out-your-villa-rules-and-taxes).",
+      "All villa and land transactions for foreign buyers are leasehold — 30-year registered land lease plus building ownership via registered superficies. For context on the legal structure, see [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa) and [Leasehold vs freehold](/knowledge/leasehold-vs-freehold).",
+      { h: "Elevation and the 2025 building rules" },
+      "The hillside character of both bays is the source of the premium — and the source of the main planning constraint. The 2025 environmental protection rules for Surat Thani Province establish Zone 3(1) restrictions above 80 m elevation: maximum building height 6 m, minimum 50% green space, slope-sensitive roof requirements, and prohibition on subdivision or resort-style development in hillside areas. Many of the sea-view plots in Haad Yao and Haad Salad sit above this 80 m threshold. Before committing to any plot, confirm the specific elevation and verify which zone applies to that parcel. Plots that cross the 80 m line may have their buildable footprint and height significantly reduced compared to lower-altitude alternatives.",
+      "Plots within a development that already holds a building permit were generally grandfathered under the prior rules — verify the permit status of any off-plan project carefully. See [Building zones on Koh Phangan](/knowledge/koh-phangan-building-zones) and [Building a villa on Koh Phangan](/knowledge/building-a-villa-koh-phangan).",
+      { h: "What to verify when buying here" },
+      "Standard due diligence applies throughout the island — see [Due diligence before buying on Koh Phangan](/knowledge/due-diligence-checklist-koh-phangan). Points specific to this corridor:",
+      {
+        ul: [
+          "**Elevation and zone**: confirm the exact elevation of the plot against the Zone 3(1) threshold (80 m). Many hillside sea-view plots exceed this; verify before signing.",
+          "**Title class**: Chanote titles are available in both bays but the mix includes Nor Sor 3 Gor. A sea-view plot's price should be benchmarked against its title class and condition. See [Land titles on Koh Phangan](/knowledge/land-titles-chanote-vs-nor-sor-3).",
+          "**Road access and gradient**: hillside access roads vary from paved gated-community drives to steep tracks. Confirm year-round driveable access and whether the right of way is registered.",
+          "**Hotel licence for short-stay rentals**: villas accepting guests for stays under 30 days require a hotel licence (Establishment Act). If the investment case depends on nightly bookings, confirm the licence is in place or obtainable before purchase.",
+          "**Utilities**: underground electricity is available in some developments; confirm supply reliability on the specific plot. Water supply on elevated hillside plots may be via private tank, well or tanker delivery — not mains. See [Utilities on Koh Phangan](/knowledge/utilities-water-electricity-internet-koh-phangan).",
+          "**View protection**: confirm that adjacent plots do not carry existing permits that would block the sea view the price is premised on.",
+        ],
+      },
+      { h: "Who this corridor suits — and who it does not" },
+      "Haad Yao and Haad Salad are the right choice for buyers who place a high value on sunset sea views, premium hillside living and strong vacation-rental income from a short-stay guest profile. The corridor commands the island's highest price-per-sqm for finished villas — buyers get what they pay for, but the premium is real. The investment case works best for active rental management: a villa left unmanaged on this hillside generates less than its potential; professionally managed and marketed, it is among the island's strongest yield positions.",
+      "The corridor is not right for buyers focused on community integration (Sri Thanu, to the south, is better for that), urban convenience (Thong Sala), or entry-level price points. The 2025 hillside-zone restrictions mean that raw land above 80 m is subject to build constraints that require careful verification before assuming the development outcome the price implies. For a buyer who wants a comparable lifestyle at a lower price with less hillside complexity, [Sri Thanu](/knowledge/buying-in-sri-thanu) immediately to the south is the most direct alternative.",
+    ],
+    takeaways: [
+      "Haad Yao and Haad Salad are Koh Phangan's premier sunset sea-view corridor — west-facing bays 15–20 minutes from Thong Sala, with views across Ang Thong Marine Park.",
+      "Typical 3-bedroom hillside sea-view villa prices run THB 20–30 million; sea-view land from roughly THB 9–15 million per rai; beachfront land from THB 20 million per rai.",
+      "Premium vacation-rental yields are achievable — well-managed properties report 70–80%+ occupancy and potential net yields of 8–12% — but short-stay lets require a hotel licence.",
+      "Many sea-view plots sit above 80 m elevation and are subject to Zone 3(1) building restrictions under the 2025 environmental rules; verify before committing to any hillside purchase.",
+      "Haad Salad is more secluded and gated; Haad Yao has more community life. Both suit mid-to-high net worth buyers; for community living at lower prices, Sri Thanu immediately south is the closest alternative.",
+    ],
+    sources: [
+      {
+        title: "Islanders Properties — Haad Yao, Koh Phangan: comprehensive area guide",
+        url: "https://islanders-properties.com/blog/haad-yao-koh-phangan-comprehensive-area-guide-beach-reef-sunsets-182",
+      },
+      {
+        title: "Conrad Properties — Sea view land for sale in Haad Yao",
+        url: "https://www.conradproperties.asia/properties/koh-phangan-sea-view-land-for-sale-haad-yao",
+      },
+      {
+        title: "Koh Phangan Homes — Haad Yao area listings",
+        url: "https://phanganlandandhome.com/area/haad-yao/",
+      },
+      {
+        title: "Koh Phangan Estate — Annual housing appreciation on Koh Phangan: key drivers, market trends & investment insights",
+        url: "https://kohphangan.estate/blog/tpost/de0ng2hti1-annual-housing-appreciation-on-koh-phang",
+      },
+      {
+        title: "Samui Phangan Real Estate — Koh Phangan property investment",
+        url: "https://www.samui-phangan-real-estate.com/koh-phangan-property-investment/",
+      },
+      {
+        title: "Sukhothai Inter Law — New Zoning Law for Koh Samui, Koh Phangan & Koh Tao (May 2025)",
+        url: "https://re.sukhothaiinterlaw.com/new-zoning-law-for-koh-samui-koh-phangan-koh-tao-what-property-owners-developers-need-to-know-may-2025-update/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "What are Haad Yao and Haad Salad like for buying property on Koh Phangan, and is the sea-view premium worth it?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

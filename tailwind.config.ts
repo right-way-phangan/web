@@ -1,64 +1,65 @@
 import type { Config } from "tailwindcss";
 import containerQueries from "@tailwindcss/container-queries";
 
-/**
- * RW palette — "Coastal Twilight" (redesign 2026-06).
- *
- * The Tailwind token NAMES (`forest` / `cream` / `brass`) are retained on
- * purpose: hundreds of class occurrences live across the app and a live site
- * with parallel work in flight is the wrong place for a risky 300-site rename.
- * Instead the token VALUES are remapped to the new direction, so the whole
- * surface shifts palette consistently with zero per-file churn. A dedicated
- * rename pass can follow later. See skill `brand-style`.
- *
- *   forest  → deep teal → ink   (dark brand colour: text, header/footer, buttons)
- *   cream   → sand / bone        (light surfaces, page background)
- *   brass   → warm amber          (single accent — sunset/coral, dosed)
- */
+// Palette tokens resolve through CSS variables (see globals.css) so a single
+// `.dark` class on <html> repaints the whole site. The variables hold RGB
+// triplets and feed `rgb(var(--x) / <alpha-value>)`, so every existing alpha
+// utility (text-forest-900/50, bg-forest-900/5, …) keeps working unchanged and
+// flips with the theme.
+//
+// Light theme keeps the exact warm-premium hexes. Dark theme *inverts* the
+// roles: `forest` (text/borders/tints) goes light, `cream` (surfaces/fills)
+// goes dark, `brass` (accent) goes a touch brighter. The one combo inversion
+// can't express — a deliberately dark surface with light text (header overlay,
+// dark sections, solid buttons) — uses the non-inverting `panel` / `panel-fg`
+// tokens instead.
+const withVar = (name: string) => `rgb(var(${name}) / <alpha-value>)`;
+
 const config: Config = {
+  darkMode: "class",
   content: ["./src/**/*.{ts,tsx,mdx}"],
   theme: {
     extend: {
       colors: {
-        // Light surfaces — warm sand / parchment (was "cream"). Clearly beige
-        // (hue ~38°), never plain white, so light sections read as "sand".
         cream: {
-          DEFAULT: "#F6EFE2",
-          50: "#FCF8F1", // lightest — elevated cards, stat strip
-          100: "#F6EFE2", // page background (body)
-          200: "#EDE1CC", // subtle panels / hairline fills
-          300: "#DCCBAB", // dividers, stone borders
-          400: "#C2A776", // deeper stone neutral
+          DEFAULT: withVar("--c-cream-100"),
+          50: withVar("--c-cream-50"),
+          100: withVar("--c-cream-100"),
+          200: withVar("--c-cream-200"),
+          300: withVar("--c-cream-300"),
+          400: withVar("--c-cream-400"),
         },
-        // Dark brand colour — deep PETROL TEAL resolving to ink (was "forest").
-        // High-chroma cold teal (hue ~185–191°, sat ~84%): full-bleed in the
-        // hero/footer it reads unmistakably as ocean-at-dusk, never near-black
-        // green. THIS is the shade that signals the new palette.
         forest: {
-          DEFAULT: "#085860",
-          50: "#E6F3F3", // lightest teal tint — light borders/bg
-          100: "#C6E6E7", // light teal
-          400: "#15A8A8", // luminous cyan-teal — hover / bright accents
-          500: "#0A6E74", // strong teal — primary button base, links
-          600: "#085860", // deep petrol teal
-          700: "#06434B", // deeper
-          900: "#04262E", // ink — darkest petrol (hero/footer, dark sections)
+          DEFAULT: withVar("--c-forest-500"),
+          50: withVar("--c-forest-50"),
+          100: withVar("--c-forest-100"),
+          400: withVar("--c-forest-400"),
+          500: withVar("--c-forest-500"),
+          600: withVar("--c-forest-600"),
+          700: withVar("--c-forest-700"),
+          900: withVar("--c-forest-900"),
         },
-        // Accent — warm amber / sunset (was "brass"). The VIVID amber lives at
-        // 300/400 for use on DARK teal-ink (hero, CTA band) where it glows like
-        // a sunset; the workhorse 500 is a DEEP amber tuned to clear AA both as
-        // small text on the light sand surface AND with light text on it as a
-        // fill — so the ~240 existing `*-brass-500` usages stay accessible with
-        // zero per-file churn. Use 300 on dark, 500/600/700 on light.
         brass: {
-          DEFAULT: "#985A0C",
-          200: "#F7D292", // lightest — decor / display accent on dark
-          300: "#F4BE5C", // glowing sunset GOLD — eyebrow/text on DARK sections
-          400: "#D98A1E", // vivid amber — fills/large text on dark
-          500: "#985A0C", // deep amber — AA as text on light + light text on fill
-          600: "#7F4E0B", // hover / stronger on light
-          700: "#5E3A08", // deepest — text on light (extra safe)
+          DEFAULT: withVar("--c-brass-500"),
+          200: withVar("--c-brass-200"),
+          300: withVar("--c-brass-300"),
+          400: withVar("--c-brass-400"),
+          500: withVar("--c-brass-500"),
+          600: withVar("--c-brass-600"),
+          700: withVar("--c-brass-700"),
         },
+        // Non-inverting: a deliberately dark surface + light text in *both*
+        // themes — header-over-hero, dark CTA bands, solid buttons, badges.
+        panel: {
+          DEFAULT: withVar("--c-panel"),
+          fg: withVar("--c-panel-fg"),
+        },
+        // Warm bronze — dark-theme structural accent (kant, badges, duotone,
+        // header edge, nav). A darker warm sibling of gold.
+        bronze: withVar("--c-bronze"),
+        // Reserved orange — urgency/scarcity only (e.g. "N units left"). Dosed
+        // so it stays an alert signal, not a second brand accent.
+        urgent: withVar("--c-orange"),
       },
       fontFamily: {
         // loaded via next/font in layout.tsx
@@ -73,21 +74,20 @@ const config: Config = {
         eyebrow: "0.3em",
       },
       transitionTimingFunction: {
-        // Premium spring-ish curves — never raw linear/ease-in-out (high-end craft).
-        smooth: "cubic-bezier(0.22, 1, 0.36, 1)", // gentle decel — entrances
-        silk: "cubic-bezier(0.32, 0.72, 0, 1)", // long luxurious ease — large moves
+        // Premium spring-ish curves — never raw linear/ease-in-out.
+        smooth: "cubic-bezier(0.22, 1, 0.36, 1)",
+        silk: "cubic-bezier(0.32, 0.72, 0, 1)",
       },
       boxShadow: {
-        // Soft, diffuse, never harsh — ambient elevation for the light surface.
-        soft: "0 1px 2px rgba(12, 27, 30, 0.04), 0 8px 24px -12px rgba(12, 27, 30, 0.18)",
-        lift: "0 2px 6px rgba(12, 27, 30, 0.05), 0 24px 48px -20px rgba(12, 27, 30, 0.28)",
-        // Inner top highlight for the double-bezel "inner core".
-        bezel: "inset 0 1px 1px rgba(255, 255, 255, 0.12)",
+        // Soft, diffuse ambient elevation (theme-tinted via panel ink).
+        soft: "0 1px 2px rgb(var(--c-panel) / 0.04), 0 8px 24px -12px rgb(var(--c-panel) / 0.18)",
+        lift: "0 2px 6px rgb(var(--c-panel) / 0.05), 0 24px 48px -20px rgb(var(--c-panel) / 0.28)",
+        bezel: "inset 0 1px 1px rgb(255 255 255 / 0.12)",
       },
       borderRadius: {
         // Exaggerated squircles for the double-bezel architecture.
         bezel: "1.75rem",
-        core: "1.375rem", // ~ bezel − p-1.5, concentric curves
+        core: "1.375rem",
       },
       keyframes: {
         marquee: {

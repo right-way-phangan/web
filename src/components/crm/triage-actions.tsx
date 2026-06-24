@@ -75,7 +75,7 @@ export function TriageActions({ leadId }: { leadId: number }) {
         </button>
       </div>
       {askDead && (
-        <div className="flex flex-wrap gap-2 rounded-xl border border-forest-900/10 bg-white p-3">
+        <div className="flex flex-wrap gap-2 rounded-xl border border-forest-900/10 bg-cream-50 p-3">
           {DEAD_REASONS.map((r) => (
             <button
               key={r}

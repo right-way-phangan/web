@@ -11,6 +11,12 @@ function rwFromPath(path: string | null): string {
   return m ? m[1].toUpperCase() : "";
 }
 
+/** Validate + normalise an explicit data-rw attribution hint. */
+function rwFromAttr(value: string | undefined): string {
+  const rw = (value ?? "").toUpperCase();
+  return /^RW-[A-Z]?\d{3,5}(-\d{1,3})?$/.test(rw) ? rw : "";
+}
+
 /** Marketing event name → own-DB engagement kind (messenger-first conversions). */
 const CLICK_KIND: Record<string, string> = {
   whatsapp_click: "wa_click",
@@ -56,8 +62,14 @@ export function ContactClickTracker() {
 
       track(event, { location: pathRef.current, href });
       // First-party: count the messenger click against the object (or site).
+      // Path tells us the object on /object/… pages; elsewhere (project /
+      // estate pages) the link carries an explicit data-rw so the click still
+      // attributes to the right catalog object instead of the site bucket.
       const kind = CLICK_KIND[event];
-      if (kind && !navigator.webdriver) trackObjectEvent(kind, rwFromPath(pathRef.current));
+      if (kind && !navigator.webdriver) {
+        const rw = rwFromPath(pathRef.current) || rwFromAttr(anchor.dataset.rw);
+        trackObjectEvent(kind, rw);
+      }
     }
 
     document.addEventListener("click", onClick, { capture: true });

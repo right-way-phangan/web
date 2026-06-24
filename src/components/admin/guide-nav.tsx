@@ -47,7 +47,7 @@ function SectionList({ pages, active }: { pages: GuidePageMeta[]; active?: strin
                       className={
                         "flex items-center justify-between gap-2 rounded-lg px-2.5 py-1.5 text-sm transition " +
                         (on
-                          ? "bg-forest-900 font-medium text-white"
+                          ? "bg-panel font-medium text-panel-fg"
                           : "text-forest-900/70 hover:bg-forest-900/5 hover:text-forest-900")
                       }
                     >
@@ -57,7 +57,7 @@ function SectionList({ pages, active }: { pages: GuidePageMeta[]; active?: strin
                           title="черновик на проверке"
                           className={
                             "shrink-0 rounded px-1 text-[10px] font-semibold " +
-                            (on ? "bg-white/20 text-white" : "bg-brass-500/15 text-brass-600")
+                            (on ? "bg-cream-50/20 text-panel-fg" : "bg-brass-500/15 text-brass-600")
                           }
                         >
                           ✎
@@ -67,7 +67,7 @@ function SectionList({ pages, active }: { pages: GuidePageMeta[]; active?: strin
                           <span
                             className={
                               "shrink-0 rounded px-1 text-[10px] font-semibold " +
-                              (on ? "bg-white/20 text-white" : "bg-brass-500/15 text-brass-600")
+                              (on ? "bg-cream-50/20 text-panel-fg" : "bg-brass-500/15 text-brass-600")
                             }
                           >
                             🆕
@@ -90,7 +90,7 @@ export function GuideNav({ pages, active }: { pages: GuidePageMeta[]; active?: s
   return (
     <>
       {/* Мобильное оглавление — сворачиваемое, чтобы не отодвигать статью */}
-      <details className="mb-6 rounded-xl border border-forest-900/10 bg-white p-4 lg:hidden">
+      <details className="mb-6 rounded-xl border border-forest-900/10 bg-cream-50 p-4 lg:hidden">
         <summary className="cursor-pointer select-none text-sm font-semibold text-forest-900">
           Оглавление справочника
         </summary>

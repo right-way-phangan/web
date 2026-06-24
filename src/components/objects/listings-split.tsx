@@ -3,10 +3,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { track } from "@vercel/analytics";
+import { motion, useReducedMotion } from "motion/react";
 import { LayoutGrid, Map as MapIcon } from "lucide-react";
 import type { RealEstateObject } from "@/types/object";
 import type { ViewMode } from "@/lib/filters/listings";
 import { ObjectCard } from "./object-card";
+import { Appear } from "@/components/motion/appear";
 import { MapSkeleton } from "./map-skeleton";
 import type { MapPoint, MapBounds } from "./listings-map";
 import { useMediaQuery } from "@/lib/hooks/use-media-query";
@@ -33,6 +35,7 @@ export function ListingsSplit({
   mode?: ViewMode;
 }) {
   const t = getListingsDict(useLocale());
+  const reduce = useReducedMotion();
   // Stable identity — recomputing each render would re-trigger the map's
   // FitBounds (deps on `points`) and snap the zoom back on every state change.
   const points: MapPoint[] = useMemo(
@@ -153,19 +156,26 @@ export function ListingsSplit({
           ) : (
             <div ref={listRef} className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
               {visibleObjects.map((o, i) => (
-                <div
+                <motion.div
                   key={o.id}
+                  // Плавное перетекание к новым позициям при фильтрации по карте
+                  // (area-sync). Только позиция, без размера; reduced-motion off.
+                  layout={reduce ? false : "position"}
                   data-rw={o.rwNumber}
                   onMouseEnter={() => setHoveredRw(o.rwNumber)}
                   onMouseLeave={() => setHoveredRw(null)}
                   className={cn(
-                    "scroll-mt-24 rounded-sm transition-shadow",
+                    "scroll-mt-24 h-full rounded-sm transition-shadow",
                     activeRw === o.rwNumber &&
                       "ring-2 ring-brass-500 ring-offset-2 ring-offset-cream-100",
                   )}
                 >
-                  <ObjectCard object={o} priority={i < 4} priceMode={mode} />
-                </div>
+                  {/* Каскадное проявление при выходе в кадр (Appear: SSR-safe,
+                      над сгибом — мгновенно, reduced-motion отключает). */}
+                  <Appear className="h-full" y={20} delay={Math.min(i, 7) * 0.06}>
+                    <ObjectCard object={o} priority={i < 4} priceMode={mode} />
+                  </Appear>
+                </motion.div>
               ))}
             </div>
           )}
@@ -209,7 +219,7 @@ export function ListingsSplit({
                   <button
                     type="button"
                     onClick={() => setAreaSync(false)}
-                    className="ml-1 rounded-sm bg-forest-500 px-2 py-0.5 text-[11px] font-medium text-cream-100 hover:bg-forest-400"
+                    className="ml-1 rounded-sm bg-panel px-2 py-0.5 text-[11px] font-medium text-panel-fg hover:bg-forest-400"
                   >
                     {t.showAll}
                   </button>
@@ -250,7 +260,7 @@ function MobileTab({
       aria-pressed={active}
       className={cn(
         "inline-flex items-center gap-1.5 rounded-sm px-3 py-1.5 text-xs font-medium transition-colors",
-        active ? "bg-forest-500 text-cream-100" : "text-forest-500/70 hover:text-forest-500",
+        active ? "bg-panel text-panel-fg" : "text-forest-500/70 hover:text-forest-500",
       )}
     >
       <Icon className="h-3.5 w-3.5" />

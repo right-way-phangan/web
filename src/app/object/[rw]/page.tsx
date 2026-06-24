@@ -7,8 +7,6 @@ import { DISTRICTS } from "@/content/districts";
 import { getObjectByRwNumber, getAnyObjectByRwNumber, getPublicObjects, slimObjectForCard, nearbyListings } from "@/lib/data/objects";
 import { UnavailableObject } from "@/components/objects/unavailable-object";
 import { isProjectUnit, parentProjectRw, projectSlug, getPublicProjects } from "@/lib/data/projects";
-import { formatPriceTHB, formatPricePerRai, formatApproxUSD } from "@/lib/utils/price";
-import { getUsdPerThb } from "@/lib/data/fx";
 import { RoiCalculator } from "@/components/calculator/roi-calculator";
 import { Breadcrumbs } from "@/components/objects/breadcrumbs";
 import { BuyingCosts } from "@/components/objects/buying-costs";
@@ -26,14 +24,16 @@ import { RelatedListings } from "@/components/objects/related-listings";
 import { RecentlyViewed } from "@/components/objects/recently-viewed";
 import { TrackView } from "@/components/objects/track-view";
 import { PriceContextBadge } from "@/components/objects/price-context-badge";
+import { ObjectPrice } from "@/components/objects/object-price";
 import { SaveButton } from "@/components/objects/save-button";
 import { ShareButton } from "@/components/objects/share-button";
 import { BrochureButton } from "@/components/objects/brochure-button";
 import { PrintBrochure } from "@/components/objects/print-brochure";
+import { ObjectDescription } from "@/components/objects/object-description";
+import { objectDescriptionText } from "@/lib/generate/object-description";
 import { ObjectJsonLd } from "@/components/objects/object-json-ld";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { Appear } from "@/components/motion/appear";
-import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 import { getSiteUrl } from "@/lib/site-url";
 import { cleanMetaDescription } from "@/lib/utils/meta";
 
@@ -57,8 +57,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
   const districtSuffix = object.district ? ` in ${object.district}` : "";
   const ogTitle = `${object.titleEn} — ${object.rwNumber}`;
+  // Авто-описание первично (legacy amoCRM-заметки в descriptionRaw в архиве —
+  // решение 2026-06-17). Generic-строка — только если генератор вернул пусто.
   const description =
-    cleanMetaDescription(object.descriptionRaw) ??
+    cleanMetaDescription(objectDescriptionText(object, "en")) ??
     `${object.type} on Koh Phangan${districtSuffix} — Right Way listing ${object.rwNumber}.`;
   return {
     title: ogTitle,
@@ -100,7 +102,6 @@ export default async function ObjectPage({ params }: Props) {
   // сериализуется в payload каждой страницы объекта через похожие/калькулятор.
   const catalog = (await getPublicObjects()).map(slimObjectForCard);
   const nearby = nearbyListings(catalog, object);
-  const usdPerThb = await getUsdPerThb();
   const siteUrl = getSiteUrl();
   const pageUrl = `${siteUrl}/object/${object.rwNumber}`;
 
@@ -120,16 +121,6 @@ export default async function ObjectPage({ params }: Props) {
       trailLabel = "Projects";
     }
   }
-
-  const mobilePriceLabel = object.priceThb
-    ? formatPriceTHB(object.priceThb)
-    : object.pricePerRai
-      ? formatPricePerRai(object.pricePerRai)
-      : object.rentPerMonth
-        ? `${formatPriceTHB(object.rentPerMonth)} /mo`
-        : object.rentPerRaiMonth
-          ? `${formatPriceTHB(object.rentPerRaiMonth)} /rai/mo`
-          : undefined;
 
   return (
     <>
@@ -164,9 +155,9 @@ export default async function ObjectPage({ params }: Props) {
         <header className="mt-8 md:mt-12">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <SectionEyebrow>
+              <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
                 {object.rwNumber} · {object.type}
-              </SectionEyebrow>
+              </p>
               <VettedBadge ddStatus={object.ddStatus} ddDate={object.ddDate} />
             </div>
             <div className="flex shrink-0 items-center gap-2 print:hidden">
@@ -177,48 +168,14 @@ export default async function ObjectPage({ params }: Props) {
           </div>
           <h1 className="mt-3 max-w-3xl text-balance">{object.titleEn}</h1>
 
-          {object.priceThb ? (
-            <>
-              <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                <span className="num text-3xl text-forest-900 md:text-4xl">
-                  {formatPriceTHB(object.priceThb)}
-                </span>
-                <span className="num text-sm text-forest-500/60">
-                  {formatApproxUSD(object.priceThb, usdPerThb)}
-                </span>
-                {object.type === "Land" && object.pricePerRai ? (
-                  <span className="text-sm text-forest-500/70">
-                    {formatPricePerRai(object.pricePerRai)}
-                  </span>
-                ) : null}
-              </div>
-              <PriceContextBadge object={object} catalog={catalog} />
-            </>
-          ) : object.pricePerRai ? (
-            <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-              <span className="num text-3xl text-forest-900 md:text-4xl">
-                {formatPricePerRai(object.pricePerRai)}
-              </span>
-            </div>
-          ) : object.rentPerMonth ? (
-            <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-              <span className="num text-3xl text-forest-900 md:text-4xl">
-                {formatPriceTHB(object.rentPerMonth)}
-              </span>
-              <span className="text-sm text-forest-500/70">/ month</span>
-            </div>
-          ) : object.rentPerRaiMonth ? (
-            <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-              <span className="num text-3xl text-forest-900 md:text-4xl">
-                {formatPriceTHB(object.rentPerRaiMonth)}
-              </span>
-              <span className="text-sm text-forest-500/70">/ rai / month</span>
-            </div>
-          ) : (
-            <p className="mt-4 text-lg italic text-forest-500/70">
-              Price on request
-            </p>
-          )}
+          <ObjectPrice
+            priceThb={object.priceThb}
+            pricePerRai={object.pricePerRai}
+            rentPerMonth={object.rentPerMonth}
+            rentPerRaiMonth={object.rentPerRaiMonth}
+            isLand={object.type === "Land"}
+          />
+          {object.priceThb ? <PriceContextBadge object={object} catalog={catalog} /> : null}
 
           {object.district ? (
             <div className="mt-4 flex flex-wrap items-center gap-2 text-sm text-forest-500/70">
@@ -261,18 +218,9 @@ export default async function ObjectPage({ params }: Props) {
         <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_360px] lg:gap-16">
           {/* Left: content */}
           <div className="space-y-16">
-            {object.descriptionRaw ? (
-              <Appear>
-                <section>
-                  <h2 className="font-serif text-3xl text-forest-900">
-                    About this property
-                  </h2>
-                  <div className="mt-6 max-w-prose space-y-4 text-base leading-relaxed text-forest-500/85 whitespace-pre-line">
-                    {object.descriptionRaw}
-                  </div>
-                </section>
-              </Appear>
-            ) : null}
+            <Appear>
+              <ObjectDescription object={object} locale="en" />
+            </Appear>
 
             <Appear>
               <InvestmentHighlights object={object} />
@@ -346,7 +294,13 @@ export default async function ObjectPage({ params }: Props) {
           <RecentlyViewed catalog={catalog} excludeRw={object.rwNumber} />
         </Appear>
       </article>
-      <MobileCtaBar rwNumber={object.rwNumber} priceLabel={mobilePriceLabel} />
+      <MobileCtaBar
+        rwNumber={object.rwNumber}
+        priceThb={object.priceThb}
+        pricePerRai={object.pricePerRai}
+        rentPerMonth={object.rentPerMonth}
+        rentPerRaiMonth={object.rentPerRaiMonth}
+      />
       <TrackView rw={object.rwNumber} />
     </>
   );

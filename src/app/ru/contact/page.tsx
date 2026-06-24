@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { MessageCircle, Phone, Mail } from "lucide-react";
+import { MessageCircle, Send, Phone, Mail } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
-import { Reveal } from "@/components/sections/reveal";
 import { LeadForm } from "@/components/forms/lead-form";
 import {
   siteConfig,
   whatsappLink,
   telegramDmLink,
+  phoneDisplay,
+  telLink,
 } from "@/lib/site-config";
 import { getContactDict } from "@/lib/i18n/dictionaries";
 
@@ -30,51 +31,48 @@ export default function RussianContactPage() {
         imageAlt="Виллы над морем на Ко Пангане"
       />
 
-      <section className="container-prose py-24 md:py-32">
+      <section className="container-prose py-16 md:py-24">
         <div className="grid gap-10 md:grid-cols-[1.2fr_1fr] md:gap-16">
-          <Reveal>
-            <div className="rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5">
-              <div className="rounded-core bg-cream-50 p-6 shadow-bezel md:p-8">
-                <h2 className="font-serif text-2xl text-forest-900 md:text-3xl">
-                  {d.formHeading}
-                </h2>
-                <p className="mt-2 mb-6 text-sm text-forest-500/70">{d.formLede}</p>
-                <LeadForm source="contact" layout="block" locale="ru" />
-              </div>
-            </div>
-          </Reveal>
+          <div>
+            <h2 className="font-serif text-2xl text-forest-900 md:text-3xl">
+              {d.formHeading}
+            </h2>
+            <p className="mt-2 mb-6 text-sm text-forest-500/70">{d.formLede}</p>
+            <LeadForm source="contact" layout="block" locale="ru" />
+          </div>
 
           <aside className="space-y-5">
             <a
               href={whatsappLink("Здравствуйте — хочу узнать про объекты на Пангане.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="block rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5 transition-shadow hover:shadow-soft"
+              className="flex items-center gap-3 rounded-sm border border-forest-500/10 bg-cream-50 p-4 transition-colors hover:border-forest-500/30"
             >
-              <div className="flex items-center gap-3 rounded-core bg-cream-50 p-4 shadow-bezel">
-                <MessageCircle className="h-5 w-5 text-forest-500" />
-                <span className="text-sm text-forest-900">WhatsApp · +66 800-04-4960</span>
-              </div>
+              <MessageCircle className="h-5 w-5 text-forest-500" />
+              <span className="text-sm text-forest-900">WhatsApp · {phoneDisplay()}</span>
             </a>
             <a
               href={telegramDmLink()}
               target="_blank"
               rel="noopener noreferrer"
-              className="block rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5 transition-shadow hover:shadow-soft"
+              className="flex items-center gap-3 rounded-sm border border-forest-500/10 bg-cream-50 p-4 transition-colors hover:border-forest-500/30"
             >
-              <div className="flex items-center gap-3 rounded-core bg-cream-50 p-4 shadow-bezel">
-                <Phone className="h-5 w-5 text-forest-500" />
-                <span className="text-sm text-forest-900">Telegram</span>
-              </div>
+              <Send className="h-5 w-5 text-forest-500" />
+              <span className="text-sm text-forest-900">Telegram</span>
+            </a>
+            <a
+              href={telLink()}
+              className="flex items-center gap-3 rounded-sm border border-forest-500/10 bg-cream-50 p-4 transition-colors hover:border-forest-500/30"
+            >
+              <Phone className="h-5 w-5 text-forest-500" />
+              <span className="text-sm text-forest-900">Позвонить · {phoneDisplay()}</span>
             </a>
             <a
               href={`mailto:${siteConfig.contact.email}`}
-              className="block rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5 transition-shadow hover:shadow-soft"
+              className="flex items-center gap-3 rounded-sm border border-forest-500/10 bg-cream-50 p-4 transition-colors hover:border-forest-500/30"
             >
-              <div className="flex items-center gap-3 rounded-core bg-cream-50 p-4 shadow-bezel">
-                <Mail className="h-5 w-5 text-forest-500" />
-                <span className="text-sm text-forest-900">{siteConfig.contact.email}</span>
-              </div>
+              <Mail className="h-5 w-5 text-forest-500" />
+              <span className="text-sm text-forest-900">{siteConfig.contact.email}</span>
             </a>
           </aside>
         </div>

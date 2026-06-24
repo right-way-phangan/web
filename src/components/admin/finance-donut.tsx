@@ -6,15 +6,17 @@ import { fmtMoney, type Currency, type DisplayCurrency } from "@/lib/data/financ
  * окружности с pathLength=100 (значения = проценты).
  */
 
-// Брендовая палитра сегментов: доминанта brass → forest → светлые оттенки.
+// Палитра сегментов через CSS-переменные (globals.css): светлая = брендовые
+// hex (brass → forest → светлые), тёмная = читаемый набор на графите (золото/
+// бронза/шалфей вместо тёмно-зелёных, которые на графите исчезают).
 const COLORS = [
-  "#B5651D", // brass-500
-  "#2F5546", // forest-400
-  "#DDA86A", // brass-300
-  "#1F3A2E", // forest-500
-  "#E8C9A0", // brass-200
-  "#C5D2CB", // forest-100
-  "#E8E0CF", // cream-300
+  "var(--seg-1)",
+  "var(--seg-2)",
+  "var(--seg-3)",
+  "var(--seg-4)",
+  "var(--seg-5)",
+  "var(--seg-6)",
+  "var(--seg-7)",
 ];
 
 export function FinanceDonut({
@@ -37,7 +39,7 @@ export function FinanceDonut({
     <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-center sm:gap-8">
       <div className="relative shrink-0">
         <svg viewBox="0 0 42 42" className="h-44 w-44">
-          <circle cx="21" cy="21" r="15.915" fill="none" stroke="#F2EDE3" strokeWidth="5" />
+          <circle cx="21" cy="21" r="15.915" fill="none" style={{ stroke: "var(--donut-track)" }} strokeWidth="5" />
           {segments.map((seg, i) => {
             const pct = (seg.value / total) * 100;
             const dash = `${pct} ${100 - pct}`;
@@ -50,7 +52,7 @@ export function FinanceDonut({
                 cy="21"
                 r="15.915"
                 fill="none"
-                stroke={COLORS[i % COLORS.length]}
+                style={{ stroke: COLORS[i % COLORS.length] }}
                 strokeWidth="5"
                 strokeDasharray={dash}
                 strokeDashoffset={offset}

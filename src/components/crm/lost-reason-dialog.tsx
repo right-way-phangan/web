@@ -25,8 +25,8 @@ export function LostReasonDialog({
   const [other, setOther] = useState("");
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-forest-900/40 p-4">
-      <div className="w-full max-w-sm rounded-2xl bg-white p-5 shadow-xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-panel/40 p-4">
+      <div className="w-full max-w-sm rounded-2xl bg-cream-50 p-5 shadow-xl">
         <h3 className="text-sm font-semibold text-forest-900">
           Почему потеряли{contactName ? ` ${contactName}` : " лид"}?
         </h3>
@@ -58,7 +58,7 @@ export function LostReasonDialog({
           <button
             type="submit"
             disabled={!other.trim()}
-            className="rounded-lg bg-forest-900 px-3 py-2 text-sm font-medium text-white disabled:opacity-40"
+            className="rounded-lg bg-panel px-3 py-2 text-sm font-medium text-panel-fg disabled:opacity-40"
           >
             OK
           </button>

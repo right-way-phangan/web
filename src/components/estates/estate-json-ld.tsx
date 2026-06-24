@@ -24,6 +24,13 @@ export function EstateJsonLd({
   url: string;
   locale: Locale;
 }) {
+  const origin = (() => {
+    try {
+      return new URL(url).origin;
+    } catch {
+      return "";
+    }
+  })();
   const data = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -36,12 +43,14 @@ export function EstateJsonLd({
       itemListElement: estate.plots.map((plot, i) => {
         const price =
           plotPriceVisible(plot.status) && plot.tenure === "Freehold" ? plot.priceThb : undefined;
+        const photo = plot.photos?.[0];
         return {
           "@type": "ListItem",
           position: i + 1,
           item: {
             "@type": "Offer",
             name: plot.code,
+            url: `${url}/${plot.code}`,
             availability: AVAILABILITY[plot.status],
             ...(price
               ? { price, priceCurrency: "THB" }
@@ -49,6 +58,10 @@ export function EstateJsonLd({
             itemOffered: {
               "@type": "Place",
               name: `${estate.name[locale]} — ${plot.code}`,
+              ...(photo && origin ? { image: `${origin}${photo}` } : {}),
+              ...(plot.areaSqm
+                ? { floorSize: { "@type": "QuantitativeValue", value: plot.areaSqm, unitCode: "MTK" } }
+                : {}),
               address: { "@type": "PostalAddress", addressLocality: estate.district, addressCountry: "TH" },
               ...(estate.lat && estate.lng
                 ? { geo: { "@type": "GeoCoordinates", latitude: estate.lat, longitude: estate.lng } }

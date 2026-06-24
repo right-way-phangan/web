@@ -15,21 +15,20 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import type { RealEstateObject, ObjectType } from "@/types/object";
-import { formatPriceCompact, formatUsdCompact } from "@/lib/utils/price";
 import { BLUR_PLACEHOLDER } from "@/lib/utils/blur";
 import { useLocale, localeHref } from "@/lib/i18n/use-locale";
 import { getListingsDict, type ListingsDict } from "@/lib/i18n/dictionaries";
+import { zoneCategory, buildWarnLabels } from "@/lib/data/zone-rules";
 import { SaveButton } from "./save-button";
-import { parseListingDate } from "@/lib/utils/listing-date";
+import { MagicCard } from "@/components/ui/magic-card";
+import { useCurrency } from "@/components/ui/currency";
 
 const NEW_BADGE_DAYS = 14;
 
 function isFreshListing(dateAdded?: string): boolean {
   if (!dateAdded) return false;
-  // `dateAdded` is a Unix-seconds string — Date.parse can't read it; use the
-  // tolerant parser. Unparseable → treated as not fresh (sentinel epoch 0).
-  const added = parseListingDate(dateAdded, new Date(0)).getTime();
-  if (added === 0) return false;
+  const added = Date.parse(dateAdded);
+  if (Number.isNaN(added)) return false;
   return Date.now() - added < NEW_BADGE_DAYS * 24 * 60 * 60 * 1000;
 }
 
@@ -86,8 +85,11 @@ export function ObjectCard({ object, priority = false, priceMode = "buy" }: Prop
   const showCover = Boolean(object.coverImage) && !coverFailed;
   const locale = useLocale();
   const t = getListingsDict(locale);
+  const { fmt } = useCurrency();
   // Explicit locale so server/client number formatting matches (hydration).
   const nl = locale === "ru" ? "ru-RU" : "en-US";
+  const zoneCat = zoneCategory(object, locale);
+  const buildWarns = buildWarnLabels(object, locale);
 
   return (
     <div className="group relative flex h-full flex-col">
@@ -98,8 +100,11 @@ export function ObjectCard({ object, priority = false, priceMode = "buy" }: Prop
         href={localeHref(locale, `/object/${object.rwNumber}`) as Route}
         target="_blank"
         rel="noopener"
-        className="flex h-full flex-col overflow-hidden rounded-xl border border-forest-900/8 bg-cream-50 shadow-soft transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1.5 hover:border-forest-900/15 hover:shadow-lift motion-reduce:hover:translate-y-0"
+        className="flex h-full flex-col overflow-hidden rounded-sm card-elevated transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-panel/15 motion-reduce:hover:translate-y-0"
       >
+      {/* MagicCard несёт поверхность + рамку-spotlight (brass, следит за
+          курсором). card-elevated/бронзовый кант/parallax остаются на Link. */}
+      <MagicCard className="flex h-full flex-col">
       <div
         className="relative aspect-[4/3] overflow-hidden bg-forest-500/5"
         style={
@@ -132,12 +137,19 @@ export function ObjectCard({ object, priority = false, priceMode = "buy" }: Prop
           </div>
         )}
 
+        {/* Hover-дуотон (только dark): мягкий бронзовый грейд обложки при
+            наведении — премиальный «оживающий» эффект. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-[1] hidden bg-bronze/25 opacity-0 mix-blend-soft-light transition-opacity duration-500 group-hover:opacity-100 motion-reduce:transition-none dark:block"
+        />
+
         <div className="absolute left-3 top-3 flex items-center gap-1.5">
           <span className="rounded-sm bg-cream-50/90 px-2 py-1 text-[10px] font-medium uppercase tracking-[0.15em] text-forest-500 backdrop-blur-sm">
             {object.rwNumber}
           </span>
           {isFreshListing(object.dateAdded) ? (
-            <span className="rounded-sm bg-brass-500 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-cream-50">
+            <span className="rounded-sm bg-brass-500 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-panel-fg">
               {t.newBadge}
             </span>
           ) : null}
@@ -175,43 +187,38 @@ export function ObjectCard({ object, priority = false, priceMode = "buy" }: Prop
           <p className="num text-lg text-forest-900">
             {object.rentPerMonth ? (
               <>
-                {formatPriceCompact(object.rentPerMonth)}
+                {fmt(object.rentPerMonth)}
                 <span className="ml-2 text-xs font-sans text-forest-500/70">{t.perMonthShort}</span>
               </>
             ) : (
               <>
-                {formatPriceCompact(object.rentPerRaiMonth!)}
+                {fmt(object.rentPerRaiMonth!)}
                 <span className="ml-2 text-xs font-sans text-forest-500/70">{t.perRaiMonth}</span>
               </>
             )}
           </p>
         ) : object.priceThb ? (
           <p className="num text-lg text-forest-900">
-            {formatPriceCompact(object.priceThb)}
-            {object.priceUsd ? (
-              <span className="ml-2 text-xs font-sans font-normal text-forest-500/60">
-                {formatUsdCompact(object.priceUsd)}
-              </span>
-            ) : null}
+            {fmt(object.priceThb)}
             {object.type === "Land" && object.pricePerRai ? (
               <span className="ml-2 text-xs font-sans text-forest-500/70">
-                {formatPriceCompact(object.pricePerRai)}{t.perRai}
+                {fmt(object.pricePerRai)}{t.perRai}
               </span>
             ) : null}
           </p>
         ) : object.pricePerRai ? (
           <p className="num text-lg text-forest-900">
-            {formatPriceCompact(object.pricePerRai)}
+            {fmt(object.pricePerRai)}
             <span className="ml-2 text-xs font-sans text-forest-500/70">{t.perRai}</span>
           </p>
         ) : object.rentPerMonth ? (
           <p className="num text-lg text-forest-900">
-            {formatPriceCompact(object.rentPerMonth)}
+            {fmt(object.rentPerMonth)}
             <span className="ml-2 text-xs font-sans text-forest-500/70">{t.perMonthShort}</span>
           </p>
         ) : object.rentPerRaiMonth ? (
           <p className="num text-lg text-forest-900">
-            {formatPriceCompact(object.rentPerRaiMonth)}
+            {fmt(object.rentPerRaiMonth)}
             <span className="ml-2 text-xs font-sans text-forest-500/70">{t.perRaiMonth}</span>
           </p>
         ) : (
@@ -229,6 +236,18 @@ export function ObjectCard({ object, priority = false, priceMode = "buy" }: Prop
             <span>· {object.bedrooms} {t.bed}</span>
           ) : null}
 
+          {zoneCat || buildWarns.length > 0 ? (
+            <span
+              className="inline-flex items-center gap-1"
+              title={buildWarns.length > 0 ? buildWarns.join(" · ") : undefined}
+            >
+              {buildWarns.length > 0 ? (
+                <span aria-hidden className="text-amber-600 dark:text-amber-400">▲</span>
+              ) : null}
+              {zoneCat ? <span>{zoneCat}</span> : null}
+            </span>
+          ) : null}
+
           {object.documentType ? (
             <span className="ml-auto inline-flex items-center gap-1">
               <ShieldCheck className="h-3.5 w-3.5" />
@@ -237,6 +256,7 @@ export function ObjectCard({ object, priority = false, priceMode = "buy" }: Prop
           ) : null}
         </div>
         </div>
+      </MagicCard>
       </Link>
     </div>
   );
@@ -250,7 +270,7 @@ function FeatureBadge({
   label: string;
 }) {
   return (
-    <div className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-sm bg-forest-500/85 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.15em] text-cream-100 backdrop-blur-sm">
+    <div className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-sm bg-panel/85 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.15em] text-panel-fg backdrop-blur-sm">
       <Icon className="h-3 w-3" />
       {label}
     </div>

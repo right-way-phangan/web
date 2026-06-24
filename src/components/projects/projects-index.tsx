@@ -5,7 +5,6 @@ import { getProjectsDict } from "@/lib/i18n/dictionaries";
 import { localePath } from "@/lib/i18n/locale-path";
 import { ProjectCard } from "./project-card";
 import { Appear } from "@/components/motion/appear";
-import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 
 /** Shared index grid for /projects and /ru/projects. */
 export async function ProjectsIndex({ locale }: { locale: Locale }) {
@@ -14,8 +13,8 @@ export async function ProjectsIndex({ locale }: { locale: Locale }) {
   const allObjects = await getAllObjects();
 
   return (
-    <section className="container-prose py-24 md:py-32">
-      <SectionEyebrow>{t.eyebrow}</SectionEyebrow>
+    <section className="container-prose py-10 md:py-14 aura">
+      <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">{t.eyebrow}</p>
       <h1 className="mt-3 max-w-3xl text-balance">{t.indexTitle}</h1>
       <p className="mt-3 max-w-2xl text-base text-forest-500/70">{t.indexLede}</p>
       <p className="mt-2 text-sm text-forest-500/55">{t.count(projects.length)}</p>

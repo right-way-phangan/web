@@ -2,7 +2,6 @@ import { getPublicObjects } from "@/lib/data/objects";
 import { getSiteUrl } from "@/lib/site-url";
 import { siteConfig } from "@/lib/site-config";
 import { UTM } from "@/lib/analytics/utm";
-import { parseListingDate } from "@/lib/utils/listing-date";
 
 /**
  * RSS 2.0 feed of the newest public listings: aggregators, feed readers and
@@ -44,7 +43,7 @@ export async function GET() {
         `      <title>${esc(`${o.titleEn} — ${o.rwNumber}`)}</title>`,
         `      <link>${esc(linkUrl)}</link>`,
         `      <guid isPermaLink="true">${url}</guid>`,
-        `      <pubDate>${parseListingDate(o.dateAdded, new Date()).toUTCString()}</pubDate>`,
+        `      <pubDate>${new Date(o.dateAdded!).toUTCString()}</pubDate>`,
         `      <description>${esc(bits.join(" · "))}</description>`,
         o.coverImage
           ? `      <enclosure url="${esc(o.coverImage)}" length="0" type="image/jpeg"/>`

@@ -132,20 +132,18 @@ export type PersonalExpense = {
   note?: string;
 };
 
-/** Личные расходы основателя в месяц (Панган, режим bootstrap). */
-export const personalExpenses: PersonalExpense[] = [
-  { item: "Домик (аренда)", thbPerMonth: 27000 },
-  { item: "Еда", thbPerMonth: 20000 },
-  { item: "Виза (border run ~раз/мес)", thbPerMonth: 8000, note: "старая компания закрывается → нет визы; проверить DTV" },
-  { item: "Бензин", thbPerMonth: 5000 },
-  { item: "Спортзал", thbPerMonth: 2700 },
-  { item: "Прочее (электр./вода/связь/здоровье)", thbPerMonth: 5000, estimate: true },
-];
+/**
+ * Личные расходы основателя в месяц (Панган, режим bootstrap).
+ * 🔒 ПРИВАТНО: реальные суммы НЕ в публичном репо — они в приватной Google-таблице,
+ * лист `Personal` (item | thb | estimate | note). Здесь пусто; дашборд подставляет
+ * значения из таблицы (см. loadPersonalFromSheet). Fallback без таблицы — пусто.
+ */
+export const personalExpenses: PersonalExpense[] = [];
 
-/** Наличные на руках сейчас (THB). Источник — личный проект «Сам себе Я». */
-export const cashOnHand = 20000;
+/** Наличные на руках (THB). 🔒 Приватно: реальное — лист `Runway` таблицы (cash). */
+export const cashOnHand = 0;
 
-/** Дебиторка — мне должны (THB). Источник: ~/Сам себе Я/finances/долги-серёжи.md. */
+/** Дебиторка — мне должны (THB). 🔒 Приватно: реальное — лист `Receivables` таблицы. */
 export type Receivable = {
   from: string;
   thb: number;
@@ -154,18 +152,49 @@ export type Receivable = {
   note?: string;
 };
 
-export const receivables: Receivable[] = [
-  // Серёжа · доля Circle 114 457 ฿ — ✅ возвращён 16.06.2026 (убран из дебиторки)
-  { from: "Серёжа · дом Игоря", thb: 325000, due: "2026-09-01", status: "expected", note: "ближайший крупный — за 2 нед до 01.09 напомнить" },
-  { from: "Серёжа · Африкантес", thb: 187500, due: "2026-12-31", status: "expected" },
-  { from: "Серёжа · проект Макса", thb: 100000, due: "2026-12-31", status: "expected" },
-  { from: "Серёжа · Эдик/Вова", thb: 45000, due: "2026-12-31", status: "expected" },
-  { from: "Серёжа · 12 рай (Пи Ну)", thb: 30000, due: "2026-12-31", status: "expected" },
-];
+export const receivables: Receivable[] = [];
 
 /** Вся дебиторка, THB. */
 export function receivablesTotal(rec: Receivable[] = receivables): number {
   return rec.reduce((s, r) => s + r.thb, 0);
+}
+
+// ── Финансовые цели (лист Goals) ────────────────────────────────────────────
+// Напр. DTV-виза: ฿500k держать 3 мес → виза на 5 лет, съехать с border run.
+export type Goal = {
+  name: string;
+  target: number;
+  saved: number;
+  currency: Currency;
+  deadline: string;
+  note: string;
+};
+
+export type GoalProgress = Goal & { pct: number; left: number };
+
+export function goalProgress(g: Goal): GoalProgress {
+  const pct = g.target > 0 ? Math.min(Math.round((g.saved / g.target) * 100), 100) : 0;
+  return { ...g, pct, left: Math.max(g.target - g.saved, 0) };
+}
+
+export type ReceivablesSummary = {
+  count: number;
+  total: number;
+  nearest: Receivable | null;
+  items: Receivable[]; // по сроку
+};
+
+/** Свод дебиторки: счёт, общий остаток, ближайший по сроку, список по сроку. */
+export function receivablesSummary(rec: Receivable[]): ReceivablesSummary {
+  const items = [...rec]
+    .filter((r) => r.thb > 0)
+    .sort((a, b) => (a.due || "9999").localeCompare(b.due || "9999"));
+  return {
+    count: items.length,
+    total: Math.round(items.reduce((s, r) => s + r.thb, 0)),
+    nearest: items[0] ?? null,
+    items,
+  };
 }
 
 /** Просроченная (взыскать сейчас) дебиторка, THB. */
@@ -193,6 +222,50 @@ export function combinedBurnMonthly(
 export function runwayMonths(cash: number, burn: number): number | null {
   if (cash <= 0 || burn <= 0) return null;
   return cash / burn;
+}
+
+/**
+ * Текущий регулярный доход в месяц (THB). 0 — pre-revenue (старая компания
+ * закрывается, у RW ещё нет сделок). Может прийти из таблицы (лист Runway).
+ */
+export const monthlyIncome = 0;
+
+/** Чистый отток в месяц: burn − доход (положительное = проедание наличных). */
+export function netBurnMonthly(
+  subs: Subscription[] = subscriptions,
+  exp: PersonalExpense[] = personalExpenses,
+  income: number = monthlyIncome,
+): number {
+  return combinedBurnMonthly(subs, exp) - income;
+}
+
+/**
+ * Дата, когда наличные кончатся при заданном чистом оттоке/мес. null если
+ * оттока нет (доход ≥ burn) или нет наличных. Месяц ≈ 30.44 дня.
+ */
+export function cashOutDate(
+  cash: number,
+  netBurnPerMonth: number,
+  from: Date = new Date(),
+): Date | null {
+  if (cash <= 0 || netBurnPerMonth <= 0) return null;
+  const days = (cash / netBurnPerMonth) * 30.44;
+  const d = new Date(from);
+  d.setDate(d.getDate() + Math.round(days));
+  return d;
+}
+
+/** Рычаги экономии (THB/мес), которые можно включить в режиме bootstrap. */
+export type SavingLever = { label: string; thbPerMonth: number; note?: string };
+export const savingsLevers: SavingLever[] = [
+  { label: "Виза → DTV (вместо border run)", thbPerMonth: 8000, note: "нужен барьер 500k на счету 3 мес" },
+  { label: "Claude Max → Pro", thbPerMonth: 3650, note: "движок остаётся, лимит меньше" },
+  { label: "Еда: готовка вместо кафе", thbPerMonth: 6000, note: "оценка" },
+];
+
+/** Суммарная экономия при включении всех рычагов, THB/мес. */
+export function leversTotal(lev: SavingLever[] = savingsLevers): number {
+  return lev.reduce((s, l) => s + l.thbPerMonth, 0);
 }
 
 // ── Хелперы расчёта ────────────────────────────────────────────────────────
@@ -329,4 +402,302 @@ export function financeSummary(
     preIncorporationPaid: Math.round(ledgerTotalTHB(led)),
     note: "Pre-incorporation: OpEx RW оплачивается лично основателем = личный расход (категория «Бизнес / Right Way»). После Co.Ltd — возмещение через director's loan.",
   };
+}
+
+// ── Дневник разовых трат: личное/бизнес + категории ─────────────────────────
+//
+// Источник — лист `Transactions` мастер-таблицы (loadTransactionsFromSheet),
+// куда пишет Telegram-бот (голос/текст) и форма /admin/finance/add. Отдельно
+// от ledger (у того семантика pre-incorporation возмещений). Личные суммы
+// приватны — лежат в таблице, не в коде. Дашборд сводит разрез личное/бизнес.
+
+export type TxScope = "личное" | "бизнес";
+
+export type Transaction = {
+  date: string; // ISO YYYY-MM-DD
+  scope: TxScope;
+  amountOrig: number;
+  currency: Currency;
+  thb: number;
+  category: string;
+  note: string;
+  account: string;
+  source: string; // bot-voice | bot-text | bot-cmd | web | …
+};
+
+/** Категории по сферам — синхронны с `bot/finance_writer.py`. «Прочее» в конце. */
+export const BUSINESS_CATEGORIES = [
+  "ИИ/софт", "Хостинг/домены", "CRM", "Маркетинг/реклама", "Юр/бухгалтерия",
+  "Хранилище", "Транспорт по делам", "Представительские", "Прочее",
+] as const;
+export const PERSONAL_CATEGORIES = [
+  "Продукты", "Кафе/рестораны", "Транспорт/байк/бензин", "Жильё/аренда",
+  "Связь/интернет", "Здоровье", "Виза/документы", "Быт", "Развлечения", "Прочее",
+] as const;
+
+/** Список категорий для сферы (для формы/валидации). */
+export function categoriesForScope(scope: TxScope): readonly string[] {
+  return scope === "бизнес" ? BUSINESS_CATEGORIES : PERSONAL_CATEGORIES;
+}
+
+/** Текущая дата 'YYYY-MM-DD' в таймзоне Бангкока (день траты — местный). */
+export function bangkokToday(now: Date = new Date()): string {
+  // en-CA даёт ISO-формат YYYY-MM-DD.
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Bangkok",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(now);
+}
+
+/** Текущий месяц 'YYYY-MM' в таймзоне Бангкока. */
+export function currentYM(now: Date = new Date()): string {
+  return bangkokToday(now).slice(0, 7);
+}
+
+/** Траты за месяц ym (по префиксу ISO-даты). */
+export function txInMonth(txs: Transaction[], ym: string): Transaction[] {
+  return txs.filter((t) => t.date.startsWith(ym));
+}
+
+export type TxTotals = { personal: number; business: number; total: number };
+
+/** Суммы THB по сферам. */
+export function txTotals(txs: Transaction[]): TxTotals {
+  let personal = 0;
+  let business = 0;
+  for (const t of txs) {
+    if (t.scope === "бизнес") business += t.thb;
+    else personal += t.thb;
+  }
+  return { personal, business, total: personal + business };
+}
+
+/** Разбивка THB по категориям внутри сферы (для доната), по убыванию. */
+export function txBreakdown(
+  txs: Transaction[],
+  scope: TxScope,
+): Array<{ label: string; value: number }> {
+  const map = new Map<string, number>();
+  for (const t of txs) {
+    if (t.scope !== scope) continue;
+    map.set(t.category, (map.get(t.category) ?? 0) + t.thb);
+  }
+  return [...map.entries()]
+    .map(([label, value]) => ({ label, value }))
+    .filter((x) => x.value > 0)
+    .sort((a, b) => b.value - a.value);
+}
+
+export type TxMonthSplit = { month: string; personal: number; business: number };
+
+/** Помесячный разрез личное/бизнес (для тренда). */
+export function txMonthlySplit(txs: Transaction[]): TxMonthSplit[] {
+  const map = new Map<string, TxMonthSplit>();
+  for (const t of txs) {
+    if (!t.date) continue;
+    const m = t.date.slice(0, 7);
+    const p = map.get(m) ?? { month: m, personal: 0, business: 0 };
+    if (t.scope === "бизнес") p.business += t.thb;
+    else p.personal += t.thb;
+    map.set(m, p);
+  }
+  return [...map.values()].sort((a, b) => a.month.localeCompare(b.month));
+}
+
+// ── Две кассы: личное / Right Way (мультивалютная наличка ฿/₽/$) ─────────────
+//
+// Модель «реальный кошелёк + долг RW» (выбор Vladimir 2026-06-19): пока компании
+// нет, всё платится с личной карты, поэтому:
+//   🏠 Личное   = старт − ВСЕ траты (личные + бизнес) с as-of = реальные деньги на руках.
+//   🏢 Right Way = старт − бизнес-траты с as-of → минус = «компания должна тебе»
+//      (вложено лично, к возмещению через director's loan; с комиссиями выйдет в плюс).
+// Наличка хранится по валютам (฿/₽/$) — старт кассы = их сумма в THB по курсу
+// (RUB — живой, см. fx). Старты/даты — лист `Wallets`, правятся через
+// /admin/finance/wallets (re-sync состава). Траты вычитаются из общего остатка.
+
+/** Состав наличной кассы по валютам (как держишь физически). */
+export type Wallet = {
+  scope: TxScope;
+  thb: number;
+  rub: number;
+  usd: number;
+  asOf: string;
+};
+
+export type WalletState = {
+  scope: TxScope;
+  thb: number; // состав на asOf
+  rub: number;
+  usd: number;
+  start: number; // эквивалент состава в THB по курсу fx
+  asOf: string;
+  spent: number; // вычтено из кассы с asOf (в THB)
+  current: number; // start − spent (THB)
+};
+
+/** Эквивалент состава кассы в THB по курсу fx (RUB — живой). */
+export function walletEquivTHB(w: Wallet, fx: Record<Currency, number>): number {
+  return w.thb * fx.THB + w.rub * fx.RUB + w.usd * fx.USD;
+}
+
+/**
+ * Состояния обеих касс. Личная вычитает ВСЕ траты (реальный кэш на руках), бизнес —
+ * только бизнес-траты (позиция RW; минус = долг компании перед тобой). Старт каждой —
+ * сумма наличной разбивки ฿/₽/$ в THB по курсу fx. ISO-сравнение дат строк.
+ */
+export function walletStates(
+  personal: Wallet,
+  business: Wallet,
+  txs: Transaction[],
+  fx: Record<Currency, number> = FX,
+): { personal: WalletState; business: WalletState } {
+  const personalSpent = txs
+    .filter((t) => t.date >= personal.asOf)
+    .reduce((s, t) => s + t.thb, 0);
+  const businessSpent = txs
+    .filter((t) => t.scope === "бизнес" && t.date >= business.asOf)
+    .reduce((s, t) => s + t.thb, 0);
+  const state = (w: Wallet, spent: number): WalletState => {
+    const start = walletEquivTHB(w, fx);
+    return {
+      scope: w.scope,
+      thb: w.thb,
+      rub: w.rub,
+      usd: w.usd,
+      start,
+      asOf: w.asOf,
+      spent,
+      current: start - spent,
+    };
+  };
+  return { personal: state(personal, personalSpent), business: state(business, businessSpent) };
+}
+
+/** Касса сферы из набора (или нулевая на fallback-дату, если не задана). */
+export function walletFor(scope: TxScope, wallets: Wallet[], fallbackDate: string): Wallet {
+  return wallets.find((w) => w.scope === scope) ?? { scope, thb: 0, rub: 0, usd: 0, asOf: fallbackDate };
+}
+
+// ── Долги: живой трекер (лист Debts) ────────────────────────────────────────
+// Стратегия (19.06.2026): Инне частями (переживает) + мелких закрывать целиком,
+// чтобы число кредиторов уменьшалось. Лог погашений — через бота /payback.
+export type Debt = {
+  creditor: string;
+  currency: Currency;
+  initial: number;
+  paid: number;
+  remaining: number;
+  type: string; // люди-฿ / жёсткий-₽ / мягкий / заём
+  priority: string; // "1".."9", 1 = первым
+  note: string;
+};
+
+export type DebtsSummary = {
+  creditors: number;
+  byCurrency: Partial<Record<Currency, number>>;
+  thbTotal: number;
+  items: Debt[];
+};
+
+export function debtRemainingTHB(d: Debt, fx: Record<Currency, number> = FX): number {
+  return d.remaining * (fx[d.currency] ?? FX[d.currency] ?? 1);
+}
+
+/** Свод по активным (остаток>0) долгам: число кредиторов, остатки по валютам, эквивалент THB, список по приоритету. */
+export function debtsSummary(debts: Debt[], fx: Record<Currency, number> = FX): DebtsSummary {
+  const active = debts.filter((d) => d.remaining > 0);
+  const byCurrency: Partial<Record<Currency, number>> = {};
+  let thbTotal = 0;
+  for (const d of active) {
+    byCurrency[d.currency] = (byCurrency[d.currency] ?? 0) + d.remaining;
+    thbTotal += debtRemainingTHB(d, fx);
+  }
+  const items = [...active].sort((a, b) => {
+    const pa = a.priority || "9";
+    const pb = b.priority || "9";
+    if (pa !== pb) return pa < pb ? -1 : 1;
+    return b.remaining - a.remaining;
+  });
+  return { creditors: active.length, byCurrency, thbTotal: Math.round(thbTotal), items };
+}
+
+// ── Календарь платежей (лист Payments) ──────────────────────────────────────
+// Дат-обязательства, чтобы ничего не застало врасплох (кредитка ₽4800 до 8-го,
+// Ксюша ₽100k 15-го). Периодичность: «ежемесячно» (по дню месяца) или «разовый»
+// (ISO-дата). Дашборд показывает ближайшие N дней + дни до списания.
+export type Payment = {
+  title: string;
+  amount: number;
+  currency: Currency;
+  day: string; // "08"/"15" (день месяца) или "2026-07-08" (разовый)
+  recurrence: string; // ежемесячно / разовый
+  type: string; // долг / дети / виза / софт …
+  note: string;
+};
+
+export type UpcomingPayment = Payment & { nextDate: string; daysUntil: number };
+
+function isoDate(d: Date): string {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
+function dayDiff(from: Date, to: Date): number {
+  return Math.round((to.getTime() - from.getTime()) / 86_400_000);
+}
+
+/** Ближайшая дата платежа от today. null — если разовый уже в прошлом. */
+export function nextPaymentDate(p: Payment, today: Date): { date: string; days: number } | null {
+  const rec = (p.recurrence || "").toLowerCase();
+  const raw = (p.day || "").trim();
+  if (rec.startsWith("ежемес") || /^\d{1,2}$/.test(raw)) {
+    const dom = parseInt(raw, 10);
+    if (!dom || dom < 1 || dom > 31) return null;
+    let d = new Date(today.getFullYear(), today.getMonth(), dom);
+    if (dayDiff(today, d) < 0) d = new Date(today.getFullYear(), today.getMonth() + 1, dom);
+    return { date: isoDate(d), days: dayDiff(today, d) };
+  }
+  const d = new Date(raw + "T00:00:00");
+  if (Number.isNaN(d.getTime())) return null;
+  const days = dayDiff(today, d);
+  return days < 0 ? null : { date: isoDate(d), days };
+}
+
+/** Платежи в ближайшие horizonDays дней, отсортированные по дате. */
+export function upcomingPayments(
+  payments: Payment[],
+  todayISO: string,
+  horizonDays = 45,
+): UpcomingPayment[] {
+  const today = new Date(todayISO + "T00:00:00");
+  const out: UpcomingPayment[] = [];
+  for (const p of payments) {
+    const occ = nextPaymentDate(p, today);
+    if (occ && occ.days <= horizonDays) out.push({ ...p, nextDate: occ.date, daysUntil: occ.days });
+  }
+  return out.sort((a, b) => a.daysUntil - b.daysUntil);
+}
+
+// ── Бюджет vs факт (лист Budget) ────────────────────────────────────────────
+// Лимиты по категориям (в валюте дашборда THB) сравниваем с фактом из дневника
+// Transactions за текущий месяц — контроль burn (bootstrap: меньше — лучше).
+export type Budget = {
+  category: string;
+  scope: TxScope;
+  limit: number; // THB / мес
+  note: string;
+};
+
+export type BudgetLine = Budget & { actual: number; pct: number; over: boolean };
+
+/** Сравнивает лимиты с фактом за месяц (monthTx уже отфильтрован по месяцу). */
+export function budgetVsActual(budgets: Budget[], monthTx: Transaction[]): BudgetLine[] {
+  return budgets.map((b) => {
+    const actual = monthTx
+      .filter((t) => t.scope === b.scope && t.category === b.category)
+      .reduce((s, t) => s + t.thb, 0);
+    const pct = b.limit > 0 ? Math.round((actual / b.limit) * 100) : 0;
+    return { ...b, actual: Math.round(actual), pct, over: actual > b.limit };
+  });
 }

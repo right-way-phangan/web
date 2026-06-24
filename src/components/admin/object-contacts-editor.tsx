@@ -23,7 +23,7 @@ const withKey = (c: ObjectContact): Row => ({ ...c, _key: keySeq++ });
 const emptyRow = (): Row => withKey({ role: "owner" });
 
 const inputCls =
-  "min-h-[40px] w-full rounded-sm border border-forest-900/15 bg-white px-2.5 py-1.5 text-sm text-forest-900 outline-none focus:border-brass-500";
+  "min-h-[40px] w-full rounded-sm border border-forest-900/15 bg-cream-50 px-2.5 py-1.5 text-sm text-forest-900 outline-none focus:border-brass-500";
 
 /**
  * Редактор контактов продавца по объекту («кто собственник / с кем связываться»).
@@ -83,7 +83,7 @@ export function ObjectContactsEditor({
   }
 
   return (
-    <div className="rounded-xl border border-forest-900/10 bg-white p-4">
+    <div className="rounded-xl border border-forest-900/10 bg-cream-50 p-4">
       <div className="mb-3 flex items-center justify-between">
         <h2 className="flex items-center gap-1.5 text-sm font-semibold uppercase tracking-wide text-forest-900/60">
           <Phone className="h-4 w-4" /> Контакты · с кем связываться
@@ -114,7 +114,7 @@ export function ObjectContactsEditor({
               <select
                 value={r.role}
                 onChange={(e) => patch(r._key, "role", e.target.value)}
-                className="min-h-[36px] rounded-sm border border-forest-900/15 bg-white px-2 py-1 text-sm font-medium text-forest-900"
+                className="min-h-[36px] rounded-sm border border-forest-900/15 bg-cream-50 px-2 py-1 text-sm font-medium text-forest-900"
               >
                 {ROLES.map((ro) => (
                   <option key={ro.key} value={ro.key}>
@@ -206,7 +206,7 @@ export function ObjectContactsEditor({
           type="button"
           onClick={save}
           disabled={busy || !dirty}
-          className="inline-flex min-h-[40px] items-center gap-1.5 rounded-sm bg-forest-900 px-4 py-2 text-sm font-medium text-cream-50 transition hover:bg-forest-900/90 disabled:opacity-40"
+          className="inline-flex min-h-[40px] items-center gap-1.5 rounded-sm bg-panel px-4 py-2 text-sm font-medium text-panel-fg transition hover:bg-panel/90 disabled:opacity-40"
         >
           <Save className="h-4 w-4" /> {busy ? "Сохраняю…" : "Сохранить"}
         </button>

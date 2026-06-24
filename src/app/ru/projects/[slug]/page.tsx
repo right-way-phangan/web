@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getProjectBySlug, getPublicProjects, projectSlug } from "@/lib/data/projects";
 import { ProjectLanding } from "@/components/projects/project-landing";
+import { TrackView } from "@/components/objects/track-view";
 import { ObjectJsonLd } from "@/components/objects/object-json-ld";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { getSiteUrl } from "@/lib/site-url";
@@ -51,6 +52,7 @@ export default async function RuProjectLandingPage({ params }: Props) {
           { name: found.project.rwNumber, url: pageUrl },
         ]}
       />
+      <TrackView rw={found.project.rwNumber} recents={false} />
       <ProjectLanding project={found.project} catalog={found.catalog} locale="ru" />
     </>
   );

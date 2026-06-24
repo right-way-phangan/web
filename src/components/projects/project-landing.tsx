@@ -24,6 +24,7 @@ import {
   getPublicProjects,
 } from "@/lib/data/projects";
 import { getAllObjects } from "@/lib/data/objects";
+import { buildObjectDescription } from "@/lib/generate/object-description";
 import { formatPriceTHB } from "@/lib/utils/price";
 import { localePath } from "@/lib/i18n/locale-path";
 import { ObjectGallery } from "@/components/objects/object-gallery";
@@ -89,6 +90,11 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
   const units = getProjectUnits(project, allObjects);
   const availability = projectAvailability(project, units);
   const amenities = amenityList(project, ot);
+  // Авто-overview как fallback, если кураторского descriptionRaw нет (новые
+  // проекты не остаются без вводного текста). Кураторская копия всегда в приоритете.
+  const autoOverview = project.descriptionRaw?.trim()
+    ? null
+    : buildObjectDescription(project, locale);
   const devHref =
     project.developer && (await developerHasPage(project.developer))
       ? localePath(locale, `/developers/${developerSlug(project.developer)}`)
@@ -174,6 +180,11 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
             {project.descriptionRaw ? (
               <div className="mt-6 max-w-prose space-y-4 whitespace-pre-line text-base leading-relaxed text-forest-500/85">
                 {project.descriptionRaw}
+              </div>
+            ) : autoOverview ? (
+              <div className="mt-6 max-w-prose space-y-4 text-base leading-relaxed text-forest-500/85">
+                <p>{autoOverview.lead}</p>
+                {autoOverview.body ? <p>{autoOverview.body}</p> : null}
               </div>
             ) : null}
 

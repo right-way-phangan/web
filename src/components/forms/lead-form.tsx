@@ -15,6 +15,7 @@ import { submitInquiry, type FormState } from "@/lib/actions/inquiry";
 import { getAttribution } from "@/lib/analytics/attribution";
 import { trackObjectEvent } from "@/lib/analytics/track-event";
 import { getFormDict, type Locale } from "@/lib/i18n/dictionaries";
+import { whatsappLink, telegramDmLink } from "@/lib/site-config";
 import { cn } from "@/lib/utils/cn";
 
 const initialState: FormState = { status: "idle" };
@@ -49,6 +50,13 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
   const formRef = useRef<HTMLFormElement | null>(null);
   const startedRef = useRef(false);
   const viewedRef = useRef(false);
+  // Reply-channel ↔ contact consistency: if the visitor asks us to reply on
+  // WhatsApp/Telegram but leaves the phone empty, nudge for a number (soft —
+  // never blocks; email is still a valid fallback).
+  const [replyVia, setReplyVia] = useState<string>("");
+  const [hasPhone, setHasPhone] = useState(false);
+  const needsPhone = (replyVia === "whatsapp" || replyVia === "telegram") && !hasPhone;
+  const listingsHref = (locale === "ru" ? "/ru/listings" : "/listings") as Route;
 
   // Top of the funnel: fire once when the form scrolls into view, so the
   // view → start → submit drop-off is measurable per surface (source/kind) in
@@ -119,6 +127,7 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
     >
       {/* Hidden context */}
       <input type="hidden" name="source" value={source} />
+      <input type="hidden" name="lang" value={locale} />
       {kind ? <input type="hidden" name="kind" value={kind} /> : null}
       {rwNumber ? <input type="hidden" name="rwNumber" value={rwNumber} /> : null}
       {utm.utm_source ? <input type="hidden" name="utm_source" value={utm.utm_source} /> : null}
@@ -170,6 +179,7 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
           placeholder="+66 ..."
           inputMode="tel"
           aria-invalid={!!fieldError("phone")}
+          onChange={(e) => setHasPhone(e.target.value.trim().length > 0)}
         />
         <FieldError msg={fieldError("phone")} />
       </FieldRow>
@@ -193,13 +203,22 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
           {(["whatsapp", "telegram", "email"] as const).map((ch) => (
             <label
               key={ch}
-              className="flex-1 cursor-pointer rounded-sm border border-forest-500/20 px-2 py-2 text-center text-xs font-medium text-forest-500 transition-colors has-[:checked]:border-forest-500 has-[:checked]:bg-forest-500 has-[:checked]:text-cream-50"
+              className="flex-1 cursor-pointer rounded-sm border border-forest-500/20 px-2 py-2 text-center text-xs font-medium text-forest-500 transition-colors has-[:checked]:border-forest-500 has-[:checked]:bg-panel has-[:checked]:text-panel-fg"
             >
-              <input type="radio" name="replyVia" value={ch} className="sr-only" />
+              <input
+                type="radio"
+                name="replyVia"
+                value={ch}
+                className="sr-only"
+                onChange={(e) => setReplyVia(e.target.value)}
+              />
               {ch === "whatsapp" ? "WhatsApp" : ch === "telegram" ? "Telegram" : "Email"}
             </label>
           ))}
         </div>
+        {needsPhone ? (
+          <p className="text-xs text-brass-500">{t.replyChannelHint}</p>
+        ) : null}
       </FieldRow>
 
       {/* Video tour — remote buyers' most common first ask */}
@@ -227,7 +246,16 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
         <FieldError msg={fieldError("message")} />
       </FieldRow>
 
-      {state.status === "ok" ? <SuccessBanner message={state.message} /> : null}
+      {state.status === "ok" ? (
+        <SuccessBlock
+          message={state.message}
+          lede={t.successLede}
+          browseLabel={t.successBrowse}
+          browseHref={listingsHref}
+          waHref={whatsappLink(defaultMessage)}
+          tgHref={telegramDmLink(rwNumber ? `interest_${rwNumber}` : undefined)}
+        />
+      ) : null}
       {state.status === "error" && state.message ? (
         <ErrorBanner message={state.message} />
       ) : null}
@@ -267,11 +295,54 @@ function SubmitButton({ label, sendingLabel }: { label?: string; sendingLabel?: 
   );
 }
 
-function SuccessBanner({ message }: { message: string }) {
+function SuccessBlock({
+  message,
+  lede,
+  browseLabel,
+  browseHref,
+  waHref,
+  tgHref,
+}: {
+  message: string;
+  lede: string;
+  browseLabel: string;
+  browseHref: Route;
+  waHref: string;
+  tgHref: string;
+}) {
   return (
-    <div className="flex items-start gap-2 rounded-sm border border-forest-500/20 bg-forest-50/30 p-3 text-sm text-forest-500">
-      <CheckCircle2 className="h-4 w-4 mt-0.5 shrink-0 text-forest-500" />
-      <span>{message}</span>
+    <div className="space-y-3 rounded-sm border border-forest-500/20 bg-forest-50/30 p-3 text-sm text-forest-500">
+      <div className="flex items-start gap-2">
+        <CheckCircle2 className="h-4 w-4 mt-0.5 shrink-0 text-forest-500" />
+        <span>{message}</span>
+      </div>
+      {/* Keep the momentum: a DM-first audience often prefers to follow up in
+          a messenger, and browsing more listings keeps the visit alive. */}
+      <p className="text-xs text-forest-500/70">{lede}</p>
+      <div className="flex flex-wrap gap-2">
+        <a
+          href={waHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="rounded-sm border border-forest-500/20 px-3 py-1.5 text-xs font-medium text-forest-900 transition-colors hover:border-forest-500/40"
+        >
+          WhatsApp
+        </a>
+        <a
+          href={tgHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="rounded-sm border border-forest-500/20 px-3 py-1.5 text-xs font-medium text-forest-900 transition-colors hover:border-forest-500/40"
+        >
+          Telegram
+        </a>
+        <Link
+          href={browseHref}
+          className="rounded-sm border border-forest-500/20 px-3 py-1.5 text-xs font-medium text-forest-900 transition-colors hover:border-forest-500/40"
+        >
+          {browseLabel}
+        </Link>
+      </div>
     </div>
   );
 }

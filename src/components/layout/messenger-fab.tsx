@@ -29,7 +29,7 @@ export function MessengerFab() {
             href={whatsappLink()}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full bg-cream-50 px-4 py-2.5 text-sm font-medium text-forest-900 shadow-lg shadow-forest-900/15 ring-1 ring-forest-500/10"
+            className="rounded-full bg-cream-50 px-4 py-2.5 text-sm font-medium text-forest-900 shadow-lg shadow-panel/15 ring-1 ring-forest-500/10"
           >
             WhatsApp
           </a>
@@ -37,7 +37,7 @@ export function MessengerFab() {
             href={telegramDmLink()}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full bg-cream-50 px-4 py-2.5 text-sm font-medium text-forest-900 shadow-lg shadow-forest-900/15 ring-1 ring-forest-500/10"
+            className="rounded-full bg-cream-50 px-4 py-2.5 text-sm font-medium text-forest-900 shadow-lg shadow-panel/15 ring-1 ring-forest-500/10"
           >
             Telegram
           </a>
@@ -49,8 +49,8 @@ export function MessengerFab() {
         aria-expanded={open}
         aria-label={open ? chrome.chatClose : chrome.chatCta}
         className={cn(
-          "flex h-12 w-12 items-center justify-center rounded-full text-cream-50 shadow-lg shadow-forest-900/25 transition-colors",
-          open ? "bg-forest-900" : "bg-forest-500 hover:bg-forest-400",
+          "flex h-12 w-12 items-center justify-center rounded-full text-panel-fg shadow-lg shadow-panel/25 transition-colors",
+          open ? "bg-panel" : "bg-panel hover:bg-forest-400",
         )}
       >
         {open ? <X className="h-5 w-5" /> : <MessageCircle className="h-5 w-5" />}

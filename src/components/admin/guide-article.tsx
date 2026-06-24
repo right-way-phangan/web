@@ -245,7 +245,7 @@ function LiveBlock({ name, live }: { name: "stages" | "admin-sections" | "stats"
                 {p.stages.map((s, i) => (
                   <span key={i} className="inline-flex items-center gap-1.5">
                     {i > 0 && <span className="text-forest-900/30">→</span>}
-                    <span className="rounded-full bg-white px-2 py-0.5 ring-1 ring-forest-900/10">{s}</span>
+                    <span className="rounded-full bg-cream-50 px-2 py-0.5 ring-1 ring-forest-900/10">{s}</span>
                   </span>
                 ))}
               </div>
@@ -267,7 +267,7 @@ function LiveBlock({ name, live }: { name: "stages" | "admin-sections" | "stats"
             <li key={s.href}>
               <Link
                 href={s.href as Route}
-                className="inline-block rounded-full bg-white px-3 py-1 text-sm text-forest-900/80 ring-1 ring-forest-900/10 hover:text-brass-600"
+                className="inline-block rounded-full bg-cream-50 px-3 py-1 text-sm text-forest-900/80 ring-1 ring-forest-900/10 hover:text-brass-600"
               >
                 {s.label}
               </Link>
@@ -386,7 +386,7 @@ export function GuideArticle({
             return (
               <pre
                 key={i}
-                className="overflow-x-auto rounded-xl bg-forest-900 px-4 py-3 font-mono text-[13px] leading-relaxed text-cream-100"
+                className="overflow-x-auto rounded-xl bg-panel px-4 py-3 font-mono text-[13px] leading-relaxed text-panel-fg"
               >
                 {b.lines.join("\n")}
               </pre>

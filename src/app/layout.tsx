@@ -7,6 +7,7 @@ import { Footer } from "@/components/layout/footer";
 import { MessengerFab } from "@/components/layout/messenger-fab";
 import { ScrollProgress } from "@/components/motion/scroll-progress";
 import { SavedProvider } from "@/lib/saved/saved-context";
+import { CurrencyProvider } from "@/components/ui/currency";
 import { OrganizationJsonLd } from "@/components/seo/organization-json-ld";
 import { WebsiteJsonLd } from "@/components/seo/website-json-ld";
 import { GtmScript, GtmNoScript } from "@/components/analytics/gtm";
@@ -14,6 +15,7 @@ import { Ga4Script } from "@/components/analytics/ga4";
 import { ContactClickTracker } from "@/components/analytics/contact-click-tracker";
 import { AttributionCapture } from "@/components/analytics/attribution-capture";
 import { HtmlLang } from "@/components/i18n/html-lang";
+import { ThemeProvider, ThemeScript } from "@/lib/theme/theme-context";
 import { siteConfig } from "@/lib/site-config";
 import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
@@ -38,10 +40,14 @@ const serif = Cormorant_Garamond({
 
 const siteUrl = getSiteUrl();
 
-// Brand-tints the mobile browser chrome (address bar) — petrol ink (forest-900)
-// from the Coastal Twilight palette. Without it Android/iOS render a grey bar.
+// Brand-tints the mobile browser chrome (address bar) — forest from the
+// palette in light, the dark page background in dark. Without it Android/iOS
+// render a default grey bar.
 export const viewport: Viewport = {
-  themeColor: "#04262E",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#04262E" },
+    { media: "(prefers-color-scheme: dark)", color: "#181815" },
+  ],
 };
 
 export const metadata: Metadata = {
@@ -95,8 +101,15 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${sans.variable} ${serif.variable}`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${sans.variable} ${serif.variable}`}
+    >
       <body className="flex min-h-screen flex-col">
+        {/* Render-blocking, first in <body>: applies the persisted/system theme
+            to <html> before paint so dark visitors never flash light. */}
+        <ThemeScript />
         <HtmlLang />
         {/* Every photo lives on Vercel Blob — warming the connection early
             shaves the TLS handshake off the LCP image. rel=preconnect is a
@@ -107,7 +120,7 @@ export default function RootLayout({
         />
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-sm focus:bg-forest-900 focus:px-4 focus:py-2 focus:text-sm focus:text-cream-50"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-sm focus:bg-panel focus:px-4 focus:py-2 focus:text-sm focus:text-panel-fg"
         >
           Skip to content
         </a>
@@ -128,16 +141,17 @@ export default function RootLayout({
         />
         <OrganizationJsonLd siteUrl={siteUrl} />
         <WebsiteJsonLd siteUrl={siteUrl} />
-        <SavedProvider>
-          <ScrollProgress />
-          <Header />
-          <main id="main-content" className="flex-1">{children}</main>
-          <Footer />
-          <MessengerFab />
-        </SavedProvider>
-        {/* Премиальное зерно/плёнка поверх всего — фиксированный неинтерактивный
-            слой (≈3.5%, soft-light). Под reduced-motion и при печати скрыт (CSS). */}
-        <div className="grain-overlay" aria-hidden />
+        <ThemeProvider>
+          <SavedProvider>
+            <CurrencyProvider>
+              <ScrollProgress />
+              <Header />
+              <main id="main-content" className="flex-1">{children}</main>
+              <Footer />
+              <MessengerFab />
+            </CurrencyProvider>
+          </SavedProvider>
+        </ThemeProvider>
         <ContactClickTracker />
         <AttributionCapture />
         <GtmScript />

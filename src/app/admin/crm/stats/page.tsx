@@ -72,7 +72,7 @@ function sourceOf(l: CrmLead): string {
 
 function Card({ label, value, hint }: { label: string; value: string; hint?: string }) {
   return (
-    <div className="rounded-xl border border-forest-900/10 bg-white p-4">
+    <div className="rounded-xl border border-forest-900/10 bg-cream-50 p-4">
       <p className="text-xs uppercase tracking-wide text-forest-900/45">{label}</p>
       <p className="mt-1.5 text-2xl font-semibold text-forest-900">{value}</p>
       {hint ? <p className="mt-1 text-xs text-forest-900/50">{hint}</p> : null}
@@ -123,7 +123,18 @@ export default async function CrmStatsPage() {
 
   const isLegacyPipe = (name?: string | null) => /legacy|разбор/i.test(name ?? "");
   const work = leads.filter((l) => !isLegacyPipe(l.pipeline));
-  const legacy = leads.filter((l) => isLegacyPipe(l.pipeline));
+  // Scope the legacy-разбор widget to the same window as the triage conveyor
+  // (/admin/crm/triage): only leads created within the last LEGACY_WINDOW_MONTHS
+  // months are in scope — ancient Circle records aren't worth swiping.
+  const LEGACY_WINDOW_MONTHS = 7;
+  const legacyCutoff = new Date();
+  legacyCutoff.setMonth(legacyCutoff.getMonth() - LEGACY_WINDOW_MONTHS);
+  const legacyCutoffMs = legacyCutoff.getTime();
+  const legacy = leads.filter((l) => {
+    if (!isLegacyPipe(l.pipeline)) return false;
+    const t = new Date(l.createdAt).getTime();
+    return Number.isFinite(t) && t >= legacyCutoffMs;
+  });
 
   // ── Поток новых лидов ──
   const new7 = work.filter((l) => daysAgo(l.createdAt) <= 7);
@@ -316,28 +327,28 @@ export default async function CrmStatsPage() {
         </div>
 
         {/* Темп месяца: факт + прогноз закрытия этого месяца, прогресс к цели */}
-        <div className="mb-4 rounded-xl bg-forest-900 px-4 py-3 text-white">
+        <div className="mb-4 rounded-xl bg-panel px-4 py-3 text-panel-fg">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <p className="text-xs uppercase tracking-wide text-white/55 capitalize">
+              <p className="text-xs uppercase tracking-wide text-panel-fg/55 capitalize">
                 Темп · {monthLabel}
               </p>
               <p className="mt-0.5 text-2xl font-semibold">
                 ≈ ฿{nf.format(Math.round(monthProjection))}
-                <span className="ml-2 text-sm font-normal text-white/65">
+                <span className="ml-2 text-sm font-normal text-panel-fg/65">
                   ≈ ₽{nf.format(Math.round(toRub(monthProjection)))}
                 </span>
               </p>
             </div>
             <div className="text-right">
-              <p className="text-xs text-white/70">
+              <p className="text-xs text-panel-fg/70">
                 won ฿{nf.format(Math.round(wonMonthCommission))}
-                <span className="text-white/45"> + </span>
+                <span className="text-panel-fg/45"> + </span>
                 прогноз ฿{nf.format(Math.round(monthFcThis))}
               </p>
               <p className="mt-1">
                 {monthlyTarget ? (
-                  <span className="text-xs text-white/70">
+                  <span className="text-xs text-panel-fg/70">
                     Цель ฿{nf.format(monthlyTarget)} · <TargetEditor value={monthlyTarget} />
                   </span>
                 ) : (
@@ -349,12 +360,12 @@ export default async function CrmStatsPage() {
 
           {monthlyTarget && projPct != null && wonPct != null && (
             <div className="mt-3">
-              <div className="flex h-2.5 w-full overflow-hidden rounded-full bg-white/15">
+              <div className="flex h-2.5 w-full overflow-hidden rounded-full bg-cream-50/15">
                 {/* закрыто (won) — сплошной; прогноз — полупрозрачный сверху */}
                 <div className="h-full bg-emerald-400" style={{ width: `${wonPct}%` }} />
                 <div className="h-full bg-brass-400/70" style={{ width: `${projPct - wonPct}%` }} />
               </div>
-              <p className="mt-1 text-xs text-white/65">
+              <p className="mt-1 text-xs text-panel-fg/65">
                 {Math.round(projPct)}% от цели по проекции · won {Math.round(wonPct)}% ·{" "}
                 {targetGap != null && targetGap > 0
                   ? `до цели ещё ฿${nf.format(Math.round(targetGap))}`
@@ -364,7 +375,7 @@ export default async function CrmStatsPage() {
           )}
         </div>
         <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-          <div className="rounded-xl border border-brass-500/30 bg-white p-4">
+          <div className="rounded-xl border border-brass-500/30 bg-cream-50 p-4">
             <p className="text-xs uppercase tracking-wide text-forest-900/45">
               Ожидаемая комиссия · взвеш.
             </p>
@@ -376,7 +387,7 @@ export default async function CrmStatsPage() {
               реально прилетит»
             </p>
           </div>
-          <div className="rounded-xl border border-forest-900/10 bg-white p-4">
+          <div className="rounded-xl border border-forest-900/10 bg-cream-50 p-4">
             <p className="text-xs uppercase tracking-wide text-forest-900/45">
               Комиссия при полном закрытии
             </p>
@@ -387,7 +398,7 @@ export default async function CrmStatsPage() {
               ≈ ₽{nf.format(Math.round(toRub(forecast.commission)))} · если закроются все открытые
             </p>
           </div>
-          <div className="rounded-xl border border-forest-900/10 bg-white p-4">
+          <div className="rounded-xl border border-forest-900/10 bg-cream-50 p-4">
             <p className="text-xs uppercase tracking-wide text-forest-900/45">
               Объём сделок · взвеш.
             </p>
@@ -519,7 +530,7 @@ export default async function CrmStatsPage() {
           {workPipes.map((p) => {
             const total = open.filter((l) => l.pipelineKey === p.key).length;
             return (
-              <div key={p.key} className="rounded-xl border border-forest-900/10 bg-white p-4">
+              <div key={p.key} className="rounded-xl border border-forest-900/10 bg-cream-50 p-4">
                 <p className="mb-2 text-sm font-medium text-forest-900">
                   {p.name} <span className="text-forest-900/40">· {total}</span>
                 </p>
@@ -723,7 +734,7 @@ export default async function CrmStatsPage() {
                     <div className="h-5 flex-1 rounded-sm bg-forest-900/[0.04]">
                       <div
                         className={
-                          "flex h-5 items-center justify-end rounded-sm pr-2 text-xs font-medium text-white " +
+                          "flex h-5 items-center justify-end rounded-sm pr-2 text-xs font-medium text-panel-fg " +
                           (drop ? "bg-red-400/80" : "bg-forest-700/70")
                         }
                         style={{ width: `${pct}%` }}
@@ -767,7 +778,8 @@ export default async function CrmStatsPage() {
             </span>
           </div>
           <p className="mt-2 text-xs text-forest-900/50">
-            Разобранным считается лид, ушедший с первой стадии или закрытый.
+            Разобранным считается лид, ушедший с первой стадии или закрытый. Учитываются только
+            лиды за последние {LEGACY_WINDOW_MONTHS} мес.
           </p>
         </div>
       ) : null}

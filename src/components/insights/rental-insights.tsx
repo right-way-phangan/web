@@ -249,7 +249,7 @@ const INS = {
       </>,
       <>
         Confidence dots reflect sample size per district (
-        <span className="inline-block h-1.5 w-1.5 rounded-full bg-forest-500 align-middle" /> high
+        <span className="inline-block h-1.5 w-1.5 rounded-full bg-panel align-middle" /> high
         ≥12 ·{" "}
         <span className="inline-block h-1.5 w-1.5 rounded-full bg-brass-400 align-middle" /> medium
         ≥5 ·{" "}
@@ -476,7 +476,7 @@ const INS = {
       </>,
       <>
         Точки уверенности отражают размер выборки по району (
-        <span className="inline-block h-1.5 w-1.5 rounded-full bg-forest-500 align-middle" /> высокая
+        <span className="inline-block h-1.5 w-1.5 rounded-full bg-panel align-middle" /> высокая
         ≥12 ·{" "}
         <span className="inline-block h-1.5 w-1.5 rounded-full bg-brass-400 align-middle" /> средняя
         ≥5 ·{" "}
@@ -835,7 +835,7 @@ function InventoryYield({
                   {r.measuredOcc != null ? t.bookedNow(Math.round(r.measuredOcc * 100)) : ""}
                 </div>
               </div>
-              <div className="shrink-0 rounded-full bg-forest-500 px-2.5 py-0.5 text-xs font-semibold text-cream-50">
+              <div className="shrink-0 rounded-full bg-panel px-2.5 py-0.5 text-xs font-semibold text-panel-fg">
                 {t.netSuffix(r.netYieldPct)}
               </div>
             </div>
@@ -903,7 +903,7 @@ function FullReport({ data, fmt }: { data: RentalMarket; fmt: MoneyFmt }) {
                 onClick={() => setSort(k)}
                 className={`rounded-full px-2.5 py-0.5 transition-colors ${
                   sort === k
-                    ? "bg-forest-500 text-cream-50"
+                    ? "bg-panel text-panel-fg"
                     : "bg-forest-500/8 text-forest-500/70 hover:bg-forest-500/15"
                 }`}
               >
@@ -1092,9 +1092,9 @@ function CalculatorCta() {
   const locale = useLocale();
   const t = INS[locale];
   return (
-    <div className="rounded-sm border border-forest-500/15 bg-forest-900 p-7 text-cream-50 md:p-9">
-      <h3 className="font-serif text-2xl text-cream-50">{t.ctaTitle}</h3>
-      <p className="mt-2 max-w-xl text-cream-100/80">{t.ctaBody}</p>
+    <div className="rounded-sm border border-forest-500/15 bg-panel p-7 text-panel-fg md:p-9">
+      <h3 className="font-serif text-2xl text-panel-fg">{t.ctaTitle}</h3>
+      <p className="mt-2 max-w-xl text-panel-fg/80">{t.ctaBody}</p>
       <Link
         href={localeHref(locale, "/calculator?mode=rent") as Route}
         className="mt-5 inline-flex items-center gap-2 rounded-sm bg-brass-400 px-5 py-2.5 text-sm font-medium text-forest-900 transition-colors hover:bg-brass-300"
@@ -1153,7 +1153,9 @@ function DemandSeasonality({ seasonality }: { seasonality: RmSeasonality }) {
   );
 }
 
-const SEASON_COLORS = ["#1F3A2E", "#C77929", "#2F5546", "#B5651D"];
+// CSS vars (globals.css) so the lines stay readable in the dark theme — the
+// raw forest hexes would vanish on graphite. Light = brand hexes.
+const SEASON_COLORS = ["var(--season-1)", "var(--season-2)", "var(--season-3)", "var(--season-4)"];
 
 function Seasonality({ seasonal, fmt }: { seasonal: RmSeasonal; fmt: MoneyFmt }) {
   const t = INS[useLocale()];
@@ -1203,7 +1205,7 @@ function Seasonality({ seasonal, fmt }: { seasonal: RmSeasonal; fmt: MoneyFmt })
                 key={s.name}
                 points={pts}
                 fill="none"
-                stroke={s.color}
+                style={{ stroke: s.color }}
                 strokeWidth={2}
                 strokeLinejoin="round"
               />
@@ -1260,7 +1262,7 @@ function CurrencyToggle({
           type="button"
           onClick={() => onChange(c)}
           className={`px-3 py-1 font-medium transition-colors ${
-            currency === c ? "bg-forest-500 text-cream-50" : "text-forest-500/70 hover:bg-forest-500/8"
+            currency === c ? "bg-panel text-panel-fg" : "text-forest-500/70 hover:bg-forest-500/8"
           }`}
         >
           {c}
@@ -1314,7 +1316,7 @@ function SubHead({ title, icon }: { title: string; icon?: React.ReactNode }) {
 const CONF_COLOR: Record<"low" | "medium" | "high", string> = {
   low: "bg-brass-400/50",
   medium: "bg-brass-400",
-  high: "bg-forest-500",
+  high: "bg-panel",
 };
 
 function BarRow({

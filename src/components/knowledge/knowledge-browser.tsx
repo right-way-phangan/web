@@ -75,7 +75,7 @@ export function KnowledgeBrowser({ articles, basePath, labels }: KnowledgeBrowse
             onClick={() => setTopic("all")}
             className={`${chipBase} ${
               topic === "all"
-                ? "bg-forest-500 text-cream-100"
+                ? "bg-panel text-panel-fg"
                 : "border border-forest-500/15 text-forest-500/80 hover:border-forest-500/40 hover:text-forest-900"
             }`}
           >
@@ -89,7 +89,7 @@ export function KnowledgeBrowser({ articles, basePath, labels }: KnowledgeBrowse
               onClick={() => setTopic(t.name)}
               className={`${chipBase} ${
                 topic === t.name
-                  ? "bg-forest-500 text-cream-100"
+                  ? "bg-panel text-panel-fg"
                   : "border border-forest-500/15 text-forest-500/80 hover:border-forest-500/40 hover:text-forest-900"
               }`}
             >

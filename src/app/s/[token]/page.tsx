@@ -42,7 +42,7 @@ export default async function ShortlistPage({
   return (
     <main className="min-h-screen bg-cream-50">
       <ShortlistBeacon token={token} />
-      <header className="border-b border-forest-900/10 bg-white px-4 py-5 text-center">
+      <header className="border-b border-forest-900/10 bg-cream-50 px-4 py-5 text-center">
         <p className="font-serif text-xl font-semibold tracking-wide text-forest-900">
           Right Way Phangan
         </p>
@@ -64,7 +64,7 @@ export default async function ShortlistPage({
               <Link
                 key={o.rwNumber}
                 href={`/object/${o.rwNumber}` as `/object/${string}`}
-                className="group overflow-hidden rounded-2xl border border-forest-900/10 bg-white transition hover:shadow-lg"
+                className="group overflow-hidden rounded-2xl border border-forest-900/10 bg-cream-50 transition hover:shadow-lg"
               >
                 <div className="relative aspect-[4/3] bg-forest-900/5">
                   {o.coverImage && (

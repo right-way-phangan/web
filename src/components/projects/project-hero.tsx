@@ -157,7 +157,7 @@ export function ProjectHero({ project, availability, locale, developerHref }: Pr
                 className="object-cover"
               />
             </Parallax>
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-forest-900/45 via-transparent to-transparent" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-panel/45 via-transparent to-transparent" />
             <div
               className="pointer-events-none absolute inset-0 bg-[radial-gradient(90%_60%_at_85%_115%,rgba(217,138,30,0.16),transparent_60%)]"
               aria-hidden

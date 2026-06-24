@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero } from "@/components/sections/page-hero";
 import { FaqExplorer } from "@/components/faq/faq-explorer";
+import { WhatsIncluded } from "@/components/faq/whats-included";
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { Reveal } from "@/components/sections/reveal";
 import { Appear } from "@/components/motion/appear";
@@ -32,6 +33,8 @@ export default function FaqPage() {
           <FaqExplorer />
         </Reveal>
       </section>
+
+      <WhatsIncluded locale="en" />
 
       <section className="border-t border-forest-500/10 bg-cream-200/30">
         <div className="container-prose py-16 md:py-20">

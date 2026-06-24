@@ -107,7 +107,7 @@ function Toggle({ label, on, set }: { label: string; on: boolean; set: (v: boole
       className={cn(
         "rounded-full border px-3 py-1.5 text-xs transition-colors",
         on
-          ? "border-forest-500 bg-forest-500 text-cream-50"
+          ? "border-forest-500 bg-panel text-panel-fg"
           : "border-forest-500/25 bg-cream-50 text-forest-900/70 hover:border-forest-500/50",
       )}
     >
@@ -220,7 +220,7 @@ function MethodCard({ m }: { m: MethodResult }) {
     <div
       className={cn(
         "rounded-sm border p-4",
-        m.available ? "border-forest-900/10 bg-white" : "border-forest-900/10 bg-cream-50/60 opacity-60",
+        m.available ? "border-forest-900/10 bg-cream-50" : "border-forest-900/10 bg-cream-50/60 opacity-60",
       )}
     >
       <div className="flex items-baseline justify-between gap-2">
@@ -277,7 +277,7 @@ function ResultPanel({
   const av = r.askingVerdict;
   return (
     <div className="space-y-4">
-      <div className="rounded-sm border border-forest-900/10 bg-white p-5">
+      <div className="rounded-sm border border-forest-900/10 bg-cream-50 p-5">
         <div className="flex flex-wrap items-center gap-3">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">Оценка</p>
           {r.confidence && (
@@ -340,7 +340,7 @@ function ResultPanel({
       </div>
 
       {r.rental && r.rental.scenarios.length > 0 && (
-        <div className="rounded-sm border border-forest-900/10 bg-white p-5">
+        <div className="rounded-sm border border-forest-900/10 bg-cream-50 p-5">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
               Аренда — за сколько можно сдать
@@ -356,7 +356,7 @@ function ResultPanel({
                     onClick={() => setRentCur(c)}
                     className={cn(
                       "rounded-sm px-2 py-0.5 transition-colors",
-                      rentCur === c ? "bg-forest-500 text-cream-50" : "bg-cream-100 text-forest-900/60 hover:bg-cream-200",
+                      rentCur === c ? "bg-panel text-panel-fg" : "bg-cream-100 text-forest-900/60 hover:bg-cream-200",
                       disabled && "cursor-not-allowed opacity-40 hover:bg-cream-100",
                     )}
                     title={disabled ? "Курс недоступен" : `${CUR_SYM[c]} ${c}`}
@@ -493,7 +493,7 @@ function ResultPanel({
       )}
 
       {r.leasehold && (
-        <div className="rounded-sm border border-forest-900/10 bg-white p-5">
+        <div className="rounded-sm border border-forest-900/10 bg-cream-50 p-5">
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">Leasehold</p>
           <div className="mt-3 grid gap-4 sm:grid-cols-3">
             <div>
@@ -539,7 +539,7 @@ function ResultPanel({
         const comp = r.methods.find((m) => m.key === "comparative" && m.compsUsed && m.compsUsed.length > 0);
         if (!comp?.compsUsed) return null;
         return (
-          <details className="rounded-sm border border-forest-900/10 bg-white p-4">
+          <details className="rounded-sm border border-forest-900/10 bg-cream-50 p-4">
             <summary className="cursor-pointer text-sm font-medium text-forest-900">
               Компсы в основе оценки ({comp.compsUsed.length}) — для внутренней проверки
             </summary>
@@ -575,7 +575,7 @@ function ResultPanel({
       })()}
 
       {r.sensitivity && r.sensitivity.length > 0 && (
-        <div className="rounded-sm border border-forest-900/10 bg-white p-4">
+        <div className="rounded-sm border border-forest-900/10 bg-cream-50 p-4">
           <p className="text-xs font-medium uppercase tracking-[0.15em] text-brass-500">Рычаги — что двигает цену</p>
           <div className="mt-2 space-y-1.5">
             {r.sensitivity.map((s) => (
@@ -603,7 +603,7 @@ function ResultPanel({
       )}
 
       {llmEnabled && (
-        <div className="rounded-sm border border-forest-900/10 bg-white p-4">
+        <div className="rounded-sm border border-forest-900/10 bg-cream-50 p-4">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <p className="text-xs font-medium uppercase tracking-[0.15em] text-brass-500">
               Обоснование оценки
@@ -686,7 +686,7 @@ function FactorsEditor({ overrides }: { overrides: Array<{ key: string; value: n
       </p>
       <div className="grid gap-4 md:grid-cols-2">
         {[...groups.entries()].map(([group, defs]) => (
-          <div key={group} className="rounded-sm border border-forest-900/10 bg-white p-4">
+          <div key={group} className="rounded-sm border border-forest-900/10 bg-cream-50 p-4">
             <p className="mb-2 text-xs font-medium uppercase tracking-[0.15em] text-brass-500">
               {FACTOR_GROUP_LABELS[group]}
             </p>
@@ -787,7 +787,7 @@ function CompsPanel({ comps }: { comps: ExternalComp[] }) {
         Чужие объявления (FazWaz, конкуренты, сарафан) — расширяют базу сравнения. Каталог RW подмешивается
         автоматически. Когда объявление исчезло — ставьте «продан»/«снят»: это прокси реальной сделки, не удаляйте.
       </p>
-      <div className="rounded-sm border border-forest-900/10 bg-white p-4">
+      <div className="rounded-sm border border-forest-900/10 bg-cream-50 p-4">
         <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-4">
           <Field label="Тип">
             <Select value={v.type} onChange={(x) => setV((p) => ({ ...p, type: x }))} options={["Land", "Villa", "House", "Apartment"]} placeholder="Land" />
@@ -832,7 +832,7 @@ function CompsPanel({ comps }: { comps: ExternalComp[] }) {
       </div>
 
       {comps.length > 0 && (
-        <div className="overflow-x-auto rounded-sm border border-forest-900/10 bg-white">
+        <div className="overflow-x-auto rounded-sm border border-forest-900/10 bg-cream-50">
           <table className="w-full text-left text-xs">
             <thead>
               <tr className="border-b border-forest-900/10 text-forest-900/50">
@@ -928,7 +928,7 @@ function HistoryPanel({ rows }: { rows: ValuationHistoryRow[] }) {
   if (rows.length === 0)
     return <p className="text-xs text-forest-900/50">Оценок ещё не было.</p>;
   return (
-    <div className="overflow-x-auto rounded-sm border border-forest-900/10 bg-white">
+    <div className="overflow-x-auto rounded-sm border border-forest-900/10 bg-cream-50">
       <table className="w-full text-left text-xs">
         <thead>
           <tr className="border-b border-forest-900/10 text-forest-900/50">
@@ -1007,7 +1007,7 @@ function CatalogScanPanel() {
                 onClick={() => setFilter(f)}
                 className={cn(
                   "rounded-sm px-2.5 py-1 transition-colors",
-                  filter === f ? "bg-forest-500 text-cream-50" : "bg-cream-100 text-forest-900/70 hover:bg-cream-200",
+                  filter === f ? "bg-panel text-panel-fg" : "bg-cream-100 text-forest-900/70 hover:bg-cream-200",
                 )}
               >
                 {f === "all" ? `Все (${rows.length})` : f === "over" ? `Переоценены (${counts.over})` : `Ниже рынка (${counts.under})`}
@@ -1018,7 +1018,7 @@ function CatalogScanPanel() {
       </div>
 
       {rows && shown.length > 0 && (
-        <div className="overflow-x-auto rounded-sm border border-forest-900/10 bg-white">
+        <div className="overflow-x-auto rounded-sm border border-forest-900/10 bg-cream-50">
           <table className="w-full text-left text-xs">
             <thead>
               <tr className="border-b border-forest-900/10 text-forest-900/50">
@@ -1073,7 +1073,7 @@ function CatalogScanPanel() {
 
 function Metric({ label, value, hint }: { label: string; value: string; hint?: string }) {
   return (
-    <div className="rounded-sm border border-forest-900/10 bg-white p-4">
+    <div className="rounded-sm border border-forest-900/10 bg-cream-50 p-4">
       <p className="text-xs text-forest-900/50">{label}</p>
       <p className="mt-1 text-2xl font-semibold tabular-nums text-forest-900">{value}</p>
       {hint && <p className="mt-0.5 text-xs text-forest-900/45">{hint}</p>}
@@ -1136,7 +1136,7 @@ function AccuracyPanel() {
             </div>
           )}
 
-          <div className="overflow-x-auto rounded-sm border border-forest-900/10 bg-white">
+          <div className="overflow-x-auto rounded-sm border border-forest-900/10 bg-cream-50">
             <table className="w-full text-left text-xs">
               <thead>
                 <tr className="border-b border-forest-900/10 text-forest-900/50">
@@ -1326,7 +1326,7 @@ function CompletenessPanel() {
             />
           </div>
 
-          <div className="rounded-sm border border-forest-900/10 bg-white p-4">
+          <div className="rounded-sm border border-forest-900/10 bg-cream-50 p-4">
             <p className="text-xs font-medium uppercase tracking-[0.15em] text-brass-500">Пропуски по полям</p>
             <div className="mt-2 flex flex-wrap gap-2 text-xs">
               {rep.fieldGaps.map((g) => {
@@ -1343,7 +1343,7 @@ function CompletenessPanel() {
             </div>
           </div>
 
-          <div className="overflow-x-auto rounded-sm border border-forest-900/10 bg-white">
+          <div className="overflow-x-auto rounded-sm border border-forest-900/10 bg-cream-50">
             <table className="w-full text-left text-xs">
               <thead>
                 <tr className="border-b border-forest-900/10 text-forest-900/50">
@@ -1424,7 +1424,7 @@ export function ValuationTool({
             className={cn(
               "rounded-sm px-3 py-1.5 text-sm transition-colors",
               tab === t.key
-                ? "bg-forest-500 text-cream-50"
+                ? "bg-panel text-panel-fg"
                 : "bg-cream-100 text-forest-900/70 hover:bg-cream-200",
             )}
           >
@@ -1435,7 +1435,7 @@ export function ValuationTool({
 
       {tab === "estimate" && (
         <div className="space-y-6">
-          <div className="rounded-sm border border-forest-900/10 bg-white p-5">
+          <div className="rounded-sm border border-forest-900/10 bg-cream-50 p-5">
             <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-4">
               <Field label="Тип">
                 <Select value={v.type} onChange={(x) => setV((p) => ({ ...p, type: x }))} options={["Land", "Villa", "House", "Apartment"]} placeholder="Land" />

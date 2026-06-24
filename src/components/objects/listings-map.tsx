@@ -7,7 +7,6 @@ import L from "leaflet";
 import { Maximize2, Minimize2 } from "lucide-react";
 import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
-import { formatPriceCompact, formatRentCompact } from "@/lib/utils/price";
 import type { ViewMode } from "@/lib/filters/listings";
 import {
   TILE_URL,
@@ -38,6 +37,7 @@ import {
 } from "@/lib/leaflet/layer-prefs";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { getObjectDict } from "@/lib/i18n/dictionaries";
+import { useCurrency } from "@/components/ui/currency";
 import { cn } from "@/lib/utils/cn";
 import { useFullscreen } from "@/lib/leaflet/use-fullscreen";
 import { MapLegend } from "./map-legend";
@@ -75,20 +75,33 @@ const COLORS = {
 // The figure a pin shows, given the active view: monthly rent (Rent) or sale
 // price (Buy). In Rent, buildings show whole-unit rent (฿/mo); land shows the
 // per-rai lease (฿/rai·mo). Falls back to the type label when no figure is set.
-function pinLabel(p: MapPoint, mode: ViewMode, perMonth: string, perRaiMonth: string): string {
+function pinLabel(
+  p: MapPoint,
+  mode: ViewMode,
+  fmt: (thb: number) => string,
+  perMonth: string,
+  perRaiMonth: string,
+): string {
   if (mode === "rent") {
-    if (p.rentPerMonth) return formatRentCompact(p.rentPerMonth, perMonth);
-    if (p.rentPerRaiMonth) return formatRentCompact(p.rentPerRaiMonth, perRaiMonth);
+    if (p.rentPerMonth) return `${fmt(p.rentPerMonth)}${perMonth}`;
+    if (p.rentPerRaiMonth) return `${fmt(p.rentPerRaiMonth)}${perRaiMonth}`;
     return p.type;
   }
-  return p.priceThb ? formatPriceCompact(p.priceThb) : p.type;
+  return p.priceThb ? fmt(p.priceThb) : p.type;
 }
 
 // Airbnb-style price pill, anchored by its bottom tip at the coordinate. We size
 // the icon to [0,0] and let the inner <span> grow with the label, shifting it up
 // and left so the visual bottom-centre sits on the point.
-function pricePin(p: MapPoint, state: PinState, mode: ViewMode, perMonth: string, perRaiMonth: string): L.DivIcon {
-  const label = pinLabel(p, mode, perMonth, perRaiMonth);
+function pricePin(
+  p: MapPoint,
+  state: PinState,
+  mode: ViewMode,
+  fmt: (thb: number) => string,
+  perMonth: string,
+  perRaiMonth: string,
+): L.DivIcon {
+  const label = pinLabel(p, mode, fmt, perMonth, perRaiMonth);
   const bg = state === "idle" ? COLORS.forest : COLORS.brass;
   const z = state === "active" ? "z-index:10000;" : state === "hover" ? "z-index:9000;" : "";
   const scale = state === "idle" ? "" : "transform:translate(-50%,-100%) scale(1.08);";
@@ -210,6 +223,7 @@ export default function ListingsMap({
 }: Props) {
   const locale = useLocale();
   const t = getObjectDict(locale).map;
+  const { fmt } = useCurrency();
   const mapRef = useRef<L.Map | null>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const { isFull, supported: fsSupported, toggle: toggleFull } = useFullscreen(wrapperRef, mapRef);
@@ -226,13 +240,19 @@ export default function ListingsMap({
 
   const pill =
     "px-2.5 py-2 text-xs font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brass-500";
-  const pillOn = "bg-forest-500 text-cream-100";
-  const pillOff = "bg-cream-100/95 text-forest-900 hover:bg-cream-100";
+  // Active fills the brand accent (forest in light, gold in dark so it reads as
+  // "selected" against the light map tiles, which never invert with the theme).
+  const pillOn = "bg-panel text-panel-fg dark:bg-brass-500 dark:text-cream-100";
+  // Inactive is a raised surface — in dark it must sit above the page background
+  // (cream-50 #2E2E26), not collapse onto it (cream-100 = page bg), or every
+  // control reads as dark/"pressed" over the map.
+  const pillOff =
+    "bg-cream-100/95 text-forest-900 hover:bg-cream-100 dark:bg-cream-50/95 dark:hover:bg-cream-300";
 
   return (
     <div
       ref={wrapperRef}
-      className="relative h-full w-full overflow-hidden rounded-sm border border-forest-500/10 bg-[#e8e4da]"
+      className="relative h-full w-full overflow-hidden rounded-sm border border-forest-500/10 bg-cream-300"
     >
       <MapContainer
         ref={mapRef}
@@ -334,7 +354,7 @@ export default function ListingsMap({
               <Marker
                 key={p.rw}
                 position={[p.lat, p.lng]}
-                icon={pricePin(p, state, mode, t.perMonth, t.perRaiMonth)}
+                icon={pricePin(p, state, mode, fmt, t.perMonth, t.perRaiMonth)}
                 eventHandlers={{
                   click: () => onSelect?.(p.rw),
                   mouseover: () => onHover?.(p.rw),
@@ -372,16 +392,16 @@ export default function ListingsMap({
                     {mode === "rent" ? (
                       p.rentPerMonth ? (
                         <span className="num mt-1 block text-sm text-forest-900">
-                          {formatRentCompact(p.rentPerMonth, t.perMonth)}
+                          {fmt(p.rentPerMonth)}{t.perMonth}
                         </span>
                       ) : p.rentPerRaiMonth ? (
                         <span className="num mt-1 block text-sm text-forest-900">
-                          {formatRentCompact(p.rentPerRaiMonth, t.perRaiMonth)}
+                          {fmt(p.rentPerRaiMonth)}{t.perRaiMonth}
                         </span>
                       ) : null
                     ) : p.priceThb ? (
                       <span className="num mt-1 block text-sm text-forest-900">
-                        {formatPriceCompact(p.priceThb)}
+                        {fmt(p.priceThb)}
                       </span>
                     ) : null}
                   </a>

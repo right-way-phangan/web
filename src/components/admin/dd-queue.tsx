@@ -12,6 +12,7 @@ import {
   Check,
   X,
 } from "lucide-react";
+import { EmptyState } from "@/components/ui/empty-state";
 import { setDdStatus, saveDdChecklist } from "@/lib/actions/dd-status";
 import { DD_STATUSES, DD_CHECKLIST, type DdStatus, isVetted } from "@/lib/dd";
 
@@ -101,7 +102,7 @@ export function DdQueue({ rows, defaultLawyer }: { rows: DdRow[]; defaultLawyer:
             className={
               "rounded-full px-3 py-1.5 text-sm font-medium transition " +
               (tab === t.key
-                ? "bg-forest-900 text-cream-50"
+                ? "bg-panel text-panel-fg"
                 : "bg-forest-900/5 text-forest-900 hover:bg-forest-900/10")
             }
           >
@@ -114,7 +115,7 @@ export function DdQueue({ rows, defaultLawyer }: { rows: DdRow[]; defaultLawyer:
             value={lawyer}
             onChange={(e) => setLawyer(e.target.value)}
             placeholder="Anas"
-            className="w-28 rounded-sm border border-forest-900/15 bg-white px-2 py-1 text-sm text-forest-900"
+            className="w-28 rounded-sm border border-forest-900/15 bg-cream-50 px-2 py-1 text-sm text-forest-900"
           />
         </label>
       </div>
@@ -272,8 +273,13 @@ export function DdQueue({ rows, defaultLawyer }: { rows: DdRow[]; defaultLawyer:
             })}
             {visible.length === 0 ? (
               <tr>
-                <td colSpan={8} className="px-3 py-8 text-center text-forest-500/70">
-                  Пусто.
+                <td colSpan={8} className="px-3 py-8">
+                  <EmptyState
+                    icon={ShieldCheck}
+                    title="Очередь пуста"
+                    hint="Нет объектов под текущий фильтр — все проверки разобраны."
+                    className="border-0 bg-transparent py-2"
+                  />
                 </td>
               </tr>
             ) : null}

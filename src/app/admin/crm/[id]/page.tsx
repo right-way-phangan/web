@@ -268,7 +268,7 @@ export default async function LeadDetailPage({
       )}
 
       {lead.status === "open" && (
-        <div className="mt-3 rounded-xl border border-forest-900/10 bg-white p-3">
+        <div className="mt-3 rounded-xl border border-forest-900/10 bg-cream-50 p-3">
           <p className="flex items-center gap-2 text-sm font-medium text-forest-900">
             <span className="text-lg">{readiness.emoji}</span>
             Готовность {readiness.score}/100
@@ -324,7 +324,7 @@ export default async function LeadDetailPage({
       </div>
 
       {/* Meta grid */}
-      <dl className="mt-5 grid grid-cols-2 gap-x-6 gap-y-3 rounded-lg border border-forest-900/10 bg-white p-4 text-sm sm:grid-cols-3">
+      <dl className="mt-5 grid grid-cols-2 gap-x-6 gap-y-3 rounded-lg border border-forest-900/10 bg-cream-50 p-4 text-sm sm:grid-cols-3">
         <Meta label="Воронка" value={lead.pipeline ?? "—"} />
         <div>
           <dt className="text-xs uppercase tracking-wide text-forest-900/40">Стадия</dt>
@@ -449,7 +449,7 @@ export default async function LeadDetailPage({
           </h2>
           <Link
             href={`/object/${obj.rwNumber}`}
-            className="flex items-center gap-3 rounded-xl border border-forest-900/10 bg-white p-3 transition hover:border-brass-500/40 hover:shadow-sm"
+            className="flex items-center gap-3 rounded-xl border border-forest-900/10 bg-cream-50 p-3 transition hover:border-brass-500/40 hover:shadow-sm"
           >
             <span className="h-16 w-20 shrink-0 overflow-hidden rounded-lg bg-forest-900/5">
               {obj.coverImage ? (
@@ -531,7 +531,7 @@ export default async function LeadDetailPage({
         {lead.tasks.map((t) => (
           <li
             key={t.id}
-            className="flex items-center gap-2 rounded-md border border-forest-900/10 bg-white px-3 py-2 text-sm"
+            className="flex items-center gap-2 rounded-md border border-forest-900/10 bg-cream-50 px-3 py-2 text-sm"
           >
             <TaskToggle taskId={t.id} leadId={lead.id} done={t.done} />
             <span className={t.done ? "text-forest-900/40 line-through" : "text-forest-900"}>
@@ -562,22 +562,22 @@ export default async function LeadDetailPage({
           name="title"
           required
           placeholder="Новая задача…"
-          className="min-w-[200px] flex-1 rounded-md border border-forest-900/15 bg-white px-3 py-1.5 text-sm outline-none focus:border-brass-500"
+          className="min-w-[200px] flex-1 rounded-md border border-forest-900/15 bg-cream-50 px-3 py-1.5 text-sm outline-none focus:border-brass-500"
         />
         <input
           name="dueAt"
           type="date"
-          className="rounded-md border border-forest-900/15 bg-white px-3 py-1.5 text-sm text-forest-900/70 outline-none focus:border-brass-500"
+          className="rounded-md border border-forest-900/15 bg-cream-50 px-3 py-1.5 text-sm text-forest-900/70 outline-none focus:border-brass-500"
         />
         <input
           name="dueTime"
           type="time"
           title="Время (необязательно) — в момент срока придёт напоминание в Telegram"
-          className="rounded-md border border-forest-900/15 bg-white px-3 py-1.5 text-sm text-forest-900/70 outline-none focus:border-brass-500"
+          className="rounded-md border border-forest-900/15 bg-cream-50 px-3 py-1.5 text-sm text-forest-900/70 outline-none focus:border-brass-500"
         />
         <button
           type="submit"
-          className="rounded-md bg-forest-900 px-3 py-1.5 text-sm font-medium text-white hover:bg-forest-900/90"
+          className="rounded-md bg-panel px-3 py-1.5 text-sm font-medium text-panel-fg hover:bg-panel/90"
         >
           Добавить
         </button>
@@ -623,11 +623,11 @@ export default async function LeadDetailPage({
           required
           rows={3}
           placeholder="Добавить заметку…"
-          className="w-full rounded-md border border-forest-900/15 bg-white px-3 py-2 text-sm outline-none focus:border-brass-500"
+          className="w-full rounded-md border border-forest-900/15 bg-cream-50 px-3 py-2 text-sm outline-none focus:border-brass-500"
         />
         <button
           type="submit"
-          className="mt-1 rounded-md bg-forest-900 px-3 py-1.5 text-sm font-medium text-white hover:bg-forest-900/90"
+          className="mt-1 rounded-md bg-panel px-3 py-1.5 text-sm font-medium text-panel-fg hover:bg-panel/90"
         >
           Сохранить заметку
         </button>

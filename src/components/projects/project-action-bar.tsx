@@ -6,6 +6,7 @@ import { formatPriceCompact } from "@/lib/utils/price";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { getProjectsDict } from "@/lib/i18n/dictionaries";
 import { whatsappLink, telegramDmLink } from "@/lib/site-config";
+import { track } from "@/lib/analytics/track";
 import { cn } from "@/lib/utils/cn";
 
 interface Props {
@@ -39,6 +40,7 @@ export function ProjectActionBar({ rwNumber, titleEn, priceThb }: Props) {
 
   const scrollToForm = (e: React.MouseEvent) => {
     e.preventDefault();
+    track("project_enquire", { rw: rwNumber });
     const el = document.getElementById("enquire");
     if (!el) return;
     const top = el.getBoundingClientRect().top + window.scrollY - 80;
@@ -69,10 +71,14 @@ export function ProjectActionBar({ rwNumber, titleEn, priceThb }: Props) {
           )}
         </div>
 
+        {/* data-rw → global ContactClickTracker attributes the messenger click
+            to this project (RW-P####) in the own-DB funnel, not the site bucket. */}
         <a
           href={whatsappLink(msg)}
           target="_blank"
           rel="noopener noreferrer"
+          data-rw={rwNumber}
+          onClick={() => track("project_whatsapp", { rw: rwNumber })}
           aria-label="WhatsApp"
           className="flex h-10 w-10 shrink-0 items-center justify-center rounded-sm border border-forest-500/20 text-forest-600 transition-colors hover:border-brass-500 hover:text-brass-500"
         >
@@ -82,6 +88,8 @@ export function ProjectActionBar({ rwNumber, titleEn, priceThb }: Props) {
           href={telegramDmLink(`interest_${rwNumber}`)}
           target="_blank"
           rel="noopener noreferrer"
+          data-rw={rwNumber}
+          onClick={() => track("project_telegram", { rw: rwNumber })}
           aria-label="Telegram"
           className="flex h-10 w-10 shrink-0 items-center justify-center rounded-sm border border-forest-500/20 text-forest-600 transition-colors hover:border-brass-500 hover:text-brass-500"
         >

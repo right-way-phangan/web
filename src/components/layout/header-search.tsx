@@ -49,7 +49,7 @@ export function HeaderSearch({ light = false }: { light?: boolean }) {
           className={cn(
             "flex h-11 w-11 items-center justify-center rounded-sm transition-colors",
             light
-              ? "text-cream-50 hover:text-brass-300"
+              ? "text-panel-fg hover:text-brass-300"
               : "text-forest-500 hover:text-brass-500",
           )}
         >

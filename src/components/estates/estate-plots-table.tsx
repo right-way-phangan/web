@@ -1,14 +1,14 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Clock } from "lucide-react";
 import type { LandEstate, EstatePlot } from "@/content/land-estates";
 import { plotPriceVisible } from "@/content/land-estates";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getEstatesDict } from "@/lib/i18n/dictionaries";
-import { formatPriceCompact } from "@/lib/utils/price";
 import { cn } from "@/lib/utils/cn";
 import { AvailabilityBar } from "@/components/projects/availability-bar";
 import { PlotStatusBadge } from "./plot-status-badge";
+import { useEstateCurrency } from "./estate-currency";
 
 interface Props {
   /** Полная подборка — для сводных счётчиков. */
@@ -19,6 +19,8 @@ interface Props {
   hovered: string | null;
   onHover: (code: string | null) => void;
   onEnquire: (code: string) => void;
+  /** Открыть драуэр лота (по клику на код участка). */
+  onOpenLot: (code: string) => void;
 }
 
 /**
@@ -26,7 +28,7 @@ interface Props {
  * по отфильтрованному списку. Строка подсвечивается при наведении на неё или на
  * лот в схеме плана (hovered). У свободных лотов — чип вида и кнопка «Запросить».
  */
-export function EstatePlotsTable({ estate, plots, locale, hovered, onHover, onEnquire }: Props) {
+export function EstatePlotsTable({ estate, plots, locale, hovered, onHover, onEnquire, onOpenLot }: Props) {
   const t = getEstatesDict(locale);
   const total = estate.plots.length;
   const available = estate.plots.filter((p) => p.status === "available").length;
@@ -71,6 +73,7 @@ export function EstatePlotsTable({ estate, plots, locale, hovered, onHover, onEn
               hovered={hovered === plot.code}
               onHover={onHover}
               onEnquire={onEnquire}
+              onOpenLot={onOpenLot}
             />
           ))}
         </dl>
@@ -85,14 +88,17 @@ function PlotRow({
   hovered,
   onHover,
   onEnquire,
+  onOpenLot,
 }: {
   plot: EstatePlot;
   locale: Locale;
   hovered: boolean;
   onHover: (code: string | null) => void;
   onEnquire: (code: string) => void;
+  onOpenLot: (code: string) => void;
 }) {
   const t = getEstatesDict(locale);
+  const { fmt } = useEstateCurrency();
   const taken = plot.status === "sold" || plot.status === "rented";
 
   const area = plot.areaRai
@@ -104,11 +110,11 @@ function PlotRow({
   const priceNode = plotPriceVisible(plot.status) ? (
     plot.tenure === "Leasehold" && plot.rentPerRaiMonth ? (
       <span className="num text-forest-900">
-        {formatPriceCompact(plot.rentPerRaiMonth)}
+        {fmt(plot.rentPerRaiMonth)}
         <span className="ml-1 font-sans text-[11px] text-forest-500/55">{t.perRaiMonth}</span>
       </span>
     ) : plot.priceThb ? (
-      <span className="num text-forest-900">{formatPriceCompact(plot.priceThb)}</span>
+      <span className="num text-forest-900">{fmt(plot.priceThb)}</span>
     ) : (
       <span className="text-forest-500/55">{t.priceOnRequest}</span>
     )
@@ -138,11 +144,23 @@ function PlotRow({
       )}
     >
       <dt className="flex items-center gap-2 text-sm font-medium text-forest-900">
-        {plot.code}
+        <button
+          type="button"
+          onClick={() => onOpenLot(plot.code)}
+          className="rounded-sm underline-offset-2 transition-colors hover:text-brass-600 hover:underline"
+        >
+          {plot.code}
+        </button>
         {viewChip}
       </dt>
       <dd className="order-3 col-span-2 text-sm text-forest-500/75 sm:order-none sm:col-span-1">
         {area}
+        {plot.chanote === "inProgress" ? (
+          <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-brass-500/12 px-2 py-0.5 align-middle text-[10px] font-medium text-brass-700">
+            <Clock className="h-3 w-3" />
+            {locale === "ru" ? "чанот в процессе" : "title in progress"}
+          </span>
+        ) : null}
         {plot.note ? (
           <span className="block text-xs text-forest-500/50 sm:inline sm:before:mx-1.5 sm:before:content-['·']">
             {plot.note[locale]}

@@ -2,6 +2,8 @@ import Link from "next/link";
 import type { Route } from "next";
 import { getPendingArticleCount } from "@/lib/data/articles";
 import { getGuideDraftCount } from "@/lib/data/guide";
+import { getOpenTaskCount } from "@/lib/data/agent-tasks";
+import { getDraftPostCount } from "@/lib/data/social-posts";
 import { ADMIN_SECTIONS, helpHrefFor, type AdminSection } from "@/lib/admin-sections";
 
 /**
@@ -26,7 +28,12 @@ export async function AdminNav({
   const pending = pendingArticles ?? (await getPendingArticleCount());
   // Бейдж на «Справочник» — число страниц-черновиков, ждущих вычитки
   // (видно с любой страницы админки, не только с обзора справочника).
-  const drafts = getGuideDraftCount();
+  // Бейдж «Агенты» — число открытых задач AI-команды.
+  const [drafts, openTasks, draftPosts] = await Promise.all([
+    getGuideDraftCount(),
+    getOpenTaskCount(),
+    getDraftPostCount(),
+  ]);
   // Контекстная справка: каждая рабочая страница ведёт на свой раздел учебника
   // (/admin/guide), в новой вкладке — чтобы не терять рабочий контекст.
   const helpHref = helpHrefFor(active);
@@ -34,7 +41,16 @@ export async function AdminNav({
     key: s.key,
     href: s.href,
     label: s.label,
-    badge: s.key === "articles" ? pending : s.key === "guide" ? drafts : undefined,
+    badge:
+      s.key === "articles"
+        ? pending
+        : s.key === "guide"
+          ? drafts
+          : s.key === "agents"
+            ? openTasks
+            : s.key === "posts"
+              ? draftPosts
+              : undefined,
   }));
   return (
     <nav className="mb-6 flex flex-wrap gap-2 border-b border-forest-900/10 pb-4">
@@ -47,7 +63,7 @@ export async function AdminNav({
             className={
               "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition " +
               (on
-                ? "bg-forest-900 text-white"
+                ? "bg-panel text-panel-fg"
                 : "bg-forest-900/5 text-forest-900/70 hover:bg-forest-900/10")
             }
           >
@@ -56,7 +72,7 @@ export async function AdminNav({
               <span
                 className={
                   "inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full px-1.5 text-xs font-semibold " +
-                  (on ? "bg-white/20 text-white" : "bg-brass-500 text-white")
+                  (on ? "bg-cream-50/20 text-panel-fg" : "bg-brass-500 text-panel-fg")
                 }
               >
                 {it.badge}

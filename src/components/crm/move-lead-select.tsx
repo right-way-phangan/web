@@ -19,7 +19,7 @@ export function MoveLeadSelect({
       defaultValue={currentStageKey ?? ""}
       disabled={pending}
       onChange={(e) => start(() => moveLead(leadId, e.target.value))}
-      className="w-full rounded-md border border-forest-900/15 bg-white px-2 py-1 text-xs text-forest-900 outline-none focus:border-brass-500 disabled:opacity-50"
+      className="w-full rounded-md border border-forest-900/15 bg-cream-50 px-2 py-1 text-xs text-forest-900 outline-none focus:border-brass-500 disabled:opacity-50"
       aria-label="Move to stage"
     >
       {stages.map((s) => (

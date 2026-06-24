@@ -31,7 +31,7 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
       {/* The in-progress notice sits under the hero: the header floats
           transparent over the hero photo, so a strip above it would hide. */}
       {dict.inProgress ? (
-        <p className="bg-forest-900 px-6 py-2 text-center text-xs text-cream-100/80">
+        <p className="bg-panel px-6 py-2 text-center text-xs text-panel-fg/80">
           {dict.inProgress}
         </p>
       ) : null}
@@ -70,7 +70,7 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
       </Reveal>
 
       {/* Closing CTA — full-bleed coastal scene bookending the dark hero */}
-      <section className="relative isolate overflow-hidden bg-forest-900">
+      <section className="relative isolate overflow-hidden bg-panel">
         <Image
           src="/images/scenes/coast-aerial.jpg"
           alt="Aerial view of the Koh Phangan coastline"
@@ -79,7 +79,7 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
           className="object-cover"
         />
         <div
-          className="absolute inset-0 bg-gradient-to-t from-forest-900/92 via-forest-900/55 to-forest-900/30"
+          className="absolute inset-0 bg-gradient-to-t from-panel/92 via-panel/55 to-panel/30"
           aria-hidden
         />
         <div
@@ -92,8 +92,8 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
             <span className="h-px w-10 bg-brass-300/70" aria-hidden />
             {dict.cta.eyebrow}
           </p>
-          <h2 className="mt-5 max-w-2xl text-balance text-cream-50">{dict.cta.title}</h2>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-cream-100/85">
+          <h2 className="mt-5 max-w-2xl text-balance text-panel-fg">{dict.cta.title}</h2>
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-panel-fg/85">
             {dict.cta.lede}
           </p>
 
@@ -110,7 +110,7 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
               asChild
               variant="outline"
               size="lg"
-              className="border-cream-100/40 text-cream-50 hover:border-cream-50 hover:bg-cream-50 hover:text-forest-900"
+              className="border-panel-fg/40 text-panel-fg hover:border-panel-fg hover:bg-panel-fg hover:text-panel"
             >
               <Link href={contactHref}>{dict.cta.talk}</Link>
             </Button>

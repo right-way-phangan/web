@@ -4,11 +4,11 @@ import type { Route } from "next";
 import Link from "next/link";
 import type { RealEstateObject } from "@/types/object";
 import type { ProjectAvailability } from "@/lib/data/projects";
-import { formatPriceCompact } from "@/lib/utils/price";
 import { useLocale, localeHref } from "@/lib/i18n/use-locale";
 import { getProjectsDict } from "@/lib/i18n/dictionaries";
 import { cn } from "@/lib/utils/cn";
 import { AvailabilityBar } from "./availability-bar";
+import { CurrencyProvider, CurrencyToggle, useCurrency } from "@/components/ui/currency";
 
 interface Props {
   units: RealEstateObject[];
@@ -27,6 +27,7 @@ export function UnitsTable({ units, availability }: Props) {
   const sold = total != null && available != null ? total - available : undefined;
 
   return (
+    <CurrencyProvider>
     <div className="space-y-6">
       {/* Headline counters */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
@@ -52,9 +53,15 @@ export function UnitsTable({ units, availability }: Props) {
 
       {/* Per-unit rows — only once real unit cards exist */}
       {units.length > 0 ? (
-        <UnitRows units={units} locale={locale} />
+        <>
+          <div className="flex justify-end">
+            <CurrencyToggle />
+          </div>
+          <UnitRows units={units} locale={locale} />
+        </>
       ) : null}
     </div>
+    </CurrencyProvider>
   );
 }
 
@@ -87,6 +94,7 @@ function Stat({
 }
 
 function UnitRows({ units, locale }: { units: RealEstateObject[]; locale: "en" | "ru" }) {
+  const { fmt } = useCurrency();
   const priceOnRequest = locale === "ru" ? "Цена по запросу" : "Price on request";
   const statusLabel: Record<string, string> = {
     Active: locale === "ru" ? "Доступен" : "Available",
@@ -107,7 +115,7 @@ function UnitRows({ units, locale }: { units: RealEstateObject[]; locale: "en" |
               {u.areaSqm ? `${u.areaSqm.toLocaleString()} m²` : u.titleEn}
             </dd>
             <dd className="num text-sm text-forest-900">
-              {u.priceThb ? formatPriceCompact(u.priceThb) : priceOnRequest}
+              {u.priceThb ? fmt(u.priceThb) : priceOnRequest}
             </dd>
             <dd
               className={cn(

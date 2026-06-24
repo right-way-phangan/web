@@ -8,13 +8,19 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
+        // Dark: forest is inverted to a muted light, so a solid forest button
+        // would read as washed grey-green. Override to a confident bright pill
+        // with dark text (panel-fg / panel never invert). outline/ghost/link
+        // need no dark override — their forest tints/borders invert correctly.
         primary:
-          "bg-forest-500 text-cream-100 hover:-translate-y-px hover:bg-forest-400 hover:shadow-lift active:translate-y-0 active:bg-forest-900 active:shadow-none",
+          // Light: my premium lift motion. Dark: forest inverts to muted light,
+          // so override to a confident bright pill with dark text (panel-fg /
+          // panel never invert).
+          "bg-forest-500 text-cream-100 hover:-translate-y-px hover:bg-forest-400 hover:shadow-lift active:translate-y-0 active:bg-forest-900 active:shadow-none dark:bg-panel-fg dark:text-panel dark:shadow-[0_10px_28px_-14px_rgba(0,0,0,0.7)] dark:hover:bg-panel-fg/90 dark:hover:translate-y-0 dark:active:bg-panel-fg/80",
         accent:
-          // Deep-amber fill + light text (brass-500 is tuned AA for this).
-          // Hover goes DARKER (600), never lighter — the vivid 300/400 amber
-          // is reserved for dark backgrounds where light text isn't on it.
-          "bg-brass-500 text-cream-50 hover:-translate-y-px hover:bg-brass-600 hover:shadow-lift active:translate-y-0 active:bg-brass-700 active:shadow-none",
+          // Light: deep-amber fill + light text (brass-500 tuned AA) + my lift
+          // motion; hover goes DARKER. Dark: warm gold gradient + dark text.
+          "bg-brass-500 text-cream-50 hover:-translate-y-px hover:bg-brass-600 hover:shadow-lift active:translate-y-0 active:bg-brass-700 active:shadow-none dark:bg-gradient-to-b dark:from-brass-400 dark:to-brass-600 dark:text-panel dark:shadow-[0_10px_30px_-10px_rgba(229,174,112,0.5)] dark:hover:from-brass-300 dark:hover:to-brass-500 dark:active:from-brass-400 dark:active:to-brass-600",
         outline:
           "border border-forest-500/30 text-forest-500 hover:bg-forest-500 hover:text-cream-100 hover:border-forest-500",
         ghost:

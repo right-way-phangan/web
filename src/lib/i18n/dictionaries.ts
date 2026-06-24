@@ -22,7 +22,7 @@ export interface HomeDict {
     ctaBrowse: string;
     ctaProcess: string;
     intentLabel: string; // "I'm looking for"
-    intents: string[]; // chip labels — zipped with HERO_INTENT_HREFS by index
+    intents: string[]; // chip labels — zipped with HERO_INTENT_PATHS by index
   };
   values: {
     eyebrow: string;
@@ -322,6 +322,9 @@ export interface FormDict {
   submit: string;
   sending: string;
   success: string;
+  replyChannelHint: string; // подсказка, когда выбран мессенджер, но нет телефона
+  successLede: string; // префикс блока «напишите напрямую» после успешной отправки
+  successBrowse: string; // ссылка «смотреть ещё объекты» после отправки
   privacy: string;
   privacyConsent: string; // префикс перед ссылкой на /privacy
   privacyLink: string; // текст ссылки на политику
@@ -340,6 +343,9 @@ const form: Record<Locale, FormDict> = {
     submit: "Send enquiry",
     sending: "Sending…",
     success: "Thanks — we'll be in touch within the working day.",
+    replyChannelHint: "Add a phone number so we can reach you there.",
+    successLede: "Meanwhile, message us directly —",
+    successBrowse: "Browse more listings",
     privacy: "We reply within the working day. No spam, ever.",
     privacyConsent: "By sending, you agree we may contact you about your enquiry. See our",
     privacyLink: "privacy policy",
@@ -356,6 +362,9 @@ const form: Record<Locale, FormDict> = {
     submit: "Отправить запрос",
     sending: "Отправляем…",
     success: "Спасибо — ответим в течение рабочего дня.",
+    replyChannelHint: "Добавьте номер телефона, чтобы мы могли там связаться.",
+    successLede: "А пока — напишите нам напрямую:",
+    successBrowse: "Смотреть ещё объекты",
     privacy: "Отвечаем в течение рабочего дня. Без спама.",
     privacyConsent: "Отправляя, вы соглашаетесь, что мы можем связаться с вами по вашему обращению. См.",
     privacyLink: "политику конфиденциальности",
@@ -1512,8 +1521,6 @@ export function getProjectsDict(locale: Locale): ProjectsDict {
   return projectsDict[locale];
 }
 
-// ---- Land estates (подборки участков от одного собственника) ----
-
 export interface EstatesDict {
   eyebrow: string;
   indexTitle: string;
@@ -1545,6 +1552,8 @@ export interface EstatesDict {
     gallery: string;
     location: string;
   };
+  /** короткие подписи липкой навигации по странице */
+  nav: { overview: string; plan: string; plots: string; gallery: string; location: string };
   /** столбцы таблицы лотов */
   table: {
     plot: string;
@@ -1576,6 +1585,35 @@ export interface EstatesDict {
   enquireLot: (code: string) => string;
   lotPrefill: (code: string) => string;
   noMatch: string;
+  /** план: переключатель вида «схема ↔ спутник» */
+  planView: { plan: string; satellite: string };
+  satelliteHint: string;
+  openInMaps: string;
+  /** драуэр одного лота */
+  drawer: {
+    facts: string;
+    view: string;
+    note: string;
+    buildTitle: string;
+    coverage: string;
+    villas: string;
+    buildNote: string;
+    roiCta: string;
+    fullPlot: string;
+    addCompare: string;
+    inCompare: string;
+  };
+  /** сравнение лотов */
+  compare: {
+    title: string;
+    open: string;
+    clear: string;
+    empty: string;
+    pricePerSqm: string;
+    add: (code: string) => string;
+  };
+  /** динамика рынка */
+  momentum: (taken: number, total: number) => string;
 }
 
 type PlotStatusKey = "available" | "reserved" | "sold" | "rented";
@@ -1615,6 +1653,7 @@ const estatesDict: Record<Locale, EstatesDict> = {
       gallery: "On-site photos",
       location: "Location",
     },
+    nav: { overview: "Overview", plan: "Site plan", plots: "Plots", gallery: "Photos", location: "Location" },
     table: {
       plot: "Plot",
       area: "Area",
@@ -1642,6 +1681,31 @@ const estatesDict: Record<Locale, EstatesDict> = {
     enquireLot: (code) => `Enquire about ${code}`,
     lotPrefill: (code) => `I'm interested in plot ${code} at Haad Yao Hillside.`,
     noMatch: "No plots match this filter.",
+    planView: { plan: "Plan", satellite: "Satellite" },
+    satelliteHint: "Approximate location — imagery © Esri. Individual plot outlines are indicative.",
+    openInMaps: "Open in Google Maps",
+    drawer: {
+      facts: "Plot details",
+      view: "View",
+      note: "Notes",
+      buildTitle: "Build potential",
+      coverage: "Buildable area (~30%)",
+      villas: "Indicative villas",
+      buildNote: "Indicative only — not a planning opinion. Final coverage depends on setbacks and title.",
+      roiCta: "Model returns in the calculator",
+      fullPlot: "Open full plot page",
+      addCompare: "Add to compare",
+      inCompare: "In compare",
+    },
+    compare: {
+      title: "Compare plots",
+      open: "Compare",
+      clear: "Clear",
+      empty: "Pick up to 3 plots to compare them side by side.",
+      pricePerSqm: "Price / m²",
+      add: (code) => `Compare ${code}`,
+    },
+    momentum: (taken, total) => `${taken} of ${total} already taken`,
   },
   ru: {
     eyebrow: "Земельные проекты",
@@ -1677,6 +1741,7 @@ const estatesDict: Record<Locale, EstatesDict> = {
       gallery: "Фото с участков",
       location: "Расположение",
     },
+    nav: { overview: "Обзор", plan: "План", plots: "Участки", gallery: "Фото", location: "На карте" },
     table: {
       plot: "Участок",
       area: "Площадь",
@@ -1704,6 +1769,31 @@ const estatesDict: Record<Locale, EstatesDict> = {
     enquireLot: (code) => `Запросить ${code}`,
     lotPrefill: (code) => `Интересует участок ${code} в подборке Хад Яо.`,
     noMatch: "Под фильтр ничего не подходит.",
+    planView: { plan: "Схема", satellite: "Спутник" },
+    satelliteHint: "Примерное расположение — снимок © Esri. Контуры отдельных лотов ориентировочны.",
+    openInMaps: "Открыть в Google Maps",
+    drawer: {
+      facts: "Параметры участка",
+      view: "Вид",
+      note: "Заметки",
+      buildTitle: "Потенциал застройки",
+      coverage: "Застраиваемая площадь (~30%)",
+      villas: "Ориентировочно вилл",
+      buildNote: "Только ориентир — не юр.заключение. Итог зависит от отступов и титула.",
+      roiCta: "Смоделировать доходность в калькуляторе",
+      fullPlot: "Открыть страницу участка",
+      addCompare: "В сравнение",
+      inCompare: "В сравнении",
+    },
+    compare: {
+      title: "Сравнение участков",
+      open: "Сравнить",
+      clear: "Очистить",
+      empty: "Выберите до 3 участков, чтобы сравнить их рядом.",
+      pricePerSqm: "Цена / м²",
+      add: (code) => `Сравнить ${code}`,
+    },
+    momentum: (taken, total) => `${taken} из ${total} уже занято`,
   },
 };
 

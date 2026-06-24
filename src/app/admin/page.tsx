@@ -42,7 +42,7 @@ function Stat({
         "rounded-2xl border p-5 transition " +
         (accent
           ? "border-brass-500/30 bg-brass-500/[0.06]"
-          : "border-forest-900/10 bg-white") +
+          : "border-forest-900/10 bg-cream-50") +
         (href ? " hover:border-brass-500/40 hover:shadow-sm" : "")
       }
     >
@@ -333,7 +333,7 @@ export default async function AdminHomePage() {
           <Link
             key={t}
             href={{ pathname: "/admin/objects", query: { t } }}
-            className="rounded-full border border-forest-900/10 bg-white px-3 py-1.5 text-sm text-forest-900/70 hover:border-brass-500/40"
+            className="rounded-full border border-forest-900/10 bg-cream-50 px-3 py-1.5 text-sm text-forest-900/70 hover:border-brass-500/40"
           >
             {t} <span className="font-semibold text-forest-900">{byType[t]}</span>
           </Link>
@@ -426,7 +426,7 @@ export default async function AdminHomePage() {
                 </div>
               )}
               {revivalTasks.length > 0 && (
-                <div className="rounded-2xl border border-forest-900/10 bg-white p-4">
+                <div className="rounded-2xl border border-forest-900/10 bg-cream-50 p-4">
                   <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
                     🔁 На реанимацию
                   </p>
@@ -463,7 +463,7 @@ export default async function AdminHomePage() {
                   <Link
                     key={o.rwNumber}
                     href={{ pathname: `/admin/objects/${o.rwNumber}` }}
-                    className="flex items-center justify-between gap-3 rounded-xl border border-forest-900/10 bg-white px-3 py-2 hover:border-brass-500/40"
+                    className="flex items-center justify-between gap-3 rounded-xl border border-forest-900/10 bg-cream-50 px-3 py-2 hover:border-brass-500/40"
                   >
                     <span className="min-w-0">
                       <span className="block truncate text-sm font-medium text-forest-900">
@@ -492,7 +492,7 @@ export default async function AdminHomePage() {
               {funnels.map((f) => {
                 const top = f.steps[0]?.cum || 0;
                 return (
-                  <div key={f.key} className="rounded-2xl border border-forest-900/10 bg-white p-4">
+                  <div key={f.key} className="rounded-2xl border border-forest-900/10 bg-cream-50 p-4">
                     <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
                       Воронка · {f.name}
                     </p>
@@ -507,7 +507,7 @@ export default async function AdminHomePage() {
                             <div className="h-5 flex-1 overflow-hidden rounded bg-forest-900/5">
                               <div
                                 className={
-                                  "flex h-full items-center justify-end rounded px-2 text-[11px] font-medium text-white " +
+                                  "flex h-full items-center justify-end rounded px-2 text-[11px] font-medium text-panel-fg " +
                                   (s.isWon ? "bg-emerald-500" : "bg-brass-500")
                                 }
                                 style={{ width: `${width}%` }}
@@ -533,7 +533,7 @@ export default async function AdminHomePage() {
 
           {/* Channel attribution */}
           {channels.length > 0 && (
-            <div className="mb-7 rounded-2xl border border-forest-900/10 bg-white p-4">
+            <div className="mb-7 rounded-2xl border border-forest-900/10 bg-cream-50 p-4">
               <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
                 Каналы привлечения
               </p>
@@ -569,7 +569,7 @@ export default async function AdminHomePage() {
 
           {/* Pipeline money */}
           {(pipelineValue > 0 || wonCommission > 0) && (
-            <div className="mb-7 rounded-2xl border border-forest-900/10 bg-white p-4">
+            <div className="mb-7 rounded-2xl border border-forest-900/10 bg-cream-50 p-4">
               <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
                 Деньги в воронке
               </p>
@@ -616,7 +616,7 @@ export default async function AdminHomePage() {
           {(lossReasons.length > 0 || stageCycle.length > 0) && (
             <div className="mb-7 grid gap-4 md:grid-cols-2">
               {lossReasons.length > 0 && (
-                <div className="rounded-2xl border border-forest-900/10 bg-white p-4">
+                <div className="rounded-2xl border border-forest-900/10 bg-cream-50 p-4">
                   <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
                     Причины потерь
                   </p>
@@ -630,7 +630,7 @@ export default async function AdminHomePage() {
                           <span className="w-32 shrink-0 truncate text-forest-900/70">{reason}</span>
                           <div className="h-2 flex-1 overflow-hidden rounded-full bg-forest-900/5">
                             <div
-                              className="h-full rounded-full bg-forest-900/30"
+                              className="h-full rounded-full bg-panel/30"
                               style={{ width: `${pct}%` }}
                             />
                           </div>
@@ -647,7 +647,7 @@ export default async function AdminHomePage() {
                 </div>
               )}
               {stageCycle.length > 0 && (
-                <div className="rounded-2xl border border-forest-900/10 bg-white p-4">
+                <div className="rounded-2xl border border-forest-900/10 bg-cream-50 p-4">
                   <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
                     Средний цикл стадий
                   </p>
@@ -670,7 +670,7 @@ export default async function AdminHomePage() {
 
           <div className={recent.length > 0 && activity.length > 0 ? "grid gap-4 md:grid-cols-2" : ""}>
           {recent.length > 0 && (
-            <div className="rounded-2xl border border-forest-900/10 bg-white">
+            <div className="rounded-2xl border border-forest-900/10 bg-cream-50">
               <div className="border-b border-forest-900/10 px-4 py-2.5 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
                 Последние лиды
               </div>
@@ -710,7 +710,7 @@ export default async function AdminHomePage() {
 
           {/* Activity feed: who moved where */}
           {activity.length > 0 && (
-            <div className="rounded-2xl border border-forest-900/10 bg-white">
+            <div className="rounded-2xl border border-forest-900/10 bg-cream-50">
               <div className="border-b border-forest-900/10 px-4 py-2.5 text-xs font-semibold uppercase tracking-wide text-forest-900/50">
                 Активность
               </div>

@@ -1,8 +1,8 @@
 "use server";
 
-import { put } from "@vercel/blob";
 import { revalidatePath } from "next/cache";
 import { backendFetch } from "@/lib/api/backend";
+import { uploadImageToR2 } from "@/lib/storage/r2";
 
 const API = process.env.OBJECTS_API_URL;
 const MAX_FILES = 30;
@@ -17,12 +17,7 @@ function isImage(file: File): boolean {
 }
 
 async function uploadBlob(file: File): Promise<string> {
-  const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-  const blob = await put(`objects/${Date.now()}-${safeName}`, file, {
-    access: "public",
-    addRandomSuffix: true,
-  });
-  return blob.url;
+  return uploadImageToR2(file, "objects");
 }
 
 /**

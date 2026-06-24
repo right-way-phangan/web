@@ -51,7 +51,7 @@ export function ObjectWarmLeads({ leads }: { leads: WarmLeadRow[] }) {
         {leads.map((l) => (
           <li
             key={l.id}
-            className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-lg border border-forest-900/10 bg-white px-3 py-2 text-sm"
+            className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-lg border border-forest-900/10 bg-cream-50 px-3 py-2 text-sm"
           >
             <Link
               href={{ pathname: `/admin/crm/${l.id}` }}

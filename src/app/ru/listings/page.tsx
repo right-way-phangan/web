@@ -50,7 +50,7 @@ export default async function RussianListingsPage({ searchParams }: PageProps) {
   const q = (Array.isArray(qRaw) ? qRaw[0] : qRaw) ?? "";
 
   return (
-    <section className="container-prose py-10 md:py-14">
+    <section className="container-prose py-10 md:py-14 aura">
       <link rel="preconnect" href="https://a.basemaps.cartocdn.com" crossOrigin="" />
       <link rel="dns-prefetch" href="https://b.basemaps.cartocdn.com" />
       <ItemListJsonLd name="Объекты недвижимости на Пангане — Right Way" objects={sorted} />

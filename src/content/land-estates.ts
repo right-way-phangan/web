@@ -45,6 +45,8 @@ export interface EstatePlot {
   leaseTermYears?: number;
   seaView?: boolean;
   flatLand?: boolean;
+  /** Статус чанота (тайтл-дид): «ready» (по умолчанию) или «inProgress». */
+  chanote?: "ready" | "inProgress";
   /** Короткая бейзлайн-заметка по лоту (двуязычно). */
   note?: { en: string; ru: string };
   /**
@@ -92,6 +94,8 @@ export interface LandEstate {
   totalAreaRai?: number;
   /** Преимущества подборки (буллеты). */
   highlights?: { en: string; ru: string }[];
+  /** Готовность инфраструктуры (estate-wide) — для бейджей доверия на лотах. */
+  utilities?: { road?: boolean; power?: boolean; water?: boolean };
   /** Схема плана разбивки (опц.) — рендерится EstateSitePlan, если задана и у лотов есть plotShape. */
   plan?: EstatePlan;
   plots: EstatePlot[];
@@ -141,20 +145,38 @@ export const LAND_ESTATES: LandEstate[] = [
       { en: "Concrete roads + underground 3-phase power in place", ru: "Бетонные дороги + подземное 3-фазное электричество готовы" },
       { en: "Individual Chanote verified per lot before reservation", ru: "Индивидуальный чанот проверяем по каждому лоту до резерва" },
     ],
+    // Схема разбивки по реальному мастер-плану NXS (топология лотов, не кадастр):
+    // R9 — большой верхний лот-«шея», правым основанием примыкает к M1; ниже
+    // полоса R6│R7│R8 (R8 правее R7), слева вниз ряд R1/R2/R34/R5/R10, центр
+    // M1–M4 → дорога → M10, справа M5–M9 к нижнему острию; C10 — отдельный лот
+    // (свой чанот) ниже R10 через дорогу. Дороги — коридорами. Закат/море = слева
+    // (сторона R6–R10).
+    utilities: { road: true, power: true },
     plan: {
-      viewBox: "0 0 100 116",
+      viewBox: "0 0 100 152",
       roads: [
-      "M3,52 C30,49 70,49 97,52",
-      "M52,95 L52,53",
-      "M30,95 L30,74",
-      "M72,95 L72,74",
-    ],
+        // Сеть дорог по разметке Vladimir (2026-06-22), все в зазорах между лотами.
+        // Верхняя горизонталь: разворотный карман слева → T-узел над R1/M1 →
+        // вдоль верха M1 (зазор между рядом R6/R7/R8 и рядом R1/M1).
+        "M3.5,55.5 C12,55.5 20,56 28,56 C36,56 44,55 52,54.5",
+        // Центральная ось: от T-узла вниз в коридоре между R-колонкой (закат/море)
+        // и M-колонкой до нижнего узла у R5/R10/M4/M10.
+        "M28,56 C29.5,66 31.5,76 33.5,86 C35.5,96 38,104 40,112",
+        // Нижняя перемычка влево (в зазоре между R5 и R10) к C10.
+        "M40,112 C34,112.5 28,113 22,114",
+        // Спуск в коридор между C10 (слева) и R10 (справа) → разворотный карман.
+        "M22,114 C22.5,117 23.5,120 25,123 C26.5,126 28,128.5 28,131",
+        // Ветка вправо-вниз в зазоре между R10 и M10.
+        "M40,112 C42.5,115 44,117.5 45,120 C46.5,123 47.5,124.5 48,126",
+        // Правая ось: разворотный карман у M5 → вниз в зазоре между M3/M4 и M6/M7.
+        "M59.5,78 C59,84 58,89 58,94 C58.5,100 60.5,105 62,109 C64,114 67,119 70,124",
+      ],
       seaSide: "left",
     },
     plots: [
       {
         code: "R1",
-        plotShape: [[24.8, 28.9], [41.8, 28.2], [41.4, 47.5], [24.2, 47.5]],
+        plotShape: [[6, 57.5], [25, 57.5], [26.8, 70], [7.8, 70]],
         status: "available",
         tenure: "Freehold",
         areaSqm: 2252,
@@ -176,28 +198,28 @@ export const LAND_ESTATES: LandEstate[] = [
       },
       {
         code: "R2",
-        plotShape: [[43.6, 30.8], [60.0, 30.7], [60.4, 47.6], [43.5, 48.4]],
+        plotShape: [[7.8, 70], [26.8, 70], [29.7, 84], [11.3, 84]],
         status: "sold",
         tenure: "Freehold",
         seaView: true,
       },
       {
         code: "R5",
-        plotShape: [[4.4, 29.2], [23.7, 29.2], [23.3, 48.0], [3.3, 48.4]],
+        plotShape: [[16.1, 98], [33.7, 98], [39, 112], [22.4, 112]],
         status: "sold",
         tenure: "Freehold",
         seaView: true,
       },
       {
         code: "R6",
-        plotShape: [[72.7, 6.4], [94.2, 5.2], [94.7, 25.2], [71.9, 25.3]],
+        plotShape: [[6, 40], [22, 40], [22, 54.5], [6, 54.5]],
         status: "sold",
         tenure: "Freehold",
         seaView: true,
       },
       {
         code: "R7",
-        plotShape: [[29.4, 4.4], [49.2, 5.5], [49.0, 26.7], [29.6, 26.3]],
+        plotShape: [[22, 40], [38, 40], [38, 55], [22, 54.5]],
         status: "available",
         tenure: "Freehold",
         areaSqm: 3232,
@@ -219,7 +241,7 @@ export const LAND_ESTATES: LandEstate[] = [
       },
       {
         code: "R8",
-        plotShape: [[50.1, 4.7], [71.4, 4.8], [70.2, 26.0], [50.4, 25.8]],
+        plotShape: [[38, 40], [44, 40], [50, 55], [38, 55]],
         status: "available",
         tenure: "Freehold",
         areaSqm: 3540,
@@ -233,7 +255,7 @@ export const LAND_ESTATES: LandEstate[] = [
       },
       {
         code: "R9",
-        plotShape: [[4.5, 5.7], [28.3, 4.2], [27.4, 26.2], [3.6, 26.8]],
+        plotShape: [[44, 6], [66, 4], [71, 22], [70, 55], [50, 55], [44, 40], [40, 22]],
         status: "available",
         tenure: "Freehold",
         areaSqm: 7540,
@@ -247,7 +269,7 @@ export const LAND_ESTATES: LandEstate[] = [
       },
       {
         code: "R10",
-        plotShape: [[78.3, 29.2], [94.2, 30.6], [94.2, 49.0], [78.7, 48.5]],
+        plotShape: [[23.5, 115.5], [40, 114], [46, 126], [31, 127]],
         status: "available",
         tenure: "Freehold",
         areaSqm: 2420,
@@ -258,7 +280,6 @@ export const LAND_ESTATES: LandEstate[] = [
           ru: "Вид на море из верхней части, тихий конец кольцевой дороги.",
         },
         photos: [
-          "/images/estates/haad-yao-hillside/r10-1.jpg",
           "/images/estates/haad-yao-hillside/r10-2.jpg",
           "/images/estates/haad-yao-hillside/r10-3.jpg",
           "/images/estates/haad-yao-hillside/r10-4.jpg",
@@ -268,14 +289,14 @@ export const LAND_ESTATES: LandEstate[] = [
       },
       {
         code: "R34",
-        plotShape: [[60.8, 30.4], [77.1, 30.8], [77.2, 47.2], [60.5, 48.2]],
+        plotShape: [[11.3, 84], [29.7, 84], [33.7, 98], [16.1, 98]],
         status: "sold",
         tenure: "Freehold",
         seaView: true,
       },
       {
         code: "M1",
-        plotShape: [[22.3, 56.4], [40.1, 57.2], [40.2, 73.2], [23.6, 74.3]],
+        plotShape: [[31, 55], [58, 55], [58, 69], [33, 69]],
         status: "available",
         tenure: "Freehold",
         areaSqm: 2448,
@@ -296,7 +317,7 @@ export const LAND_ESTATES: LandEstate[] = [
       },
       {
         code: "M2",
-        plotShape: [[41.4, 56.8], [56.4, 56.2], [56.9, 74.2], [40.8, 74.7]],
+        plotShape: [[33, 69], [58, 69], [57.1, 82], [35.2, 82]],
         status: "available",
         tenure: "Freehold",
         areaSqm: 2444,
@@ -312,26 +333,25 @@ export const LAND_ESTATES: LandEstate[] = [
           "/images/estates/haad-yao-hillside/m2-3.jpg",
           "/images/estates/haad-yao-hillside/m2-4.jpg",
           "/images/estates/haad-yao-hillside/m2-5.jpg",
-          "/images/estates/haad-yao-hillside/m2-6.jpg",
         ],
       },
       {
         code: "M3",
-        plotShape: [[58.2, 58.4], [73.0, 58.2], [72.6, 74.3], [58.2, 73.8]],
+        plotShape: [[35.2, 82], [57.1, 82], [57, 95], [38.7, 95]],
         status: "sold",
         tenure: "Freehold",
         seaView: false,
       },
       {
         code: "M4",
-        plotShape: [[3.6, 57.3], [22.3, 56.8], [22.6, 74.3], [3.2, 73.9]],
+        plotShape: [[38.7, 95], [57, 95], [59.9, 108], [43, 108]],
         status: "sold",
         tenure: "Freehold",
         seaView: false,
       },
       {
         code: "M5",
-        plotShape: [[73.7, 55.4], [95.2, 55.6], [94.7, 73.9], [73.7, 74.3]],
+        plotShape: [[61, 78], [78, 78], [96, 92], [61, 92]],
         status: "available",
         tenure: "Freehold",
         areaSqm: 3152,
@@ -343,7 +363,6 @@ export const LAND_ESTATES: LandEstate[] = [
         },
         photos: [
           "/images/estates/haad-yao-hillside/m5-1.jpg",
-          "/images/estates/haad-yao-hillside/m5-2.jpg",
           "/images/estates/haad-yao-hillside/m5-3.jpg",
           "/images/estates/haad-yao-hillside/m5-4.jpg",
           "/images/estates/haad-yao-hillside/m5-5.jpg",
@@ -352,7 +371,7 @@ export const LAND_ESTATES: LandEstate[] = [
       },
       {
         code: "M6",
-        plotShape: [[22.7, 76.6], [38.0, 77.0], [38.8, 93.6], [21.8, 92.3]],
+        plotShape: [[61, 92], [96, 92], [97, 106], [65, 106]],
         status: "available",
         tenure: "Freehold",
         areaSqm: 2404,
@@ -373,7 +392,7 @@ export const LAND_ESTATES: LandEstate[] = [
       },
       {
         code: "M7",
-        plotShape: [[39.1, 76.3], [54.4, 77.1], [55.6, 93.4], [38.8, 93.0]],
+        plotShape: [[65, 106], [97, 106], [92, 119], [70, 119]],
         status: "available",
         tenure: "Freehold",
         areaSqm: 2403,
@@ -389,12 +408,11 @@ export const LAND_ESTATES: LandEstate[] = [
           "/images/estates/haad-yao-hillside/m7-3.jpg",
           "/images/estates/haad-yao-hillside/m7-4.jpg",
           "/images/estates/haad-yao-hillside/m7-5.jpg",
-          "/images/estates/haad-yao-hillside/m7-6.jpg",
         ],
       },
       {
         code: "M8",
-        plotShape: [[56.2, 78.7], [67.8, 77.3], [67.9, 93.3], [55.4, 93.4]],
+        plotShape: [[70, 119], [92, 119], [85, 130], [74, 130]],
         status: "available",
         tenure: "Freehold",
         areaSqm: 1382,
@@ -405,7 +423,6 @@ export const LAND_ESTATES: LandEstate[] = [
           ru: "Компактный лот ряда M; вид на горы и долину. Чанот уточняется.",
         },
         photos: [
-          "/images/estates/haad-yao-hillside/m8-1.jpg",
           "/images/estates/haad-yao-hillside/m8-2.jpg",
           "/images/estates/haad-yao-hillside/m8-3.jpg",
           "/images/estates/haad-yao-hillside/m8-4.jpg",
@@ -415,25 +432,25 @@ export const LAND_ESTATES: LandEstate[] = [
       },
       {
         code: "M9",
-        plotShape: [[69.3, 78.0], [85.1, 78.1], [84.5, 92.7], [69.0, 93.1]],
+        plotShape: [[74, 130], [85, 130], [79, 140], [77, 140]],
         status: "sold",
         tenure: "Freehold",
         seaView: false,
       },
       {
         code: "M10",
-        plotShape: [[3.3, 77.8], [20.2, 77.4], [20.8, 92.3], [4.5, 93.3]],
+        plotShape: [[43, 113], [60, 112], [66, 125], [50, 126]],
         status: "available",
         tenure: "Freehold",
         areaSqm: 2372,
         priceThb: 13_376_250,
         seaView: false,
+        chanote: "inProgress",
         note: {
           en: "Mountain view. Chanote conversion still in progress — title is under the parent deed for now (verify before reserving).",
           ru: "Вид на горы. Перевод в чанот ещё идёт — пока титул в составе родительского (проверить до резерва).",
         },
         photos: [
-          "/images/estates/haad-yao-hillside/m10-1.jpg",
           "/images/estates/haad-yao-hillside/m10-2.jpg",
           "/images/estates/haad-yao-hillside/m10-3.jpg",
           "/images/estates/haad-yao-hillside/m10-4.jpg",
@@ -443,7 +460,7 @@ export const LAND_ESTATES: LandEstate[] = [
       },
       {
         code: "C10",
-        plotShape: [[8.7, 99.9], [42.5, 100.5], [41.5, 113.5], [7.7, 113.3]],
+        plotShape: [[6, 116], [19, 114], [26, 127], [12.5, 131]],
         status: "available",
         tenure: "Freehold",
         areaSqm: 2476,
@@ -508,7 +525,35 @@ export function plotPriceVisible(status: PlotStatus): boolean {
   return status === "available" || status === "reserved";
 }
 
+/** Минимальная цена среди свободных freehold-лотов (для «от ฿X»). null — нет. */
+export function estatePriceFrom(estate: LandEstate): number | null {
+  const prices = estate.plots
+    .filter((p) => p.status === "available" && p.tenure === "Freehold" && p.priceThb)
+    .map((p) => p.priceThb as number);
+  return prices.length ? Math.min(...prices) : null;
+}
+
 /** Лоты подборки с приложенными фото — для секции «Галерея» (группировка по лоту). */
 export function estatePhotoPlots(estate: LandEstate): EstatePlot[] {
   return estate.plots.filter((p) => p.photos && p.photos.length > 0);
+}
+
+export interface BuildPotential {
+  /** Ориентировочная застраиваемая площадь, м² (≈30% покрытия — типовая норма Таиланда). */
+  coverageSqm: number;
+  /** Ориентировочное число вилл (≈1 на 1500 м²), минимум 1. */
+  villas: number;
+}
+
+/**
+ * Грубая оценка «что можно построить» на лоте — ТОЛЬКО ориентир для интереса
+ * (не юр.заключение): застраиваемая площадь при ~30% покрытии и индикативное
+ * число вилл. Без areaSqm — null.
+ */
+export function buildPotential(plot: EstatePlot): BuildPotential | null {
+  if (!plot.areaSqm) return null;
+  return {
+    coverageSqm: Math.round((plot.areaSqm * 0.3) / 10) * 10,
+    villas: Math.max(1, Math.round(plot.areaSqm / 1500)),
+  };
 }

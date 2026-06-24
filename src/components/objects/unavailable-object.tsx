@@ -36,7 +36,7 @@ export function UnavailableObject({ object, catalog, locale }: Props) {
     <article className="container-prose py-12 md:py-16">
       <div className="grid items-center gap-10 lg:grid-cols-[1fr_420px]">
         <div>
-          <p className="inline-flex items-center rounded-sm bg-forest-900 px-3 py-1 text-xs font-medium uppercase tracking-[0.2em] text-cream-50">
+          <p className="inline-flex items-center rounded-sm bg-panel px-3 py-1 text-xs font-medium uppercase tracking-[0.2em] text-panel-fg">
             {badge} · {object.rwNumber}
           </p>
           <h1 className="mt-5 max-w-2xl text-balance">{t.unavail.title}</h1>

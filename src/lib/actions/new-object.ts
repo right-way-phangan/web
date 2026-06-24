@@ -1,12 +1,12 @@
 "use server";
 
-import { put } from "@vercel/blob";
 import { createObjectCard, ObjectInputError, type NewObjectInput } from "@/lib/amocrm/object-writer";
 import { AmoApiError } from "@/lib/amocrm/client";
 import { notifyObjectCreated } from "@/lib/notify/telegram";
 import { OBJECT_TYPES } from "@/lib/amocrm/dictionaries";
 import { classifyImageIsDocument } from "@/lib/classify/image-doc";
 import { backendFetch } from "@/lib/api/backend";
+import { uploadImageToR2 } from "@/lib/storage/r2";
 
 /**
  * Migration off amoCRM (Phase A): when OBJECTS_API_URL is set, new objects are
@@ -120,12 +120,7 @@ function parsePlotPolygon(raw?: string): Array<[number, number]> | undefined {
 }
 
 async function uploadBlob(file: File, folder: string): Promise<string> {
-  const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-  const blob = await put(`${folder}/${Date.now()}-${safeName}`, file, {
-    access: "public",
-    addRandomSuffix: true,
-  });
-  return blob.url;
+  return uploadImageToR2(file, folder);
 }
 
 export async function createObject(
@@ -184,6 +179,42 @@ export async function createObject(
     };
   }
 
+  // Structured seller contact captured at intake — one primary contact (usually
+  // the owner); extra contacts/roles are added on the object card afterwards.
+  // A legacy `owner` string is also composed so the amoCRM fallback path keeps
+  // populating its OWNER field.
+  const contactName = str(formData.get("contactName"));
+  const contactPhone = str(formData.get("contactPhone"));
+  const contactLine = str(formData.get("contactLine"));
+  const contactWhatsapp = str(formData.get("contactWhatsapp"));
+  const contactTelegram = str(formData.get("contactTelegram"));
+  const contactRole = str(formData.get("contactRole")) ?? "owner";
+  const hasContact = !!(
+    contactName || contactPhone || contactLine || contactWhatsapp || contactTelegram
+  );
+  const contacts = hasContact
+    ? [
+        {
+          role: contactRole,
+          name: contactName,
+          phone: contactPhone,
+          line: contactLine,
+          whatsapp: contactWhatsapp,
+          telegram: contactTelegram,
+          isPrimary: true,
+        },
+      ]
+    : undefined;
+  const ownerFallback =
+    [
+      contactName,
+      contactPhone,
+      contactLine ? `LINE ${contactLine}` : "",
+      contactTelegram,
+    ]
+      .filter(Boolean)
+      .join(" · ") || undefined;
+
   const input: NewObjectInput = {
     type,
     district: str(formData.get("district")),
@@ -199,7 +230,8 @@ export async function createObject(
     leaseAddTerms: str(formData.get("leaseAddTerms")),
     buildingRules: str(formData.get("buildingRules")),
     priceThb: toInt(formData.get("priceThb") as string | null),
-    owner: str(formData.get("owner")),
+    owner: ownerFallback,
+    contacts,
     commission: str(formData.get("commission")),
     locationUrl: str(formData.get("locationUrl")),
     plotPolygon: parsePlotPolygon(str(formData.get("plotPolygon"))),

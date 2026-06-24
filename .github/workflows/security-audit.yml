@@ -1,0 +1,36 @@
+name: Security audit
+
+# npm audit на каждый PR, трогающий зависимости (блокирует мерж при high+),
+# плюс еженедельно — ловит новые CVE на уже установленных пакетах. Провал по
+# расписанию пингует Vladimir в @rightway_admin_notify_bot, как prod-smoke.
+on:
+  schedule:
+    - cron: "17 6 * * 1" # понедельник 06:17 UTC
+  pull_request:
+    paths:
+      - "package.json"
+      - "package-lock.json"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # Читает package-lock.json — установка зависимостей не нужна.
+      - name: npm audit (fail on high+)
+        run: npm audit --audit-level=high
+      - name: Alert Telegram
+        if: failure() && github.event_name != 'pull_request'
+        continue-on-error: true
+        run: |
+          curl -s --max-time 20 "https://api.telegram.org/bot${{ secrets.TELEGRAM_NOTIFY_BOT_TOKEN }}/sendMessage" \
+            -d chat_id="${{ secrets.TELEGRAM_NOTIFY_CHAT_ID }}" \
+            --data-urlencode text="🔴 web (rightwaygroup.co) — npm audit нашёл high+ уязвимость в зависимостях. Лог: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            >/dev/null

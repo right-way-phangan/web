@@ -3,23 +3,34 @@ import Image from "next/image";
 import type { Route } from "next";
 import { ChevronRight, Check, ShieldCheck, MapPin, Layers } from "lucide-react";
 import type { LandEstate } from "@/content/land-estates";
-import { estateStats, getPublishedEstates } from "@/content/land-estates";
+import { estateStats, estatePhotoPlots, estatePriceFrom, getPublishedEstates } from "@/content/land-estates";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getEstatesDict } from "@/lib/i18n/dictionaries";
 import { localePath } from "@/lib/i18n/locale-path";
+import { formatPriceCompact } from "@/lib/utils/price";
 import { EstateExplorer } from "./estate-explorer";
+import { EstateSectionNav, type NavSection } from "./estate-section-nav";
 import { EstateCard } from "./estate-card";
+import { EstateLeadGallery } from "./estate-lead-gallery";
+import { EstatePrintButton } from "./estate-print-button";
+import { DistanceChips } from "@/components/objects/distance-chips";
 import { Appear } from "@/components/motion/appear";
 
 interface Props {
   estate: LandEstate;
   locale: Locale;
+  /** Лот, открытый в драуэре при заходе (страница /estates/<slug>/<lot>). */
+  initialLot?: string;
 }
 
 /** Лендинг одной подборки участков (аналог project-landing для земли). */
-export function LandEstateLanding({ estate, locale }: Props) {
+export function LandEstateLanding({ estate, locale, initialLot }: Props) {
   const t = getEstatesDict(locale);
   const s = estateStats(estate);
+  const photoPlots = estatePhotoPlots(estate);
+  const hasLeadPhotos = photoPlots.length > 0;
+  const priceFrom = estatePriceFrom(estate);
+  const fromLabel = locale === "ru" ? "от" : "from";
 
   const homeHref = localePath(locale, "/") as Route;
   const estatesHref = localePath(locale, "/estates") as Route;
@@ -27,6 +38,15 @@ export function LandEstateLanding({ estate, locale }: Props) {
   const others = getPublishedEstates()
     .filter((e) => e.slug !== estate.slug)
     .slice(0, 3);
+
+  // Состав липкой навигации — только реально присутствующие секции.
+  const navSections: NavSection[] = [
+    { id: "overview", label: t.nav.overview },
+    ...(estate.plan ? [{ id: "plan", label: t.nav.plan }] : []),
+    { id: "plots", label: t.nav.plots },
+    ...(estatePhotoPlots(estate).length > 0 ? [{ id: "gallery", label: t.nav.gallery }] : []),
+    ...(estate.lat && estate.lng ? [{ id: "location", label: t.nav.location }] : []),
+  ];
 
   return (
     <article className="container-prose py-8 md:py-10">
@@ -76,9 +96,11 @@ export function LandEstateLanding({ estate, locale }: Props) {
             {s.areaRai > 0 ? (
               <span>· {s.areaRai} {locale === "ru" ? "рай всего" : "rai total"}</span>
             ) : null}
+            {priceFrom ? (
+              <span className="text-brass-200">· {fromLabel} {formatPriceCompact(priceFrom)}</span>
+            ) : null}
           </div>
-          <p className="mt-3 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.3em] text-brass-300">
-            <span className="h-px w-10 bg-brass-300/70" aria-hidden />
+          <p className="mt-3 text-xs font-medium uppercase tracking-[0.3em] text-brass-300">
             {t.eyebrow}
           </p>
           <h1 className="mt-2 max-w-3xl text-balance text-cream-50">{estate.name[locale]}</h1>
@@ -88,41 +110,89 @@ export function LandEstateLanding({ estate, locale }: Props) {
         </div>
       </header>
 
-      {/* Overview (статика) */}
-      <section id="overview" className="mt-12 scroll-mt-32">
-        <h2 className="font-serif text-3xl text-forest-900">{t.sections.overview}</h2>
-        <div className="mt-6 max-w-prose space-y-4 text-base leading-relaxed text-forest-500/85">
-          {estate.description[locale].map((p, i) => (
-            <p key={i}>{p}</p>
-          ))}
-        </div>
+      {/* Липкая навигация по странице */}
+      <EstateSectionNav
+        sections={navSections}
+        enquireLabel={t.enquireTitle}
+        availabilityLabel={s.available > 0 ? t.availableOf(s.available, s.total) : t.soldOut}
+      />
 
-        {/* DD-наследование */}
-        <div className="mt-6 flex max-w-prose items-start gap-3 rounded-bezel border border-brass-500/20 bg-brass-500/5 p-4 shadow-soft">
-          <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-brass-500" />
-          <p className="text-sm leading-relaxed text-forest-500/85">{t.ddNote}</p>
-        </div>
-
-        {/* Highlights */}
-        {estate.highlights && estate.highlights.length > 0 ? (
-          <Appear className="mt-8">
-            <h3 className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
-              {t.sections.highlights}
-            </h3>
-            <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-              {estate.highlights.map((hl, i) => (
-                <li key={i} className="flex items-center gap-2 text-sm text-forest-500/85">
-                  <Check className="h-4 w-4 shrink-0 text-brass-500" />
-                  {hl[locale]}
-                </li>
+      {/* Overview (статика). На десктопе — 2 колонки: текст слева, «продающие»
+          фото + переход к плану справа (чтобы фото шли первыми и не пустовало). */}
+      <section id="overview" className="mt-10 scroll-mt-32">
+        <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,30rem)] lg:items-start lg:gap-12">
+          {/* Левая колонка — рассказ */}
+          <div className="min-w-0">
+            <h2 className="font-serif text-3xl text-forest-900">{t.sections.overview}</h2>
+            <div className="mt-6 max-w-prose space-y-4 text-base leading-relaxed text-forest-500/85">
+              {estate.description[locale].map((p, i) => (
+                <p key={i}>{p}</p>
               ))}
-            </ul>
-          </Appear>
-        ) : null}
+            </div>
+
+            {/* DD-наследование */}
+            <div className="mt-6 flex max-w-prose items-start gap-3 rounded-sm border border-brass-500/20 bg-brass-500/5 p-4">
+              <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-brass-500" />
+              <p className="text-sm leading-relaxed text-forest-500/85">{t.ddNote}</p>
+            </div>
+
+            {/* Highlights */}
+            {estate.highlights && estate.highlights.length > 0 ? (
+              <div className="mt-8">
+                <h3 className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+                  {t.sections.highlights}
+                </h3>
+                <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                  {estate.highlights.map((hl, i) => (
+                    <li key={i} className="flex items-center gap-2 text-sm text-forest-500/85">
+                      <Check className="h-4 w-4 shrink-0 text-brass-500" />
+                      {hl[locale]}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+          </div>
+
+          {/* Правая колонка — продающие фото + быстрые переходы */}
+          {hasLeadPhotos ? (
+            <aside className="mt-10 lg:sticky lg:top-28 lg:mt-0">
+              <EstateLeadGallery photoPlots={photoPlots} estateName={estate.name[locale]} locale={locale} />
+              <div className="mt-3 grid grid-cols-2 gap-2.5">
+                {estate.plan ? (
+                  <a
+                    href="#plan"
+                    className="inline-flex items-center justify-center gap-1.5 rounded-sm border border-forest-500/20 px-3 py-2.5 text-xs font-medium text-forest-900 transition-colors hover:border-brass-500 hover:text-brass-700"
+                  >
+                    <Layers className="h-3.5 w-3.5" />
+                    {t.sections.plan}
+                  </a>
+                ) : null}
+                <a
+                  href="#gallery"
+                  className="inline-flex items-center justify-center gap-1.5 rounded-sm border border-forest-500/20 px-3 py-2.5 text-xs font-medium text-forest-900 transition-colors hover:border-brass-500 hover:text-brass-700"
+                >
+                  {t.sections.gallery}
+                  <ChevronRight className="h-3.5 w-3.5" />
+                </a>
+              </div>
+              {s.available > 0 ? (
+                <p className="mt-3 text-center text-xs text-forest-500/60">
+                  {t.availableOf(s.available, s.total)}
+                  {priceFrom ? ` · ${fromLabel} ${formatPriceCompact(priceFrom)}` : ""}
+                </p>
+              ) : null}
+              <DistanceChips lat={estate.lat} lng={estate.lng} locale={locale} />
+              <div className="mt-3">
+                <EstatePrintButton label={locale === "ru" ? "Печать / PDF" : "Print / PDF"} slug={estate.slug} />
+              </div>
+            </aside>
+          ) : null}
+        </div>
       </section>
 
       {/* Интерактив: план + участки + галерея + карта + заявка */}
-      <EstateExplorer estate={estate} locale={locale} />
+      <EstateExplorer estate={estate} locale={locale} initialLot={initialLot} />
 
       {/* Other collections */}
       {others.length > 0 ? (

@@ -18,18 +18,18 @@ export function ImportLeadsForm() {
 
   return (
     <div className="max-w-2xl space-y-4">
-      <form action={submit} className="rounded-xl border border-forest-900/10 bg-white/60 p-4">
+      <form action={submit} className="rounded-xl border border-forest-900/10 bg-cream-50/60 p-4">
         <input
           type="file"
           name="file"
           accept=".csv,text/csv"
           required
-          className="block w-full text-sm text-forest-900/70 file:mr-3 file:rounded-full file:border-0 file:bg-forest-900 file:px-4 file:py-2 file:text-sm file:font-medium file:text-white hover:file:bg-forest-900/90"
+          className="block w-full text-sm text-forest-900/70 file:mr-3 file:rounded-full file:border-0 file:bg-panel file:px-4 file:py-2 file:text-sm file:font-medium file:text-panel-fg hover:file:bg-panel/90"
         />
         <button
           type="submit"
           disabled={pending}
-          className="mt-4 rounded-full bg-forest-900 px-5 py-2 text-sm font-medium text-white hover:bg-forest-900/90 disabled:opacity-50"
+          className="mt-4 rounded-full bg-panel px-5 py-2 text-sm font-medium text-panel-fg hover:bg-panel/90 disabled:opacity-50"
         >
           {pending ? "Импортирую…" : "Импортировать"}
         </button>

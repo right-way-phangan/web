@@ -144,7 +144,7 @@ export function MarketPreset({
             onClick={() => setScenario("measured")}
             className={`rounded-full px-2.5 py-0.5 transition-colors ${
               scenario === "measured"
-                ? "bg-forest-500 text-cream-50"
+                ? "bg-panel text-panel-fg"
                 : "bg-forest-500/8 text-forest-500/70 hover:bg-forest-500/15"
             }`}
             title="From this district's forward availability"
@@ -163,7 +163,7 @@ export function MarketPreset({
             onClick={() => setScenario(s)}
             className={`rounded-full px-2.5 py-0.5 capitalize transition-colors ${
               scenario === s
-                ? "bg-brass-500 text-cream-50"
+                ? "bg-brass-500 text-panel-fg"
                 : "bg-forest-500/8 text-forest-500/70 hover:bg-forest-500/15"
             }`}
           >
@@ -184,7 +184,7 @@ export function MarketPreset({
               {estimate.p25 && estimate.p75 ? <> · {t.mpRange(fmtThb(estimate.p25), fmtThb(estimate.p75))}</> : null}
             </div>
             <div className="mt-1 inline-flex items-center gap-1 rounded-full bg-forest-500/8 px-2 py-0.5 text-[10px] text-forest-500/70">
-              <span className={`h-1.5 w-1.5 rounded-full ${confidenceOf(estimate.nUsed) === "high" ? "bg-forest-500" : confidenceOf(estimate.nUsed) === "medium" ? "bg-brass-500" : "bg-red-500/70"}`} />
+              <span className={`h-1.5 w-1.5 rounded-full ${confidenceOf(estimate.nUsed) === "high" ? "bg-panel" : confidenceOf(estimate.nUsed) === "medium" ? "bg-brass-500" : "bg-red-500/70"}`} />
               {confidenceOf(estimate.nUsed) === "high" ? t.confHigh : confidenceOf(estimate.nUsed) === "medium" ? t.confMed : t.confLow}
             </div>
           </div>
@@ -196,7 +196,7 @@ export function MarketPreset({
                 occupancyPct: estimate.occupancyPct,
               })
             }
-            className="inline-flex items-center gap-1.5 rounded-sm bg-forest-500 px-3 py-1.5 text-xs font-medium text-cream-50 transition-colors hover:bg-forest-900"
+            className="inline-flex items-center gap-1.5 rounded-sm bg-panel px-3 py-1.5 text-xs font-medium text-panel-fg transition-colors hover:bg-panel"
           >
             {t.mpApply}
             <ArrowRight className="h-3.5 w-3.5" />

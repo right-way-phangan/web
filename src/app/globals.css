@@ -2,18 +2,136 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Theme palette as RGB triplets — consumed by tailwind.config.ts via
+   rgb(var(--x) / <alpha-value>). Light keeps the exact warm-premium hexes;
+   .dark inverts the roles (forest→light text, cream→dark surfaces, brass→
+   brighter accent) and shifts the non-inverting panel surface a touch lighter
+   than the page so headers/dark bands stay legible. Our lightweight theme
+   provider (src/lib/theme/theme-context.tsx — no next-themes) toggles the
+   `.dark` class on <html>, so the whole site repaints from these values. */
+:root {
+  /* Coastal Twilight — warm SAND surfaces (parchment, hue ~38°). */
+  --c-cream-50: 252 248 241; /* #FCF8F1 raised surfaces / cards */
+  --c-cream-100: 246 239 226; /* #F6EFE2 page background */
+  --c-cream-200: 237 225 204; /* #EDE1CC */
+  --c-cream-300: 220 203 171; /* #DCCBAB */
+  --c-cream-400: 194 167 118; /* #C2A776 deeper stone neutral */
+
+  /* Deep PETROL TEAL → ink (hue ~185–191°, sat ~84%). */
+  --c-forest-50: 230 243 243; /* #E6F3F3 */
+  --c-forest-100: 198 230 231; /* #C6E6E7 */
+  --c-forest-400: 21 168 168; /* #15A8A8 luminous cyan-teal */
+  --c-forest-500: 10 110 116; /* #0A6E74 strong teal — buttons/links/body */
+  --c-forest-600: 8 88 96; /* #085860 deep petrol teal */
+  --c-forest-700: 6 67 75; /* #06434B */
+  --c-forest-900: 4 38 46; /* #04262E ink — darkest petrol */
+
+  /* Warm amber / sunset. Vivid 300/400 glow on dark; deep 500–700 is AA on sand. */
+  --c-brass-200: 247 210 168; /* #F7D2A8 */
+  --c-brass-300: 244 190 92; /* #F4BE5C glowing sunset gold (on dark) */
+  --c-brass-400: 217 138 30; /* #D98A1E vivid amber */
+  --c-brass-500: 152 90 12; /* #985A0C deep amber accent (AA on sand) */
+  --c-brass-600: 127 74 11; /* #7F4E0B */
+  --c-brass-700: 94 58 8; /* #5E3A08 deepest — text on light */
+
+  --c-panel: 4 38 46; /* always-dark surface = petrol ink (forest-900) */
+  --c-panel-fg: 252 248 241; /* light sand text on panel (= cream-50) */
+
+  --c-bronze: 152 90 12; /* deep amber (light fallback) */
+  --c-orange: 217 138 30; /* #D98A1E warm amber — reserved for urgency/scarcity */
+
+  /* Data-viz palette (SVG charts read these directly). Light = Coastal Twilight. */
+  --chart-accent: #985a0c; /* main data line — deep amber */
+  --donut-track: #ede1cc; /* finance donut empty ring — sand-200 */
+  --season-1: #04262e; /* seasonal lines: island overall — ink */
+  --season-2: #985a0c; /* district A — amber */
+  --season-3: #0a6e74; /* district B — teal */
+  --season-4: #d98a1e; /* district C — vivid amber */
+  --seg-1: #985a0c; /* donut segments (amber → teal → light) */
+  --seg-2: #0a6e74;
+  --seg-3: #f4be5c;
+  --seg-4: #04262e;
+  --seg-5: #f7d2a8;
+  --seg-6: #c6e6e7;
+  --seg-7: #dccbab;
+
+  color-scheme: light;
+}
+
+.dark {
+  /* Neutral GRAPHITE surfaces (a whisper of warmth) with clear elevation steps.
+     Warm monochrome accent system: gold (brass) = money/CTAs, bronze
+     (--c-bronze) = structure (nav, kant, dividers, focus, Vetted, data),
+     orange (--c-orange) = urgency only. */
+  --c-cream-100: 24 24 21; /* #181815 page background (lifted a touch) */
+  --c-cream-200: 34 34 30; /* #222220 alt sections / footer */
+  --c-cream-50: 46 46 38; /* #2E2E26 raised surfaces / cards (more contrast) */
+  --c-cream-300: 58 58 49; /* #3A3A31 most elevated / hover */
+  --c-cream-400: 70 70 59; /* #46463B deepest elevated / dividers */
+
+  /* Text / borders / tints — neutral off-white & warm grey (not green). */
+  --c-forest-900: 240 240 234; /* #F0F0EA primary text */
+  --c-forest-500: 168 168 159; /* #A8A89F muted text / borders */
+  --c-forest-400: 199 199 190; /* #C7C7BE */
+  --c-forest-100: 168 168 159;
+  --c-forest-50: 46 46 39; /* #2E2E27 hover tints */
+  --c-forest-600: 196 196 187; /* #C4C4BB light grey (was deep teal in light) */
+  --c-forest-700: 216 216 208; /* #D8D8D0 */
+
+  /* Accent — warm gold for typography, links, CTAs. */
+  --c-brass-200: 242 218 184;
+  --c-brass-300: 233 190 142;
+  --c-brass-400: 226 171 108;
+  --c-brass-500: 229 174 112; /* #E5AE70 gold accent */
+  --c-brass-600: 205 137 64; /* #CD8940 */
+  --c-brass-700: 216 165 100; /* #D8A564 readable gold (was deep amber in light) */
+
+  /* Warm muted BRONZE — second accent for structure (kant, nav, dividers,
+     focus, Vetted, data). Harmonizes with the brighter gold as a darker warm
+     sibling (replaces the earlier emerald, which clashed as cool green). */
+  --c-bronze: 176 140 90; /* #B08C5A muted bronze */
+  --c-orange: 224 130 56; /* #E08238 vivid orange — urgency/scarcity only, dosed */
+
+  /* Data-viz on graphite: the dark-green brand hexes vanish, so charts get a
+     readable warm set led by bronze/gold + light sage (one nod to forest). */
+  --chart-accent: #b08c5a; /* main data line → bronze (matches the structure accent) */
+  --donut-track: #3a3a31; /* empty ring = cream-300 graphite */
+  --season-1: #d6d6cc; /* island overall — bright neutral (primary series) */
+  --season-2: #e5ae70; /* district A — gold */
+  --season-3: #8fb0a0; /* district B — light sage (forest nod, readable on graphite) */
+  --season-4: #b08c5a; /* district C — bronze */
+  --seg-1: #e5ae70; /* gold */
+  --seg-2: #8fb0a0; /* sage */
+  --seg-3: #b08c5a; /* bronze */
+  --seg-4: #c8d0cb; /* light grey-green */
+  --seg-5: #d8b98a; /* light tan */
+  --seg-6: #6e8c7e; /* deeper sage */
+  --seg-7: #9a9a90; /* warm grey */
+
+  --c-panel: 36 36 32; /* #242420 raised dark surface (sections / scrims) */
+  --c-panel-fg: 242 242 236; /* #F2F2EC */
+
+  color-scheme: dark;
+}
+
 @layer base {
-  :root {
-    /* Premium easings, also usable from inline style / JS. */
-    --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
-    --ease-silk: cubic-bezier(0.32, 0.72, 0, 1);
-  }
   html {
     scroll-behavior: smooth;
   }
   body {
     @apply bg-cream-100 text-forest-900 font-sans antialiased;
     text-rendering: optimizeLegibility;
+  }
+  /* Ease the light↔dark flip. Scoped to color properties so it never fights
+     layout or transforms; reduced-motion zeroes it via the rule below. */
+  body,
+  header,
+  footer,
+  aside {
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease,
+      color 0.3s ease;
   }
   h1, h2, h3, h4 {
     @apply font-serif tracking-tight;
@@ -60,23 +178,40 @@
   }
 }
 
+/* Lightbox image zoom-in on open / slide change (estate-gallery.tsx). */
+@keyframes lbZoom {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Right-side slide-in for the estate lot drawer (estate-lot-drawer.tsx). */
+@keyframes drawerIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+
 /* Scroll reveal (see sections/reveal.tsx — only applied when JS confirms the
-   element is below the fold, so no-JS visitors never get hidden content).
-   Redesign: heavier, more cinematic fade-up with a touch of blur, on the silk
-   curve, so blocks settle into place like physical cards. */
+   element is below the fold, so no-JS visitors never get hidden content). */
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
-  filter: blur(6px);
+  transform: translateY(20px);
 }
 .reveal-visible {
   opacity: 1;
   transform: none;
-  filter: blur(0);
   transition:
-    opacity 0.8s var(--ease-silk),
-    transform 0.8s var(--ease-silk),
-    filter 0.8s var(--ease-silk);
+    opacity 0.6s ease,
+    transform 0.6s ease;
 }
 
 /* Лёгкий entrance над сгибом (hero) — чисто на CSS, поэтому работает и без JS:
@@ -95,12 +230,12 @@
   }
 }
 .rise-in {
-  animation: riseIn 0.85s var(--ease-smooth) both;
+  animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* Постройочный reveal заголовков героя: маска снизу вверх + лёгкий подъём.
-   clip-path + translateY анимируются на GPU; заканчивается полностью видимым
-   (fill both), reduced-motion гасит. Каскад строк — через animationDelay. */
+/* Построчный reveal заголовков героя: маска снизу вверх + лёгкий подъём.
+   clip-path + translateY на GPU; заканчивается полностью видимым (fill both),
+   reduced-motion гасит. Каскад строк — через inline animationDelay. */
 @keyframes maskRise {
   from {
     opacity: 0;
@@ -114,7 +249,7 @@
   }
 }
 .mask-rise {
-  animation: maskRise 1s var(--ease-silk) both;
+  animation: maskRise 1s cubic-bezier(0.32, 0.72, 0, 1) both;
 }
 
 /* Тонкий scroll-parallax обложек карточек — нативные CSS scroll-driven
@@ -141,6 +276,52 @@
   }
 }
 
+/* Плёночная зернистость поверх тёмных секций (hero, island-CTA) — приём из
+   luxury/fashion: едва заметный фрактальный шум через mix-blend, добавляет
+   «плёночную» глубину forest-фону. Статичная, декоративная (aria-hidden). */
+.grain-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+/* Буквица для длинных текстов (описание объекта, статьи) — редакторская
+   деталь в духе печатных изданий. Латунная заглавная в serif. */
+.dropcap::first-letter {
+  float: left;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 3.3em;
+  line-height: 0.82;
+  padding-right: 0.09em;
+  margin-top: 0.06em;
+  font-weight: 600;
+  @apply text-brass-500;
+}
+
+/* Анимированное латунное подчёркивание пунктов навигации — выезжает слева
+   по наведению и на активной странице. Цвет наследует текст (брасс). */
+.nav-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.nav-underline:hover::after,
+.nav-underline[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
 @layer components {
   .container-prose {
     @apply mx-auto px-6 md:px-8 max-w-container;
@@ -157,31 +338,6 @@
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
-  /* Тонкая золотая линия-подчёркивание под акцентами/eyebrow. */
-  .hairline-accent {
-    @apply h-px w-10 bg-brass-500/70;
-  }
-}
-
-@layer utilities {
-  /* Премиальное зерно/плёнка поверх всего — фиксированный неинтерактивный слой
-     (high-end craft: grain только на fixed + pointer-events-none, не на скролл-
-     контейнерах). Очень тонко (≈3.5%), soft-light, чтобы поверхности «дышали»
-     как бумага, а не выглядели стерильно-цифровыми. */
-  .grain-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 30;
-    pointer-events: none;
-    opacity: 0.035;
-    mix-blend-mode: soft-light;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .grain-overlay {
-      display: none;
-    }
-  }
 }
 
 /* Брошюра объекта: window.print() поверх print-оптимизированной страницы.
@@ -197,12 +353,8 @@
   .appear {
     opacity: 1 !important;
     transform: none !important;
-    filter: none !important;
     clip-path: none !important;
     animation: none !important;
-  }
-  .grain-overlay {
-    display: none !important;
   }
   a {
     text-decoration: none;
@@ -216,10 +368,180 @@
   font-size: 8px;
   line-height: 1.3;
   padding: 0 4px;
-  background: rgba(251, 248, 243, 0.55);
-  color: rgba(12, 27, 30, 0.5);
+  background: rgba(254, 252, 249, 0.55);
+  color: rgba(31, 58, 46, 0.5);
   box-shadow: none;
 }
 .leaflet-control-attribution a {
-  color: rgba(12, 27, 30, 0.55);
+  color: rgba(31, 58, 46, 0.55);
+}
+
+/* ============================================================
+   Премиальная глубина тёмной темы (только .dark — светлую не трогаем)
+   ============================================================ */
+
+/* Амбиентный «свет в комнате»: фиксированный тёплый латунный отблеск сверху +
+   мягкое осветление справа. Лежит за контентом (z-index:-1), поэтому
+   проступает в зазорах между карточками и убирает ощущение плоского глухого
+   фона. На печати скрыт. */
+.dark body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(95% 60% at 50% -6%, rgba(229, 174, 112, 0.12), transparent 58%),
+    radial-gradient(55% 48% at 90% 2%, rgba(255, 255, 255, 0.06), transparent 55%),
+    radial-gradient(75% 65% at 4% 104%, rgba(176, 140, 90, 0.09), transparent 60%),
+    radial-gradient(55% 45% at 100% 92%, rgba(176, 140, 90, 0.05), transparent 60%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 26%);
+}
+@media print {
+  .dark body::before {
+    display: none;
+  }
+}
+
+/* Локальное свечение за заголовком секции/hero (только dark): мягкий тёплый
+   ореол сверху, чтобы блок «дышал светом» и плавно перетекал в фон. Добавить
+   класс `aura` на нужную <section>/<header> — в светлой теме это no-op. */
+.aura {
+  position: relative;
+  isolation: isolate;
+}
+.dark .aura::before {
+  content: "";
+  position: absolute;
+  inset: -22% -12% auto -12%;
+  height: 78%;
+  max-height: 560px;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(44% 100% at 52% 0%, rgba(229, 174, 112, 0.13), transparent 72%),
+    radial-gradient(58% 95% at 16% 2%, rgba(176, 140, 90, 0.12), transparent 70%),
+    radial-gradient(50% 80% at 86% 8%, rgba(255, 255, 255, 0.04), transparent 64%);
+}
+@media print {
+  .dark .aura::before {
+    display: none;
+  }
+}
+
+/* Приподнятая поверхность для карточек/панелей. В светлой теме оставляем
+   плоско по канону (only border). В тёмной — верхний волосяной блик + лёгкий
+   градиентный sheen сверху + мягкая глубинная тень: карточки «отрываются» от
+   фона и читаются дорого. */
+.dark .card-elevated {
+  position: relative;
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0) 44%
+  );
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.06),
+    0 1px 2px 0 rgba(0, 0, 0, 0.45),
+    0 24px 52px -24px rgba(0, 0, 0, 0.78),
+    0 10px 22px -12px rgba(0, 0, 0, 0.6);
+}
+/* Бронзовый «кант» — тонкая брендовая линия по верхнему краю карточки,
+   тающая к углам. Над обложкой (z-10), обрезается скруглением. */
+.dark .card-elevated::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 10;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(176, 140, 90, 0.85) 22%,
+    rgba(176, 140, 90, 0.85) 78%,
+    transparent
+  );
+}
+/* Hover в тёмной: подъём + бронзовый ореол по краю и яркий кант — карточка
+   «оживает» в брендовом зелёном. (object/project-card двигают transform.) */
+.dark .card-elevated:hover {
+  box-shadow:
+    inset 0 1px 0 0 rgba(176, 140, 90, 0.22),
+    0 1px 2px 0 rgba(0, 0, 0, 0.45),
+    0 30px 60px -22px rgba(0, 0, 0, 0.82),
+    0 0 0 1px rgba(176, 140, 90, 0.2),
+    0 14px 42px -16px rgba(176, 140, 90, 0.22);
+}
+.dark .card-elevated:hover::after {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(176, 140, 90, 1) 14%,
+    rgba(176, 140, 90, 1) 86%,
+    transparent
+  );
+}
+@media (prefers-reduced-motion: no-preference) {
+  .card-elevated {
+    transition: box-shadow 0.4s ease, transform 0.4s ease;
+  }
+}
+
+/* Разделитель секций — тонкая линия, тающая к краям. В светлой теме едва
+   заметный forest, в тёмной — бронзовый градиент (брендовый ритм страницы).
+   Использовать: <hr className="section-divider" /> или <div ...>. */
+.section-divider {
+  height: 1px;
+  border: 0;
+  background: transparent; /* light: invisible — не меняем светлую тему */
+}
+.dark .section-divider {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(176, 140, 90, 0.45),
+    transparent
+  );
+}
+
+/* Навигация бронзовая в тёмной теме (брендовый структурный акцент), тогда как
+   контентные ссылки/CTA остаются золотыми. Цель — по структуре: nav-ссылки и
+   кнопки-триггеры, активный пункт (aria-current) и ссылки футера. Покрывает
+   меню, выпадашки, мобильное меню (портал) и футер без правки классов. */
+.dark nav a:hover,
+.dark nav button:hover,
+.dark footer a:hover {
+  color: rgb(var(--c-bronze));
+}
+.dark nav a[aria-current="page"] {
+  color: rgb(var(--c-bronze));
+}
+
+/* Фокус-кольца бронзовые в тёмной теме: перекрашиваем переменную Tailwind
+   ring у всех focus-visible (доступность + брендовый акцент). Светлую не
+   трогаем. */
+.dark *:focus-visible {
+  --tw-ring-color: rgb(var(--c-bronze) / 0.6);
+}
+
+/* Печать (кнопка «Печать / PDF» на страницах подборок): убираем хром и
+   оверлеи, печатаем на белом. Интерактивные слои уже помечены `print:hidden`. */
+@media print {
+  header,
+  footer {
+    display: none !important;
+  }
+  html,
+  body {
+    background: #fff !important;
+  }
+  /* Не разрывать ключевые блоки между страницами */
+  figure,
+  table,
+  section {
+    break-inside: avoid;
+  }
 }

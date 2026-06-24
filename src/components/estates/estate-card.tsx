@@ -31,7 +31,7 @@ export function EstateCard({ estate, href, locale }: Props) {
   return (
     <Link
       href={href as Route}
-      className="group flex h-full flex-col overflow-hidden rounded-xl bg-cream-50 shadow-soft transition-all hover:shadow-lift"
+      className="group flex h-full flex-col overflow-hidden rounded-sm border border-forest-500/10 bg-cream-50 transition-all hover:border-forest-500/30 hover:shadow-lg"
     >
       <div
         className="relative aspect-[16/10] overflow-hidden bg-forest-500/5"

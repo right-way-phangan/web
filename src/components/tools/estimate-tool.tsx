@@ -9,8 +9,6 @@
  */
 import { useState, useTransition } from "react";
 import { track } from "@vercel/analytics";
-import { Reveal } from "@/components/sections/reveal";
-import { Appear } from "@/components/motion/appear";
 import { LeadForm } from "@/components/forms/lead-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -152,7 +150,7 @@ function Toggle({ label, on, set }: { label: string; on: boolean; set: (v: boole
       className={cn(
         "rounded-full border px-3.5 py-1.5 text-sm transition-colors",
         on
-          ? "border-forest-500 bg-forest-500 text-cream-50"
+          ? "border-forest-500 bg-panel text-panel-fg"
           : "border-forest-500/25 bg-cream-50 text-forest-900/70 hover:border-forest-500/50",
       )}
     >
@@ -250,7 +248,7 @@ export function EstimateTool({ lang }: { lang: Lang }) {
                   className={cn(
                     "flex-1 rounded-sm border px-3 py-2 text-sm transition-colors",
                     v.type === tp
-                      ? "border-forest-500 bg-forest-500 text-cream-50"
+                      ? "border-forest-500 bg-panel text-panel-fg"
                       : "border-forest-500/25 bg-cream-50 text-forest-900/70 hover:border-forest-500/50",
                   )}
                 >
@@ -319,40 +317,36 @@ export function EstimateTool({ lang }: { lang: Lang }) {
 
       {/* Результат */}
       {result && result.ok && (
-        <Appear>
-          <div className="rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5">
-            <div className="rounded-core border border-brass-500/30 bg-brass-500/5 p-5 shadow-bezel md:p-6">
-              <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-700">{t.resultEyebrow}</p>
-              <div className="mt-3 flex flex-wrap items-end gap-x-8 gap-y-3">
-                <div>
-                  <p className="text-xs text-forest-900/50">{t.expectedRange}</p>
-                  <p className="text-2xl font-semibold text-forest-900 md:text-3xl">
-                    {fmtTHB(result.low, lang)} – {fmtTHB(result.high, lang)}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-xs text-forest-900/50">{t.midpoint}</p>
-                  <p className="text-xl font-semibold text-forest-900">{fmtTHB(result.mid, lang)}</p>
-                  {result.perRaiMid != null && (
-                    <p className="text-xs text-forest-900/50">{fmtCompact(result.perRaiMid)} {t.perRai}</p>
-                  )}
-                </div>
-                <span
-                  className={cn(
-                    "rounded-full border px-2.5 py-0.5 text-xs",
-                    result.confidence === "high" && "border-forest-500/30 bg-forest-500/10 text-forest-700",
-                    result.confidence === "medium" && "border-brass-500/30 bg-brass-500/10 text-brass-700",
-                    result.confidence === "low" && "border-forest-900/20 bg-cream-100 text-forest-900/60",
-                  )}
-                >
-                  {t.confidence[result.confidence]}
-                </span>
-              </div>
-              <p className="mt-3 text-sm text-forest-900/70">{t.confidenceNote}</p>
-              <p className="mt-2 text-xs text-forest-900/50">{t.disclaimer}</p>
+        <div className="rounded-sm border border-brass-500/30 bg-brass-500/5 p-5 md:p-6">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">{t.resultEyebrow}</p>
+          <div className="mt-3 flex flex-wrap items-end gap-x-8 gap-y-3">
+            <div>
+              <p className="text-xs text-forest-900/50">{t.expectedRange}</p>
+              <p className="text-2xl font-semibold text-forest-900 md:text-3xl">
+                {fmtTHB(result.low, lang)} – {fmtTHB(result.high, lang)}
+              </p>
             </div>
+            <div>
+              <p className="text-xs text-forest-900/50">{t.midpoint}</p>
+              <p className="text-xl font-semibold text-forest-900">{fmtTHB(result.mid, lang)}</p>
+              {result.perRaiMid != null && (
+                <p className="text-xs text-forest-900/50">{fmtCompact(result.perRaiMid)} {t.perRai}</p>
+              )}
+            </div>
+            <span
+              className={cn(
+                "rounded-full border px-2.5 py-0.5 text-xs",
+                result.confidence === "high" && "border-forest-500/30 bg-forest-500/10 text-forest-700",
+                result.confidence === "medium" && "border-brass-500/30 bg-brass-500/10 text-brass-700",
+                result.confidence === "low" && "border-forest-900/20 bg-cream-100 text-forest-900/60",
+              )}
+            >
+              {t.confidence[result.confidence]}
+            </span>
           </div>
-        </Appear>
+          <p className="mt-3 text-sm text-forest-900/70">{t.confidenceNote}</p>
+          <p className="mt-2 text-xs text-forest-900/50">{t.disclaimer}</p>
+        </div>
       )}
 
       {result && !result.ok && (
@@ -363,24 +357,20 @@ export function EstimateTool({ lang }: { lang: Lang }) {
 
       {/* Лид-форма: показываем после любой попытки оценки */}
       {result && (
-        <Reveal>
-          <div className="rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5">
-            <div className="rounded-core border border-forest-900/10 bg-cream-50 p-5 shadow-bezel md:p-6">
-              <h2 className="text-xl font-semibold text-forest-900">{t.leadHeading}</h2>
-              <p className="mt-1.5 max-w-2xl text-sm text-forest-900/70">{t.leadLede}</p>
-              <div className="mt-5">
-                <LeadForm
-                  source="contact"
-                  kind="valuation"
-                  layout="block"
-                  locale={lang}
-                  defaultMessage={subjectSummary()}
-                  submitLabel={t.leadSubmit}
-                />
-              </div>
-            </div>
+        <div className="rounded-sm border border-forest-900/10 bg-cream-50 p-5 md:p-6">
+          <h2 className="text-xl font-semibold text-forest-900">{t.leadHeading}</h2>
+          <p className="mt-1.5 max-w-2xl text-sm text-forest-900/70">{t.leadLede}</p>
+          <div className="mt-5">
+            <LeadForm
+              source="contact"
+              kind="valuation"
+              layout="block"
+              locale={lang}
+              defaultMessage={subjectSummary()}
+              submitLabel={t.leadSubmit}
+            />
           </div>
-        </Reveal>
+        </div>
       )}
     </div>
   );

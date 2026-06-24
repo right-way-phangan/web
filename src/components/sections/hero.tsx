@@ -55,7 +55,7 @@ export async function Hero({ locale = "en" }: { locale?: Locale }) {
   return (
     <section
       aria-label="Hero"
-      className="relative isolate flex min-h-[88vh] flex-col overflow-hidden bg-forest-900"
+      className="relative isolate flex min-h-[88vh] flex-col overflow-hidden bg-panel"
     >
       {/* Layer 1 — deep photographic scene on a slow scroll-zoom. Oversized so
           the parallax shift never bares an edge. */}
@@ -73,7 +73,7 @@ export async function Hero({ locale = "en" }: { locale?: Locale }) {
       {/* Layer 2 — atmosphere: directional teal scrim for legibility, a warm
           horizon glow for depth, and a fade into the sand section below. */}
       <div
-        className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-forest-900/90 via-forest-900/55 to-forest-900/20"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-panel/90 via-panel/55 to-panel/20"
         aria-hidden
       />
       <div
@@ -93,7 +93,7 @@ export async function Hero({ locale = "en" }: { locale?: Locale }) {
         </p>
 
         <h1
-          className="mask-rise mt-7 max-w-4xl text-balance text-5xl leading-[1.04] text-cream-50 md:text-7xl md:leading-[1.01]"
+          className="mask-rise mt-7 max-w-4xl text-balance text-5xl leading-[1.04] text-panel-fg md:text-7xl md:leading-[1.01]"
           style={{ animationDelay: "0.08s" }}
         >
           {titleBefore}
@@ -102,7 +102,7 @@ export async function Hero({ locale = "en" }: { locale?: Locale }) {
         </h1>
 
         <p
-          className="mask-rise mt-7 max-w-xl text-lg leading-relaxed text-cream-100/85 md:text-xl"
+          className="mask-rise mt-7 max-w-xl text-lg leading-relaxed text-panel-fg/85 md:text-xl"
           style={{ animationDelay: "0.16s" }}
         >
           {dict.lede}
@@ -113,7 +113,7 @@ export async function Hero({ locale = "en" }: { locale?: Locale }) {
           className="mask-rise mt-9 flex flex-wrap items-center gap-2.5"
           style={{ animationDelay: "0.24s" }}
         >
-          <span className="mr-1 text-xs uppercase tracking-[0.2em] text-cream-100/55">
+          <span className="mr-1 text-xs uppercase tracking-[0.2em] text-panel-fg/55">
             {dict.intentLabel}
           </span>
           {dict.intents.map((label, i) => {
@@ -124,7 +124,7 @@ export async function Hero({ locale = "en" }: { locale?: Locale }) {
               <Link
                 key={label}
                 href={href}
-                className="group/chip inline-flex items-center gap-1.5 rounded-full border border-cream-100/25 bg-cream-50/5 px-4 py-2 text-sm text-cream-50 transition-[color,background-color,border-color] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-brass-300/60 hover:bg-cream-50/10 hover:text-brass-200"
+                className="group/chip inline-flex items-center gap-1.5 rounded-full border border-panel-fg/25 bg-panel-fg/5 px-4 py-2 text-sm text-panel-fg transition-[color,background-color,border-color] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-brass-300/60 hover:bg-panel-fg/10 hover:text-brass-200"
               >
                 {label}
                 <ArrowRight className="h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all duration-300 group-hover/chip:translate-x-0 group-hover/chip:opacity-100" />
@@ -149,7 +149,7 @@ export async function Hero({ locale = "en" }: { locale?: Locale }) {
             asChild
             variant="outline"
             size="lg"
-            className="border-cream-100/40 text-cream-50 hover:border-cream-50 hover:bg-cream-50 hover:text-forest-900"
+            className="border-panel-fg/40 text-panel-fg hover:border-panel-fg hover:bg-panel-fg hover:text-panel"
           >
             <Link href={processHref}>{dict.ctaProcess}</Link>
           </Button>
@@ -157,7 +157,7 @@ export async function Hero({ locale = "en" }: { locale?: Locale }) {
       </div>
 
       {/* Ticker strip docked at the hero foot — live proof on a glassy hairline */}
-      <div className="relative z-10 border-t border-cream-100/15 bg-forest-900/35">
+      <div className="relative z-10 border-t border-panel-fg/15 bg-panel/35">
         <div className="container-prose flex flex-wrap items-center justify-center gap-x-10 gap-y-3 py-5 md:justify-between">
           {listings > 0 ? (
             <TickerItem value={<AnimatedNumber value={listings} />} label={t.listings} />
@@ -182,8 +182,8 @@ function TickerItem({
 }) {
   return (
     <div className="flex items-baseline gap-2">
-      <span className="num text-lg text-cream-50 md:text-xl">{value}</span>
-      <span className="text-[11px] uppercase tracking-[0.18em] text-cream-100/60">
+      <span className="num text-lg text-panel-fg md:text-xl">{value}</span>
+      <span className="text-[11px] uppercase tracking-[0.18em] text-panel-fg/60">
         {label}
       </span>
     </div>

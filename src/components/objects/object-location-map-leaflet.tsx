@@ -36,7 +36,7 @@ import {
 } from "@/lib/leaflet/layer-prefs";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { getObjectDict } from "@/lib/i18n/dictionaries";
-import { formatPriceCompact } from "@/lib/utils/price";
+import { useCurrency } from "@/components/ui/currency";
 import { cn } from "@/lib/utils/cn";
 import { useFullscreen } from "@/lib/leaflet/use-fullscreen";
 import type { NearbyListing } from "@/types/object";
@@ -117,6 +117,7 @@ interface Props {
 export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSunset, nearby }: Props) {
   const locale = useLocale();
   const t = getObjectDict(locale).map;
+  const { fmt } = useCurrency();
   const mapRef = useRef<L.Map | null>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const watchId = useRef<number | null>(null);
@@ -222,13 +223,19 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
 
   const pill =
     "px-2.5 py-2 text-xs font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brass-500";
-  const pillOn = "bg-forest-500 text-cream-100";
-  const pillOff = "bg-cream-100/95 text-forest-900 hover:bg-cream-100";
+  // Active fills the brand accent (forest in light, gold in dark so it reads as
+  // "selected" against the light map tiles, which never invert with the theme).
+  const pillOn = "bg-panel text-panel-fg dark:bg-brass-500 dark:text-cream-100";
+  // Inactive is a raised surface — in dark it must sit above the page background
+  // (cream-50 #2E2E26), not collapse onto it (cream-100 = page bg), or every
+  // control reads as dark/"pressed" over the map.
+  const pillOff =
+    "bg-cream-100/95 text-forest-900 hover:bg-cream-100 dark:bg-cream-50/95 dark:hover:bg-cream-300";
 
   return (
     <div
       ref={wrapperRef}
-      className="relative h-full w-full overflow-hidden rounded-sm border border-forest-500/10 bg-[#e8e4da]"
+      className="relative h-full w-full overflow-hidden rounded-sm border border-forest-500/10 bg-cream-300"
     >
       <MapContainer
         ref={mapRef}
@@ -339,7 +346,7 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
                 </span>
                 <span className="block font-serif text-sm leading-snug text-forest-900">{n.title}</span>
                 {n.priceThb ? (
-                  <span className="num mt-1 block text-sm text-forest-900">{formatPriceCompact(n.priceThb)}</span>
+                  <span className="num mt-1 block text-sm text-forest-900">{fmt(n.priceThb)}</span>
                 ) : null}
               </a>
             </Popup>
@@ -468,11 +475,11 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
 
       {/* Measuring: hint until 2 points, then the running total. */}
       {measuring ? (
-        <div className="absolute bottom-2 left-1/2 z-[1000] -translate-x-1/2 rounded-sm bg-brass-500/90 px-3 py-1.5 text-[11px] font-medium text-cream-100 shadow-sm">
+        <div className="absolute bottom-2 left-1/2 z-[1000] -translate-x-1/2 rounded-sm bg-brass-500/90 px-3 py-1.5 text-[11px] font-medium text-panel-fg shadow-sm">
           {measurePts.length < 2 ? t.measureHint : `${t.measure} ≈ ${formatDistance(measureTotal, locale)}`}
         </div>
       ) : geoError || (parcels && zoom < PARCEL_MIN_ZOOM) ? (
-        <div className="absolute bottom-2 left-1/2 z-[1000] -translate-x-1/2 rounded-sm bg-forest-900/85 px-3 py-1.5 text-[11px] text-cream-100 shadow-sm">
+        <div className="absolute bottom-2 left-1/2 z-[1000] -translate-x-1/2 rounded-sm bg-panel/85 px-3 py-1.5 text-[11px] text-panel-fg shadow-sm">
           {geoError ?? t.parcelZoomHint}
         </div>
       ) : null}

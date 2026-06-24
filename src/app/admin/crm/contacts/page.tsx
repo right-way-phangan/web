@@ -53,7 +53,7 @@ export default async function CrmContactsPage({
           </Link>
           <Link
             href={{ pathname: "/admin/crm/new" }}
-            className="rounded-full bg-forest-900 px-4 py-2 text-sm font-medium text-white hover:bg-forest-900/90"
+            className="rounded-full bg-panel px-4 py-2 text-sm font-medium text-panel-fg hover:bg-panel/90"
           >
             + Новый лид
           </Link>
@@ -66,7 +66,7 @@ export default async function CrmContactsPage({
           name="q"
           defaultValue={q ?? ""}
           placeholder="Имя, телефон, email…"
-          className="w-full rounded-full border border-forest-900/15 bg-white px-4 py-2 text-sm outline-none focus:border-brass-500"
+          className="w-full rounded-full border border-forest-900/15 bg-cream-50 px-4 py-2 text-sm outline-none focus:border-brass-500"
         />
         <button
           type="submit"
@@ -87,7 +87,7 @@ export default async function CrmContactsPage({
           {contacts.map((c) => (
             <li
               key={c.id}
-              className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-lg border border-forest-900/10 bg-white px-3 py-2 text-sm"
+              className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-lg border border-forest-900/10 bg-cream-50 px-3 py-2 text-sm"
             >
               <span className="min-w-0 flex-1 truncate font-medium text-forest-900">
                 {c.name || "Без имени"}
