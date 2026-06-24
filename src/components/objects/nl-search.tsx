@@ -95,7 +95,7 @@ export function NlSearch({ initialQuery = "" }: { initialQuery?: string }) {
                 setValue(ex);
                 submit(ex);
               }}
-              className="rounded-sm border border-forest-500/15 px-2 py-0.5 transition-colors hover:border-brass-500/40 hover:text-forest-500"
+              className="rounded-sm border border-forest-500/15 px-3 py-1.5 transition-colors hover:border-brass-500/40 hover:text-forest-500"
             >
               {ex}
             </button>

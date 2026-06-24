@@ -106,7 +106,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${sans.variable} ${serif.variable}`}
     >
-      <body className="flex min-h-screen flex-col">
+      <body className="flex min-h-svh flex-col">
         {/* Render-blocking, first in <body>: applies the persisted/system theme
             to <html> before paint so dark visitors never flash light. */}
         <ThemeScript />
