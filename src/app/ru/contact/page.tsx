@@ -46,7 +46,7 @@ export default function RussianContactPage() {
               href={whatsappLink("Здравствуйте — хочу узнать про объекты на Пангане.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 rounded-sm border border-forest-500/10 bg-cream-50 p-4 transition-colors hover:border-forest-500/30"
+              className="flex items-center gap-3 rounded-sm border border-forest-500/10 bg-cream-50 p-4 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:border-forest-500/30 hover:shadow-soft motion-reduce:hover:translate-y-0"
             >
               <MessageCircle className="h-5 w-5 text-forest-500" />
               <span className="text-sm text-forest-900">WhatsApp · {phoneDisplay()}</span>
@@ -55,21 +55,21 @@ export default function RussianContactPage() {
               href={telegramDmLink()}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 rounded-sm border border-forest-500/10 bg-cream-50 p-4 transition-colors hover:border-forest-500/30"
+              className="flex items-center gap-3 rounded-sm border border-forest-500/10 bg-cream-50 p-4 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:border-forest-500/30 hover:shadow-soft motion-reduce:hover:translate-y-0"
             >
               <Send className="h-5 w-5 text-forest-500" />
               <span className="text-sm text-forest-900">Telegram</span>
             </a>
             <a
               href={telLink()}
-              className="flex items-center gap-3 rounded-sm border border-forest-500/10 bg-cream-50 p-4 transition-colors hover:border-forest-500/30"
+              className="flex items-center gap-3 rounded-sm border border-forest-500/10 bg-cream-50 p-4 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:border-forest-500/30 hover:shadow-soft motion-reduce:hover:translate-y-0"
             >
               <Phone className="h-5 w-5 text-forest-500" />
               <span className="text-sm text-forest-900">Позвонить · {phoneDisplay()}</span>
             </a>
             <a
               href={`mailto:${siteConfig.contact.email}`}
-              className="flex items-center gap-3 rounded-sm border border-forest-500/10 bg-cream-50 p-4 transition-colors hover:border-forest-500/30"
+              className="flex items-center gap-3 rounded-sm border border-forest-500/10 bg-cream-50 p-4 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:border-forest-500/30 hover:shadow-soft motion-reduce:hover:translate-y-0"
             >
               <Mail className="h-5 w-5 text-forest-500" />
               <span className="text-sm text-forest-900">{siteConfig.contact.email}</span>

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
+import { SectionEyebrow } from "@/components/sections/section-eyebrow";
+import { Reveal } from "@/components/sections/reveal";
 import { KnowledgeBrowser } from "@/components/knowledge/knowledge-browser";
 import { KB_ARTICLES } from "@/content/knowledge-base";
 
@@ -49,9 +51,10 @@ export default function KnowledgePage() {
       </section>
 
       <section className="border-t border-forest-500/10 bg-cream-200/30">
-        <div className="container-prose py-16 md:py-20">
-          <div className="max-w-2xl">
-            <h2 className="font-serif text-3xl text-forest-900 md:text-4xl">
+        <div className="container-prose py-24 md:py-32">
+          <Reveal className="max-w-2xl">
+            <SectionEyebrow>Still curious</SectionEyebrow>
+            <h2 className="mt-3 font-serif text-3xl text-forest-900 md:text-4xl">
               Have a question we haven&rsquo;t covered?
             </h2>
             <p className="mt-4 text-lg text-forest-500/70">
@@ -69,7 +72,7 @@ export default function KnowledgePage() {
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
     </>

@@ -7,6 +7,7 @@ import { ListingsEmpty } from "@/components/objects/listings-empty";
 import { ListingsSplit } from "@/components/objects/listings-split";
 import { NlSearch } from "@/components/objects/nl-search";
 import { RecentlyViewed } from "@/components/objects/recently-viewed";
+import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 import {
   parseListingsSearchParams,
   makeFilterPredicate,
@@ -54,9 +55,7 @@ export default async function ListingsPage({ searchParams }: PageProps) {
       <link rel="preconnect" href="https://a.basemaps.cartocdn.com" crossOrigin="" />
       <link rel="dns-prefetch" href="https://b.basemaps.cartocdn.com" />
       <ItemListJsonLd name="Koh Phangan property listings — Right Way" objects={sorted} />
-      <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
-        Listings
-      </p>
+      <SectionEyebrow>Listings</SectionEyebrow>
       <h1 className="mt-3 max-w-3xl text-balance scroll-mt-24">
         Every active property on Phangan.
       </h1>
