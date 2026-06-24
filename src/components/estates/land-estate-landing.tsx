@@ -68,7 +68,7 @@ export function LandEstateLanding({ estate, locale, initialLot }: Props) {
       </nav>
 
       {/* Hero */}
-      <header className="relative isolate overflow-hidden rounded-sm bg-forest-900">
+      <header className="relative isolate overflow-hidden rounded-sm bg-panel">
         {estate.cover ? (
           <Image
             src={estate.cover}
@@ -81,11 +81,11 @@ export function LandEstateLanding({ estate, locale, initialLot }: Props) {
           />
         ) : null}
         <div
-          className="absolute inset-0 bg-gradient-to-t from-forest-900/95 via-forest-900/70 to-forest-900/45"
+          className="absolute inset-0 bg-gradient-to-t from-panel/95 via-panel/70 to-panel/45"
           aria-hidden
         />
         <div className="relative z-10 flex min-h-[36vh] flex-col justify-end p-7 md:min-h-[42vh] md:p-12">
-          <div className="flex flex-wrap items-center gap-2 text-xs text-cream-100/80">
+          <div className="flex flex-wrap items-center gap-2 text-xs text-panel-fg/80">
             <span className="inline-flex items-center gap-1.5">
               <MapPin className="h-3.5 w-3.5 text-brass-300" />
               {estate.district}
@@ -104,8 +104,8 @@ export function LandEstateLanding({ estate, locale, initialLot }: Props) {
           <SectionEyebrow tone="dark" className="mt-3">
             {t.eyebrow}
           </SectionEyebrow>
-          <h1 className="mt-2 max-w-3xl text-balance text-cream-50">{estate.name[locale]}</h1>
-          <p className="mt-3 max-w-2xl text-lg leading-relaxed text-cream-100/85">
+          <h1 className="mt-2 max-w-3xl text-balance text-panel-fg">{estate.name[locale]}</h1>
+          <p className="mt-3 max-w-2xl text-lg leading-relaxed text-panel-fg/85">
             {estate.tagline[locale]}
           </p>
         </div>

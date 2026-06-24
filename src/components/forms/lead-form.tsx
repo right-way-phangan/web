@@ -203,7 +203,7 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
           {(["whatsapp", "telegram", "email"] as const).map((ch) => (
             <label
               key={ch}
-              className="flex-1 cursor-pointer rounded-sm border border-forest-500/20 px-2 py-2 text-center text-xs font-medium text-forest-500 transition-colors has-[:checked]:border-forest-500 has-[:checked]:bg-panel has-[:checked]:text-panel-fg"
+              className="flex min-h-[44px] flex-1 cursor-pointer items-center justify-center rounded-sm border border-forest-500/20 px-2 py-2 text-center text-xs font-medium text-forest-500 transition-colors has-[:checked]:border-forest-500 has-[:checked]:bg-panel has-[:checked]:text-panel-fg"
             >
               <input
                 type="radio"
@@ -324,7 +324,7 @@ function SuccessBlock({
           href={waHref}
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-sm border border-forest-500/20 px-3 py-1.5 text-xs font-medium text-forest-900 transition-colors hover:border-forest-500/40"
+          className="inline-flex min-h-[44px] items-center justify-center rounded-sm border border-forest-500/20 px-3 py-1.5 text-xs font-medium text-forest-900 transition-colors hover:border-forest-500/40"
         >
           WhatsApp
         </a>
@@ -332,13 +332,13 @@ function SuccessBlock({
           href={tgHref}
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-sm border border-forest-500/20 px-3 py-1.5 text-xs font-medium text-forest-900 transition-colors hover:border-forest-500/40"
+          className="inline-flex min-h-[44px] items-center justify-center rounded-sm border border-forest-500/20 px-3 py-1.5 text-xs font-medium text-forest-900 transition-colors hover:border-forest-500/40"
         >
           Telegram
         </a>
         <Link
           href={browseHref}
-          className="rounded-sm border border-forest-500/20 px-3 py-1.5 text-xs font-medium text-forest-900 transition-colors hover:border-forest-500/40"
+          className="inline-flex min-h-[44px] items-center justify-center rounded-sm border border-forest-500/20 px-3 py-1.5 text-xs font-medium text-forest-900 transition-colors hover:border-forest-500/40"
         >
           {browseLabel}
         </Link>

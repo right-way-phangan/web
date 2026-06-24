@@ -344,7 +344,7 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
           type="button"
           onClick={() => setShowMore((s) => !s)}
           aria-expanded={showMore}
-          className="inline-flex items-center gap-1.5 rounded-sm border border-forest-500/20 bg-cream-50 px-3 py-1.5 text-xs font-medium text-forest-500 lg:hidden"
+          className="inline-flex min-h-11 items-center gap-1.5 rounded-sm border border-forest-500/20 bg-cream-50 px-3 py-1.5 text-xs font-medium text-forest-500 lg:hidden"
         >
           <SlidersHorizontal className="h-3 w-3" />
           {dict.more}
@@ -493,7 +493,7 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
               key={f.key}
               type="button"
               onClick={f.remove}
-              className="inline-flex items-center gap-1 rounded-full bg-forest-500/10 px-2.5 py-1 text-xs text-forest-500 transition-colors hover:bg-forest-500/20"
+              className="inline-flex min-h-11 items-center gap-1 rounded-full bg-forest-500/10 px-3 py-1 text-xs text-forest-500 transition-colors hover:bg-forest-500/20 lg:min-h-0"
               aria-label={`Remove ${f.label}`}
             >
               {f.label}
@@ -532,7 +532,7 @@ function Chip({
       onClick={onClick}
       aria-pressed={active}
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-sm border px-3 py-1.5 text-xs font-medium transition-colors",
+        "inline-flex min-h-11 items-center gap-1.5 rounded-sm border px-3 py-1.5 text-xs font-medium transition-colors lg:min-h-0",
         active
           ? "border-forest-500 bg-panel text-panel-fg"
           : "border-forest-500/20 bg-cream-50 text-forest-500 hover:border-forest-500/50",
@@ -565,7 +565,7 @@ function ModeTab({
       aria-selected={active}
       onClick={onClick}
       className={cn(
-        "px-3.5 py-1.5 text-xs font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brass-500",
+        "inline-flex min-h-11 items-center px-3.5 py-1.5 text-xs font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brass-500 lg:min-h-0",
         active
           ? "bg-forest-500 text-cream-100"
           : "text-forest-500/70 hover:bg-forest-500/5 hover:text-forest-500",
@@ -600,7 +600,7 @@ function Select({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className={cn(
-          "h-8 cursor-pointer appearance-none rounded-sm border border-forest-500/20 bg-cream-50 pl-3 pr-7 text-xs font-medium text-forest-500 hover:border-forest-500/50 focus:outline-none focus:ring-2 focus:ring-forest-500/30",
+          "h-11 lg:h-8 cursor-pointer appearance-none rounded-sm border border-forest-500/20 bg-cream-50 pl-3 pr-7 text-xs font-medium text-forest-500 hover:border-forest-500/50 focus:outline-none focus:ring-2 focus:ring-forest-500/30",
           (value || (activeCount && activeCount > 0)) && "border-forest-500 bg-forest-500/5",
         )}
       >
@@ -671,7 +671,7 @@ function MultiSelect({
         aria-expanded={open}
         onClick={() => setOpen((o) => !o)}
         className={cn(
-          "inline-flex h-8 items-center gap-1.5 rounded-sm border bg-cream-50 pl-3 pr-2 text-xs font-medium text-forest-500 hover:border-forest-500/50 focus:outline-none focus:ring-2 focus:ring-forest-500/30",
+          "inline-flex h-11 lg:h-8 items-center gap-1.5 rounded-sm border bg-cream-50 pl-3 pr-2 text-xs font-medium text-forest-500 hover:border-forest-500/50 focus:outline-none focus:ring-2 focus:ring-forest-500/30",
           count > 0 ? "border-forest-500 bg-forest-500/5" : "border-forest-500/20",
         )}
       >
@@ -684,7 +684,7 @@ function MultiSelect({
           role="listbox"
           aria-label={label}
           aria-multiselectable
-          className="absolute left-0 top-9 z-40 max-h-72 w-56 overflow-auto rounded-sm border border-forest-500/20 bg-cream-50 p-1 shadow-lg"
+          className="absolute left-0 top-9 z-40 max-h-72 w-56 max-w-[calc(100vw-3rem)] overflow-auto rounded-sm border border-forest-500/20 bg-cream-50 p-1 shadow-lg"
         >
           {count > 0 ? (
             <button

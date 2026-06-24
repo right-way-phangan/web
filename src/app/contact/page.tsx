@@ -39,7 +39,7 @@ export default async function ContactPage({ searchParams }: PageProps) {
 
       {brief ? (
         <div className="container-prose pt-8">
-          <p className="rounded-sm border border-brass-500/20 bg-brass-500/5 px-4 py-3 text-sm text-forest-500/80">
+          <p className="rounded-sm border border-brass-500/20 bg-brass-500/5 px-4 py-3 text-sm text-forest-600">
             We&rsquo;ve pre-filled your brief below from your search — edit it if
             you like, then send.
           </p>

@@ -40,7 +40,7 @@ export function Breadcrumbs({ trailHref, trailLabel, current }: Props) {
     <nav aria-label="Breadcrumb" className="mb-6 print:hidden">
       <ol className="flex flex-wrap items-center gap-1.5 text-sm text-forest-500/70">
         <li>
-          <Link href={homeHref} className="transition-colors hover:text-brass-500">
+          <Link href={homeHref} className="inline-block -my-1.5 py-1.5 transition-colors hover:text-brass-500">
             {t.bcHome}
           </Link>
         </li>
@@ -51,7 +51,7 @@ export function Breadcrumbs({ trailHref, trailLabel, current }: Props) {
           <Link
             href={trailHref as Route}
             onClick={onTrailClick}
-            className="transition-colors hover:text-brass-500"
+            className="inline-block -my-1.5 py-1.5 transition-colors hover:text-brass-500"
           >
             {trailLabel}
           </Link>

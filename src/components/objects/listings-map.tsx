@@ -239,7 +239,7 @@ export default function ListingsMap({
   }, [base, parcels, zoning, poi]);
 
   const pill =
-    "px-2.5 py-2 text-xs font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brass-500";
+    "inline-flex min-h-[44px] items-center justify-center px-2.5 py-2 text-xs font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brass-500 sm:min-h-0";
   // Active fills the brand accent (forest in light, gold in dark so it reads as
   // "selected" against the light map tiles, which never invert with the theme).
   const pillOn = "bg-panel text-panel-fg dark:bg-brass-500 dark:text-cream-100";

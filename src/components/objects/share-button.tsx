@@ -59,7 +59,7 @@ export function ShareButton({
       aria-label={t.shareAria}
       title={t.shareAria}
       className={cn(
-        "inline-flex h-8 items-center justify-center gap-1.5 rounded-full border border-forest-500/20 px-3 text-xs font-medium text-forest-500 transition-colors hover:border-brass-500/40 hover:text-brass-500",
+        "inline-flex h-11 items-center justify-center gap-1.5 rounded-full border border-forest-500/20 px-3 text-xs font-medium text-forest-500 transition-colors hover:border-brass-500/40 hover:text-brass-500 sm:h-8",
         className,
       )}
     >
