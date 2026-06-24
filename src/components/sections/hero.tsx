@@ -108,37 +108,39 @@ export async function Hero({ locale = "en" }: { locale?: Locale }) {
           {dict.lede}
         </p>
 
-        {/* Intent bar — kinetic chips into pre-filtered search */}
-        <div
-          className="mask-rise mt-9 flex flex-wrap items-center gap-2.5"
-          style={{ animationDelay: "0.24s" }}
-        >
-          <span className="mr-1 text-xs uppercase tracking-[0.2em] text-panel-fg/55">
+        {/* Intent bar — label on its own line, then a tidy wrap of chips into
+            pre-filtered search (kept symmetric on narrow screens). */}
+        <div className="mask-rise mt-9" style={{ animationDelay: "0.24s" }}>
+          <span className="text-xs uppercase tracking-[0.2em] text-panel-fg/55">
             {dict.intentLabel}
           </span>
-          {dict.intents.map((label, i) => {
-            const path = HERO_INTENT_PATHS[i];
-            if (!path) return null;
-            const href = `${base}${path}` as Route;
-            return (
-              <Link
-                key={label}
-                href={href}
-                className="group/chip inline-flex items-center gap-1.5 rounded-full border border-panel-fg/25 bg-panel-fg/5 px-4 py-2 text-sm text-panel-fg transition-[color,background-color,border-color] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-brass-300/60 hover:bg-panel-fg/10 hover:text-brass-200"
-              >
-                {label}
-                <ArrowRight className="h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all duration-300 group-hover/chip:translate-x-0 group-hover/chip:opacity-100" />
-              </Link>
-            );
-          })}
+          <div className="mt-3 flex flex-wrap gap-2">
+            {dict.intents.map((label, i) => {
+              const path = HERO_INTENT_PATHS[i];
+              if (!path) return null;
+              const href = `${base}${path}` as Route;
+              return (
+                <Link
+                  key={label}
+                  href={href}
+                  className="group/chip inline-flex items-center gap-1.5 rounded-full border border-panel-fg/25 bg-panel-fg/5 px-4 py-2 text-sm text-panel-fg transition-[color,background-color,border-color] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-brass-300/60 hover:bg-panel-fg/10 hover:text-brass-200"
+                >
+                  {label}
+                  <ArrowRight className="h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all duration-300 group-hover/chip:translate-x-0 group-hover/chip:opacity-100" />
+                </Link>
+              );
+            })}
+          </div>
         </div>
 
+        {/* On mobile a 1-col grid forces BOTH CTAs to equal full width
+            (grid items stretch); on sm+ they sit inline at content width. */}
         <div
-          className="mask-rise mt-10 flex flex-col gap-3 sm:flex-row sm:gap-4"
+          className="mask-rise mt-10 grid grid-cols-1 gap-3 sm:flex sm:flex-row sm:gap-4"
           style={{ animationDelay: "0.32s" }}
         >
           <Magnetic>
-            <Button asChild variant="accent" size="lg">
+            <Button asChild variant="accent" size="lg" className="w-full sm:w-auto">
               <Link href={browseHref}>
                 {dict.ctaBrowse}
                 <ArrowRight className="h-4 w-4" />
@@ -149,7 +151,7 @@ export async function Hero({ locale = "en" }: { locale?: Locale }) {
             asChild
             variant="outline"
             size="lg"
-            className="border-panel-fg/40 text-panel-fg hover:border-panel-fg hover:bg-panel-fg hover:text-panel"
+            className="w-full border-panel-fg/40 text-panel-fg hover:border-panel-fg hover:bg-panel-fg hover:text-panel sm:w-auto"
           >
             <Link href={processHref}>{dict.ctaProcess}</Link>
           </Button>

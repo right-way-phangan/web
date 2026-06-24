@@ -40,14 +40,14 @@ export function Footer() {
         <div className="grid gap-12 md:grid-cols-4">
           <div className="md:col-span-2 max-w-md">
             <Logo size="lg" />
-            <p className="mt-4 text-sm text-forest-500/70 leading-relaxed">
+            <p className="mt-4 text-sm text-forest-600 leading-relaxed">
               {siteConfig.description}
             </p>
-            <p className="mt-6 text-xs text-forest-500/70 leading-relaxed">{f.blurb}</p>
+            <p className="mt-6 text-xs text-forest-600 leading-relaxed">{f.blurb}</p>
           </div>
 
           <div>
-            <h2 className="text-xs font-medium uppercase tracking-[0.2em] text-forest-500/70">
+            <h2 className="text-xs font-medium uppercase tracking-[0.2em] text-forest-600">
               {f.explore}
             </h2>
             <ul className="mt-5 space-y-3">
@@ -55,7 +55,7 @@ export function Footer() {
                 <li key={`${item.label}-${item.href}`}>
                   <Link
                     href={item.href as Route}
-                    className="text-sm text-forest-500 hover:text-brass-500 transition-colors"
+                    className="block py-1.5 text-sm text-forest-500 hover:text-brass-500 transition-colors"
                   >
                     {item.label}
                   </Link>
@@ -65,7 +65,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h2 className="text-xs font-medium uppercase tracking-[0.2em] text-forest-500/70">
+            <h2 className="text-xs font-medium uppercase tracking-[0.2em] text-forest-600">
               {f.contact}
             </h2>
             <ul className="mt-5 space-y-3 text-sm">
@@ -74,7 +74,7 @@ export function Footer() {
                   href={whatsappLink()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-forest-500 hover:text-brass-500 transition-colors"
+                  className="block py-1.5 text-forest-500 hover:text-brass-500 transition-colors"
                 >
                   WhatsApp
                 </a>
@@ -84,7 +84,7 @@ export function Footer() {
                   href={telegramDmLink()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-forest-500 hover:text-brass-500 transition-colors"
+                  className="block py-1.5 text-forest-500 hover:text-brass-500 transition-colors"
                 >
                   {f.telegramChat}
                 </a>
@@ -94,7 +94,7 @@ export function Footer() {
                   href={telegramChannelLink()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-forest-500 hover:text-brass-500 transition-colors"
+                  className="block py-1.5 text-forest-500 hover:text-brass-500 transition-colors"
                 >
                   {f.channel} @{siteConfig.contact.telegram.channel}
                 </a>
@@ -102,7 +102,7 @@ export function Footer() {
               <li>
                 <a
                   href={`mailto:${siteConfig.contact.email}`}
-                  className="text-forest-500 hover:text-brass-500 transition-colors"
+                  className="block py-1.5 text-forest-500 hover:text-brass-500 transition-colors"
                 >
                   {siteConfig.contact.email}
                 </a>
@@ -112,10 +112,10 @@ export function Footer() {
         </div>
 
         <div className="mt-16 flex flex-col gap-3 border-t border-forest-500/10 pt-8 md:flex-row md:items-center md:justify-between">
-          <p className="text-xs text-forest-500/70">
+          <p className="text-xs text-forest-600">
             © {currentYear} Right Way Phangan Group. {f.rights}
           </p>
-          <div className="flex flex-col gap-2 text-xs text-forest-500/70 md:flex-row md:items-center md:gap-6">
+          <div className="flex flex-col gap-2 text-xs text-forest-600 md:flex-row md:items-center md:gap-6">
             <Link
               href={privacyHref}
               className="hover:text-brass-500 transition-colors"
