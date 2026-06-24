@@ -97,9 +97,11 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
             {dict.cta.lede}
           </p>
 
-          <div className="mt-10 flex w-full max-w-sm flex-col gap-3 sm:w-auto sm:max-w-none sm:flex-row sm:gap-4">
+          {/* 1-col grid on mobile forces BOTH CTAs to equal full width
+              (grid items stretch); inline at content width on sm+. */}
+          <div className="mt-10 grid w-full max-w-sm grid-cols-1 gap-3 sm:flex sm:w-auto sm:max-w-none sm:flex-row sm:gap-4">
             <Magnetic>
-              <Button asChild variant="accent" size="lg">
+              <Button asChild variant="accent" size="lg" className="w-full sm:w-auto">
                 <Link href={browseHref}>
                   {dict.cta.browse}
                   <ArrowRight className="h-4 w-4" />
@@ -110,7 +112,7 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
               asChild
               variant="outline"
               size="lg"
-              className="border-panel-fg/40 text-panel-fg hover:border-panel-fg hover:bg-panel-fg hover:text-panel"
+              className="w-full border-panel-fg/40 text-panel-fg hover:border-panel-fg hover:bg-panel-fg hover:text-panel sm:w-auto"
             >
               <Link href={contactHref}>{dict.cta.talk}</Link>
             </Button>
