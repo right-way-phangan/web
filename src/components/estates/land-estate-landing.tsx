@@ -11,6 +11,7 @@ import { formatPriceCompact } from "@/lib/utils/price";
 import { EstateExplorer } from "./estate-explorer";
 import { EstateSectionNav, type NavSection } from "./estate-section-nav";
 import { EstateCard } from "./estate-card";
+import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 import { EstateLeadGallery } from "./estate-lead-gallery";
 import { EstatePrintButton } from "./estate-print-button";
 import { DistanceChips } from "@/components/objects/distance-chips";
@@ -100,9 +101,9 @@ export function LandEstateLanding({ estate, locale, initialLot }: Props) {
               <span className="text-brass-200">· {fromLabel} {formatPriceCompact(priceFrom)}</span>
             ) : null}
           </div>
-          <p className="mt-3 text-xs font-medium uppercase tracking-[0.3em] text-brass-300">
+          <SectionEyebrow tone="dark" className="mt-3">
             {t.eyebrow}
-          </p>
+          </SectionEyebrow>
           <h1 className="mt-2 max-w-3xl text-balance text-cream-50">{estate.name[locale]}</h1>
           <p className="mt-3 max-w-2xl text-lg leading-relaxed text-cream-100/85">
             {estate.tagline[locale]}
