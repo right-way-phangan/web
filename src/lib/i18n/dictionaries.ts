@@ -208,6 +208,7 @@ const chrome: Record<Locale, ChromeDict> = {
         label: "Resources",
         items: [
           { label: "What's my property worth?", href: "/tools/estimate" },
+          { label: "What can I build?", href: "/tools/zoning" },
           { label: "Calculator", href: "/calculator" },
           { label: "Insights", href: "/insights" },
           { label: "Knowledge", href: "/knowledge" },
@@ -260,6 +261,7 @@ const chrome: Record<Locale, ChromeDict> = {
         label: "Ресурсы",
         items: [
           { label: "Сколько стоит мой объект?", href: "/ru/tools/estimate" },
+          { label: "Что можно построить?", href: "/ru/tools/zoning" },
           { label: "Калькулятор", href: "/ru/calculator" },
           { label: "Аналитика", href: "/ru/insights" },
           { label: "База знаний", href: "/ru/knowledge" },
