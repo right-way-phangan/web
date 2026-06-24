@@ -104,7 +104,7 @@ function UnitRows({ units, locale }: { units: RealEstateObject[]; locale: "en" |
     Withdrawn: locale === "ru" ? "Снят" : "Withdrawn",
   };
   const rowClass =
-    "grid grid-cols-[1fr_auto] items-center gap-2 py-3 sm:grid-cols-[auto_1fr_auto_auto]";
+    "grid grid-cols-[auto_1fr_auto] items-center gap-2 py-3 sm:grid-cols-[auto_1fr_auto_auto]";
   return (
     <dl className="divide-y divide-forest-500/10 border-y border-forest-500/10">
       {units.map((u) => {
