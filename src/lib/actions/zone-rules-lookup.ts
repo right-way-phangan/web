@@ -22,6 +22,9 @@ import {
   type ZoneBuildInfo,
   type RuleLocale,
 } from "@/lib/data/zone-rules";
+import { combineBuildingNorms, type BuildingNorms } from "@/lib/data/building-norms";
+import { seaDistanceMeters } from "@/lib/geo/sea-distance";
+import { fetchTerrain } from "@/lib/geo/terrain";
 
 // Koh Phangan bounding box — reject points outside it early so a mis-pasted
 // link doesn't classify some random pixel on the planet as a Phangan zone.
@@ -58,6 +61,13 @@ async function expandShortLink(url: string): Promise<{ lat: number; lng: number 
   return null;
 }
 
+/** Optional manual overrides for the geographic inputs (survey beats DEM). */
+export interface NormOverrides {
+  elevationM?: number;
+  slopeDeg?: number;
+  seaDistanceM?: number;
+}
+
 export interface ZoneRulesLookupResult {
   ok: boolean;
   lat?: number;
@@ -70,6 +80,16 @@ export interface ZoneRulesLookupResult {
   colorHex?: string;
   /** Localized indicative building rules, or null if nothing useful to say. */
   rules?: ZoneBuildInfo | null;
+  /** Estimated distance to the nearest coastline, metres. */
+  seaDistanceM?: number;
+  /** Elevation above sea level, metres (DEM or user override). */
+  elevationM?: number;
+  /** Ground slope, degrees (DEM or user override). */
+  slopeDeg?: number;
+  /** True when elevation/slope were estimated from DEM (vs. user-entered). */
+  terrainEstimated?: boolean;
+  /** Precise quantitative norms (height/area/%/min plot), or null. */
+  norms?: BuildingNorms | null;
   error?: string;
 }
 
@@ -82,6 +102,7 @@ export async function lookupZoneRules(
   input: string,
   locale: RuleLocale,
   signals: ZoneSignals = {},
+  overrides: NormOverrides = {},
 ): Promise<ZoneRulesLookupResult> {
   const raw = (input ?? "").trim();
   if (!raw) return { ok: false, error: locale === "ru" ? "Вставьте локацию" : "Paste a location" };
@@ -117,8 +138,33 @@ export async function lookupZoneRules(
     return { ok: false, lat: coords.lat, lng: coords.lng, error: zone.error };
   }
 
-  // 3) Turn the zone + ticked signals into indicative rules.
+  // 3) Turn the zone + ticked signals into indicative (qualitative) rules.
   const rules = zoneRulesFromSignals(zone.zone ?? "", signals, locale);
+
+  // 4) Geographic drivers of the precise numeric norms.
+  //    Sea distance is always computed (coastline geometry). Elevation/slope
+  //    come from the DEM unless the user supplied a survey override.
+  const seaDistanceM = overrides.seaDistanceM ?? seaDistanceMeters(coords.lat, coords.lng);
+
+  let elevationM = overrides.elevationM;
+  let slopeDeg = overrides.slopeDeg;
+  let terrainEstimated = false;
+  if (elevationM == null || slopeDeg == null) {
+    const terrain = await fetchTerrain(coords.lat, coords.lng);
+    if (terrain) {
+      if (elevationM == null) {
+        elevationM = terrain.elevationM;
+        terrainEstimated = true;
+      }
+      if (slopeDeg == null) {
+        slopeDeg = terrain.slopeDeg;
+        terrainEstimated = true;
+      }
+    }
+  }
+
+  // 5) Combine the layers into the strictest quantitative rule set.
+  const norms = combineBuildingNorms({ seaDistanceM, elevationM, slopeDeg }, locale);
 
   return {
     ok: true,
@@ -128,5 +174,10 @@ export async function lookupZoneRules(
     zoneLabel: zone.label,
     colorHex: zone.colorHex,
     rules,
+    seaDistanceM,
+    elevationM,
+    slopeDeg,
+    terrainEstimated,
+    norms,
   };
 }
