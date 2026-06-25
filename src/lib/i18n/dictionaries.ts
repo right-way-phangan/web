@@ -1561,6 +1561,30 @@ export interface EstatesDict {
   enquireLot: (code: string) => string;
   lotPrefill: (code: string) => string;
   noMatch: string;
+  /** боковой драуэр лота */
+  drawer: {
+    facts: string;
+    view: string;
+    buildTitle: string;
+    coverage: string;
+    villas: string;
+    buildNote: string;
+    note: string;
+    roiCta: string;
+    inCompare: string;
+    addCompare: string;
+    fullPlot: string;
+  };
+  /** панель сравнения */
+  compare: {
+    title: string;
+    pricePerSqm: string;
+    open: string;
+    clear: string;
+  };
+  /** спутниковый вид */
+  openInMaps: string;
+  satelliteHint: string;
 }
 
 type PlotStatusKey = "available" | "reserved" | "sold" | "rented";
@@ -1627,6 +1651,27 @@ const estatesDict: Record<Locale, EstatesDict> = {
     enquireLot: (code) => `Enquire about ${code}`,
     lotPrefill: (code) => `I'm interested in plot ${code} at Haad Yao Hillside.`,
     noMatch: "No plots match this filter.",
+    drawer: {
+      facts: "Facts",
+      view: "View",
+      buildTitle: "Build potential",
+      coverage: "Build coverage",
+      villas: "Approx. villas",
+      buildNote: "Estimated at 35% coverage · 160 m² per villa footprint. Actual depends on design and permits.",
+      note: "Note",
+      roiCta: "Estimate ROI in the calculator",
+      inCompare: "In comparison",
+      addCompare: "Add to compare",
+      fullPlot: "Full plot card",
+    },
+    compare: {
+      title: "Compare plots",
+      pricePerSqm: "Price / m²",
+      open: "Compare",
+      clear: "Clear",
+    },
+    openInMaps: "Open in Google Maps",
+    satelliteHint: "Satellite view centred on the estate. Individual plot boundaries are shown on the site plan above.",
   },
   ru: {
     eyebrow: "Земельные проекты",
@@ -1689,6 +1734,27 @@ const estatesDict: Record<Locale, EstatesDict> = {
     enquireLot: (code) => `Запросить ${code}`,
     lotPrefill: (code) => `Интересует участок ${code} в подборке Хад Яо.`,
     noMatch: "Под фильтр ничего не подходит.",
+    drawer: {
+      facts: "Параметры",
+      view: "Вид",
+      buildTitle: "Потенциал застройки",
+      coverage: "Площадь застройки",
+      villas: "Прим. вилл",
+      buildNote: "Расчёт при 35% покрытии · 160 м² на виллу. Фактически зависит от проекта и разрешений.",
+      note: "Заметка",
+      roiCta: "Рассчитать ROI в калькуляторе",
+      inCompare: "В сравнении",
+      addCompare: "В сравнение",
+      fullPlot: "Карточка объекта",
+    },
+    compare: {
+      title: "Сравнение участков",
+      pricePerSqm: "Цена / м²",
+      open: "Сравнить",
+      clear: "Очистить",
+    },
+    openInMaps: "Открыть в Google Картах",
+    satelliteHint: "Спутниковый снимок с центром на подборке. Контуры отдельных участков — на плане разбивки выше.",
   },
 };
 

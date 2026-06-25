@@ -45,6 +45,8 @@ export interface EstatePlot {
   leaseTermYears?: number;
   seaView?: boolean;
   flatLand?: boolean;
+  /** Статус чанота: ready = есть отдельный чанот; inProgress = оформление ещё идёт. */
+  chanote?: "ready" | "inProgress";
   /** Короткая бейзлайн-заметка по лоту (двуязычно). */
   note?: { en: string; ru: string };
   /**
@@ -80,6 +82,8 @@ export interface LandEstate {
   district: string;
   /** Подзаголовок-слоган. */
   tagline: { en: string; ru: string };
+  /** Коммуникации, уже проведённые по всей подборке. */
+  utilities?: { road?: boolean; power?: boolean; water?: boolean };
   /** Описание подборки — массив абзацев. */
   description: { en: string[]; ru: string[] };
   /** Обложка: путь под /public (например /images/estates/<slug>/cover.jpg) или абсолютный URL. */
@@ -511,4 +515,15 @@ export function plotPriceVisible(status: PlotStatus): boolean {
 /** Лоты подборки с приложенными фото — для секции «Галерея» (группировка по лоту). */
 export function estatePhotoPlots(estate: LandEstate): EstatePlot[] {
   return estate.plots.filter((p) => p.photos && p.photos.length > 0);
+}
+
+/**
+ * Примерный потенциал застройки лота: 35% покрытие (стандарт Таиланда),
+ * ~160 м² на одну виллу. Возвращает null, если площадь неизвестна.
+ */
+export function buildPotential(plot: EstatePlot): { coverageSqm: number; villas: number } | null {
+  if (!plot.areaSqm) return null;
+  const coverageSqm = Math.round(plot.areaSqm * 0.35);
+  const villas = Math.max(1, Math.floor(coverageSqm / 160));
+  return { coverageSqm, villas };
 }

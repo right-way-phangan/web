@@ -22,6 +22,8 @@ type Sort = "recommended" | "priceLow" | "priceHigh" | "areaLarge";
 interface Props {
   estate: LandEstate;
   locale: Locale;
+  /** Код лота для авто-открытия драуэра (передаётся со страницы /estates/[slug]/[lot]). */
+  initialLot?: string;
 }
 
 /**
@@ -30,10 +32,10 @@ interface Props {
  * море/горы), сортировка, выбор лота для предзаполнения заявки. Статика (шапка,
  * описание, DD, преимущества) остаётся в серверном лендинге выше.
  */
-export function EstateExplorer({ estate, locale }: Props) {
+export function EstateExplorer({ estate, locale, initialLot }: Props) {
   const t = getEstatesDict(locale);
   const [hovered, setHovered] = useState<string | null>(null);
-  const [selectedLot, setSelectedLot] = useState<string | null>(null);
+  const [selectedLot, setSelectedLot] = useState<string | null>(initialLot ?? null);
   const [filter, setFilter] = useState<Filter>("all");
   const [sort, setSort] = useState<Sort>("recommended");
 
