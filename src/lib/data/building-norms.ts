@@ -1,12 +1,17 @@
 /**
  * Quantitative Koh Phangan building norms — the "precise rules" layer on top of
  * the city-plan colour (zone-rules.ts gives qualitative use; this gives numbers:
- * max height, footprint/area, open-space %, min plot, buildable y/n).
+ * max height, plot coverage, footprint, setback, min plot, buildable y/n).
  *
- * SOURCE OF TRUTH — Ministry of Natural Resources & Environment environmental
- * protection regulation for Surat Thani (incl. Ko Samui / Ko Phangan / Ko Tao),
- * in force 21 May 2025. The numbers are driven by three geographic facts we can
- * estimate from coordinates: distance to sea, elevation (m a.s.l.) and slope.
+ * SOURCES OF TRUTH (two laws, most-restrictive wins):
+ *  1. Thai Building Control Act / Ministerial Regulation No. 55 (B.E. 2543) —
+ *     the BASELINE for an ordinary private dwelling (villa / house): plot
+ *     coverage ≤ 70% (open space ≥ 30%), boundary setback ≥ 2 m for walls with
+ *     openings (≥ 0.5 m for a blank wall / eaves). Applies to every buildable plot.
+ *  2. MNRE environmental protection regulation for Surat Thani (incl. Ko Samui /
+ *     Ko Phangan / Ko Tao), in force 21 May 2025 — extra limits driven by three
+ *     geographic facts we estimate from coordinates: distance to sea, elevation
+ *     (m a.s.l.) and slope (height 6/12 m, footprint caps, green %, no-build gates).
  *
  * Deliberately INDICATIVE. Caveats baked in and surfaced in the UI:
  *  - Sea distance / elevation / slope are estimated from open data (OSM
@@ -19,8 +24,8 @@
 
 export type RuleLocale = "en" | "ru";
 
-/** Which geographic layer a constraint came from — for provenance in the UI. */
-export type NormLayer = "sea" | "elevation" | "slope" | "general";
+/** Which layer a constraint came from — for provenance in the UI. */
+export type NormLayer = "sea" | "elevation" | "slope" | "general" | "bca";
 
 export interface NormLine {
   /** Localized label, e.g. "Max height" / "Макс. высота". */
@@ -56,12 +61,15 @@ export interface NormInputs {
 const T = {
   en: {
     maxHeight: "Max height",
+    coverage: "Max plot coverage",
     maxArea: "Max building area",
     maxFootprint: "Max footprint",
-    minOpen: "Min open space",
     minGreen: "Min green space",
+    setback: "Setback from boundary",
+    setbackVal: "≥ 2 m (walls with windows) · ≥ 0.5 m (blank wall, eaves)",
     minPlot: "Min plot size",
     use: "Allowed use",
+    villa: "private villa / house",
     singleHome: "single-family home only",
     style: "Thai / tropical style, natural-colour roof",
     noBuildSea: "No construction within 10 m of the shoreline.",
@@ -70,20 +78,24 @@ const T = {
     floors1: " · 1 storey",
     sqm: (n: number) => `${n.toLocaleString("en-US")} m²`,
     pct: (n: number) => `${n}%`,
+    greenNote: (n: number) => `Of the open space, ≥ ${n}% must be planted (native trees).`,
     hotelGreen: "Hotels must leave ≥ 50% of the plot as green space.",
     units10: "Developments of 10+ units need wastewater treatment.",
     noTerrain: "No terrain/slope alteration, retaining walls or land subdivision.",
     source:
-      "Source: MNRE environmental protection regulation for Surat Thani (Ko Samui / Ko Phangan / Ko Tao), in force 21 May 2025 — indicative, confirmed in due diligence.",
+      "Source: Thai Building Control Act (Ministerial Reg. 55) + MNRE environmental protection regulation for Surat Thani (Ko Samui / Ko Phangan / Ko Tao, in force 21 May 2025) — indicative, confirmed in due diligence.",
   },
   ru: {
     maxHeight: "Макс. высота",
+    coverage: "Макс. застройка участка",
     maxArea: "Макс. площадь здания",
     maxFootprint: "Макс. пятно застройки",
-    minOpen: "Мин. свободная площадь",
     minGreen: "Мин. озеленение",
+    setback: "Отступ от границы",
+    setbackVal: "≥ 2 м (стена с окнами) · ≥ 0.5 м (глухая стена, свесы)",
     minPlot: "Мин. размер участка",
     use: "Разрешённое использование",
+    villa: "частная вилла / дом",
     singleHome: "только одиночный жилой дом",
     style: "тайский / тропический стиль, крыша натурального цвета",
     noBuildSea: "Строительство в пределах 10 м от береговой линии запрещено.",
@@ -92,11 +104,12 @@ const T = {
     floors1: " · 1 этаж",
     sqm: (n: number) => `${n.toLocaleString("ru-RU")} м²`,
     pct: (n: number) => `${n}%`,
+    greenNote: (n: number) => `Из свободной площади ≥ ${n}% — озеленение (местные деревья).`,
     hotelGreen: "Отель — оставить ≥ 50% участка под озеленение.",
     units10: "Застройка 10+ юнитов — нужны очистные сооружения.",
     noTerrain: "Запрет на изменение рельефа/склона, подпорные стены и деление участка.",
     source:
-      "Источник: регламент Минприроды Таиланда об охране окружающей среды Сурат-Тани (Самуи / Панган / Тао), в силе с 21 мая 2025 — индикативно, подтверждается в due diligence.",
+      "Источник: Закон Таиланда о контроле строительства (регламент №55) + регламент Минприроды об охране среды Сурат-Тани (Самуи / Панган / Тао, в силе с 21 мая 2025) — индикативно, подтверждается в due diligence.",
   },
 } as const;
 
@@ -104,7 +117,9 @@ const T = {
 interface Acc {
   maxHeightM?: { v: number; layer: NormLayer };
   maxAreaSqm?: { v: number; layer: NormLayer; footprint: boolean };
+  // Strictest required open space (% of plot left unbuilt) → coverage = 100 − this.
   minOpenPct?: { v: number; layer: NormLayer };
+  // Of that, how much must be planted greenery (env tiers only).
   minGreenPct?: { v: number; layer: NormLayer };
   minPlotSqm?: { v: number; layer: NormLayer };
   singleHomeLayer?: NormLayer;
@@ -119,8 +134,9 @@ function loosen<T extends { v: number }>(cur: T | undefined, next: T): T {
 }
 
 /**
- * Combine the three geographic layers (+ general island cap) into the strictest
- * applicable rule set. Returns null when there are no inputs at all.
+ * Combine the baseline dwelling code (Building Control Act) + the three
+ * geographic environmental layers (+ general island cap) into the strictest
+ * applicable rule set for a private villa/house. Null when no inputs at all.
  */
 export function combineBuildingNorms(inputs: NormInputs, locale: RuleLocale): BuildingNorms | null {
   const { seaDistanceM, elevationM, slopeDeg } = inputs;
@@ -138,8 +154,10 @@ export function combineBuildingNorms(inputs: NormInputs, locale: RuleLocale): Bu
     return { buildable: false, noBuildReason: t.noBuildSlope, lines: [], notes: [], source: t.source };
   }
 
-  // General island-wide cap.
-  acc.maxHeightM = tighten(acc.maxHeightM, { v: 12, layer: "general" as const });
+  // ── Baseline for any private dwelling (Building Control Act / MR 55) ──
+  // Coverage ≤ 70% (open space ≥ 30%); setback handled as a constant line below.
+  acc.maxHeightM = tighten(acc.maxHeightM, { v: 12, layer: "general" as const }); // island-wide cap
+  acc.minOpenPct = loosen(acc.minOpenPct, { v: 30, layer: "bca" as const });
 
   // ── Sea distance ──
   if (seaDistanceM != null) {
@@ -160,12 +178,14 @@ export function combineBuildingNorms(inputs: NormInputs, locale: RuleLocale): Bu
       acc.singleHomeLayer = "elevation";
       acc.maxHeightM = tighten(acc.maxHeightM, { v: 6, layer: "elevation" as const });
       acc.maxAreaSqm = tighten(acc.maxAreaSqm, { v: 90, layer: "elevation" as const, footprint: true });
+      acc.minOpenPct = loosen(acc.minOpenPct, { v: 50, layer: "elevation" as const });
       acc.minGreenPct = loosen(acc.minGreenPct, { v: 50, layer: "elevation" as const });
       acc.minPlotSqm = loosen(acc.minPlotSqm, { v: 400, layer: "elevation" as const });
       acc.styleRequired = true;
     } else if (elevationM >= 80) {
       acc.singleHomeLayer = "elevation";
       acc.maxHeightM = tighten(acc.maxHeightM, { v: 6, layer: "elevation" as const });
+      acc.minOpenPct = loosen(acc.minOpenPct, { v: 50, layer: "elevation" as const });
       acc.minGreenPct = loosen(acc.minGreenPct, { v: 50, layer: "elevation" as const });
       acc.minPlotSqm = loosen(acc.minPlotSqm, { v: 400, layer: "elevation" as const });
       acc.styleRequired = true;
@@ -187,22 +207,29 @@ export function combineBuildingNorms(inputs: NormInputs, locale: RuleLocale): Bu
 
   // Build the display lines from the accumulator.
   const lines: NormLine[] = [];
-  if (acc.singleHomeLayer) lines.push({ label: t.use, value: t.singleHome, layer: acc.singleHomeLayer });
+  // Frame the answer as a private dwelling (the case Right Way sells most).
+  lines.push({ label: t.use, value: acc.singleHomeLayer ? t.singleHome : t.villa, layer: acc.singleHomeLayer ?? "bca" });
   if (acc.maxHeightM)
     lines.push({
       label: t.maxHeight,
       value: t.m(acc.maxHeightM.v) + (acc.maxHeightM.v <= 6 ? t.floors1 : ""),
       layer: acc.maxHeightM.layer,
     });
+  // Plot coverage = 100 − strictest required open space.
+  if (acc.minOpenPct)
+    lines.push({ label: t.coverage, value: t.pct(100 - acc.minOpenPct.v), layer: acc.minOpenPct.layer });
   if (acc.maxAreaSqm)
     lines.push({
       label: acc.maxAreaSqm.footprint ? t.maxFootprint : t.maxArea,
       value: t.sqm(acc.maxAreaSqm.v),
       layer: acc.maxAreaSqm.layer,
     });
-  if (acc.minOpenPct) lines.push({ label: t.minOpen, value: t.pct(acc.minOpenPct.v), layer: acc.minOpenPct.layer });
-  if (acc.minGreenPct) lines.push({ label: t.minGreen, value: t.pct(acc.minGreenPct.v), layer: acc.minGreenPct.layer });
+  // Boundary setback — Building Control Act, applies to every dwelling.
+  lines.push({ label: t.setback, value: t.setbackVal, layer: "bca" });
   if (acc.minPlotSqm) lines.push({ label: t.minPlot, value: t.sqm(acc.minPlotSqm.v), layer: acc.minPlotSqm.layer });
+
+  // Notes: greenery share of the open space, plus the conditional flags.
+  if (acc.minGreenPct) notes.unshift(t.greenNote(acc.minGreenPct.v));
   if (acc.styleRequired) notes.push(t.style);
 
   // De-dupe notes while preserving order.
