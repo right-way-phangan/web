@@ -2,18 +2,26 @@ import Link from "next/link";
 import type { Route } from "next";
 import type { RealEstateObject } from "@/types/object";
 import { zoneBuildInfo } from "@/lib/data/zone-rules";
+import { combineBuildingNorms } from "@/lib/data/building-norms";
+import { seaDistanceMeters } from "@/lib/geo/sea-distance";
+import { fetchTerrain } from "@/lib/geo/terrain";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { Appear } from "@/components/motion/appear";
 import { cn } from "@/lib/utils/cn";
 
 /**
- * "What you can build here" — indicative building rules derived from the plot's
- * detected DPT zone + its coastal/hillside flags (see lib/data/zone-rules.ts),
- * plus the agent's own plot-specific note (object.buildingRules) when present.
+ * "What you can build here" — indicative building rules for the plot:
+ *  - QUALITATIVE: the DPT city-plan zone use + coastal/hillside flags
+ *    (zone-rules.ts) and the agent's own note.
+ *  - QUANTITATIVE: precise limits (max height / footprint / open-space % / min
+ *    plot) computed from the plot's coordinates — distance to sea (coastline),
+ *    elevation and slope (DEM) — via the May-2025 environmental law engine
+ *    (building-norms.ts). Same engine as the /tools/zoning checker.
  *
- * Always indicative + linked to DD: the exact figures for a given plot are
- * confirmed in Transaction due diligence, never asserted from the zone alone.
- * Renders nothing when there is neither a derivable rule nor an agent note.
+ * Async server component (the object page is dynamic; the terrain fetch is
+ * cached). Always indicative + linked to DD; the exact figures for a plot are
+ * confirmed in Transaction due diligence. Renders nothing when there is no
+ * derivable rule, no precise norm and no agent note.
  */
 const COPY = {
   en: {
@@ -21,8 +29,15 @@ const COPY = {
     zone: "Zone",
     check: "Check before you build",
     note: "Agent note for this plot",
+    precise: "Estimated build limits",
+    notBuildable: "Building not permitted at this point",
+    basis: "Based on",
+    sea: "to sea",
+    elev: "elevation",
+    slope: "slope",
+    estimated: "estimated",
     disclaimer:
-      "Indicative, based on the Phangan zoning maps (May 2025). The exact height, footprint, setbacks and permitted use for this plot are verified in our",
+      "Indicative. Zone use is read from the Phangan city-plan; the precise limits come from the May-2025 environmental protection law applied to the estimated sea distance, elevation and slope. The exact figures for this plot are verified in our",
     ddLink: "due diligence",
     disclaimerTail: "before any offer.",
   },
@@ -31,14 +46,21 @@ const COPY = {
     zone: "Зона",
     check: "Проверить до стройки",
     note: "Заметка агента по участку",
+    precise: "Расчётные лимиты застройки",
+    notBuildable: "Строительство в этой точке запрещено",
+    basis: "Расчёт по",
+    sea: "до моря",
+    elev: "высота",
+    slope: "уклон",
+    estimated: "оценка",
     disclaimer:
-      "Индикативно, по картам зонирования Пангана (май 2025). Точные высота, пятно застройки, отступы и разрешённое использование для этого участка проверяются в нашем",
+      "Индикативно. Использование зоны — по городскому плану Пангана; точные лимиты — из закона об охране среды (май 2025), применённого к оценённым расстоянию до моря, высоте и уклону. Точные цифры для этого участка проверяются в нашем",
     ddLink: "due diligence",
     disclaimerTail: "до любого предложения.",
   },
 } as const;
 
-export function BuildingRules({
+export async function BuildingRules({
   object,
   locale,
 }: {
@@ -47,10 +69,32 @@ export function BuildingRules({
 }) {
   const info = zoneBuildInfo(object, locale);
   const manual = object.buildingRules?.trim();
-  if (!info && !manual) return null;
+
+  // Precise quantitative norms — only when the plot is geolocated. Sea distance
+  // is a pure calc; elevation/slope come from the DEM (cached, may be absent on
+  // a network blip — then norms fall back to the sea-distance tier alone).
+  let norms = null;
+  let seaDistanceM: number | undefined;
+  let elevationM: number | undefined;
+  let slopeDeg: number | undefined;
+  if (object.lat != null && object.lng != null) {
+    seaDistanceM = seaDistanceMeters(object.lat, object.lng);
+    const terrain = await fetchTerrain(object.lat, object.lng);
+    elevationM = terrain?.elevationM;
+    slopeDeg = terrain?.slopeDeg;
+    norms = combineBuildingNorms({ seaDistanceM, elevationM, slopeDeg }, locale);
+  }
+
+  if (!info && !manual && !norms) return null;
 
   const t = COPY[locale];
   const ddHref = (locale === "ru" ? "/ru/due-diligence" : "/due-diligence") as Route;
+
+  // "Based on ~120 m to sea · ~45 m elevation · ~12° slope (estimated)"
+  const basisParts: string[] = [];
+  if (seaDistanceM != null) basisParts.push(`~${seaDistanceM} m ${t.sea}`);
+  if (elevationM != null) basisParts.push(`~${elevationM} m ${t.elev}`);
+  if (slopeDeg != null) basisParts.push(`~${slopeDeg}° ${t.slope}`);
 
   return (
     <Appear>
@@ -62,6 +106,49 @@ export function BuildingRules({
           <span className="text-forest-500/60">{t.zone}:</span>
           <span className="font-medium">{info.zone}</span>
         </p>
+      ) : null}
+
+      {/* Precise quantitative limits — the concrete answer. */}
+      {norms ? (
+        norms.buildable && norms.lines.length > 0 ? (
+          <div className="mt-5 max-w-prose rounded-lg border border-forest-500/15 bg-forest-500/[0.03] p-4">
+            <p className="text-xs font-medium uppercase tracking-[0.15em] text-forest-700">{t.precise}</p>
+            <dl className="mt-3 space-y-2.5">
+              {norms.lines.map((line, i) => (
+                <div key={i} className="grid grid-cols-[8rem_1fr] gap-x-4 sm:grid-cols-[10rem_1fr]">
+                  <dt className="text-sm font-medium text-forest-500/70">{line.label}</dt>
+                  <dd className="num text-base font-semibold text-forest-900">{line.value}</dd>
+                </div>
+              ))}
+            </dl>
+            {norms.notes.length > 0 ? (
+              <ul className="mt-3 space-y-1.5 border-t border-forest-500/10 pt-3">
+                {norms.notes.map((n) => (
+                  <li key={n} className="flex gap-2 text-sm leading-relaxed text-forest-500/75">
+                    <span aria-hidden className="mt-0.5 shrink-0 text-forest-500/45">▸</span>
+                    <span>{n}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+            {basisParts.length > 0 ? (
+              <p className="mt-3 text-xs text-forest-500/50">
+                {t.basis}: {basisParts.join(" · ")} ({t.estimated})
+              </p>
+            ) : null}
+            <p className="mt-1 text-xs leading-relaxed text-forest-500/50">{norms.source}</p>
+          </div>
+        ) : !norms.buildable ? (
+          <div className="mt-5 max-w-prose rounded-lg border border-red-600/25 bg-red-50/70 p-4 dark:bg-red-500/10">
+            <p className="text-sm font-semibold text-red-800 dark:text-red-300">⛔ {t.notBuildable}</p>
+            <p className="mt-1 text-base leading-relaxed text-forest-500/85">{norms.noBuildReason}</p>
+            {basisParts.length > 0 ? (
+              <p className="mt-3 text-xs text-forest-500/50">
+                {t.basis}: {basisParts.join(" · ")} ({t.estimated})
+              </p>
+            ) : null}
+          </div>
+        ) : null
       ) : null}
 
       {info && info.lines.length > 0 ? (
