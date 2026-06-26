@@ -1957,6 +1957,165 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "phangan",
     faqQuestion: "What are Haad Yao and Haad Salad like for buying property on Koh Phangan, and is the sea-view premium worth it?",
   },
+  {
+    slug: "buying-in-ban-tai-ban-khai",
+    kbId: "kb-0031",
+    topic: "Phangan",
+    title: "Buying property in Ban Tai and Ban Khai, Koh Phangan: the south coast's value tier",
+    short:
+      "Ban Tai and Ban Khai form Koh Phangan's south coast — a 4 km arc directly south of the ferry port at Thong Sala. The area offers a rare combination of beach access and urban convenience at the island's most accessible price point, with sunset views across the southern bay toward Koh Samui.",
+    updated: "2026-06-26",
+    body: [
+      "Ban Tai and Ban Khai run along Koh Phangan's south coast, curving southeast from Thong Sala toward Haad Rin. Of all the island's residential areas, this one sits closest to the service backbone — major banks, the hospital, Makro and government offices are 5–15 minutes away in Thong Sala — while still having a beach. That combination of convenience and coast, at price points below the premium western corridor, defines who buys here and what they rent to.",
+      { h: "Character of the area" },
+      "Ban Tai and Ban Khai have the most workaday character on the island's populated south side. The beachfront road carries a mix of guesthouses, seafood restaurants, convenience stores and local businesses that have built up over decades of serving both Thai residents and overflow from the Haad Rin party circuit. There is no dominant identity — not wellness (Sri Thanu), not logistics (Thong Sala), not diving (Chaloklum) — but a functional, mixed-use south coast town with a long sandy beach running its length.",
+      "The beaches face south and slightly west. At high tide the water covers a long stretch of fine sand; at low tide it retreats significantly over shallow ground. Ban Khai, toward the eastern end of the arc, has a coral reef roughly 200 metres offshore that provides the best snorkelling in the stretch. Sunset views across the southern bay — with the silhouette of Koh Samui and the Ang Thong islands visible in clear conditions — are the area's main landscape asset.",
+      { h: "What is available to buy" },
+      {
+        ul: [
+          "**Pool villas (1–3 bedrooms)** — the primary product for foreign buyers. A mix of smaller older units, renovation properties and new-build developments. Active projects have included 3-bedroom units in the THB 11–12 million range off-plan. The price ceiling for new villas in this area sits generally below the premium west coast corridor.",
+          "**Houses** — a range of older Thai houses, renovated properties and smaller villa compounds. Entry prices are the most accessible on the island for a liveable freestanding property. Standalone houses in the THB 3–8 million range appear with more frequency here than on the western or northern coasts.",
+          "**Land plots** — beach-proximity plots along the main south coast road and inland on secondary roads. The south coast sits at generally low elevation, keeping most plots outside the Zone 3(1) hillside restrictions that apply above 80 m under the 2025 environmental rules — a practical advantage over elevated western-coast land. See [Building zones on Koh Phangan](/knowledge/koh-phangan-building-zones).",
+          "**Condominiums** — a smaller condo market than in the Sri Thanu/Haad Yao corridor. Freehold units within the 49% foreign-ownership quota exist but are limited; verify quota availability at any specific project.",
+        ],
+      },
+      { h: "Prices and market context" },
+      "Ban Tai and Ban Khai represent the island's value tier for coastal property. Land along the south coast runs roughly **THB 3–5 million per rai**, with beachfront or closer-to-shore plots at the upper end. That is below the northwest coast wellness belt and well below the sea-view hillside tier (Haad Yao: THB 9–15M per rai), reflecting the trade-off: accessible coast without elevated panoramas or a wellness-community premium.",
+      "Completed pool villas typically range from roughly **THB 6–15 million** for one to three bedrooms on a leasehold basis. Entry-level smaller houses and renovation properties are available below that. Off-plan entry prices run approximately 15–20% below the estimated completed value — with developer and completion risk attached. See [Buying off-plan on Koh Phangan](/knowledge/buying-off-plan-new-developments).",
+      "All villa and land purchases for foreign buyers are structured as leasehold — a 30-year registered land lease combined with ownership of the building through a registered superficies. See [Leasehold vs freehold](/knowledge/leasehold-vs-freehold) and [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa).",
+      { h: "The rental case" },
+      "Ban Tai and Ban Khai generate year-round rental demand from a broader demographic than most Phangan locations: holiday guests wanting beach proximity at mid-market rates, long-stay expats who value the service infrastructure, visitors attending the monthly Full Moon Party who prefer the south coast's easier access over staying in Haad Rin itself, and island workers who need proximity to Thong Sala.",
+      "Monthly rents for a well-located villa run roughly **THB 20,000–55,000** depending on size, specification and season. For short-stay vacation rentals, nightly rates are moderate compared to the premium northwest corridor but occupancy is more broadly spread across the calendar year given the diverse tenant base. The Hotel Act licensing requirement applies: rentals of under 30 days require a hotel licence. See [Renting out your villa on Koh Phangan](/knowledge/renting-out-your-villa-rules-and-taxes).",
+      "The tidal beach — shallow at low water with variable water quality — limits the premium that a 'beachfront' label commands here compared to locations with clearer water and reliable year-round swimming. Factor this accurately into a vacation-rental pricing model.",
+      { h: "What to verify when buying here" },
+      "Standard island-wide due diligence applies — see [Due diligence before buying on Koh Phangan](/knowledge/due-diligence-checklist-koh-phangan). Points specific to this area:",
+      {
+        ul: [
+          "**Title class**: the south coast has a mix of Chanote and Nor Sor 3 Gor titles. Both are workable with proper verification. Confirm the class and the deed against the Land Office record before committing. See [Land titles on Koh Phangan](/knowledge/land-titles-chanote-vs-nor-sor-3).",
+          "**Tidal range and flood exposure**: low-lying plots close to the beach are subject to seasonal flooding in the wet season (May–October). Visit the property at different tidal states and ask neighbours about flooding and drainage history before committing.",
+          "**Road access**: the main beachfront road is well maintained, but secondary roads inland include unpaved tracks. Confirm a registered right of way to the public road — verbal access is one of the most common island traps. See [Due diligence before buying](/knowledge/due-diligence-checklist-koh-phangan).",
+          "**Proximity to Haad Rin**: the further east into Ban Khai toward Haad Rin, the stronger the Full Moon Party effect — monthly large-crowd events, noise and congestion on those nights. Factor this in if you plan to live in the property or target long-stay tenants who prioritise quiet.",
+          "**Utilities**: mains water and electricity are available along the main road; on secondary roads and newer developments, verify meter registration and supply reliability rather than assuming it. See [Utilities on Koh Phangan](/knowledge/utilities-water-electricity-internet-koh-phangan).",
+          "**Existing building permits**: for any existing structure, confirm the construction permit (Por. Ror. 1) exists and matches what is built. Older south-coast stock may have unpermitted extensions that become the buyer's problem at transfer. See [Building a villa on Koh Phangan](/knowledge/building-a-villa-koh-phangan).",
+        ],
+      },
+      { h: "Who Ban Tai and Ban Khai suit — and who they do not" },
+      "Ban Tai and Ban Khai are for the buyer who wants beach proximity, easy access to the island's services and a genuinely affordable entry point — without the premium that comes with a sea-view hillside position or an established wellness community. It works well for: an investor seeking a versatile rental that draws from multiple tenant segments year-round; a buyer who prioritises being close to Thong Sala's ferry and services; and anyone whose daily-life priorities include town access as much as beach access.",
+      "It is not the right choice for buyers whose primary goal is spectacular elevated sea views — for that, Haad Yao or the northwest corridor is the answer. Nor does it suit buyers who want a secluded retreat setting; Ban Tai is a working south coast town. For community-focused wellness living at a similar price point, [Sri Thanu](/knowledge/buying-in-sri-thanu) is the closer alternative. For purely logistical access without a beach, [Thong Sala](/knowledge/buying-in-thong-sala) is the more efficient choice.",
+    ],
+    takeaways: [
+      "Ban Tai and Ban Khai form the island's south coast — 5–15 minutes from Thong Sala's ferry port, beach access, and the most accessible price tier on Koh Phangan.",
+      "Land typically runs THB 3–5 million per rai; completed pool villas from roughly THB 6–15 million on a leasehold basis.",
+      "Low elevation keeps most south coast plots outside the 2025 hillside-zone restrictions — more permissive build rules than elevated west coast land.",
+      "Year-round rental demand from a diverse tenant base (holiday guests, long-stay expats, island workers) provides more seasonal stability than purely tourism-driven locations.",
+      "The tidal beach — shallow at low water with variable water quality — caps the short-stay premium; factor this accurately into a vacation-rental pricing model.",
+    ],
+    sources: [
+      {
+        title: "Islanders Properties — Best Areas to Live on Koh Phangan: Local Expat Guide",
+        url: "https://islanders-properties.com/blog/koh-phangan-areas-84",
+      },
+      {
+        title: "FazWaz — Land for sale in Ban Tai, Koh Phangan",
+        url: "https://www.fazwaz.com/land-for-sale/thailand/surat-thani/koh-phangan/ban-tai",
+      },
+      {
+        title: "Koh Phangan Land and Home — Ban Tai area listings",
+        url: "https://phanganlandandhome.com/area/ban-tai/",
+      },
+      {
+        title: "Samui Phangan Real Estate — Koh Phangan real estate market overview",
+        url: "https://www.samui-phangan-real-estate.com/koh-phangan-real-estate-market/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion:
+      "What is Ban Tai and Ban Khai like for buying property on Koh Phangan, and who should buy there?",
+  },
+  {
+    slug: "buying-in-thong-nai-pan",
+    kbId: "kb-0032",
+    topic: "Phangan",
+    title: "Buying property in Thong Nai Pan, Koh Phangan: premium twin bays on the remote northeast coast",
+    short:
+      "Thong Nai Pan Noi and Yai — two sheltered white-sand bays on Koh Phangan's northeast coast — are the island's most celebrated beach destination. Remote, quiet and substantially within national park territory, the area attracts buyers who prioritise natural beauty and seclusion over rental yield or urban convenience. Environmental restrictions and infrastructure limitations are the principal constraints.",
+    updated: "2026-06-26",
+    body: [
+      "Thong Nai Pan consists of two bays — Thong Nai Pan Noi (the smaller northern bay) and Thong Nai Pan Yai (the larger southern bay) — on Koh Phangan's northeast coast, roughly 20 km from the main ferry port at Thong Sala via a winding mountain road. Together they form the island's most celebrated stretch of beach: sheltered, clear-water, white sand, with the steep jungle of the Than Sadet-Ko Phangan National Park rising directly behind them. That beauty and isolation define the buyer profile here — as well as the constraints.",
+      { h: "Character and setting" },
+      "Thong Nai Pan is the quietest of the island's main bay areas. There is no Full Moon Party draw, no wellness-industry cluster, no commercial hub nearby. What the area has is genuinely exceptional beaches, a pace of life that even Koh Phangan's more remote corners rarely match, and a small but established community of high-net-worth foreign owners and resort-class accommodation. Thong Nai Pan Noi is the smaller and calmer of the two bays, considered among the most beautiful on the island. Thong Nai Pan Yai is larger, with a longer beach and the area's main concentration of accommodation and services.",
+      "The access road is the defining characteristic of daily life here. A single paved mountain road — 20 km from Thong Sala, roughly 30–40 minutes' drive — traverses steep jungle terrain with sustained gradients and tight bends. A scooter of at least 150cc is recommended on the steepest sections. An alternative is by boat: speedboat services from Koh Samui can reach the bay in approximately 45 minutes, and longtail boat connections are available. In the northeast monsoon season (October–November), the bay is directly exposed to stronger swell from the north.",
+      { h: "What is available to buy" },
+      {
+        ul: [
+          "**Luxury hillside and beachfront villas** — the dominant category. Most new-build product in the area is positioned at the upper end of the island market: 3–8 bedroom properties with pool and sea views, in the THB 20–55 million range and above for larger or resort-scale developments. Supply is structurally constrained by the national park buffer, zoning rules and the narrow access road.",
+          "**Land plots (hillside and sea-view)** — scarce. Land with genuine sea views or proximity to the bays trades at a significant premium to the island average. Available data points to approximately **THB 13 million per rai** for sea-view hillside land in this area — above the Haad Yao and Haad Salad corridor (THB 9–15M per rai) and reflecting a scarcity and prestige premium. Beachfront land is extremely rare when it comes to market.",
+          "**Small-scale resort properties** — a handful of existing small resort operations have changed hands in this area. These are specialist acquisitions requiring hotel licensing, thorough environmental compliance review and a specific operational strategy.",
+        ],
+      },
+      { h: "Prices and the scarcity premium" },
+      "Thong Nai Pan commands a premium explicitly tied to scarcity rather than service infrastructure. Land and villa prices are at or above the northwest coast's sea-view tier — despite the longer drive time and less reliable utilities — because the beach quality is genuinely exceptional and new supply is structurally constrained by the environmental rules and national park boundary.",
+      "Land at roughly THB 13 million per rai sits at the upper end of the island range. A 3-bedroom villa with sea views in this area is estimated in the THB 20–30 million range, with larger or resort-class properties well above that. The valuation premium is real — but the buyer accepting it should be clear about what they are purchasing: natural beauty and seclusion, not yield or convenience. See [How land is priced on Koh Phangan](/knowledge/how-land-is-priced-price-per-rai).",
+      "All villa and land transactions for foreign buyers are structured as leasehold — 30-year registered land lease plus building ownership via registered superficies. See [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa).",
+      { h: "The 2025 environmental rules and national park proximity" },
+      "Thong Nai Pan's terrain rises steeply above both bays. Most hillside land sits above 80 m elevation, placing it inside the Zone 3(1) restrictions under the 2025 environmental protection regulation: maximum building height 6 m, minimum 50% green space, natural-coloured roofing, and no land subdivision or resort-style development on hillside parcels. Above 140 m, Zone 3(2) restrictions apply a stricter 90 m² maximum footprint and 70% open space requirement. Beachfront and near-shore land faces setback and wastewater treatment requirements.",
+      "The area borders the Than Sadet-Ko Phangan National Park, which covers approximately 40% of the island. Properties encroaching on park territory have faced enforcement action in 2025–2026 as authorities intensified inspections in protected areas. Any plot in or near Thong Nai Pan requires a confirmed clean land title (not forest reserve or national park encroachment), a verified zone classification, and — for any building project — a permit confirmed with the local OrBorTor authority. See [Building zones on Koh Phangan](/knowledge/koh-phangan-building-zones) and [Building a villa on Koh Phangan](/knowledge/building-a-villa-koh-phangan).",
+      { h: "Infrastructure and utilities" },
+      "Infrastructure here is meaningfully less reliable than in the island's main developed areas. Water supply on hillside and remote plots relies on private wells, rainwater collection or tanker delivery — mains coverage does not extend consistently to properties away from the main bay development. Electricity is supplied via PEA connection but grid reliability at this distance from the main distribution network means outages occur; new builds and many existing villas install solar with battery storage or generator backup. Internet connectivity is the most significant practical constraint for any buyer intending to use the property as a primary base for remote work: AIS 4G coverage exists in the bay area but signal reliability on hillside and secondary plots is patchy, and satellite internet (Starlink) is increasingly used as the primary connection at significantly higher monthly cost. See [Utilities on Koh Phangan](/knowledge/utilities-water-electricity-internet-koh-phangan).",
+      { h: "The rental case — honestly assessed" },
+      "Thong Nai Pan attracts premium-positioned short-stay vacation renters seeking the beach experience specifically. Nightly rates at well-specified 3–4 bedroom villas can range from THB 8,000–20,000+, comparable in scale to the northwest coast premium tier. The Hotel Act licensing requirement applies to all stays under 30 days — a hotel licence is required for nightly rentals.",
+      "The occupancy caveat is real. The northeast monsoon season (October–November) brings heavier rain and rougher sea conditions to this coast, shortening the effective high season compared to the west. The mountain access road means guests without their own transport need to plan transfers carefully, limiting the spontaneous tourist flow that more accessible locations benefit from. Honest yield modelling should assume lower occupancy than comparable-spec properties in Haad Yao or Sri Thanu. See [Renting out your villa on Koh Phangan](/knowledge/renting-out-your-villa-rules-and-taxes).",
+      { h: "What to verify when buying here" },
+      "Standard island-wide due diligence applies — see [Due diligence before buying on Koh Phangan](/knowledge/due-diligence-checklist-koh-phangan). Critical points specific to Thong Nai Pan:",
+      {
+        ul: [
+          "**Title and national park boundary**: confirm the title is Chanote or Nor Sor 3 Gor and that the plot does not encroach on national park or forest reserve land. Enforcement of illegal encroachment in this area was active in 2025–2026. See [Land titles on Koh Phangan](/knowledge/land-titles-chanote-vs-nor-sor-3).",
+          "**Zone and elevation**: confirm the specific elevation and zone classification of the plot. Most hillside land is above 80 m (Zone 3(1)) or 140 m (Zone 3(2)). Both impose material building restrictions — verify the planned development is permissible before purchase.",
+          "**Building permits on existing structures**: for any property with an existing villa, confirm the construction permit (Por. Ror. 1) was lawfully obtained and the building matches the approved plans. Unpermitted structures in environmental protection zones face demolition risk.",
+          "**Road access**: confirm legal access to the property via the public road exists as a registered servitude on the title deed, not just a visible track. Secondary tracks and driveway connections to the plot require their own registered access rights.",
+          "**Utilities as specific infrastructure**: test 4G signal at the actual plot. Request documented evidence of the water supply method (well yield test, mains meter reference or tank arrangement) and PEA electricity meter registration — do not rely on seller assurances. See [Utilities on Koh Phangan](/knowledge/utilities-water-electricity-internet-koh-phangan).",
+          "**Monsoon exposure**: the northeast coast is directly exposed to the northeast monsoon swell (October–November). Assess flood risk and water-ingress protection for any beachfront or low-lying plot. Walking the plot in the wet season before committing is strongly recommended.",
+        ],
+      },
+      { h: "Who Thong Nai Pan suits — and who it does not" },
+      "Thong Nai Pan is the right choice for a buyer who places the highest value on natural beauty, seclusion and an exceptional beach setting, and who is buying primarily for lifestyle rather than to maximise rental yield. The buyer who wants the island's most celebrated beaches, a truly quiet environment, and is comfortable with a 30–40 minute mountain drive to services and with less reliable utilities will find a compelling case here.",
+      "It is not the right choice for a buyer whose primary goal is rental yield maximisation — the west coast, [Haad Yao and Haad Salad](/knowledge/buying-in-haad-yao-haad-salad), delivers stronger vacation-rental yield with more reliable occupancy. Nor for a buyer who needs dependable internet for daily remote work, or who values service proximity. The premium over comparable western-coast product is paid for natural exclusivity, not investment returns.",
+    ],
+    takeaways: [
+      "Thong Nai Pan Noi and Yai are Koh Phangan's most celebrated beaches — sheltered twin bays on the remote northeast coast, 20 km from Thong Sala via a steep mountain road.",
+      "Land trades at a scarcity premium — approximately THB 13 million per rai for sea-view hillside land; most villas are positioned at or above the THB 20–30 million range.",
+      "Almost all hillside land is above 80 m elevation and subject to Zone 3(1) or Zone 3(2) restrictions; national park proximity adds further compliance risk requiring careful title and permit verification.",
+      "Utilities are less reliable than anywhere else on the island — confirm water supply, electricity and internet at the specific plot; satellite connectivity and solar/generator backup are standard for meaningful year-round use.",
+      "The area suits lifestyle-driven buyers prioritising exclusivity and beach quality; yield-focused investors should assess the northwest coast first — mountain access and monsoon exposure reduce occupancy relative to the west-facing bays.",
+    ],
+    sources: [
+      {
+        title: "Koh Phangan Land and Home — Thong Nai Pan Noi and Yai area listings",
+        url: "https://phanganlandandhome.com/area/tong-nai-pan-noi/",
+      },
+      {
+        title: "Conrad Properties — Thong Nai Pan property listings",
+        url: "https://www.conradproperties.asia/search/thailand/koh-phangan/north-east/thong-nai-pan",
+      },
+      {
+        title: "Khao Sod English — Koh Phangan faces illegal development crisis in protected areas (October 2025)",
+        url: "https://www.khaosodenglish.com/news/2025/10/18/koh-phangan-faces-illegal-development-crisis-in-protected-areas/",
+      },
+      {
+        title: "Sukhothai Inter Law — New Zoning Law for Koh Samui, Koh Phangan & Koh Tao (May 2025)",
+        url: "https://re.sukhothaiinterlaw.com/new-zoning-law-for-koh-samui-koh-phangan-koh-tao-what-property-owners-delegates-need-to-know-may-2025-update/",
+      },
+      {
+        title: "Airbtics — Ko Pha Ngan Airbnb revenue and occupancy data 2026",
+        url: "https://airbtics.com/annual-airbnb-revenue-in-ko-pha-ngan-thailand/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion:
+      "What is Thong Nai Pan like for buying property on Koh Phangan, and who should buy there?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

@@ -45,8 +45,8 @@ Status: ⏳ queued · ✅ published.
 | Buying in Thong Sala: the island hub, liquidity | phangan | 🟢 | ✅ |
 | Buying in Chaloklum: northern fishing village | phangan | 🟡 | ✅ |
 | Buying in Haad Yao / Haad Salad | phangan | 🟡 | ✅ |
-| Buying in Ban Tai / Ban Khai (south, sunsets) | phangan | 🟡 | ⏳ |
-| Buying in Thong Nai Pan (premium north-east bays) | phangan | 🟡 | ⏳ |
+| Buying in Ban Tai / Ban Khai (south, sunsets) | phangan | 🟡 | ✅ |
+| Buying in Thong Nai Pan (premium north-east bays) | phangan | 🟡 | ✅ |
 
 ## D. Comparisons / decision guides
 
