@@ -111,12 +111,14 @@ export default function RootLayout({
             to <html> before paint so dark visitors never flash light. */}
         <ThemeScript />
         <HtmlLang />
-        {/* Every photo lives on Vercel Blob — warming the connection early
+        {/* Every photo lives on Cloudflare R2 — warming the connection early
             shaves the TLS handshake off the LCP image. rel=preconnect is a
-            body-ok link element, no <head> access needed. */}
+            body-ok link element, no <head> access needed. (The old Vercel Blob
+            host is dead — it 400s — so preconnecting it only wasted a socket;
+            images moved to R2 with next/image unoptimized.) */}
         <link
           rel="preconnect"
-          href="https://qcv6wpmi0tztxmyg.public.blob.vercel-storage.com"
+          href="https://pub-e6d4ecfb57d243b4801e5d6fa0a37220.r2.dev"
         />
         <a
           href="#main-content"
