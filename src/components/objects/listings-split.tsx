@@ -7,6 +7,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { LayoutGrid, Map as MapIcon } from "lucide-react";
 import type { RealEstateObject } from "@/types/object";
 import type { ViewMode } from "@/lib/filters/listings";
+import type { BuildBadge } from "@/lib/data/build-envelope";
 import { ObjectCard } from "./object-card";
 import { Appear } from "@/components/motion/appear";
 import { MapSkeleton } from "./map-skeleton";
@@ -30,9 +31,12 @@ const ListingsMap = dynamic(() => import("./listings-map"), {
 export function ListingsSplit({
   objects,
   mode = "buy",
+  badges,
 }: {
   objects: RealEstateObject[];
   mode?: ViewMode;
+  /** Pre-computed "max build envelope" chips, keyed by RW number. */
+  badges?: Record<string, BuildBadge>;
 }) {
   const t = getListingsDict(useLocale());
   const reduce = useReducedMotion();
@@ -173,7 +177,12 @@ export function ListingsSplit({
                   {/* Каскадное проявление при выходе в кадр (Appear: SSR-safe,
                       над сгибом — мгновенно, reduced-motion отключает). */}
                   <Appear className="h-full" y={20} delay={Math.min(i, 7) * 0.06}>
-                    <ObjectCard object={o} priority={i < 4} priceMode={mode} />
+                    <ObjectCard
+                      object={o}
+                      priority={i < 4}
+                      priceMode={mode}
+                      buildBadge={badges?.[o.rwNumber] ?? null}
+                    />
                   </Appear>
                 </motion.div>
               ))}

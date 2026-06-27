@@ -13,8 +13,10 @@ import {
   TreePine,
   Sun,
   ShieldCheck,
+  Ruler,
 } from "lucide-react";
 import type { RealEstateObject, ObjectType } from "@/types/object";
+import type { BuildBadge } from "@/lib/data/build-envelope";
 import { BLUR_PLACEHOLDER } from "@/lib/utils/blur";
 import { useLocale, localeHref } from "@/lib/i18n/use-locale";
 import { getListingsDict, type ListingsDict } from "@/lib/i18n/dictionaries";
@@ -73,9 +75,14 @@ interface Props {
    * keeps the sale-price-first headline unchanged.
    */
   priceMode?: "buy" | "rent";
+  /**
+   * Pre-computed "max build envelope" chip (server-side, from sea distance).
+   * Only set on /listings cards; null/absent elsewhere → no chip.
+   */
+  buildBadge?: BuildBadge | null;
 }
 
-export function ObjectCard({ object, priority = false, priceMode = "buy" }: Props) {
+export function ObjectCard({ object, priority = false, priceMode = "buy", buildBadge }: Props) {
   const TypeIcon = TYPE_ICON[object.type];
   const hue = thumbHue(object.rwNumber);
   // Cover can 402 (optimizer cap) / 403 (blob store blocked) — fall back to the
@@ -224,6 +231,26 @@ export function ObjectCard({ object, priority = false, priceMode = "buy" }: Prop
         ) : (
           <p className="text-sm italic text-forest-500/55">{t.priceOnRequest}</p>
         )}
+
+        {/* Max build envelope — indicative ceiling; exact limits on the detail
+            page's "What you can build" block. Pre-computed server-side. */}
+        {buildBadge ? (
+          <span
+            title={
+              locale === "ru"
+                ? "Максимум по нормам застройки — точные лимиты в due diligence"
+                : "Maximum allowed by building norms — exact limits in due diligence"
+            }
+            className={`inline-flex w-fit items-center gap-1.5 rounded-sm border px-2 py-1 text-[11px] font-medium ${
+              buildBadge.restricted
+                ? "border-amber-600/25 bg-amber-50/70 text-amber-700 dark:bg-amber-500/10 dark:text-amber-300"
+                : "border-forest-500/15 bg-forest-500/[0.04] text-forest-700"
+            }`}
+          >
+            <Ruler className="h-3 w-3 shrink-0 text-forest-500/55" />
+            {buildBadge.text}
+          </span>
+        ) : null}
 
         <div className="mt-auto flex flex-wrap items-center gap-3 text-xs text-forest-500/70">
           {object.areaRai ? (
