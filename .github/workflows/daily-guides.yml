@@ -51,13 +51,28 @@ jobs:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           GUIDE_COUNT: ${{ github.event.inputs.count || '2' }}
         run: |
+          set -eo pipefail
           if [ -z "${CLAUDE_CODE_OAUTH_TOKEN}" ]; then
             echo "::error::CLAUDE_CODE_OAUTH_TOKEN secret is not set. Run 'claude setup-token' and add it to repo secrets."
             exit 1
           fi
           PROMPT="$(cat content-pipeline/routine.md)
           (This run: author up to ${GUIDE_COUNT} guides.)"
-          echo "$PROMPT" | claude --print --dangerously-skip-permissions 2>&1 | tee claude-run.log
+          # Pass the prompt as a positional argument — the form bot/council.py invokes
+          # reliably — not via an `echo | claude` stdin pipe: since mid-June the piped form
+          # stopped being treated as the task, so the agent wandered and committed nothing.
+          # --verbose surfaces tool calls/errors; pipefail (above) propagates a non-zero
+          # claude exit through `tee` instead of masking it as a green run.
+          claude --print --verbose --dangerously-skip-permissions "$PROMPT" 2>&1 | tee claude-run.log
+          echo "----- working tree after author run -----"
+          git status --porcelain
+          # Tripwire: routine.md REQUIRES overwriting last-run.md every run. If it is
+          # untouched, the headless agent wrote nothing — fail loudly instead of going green
+          # while committing nothing (the silent failure that stalled new guides since 2026-06-16).
+          if git diff --quiet -- content-pipeline/last-run.md; then
+            echo "::error::Headless Claude made no edits (content-pipeline/last-run.md unchanged). See the claude-run-log artifact."
+            exit 1
+          fi
 
       - name: Type-check gate
         run: npx tsc --noEmit
