@@ -1,4 +1,4 @@
-# Last run — 2026-06-26
+# Last run — 2026-06-27
 
 **Guides published:** 2
 
@@ -6,31 +6,33 @@
 
 ## Guide 1
 
-- **slug:** `buying-in-ban-tai-ban-khai`
-- **kbId:** `kb-0031`
-- **title (EN):** Buying property in Ban Tai and Ban Khai, Koh Phangan: the south coast's value tier
-- **title (RU):** Покупка недвижимости в Бан Тай и Бан Кхай, Ко Панган: ценовой уровень южного побережья
-- **faqCategory:** `phangan`
-- **faqQuestion:** What is Ban Tai and Ban Khai like for buying property on Koh Phangan, and who should buy there?
+- **slug:** `phangan-vs-samui-vs-tao-investment`
+- **kbId:** `kb-0033`
+- **title (EN):** Koh Phangan vs Koh Samui vs Koh Tao for property investment: an honest comparison
+- **title (RU):** Ко Панган против Ко Самуи против Ко Тао: честное сравнение для инвестора
+- **faqCategory:** `costs`
+- **faqQuestion:** How do Koh Phangan, Koh Samui and Koh Tao compare for property investment?
 - **Sources used:**
-  - Islanders Properties — Best Areas to Live on Koh Phangan: Local Expat Guide: area character comparisons, tenant profile, community overview
-  - FazWaz — land-for-sale listings for Ban Tai: price data (~THB 3.5M per rai), active project examples (Asteria Villas ~THB 11–12M off-plan)
-  - Koh Phangan Land and Home ban-tai area page: local listing context, price ranges
-  - Samui Phangan Real Estate — market overview: island-wide price tiers and market context
+  - Nation Thailand (61bn-baht hub, Q1 2026 project counts: Samui 117+ projects / 2,882 units; Phangan 41 projects / 438 units / ฿7.94B)
+  - Horizon Homes Koh Samui — net yields 5–8%, land prices per sq.wah, 2026 appreciation projections 7–9%
+  - Conrad Properties Samui — gross yields 7–10%, Gold Triangle outlook
+  - Charlesdel.com — Samui average prices (villa ฿22.1M, condo ฿6.3M)
+  - kohphangan.estate — house price appreciation +8.9% YoY Jul 2024–Jul 2025; 5–10% annual since 2016
+  - Own Property Abroad — Koh Tao: average house ฿12.68M, 300–500K tourists/year, dive-economy characterisation
 
 ---
 
 ## Guide 2
 
-- **slug:** `buying-in-thong-nai-pan`
-- **kbId:** `kb-0032`
-- **title (EN):** Buying property in Thong Nai Pan, Koh Phangan: premium twin bays on the remote northeast coast
-- **title (RU):** Покупка недвижимости в Тонг Най Пан, Ко Панган: премиальные бухты на отдалённом северо-востоке
-- **faqCategory:** `phangan`
-- **faqQuestion:** What is Thong Nai Pan like for buying property on Koh Phangan, and who should buy there?
+- **slug:** `land-vs-villa-vs-off-plan-choosing`
+- **kbId:** `kb-0034`
+- **title (EN):** Land plot, finished villa or off-plan: choosing the right Koh Phangan purchase for your goal
+- **title (RU):** Участок, готовая вилла или off-plan: как выбрать тип покупки на Ко Пангане под свою цель
+- **faqCategory:** `process`
+- **faqQuestion:** Should I buy a land plot, a finished villa or off-plan on Koh Phangan, and how do I choose?
 - **Sources used:**
-  - Koh Phangan Land and Home — Thong Nai Pan Noi/Yai area pages: land pricing (~THB 13M/rai), listing inventory confirming limited supply
-  - Conrad Properties — Thong Nai Pan listings: villa price range, luxury product positioning
-  - Khao Sod English (Oct 2025) — illegal development crisis in protected areas: enforcement context for national park proximity and unpermitted structures
-  - Sukhothai Inter Law — 2025 zoning law for Koh Samui/Phangan/Tao: Zone 3(1)/(2) restrictions above 80 m and 140 m, beachfront setbacks
-  - Airbtics 2026 — Ko Pha Ngan occupancy (68% island average) and nightly rate data: rental case context and honest yield caveats
+  - SunwayEstates — off-plan vs completed comparison, staged payment structures, risk summary
+  - Alestriaproperty — off-plan discount range 15–30%, completion risk factors
+  - Conrad Properties — off-plan buying guide (developer risk, milestone payments, Koh Samui context applicable to Phangan)
+  - Thaim To Build — construction cost/m² on Koh Phangan (฿18K–60K+), 8–15% island logistics uplift
+  - Building Control Act B.E. 2522 — 45-day permit review period; permit required before construction (general practice)

@@ -52,6 +52,6 @@ Status: ⏳ queued · ✅ published.
 
 | Topic | faqCategory | Priority | Status |
 |---|---|---|---|
-| Phangan vs Samui vs Tao for investment: an honest comparison | costs | 🟡 | ⏳ |
-| Land vs finished villa vs off-plan: choosing by goal | process | 🟡 | ⏳ |
+| Phangan vs Samui vs Tao for investment: an honest comparison | costs | 🟡 | ✅ |
+| Land vs finished villa vs off-plan: choosing by goal | process | 🟡 | ✅ |
 | Freehold condo vs leasehold villa for a foreigner | ownership | 🟡 | ⏳ |

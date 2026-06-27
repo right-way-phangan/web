@@ -2116,6 +2116,196 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "What is Thong Nai Pan like for buying property on Koh Phangan, and who should buy there?",
   },
+  {
+    slug: "phangan-vs-samui-vs-tao-investment",
+    kbId: "kb-0033",
+    topic: "Market",
+    title: "Koh Phangan vs Koh Samui vs Koh Tao for property investment: an honest comparison",
+    short:
+      "Three islands, three distinct markets. Samui is mature, liquid and expensive. Phangan is the growth story with real data behind it but smaller and less liquid. Tao is a dive-community island with a tiny property market and strong environmental constraints — not a conventional investment destination. The right choice depends on your goals, not the island's reputation.",
+    updated: "2026-06-27",
+    body: [
+      "The three islands are often named together as a group — they share a ferry cluster, a provincial authority and the same 2025 environmental zoning regulation. As property markets, however, they are structurally different: different maturity levels, price tiers, rental profiles, liquidity and development constraints. A clean comparison starts with the legal baseline that applies to all three, then works through each island's actual numbers.",
+      { h: "The legal baseline: identical across all three islands" },
+      "The foreign-ownership rules are the same on Samui, Phangan and Tao. A foreigner cannot own land in their own name; the clean structure is a registered 30-year land lease combined with separate ownership of the building through a registered superficies. Freehold condominium ownership is possible within the 49% foreign-ownership quota. The May 2025 environmental protection regulation applies identically to all three islands — seven construction zones constraining what can be built on beachfront, hillside and high-elevation land. See [Building zones on Koh Phangan](/knowledge/koh-phangan-building-zones) and [Leasehold vs freehold](/knowledge/leasehold-vs-freehold).",
+      "The nominee enforcement campaign of 2025–2026 applies island-wide, extending from Phangan and Samui to Phuket and Krabi. A Thai company used as a nominee vehicle for land ownership carries criminal exposure across all of Thailand, not just on these three islands. See [A Thai company for property (49/51)](/knowledge/thai-company-for-property-49-51).",
+      { h: "Koh Samui: the mature market" },
+      "Koh Samui is the established anchor of the three-island group. At Q1 2026, the island has 117+ active residential development projects with approximately 2,882 units on the market. Annual visitor numbers are projected to approach 6 million — a substantial and diverse tourism base. The island's main towns have hospitals, international schools, major banks and commercial amenities that Phangan and Tao do not match.",
+      {
+        ul: [
+          "**Entry prices**: villa and house prices average around ฿22.1 million, with condominiums averaging ฿6.3 million. Premium hillside sea-view product in Chaweng Noi, Bophut and Choeng Mon (the 'Gold Triangle') is substantially higher.",
+          "**Land prices**: well-located inland land in prime Samui areas runs ฿40,000–60,000 per square wah (roughly ฿16–24 million per rai); beachfront in Chaweng commands ฿150,000+ per square wah.",
+          "**Rental yields**: net yields for well-managed villas run 5–8%; gross yields 7–10%. Samui's mature tourism infrastructure generates deeper occupancy data than Phangan.",
+          "**Capital appreciation**: historical rate 8–12% annually; 2026 forward projection 7–9% in premium locations, 4–7% overall. Market observers describe Samui as 'selective' — not all locations perform equally.",
+          "**Liquidity**: deeper than Phangan, with a broader buyer pool (significant Chinese and Russian buyer segments alongside European) and a more established secondary market for resales.",
+        ],
+      },
+      "The Samui premium is real. Entry prices are the highest of the three islands, and Samui has already captured much of its equivalent of the Phuket growth cycle. Buyers choosing Samui are buying relative certainty and infrastructure — not the highest remaining growth-upside.",
+      { h: "Koh Phangan: the growth market" },
+      "Koh Phangan is at an earlier stage of the same cycle. At Q1 2026 the island has 41 active residential projects comprising 438 units with a combined development value of ฿7.94 billion — a much smaller inventory base than Samui. That supply constraint, combined with accelerating foreign demand, is what underpins the appreciation argument.",
+      {
+        ul: [
+          "**Entry prices**: condominiums average around ฿7.9 million; villas roughly ฿12 million; land averages ฿20.27 million island-wide, with significant variation by location.",
+          "**Land prices**: the western coast has seen 2–4× appreciation since 2022. Current levels: ฿3–5 million per rai (wellness-belt community areas); ฿9–15 million per rai (northwest sea-view hillside); ฿20+ million per rai (beachfront). Inland and secondary-road plots are substantially below these figures.",
+          "**Rental yields**: well-managed premium properties can generate gross yields in the 8–12% range; net yields after management fees (~25%), maintenance and tax are lower — model conservatively and verify against real occupancy data before buying. Stays under 30 days require a hotel licence under the Hotel Act.",
+          "**Capital appreciation**: house prices rose 8.9% year-on-year from July 2024 to July 2025, consistent with the 5–10% annual growth trajectory since 2016. Colliers has drawn a comparison to Phuket's market five years ago — still in the growth phase, with land prices meaningfully below Phuket and Samui equivalents.",
+          "**Liquidity**: shallower than Samui. A well-structured leasehold villa can sell in 3–9 months; the buyer pool is smaller and almost entirely cash-only. See [Selling your leasehold villa](/knowledge/selling-leasehold-villa-exit-liquidity).",
+        ],
+      },
+      "Phangan is the higher-upside, higher-risk choice relative to Samui. The growth numbers are real, but so is the smaller market, the thinner exit liquidity, and the requirement to get structure, title and zoning exactly right — mistakes that Samui's market depth would absorb are more exposed here.",
+      { h: "Koh Tao: a different category entirely" },
+      "Koh Tao requires a different framing. The island (21 km²) draws 300,000–500,000 tourists per year — almost exclusively as a dive destination. The economy is built on dive schools, backpacker accommodation and marine tourism. The property market is a fraction of Phangan's: a few hundred listings at any given time, almost no formal condominium development, and infrastructure substantially behind both neighbouring islands.",
+      {
+        ul: [
+          "**Entry prices**: average house prices around ฿12.68 million — the most accessible of the three islands by headline price. The lower figure reflects smaller structures and fewer amenities, not an undiscovered value.",
+          "**Market size**: no active large-scale residential projects comparable to Phangan or Samui. New development is constrained by the island's limited flat land, environmental sensitivities (coral reef protection, water scarcity) and the logistical difficulty of construction — all materials arrive by barge.",
+          "**Rental profile**: the tenant base is almost entirely dive students, backpackers and short-stay visitors. Stable monthly demand is limited by the seasonality of dive tourism.",
+          "**Liquidity**: the secondary market is illiquid. Foreign buyers who purchase here are typically people who have lived on the island and know it well — not external investors.",
+          "**Environmental constraints**: Koh Tao is subject to the same 2025 seven-zone regulation as Phangan and Samui, with heightened local enforcement near coral reefs and protected marine areas.",
+        ],
+      },
+      "Koh Tao is not a conventional property investment market. For a buyer who has dived here, loves the community and wants a personal base — possibly rented to the dive community on monthly terms — it can make sense as a lifestyle purchase. As a yield or appreciation play for an external investor, the thin liquidity, small scale, limited infrastructure and environmental constraints make it the highest-risk and least liquid of the three.",
+      { h: "Which island for which goal" },
+      {
+        ul: [
+          "**Established infrastructure, deepest liquidity, most certain exit**: Koh Samui — at a higher entry price and with less remaining growth upside relative to Phangan.",
+          "**Growth upside, earlier in the appreciation cycle, higher potential yields**: Koh Phangan — at lower entry prices than Samui, but with shallower liquidity, a smaller market and less margin for error.",
+          "**Lifestyle purchase in a dive community**: Koh Tao — a personal decision, not a yield or capital-appreciation calculation.",
+        ],
+      },
+      "Across all three, the fundamentals hold: legal structure first (leasehold + superficies), then title quality, then what the 2025 zoning permits on the specific plot, then the rental economics. Market momentum is a tailwind — not a due-diligence substitute. See [Due diligence before buying on Koh Phangan](/knowledge/due-diligence-checklist-koh-phangan) for the checklist that applies equally whichever island you choose.",
+    ],
+    takeaways: [
+      "Samui: mature market (~117 active projects, 2,882 units), average villa ฿22.1M, net yields 5–8%, 7–9% capital appreciation forecast for 2026 — highest prices, deepest liquidity.",
+      "Phangan: growth-phase market (41 projects, 438 units, ฿7.94B), house prices +8.9% YoY, western coast land up 2–4× since 2022 — more upside, less liquid, thinner margin for error.",
+      "Koh Tao: dive-tourism economy, average house ฿12.68M, tiny formal property market, illiquid, strong environmental constraints — lifestyle purchase, not a yield or appreciation play.",
+      "Foreign ownership rules are identical across all three islands: leasehold + superficies is the clean structure; nominee companies carry criminal risk on Samui, Phangan and Tao alike.",
+      "Market growth on any island is a tailwind — not a due-diligence substitute: title, zoning, legal structure and exit liquidity determine whether an individual deal is sound.",
+    ],
+    sources: [
+      {
+        title: "Nation Thailand — Samui and Phangan boom as 61bn-baht property investment hub (2026)",
+        url: "https://www.nationthailand.com/business/property/40066940",
+      },
+      {
+        title: "Horizon Homes Koh Samui — Koh Samui Property Market 2026: Investment Guide with Real Data",
+        url: "https://www.horizonhomes-samui.com/koh-samui-property-market-2026/",
+      },
+      {
+        title: "Conrad Properties — Koh Samui Real Estate Forecast 2026",
+        url: "https://www.conradproperties.asia/blog-news/koh-samui-real-estate-market-forecast-2026",
+      },
+      {
+        title: "Charlesdel.com — Koh Samui Property Market 2026: Real Estate Trends, Prices, Ownership",
+        url: "https://charlesdel.com/koh-samui-property-market/",
+      },
+      {
+        title: "kohphangan.estate — Annual Housing Appreciation on Koh Phangan: Key Drivers, Market Trends & Investment Insights",
+        url: "https://kohphangan.estate/blog/tpost/de0ng2hti1-annual-housing-appreciation-on-koh-phang",
+      },
+      {
+        title: "Own Property Abroad — Buying Property in Koh Tao, Thailand: A Complete Guide",
+        url: "https://ownpropertyabroad.com/thailand/buy-property-in-koh-tao/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion:
+      "How do Koh Phangan, Koh Samui and Koh Tao compare for property investment?",
+  },
+  {
+    slug: "land-vs-villa-vs-off-plan-choosing",
+    kbId: "kb-0034",
+    topic: "Process",
+    title: "Land plot, finished villa or off-plan: choosing the right Koh Phangan purchase for your goal",
+    short:
+      "Three entry points, three different risk and reward profiles. A land plot gives maximum design control at the cost of an 18–36-month process and full construction risk. A finished villa gives certainty and immediate income at a higher entry price. Off-plan sits between them: lower price than finished, staged payments, but the same builder risk as a self-build with less control. The right choice depends on your timeline, capital, tolerance for uncertainty and what you need the asset to do.",
+    updated: "2026-06-27",
+    body: [
+      "Most buyers on Koh Phangan come in through one of three entry points: buying a raw land plot and building, buying a completed resale villa, or buying a unit in a project not yet finished (off-plan). The legal wrapper is the same for all three — a 30-year registered lease plus ownership of the building through a registered superficies (see [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa)) — but the risk profile, the timeline to income or occupancy, and the due diligence required are substantially different.",
+      { h: "Land plot: maximum control, maximum lead time" },
+      "Buying a land plot means buying the right to build — a different asset from a finished building. A foreign lessee can build on a leasehold plot with the landowner's written consent; the construction permit (Por. Ror. 1) is issued in the builder's name and, combined with a registered superficies, creates the building ownership that a resale buyer gets automatically.",
+      {
+        ul: [
+          "**Timeline**: end-to-end from plot purchase to move-in realistically takes 18–36 months. Design brief and architect engagement (1–2 months), detailed design (2–4 months), permit approval (4–6 months for a standard build; longer if the 2025 zoning triggers an environmental review), construction (6–18 months depending on scale and finish).",
+          "**Build cost**: construction on Koh Phangan runs ฿18,000–25,000/m² (basic), ฿25,000–40,000/m² (mid-range Western standard), ฿40,000–60,000+/m² (premium). These figures exclude the pool (฿400,000–800,000+), professional fees — architect, engineer, project manager (8–15% of build cost) — external works and permits. The island adds an 8–15% logistics uplift over mainland construction costs for the same spec.",
+          "**What you control**: plot selection, design, specification and quality. This is the only route to the exact villa you want on the exact land you chose.",
+          "**What you take on**: full construction risk, budget-overrun exposure and scheduling uncertainty. Tropical construction faces wet-season delays; specialist trades on the island must often be ferried from the mainland; materials arrive by barge. Each of these creates schedule risk that a buyer of a finished building does not carry.",
+          "**Zoning must come first**: before committing to a plot, confirm the zone and what it permits. The 2025 environmental rules impose hard limits above 80 m elevation (6 m max height, 50% green space minimum) and above 140 m (90 m² footprint cap). A plot you can't build the intended villa on is not the asset you priced it as. See [Building zones on Koh Phangan](/knowledge/koh-phangan-building-zones) and [Building a villa on Koh Phangan](/knowledge/building-a-villa-koh-phangan).",
+        ],
+      },
+      "Land suits a buyer with the time, budget certainty and appetite to manage a build project — or one who wants to minimise upfront capital by funding the asset in stages. It is not the right entry for anyone who needs rental income quickly or who wants a fixed, verifiable asset today.",
+      { h: "Finished villa (resale): certainty and immediate income" },
+      "A completed resale villa is what most buyers picture: a building you can see, inspect and move into or rent out immediately after closing. The price is higher than an equivalent off-plan unit at launch, but what you're paying for is certainty — a known asset with a verifiable condition, existing permits and no construction risk.",
+      {
+        ul: [
+          "**Timeline to income**: from Land Office registration — which takes one day — the villa can generate rental income or be occupied. Zero construction delay.",
+          "**Due diligence additions**: for a completed villa, due diligence adds a structural inspection and a check that the construction permit (Por. Ror. 1) exists and covers what was actually built. Unpermitted extensions are common on older stock and transfer to the buyer at sale. See [Due diligence before buying on Koh Phangan](/knowledge/due-diligence-checklist-koh-phangan).",
+          "**Price premium over off-plan**: a resale villa commands 15–25% more than an equivalent off-plan at launch for the same spec and location — the premium is the cost of certainty. In a rising market, off-plan buyers who sell on completion can pocket that differential.",
+          "**Renovation**: older stock may need updating. Factor in renovation cost and the island logistics uplift when evaluating a lower-priced resale against a newer completed property.",
+        ],
+      },
+      "Resale suits a buyer who wants the asset working now — generating income, being occupied, or holding as a verifiable equity position — and who does not want to manage a construction project.",
+      { h: "Off-plan: lower entry price, deferred income, developer risk" },
+      "Off-plan means buying a promise: a unit in a development that hasn't been built yet, or is mid-construction. On Koh Phangan, most new villa and condominium projects are sold this way — developers use pre-sales to fund construction, offering buyers a price discount in exchange for the risk and the wait.",
+      {
+        ul: [
+          "**Price discount vs completed**: buyers who come in at the earliest phase typically pay 15–30% below the estimated market value of a completed unit. In a rising market, that discount can have been exceeded by price appreciation by the time the project completes — if it completes on time and to spec.",
+          "**Payment structure**: staged against construction milestones. A typical structure: 20–30% on signing, the remainder in 2–4 tranches tied to construction progress, final 10% on handover. This spreads the cash-flow requirement over 12–24 months.",
+          "**No income during construction**: from signing to handover is typically 12–24 months. During this period you hold a legal right but no income-generating or occupiable asset.",
+          "**Developer risk is the key variable**: the developer's financial strength, their completed track record (projects finished and handed over, not just rendered and marketed), and the land title and building permits under the project are what determine whether the discount is real. See [Buying off-plan on Koh Phangan](/knowledge/buying-off-plan-new-developments).",
+          "**Legal structure is still the same**: your leasehold and superficies are registered on completion. Confirm exactly how the unit is titled to you at handover, not just at signing. The unit still sits on a piece of land with its own title, under the same 2025 zoning rules.",
+        ],
+      },
+      "Off-plan suits a buyer with a medium-term horizon (2–3 years to completion then rental income), the financial capacity to commit cash through staged payments without needing returns during construction, and the discipline to vet the developer properly before signing.",
+      { h: "Choosing by goal" },
+      {
+        ul: [
+          "**I want to live in it immediately**: finished resale.",
+          "**I want rental income from day one**: finished resale.",
+          "**I want to build exactly the villa I have in mind, and have 18–36 months**: land plot.",
+          "**I want to minimise upfront capital and spread payments**: off-plan (or land with a phased build).",
+          "**I want maximum capital appreciation from a rising market**: off-plan bought early in the cycle, or land in the right location ahead of a demand wave.",
+          "**I want certainty above all**: finished resale.",
+          "**I trust a specific developer or project**: off-plan.",
+        ],
+      },
+      "None of the three is universally better. In a rising market, all three can perform — but the route to that return is different, and the failure modes are distinct. A self-build that runs 50% over budget because of island logistics is a poor outcome; an off-plan from a developer who runs out of money is worse. A resale bought 15% above the seller's price two years ago and immediately generating 7% net yield is a clean outcome. Match the entry type to your goals, timeline and risk tolerance — not to which option sounds most exciting.",
+      "For the buying process once you've decided the entry type, see [How to buy property on Koh Phangan step by step](/knowledge/how-to-buy-property-step-by-step). For how land is valued and what moves the price on any specific plot, see [How land is priced on Koh Phangan](/knowledge/how-land-is-priced-price-per-rai).",
+    ],
+    takeaways: [
+      "A land plot gives full design control at the cost of 18–36 months and full construction risk — budget ฿18,000–60,000+/m² plus an 8–15% island logistics uplift, pool and professional fees extra.",
+      "A finished resale villa delivers immediate occupancy or income, zero construction risk and a verifiable asset — at a 15–25% premium over equivalent off-plan launch pricing.",
+      "Off-plan offers a 15–30% discount to completed value and staged payments — at the cost of 12–24 months without income and full exposure to developer risk.",
+      "Verify the developer's completed track record and the land title and building permits before signing any off-plan — the discount means nothing if the project doesn't complete.",
+      "Zoning applies to all three entry types: confirm what the 2025 environmental rules permit on the specific plot before committing to land or off-plan, not after.",
+    ],
+    sources: [
+      {
+        title: "SunwayEstates — Off-Plan VS Completed: Which is best when buying in Thailand",
+        url: "https://sunwayestates.com/blog/post/which-type-of-property-is-better-to-buy-in-thailand-off-plan-or-completed",
+      },
+      {
+        title: "Alestriaproperty — Off-Plan vs Completed Property in Thailand: Which Is Better?",
+        url: "https://alestriaproperty.com/blog/off-plan-vs-completed-property-thailand",
+      },
+      {
+        title: "Conrad Properties — Buying Off-Plan Property in Koh Samui: Guide, Risks & Investment Potential",
+        url: "https://www.conradproperties.asia/blog-news/buying-off-plan-property-koh-samui-investment-guide",
+      },
+      {
+        title: "Thaim To Build — Cost to Build a Villa in Phuket vs Samui vs Koh Phangan (Price/m² 2025)",
+        url: "https://thaimtobuild.com/villa-build-cost-phuket-samui-koh-phangan",
+      },
+      {
+        title: "Building Control Act B.E. 2522 — permit required before construction; 45-day review period (general practice)",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion:
+      "Should I buy a land plot, a finished villa or off-plan on Koh Phangan, and how do I choose?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
