@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getPublicObjects, slimObjectForList } from "@/lib/data/objects";
+import { buildEnvelopeBadge, type BuildBadge } from "@/lib/data/build-envelope";
 import { ItemListJsonLd } from "@/components/seo/item-list-json-ld";
 import { isProjectUnit } from "@/lib/data/projects";
 import { ListingsFilterBar } from "@/components/objects/listings-filter-bar";
@@ -45,6 +46,12 @@ export default async function RussianListingsPage({ searchParams }: PageProps) {
   const options = deriveFilterOptions(all);
   const filtered = all.filter(makeFilterPredicate(filter));
   const sorted = applySort(filtered, filter.sort, filter.mode);
+  // Чипы «максимум застройки» для сетки — чистый расчёт по морю, без сети.
+  const badges: Record<string, BuildBadge> = {};
+  for (const o of sorted) {
+    const b = buildEnvelopeBadge(o, "ru");
+    if (b) badges[o.rwNumber] = b;
+  }
   const isAnyFilter = isFiltered(filter);
   const qRaw = sp.q;
   const q = (Array.isArray(qRaw) ? qRaw[0] : qRaw) ?? "";
@@ -75,7 +82,7 @@ export default async function RussianListingsPage({ searchParams }: PageProps) {
           briefMessage={summarizeForBrief(filter, q)}
         />
       ) : (
-        <ListingsSplit objects={sorted} mode={filter.mode} />
+        <ListingsSplit objects={sorted} mode={filter.mode} badges={badges} />
       )}
 
       <RecentlyViewed catalog={all} />
