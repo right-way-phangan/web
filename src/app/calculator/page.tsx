@@ -5,6 +5,7 @@ import { Disclaimer } from "@/components/legal/disclaimer";
 import { RoiCalculator } from "@/components/calculator/roi-calculator";
 import { MarketMiniBlock } from "@/components/calculator/market-preset";
 import { BuildProForma } from "@/components/calculator/build-proforma";
+import { CalculatorFaq } from "@/components/calculator/calculator-faq";
 import { getPublicObjects, slimObjectForCard } from "@/lib/data/objects";
 import { getRentalMarket } from "@/lib/data/rental-market";
 
@@ -62,6 +63,7 @@ export default async function CalculatorPage({
         <Appear delay={0.2} className="mt-16 md:mt-24">
           <BuildProForma market={market} />
         </Appear>
+        <CalculatorFaq locale="en" />
         <Disclaimer locale="en" />
       </div>
     </section>
