@@ -78,6 +78,14 @@ interface Props {
   compact?: boolean;
   /** Rental-market snapshot — powers the "fill from market data" preset in rent mode. */
   market?: RentalMarket;
+  /** Buyable units (project pages) — enables the multi-unit picker. */
+  projectUnits?: ProjectUnit[];
+}
+
+export interface ProjectUnit {
+  rwNumber: string;
+  label: string;
+  priceThb: number;
 }
 
 export function RoiCalculator({
@@ -89,6 +97,7 @@ export function RoiCalculator({
   catalog = [],
   excludeRw,
   market,
+  projectUnits,
 }: Props) {
   // Seed the calculator language from the URL (/ru/* → RU), but keep the manual
   // EN/RU toggle so a visitor can switch either tool independently.
@@ -132,6 +141,11 @@ export function RoiCalculator({
   const [currency, setCurrency] = useState<Currency>("THB");
   const [rates, setRates] = useState<Record<Currency, number>>(DEFAULT_RATES);
   const [copied, setCopied] = useState(false);
+  // Simple vs full: first-time visitors land on the trimmed view so they aren't
+  // buried in assumptions; power users switch to full for the analytics suite.
+  const [view, setView] = useState<"simple" | "full">("simple");
+  // Multi-unit picker selection (project pages): rwNumbers of units being bought.
+  const [pickedUnits, setPickedUnits] = useState<string[]>([]);
 
   // Mobile: a sticky result bar so the headline stays visible while the user
   // edits assumptions above it. Shown only while the calculator is on screen.
@@ -170,6 +184,25 @@ export function RoiCalculator({
   const breakEven = useMemo(() => solveBreakEven(inputs), [inputs]);
   const set = (patch: Partial<RoiInputs>) => setInputs((p) => ({ ...p, ...patch }));
   const money: Money = (thb, full) => formatMoney(thb, currency, rates, { compact: !full });
+
+  // Multi-unit picker: selecting units drives the combined price + count into
+  // the engine. Price-linear costs scale via the summed price; rental/furnishing
+  // scale via unitCount. Clearing all selections reverts to a single unit.
+  const applyUnits = (next: string[]) => {
+    setPickedUnits(next);
+    const chosen = (projectUnits ?? []).filter((u) => next.includes(u.rwNumber));
+    if (chosen.length === 0) {
+      set({ unitCount: 1 });
+      return;
+    }
+    set({
+      purchasePriceThb: chosen.reduce((sum, u) => sum + u.priceThb, 0),
+      unitCount: chosen.length,
+    });
+  };
+  const toggleUnit = (rw: string) =>
+    applyUnits(pickedUnits.includes(rw) ? pickedUnits.filter((x) => x !== rw) : [...pickedUnits, rw]);
+  const clearUnits = () => applyUnits([]);
 
   // Money inputs are entered in the selected currency; state stays in THB.
   const fx = rates[currency] ?? 1; // foreign units per 1 THB
@@ -244,17 +277,25 @@ export function RoiCalculator({
     try {
       const raw = window.localStorage.getItem(STORAGE_KEY);
       if (!raw) return;
-      const saved = JSON.parse(raw) as { inputs?: Partial<RoiInputs>; currency?: Currency };
+      const saved = JSON.parse(raw) as {
+        inputs?: Partial<RoiInputs>;
+        currency?: Currency;
+        view?: "simple" | "full";
+      };
       if (saved.inputs && typeof saved.inputs === "object") {
         // Only accept known keys with the expected type — old/corrupt entries degrade silently.
         const safe: Partial<RoiInputs> = {};
         for (const k of Object.keys(DEFAULT_INPUTS) as (keyof RoiInputs)[]) {
+          // unitCount is set only by the multi-unit picker in-session — never
+          // restore it, or a standalone calculator would inherit a stale count.
+          if (k === "unitCount") continue;
           const v = saved.inputs[k];
           if (v != null && typeof v === typeof DEFAULT_INPUTS[k]) (safe as Record<string, unknown>)[k] = v;
         }
         if (Object.keys(safe).length) setInputs((s) => ({ ...s, ...safe }));
       }
       if (saved.currency && saved.currency in DEFAULT_RATES) setCurrency(saved.currency);
+      if (saved.view === "simple" || saved.view === "full") setView(saved.view);
     } catch {
       /* unreadable storage — start fresh */
     }
@@ -265,11 +306,11 @@ export function RoiCalculator({
   useEffect(() => {
     if (typeof window === "undefined") return;
     try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ inputs, currency }));
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ inputs, currency, view }));
     } catch {
       /* storage full/blocked — ignore */
     }
-  }, [inputs, currency]);
+  }, [inputs, currency, view]);
 
   // Keep the URL in sync with the full input set so "Copy link" reproduces the scenario.
   useEffect(() => {
@@ -431,6 +472,30 @@ export function RoiCalculator({
           </div>
         </div>
 
+        {/* Simple / Full — the primary control. Most visitors stay on Simple;
+            Full unlocks tenure/off-plan inputs and the analytics suite. */}
+        <div className="mb-4 inline-flex w-full overflow-hidden rounded-sm border border-forest-500/20 text-sm font-medium">
+          <button
+            type="button"
+            onClick={() => setView("simple")}
+            aria-pressed={view === "simple"}
+            className={`flex-1 px-3 py-1.5 transition-colors ${view === "simple" ? "bg-panel text-panel-fg" : "text-forest-500/60 hover:bg-forest-500/8"}`}
+          >
+            {t.viewSimple}
+          </button>
+          <button
+            type="button"
+            onClick={() => setView("full")}
+            aria-pressed={view === "full"}
+            className={`flex-1 px-3 py-1.5 transition-colors ${view === "full" ? "bg-panel text-panel-fg" : "text-forest-500/60 hover:bg-forest-500/8"}`}
+          >
+            {t.viewFull}
+          </button>
+        </div>
+
+        {/* Profiles + phase/tenure tabs are power-user controls — full view only. */}
+        {view === "full" ? (
+          <>
         {/* Quick-start profiles — fill a coherent assumption set in one click. */}
         <div className="mb-3">
           <p className="mb-1.5 text-[11px] font-medium uppercase tracking-wide text-forest-500/50">{t.profilesLabel}</p>
@@ -463,6 +528,8 @@ export function RoiCalculator({
           <TenureTab active={!isLeasehold} onClick={() => set({ tenure: "freehold" as Tenure })} label={t.freehold} />
           <TenureTab active={isLeasehold} onClick={() => set({ tenure: "leasehold" as Tenure })} label={t.leasehold} />
         </div>
+          </>
+        ) : null}
 
         <p className="mt-6 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
           {t.assumptionsTitle}
@@ -480,6 +547,19 @@ export function RoiCalculator({
             onChangeThb={(thb) => set({ purchasePriceThb: thb })}
             hint={thbHint(inputs.purchasePriceThb)}
           />
+
+          {/* Multi-unit picker (project pages): tick units to buy → combined
+              price + count flow into the engine; returns stay per-unit. */}
+          {projectUnits && projectUnits.length > 0 ? (
+            <UnitsPicker
+              units={projectUnits}
+              selected={pickedUnits}
+              onToggle={toggleUnit}
+              onClear={clearUnits}
+              money={money}
+              t={t}
+            />
+          ) : null}
 
           <div>
             <label className="text-sm text-forest-500/70">{t.growthLabel}</label>
@@ -519,7 +599,7 @@ export function RoiCalculator({
           <SliderField label={t.holdingPeriod} value={inputs.years} unit={t.unitYr} step={1} min={1} max={40} onChange={(v) => set({ years: v })} />
 
           {/* Leasehold-only: total lease term + renewal toggle + decay note */}
-          {isLeasehold ? (
+          {view === "full" && isLeasehold ? (
             <div className="space-y-2 rounded-sm border border-forest-500/10 bg-forest-500/[0.03] p-4">
               <SliderField label={t.leaseTerm} value={inputs.leaseTermYears} unit={t.unitYr} step={1} min={1} max={90} onChange={(v) => set({ leaseTermYears: v })} small />
               <label className="flex cursor-pointer items-center gap-1.5 text-[11px] text-forest-500/70">
@@ -552,7 +632,7 @@ export function RoiCalculator({
           ) : null}
 
           {/* Off-plan-only inputs */}
-          {isOffplan ? (
+          {view === "full" && isOffplan ? (
             <div className="space-y-4 rounded-sm border border-brass-500/20 bg-brass-500/[0.04] p-4">
               <p className="text-[11px] font-medium uppercase tracking-wide text-brass-600">{t.constructionPlan}</p>
               <SliderField label={t.constructionPeriod} value={inputs.constructionMonths} unit={t.unitMo} step={1} min={1} max={84} onChange={(v) => set({ constructionMonths: v })} small />
@@ -615,7 +695,7 @@ export function RoiCalculator({
             <div className="space-y-4 rounded-sm border border-brass-500/20 bg-brass-500/[0.04] p-4">
               <div className="flex items-center justify-between">
                 <p className="text-[11px] font-medium uppercase tracking-wide text-brass-600">{t.rentalAssumptions}</p>
-                {!inputs.longTermRent ? (
+                {!inputs.longTermRent && view === "full" ? (
                   <label className="flex cursor-pointer items-center gap-1.5 text-[11px] text-forest-500/70">
                     <input
                       type="checkbox"
@@ -652,7 +732,7 @@ export function RoiCalculator({
               ) : (
                 <>
                   <MoneyField label={`${t.nightlyRate} (${currency})`} thbValue={inputs.nightlyRateThb} currency={currency} fx={fx} onChangeThb={(thb) => set({ nightlyRateThb: thb })} hint={thbHint(inputs.nightlyRateThb)} small />
-                  {isSeasonal ? (
+                  {isSeasonal && view === "full" ? (
                     <div className="space-y-4 rounded-sm border border-brass-500/15 bg-cream-50/60 p-3">
                       <SliderField label={t.highSeasonLength} value={inputs.highSeasonMonths} unit={t.unitMo} step={1} min={0} max={12} onChange={(v) => set({ highSeasonMonths: v })} small />
                       <SliderField label={t.highSeasonOccupancy} value={inputs.highSeasonOccupancyPct} step={5} min={0} max={100} onChange={(v) => set({ highSeasonOccupancyPct: v })} small />
@@ -664,15 +744,22 @@ export function RoiCalculator({
                   )}
                 </>
               )}
+              {view === "full" ? (
+                <>
               <SliderField label={t.mgmtFee} value={inputs.mgmtFeePct} step={1} min={0} max={100} onChange={(v) => set({ mgmtFeePct: v })} small />
               <SliderField label={t.opex} value={inputs.opexPct} step={0.5} min={0} max={15} onChange={(v) => set({ opexPct: v })} small />
               <SliderField label={t.rentGrowth} value={inputs.rentGrowthPct} step={0.5} min={-5} max={15} onChange={(v) => set({ rentGrowthPct: v })} small />
               <SliderField label={t.rentTaxLabel} value={inputs.rentTaxPct} step={1} min={0} max={40} onChange={(v) => set({ rentTaxPct: v })} small />
               <MoneyField label={`${t.furnishingLabel} (${currency})`} thbValue={inputs.furnishingThb} currency={currency} fx={fx} onChangeThb={(thb) => set({ furnishingThb: thb })} hint={thbHint(inputs.furnishingThb)} small />
               <p className="text-[11px] leading-relaxed text-forest-500/55">{t.furnishingHint}</p>
+                </>
+              ) : null}
             </div>
           ) : null}
 
+          {/* Advanced cost assumptions — power-user only. */}
+          {view === "full" ? (
+            <>
           <button
             type="button"
             onClick={() => setShowAdvanced((v) => !v)}
@@ -697,6 +784,8 @@ export function RoiCalculator({
               </div>
             </div>
           ) : null}
+            </>
+          ) : null}
         </div>
       </div>
 
@@ -708,16 +797,18 @@ export function RoiCalculator({
               {t.projectedValueIn(inputs.years)}
             </p>
             <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={addScenario}
-                disabled={scenarios.length >= 3}
-                title={t.addScenario}
-                aria-label={t.addScenario}
-                className="inline-flex items-center rounded-sm border border-forest-500/20 p-1.5 text-forest-500/60 transition-colors hover:border-forest-500/50 hover:text-forest-500 disabled:cursor-not-allowed disabled:opacity-40"
-              >
-                <Pin className="h-3.5 w-3.5" />
-              </button>
+              {view === "full" ? (
+                <button
+                  type="button"
+                  onClick={addScenario}
+                  disabled={scenarios.length >= 3}
+                  title={t.addScenario}
+                  aria-label={t.addScenario}
+                  className="inline-flex items-center rounded-sm border border-forest-500/20 p-1.5 text-forest-500/60 transition-colors hover:border-forest-500/50 hover:text-forest-500 disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  <Pin className="h-3.5 w-3.5" />
+                </button>
+              ) : null}
               <CurrencyPicker currency={currency} onChange={setCurrency} />
             </div>
           </div>
@@ -767,6 +858,10 @@ export function RoiCalculator({
             </div>
           )}
 
+          {inputs.unitCount > 1 ? (
+            <p className="mt-3 text-[11px] leading-relaxed text-forest-500/55">{t.unitsCombinedNote(inputs.unitCount)}</p>
+          ) : null}
+
           <div className="mt-6 space-y-2">
             <CalcLeadButton message={calcSummary} rwNumber={excludeRw} />
             <button
@@ -780,6 +875,10 @@ export function RoiCalculator({
           </div>
         </div>
 
+        {/* Full view: the four-tab analytics suite. Simple view (below): a single
+            summary block + a nudge to switch to full. */}
+        {view === "full" ? (
+          <>
         {/* Result tabs — keep the analytical depth without a long scroll. */}
         <div className="mt-6 flex flex-wrap gap-1 border-b border-forest-500/15">
           {([
@@ -973,6 +1072,29 @@ export function RoiCalculator({
             t={t}
           />
         ) : null}
+          </>
+        ) : (
+          <div className="mt-6 space-y-6">
+            <BankCompare r={r} years={inputs.years} bankRate={inputs.bankRatePct} altRate={inputs.altReturnPct} money={money} t={t} />
+            <BreakEven be={breakEven} beatsNow={r.vsBankThb >= 0} t={t} />
+            <div className="rounded-sm border border-forest-500/10 bg-cream-50 p-6">
+              <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+                <TrendingUp className="h-4 w-4" />
+                {isOffplan && !inputs.rentAfterHandover ? t.capitalGrowth : t.returnVsBankTitle}
+              </div>
+              <GrowthChart r={r} money={money} t={t} mode={isOffplan && !inputs.rentAfterHandover ? "asset" : "owner"} />
+            </div>
+            <button
+              type="button"
+              onClick={() => setView("full")}
+              className="flex w-full items-center justify-center gap-1.5 rounded-sm border border-dashed border-forest-500/25 px-4 py-2.5 text-sm font-medium text-forest-500/70 transition-colors hover:border-brass-500/50 hover:text-brass-600"
+            >
+              <span>{t.viewMorePrompt}</span>
+              <span className="font-semibold text-brass-600">{t.viewSwitchFull}</span>
+              <ArrowRight className="h-3.5 w-3.5" />
+            </button>
+          </div>
+        )}
 
         <SimilarObjects price={inputs.purchasePriceThb} catalog={catalog} excludeRw={excludeRw} money={money} t={t} />
 
@@ -1034,6 +1156,75 @@ function TenureTab({ active, onClick, label }: { active: boolean; onClick: () =>
     >
       {label}
     </button>
+  );
+}
+
+/** Multi-unit picker (project pages): tick the units being bought; the combined
+    price and count flow into the engine. Returns (ROI/CAGR) stay per-unit. */
+function UnitsPicker({
+  units,
+  selected,
+  onToggle,
+  onClear,
+  money,
+  t,
+}: {
+  units: ProjectUnit[];
+  selected: string[];
+  onToggle: (rw: string) => void;
+  onClear: () => void;
+  money: Money;
+  t: CalcDict;
+}) {
+  return (
+    <div className="rounded-sm border border-forest-500/15 bg-cream-50 p-3">
+      <div className="mb-1 flex items-center justify-between">
+        <p className="text-[11px] font-medium uppercase tracking-wide text-brass-600">{t.unitsTitle}</p>
+        {selected.length > 0 ? (
+          <button
+            type="button"
+            onClick={onClear}
+            className="text-[11px] text-forest-500/60 underline-offset-2 hover:text-forest-500 hover:underline"
+          >
+            {t.unitsClear}
+          </button>
+        ) : null}
+      </div>
+      <p className="mb-2 text-[11px] leading-relaxed text-forest-500/55">{t.unitsHint}</p>
+      <div className="max-h-48 space-y-1 overflow-y-auto">
+        {units.map((u) => {
+          const on = selected.includes(u.rwNumber);
+          return (
+            <button
+              key={u.rwNumber}
+              type="button"
+              onClick={() => onToggle(u.rwNumber)}
+              aria-pressed={on}
+              className={`flex w-full items-center justify-between gap-3 rounded-sm border px-2.5 py-1.5 text-left text-sm transition-colors ${
+                on
+                  ? "border-brass-500/60 bg-brass-500/10 text-forest-900"
+                  : "border-forest-500/15 text-forest-500/80 hover:border-forest-500/30"
+              }`}
+            >
+              <span className="flex items-center gap-2">
+                <span
+                  className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-[3px] border ${
+                    on ? "border-brass-500 bg-brass-500 text-panel-fg" : "border-forest-500/30"
+                  }`}
+                >
+                  {on ? <Check className="h-3 w-3" /> : null}
+                </span>
+                <span className="font-medium">{u.label}</span>
+              </span>
+              <span className="num text-forest-500/70">{money(u.priceThb)}</span>
+            </button>
+          );
+        })}
+      </div>
+      {selected.length > 0 ? (
+        <p className="mt-2 text-[11px] font-medium text-brass-600">{t.unitsSelected(selected.length)}</p>
+      ) : null}
+    </div>
   );
 }
 

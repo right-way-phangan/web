@@ -282,6 +282,17 @@ export interface CalcDict {
   verdictTrails: (amount: string) => string;
   verdictProfitFrom: (v: string) => string;
   verdictNoProfit: string;
+  // Simple / Full view toggle
+  viewSimple: string;
+  viewFull: string;
+  viewMorePrompt: string;
+  viewSwitchFull: string;
+  // Multi-unit picker (projects)
+  unitsTitle: string;
+  unitsHint: string;
+  unitsSelected: (count: number) => string;
+  unitsClear: string;
+  unitsCombinedNote: (count: number) => string;
   // Language toggle a11y
   langLabel: string;
 }
@@ -531,6 +542,16 @@ const EN: CalcDict = {
   verdictTrails: (amount) => `trails a bank deposit by ${amount}`,
   verdictProfitFrom: (v) => `profitable on resale from year ${v}`,
   verdictNoProfit: "doesn't clear costs within the horizon",
+  viewSimple: "Simple",
+  viewFull: "Full",
+  viewMorePrompt: "Need more detail?",
+  viewSwitchFull: "Full calculation",
+  unitsTitle: "How many units",
+  unitsHint: "Tick the units you'd buy — totals add up across them.",
+  unitsSelected: (count) => `${count} ${count === 1 ? "unit" : "units"} selected`,
+  unitsClear: "Clear",
+  unitsCombinedNote: (count) =>
+    `Combined figures for ${count} units. Returns (ROI, CAGR) are per-unit and don't change with quantity.`,
   langLabel: "Language",
 };
 
@@ -779,6 +800,16 @@ const RU: CalcDict = {
   verdictTrails: (amount) => `отстаёт от депозита на ${amount}`,
   verdictProfitFrom: (v) => `прибыльна при перепродаже с ${v}-го года`,
   verdictNoProfit: "не покрывает затраты в пределах срока",
+  viewSimple: "Простой",
+  viewFull: "Полный",
+  viewMorePrompt: "Нужно больше параметров?",
+  viewSwitchFull: "Полный расчёт",
+  unitsTitle: "Сколько юнитов",
+  unitsHint: "Отметьте юниты, которые берёте — суммы складываются по ним.",
+  unitsSelected: (count) => `Выбрано юнитов: ${count}`,
+  unitsClear: "Сбросить",
+  unitsCombinedNote: (count) =>
+    `Совокупные суммы для ${count} юнитов. Доходность (ROI, CAGR) — на один юнит и не зависит от количества.`,
   langLabel: "Язык",
 };
 

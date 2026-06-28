@@ -14,7 +14,11 @@ export type CalcMode = "hold" | "rent";
 export type Tenure = "freehold" | "leasehold";
 
 export interface RoiInputs {
-  purchasePriceThb: number;
+  purchasePriceThb: number; // for a multi-unit buy this is the COMBINED price of all units
+  // How many units the figures cover (default 1). Price-linear costs already
+  // scale via the combined price; this scales the parts that are per-unit and
+  // NOT price-proportional — rental income and one-off furnishing.
+  unitCount: number;
   annualGrowthPct: number; // expected annual price growth — user sets this
   years: number;
   closingCostsPct: number; // entry: DD + transfer, % of price
@@ -115,6 +119,7 @@ export const SCENARIOS = [
 export const DEFAULT_INPUTS: RoiInputs = {
   // Neutral starting point — does not anchor the public price segment.
   purchasePriceThb: 9_000_000,
+  unitCount: 1,
   annualGrowthPct: 6,
   years: 10,
   closingCostsPct: 5, // Thailand transfer fee + DD + legal, blended
@@ -446,8 +451,13 @@ export function computeRoi(input: RoiInputs): RoiResult {
   const bank = (input.bankRatePct || 0) / 100;
   const isRent = input.mode === "rent";
 
+  // How many units the figures cover. Price (and every cost derived from it as a
+  // %) is already the combined total, so only the per-unit, non-price parts —
+  // rental income and one-off furnishing — get multiplied by the count here.
+  const units = Math.max(1, Math.round(input.unitCount || 1));
+
   // One-off furnishing/setup (FF&E) only applies when the plan is to rent.
-  const furnishing = isRent ? Math.max(0, input.furnishingThb || 0) : 0;
+  const furnishing = (isRent ? Math.max(0, input.furnishingThb || 0) : 0) * units;
   const initialInvestment = price * (1 + (input.closingCostsPct || 0) / 100) + furnishing;
 
   const series: RoiYearPoint[] = [
@@ -456,16 +466,20 @@ export function computeRoi(input: RoiInputs): RoiResult {
 
   // Annual gross rent at a given base rate — monthly for a long-term let;
   // nightly (flat or split by season) for STR. Occupancy applies to both.
+  // Multiplied by unit count so combined rent scales with the number bought.
   const annualGross = (rate: number): number => {
-    if (input.longTermRent) return rate * 12 * ((input.occupancyPct || 0) / 100);
-    if (!input.seasonality) return rate * ((input.occupancyPct || 0) / 100) * 365;
-    const highDays = Math.min(365, Math.max(0, (input.highSeasonMonths || 0) / 12) * 365);
-    const lowDays = 365 - highDays;
-    const highRate = rate * (1 + (input.highSeasonRateUpliftPct || 0) / 100);
-    return (
-      highDays * ((input.highSeasonOccupancyPct || 0) / 100) * highRate +
-      lowDays * ((input.lowSeasonOccupancyPct || 0) / 100) * rate
-    );
+    let perUnit: number;
+    if (input.longTermRent) perUnit = rate * 12 * ((input.occupancyPct || 0) / 100);
+    else if (!input.seasonality) perUnit = rate * ((input.occupancyPct || 0) / 100) * 365;
+    else {
+      const highDays = Math.min(365, Math.max(0, (input.highSeasonMonths || 0) / 12) * 365);
+      const lowDays = 365 - highDays;
+      const highRate = rate * (1 + (input.highSeasonRateUpliftPct || 0) / 100);
+      perUnit =
+        highDays * ((input.highSeasonOccupancyPct || 0) / 100) * highRate +
+        lowDays * ((input.lowSeasonOccupancyPct || 0) / 100) * rate;
+    }
+    return perUnit * units;
   };
 
   // Periodic land rent (leasehold, monthly structure) — an indexed annuity paid
@@ -650,21 +664,28 @@ function computeOffplan(input: RoiInputs): RoiResult {
   payOut(months, price * hand + price * closing); // balance + transfer fees at handover
 
   // Optional buy-to-let: the unit earns net rent from handover to exit.
+  // Units covered — price-linear costs already scale via the combined price;
+  // rental income and furnishing are per-unit, so multiply those by the count.
+  const units = Math.max(1, Math.round(input.unitCount || 1));
+
   const isLet = !!input.rentAfterHandover;
-  const furnishing = isLet ? Math.max(0, input.furnishingThb || 0) : 0;
+  const furnishing = (isLet ? Math.max(0, input.furnishingThb || 0) : 0) * units;
   if (furnishing) payOut(months, furnishing); // FF&E paid at handover
   const totalInvested = price * (down + middle + hand) + price * closing + furnishing;
 
   const annualGross = (rate: number): number => {
-    if (input.longTermRent) return rate * 12 * ((input.occupancyPct || 0) / 100);
-    if (!input.seasonality) return rate * ((input.occupancyPct || 0) / 100) * 365;
-    const highDays = Math.min(365, Math.max(0, (input.highSeasonMonths || 0) / 12) * 365);
-    const lowDays = 365 - highDays;
-    const highRate = rate * (1 + (input.highSeasonRateUpliftPct || 0) / 100);
-    return (
-      highDays * ((input.highSeasonOccupancyPct || 0) / 100) * highRate +
-      lowDays * ((input.lowSeasonOccupancyPct || 0) / 100) * rate
-    );
+    let perUnit: number;
+    if (input.longTermRent) perUnit = rate * 12 * ((input.occupancyPct || 0) / 100);
+    else if (!input.seasonality) perUnit = rate * ((input.occupancyPct || 0) / 100) * 365;
+    else {
+      const highDays = Math.min(365, Math.max(0, (input.highSeasonMonths || 0) / 12) * 365);
+      const lowDays = 365 - highDays;
+      const highRate = rate * (1 + (input.highSeasonRateUpliftPct || 0) / 100);
+      perUnit =
+        highDays * ((input.highSeasonOccupancyPct || 0) / 100) * highRate +
+        lowDays * ((input.lowSeasonOccupancyPct || 0) / 100) * rate;
+    }
+    return perUnit * units;
   };
 
   // Periodic land rent (leasehold, monthly structure) — runs from contract

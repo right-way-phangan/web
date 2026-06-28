@@ -89,6 +89,16 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
   const allObjects = await getAllObjects();
   const units = getProjectUnits(project, allObjects);
   const availability = projectAvailability(project, units);
+  // Units a buyer can actually purchase — drive the calculator's multi-unit picker.
+  const buyableUnits = units
+    .filter((u) => u.status === "Active" && (u.priceThb ?? 0) > 0)
+    .map((u) => ({
+      rwNumber: u.rwNumber,
+      label: u.rwNumber.startsWith(`${project.rwNumber}-`)
+        ? u.rwNumber.slice(project.rwNumber.length + 1)
+        : u.titleEn,
+      priceThb: u.priceThb as number,
+    }));
   const amenities = amenityList(project, ot);
   // Авто-overview как fallback, если кураторского descriptionRaw нет (новые
   // проекты не остаются без вводного текста). Кураторская копия всегда в приоритете.
@@ -357,6 +367,7 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
                   initialOffplan
                   catalog={catalog}
                   excludeRw={project.rwNumber}
+                  projectUnits={buyableUnits.length > 0 ? buyableUnits : undefined}
                 />
               </div>
             </section>
