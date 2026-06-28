@@ -203,6 +203,7 @@ export function RoiCalculator({
   const toggleUnit = (rw: string) =>
     applyUnits(pickedUnits.includes(rw) ? pickedUnits.filter((x) => x !== rw) : [...pickedUnits, rw]);
   const clearUnits = () => applyUnits([]);
+  const selectAllUnits = () => applyUnits((projectUnits ?? []).map((u) => u.rwNumber));
 
   // Money inputs are entered in the selected currency; state stays in THB.
   const fx = rates[currency] ?? 1; // foreign units per 1 THB
@@ -555,6 +556,7 @@ export function RoiCalculator({
               units={projectUnits}
               selected={pickedUnits}
               onToggle={toggleUnit}
+              onSelectAll={selectAllUnits}
               onClear={clearUnits}
               money={money}
               t={t}
@@ -1165,6 +1167,7 @@ function UnitsPicker({
   units,
   selected,
   onToggle,
+  onSelectAll,
   onClear,
   money,
   t,
@@ -1172,23 +1175,32 @@ function UnitsPicker({
   units: ProjectUnit[];
   selected: string[];
   onToggle: (rw: string) => void;
+  onSelectAll: () => void;
   onClear: () => void;
   money: Money;
   t: CalcDict;
 }) {
+  const allOn = units.length > 0 && selected.length === units.length;
+  // Running total of the ticked units — buyer sees the combined cost grow live.
+  const total = units.reduce((sum, u) => (selected.includes(u.rwNumber) ? sum + u.priceThb : sum), 0);
+  const actionCls =
+    "text-[11px] text-forest-500/60 underline-offset-2 hover:text-forest-500 hover:underline";
   return (
     <div className="rounded-sm border border-forest-500/15 bg-cream-50 p-3">
-      <div className="mb-1 flex items-center justify-between">
+      <div className="mb-1 flex items-center justify-between gap-3">
         <p className="text-[11px] font-medium uppercase tracking-wide text-brass-600">{t.unitsTitle}</p>
-        {selected.length > 0 ? (
-          <button
-            type="button"
-            onClick={onClear}
-            className="text-[11px] text-forest-500/60 underline-offset-2 hover:text-forest-500 hover:underline"
-          >
-            {t.unitsClear}
-          </button>
-        ) : null}
+        <div className="flex shrink-0 items-center gap-3">
+          {!allOn && units.length > 1 ? (
+            <button type="button" onClick={onSelectAll} className={actionCls}>
+              {t.unitsSelectAll}
+            </button>
+          ) : null}
+          {selected.length > 0 ? (
+            <button type="button" onClick={onClear} className={actionCls}>
+              {t.unitsClear}
+            </button>
+          ) : null}
+        </div>
       </div>
       <p className="mb-2 text-[11px] leading-relaxed text-forest-500/55">{t.unitsHint}</p>
       <div className="max-h-48 space-y-1 overflow-y-auto">
@@ -1222,7 +1234,10 @@ function UnitsPicker({
         })}
       </div>
       {selected.length > 0 ? (
-        <p className="mt-2 text-[11px] font-medium text-brass-600">{t.unitsSelected(selected.length)}</p>
+        <div className="mt-2 flex items-center justify-between border-t border-forest-500/10 pt-2 text-[11px] font-medium text-brass-600">
+          <span>{t.unitsSelected(selected.length)}</span>
+          <span className="num">{money(total)}</span>
+        </div>
       ) : null}
     </div>
   );
