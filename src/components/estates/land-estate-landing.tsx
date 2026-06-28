@@ -10,6 +10,7 @@ import { localePath } from "@/lib/i18n/locale-path";
 import { formatPriceCompact } from "@/lib/utils/price";
 import { EstateExplorer } from "./estate-explorer";
 import { EstateSectionNav, type NavSection } from "./estate-section-nav";
+import { RoiCalculator } from "@/components/calculator/roi-calculator";
 import { EstateCard } from "./estate-card";
 import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 import { EstateLeadGallery } from "./estate-lead-gallery";
@@ -32,6 +33,14 @@ export function LandEstateLanding({ estate, locale, initialLot }: Props) {
   const hasLeadPhotos = photoPlots.length > 0;
   const priceFrom = estatePriceFrom(estate);
   const fromLabel = locale === "ru" ? "от" : "from";
+  // Покупаемые участки для пикчера калькулятора — freehold available с ценой.
+  const calcPlots = estate.plots
+    .filter((p) => p.status === "available" && p.tenure === "Freehold" && p.priceThb)
+    .map((p) => ({
+      rwNumber: p.code,
+      label: p.areaRai ? `${p.code} · ${p.areaRai} ${locale === "ru" ? "рай" : "rai"}` : p.code,
+      priceThb: p.priceThb as number,
+    }));
 
   const homeHref = localePath(locale, "/") as Route;
   const estatesHref = localePath(locale, "/estates") as Route;
@@ -47,6 +56,7 @@ export function LandEstateLanding({ estate, locale, initialLot }: Props) {
     { id: "plots", label: t.nav.plots },
     ...(estatePhotoPlots(estate).length > 0 ? [{ id: "gallery", label: t.nav.gallery }] : []),
     ...(estate.lat && estate.lng ? [{ id: "location", label: t.nav.location }] : []),
+    ...(priceFrom != null ? [{ id: "returns", label: t.nav.returns }] : []),
   ];
 
   return (
@@ -194,6 +204,21 @@ export function LandEstateLanding({ estate, locale, initialLot }: Props) {
 
       {/* Интерактив: план + участки + галерея + карта + заявка */}
       <EstateExplorer estate={estate} locale={locale} initialLot={initialLot} />
+
+      {/* Калькулятор окупаемости — только если есть freehold-участки с ценой */}
+      {priceFrom != null ? (
+        <section id="returns" className="mt-16 scroll-mt-32 border-t border-forest-500/10 pt-12 md:mt-20">
+          <SectionEyebrow>{t.returns.eyebrow}</SectionEyebrow>
+          <h2 className="mt-2 font-serif text-3xl text-forest-900">{t.returns.title}</h2>
+          <p className="mt-3 max-w-2xl text-base leading-relaxed text-forest-500/85">{t.returns.intro}</p>
+          <div className="mt-8">
+            <RoiCalculator
+              initialPriceThb={priceFrom}
+              projectUnits={calcPlots.length > 0 ? calcPlots : undefined}
+            />
+          </div>
+        </section>
+      ) : null}
 
       {/* Other collections */}
       {others.length > 0 ? (

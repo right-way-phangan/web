@@ -546,12 +546,12 @@ const EN: CalcDict = {
   viewFull: "Full",
   viewMorePrompt: "Need more detail?",
   viewSwitchFull: "Full calculation",
-  unitsTitle: "How many units",
-  unitsHint: "Tick the units you'd buy — totals add up across them.",
-  unitsSelected: (count) => `${count} ${count === 1 ? "unit" : "units"} selected`,
+  unitsTitle: "How many properties",
+  unitsHint: "Tick the properties you'd buy — totals add up across them.",
+  unitsSelected: (count) => `${count} ${count === 1 ? "property" : "properties"} selected`,
   unitsClear: "Clear",
   unitsCombinedNote: (count) =>
-    `Combined figures for ${count} units. Returns (ROI, CAGR) are per-unit and don't change with quantity.`,
+    `Combined figures for ${count} properties. Returns (ROI, CAGR) are per-property and don't change with quantity.`,
   langLabel: "Language",
 };
 
@@ -804,12 +804,12 @@ const RU: CalcDict = {
   viewFull: "Полный",
   viewMorePrompt: "Нужно больше параметров?",
   viewSwitchFull: "Полный расчёт",
-  unitsTitle: "Сколько юнитов",
-  unitsHint: "Отметьте юниты, которые берёте — суммы складываются по ним.",
-  unitsSelected: (count) => `Выбрано юнитов: ${count}`,
+  unitsTitle: "Сколько объектов",
+  unitsHint: "Отметьте объекты, которые берёте — суммы складываются по ним.",
+  unitsSelected: (count) => `Выбрано объектов: ${count}`,
   unitsClear: "Сбросить",
   unitsCombinedNote: (count) =>
-    `Совокупные суммы для ${count} юнитов. Доходность (ROI, CAGR) — на один юнит и не зависит от количества.`,
+    `Совокупные суммы для ${count} объектов. Доходность (ROI, CAGR) — на один объект и не зависит от количества.`,
   langLabel: "Язык",
 };
 
