@@ -810,16 +810,23 @@ export function RoiCalculator({
 
         {/* Mobile: keep the headline outcome pinned while editing inputs (they
             stack above the result on small screens). */}
-        <div className="sticky bottom-0 z-10 -mx-4 mt-4 flex items-center justify-between border-t border-forest-500/15 bg-cream-50/95 px-4 py-2.5 backdrop-blur lg:hidden">
+        <a
+          href="#calc-results"
+          aria-label={t.resultsBtn}
+          className="sticky bottom-0 z-10 -mx-4 mt-4 flex items-center justify-between gap-3 border-t border-forest-500/15 bg-cream-50/95 px-4 py-2.5 backdrop-blur lg:hidden"
+        >
           <div>
             <p className="text-[10px] uppercase tracking-wide text-forest-500/55">{t.projectedValueIn(inputs.years)}</p>
             <p className="num text-lg leading-tight text-forest-900">{money(r.projectedValue, true)}</p>
           </div>
-          <div className="text-right">
-            <p className="text-[10px] uppercase tracking-wide text-forest-500/55">{t.totalRoi}</p>
-            <p className="num text-lg leading-tight text-brass-600">{fmtPct(r.roiPct)}</p>
+          <div className="flex items-center gap-2">
+            <div className="text-right">
+              <p className="text-[10px] uppercase tracking-wide text-forest-500/55">{t.totalRoi}</p>
+              <p className="num text-lg leading-tight text-brass-600">{fmtPct(r.roiPct)}</p>
+            </div>
+            <ChevronDown className="h-4 w-4 shrink-0 text-forest-500/40" />
           </div>
-        </div>
+        </a>
       </div>
 
       {/* ---- Results ---- */}

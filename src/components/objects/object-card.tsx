@@ -105,7 +105,19 @@ export function ObjectCard({ object, priority = false, priceMode = "buy", buildB
         <SaveButton rw={object.rwNumber} />
         {object.priceThb ? (
           <Link
-            href={localeHref(locale, `/calculator?price=${object.priceThb}`) as Route}
+            href={
+              localeHref(
+                locale,
+                // Carry tenure/lease/phase so leasehold & off-plan deep-link to the
+                // correct model — /calculator reads these params. Freehold resale
+                // needs only the price.
+                `/calculator?price=${object.priceThb}` +
+                  (object.tenure?.includes("Leasehold") && !object.tenure?.includes("Freehold")
+                    ? `&tenure=leasehold${object.leaseTermYears ? `&lease=${object.leaseTermYears}` : ""}`
+                    : "") +
+                  (object.type === "Project" ? "&phase=offplan" : ""),
+              ) as Route
+            }
             title={locale === "ru" ? "Калькулятор доходности" : "ROI calculator"}
             className="inline-flex items-center gap-1 rounded-sm bg-panel/85 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-panel-fg backdrop-blur-sm transition-colors hover:bg-panel"
           >
