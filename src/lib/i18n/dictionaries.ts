@@ -46,8 +46,8 @@ export interface HomeDict {
 const en: HomeDict = {
   hero: {
     eyebrow: "Koh Phangan · Thailand",
-    titleHtml: "Land, villas, and homes — <em>curated</em> on Phangan.",
-    lede: "Every property we list, we've personally vetted — title, zoning, the real numbers. No 600-listing feeds, no fantasy 30% returns. One island, done properly.",
+    titleHtml: "Land, villas and homes on Phangan — <em>every listing vetted</em>.",
+    lede: "We check the title, zoning and numbers before a listing goes up. No 600-listing feeds, no fantasy 30% returns.",
     ctaBrowse: "Browse listings",
     ctaProcess: "How we work",
     intentLabel: "I'm looking for",
@@ -56,19 +56,19 @@ const en: HomeDict = {
   values: {
     eyebrow: "Why Right Way",
     title: "Specialists, not a brokerage.",
-    lede: "Three things we do differently from the rest of the island.",
+    lede: "Three things we do differently.",
     items: [
       {
         title: "Phangan specialists",
-        text: "Every listing is on Koh Phangan. We know each district personally — Sri Thanu, Thong Sala, Haad Salad, Bottle Beach, and the rest.",
+        text: "Every listing is on Koh Phangan. We know each district — Sri Thanu, Thong Sala, Haad Salad, Bottle Beach.",
       },
       {
         title: "Transparent process",
-        text: "Verified ownership, real prices, clear closing steps. Foreign-buyer friendly: Chanote checks, lease structuring, lawyer introductions.",
+        text: "Verified ownership, prices upfront, clear closing steps. For foreign buyers: Chanote checks, lease structuring, lawyer introductions.",
       },
       {
         title: "Honest numbers",
-        text: "Real yields, real price history, drawbacks included. Our market reports and calculator show figures we'd trust with our own money — no fantasy returns.",
+        text: "Yields, price history, drawbacks — all in. Our reports and calculator show figures we'd trust with our own money. No fantasy returns.",
       },
     ],
   },
@@ -86,9 +86,9 @@ const en: HomeDict = {
     vettedValue: "100%",
   },
   cta: {
-    eyebrow: "Ready when you are",
+    eyebrow: "Tell us what you want",
     title: "Find your place on Phangan.",
-    lede: "Tell us what matters — a sunset view, walking distance to the beach, a buildable plot in a quiet district — and we'll narrow the island down to the handful worth seeing.",
+    lede: "A sunset view, walking distance to the beach, a buildable plot in a quiet district — we'll send the few worth seeing.",
     browse: "Browse listings",
     talk: "Talk to us",
   },
@@ -98,8 +98,8 @@ const en: HomeDict = {
 const ru: HomeDict = {
   hero: {
     eyebrow: "Ко Панган · Таиланд",
-    titleHtml: "Земля, виллы и дома — <em>с отбором</em> на Пангане.",
-    lede: "Каждый объект в каталоге мы проверили лично — документ, зона, реальные цифры. Без витрин на 600 чужих листингов и сказок про 30% годовых. Один остров — сделанный правильно.",
+    titleHtml: "Земля, виллы и дома на Пангане — <em>каждый объект проверен</em>.",
+    lede: "Документ, зону и цифры проверяем до публикации. Без витрин на 600 чужих листингов и сказок про 30% годовых.",
     ctaBrowse: "Смотреть объекты",
     ctaProcess: "Как мы работаем",
     intentLabel: "Я ищу",
@@ -108,19 +108,19 @@ const ru: HomeDict = {
   values: {
     eyebrow: "Почему Right Way",
     title: "Специалисты, а не «риелторская контора».",
-    lede: "Три вещи, которые мы делаем иначе, чем остальные на острове.",
+    lede: "Три вещи, которые мы делаем иначе.",
     items: [
       {
         title: "Специалисты по Пангану",
-        text: "Все объекты — на Ко Пангане. Мы лично знаем каждый район: Шри Тану, Тонг Сала, Хад Салад, Боттл Бич и остальные.",
+        text: "Все объекты — на Ко Пангане. Знаем каждый район: Шри Тану, Тонг Сала, Хад Салад, Боттл Бич.",
       },
       {
         title: "Прозрачный процесс",
-        text: "Проверенное право собственности, реальные цены, понятные шаги сделки. Удобно для иностранцев: проверка чанота, оформление аренды, контакты юристов.",
+        text: "Проверенное право собственности, цены без накруток, понятные шаги сделки. Для иностранцев: проверка чанота, оформление аренды, контакты юристов.",
       },
       {
         title: "Честные цифры",
-        text: "Реальная доходность, реальная история цен, недостатки — тоже. В отчётах и калькуляторе те цифры, которым мы доверили бы собственные деньги, — без сказочных процентов.",
+        text: "Доходность, история цен, недостатки — всё как есть. В отчётах и калькуляторе — цифры, которым мы доверили бы свои деньги. Без сказочных процентов.",
       },
     ],
   },
@@ -138,9 +138,9 @@ const ru: HomeDict = {
     vettedValue: "100%",
   },
   cta: {
-    eyebrow: "Когда будете готовы",
+    eyebrow: "Расскажите, что нужно",
     title: "Найдите своё место на Пангане.",
-    lede: "Расскажите, что важно — вид на закат, пешком до пляжа, участок под застройку в тихом районе — и мы сузим остров до нескольких вариантов, которые стоит посмотреть.",
+    lede: "Вид на закат, пешком до пляжа, участок под застройку в тихом районе — пришлём те несколько, что стоит посмотреть.",
     browse: "Смотреть объекты",
     talk: "Связаться с нами",
   },
