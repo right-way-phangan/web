@@ -34,13 +34,27 @@ export function LandEstateLanding({ estate, locale, initialLot }: Props) {
   const priceFrom = estatePriceFrom(estate);
   const fromLabel = locale === "ru" ? "от" : "from";
   // Покупаемые участки для пикчера калькулятора — freehold available с ценой.
-  const calcPlots = estate.plots
-    .filter((p) => p.status === "available" && p.tenure === "Freehold" && p.priceThb)
-    .map((p) => ({
-      rwNumber: p.code,
-      label: p.areaRai ? `${p.code} · ${p.areaRai} ${locale === "ru" ? "рай" : "rai"}` : p.code,
-      priceThb: p.priceThb as number,
-    }));
+  const availablePlots = estate.plots.filter(
+    (p) => p.status === "available" && p.tenure === "Freehold" && p.priceThb,
+  );
+  // Лучшая цена за рай — ориентир «что брать» (ROI% у всех одинаков, отличается вход).
+  const bestValueCode = availablePlots
+    .filter((p) => p.areaRai)
+    .sort(
+      (a, b) =>
+        (a.priceThb as number) / (a.areaRai as number) - (b.priceThb as number) / (b.areaRai as number),
+    )[0]?.code;
+  const calcPlots = availablePlots.map((p) => ({
+    rwNumber: p.code,
+    label: p.areaRai ? `${p.code} · ${p.areaRai} ${locale === "ru" ? "рай" : "rai"}` : p.code,
+    priceThb: p.priceThb as number,
+    badge:
+      availablePlots.length > 1 && p.code === bestValueCode
+        ? locale === "ru"
+          ? "Лучшая цена/рай"
+          : "Best ฿/rai"
+        : undefined,
+  }));
 
   const homeHref = localePath(locale, "/") as Route;
   const estatesHref = localePath(locale, "/estates") as Route;

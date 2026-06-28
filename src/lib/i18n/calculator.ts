@@ -293,6 +293,7 @@ export interface CalcDict {
   unitsSelected: (count: number) => string;
   unitsClear: string;
   unitsSelectAll: string;
+  budgetFits: (count: number) => string;
   unitsCombinedNote: (count: number) => string;
   // Language toggle a11y
   langLabel: string;
@@ -552,6 +553,7 @@ const EN: CalcDict = {
   unitsSelected: (count) => `${count} ${count === 1 ? "property" : "properties"} selected`,
   unitsClear: "Clear",
   unitsSelectAll: "Select all",
+  budgetFits: (count) => `${count} ${count === 1 ? "property" : "properties"} within this budget`,
   unitsCombinedNote: (count) =>
     `Combined figures for ${count} properties. Returns (ROI, CAGR) are per-property and don't change with quantity.`,
   langLabel: "Language",
@@ -811,6 +813,7 @@ const RU: CalcDict = {
   unitsSelected: (count) => `Выбрано объектов: ${count}`,
   unitsClear: "Сбросить",
   unitsSelectAll: "Выбрать все",
+  budgetFits: (count) => `${count} объектов в этом бюджете`,
   unitsCombinedNote: (count) =>
     `Совокупные суммы для ${count} объектов. Доходность (ROI, CAGR) — на один объект и не зависит от количества.`,
   langLabel: "Язык",

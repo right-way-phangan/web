@@ -14,6 +14,7 @@ import {
   Sun,
   ShieldCheck,
   Ruler,
+  TrendingUp,
 } from "lucide-react";
 import type { RealEstateObject, ObjectType } from "@/types/object";
 import type { BuildBadge } from "@/lib/data/build-envelope";
@@ -100,7 +101,19 @@ export function ObjectCard({ object, priority = false, priceMode = "buy", buildB
 
   return (
     <div className="group relative flex h-full flex-col">
-      <SaveButton rw={object.rwNumber} className="absolute right-3 top-3 z-10" />
+      <div className="absolute right-3 top-3 z-10 flex flex-col items-end gap-2">
+        <SaveButton rw={object.rwNumber} />
+        {object.priceThb ? (
+          <Link
+            href={localeHref(locale, `/calculator?price=${object.priceThb}`) as Route}
+            title={locale === "ru" ? "Калькулятор доходности" : "ROI calculator"}
+            className="inline-flex items-center gap-1 rounded-sm bg-panel/85 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-panel-fg backdrop-blur-sm transition-colors hover:bg-panel"
+          >
+            <TrendingUp className="h-3 w-3" />
+            ROI
+          </Link>
+        ) : null}
+      </div>
       {/* New tab so list/search/map context survives — users lose NL-search
           results when navigating back (feedback 2026-06-11). */}
       <Link

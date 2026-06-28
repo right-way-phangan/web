@@ -86,6 +86,8 @@ export interface ProjectUnit {
   rwNumber: string;
   label: string;
   priceThb: number;
+  /** Optional caller-localized tag, e.g. "Best ฿/rai" on the best-value lot. */
+  badge?: string;
 }
 
 export function RoiCalculator({
@@ -182,6 +184,11 @@ export function RoiCalculator({
     [showSolver, inputs, solverMetric, solverTarget],
   );
   const breakEven = useMemo(() => solveBreakEven(inputs), [inputs]);
+  // Budget-first signal: how many catalog listings sit at or below this price.
+  const budgetMatchCount = useMemo(
+    () => catalog.filter((o) => o.priceThb && o.priceThb <= inputs.purchasePriceThb).length,
+    [catalog, inputs.purchasePriceThb],
+  );
   const set = (patch: Partial<RoiInputs>) => setInputs((p) => ({ ...p, ...patch }));
   const money: Money = (thb, full) => formatMoney(thb, currency, rates, { compact: !full });
 
@@ -549,6 +556,17 @@ export function RoiCalculator({
             hint={thbHint(inputs.purchasePriceThb)}
           />
 
+          {/* Budget-first: how many real listings fit this number → browse them. */}
+          {budgetMatchCount > 0 ? (
+            <Link
+              href={`/listings?pmax=${Math.ceil(inputs.purchasePriceThb / 1_000_000)}` as Route}
+              className="inline-flex items-center gap-1 text-[11px] font-medium text-brass-600 underline-offset-2 transition-colors hover:text-brass-700 hover:underline"
+            >
+              {t.budgetFits(budgetMatchCount)}
+              <ArrowRight className="h-3 w-3" />
+            </Link>
+          ) : null}
+
           {/* Multi-unit picker (project pages): tick units to buy → combined
               price + count flow into the engine; returns stay per-unit. */}
           {projectUnits && projectUnits.length > 0 ? (
@@ -788,6 +806,19 @@ export function RoiCalculator({
           ) : null}
             </>
           ) : null}
+        </div>
+
+        {/* Mobile: keep the headline outcome pinned while editing inputs (they
+            stack above the result on small screens). */}
+        <div className="sticky bottom-0 z-10 -mx-4 mt-4 flex items-center justify-between border-t border-forest-500/15 bg-cream-50/95 px-4 py-2.5 backdrop-blur lg:hidden">
+          <div>
+            <p className="text-[10px] uppercase tracking-wide text-forest-500/55">{t.projectedValueIn(inputs.years)}</p>
+            <p className="num text-lg leading-tight text-forest-900">{money(r.projectedValue, true)}</p>
+          </div>
+          <div className="text-right">
+            <p className="text-[10px] uppercase tracking-wide text-forest-500/55">{t.totalRoi}</p>
+            <p className="num text-lg leading-tight text-brass-600">{fmtPct(r.roiPct)}</p>
+          </div>
         </div>
       </div>
 
@@ -1227,6 +1258,11 @@ function UnitsPicker({
                   {on ? <Check className="h-3 w-3" /> : null}
                 </span>
                 <span className="font-medium">{u.label}</span>
+                {u.badge ? (
+                  <span className="rounded-full bg-brass-500/15 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-brass-600">
+                    {u.badge}
+                  </span>
+                ) : null}
               </span>
               <span className="num text-forest-500/70">{money(u.priceThb)}</span>
             </button>
