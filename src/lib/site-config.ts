@@ -12,6 +12,7 @@ export const siteConfig = {
   // Primary nav (visible on Header + Footer)
   nav: [
     { label: "Listings", href: "/listings" as const },
+    { label: "Leasehold", href: "/leasehold" as const },
     { label: "Districts", href: "/districts" as const },
     { label: "Calculator", href: "/calculator" as const },
     { label: "Insights", href: "/insights" as const },

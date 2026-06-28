@@ -185,6 +185,13 @@ export function ObjectCard({ object, priority = false, priceMode = "buy", buildB
               {t.newBadge}
             </span>
           ) : null}
+          {/* Leasehold is the strategic product — flag it in the grid so the
+              tenure reads at a glance, not only deep in the spec table. */}
+          {object.tenure?.includes("Leasehold") ? (
+            <span className="rounded-sm bg-panel/85 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-panel-fg backdrop-blur-sm">
+              {t.leasehold}
+            </span>
+          ) : null}
         </div>
 
         {object.beachfront ? (

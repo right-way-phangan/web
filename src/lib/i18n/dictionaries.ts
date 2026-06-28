@@ -198,6 +198,7 @@ const chrome: Record<Locale, ChromeDict> = {
   en: {
     nav: [
       { label: "Listings", href: "/listings" },
+      { label: "Leasehold", href: "/leasehold" },
       { label: "Projects", href: "/projects" },
       { label: "Estates", href: "/estates" },
       { label: "Districts", href: "/districts" },
@@ -251,6 +252,7 @@ const chrome: Record<Locale, ChromeDict> = {
     // so the nav never links to a 404 between deploys.
     nav: [
       { label: "Объекты", href: "/ru/listings" },
+      { label: "Лизхолд", href: "/ru/leasehold" },
       { label: "Проекты", href: "/ru/projects" },
       { label: "Участки", href: "/ru/estates" },
       { label: "Районы", href: "/ru/districts" },
