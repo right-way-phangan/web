@@ -31,6 +31,7 @@ const inquirySchema = z
 
     // Hidden / context fields
     rwNumber: z.string().optional(),       // present on object inquiry, absent on /contact
+    vid: z.string().max(64).optional(),    // anonymous visitor id → links lead to its browse journey
     source: z.enum(["object", "contact"]), // discriminator
     lang: z.enum(["en", "ru"]).optional(), // UI language the visitor submitted in → reply in their language
     kind: z.enum(["inquiry", "calculator", "market-report", "shortlist", "saved-search", "valuation"]).optional(), // calculator = ROI-calc; market-report = /insights unlock; shortlist = saved-listings batch; saved-search = new-listing alert request; valuation = /tools/estimate seller lead
@@ -248,6 +249,7 @@ export async function submitInquiry(
           rwNumber: data.rwNumber || undefined,
           source: data.source,
           kind: data.kind,
+          vid: data.vid || undefined,
         }),
       });
       if (!res.ok) throw new Error(`leads API → ${res.status}`);

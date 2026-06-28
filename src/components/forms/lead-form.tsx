@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
 import { submitInquiry, type FormState } from "@/lib/actions/inquiry";
 import { getAttribution } from "@/lib/analytics/attribution";
 import { trackObjectEvent } from "@/lib/analytics/track-event";
+import { getVid } from "@/lib/analytics/visitor";
 import { getFormDict, type Locale } from "@/lib/i18n/dictionaries";
 import { whatsappLink, telegramDmLink } from "@/lib/site-config";
 import { cn } from "@/lib/utils/cn";
@@ -50,6 +51,10 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
   const formRef = useRef<HTMLFormElement | null>(null);
   const startedRef = useRef(false);
   const viewedRef = useRef(false);
+  // Anonymous visitor id (client-only — localStorage) so the lead links to its
+  // browse journey. Set after mount to avoid an SSR hydration mismatch.
+  const [vid, setVid] = useState("");
+  useEffect(() => setVid(getVid() ?? ""), []);
   // Reply-channel ↔ contact consistency: if the visitor asks us to reply on
   // WhatsApp/Telegram but leaves the phone empty, nudge for a number (soft —
   // never blocks; email is still a valid fallback).
@@ -130,6 +135,7 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
       <input type="hidden" name="lang" value={locale} />
       {kind ? <input type="hidden" name="kind" value={kind} /> : null}
       {rwNumber ? <input type="hidden" name="rwNumber" value={rwNumber} /> : null}
+      {vid ? <input type="hidden" name="vid" value={vid} /> : null}
       {utm.utm_source ? <input type="hidden" name="utm_source" value={utm.utm_source} /> : null}
       {utm.utm_medium ? <input type="hidden" name="utm_medium" value={utm.utm_medium} /> : null}
       {utm.utm_campaign ? <input type="hidden" name="utm_campaign" value={utm.utm_campaign} /> : null}

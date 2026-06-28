@@ -15,16 +15,19 @@ const KINDS = new Set([
 export async function POST(req: Request): Promise<Response> {
   if (BACKEND_URL) {
     try {
-      const { kind, rw } = (await req.json()) as { kind?: unknown; rw?: unknown };
+      const { kind, rw, vid } = (await req.json()) as { kind?: unknown; rw?: unknown; vid?: unknown };
       const k = String(kind ?? "");
       const rwNumber = String(rw ?? "");
       const rwOk = rwNumber === "" || /^RW-[A-Z]?\d{3,5}(-\d{1,3})?$/i.test(rwNumber);
+      // Anonymous browser id only (alnum, capped) — links the action to a journey.
+      const rawVid = String(vid ?? "");
+      const v = /^[A-Za-z0-9_-]{1,64}$/.test(rawVid) ? rawVid : undefined;
       if (KINDS.has(k) && rwOk) {
         await backendFetch("/track/event", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           cache: "no-store",
-          body: JSON.stringify({ kind: k, rw: rwNumber }),
+          body: JSON.stringify(v ? { kind: k, rw: rwNumber, vid: v } : { kind: k, rw: rwNumber }),
         });
       }
     } catch {

@@ -4,6 +4,8 @@
  * engagement events (save/calc/brochure/share), messenger clicks, forms.
  */
 
+import { getVid } from "@/lib/analytics/visitor";
+
 function beacon(path: string, payload: Record<string, unknown>): void {
   if (typeof window === "undefined") return;
   try {
@@ -16,9 +18,10 @@ function beacon(path: string, payload: Record<string, unknown>): void {
   }
 }
 
-/** Record an engagement event in our own DB. rw omitted → site-level ('__site__'). */
+/** Record an engagement event in our own DB. rw omitted → site-level ('__site__').
+ * vid (anonymous browser id) lets high-signal actions be stitched into a journey. */
 export function trackObjectEvent(kind: string, rw?: string): void {
-  beacon("/api/track-event", { kind, rw: rw ?? "" });
+  beacon("/api/track-event", { kind, rw: rw ?? "", vid: getVid() });
 }
 
 /** Record a classified referral source (once per session). `path` (landing
