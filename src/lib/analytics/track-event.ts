@@ -21,7 +21,8 @@ export function trackObjectEvent(kind: string, rw?: string): void {
   beacon("/api/track-event", { kind, rw: rw ?? "" });
 }
 
-/** Record a classified referral source (once per session). */
-export function trackReferral(source: string): void {
-  beacon("/api/track-referral", { source });
+/** Record a classified referral source (once per session). `path` (landing
+ * pathname) lets the backend log which page AI assistants cited. */
+export function trackReferral(source: string, path?: string): void {
+  beacon("/api/track-referral", path ? { source, path } : { source });
 }

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getLeads, getPipelines, getEvents, CRM_ENABLED, type CrmLead } from "@/lib/data/leads";
 import { getViewsByRw, getCrossShoppers } from "@/lib/data/views";
 import { getSiteEventStats, getOnPageFunnel } from "@/lib/data/events";
-import { getReferrals, referralLabel } from "@/lib/data/referrals";
+import { getReferrals, getAiCitations, referralLabel } from "@/lib/data/referrals";
 import { classifyReferrer, isAiChannel } from "@/lib/analytics/referrer";
 import { AdminNav } from "@/components/admin/admin-nav";
 import { forecastPipeline, forecastByMonth } from "@/lib/crm/forecast";
@@ -108,7 +108,7 @@ export default async function CrmStatsPage() {
     );
   }
 
-  const [leads, pipelines, events, viewsByRw, siteEvents, onPage, crossShoppers, referrals, liveRates, monthlyTarget] =
+  const [leads, pipelines, events, viewsByRw, siteEvents, onPage, crossShoppers, referrals, aiCitations, liveRates, monthlyTarget] =
     await Promise.all([
       getLeads(),
       getPipelines(),
@@ -118,6 +118,7 @@ export default async function CrmStatsPage() {
       getOnPageFunnel(),
       getCrossShoppers(),
       getReferrals(),
+      getAiCitations(),
       getLiveRatesTHB(),
       getMonthlyTargetThb(),
     ]);
@@ -754,6 +755,45 @@ export default async function CrmStatsPage() {
                 count={r.d30}
                 max={referrals[0]?.d30 ?? 0}
               />
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* AI цитирует страницы — какие наши страницы выдают ответные движки */}
+      <div className="mt-10">
+        <h2 className="mb-1 text-lg font-semibold text-forest-900">
+          🤖 AI цитирует страницы · 30 дней
+        </h2>
+        <p className="mb-3 text-xs text-forest-900/50">
+          На какие наши страницы ИИ-ассистенты (Perplexity, ChatGPT, Gemini…) приводят посетителя —
+          то, что движки реально выдают в ответах. Прямой замер ставки на GEO/AEO. Считаем только
+          landing-страницу, без идентификации.
+        </p>
+        {aiCitations.length === 0 ? (
+          <p className="text-sm text-forest-900/45">
+            Пока ни одного захода с ИИ-ассистента (или данные ещё не накопились).
+          </p>
+        ) : (
+          <div className="space-y-2">
+            {aiCitations.slice(0, 12).map((c) => (
+              <div
+                key={c.path}
+                className="flex items-center justify-between gap-3 rounded-lg border border-forest-900/10 bg-cream-50 px-3 py-2"
+              >
+                <div className="min-w-0">
+                  <a href={c.path} className="block truncate text-sm font-medium text-forest-900 hover:underline">
+                    {c.path}
+                  </a>
+                  <div className="text-xs text-forest-900/45">
+                    {c.sources.map((s) => s.replace(/^ai:/, "")).join(" · ")}
+                  </div>
+                </div>
+                <div className="shrink-0 text-right">
+                  <div className="text-sm font-semibold text-forest-900">{nf.format(c.d30)}</div>
+                  <div className="text-xs text-forest-900/45">7д: {nf.format(c.d7)}</div>
+                </div>
+              </div>
             ))}
           </div>
         )}

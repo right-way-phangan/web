@@ -21,6 +21,26 @@ export async function getReferrals(): Promise<ReferralRow[]> {
   }
 }
 
+/** Pages cited by AI assistants (backend GET /ai-citations/summary). Which of
+ * our pages answer engines actually surface — the per-page GEO/AEO signal. */
+export interface AiCitationRow {
+  path: string;
+  d7: number;
+  d30: number;
+  sources: string[]; // ai:perplexity | ai:chatgpt | …
+}
+
+export async function getAiCitations(): Promise<AiCitationRow[]> {
+  if (!API) return [];
+  try {
+    const r = await backendFetch("/ai-citations/summary", { cache: "no-store" });
+    return r.ok ? ((await r.json()) as AiCitationRow[]) : [];
+  } catch (err) {
+    console.error("[referrals] ai-citations failed:", err);
+    return [];
+  }
+}
+
 /** Human label for a source token. */
 export function referralLabel(source: string): string {
   const [group, name] = source.split(":");

@@ -120,7 +120,9 @@ export function captureReferralOncePerSession(): void {
     if (!source && (sp.has("gclid") || sp.has("fbclid"))) {
       source = sp.has("gclid") ? "search:google" : "social:facebook";
     }
-    trackReferral(source || "direct");
+    // Landing pathname (no query/identity) — lets the backend record which
+    // page an AI assistant cited, for ai:* sources only.
+    trackReferral(source || "direct", window.location.pathname);
   } catch {
     /* best-effort */
   }
