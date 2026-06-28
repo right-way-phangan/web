@@ -1,14 +1,16 @@
 name: Refresh hero scenes
 
-# Rebuilds public/scenes.json from the live catalog once a week and commits it.
-# The push triggers a Vercel redeploy, so the homepage hero refreshes itself as
-# inventory turns over — no manual edits. Also runnable on demand.
+# Rebuilds public/scenes.json from the live catalog and commits it (push → Vercel redeploy).
+#
+# MANUAL-ONLY. The homepage hero now ships a hand-curated set of premium drone
+# photos of Koh Phangan & the Gulf (public/hero/scene-*.jpg, see public/images/CREDITS.md).
+# The old weekly schedule kept regenerating scenes.json from the catalog, which is
+# land-heavy — so the hero filled with watermarked land-plot aerials. Auto-refresh is
+# therefore disabled; run on demand only if you deliberately want catalog covers back.
 #
 # Requires repo secrets: OBJECTS_API_URL, OBJECTS_API_TOKEN (own backend, post-cutover).
 
 on:
-  schedule:
-    - cron: "0 3 * * 1" # Mondays 03:00 UTC
   workflow_dispatch: {}
 
 permissions:
