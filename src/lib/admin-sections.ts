@@ -22,6 +22,7 @@ export type AdminSection =
   | "comps"
   | "journey"
   | "seo"
+  | "trends"
   | "agents"
   | "zoning"
   | "photo-audit"
@@ -53,6 +54,7 @@ export const ADMIN_SECTIONS: AdminSectionMeta[] = [
   { key: "comps", label: "Рынок · компсы", href: "/admin/comps" as Route, guideSlug: "comps", needsGuide: true },
   { key: "journey", label: "Путь посетителя", href: "/admin/journey" as Route, guideSlug: "journey", needsGuide: true },
   { key: "seo", label: "SEO · Search Console", href: "/admin/seo" as Route, guideSlug: "seo", needsGuide: true },
+  { key: "trends", label: "Тренды", href: "/admin/trends" as Route, guideSlug: "trends", needsGuide: true },
   { key: "agents", label: "Агенты", href: "/admin/agents" as Route, guideSlug: "agents", needsGuide: true },
   { key: "zoning", label: "Зоны застройки", href: "/admin/zoning" as Route, guideSlug: "zoning", needsGuide: true },
   { key: "photo-audit", label: "Проверка фото", href: "/admin/photo-audit" as Route, guideSlug: "photo-audit", needsGuide: true },
