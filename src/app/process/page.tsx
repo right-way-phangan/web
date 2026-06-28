@@ -76,7 +76,7 @@ export default function ProcessPage() {
             <div className="rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5">
               <div className="rounded-core bg-cream-50 p-6 shadow-bezel md:p-8">
                 <h2 className="font-serif text-3xl text-forest-900 md:text-4xl">
-                  Ready when you are.
+                  The first call is free.
                 </h2>
                 <p className="mt-4 text-lg text-forest-500/70">
                   A discovery call is the cheapest hour we&rsquo;ll spend
