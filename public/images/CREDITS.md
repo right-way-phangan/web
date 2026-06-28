@@ -49,7 +49,8 @@ Actual photographs of the named place (Wikimedia Commons — **attribution requi
 | process.jpg          | 8300659  | Golden-hour aerial cove | /process hero |
 | faq.jpg              | 15249164 | Palm beach at dusk | /faq hero |
 | contact.jpg          | 30852253 | Coastal villas above the sea | /contact hero |
-| cove-portrait.jpg    | 5282255  | Sunlit jungle cove (portrait) | homepage closing CTA band |
+| home-closing.jpg     | 8300613  | Tropical islet at sunset (Gulf of Thailand) | homepage closing CTA band |
+| cove-portrait.jpg    | 5282255  | Sunlit jungle cove (portrait) | spare (unused) |
 | phangan-sign.jpg     | 11963508 | "Koh Phangan" beach sign | spare (unused) |
 
 ## Homepage hero — crossfading drone scenes (`/hero/scene-*.jpg` + `/hero-phangan.jpg`)

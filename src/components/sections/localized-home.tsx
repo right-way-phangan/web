@@ -72,8 +72,8 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
       {/* Closing CTA — full-bleed coastal scene bookending the dark hero */}
       <section className="relative isolate overflow-hidden bg-panel">
         <Image
-          src="/images/scenes/coast-aerial.jpg"
-          alt="Aerial view of the Koh Phangan coastline"
+          src="/images/scenes/home-closing.jpg"
+          alt="Aerial view of a tropical islet at sunset over the Gulf of Thailand"
           fill
           sizes="100vw"
           className="object-cover"
