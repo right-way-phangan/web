@@ -2306,6 +2306,180 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "Should I buy a land plot, a finished villa or off-plan on Koh Phangan, and how do I choose?",
   },
+  {
+    slug: "freehold-condo-vs-leasehold-villa",
+    kbId: "kb-0035",
+    topic: "Ownership",
+    title: "Freehold condo vs leasehold villa for a foreigner: the real difference",
+    short:
+      "A foreigner in Thailand can own a condominium unit with a permanent title — no expiry, full resale rights. A villa sits on leased land with a 30-year registered term. The choice turns on budget, time horizon, lifestyle and how much legal complexity you want to carry.",
+    updated: "2026-06-28",
+    body: [
+      "Thailand gives foreign buyers two legitimate paths to residential property: a **freehold condominium unit** under the Condominium Act, or a **leasehold villa** on a registered 30-year land lease combined with building ownership. Each is genuinely distinct — in legal permanence, transfer costs, resale dynamics and practical day-to-day reality. Understanding the difference before choosing is one of the most important decisions you will make.",
+      { h: "What 'freehold' actually means for a foreigner in Thailand" },
+      "A freehold condominium gives a foreigner a permanent registered title at the Land Office — a Chanote in their own name, with no expiry date. They own the unit outright and can sell, rent, mortgage or bequeath it without any lease running out. This is as close to outright property ownership as Thai law allows a foreigner to get.",
+      "The critical caveat: this freehold covers the **unit only**, not the land beneath the building. That land is held by the building's juristic entity. 'Freehold' for a foreigner in Thailand is therefore not the same thing as freehold in the UK, Australia or Europe, where owning a house means owning the land too.",
+      "A **leasehold villa** is different in kind. The foreigner owns the building, registered through a superficies or construction permit, but holds the land via a 30-year lease registered at the Land Office. The lease is a time-limited right — it expires, and renewal beyond the first 30-year term is a contractual promise from the landowner, not a registered property right.",
+      { h: "The 49% quota rule for condominiums" },
+      "Under the Condominium Act B.E. 2522, foreigners can collectively own no more than 49% of the total sellable floor area in any registered condominium project. The quota is project-specific and calculated by floor area, not unit count — a larger unit consumes proportionally more quota. Before paying any deposit, request written quota confirmation from the project's juristic office.",
+      "When a project's 49% quota is exhausted, remaining units can still be purchased by foreigners — but only on a leasehold basis, not freehold. The headline price may look the same; the legal reality is different.",
+      "Proposals to raise the foreign quota to 60–75% in certain resort zones have been under government review since 2024. As of mid-2026, these proposals remain unenacted. The operative rule for any purchase is still 49% — verify with the Land Department or a licensed Thai lawyer before assuming any change applies.",
+      { h: "The 2025 Supreme Court ruling on leasehold renewals" },
+      "In March 2025, the Thai Supreme Court (Case No. 4655/2566) confirmed that clauses in lease agreements providing for 'automatic renewal' beyond the initial 30-year term are unenforceable. A renewal promise is a **personal contractual obligation** between the lessor and lessee — it is not a registered property right and is not binding on a new owner if the landowner sells or dies.",
+      "This ruling directly affects the commonly marketed '30 + 30 + 30' or '90-year lease' structure. The first 30-year registered term is legally secure. The second and third terms require a new agreement executed at the end of each prior term, with the then-landowner's cooperation. If cooperation is withheld or the land changes hands, the tenant's recourse is a contractual claim, not a property right.",
+      "The remedy is to combine the lease with a registered **superficies** — which protects your ownership of the building independently — and to negotiate explicit renewal penalty clauses with specific performance provisions. A well-drafted contract mitigates but does not eliminate the renewal risk.",
+      { h: "Transfer costs compared" },
+      {
+        ul: [
+          "**Condo freehold purchase** — the main buyer cost is the transfer fee of 2% of the Land Department's appraised value. Sellers typically pay a Specific Business Tax (3.3% if they have owned less than 5 years) or stamp duty (0.5% if 5+ years) plus withholding tax (~1%). In practice, parties often split the 2% transfer fee, making the buyer's net one-time transaction cost roughly 1–1.5% of appraised value.",
+          "**Leasehold villa purchase** — the main registration cost is the lease registration fee of 1% of the total lease value, plus stamp duty of 0.1%, totalling 1.1%. This is calculated on the total amount paid for the lease (not on a separate land value), which typically keeps the cost lower in percentage terms than a condo transfer fee.",
+          "**Annual land and building tax** — for a condo used as a primary residence, the rate is 0.02–0.10% of appraised value annually. For a leasehold villa used as a vacation rental, the rate is 0.30–0.70%. See [Owner's taxes on Koh Phangan](/knowledge/owners-taxes-annual-land-and-income) for the full picture.",
+        ],
+      },
+      "All purchase funds — for either structure — must be transferred from overseas in foreign currency and converted to Thai Baht on arrival. The Foreign Exchange Transaction (FET) form must be obtained from the receiving bank and match the buyer's name exactly. It is a mandatory document at the Land Office. See [Bringing money into Thailand correctly](/knowledge/bringing-money-into-thailand-fet-form).",
+      { h: "Resale and liquidity" },
+      "A freehold condo unit can be resold to any buyer — Thai or foreign — at any time, with no expiring term to factor in. The buyer pool is wide and the resale process mirrors the initial purchase. Value does not diminish simply because time has passed, as it would with a shortening lease.",
+      "A leasehold villa's resale position depends critically on the remaining term. A lease with 28 of 30 years remaining is straightforward to sell. The same lease with 8 years remaining is nearly unsaleable to most buyers — the term is too short to justify the purchase price. This is the deepest structural difference between the two products and the one most underappreciated at the time of initial purchase. See [Selling your leasehold villa on Koh Phangan](/knowledge/selling-leasehold-villa-exit-liquidity).",
+      { h: "Inheritance" },
+      "A freehold condo can be inherited by foreign heirs, but they must satisfy the 49% foreign quota at the time of inheritance. If the project's quota is full when the estate is settled, heirs may be required to sell the unit (Thai law gives time to do so). A Thai heir has no such constraint.",
+      "A leasehold villa can pass to heirs only if the lease contract explicitly allows assignment to the lessee's estate and successors. If the contract is silent, heirs may have no right to the remaining lease term. This is a non-negotiable clause to include when signing the original lease.",
+      { h: "Which is right for which buyer" },
+      {
+        ul: [
+          "**Budget below ~8M THB** — a condo is often the only viable fully legal option. Villa supply in this range on Koh Phangan is thin, and any 'villa' at this price point deserves extra legal scrutiny.",
+          "**Legal certainty priority, medium-term horizon (under 10 years)** — a freehold condo. Permanent title, broader resale market, no depreciating lease term.",
+          "**Lifestyle: space, pool, garden, privacy** — a leasehold villa. The villa product on Koh Phangan is simply not available in freehold; the 49% quota applies only to condominium projects, and most of the island's residential market is villa-format on leased land.",
+          "**Rental income focus (30-day+ stays)** — a villa typically generates stronger gross yield on a larger property. For stays under 30 days a hotel licence is required regardless of property type. See [Renting out your villa on Koh Phangan](/knowledge/renting-out-your-villa-rules-and-taxes).",
+          "**Long-term horizon (10–30 years), family, primary residence** — a leasehold villa with a well-drafted contract and registered superficies, combined with serious legal advice on the renewal provisions.",
+        ],
+      },
+      "On Koh Phangan specifically, registered condominium projects are fewer than on Koh Samui or in Phuket, and the foreign-quota supply of freehold units is limited. Most foreign buyers on the island are purchasing leasehold villas. If you are specifically seeking a freehold title on Koh Phangan, confirm the project is a registered condominium under the Condominium Act (not just a building marketed as a 'condo') before proceeding. See [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa) and [Leasehold vs freehold on Koh Phangan](/knowledge/leasehold-vs-freehold).",
+    ],
+    takeaways: [
+      "A freehold condo gives a foreigner a permanent registered Chanote title with no expiry — but only within the 49% foreign-ownership quota per project, and only for the unit (not the land).",
+      "A leasehold villa gives a 30-year registered term on the land plus ownership of the building; the 2025 Supreme Court ruling confirmed that '30+30+30' auto-renewal clauses are unenforceable beyond the first term.",
+      "Condo transfer costs ~2% of appraised value; leasehold registration costs ~1.1% of total lease value — both are on top of any negotiated purchase price.",
+      "Condo resale is simpler and time-independent; leasehold resale value shrinks materially as the remaining term falls — factor this in when you buy.",
+      "On Koh Phangan, most of the property market is leasehold villas; freehold condo quota is limited — confirm project registration before committing.",
+    ],
+    sources: [
+      {
+        title: "Lex Bangkok — Can Foreigners Buy Condominiums in Thailand? (2025)",
+        url: "https://lexbangkok.com/can-foreigners-buy-condominiums-in-thailand/",
+      },
+      {
+        title: "Themis Partner — Thailand Condominium Act: Guide for Foreign Buyers 2025",
+        url: "https://thailand.themispartner.com/guides/thailand-condominium-act-guide-foreign-buyers/",
+      },
+      {
+        title: "Formichella & Sritawat — Thai Supreme Court Shuts Door on Long-Term Lease Loopholes (2025)",
+        url: "https://fosrlaw.com/2025/supreme-court-lease/",
+      },
+      {
+        title: "Jirawat Law — Thailand 30-Year Lease Agreements: Rights, Risks & Renewals",
+        url: "https://jirawatlawoffice.co.th/understanding-30-year-leasehold-agreements/",
+      },
+      {
+        title: "Forbes & Partners — Thailand Property Transfer Fees & Tax Guide 2025/2026",
+        url: "https://www.forbesandpartners.com/thailand-property-transfer-cost-tax-breakdown/",
+      },
+      {
+        title: "Siam Real Estate — Condos vs Villas in Thailand 2025",
+        url: "https://www.siamrealestate.com/thailand-property-news/condos-vs-villas-in-thailand-a-comprehensive-guide-to-property-ownership-for-foreigners-in-2025",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "ownership",
+    faqQuestion:
+      "Should I buy a freehold condo or a leasehold villa as a foreigner in Thailand?",
+  },
+  {
+    slug: "phangan-market-seasonality",
+    kbId: "kb-0036",
+    topic: "Costs",
+    title: "Koh Phangan property market seasonality: when to buy and when to sell",
+    short:
+      "Koh Phangan has a pronounced tourist high season (December–April) and a wet-season low (May–October). Short-term rental revenue varies by 2–3× between peak and trough months. Understanding the rhythm helps you time a purchase, set rental expectations and negotiate correctly.",
+    updated: "2026-06-28",
+    body: [
+      "Koh Phangan's property market operates in two overlapping rhythms: **tourist seasonality** (which drives rental income) and **buyer activity seasonality** (which shapes when deals happen and who has negotiating leverage). They are correlated but not identical. Getting both right matters whether you are buying for personal use, rental income, or eventual resale.",
+      { h: "The tourist calendar" },
+      {
+        ul: [
+          "**Peak season (December–April)** — the island's dry months, warm water, clear skies, hotel occupancy reaching 85–90% at the April Full Moon Party and Songkran combination. December–January is the single highest revenue period for short-stay rentals; hotels and villas charge 50%+ above low-season rates.",
+          "**Secondary peak (July–August)** — Northern Hemisphere school holidays generate a meaningful second wave of European and international visitors, pushing occupancy above shoulder-season levels.",
+          "**Low season (May–October/November)** — the southwest monsoon brings consistent rain and rough seas on the western coast. November is the wettest month of the year (around 520–560 mm of rainfall). May, September, October and November see the fewest tourists and the lowest rental rates.",
+          "**Shoulder (March and November)** — weather transitions. March is still largely dry but visitor numbers taper from the January peak. November is wet but the island empties before December picks up.",
+        ],
+      },
+      "The Full Moon Party (held monthly at Haad Rin beach) runs year-round and creates a consistent demand spike — approximately 5,000–20,000 attendees in regular months, up to 30,000–40,000 in high season. Properties near Haad Rin see 2–3 night booking spikes with minimum-stay requirements for FMP dates. Across the island, FMP provides a base of demand even in the weakest months, though its impact on a hillside villa in Sri Thanu or Haad Yao is much smaller than on accommodation close to the party.",
+      { h: "Rental income by season: what the data shows" },
+      "Short-term rental data (Airbtics, AirROI, AirDNA) paints a consistent picture of sharp seasonal variation:",
+      {
+        ul: [
+          "**Peak month revenue (January)** — a well-positioned property on major platforms can generate approximately THB 130,000–160,000 gross in January, with occupancy above 50% even at premium nightly rates.",
+          "**Low month revenue (May)** — the same property may generate THB 50,000–55,000 in May, at reduced rates and lower occupancy. Revenue is roughly 35–40% of the January peak.",
+          "**Annual median** — AirDNA's market score for Koh Phangan is 89/100, with a seasonality score of 70/100 (moderate-to-high seasonality). Market-wide occupancy averages around 57% annually, with active listings growing at around 40% year-on-year — a supply expansion that is compressing per-unit revenue even as total market revenue grows.",
+          "**Location premium** — properties near Secret Beach, Haad Yao and Haad Salad outperform the island average by 30–47% in nightly rates, driven by sunset sea views and premium guest profiles.",
+        ],
+      },
+      "The supply growth is a material risk for investors buying in 2025–2026. Active listings on Airbnb-type platforms grew approximately 39–41% year-on-year. This means that overall market revenue is rising while revenue per individual listing is compressing. New buyers should use actual occupancy and revenue data from comparable current listings — not developer projections — when underwriting a rental income case. See [Renting out your villa on Koh Phangan](/knowledge/renting-out-your-villa-rules-and-taxes).",
+      { h: "Buyer activity and deal timing" },
+      "Most purchase decisions on Koh Phangan are made by buyers who first visited the island as tourists. The visitor season and the buyer activity season are therefore broadly aligned: agents are busiest during the high season (December–April), when foreign tourists are on the island, falling in love with a view, and starting conversations about buying.",
+      "The counterpart is that the wet season (May–October) typically brings fewer competing buyers. Sellers — particularly those who rely on rental income to cover holding costs — are under more financial pressure during slow months. Historically, buyers have been able to negotiate 10–20% off asking prices through direct negotiation, and the wet season can offer more leverage than the peak when sellers have fewer alternatives.",
+      "In the 2022–2025 bull market, the pronounced wet-season discount largely disappeared — demand from European and Israeli buyers remained year-round, keeping seller confidence high. As supply growth continues, the dynamic is likely shifting back toward more conventional seasonality in negotiating power. Track the inventory closely: if a property has been listed through multiple high seasons without selling, that is a stronger negotiating signal than seasonality alone.",
+      { h: "What changes with the 2025 supply environment" },
+      "The Koh Phangan market entered 2025–2026 with 41 active residential projects comprising 438 units and a combined development value of THB 7.94 billion — a significant pipeline for an island with historically constrained supply. New villa supply is simultaneously competing for the same rental demand base that existing properties are targeting.",
+      "For a buyer whose financial plan depends on rental income, this means: run conservative occupancy assumptions (55–65% rather than the 70–80% figures sometimes quoted by developers for premium properties); cross-check any projected nightly rates against current live listings for comparable properties; and factor in a hotel licence requirement for any rental of under 30 days. See [Owner's taxes on Koh Phangan](/knowledge/owners-taxes-annual-land-and-income).",
+      { h: "Practical timing guidance" },
+      {
+        ul: [
+          "**Best time to visit before buying** — arrive in the wet season (June–September). You will see the island honestly, fewer competing buyers are around, and motivated sellers are more negotiable. Then return in high season before signing anything — the experience of living there in December is also important to know.",
+          "**Best time to list for sale** — early high season (November–December). International buyers are arriving; agents are active; the island looks its best.",
+          "**Rental occupancy expectations** — model on 55–65% annual occupancy for a well-managed villa in an above-average location. Properties in the top 10% of their category can exceed 80%, but this requires active management, competitive pricing and strong platform presence across high and low seasons.",
+          "**Off-season negotiations** — a seller who has held a property through one or two wet seasons without a buyer is likely more flexible. Length of time on market matters more than which month you make the offer.",
+        ],
+      },
+      "Whatever timing you choose, the fundamentals apply year-round: clean title, correct legal structure, and zoning compliance are not seasonal variables. See [Due diligence before buying on Koh Phangan](/knowledge/due-diligence-checklist-koh-phangan) for the checklist, and [How land is priced on Koh Phangan](/knowledge/how-land-is-priced-price-per-rai) for context on what drives value independent of season.",
+    ],
+    takeaways: [
+      "Peak rental season is December–April; the single highest revenue month is January. Low season is May–October, with November the wettest month (~520–560 mm rainfall).",
+      "Short-term rental revenue varies by roughly 2.5–3× between January (peak) and May (trough) on a comparable well-positioned property.",
+      "Active short-stay listings grew ~40% year-on-year in 2024–2025 — supply expansion is compressing per-unit income even as total market revenue grows; underwrite conservatively.",
+      "Most buyer activity happens in high season when tourists visit and fall in love; the wet season typically offers more negotiating leverage and fewer competing buyers.",
+      "Timing is a secondary factor — legal structure, title quality and zoning compliance are the primary variables that determine whether a deal is sound.",
+    ],
+    sources: [
+      {
+        title: "Airbtics — Ko Pha Ngan Airbnb revenue and occupancy data 2026",
+        url: "https://airbtics.com/annual-airbnb-revenue-in-ko-pha-ngan-thailand/",
+      },
+      {
+        title: "AirROI — Ko Pha Ngan short-term rental analysis 2025",
+        url: "https://www.airroi.com/report/world/thailand/surat-thani/ko-pha-ngan",
+      },
+      {
+        title: "AirDNA — Ko Pha Ngan market overview",
+        url: "https://www.airdna.co/vacation-rental-data/app/th/default/ko-pha-ngan/overview",
+      },
+      {
+        title: "Samui Phangan Real Estate — Koh Phangan property investment",
+        url: "https://www.samui-phangan-real-estate.com/koh-phangan-property-investment/",
+      },
+      {
+        title: "Full Moon Party Koh Phangan — upcoming dates and attendance",
+        url: "https://fullmoonparty-kohphangan.com/upcoming-dates.html",
+      },
+      {
+        title: "Bestbkkcondos — negotiating a property purchase on Koh Phangan",
+        url: "https://bestbkkcondos.com/negotiating-the-purchase-price-of-a-property-in-koh-phangan/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion:
+      "When is the best time to buy or sell property on Koh Phangan, and how does the tourist season affect rental income?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

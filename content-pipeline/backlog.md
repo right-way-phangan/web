@@ -35,7 +35,7 @@ Status: ⏳ queued · ✅ published.
 | The lease contract: clauses you must check (succession, renewal, assignment) | documents | 🟢 | ✅ |
 | Chanote vs Nor Sor 3 Gor in practice: how to read a cadastral plan | documents | 🟡 | ✅ |
 | Visa and residency for a property owner: what a purchase does and doesn't give | phangan | 🟡 | ✅ |
-| Phangan market seasonality: when to buy and when to sell | costs | ⚪️ | ⏳ |
+| Phangan market seasonality: when to buy and when to sell | costs | ⚪️ | ✅ |
 
 ## C. Per-district guides (~18 districts in districts.ts)
 
@@ -54,4 +54,4 @@ Status: ⏳ queued · ✅ published.
 |---|---|---|---|
 | Phangan vs Samui vs Tao for investment: an honest comparison | costs | 🟡 | ✅ |
 | Land vs finished villa vs off-plan: choosing by goal | process | 🟡 | ✅ |
-| Freehold condo vs leasehold villa for a foreigner | ownership | 🟡 | ⏳ |
+| Freehold condo vs leasehold villa for a foreigner | ownership | 🟡 | ✅ |
