@@ -177,6 +177,14 @@ export default async function ObjectPage({ params }: Props) {
             isLand={object.type === "Land"}
           />
           {object.priceThb ? <PriceContextBadge object={object} catalog={catalog} /> : null}
+          {object.priceThb ? (
+            <a
+              href="#roi"
+              className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-brass-600 underline-offset-2 transition-colors hover:text-brass-700 hover:underline"
+            >
+              See ROI projection →
+            </a>
+          ) : null}
 
           {object.district ? (
             <div className="mt-4 flex flex-wrap items-center gap-2 text-sm text-forest-500/70">
@@ -265,7 +273,7 @@ export default async function ObjectPage({ params }: Props) {
         </div>
 
         {object.priceThb ? (
-          <section className="mt-16 border-t border-forest-500/10 pt-12 md:mt-20 md:pt-16 print:hidden">
+          <section id="roi" className="scroll-mt-24 mt-16 border-t border-forest-500/10 pt-12 md:mt-20 md:pt-16 print:hidden">
             <h2 className="font-serif text-3xl text-forest-900">Investment outlook</h2>
             <p className="mt-3 max-w-2xl text-base text-forest-500/70">
               Project this property&apos;s value over time. Set your own growth
