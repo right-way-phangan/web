@@ -3,7 +3,7 @@
 import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import type { Route } from "next";
-import { ArrowRight, Map as MapIcon, Satellite } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import type { LandEstate } from "@/content/land-estates";
 import { estatePhotoPlots, estateStats, estatePriceFrom } from "@/content/land-estates";
 import { formatPriceCompact } from "@/lib/utils/price";
@@ -14,7 +14,6 @@ import { cn } from "@/lib/utils/cn";
 import { Appear } from "@/components/motion/appear";
 import { ObjectLocationMap } from "@/components/objects/object-location-map";
 import { EstateSitePlan } from "./estate-site-plan";
-import { EstateSatelliteView } from "./estate-satellite-view";
 import { EstatePlotsTable } from "./estate-plots-table";
 import { EstateGallery } from "./estate-gallery";
 import { EstateInquiry } from "./estate-inquiry";
@@ -24,7 +23,6 @@ import { EstateCurrencyProvider, CurrencyToggle } from "./estate-currency";
 
 type Filter = "all" | "available" | "sea" | "mountain";
 type Sort = "recommended" | "priceLow" | "priceHigh" | "areaLarge";
-type PlanMode = "plan" | "satellite";
 
 interface Props {
   estate: LandEstate;
@@ -49,7 +47,6 @@ export function EstateExplorer({ estate, locale, initialLot }: Props) {
   const [compareCodes, setCompareCodes] = useState<string[]>([]);
   const [filter, setFilter] = useState<Filter>("all");
   const [sort, setSort] = useState<Sort>("recommended");
-  const [planMode, setPlanMode] = useState<PlanMode>("plan");
   const [enquireSeen, setEnquireSeen] = useState(false);
 
   // Deep-link ?lot=R7 → открыть драуэр этого лота при заходе.
@@ -115,27 +112,15 @@ export function EstateExplorer({ estate, locale, initialLot }: Props) {
     <EstateCurrencyProvider>
     <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_360px] lg:gap-16">
       <div className="min-w-0 space-y-16">
-        {/* План разбивки + режим «Спутник» */}
+        {/* План разбивки */}
         {estate.plan ? (
           <section id="plan" className="scroll-mt-32">
-            <div className="flex flex-wrap items-start justify-between gap-3">
-              <div>
-                <h2 className="font-serif text-3xl text-forest-900">{t.sections.plan}</h2>
-                <p className="mt-2 max-w-prose text-sm text-forest-500/70">{t.planLede}</p>
-              </div>
-              {hasCoords ? (
-                <div className="flex shrink-0 gap-1 rounded-full border border-forest-500/15 bg-cream-50 p-1">
-                  <ModeBtn active={planMode === "plan"} onClick={() => setPlanMode("plan")} icon={<MapIcon className="h-3.5 w-3.5" />} label={t.planView.plan} />
-                  <ModeBtn active={planMode === "satellite"} onClick={() => setPlanMode("satellite")} icon={<Satellite className="h-3.5 w-3.5" />} label={t.planView.satellite} />
-                </div>
-              ) : null}
+            <div>
+              <h2 className="font-serif text-3xl text-forest-900">{t.sections.plan}</h2>
+              <p className="mt-2 max-w-prose text-sm text-forest-500/70">{t.planLede}</p>
             </div>
             <div className="mt-6">
-              {planMode === "satellite" && estate.lat && estate.lng ? (
-                <EstateSatelliteView lat={estate.lat} lng={estate.lng} mapsUrl={estate.locationUrl} locale={locale} />
-              ) : (
-                <EstateSitePlan estate={estate} locale={locale} hovered={hovered} selected={drawerLot} onHover={setHovered} onSelect={setDrawerLot} />
-              )}
+              <EstateSitePlan estate={estate} locale={locale} hovered={hovered} selected={drawerLot} onHover={setHovered} onSelect={setDrawerLot} />
             </div>
           </section>
         ) : null}
@@ -301,19 +286,3 @@ export function EstateExplorer({ estate, locale, initialLot }: Props) {
   );
 }
 
-function ModeBtn({ active, onClick, icon, label }: { active: boolean; onClick: () => void; icon: React.ReactNode; label: string }) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-pressed={active}
-      className={cn(
-        "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
-        active ? "bg-forest-900 text-cream-50" : "text-forest-500/70 hover:text-forest-900",
-      )}
-    >
-      {icon}
-      {label}
-    </button>
-  );
-}

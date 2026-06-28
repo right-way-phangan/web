@@ -98,8 +98,8 @@ export function EstateSitePlan({ estate, locale, hovered, selected, onHover, onS
   };
 
   return (
-    <figure ref={figRef} className="overflow-hidden rounded-sm border border-forest-500/15 bg-cream-50 shadow-md">
-      <svg viewBox={plan.viewBox} className="block w-full select-none" role="img" aria-label={t.sections.plan}>
+    <figure ref={figRef} className="mx-auto w-full max-w-[440px] overflow-hidden rounded-sm border border-forest-500/15 bg-cream-50 shadow-md">
+      <svg viewBox={plan.viewBox} className="block max-h-[80vh] w-full select-none" role="img" aria-label={t.sections.plan}>
         <defs>
           <radialGradient id="esp-bg" cx="33%" cy="20%" r="105%">
             <stop offset="0%" stopColor="#F6EFDF" />
