@@ -8,9 +8,11 @@ type Scene = { src: string; alt: string };
 /**
  * Hero backdrop: a slow crossfade through a handful of Phangan scenes, with a
  * subtle Ken-Burns drift on the active frame so a single image never feels
- * static. Scenes come from /scenes.json, rebuilt weekly by a GitHub Action from
- * our own catalog (scripts/build-scenes.mjs) — so the hero refreshes itself as
- * inventory turns over, with zero manual edits.
+ * static. Scenes come from /scenes.json — a hand-curated set of premium drone
+ * photos of Phangan & the Gulf (public/hero/scene-*.jpg, credited in
+ * public/images/CREDITS.md). The old weekly catalog auto-refresh is disabled
+ * (it surfaced watermarked land-plot aerials); to change the rotation, swap the
+ * files and edit scenes.json.
  *
  * The static fallback ships in the HTML as the LCP image (priority) so the hero
  * paints instantly even before the manifest loads or if it's empty/unreachable.
@@ -105,7 +107,7 @@ export function HeroBackground({
           fill
           priority
           sizes="100vw"
-          quality={65}
+          quality={72}
           className="object-cover"
         />
 
@@ -119,7 +121,7 @@ export function HeroBackground({
               alt=""
               fill
               sizes="100vw"
-              quality={60}
+              quality={70}
               aria-hidden
               onError={() =>
                 setFailed((prev) => {
@@ -129,7 +131,7 @@ export function HeroBackground({
                 })
               }
               className={[
-                "object-cover transition-opacity duration-[1200ms] ease-in-out",
+                "object-cover transition-opacity duration-[1600ms] ease-in-out",
                 i === idx ? "opacity-100" : "opacity-0",
               ].join(" ")}
             />

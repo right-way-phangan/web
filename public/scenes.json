@@ -1,30 +1,30 @@
 {
-  "generatedAt": "2026-06-23T16:27:09.024Z",
-  "source": "catalog",
+  "generatedAt": "2026-06-27T00:00:00.000Z",
+  "source": "curated",
   "scenes": [
     {
-      "src": "https://pub-e6d4ecfb57d243b4801e5d6fa0a37220.r2.dev/objects/RW-0516/00_1duJXqyyEEdyB6Kc7avGHA0IVXMGGwUav.jpg",
-      "alt": "A land on Ban Tai, Koh Phangan"
+      "src": "/hero/scene-1.jpg",
+      "alt": "Drone view of an emerald cove with granite boulders in the Gulf of Thailand"
     },
     {
-      "src": "https://pub-e6d4ecfb57d243b4801e5d6fa0a37220.r2.dev/objects/RW-0547/00_1QK-T-G1x-nvisWOrOb9QnqdYxUpgYHH6.jpg",
-      "alt": "A land on Haad Yao, Koh Phangan"
+      "src": "/hero/scene-2.jpg",
+      "alt": "Aerial view of a turquoise sandbar beach on Koh Phangan"
     },
     {
-      "src": "https://pub-e6d4ecfb57d243b4801e5d6fa0a37220.r2.dev/objects/RW-0541/00_1n484b9YUSQCkitKdQWgq7ZSavNJ06X15.jpg",
-      "alt": "A land on Nai Wok, Koh Phangan"
+      "src": "/hero/scene-3.jpg",
+      "alt": "Aerial panorama of a tropical island at sunset over the Gulf of Thailand"
     },
     {
-      "src": "https://pub-e6d4ecfb57d243b4801e5d6fa0a37220.r2.dev/objects/RW-0527/00_1Mg4QlT6AyMqWorPcnesQ6bRqPj-WonAR.jpg",
-      "alt": "A land on Khao Khao Haeng, Koh Phangan"
+      "src": "/hero/scene-4.jpg",
+      "alt": "Drone view of a horseshoe bay with turquoise water in the Gulf of Thailand"
     },
     {
-      "src": "https://pub-e6d4ecfb57d243b4801e5d6fa0a37220.r2.dev/objects/RW-0526/00_1hhOMuYoiw61hz7LMAuHzo56eiRzMd8KK.jpg",
-      "alt": "A land on Chaloklum, Koh Phangan"
+      "src": "/hero/scene-5.jpg",
+      "alt": "Aerial view of a turquoise reef bay in the Gulf of Thailand"
     },
     {
-      "src": "https://pub-e6d4ecfb57d243b4801e5d6fa0a37220.r2.dev/objects/RW-0589/00_1krKq9CYOhjgn22GaSyF1GAU1anLWIWaG.jpg",
-      "alt": "A land on Mae Haad, Koh Phangan"
+      "src": "/hero/scene-6.jpg",
+      "alt": "Aerial view of a secluded jungle beach on Koh Phangan"
     }
   ]
 }

@@ -52,5 +52,19 @@ Actual photographs of the named place (Wikimedia Commons — **attribution requi
 | cove-portrait.jpg    | 5282255  | Sunlit jungle cove (portrait) | homepage closing CTA band |
 | phangan-sign.jpg     | 11963508 | "Koh Phangan" beach sign | spare (unused) |
 
-## Hero (`/hero-phangan.jpg`)
-Original RW aerial (RW-0516), unwatermarked — not from a stock source.
+## Homepage hero — crossfading drone scenes (`/hero/scene-*.jpg` + `/hero-phangan.jpg`)
+
+Hand-curated premium aerial/drone photography of Koh Phangan & the Gulf-of-Thailand
+archipelago (Pexels, free for commercial use, no attribution required). *Representative
+island atmosphere — not a specific listed plot.* Replaces the old self-refreshing
+catalog manifest, which surfaced watermarked land-plot aerials. The weekly
+`refresh-scenes.yml` Action is now manual-only so this curation persists.
+
+| File | Pexels ID | Caption | Location |
+|------|-----------|---------|----------|
+| scene-1.jpg + hero-phangan.jpg (LCP) | 29496453 | Emerald cove with granite boulders | Gulf of Thailand |
+| scene-2.jpg | 8300817  | Turquoise sandbar beach | **Ko Pha-ngan** (tagged) |
+| scene-3.jpg | 37914438 | Island panorama at sunset | Gulf of Thailand |
+| scene-4.jpg | 8300656  | Horseshoe bay, turquoise water | Gulf of Thailand |
+| scene-5.jpg | 29496454 | Turquoise reef bay | Gulf of Thailand |
+| scene-6.jpg | 32107700 | Secluded jungle beach (Bottle Beach) | **Koh Phangan** (tagged) |
