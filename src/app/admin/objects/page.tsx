@@ -76,6 +76,23 @@ function weakSpots(o: RealEstateObject): string {
   return spots.join(" · ");
 }
 
+/** Сколько дней объект в каталоге (из dateAdded, unix-сек строкой). null — если
+ * даты нет: тогда «возраст» неизвестен и временны́е сигналы по объекту молчат. */
+function ageDays(o: RealEstateObject): number | null {
+  if (!o.dateAdded) return null;
+  const sec = Number(o.dateAdded);
+  if (!Number.isFinite(sec) || sec <= 0) return null;
+  const ms = sec < 1e12 ? sec * 1000 : sec; // секунды → мс (защитно, если уже мс)
+  const d = Math.floor((Date.now() - ms) / 86_400_000);
+  return d >= 0 ? d : null;
+}
+
+/** Человеческий возраст листинга: «3 мес» / «120 дн». */
+function fmtAge(days: number): string {
+  if (days >= 60) return `${Math.round(days / 30)} мес`;
+  return `${days} дн`;
+}
+
 /** Короткий ярлык основного контакта (имя · телефон/канал) для тултипа в таблице. */
 function primaryContactLabel(o: RealEstateObject): string | null {
   const list = o.contacts ?? [];
@@ -276,8 +293,20 @@ export default async function ObjectsPage({
     .sort((a, b) => (viewsByRw.get(b.rwNumber)?.d30 ?? 0) - (viewsByRw.get(a.rwNumber)?.d30 ?? 0))
     .slice(0, 8);
   const onSiteNoViews = activeObjs
-    .filter((o) => publicSet.has(o.rwNumber) && (viewsByRw.get(o.rwNumber)?.d30 ?? 0) === 0)
+    .filter((o) => {
+      if (!publicSet.has(o.rwNumber) || (viewsByRw.get(o.rwNumber)?.d30 ?? 0) !== 0) return false;
+      const age = ageDays(o); // не пугаемся свежими: < 14 дн просто ещё не успели набрать
+      return age == null || age >= 14;
+    })
     .sort((a, b) => a.rwNumber.localeCompare(b.rwNumber))
+    .slice(0, 8);
+  // «Залежались»: Active 90+ дней в каталоге — пора пересмотреть цену/презентацию
+  // или снять. Дни-на-рынке для нашего инвентаря (зеркало DOM по компсам).
+  const STALE_DAYS = 90;
+  const staleListings = activeObjs
+    .map((o) => ({ o, age: ageDays(o) }))
+    .filter((x): x is { o: RealEstateObject; age: number } => x.age != null && x.age >= STALE_DAYS)
+    .sort((a, b) => b.age - a.age)
     .slice(0, 8);
 
   // Sortable header cell — links toggle direction; changing sort resets page.
@@ -331,7 +360,7 @@ export default async function ObjectsPage({
       </div>
 
       {/* Триаж: объекты, требующие внимания (из счётчиков сайта за 30д) */}
-      {(attentionNoAction.length > 0 || onSiteNoViews.length > 0) && (
+      {(attentionNoAction.length > 0 || onSiteNoViews.length > 0 || staleListings.length > 0) && (
         <div className="mb-6 rounded-2xl border border-brass-500/30 bg-brass-500/[0.06] p-5">
           <h2 className="text-lg font-semibold text-forest-900">🔧 Требуют внимания</h2>
           <p className="mb-3 text-xs text-forest-900/55">
@@ -391,6 +420,31 @@ export default async function ObjectsPage({
               </div>
             )}
           </div>
+
+          {staleListings.length > 0 && (
+            <div className="mt-5 border-t border-forest-900/10 pt-4">
+              <h3 className="mb-2 text-sm font-semibold text-forest-900/80">
+                Залежались → пересмотреть цену или снять
+              </h3>
+              <div className="grid gap-1.5 md:grid-cols-2">
+                {staleListings.map(({ o, age }) => (
+                  <a
+                    key={o.rwNumber}
+                    href={`/object/${o.rwNumber}`}
+                    className="flex items-center justify-between gap-3 rounded-lg border border-forest-900/10 bg-cream-50 px-3 py-1.5 text-sm hover:border-brass-500/40"
+                  >
+                    <span className="min-w-0 truncate">
+                      <span className="font-medium text-forest-900">{o.rwNumber}</span>
+                      {o.district ? <span className="ml-2 text-xs text-forest-900/50">{o.district}</span> : null}
+                    </span>
+                    <span className="shrink-0 text-xs text-forest-900/55">
+                      {fmtAge(age)} в каталоге · {viewsByRw.get(o.rwNumber)?.d30 ?? 0} 👁/30д
+                    </span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       )}
 
