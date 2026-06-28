@@ -18,6 +18,7 @@ import {
   Scale,
   CheckCircle,
   AlertTriangle,
+  Users,
 } from "lucide-react";
 import { LeadForm } from "@/components/forms/lead-form";
 import { useLocale, localeHref } from "@/lib/i18n/use-locale";
@@ -36,6 +37,7 @@ import {
   measuredOccupancy,
   confidenceOf,
 } from "@/lib/data/rental-market";
+import { EXTERNAL_BENCHMARKS, BENCHMARKS_REFRESHED } from "@/lib/data/external-benchmarks";
 
 /* ------------------------------ i18n dict ------------------------------ */
 
@@ -62,6 +64,19 @@ const INS = {
     yieldSuffix: (pct: number) => ` · ${pct}% income-on-land`,
     yieldNote:
       "“Income-on-land” = estimated annual income ÷ the cost of a reference 400 m² plot in that district (build cost excluded) — an indicative land-value signal, not a full yield.",
+    // external benchmarks (independent trackers)
+    extEyebrow: "Independent trackers",
+    extTitle: "How others measure the market",
+    extNote:
+      "Independent rental trackers count Koh Phangan differently — sampling, what they call “active”, Airbnb-only vs +Vrbo — so their figures diverge. Ours sits inside that range, on the largest transparent sample.",
+    extOurs: "Right Way (measured)",
+    extOursTag: "ours",
+    extRowSub: (listings: number, occ: number | null, asOf: string, note?: string) =>
+      `${listings.toLocaleString("en-US")} listings${occ != null ? ` · ${occ}% occ` : ""} · ${asOf}${note ? ` · ${note}` : ""}`,
+    extWithin: (adr: string, n: number) =>
+      `Our ${adr} median (${n.toLocaleString("en-US")} listings) sits inside the independent range.`,
+    extRefreshed: (date: string) =>
+      `External figures read on ${date} · shown for cross-check only, never blended into our median.`,
     // teaser
     freePreview: "Free preview",
     teaserTitle: "Top districts to build for rental",
@@ -207,13 +222,15 @@ const INS = {
     seasonalTrend: "Seasonal trend",
     collecting: (n: number): ReactNode => (
       <>
-        Collecting monthly snapshots — <strong>{n}</strong> so far. The seasonal ADR trend (high vs
-        low season) appears once we have at least two months. A fresh snapshot runs on the 1st of
-        each month.
+        Collecting snapshots — <strong>{n}</strong> so far. The seasonal ADR trend (high vs low
+        season) appears once we have at least two. A fresh snapshot runs twice a month (1st &amp;
+        15th).
       </>
     ),
     island: "Island",
     seasonalOverTime: "Seasonal trend — nightly rate over time",
+    seasonalMeasured: (n: number): string =>
+      `Measured from our own snapshots (${n} so far) — the line thickens with every run.`,
     // methodology
     methodSummary: "Method & assumptions",
     methodBullets: (meta: RentalMarket["meta"]): ReactNode[] => [
@@ -290,6 +307,19 @@ const INS = {
     yieldSuffix: (pct: number) => ` · ${pct}% дохода к земле`,
     yieldNote:
       "«Доход к земле» = ориентировочный годовой доход ÷ стоимость эталонного участка 400 м² в районе (без стоимости стройки) — индикатор ценности земли, а не полная доходность.",
+    // external benchmarks (independent trackers)
+    extEyebrow: "Независимые трекеры",
+    extTitle: "Как рынок оценивают другие",
+    extNote:
+      "Независимые трекеры аренды считают Панган по-разному — выборка, что считать «активным», только Airbnb или с Vrbo — поэтому их цифры расходятся. Наша — внутри этого диапазона и на самой большой прозрачной выборке.",
+    extOurs: "Right Way (измерено)",
+    extOursTag: "наши",
+    extRowSub: (listings: number, occ: number | null, asOf: string, note?: string) =>
+      `${listings.toLocaleString("ru-RU")} ${pluralRu(listings, "объявление", "объявления", "объявлений")}${occ != null ? ` · загрузка ${occ}%` : ""} · ${asOf}${note ? ` · ${note}` : ""}`,
+    extWithin: (adr: string, n: number) =>
+      `Наша медиана ${adr} (${n.toLocaleString("ru-RU")} ${pluralRu(n, "объявление", "объявления", "объявлений")}) — внутри диапазона независимых оценок.`,
+    extRefreshed: (date: string) =>
+      `Внешние цифры считаны ${date} · только для кросс-проверки, в нашу медиану не подмешиваются.`,
     freePreview: "Бесплатный обзор",
     teaserTitle: "Лучшие районы для строительства под аренду",
     teaserNote: "Медианная ставка за ночь (ADR) по объектам целиком, по районам.",
@@ -435,13 +465,14 @@ const INS = {
     seasonalTrend: "Сезонный тренд",
     collecting: (n: number): ReactNode => (
       <>
-        Собираем ежемесячные срезы — пока <strong>{n}</strong>. Сезонный тренд ставки (высокий vs
-        низкий сезон) появится, когда наберётся хотя бы два месяца. Новый срез снимается 1-го числа
-        каждого месяца.
+        Собираем срезы — пока <strong>{n}</strong>. Сезонный тренд ставки (высокий vs низкий сезон)
+        появится, когда наберётся хотя бы два. Новый срез снимается дважды в месяц (1-го и 15-го).
       </>
     ),
     island: "Остров",
     seasonalOverTime: "Сезонный тренд — ставка за ночь во времени",
+    seasonalMeasured: (n: number): string =>
+      `Измерено по нашим собственным срезам (пока ${n}) — линия уплотняется с каждым прогоном.`,
     methodSummary: "Метод и допущения",
     methodBullets: (meta: RentalMarket["meta"]): ReactNode[] => [
       <>
@@ -562,6 +593,9 @@ export function RentalInsights({
       {data.crossCheck && data.crossCheck.sources.length >= 2 ? (
         <Triangulation cross={data.crossCheck} fmt={fmt} />
       ) : null}
+
+      {/* Independent trackers — sanity range around our measured median */}
+      <ExternalBenchmarks meta={meta} fmt={fmt} />
 
       {/* What to build — the synthesised answer */}
       <BuildRecommendation data={data} fmt={fmt} />
@@ -719,6 +753,69 @@ function Triangulation({ cross, fmt }: { cross: RmCrossCheck; fmt: MoneyFmt }) {
             {cross.agree ? t.agree(cross.spreadPct) : t.diverge(cross.spreadPct)}
           </div>
         ) : null}
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- External benchmarks (independent trackers) ------------ */
+
+function ExternalBenchmarks({ meta, fmt }: { meta: RentalMarket["meta"]; fmt: MoneyFmt }) {
+  const t = INS[useLocale()];
+  if (meta.adrMedianAll == null) return null;
+  // Our measured row (highlighted) + each independent tracker; bar scaled to
+  // the highest ADR so the spread between methodologies is visible at a glance.
+  const rows = [
+    {
+      key: "ours",
+      label: t.extOurs,
+      adr: meta.adrMedianAll,
+      listings: meta.sample,
+      occ: null as number | null,
+      asOf: meta.date,
+      note: undefined as string | undefined,
+      ours: true,
+    },
+    ...EXTERNAL_BENCHMARKS.map((b) => ({
+      key: b.key,
+      label: b.label,
+      adr: b.adrThb,
+      listings: b.listings,
+      occ: b.occupancyPct,
+      asOf: b.asOf,
+      note: b.note,
+      ours: false,
+    })),
+  ];
+  const maxAdr = Math.max(...rows.map((r) => r.adr), 1);
+
+  return (
+    <section>
+      <SectionHead
+        icon={<Users className="h-4 w-4" />}
+        eyebrow={t.extEyebrow}
+        title={t.extTitle}
+        note={t.extNote}
+      />
+      <div className="mt-6 rounded-sm border border-forest-500/10 bg-cream-50 p-6">
+        <div className="space-y-3">
+          {rows.map((r) => (
+            <BarRow
+              key={r.key}
+              label={r.label}
+              value={r.adr}
+              max={maxAdr}
+              right={fmt(r.adr)}
+              sub={t.extRowSub(r.listings, r.occ, r.asOf, r.note)}
+              highlight={r.ours}
+              tag={r.ours ? { label: t.extOursTag, tone: "good" } : undefined}
+            />
+          ))}
+        </div>
+        <p className="mt-5 text-sm text-forest-500">
+          {t.extWithin(fmt(meta.adrMedianAll), meta.sample)}
+        </p>
+        <p className="mt-2 text-[11px] text-forest-500/45">{t.extRefreshed(BENCHMARKS_REFRESHED)}</p>
       </div>
     </section>
   );
@@ -1227,6 +1324,7 @@ function Seasonality({ seasonal, fmt }: { seasonal: RmSeasonal; fmt: MoneyFmt })
           {seasonal.dates[0]} → {seasonal.dates[seasonal.dates.length - 1]}
         </span>
       </div>
+      <p className="mt-3 text-[11px] text-forest-500/45">{t.seasonalMeasured(seasonal.points)}</p>
     </div>
   );
 }
