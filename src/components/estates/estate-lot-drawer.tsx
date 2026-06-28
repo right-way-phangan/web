@@ -64,7 +64,10 @@ export function EstateLotDrawer({
     if (!plot) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        if (lb === null) onClose(); // лайтбокс Esc закрывает сам (Radix)
+        if (lb === null) {
+          setShown(false); // лайтбокс Esc закрывает сам (Radix)
+          window.setTimeout(onClose, 250);
+        }
         return;
       }
       if (lb !== null) return; // при открытом лайтбоксе ←/→ листают фото
@@ -86,7 +89,70 @@ export function EstateLotDrawer({
   // Смена лота — сбросить открытый лайтбокс.
   useEffect(() => setLb(null), [plot?.code]);
 
+  // Появление/уход панели: мобайл — лист снизу, десктоп — панель сбоку.
+  // Анимация на transition (не глобальный keyframe) — чтобы управлять и drag'ом.
+  const open = plot != null;
+  const [shown, setShown] = useState(false);
+  useEffect(() => {
+    if (!open) {
+      setShown(false);
+      return;
+    }
+    const id = requestAnimationFrame(() => setShown(true));
+    return () => cancelAnimationFrame(id);
+  }, [open]);
+  // Фокус в диалог при открытии (a11y/клавиатура; aria-modal удержит контекст).
+  const asideRef = useRef<HTMLElement | null>(null);
+  useEffect(() => {
+    if (open) asideRef.current?.focus({ preventScroll: true });
+  }, [open]);
+  const close = () => {
+    setShown(false);
+    window.setTimeout(onClose, 250); // дать листу уехать, потом размонтировать
+  };
+
+  // Тяни-закрой за «ручку» (мобильный лист): свайп вниз > 90px — закрыть.
+  const [dragY, setDragY] = useState(0);
+  const [dragging, setDragging] = useState(false);
+  const dragStart = useRef<number | null>(null);
+  const onHandleDown = (e: React.PointerEvent) => {
+    dragStart.current = e.clientY;
+    setDragging(true);
+    (e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId);
+  };
+  const onHandleMove = (e: React.PointerEvent) => {
+    if (dragStart.current == null) return;
+    setDragY(Math.max(0, e.clientY - dragStart.current));
+  };
+  const onHandleUp = () => {
+    if (dragStart.current == null) return;
+    dragStart.current = null;
+    setDragging(false);
+    const dismiss = dragY > 90;
+    setDragY(0);
+    if (dismiss) close();
+  };
+
+  // Направление выезда: десктоп — сбоку (X), мобайл — снизу (Y). Трансформ задаём
+  // целиком inline, чтобы не зависеть от того, как Tailwind v4 маппит translate-*.
+  const [isDesktop, setIsDesktop] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 640px)");
+    const sync = () => setIsDesktop(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
   if (!plot) return null;
+
+  const panelTransform = dragY
+    ? `translateY(${dragY}px)`
+    : shown
+      ? "translate(0, 0)"
+      : isDesktop
+        ? "translateX(100%)"
+        : "translateY(100%)";
   const t = getEstatesDict(locale);
   const priceVisible = plotPriceVisible(plot.status);
   const bp = buildPotential(plot);
@@ -162,20 +228,51 @@ export function EstateLotDrawer({
   const hasGallery = Boolean(plot.photos && plot.photos.length > 0);
   const toPhotos = () => {
     const id = `lot-${plot.code}`;
-    onClose();
+    close();
     setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" }), 80);
   };
 
   return (
-    <div className="fixed inset-0 z-[90] flex justify-end print:hidden" role="dialog" aria-modal="true" aria-label={plot.code}>
-      <div className="absolute inset-0 bg-forest-900/50" style={{ animation: "lbFade 0.2s ease" }} onClick={onClose} />
+    <div
+      className="fixed inset-0 z-[90] flex items-end justify-center sm:items-stretch sm:justify-end print:hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-label={plot.code}
+    >
+      <div
+        className={cn(
+          "absolute inset-0 bg-forest-900/50 backdrop-blur-[1px] transition-opacity duration-300",
+          shown ? "opacity-100" : "opacity-0",
+        )}
+        onClick={close}
+      />
       <aside
-        className="relative flex h-full w-full max-w-md flex-col overflow-y-auto bg-cream-50 shadow-2xl"
-        style={{ animation: "drawerIn 0.32s cubic-bezier(0.22,1,0.36,1)" }}
+        ref={asideRef}
+        tabIndex={-1}
+        className={cn(
+          "relative flex max-h-[92vh] w-full flex-col overflow-y-auto overscroll-contain rounded-t-2xl bg-cream-50 shadow-2xl outline-none will-change-transform",
+          "sm:h-full sm:max-h-none sm:max-w-md sm:rounded-t-none sm:rounded-l-2xl",
+        )}
+        style={{
+          transform: panelTransform,
+          transition: dragging ? "none" : "transform 0.3s cubic-bezier(0.22,1,0.36,1)",
+        }}
         onPointerDown={onAsideDown}
         onPointerUp={onAsideUp}
         onPointerCancel={() => (swipe.current = null)}
       >
+        {/* Ручка-grab (мобильный лист): свайп вниз — закрыть */}
+        <div
+          data-noswipe
+          className="flex shrink-0 cursor-grab touch-none justify-center pb-1 pt-2.5 active:cursor-grabbing sm:hidden"
+          onPointerDown={onHandleDown}
+          onPointerMove={onHandleMove}
+          onPointerUp={onHandleUp}
+          onPointerCancel={onHandleUp}
+        >
+          <span className="h-1.5 w-10 rounded-full bg-forest-500/25" aria-hidden />
+        </div>
+
         {/* Шапка */}
         <div className="sticky top-0 z-10 flex items-center justify-between gap-2 border-b border-forest-500/10 bg-cream-50/95 px-4 py-3.5 backdrop-blur sm:px-5">
           <div className="flex min-w-0 items-center gap-2.5">
@@ -213,7 +310,7 @@ export function EstateLotDrawer({
             ) : null}
             <button
               type="button"
-              onClick={onClose}
+              onClick={close}
               aria-label={locale === "ru" ? "Закрыть" : "Close"}
               className="rounded-full p-1.5 text-forest-500/70 transition-colors hover:bg-forest-500/10 hover:text-forest-900"
             >
