@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "SEO · Search Console",
   robots: { index: false, follow: false },
 };
+export const dynamic = "force-dynamic";
 
 const nf = new Intl.NumberFormat("ru-RU");
 const pct = (x: number) => `${(x * 100).toFixed(1)}%`;
