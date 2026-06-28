@@ -63,6 +63,19 @@ function isUnit(rw: string): boolean {
   return /^RW-P\d+-\d+$/i.test(rw);
 }
 
+/** Почему объект может «не выстреливать» — конкретные пробелы для триажа: что
+ * чинить (мало фото / нет описания / нет геолокации), а не просто «проверь». */
+function weakSpots(o: RealEstateObject): string {
+  const spots: string[] = [];
+  const photos = photoCount(o);
+  if (photos < 3) spots.push(photos === 0 ? "нет фото" : `мало фото (${photos})`);
+  if (!o.descriptionManualEn && !o.descriptionManualRu) spots.push("нет описания");
+  else if (!o.descriptionManualRu) spots.push("нет RU-описания");
+  else if (!o.descriptionManualEn) spots.push("нет EN-описания");
+  if (!o.locationUrl && !o.plotPolygon) spots.push("нет геолокации");
+  return spots.join(" · ");
+}
+
 /** Короткий ярлык основного контакта (имя · телефон/канал) для тултипа в таблице. */
 function primaryContactLabel(o: RealEstateObject): string | null {
   const list = o.contacts ?? [];
@@ -338,9 +351,14 @@ export default async function ObjectsPage({
                       href={`/object/${o.rwNumber}`}
                       className="flex items-center justify-between gap-3 rounded-lg border border-forest-900/10 bg-cream-50 px-3 py-1.5 text-sm hover:border-brass-500/40"
                     >
-                      <span className="min-w-0 truncate">
-                        <span className="font-medium text-forest-900">{o.rwNumber}</span>
-                        {o.district ? <span className="ml-2 text-xs text-forest-900/50">{o.district}</span> : null}
+                      <span className="min-w-0">
+                        <span className="block truncate">
+                          <span className="font-medium text-forest-900">{o.rwNumber}</span>
+                          {o.district ? <span className="ml-2 text-xs text-forest-900/50">{o.district}</span> : null}
+                        </span>
+                        {weakSpots(o) ? (
+                          <span className="block truncate text-xs text-rose-700/70">{weakSpots(o)}</span>
+                        ) : null}
                       </span>
                       <span className="shrink-0 text-xs text-forest-900/55">
                         {viewsByRw.get(o.rwNumber)?.d30 ?? 0} 👁 · 0 реакций
