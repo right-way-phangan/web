@@ -37,24 +37,30 @@ export function LandEstateLanding({ estate, locale, initialLot }: Props) {
   const availablePlots = estate.plots.filter(
     (p) => p.status === "available" && p.tenure === "Freehold" && p.priceThb,
   );
+  // Площадь в раях: участки задают areaSqm ИЛИ areaRai (1 рай = 1600 м²).
+  const plotRai = (p: (typeof availablePlots)[number]): number | undefined =>
+    p.areaRai ?? (p.areaSqm ? p.areaSqm / 1600 : undefined);
   // Лучшая цена за рай — ориентир «что брать» (ROI% у всех одинаков, отличается вход).
   const bestValueCode = availablePlots
-    .filter((p) => p.areaRai)
+    .filter((p) => plotRai(p))
     .sort(
       (a, b) =>
-        (a.priceThb as number) / (a.areaRai as number) - (b.priceThb as number) / (b.areaRai as number),
+        (a.priceThb as number) / (plotRai(a) as number) - (b.priceThb as number) / (plotRai(b) as number),
     )[0]?.code;
-  const calcPlots = availablePlots.map((p) => ({
-    rwNumber: p.code,
-    label: p.areaRai ? `${p.code} · ${p.areaRai} ${locale === "ru" ? "рай" : "rai"}` : p.code,
-    priceThb: p.priceThb as number,
-    badge:
-      availablePlots.length > 1 && p.code === bestValueCode
-        ? locale === "ru"
-          ? "Лучшая цена/рай"
-          : "Best ฿/rai"
-        : undefined,
-  }));
+  const calcPlots = availablePlots.map((p) => {
+    const rai = plotRai(p);
+    return {
+      rwNumber: p.code,
+      label: rai ? `${p.code} · ${rai.toFixed(1)} ${locale === "ru" ? "рай" : "rai"}` : p.code,
+      priceThb: p.priceThb as number,
+      badge:
+        availablePlots.length > 1 && p.code === bestValueCode
+          ? locale === "ru"
+            ? "Лучшая цена/рай"
+            : "Best ฿/rai"
+          : undefined,
+    };
+  });
 
   const homeHref = localePath(locale, "/") as Route;
   const estatesHref = localePath(locale, "/estates") as Route;
