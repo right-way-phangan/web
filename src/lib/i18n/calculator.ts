@@ -84,6 +84,7 @@ export interface CalcDict {
   cashOnCash: string;
   grossYield: string;
   downloadPdf: string;
+  discussWhatsApp: string;
   resetDefaults: string;
   copyLink: string;
   linkCopied: string;
@@ -294,6 +295,7 @@ export interface CalcDict {
   unitsClear: string;
   unitsSelectAll: string;
   budgetFits: (count: number) => string;
+  landMedianRef: (perRai: string) => string;
   unitsCombinedNote: (count: number) => string;
   // Language toggle a11y
   langLabel: string;
@@ -370,6 +372,7 @@ const EN: CalcDict = {
   cashOnCash: "Cash-on-cash",
   grossYield: "Gross yield",
   downloadPdf: "Download PDF report",
+  discussWhatsApp: "Discuss with an agent on WhatsApp",
   resetDefaults: "Reset",
   copyLink: "Copy link",
   linkCopied: "Link copied",
@@ -554,6 +557,7 @@ const EN: CalcDict = {
   unitsClear: "Clear",
   unitsSelectAll: "Select all",
   budgetFits: (count) => `${count} ${count === 1 ? "property" : "properties"} within this budget`,
+  landMedianRef: (perRai) => `For land: Phangan median ≈ ${perRai}/rai (across current listings)`,
   unitsCombinedNote: (count) =>
     `Combined figures for ${count} properties. Returns (ROI, CAGR) are per-property and don't change with quantity.`,
   langLabel: "Language",
@@ -630,6 +634,7 @@ const RU: CalcDict = {
   cashOnCash: "Cash-on-cash",
   grossYield: "Валовая доходность",
   downloadPdf: "Скачать PDF-отчёт",
+  discussWhatsApp: "Обсудить с агентом в WhatsApp",
   resetDefaults: "Сбросить",
   copyLink: "Скопировать ссылку",
   linkCopied: "Ссылка скопирована",
@@ -814,6 +819,7 @@ const RU: CalcDict = {
   unitsClear: "Сбросить",
   unitsSelectAll: "Выбрать все",
   budgetFits: (count) => `${count} объектов в этом бюджете`,
+  landMedianRef: (perRai) => `Для земли: медиана Пангана ≈ ${perRai}/рай (по текущим объявлениям)`,
   unitsCombinedNote: (count) =>
     `Совокупные суммы для ${count} объектов. Доходность (ROI, CAGR) — на один объект и не зависит от количества.`,
   langLabel: "Язык",

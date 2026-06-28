@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import type { Route } from "next";
-import { ChevronDown, TrendingUp, ArrowRight, Download, RotateCcw, Link2, Check, Pin, Info, Dices } from "lucide-react";
+import { ChevronDown, TrendingUp, ArrowRight, Download, RotateCcw, Link2, Check, Pin, Info, Dices, MessageCircle } from "lucide-react";
 import {
   computeRoi,
   monteCarlo,
@@ -27,6 +27,7 @@ import {
 } from "@/lib/calculator/currency";
 import { ObjectCard } from "@/components/objects/object-card";
 import { CalcLeadButton } from "@/components/calculator/calc-lead-button";
+import { whatsappLink } from "@/lib/site-config";
 import { MarketPreset } from "@/components/calculator/market-preset";
 import { buildCalcReportHtml } from "@/lib/calculator/report";
 import { track } from "@/lib/analytics/track";
@@ -189,6 +190,17 @@ export function RoiCalculator({
     () => catalog.filter((o) => o.priceThb && o.priceThb <= inputs.purchasePriceThb).length,
     [catalog, inputs.purchasePriceThb],
   );
+  // Island land benchmark — median ฿/rai across listings priced by area (these
+  // are land; villas/condos carry no per-rai price). A soft, data-backed anchor.
+  const landPerRaiMedian = useMemo(() => {
+    const vals = catalog
+      .map((o) => o.pricePerRai)
+      .filter((v): v is number => typeof v === "number" && v > 0)
+      .sort((a, b) => a - b);
+    if (vals.length < 5) return null;
+    const mid = Math.floor(vals.length / 2);
+    return vals.length % 2 ? vals[mid] : (vals[mid - 1] + vals[mid]) / 2;
+  }, [catalog]);
   const set = (patch: Partial<RoiInputs>) => setInputs((p) => ({ ...p, ...patch }));
   const money: Money = (thb, full) => formatMoney(thb, currency, rates, { compact: !full });
 
@@ -482,7 +494,11 @@ export function RoiCalculator({
 
         {/* Simple / Full — the primary control. Most visitors stay on Simple;
             Full unlocks tenure/off-plan inputs and the analytics suite. */}
-        <div className="mb-4 inline-flex w-full overflow-hidden rounded-sm border border-forest-500/20 text-sm font-medium">
+        <div
+          role="group"
+          aria-label={`${t.viewSimple} / ${t.viewFull}`}
+          className="mb-4 inline-flex w-full overflow-hidden rounded-sm border border-forest-500/20 text-sm font-medium"
+        >
           <button
             type="button"
             onClick={() => setView("simple")}
@@ -565,6 +581,13 @@ export function RoiCalculator({
               {t.budgetFits(budgetMatchCount)}
               <ArrowRight className="h-3 w-3" />
             </Link>
+          ) : null}
+
+          {/* Soft data anchor: island-wide land median per rai (land scenarios). */}
+          {landPerRaiMedian ? (
+            <p className="mt-1.5 text-[11px] leading-relaxed text-forest-500/55">
+              {t.landMedianRef(money(landPerRaiMedian))}
+            </p>
           ) : null}
 
           {/* Multi-unit picker (project pages): tick units to buy → combined
@@ -904,6 +927,17 @@ export function RoiCalculator({
 
           <div className="mt-6 space-y-2">
             <CalcLeadButton message={calcSummary} rwNumber={excludeRw} />
+            {/* High-intent shortcut: hand the computed scenario straight to an
+                agent on WhatsApp, pre-filled — shorter than the form. */}
+            <a
+              href={whatsappLink(calcSummary)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex w-full items-center justify-center gap-2 rounded-sm border border-brass-500/40 bg-brass-500/5 px-5 py-2.5 text-sm font-medium text-brass-700 transition-colors hover:border-brass-500 hover:bg-brass-500/10"
+            >
+              <MessageCircle className="h-4 w-4" />
+              {t.discussWhatsApp}
+            </a>
             <button
               type="button"
               onClick={openReport}
