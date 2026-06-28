@@ -206,6 +206,15 @@ export function LandEstateLanding({ estate, locale, initialLot }: Props) {
                   {t.sections.gallery}
                   <ChevronRight className="h-3.5 w-3.5" />
                 </a>
+                {priceFrom != null ? (
+                  <a
+                    href="#returns"
+                    className="inline-flex items-center justify-center gap-1.5 rounded-sm border border-forest-500/20 px-3 py-2.5 text-xs font-medium text-forest-900 transition-colors hover:border-brass-500 hover:text-brass-700"
+                  >
+                    {t.nav.returns}
+                    <ChevronRight className="h-3.5 w-3.5" />
+                  </a>
+                ) : null}
               </div>
               {s.available > 0 ? (
                 <p className="mt-3 text-center text-xs text-forest-500/60">

@@ -311,6 +311,14 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
                   <Row label={locale === "ru" ? "Меблировка" : "Furnishing"} value={project.furnishing} />
                 ) : null}
               </dl>
+              {hasReturns ? (
+                <a
+                  href="#returns"
+                  className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-brass-600 underline-offset-2 transition-colors hover:text-brass-700 hover:underline"
+                >
+                  {locale === "ru" ? "Посчитать доходность →" : "See ROI projection →"}
+                </a>
+              ) : null}
               {project.paymentTerms ? (
                 <div className="mt-6">
                   <h3 className="mb-2 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
