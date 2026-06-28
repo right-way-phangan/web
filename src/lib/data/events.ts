@@ -72,6 +72,33 @@ export interface ClicksByKind {
   total: number;
 }
 
+/** On-page engagement, summed across all objects (30d). The behavior funnel
+ * step between "viewed" and "clicked a messenger": did they stay, read deep,
+ * open the gallery, reach the contact form. Collected by BehaviorTracker /
+ * object-gallery / inquiry-form (kinds dwell_30s/scroll_50/scroll_90/
+ * gallery_open/contact_reach). */
+export interface OnPageFunnel {
+  dwell30: number;
+  scroll50: number;
+  scroll90: number;
+  galleryOpen: number;
+  contactReach: number;
+}
+
+export async function getOnPageFunnel(): Promise<OnPageFunnel> {
+  const rows = await fetchEvents();
+  const f: OnPageFunnel = { dwell30: 0, scroll50: 0, scroll90: 0, galleryOpen: 0, contactReach: 0 };
+  for (const r of rows) {
+    if (r.rwNumber === "__site__") continue;
+    if (r.kind === "dwell_30s") f.dwell30 += r.d30;
+    else if (r.kind === "scroll_50") f.scroll50 += r.d30;
+    else if (r.kind === "scroll_90") f.scroll90 += r.d30;
+    else if (r.kind === "gallery_open") f.galleryOpen += r.d30;
+    else if (r.kind === "contact_reach") f.contactReach += r.d30;
+  }
+  return f;
+}
+
 /** Site-wide form funnel (30d) + total messenger clicks (30d), from events. */
 export async function getSiteEventStats(): Promise<{ form: FormFunnel; clicks: ClicksByKind }> {
   const rows = await fetchEvents();

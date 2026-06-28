@@ -17,6 +17,7 @@ import { useLocale } from "@/lib/i18n/use-locale";
 import { getObjectDict } from "@/lib/i18n/dictionaries";
 import { BLUR_PLACEHOLDER } from "@/lib/utils/blur";
 import { cn } from "@/lib/utils/cn";
+import { trackObjectEvent } from "@/lib/analytics/track-event";
 
 const TYPE_ICON: Record<ObjectType, typeof Home> = {
   Land: TreePine,
@@ -140,6 +141,7 @@ export function ObjectGallery({ rwNumber, type, gallery, title }: Props) {
   const [mobileIndex, setMobileIndex] = useState(0);
 
   const trackRef = useRef<HTMLDivElement>(null);
+  const galleryFired = useRef(false);
   const stripRef = useRef<HTMLDivElement>(null);
 
   // ---- Lightbox zoom (pinch / double-tap / pan) ----
@@ -333,6 +335,11 @@ export function ObjectGallery({ rwNumber, type, gallery, title }: Props) {
   const openAt = (i: number) => {
     setIndex(i);
     setOpen(true);
+    // On-page engagement: lightbox opened (media interest), once per page view.
+    if (!galleryFired.current) {
+      galleryFired.current = true;
+      trackObjectEvent("gallery_open", rwNumber);
+    }
   };
 
   const onTrackScroll = () => {

@@ -22,6 +22,7 @@ import { DistanceChips } from "@/components/objects/distance-chips";
 import { RelatedListings } from "@/components/objects/related-listings";
 import { RecentlyViewed } from "@/components/objects/recently-viewed";
 import { TrackView } from "@/components/objects/track-view";
+import { BehaviorTracker } from "@/components/objects/behavior-tracker";
 import { PriceContextBadge } from "@/components/objects/price-context-badge";
 import { ObjectPrice } from "@/components/objects/object-price";
 import { SaveButton } from "@/components/objects/save-button";
@@ -277,6 +278,7 @@ export default async function RussianObjectPage({ params }: Props) {
         rentPerRaiMonth={object.rentPerRaiMonth}
       />
       <TrackView rw={object.rwNumber} />
+      <BehaviorTracker rw={object.rwNumber} />
     </>
   );
 }

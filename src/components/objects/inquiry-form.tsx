@@ -1,10 +1,12 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { LeadForm } from "@/components/forms/lead-form";
 import { whatsappLink, telegramDmLink } from "@/lib/site-config";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { getObjectDict } from "@/lib/i18n/dictionaries";
+import { trackObjectEvent } from "@/lib/analytics/track-event";
 
 interface Props {
   rwNumber: string;
@@ -19,9 +21,29 @@ export function InquiryForm({ rwNumber }: Props) {
   const locale = useLocale();
   const t = getObjectDict(locale);
   const defaultMessage = t.inquiryDefaultMessage(rwNumber);
+  const asideRef = useRef<HTMLElement>(null);
+
+  // On-page funnel: visitor scrolled the inquiry form into view (reached the
+  // ask), once per page view. The micro-step between reading and clicking.
+  useEffect(() => {
+    const el = asideRef.current;
+    if (!el || navigator.webdriver) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          trackObjectEvent("contact_reach", rwNumber);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.4 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [rwNumber]);
 
   return (
     <aside
+      ref={asideRef}
       id="inquiry"
       className="scroll-mt-24 rounded-sm border border-forest-500/10 bg-cream-50 p-6 md:sticky md:top-24 print:hidden"
     >

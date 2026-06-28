@@ -8,6 +8,8 @@ const KINDS = new Set([
   "wa_click", "tg_click", "phone_click", "email_click",
   "save", "calc", "brochure", "share",
   "form_start", "form_submit",
+  // On-page engagement (object detail behavior funnel):
+  "dwell_30s", "scroll_50", "scroll_90", "gallery_open", "contact_reach",
 ]);
 
 export async function POST(req: Request): Promise<Response> {

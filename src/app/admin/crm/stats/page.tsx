@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getLeads, getPipelines, getEvents, CRM_ENABLED, type CrmLead } from "@/lib/data/leads";
 import { getViewsByRw, getCrossShoppers } from "@/lib/data/views";
-import { getSiteEventStats } from "@/lib/data/events";
+import { getSiteEventStats, getOnPageFunnel } from "@/lib/data/events";
 import { getReferrals, referralLabel } from "@/lib/data/referrals";
 import { classifyReferrer, isAiChannel } from "@/lib/analytics/referrer";
 import { AdminNav } from "@/components/admin/admin-nav";
@@ -47,6 +47,11 @@ function fmtHours(h: number): string {
 }
 
 const nf = new Intl.NumberFormat("ru-RU");
+
+/** Funnel-step share of object views (30d window), for the on-page panel. */
+function pctOfViews(n: number, views: number): string {
+  return views > 0 ? `${Math.round((n / views) * 100)}% от просмотров` : "—";
+}
 
 /** Человекочитаемый источник лида из тегов. */
 function sourceOf(l: CrmLead): string {
@@ -103,13 +108,14 @@ export default async function CrmStatsPage() {
     );
   }
 
-  const [leads, pipelines, events, viewsByRw, siteEvents, crossShoppers, referrals, liveRates, monthlyTarget] =
+  const [leads, pipelines, events, viewsByRw, siteEvents, onPage, crossShoppers, referrals, liveRates, monthlyTarget] =
     await Promise.all([
       getLeads(),
       getPipelines(),
       getEvents(500),
       getViewsByRw(),
       getSiteEventStats(),
+      getOnPageFunnel(),
       getCrossShoppers(),
       getReferrals(),
       getLiveRatesTHB(),
@@ -645,6 +651,48 @@ export default async function CrmStatsPage() {
             </div>
           </div>
         ) : null}
+      </div>
+
+      {/* Поведение на странице объекта — где утекает внимание до клика */}
+      <div className="mt-10">
+        <h2 className="mb-1 text-lg font-semibold text-forest-900">
+          Поведение на странице · 30 дней
+        </h2>
+        <p className="mb-3 text-xs text-forest-900/50">
+          Что происходит между просмотром и кликом в мессенджер. Каждый шаг — % от{" "}
+          {nf.format(views30Total)} просмотров за 30 дней (one-time на просмотр, без идентификации).
+        </p>
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-5">
+          <Card
+            label="⏱ Задержались 30с"
+            value={nf.format(onPage.dwell30)}
+            hint={pctOfViews(onPage.dwell30, views30Total)}
+          />
+          <Card
+            label="📖 Долистали до конца"
+            value={nf.format(onPage.scroll90)}
+            hint={pctOfViews(onPage.scroll90, views30Total)}
+          />
+          <Card
+            label="🖼 Открыли галерею"
+            value={nf.format(onPage.galleryOpen)}
+            hint={pctOfViews(onPage.galleryOpen, views30Total)}
+          />
+          <Card
+            label="📨 Дошли до формы"
+            value={nf.format(onPage.contactReach)}
+            hint={pctOfViews(onPage.contactReach, views30Total)}
+          />
+          <Card
+            label="💬 → Клик в мессенджер"
+            value={nf.format(siteEvents.clicks.total)}
+            hint={pctOfViews(siteEvents.clicks.total, views30Total)}
+          />
+        </div>
+        <p className="mt-2 text-xs text-forest-900/40">
+          Узкое место — там, где % резко падает: тонкая страница (мало долистывают), слабые фото
+          (мало открывают галерею) или далёкая форма (дошли, но не кликнули).
+        </p>
       </div>
 
       {/* ROI по каналам */}
