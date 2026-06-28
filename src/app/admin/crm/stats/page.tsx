@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getLeads, getPipelines, getEvents, CRM_ENABLED, type CrmLead } from "@/lib/data/leads";
 import { getViewsByRw, getCrossShoppers } from "@/lib/data/views";
 import { getSiteEventStats, getOnPageFunnel } from "@/lib/data/events";
-import { getReferrals, getAiCitations, referralLabel } from "@/lib/data/referrals";
+import { getReferrals, getAiCitations, getAiCitationTrend, referralLabel } from "@/lib/data/referrals";
 import { classifyReferrer, isAiChannel } from "@/lib/analytics/referrer";
 import { AdminNav } from "@/components/admin/admin-nav";
 import { forecastPipeline, forecastByMonth } from "@/lib/crm/forecast";
@@ -108,7 +108,7 @@ export default async function CrmStatsPage() {
     );
   }
 
-  const [leads, pipelines, events, viewsByRw, siteEvents, onPage, crossShoppers, referrals, aiCitations, liveRates, monthlyTarget] =
+  const [leads, pipelines, events, viewsByRw, siteEvents, onPage, crossShoppers, referrals, aiCitations, aiTrend, liveRates, monthlyTarget] =
     await Promise.all([
       getLeads(),
       getPipelines(),
@@ -119,6 +119,7 @@ export default async function CrmStatsPage() {
       getCrossShoppers(),
       getReferrals(),
       getAiCitations(),
+      getAiCitationTrend(),
       getLiveRatesTHB(),
       getMonthlyTargetThb(),
     ]);
@@ -798,6 +799,60 @@ export default async function CrmStatsPage() {
           </div>
         )}
       </div>
+
+      {/* Динамика ИИ-цитирований — KPI ставки на GEO/AEO во времени */}
+      {aiTrend && aiTrend.total30 > 0 ? (
+        <div className="mt-10">
+          <h2 className="mb-1 text-lg font-semibold text-forest-900">📈 Динамика ИИ-цитирований</h2>
+          <p className="mb-3 text-xs text-forest-900/50">
+            Растёт ли цитирование во времени — главный KPI ставки на GEO/AEO. Недельный объём заходов
+            с ИИ-ассистентов + разбивка по движкам (30д · 7д). Плоско или падает — контент не
+            «попадает» в ответы.
+          </p>
+          <div className="grid gap-6 lg:grid-cols-2">
+            <div>
+              <h3 className="mb-2 text-sm font-semibold text-forest-900/80">По неделям</h3>
+              {(() => {
+                const wk = aiTrend.weekly.slice(-8);
+                const max = Math.max(1, ...wk.map((w) => w.count));
+                return (
+                  <div className="space-y-1.5">
+                    {wk.map((w) => {
+                      const pct = Math.max(4, Math.round((w.count / max) * 100));
+                      return (
+                        <div key={w.week} className="flex items-center gap-3 text-sm">
+                          <span className="w-16 shrink-0 text-xs text-forest-900/55">{w.week.slice(5)}</span>
+                          <div className="h-4 flex-1 rounded-sm bg-forest-900/[0.04]">
+                            <div className="h-4 rounded-sm bg-brass-500/60" style={{ width: `${pct}%` }} />
+                          </div>
+                          <span className="w-8 shrink-0 text-right font-medium text-forest-900">{w.count}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              })()}
+            </div>
+            <div>
+              <h3 className="mb-2 text-sm font-semibold text-forest-900/80">По движкам</h3>
+              <div className="space-y-2">
+                {aiTrend.bySource.map((s) => (
+                  <div
+                    key={s.source}
+                    className="flex items-center justify-between rounded-lg border border-forest-900/10 bg-cream-50 px-3 py-1.5 text-sm"
+                  >
+                    <span className="text-forest-900/80">{referralLabel(s.source)}</span>
+                    <span className="shrink-0 text-right">
+                      <span className="font-semibold text-forest-900">{nf.format(s.d30)}</span>
+                      <span className="ml-2 text-xs text-forest-900/45">7д: {nf.format(s.d7)}</span>
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       {/* Конверсия воронки */}
       {(() => {

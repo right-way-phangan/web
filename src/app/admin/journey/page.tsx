@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { AdminNav } from "@/components/admin/admin-nav";
-import { getJourneys, getHotLeads, type JourneyLead, type HotLead } from "@/lib/data/journey";
+import { getJourneys, getHotLeads, getReturningVisitors, type JourneyLead, type HotLead } from "@/lib/data/journey";
 
 export const metadata: Metadata = {
   title: "Путь посетителя",
@@ -83,7 +83,7 @@ function JourneyRow({ j }: { j: JourneyLead }) {
 }
 
 export default async function JourneyPage() {
-  const [j, hot] = await Promise.all([getJourneys(), getHotLeads()]);
+  const [j, hot, rv] = await Promise.all([getJourneys(), getHotLeads(), getReturningVisitors()]);
   const hotScored = hot.filter((h: HotLead) => h.score > 0);
   const attrPct = j.totalLeads > 0 ? Math.round((j.attributable / j.totalLeads) * 100) : 0;
 
@@ -125,6 +125,42 @@ export default async function JourneyPage() {
               </div>
             ))}
           </div>
+        </div>
+      ) : null}
+
+      {/* Возвращающиеся посетители — качество анонимного трафика по vid */}
+      {rv && rv.totalVisitors > 0 ? (
+        <div className="mt-6 rounded-2xl border border-forest-900/10 bg-cream-50 p-5">
+          <h2 className="text-lg font-semibold text-forest-900">🔁 Возвращающиеся посетители</h2>
+          <p className="mb-3 text-xs text-forest-900/55">
+            Качество анонимного трафика за {rv.windowDays} дней по ротируемому <code className="text-xs">vid</code>.
+            «Тёплые анонимы» — вернулись или смотрели много объектов, но не оставили заявку: спрос,
+            который мы пока не ловим.
+          </p>
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+            <Card label="Посетителей" value={nf.format(rv.totalVisitors)} hint="уникальных vid" />
+            <Card label="Возвращались" value={nf.format(rv.returning)} hint="≥ 2 дней" />
+            <Card label="Смотрели много" value={nf.format(rv.multiObject)} hint="≥ 3 объектов" />
+            <Card label="Тёплые анонимы" value={nf.format(rv.warmAnonymous)} hint="интент без заявки" />
+          </div>
+          {rv.magnets.length > 0 ? (
+            <div className="mt-4">
+              <h3 className="mb-2 text-sm font-semibold text-forest-900/80">Магниты — тянут вовлечённых</h3>
+              <div className="space-y-1.5">
+                {rv.magnets.map((m) => (
+                  <div
+                    key={m.rwNumber}
+                    className="flex items-center justify-between rounded-lg border border-forest-900/10 bg-forest-900/[0.02] px-3 py-1.5 text-sm"
+                  >
+                    <a href={`/object/${m.rwNumber}`} className="font-medium text-forest-900 hover:underline">
+                      {m.rwNumber}
+                    </a>
+                    <span className="text-forest-900/60">{nf.format(m.visitors)} вовлечённых</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : null}
         </div>
       ) : null}
 

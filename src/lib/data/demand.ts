@@ -16,6 +16,7 @@ export interface DemandSummary {
   byTenure: DemandTally[];
   byFeature: DemandTally[];
   byBeds: DemandTally[];
+  byLocale: DemandTally[];
   priceBands: DemandTally[];
   topQueries: Array<{ query: string; count: number; matched: number }>;
   zeroResultQueries: Array<{ query: string; count: number }>;
@@ -34,6 +35,7 @@ const EMPTY: DemandSummary = {
   byTenure: [],
   byFeature: [],
   byBeds: [],
+  byLocale: [],
   priceBands: [],
   topQueries: [],
   zeroResultQueries: [],

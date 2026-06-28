@@ -41,6 +41,27 @@ export async function getAiCitations(): Promise<AiCitationRow[]> {
   }
 }
 
+/** AI-citation trend (backend GET /ai-citations/trend) — the GEO/AEO KPI over
+ * time: weekly citation volume + per-assistant split. null when backend down. */
+export interface AiCitationTrend {
+  windowDays: number;
+  total7: number;
+  total30: number;
+  weekly: { week: string; count: number }[]; // oldest → newest, Monday of each week
+  bySource: { source: string; d7: number; d30: number }[];
+}
+
+export async function getAiCitationTrend(): Promise<AiCitationTrend | null> {
+  if (!API) return null;
+  try {
+    const r = await backendFetch("/ai-citations/trend", { cache: "no-store" });
+    return r.ok ? ((await r.json()) as AiCitationTrend) : null;
+  } catch (err) {
+    console.error("[referrals] ai-citation trend failed:", err);
+    return null;
+  }
+}
+
 /** Human label for a source token. */
 export function referralLabel(source: string): string {
   const [group, name] = source.split(":");

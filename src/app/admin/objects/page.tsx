@@ -246,6 +246,27 @@ export default async function ObjectsPage({
     units: all.filter((o) => isUnit(o.rwNumber)).length,
   };
 
+  // Триаж «требуют внимания» — из уже загруженных счётчиков (без доп. запросов).
+  //  • Смотрят, но не реагируют: заметные просмотры за 30д, ноль engagement и
+  //    ни одного лида → сигнал цены/презентации.
+  //  • На сайте, но не смотрят: публичный Active с нулём просмотров за 30д →
+  //    сигнал видимости/обложки/SEO. Рендерим, только если что-то нашлось.
+  const VIEWS_HI = 10; // порог «заметных» просмотров за 30д (низкий трафик старта)
+  const activeObjs = all.filter((o) => o.status === "Active" && !isUnit(o.rwNumber));
+  const attentionNoAction = activeObjs
+    .filter(
+      (o) =>
+        (viewsByRw.get(o.rwNumber)?.d30 ?? 0) >= VIEWS_HI &&
+        (engagementByRw.get(o.rwNumber)?.score ?? 0) === 0 &&
+        (leadsByRw.get(o.rwNumber) ?? 0) === 0,
+    )
+    .sort((a, b) => (viewsByRw.get(b.rwNumber)?.d30 ?? 0) - (viewsByRw.get(a.rwNumber)?.d30 ?? 0))
+    .slice(0, 8);
+  const onSiteNoViews = activeObjs
+    .filter((o) => publicSet.has(o.rwNumber) && (viewsByRw.get(o.rwNumber)?.d30 ?? 0) === 0)
+    .sort((a, b) => a.rwNumber.localeCompare(b.rwNumber))
+    .slice(0, 8);
+
   // Sortable header cell — links toggle direction; changing sort resets page.
   function SortTh({ label, k, center }: { label: string; k: SortKey; center?: boolean }) {
     const on = sortKey === k;
@@ -295,6 +316,65 @@ export default async function ObjectsPage({
           юнитов. Источник — своя БД (Neon). Зелёная точка = виден на сайте.
         </p>
       </div>
+
+      {/* Триаж: объекты, требующие внимания (из счётчиков сайта за 30д) */}
+      {(attentionNoAction.length > 0 || onSiteNoViews.length > 0) && (
+        <div className="mb-6 rounded-2xl border border-brass-500/30 bg-brass-500/[0.06] p-5">
+          <h2 className="text-lg font-semibold text-forest-900">🔧 Требуют внимания</h2>
+          <p className="mb-3 text-xs text-forest-900/55">
+            Слабые места каталога по данным сайта за 30 дней — не алерт, а повод заглянуть. Ссылка
+            открывает страницу так, как её видит клиент.
+          </p>
+          <div className="grid gap-5 md:grid-cols-2">
+            {attentionNoAction.length > 0 && (
+              <div>
+                <h3 className="mb-2 text-sm font-semibold text-forest-900/80">
+                  Смотрят, но не реагируют → цена / фото
+                </h3>
+                <div className="space-y-1.5">
+                  {attentionNoAction.map((o) => (
+                    <a
+                      key={o.rwNumber}
+                      href={`/object/${o.rwNumber}`}
+                      className="flex items-center justify-between gap-3 rounded-lg border border-forest-900/10 bg-cream-50 px-3 py-1.5 text-sm hover:border-brass-500/40"
+                    >
+                      <span className="min-w-0 truncate">
+                        <span className="font-medium text-forest-900">{o.rwNumber}</span>
+                        {o.district ? <span className="ml-2 text-xs text-forest-900/50">{o.district}</span> : null}
+                      </span>
+                      <span className="shrink-0 text-xs text-forest-900/55">
+                        {viewsByRw.get(o.rwNumber)?.d30 ?? 0} 👁 · 0 реакций
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+            {onSiteNoViews.length > 0 && (
+              <div>
+                <h3 className="mb-2 text-sm font-semibold text-forest-900/80">
+                  На сайте, но не смотрят → видимость / обложка
+                </h3>
+                <div className="space-y-1.5">
+                  {onSiteNoViews.map((o) => (
+                    <a
+                      key={o.rwNumber}
+                      href={`/object/${o.rwNumber}`}
+                      className="flex items-center justify-between gap-3 rounded-lg border border-forest-900/10 bg-cream-50 px-3 py-1.5 text-sm hover:border-brass-500/40"
+                    >
+                      <span className="min-w-0 truncate">
+                        <span className="font-medium text-forest-900">{o.rwNumber}</span>
+                        {o.district ? <span className="ml-2 text-xs text-forest-900/50">{o.district}</span> : null}
+                      </span>
+                      <span className="shrink-0 text-xs text-forest-900/45">0 👁 за 30д</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Type tabs + search */}
       <div className="mb-3 flex flex-wrap items-center gap-2">

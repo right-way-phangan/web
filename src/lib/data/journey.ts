@@ -73,3 +73,24 @@ export async function getHotLeads(): Promise<HotLead[]> {
     return [];
   }
 }
+
+/** Anonymous intent quality — returning / multi-object visitors + magnet objects. */
+export interface ReturningVisitors {
+  windowDays: number;
+  totalVisitors: number;
+  returning: number;
+  multiObject: number;
+  warmAnonymous: number;
+  magnets: { rwNumber: string; visitors: number }[];
+}
+
+export async function getReturningVisitors(): Promise<ReturningVisitors | null> {
+  if (!process.env.OBJECTS_API_URL) return null;
+  try {
+    const r = await backendFetch("/visitors/returning", { cache: "no-store" });
+    return r.ok ? ((await r.json()) as ReturningVisitors) : null;
+  } catch (err) {
+    console.error("[journey] returning visitors failed:", err);
+    return null;
+  }
+}

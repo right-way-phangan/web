@@ -260,6 +260,26 @@ export default async function DemandPage({
         </div>
       </div>
 
+      {/* Вид владения + язык аудитории — стратегические срезы спроса */}
+      <div className="mt-8 grid gap-8 lg:grid-cols-2">
+        <div>
+          <h2 className="mb-1 text-lg font-semibold text-forest-900">Вид владения (спрос)</h2>
+          <p className="mb-3 text-xs text-forest-900/50">
+            Что фильтруют — freehold или leasehold. Сверка со ставкой на leasehold-пивот: спрос её
+            подтверждает или спорит.
+          </p>
+          <BarList rows={demand.byTenure} max={Math.max(0, ...demand.byTenure.map((b) => b.count))} />
+        </div>
+        <div>
+          <h2 className="mb-1 text-lg font-semibold text-forest-900">Язык аудитории</h2>
+          <p className="mb-3 text-xs text-forest-900/50">
+            EN/RU у тех, кто ищет — кого больше. Обе версии делаем всё равно сразу, но виден перекос
+            аудитории.
+          </p>
+          <BarList rows={demand.byLocale} max={Math.max(0, ...demand.byLocale.map((b) => b.count))} />
+        </div>
+      </div>
+
       <div className="mt-8 grid gap-8 lg:grid-cols-2">
         <div>
           <h2 className="mb-3 text-lg font-semibold text-forest-900">Топ NL-запросов</h2>
