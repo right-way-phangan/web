@@ -27,6 +27,14 @@ function centroid(pts: [number, number][]): [number, number] {
   return [s[0] / n, s[1] / n];
 }
 
+/** Ширина карточки-подписи (в координатах viewBox) под код + площадь.
+ *  Сужена так, чтобы соседние карточки даже узких лотов (M7↔M8) не накладывались. */
+function pillWidth(code: string, area: string | null): number {
+  const codeW = code.length * 2.4;
+  const areaW = area ? area.length * 1.3 : 0;
+  return Math.max(codeW, areaW) + 3.8;
+}
+
 /**
  * Интерактивная схема разбивки участка «в стиле RW»: контуры лотов из plotShape,
  * цвет по статусу, дороги, стрелка на закатную/морскую сторону. Наведение/клик
@@ -46,36 +54,32 @@ export function EstateSitePlan({ estate, locale, hovered, onHover, onSelect }: P
     (s) => estate.plots.some((p) => p.status === s),
   );
 
+  const fmtArea = (n: number) => `${n.toLocaleString(locale === "ru" ? "ru-RU" : "en-US")} m²`;
+
   return (
-    <figure className="overflow-hidden rounded-sm border border-forest-500/10 bg-cream-50">
+    <figure className="mx-auto w-full max-w-[440px] overflow-hidden rounded-sm border border-forest-500/10 bg-cream-50">
       <svg
         viewBox={plan.viewBox}
         className="block w-full select-none"
         role="img"
         aria-label={t.sections.plan}
       >
-        {/* Дороги */}
-        {plan.roads?.map((d, i) => (
-          <path
-            key={i}
-            d={d}
-            className="fill-none stroke-forest-500/15"
-            strokeWidth={3.2}
-            strokeLinecap="round"
-          />
-        ))}
+        <defs>
+          {/* Мягкая тень карточек-подписей (бренд-ink forest-900) */}
+          <filter id="rw-pill-shadow" x="-40%" y="-40%" width="180%" height="180%">
+            <feDropShadow dx="0" dy="0.5" stdDeviation="0.5" floodColor="#04262E" floodOpacity="0.18" />
+          </filter>
+        </defs>
 
-        {/* Лоты */}
+        {/* Слой 1 — контуры участков (интерактив: наведение/клик) */}
         {lots.map((p) => {
           const pts = p.plotShape!;
-          const [cx, cy] = centroid(pts);
           const isHover = hovered === p.code;
           const st = FILL[p.status];
-          const reachable = true; // все кликабельны (скролл к строке/фото)
           return (
             <g
               key={p.code}
-              className={cn("transition-opacity", reachable && "cursor-pointer")}
+              className="cursor-pointer transition-opacity"
               onMouseEnter={() => onHover(p.code)}
               onMouseLeave={() => onHover(null)}
               onClick={() => onSelect(p.code)}
@@ -97,39 +101,104 @@ export function EstateSitePlan({ estate, locale, hovered, onHover, onSelect }: P
                 strokeWidth={isHover ? 1.6 : 0.7}
                 style={isHover ? { filter: "brightness(1.06)" } : undefined}
               />
-              <text
-                x={cx}
-                y={cy - 0.4}
-                textAnchor="middle"
-                className={cn("font-semibold", st.text)}
-                style={{ fontSize: 4 }}
-              >
-                {p.code}
-              </text>
-              {p.status === "available" && p.areaSqm ? (
-                <text
-                  x={cx}
-                  y={cy + 4.2}
-                  textAnchor="middle"
-                  className="fill-forest-500/60"
-                  style={{ fontSize: 2.8 }}
-                >
-                  {p.areaSqm.toLocaleString()} m²
-                </text>
-              ) : p.status === "sold" || p.status === "rented" ? (
-                <text
-                  x={cx}
-                  y={cy + 4}
-                  textAnchor="middle"
-                  className={st.text}
-                  style={{ fontSize: 2.6, letterSpacing: 0.3 }}
-                >
-                  {t.status[p.status].toUpperCase()}
-                </text>
-              ) : null}
             </g>
           );
         })}
+
+        {/* Слой 2 — дороги поверх границ (казинг-бордюр + светлый просвет) */}
+        {plan.roads?.map((d, i) => (
+          <path
+            key={`rc-${i}`}
+            d={d}
+            className="fill-none stroke-forest-500/30"
+            strokeWidth={3.2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        ))}
+        {plan.roads?.map((d, i) => (
+          <path
+            key={`rs-${i}`}
+            d={d}
+            className="fill-none stroke-cream-50"
+            strokeWidth={1.9}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        ))}
+
+        {/* Слой 3 — подписи (карточки/текст), клики не перехватывают */}
+        <g className="pointer-events-none">
+          {lots.map((p) => {
+            const pts = p.plotShape!;
+            const [cx, cy] = centroid(pts);
+            const isHover = hovered === p.code;
+            const st = FILL[p.status];
+            const isCard = p.status === "available" || p.status === "reserved";
+            const area = p.areaSqm ? fmtArea(p.areaSqm) : null;
+            const w = pillWidth(p.code, area);
+            const codeColor = p.status === "reserved" ? "fill-brass-700" : "fill-forest-900";
+            return isCard ? (
+              <g key={p.code}>
+                <rect
+                  x={cx - w / 2}
+                  y={area ? cy - 6 : cy - 4}
+                  width={w}
+                  height={area ? 12 : 8}
+                  rx={2.2}
+                  ry={2.2}
+                  className={cn(
+                    "fill-cream-50 transition-all",
+                    isHover ? "stroke-brass-500" : "stroke-forest-500/10",
+                  )}
+                  strokeWidth={isHover ? 0.7 : 0.4}
+                  style={{ filter: "url(#rw-pill-shadow)" }}
+                />
+                <text
+                  x={cx}
+                  y={area ? cy - 0.6 : cy + 1.4}
+                  textAnchor="middle"
+                  className={cn("font-sans font-semibold", codeColor)}
+                  style={{ fontSize: 4 }}
+                >
+                  {p.code}
+                </text>
+                {area ? (
+                  <text
+                    x={cx}
+                    y={cy + 3.6}
+                    textAnchor="middle"
+                    className="fill-brass-600 font-sans font-medium"
+                    style={{ fontSize: 2.5 }}
+                  >
+                    {area}
+                  </text>
+                ) : null}
+              </g>
+            ) : (
+              <g key={p.code}>
+                <text
+                  x={cx}
+                  y={cy - 0.2}
+                  textAnchor="middle"
+                  className={cn("font-sans font-semibold", st.text)}
+                  style={{ fontSize: 3.6 }}
+                >
+                  {p.code}
+                </text>
+                <text
+                  x={cx}
+                  y={cy + 3.4}
+                  textAnchor="middle"
+                  className={cn("font-sans", st.text)}
+                  style={{ fontSize: 2.3, letterSpacing: 0.3 }}
+                >
+                  {t.status[p.status].toUpperCase()}
+                </text>
+              </g>
+            );
+          })}
+        </g>
 
         {/* Стрелка-ориентир на море/закат */}
         <SeaArrow side={seaSide} viewBox={plan.viewBox} label={`☀ ${locale === "ru" ? "море · закат" : "sea · sunset"}`} />
