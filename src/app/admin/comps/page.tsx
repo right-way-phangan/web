@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { AdminNav } from "@/components/admin/admin-nav";
 import { getComps, byDistrict, daysOnMarket, median, type ExternalComp } from "@/lib/data/comps";
+import { getAllObjects } from "@/lib/data/objects";
+import type { RealEstateObject } from "@/types/object";
 
 export const metadata: Metadata = {
   title: "Рынок · компсы конкурентов",
@@ -31,11 +33,33 @@ function domBadge(dom: number | null): string {
 }
 
 export default async function CompsPage() {
-  const comps = await getComps();
+  const [comps, objects] = await Promise.all([getComps(), getAllObjects()]);
   const active = comps.filter((c) => c.status === "active");
   const sold = comps.filter((c) => c.status === "sold");
   const gone = comps.filter((c) => c.status === "gone");
   const districts = byDistrict(comps);
+
+  // Ценовое позиционирование: наши Active-участки vs медиана рынка ฿/рай по
+  // району. Только земля (pricePerRai однозначен; у строений built-площадь в
+  // каталоге неоднозначна). Пусто, пока компсы не наполнены.
+  const marketPpr = new Map<string, number>();
+  for (const d of districts) if (d.pricePerRai) marketPpr.set(d.district, d.pricePerRai);
+  const ourPpr = (o: RealEstateObject): number | null => {
+    if (o.pricePerRai && o.pricePerRai > 0) return o.pricePerRai;
+    if (o.priceThb && o.areaRai && o.areaRai > 0) return o.priceThb / o.areaRai;
+    return null;
+  };
+  const pricePosition = objects
+    .filter((o) => o.type === "Land" && o.status === "Active" && o.district && marketPpr.has(o.district))
+    .map((o) => {
+      const our = ourPpr(o);
+      const market = marketPpr.get(o.district as string) as number;
+      if (our == null) return null;
+      return { rw: o.rwNumber, district: o.district as string, our, market, deltaPct: Math.round(((our - market) / market) * 100) };
+    })
+    .filter((x): x is NonNullable<typeof x> => x != null && Math.abs(x.deltaPct) >= 15)
+    .sort((a, b) => Math.abs(b.deltaPct) - Math.abs(a.deltaPct))
+    .slice(0, 12);
 
   const landPpr = active
     .filter((c) => c.type === "Land" && c.areaRai && c.areaRai > 0)
@@ -103,6 +127,37 @@ export default async function CompsPage() {
               </table>
             </div>
           </div>
+
+          {/* Ценовое позиционирование: наши участки vs рынок */}
+          {pricePosition.length > 0 ? (
+            <div className="mt-10">
+              <h2 className="mb-1 text-lg font-semibold text-forest-900">💰 Наши участки vs рынок</h2>
+              <p className="mb-3 text-xs text-forest-900/50">
+                Active-земля, где наша цена за рай заметно отличается от медианы конкурентов в районе.
+                🔴 выше рынка — может не продаваться (пересмотреть с продавцом); 🟢 ниже — возможно,
+                оставляем деньги. Сравнение только по земле.
+              </p>
+              <div className="space-y-2">
+                {pricePosition.map((p) => (
+                  <div
+                    key={p.rw}
+                    className="flex items-center justify-between gap-3 rounded-lg border border-forest-900/10 bg-cream-50 px-3 py-2"
+                  >
+                    <div className="min-w-0">
+                      <a href={`/object/${p.rw}`} className="font-medium text-forest-900 hover:underline">{p.rw}</a>
+                      <span className="ml-2 text-xs text-forest-900/50">{p.district}</span>
+                      <div className="text-xs text-forest-900/55">
+                        наша {thbM(p.our)}/рай · рынок {thbM(p.market)}/рай
+                      </div>
+                    </div>
+                    <div className={"shrink-0 text-sm font-semibold " + (p.deltaPct > 0 ? "text-rose-600" : "text-emerald-600")}>
+                      {p.deltaPct > 0 ? "🔴 +" : "🟢 "}{p.deltaPct}%
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : null}
 
           {/* Лента объявлений */}
           <div className="mt-10">

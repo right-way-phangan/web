@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { AdminNav } from "@/components/admin/admin-nav";
-import { getJourneys, type JourneyLead } from "@/lib/data/journey";
+import { getJourneys, getHotLeads, type JourneyLead, type HotLead } from "@/lib/data/journey";
 
 export const metadata: Metadata = {
   title: "Путь посетителя",
@@ -83,7 +83,8 @@ function JourneyRow({ j }: { j: JourneyLead }) {
 }
 
 export default async function JourneyPage() {
-  const j = await getJourneys();
+  const [j, hot] = await Promise.all([getJourneys(), getHotLeads()]);
+  const hotScored = hot.filter((h: HotLead) => h.score > 0);
   const attrPct = j.totalLeads > 0 ? Math.round((j.attributable / j.totalLeads) * 100) : 0;
 
   return (
@@ -96,6 +97,36 @@ export default async function JourneyPage() {
         по анонимному <code className="text-xs">vid</code> (ротируемый id браузера, без персональных
         данных). Глубже, чем агрегатная атрибуция «по первому касанию».
       </p>
+
+      {/* Позвонить первым — открытые лиды по теплоте (что делали до заявки) */}
+      {hotScored.length > 0 ? (
+        <div className="mt-6 rounded-2xl border border-brass-500/30 bg-brass-500/[0.06] p-5">
+          <h2 className="text-lg font-semibold text-forest-900">🔥 Позвонить первым</h2>
+          <p className="mb-3 text-xs text-forest-900/55">
+            Открытые лиды по «теплоте» — что человек делал до заявки. Чем выше, тем горячее: время
+            продаж сначала на этих, и есть с чем зайти в разговор.
+          </p>
+          <div className="space-y-2">
+            {hotScored.slice(0, 10).map((h: HotLead, i: number) => (
+              <div
+                key={h.leadId}
+                className="flex items-center justify-between gap-3 rounded-lg border border-forest-900/10 bg-cream-50 px-3 py-2"
+              >
+                <div className="min-w-0">
+                  <span className="font-medium text-forest-900">
+                    {i === 0 ? "🥇 " : ""}{h.name}
+                  </span>
+                  {h.rwNumber ? <span className="ml-2 text-xs text-forest-900/50">по {h.rwNumber}</span> : null}
+                  <div className="text-xs text-forest-900/55">{h.why}</div>
+                </div>
+                <div className="shrink-0 rounded-full bg-brass-500/15 px-2.5 py-1 text-sm font-semibold text-brass-600">
+                  {h.score}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
 
       {j.attributable === 0 ? (
         <p className="mt-8 text-sm text-forest-900/50">

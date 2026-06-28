@@ -48,3 +48,28 @@ export async function getJourneys(): Promise<JourneySummary> {
     return EMPTY;
   }
 }
+
+/** Hot open leads — "who to call first" by pre-inquiry engagement. */
+export interface HotLead {
+  leadId: number;
+  name: string;
+  createdAt: string;
+  rwNumber: string | null;
+  score: number;
+  viewedCount: number;
+  calc: number;
+  saves: number;
+  clicks: number;
+  why: string;
+}
+
+export async function getHotLeads(): Promise<HotLead[]> {
+  if (!process.env.OBJECTS_API_URL) return [];
+  try {
+    const r = await backendFetch("/leads/hot", { cache: "no-store" });
+    return r.ok ? ((await r.json()) as HotLead[]) : [];
+  } catch (err) {
+    console.error("[journey] hot leads failed:", err);
+    return [];
+  }
+}

@@ -91,6 +91,23 @@ export default async function DemandPage({
   const maxType = demand.byType[0]?.count ?? 0;
   const maxFeature = demand.byFeature[0]?.count ?? 0;
 
+  // Лист закупки: дефицитные районы, ранжированные по потенциалу комиссии.
+  // Комиссия на сделку = max(5% от медианной цены каталога; 150k THB). Потенциал
+  // = число ищущих × комиссия (верхняя оценка — не все купят, но для приоритета).
+  const livePrices = live
+    .map((o: RealEstateObject) => o.priceThb)
+    .filter((p): p is number => typeof p === "number" && p > 0)
+    .sort((a, b) => a - b);
+  const avgDeal = livePrices.length ? livePrices[Math.floor(livePrices.length / 2)] : 8_000_000;
+  const commissionPerDeal = Math.max(avgDeal * 0.05, 150_000);
+  const wishlist = gap
+    .filter((g) => g.demand >= 2 && g.inventory <= g.demand)
+    .map((g) => ({ ...g, potential: g.demand * commissionPerDeal }))
+    .sort((a, b) => b.potential - a.potential)
+    .slice(0, 6);
+  const fmtTHB = (n: number) =>
+    n >= 1_000_000 ? `฿${(n / 1_000_000).toFixed(1)}M` : `฿${nf(Math.round(n / 1000))}k`;
+
   return (
     <section className="px-4 py-8 md:px-8">
       <AdminNav active="demand" />
@@ -133,6 +150,44 @@ export default async function DemandPage({
           hint="искали — у нас нет"
         />
       </div>
+
+      {/* Лист закупки — дефицит, ранжированный по потенциалу комиссии */}
+      {wishlist.length > 0 ? (
+        <div className="mt-8 rounded-2xl border border-brass-500/30 bg-brass-500/[0.06] p-5">
+          <h2 className="text-lg font-semibold text-forest-900">🛒 Лист закупки — что искать в первую очередь</h2>
+          <p className="mb-3 text-xs text-forest-900/55">
+            Где спрос есть, а инвентаря нет — ранжировано по потенциалу комиссии (ищущих × ≈
+            {fmtTHB(commissionPerDeal)} за сделку, медиана каталога). Верхняя оценка — приоритет сорсинга, не прогноз.
+          </p>
+          <div className="space-y-2">
+            {wishlist.map((g, i) => (
+              <div
+                key={g.name}
+                className="flex items-center justify-between gap-3 rounded-lg border border-forest-900/10 bg-cream-50 px-3 py-2"
+              >
+                <div className="min-w-0">
+                  <span className="font-medium text-forest-900">
+                    {i === 0 ? "🥇 " : ""}{g.name}
+                  </span>
+                  <div className="text-xs text-forest-900/55">
+                    {g.demand} ищут · {g.inventory} в каталоге{g.inventory === 0 ? " ⚠️" : ""}
+                  </div>
+                </div>
+                <div className="shrink-0 text-right">
+                  <div className="text-sm font-semibold text-brass-600">~{fmtTHB(g.potential)}</div>
+                  <div className="text-xs text-forest-900/45">потенциал</div>
+                </div>
+              </div>
+            ))}
+          </div>
+          {demand.zeroResultQueries.length > 0 ? (
+            <p className="mt-3 text-xs text-forest-900/55">
+              Плюс конкретные запросы без результата:{" "}
+              {demand.zeroResultQueries.slice(0, 4).map((q) => `«${q.query}»`).join(", ")} — точечные цели.
+            </p>
+          ) : null}
+        </div>
+      ) : null}
 
       {/* Gap: demand vs inventory by district */}
       <div className="mt-8">
