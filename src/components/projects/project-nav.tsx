@@ -71,7 +71,7 @@ export function ProjectNav({
   };
 
   return (
-    <div className="sticky top-16 z-30 -mx-4 border-b border-forest-500/10 bg-cream-100/85 backdrop-blur-md md:top-20">
+    <div className="sticky top-16 z-30 -mx-4 border-b border-forest-500/10 bg-cream-100/85 shadow-[0_10px_30px_-26px_rgba(4,38,46,0.6)] backdrop-blur-md md:top-20">
       <div className="container-prose flex items-center gap-2 px-4">
         <nav
           ref={navRef}

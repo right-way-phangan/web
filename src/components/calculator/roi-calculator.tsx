@@ -74,6 +74,9 @@ interface Props {
   initialTenure?: Tenure;
   initialLeaseTermYears?: number;
   initialOffplan?: boolean;
+  /** Pre-enable rental income — villa/house/project buyers usually model a let.
+   *  Off-plan: checks "rent after handover"; completed: flips "add rental income". */
+  initialRent?: boolean;
   catalog?: RealEstateObject[];
   excludeRw?: string;
   compact?: boolean;
@@ -97,6 +100,7 @@ export function RoiCalculator({
   initialTenure,
   initialLeaseTermYears,
   initialOffplan,
+  initialRent,
   catalog = [],
   excludeRw,
   market,
@@ -117,16 +121,21 @@ export function RoiCalculator({
     { key: "optimistic", label: t.scenarioOptimistic, growthPct: appr.high },
   ] as const;
 
+  const offplanInit = initialOffplan ?? DEFAULT_INPUTS.offplan;
   const [inputs, setInputs] = useState<RoiInputs>({
     ...DEFAULT_INPUTS,
     purchasePriceThb: initialPriceThb ?? DEFAULT_INPUTS.purchasePriceThb,
     // Default the headline growth to the data-anchored "base" so the projection
     // starts from market context, not a hardcoded guess.
     annualGrowthPct: appr.base,
-    mode: initialMode ?? DEFAULT_INPUTS.mode,
+    // Villa/house/project default to a rental model (initialRent): off-plan
+    // shows income after handover, a completed home flips Buy→Rent. Land is
+    // left as buy-&-hold.
+    mode: initialMode ?? (initialRent && !offplanInit ? "rent" : DEFAULT_INPUTS.mode),
     tenure: initialTenure ?? DEFAULT_INPUTS.tenure,
     leaseTermYears: initialLeaseTermYears ?? DEFAULT_INPUTS.leaseTermYears,
-    offplan: initialOffplan ?? DEFAULT_INPUTS.offplan,
+    offplan: offplanInit,
+    rentAfterHandover: initialRent && offplanInit ? true : DEFAULT_INPUTS.rentAfterHandover,
   });
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [showYears, setShowYears] = useState(false);

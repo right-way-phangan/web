@@ -35,12 +35,14 @@ export default async function ListingsPage({ searchParams }: PageProps) {
   const sp = await searchParams;
   const filter = parseListingsSearchParams(sp);
 
-  // Developer projects (off-plan, RW-P) and their per-unit cards (RW-P####-N)
-  // have their own section at /projects — keep both out of the listings grid.
-  // Slim once at the source so sorted/filtered share the same instances —
-  // mapping per-prop would break reference sharing and double the RSC payload.
+  // Per-unit project cards (RW-P####-N) stay on the project landing, but the
+  // parent developer project now joins the grid so off-plan / leasehold homes
+  // (Atmos, Terra…) are discoverable from the same filter as everything else —
+  // a project card deep-links to its richer /projects/[slug] page (the object
+  // route redirects there). Slim once at the source so sorted/filtered share
+  // the same instances — mapping per-prop would double the RSC payload.
   const all = (await getPublicObjects())
-    .filter((o) => o.type !== "Project" && !isProjectUnit(o.rwNumber))
+    .filter((o) => !isProjectUnit(o.rwNumber))
     .map(slimObjectForList);
   const options = deriveFilterOptions(all);
   const filtered = all.filter(makeFilterPredicate(filter));

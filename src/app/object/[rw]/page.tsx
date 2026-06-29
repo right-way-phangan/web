@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import type { Route } from "next";
 import { MapPin } from "lucide-react";
@@ -97,6 +97,14 @@ export default async function ObjectPage({ params }: Props) {
     if (!gone) notFound();
     const catalog = (await getPublicObjects()).map(slimObjectForCard);
     return <UnavailableObject object={gone} catalog={catalog} locale="en" />;
+  }
+
+  // A parent developer project (RW-P####) has a far richer landing at
+  // /projects/[slug]; its card now shows in the listings grid and shared
+  // /object links should resolve there too. Units (RW-P####-N) fall through.
+  if (object.type === "Project" && !isProjectUnit(object.rwNumber)) {
+    const projects = await getPublicProjects();
+    redirect(`/projects/${projectSlug(object, projects)}`);
   }
 
   // Карточные поля: полный каталог (галереи, описания, RU-заметки) иначе
@@ -289,6 +297,9 @@ export default async function ObjectPage({ params }: Props) {
                 }
                 initialLeaseTermYears={object.leaseTermYears}
                 initialOffplan={object.type === "Project" ? true : undefined}
+                // Homes (villa/house/apartment/townhouse/project) lead with a
+                // rental model; land stays buy-&-hold.
+                initialRent={["Villa", "House", "Apartment", "Townhouse", "Project"].includes(object.type)}
                 catalog={catalog}
                 excludeRw={object.rwNumber}
               />

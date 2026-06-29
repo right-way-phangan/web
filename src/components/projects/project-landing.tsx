@@ -176,11 +176,13 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
 
       <SpecStrip project={project} locale={locale} />
 
+      {/* The sticky section nav needs a tall parent to travel within, so the
+          body grid is nested beside it — wrapped alone it has zero scroll run
+          and never sticks. */}
       <div className="mt-10">
         <ProjectNav items={nav} ctaLabel={t.nav.enquire} availabilityNote={availNote} />
-      </div>
 
-      <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_360px] lg:gap-16">
+        <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_360px] lg:gap-16">
         <div className="min-w-0 space-y-24 lg:space-y-32">
           {/* Overview */}
           <Appear>
@@ -373,6 +375,7 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
                   }
                   initialLeaseTermYears={project.leaseTermYears}
                   initialOffplan
+                  initialRent
                   catalog={catalog}
                   excludeRw={project.rwNumber}
                   projectUnits={buyableUnits.length > 0 ? buyableUnits : undefined}
@@ -420,9 +423,15 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
           ) : null}
         </div>
 
-        {/* Sticky inquiry */}
-        <div id="enquire" className="scroll-mt-32">
+        {/* Sticky deal rail: the offer snapshot + inquiry form stay in view as
+            the visitor scrolls the sections. self-start keeps the item content-
+            height so it can stick within the tall grid row. */}
+        <div id="enquire" className="scroll-mt-32 lg:sticky lg:top-24 lg:self-start lg:space-y-4">
+          {project.priceThb || availability.total != null ? (
+            <RailSummary project={project} availability={availability} t={t} />
+          ) : null}
           <InquiryForm rwNumber={project.rwNumber} />
+        </div>
         </div>
       </div>
 
@@ -460,6 +469,62 @@ function Row({ label, value }: { label: string; value: string }) {
     <div className="flex flex-col gap-1 py-3 sm:flex-row sm:items-baseline sm:justify-between">
       <dt className="text-sm text-forest-500/60">{label}</dt>
       <dd className="text-sm font-medium tabular-nums text-forest-900 sm:text-right">{value}</dd>
+    </div>
+  );
+}
+
+/**
+ * Compact offer snapshot pinned above the inquiry form in the sticky rail —
+ * keeps the "from" price, availability and yield in view once the hero scrolls
+ * away. Desktop only (lg+): on mobile the hero + sticky action bar already carry
+ * this, so the rail stays a plain form.
+ */
+function RailSummary({
+  project,
+  availability,
+  t,
+}: {
+  project: RealEstateObject;
+  availability: { total?: number; available?: number };
+  t: ReturnType<typeof getProjectsDict>;
+}) {
+  const { total, available } = availability;
+  const soldOut = total != null && (available ?? 0) <= 0;
+  return (
+    <div className="hidden rounded-sm border border-forest-500/10 bg-cream-50 p-5 shadow-sm lg:block">
+      {project.priceThb ? (
+        <>
+          <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-brass-500">
+            {t.from}
+          </p>
+          <p className="num mt-1 text-2xl text-forest-900">{formatPriceTHB(project.priceThb)}</p>
+        </>
+      ) : null}
+      {total != null || project.netYieldPct ? (
+        <dl
+          className={`space-y-2 text-sm ${
+            project.priceThb ? "mt-4 border-t border-forest-500/10 pt-4" : ""
+          }`}
+        >
+          {total != null ? (
+            <div className="flex items-center justify-between">
+              <dt className="text-forest-500/65">{t.units}</dt>
+              <dd className="inline-flex items-center gap-1.5 font-medium text-forest-900">
+                <span
+                  className={`h-1.5 w-1.5 rounded-full ${soldOut ? "bg-forest-500/30" : "bg-brass-500"}`}
+                />
+                {soldOut ? t.soldOut : `${available}/${total}`}
+              </dd>
+            </div>
+          ) : null}
+          {project.netYieldPct ? (
+            <div className="flex items-center justify-between">
+              <dt className="text-forest-500/65">{t.sections.netYield}</dt>
+              <dd className="font-medium text-forest-900">~{project.netYieldPct}%</dd>
+            </div>
+          ) : null}
+        </dl>
+      ) : null}
     </div>
   );
 }
