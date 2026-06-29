@@ -69,6 +69,39 @@ export function isRental(o: RealEstateObject): boolean {
   return o.rentPerMonth != null || o.rentPerRaiMonth != null;
 }
 
+/**
+ * The home type a developer project sells, inferred from its title — so a
+ * "Project" surfaces under the Villa/House/Apartment chip a buyer reaches for
+ * ("Atmos Villas" → Villa). Null when the title carries no clear keyword, in
+ * which case the project still matches its own "Project" type.
+ */
+function projectHomeType(o: RealEstateObject): ObjectType | null {
+  if (o.type !== "Project") return null;
+  const s = o.titleEn?.toLowerCase() ?? "";
+  // Pick the keyword that leads the title (the head noun), not a fixed order —
+  // "Ocean Dream House … designer villa" is a House, not a Villa.
+  const at = (re: RegExp): number => re.exec(s)?.index ?? Infinity;
+  const candidates: Array<[number, ObjectType]> = [
+    [at(/\bvillas?\b/), "Villa"],
+    [at(/\b(?:houses?|homes?)\b/), "House"],
+    [at(/\b(?:apartments?|condos?|studios?|duplex(?:es)?)\b/), "Apartment"],
+  ];
+  candidates.sort((a, b) => a[0] - b[0]);
+  return candidates[0][0] === Infinity ? null : candidates[0][1];
+}
+
+/**
+ * Does an object match a selected Type chip? A project matches its own
+ * "Project" type and, additionally, the home type it offers — so type=Villa
+ * includes villa projects (Atmos), not just standalone villas.
+ */
+export function matchesTypeFilter(o: RealEstateObject, types: ObjectType[]): boolean {
+  if (types.length === 0) return true;
+  if (types.includes(o.type)) return true;
+  const home = projectHomeType(o);
+  return home != null && types.includes(home);
+}
+
 function multi<T extends string>(raw: string | undefined, allowed: readonly T[]): T[] {
   if (!raw) return [];
   return raw
@@ -131,7 +164,7 @@ export function makeFilterPredicate(f: ListingsFilter): (o: RealEstateObject) =>
     // instead of mixing two price axes in one list.
     if (f.mode === "rent" ? !isRental(o) : isRental(o)) return false;
 
-    if (f.type.length > 0 && !f.type.includes(o.type)) return false;
+    if (!matchesTypeFilter(o, f.type)) return false;
     if (f.district.length > 0 && (!o.district || !f.district.includes(o.district))) return false;
     if (f.tenure.length > 0) {
       const owned = new Set(o.tenure ?? []);

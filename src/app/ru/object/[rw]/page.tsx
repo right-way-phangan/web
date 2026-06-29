@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import type { Route } from "next";
 import { MapPin, ShieldCheck } from "lucide-react";
@@ -87,6 +87,14 @@ export default async function RussianObjectPage({ params }: Props) {
     if (!gone) notFound();
     const catalog = (await getPublicObjects()).map(slimObjectForCard);
     return <UnavailableObject object={gone} catalog={catalog} locale="ru" />;
+  }
+
+  // Родительский проект застройщика (RW-P####) имеет полноценный лендинг
+  // /ru/projects/[slug]; его карточка теперь в списке, и ссылки /object тоже
+  // должны вести туда. Юниты (RW-P####-N) проходят на обычную страницу.
+  if (object.type === "Project" && !isProjectUnit(object.rwNumber)) {
+    const projects = await getPublicProjects();
+    redirect(`/ru/projects/${projectSlug(object, projects)}`);
   }
 
   // Карточные поля: полный каталог (галереи, описания, RU-заметки) иначе
@@ -268,6 +276,9 @@ export default async function RussianObjectPage({ params }: Props) {
                 }
                 initialLeaseTermYears={object.leaseTermYears}
                 initialOffplan={object.type === "Project" ? true : undefined}
+                // Homes (villa/house/apartment/townhouse/project) lead with a
+                // rental model; land stays buy-&-hold.
+                initialRent={["Villa", "House", "Apartment", "Townhouse", "Project"].includes(object.type)}
                 catalog={catalog}
                 excludeRw={object.rwNumber}
               />
