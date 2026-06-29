@@ -21,7 +21,7 @@ import { whatsappLink } from "@/lib/site-config";
 export const metadata: Metadata = {
   title: "Leasehold villas on Koh Phangan — own the house, lease the land",
   description:
-    "The safe way for foreigners to hold a villa on Koh Phangan: own the building outright, lease the land on a registered long lease — no nominees, no Thai shell company. Registered lease, bank escrow, two-level due diligence.",
+    "The safe way for foreigners to hold a villa on Koh Phangan: own the building outright, lease the land on a registered long lease — no nominees, no Thai shell company. Registered lease, lawyer-held deposit, two-level due diligence.",
   alternates: {
     canonical: "/leasehold",
     languages: { en: "/leasehold", ru: "/ru/leasehold", "x-default": "/leasehold" },
@@ -51,8 +51,8 @@ const PILLARS = [
   },
   {
     icon: Landmark,
-    title: "Money moves through bank escrow",
-    text: "Funds sit with a licensed bank escrow and release on registration — not in a lawyer's client account. You pay when the lease and the building are actually yours on paper.",
+    title: "Your money is protected until registration",
+    text: "Your deposit is held by the partner law firm in a dedicated client account — never paid to the seller up front — and released only once the lease and the building are registered in your name. You pay when it's actually yours on paper.",
   },
   {
     icon: ClipboardCheck,
@@ -112,7 +112,7 @@ export default function LeaseholdPage() {
       <PageHero
         eyebrow="Leasehold"
         title="Own the villa. Lease the land. Skip the nominee."
-        lede="Leasehold is how international buyers hold a home on Phangan without a Thai shell company — the building in your name, the land on a registered long lease, the money through bank escrow. Here is exactly how it works."
+        lede="Leasehold is how international buyers hold a home on Phangan without a Thai shell company — the building in your name, the land on a registered long lease, the deposit held safely by a lawyer until registration. Here is exactly how it works."
       />
 
       <section className="container-prose py-16 md:py-24">
@@ -176,7 +176,7 @@ export default function LeaseholdPage() {
         <div className="mt-16 rounded-sm border border-forest-500/10 bg-cream-50 p-8 md:mt-20 md:p-10">
           <h2 className="font-serif text-3xl text-forest-900">Leasehold done properly.</h2>
           <p className="mt-4 max-w-prose text-base leading-relaxed text-forest-500/75">
-            A registered lease, the building in your name, money through bank escrow, and the
+            A registered lease, the building in your name, the deposit held safely until registration, and the
             same two-level checks behind every listing —{" "}
             <Link href="/due-diligence" className="underline decoration-brass-500/40 underline-offset-4 hover:decoration-brass-500">
               what we verify
