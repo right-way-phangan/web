@@ -105,6 +105,8 @@ export interface ZoneRulesLookupResult {
   terrainEstimated?: boolean;
   /** Precise quantitative norms (height/area/%/min plot), or null. */
   norms?: BuildingNorms | null;
+  /** True when !ok is a benign informational answer (no city-plan coverage), not a failure. */
+  soft?: boolean;
   error?: string;
 }
 
@@ -154,18 +156,39 @@ export async function lookupZoneRules(
   try {
     const zone = await lookupZoneByLocation(coords.lat, coords.lng);
     if (!zone.ok) {
-      // Genuine service outage (Longdo city-plan unreachable) → alert. A plain
-      // "no ผังเมือง data at this point" is a normal answer, not breakage.
-      if ((zone.error ?? "").startsWith("Сервис зон недоступен")) {
-        void alertOnce({
-          kind: "service",
-          input: raw,
-          error: zone.error ?? "",
+      // No city-plan colour at this point is a normal answer (most rural Phangan
+      // land isn't zoned) — return it as a soft, informational result, in the
+      // caller's language, and stay silent. The DD step confirms the zone.
+      if (zone.noCoverage) {
+        return {
+          ok: false,
+          soft: true,
           lat: coords.lat,
           lng: coords.lng,
-        });
+          error:
+            locale === "ru"
+              ? "Городской план (ผังเมือง) эту точку не покрывает — зона уточняется в due diligence."
+              : "The city plan (ผังเมือง) doesn’t cover this point — the zone is confirmed in due diligence.",
+        };
       }
-      return { ok: false, lat: coords.lat, lng: coords.lng, error: zone.error };
+      // Anything else from the classifier = a genuine service outage (Longdo
+      // unreachable / non-PNG) → alert the admin chat (throttled).
+      void alertOnce({
+        kind: "service",
+        input: raw,
+        error: zone.error ?? "",
+        lat: coords.lat,
+        lng: coords.lng,
+      });
+      return {
+        ok: false,
+        lat: coords.lat,
+        lng: coords.lng,
+        error:
+          locale === "ru"
+            ? "Сервис зон сейчас недоступен — попробуйте ещё раз чуть позже."
+            : "The zoning service is unavailable right now — please try again shortly.",
+      };
     }
 
     // 3) Turn the zone + ticked signals into indicative (qualitative) rules.

@@ -21,6 +21,8 @@ export interface ZoneLookupResult {
   label?: string;
   /** Dominant sampled colour, for the UI chip. */
   colorHex?: string;
+  /** True when the city plan simply has no data at this point (benign, not a failure). */
+  noCoverage?: boolean;
   error?: string;
 }
 
@@ -135,7 +137,7 @@ export async function lookupZoneByLocation(lat: number, lng: number): Promise<Zo
   const colored = [...counts.entries()].filter(([c]) => c !== "white");
   const coloredTotal = colored.reduce((s, [, v]) => s + v, 0);
   if (sampled === 0 || coloredTotal < sampled * 0.1) {
-    return { ok: false, error: "Нет данных ผังเมือง для этой точки" };
+    return { ok: false, noCoverage: true, error: "Нет данных ผังเมือง для этой точки" };
   }
 
   // Bright green + white stripes around the point ⇒ conservation hatch even if

@@ -235,7 +235,16 @@ export function ZoneChecker({ locale }: { locale: RuleLocale }) {
             {t.idleHint}
           </div>
         ) : result && !result.ok ? (
-          <div className="rounded-sm border border-amber-600/25 bg-amber-50/70 p-4 text-base text-amber-800 dark:bg-amber-500/10 dark:text-amber-200">
+          // Soft result (no city-plan coverage) reads as neutral info, not an
+          // error; genuine failures keep the amber treatment.
+          <div
+            className={cn(
+              "rounded-sm border p-4 text-base",
+              result.soft
+                ? "border-forest-500/15 bg-cream-50 text-forest-500/80"
+                : "border-amber-600/25 bg-amber-50/70 text-amber-800 dark:bg-amber-500/10 dark:text-amber-200",
+            )}
+          >
             {result.error}
           </div>
         ) : result?.ok ? (
