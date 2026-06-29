@@ -1,39 +1,42 @@
-# Last run — 2026-06-28
+# Last run — 2026-06-29
 
 **Guides published:** 2
+
+**Note:** The backlog was fully exhausted (all prior topics ✅). The two new topics were sourced from the uncovered district list in `src/content/districts.ts` (9 districts had no KB guide). Both new topics were added to `backlog.md` section C and immediately marked ✅. Eight additional district topics were added to the backlog as ⏳ for future runs.
 
 ---
 
 ## Guide 1
 
-- **slug:** `freehold-condo-vs-leasehold-villa`
-- **kbId:** `kb-0035`
-- **title (EN):** Freehold condo vs leasehold villa for a foreigner: the real difference
-- **title (RU):** Фрихолд-кондо или лизхолд-вилла для иностранца: реальная разница
-- **faqCategory:** `ownership`
-- **faqQuestion:** Should I buy a freehold condo or a leasehold villa as a foreigner in Thailand?
+- **slug:** `buying-in-madeau-wan`
+- **kbId:** `kb-0037`
+- **title (EN):** Buying in Madeau Wan: the island's quiet inland residential district
+- **title (RU):** Покупка в Мадео Ван: тихий жилой район острова
+- **faqCategory:** `phangan`
+- **faqQuestion:** What is Madeau Wan like and who is it for as a buyer on Koh Phangan?
 - **Sources used:**
-  - Lex Bangkok — current 49% foreign quota rule and condo mechanics (lexbangkok.com)
-  - Themis Partner — Condominium Act B.E. 2522 guide for foreign buyers (thailand.themispartner.com)
-  - Formichella & Sritawat — Thai Supreme Court Case 4655/2566 (March 2025): auto-renewal clauses for 30+30 leases unenforceable (fosrlaw.com)
-  - Jirawat Law — 30-year lease rights, risks and renewal analysis (jirawatlawoffice.co.th)
-  - Forbes & Partners — transfer fee and tax breakdown 2025/2026 (forbesandpartners.com)
-  - Siam Real Estate — condos vs villas 2025 comparison (siamrealestate.com)
+  - Conrad Properties — active property listings in Madua Wan confirming product types and price ranges (conradproperties.asia)
+  - Phangan Land and Home (KP Homes) — Meaduawan area listings and raw land data (phanganlandandhome.com)
+  - Sukhothai Interlaw — May 2025 environmental protection regulation for Koh Samui/Phangan/Tao, zone definitions (re.sukhothaiinterlaw.com)
+  - Nation Thailand — THB 7.94 billion market size, buyer nationalities (nationthailand.com)
+  - Islanders Properties — best areas expat guide confirming community character (islanders-properties.com)
 
 ---
 
 ## Guide 2
 
-- **slug:** `phangan-market-seasonality`
-- **kbId:** `kb-0036`
-- **title (EN):** Koh Phangan property market seasonality: when to buy and when to sell
-- **title (RU):** Сезонность рынка недвижимости Ко Пангана: когда покупать и когда продавать
-- **faqCategory:** `costs`
-- **faqQuestion:** When is the best time to buy or sell property on Koh Phangan, and how does the tourist season affect rental income?
+- **slug:** `buying-in-haad-rin`
+- **kbId:** `kb-0038`
+- **title (EN):** Buying in Haad Rin: Full Moon Party peninsula — investor guide
+- **title (RU):** Покупка в Хаад Рине: полуостров Вечеринки Полной Луны — гид для инвестора
+- **faqCategory:** `phangan`
+- **faqQuestion:** Is Haad Rin a good place to buy property on Koh Phangan?
 - **Sources used:**
-  - Airbtics — Ko Pha Ngan Airbnb revenue, occupancy and listing growth 2026 (+39% YoY, 68% median occupancy, median annual revenue THB 706K) (airbtics.com)
-  - AirROI — Ko Pha Ngan monthly STR revenue analysis 2025: Jan peak ~$4,560, May trough ~$1,625 (airroi.com)
-  - AirDNA — Ko Pha Ngan market score 89/100, seasonality 70/100, +41% YoY listing growth (airdna.co)
-  - Samui Phangan Real Estate — hotel occupancy 80–82% annual average, buyer activity seasonality (samui-phangan-real-estate.com)
-  - Full Moon Party Koh Phangan — monthly attendance 5,000–40,000, 2025–2026 dates (fullmoonparty-kohphangan.com)
-  - Bestbkkcondos — negotiation leverage and wet-season discount context (bestbkkcondos.com)
+  - Wikipedia — Full Moon Party attendance figures (20,000–40,000 monthly) and history (en.wikipedia.org)
+  - Nation Thailand — island-wide market size, buyer nationalities, villa pricing data (nationthailand.com)
+  - Airbtics — Ko Pha Ngan STR revenue and occupancy 2026 (airbtics.com)
+  - Islanders Properties — Haad Rin area guide, beach descriptions, buyer profiles (islanders-properties.com)
+  - Sukhothai Interlaw — May 2025 zoning law coastal zone rules (re.sukhothaiinterlaw.com)
+  - Thai Examiner — 2025 nominee company crackdown enforcement actions on Koh Phangan (thaiexaminer.com)
+  - Better Than Freehold — 7,000+ nominee companies targeted, scale of enforcement (betterthanfreehold.com)
+  - Samui Phangan Real Estate — gross yield benchmarks and investment context (samui-phangan-real-estate.com)

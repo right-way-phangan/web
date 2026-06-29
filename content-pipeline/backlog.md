@@ -47,6 +47,16 @@ Status: ⏳ queued · ✅ published.
 | Buying in Haad Yao / Haad Salad | phangan | 🟡 | ✅ |
 | Buying in Ban Tai / Ban Khai (south, sunsets) | phangan | 🟡 | ✅ |
 | Buying in Thong Nai Pan (premium north-east bays) | phangan | 🟡 | ✅ |
+| Buying in Madeau Wan: quiet inland residential district | phangan | 🟡 | ✅ |
+| Buying in Haad Rin: Full Moon Party peninsula, investor guide | phangan | 🟡 | ✅ |
+| Buying in Wok Tum: quiet sunset strip near Thong Sala | phangan | 🟡 | ⏳ |
+| Buying in Hin Kong: long west-coast beach, families | phangan | 🟡 | ⏳ |
+| Buying in Mae Haad: Koh Ma sandbar and snorkelling north-west | phangan | 🟡 | ⏳ |
+| Buying in Bottle Beach (Haad Khuat): remote off-grid north | phangan | ⚪️ | ⏳ |
+| Buying in Than Sadet: national park jungle and river | phangan | ⚪️ | ⏳ |
+| Buying in Haad Yuan / Haad Tien: secluded south-east wellness coves | phangan | ⚪️ | ⏳ |
+| Buying in Khao Khao Haeng: panoramic inland hilltop views | phangan | ⚪️ | ⏳ |
+| Buying in Ban Nai Suan: central inland, space and value | phangan | ⚪️ | ⏳ |
 
 ## D. Comparisons / decision guides
 

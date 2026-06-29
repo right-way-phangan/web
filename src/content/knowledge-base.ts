@@ -2480,6 +2480,160 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "When is the best time to buy or sell property on Koh Phangan, and how does the tourist season affect rental income?",
   },
+  {
+    slug: "buying-in-madeau-wan",
+    kbId: "kb-0037",
+    topic: "Phangan",
+    title: "Buying in Madeau Wan: the island's quiet inland residential district",
+    short:
+      "Madeau Wan is an inland village 5–10 minutes from Thong Sala — jungle-set villas and plots at a fraction of west-coast beachfront prices. Flat terrain, government electricity nearby, and less coastal-zone exposure than its beach neighbours.",
+    updated: "2026-06-29",
+    body: [
+      "Madeau Wan — named after Wat Maduea Wan, the Buddhist temple at its centre — is a quiet inland residential district on the west side of Koh Phangan. It is not a beach area: the nearest swimming is a three-minute scooter ride to Hin Kong Bay. What it offers instead is proximity to Thong Sala (5–10 minutes), proximity to the island's public hospital (about 2 minutes), and a settled, green, community-oriented atmosphere without the wellness-community branding of Sri Thanu or the tourist-season crowd of the western beaches.",
+      "The land market in Madeau Wan divides into two tiers. Raw coconut-grove and garden plots — typically flat, quarter-rai to one-rai in size — offer the lowest entry prices on the accessible west side of the island. Above that sits a growing number of completed and off-plan pool villas in boutique micro-developments of 5–15 units, several clustered near the temple.",
+      { h: "What the district actually feels like" },
+      "The terrain is mostly flat to gently rolling — a meaningful difference from hillside or elevated districts on the island. Jungle vegetation and coconut palms are typical. There is no through-traffic and no tourism infrastructure; the district has a genuinely local Thai-village feel, particularly around the temple. Road access to Thong Sala uses paved island roads; some plots have their last-100-metres access on well-maintained dirt tracks.",
+      { h: "Infrastructure" },
+      {
+        ul: [
+          "**Electricity** — government three-phase supply is available in the area; boutique developments install their own transformers. Some raw plots have the grid connection 50–80 m from the boundary.",
+          "**Water** — piped water is present in more developed areas and in organised villa projects. For raw land, deep-well drilling is the standard approach.",
+          "**Roads** — main-road access to Thong Sala via Tessaban-maintained paved roads. Last-leg access can be a sealed or dirt track depending on the plot.",
+          "**Internet** — fibre-optic available in more developed plots; 4G mobile coverage (AIS/DTAC/True) is standard across the area.",
+          "**Hospital** — approximately 2 minutes by scooter to Koh Phangan Public Hospital — the shortest distance of any residential district.",
+          "**Town** — Thong Sala's markets, bank, ATMs, and ferry pier: 5–10 minutes.",
+        ],
+      },
+      { h: "Zoning and building rules" },
+      "Flat, low-elevation plots in Madeau Wan sit outside the two most restrictive zones created by the May 2025 environmental protection regulation for Koh Phangan. The coastal Zone 2 rules (setbacks, 50–75% green space, wastewater requirements) apply to shoreline land — not to inland plots here. The hillside Zone 3 rules (6 m height cap, 50% green space minimum, no subdivision) apply from 80 m elevation — which also excludes the flat coconut-grove parcels. This makes Madeau Wan among the less-restricted land for new residential development on the island, though buyers must verify the specific elevation and zone designation of any plot with a Thai property lawyer. Hillside extensions of the district that rise toward the island's interior would attract Zone 3 rules. See [Island eco-zoning 2025](/knowledge/koh-phangan-building-zones) for the full regulatory map.",
+      { h: "Who buys here" },
+      {
+        ul: [
+          "**Established island residents** who already know Phangan and want more space, lower land cost, and a quiet community without sacrificing access to town services.",
+          "**Families** attracted by the proximity to the hospital, the quieter environment, and the short drive to the international school near Hin Kong.",
+          "**Value-oriented self-builders** who want a flat, accessible plot with reasonable utility access — and find inland pricing 3–5× lower per rai than equivalent proximity on the west-coast beachfront.",
+          "**Boutique villa developers** building small projects (5–15 units) targeting the rental or resale market at the island's accessible middle price point.",
+        ],
+      },
+      { h: "What to check before buying" },
+      "In addition to the standard [due diligence checklist](/knowledge/due-diligence-checklist-koh-phangan), Madeau Wan buyers should confirm: the road access arrangement for the specific plot (paved or dirt, and who maintains it); the nearest electricity connection point and any grid-connection costs; whether water is from a mains supply or requires drilling; and the exact zone classification under the 2025 regulation.",
+      "Foreign buyers use the same [leasehold structure](/knowledge/how-foreigners-own-a-villa) as elsewhere on the island — 30-year registered land lease with registered superficies or ownership of the structure. The 2025 enforcement against nominee Thai companies applies here as everywhere. See [A Thai company for property](/knowledge/thai-company-for-property-49-51) for why that structure is increasingly inadvisable.",
+    ],
+    takeaways: [
+      "Madeau Wan is 5–10 minutes from Thong Sala and 2 minutes from the public hospital — among the best-serviced inland locations on the island.",
+      "Flat terrain means plots are generally outside the hillside Zone 3 building restrictions (6 m height cap, no-subdivision rules) that constrain highland and west-coast hillside sites.",
+      "Land prices run 3–5× lower per rai than comparable-proximity west-coast beachfront, making it the most accessible route to the island's west-side residential community.",
+      "Water supply for raw plots typically requires deep-well drilling; government electricity is nearby but connection costs vary by plot.",
+      "Buyers are primarily established residents, families, and self-builders — not beach-lifestyle or wellness-community seekers.",
+    ],
+    sources: [
+      {
+        title: "Conrad Properties — properties in Madua Wan, Koh Phangan",
+        url: "https://www.conradproperties.asia/search/thailand/koh-phangan/south-west/madua-wan",
+      },
+      {
+        title: "Phangan Land and Home — Meaduawan area listings",
+        url: "https://phanganlandandhome.com/area/meaduawan/",
+      },
+      {
+        title: "Sukhothai Interlaw — May 2025 zoning law for Koh Samui, Koh Phangan & Koh Tao",
+        url: "https://re.sukhothaiinterlaw.com/new-zoning-law-for-koh-samui-koh-phangan-koh-tao-what-property-owners-developers-need-to-know-may-2025-update/",
+      },
+      {
+        title: "Nation Thailand — Koh Phangan market reaches THB 7.94 billion",
+        url: "https://www.nationthailand.com/business/property/40067434",
+      },
+      {
+        title: "Islanders Properties — best areas to live on Koh Phangan",
+        url: "https://islanders-properties.com/blog/koh-phangan-areas-84",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion:
+      "What is Madeau Wan like and who is it for as a buyer on Koh Phangan?",
+  },
+  {
+    slug: "buying-in-haad-rin",
+    kbId: "kb-0038",
+    topic: "Phangan",
+    title: "Buying in Haad Rin: Full Moon Party peninsula — investor guide",
+    short:
+      "Haad Rin occupies the south-eastern tip of Koh Phangan and is synonymous with the monthly Full Moon Party. It suits short-term rental investors who understand a party economy; it is not suited to families, quiet-lifestyle buyers, or anyone relying on easy road access.",
+    updated: "2026-06-29",
+    body: [
+      "Haad Rin is the most famous district on Koh Phangan and the least suitable for most buyers. The Full Moon Party — held on Haad Rin Nok (Sunrise Beach) every month, attracting 20,000–40,000 people — drives the entire local economy and defines the investment case for property here. If the party is the point, Haad Rin delivers. If it is a liability, it is the wrong district.",
+      "The peninsula sits approximately 11–13 km from Thong Sala and is reached by a steep mountain road with gradients approaching 1-in-4 in places — steep enough that laden motorbikes regularly struggle and travel guides explicitly warn inexperienced riders. Travel time by songthaew is around 30 minutes each way (100–150 THB per person). An alternative is by sea: the Haad Rin Nai pier on the Sunset side receives longtail and passenger boats from Koh Samui (30–60 minutes) and hosts dedicated party ferries around Full Moon dates.",
+      { h: "Two beaches, two different investments" },
+      {
+        ul: [
+          "**Haad Rin Nok (Sunrise Beach)** — east-facing, fine white sand, and the party venue. Beach bars and clubs operate from afternoon until sunrise most evenings, not only on Full Moon nights. Maximum rental demand on party dates (2–3 night minimum-stay bookings are standard); maximum noise exposure for any resident. Properties on and near Nok command the strongest party-night premium but the weakest year-round livability.",
+          "**Haad Rin Nai (Sunset Beach)** — west-facing, quieter, darker sand, with the boat pier and sea access. About 500 metres from the party beach. More suitable for a mixed-use or lower-density investment; some buyers use this side for properties they also intend to occupy personally. The pier access is a meaningful advantage for arriving and departing without using the road.",
+        ],
+      },
+      { h: "The rental investment case" },
+      "The Full Moon Party creates a guaranteed monthly demand spike that other island districts cannot replicate — every 28 days, tens of thousands of visitors need accommodation within walking distance. This translates into very high nightly rates for two to three nights per month and more stable year-round occupancy than a typical seasonal beach property.",
+      "Island-wide, short-term rental gross yields run approximately 6–8% annually on well-managed properties, with median annual Airbnb revenue around THB 706,000 per active listing. Haad Rin area properties show roughly a 12% revenue premium over the island average — significant, but notably lower than the 30–47% premiums recorded at premium west-coast beachside locations (Haad Yao, Haad Salad, Secret Beach). The party effect is real but not the outsized yield premium some buyers expect.",
+      "The important caveat: island-wide short-stay listings grew approximately 40% year-on-year in 2024–2025. Supply expansion is compressing per-unit revenue even as total market demand grows. Run conservative occupancy assumptions — 55–65% annually — and cross-check against current live listings before accepting any developer projection. See [Renting out your villa on Koh Phangan](/knowledge/renting-out-your-villa-rules-and-taxes) for the licensing and tax framework that applies.",
+      { h: "Zoning and building constraints" },
+      "Haad Rin's geography as a narrow peninsula tip means almost all developable land sits within scope of the May 2025 environmental protection zones. Beachfront and near-beach parcels fall under the coastal zone rules: within 10 m of the shoreline, no construction; 10–50 m, one floor maximum with a 6 m height cap and 75 sqm footprint limit; 50–200 m, up to 12 m height. The hills immediately behind the village trigger the hillside zone restrictions at 80 m elevation (6 m height cap, 50% green space, no subdivision). Any new construction or renovation that triggers a permit review will face these rules in full. Existing structures completed before 21 May 2025 are generally grandfathered absent a change of use or expansion. See [Island eco-zoning 2025](/knowledge/koh-phangan-building-zones).",
+      { h: "Foreign ownership and the nominee risk" },
+      "The standard foreign ownership structure on Koh Phangan — 30-year registered leasehold with registered superficies — is the only advisable route. The 2025 nominee company crackdown has been particularly visible across the island: Thai authorities identified over 7,000 suspected nominee companies on Koh Samui and Koh Phangan combined; raids and coordinated inspections have resulted in property seizure proceedings, criminal charges, tax penalties, and deportations. Haad Rin's investment-driven buyer profile historically attracted less structurally careful operators — any buyer considering a Thai company structure should take independent legal advice from a qualified Thai property law firm. See [A Thai company for property](/knowledge/thai-company-for-property-49-51) and [Nominee crackdown 2026](/knowledge/nominee-crackdown-krabi-islands-2026).",
+      { h: "Who should not buy here" },
+      {
+        ul: [
+          "**Families with children** — nightly noise, party-crowd density, and a beach regularly affected by large-scale events make this unsuitable for quiet family life.",
+          "**Long-term residents and digital nomads** — the wellness and co-working expat community has firmly established itself on the west coast (Sri Thanu, Haad Yao, Hin Kong, Chaloklum). Haad Rin is the opposite demographic.",
+          "**Buyers relying on easy road access** — the steep route from Thong Sala is a genuine logistics constraint for deliveries, contractors, and guests with luggage.",
+          "**Investors expecting a quiet low season** — the Full Moon Party runs monthly regardless of weather; the area never goes quiet in the way more residential districts do in the wet season.",
+        ],
+      },
+    ],
+    takeaways: [
+      "The Full Moon Party draws 20,000–40,000 people monthly — guaranteed demand spikes for short-term rentals within walking distance, every 28 days year-round.",
+      "Gross STR yields of 6–8% are achievable; the Haad Rin party premium is approximately 12% above the island average — real but not exceptional compared to premium beachfront areas elsewhere.",
+      "The access road has near-1-in-4 gradients — a genuine logistics constraint that limits the audience for any property and raises operating costs.",
+      "Peninsula geography means almost all land falls under coastal or hillside zone restrictions from the May 2025 environmental regulation — new supply is constrained.",
+      "Nominee company structures are an active enforcement target island-wide; use registered leasehold through a qualified Thai law firm only.",
+    ],
+    sources: [
+      {
+        title: "Nation Thailand — Koh Phangan property market THB 7.94 billion",
+        url: "https://www.nationthailand.com/business/property/40067434",
+      },
+      {
+        title: "Airbtics — Ko Pha Ngan Airbnb revenue and occupancy data 2026",
+        url: "https://airbtics.com/annual-airbnb-revenue-in-ko-pha-ngan-thailand/",
+      },
+      {
+        title: "Islanders Properties — Haad Rin area guide",
+        url: "https://islanders-properties.com/blog/haad-rin-pangan-99",
+      },
+      {
+        title: "Wikipedia — Full Moon Party",
+        url: "https://en.wikipedia.org/wiki/Full_Moon_Party",
+      },
+      {
+        title: "Sukhothai Interlaw — May 2025 zoning law for Koh Phangan",
+        url: "https://re.sukhothaiinterlaw.com/new-zoning-law-for-koh-samui-koh-phangan-koh-tao-what-property-owners-defenders-need-to-know-may-2025-update/",
+      },
+      {
+        title: "Thai Examiner — Koh Phangan nominee company crackdown 2025",
+        url: "https://www.thaiexaminer.com/thai-news-foreigners/2025/11/25/koh-phangan-crackdown-continues-as-thai-government-sends-message-small-time-investors-are-not-wanted/",
+      },
+      {
+        title: "Better Than Freehold — Thailand nominee company crackdown 2025",
+        url: "https://betterthanfreehold.com/resources/thailand-nominee-company-crackdown-koh-samui-phangan-2025",
+      },
+      {
+        title: "Samui Phangan Real Estate — Koh Phangan investment",
+        url: "https://www.samui-phangan-real-estate.com/koh-phangan-property-investment/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "Is Haad Rin a good place to buy property on Koh Phangan?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
