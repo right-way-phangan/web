@@ -2,41 +2,38 @@
 
 **Guides published:** 2
 
-**Note:** The backlog was fully exhausted (all prior topics ✅). The two new topics were sourced from the uncovered district list in `src/content/districts.ts` (9 districts had no KB guide). Both new topics were added to `backlog.md` section C and immediately marked ✅. Eight additional district topics were added to the backlog as ⏳ for future runs.
-
 ---
 
 ## Guide 1
 
-- **slug:** `buying-in-madeau-wan`
-- **kbId:** `kb-0037`
-- **title (EN):** Buying in Madeau Wan: the island's quiet inland residential district
-- **title (RU):** Покупка в Мадео Ван: тихий жилой район острова
+- **slug:** `buying-in-wok-tum`
+- **kbId:** `kb-0039`
+- **title (EN):** Buying in Wok Tum: quiet sunset strip minutes from Thong Sala
+- **title (RU):** Покупка в Вок Туме: тихий закатный берег в минутах от Тонг Сала
 - **faqCategory:** `phangan`
-- **faqQuestion:** What is Madeau Wan like and who is it for as a buyer on Koh Phangan?
+- **faqQuestion:** What is Wok Tum like as a place to buy property on Koh Phangan?
 - **Sources used:**
-  - Conrad Properties — active property listings in Madua Wan confirming product types and price ranges (conradproperties.asia)
-  - Phangan Land and Home (KP Homes) — Meaduawan area listings and raw land data (phanganlandandhome.com)
-  - Sukhothai Interlaw — May 2025 environmental protection regulation for Koh Samui/Phangan/Tao, zone definitions (re.sukhothaiinterlaw.com)
-  - Nation Thailand — THB 7.94 billion market size, buyer nationalities (nationthailand.com)
-  - Islanders Properties — best areas expat guide confirming community character (islanders-properties.com)
+  - Koh Phangan Homes (phanganlandandhome.com) — area guide, land pricing (~1.4–1.5M THB/rai), property listings
+  - Welove-kohphangan.com — beach character (mangroves, Angthong views, tidal swim window)
+  - Islanders Properties (islanders-properties.com) — area comparison, community profile
+  - Airbtics (airbtics.com) — island-wide STR data: 68% median occupancy, 706K THB median annual revenue, 40% YoY supply growth
+  - Sukhothai Interlaw (re.sukhothaiinterlaw.com) — May 2025 environmental protection zoning rules
 
 ---
 
 ## Guide 2
 
-- **slug:** `buying-in-haad-rin`
-- **kbId:** `kb-0038`
-- **title (EN):** Buying in Haad Rin: Full Moon Party peninsula — investor guide
-- **title (RU):** Покупка в Хаад Рине: полуостров Вечеринки Полной Луны — гид для инвестора
+- **slug:** `buying-in-hin-kong`
+- **kbId:** `kb-0040`
+- **title (EN):** Buying in Hin Kong: Koh Phangan's longest west-coast beach
+- **title (RU):** Покупка в Хин Конге: самый длинный пляж западного побережья Ко Пангана
 - **faqCategory:** `phangan`
-- **faqQuestion:** Is Haad Rin a good place to buy property on Koh Phangan?
+- **faqQuestion:** Is Hin Kong a good area to buy property on Koh Phangan?
 - **Sources used:**
-  - Wikipedia — Full Moon Party attendance figures (20,000–40,000 monthly) and history (en.wikipedia.org)
-  - Nation Thailand — island-wide market size, buyer nationalities, villa pricing data (nationthailand.com)
-  - Airbtics — Ko Pha Ngan STR revenue and occupancy 2026 (airbtics.com)
-  - Islanders Properties — Haad Rin area guide, beach descriptions, buyer profiles (islanders-properties.com)
-  - Sukhothai Interlaw — May 2025 zoning law coastal zone rules (re.sukhothaiinterlaw.com)
-  - Thai Examiner — 2025 nominee company crackdown enforcement actions on Koh Phangan (thaiexaminer.com)
-  - Better Than Freehold — 7,000+ nominee companies targeted, scale of enforcement (betterthanfreehold.com)
-  - Samui Phangan Real Estate — gross yield benchmarks and investment context (samui-phangan-real-estate.com)
+  - Joy Beach Villas (joybeachvillas.com) — Hin Kong beach guide: 2.4 km length, shallow water, family character
+  - Samui Island Realty (samui-island-realty.com) — property listings and pricing (~4M THB/rai)
+  - Koh Phangan Homes (phanganlandandhome.com) — Wok Tum / Hin Kong area shared bay context
+  - Islanders Properties (islanders-properties.com) — expat community profile, wellness corridor
+  - Airbtics (airbtics.com) — island-wide STR benchmarks; adjacent Chao Phao area ~12% premium over median
+  - Samui Phangan Real Estate (samui-phangan-real-estate.com) — west-coast land appreciation 2–4× since 2022
+  - Sukhothai Interlaw (re.sukhothaiinterlaw.com) — May 2025 zoning rules

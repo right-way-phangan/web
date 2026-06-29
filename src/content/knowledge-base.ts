@@ -2634,6 +2634,161 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "phangan",
     faqQuestion: "Is Haad Rin a good place to buy property on Koh Phangan?",
   },
+  {
+    slug: "buying-in-wok-tum",
+    kbId: "kb-0039",
+    topic: "Phangan",
+    title: "Buying in Wok Tum: quiet sunset strip minutes from Thong Sala",
+    short:
+      "Wok Tum occupies the south-western shore of Koh Phangan, a ten-minute drive from the island's main port town. It offers mangrove-fringed sunset views, the lowest land prices on the west coast, and a genuinely quiet atmosphere — at the cost of a non-swimming shoreline and some infrastructure gaps that buyers should verify before committing.",
+    updated: "2026-06-29",
+    body: [
+      "Wok Tum sits immediately north of Thong Sala along the island's south-western coast, sharing a wide bay with Hin Kong to the north. The combination of close proximity to the island's main service hub and a calm, undeveloped shoreline makes it one of the few areas on Koh Phangan where price, convenience, and tranquility align — though with real trade-offs buyers need to understand.",
+      "The bay is mangrove-fringed rather than sandy beach, with a coral reef roughly 300 metres offshore. Swimming is possible at high tide between November and April, but Wok Tum is not a primary swim beach. What it is, consistently, is one of the island's best sunset viewpoints: on clear evenings, Angthong Marine Park and Koh Samui are visible on the horizon, and the flat water catches the light in a way the more exposed north-facing bays cannot.",
+      { h: "Location and access" },
+      {
+        ul: [
+          "**Distance to Thong Sala**: approximately 10 minutes by scooter or taxi; Koh Phangan Hospital is about 1.4 km from the district centre.",
+          "**Road access**: properties connect to the main Thong Sala–Haad Yao coastal and inland roads. Some plots in the northern part of the district rely on a public dirt-road link of around 300 m — verify the access situation for any specific plot before purchase.",
+          "**Water supply**: government water infrastructure has not yet reached some lower-lying parcels; well water at shallow depth is the backup in those areas. Electricity is readily available with a short extension from the main grid.",
+        ],
+      },
+      { h: "Property market" },
+      "Wok Tum is among the most affordable entry points on the west coast. Land plots (typically 0.8–1.25 rai, flat, Chanote title) have traded at around 1.4–1.5M THB per rai — a fraction of the 9–15M THB per rai commanded by premium sea-view parcels in Haad Yao or Haad Salad. Finished villa projects range from approximately 5M THB for a smaller two-bedroom unit to 8–9M THB for larger eco-luxury offerings. Beachfront-adjacent parcels carry a price premium and transact quickly when they appear.",
+      "The discount relative to other west-coast areas reflects the non-swimming shoreline, partial infrastructure gaps, and lower developer interest to date — not legal or title complications, which are the same as elsewhere on the island. Chanote (Nor Sor 4) title is available and the standard for any purchase here.",
+      { h: "Rental outlook" },
+      "Wok Tum attracts a year-round visitor base — families and couples seeking quiet beach stays, wellness tourists moving through the west-coast corridor, and returning long-term renters who have established a connection to the area. It does not generate the monthly demand spikes of Haad Rin or the premium nightly rates of Haad Yao and Secret Beach. Island-wide short-term rental data (Airbtics, early 2026) puts median annual STR revenue at approximately 706,000 THB per active listing at 68% occupancy; Wok Tum properties are likely at or modestly below the island median given the absence of a primary swim beach. Use conservative occupancy assumptions — 55–60% — when modelling any purchase.",
+      "Short-term rental listings across the island grew approximately 40% year-on-year in 2024–2025. Supply expansion is compressing per-unit revenue even as total demand grows. See [Renting out your villa on Koh Phangan](/knowledge/renting-out-your-villa-rules-and-taxes) for the licensing and tax framework that applies island-wide.",
+      { h: "Zoning and building rules (May 2025)" },
+      "The May 2025 environmental protection regulation applies across the island, including Wok Tum. The flat coastal parcels in the district fall under the general coastal zone rules: no construction within 10 m of the high-tide line; within 10–50 m, one storey maximum with a 6 m height cap and 75 sqm footprint limit; beyond 50 m, up to 12 m height applies. Any hillside plots above the coastal flat — where they exist in the northern part of the district — trigger the stricter hillside rules: 6 m height cap, minimum 50% green space, no subdivision. See [Island eco-zoning 2025](/knowledge/koh-phangan-building-zones) for the full framework.",
+      { h: "Who suits Wok Tum" },
+      {
+        ul: [
+          "**Owner-occupiers** who want a quiet west-coast base close to Thong Sala's shops, hospital, and ferry connections without paying a beach-resort premium.",
+          "**Budget-conscious investors** entering the island market at a lower price point, accepting a moderate rather than premium rental yield.",
+          "**Eco-conscious and wellness buyers** drawn to the natural mangrove setting and growing community of like-minded residents.",
+          "**Buyers who do not need a swimming beach** daily and value unobstructed sunset views over resort amenities.",
+        ],
+      },
+      "Wok Tum is not the right choice for buyers prioritising short-term rental premiums, easy beach swimming, or the vibrant dining and co-working scene of Sri Thanu. For that combination, [Hin Kong](/knowledge/buying-in-hin-kong) or [Sri Thanu](/knowledge/buying-in-sri-thanu) are the closer match.",
+    ],
+    takeaways: [
+      "Ten-minute drive from Thong Sala pier — the closest beachside district to the island's main services hub, hospital, and ferry terminal.",
+      "Mangrove bay with Angthong Marine Park horizon views; excellent sunsets but not a primary swim beach — assess the shoreline in person before deciding.",
+      "Land plots around 1.4–1.5M THB per rai — among the lowest entry prices on the west coast; flat terrain and Chanote title available.",
+      "Rental yields are steady year-round but without premium spikes; model conservatively at 55–60% occupancy against the island median.",
+      "May 2025 zoning rules apply: flat coastal parcels in the lower-restriction zone, but verify each plot's road access and water supply before purchase.",
+    ],
+    sources: [
+      {
+        title: "Koh Phangan Homes — Wok Tum area guide and listings",
+        url: "https://phanganlandandhome.com/area/wok-tum-hin-kong/",
+      },
+      {
+        title: "Welove-kohphangan.com — Ao Wok Tum beach guide",
+        url: "https://www.welove-kohphangan.com/item/wok-tum-beach-koh-phangan/",
+      },
+      {
+        title: "Islanders Properties — Koh Phangan area guide",
+        url: "https://islanders-properties.com/en/blog/koh-phangan-areas-84",
+      },
+      {
+        title: "Airbtics — Ko Pha Ngan Airbnb revenue and occupancy data 2026",
+        url: "https://airbtics.com/annual-airbnb-revenue-in-ko-pha-ngan-thailand/",
+      },
+      {
+        title: "Sukhothai Interlaw — May 2025 zoning law for Koh Phangan",
+        url: "https://re.sukhothaiinterlaw.com/new-zoning-law-for-koh-samui-koh-phangan-koh-tao-what-property-owners-defenders-need-to-know-may-2025-update/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion:
+      "What is Wok Tum like as a place to buy property on Koh Phangan?",
+  },
+  {
+    slug: "buying-in-hin-kong",
+    kbId: "kb-0040",
+    topic: "Phangan",
+    title: "Buying in Hin Kong: Koh Phangan's longest west-coast beach",
+    short:
+      "Hin Kong stretches for approximately 2.4 km along the west coast between Thong Sala and Sri Thanu — the island's longest continuous west-coast beach. It combines family-friendly shallow water, a well-established international community, and direct access to the Sri Thanu wellness corridor, with mid-range west-coast land prices and straightforward road connections.",
+    updated: "2026-06-29",
+    body: [
+      "Hin Kong sits on the west coast of Koh Phangan roughly halfway between Thong Sala to the south and Sri Thanu to the north. The beach road runs directly alongside the sand for its entire length, making it the most physically accessible west-coast stretch on the island. At around 2.4 km, it is also the longest — a meaningful distinction on an island where premium beach frontage is both finite and tightly governed since the May 2025 zoning regulations.",
+      "The area transitions seamlessly into Wok Tum to the south and Sri Thanu to the north, so buyers in Hin Kong effectively buy into the full west-coast corridor. That corridor — internationally recognised as the wellness, yoga, and expat residential hub of the island — drives both the lifestyle and the rental market here.",
+      { h: "Location and access" },
+      {
+        ul: [
+          "**Distance to Thong Sala**: approximately 10 minutes by scooter, 5–6 km by road — a straightforward two-lane coastal route with no significant gradients.",
+          "**Distance to Sri Thanu**: approximately 3 minutes north — Hin Kong and Sri Thanu effectively share an economy, a community, and a wellness scene.",
+          "**Distance to Haad Yao**: approximately 12 minutes north — the premium beach just beyond Sri Thanu, useful context for price comparisons.",
+          "**Road quality**: Hin Kong Road runs the full length of the beach with direct connections to the main west-coast road. Multiple public beach-access paths are maintained. No steep approaches or unsealed sections on the main route.",
+        ],
+      },
+      { h: "Community and lifestyle" },
+      "Hin Kong is part of the island's informal health and wellness hub. Yoga studios, vegan cafés, detox retreats, and holistic health practitioners cluster along the beach road and in Sri Thanu immediately to the north. The community is heavily international — European, Australian, and Russian-speaking residents predominate among the expat layer, alongside a traditional Thai fishing and farming population. The area is consistently cited in expat guides as the best combination of community, convenience, and calm on the island.",
+      "The beach itself is shallow with a sand shelf that exposes at low tide — particularly safe for young children but not ideal for strong-water swimmers. The west-facing orientation delivers reliable sunset views across the Gulf of Thailand toward Koh Samui and, on clear days, the Angthong archipelago.",
+      { h: "Property market" },
+      "Land in Hin Kong runs at approximately 4M THB per rai — mid-range on the west coast, substantially below the 9–15M THB per rai of premium sea-view plots in Haad Yao or Haad Salad, and above the budget-entry flat land in Wok Tum to the south. West-coast land values broadly doubled to quadrupled between early 2022 and 2025, and Hin Kong has tracked that upward move alongside Sri Thanu.",
+      "Finished villa prices range from approximately 6M THB for a two-bedroom property to 13M THB and above for larger sea-view builds. Beachfront and beach-road-fronting parcels represent the most liquid segment — those titles come up rarely and transact quickly. Chanote (Nor Sor 4) is the standard title; verify before purchase.",
+      { h: "Rental outlook" },
+      "No published STR data separates Hin Kong from the broader west-coast corridor, but the adjacent Chao Phao area shows approximately a 12% premium over the island median on Airbtics data. The Sri Thanu area immediately north is among the highest-cited yield zones on the island. Island-wide median annual STR revenue sits at approximately 706,000 THB per listing at 68% occupancy (Airbtics, early 2026). The wellness and long-stay demographic in Hin Kong also supports medium-term rentals of one to three months — a strategy that reduces seasonality risk compared to a pure short-stay model.",
+      "Island-wide STR listings grew approximately 40% year-on-year in 2024–2025. Run conservative occupancy assumptions — 60–65% — and check live listings to calibrate against current supply. See [Renting out your villa on Koh Phangan](/knowledge/renting-out-your-villa-rules-and-taxes) for the licensing and tax framework that applies.",
+      { h: "Zoning and building rules (May 2025)" },
+      "The May 2025 environmental protection regulation applies across Koh Phangan. Hin Kong's flat beachfront parcels fall under the coastal zone: no construction within 10 m of the high-tide line; within 10–50 m, one storey maximum with a 6 m height cap and 75 sqm footprint limit; beyond 50 m, up to 12 m height. Hillside plots above the beach road — where they occur — trigger the stricter hillside zone rules: 6 m height cap, minimum 50% green space, no subdivision. Any new build or renovation requiring a permit will be assessed under these rules in full; structures completed before 21 May 2025 are generally grandfathered absent expansion or change of use. See [Island eco-zoning 2025](/knowledge/koh-phangan-building-zones).",
+      { h: "Who suits Hin Kong" },
+      {
+        ul: [
+          "**Families with young children** — the shallow, calm beach is the safest swimming environment on the island's west coast for small children.",
+          "**Long-term residents and digital nomads** — the established expat community, co-working options in Sri Thanu, and restaurant variety support a comfortable year-round lifestyle.",
+          "**Wellness and yoga practitioners** — the beach road and Sri Thanu immediately to the north form the island's primary wellness corridor.",
+          "**Mixed-use investors** — the long-stay and wellness rental market reduces dependence on peak-season short-stay occupancy.",
+        ],
+      },
+      "Hin Kong is not suited to buyers chasing the highest short-term rental premiums — those lie at Secret Beach, Haad Yao, and Haad Salad — or the party-driven demand of Haad Rin. For lower entry prices with the same sunset orientation, see [Wok Tum](/knowledge/buying-in-wok-tum) immediately to the south.",
+    ],
+    takeaways: [
+      "Longest west-coast beach at approximately 2.4 km — shallow safe water for young children and reliable sunset views year-round.",
+      "Ten-minute drive from Thong Sala, three minutes from Sri Thanu — at the heart of the island's wellness corridor and strongest expat residential hub.",
+      "Land around 4M THB per rai — mid-range west-coast pricing; values have tracked the 2–4× island-wide appreciation since 2022.",
+      "Mixed STR and medium-term rental demand; the wellness demographic supports one-to-three-month stays that hedge seasonality risk.",
+      "May 2025 coastal zoning applies: no construction within 10 m of the shoreline; hillside plots above the beach road face stricter height and green-space limits.",
+    ],
+    sources: [
+      {
+        title: "Joy Beach Villas — Hin Kong beach guide",
+        url: "https://www.joybeachvillas.com/post/hin-kong-beach-guide",
+      },
+      {
+        title: "Samui Island Realty — Hin Kong properties",
+        url: "https://samui-island-realty.com/area/hin-kong/",
+      },
+      {
+        title: "Islanders Properties — Koh Phangan area guide",
+        url: "https://islanders-properties.com/en/blog/koh-phangan-areas-84",
+      },
+      {
+        title: "Koh Phangan Homes — Wok Tum / Hin Kong area",
+        url: "https://phanganlandandhome.com/area/wok-tum-hin-kong/",
+      },
+      {
+        title: "Airbtics — Ko Pha Ngan Airbnb revenue and occupancy data 2026",
+        url: "https://airbtics.com/annual-airbnb-revenue-in-ko-pha-ngan-thailand/",
+      },
+      {
+        title: "Samui Phangan Real Estate — west coast market overview",
+        url: "https://www.samui-phangan-real-estate.com/koh-phangan-real-estate-market/",
+      },
+      {
+        title: "Sukhothai Interlaw — May 2025 zoning law for Koh Phangan",
+        url: "https://re.sukhothaiinterlaw.com/new-zoning-law-for-koh-samui-koh-phangan-koh-tao-what-property-owners-defenders-need-to-know-may-2025-update/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "Is Hin Kong a good area to buy property on Koh Phangan?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
