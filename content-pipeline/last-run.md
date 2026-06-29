@@ -6,34 +6,34 @@
 
 ## Guide 1
 
-- **slug:** `buying-in-wok-tum`
-- **kbId:** `kb-0039`
-- **title (EN):** Buying in Wok Tum: quiet sunset strip minutes from Thong Sala
-- **title (RU):** Покупка в Вок Туме: тихий закатный берег в минутах от Тонг Сала
+- **slug:** `buying-in-mae-haad`
+- **kbId:** `kb-0041`
+- **title (EN):** Buying in Mae Haad: Koh Ma sandbar and Koh Phangan's top snorkelling bay
+- **title (RU):** Покупка в Мэ Хааде: отмель Ко Ма и лучшая снорклинговая бухта Ко Пангана
 - **faqCategory:** `phangan`
-- **faqQuestion:** What is Wok Tum like as a place to buy property on Koh Phangan?
+- **faqQuestion:** Is Mae Haad a good area to buy property on Koh Phangan?
 - **Sources used:**
-  - Koh Phangan Homes (phanganlandandhome.com) — area guide, land pricing (~1.4–1.5M THB/rai), property listings
-  - Welove-kohphangan.com — beach character (mangroves, Angthong views, tidal swim window)
-  - Islanders Properties (islanders-properties.com) — area comparison, community profile
-  - Airbtics (airbtics.com) — island-wide STR data: 68% median occupancy, 706K THB median annual revenue, 40% YoY supply growth
-  - Sukhothai Interlaw (re.sukhothaiinterlaw.com) — May 2025 environmental protection zoning rules
+  - The Manduls (themanduls.com) — Mae Haad beach complete guide: beach character, sandbar, Koh Ma marine park
+  - 3 Angels Thailand Living (3angelsthailandliving.com) — Koh Ma sandbar and snorkelling site specifics
+  - Keller Henson (kellerhenson.com) — new villa developments: AKASHA (11–14M THB, 3–4 bed) and Green Valley (USD 1.55M pre-sale, March 2025)
+  - Islanders Properties (islanders-properties.com) — area guide and land price context
+  - Sukhothai Interlaw (re.sukhothaiinterlaw.com) — May 2025 hillside and coastal zoning rules
+  - Airbtics (airbtics.com) — island-wide STR benchmarks (706K THB median, 68% occupancy)
+  - Samui Phangan Real Estate (samui-phangan-real-estate.com) — property investment overview
 
 ---
 
 ## Guide 2
 
-- **slug:** `buying-in-hin-kong`
-- **kbId:** `kb-0040`
-- **title (EN):** Buying in Hin Kong: Koh Phangan's longest west-coast beach
-- **title (RU):** Покупка в Хин Конге: самый длинный пляж западного побережья Ко Пангана
+- **slug:** `buying-in-bottle-beach`
+- **kbId:** `kb-0042`
+- **title (EN):** Buying in Bottle Beach (Haad Khuat): Koh Phangan's most remote north-coast bay
+- **title (RU):** Покупка на Бутылочном пляже (Хаад Хуат): самая удалённая бухта северного Ко Пангана
 - **faqCategory:** `phangan`
-- **faqQuestion:** Is Hin Kong a good area to buy property on Koh Phangan?
+- **faqQuestion:** Can foreigners buy property at Bottle Beach (Haad Khuat) on Koh Phangan?
 - **Sources used:**
-  - Joy Beach Villas (joybeachvillas.com) — Hin Kong beach guide: 2.4 km length, shallow water, family character
-  - Samui Island Realty (samui-island-realty.com) — property listings and pricing (~4M THB/rai)
-  - Koh Phangan Homes (phanganlandandhome.com) — Wok Tum / Hin Kong area shared bay context
-  - Islanders Properties (islanders-properties.com) — expat community profile, wellness corridor
-  - Airbtics (airbtics.com) — island-wide STR benchmarks; adjacent Chao Phao area ~12% premium over median
-  - Samui Phangan Real Estate (samui-phangan-real-estate.com) — west-coast land appreciation 2–4× since 2022
-  - Sukhothai Interlaw (re.sukhothaiinterlaw.com) — May 2025 zoning rules
+  - The Manduls (themanduls.com) — Bottle Beach complete guide: access, beach character, facilities
+  - Travel Geekery (travelgeekery.com) — detailed hiking routes (both trail options, distances, times)
+  - Islanders Properties (islanders-properties.com) — 40-rai land listing at 2B THB; Chaloklum/Haad Khom access guide
+  - Sukhothai Interlaw (re.sukhothaiinterlaw.com) — May 2025 hillside zoning constraints applicable to the area
+  - Haad Khuad Resort (haadkhuadresort.com) — confirms infrastructure reality (generator, basic utilities, boat transfers)

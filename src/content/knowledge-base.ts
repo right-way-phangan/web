@@ -2789,6 +2789,165 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "phangan",
     faqQuestion: "Is Hin Kong a good area to buy property on Koh Phangan?",
   },
+  {
+    slug: "buying-in-mae-haad",
+    kbId: "kb-0041",
+    topic: "Phangan",
+    title: "Buying in Mae Haad: Koh Ma sandbar and Koh Phangan's top snorkelling bay",
+    short:
+      "Mae Haad sits on Koh Phangan's north-west coast and is anchored by an 800-metre white sand beach and the famous Koh Ma sandbar — a natural tidal causeway to a small rocky island and designated marine park. The area has evolved from a quiet fishing community into an active luxury villa market, but strict hillside zoning limits density and keeps supply permanently constrained.",
+    updated: "2026-06-29",
+    body: [
+      "Mae Haad (also written Mae Had) faces north-west on Koh Phangan, roughly 8–10 km from Thong Sala port — about 25–30 minutes by scooter. The beach is a calm 800-metre arc of white sand backed by palms, with shallow turquoise water that is among the clearest on the island. At low tide, a natural sandbar emerges connecting the main beach to Koh Ma, a rocky islet ringed by a coral reef and designated as a protected marine park — giving Mae Haad the island's most accessible snorkelling and diving just metres from shore.",
+      { h: "Location and access" },
+      {
+        ul: [
+          "**Distance to Thong Sala**: 8–10 km, approximately 25–30 minutes by scooter on the west-coast road — straightforward, largely flat approach.",
+          "**Distance to Chaloklum**: approximately 20 minutes north — useful for supplies and the northern coast.",
+          "**Distance to Haad Yao / Haad Salad**: approximately 15 minutes south along the coast road — the adjacent premium beach market.",
+          "**Road quality**: the main west-coast route is sealed and well-maintained; the last 1–2 km to some hillside plots switches to steep concrete tracks requiring a suitable vehicle.",
+        ],
+      },
+      { h: "Community and lifestyle" },
+      "Mae Haad attracts a quieter, nature-focused demographic than the party zones of Haad Rin or the busier wellness corridor of Sri Thanu. Facilities are modest — a handful of restaurants, a dive shop or two, and the small Koh Ma marine park jetty — keeping the area peaceful and unhurried. Proximity to the snorkelling and the sandbar means the beach draws a steady stream of day-trippers, but the residential population is sparse and private.",
+      "The typical buyer here is not seeking a community hub but a private retreat close to the island's best underwater landscape. The demographic is skewed toward affluent international buyers — primarily Israeli, European, and Australian — who value exclusivity, elevated sea views, and access to the water.",
+      { h: "Property market" },
+      "Mae Haad carries some of the island's higher north-west land prices, reflecting the sea-view premium on hillside plots above the bay. Seaview land runs approximately 8–14 M THB per rai, with panoramic Koh Ma-view parcels reaching 13–14 M THB per rai. Beachfront land commands a significant premium and rarely transacts publicly. Active luxury villa developments have emerged: the Green Valley project (Open Space Ltd, pre-sale launched March 2025) offers 12 villas starting at approximately USD 1.55 M; the AKASHA development near the area launched 3–4 bedroom villas at 11–14 M THB.",
+      "Completed villa prices range from approximately 7–12 M THB for a 2-bedroom seaview property to 20 M THB and above for larger four-bedroom builds. Title is predominantly Chanote (Nor Sor 4) — verify before purchase, as hillside plots in the north-west occasionally present Nor Sor 3 Gor (see [Chanote vs Nor Sor 3 Gor in practice](/knowledge/chanote-vs-nor-sor-3-gor-practice)).",
+      { h: "Zoning and building rules (May 2025)" },
+      "Mae Haad's hillside terrain places most developable plots in Zone 3(1) or Zone 3(2) under the May 2025 environmental regulation — the strictest tiers on the island. Key rules for hillside zones: maximum building height 6 metres (including roof structure); one single-family dwelling per parcel; minimum 50% of the plot must remain as green space; natural-coloured roofing required; no further subdivision of land. Plots with gradients above 35% require special environmental consent before any grading or large-tree removal. New resort-style multi-unit developments are now prohibited on hillside land.",
+      "Coastal parcels on the flat section directly behind the beach fall under the coastal zone: no construction within 10 m of the high-tide line; one storey maximum within 10–50 m; standard height limits beyond 50 m. Structures completed before 21 May 2025 are generally grandfathered. See [Island eco-zoning 2025](/knowledge/koh-phangan-building-zones) for the full framework.",
+      { h: "Rental outlook" },
+      "Mae Haad is not a volume rental market — the beach is quieter than Haad Yao or Haad Salad, and the hillside villa stock targets high-end stays rather than budget short-term turnover. Developer ROI projections for luxury villas in the area run 10–15% annual net, reflecting high nightly rates and longer average stays from international visitors. Island-wide median STR annual revenue is approximately 706,000 THB at 68% occupancy (Airbtics, early 2026); luxury properties with a Koh Ma view and private pool sit materially above this figure. The marine park proximity and snorkelling access are strong marketing hooks for stays of five to fourteen days.",
+      { h: "Who suits Mae Haad" },
+      {
+        ul: [
+          "**Buyers prioritising privacy and natural beauty** — small residential population, marine park access, and hillside exclusivity.",
+          "**Snorkelling and diving enthusiasts** — Koh Ma is Koh Phangan's best-documented dive and snorkel site, accessible on foot from the beach at low tide.",
+          "**Luxury villa investors** — active development pipeline, strong nightly rate potential, and supply constrained by zoning make the upper segment defensible.",
+          "**Buyers comfortable with hillside plots** — the best views require a steep concrete approach; a strong scooter or 4×4 is recommended.",
+        ],
+      },
+      "Mae Haad is less suited to buyers seeking a beach-walking lifestyle or high pedestrian footfall — the area remains quiet with limited dining and shopping. For similar west-coast and north-west pricing with more community infrastructure, see [Haad Yao / Haad Salad](/knowledge/buying-in-haad-yao-haad-salad) to the south.",
+    ],
+    takeaways: [
+      "North-west location with Koh Phangan's most accessible snorkelling — Koh Ma marine park and sandbar just metres from the beach at low tide.",
+      "Hillside seaview land at approximately 8–14 M THB per rai; active luxury villa development pipeline as of 2025–2026.",
+      "May 2025 zoning restricts hillside plots to one single-family home per parcel, 6 m max height, 50% green space — supply permanently constrained.",
+      "25–30 minutes from Thong Sala by scooter; main road sealed, last kilometre to hillside plots may require a 4×4 or strong scooter.",
+      "Quiet residential character — better suited to privacy-seeking buyers than those wanting community hubs or high footfall.",
+    ],
+    sources: [
+      {
+        title: "The Manduls — Mae Haad Beach Koh Phangan complete guide",
+        url: "https://themanduls.com/mae-haad-beach-koh-phangan-the-complete-guide/",
+      },
+      {
+        title: "3 Angels Thailand Living — Mae Haad sandbar and snorkelling guide",
+        url: "https://3angelsthailandliving.com/en-mae-haad-beach-koh-phangan/",
+      },
+      {
+        title: "Keller Henson — new villa developments Koh Phangan (AKASHA, Green Valley)",
+        url: "https://kellerhenson.com/new-villas-for-sale-koh-phangan/",
+      },
+      {
+        title: "Islanders Properties — Koh Phangan area guide",
+        url: "https://islanders-properties.com/en/blog/koh-phangan-areas-84",
+      },
+      {
+        title: "Sukhothai Interlaw — May 2025 zoning law for Koh Phangan",
+        url: "https://re.sukhothaiinterlaw.com/new-zoning-law-for-koh-samui-koh-phangan-koh-tao-what-property-owners-defenders-need-to-know-may-2025-update/",
+      },
+      {
+        title: "Airbtics — Ko Pha Ngan Airbnb revenue and occupancy data 2026",
+        url: "https://airbtics.com/annual-airbnb-revenue-in-ko-pha-ngan-thailand/",
+      },
+      {
+        title: "Samui Phangan Real Estate — Koh Phangan property investment overview",
+        url: "https://www.samui-phangan-real-estate.com/koh-phangan-property-investment/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "Is Mae Haad a good area to buy property on Koh Phangan?",
+  },
+  {
+    slug: "buying-in-bottle-beach",
+    kbId: "kb-0042",
+    topic: "Phangan",
+    title: "Buying in Bottle Beach (Haad Khuat): Koh Phangan's most remote north-coast bay",
+    short:
+      "Bottle Beach — officially Haad Khuat — is Koh Phangan's most isolated bay, reachable only by longtail boat from Chaloklum or a one-to-two-hour jungle hike. Real estate transactions here are extremely rare; the area suits buyers seeking genuine off-grid seclusion or niche eco-tourism development, not conventional investment.",
+    updated: "2026-06-29",
+    body: [
+      "Bottle Beach (Haad Khuat) lies on Koh Phangan's north coast, tucked between steep jungle-covered headlands that plunge directly into the sea. The bay is not accessible by sealed road — the only practical route is a 10–15 minute longtail boat from Chaloklum pier, or two jungle trails (1–2.5 hours on foot) from Haad Khom beach to the west. This access reality defines everything about the property market here.",
+      { h: "Location and access" },
+      {
+        ul: [
+          "**By boat from Chaloklum**: longtail boats run approximately hourly, 09:00–16:00; cost 150–300 THB per person one way; no advance booking required. Chaloklum itself is approximately 10 km and 30 minutes from Thong Sala.",
+          "**By jungle trail**: two routes from Haad Khom beach — a shorter 2 km trail (1–1.5 hours) and a longer coastal route of 3 km (2–2.5 hours). A new wooden walkway section was completed in early 2026. Good shoes and an early start are required.",
+          "**By vehicle**: an informal dirt track exists but becomes impassable after rain and is not viable for regular use. Materials, workers, and supplies for any property construction must travel by boat.",
+          "**Last return boat**: typically 16:00–17:00 — missing it means spending the night, as there is no other practical exit route.",
+        ],
+      },
+      { h: "The beach and environment" },
+      "Bottle Beach is a genuinely pristine bay: around 400–500 metres of pale sand, crystal-clear shallow water, and dense jungle to the tree-line. There are no paved roads, no shops or ATMs, and minimal tourist infrastructure. Six resort-style properties (bungalows and small guesthouses) operate on or near the beach; these are not private villa developments.",
+      "The surrounding terrain is steep and heavily forested. The bay's geology and the May 2025 zoning restrictions both severely limit the footprint of any future development.",
+      { h: "Property market reality" },
+      "The real estate market at Bottle Beach is one of the thinnest on the island. Public transaction data is minimal. The most significant known listing (as of 2025) is a 40-rai (160,000 sqm) beachfront land parcel at 2 billion THB, marketed by Islanders Properties for resort or private villa development — a speculative offering at an institutional price point. There are no active off-plan villa projects, no subdivision plots targeted at individual buyers, and no reliable price-per-rai data from comparable recent sales. Any buyer considering the area should treat it as speculative land banking, not a structured investment with comparable precedent.",
+      { h: "Zoning and building constraints" },
+      "The May 2025 environmental protection regulation applies fully to Bottle Beach. The terrain — steep jungle slopes, coastal proximity, and likely protected forest — places most of the land in the most restrictive categories: Zone 3(1) hillside (max 6 m building height, one dwelling per plot, 50% green space minimum) and potentially higher protected zones depending on specific cadastral boundaries. Slopes above 35% gradient require special environmental approval before any clearing or construction. New resort-style multi-unit development is prohibited; existing operations are grandfathered. See [Island eco-zoning 2025](/knowledge/koh-phangan-building-zones).",
+      "Obtaining a building permit for any new structure will require transporting both workers and materials by boat, conducting environmental assessments, and potentially engaging with national park regulations if the land abuts protected forest. This creates a substantially higher regulatory and logistical burden than any other district on the island.",
+      { h: "Infrastructure" },
+      "There is no public utility grid serviced to individual private parcels. Existing resorts operate on a combination of generator power and basic solar; water is drawn from wells or collected as rainwater. Mobile signal at the beach is poor to absent; 4G is unreliable. Any private property would be fully off-grid by default.",
+      { h: "Who suits Bottle Beach" },
+      {
+        ul: [
+          "**Off-grid seclusion seekers** — buyers who explicitly want the most remote possible location on the island and understand the daily access commitment that entails.",
+          "**Eco-tourism operators with significant capital** — the 40-rai parcel could, in theory, support a boutique retreat, but requires navigating May 2025 zoning, environmental approvals, and a long development timeline.",
+          "**NOT suited to**: families needing daily vehicle access, digital nomads requiring reliable internet, or investors seeking liquidity and capital appreciation benchmarks.",
+        ],
+      },
+      "Bottle Beach is not a conventional property investment. For remoteness with better infrastructure and a clearer market, [Thong Nai Pan](/knowledge/buying-in-thong-nai-pan) on the north-east coast offers premium seclusion with sealed road access. For the northern coast more broadly, see [Buying in Chaloklum](/knowledge/buying-in-chaloklum) — the launch point for Bottle Beach and a more developed alternative.",
+    ],
+    takeaways: [
+      "Access by longtail boat from Chaloklum only (10–15 min, 150–300 THB) or a 1–2 hour jungle trail — no sealed road access to the beach.",
+      "Extremely thin property market; the main known listing is a 40-rai parcel at 2 billion THB — no active villa projects or subdivided plots.",
+      "May 2025 hillside zoning: one dwelling per plot, 6 m max height, 50% green space, environmental approval required for any slope work.",
+      "Fully off-grid: generator power, rainwater/well water, poor mobile signal — any private property carries significant infrastructure overhead.",
+      "Suited only to buyers prioritising genuine remote seclusion or niche eco-tourism development; not recommended for standard investment objectives.",
+    ],
+    sources: [
+      {
+        title: "The Manduls — Bottle Beach Koh Phangan complete guide",
+        url: "https://themanduls.com/bottle-beach-koh-phangan-the-complete-guide-2/",
+      },
+      {
+        title: "Travel Geekery — hiking to Bottle Beach: both routes",
+        url: "https://www.travelgeekery.com/hiking-koh-phangan-bottle-beach-hike-both-routes/",
+      },
+      {
+        title: "Islanders Properties — Bottle Beach land listing",
+        url: "https://islanders-properties.com/thailand/type-land/for-sale/koh-phangan/bottle-beach/",
+      },
+      {
+        title: "Islanders Properties — Chaloklum and Haad Khom access guide",
+        url: "https://islanders-properties.com/blog/chaloklum-koh-phangan-malibu-haad-khom-beaches-sail-rock-diving-access-and-daily-life-193/",
+      },
+      {
+        title: "Sukhothai Interlaw — May 2025 zoning law for Koh Phangan",
+        url: "https://re.sukhothaiinterlaw.com/new-zoning-law-for-koh-samui-koh-phangan-koh-tao-what-property-owners-defenders-need-to-know-may-2025-update/",
+      },
+      {
+        title: "Haad Khuad Resort — official accommodation site",
+        url: "https://www.haadkhuadresort.com/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion:
+      "Can foreigners buy property at Bottle Beach (Haad Khuat) on Koh Phangan?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
