@@ -11,7 +11,10 @@ name: Daily knowledge guides
 
 on:
   schedule:
-    - cron: "41 1 * * *" # 01:41 UTC ≈ 08:41 Asia/Bangkok, daily
+    # GitHub delays scheduled runs ~4–5h, so 19:41 UTC fires late-evening UTC and the
+    # guides commit lands ~07:00 Asia/Bangkok next morning. The Telegram ping at the end
+    # announces the exact landing time, so the GH delay never leaves you guessing.
+    - cron: "41 19 * * *" # 19:41 UTC → commit ≈ 07:00 Asia/Bangkok (after GH ~4–5h delay)
   workflow_dispatch:
     inputs:
       count:
@@ -78,6 +81,7 @@ jobs:
         run: npx tsc --noEmit
 
       - name: Commit & push if changed
+        id: commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -86,6 +90,7 @@ jobs:
                   content-pipeline/backlog.md content-pipeline/last-run.md 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No new guides this run (backlog exhausted or quality gate). Nothing to commit."
+            echo "committed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           DATE="$(date -u +%Y-%m-%d)"
@@ -98,6 +103,7 @@ jobs:
           for i in 1 2 3 4 5; do
             if git push origin HEAD:main; then
               echo "Pushed on attempt $i."
+              echo "committed=true" >> "$GITHUB_OUTPUT"
               exit 0
             fi
             echo "Push rejected (attempt $i) — rebasing onto origin/main..."
@@ -106,6 +112,24 @@ jobs:
           done
           echo "::error::Could not push after retries."
           exit 1
+
+      - name: Notify Telegram — guides ready
+        if: steps.commit.outputs.committed == 'true'
+        env:
+          TG_TOKEN: ${{ secrets.TELEGRAM_NOTIFY_BOT_TOKEN }}
+          TG_CHAT: ${{ secrets.TELEGRAM_NOTIFY_CHAT_ID }}
+        run: |
+          # last-run.md is overwritten every successful run (routine.md requires it).
+          # greps guarded with || true: default shell is `bash -eo pipefail`, so a
+          # no-match grep (exit 1) would otherwise fail the step.
+          n="$(grep -oE 'Guides published:[^0-9]*[0-9]+' content-pipeline/last-run.md | grep -oE '[0-9]+' | head -1 || true)"
+          titles="$(grep -E 'title \(RU\):' content-pipeline/last-run.md | sed -E 's/.*title \(RU\):\**[[:space:]]*/• /' || true)"
+          today="$(date -u +%Y-%m-%d)"
+          msg="$(printf '📚 Новые гайды на сайте: %s шт (%s)\n%s\n→ rightwaygroup.co (после редеплоя Vercel)' "${n:-?}" "$today" "$titles")"
+          curl -s --max-time 20 "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
+            -d chat_id="${TG_CHAT}" \
+            --data-urlencode text="$msg" \
+            >/dev/null
 
       - name: Upload run log
         if: always()
