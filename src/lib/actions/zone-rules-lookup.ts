@@ -25,6 +25,21 @@ import {
 import { combineBuildingNorms, type BuildingNorms } from "@/lib/data/building-norms";
 import { seaDistanceMeters } from "@/lib/geo/sea-distance";
 import { fetchTerrain } from "@/lib/geo/terrain";
+import { notifyZoneLookupError } from "@/lib/notify/telegram";
+
+// De-spam admin alerts: at most one Telegram ping per window across all genuine
+// failures (clicks are user-paced, so this only guards against a burst while
+// the city-plan service is flapping). Module state is best-effort in
+// serverless — a cold start resets it, which is fine for a heads-up.
+const ALERT_THROTTLE_MS = 10 * 60_000;
+let lastAlertAt = 0;
+
+async function alertOnce(opts: Parameters<typeof notifyZoneLookupError>[0]): Promise<void> {
+  const now = Date.now();
+  if (now - lastAlertAt < ALERT_THROTTLE_MS) return;
+  lastAlertAt = now;
+  await notifyZoneLookupError(opts);
+}
 
 // Koh Phangan bounding box — reject points outside it early so a mis-pasted
 // link doesn't classify some random pixel on the planet as a Phangan zone.
@@ -132,52 +147,87 @@ export async function lookupZoneRules(
     };
   }
 
-  // 2) Classify the city-plan colour at that point.
-  const zone = await lookupZoneByLocation(coords.lat, coords.lng);
-  if (!zone.ok) {
-    return { ok: false, lat: coords.lat, lng: coords.lng, error: zone.error };
-  }
-
-  // 3) Turn the zone + ticked signals into indicative (qualitative) rules.
-  const rules = zoneRulesFromSignals(zone.zone ?? "", signals, locale);
-
-  // 4) Geographic drivers of the precise numeric norms.
-  //    Sea distance is always computed (coastline geometry). Elevation/slope
-  //    come from the DEM unless the user supplied a survey override.
-  const seaDistanceM = overrides.seaDistanceM ?? seaDistanceMeters(coords.lat, coords.lng);
-
-  let elevationM = overrides.elevationM;
-  let slopeDeg = overrides.slopeDeg;
-  let terrainEstimated = false;
-  if (elevationM == null || slopeDeg == null) {
-    const terrain = await fetchTerrain(coords.lat, coords.lng);
-    if (terrain) {
-      if (elevationM == null) {
-        elevationM = terrain.elevationM;
-        terrainEstimated = true;
+  // 2) Classify the city-plan colour at that point. Network (city-plan tile +
+  //    terrain DEM) lives below, so this is the stretch that can fail for a
+  //    real reason — guard it and ping the admin chat (throttled) when it does.
+  //    The benign returns above (bad input / outside Phangan) stay silent.
+  try {
+    const zone = await lookupZoneByLocation(coords.lat, coords.lng);
+    if (!zone.ok) {
+      // Genuine service outage (Longdo city-plan unreachable) → alert. A plain
+      // "no ผังเมือง data at this point" is a normal answer, not breakage.
+      if ((zone.error ?? "").startsWith("Сервис зон недоступен")) {
+        void alertOnce({
+          kind: "service",
+          input: raw,
+          error: zone.error ?? "",
+          lat: coords.lat,
+          lng: coords.lng,
+        });
       }
-      if (slopeDeg == null) {
-        slopeDeg = terrain.slopeDeg;
-        terrainEstimated = true;
+      return { ok: false, lat: coords.lat, lng: coords.lng, error: zone.error };
+    }
+
+    // 3) Turn the zone + ticked signals into indicative (qualitative) rules.
+    const rules = zoneRulesFromSignals(zone.zone ?? "", signals, locale);
+
+    // 4) Geographic drivers of the precise numeric norms.
+    //    Sea distance is always computed (coastline geometry). Elevation/slope
+    //    come from the DEM unless the user supplied a survey override.
+    const seaDistanceM = overrides.seaDistanceM ?? seaDistanceMeters(coords.lat, coords.lng);
+
+    let elevationM = overrides.elevationM;
+    let slopeDeg = overrides.slopeDeg;
+    let terrainEstimated = false;
+    if (elevationM == null || slopeDeg == null) {
+      const terrain = await fetchTerrain(coords.lat, coords.lng);
+      if (terrain) {
+        if (elevationM == null) {
+          elevationM = terrain.elevationM;
+          terrainEstimated = true;
+        }
+        if (slopeDeg == null) {
+          slopeDeg = terrain.slopeDeg;
+          terrainEstimated = true;
+        }
       }
     }
+
+    // 5) Combine the layers into the strictest quantitative rule set.
+    const norms = combineBuildingNorms({ seaDistanceM, elevationM, slopeDeg }, locale);
+
+    return {
+      ok: true,
+      lat: coords.lat,
+      lng: coords.lng,
+      zone: zone.zone,
+      zoneLabel: zone.label,
+      colorHex: zone.colorHex,
+      rules,
+      seaDistanceM,
+      elevationM,
+      slopeDeg,
+      terrainEstimated,
+      norms,
+    };
+  } catch (err) {
+    // Unexpected throw — previously a stuck spinner with no feedback. Turn it
+    // into a clear message AND a heads-up so a recurring break gets noticed.
+    void alertOnce({
+      kind: "exception",
+      input: raw,
+      error: err instanceof Error ? err.message : String(err),
+      lat: coords.lat,
+      lng: coords.lng,
+    });
+    return {
+      ok: false,
+      lat: coords.lat,
+      lng: coords.lng,
+      error:
+        locale === "ru"
+          ? "Не удалось определить зону — попробуйте ещё раз."
+          : "Couldn't determine the zone — please try again.",
+    };
   }
-
-  // 5) Combine the layers into the strictest quantitative rule set.
-  const norms = combineBuildingNorms({ seaDistanceM, elevationM, slopeDeg }, locale);
-
-  return {
-    ok: true,
-    lat: coords.lat,
-    lng: coords.lng,
-    zone: zone.zone,
-    zoneLabel: zone.label,
-    colorHex: zone.colorHex,
-    rules,
-    seaDistanceM,
-    elevationM,
-    slopeDeg,
-    terrainEstimated,
-    norms,
-  };
 }

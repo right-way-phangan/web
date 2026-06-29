@@ -71,6 +71,35 @@ export async function notifyObjectCreated(opts: {
   await send(lines, objectButton(opts.rwNumber, opts.elementUrl));
 }
 
+/**
+ * Heads-up when the «Зоны застройки» tool (/admin/zoning, /tools/zoning) fails
+ * for a real reason — the external city-plan service is unreachable, or the
+ * lookup threw unexpectedly. Benign outcomes (point outside Phangan, no
+ * city-plan coverage, unparseable input) are NOT reported — they're normal
+ * answers, not breakage. Same env-gating / non-throwing contract as the rest.
+ */
+export async function notifyZoneLookupError(opts: {
+  kind: "service" | "exception";
+  input: string;
+  error: string;
+  lat?: number;
+  lng?: number;
+}): Promise<void> {
+  const lines: string[] = [];
+  lines.push(`⚠️ <b>Сбой инструмента «Зоны застройки»</b>`);
+  lines.push("");
+  lines.push(
+    `<b>Причина:</b> ${opts.kind === "service" ? "сервис зон недоступен" : "внутренняя ошибка"}`,
+  );
+  lines.push(`<b>Запрос:</b> ${esc(opts.input.slice(0, 200)) || "—"}`);
+  if (opts.lat != null && opts.lng != null) {
+    lines.push(`<b>Точка:</b> ${opts.lat.toFixed(5)}, ${opts.lng.toFixed(5)}`);
+  }
+  lines.push(`<b>Ошибка:</b> ${esc(opts.error.slice(0, 300))}`);
+
+  await send(lines, { text: "🗺 Открыть инструмент →", url: `${SITE_URL}/admin/zoning` });
+}
+
 /** Lead deep-link: own CRM card in prod, amoCRM lead only as dev fallback. */
 function leadButton(leadId: number): Button | null {
   if (OWN_CRM) {
