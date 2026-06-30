@@ -100,11 +100,13 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
       priceThb: u.priceThb as number,
     }));
   const amenities = amenityList(project, ot);
-  // Авто-overview как fallback, если кураторского descriptionRaw нет (новые
-  // проекты не остаются без вводного текста). Кураторская копия всегда в приоритете.
-  const autoOverview = project.descriptionRaw?.trim()
-    ? null
-    : buildObjectDescription(project, locale);
+  // Кураторская копия в приоритете: локале-зависимый ручной override (EN на /,
+  // RU на /ru), иначе единый descriptionRaw. Авто-overview — только если копии нет.
+  const overviewCopy =
+    (locale === "ru" ? project.descriptionManualRu : project.descriptionManualEn)?.trim() ||
+    project.descriptionRaw?.trim() ||
+    null;
+  const autoOverview = overviewCopy ? null : buildObjectDescription(project, locale);
   const devHref =
     project.developer && (await developerHasPage(project.developer))
       ? localePath(locale, `/developers/${developerSlug(project.developer)}`)
@@ -189,9 +191,9 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
           <section id="overview" className="scroll-mt-32">
             <SectionEyebrow className="mb-3">{t.nav.overview}</SectionEyebrow>
             <h2 className="font-serif text-3xl text-forest-900">{t.sections.overview}</h2>
-            {project.descriptionRaw ? (
+            {overviewCopy ? (
               <div className="mt-6 max-w-prose space-y-4 whitespace-pre-line text-base leading-relaxed text-forest-500/85">
-                {project.descriptionRaw}
+                {overviewCopy}
               </div>
             ) : autoOverview ? (
               <div className="mt-6 max-w-prose space-y-4 text-base leading-relaxed text-forest-500/85">

@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${project.titleEn} — ${project.rwNumber}`,
     description:
-      project.descriptionRaw?.replace(/\s+/g, " ").slice(0, 160) ??
+      (project.descriptionManualRu ?? project.descriptionRaw)?.replace(/\s+/g, " ").slice(0, 160) ??
       `${project.titleEn} — проект застройщика на Ко Пангане${districtSuffix}.`,
     alternates: {
       canonical: `/ru/projects/${slug}`,
