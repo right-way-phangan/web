@@ -2948,6 +2948,151 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "Can foreigners buy property at Bottle Beach (Haad Khuat) on Koh Phangan?",
   },
+  {
+    slug: "buying-in-than-sadet",
+    kbId: "kb-0043",
+    topic: "Phangan",
+    title:
+      "Buying near Than Sadet, Koh Phangan: national park land, a royal waterfall, and a near-absent market",
+    short:
+      "Than Sadet, on the island's east coast between Thong Nai Pan and Haad Rin, takes its name from a stream visited repeatedly by King Rama V and later monarchs. More than half the surrounding land sits inside Than Sadet–Koh Phangan National Park, and the handful of titled plots nearby see almost no transaction history — this is land for buyers who want genuine seclusion, not a comparable investment market.",
+    updated: "2026-06-30",
+    body: [
+      "Than Sadet — the name means roughly \"royal visit\" in formal Thai register — refers to a stream and waterfall on Koh Phangan's east coast where King Rama V is recorded visiting repeatedly from 1888 onward, carving his monogram into a streamside rock; later monarchs including Rama VI, VII and IX are also linked to the site. The surrounding area gives its name to **Than Sadet–Koh Phangan National Park**, established by royal decree in November 2018 and covering roughly 26,866 rai (about 43 km²) — more than half the island, including Khao Ra, Koh Phangan's highest peak at 635 m. This is not Mu Koh Ang Thong National Park, a separate marine park near Koh Samui; the two are sometimes confused in casual references.",
+      { h: "Where it sits and how you get there" },
+      "Than Sadet lies on the east coast, south of Bottle Beach and north of Thong Nai Pan's twin bays, roughly 10–15 km and 25–30 minutes by road from Thong Sala. Sources disagree on the exact surface: some describe the access road as now fully paved, while a local vehicle-rental operator describes it as unpaved and dusty for most of the route with only the final stretch concreted. Either way, a standard scooter manages the route in dry conditions; treat it as more demanding than the main west-coast roads, and expect the dirt sections to be difficult after rain. A boat connection between Thong Nai Pan, Than Sadet and Haad Rin has been reported but without a confirmed regular schedule — do not rely on it as a primary access route.",
+      { h: "A market that barely exists" },
+      "There is no active villa or subdivision market at Than Sadet. The area's long-running businesses are small and old — bungalow operations open 30-plus years — and no modern resort development has been confirmed. A small number of genuine land listings near the area show Nor Sor 3 Gor titles (not Chanote) in the range of roughly THB 2.5–3.25 million per rai, but the sample is too thin (a handful of plots) to treat as a reliable price benchmark. Claims of Chanote-titled beachfront land directly at Than Sadet are unconfirmed and should be treated with scepticism until a specific title is verified. One documented case elsewhere on the island found a Nor Sor 3 Gor title suspected of having been issued unlawfully over land encroaching on forest reserve — a reminder that title verification matters even more here than in the island's developed districts. See [Land titles on Koh Phangan: Chanote vs Nor Sor 3 Gor](/knowledge/land-titles-chanote-vs-nor-sor-3).",
+      { h: "National park boundary and the 2025 zoning rules" },
+      "Because Than Sadet–Koh Phangan National Park covers most of the island's interior and a significant share of this coast, the first and most important check on any plot here is whether it sits on genuinely titled private land or encroaches on park or forest-reserve territory. Enforcement has been active: a private airport project near the area was halted in 2015–2017 for encroaching on national park and forest-reserve land, and an October 2025 report documented an island-wide crackdown on illegal construction in protected zones, including foreign-nominee structures. See [Nominee-ownership crackdown: what it means for island buyers](/knowledge/nominee-crackdown-krabi-islands-2026).",
+      "Any land that is genuinely titled and outside the park boundary is still subject to the May 2025 environmental zoning regulation covering Koh Samui, Koh Phangan and Koh Tao. Steep, forest-backed terrain of this kind typically falls into the hillside categories — Zone 3(1) above 80 m elevation (one dwelling per parcel, 6 m maximum height, 50% minimum green space) or the stricter Zone 3(2) above 140 m (90 m² maximum footprint, 70% open space) — with slopes over 35% gradient requiring separate environmental approval before any clearing. Structures built before 21 May 2025 are grandfathered. See [Island eco-zoning: where you can and can't build](/knowledge/koh-phangan-building-zones).",
+      { h: "Infrastructure" },
+      "Documented accounts describe Than Sadet as off-grid: generator power running only in the evening hours at existing bungalow operations, no confirmed mains water connection, and no mobile signal at the beach itself, with at most an intermittent internet connection at one or two properties. Treat any property here as requiring full off-grid self-sufficiency — generator or solar power, well or rainwater collection, and satellite internet — rather than assuming standard utility access.",
+      { h: "Who this suits" },
+      {
+        ul: [
+          "**Buyers seeking genuine seclusion** on a titled plot outside the park boundary, who accept generator power, no mains water and unreliable signal as the cost of the location.",
+          "**Eco-tourism operators** with patience for environmental approvals and a long development timeline, given the hillside zoning and national park proximity.",
+          "**Not suited to**: investors wanting comparable sales data or rental yield benchmarks — none exist here — or any buyer who needs daily vehicle access, reliable internet or mains utilities.",
+        ],
+      },
+      "Than Sadet is best understood as a national park frontier, not a real estate district. Buyers drawn to this stretch of coast but wanting an established market, sealed road and working infrastructure should look first at [Thong Nai Pan](/knowledge/buying-in-thong-nai-pan) just to the north, which offers a comparable sense of remoteness with a functioning villa market and paved access. Anyone seriously considering a plot near Than Sadet should treat the [due diligence checklist](/knowledge/due-diligence-checklist-koh-phangan) — and in particular the national park boundary check — as non-negotiable before any deposit changes hands.",
+    ],
+    takeaways: [
+      "Than Sadet is named for a royal stream visited repeatedly by King Rama V from 1888; the surrounding Than Sadet–Koh Phangan National Park (est. 2018) covers over half the island, including the 635 m summit of Khao Ra.",
+      "There is no active villa or land market here — only a handful of Nor Sor 3 Gor land listings, too few to establish a reliable price benchmark; treat any Chanote or beachfront title claim with scepticism until independently verified.",
+      "Because the national park boundary runs through this area, confirming the title does not encroach on park or forest-reserve land is the single most important check, supported by documented 2025 enforcement action against illegal construction in protected zones.",
+      "Titled land outside the park is still subject to May 2025 hillside zoning (Zone 3(1)/3(2)): one dwelling per parcel, 6–9 sqm footprint limits depending on elevation, 50–70% green space, and special approval for slopes over 35%.",
+      "Infrastructure is genuinely off-grid: generator-only power in the evenings, no confirmed mains water, and no mobile signal at the beach — buyers should plan for full self-sufficiency, not standard utility access.",
+    ],
+    sources: [
+      {
+        title: "Wikipedia — Than Sadet–Ko Pha-ngan National Park",
+        url: "https://en.wikipedia.org/wiki/Than_Sadet%E2%80%93Ko_Pha-ngan_National_Park",
+      },
+      {
+        title: "Wikipedia — Mu Ko Ang Thong National Park (for disambiguation)",
+        url: "https://en.wikipedia.org/wiki/Mu_Ko_Ang_Thong_National_Park",
+      },
+      {
+        title: "Byklo — Thong Nai Pan / Than Sadet road access notes",
+        url: "https://www.byklo.rent/en/city/koh-phangan/thong-nai-pan/",
+      },
+      {
+        title: "Thailand Life — Than Sadet beach and infrastructure notes",
+        url: "https://thailandlife.info/than-sadet-in-koh-phangan/",
+      },
+      {
+        title: "Samui Phangan Real Estate — Koh Phangan real estate market overview (national park coverage)",
+        url: "https://www.samui-phangan-real-estate.com/koh-phangan-real-estate-market/",
+      },
+      {
+        title: "Sukhothai Inter Law — New Zoning Law for Koh Samui, Koh Phangan & Koh Tao (May 2025)",
+        url: "https://re.sukhothaiinterlaw.com/new-zoning-law-for-koh-samui-koh-phangan-koh-tao-what-property-owners-developers-need-to-know-may-2025-update/",
+      },
+      {
+        title: "Bangkok Post — officials ground Koh Phangan private airport project",
+        url: "https://www.bangkokpost.com/business/general/1258186/officials-ground-koh-phangan-private-airport-project",
+      },
+      {
+        title: "Khaosod English — Koh Phangan faces illegal development crisis in protected areas (October 2025)",
+        url: "https://www.khaosodenglish.com/news/2025/10/18/koh-phangan-faces-illegal-development-crisis-in-protected-areas/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion:
+      "Is it possible to buy land near Than Sadet on Koh Phangan, and what should I check first?",
+  },
+  {
+    slug: "buying-in-haad-yuan-haad-tien",
+    kbId: "kb-0044",
+    topic: "Phangan",
+    title:
+      "Buying near Haad Yuan and Haad Tien, Koh Phangan: secluded wellness coves with no road and almost no market",
+    short:
+      "Haad Yuan and Haad Tien (Haad Thian) are boat-or-trail-only coves on the southeast coast, just north of Haad Rin, known for The Sanctuary wellness retreat and a cluster of yoga-focused bungalow operations. Both run on leased land and self-generated power, with essentially no land or villa resale market — this is a retreat-operator location, not a conventional property investment.",
+    updated: "2026-06-30",
+    body: [
+      "Are Haad Yuan and Haad Tien good places to buy property on Koh Phangan? In short: there is almost nothing to buy. These are two adjoining coves on the southeast coast, just north of Haad Rin, reachable only by longtail boat or a steep jungle trail — and the land beneath their best-known business, The Sanctuary retreat, is leased rather than owned outright by the operator. Treat this area as a retreat-operator or off-grid-lifestyle location, not a place to expect a liquid, comparable property market.",
+      { h: "Two coves, and a naming mix-up to avoid" },
+      "Haad Yuan and Haad Tien (also spelled Haad Thian) sit on Koh Phangan's southeast coast, separated by a small headland and connected by roughly a 10-minute walk or a short boat hop. Haad Yuan is the more developed of the two, home to backpacker- and yoga-oriented bungalow operations such as Barcelona Resort and Pariya Resort, plus studios near Pure Flow Yoga. Haad Tien hosts **The Sanctuary**, the island's best-known wellness retreat. Note that a separate, unrelated place also called \"Haad Tien\" exists on the island's northwest coast near Haad Yao and Haad Salad — most land listings advertised under that name belong to the northwest beach, not this southeast cove, and should not be confused with it.",
+      { h: "Access: boat or a real hike, nothing else" },
+      "Neither cove has road access. From Haad Rin, a shared longtail boat to Haad Yuan runs roughly THB 200–500 per person and takes 10–15 minutes, or the cove can be reached on foot via a roughly 3.5 km jungle trail taking about two hours. The Sanctuary's own site describes reaching Haad Tien by shared boat (around THB 500) or by a roughly 40-minute jeep ride on a rough jungle track, with a private speedboat option around THB 7,500 and no night crossings. Boats run on an informal, fill-when-full basis rather than a fixed timetable, and the monsoon season (roughly July–December) regularly disrupts both boat and trail access.",
+      { h: "Property market reality" },
+      "There is essentially no active resale market at either cove. The only verifiable listing found for the area is a single 20,800 sqm beachfront resort/bungalow property offered around THB 160 million — an institutional-scale, speculative offering, not a benchmark for ordinary land or villa pricing. No price-per-rai data exists for either beach. The Sanctuary itself operates on land leased from a single Thai family, which is part of why the bay has avoided the fragmented ownership seen elsewhere on the island — but it also means there is no comparable freehold or leasehold villa stock changing hands here. A general island guide describes the area as remaining largely undeveloped, with no road services reaching it. Buyers should not treat either cove as a place with a tracked, liquid property market.",
+      { h: "Zoning and terrain" },
+      "The same May 2025 environmental zoning regulation that applies island-wide governs any future construction here. Given the steep, jungle-backed terrain typical of both coves, hillside categories are the most likely classification — Zone 3(1) above 80 m elevation (one dwelling per parcel, 6 m maximum height, 50% minimum green space) or Zone 3(2) above 140 m (90 m² maximum footprint, 70% open space) — alongside coastal setback and wastewater rules for any near-shore plot. Slopes over 35% require separate environmental approval before grading. Structures built before 21 May 2025 are grandfathered. See [Island eco-zoning: where you can and can't build](/knowledge/koh-phangan-building-zones).",
+      { h: "Infrastructure" },
+      "Both coves run on self-generated power rather than the PEA grid. The Sanctuary advertises round-the-clock electricity, but this is self-generated rather than mains-supplied; a nearby off-grid operation describes running entirely on solar, battery storage and generator backup. Haad Yuan's smaller bungalow operations commonly run generators only in the evening hours. Internet and mobile signal are reported as unreliable at Haad Yuan, and water supply at both coves appears to be well- or spring-fed rather than mains-connected, though this is thinly documented. Any buyer should assume full off-grid self-sufficiency is required, not standard utility access.",
+      { h: "Who this suits" },
+      {
+        ul: [
+          "**Wellness and eco-retreat operators** prepared to lease rather than buy outright, and to self-supply power and water in the style of The Sanctuary or nearby off-grid operations.",
+          "**Buyers prioritising genuine seclusion** over convenience, comfortable with boat- or trail-only access and no fallback transport option in poor weather.",
+          "**Not suited to**: families needing reliable road access to schools or medical care, remote workers needing dependable internet, or investors seeking comparable sales data or rental-yield benchmarks.",
+        ],
+      },
+      "For the same general stretch of coast with an established market and easier access, [Haad Rin](/knowledge/buying-in-haad-rin) is the practical alternative just to the south, with full road access, ferries and a working rental market. For a similarly remote, beach-driven setting with a paved road and active villa market, see [Thong Nai Pan](/knowledge/buying-in-thong-nai-pan) further up the east coast. Anyone pursuing a deal at either cove should still run the standard [due diligence checklist](/knowledge/due-diligence-checklist-koh-phangan), with particular attention to whether any land offered for sale is genuinely titled rather than under an informal lease arrangement.",
+    ],
+    takeaways: [
+      "Haad Yuan and Haad Tien (Haad Thian) are boat- or trail-only coves on the southeast coast just north of Haad Rin — note a separate, unrelated \"Haad Tien\" exists on the northwest coast and should not be confused with this one.",
+      "No road access exists at either cove: boats run roughly THB 200–500 and 10–40 minutes depending on the cove and provider, or a 2-hour jungle trail connects Haad Yuan to Haad Rin; both routes are disrupted by the July–December monsoon.",
+      "There is essentially no resale market — the only verifiable listing is a single ~THB 160 million institutional-scale beachfront parcel; The Sanctuary itself operates on leased, not owned, land.",
+      "Any future construction falls under the May 2025 island-wide environmental zoning, with hillside terrain here likely subject to Zone 3(1)/3(2) limits on height, footprint and green space.",
+      "Infrastructure is fully off-grid — self-generated power, well or spring water, and unreliable internet and mobile signal — suited to retreat operators and seclusion-focused buyers, not conventional investors.",
+    ],
+    sources: [
+      {
+        title: "The Sanctuary Thailand — how to get to Haad Tien",
+        url: "https://www.thesanctuarythailand.com/how-to-get-to-sanctuary/",
+      },
+      {
+        title: "CNN Travel — The Sanctuary, Koh Phangan",
+        url: "https://edition.cnn.com/travel/article/thailand-the-sanctuary-koh-phangan",
+      },
+      {
+        title: "The Froggy Adventures — Haad Yuan jungle hike guide",
+        url: "https://thefroggyadventures.com/haad-yuan-hike/",
+      },
+      {
+        title: "Thailand Beaches — Haad Yuan guide",
+        url: "https://thailandbeaches.org/haad-yuan-phangan/",
+      },
+      {
+        title: "Thailand Beaches — Haad Thian guide",
+        url: "https://thailandbeaches.org/haad-thian-phangan/",
+      },
+      {
+        title: "Sukhothai Inter Law — New Zoning Law for Koh Samui, Koh Phangan & Koh Tao (May 2025)",
+        url: "https://re.sukhothaiinterlaw.com/new-zoning-law-for-koh-samui-koh-phangan-koh-tao-what-property-owners-developers-need-to-know-may-2025-update/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion:
+      "Can you buy property at Haad Yuan or Haad Tien on Koh Phangan, and how do you get there?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

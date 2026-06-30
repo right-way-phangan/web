@@ -53,8 +53,8 @@ Status: ⏳ queued · ✅ published.
 | Buying in Hin Kong: long west-coast beach, families | phangan | 🟡 | ✅ |
 | Buying in Mae Haad: Koh Ma sandbar and snorkelling north-west | phangan | 🟡 | ✅ |
 | Buying in Bottle Beach (Haad Khuat): remote off-grid north | phangan | ⚪️ | ✅ |
-| Buying in Than Sadet: national park jungle and river | phangan | ⚪️ | ⏳ |
-| Buying in Haad Yuan / Haad Tien: secluded south-east wellness coves | phangan | ⚪️ | ⏳ |
+| Buying in Than Sadet: national park jungle and river | phangan | ⚪️ | ✅ |
+| Buying in Haad Yuan / Haad Tien: secluded south-east wellness coves | phangan | ⚪️ | ✅ |
 | Buying in Khao Khao Haeng: panoramic inland hilltop views | phangan | ⚪️ | ⏳ |
 | Buying in Ban Nai Suan: central inland, space and value | phangan | ⚪️ | ⏳ |
 

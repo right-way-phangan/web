@@ -1,4 +1,4 @@
-# Last run — 2026-06-29
+# Last run — 2026-06-30
 
 **Guides published:** 2
 
@@ -6,34 +6,36 @@
 
 ## Guide 1
 
-- **slug:** `buying-in-mae-haad`
-- **kbId:** `kb-0041`
-- **title (EN):** Buying in Mae Haad: Koh Ma sandbar and Koh Phangan's top snorkelling bay
-- **title (RU):** Покупка в Мэ Хааде: отмель Ко Ма и лучшая снорклинговая бухта Ко Пангана
+- **slug:** `buying-in-than-sadet`
+- **kbId:** `kb-0043`
+- **title (EN):** Buying near Than Sadet, Koh Phangan: national park land, a royal waterfall, and a near-absent market
+- **title (RU):** Покупка рядом с Тан Садетом, Ко Панган: земли нацпарка, королевский водопад и почти полное отсутствие рынка
 - **faqCategory:** `phangan`
-- **faqQuestion:** Is Mae Haad a good area to buy property on Koh Phangan?
+- **faqQuestion:** Is it possible to buy land near Than Sadet on Koh Phangan, and what should I check first?
 - **Sources used:**
-  - The Manduls (themanduls.com) — Mae Haad beach complete guide: beach character, sandbar, Koh Ma marine park
-  - 3 Angels Thailand Living (3angelsthailandliving.com) — Koh Ma sandbar and snorkelling site specifics
-  - Keller Henson (kellerhenson.com) — new villa developments: AKASHA (11–14M THB, 3–4 bed) and Green Valley (USD 1.55M pre-sale, March 2025)
-  - Islanders Properties (islanders-properties.com) — area guide and land price context
-  - Sukhothai Interlaw (re.sukhothaiinterlaw.com) — May 2025 hillside and coastal zoning rules
-  - Airbtics (airbtics.com) — island-wide STR benchmarks (706K THB median, 68% occupancy)
-  - Samui Phangan Real Estate (samui-phangan-real-estate.com) — property investment overview
-
----
+  - Wikipedia — Than Sadet–Ko Pha-ngan National Park: founding decree (2018), size (~26,866 rai), royal visit history (Rama V from 1888), Khao Ra elevation
+  - Wikipedia — Mu Ko Ang Thong National Park: used to confirm this is a distinct, unrelated marine park (avoids a naming mix-up found in casual sources)
+  - Byklo (byklo.rent) — current road-access description (unpaved/dusty vs. paved claims) for the Thong Nai Pan/Than Sadet route
+  - Thailand Life (thailandlife.info) — beach infrastructure notes (no mobile signal, generator-only power)
+  - Samui Phangan Real Estate (samui-phangan-real-estate.com) — confirms national park coverage over half the island and construction limits
+  - Sukhothai Interlaw (re.sukhothaiinterlaw.com) — May 2025 zoning law, hillside zone categories
+  - Bangkok Post — 2015–2017 halt of a private airport project near the area for national-park/forest-reserve encroachment
+  - Khaosod English (Oct 2025) — island-wide crackdown on illegal construction in protected zones
 
 ## Guide 2
 
-- **slug:** `buying-in-bottle-beach`
-- **kbId:** `kb-0042`
-- **title (EN):** Buying in Bottle Beach (Haad Khuat): Koh Phangan's most remote north-coast bay
-- **title (RU):** Покупка на Бутылочном пляже (Хаад Хуат): самая удалённая бухта северного Ко Пангана
+- **slug:** `buying-in-haad-yuan-haad-tien`
+- **kbId:** `kb-0044`
+- **title (EN):** Buying near Haad Yuan and Haad Tien, Koh Phangan: secluded wellness coves with no road and almost no market
+- **title (RU):** Покупка рядом с Хаад Юаном и Хаад Тхианом, Ко Панган: уединённые бухты для wellness-практик почти без рынка недвижимости
 - **faqCategory:** `phangan`
-- **faqQuestion:** Can foreigners buy property at Bottle Beach (Haad Khuat) on Koh Phangan?
+- **faqQuestion:** Can you buy property at Haad Yuan or Haad Tien on Koh Phangan, and how do you get there?
 - **Sources used:**
-  - The Manduls (themanduls.com) — Bottle Beach complete guide: access, beach character, facilities
-  - Travel Geekery (travelgeekery.com) — detailed hiking routes (both trail options, distances, times)
-  - Islanders Properties (islanders-properties.com) — 40-rai land listing at 2B THB; Chaloklum/Haad Khom access guide
-  - Sukhothai Interlaw (re.sukhothaiinterlaw.com) — May 2025 hillside zoning constraints applicable to the area
-  - Haad Khuad Resort (haadkhuadresort.com) — confirms infrastructure reality (generator, basic utilities, boat transfers)
+  - The Sanctuary Thailand (thesanctuarythailand.com) — official access routes/costs to Haad Tien, leased-land detail
+  - CNN Travel — independent confirmation of The Sanctuary's leasehold (not owned) land arrangement
+  - The Froggy Adventures — Haad Yuan jungle trail distance/time/difficulty
+  - Thailand Beaches — Haad Yuan and Haad Thian area guides (location, character, accommodation)
+  - Sukhothai Interlaw — May 2025 zoning law applied to this terrain
+  - Flagged and avoided a naming collision: a separate, unrelated "Haad Tien" exists on the northwest coast near Haad Yao/Haad Salad — most land-listing sites under that name refer to it, not this southeast cove, so no land-price data was attributed to the wrong location.
+
+**Notes:** Both topics were the top 2 remaining ⏳ entries in the backlog (section C, district guides, ⚪️ priority); all 🔴/🟢/🟡 topics are already ✅. Both guides are deliberately conservative: where source data was thin or conflicting (road paving status, exact electricity/water setup), the guide states the uncertainty explicitly rather than asserting an unverified fact. Two ⚪️ district topics remain queued in section C (Khao Khao Haeng, Ban Nai Suan) for the next run.
