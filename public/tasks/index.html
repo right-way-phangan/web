@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Right Way — Задачи</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+  :root {
+    --bg:   var(--tg-theme-bg-color, #17212b);
+    --card: var(--tg-theme-secondary-bg-color, #232e3c);
+    --text: var(--tg-theme-text-color, #f5f5f5);
+    --hint: var(--tg-theme-hint-color, #7d8b99);
+    --link: var(--tg-theme-link-color, #5eb5f7);
+    --btn:  var(--tg-theme-button-color, #50a8eb);
+    --btn-text: var(--tg-theme-button-text-color, #fff);
+    --ok:  #3ad29f;
+    --warn:#ffb454;
+    --bad: #ff6b6b;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent }
+  body {
+    margin: 0;
+    font: 16px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 12px 12px 60px;
+  }
+  h1 { font-size: 20px; margin: 4px 0 2px; display: flex; align-items: center; gap: 8px }
+  .sub { color: var(--hint); font-size: 13px; margin-bottom: 16px }
+  .card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.15);
+  }
+  .card h2 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--hint);
+    margin: 0 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .card h2 .badge {
+    margin-left: auto;
+    text-transform: none;
+    letter-spacing: 0;
+    background: rgba(125,139,153,.15);
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  ul { margin: 0; padding: 0; list-style: none }
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    font-size: 15px;
+  }
+  li + li { border-top: 1px solid rgba(125,139,153,.12) }
+  .task-text { flex: 1; line-height: 1.4 }
+  .task-text.done { color: var(--hint); text-decoration: line-through }
+  .task-actions { display: flex; gap: 6px; flex-shrink: 0; align-items: center }
+  .btn-done {
+    width: 28px; height: 28px; border-radius: 50%; border: 2px solid rgba(125,139,153,.3);
+    background: none; color: var(--hint); font-size: 14px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .15s;
+  }
+  .btn-done:hover { border-color: var(--ok); color: var(--ok) }
+  .btn-done.done { background: var(--ok); border-color: var(--ok); color: #fff }
+  .btn-del {
+    width: 24px; height: 24px; border-radius: 50%; border: none;
+    background: none; color: rgba(255,107,107,.4); font-size: 16px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; padding: 0;
+    transition: color .15s;
+  }
+  .btn-del:hover { color: var(--bad) }
+  /* Форма добавления */
+  .add-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .add-row input {
+    flex: 1;
+    padding: 10px 13px;
+    border-radius: 12px;
+    border: 1px solid rgba(125,139,153,.25);
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+  }
+  .add-row input::placeholder { color: var(--hint) }
+  .add-row button {
+    padding: 0 16px;
+    border: none;
+    border-radius: 12px;
+    background: var(--btn);
+    color: var(--btn-text);
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  .add-row button:disabled { opacity: .4 }
+  /* Лид-карточка */
+  .lead {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 0;
+    gap: 2px;
+  }
+  .lead + .lead { border-top: 1px solid rgba(125,139,153,.12) }
+  .lead-name { font-size: 15px; font-weight: 600 }
+  .lead-meta { font-size: 12px; color: var(--hint) }
+  .lead-stage {
+    display: inline-block;
+    padding: 1px 8px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    background: rgba(94,181,247,.15);
+    color: var(--link);
+    margin-right: 6px;
+  }
+  /* Скелетон */
+  .skeleton { opacity: .35; pointer-events: none }
+  .skel-line {
+    height: 14px;
+    border-radius: 6px;
+    background: var(--hint);
+    margin: 6px 0;
+  }
+  /* Тост */
+  .toast {
+    position: fixed; left: 12px; right: 12px; bottom: 14px;
+    background: var(--card);
+    border: 1px solid rgba(125,139,153,.2);
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-size: 14px;
+    transform: translateY(140%);
+    transition: transform .25s;
+    z-index: 9;
+  }
+  .toast.show { transform: none }
+  .empty {
+    text-align: center;
+    color: var(--hint);
+    font-size: 14px;
+    padding: 16px 0;
+  }
+  .refresh-btn {
+    background: none; border: none; color: var(--link);
+    font-size: 13px; font-weight: 600; cursor: pointer; margin-left: auto;
+  }
+  .crm-link {
+    display: block;
+    text-align: center;
+    color: var(--link);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    margin-top: 6px;
+    padding: 8px;
+  }
+</style>
+</head>
+<body>
+
+<h1>📋 Задачи</h1>
+<div class="sub" id="sub">Загрузка…</div>
+
+<!-- Задачи -->
+<div class="card" id="tasks-card">
+  <h2>
+    ✅ Открытые задачи
+    <span class="badge" id="task-count">—</span>
+    <button class="refresh-btn" id="refresh-btn" title="Обновить">↻</button>
+  </h2>
+  <ul id="task-list">
+    <li class="skeleton"><div class="skel-line" style="width:70%"></div></li>
+    <li class="skeleton"><div class="skel-line" style="width:50%"></div></li>
+    <li class="skeleton"><div class="skel-line" style="width:80%"></div></li>
+  </ul>
+
+  <div class="add-row" id="add-row">
+    <input id="new-task" type="text" placeholder="Новая задача…" maxlength="500" autocomplete="off">
+    <button id="add-btn" disabled>+</button>
+  </div>
+</div>
+
+<!-- Лиды -->
+<div class="card" id="leads-card">
+  <h2>
+    🔥 Новые лиды <span style="font-size:11px;font-weight:400">(48 ч)</span>
+    <span class="badge" id="leads-count">—</span>
+  </h2>
+  <ul id="leads-list">
+    <li class="skeleton"><div class="skel-line" style="width:55%"></div></li>
+    <li class="skeleton"><div class="skel-line" style="width:40%"></div></li>
+  </ul>
+  <a class="crm-link" href="https://rightwaygroup.co/admin/crm" target="_blank">Открыть CRM →</a>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const tg = window.Telegram?.WebApp;
+if (tg) { tg.ready(); tg.expand(); }
+
+const INIT_DATA = tg?.initData ?? "";
+
+// ─── helpers ──────────────────────────────────────────────────────────────────
+
+function toast(msg, ms = 2200) {
+  const el = document.getElementById("toast");
+  el.textContent = msg;
+  el.classList.add("show");
+  setTimeout(() => el.classList.remove("show"), ms);
+}
+
+function fmt(iso) {
+  if (!iso) return "";
+  const d = new Date(iso);
+  return d.toLocaleDateString("ru-RU", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+}
+
+function apiHeaders() {
+  return {
+    "Content-Type": "application/json",
+    "X-Telegram-InitData": INIT_DATA,
+  };
+}
+
+// ─── state ────────────────────────────────────────────────────────────────────
+
+let tasks = [];
+let leads = [];
+let loading = false;
+
+// ─── render tasks ─────────────────────────────────────────────────────────────
+
+function renderTasks() {
+  const ul = document.getElementById("task-list");
+  document.getElementById("task-count").textContent = tasks.length || "0";
+  if (tasks.length === 0) {
+    ul.innerHTML = '<li><div class="empty">Нет открытых задач 🎉</div></li>';
+    return;
+  }
+  ul.innerHTML = tasks.map(t => `
+    <li id="task-${t.id}">
+      <div class="task-text ${t.status === "done" ? "done" : ""}">${esc(t.text)}</div>
+      <div class="task-actions">
+        <button class="btn-done ${t.status === "done" ? "done" : ""}"
+          title="${t.status === "done" ? "Вернуть" : "Отметить выполненной"}"
+          onclick="toggleTask(${t.id}, '${t.status}')">✓</button>
+        <button class="btn-del" title="Удалить" onclick="deleteTask(${t.id})">×</button>
+      </div>
+    </li>
+  `).join("");
+}
+
+// ─── render leads ─────────────────────────────────────────────────────────────
+
+function renderLeads() {
+  const ul = document.getElementById("leads-list");
+  document.getElementById("leads-count").textContent = leads.length || "0";
+  if (leads.length === 0) {
+    ul.innerHTML = '<li><div class="empty">Новых лидов нет</div></li>';
+    return;
+  }
+  ul.innerHTML = leads.map(l => `
+    <li>
+      <div class="lead">
+        <div class="lead-name">${esc(l.name)}</div>
+        <div class="lead-meta">
+          <span class="lead-stage">${esc(l.stage || l.pipeline || "")}</span>
+          ${l.phone ? `📞 ${esc(l.phone)} · ` : ""}${fmt(l.createdAt)}
+        </div>
+      </div>
+    </li>
+  `).join("");
+}
+
+// ─── load ─────────────────────────────────────────────────────────────────────
+
+async function load() {
+  if (loading) return;
+  loading = true;
+  document.getElementById("refresh-btn").textContent = "…";
+  try {
+    const r = await fetch("/api/tasks-state", { headers: apiHeaders() });
+    if (!r.ok) throw new Error(`${r.status}`);
+    const data = await r.json();
+    tasks = data.tasks ?? [];
+    leads = data.leads ?? [];
+    document.getElementById("sub").textContent =
+      `Обновлено ${fmt(data.generatedAt)}`;
+    renderTasks();
+    renderLeads();
+    document.getElementById("add-btn").disabled = false;
+  } catch (e) {
+    document.getElementById("sub").textContent = "Ошибка загрузки";
+    toast("⚠️ Не удалось загрузить данные");
+  } finally {
+    loading = false;
+    document.getElementById("refresh-btn").textContent = "↻";
+  }
+}
+
+// ─── add task ─────────────────────────────────────────────────────────────────
+
+document.getElementById("add-btn").addEventListener("click", addTask);
+document.getElementById("new-task").addEventListener("keydown", e => {
+  if (e.key === "Enter") addTask();
+});
+
+async function addTask() {
+  const inp = document.getElementById("new-task");
+  const text = inp.value.trim();
+  if (!text) return;
+  const btn = document.getElementById("add-btn");
+  btn.disabled = true;
+  try {
+    const r = await fetch("/api/tasks-state", {
+      method: "POST",
+      headers: apiHeaders(),
+      body: JSON.stringify({ text, source: "miniapp" }),
+    });
+    if (!r.ok) throw new Error();
+    const task = await r.json();
+    tasks.unshift(task);
+    inp.value = "";
+    renderTasks();
+    tg?.HapticFeedback?.notificationOccurred("success");
+    toast("✅ Задача добавлена");
+  } catch {
+    toast("⚠️ Не удалось добавить задачу");
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+// ─── toggle done ─────────────────────────────────────────────────────────────
+
+async function toggleTask(id, currentStatus) {
+  const newStatus = currentStatus === "done" ? "open" : "done";
+  const li = document.getElementById(`task-${id}`);
+  if (li) li.style.opacity = ".4";
+  try {
+    const r = await fetch(`/api/tasks-state?id=${id}`, {
+      method: "PATCH",
+      headers: apiHeaders(),
+      body: JSON.stringify({ status: newStatus }),
+    });
+    if (!r.ok) throw new Error();
+    tasks = tasks.map(t => t.id === id ? { ...t, status: newStatus } : t);
+    // Выполненные убираем из списка через 600 мс
+    if (newStatus === "done") {
+      tg?.HapticFeedback?.notificationOccurred("success");
+      setTimeout(() => {
+        tasks = tasks.filter(t => t.id !== id);
+        renderTasks();
+      }, 600);
+    } else {
+      renderTasks();
+    }
+  } catch {
+    if (li) li.style.opacity = "1";
+    toast("⚠️ Ошибка обновления");
+  }
+}
+
+// ─── delete ───────────────────────────────────────────────────────────────────
+
+async function deleteTask(id) {
+  const li = document.getElementById(`task-${id}`);
+  if (li) li.style.opacity = ".3";
+  try {
+    const r = await fetch(`/api/tasks-state?id=${id}`, {
+      method: "DELETE",
+      headers: apiHeaders(),
+    });
+    if (!r.ok) throw new Error();
+    tasks = tasks.filter(t => t.id !== id);
+    renderTasks();
+    tg?.HapticFeedback?.impactOccurred("light");
+  } catch {
+    if (li) li.style.opacity = "1";
+    toast("⚠️ Ошибка удаления");
+  }
+}
+
+// ─── escape ───────────────────────────────────────────────────────────────────
+
+function esc(s) {
+  return String(s ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+// ─── init ─────────────────────────────────────────────────────────────────────
+
+document.getElementById("refresh-btn").addEventListener("click", load);
+load();
+</script>
+</body>
+</html>
