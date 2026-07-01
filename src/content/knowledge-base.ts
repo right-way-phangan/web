@@ -3093,6 +3093,167 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "Can you buy property at Haad Yuan or Haad Tien on Koh Phangan, and how do you get there?",
   },
+  {
+    slug: "buying-in-khao-khao-haeng",
+    kbId: "kb-0045",
+    topic: "Phangan",
+    title: "Buying in Khao Khao Haeng: inland hilltop views above Ban Tai",
+    short:
+      "Khao Khao Haeng is an elevated hill district in the interior of Ban Tai sub-district, known for panoramic island-and-sea views and as the site of Wat Khao Tham, Koh Phangan's long-running Vipassana meditation centre. It suits view-driven buyers and wellness-oriented builders willing to work with slope and a drive to the coast, on land that stays cheaper than beachfront but comes with steeper access and the island's strictest hillside building rules.",
+    updated: "2026-07-01",
+    body: [
+      "Khao Khao Haeng — \"khao\" means hill or mountain — is an elevated interior district within Ban Tai sub-district, on the south-central side of Koh Phangan. The appeal is straightforward: altitude. Plots here climb high enough to open panoramic views across the island's jungle canopy and out to sea, in a cooler, quieter setting than any beach road. The trade-off is equally straightforward — steeper terrain, steeper access, and a drive to reach the nearest coastline.",
+      { h: "Location and access" },
+      {
+        ul: [
+          "**Sub-district**: part of Ban Tai, on the south-central interior of the island — not a coastal district.",
+          "**Landmark**: home to Wat Khao Tham (also known as the Khao Tham Insight Meditation Center), a Buddhist forest monastery running monthly ten-day Vipassana retreats since 1988 — a well-established fixture that anchors the area's quiet, contemplative reputation.",
+          "**Distance to the coast**: a drive is required to reach the nearest beach in Ban Tai or Ban Khai to the south, or Thong Sala to the west; exact minutes vary by plot, since access roads climb the hill from several directions.",
+          "**Road quality**: main routes into the hills are paved; the final approach to individual hilltop plots is frequently a steep concrete or dirt track, and grading a driveway on steep ground is a real construction cost to budget for.",
+        ],
+      },
+      { h: "Community and lifestyle" },
+      "There is no village centre or beach-town buzz here — the resident population is thin, and the defining institution is the meditation centre rather than any bar or market street. Buyers are not looking for footfall; they are looking for a private hilltop, a view, and quiet. The retreat's decades-long presence has given the area a mild wellness-and-contemplative identity, distinct from Sri Thanu's more commercial yoga-and-cafe scene (see [Buying in Sri Thanu](/knowledge/buying-in-sri-thanu)).",
+      { h: "Property market" },
+      "Public data specific to Khao Khao Haeng is thin — this is a small, lightly-transacted interior market, not a benchmarked beach strip. As a rough guide, island-wide pricing for hillside land without direct sea frontage tends toward the lower end of the market, roughly 1.5–3 M THB per rai for plots without a confirmed unobstructed view corridor; plots that can prove a genuine panoramic outlook toward Koh Samui or the south coast trade closer to island hillside sea-view benchmarks of 6–10 M THB per rai and above. Because few plots here have a permanently clean view — neighbouring tree growth and future construction can block one — buyers should check whether the outlook is realistically durable before paying a view premium; see the [due diligence checklist](/knowledge/due-diligence-checklist-koh-phangan).",
+      { h: "Zoning and building rules (May 2025)" },
+      "Elevated interior land of this kind falls within the hillside tiers — Zone 3(1) or 3(2) — of the island's May 2025 environmental regulation, generally triggered above roughly 80 m elevation. These are the strictest rules on the island: maximum building height 6 m including roof; one single-family dwelling per parcel; a minimum 50% of the plot kept as green space; natural-coloured roofing; no further subdivision of land. Slopes steeper than 35% require special environmental consent before grading or removing large trees, and new multi-unit resort-style development is barred outright on hillside land. Confirm the exact zone and gradient for any specific plot with a Thai lawyer before committing — see [Island eco-zoning 2025](/knowledge/koh-phangan-building-zones) for the full framework.",
+      { h: "Rental outlook" },
+      "This is not a short-term-rental location in the conventional sense — there is no beach to market against, and STR demand biases heavily toward coastal walkability. Island-wide, median annual Airbnb revenue runs around 706,000 THB at roughly 68% occupancy (Airbtics, early 2026), but that figure is driven by coastal and near-coastal stock. A hilltop villa here instead competes on privacy, silence, and view — workable for a small wellness retreat or a long-stay rental aimed at guests who specifically want distance from the tourist coast, but not a volume play.",
+      { h: "Who suits Khao Khao Haeng" },
+      {
+        ul: [
+          "**View-first buyers** willing to trade beach proximity for altitude and outlook.",
+          "**Wellness and retreat-adjacent builders** who benefit from the area's established meditation-centre identity and quiet, and aren't chasing footfall.",
+          "**Self-builders comfortable with slope** — expect real earthworks and access-road costs on top of the land price.",
+          "**Long-term residents** who want privacy and don't need to walk to a beach or a market.",
+        ],
+      },
+      "Buyers who want the same quiet, inland character on flatter, cheaper, more accessible land should compare [Madeau Wan](/knowledge/buying-in-madeau-wan) or [Ban Nai Suan](/knowledge/buying-in-ban-nai-suan); those who want hillside views with beach access nearby should look at [Mae Haad](/knowledge/buying-in-mae-haad) or [Haad Yao / Haad Salad](/knowledge/buying-in-haad-yao-haad-salad).",
+    ],
+    takeaways: [
+      "Khao Khao Haeng is an elevated interior district in Ban Tai sub-district, best known as the site of Wat Khao Tham, Koh Phangan's long-running Vipassana meditation centre operating since 1988.",
+      "The draw is altitude and panoramic views, not beach access — a drive is required to reach any coastline, and the final approach to hilltop plots is often a steep concrete or dirt track.",
+      "This is a thin, lightly-documented land market; treat published price ranges (roughly 1.5–3 M THB/rai without a confirmed view, higher for genuine panoramic plots) as indicative and verify the view's durability before paying a premium for it.",
+      "As hillside land, most plots fall under the strictest May 2025 zoning tier: 6 m height cap, 50% green space minimum, one dwelling per parcel, no subdivision, and special consent required above 35% slope.",
+      "Not a conventional short-term-rental play — the appeal is privacy and quiet for a wellness-adjacent build or a long-term private home, not volume beach tourism.",
+    ],
+    sources: [
+      {
+        title: "Trip.com — Wat Khao Tham travel guide (Khao Khao Haeng hill, Ban Tai)",
+        url: "https://www.trip.com/travel-guide/koh-phangan/wat-khao-tham-23517294/",
+      },
+      {
+        title: "Khao Tham Insight Meditation Center — official site",
+        url: "https://www.kowthamcenter.org/",
+      },
+      {
+        title: "Sukhothai Interlaw — May 2025 zoning law for Koh Samui, Koh Phangan & Koh Tao",
+        url: "https://re.sukhothaiinterlaw.com/new-zoning-law-for-koh-samui-koh-phangan-koh-tao-what-property-owners-developers-need-to-know-may-2025-update/",
+      },
+      {
+        title: "FazWaz — land for sale in Koh Phangan (hillside pricing reference)",
+        url: "https://www.fazwaz.com/land-for-sale/thailand/surat-thani/koh-phangan",
+      },
+      {
+        title: "Airbtics — Ko Pha Ngan Airbnb revenue and occupancy data 2026",
+        url: "https://airbtics.com/annual-airbnb-revenue-in-ko-pha-ngan-thailand/",
+      },
+      {
+        title: "Islanders Properties — Koh Phangan area guide",
+        url: "https://islanders-properties.com/en/blog/koh-phangan-areas-84",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion:
+      "What is Khao Khao Haeng like and is it worth buying inland hilltop land on Koh Phangan?",
+  },
+  {
+    slug: "buying-in-ban-nai-suan",
+    kbId: "kb-0046",
+    topic: "Phangan",
+    title: "Buying in Ban Nai Suan: central inland land for space and value",
+    short:
+      "Ban Nai Suan is a quiet inland village near the geographic centre of Koh Phangan, historically orchard and garden land now gradually turning residential. Flat terrain, paved-road and grid-power access, and prices well below coastal benchmarks make it a practical choice for buyers who want more land and a permanent, local base rather than a beachfront address.",
+    updated: "2026-07-01",
+    body: [
+      "Ban Nai Suan (\"the village in the gardens\") sits near the geographic centre of Koh Phangan, on land that was historically coconut and fruit orchards and is now gradually filling in with residential plots. It is not a beach district — the coast is a drive away in every direction — but that central position means reasonably short drives to Thong Sala and to the east, west, and south of the island, which is the area's main practical selling point.",
+      { h: "Location and access" },
+      {
+        ul: [
+          "**Position**: central-interior, bordering the similarly quiet [Madeau Wan](/knowledge/buying-in-madeau-wan) district to the west.",
+          "**Landmark**: home to the Phangan Elephant Sanctuary, an ethical, no-riding elephant rescue project founded in November 2022 — notable local tourism infrastructure and a sign of the area's still-rural, forest-fringed character.",
+          "**Roads**: government-maintained paved roads reach much of the developed part of the district; some listings advertise plots directly fronting a paved government road with three-phase electricity already at the boundary.",
+          "**Nearby amenity**: at least one government school sits within the district, relevant for buyers planning a permanent family home rather than a holiday villa.",
+        ],
+      },
+      { h: "Property market" },
+      "Land here trades well below coastal benchmarks. Recent listings for flat interior parcels in Ban Nai Suan have ranged from roughly 2 M THB per rai for larger multi-rai tracts to around 3.2–4.5 M THB per rai for smaller, better-serviced plots — for context, comparable proximity to Thong Sala on the west-coast beachfront runs several times higher per rai (see [how land is priced](/knowledge/how-land-is-priced-price-per-rai)). Plot sizes on the market range from single-rai parcels suited to one villa up to 7–8 rai tracts suited to a small development, a working orchard, or a family compound. Treat asking prices as a starting point and confirm actual recent transaction levels with a local agent before committing.",
+      { h: "Infrastructure" },
+      {
+        ul: [
+          "**Electricity** — government three-phase supply reaches much of the developed area; confirm the exact distance from any specific boundary before buying raw land.",
+          "**Water** — piped water serves more developed pockets; for orchard-zone raw land, a private well or borehole remains the standard fallback, as in neighbouring Madeau Wan.",
+          "**Roads** — paved government roads connect the district to the rest of the island; some plots sit directly on sealed-road frontage, a genuine advantage over hillside or deep-interior land.",
+          "**Mobile/internet** — standard 4G coverage across the area (AIS/DTAC/True); fibre reaches the more developed pockets.",
+        ],
+      },
+      { h: "Zoning and building rules" },
+      "Ban Nai Suan's flat, low-elevation terrain places most of the district outside the two strictest tiers of the island's May 2025 environmental regulation: the coastal Zone 2 setback and green-space rules don't apply inland, and the hillside Zone 3 rules (6 m height cap, no subdivision) generally trigger only above roughly 80 m elevation, which excludes most of this district's flatter land. That makes Ban Nai Suan among the less-restricted areas for ordinary residential building on the island — though any specific plot's zone and elevation should still be verified with a Thai property lawyer before purchase, since the district does rise gently toward its edges. See [Island eco-zoning 2025](/knowledge/koh-phangan-building-zones) for the full map.",
+      { h: "Who buys here" },
+      {
+        ul: [
+          "**Families and long-term residents** who want a permanent home, more land per baht, and proximity to a local school rather than beach access.",
+          "**Value-oriented self-builders** who accept a drive to the coast in exchange for land priced a fraction of west-coast beachfront.",
+          "**Orchard and small-agriculture buyers** — much of the land retains its garden/orchard character and suits owners who want to keep it productive.",
+          "**Buyers drawn to the area's quieter, rural, forest-fringed identity**, reinforced by the elephant sanctuary nearby.",
+        ],
+      },
+      "As with any interior plot, confirm road access, the nearest grid-power connection point, and the water source before paying for land here — see the [due diligence checklist](/knowledge/due-diligence-checklist-koh-phangan). Foreign buyers use the standard [30-year lease structure](/knowledge/how-foreigners-own-a-villa) as everywhere on the island; the 2025 crackdown on nominee Thai-company ownership applies here as much as anywhere (see [A Thai company for property](/knowledge/thai-company-for-property-49-51)).",
+    ],
+    takeaways: [
+      "Ban Nai Suan is a quiet, historically orchard-and-garden village near the geographic centre of Koh Phangan — a drive from any coast but centrally placed relative to the rest of the island.",
+      "It is home to the Phangan Elephant Sanctuary, an ethical elephant rescue project founded in 2022, and to at least one local government school.",
+      "Recent listings for flat interior land here have ranged roughly 2–4.5 M THB per rai, well below comparable-proximity west-coast beachfront pricing.",
+      "Flat, low-elevation terrain keeps most of the district outside the strictest hillside and coastal tiers of the May 2025 zoning regulation, though any specific plot should still be checked.",
+      "Buyers here are mostly families, long-term residents, and value-focused self-builders — not short-term-rental or beach-lifestyle buyers.",
+    ],
+    sources: [
+      {
+        title: "KPN Properties — Baan Nai Suan area listings",
+        url: "https://kpnproperties.com/area/baan-nai-suan/",
+      },
+      {
+        title: "Lazudi — 7-rai flat land in Baan Nai Suan, Koh Phangan",
+        url: "https://lazudi.com/th-en/surat-thani/property/7-rai-flat-land-in-baan-nai-suan-koh-phangan-193003",
+      },
+      {
+        title: "Fairfax Real Estate — Baan Nai Suan land, Koh Phangan, 8 rai",
+        url: "https://fairfax-realestate.biz/property/baan-nai-suan-land-koh-phangan-8-rai/",
+      },
+      {
+        title: "Nestopa — land for sale, central Koh Phangan (Maduwan / Ban Nai Suan)",
+        url: "https://nestopa.com/th-en/property/surat-thani-ko-pha-ngan-ko-pha-ngan/land-for-sale-central-koh-phangan-maduwan-ban-nai-suan-547773",
+      },
+      {
+        title: "Phangan Elephant Sanctuary — official site",
+        url: "https://phanganelephantsanctuary.org/",
+      },
+      {
+        title: "Sukhothai Interlaw — May 2025 zoning law for Koh Samui, Koh Phangan & Koh Tao",
+        url: "https://re.sukhothaiinterlaw.com/new-zoning-law-for-koh-samui-koh-phangan-koh-tao-what-property-owners-developers-need-to-know-may-2025-update/",
+      },
+      {
+        title: "Islanders Properties — Koh Phangan area guide",
+        url: "https://islanders-properties.com/en/blog/koh-phangan-areas-84",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion:
+      "What is Ban Nai Suan like and who should consider buying land there on Koh Phangan?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
