@@ -3254,6 +3254,116 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "What is Ban Nai Suan like and who should consider buying land there on Koh Phangan?",
   },
+  {
+    slug: "thailand-99-year-leasehold-bill-status",
+    kbId: "kb-0047",
+    topic: "Structures",
+    title: "Thailand's 99-year leasehold bill: why it was shelved and what the law allows in 2026",
+    short:
+      "The headline plan to let foreigners lease Thai land for up to 99 years was shelved by the government in September 2025 and has no active path through parliament. The statutory ceiling remains 30 years under Section 540 — reinforced, not loosened, by the March 2025 Supreme Court ruling on stacked leases.",
+    updated: "2026-07-02",
+    body: [
+      "Is Thailand about to let foreigners lease land for 99 years? No. The government shelved the proposal in September 2025, and no bill is currently before parliament. Every villa purchase on Koh Phangan today should still be structured, priced and negotiated around the existing 30-year statutory lease term — not a longer term that does not yet exist in law.",
+      { h: "What the bill would have done" },
+      "The draft Rights over Leasehold Asset Act would have let a lessee hold long-term use rights over non-agricultural land for up to 99 years, with the asset registered through a Treasury Department structure rather than sold outright to the foreign lessee — the land itself would still revert to the state at the end of the term. During the term, a lessee would have been able to mortgage, transfer or pass the lease to heirs. The stated goals were to attract long-term foreign investment and skilled workers against a backdrop of demographic decline, and to give buyers a genuine legal alternative to nominee structures.",
+      { h: "Why it stalled" },
+      "The bill was a flagship Pheu Thai policy, but it needed the Interior Ministry's cooperation — a portfolio then held by the Bhumjaithai Party — and sat stalled for over a year. It was briefly revived and fast-tracked in mid-2025 when Pheu Thai took over the Interior Ministry, with officials aiming for parliamentary passage by the end of the year. The political landscape then shifted again: on 16 September 2025, Bhumjaithai deputy leader Siripong Angkhasakulkiat announced the plan would not be pursued, stating that \"this government has a limited mandate, and we will not push legislation still under study, as there is insufficient time,\" and noting the proposal had \"sparked debate among MPs and society.\"",
+      { h: "What's actually in force today" },
+      {
+        ul: [
+          "**30-year statutory ceiling** — Civil and Commercial Code Section 540 caps a registrable lease of immovable property at 30 years; nothing about this has changed.",
+          "**Stacked \"30+30+30\" leases are void beyond the first term** — the March 2025 Supreme Court ruling (Case No. 4655/2566) confirmed that pre-agreed, simultaneously signed renewals don't survive past year 30. See [Renewing a 30-year lease](/knowledge/renewing-30-year-lease-risks).",
+          "**Building ownership via superficies** — a foreigner can still own the villa structure outright and register a superficies independent of the lease term. See [Superficies, usufruct and lease](/knowledge/superficies-vs-usufruct-vs-lease).",
+          "**BOI-promoted land ownership** — a narrow, business-linked route remains available for specific promoted investments, not for a personal residence.",
+        ],
+      },
+      { h: "What replaced it on the policy agenda" },
+      "Rather than extending lease terms, the current government's stimulus lever for the struggling property sector is a proposed 50% cut to land and building tax for 2026, under review as of mid-2026. Some officials have floated a scaled-back 60-year alternative paired with a fee-and-tax fund for foreign lessees, but nothing of that kind has reached bill form.",
+      "The practical takeaway: if a leasehold bill is revived, it would still need public consultation, Cabinet approval, and passage through the House and Senate before Royal Assent — a process of months at minimum, not something that changes overnight. Until then, treat any listing or agent pitch promising a 99-year lease as, at best, premature and at worst a red flag. Structure your purchase around the 30-year lease and superficies combination described in [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa).",
+    ],
+    takeaways: [
+      "The 99-year leasehold bill (Rights over Leasehold Asset Act) was shelved by the government on 16 September 2025, citing a limited mandate and public controversy — it is not law and has no active parliamentary path.",
+      "Thailand's statutory lease ceiling remains 30 years under Civil and Commercial Code Section 540.",
+      "The March 2025 Supreme Court ruling already closed the main workaround — simultaneously signed \"30+30+30\" stacked leases are void beyond the first 30-year term.",
+      "If a leasehold bill is revived, it would still require public consultation, Cabinet approval, and passage through the House and Senate before taking effect — expect months, not weeks.",
+      "The government's current property-sector stimulus focus is a proposed land-and-building tax cut, not extended lease terms — treat any \"99-year lease available now\" pitch as premature.",
+    ],
+    sources: [
+      {
+        title: "Nation Thailand — New government considers 50% land tax cut, shelves 99-year leasehold plan",
+        url: "https://www.nationthailand.com/news/policy/40055500",
+      },
+      {
+        title: "Nation Thailand — Pheu Thai revives 99-year leasehold law as Interior Ministry shift nears",
+        url: "https://www.nationthailand.com/blogs/news/policy/40051898",
+      },
+      {
+        title: "Nation Thailand — Thai Government Pushes for 99-Year Land Leases to Attract Investment",
+        url: "https://www.nationthailand.com/business/property/40052803",
+      },
+      {
+        title: "Civil and Commercial Code Section 540; Supreme Court Case No. 4655/2566 (general practice)",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "Is Thailand introducing a 99-year lease for foreigners?",
+  },
+  {
+    slug: "land-office-source-of-funds-checks-2026",
+    kbId: "kb-0048",
+    topic: "Process",
+    title: "The Land Office's May 2026 source-of-funds checks: what changed at registration",
+    short:
+      "Between 15 and 25 May 2026 the Department of Lands issued three 'Most Urgent' circulars standardising nominee-detection checks at every Provincial Land Office. For a compliant lease-and-superficies buyer, the underlying law hasn't changed — but expect more paperwork proving where your money came from.",
+    updated: "2026-07-02",
+    body: [
+      "Will the Land Office ask more questions about my money in 2026? Yes. Between 15 and 25 May 2026, the Department of Lands (DOL) issued three consecutive \"Most Urgent\" circulars to every Provincial Land Office, consolidating years of scattered nominee-enforcement guidance into one standardised checklist. The underlying law hasn't changed — Section 74 of the Land Code has always let officials question a purchase — but the circulars make that questioning routine rather than occasional, especially for cash deals and Thai-majority companies.",
+      { h: "What the circulars actually do" },
+      "These are not new legislation. They consolidate existing Land Code and Foreign Business Act enforcement powers into a unified national framework, and instruct every Land Office to build and maintain a running database of every juristic person holding land in its jurisdiction — registration details, parcels, acquisition dates, appraised values, stated business purpose — screened for nominee risk on a recurring basis.",
+      { h: "The triggers at registration" },
+      {
+        ul: [
+          "**Cash payments of ฿2 million or more, or an appraised value above ฿5 million** — trigger a mandatory source-of-funds investigation under Section 74 (transfers to statutory heirs by inheritance are excluded).",
+          "**Thai-shareholder companies where shareholders appear to lack the financial capacity** to fund their stated shareholding.",
+          "**Shareholding restructured to satisfy Land Code Sections 97–98 on paper while foreign control stays intact.**",
+          "**Thai shareholding increased after the land was acquired** — read as a possible after-the-fact attempt to cover a nominee arrangement.",
+          "**Thai spouses of a foreign buyer** may be asked to confirm in writing that purchase funds are their own separate property, not funnelled from their foreign spouse.",
+        ],
+      },
+      { h: "What Section 74 lets an official do" },
+      "Section 74 empowers a land official to interrogate the parties involved, summon anyone concerned to give oral testimony or written evidence, and — if evasion is suspected — refer the case up to the Minister of Interior, whose decision is final. This power has existed for decades; the 2026 circulars make it standard practice at registration rather than a rarely invoked one.",
+      { h: "What this means in practice for a compliant purchase" },
+      "For a straightforward individual lease-and-superficies purchase funded through a properly remitted transfer, the substance of the process is unchanged — but expect the Land Office to ask for documentary proof of fund origin more consistently, particularly on cash payments above the ฿2 million threshold. Keep your inbound transfer paperwork organised and available at registration; see [Bringing money into Thailand: the FET form](/knowledge/bringing-money-into-thailand-fet-form).",
+      "For anyone buying through a Thai-majority company, scrutiny is materially heavier — see [A Thai company for property (49/51)](/knowledge/thai-company-for-property-49-51) and [Nominee crackdown spreads to Krabi](/knowledge/nominee-crackdown-krabi-islands-2026) for the criminal and forced-sale exposure if a Land Office flags the structure.",
+      { h: "Bottom line" },
+      "The circulars raise the friction of registration day, not the underlying legal bar. A buyer using the standard lease-plus-superficies structure, with funds remitted and documented properly, should move through the process largely unaffected in substance. A buyer relying on an undocumented cash payment or a Thai-majority company with passive nominee shareholders faces materially higher detection risk in 2026 than in prior years.",
+    ],
+    takeaways: [
+      "Between 15 and 25 May 2026 the Department of Lands issued three \"Most Urgent\" circulars, standardising nominee-detection checks across every Provincial Land Office nationwide.",
+      "Cash payments of ฿2 million+ or an appraised value above ฿5 million now trigger a mandatory source-of-funds investigation under Land Code Section 74 (statutory-heir inheritance excluded).",
+      "Land Offices must build and screen a running database of every landholding juristic person for nominee risk on a recurring basis.",
+      "A Thai spouse of a foreign buyer may be asked to confirm in writing that purchase funds are their own separate property.",
+      "The circulars don't change the underlying law — they standardise enforcement — so a documented lease-and-superficies purchase with properly remitted funds is affected in paperwork, not in substance.",
+    ],
+    sources: [
+      {
+        title:
+          "Silk Legal — What Thailand's New Lands Directives Mean for Nominee Shareholding and Property Ownership in 2026",
+        url: "https://silklegal.com/what-thailands-new-lands-directives-mean-for-nominee-shareholding-and-property-ownership-in-2026/",
+      },
+      {
+        title: "Nation Thailand — Land Department steps up crackdown on nominee landholding",
+        url: "https://www.nationthailand.com/news/general/40066115",
+      },
+      {
+        title: "Thailand Land Code, Section 74 (general practice)",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "What extra checks will the Land Office run on my purchase in 2026?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

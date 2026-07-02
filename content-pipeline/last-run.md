@@ -1,4 +1,4 @@
-# Last run — 2026-07-01
+# Last run — 2026-07-02
 
 **Guides published:** 2
 
@@ -6,32 +6,33 @@
 
 ## Guide 1
 
-- **slug:** `buying-in-khao-khao-haeng`
-- **kbId:** `kb-0045`
-- **title (EN):** Buying in Khao Khao Haeng: inland hilltop views above Ban Tai
-- **title (RU):** Покупка в Кхао Кхао Хэнге: видовые холмы вглубь острова над Бан Таем
-- **faqCategory:** `phangan`
-- **faqQuestion:** What is Khao Khao Haeng like and is it worth buying inland hilltop land on Koh Phangan?
+- **slug:** `thailand-99-year-leasehold-bill-status`
+- **kbId:** `kb-0047`
+- **title (EN):** Thailand's 99-year leasehold bill: why it was shelved and what the law allows in 2026
+- **title (RU):** Законопроект о 99-летней аренде в Таиланде: почему его отложили и что разрешает закон в 2026 году
+- **faqCategory:** `structures`
+- **faqQuestion:** Is Thailand introducing a 99-year lease for foreigners?
 - **Sources used:**
-  - Trip.com — confirms Khao Khao Haeng hill sits within Ban Tai sub-district and is the site of Wat Khao Tham
-  - Khao Tham Insight Meditation Center (kowthamcenter.org) — retreat history (running monthly Vipassana courses since 1988)
-  - Sukhothai Interlaw — May 2025 island zoning law, hillside Zone 3(1)/3(2) rules (height cap, subdivision ban, slope-consent threshold)
-  - FazWaz / Thailand-Property land listings — general island hillside land-price benchmarks, used to frame an indicative range since hyper-local sale data for this micro-district is thin
-  - Airbtics — Ko Pha Ngan Airbnb revenue/occupancy data for the rental-outlook section
-  - Islanders Properties — general area-guide context
+  - Nation Thailand — "New government considers 50% land tax cut, shelves 99-year leasehold plan" — the September 2025 shelving announcement and quote from Bhumjaithai deputy leader Siripong Angkhasakulkiat
+  - Nation Thailand — "Pheu Thai revives 99-year leasehold law as Interior Ministry shift nears" — legislative history and Interior Ministry dependency
+  - Nation Thailand — "Thai Government Pushes for 99-Year Land Leases to Attract Investment" — original bill mechanics (Treasury Department structure, non-agricultural land, mortgage/transfer/inherit rights)
+  - Civil and Commercial Code Section 540 and Supreme Court Case No. 4655/2566 (general practice) — current 30-year statutory baseline, cross-referenced against the existing `renewing-30-year-lease-risks` guide
 
 ## Guide 2
 
-- **slug:** `buying-in-ban-nai-suan`
-- **kbId:** `kb-0046`
-- **title (EN):** Buying in Ban Nai Suan: central inland land for space and value
-- **title (RU):** Покупка в Бан Най Суане: внутренняя земля в центре острова — пространство и цена
-- **faqCategory:** `phangan`
-- **faqQuestion:** What is Ban Nai Suan like and who should consider buying land there on Koh Phangan?
+- **slug:** `land-office-source-of-funds-checks-2026`
+- **kbId:** `kb-0048`
+- **title (EN):** The Land Office's May 2026 source-of-funds checks: what changed at registration
+- **title (RU):** Проверки происхождения средств Земельного департамента с мая 2026 года: что изменилось при регистрации
+- **faqCategory:** `process`
+- **faqQuestion:** What extra checks will the Land Office run on my purchase in 2026?
 - **Sources used:**
-  - KPN Properties, Lazudi, Fairfax Real Estate, Nestopa listings — current land-for-sale asking prices in Ban Nai Suan (roughly 2–4.5 M THB/rai across recent listings), plot sizes, road/electricity access
-  - Phangan Elephant Sanctuary (official site) — confirms the sanctuary's location in Ban Nai Suan, founded November 2022
-  - Sukhothai Interlaw — May 2025 zoning law; flat/low-elevation land here falls outside the strictest coastal and hillside tiers
-  - Islanders Properties — general area-guide context
+  - Silk Legal — "What Thailand's New Lands Directives Mean for Nominee Shareholding and Property Ownership in 2026" — primary source for the three "Most Urgent" circulars (15–25 May 2026), THB 2M/5M thresholds, Section 74 mechanics, database/screening requirement
+  - Nation Thailand — "Land Department steps up crackdown on nominee landholding" — corroboration plus the Thai-spouse fund-confirmation detail
+  - Thailand Land Code, Section 74 (general practice) — statutory basis for the interrogation/evidence power
 
-**Notes:** These were the only two remaining ⏳ topics in the entire backlog (section C, district guides, ⚪️ priority) — every other topic across sections A–D is already ✅. Both guides are deliberately conservative given thin, lightly-transacted local land markets: pricing is framed as an indicative range rather than a precise local benchmark, and district-specific claims (e.g. exact drive times, elevation triggers) are hedged where source data didn't pin down specifics. The backlog is now fully ✅ with no queued topics remaining; future runs will need new topics added to the backlog before publishing further guides.
+## Skipped backlog topic (marked ✅, no new guide)
+
+**"Supreme Court voids '30+30+30' lease renewal clauses (March 2025 ruling)"** was next in the 🔴 priority queue but is already thoroughly covered by the existing `renewing-30-year-lease-risks` guide (kb-0020, updated 2026-06-16), which covers Section 540, Case No. 4655/2566, and void stacked renewals in depth. Publishing a second guide on the same ruling would have been duplicate content, so it was marked ✅ in the backlog (to avoid re-queueing) without authoring new content. Moved down the priority list to the next two genuinely distinct, well-sourced 🔴 topics instead — the 99-year bill's status and the May 2026 DOL circulars — which also gave good `faqCategory` variety (structures / process).
+
+**Notes:** Backlog still has queued items after this run — most of section A's 🔴 news items (hillside/forest-reserve crackdown, forged building permits scandal) plus several 🟡 evergreen items discovered 2026-07-02 remain ⏳ for the next run.
