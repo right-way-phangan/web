@@ -24,6 +24,7 @@ on:
 
 permissions:
   contents: write
+  actions: write # dispatch discover-topics.yml when the backlog runs low (closes the loop)
 
 concurrency:
   group: daily-guides
@@ -37,6 +38,30 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      # Self-replenishing loop: authoring drains the backlog (~2/day) faster than the
+      # weekly scout refills it (~10/week), so left alone it would slowly empty again —
+      # exactly what stalled guides after 2026-06-30. Here daily-guides watches its own
+      # fuel gauge and dispatches the discovery scout the moment the queue runs low, so
+      # the two workflows form a closed cycle instead of two independent crons. Fire-and-
+      # forget: the dispatched scout refills for upcoming runs; today authors from what's
+      # already queued. (workflow_dispatch is the documented exception to GITHUB_TOKEN's
+      # no-recursion rule, so this dispatch does start a real run.)
+      - name: Refill backlog if running low (closes the loop)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          THRESHOLD=6
+          QUEUED="$(grep -c '⏳' content-pipeline/backlog.md || true)"
+          echo "Queued topics: ${QUEUED:-0} (refill threshold: ${THRESHOLD})"
+          if [ "${QUEUED:-0}" -lt "$THRESHOLD" ]; then
+            echo "Backlog low — dispatching the topic-discovery scout to refill."
+            gh workflow run discover-topics.yml --ref main \
+              && echo "Scout dispatched; fresh topics land shortly for upcoming runs." \
+              || echo "::warning::Could not dispatch discover-topics.yml (check actions:write permission)."
+          else
+            echo "Backlog healthy — no refill needed."
+          fi
 
       - uses: actions/setup-node@v4
         with:
