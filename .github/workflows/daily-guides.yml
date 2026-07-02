@@ -76,6 +76,15 @@ jobs:
             echo "::error::Headless Claude made no edits (content-pipeline/last-run.md unchanged). See the claude-run-log artifact."
             exit 1
           fi
+          # Consistency tripwire: if last-run.md claims N>0 guides published, knowledge-base.ts
+          # MUST have changed. On 2026-07-01 the agent reported "Guides published: 2" while
+          # knowledge-base.ts was untouched (hallucinated authorship) — the run went green and
+          # nothing landed. Publishing 0 guides (backlog exhausted) is legitimate and skips this.
+          published="$(grep -oE 'Guides published:[^0-9]*[0-9]+' content-pipeline/last-run.md | grep -oE '[0-9]+' | head -1 || true)"
+          if [ "${published:-0}" -gt 0 ] && git diff --quiet -- src/content/knowledge-base.ts; then
+            echo "::error::last-run.md claims ${published} guides but src/content/knowledge-base.ts is unchanged — the agent reported authorship it did not perform. Failing loudly."
+            exit 1
+          fi
 
       - name: Type-check gate
         run: npx tsc --noEmit
