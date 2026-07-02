@@ -1,0 +1,133 @@
+name: Weekly topic discovery
+
+# Autonomous scout: once a week, headless Claude searches the web for fresh
+# real-estate and Koh Phangan topics not yet in the knowledge base, then appends
+# them as ⏳ rows to content-pipeline/backlog.md. The daily-guides workflow picks
+# them up automatically on subsequent runs.
+#
+# Required repo secret:
+#   CLAUDE_CODE_OAUTH_TOKEN  — same token used by daily-guides.yml
+
+on:
+  schedule:
+    # Sundays 08:00 UTC = 15:00 Bangkok — lands before the Monday daily-guides run.
+    - cron: "0 8 * * 0"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: discover-topics
+  cancel-in-progress: false
+
+jobs:
+  scout:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Claude Code
+        run: npm i -g @anthropic-ai/claude-code
+
+      - name: Count existing ⏳ rows (baseline)
+        id: baseline
+        run: |
+          N="$(grep -c '⏳' content-pipeline/backlog.md || true)"
+          echo "before=$N" >> "$GITHUB_OUTPUT"
+          echo "Baseline: $N queued topics"
+
+      - name: Scout topics (headless Claude)
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+        run: |
+          set -eo pipefail
+          if [ -z "${CLAUDE_CODE_OAUTH_TOKEN}" ]; then
+            echo "::error::CLAUDE_CODE_OAUTH_TOKEN secret is not set."
+            exit 1
+          fi
+          PROMPT="$(cat content-pipeline/discover-routine.md)"
+          claude --print --verbose --dangerously-skip-permissions "$PROMPT" 2>&1 | tee discover-run.log
+          echo "----- working tree after scout run -----"
+          git status --porcelain
+
+      - name: Verify new topics were added
+        id: check
+        run: |
+          BEFORE="${{ steps.baseline.outputs.before }}"
+          AFTER="$(grep -c '⏳' content-pipeline/backlog.md || true)"
+          echo "Before: $BEFORE  After: $AFTER"
+          echo "after=$AFTER" >> "$GITHUB_OUTPUT"
+          if [ "$AFTER" -le "$BEFORE" ]; then
+            echo "::warning::No new ⏳ topics added to backlog. Scout may have found nothing new or all candidates were duplicates."
+            # Soft fail: don't block the run, but surface the warning.
+          else
+            echo "added=$((AFTER - BEFORE))" >> "$GITHUB_OUTPUT"
+            echo "Added $((AFTER - BEFORE)) new topics."
+          fi
+
+      - name: Commit & push if backlog grew
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content-pipeline/backlog.md content-pipeline/discover-last-run.md 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "Nothing to commit."
+            echo "committed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          DATE="$(date -u +%Y-%m-%d)"
+          ADDED="${{ steps.check.outputs.added }}"
+          git commit -m "content: topic discovery ($DATE) — +${ADDED:-?} new topics [auto]
+
+          Scouted by headless Claude via content-pipeline/discover-routine.md.
+
+          Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>"
+          for i in 1 2 3; do
+            if git push origin HEAD:main; then
+              echo "committed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort; exit 1; }
+          done
+          exit 1
+
+      - name: Notify Telegram — topics queued
+        if: steps.commit.outputs.committed == 'true'
+        env:
+          TG_TOKEN: ${{ secrets.TELEGRAM_NOTIFY_BOT_TOKEN }}
+          TG_CHAT: ${{ secrets.TELEGRAM_NOTIFY_CHAT_ID }}
+        run: |
+          ADDED="${{ steps.check.outputs.added }}"
+          DATE="$(date -u +%Y-%m-%d)"
+          # Extract topic titles from the newly added rows (last N lines of backlog)
+          titles="$(tail -"${ADDED:-0}" content-pipeline/backlog.md | grep '⏳' | sed -E 's/\|[^|]*\|[^|]*\|[^|]*$//' | sed -E 's/^\| */• /' | head -10 || true)"
+          msg="$(printf '🔍 Новые темы для гайдов: %s шт (%s)\n%s\n→ daily-guides подхватит на следующем запуске' "${ADDED:-?}" "$DATE" "$titles")"
+          curl -s --max-time 20 "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
+            -d chat_id="${TG_CHAT}" \
+            --data-urlencode text="$msg" \
+            >/dev/null
+
+      - name: Upload scout log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: discover-run-log
+          path: |
+            discover-run.log
+            content-pipeline/discover-last-run.md
+          if-no-files-found: ignore
+          retention-days: 14
