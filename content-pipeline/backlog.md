@@ -14,6 +14,12 @@ Status: ⏳ queued · ✅ published.
 
 | Topic | faqCategory | Priority | Status |
 |---|---|---|---|
+<!-- discovered 2026-07-02, sources: austchamthailand.com, nationthailand.com, silklegal.com, khaosodenglish.com, en.zonesamui.com -->
+| Supreme Court voids "30+30+30" lease renewal clauses (March 2025 ruling) — what it means for stacked-lease villas | structures | 🔴 | ⏳ |
+| Thailand's proposed 99-year leasehold bill: where it stands and what changes if it passes | structures | 🔴 | ⏳ |
+| Department of Lands' May 2026 "Most Urgent" circulars: new source-of-funds checks at registration | process | 🔴 | ⏳ |
+| Illegal hillside and forest-reserve construction crackdown on Koh Phangan (2025 GPS mapping sweep) | phangan | 🔴 | ⏳ |
+| Forged building permits scandal on Koh Phangan (March 2026): how to verify a permit is real | phangan | 🔴 | ⏳ |
 | Nominee-ownership crackdown spreads to Krabi (villa raids) — what it means for island buyers | structures | 🔴 | ✅ |
 | "Now is the time to buy" (Colliers take on market resilience) — what's true for Phangan | costs | 🟡 | ✅ |
 
@@ -36,6 +42,12 @@ Status: ⏳ queued · ✅ published.
 | Chanote vs Nor Sor 3 Gor in practice: how to read a cadastral plan | documents | 🟡 | ✅ |
 | Visa and residency for a property owner: what a purchase does and doesn't give | phangan | 🟡 | ✅ |
 | Phangan market seasonality: when to buy and when to sell | costs | ⚪️ | ✅ |
+<!-- discovered 2026-07-02, sources: fosrlaw.com, thethaiger.com, nationthailand.com, phanganist.com, bestbkkcondos.com -->
+| New OCPB residential leasing rules for landlords renting 3+ units: deposit caps and contract requirements | costs | 🟡 | ⏳ |
+| Water supply and shortage risk on Koh Phangan: what it means for a villa's operating costs | phangan | 🟡 | ⏳ |
+| New villa and residential development pipeline 2025-2026: named projects and what they signal | phangan | 🟡 | ⏳ |
+| Healthcare and schools access for buyers relocating with family | phangan | 🟢 | ⏳ |
+| Realistic villa rental yields: what actually drives returns beyond the headline percentage | costs | 🟡 | ⏳ |
 
 ## C. Per-district guides (~18 districts in districts.ts)
 
