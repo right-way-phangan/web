@@ -351,8 +351,9 @@ const form: Record<Locale, FormDict> = {
     successLede: "Meanwhile, message us directly —",
     successBrowse: "Browse more listings",
     privacy: "We reply within the working day. No spam, ever.",
-    privacyConsent: "By sending, you agree we may contact you about your enquiry. See our",
-    privacyLink: "privacy policy",
+    // PDPA-notice: формулировка предварительная, на проверку юристу
+    privacyConsent: "By submitting you agree that we may share your contact details with the relevant property developer or owner to arrange your enquiry. See our",
+    privacyLink: "Privacy Policy",
   },
   ru: {
     name: "Имя",
@@ -370,8 +371,9 @@ const form: Record<Locale, FormDict> = {
     successLede: "А пока — напишите нам напрямую:",
     successBrowse: "Смотреть ещё объекты",
     privacy: "Отвечаем в течение рабочего дня. Без спама.",
-    privacyConsent: "Отправляя, вы соглашаетесь, что мы можем связаться с вами по вашему обращению. См.",
-    privacyLink: "политику конфиденциальности",
+    // PDPA-notice: формулировка предварительная, на проверку юристу
+    privacyConsent: "Отправляя форму, вы соглашаетесь, что мы можем передать ваши контакты застройщику или собственнику объекта для обработки запроса. Подробнее — в",
+    privacyLink: "Политике конфиденциальности",
   },
 };
 
