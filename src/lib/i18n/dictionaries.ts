@@ -1037,6 +1037,8 @@ export interface ObjectDict {
   yes: string;
   no: string;
   years: (n: number) => string;
+  /** Lease indexation: "3% every 5 years" / «3% каждые 5 лет»; без периода — просто "3%". */
+  leaseEsc: (pct: number, everyYears?: number) => string;
   rai: string;
   features: Record<string, string>;
   // investment highlights
@@ -1160,12 +1162,17 @@ const objectDict: Record<Locale, ObjectDict> = {
       "Asking price": "Asking price", "Price per rai": "Price per rai", "Lease rent": "Lease rent",
       Type: "Type", District: "District", Zone: "Zone", "Plot area": "Plot area", "Built area": "Built area",
       Altitude: "Altitude", Terrain: "Terrain", "Document type": "Document type", Tenure: "Tenure", "Lease term": "Lease term",
+      Indexation: "Indexation", "Lease prepayment": "Lease prepayment", "Additional terms": "Additional terms",
       Bedrooms: "Bedrooms", Bathrooms: "Bathrooms", Built: "Built", Condition: "Condition", "On site": "On site",
       Electricity: "Electricity", Water: "Water", Internet: "Internet", "Road access": "Road access",
     },
     yes: "Yes",
     no: "No",
     years: (n) => `${n} years`,
+    leaseEsc: (pct, everyYears) =>
+      everyYears
+        ? `${pct.toLocaleString("en-US")}% every ${everyYears === 1 ? "year" : `${everyYears} years`}`
+        : `${pct.toLocaleString("en-US")}%`,
     rai: "rai",
     features: {
       Beachfront: "Beachfront", "Sea view": "Sea view", "Mountain view": "Mountain view", "Jungle view": "Jungle view",
@@ -1290,12 +1297,17 @@ const objectDict: Record<Locale, ObjectDict> = {
       "Asking price": "Запрашиваемая цена", "Price per rai": "Цена за рай", "Lease rent": "Аренда",
       Type: "Тип", District: "Район", Zone: "Зона", "Plot area": "Площадь участка", "Built area": "Площадь строения",
       Altitude: "Высота", Terrain: "Рельеф", "Document type": "Тип документа", Tenure: "Вид владения", "Lease term": "Срок аренды",
+      Indexation: "Индексация", "Lease prepayment": "Предоплата аренды", "Additional terms": "Доп. условия",
       Bedrooms: "Спальни", Bathrooms: "Санузлы", Built: "Год постройки", Condition: "Состояние", "On site": "На участке",
       Electricity: "Электричество", Water: "Вода", Internet: "Интернет", "Road access": "Подъезд",
     },
     yes: "Да",
     no: "Нет",
     years: (n) => `${n} ${pluralRu(n, "год", "года", "лет")}`,
+    leaseEsc: (pct, everyYears) =>
+      everyYears
+        ? `${pct.toLocaleString("ru-RU")}% ${everyYears === 1 ? "каждый год" : `каждые ${everyYears} ${pluralRu(everyYears, "год", "года", "лет")}`}`
+        : `${pct.toLocaleString("ru-RU")}%`,
     rai: "рай",
     features: {
       Beachfront: "Первая линия", "Sea view": "Вид на море", "Mountain view": "Вид на горы", "Jungle view": "Вид на джунгли",
