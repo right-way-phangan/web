@@ -61,6 +61,12 @@ function buildGroups(
   if (o.documentType) legalRows.push({ label: L["Document type"], value: o.documentType });
   if (o.tenure && o.tenure.length > 0) legalRows.push({ label: L.Tenure, value: o.tenure.join(", ") });
   if (o.leaseTermYears) legalRows.push({ label: L["Lease term"], value: t.years(o.leaseTermYears) });
+  if (o.leaseEscPercent)
+    legalRows.push({ label: L.Indexation, value: t.leaseEsc(o.leaseEscPercent, o.leaseEscPeriodYears) });
+  if (o.leasePrepayment)
+    legalRows.push({ label: L["Lease prepayment"], value: fmtFull(o.leasePrepayment) });
+  if (o.leaseAdditionalTerms)
+    legalRows.push({ label: L["Additional terms"], value: o.leaseAdditionalTerms });
   if (legalRows.length > 0) groups.push({ title: t.specGroups.Legal, rows: legalRows });
 
   // Building

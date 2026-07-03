@@ -7,7 +7,7 @@ export type ObjectType =
   | "Land" | "Villa" | "House" | "Apartment"
   | "Townhouse" | "Hotel" | "Business" | "Project";
 export type ObjectStatus = "Active" | "Hold" | "Sold" | "Withdrawn" | "Reserved";
-export type TenureType = "Freehold" | "Leasehold";
+export type TenureType = "Freehold" | "Leasehold" | "Mixed";
 export type DocumentType = "Chanote" | "NS3" | "NS3K" | "Other";
 export type RoadType = "Concrete" | "Asphalt" | "Dirt" | "None";
 export type Condition = "New" | "Good" | "Needs renovation" | "Off-plan";

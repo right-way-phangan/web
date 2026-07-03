@@ -148,7 +148,7 @@ export default function LeaseholdPageRu() {
                 <Link href={"/ru/calculator?tenure=leasehold" as Route}>Просчитать доходность</Link>
               </Button>
               <Button asChild variant="outline" size="md">
-                <Link href={"/ru/listings?tenure=Leasehold" as Route}>Смотреть лизхолд-объекты</Link>
+                <Link href={"/ru/projects" as Route}>Лизхолд-проекты застройщиков</Link>
               </Button>
             </div>
           </div>
@@ -187,7 +187,7 @@ export default function LeaseholdPageRu() {
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
             <Button asChild variant="primary" size="md">
-              <Link href={"/ru/listings?tenure=Leasehold" as Route}>Смотреть лизхолд-объекты</Link>
+              <Link href={"/ru/projects" as Route}>Лизхолд-проекты застройщиков</Link>
             </Button>
             <Button asChild variant="outline" size="md">
               <a href={whatsappLink("Здравствуйте! Хочу разобраться с лизхолдом на Пангане.")} target="_blank" rel="noopener noreferrer">

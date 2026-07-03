@@ -4,6 +4,7 @@ import { mapElementToObject } from "@/lib/amocrm/mapper";
 import { backendFetch } from "@/lib/api/backend";
 import { getUsdPerThb } from "@/lib/data/fx";
 import { haversineMeters } from "@/lib/utils/geo";
+import { normalizeTenure } from "@/lib/utils/tenure";
 import type { RealEstateObject, ObjectStatus, NearbyListing } from "@/types/object";
 
 /**
@@ -158,7 +159,10 @@ let lastGoodAll: RealEstateObject[] | null = null;
 async function apiObjects(path: string): Promise<RealEstateObject[]> {
   const res = await backendFetch(path, { next: { revalidate: CATALOG_REVALIDATE_SECONDS } });
   if (!res.ok) throw new Error(`objects API ${path} → ${res.status}`);
-  return (await res.json()) as RealEstateObject[];
+  const objs = (await res.json()) as RealEstateObject[];
+  // DB stores raw enum labels ("Freehold (Thai)", "Mixed / N.A.") — normalize
+  // once at the data-layer edge so filters and includes("Leasehold") work.
+  return objs.map((o) => ({ ...o, tenure: normalizeTenure(o.tenure) }));
 }
 
 /**

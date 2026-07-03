@@ -2,7 +2,6 @@ import type { AmoCatalogElement, AmoCustomFieldValue } from "./types";
 import type {
   ObjectType,
   ObjectStatus,
-  TenureType,
   RealEstateObject,
   Condition,
   DocumentType,
@@ -10,6 +9,7 @@ import type {
   Stage,
   Furnishing,
 } from "@/types/object";
+import { normalizeTenure } from "@/lib/utils/tenure";
 import { buildTemplateTitle, type TitleAttrs } from "@/lib/generate/object-title";
 import {
   parseUrls,
@@ -82,7 +82,7 @@ export function mapElementToObject(el: AmoCatalogElement): RealEstateObject {
     district: str(cf.get("DISTRICT")),
     zone: str(cf.get("ZONE")),
     documentType: str(cf.get("DOC_TYPE")) as DocumentType | undefined,
-    tenure: multi(cf.get("TENURE_TYPE")) as TenureType[],
+    tenure: normalizeTenure(multi(cf.get("TENURE_TYPE"))),
 
     areaRai: num(cf.get("AREA_RAI")),
     areaSqm: num(cf.get("AREA_SQM")),

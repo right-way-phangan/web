@@ -14,13 +14,15 @@ import { getPublicObjects } from "@/lib/data/objects";
  * so the two arrays must stay the same length/order across locales. Each path
  * maps onto a real /listings query filter (see lib/filters/listings.ts), so a
  * chip drops the visitor straight into a pre-filtered search, not a dead link.
+ * Exception: the Leasehold chip routes to /projects — leasehold land inventory
+ * is zero for now, the honest leasehold offer lives in developer projects.
  */
 const HERO_INTENT_PATHS = [
   "/listings?beachfront=1",
   "/listings?seaview=1",
   "/listings?type=Land",
   "/listings?type=Villa",
-  "/listings?tenure=Leasehold",
+  "/projects",
 ] as const;
 
 /**
