@@ -25,6 +25,10 @@ HOME_DIR="${HOME}/.rw-site-audit"
 REPORT_DIR="${HOME_DIR}/reports"
 mkdir -p "${REPORT_DIR}"
 
+# Guard: не наслаиваться на зависший предыдущий прогон (аудит идёт минуты;
+# живой site-audit.mjs к моменту нового запуска — застрявший, июль-2026: висел 4 дня).
+pkill -f "${HOME_DIR}/site-audit.mjs" 2>/dev/null || true
+
 # 1. Locate a Chrome/Chromium binary.
 if [ -z "${CHROME_PATH:-}" ]; then
   for c in \
