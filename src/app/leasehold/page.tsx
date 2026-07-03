@@ -153,7 +153,7 @@ export default function LeaseholdPage() {
                 <Link href={"/calculator?tenure=leasehold" as Route}>Run the numbers</Link>
               </Button>
               <Button asChild variant="outline" size="md">
-                <Link href={"/listings?tenure=Leasehold" as Route}>Browse leasehold listings</Link>
+                <Link href={"/projects" as Route}>Leasehold developer projects</Link>
               </Button>
             </div>
           </div>
@@ -191,7 +191,7 @@ export default function LeaseholdPage() {
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
             <Button asChild variant="primary" size="md">
-              <Link href={"/listings?tenure=Leasehold" as Route}>Browse leasehold listings</Link>
+              <Link href={"/projects" as Route}>Leasehold developer projects</Link>
             </Button>
             <Button asChild variant="outline" size="md">
               <a href={whatsappLink("Hi! I'd like to understand leasehold on Phangan.")} target="_blank" rel="noopener noreferrer">
