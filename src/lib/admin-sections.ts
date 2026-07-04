@@ -23,6 +23,7 @@ export type AdminSection =
   | "crm-stats"
   | "crm-health"
   | "match"
+  | "referrals"
   | "demand"
   | "articles"
   | "posts"
@@ -207,6 +208,15 @@ export const ADMIN_SECTIONS: AdminSectionMeta[] = [
     keywords: "health гигиена залипшие молчащие битые",
     guideSlug: "crm",
     needsGuide: false,
+  },
+  {
+    key: "referrals",
+    label: "Партнёры · передачи",
+    href: "/admin/referrals" as Route,
+    group: "crm",
+    keywords: "referrals партнёры передачи лидов teaser handed developer-fee",
+    guideSlug: "referrals",
+    needsGuide: true,
   },
   {
     key: "match",
