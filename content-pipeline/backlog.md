@@ -18,8 +18,8 @@ Status: ⏳ queued · ✅ published.
 | Supreme Court voids "30+30+30" lease renewal clauses (March 2025 ruling) — what it means for stacked-lease villas | structures | 🔴 | ✅ |
 | Thailand's proposed 99-year leasehold bill: where it stands and what changes if it passes | structures | 🔴 | ✅ |
 | Department of Lands' May 2026 "Most Urgent" circulars: new source-of-funds checks at registration | process | 🔴 | ✅ |
-| Illegal hillside and forest-reserve construction crackdown on Koh Phangan (2025 GPS mapping sweep) | phangan | 🔴 | ⏳ |
-| Forged building permits scandal on Koh Phangan (March 2026): how to verify a permit is real | phangan | 🔴 | ⏳ |
+| Illegal hillside and forest-reserve construction crackdown on Koh Phangan (2025 GPS mapping sweep) | phangan | 🔴 | ✅ |
+| Forged building permits scandal on Koh Phangan (March 2026): how to verify a permit is real | phangan | 🔴 | ✅ |
 | Nominee-ownership crackdown spreads to Krabi (villa raids) — what it means for island buyers | structures | 🔴 | ✅ |
 | "Now is the time to buy" (Colliers take on market resilience) — what's true for Phangan | costs | 🟡 | ✅ |
 
