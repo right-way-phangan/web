@@ -3364,6 +3364,130 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "process",
     faqQuestion: "What extra checks will the Land Office run on my purchase in 2026?",
   },
+  {
+    slug: "illegal-construction-forest-reserve-crackdown-koh-phangan",
+    kbId: "kb-0049",
+    topic: "Phangan",
+    title: "Illegal construction crackdown in Koh Phangan's forest reserves and hillsides: what a buyer needs to know",
+    short:
+      "In September 2025, Surat Thani authorities found at least five buildings standing inside Koh Phangan's national forest reserve, plus cleared hillside land prepared for more. GPS-mapped enforcement and a parallel nominee-ownership crackdown mean a title deed alone no longer proves a plot is clean — boundary verification against the forest reserve is now essential due diligence.",
+    updated: "2026-07-04",
+    body: [
+      "Is it actually illegal to build inside Koh Phangan's forest reserve or on a graded hillside without checking the boundary first? Yes — and in September 2025 Surat Thani authorities found out how common it had become. Inspectors discovered at least five buildings already standing inside the island's national forest reserve, plus cleared and graded hillside land with groundwater wells drilled ahead of further construction. The case is now one strand of a wider 2025–2026 enforcement campaign that should change how any buyer checks a plot before committing.",
+      { h: "What was found" },
+      {
+        ul: [
+          "**At least five buildings** confirmed built inside Koh Phangan's national forest reserve during September 2025 inspections.",
+          "**Adjacent hillside land cleared and graded** for vehicle access, with wells drilled — signalling further construction was planned before the enforcement action.",
+          "**A dedicated task force** under the Fourth Army Region carried out the investigation, at the direction of the Surat Thani governor, who ordered agencies to accelerate the review with a focus on foreign nationals and nominee operations.",
+        ],
+      },
+      { h: "How investigators are documenting the violations" },
+      "Inspectors are using aerial photography and GPS mapping to record the exact footprint of cleared and built areas, cross-referencing the results against the surveyed forest-reserve boundary before submitting findings to the Surat Thani governor for legal action. This is a materially more rigorous method than a single site visit — it produces a defensible geographic record that can support prosecution and demolition orders.",
+      { h: "The legal exposure" },
+      "Building on or holding land inside a reserved forest without a specific statutory right is a criminal offence under the National Reserved Forest Act B.E. 2507 (1964). Enforcement precedent elsewhere in Thailand shows this exposure is real even where a title deed exists: in a widely cited Phuket case, the Supreme Administrative Court ordered a hotel demolished after finding the underlying land certificate had been unlawfully issued over forest land. Since 2020, Thailand's national parks authority has demolished or ordered the demolition of more than 20 luxury villas, resorts and hotels found illegally built inside national parks in the Western Forest Complex alone — a title document did not protect any of them.",
+      { h: "Part of a wider enforcement wave" },
+      "The forest-reserve findings sit alongside a broader nominee-ownership crackdown running across Koh Phangan and Koh Samui through late 2025 and into 2026: a first round of raids targeted 32 companies with apparent nominee structures across 45 land plots (more than 40 rai), with damage assessed above ฿200 million and 22 foreign arrests; a second phase involved more than 300 officers. See [Nominee-ownership crackdown: what it means for island buyers](/knowledge/nominee-crackdown-krabi-islands-2026). The pattern in both strands is the same: authorities are now cross-referencing land registry, corporate and geographic data rather than relying on paperwork presented at the counter.",
+      { h: "What this means before you buy" },
+      {
+        ul: [
+          "**A title deed is not proof a plot sits outside the forest reserve.** Elsewhere on the island, a Nor Sor 3 Gor title has been found issued over land suspected of encroaching on forest-reserve boundaries — see [Chanote vs Nor Sor 3 Gor in practice](/knowledge/land-titles-chanote-vs-nor-sor-3).",
+          "**Check the plot against the Royal Forest Department's reserve boundary**, not just the cadastral map, before signing anything — a Thai lawyer or licensed surveyor can request an overlay.",
+          "**Treat 'already cleared' or 'already has a well' as a red flag, not a selling point**, on hillside or forest-adjacent land — that is precisely the pattern investigators are now targeting.",
+          "**Any structure already built without this check carries real demolition risk**, regardless of how long it has stood or what a seller claims about its permit status.",
+        ],
+      },
+      "None of this changes how a compliant purchase works — a verified title, a confirmed zone, and a properly registered lease and superficies remain the standard, safe route; see [Building a villa on Koh Phangan](/knowledge/building-a-villa-koh-phangan) and the [due diligence checklist](/knowledge/due-diligence-checklist-koh-phangan). It does mean that boundary verification against the forest reserve is no longer an optional extra for hillside or interior land — it is now an active enforcement risk.",
+    ],
+    takeaways: [
+      "In September 2025 inspections, Surat Thani authorities found at least five buildings constructed inside Koh Phangan's national forest reserve, plus cleared and graded hillside land with wells drilled for further construction.",
+      "Investigators used aerial photography and GPS mapping to cross-reference cleared and built areas against the forest-reserve boundary before referring findings to the Surat Thani governor for legal action.",
+      "Under the National Reserved Forest Act B.E. 2507 (1964), building or holding land inside reserved forest without a specific right is a criminal offence that has led to eviction and demolition orders elsewhere in Thailand — even where a land title existed.",
+      "The forest-reserve crackdown runs alongside a wider 2025–2026 nominee-ownership enforcement campaign on Koh Phangan and Koh Samui — hundreds of officers involved, dozens of companies investigated, over ฿200 million in assessed damage.",
+      "A title deed is not proof a plot lies outside the forest reserve — some titles elsewhere on the island have been found issued over encroached land — so boundary verification against Royal Forest Department maps is an essential, separate due-diligence step.",
+    ],
+    sources: [
+      {
+        title: "Khaosod English — Koh Phangan Faces Illegal Development Crisis in Protected Areas",
+        url: "https://www.khaosodenglish.com/news/2025/10/18/koh-phangan-faces-illegal-development-crisis-in-protected-areas/",
+      },
+      {
+        title:
+          "Thai Examiner — Koh Phangan crackdown continues as Thai officials send a message: illegal investors are not wanted",
+        url: "https://www.thaiexaminer.com/thai-news-foreigners/2025/11/25/koh-phangan-crackdown-continues-as-thai-government-sends-message-small-time-investors-are-not-wanted/",
+      },
+      {
+        title: "Mongabay — Thai authorities demolish resorts in parks, but struggle to prosecute encroachers",
+        url: "https://news.mongabay.com/2022/03/thai-authorities-demolish-resorts-in-parks-but-struggle-to-prosecute-encroachers/",
+      },
+      {
+        title: "National Reserved Forest Act B.E. 2507 (1964), FAOLEX translation",
+        url: "https://faolex.fao.org/docs/pdf/tha53402.pdf",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "Is illegal construction in Koh Phangan's forest reserves and hillsides being enforced, and what does that mean for buyers?",
+  },
+  {
+    slug: "forged-building-permits-koh-phangan-verify",
+    kbId: "kb-0050",
+    topic: "Phangan",
+    title: "Forged building permits on Koh Phangan: how to verify a permit is genuine",
+    short:
+      "On 25 March 2026, Surat Thani authorities confirmed 40 forged building permits tied to the Koh Phangan district, including at least nine completed luxury villas owned by foreign buyers. A parallel scandal on Koh Samui shows the same fraud pattern — which means a permit document alone is no longer proof of anything without checking it against the issuing office's own records.",
+    updated: "2026-07-04",
+    body: [
+      "Can a Koh Phangan building permit turn out to be fake even after your villa is fully built? Yes — on 25 March 2026, Surat Thani authorities confirmed 40 forged building permits tied to properties in the Koh Phangan district, including at least nine completed luxury villas owned by foreign buyers. The case shows why a permit document by itself is not proof of anything; it has to be verified against the issuing office's own records.",
+      { h: "What happened" },
+      {
+        ul: [
+          "**8 January 2026** — a design-and-construction company owner filed a complaint against an employee of the Phet Phangan local public works office, alleging fabricated permits.",
+          "**25 March 2026** — authorities confirmed 40 forged building permits across the Koh Phangan district, affecting at least nine fully built luxury villas belonging to foreign owners.",
+          "**Consequence for owners** — because the underlying permit is fraudulent, the affected villas cannot be issued a house number (Tabien Baan) or proceed through standard property registration until the case is resolved.",
+          "**Method** — forensic examiners are investigating whether the signatures on the fake documents were applied digitally rather than by the named officials, pointing to a systematic rather than one-off scheme.",
+        ],
+      },
+      { h: "Not an isolated case" },
+      "A parallel scandal surfaced on neighbouring Koh Samui days earlier, on 21 March 2026, when a municipal legal officer publicly urged property owners to verify their permits. That investigation — triggered by a municipal complaint filed 20 January 2026 alleging signature forgery — found close to 10 forged permits in its first pass, on top of more than 100 questionable permits already flagged during 2024–2025 'Samui Model' compliance inspections. The alleged method was a lower-level public works employee producing fraudulent approvals in exchange for bribes reported at roughly ฿100,000 per permit. Officials in both cases say they are pursuing whether more senior staff were involved.",
+      { h: "The exposure for a villa owner" },
+      "A forged permit is not a paperwork inconvenience — it is the difference between a legally built structure and one Thai authorities can treat as unauthorised construction. Reported consequences for owners caught in either scandal include the inability to register a house number, transfer, or sell the property, and exposure to a demolition order if the underlying build is found not to conform to what a genuine permit would have required. See [Building a villa on Koh Phangan: permits, zones, timelines](/knowledge/building-a-villa-koh-phangan) for what a legitimate permit process actually involves.",
+      { h: "How to verify a permit before you rely on it" },
+      {
+        ul: [
+          "**Confirm the permit with the issuing office directly** — a Por 1 (Or Bor 1) construction permit is issued by the local Tambon Administrative Organisation (OrBorTor) or municipality; ask the office to confirm the permit number against its own registry rather than accepting the paper copy at face value.",
+          "**Verify the architect's and engineer's licences independently** — check registration status on the Council of Architects of Thailand (act.or.th) and the Council of Engineers, since a genuine-looking set of stamped plans still depends on a real, currently licensed signatory.",
+          "**Have a Thai lawyer cross-check the build against the permit**, not just confirm that a permit exists — the constructed footprint, height and use must match what was actually approved.",
+          "**Treat a villa without a completed house-number registration as unresolved**, not as a minor formality still in progress — that gap is exactly what both scandals exposed.",
+        ],
+      },
+      "This risk sits alongside, not instead of, the usual checks on title, zoning and lease structure — see the [due diligence checklist](/knowledge/due-diligence-checklist-koh-phangan) and [Island eco-zoning: where you can and can't build](/knowledge/koh-phangan-building-zones). A genuine permit confirmed at source is now as essential a check as the title deed itself.",
+    ],
+    takeaways: [
+      "On 25 March 2026, Surat Thani authorities confirmed 40 forged building permits in the Koh Phangan district, tied to at least nine completed luxury villas owned by foreign buyers.",
+      "The fraud was allegedly run by a public works department employee (hired in 2022) producing fake permits for roughly ฿100,000 each; a parallel scheme on Koh Samui surfaced over 100 questionable permits during 2024–2025 inspections.",
+      "Affected owners cannot obtain a house number (Tabien Baan) or complete standard property registration on their fully built villas until the fraud is resolved.",
+      "A permit document alone proves nothing — verify a Por 1 (Or Bor 1) directly with the issuing local administration's registry, not just by inspecting the paper.",
+      "Independently confirm the architect's and engineer's licences via the Council of Architects of Thailand (act.or.th) and the Council of Engineers before relying on a permit tied to a specific build.",
+    ],
+    sources: [
+      {
+        title: "ZoneSamui — Property Mafia: 40 New Forged Building Permits Discovered on Koh Phangan Island",
+        url: "https://en.zonesamui.com/34136-property-mafia-40-new-forged-building-permits-discovered-on-koh-phangan-island",
+      },
+      {
+        title: "Thailand News — Scandal Involving Fake Building Permits Uncovered on Koh Samui",
+        url: "https://www.thailandnews.co/2026/03/scandal-involving-fake-building-permits-uncovered-on-koh-samui/",
+      },
+      {
+        title: "Council of Architects of Thailand — architect licence verification",
+        url: "https://www.act.or.th/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion: "How do I check that a villa's building permit on Koh Phangan is genuine and not forged?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

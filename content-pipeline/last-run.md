@@ -1,4 +1,4 @@
-# Last run — 2026-07-02
+# Last run — 2026-07-04
 
 **Guides published:** 2
 
@@ -6,33 +6,33 @@
 
 ## Guide 1
 
-- **slug:** `thailand-99-year-leasehold-bill-status`
-- **kbId:** `kb-0047`
-- **title (EN):** Thailand's 99-year leasehold bill: why it was shelved and what the law allows in 2026
-- **title (RU):** Законопроект о 99-летней аренде в Таиланде: почему его отложили и что разрешает закон в 2026 году
-- **faqCategory:** `structures`
-- **faqQuestion:** Is Thailand introducing a 99-year lease for foreigners?
+- **slug:** `illegal-construction-forest-reserve-crackdown-koh-phangan`
+- **kbId:** `kb-0049`
+- **title (EN):** Illegal construction crackdown in Koh Phangan's forest reserves and hillsides: what a buyer needs to know
+- **title (RU):** Облавы на незаконное строительство в лесных резервах и на холмах Пхангана: что должен знать покупатель
+- **faqCategory:** `phangan`
+- **faqQuestion:** Is illegal construction in Koh Phangan's forest reserves and hillsides being enforced, and what does that mean for buyers?
 - **Sources used:**
-  - Nation Thailand — "New government considers 50% land tax cut, shelves 99-year leasehold plan" — the September 2025 shelving announcement and quote from Bhumjaithai deputy leader Siripong Angkhasakulkiat
-  - Nation Thailand — "Pheu Thai revives 99-year leasehold law as Interior Ministry shift nears" — legislative history and Interior Ministry dependency
-  - Nation Thailand — "Thai Government Pushes for 99-Year Land Leases to Attract Investment" — original bill mechanics (Treasury Department structure, non-agricultural land, mortgage/transfer/inherit rights)
-  - Civil and Commercial Code Section 540 and Supreme Court Case No. 4655/2566 (general practice) — current 30-year statutory baseline, cross-referenced against the existing `renewing-30-year-lease-risks` guide
+  - Khaosod English — "Koh Phangan Faces Illegal Development Crisis in Protected Areas" (Oct 2025) — Sept 2025 discovery of ≥5 buildings inside the national forest reserve, cleared/graded hillside land, GPS-mapping and aerial-photography enforcement method, Fourth Army Region task force
+  - Thai Examiner — "Koh Phangan crackdown continues..." (Nov 2025) — scale of the parallel 2025 nominee-ownership crackdown (raids, arrests, ~฿200M+ damage), used to show this sits within a wider enforcement wave
+  - Mongabay — "Thai authorities demolish resorts in parks..." (2022) — precedent for demolition of illegally built structures on forest/park land in Thailand, kept the legal-exposure claim conservative and sourced rather than speculative
+  - National Reserved Forest Act B.E. 2507 (1964), FAOLEX translation — statutory basis for the criminal offence
 
 ## Guide 2
 
-- **slug:** `land-office-source-of-funds-checks-2026`
-- **kbId:** `kb-0048`
-- **title (EN):** The Land Office's May 2026 source-of-funds checks: what changed at registration
-- **title (RU):** Проверки происхождения средств Земельного департамента с мая 2026 года: что изменилось при регистрации
-- **faqCategory:** `process`
-- **faqQuestion:** What extra checks will the Land Office run on my purchase in 2026?
+- **slug:** `forged-building-permits-koh-phangan-verify`
+- **kbId:** `kb-0050`
+- **title (EN):** Forged building permits on Koh Phangan: how to verify a permit is genuine
+- **title (RU):** Поддельные разрешения на строительство на Пхангане: как проверить подлинность разрешения
+- **faqCategory:** `documents`
+- **faqQuestion:** How do I check that a villa's building permit on Koh Phangan is genuine and not forged?
 - **Sources used:**
-  - Silk Legal — "What Thailand's New Lands Directives Mean for Nominee Shareholding and Property Ownership in 2026" — primary source for the three "Most Urgent" circulars (15–25 May 2026), THB 2M/5M thresholds, Section 74 mechanics, database/screening requirement
-  - Nation Thailand — "Land Department steps up crackdown on nominee landholding" — corroboration plus the Thai-spouse fund-confirmation detail
-  - Thailand Land Code, Section 74 (general practice) — statutory basis for the interrogation/evidence power
+  - ZoneSamui — "Property Mafia: 40 New Forged Building Permits Discovered on Koh Phangan Island" (25 Mar 2026) — primary source for the 40-permit discovery, the Jan 2026 complaint, the ≥9 affected villas, the house-number/registration block
+  - Thailand News — "Scandal Involving Fake Building Permits Uncovered on Koh Samui" (Mar 2026) — parallel Koh Samui case used to corroborate the fraud pattern, bribe amounts, and "Samui Model" inspection backstory
+  - Council of Architects of Thailand (act.or.th) — cited as the independent verification channel for architect/engineer licensing in the practical-advice section
 
-## Skipped backlog topic (marked ✅, no new guide)
+## Notes
 
-**"Supreme Court voids '30+30+30' lease renewal clauses (March 2025 ruling)"** was next in the 🔴 priority queue but is already thoroughly covered by the existing `renewing-30-year-lease-risks` guide (kb-0020, updated 2026-06-16), which covers Section 540, Case No. 4655/2566, and void stacked renewals in depth. Publishing a second guide on the same ruling would have been duplicate content, so it was marked ✅ in the backlog (to avoid re-queueing) without authoring new content. Moved down the priority list to the next two genuinely distinct, well-sourced 🔴 topics instead — the 99-year bill's status and the May 2026 DOL circulars — which also gave good `faqCategory` variety (structures / process).
+Both topics were the top two 🔴 (news-tier) rows in `content-pipeline/backlog.md` section A. Neither slug existed in `src/content/knowledge-base.ts` before this run. Both backlog rows marked ✅. `faqCategory` varied (phangan / documents) per the instructions since the backlog listed both as `phangan`. `tsc --noEmit` passes clean after the edits.
 
-**Notes:** Backlog still has queued items after this run — most of section A's 🔴 news items (hillside/forest-reserve crackdown, forged building permits scandal) plus several 🟡 evergreen items discovered 2026-07-02 remain ⏳ for the next run.
+Remaining ⏳ backlog: the 🟡 evergreen items discovered 2026-07-02 (OCPB leasing rules, water-shortage risk, 2025–2026 development pipeline, healthcare/schools access, rental-yield realism) are queued for the next run.
