@@ -4,7 +4,7 @@ import { useState, useTransition, type ReactNode } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ObjectEditButton } from "@/components/admin/object-edit";
-import { bulkUpdateObjectStatus } from "@/lib/actions/bulk-objects";
+import { bulkUpdateObjectStatus, setObjectNeedsReview, markAllNeedsReview } from "@/lib/actions/bulk-objects";
 
 const STATUS_STYLE: Record<string, string> = {
   Active: "bg-emerald-500/10 text-emerald-700",
@@ -50,6 +50,7 @@ export interface AdminObjectRow {
   plotPolygon?: Array<[number, number]> | null;
   descriptionManualEn?: string | null;
   descriptionManualRu?: string | null;
+  needsReview?: boolean;
 }
 
 export function ObjectsTable({
@@ -94,6 +95,30 @@ export function ObjectsTable({
     });
   }
 
+  function applyBulkNeedsReview(value: boolean) {
+    const rws = [...selected];
+    if (rws.length === 0) return;
+    setMsg(null);
+    start(async () => {
+      let updated = 0, failed = 0;
+      if (value) {
+        const res = await markAllNeedsReview(rws);
+        updated = res.updated; failed = res.failed;
+      } else {
+        const results = await Promise.allSettled(rws.map((rw) => setObjectNeedsReview(rw, false)));
+        updated = results.filter((r) => r.status === "fulfilled").length;
+        failed = results.length - updated;
+      }
+      setSelected(new Set());
+      setMsg(
+        failed === 0
+          ? `${value ? "⚠ Помечено устаревшим" : "✓ Подтверждено актуальным"}: ${updated}.`
+          : `Обновлено ${updated}, ошибок ${failed}.`,
+      );
+      router.refresh();
+    });
+  }
+
   return (
     <div>
       {/* Bulk action bar */}
@@ -114,6 +139,23 @@ export function ObjectsTable({
               {s}
             </button>
           ))}
+          <span className="mx-1 h-4 w-px bg-forest-900/15" />
+          <button
+            type="button"
+            disabled={pending}
+            onClick={() => applyBulkNeedsReview(true)}
+            className="rounded-full bg-amber-50 px-3 py-1 text-xs font-medium text-amber-700 ring-1 ring-amber-300 hover:bg-amber-100 disabled:opacity-50"
+          >
+            ⚠ Устаревший
+          </button>
+          <button
+            type="button"
+            disabled={pending}
+            onClick={() => applyBulkNeedsReview(false)}
+            className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700 ring-1 ring-emerald-300 hover:bg-emerald-100 disabled:opacity-50"
+          >
+            ✓ Актуален
+          </button>
           <button
             type="button"
             onClick={() => setSelected(new Set())}
@@ -186,7 +228,12 @@ export function ObjectsTable({
                       )}
                     </td>
                     <td className="max-w-[280px] px-3 py-2">
-                      <span className="line-clamp-1 text-forest-900/85">{o.titleEn || "—"}</span>
+                      <span className="flex items-center gap-1">
+                        {o.needsReview && (
+                          <span title="Требует проверки актуальности" className="flex-shrink-0 text-amber-500">⚠</span>
+                        )}
+                        <span className="line-clamp-1 text-forest-900/85">{o.titleEn || "—"}</span>
+                      </span>
                     </td>
                     <td className="whitespace-nowrap px-3 py-2 text-forest-900/70">{o.type}</td>
                     <td className="whitespace-nowrap px-3 py-2">

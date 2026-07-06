@@ -28,6 +28,7 @@ const VIS_TABS = [
   { key: "site", label: "На сайте" },
   { key: "hidden", label: "Скрытые" },
   { key: "nophoto", label: "Без фото" },
+  { key: "stale", label: "⚠ Устаревшие" },
 ] as const;
 type VisTab = (typeof VIS_TABS)[number]["key"];
 
@@ -187,6 +188,8 @@ export default async function ObjectsPage({
         return !pub;
       case "nophoto":
         return photoCount(o) === 0;
+      case "stale":
+        return !!o.needsReview;
       default:
         return true;
     }
@@ -196,6 +199,7 @@ export default async function ObjectsPage({
     site: base.filter((o) => publicSet.has(o.rwNumber)).length,
     hidden: base.filter((o) => !publicSet.has(o.rwNumber)).length,
     nophoto: base.filter((o) => photoCount(o) === 0).length,
+    stale: base.filter((o) => !!o.needsReview).length,
   };
 
   const filtered = base.filter(visMatch).sort((a, b) => {
@@ -268,6 +272,7 @@ export default async function ObjectsPage({
     plotPolygon: o.plotPolygon,
     descriptionManualEn: o.descriptionManualEn,
     descriptionManualRu: o.descriptionManualRu,
+    needsReview: o.needsReview ?? false,
   }));
 
   const counts = {
