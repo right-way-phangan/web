@@ -132,6 +132,9 @@ export interface RealEstateObject {
   ddLawyer?: string;   // кто дал вердикт — НЕ публичное (режется в sanitizePublicObject)
   ddChecklist?: Record<string, boolean>; // пункты V1–V7 — НЕ публичное
 
+  // Admin-only stale flag (actualization workflow) — НЕ публичное
+  needsReview?: boolean;
+
   // Обзвон собственников (/admin/outreach) — НЕ публичное
   outreachStatus?: string; // confirmed | archived | leasehold_ok | no_answer
   outreachNote?: string;
