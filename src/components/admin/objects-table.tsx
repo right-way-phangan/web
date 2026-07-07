@@ -4,7 +4,7 @@ import { useState, useTransition, type ReactNode } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ObjectEditButton } from "@/components/admin/object-edit";
-import { bulkUpdateObjectStatus, setObjectNeedsReview, markAllNeedsReview } from "@/lib/actions/bulk-objects";
+import { bulkUpdateObjectStatus, setObjectNeedsReview, markAllNeedsReview, bulkDeleteObjects } from "@/lib/actions/bulk-objects";
 
 const STATUS_STYLE: Record<string, string> = {
   Active: "bg-emerald-500/10 text-emerald-700",
@@ -95,6 +95,30 @@ export function ObjectsTable({
     });
   }
 
+  function applyBulkDelete() {
+    const rws = [...selected];
+    if (rws.length === 0) return;
+    if (
+      !window.confirm(
+        `Удалить безвозвратно ${rws.length} объект(ов)?\n\nОбъекты будут удалены из базы, каталога и с сайта (вместе с фото, документами и контактами). Отменить нельзя.`,
+      )
+    )
+      return;
+    setMsg(null);
+    start(async () => {
+      const res = await bulkDeleteObjects(rws);
+      setSelected(new Set());
+      setMsg(
+        res.error
+          ? res.error
+          : res.failed === 0
+            ? `Удалено ${res.updated}.`
+            : `Удалено ${res.updated}, ошибок ${res.failed}.`,
+      );
+      router.refresh();
+    });
+  }
+
   function applyBulkNeedsReview(value: boolean) {
     const rws = [...selected];
     if (rws.length === 0) return;
@@ -155,6 +179,15 @@ export function ObjectsTable({
             className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700 ring-1 ring-emerald-300 hover:bg-emerald-100 disabled:opacity-50"
           >
             ✓ Актуален
+          </button>
+          <span className="mx-1 h-4 w-px bg-forest-900/15" />
+          <button
+            type="button"
+            disabled={pending}
+            onClick={applyBulkDelete}
+            className="rounded-full bg-red-50 px-3 py-1 text-xs font-medium text-red-700 ring-1 ring-red-300 hover:bg-red-100 disabled:opacity-50"
+          >
+            🗑 Удалить
           </button>
           <button
             type="button"
