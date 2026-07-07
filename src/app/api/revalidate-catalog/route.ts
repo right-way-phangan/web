@@ -1,15 +1,14 @@
 import { NextResponse } from "next/server";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
-// On-demand cache-bust for the catalog. Catalog data is fetched with a 300s TTL
-// (CATALOG_REVALIDATE_SECONDS in lib/data/objects.ts); for the low-traffic
-// /objects/all fetch the fetch Data Cache entry can wedge stale far beyond that
-// — a deleted object kept serving its "unavailable" page long after removal, and
-// neither a fresh prod deploy nor `vercel cache purge` clears the fetch Data
-// Cache. revalidatePath invalidates the entries via the route's implicit tag,
-// which works even for entries cached by a prior deployment. Call after any
-// catalog mutation (add / delete object) to force object pages + listings to
-// re-fetch on the next request.
+// On-demand cache-bust for the catalog. Catalog data is cached for 300s
+// (CATALOG_REVALIDATE_SECONDS in lib/data/objects.ts) under the "catalog" tag;
+// without this, an object added or DELETED in the CRM only (dis)appears from the
+// site after the TTL — and in practice a low-traffic entry could wedge stale far
+// longer (a deleted object kept serving its "unavailable" page long after
+// removal). revalidateTag("catalog") busts the catalog keyspace instantly;
+// revalidatePath refreshes the rendered object/listings routes. Call after any
+// catalog mutation (add / delete object).
 //
 // Gated by OBJECTS_API_TOKEN (the existing site↔backend secret), same
 // secure-by-default shape as health-summary: no token → 404, wrong token → 401.
@@ -24,6 +23,7 @@ export async function POST(req: Request) {
     return new NextResponse("unauthorized", { status: 401 });
   }
 
+  revalidateTag("catalog");
   revalidatePath("/object/[rw]", "page");
   revalidatePath("/ru/object/[rw]", "page");
   revalidatePath("/listings");

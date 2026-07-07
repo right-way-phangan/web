@@ -1,4 +1,5 @@
 import "server-only";
+import { unstable_cache } from "next/cache";
 import { listCatalogElements, AmoApiError } from "@/lib/amocrm/client";
 import { mapElementToObject } from "@/lib/amocrm/mapper";
 import { backendFetch } from "@/lib/api/backend";
@@ -159,12 +160,26 @@ let lastGoodPublic: RealEstateObject[] | null = null;
 let lastGoodAll: RealEstateObject[] | null = null;
 
 async function apiObjects(path: string): Promise<RealEstateObject[]> {
-  const res = await backendFetch(path, { next: { revalidate: CATALOG_REVALIDATE_SECONDS } });
-  if (!res.ok) throw new Error(`objects API ${path} → ${res.status}`);
-  const objs = (await res.json()) as RealEstateObject[];
-  // DB stores raw enum labels ("Freehold (Thai)", "Mixed / N.A.") — normalize
-  // once at the data-layer edge so filters and includes("Leasehold") work.
-  return objs.map((o) => ({ ...o, tenure: normalizeTenure(o.tenure) }));
+  // Cache via unstable_cache (its own keyspace + explicit "catalog" tag) rather
+  // than fetch-level `next.revalidate`. The raw fetch is `no-store` so it does
+  // not also land in the sticky fetch Data Cache — for the low-traffic
+  // /objects/all entry that cache could wedge stale for hours (a deleted object
+  // kept 200-ing its "unavailable" page; neither a redeploy nor `vercel cache
+  // purge` cleared it). This keyspace refreshes on the 300s TTL and busts
+  // instantly on revalidateTag("catalog") — see POST /api/revalidate-catalog.
+  const load = unstable_cache(
+    async () => {
+      const res = await backendFetch(path, { cache: "no-store" });
+      if (!res.ok) throw new Error(`objects API ${path} → ${res.status}`);
+      const objs = (await res.json()) as RealEstateObject[];
+      // DB stores raw enum labels ("Freehold (Thai)", "Mixed / N.A.") — normalize
+      // once at the data-layer edge so filters and includes("Leasehold") work.
+      return objs.map((o) => ({ ...o, tenure: normalizeTenure(o.tenure) }));
+    },
+    ["catalog", path],
+    { revalidate: CATALOG_REVALIDATE_SECONDS, tags: ["catalog"] },
+  );
+  return load();
 }
 
 /**
