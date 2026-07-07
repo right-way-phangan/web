@@ -171,7 +171,9 @@ export default async function RussianObjectPage({ params }: Props) {
               <SaveButton rw={object.rwNumber} variant="inline" />
             </div>
           </div>
-          <h1 className="mt-3 max-w-3xl text-balance">{object.titleEn}</h1>
+          <h1 className="mt-3 text-balance text-[clamp(1.85rem,3.4vw,3rem)] leading-[1.1]">
+            {object.titleEn}
+          </h1>
 
           <ObjectPrice
             priceThb={object.priceThb}
