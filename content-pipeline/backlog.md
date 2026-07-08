@@ -15,8 +15,8 @@ Status: ⏳ queued · ✅ published.
 | Topic | faqCategory | Priority | Status |
 |---|---|---|---|
 <!-- discovered 2026-07-05, sources: silklegal.com, zagdim.com, nationthailand.com, lexbangkok.com, thaienquirer.com, thaiembassy.com, siam-legal.com -->
-| Land Department's nationwide audit of *existing* landholding companies (IBAS AI system, Section 96 forced divestment within 180 days-1yr, state auction risk) — what current company-structure owners must have ready | structures | 🔴 | ⏳ |
-| Vacant-land tax step-up in 2026 (extra 0.3% after 3 years unused) and the "banana tree" agricultural-use loophole crackdown | costs | 🔴 | ⏳ |
+| Land Department's nationwide audit of *existing* landholding companies (IBAS AI system, Section 96 forced divestment within 180 days-1yr, state auction risk) — what current company-structure owners must have ready | structures | 🔴 | ✅ |
+| Vacant-land tax step-up in 2026 (extra 0.3% after 3 years unused) and the "banana tree" agricultural-use loophole crackdown | costs | 🔴 | ✅ |
 | Thailand's new Will registration rules (effective 24 March 2026): what property owners need to update in their estate planning | documents | 🔴 | ⏳ |
 <!-- discovered 2026-07-02, sources: austchamthailand.com, nationthailand.com, silklegal.com, khaosodenglish.com, en.zonesamui.com -->
 | Supreme Court voids "30+30+30" lease renewal clauses (March 2025 ruling) — what it means for stacked-lease villas | structures | 🔴 | ✅ |

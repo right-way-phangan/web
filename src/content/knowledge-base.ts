@@ -3488,6 +3488,129 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "documents",
     faqQuestion: "How do I check that a villa's building permit on Koh Phangan is genuine and not forged?",
   },
+  {
+    slug: "land-department-audit-existing-landholding-companies-2026",
+    kbId: "kb-0051",
+    topic: "Structures",
+    title: "The Land Department's 2026 audit of existing landholding companies: what owners must have ready",
+    short:
+      "Since 2025-2026, Thailand's Department of Business Development and Department of Lands have run an AI-driven audit (IBAS) of company registry and land records nationwide, feeding a running database that every Provincial Land Office must now review monthly. A company already holding land isn't exempt — if it's flagged as a nominee structure, Land Code Section 96 gives officials the power to force a sale within 180 days to a year.",
+    updated: "2026-07-08",
+    body: [
+      "Can a Thai company that already owns land be investigated years after it registered? Yes — and through 2025 and 2026, that has become the routine case rather than the exception. The audit isn't limited to new purchases at the counter; it's an ongoing, AI-assisted review of companies that already hold title, running quietly in the background until a flag surfaces.",
+      { h: "What changed: from spot checks to a standing database" },
+      {
+        ul: [
+          "**IBAS (Intelligence Business Analytic System)** — an AI tool the Department of Business Development (DBD) has run since October 2025, cross-referencing corporate registry data against the Revenue Department, Customs, the Anti-Money Laundering Office and Land Department records to flag shareholding, capital and directorship patterns typical of nominee arrangements.",
+          "**A formal data-sharing agreement between the DBD and the Department of Lands**, plus an MOU with the Central Investigation Bureau, means a flag raised in one agency can trigger a parallel investigation in another — a company doesn't need a new transaction to come under review.",
+          "**Three 'Most Urgent' circulars issued 15–25 May 2026** instructed every Provincial Land Office to build and maintain a database of every company holding land in its jurisdiction — registration details, parcels, acquisition dates, appraised values, stated business purpose. See [The Land Office's May 2026 source-of-funds checks](/knowledge/land-office-source-of-funds-checks-2026) for the registration-side rules that came out of the same circulars.",
+          "**Land Offices must review this database monthly and report to the Department of Lands quarterly**, with immediate reporting required for any company that meets the foreign-shareholding thresholds in Sections 97–98 of the Land Code.",
+        ],
+      },
+      { h: "The legal mechanism if a company is flagged: Section 96" },
+      "Section 96 of the Land Code applies the disposal procedure in Section 94 \"mutatis mutandis\" to nominee cases — when it appears a Thai person or entity holds land as the registered owner in place of a foreign national or foreign-controlled juristic person, the Director-General of the Department of Lands has the authority to order disposal. The holder must sell the land within a period the Director-General sets, which by law can be no less than 180 days and no more than one year. If the land isn't sold within that window, the Director-General gains the power to arrange the sale directly — in practice, a forced disposal rather than a voluntary one. A separate proposal to amend the Land Code so unlawfully held land is forfeited to the state without compensation, instead of sold with proceeds returned to the holder, is under study but is not current law.",
+      { h: "The scale so far" },
+      "Enforcement tied to this framework is not marginal: reporting through 2025 and into 2026 has tracked several hundred companies prosecuted and well over ฿15 billion in economic damage identified nationwide, spanning Bangkok, the Eastern Economic Corridor and the southern islands. See [Nominee-ownership enforcement spreads to Krabi](/knowledge/nominee-crackdown-krabi-islands-2026) for how the same campaign has moved across provinces.",
+      { h: "What an existing company-structure owner should have ready" },
+      {
+        ul: [
+          "**Documented source of funds for every Thai shareholder** — bank records or income evidence showing the shareholder could genuinely afford their stated shareholding, not just a signed share register.",
+          "**Evidence of real control matching the paper structure** — if a Thai shareholder holds 51%, they should be able to show they exercise the voting and economic rights that percentage implies, not just hold a signed proxy or side letter.",
+          "**A credible business rationale for the company itself** — a land-holding company with no other activity, no other shareholders, and a single foreign director is exactly the profile IBAS is tuned to flag.",
+          "**Underlying agreements reviewed for de facto control clauses** — loan agreements, usufruct-style side contracts or voting proxies that hand economic or decision-making control to the foreign party undermine the structure even if the shareholding register looks correct.",
+          "**A relationship with a Thai lawyer who can respond to a Land Office inquiry quickly** — once a company is flagged, the response window is short, and the disposal clock under Section 96 does not pause for a slow answer.",
+        ],
+      },
+      "None of this is new law — the 49/51 company structure was always required to reflect genuine Thai control, not just genuine Thai names on paper; see [A Thai company for property: when it makes sense, when it's toxic](/knowledge/thai-company-for-property-49-51). What's changed is enforcement capacity: a structure that would once have sat unreviewed for years now sits inside a database that's checked every month.",
+    ],
+    takeaways: [
+      "IBAS, an AI system the DBD has run since October 2025, cross-references corporate and land records nationwide to flag nominee-pattern shareholdings — including in companies that already hold title, not just new purchases.",
+      "Between 15 and 25 May 2026, the Department of Lands ordered every Provincial Land Office to build a database of land-holding companies, reviewed monthly with quarterly reporting to the department.",
+      "Land Code Section 96 applies Section 94's disposal procedure to nominee cases: the Director-General can order a sale within 180 days to one year; if the holder misses that window, the Director-General can arrange the sale directly.",
+      "A proposal to allow forfeiture to the state without compensation, instead of a forced sale with proceeds returned, is under study but is not yet law.",
+      "Enforcement under this framework has already reached several hundred prosecuted companies and over ฿15 billion in identified damages nationwide — existing structures should have source-of-funds and control documentation ready, not just a compliant-looking share register.",
+    ],
+    sources: [
+      {
+        title: "Thailand.go.th — Thailand Launches IBAS: A Digital Weapon Against Nominee Companies",
+        url: "https://www.thailand.go.th/guide-book-detail/-ibas---",
+      },
+      {
+        title: "Silk Legal — What Thailand's New Lands Directives Mean for Nominee Shareholding and Property Ownership in 2026",
+        url: "https://silklegal.com/what-thailands-new-lands-directives-mean-for-nominee-shareholding-and-property-ownership-in-2026/",
+      },
+      {
+        title: "ThailandLawOnline — Thai Land Law: full translation of the Land Code Act (Sections 94, 96)",
+        url: "https://www.thailandlawonline.com/thai-real-estate-law/thai-land-law-land-code-act",
+      },
+      {
+        title: "AIM Bangkok — Thailand Cracks Down on Nominee Land Structures: Land Code 'Forfeiture to the State' Proposal Under Study",
+        url: "https://aimbangkok.com/thailand-foreign-nominee-land-ownership-confiscation-risk/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "My company already owns land in Thailand — can it still be audited as a nominee structure, and what happens if it's flagged?",
+  },
+  {
+    slug: "vacant-land-tax-step-up-agricultural-loophole-2026",
+    kbId: "kb-0052",
+    topic: "Costs",
+    title: "Vacant-land tax step-up in 2026 and the agricultural-use loophole crackdown",
+    short:
+      "2026 (B.E. 2569) is the first year Thailand's Land and Building Tax adds its automatic step-up penalty — an extra 0.3% on top of the standard rate for land left idle three years running. At the same time, regulators have tightened the planting-density rules that let owners reclassify vacant land as 'agricultural' to dodge that rate altogether, so a few token banana trees no longer guarantee the lower bracket.",
+    updated: "2026-07-08",
+    body: [
+      "Why did a vacant plot's land tax bill jump in 2026? For any land left unused for three consecutive years, the Land and Building Tax Act now adds an automatic step-up — an extra 0.3% on top of the standard vacant-land rate, repeating every three years up to a 3% ceiling. 2026 (B.E. 2569) is the first year plots that sat idle since the tax regime's effective start are hitting that three-year mark, and it lands at the same time as a separate tightening of the rules landowners have long used to dodge the vacant-land bracket entirely by planting crops.",
+      { h: "The step-up, in numbers" },
+      {
+        ul: [
+          "**Standard vacant/unused land rate** runs from 0.3% (up to ฿50 million appraised value) to 0.7% (over ฿5 billion), scaled by value band.",
+          "**After three consecutive years unused**, an extra 0.3% is added on top of the standard rate for that value band.",
+          "**The step repeats every three years the land stays idle**, up to a 3% cap — so a plot can climb well past its starting rate if it's never developed or put to productive use.",
+          "**Worked example**: a ฿100 million vacant plot paying 0.4% (฿400,000/year) through the first three-year window jumps to 0.7% (฿700,000/year) once the step-up applies — with no change in the land itself, only in how long it's sat idle.",
+        ],
+      },
+      { h: "The agricultural escape route — and why it's narrower now" },
+      "Agricultural land is taxed far more lightly than vacant land — individual owners get the first ฿50 million of value exempt, then pay as little as 0.01%, rising gradually; companies pay somewhat more but still far below the vacant-land bands. That gap has long pushed landowners, particularly on prime urban plots, to plant crops purely to reclassify vacant land as 'agricultural' — banana, lime, mango and similar fast, cheap plantings became so associated with the practice that it's commonly known in Thailand as the 'banana tree loophole'.",
+      { h: "What regulators tightened" },
+      {
+        ul: [
+          "**A minimum planting density applies, crop by crop** — the original Finance Ministry schedule required at least 200 banana plants per rai (roughly 1,600 sqm) for land to count as genuinely agricultural, not just token planting.",
+          "**The Ministries of Finance and Interior's 2025 Notification (No. 3) on Criteria for Agricultural Land Use**, effective 1 January 2025, expanded the schedule to 57 crop and tree categories and raised several density minimums — for example, the eucalyptus threshold rose from 35 to 100 trees per rai.",
+          "**Falling short of the density schedule means the land is assessed as vacant/unused**, not agricultural — triggering the higher rate (and, for land idle three-plus years, the step-up on top of it) plus potential back-tax and penalties for prior years misclassified.",
+          "**Local assessors have discretion to inspect and verify actual land use**, so sparse or clearly ornamental planting on a prime commercial plot is a specific, known audit target, not an overlooked formality.",
+        ],
+      },
+      { h: "What this means for a Koh Phangan buyer" },
+      "Most Right Way Phangan clients buy to build, not to bank vacant land, which limits direct exposure — but the step-up matters for anyone holding land through a longer permit or design process, or land bought speculatively ahead of a later build. See [Building a villa on Koh Phangan: permits, zones, timelines](/knowledge/building-a-villa-koh-phangan) for how long that gap can realistically run, and [Owner's taxes: annual land tax and tax on taking income out](/knowledge/owners-taxes-annual-land-and-income) for how the annual land tax fits into ownership costs generally. If a plot has standing agricultural use — coconut, fruit trees, or existing farming — confirm the planting meets the current density schedule with a local accountant before assuming the lower rate applies automatically; the criteria changed in 2025 and are being checked more closely in 2026.",
+      "The practical takeaway is simple: a plot won't stay at its lowest tax bracket by default, whether that's because it sits idle past three years or because token planting no longer clears the agricultural bar on its own.",
+    ],
+    takeaways: [
+      "From 2026 (B.E. 2569), land left unused for three consecutive years gets an automatic extra 0.3% added to its standard vacant-land tax rate, repeating every three years up to a 3% cap.",
+      "Standard vacant-land rates already scale from 0.3% to 0.7% by value band before any step-up applies — a ฿100 million idle plot can go from ฿400,000 to ฿700,000 a year once the step-up hits.",
+      "Agricultural land is taxed far lower (as little as 0.01% for individuals after a ฿50 million exemption), which is why token crop planting on vacant land — the 'banana tree loophole' — became widespread.",
+      "A 2025 Ministry of Finance/Interior notification (effective 1 January 2025) expanded the qualifying-crop schedule to 57 categories and raised several density minimums, including eucalyptus from 35 to 100 trees per rai — closing off thin, ornamental planting as a way to qualify.",
+      "Falling short of the density schedule gets land assessed as vacant, not agricultural, exposing the owner to both the higher rate and possible back-tax for prior years — verify actual planting against the current schedule rather than assuming an old rule of thumb still applies.",
+    ],
+    sources: [
+      {
+        title: "LEXbangkok — New Land and Building Tax Thailand 2026 (B.E. 2569): Full Guide for Property Owners",
+        url: "https://lexbangkok.com/land-building-tax-thailand-2026/",
+      },
+      {
+        title: "Nishimura & Asahi — Thai Government Begins Strict Enforcement of Agricultural Land Tax Planning Measures",
+        url: "https://www.nishimura.com/en/knowledge/publications/20260316-120276",
+      },
+      {
+        title: "The Nation — Landowners in Bangkok embrace 'agriculture' to escape vacant-land tax",
+        url: "https://www.nationthailand.com/in-focus/30380704",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "Why did my Thai land tax bill jump in 2026, and does planting fruit trees still lower it?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
