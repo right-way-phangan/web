@@ -12,6 +12,9 @@ const MAX_ZOOM = 4;
 const DOUBLE_TAP_ZOOM = 2.5;
 const DOUBLE_TAP_MS = 300;
 const DOUBLE_TAP_RADIUS_PX = 40;
+// Палец сдвинулся меньше этого — жест считается тапом (кандидатом на дабл-тап);
+// больше — это свайп/движение, чтобы короткие свайпы не срабатывали как зум.
+const TAP_MOVE_MAX_PX = 10;
 
 export interface LightboxPhoto {
   src: string;
@@ -182,9 +185,9 @@ export function PhotoLightbox({ photos, index, onIndexChange, onClose, unoptimiz
     const dy = e.clientY - start.y;
     const moved = Math.hypot(dx, dy);
 
-    // Дабл-тап → зум.
+    // Дабл-тап → зум (только когда палец фактически не двигался).
     const now = Date.now();
-    if (moved < DOUBLE_TAP_RADIUS_PX) {
+    if (moved < TAP_MOVE_MAX_PX) {
       const last = lastTap.current;
       if (last && now - last.time < DOUBLE_TAP_MS && Math.hypot(e.clientX - last.x, e.clientY - last.y) < DOUBLE_TAP_RADIUS_PX) {
         lastTap.current = null;
@@ -194,6 +197,8 @@ export function PhotoLightbox({ photos, index, onIndexChange, onClose, unoptimiz
       lastTap.current = { x: e.clientX, y: e.clientY, time: now };
       return;
     }
+    // Любой заметный сдвиг (свайп) прерывает потенциальный дабл-тап.
+    lastTap.current = null;
 
     // Свайп → листание (только без зума).
     if (zoomRef.current.scale === 1 && n > 1 && Math.abs(dx) >= SWIPE_THRESHOLD_PX && Math.abs(dx) > Math.abs(dy)) {
