@@ -102,6 +102,9 @@ const MAX_ZOOM = 4;
 const DOUBLE_TAP_ZOOM = 2.5;
 const DOUBLE_TAP_MS = 300;
 const DOUBLE_TAP_RADIUS_PX = 40;
+// Палец сдвинулся меньше этого — жест считается тапом (кандидатом на дабл-тап);
+// больше — это свайп/движение, чтобы короткие свайпы не срабатывали как зум.
+const TAP_MOVE_MAX_PX = 10;
 
 interface ZoomState {
   scale: number;
@@ -265,9 +268,9 @@ export function ObjectGallery({ rwNumber, type, gallery, title }: Props) {
       const dy = e.clientY - start.y;
       const moved = Math.hypot(dx, dy);
 
-      // Double-tap → toggle zoom.
+      // Double-tap → toggle zoom (only when the finger stayed put).
       const now = Date.now();
-      if (moved < DOUBLE_TAP_RADIUS_PX) {
+      if (moved < TAP_MOVE_MAX_PX) {
         const last = lastTap.current;
         if (
           last &&
@@ -281,6 +284,8 @@ export function ObjectGallery({ rwNumber, type, gallery, title }: Props) {
         lastTap.current = { x: e.clientX, y: e.clientY, time: now };
         return;
       }
+      // Any noticeable move (swipe) cancels a pending double-tap.
+      lastTap.current = null;
 
       // Swipe → navigate (only when not zoomed in).
       if (
