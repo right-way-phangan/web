@@ -6,15 +6,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { ChevronLeft, ChevronRight, X, ImageOff } from "lucide-react";
 import { BLUR_PLACEHOLDER } from "@/lib/utils/blur";
 import { cn } from "@/lib/utils/cn";
-
-const SWIPE_THRESHOLD_PX = 48;
-const MAX_ZOOM = 4;
-const DOUBLE_TAP_ZOOM = 2.5;
-const DOUBLE_TAP_MS = 300;
-const DOUBLE_TAP_RADIUS_PX = 40;
-// Палец сдвинулся меньше этого — жест считается тапом (кандидатом на дабл-тап);
-// больше — это свайп/движение, чтобы короткие свайпы не срабатывали как зум.
-const TAP_MOVE_MAX_PX = 10;
+import { useLightboxGestures } from "@/lib/hooks/use-lightbox-gestures";
 
 export interface LightboxPhoto {
   src: string;
@@ -22,13 +14,6 @@ export interface LightboxPhoto {
   /** Подпись под счётчиком (напр. код лота). */
   caption?: string;
 }
-
-interface ZoomState {
-  scale: number;
-  tx: number;
-  ty: number;
-}
-const ZOOM_RESET: ZoomState = { scale: 1, tx: 0, ty: 0 };
 
 interface Props {
   photos: LightboxPhoto[];
@@ -80,20 +65,18 @@ export function PhotoLightbox({ photos, index, onIndexChange, onClose, unoptimiz
   const i = index ?? 0;
   const n = photos.length;
 
-  const stageRef = useRef<HTMLDivElement>(null);
   const stripRef = useRef<HTMLDivElement>(null);
-  const [zoom, setZoom] = useState<ZoomState>(ZOOM_RESET);
-  const [gesturing, setGesturing] = useState(false);
-  const zoomRef = useRef(zoom);
-  zoomRef.current = zoom;
-  const pointers = useRef(new Map<number, { x: number; y: number }>());
-  const pinchStart = useRef<{ dist: number; scale: number } | null>(null);
-  const panLast = useRef<{ x: number; y: number } | null>(null);
-  const swipeStart = useRef<{ x: number; y: number; multi: boolean } | null>(null);
-  const lastTap = useRef<{ x: number; y: number; time: number } | null>(null);
 
   const prev = useCallback(() => onIndexChange((i - 1 + n) % n), [i, n, onIndexChange]);
   const next = useCallback(() => onIndexChange((i + 1) % n), [i, n, onIndexChange]);
+
+  const { zoom, gesturing, stageRef, stageProps } = useLightboxGestures({
+    imageCount: n,
+    index: i,
+    active: open,
+    onPrev: prev,
+    onNext: next,
+  });
 
   useEffect(() => {
     if (!open) return;
@@ -105,107 +88,12 @@ export function PhotoLightbox({ photos, index, onIndexChange, onClose, unoptimiz
     return () => window.removeEventListener("keydown", onKey);
   }, [open, prev, next]);
 
-  // Свежий кадр → сброс зума.
-  useEffect(() => {
-    setZoom(ZOOM_RESET);
-  }, [i, open]);
-
   // Активная миниатюра — всегда в кадре.
   useEffect(() => {
     if (!open) return;
     const active = stripRef.current?.querySelector<HTMLElement>(`[data-thumb="${i}"]`);
     active?.scrollIntoView({ block: "nearest", inline: "center" });
   }, [open, i]);
-
-  const clampZoom = (z: ZoomState): ZoomState => {
-    const rect = stageRef.current?.getBoundingClientRect();
-    const scale = Math.min(MAX_ZOOM, Math.max(1, z.scale));
-    if (scale <= 1.05) return ZOOM_RESET;
-    const maxX = ((scale - 1) * (rect?.width ?? 0)) / 2;
-    const maxY = ((scale - 1) * (rect?.height ?? 0)) / 2;
-    return { scale, tx: Math.min(maxX, Math.max(-maxX, z.tx)), ty: Math.min(maxY, Math.max(-maxY, z.ty)) };
-  };
-
-  const zoomAtPoint = (clientX: number, clientY: number) => {
-    const rect = stageRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    const s = DOUBLE_TAP_ZOOM;
-    setZoom(clampZoom({ scale: s, tx: -(clientX - cx) * (s - 1), ty: -(clientY - cy) * (s - 1) }));
-  };
-
-  const toggleZoom = (clientX: number, clientY: number) => {
-    if (zoomRef.current.scale > 1) setZoom(ZOOM_RESET);
-    else zoomAtPoint(clientX, clientY);
-  };
-
-  const onPointerDown = (e: React.PointerEvent) => {
-    pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
-    const pts = [...pointers.current.values()];
-    if (pts.length === 2) {
-      pinchStart.current = { dist: Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y), scale: zoomRef.current.scale };
-      panLast.current = null;
-      if (swipeStart.current) swipeStart.current.multi = true;
-      setGesturing(true);
-    } else if (pts.length === 1) {
-      panLast.current = { x: e.clientX, y: e.clientY };
-      swipeStart.current = { x: e.clientX, y: e.clientY, multi: false };
-      if (zoomRef.current.scale > 1) setGesturing(true);
-    }
-  };
-
-  const onPointerMove = (e: React.PointerEvent) => {
-    if (!pointers.current.has(e.pointerId)) return;
-    pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
-    const pts = [...pointers.current.values()];
-    if (pts.length === 2 && pinchStart.current) {
-      const dist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
-      const scale = (dist / pinchStart.current.dist) * pinchStart.current.scale;
-      setZoom((z) => clampZoom({ ...z, scale }));
-    } else if (pts.length === 1 && zoomRef.current.scale > 1 && panLast.current) {
-      const dx = e.clientX - panLast.current.x;
-      const dy = e.clientY - panLast.current.y;
-      panLast.current = { x: e.clientX, y: e.clientY };
-      setZoom((z) => clampZoom({ ...z, tx: z.tx + dx, ty: z.ty + dy }));
-    }
-  };
-
-  const onPointerUp = (e: React.PointerEvent) => {
-    pointers.current.delete(e.pointerId);
-    if (pointers.current.size > 0) return;
-    pinchStart.current = null;
-    panLast.current = null;
-    setGesturing(false);
-
-    const start = swipeStart.current;
-    swipeStart.current = null;
-    if (!start || start.multi || e.pointerType !== "touch") return;
-    const dx = e.clientX - start.x;
-    const dy = e.clientY - start.y;
-    const moved = Math.hypot(dx, dy);
-
-    // Дабл-тап → зум (только когда палец фактически не двигался).
-    const now = Date.now();
-    if (moved < TAP_MOVE_MAX_PX) {
-      const last = lastTap.current;
-      if (last && now - last.time < DOUBLE_TAP_MS && Math.hypot(e.clientX - last.x, e.clientY - last.y) < DOUBLE_TAP_RADIUS_PX) {
-        lastTap.current = null;
-        toggleZoom(e.clientX, e.clientY);
-        return;
-      }
-      lastTap.current = { x: e.clientX, y: e.clientY, time: now };
-      return;
-    }
-    // Любой заметный сдвиг (свайп) прерывает потенциальный дабл-тап.
-    lastTap.current = null;
-
-    // Свайп → листание (только без зума).
-    if (zoomRef.current.scale === 1 && n > 1 && Math.abs(dx) >= SWIPE_THRESHOLD_PX && Math.abs(dx) > Math.abs(dy)) {
-      if (dx > 0) prev();
-      else next();
-    }
-  };
 
   if (n === 0) return null;
   const cur = photos[i];
@@ -234,11 +122,7 @@ export function PhotoLightbox({ photos, index, onIndexChange, onClose, unoptimiz
           <div
             ref={stageRef}
             className="absolute inset-0 flex touch-none items-center justify-center overflow-hidden"
-            onPointerDown={onPointerDown}
-            onPointerMove={onPointerMove}
-            onPointerUp={onPointerUp}
-            onPointerCancel={onPointerUp}
-            onDoubleClick={(e) => toggleZoom(e.clientX, e.clientY)}
+            {...stageProps}
           >
             <div
               key={cur.src}
