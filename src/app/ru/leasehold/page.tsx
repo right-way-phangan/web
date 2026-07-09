@@ -12,6 +12,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
+import { LeaseholdListings } from "@/components/sections/leasehold-listings";
 import { Button } from "@/components/ui/button";
 import { getSiteUrl } from "@/lib/site-url";
 import { whatsappLink } from "@/lib/site-config";
@@ -153,6 +154,9 @@ export default function LeaseholdPageRu() {
             </div>
           </div>
         </div>
+
+        {/* Живой инвентарь лизинга — реальные карточки, индексируемые, в один клик. */}
+        <LeaseholdListings locale="ru" />
 
         {/* FAQ — видимые Q&A зеркалят FAQPage JSON-LD выше (AEO). */}
         <div className="mt-16 md:mt-20">
