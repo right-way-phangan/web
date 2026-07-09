@@ -154,6 +154,7 @@ export function NewLeadForm() {
               <select name="pipeline" defaultValue="land" className={field}>
                 <option value="land">Land</option>
                 <option value="villa_house">Villas &amp; Houses</option>
+                <option value="owners">Собственники (продавец)</option>
               </select>
             </label>
           )}

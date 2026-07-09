@@ -68,7 +68,12 @@ function pipelineFor(type: ObjectType | undefined): number {
  */
 const CRM_API_URL = process.env.OBJECTS_API_URL;
 
-function pipelineKeyFor(type: ObjectType | undefined): "land" | "villa_house" {
+function pipelineKeyFor(
+  type: ObjectType | undefined,
+  isSeller: boolean,
+): "land" | "villa_house" | "owners" {
+  // /sell (valuation) — a property owner offering their object, not a buyer.
+  if (isSeller) return "owners";
   if (type === "Villa" || type === "House" || type === "Apartment" || type === "Project") {
     return "villa_house";
   }
@@ -238,7 +243,7 @@ export async function submitInquiry(
         cache: "no-store",
         body: JSON.stringify({
           leadName,
-          pipeline: pipelineKeyFor(objectType),
+          pipeline: pipelineKeyFor(objectType, isValuation),
           contact: {
             name: data.name,
             email: data.email || undefined,
