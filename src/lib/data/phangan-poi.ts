@@ -34,8 +34,8 @@ export const PHANGAN_BEACHES: Poi[] = [
 export const THONG_SALA: Poi = {
   en: "Thong Sala",
   ru: "Тонгсала",
-  lat: 9.7095,
-  lng: 100.013,
+  lat: 9.7106,
+  lng: 99.9864,
 };
 
 /** Amenity categories for the optional "Nearby" marker layer. */
@@ -54,15 +54,15 @@ export interface Amenity extends Poi {
  */
 export const PHANGAN_AMENITIES: Amenity[] = [
   // Ferry piers — the way on and off the island (to Samui / the mainland).
-  { cat: "pier", en: "Thong Sala Pier", ru: "Пирс Тонгсала", lat: 9.7072, lng: 100.0116 },
-  { cat: "pier", en: "Haad Rin Pier", ru: "Пирс Хаад Рин", lat: 9.6738, lng: 100.0658 },
+  { cat: "pier", en: "Thong Sala Pier", ru: "Пирс Тонгсала", lat: 9.7085, lng: 99.9835 },
+  { cat: "pier", en: "Haad Rin Pier", ru: "Пирс Хаад Рин", lat: 9.6739, lng: 100.0632 },
   // Hospital — the island's main (government) hospital, north of Thong Sala.
-  { cat: "hospital", en: "Koh Phangan Hospital", ru: "Госпиталь Ко Панган", lat: 9.7203, lng: 100.0078 },
-  // School — Koh Phangan School, central Thong Sala.
-  { cat: "school", en: "Koh Phangan School", ru: "Школа Ко Панган", lat: 9.7133, lng: 100.0096 },
+  { cat: "hospital", en: "Koh Phangan Hospital", ru: "Госпиталь Ко Панган", lat: 9.7363, lng: 99.9907 },
+  // School — Koh Phangan School (Ko Pha-ngan Suksa), east of Thong Sala on the Ban Kai road.
+  { cat: "school", en: "Koh Phangan School", ru: "Школа Ко Панган", lat: 9.7069, lng: 100.0053 },
   // Shops — the island's big-box supermarket + the Thong Sala convenience hub.
-  { cat: "shop", en: "Makro", ru: "Makro", lat: 9.7268, lng: 100.0049 },
-  { cat: "shop", en: "Big C (Thong Sala)", ru: "Big C (Тонгсала)", lat: 9.7113, lng: 100.0135 },
+  { cat: "shop", en: "Makro", ru: "Makro", lat: 9.7091, lng: 99.9964 },
+  { cat: "shop", en: "Big C (Thong Sala)", ru: "Big C (Тонгсала)", lat: 9.7092, lng: 100.0007 },
   // Banks & ATMs — the Thong Sala cluster (Bangkok Bank / Kasikorn / SCB).
-  { cat: "atm", en: "Banks & ATMs (Thong Sala)", ru: "Банки и банкоматы (Тонгсала)", lat: 9.7102, lng: 100.0127 },
+  { cat: "atm", en: "Banks & ATMs (Thong Sala)", ru: "Банки и банкоматы (Тонгсала)", lat: 9.7123, lng: 99.9866 },
 ];
