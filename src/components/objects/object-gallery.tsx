@@ -251,7 +251,7 @@ export function ObjectGallery({ rwNumber, type, gallery, title }: Props) {
               key={url}
               onClick={() => openAt(i)}
               aria-label={t.viewPhoto(i + 1)}
-              className="relative aspect-[4/3] w-full shrink-0 snap-center overflow-hidden bg-forest-500/5"
+              className="relative aspect-[4/3] w-full shrink-0 snap-center touch-manipulation overflow-hidden bg-forest-500/5"
             >
               <SafeImage
                 src={url}

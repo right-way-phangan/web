@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type React from "react";
 
-const SWIPE_THRESHOLD_PX = 48;
+const SWIPE_THRESHOLD_PX = 40;
 const MAX_ZOOM = 4;
 const DOUBLE_TAP_ZOOM = 2.5;
 const DOUBLE_TAP_MS = 300;
@@ -11,6 +11,9 @@ const DOUBLE_TAP_RADIUS_PX = 40;
 // Палец сдвинулся меньше этого — жест считается тапом (кандидатом на дабл-тап);
 // больше — это свайп/движение, чтобы короткие свайпы не срабатывали как зум.
 const TAP_MOVE_MAX_PX = 10;
+// …и касание должно быть коротким по времени: медленное удержание/микро-перетаскивание
+// с малым сдвигом — не тап, чтобы не давало ложный дабл-тап.
+const TAP_MAX_MS = 250;
 
 interface ZoomState {
   scale: number;
@@ -49,7 +52,7 @@ export function useLightboxGestures({ imageCount, index, active, onPrev, onNext 
   const pointers = useRef(new Map<number, { x: number; y: number }>());
   const pinchStart = useRef<{ dist: number; scale: number } | null>(null);
   const panLast = useRef<{ x: number; y: number } | null>(null);
-  const swipeStart = useRef<{ x: number; y: number; multi: boolean } | null>(null);
+  const swipeStart = useRef<{ x: number; y: number; multi: boolean; time: number } | null>(null);
   const lastTap = useRef<{ x: number; y: number; time: number } | null>(null);
 
   // Свежий кадр → сброс зума.
@@ -90,7 +93,7 @@ export function useLightboxGestures({ imageCount, index, active, onPrev, onNext 
       setGesturing(true);
     } else if (pts.length === 1) {
       panLast.current = { x: e.clientX, y: e.clientY };
-      swipeStart.current = { x: e.clientX, y: e.clientY, multi: false };
+      swipeStart.current = { x: e.clientX, y: e.clientY, multi: false, time: Date.now() };
       if (zoomRef.current.scale > 1) setGesturing(true);
     }
   };
@@ -125,9 +128,9 @@ export function useLightboxGestures({ imageCount, index, active, onPrev, onNext 
     const dy = e.clientY - start.y;
     const moved = Math.hypot(dx, dy);
 
-    // Дабл-тап → зум (только когда палец фактически не двигался).
+    // Дабл-тап → зум (только когда палец фактически не двигался и касание короткое).
     const now = Date.now();
-    if (moved < TAP_MOVE_MAX_PX) {
+    if (moved < TAP_MOVE_MAX_PX && now - start.time < TAP_MAX_MS) {
       const last = lastTap.current;
       if (last && now - last.time < DOUBLE_TAP_MS && Math.hypot(e.clientX - last.x, e.clientY - last.y) < DOUBLE_TAP_RADIUS_PX) {
         lastTap.current = null;
