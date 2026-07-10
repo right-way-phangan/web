@@ -123,12 +123,15 @@ export async function createManualLeadAction(formData: FormData): Promise<Create
     }
   }
 
-  // Pipeline: interest type wins; else the explicit select; else land.
+  // Pipeline: interest type wins; else the explicit select (villa_house /
+  // owners); else land.
   const pipeline = interestType
     ? pipelineForInterest(interestType)
     : s("pipeline") === "villa_house"
       ? "villa_house"
-      : "land";
+      : s("pipeline") === "owners"
+        ? "owners"
+        : "land";
 
   // Structured first note — what the agent will read at a glance.
   const interestParts = [

@@ -16,6 +16,10 @@ export const STAGE_SLA_DAYS: Record<string, number> = {
   dd: 14,
   spa: 10,
   transfer: 7,
+  // owners (supply side) — onboard a listing owner briskly, don't let it cool
+  agreement: 3,
+  documents: 5,
+  listing: 5,
   // legacy «Разбор»
   revived: 3,
 };

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getLead, CRM_ENABLED } from "@/lib/data/leads";
+import { getLead, getPipelines, CRM_ENABLED } from "@/lib/data/leads";
 import { getAllObjects } from "@/lib/data/objects";
 import type { RealEstateObject } from "@/types/object";
 import { MoveLeadSelect } from "@/components/crm/move-lead-select";
+import { MovePipelineSelect } from "@/components/crm/move-pipeline-select";
 import { TaskToggle } from "@/components/crm/task-toggle";
 import { LeadEdit } from "@/components/crm/lead-edit";
 import { LeadWonLost } from "@/components/crm/lead-won-lost";
@@ -90,11 +91,15 @@ export default async function LeadDetailPage({
   const lead = await getLead(Number(id));
   if (!lead) notFound();
 
-  const allObjects = await getAllObjects();
+  const [allObjects, pipelines] = await Promise.all([getAllObjects(), getPipelines()]);
   // Reverse object↔lead link: the object this lead is about (any status).
   const obj = lead.rwNumber
     ? allObjects.find((o) => o.rwNumber === lead.rwNumber) ?? null
     : null;
+
+  // Owner (supply-side) leads: the buyer-facing widgets — objects to show the
+  // client, «sync object → Sold», the transaction checklist — don't apply.
+  const isOwner = lead.pipelineKey === "owners";
 
   // "Что показать": match catalog objects to the lead's qualification.
   const tags = lead.tags ?? [];
@@ -118,7 +123,7 @@ export default async function LeadDetailPage({
     inShortlist,
   });
   const matches: MatchItem[] =
-    lead.status === "open"
+    lead.status === "open" && !isOwner
       ? allObjects
           .filter(
             (o) =>
@@ -181,11 +186,13 @@ export default async function LeadDetailPage({
   // Object↔deal sync: what site status the deal stage implies (won → Sold,
   // reservation+ → Reserved). Only when the deal links an object.
   const objSuggested: "Reserved" | "Sold" | null =
-    lead.status === "won"
-      ? "Sold"
-      : lead.stageKey && ["reservation", "dd", "spa", "transfer"].includes(lead.stageKey)
-        ? "Reserved"
-        : null;
+    isOwner
+      ? null // owner "won" = listing published, not the object sold
+      : lead.status === "won"
+        ? "Sold"
+        : lead.stageKey && ["reservation", "dd", "spa", "transfer"].includes(lead.stageKey)
+          ? "Reserved"
+          : null;
   // Следующий шаг. getLead (деталь) НЕ отдаёт производные поля, которые
   // считает listLeads (stageSince, lastTouchAt, openTasks, overdueTasks) — без
   // них nextAction откатывался бы на createdAt (врёт про SLA) и считал бы, что
@@ -325,7 +332,16 @@ export default async function LeadDetailPage({
 
       {/* Meta grid */}
       <dl className="mt-5 grid grid-cols-2 gap-x-6 gap-y-3 rounded-lg border border-forest-900/10 bg-cream-50 p-4 text-sm sm:grid-cols-3">
-        <Meta label="Воронка" value={lead.pipeline ?? "—"} />
+        <div>
+          <dt className="text-xs uppercase tracking-wide text-forest-900/40">Воронка</dt>
+          <dd className="mt-1">
+            <MovePipelineSelect
+              leadId={lead.id}
+              pipelines={pipelines.map((p) => ({ key: p.key, name: p.name }))}
+              currentPipelineKey={lead.pipelineKey}
+            />
+          </dd>
+        </div>
         <div>
           <dt className="text-xs uppercase tracking-wide text-forest-900/40">Стадия</dt>
           <dd className="mt-1">
@@ -418,7 +434,7 @@ export default async function LeadDetailPage({
         )}
       </dl>
 
-      {lead.stageKey && DEAL_STAGE_KEYS.has(lead.stageKey) && (
+      {!isOwner && lead.stageKey && DEAL_STAGE_KEYS.has(lead.stageKey) && (
         <div className="mt-4">
           <DealChecklist
             leadId={lead.id}
