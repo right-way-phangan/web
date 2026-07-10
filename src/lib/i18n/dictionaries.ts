@@ -1396,6 +1396,16 @@ export interface ProjectsDict {
   contactMessage: (title: string) => string;
   stage: Record<string, string>;
   perYear: string;
+  developers: {
+    aboutTitle: string;
+    historyTitle: string;
+    catalogTitle: string;
+    status: { built: string; "under-construction": string; planned: string };
+    formTitle: string;
+    formLede: string;
+    formSubmit: string;
+    formDefaultMessage: (name: string) => string;
+  };
 }
 
 const projectsDict: Record<Locale, ProjectsDict> = {
@@ -1465,6 +1475,22 @@ const projectsDict: Record<Locale, ProjectsDict> = {
       "Off-plan": "Off-plan",
     },
     perYear: "/ year",
+    developers: {
+      aboutTitle: "About the developer",
+      historyTitle: "Track record",
+      catalogTitle: "Projects in our catalog",
+      status: {
+        built: "Delivered",
+        "under-construction": "Under construction",
+        planned: "Planned",
+      },
+      formTitle: "Construction enquiry",
+      formLede:
+        "Planning to build on Koh Phangan? Leave a request — we'll discuss your brief and coordinate it with the developer directly. Your enquiry goes to Right Way and we reply within a working day.",
+      formSubmit: "Send request",
+      formDefaultMessage: (name) =>
+        `Hi! I'm interested in building with ${name} on Koh Phangan. Could we discuss my project?`,
+    },
   },
   ru: {
     eyebrow: "Проекты застройщиков",
@@ -1532,6 +1558,22 @@ const projectsDict: Record<Locale, ProjectsDict> = {
       "Off-plan": "Off-plan",
     },
     perYear: "/ год",
+    developers: {
+      aboutTitle: "О застройщике",
+      historyTitle: "История проектов",
+      catalogTitle: "Проекты в каталоге",
+      status: {
+        built: "Сдан",
+        "under-construction": "Строится",
+        planned: "Планируется",
+      },
+      formTitle: "Заявка на строительство",
+      formLede:
+        "Планируете строить на Пангане? Оставьте заявку — обсудим задачу и скоординируем её с застройщиком напрямую. Заявка приходит в Right Way, отвечаем в течение рабочего дня.",
+      formSubmit: "Отправить заявку",
+      formDefaultMessage: (name) =>
+        `Здравствуйте! Интересует строительство с ${name} на Пангане. Хочу обсудить свой проект.`,
+    },
   },
 };
 

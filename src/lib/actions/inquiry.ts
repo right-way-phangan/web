@@ -34,7 +34,8 @@ const inquirySchema = z
     vid: z.string().max(64).optional(),    // anonymous visitor id → links lead to its browse journey
     source: z.enum(["object", "contact"]), // discriminator
     lang: z.enum(["en", "ru"]).optional(), // UI language the visitor submitted in → reply in their language
-    kind: z.enum(["inquiry", "calculator", "market-report", "shortlist", "saved-search", "valuation"]).optional(), // calculator = ROI-calc; market-report = /insights unlock; shortlist = saved-listings batch; saved-search = new-listing alert request; valuation = /tools/estimate seller lead
+    kind: z.enum(["inquiry", "calculator", "market-report", "shortlist", "saved-search", "valuation", "construction"]).optional(), // calculator = ROI-calc; market-report = /insights unlock; shortlist = saved-listings batch; saved-search = new-listing alert request; valuation = /tools/estimate seller lead; construction = developer-page build request
+    developer: z.string().max(80).optional(), // developer lead tag (developer-page construction requests)
     utm_source: z.string().max(200).optional(),
     utm_medium: z.string().max(200).optional(),
     utm_campaign: z.string().max(200).optional(),
@@ -164,6 +165,7 @@ export async function submitInquiry(
   const isShortlist = data.kind === "shortlist";
   const isSavedSearch = data.kind === "saved-search";
   const isValuation = data.kind === "valuation";
+  const isConstruction = data.kind === "construction";
   const isViewing = Boolean(data.viewingDate);
   const wantsVideoTour = data.videoTour === "yes";
   const tags = [
@@ -174,6 +176,8 @@ export async function submitInquiry(
     ...(isShortlist ? ["shortlist"] : []),
     ...(isSavedSearch ? ["saved-search"] : []),
     ...(isValuation ? ["valuation", "seller-lead"] : []),
+    ...(isConstruction ? ["construction"] : []),
+    ...(data.developer ? [data.developer] : []),
     ...(isViewing ? ["viewing"] : []),
     ...(wantsVideoTour ? ["video-tour"] : []),
     ...(data.replyVia ? [`reply:${data.replyVia}`] : []),
@@ -198,19 +202,21 @@ export async function submitInquiry(
   // Build amoCRM payload — leads/complex creates lead + contact in one call.
   const namePrefix = isViewing
     ? "Viewing request"
-    : isValuation
-      ? "Valuation · seller"
-      : isMarketReport
-        ? "Market report"
-        : isShortlist
-          ? "Shortlist"
-          : isSavedSearch
-            ? "New-listing alert"
-            : isCalc
-              ? "Calc lead"
-              : data.rwNumber
-                ? "Web inquiry"
-              : "Web contact";
+    : isConstruction
+      ? "Construction request"
+      : isValuation
+        ? "Valuation · seller"
+        : isMarketReport
+          ? "Market report"
+          : isShortlist
+            ? "Shortlist"
+            : isSavedSearch
+              ? "New-listing alert"
+              : isCalc
+                ? "Calc lead"
+                : data.rwNumber
+                  ? "Web inquiry"
+                : "Web contact";
   const leadName = data.rwNumber
     ? `${namePrefix} · ${data.rwNumber}${objectTitle ? ` · ${objectTitle.slice(0, 60)}` : ""}`
     : `${namePrefix} · ${data.name}`;
@@ -243,7 +249,8 @@ export async function submitInquiry(
         cache: "no-store",
         body: JSON.stringify({
           leadName,
-          pipeline: pipelineKeyFor(objectType, isValuation),
+          // Construction requests carry no rwNumber → route to villas, not land.
+          pipeline: isConstruction ? "villa_house" : pipelineKeyFor(objectType, isValuation),
           contact: {
             name: data.name,
             email: data.email || undefined,
@@ -261,7 +268,7 @@ export async function submitInquiry(
       const body = (await res.json()) as { leadId?: number };
       leadId = body.leadId ?? 0;
     } else {
-      const pipelineId = pipelineFor(objectType);
+      const pipelineId = isConstruction ? amoEnv.AMOCRM_PIPELINE_VILLA_HOUSE : pipelineFor(objectType);
       const res = await createLead({
         name: leadName,
         pipeline_id: pipelineId,
