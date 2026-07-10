@@ -26,7 +26,7 @@ export function Logo({
         className,
       )}
     >
-      <span className="font-semibold">Right Way</span>
+      <span className="whitespace-nowrap font-semibold">Right Way</span>
       <span
         className={cn(
           "text-xs uppercase tracking-[0.2em] transition-colors group-hover:text-brass-500",
