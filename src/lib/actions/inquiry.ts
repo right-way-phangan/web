@@ -166,6 +166,9 @@ export async function submitInquiry(
   const isSavedSearch = data.kind === "saved-search";
   const isValuation = data.kind === "valuation";
   const isConstruction = data.kind === "construction";
+  // Construction requests carry no rwNumber → route to the villas pipeline
+  // (one decision point for both the own-CRM and amoCRM branches below).
+  const pipelineType: ObjectType | undefined = isConstruction ? "Villa" : objectType;
   const isViewing = Boolean(data.viewingDate);
   const wantsVideoTour = data.videoTour === "yes";
   const tags = [
@@ -177,7 +180,7 @@ export async function submitInquiry(
     ...(isSavedSearch ? ["saved-search"] : []),
     ...(isValuation ? ["valuation", "seller-lead"] : []),
     ...(isConstruction ? ["construction"] : []),
-    ...(data.developer ? [data.developer] : []),
+    ...(data.developer ? [`developer:${data.developer}`] : []),
     ...(isViewing ? ["viewing"] : []),
     ...(wantsVideoTour ? ["video-tour"] : []),
     ...(data.replyVia ? [`reply:${data.replyVia}`] : []),
@@ -249,8 +252,7 @@ export async function submitInquiry(
         cache: "no-store",
         body: JSON.stringify({
           leadName,
-          // Construction requests carry no rwNumber → route to villas, not land.
-          pipeline: isConstruction ? "villa_house" : pipelineKeyFor(objectType, isValuation),
+          pipeline: pipelineKeyFor(pipelineType, isValuation),
           contact: {
             name: data.name,
             email: data.email || undefined,
@@ -268,7 +270,7 @@ export async function submitInquiry(
       const body = (await res.json()) as { leadId?: number };
       leadId = body.leadId ?? 0;
     } else {
-      const pipelineId = isConstruction ? amoEnv.AMOCRM_PIPELINE_VILLA_HOUSE : pipelineFor(objectType);
+      const pipelineId = pipelineFor(pipelineType);
       const res = await createLead({
         name: leadName,
         pipeline_id: pipelineId,

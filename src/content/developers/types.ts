@@ -41,8 +41,6 @@ export interface DeveloperProfile {
   slug: string;
   /** Display fallback when no catalog group exists for the slug. */
   name: string;
-  /** Short CRM tag added to construction leads (falls back to slug). */
-  leadTag?: string;
   /** Paragraphs separated by blank lines ("\n\n"). */
   bio: Localized;
   facts: DeveloperFact[];

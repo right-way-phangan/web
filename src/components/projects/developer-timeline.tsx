@@ -5,15 +5,18 @@ import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getProjectsDict } from "@/lib/i18n/dictionaries";
+import { STAGE_STYLE } from "./stage-badge";
 import type {
   ResolvedTimelineEntry,
   TimelineStatus,
 } from "@/content/developers/types";
 
-const STATUS_STYLE: Record<TimelineStatus, string> = {
-  built: "bg-forest-500/10 text-forest-700",
-  "under-construction": "bg-brass-500/15 text-brass-600",
-  planned: "bg-forest-900/8 text-forest-500",
+// Reuse the catalog stage colors (stage-badge.tsx) so both pills stay in sync;
+// labels differ (Delivered/Planned vs Ready/Off-plan), so only styles are shared.
+const STATUS_TO_STAGE: Record<TimelineStatus, string> = {
+  built: "Ready",
+  "under-construction": "Under construction",
+  planned: "Off-plan",
 };
 
 /** Cross-project track-record timeline for a developer page (delivered + in-progress projects). */
@@ -41,7 +44,7 @@ export function DeveloperTimeline({
               <span
                 className={cn(
                   "inline-flex items-center rounded-sm px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.15em]",
-                  STATUS_STYLE[entry.status],
+                  STAGE_STYLE[STATUS_TO_STAGE[entry.status]],
                 )}
               >
                 {t.developers.status[entry.status]}

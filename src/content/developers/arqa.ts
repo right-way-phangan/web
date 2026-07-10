@@ -15,7 +15,6 @@ import type { DeveloperProfile } from "./types";
 export const arqa: DeveloperProfile = {
   slug: "arqa-development",
   name: "ARQA Development",
-  leadTag: "arqa",
   bio: {
     en: [
       "ARQA Development is a villa developer on Koh Phangan. The team takes its communities through the full cycle — masterplan, construction, finished homes and day-to-day rental operations — so the villas it sells are backed by villas it already runs.",

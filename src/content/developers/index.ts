@@ -5,15 +5,6 @@ import type {
 } from "./types";
 import { arqa } from "./arqa";
 
-export type {
-  DeveloperProfile,
-  DeveloperTimelineEntry,
-  DeveloperFact,
-  Localized,
-  ResolvedTimelineEntry,
-  TimelineStatus,
-} from "./types";
-
 const profiles: Record<string, DeveloperProfile> = {
   [arqa.slug]: arqa,
 };

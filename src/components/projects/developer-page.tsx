@@ -20,6 +20,9 @@ import { ProjectCard } from "./project-card";
 import { DeveloperTimeline } from "./developer-timeline";
 import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 import { Reveal } from "@/components/sections/reveal";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
+import { jsonLdHtml } from "@/lib/seo/json-ld";
+import { getSiteUrl } from "@/lib/site-url";
 
 /** Developer landing — one developer's profile, track record and catalog projects in one place. */
 export async function DeveloperPage({
@@ -58,8 +61,38 @@ export async function DeveloperPage({
     ? resolveTimeline(profile.timeline, hrefByRw)
     : [];
 
+  const base = getSiteUrl();
+  const pageUrl = `${base}${localePath(locale, `/developers/${slug}`)}`;
+
   return (
     <section className="container-prose py-24 md:py-32">
+      <BreadcrumbJsonLd
+        crumbs={[
+          {
+            name: locale === "ru" ? "Главная" : "Home",
+            url: locale === "ru" ? `${base}/ru` : `${base}/`,
+          },
+          {
+            name: locale === "ru" ? "Проекты" : "Projects",
+            url: `${base}${localePath(locale, "/projects")}`,
+          },
+          { name, url: pageUrl },
+        ]}
+      />
+      {profile ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: jsonLdHtml({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: profile.name,
+              description: profile.seo?.description?.[locale],
+              url: pageUrl,
+            }),
+          }}
+        />
+      ) : null}
       <Button asChild variant="ghost" size="sm" className="mb-6">
         <Link href={localePath(locale, "/projects") as Route}>
           <ArrowLeft className="h-4 w-4" />
@@ -161,7 +194,7 @@ export async function DeveloperPage({
             <LeadForm
               source="contact"
               kind="construction"
-              developer={profile.leadTag ?? profile.slug}
+              developer={profile.slug}
               defaultMessage={t.developers.formDefaultMessage(name)}
               submitLabel={t.developers.formSubmit}
               locale={locale}
