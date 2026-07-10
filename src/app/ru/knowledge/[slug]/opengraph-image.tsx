@@ -1,7 +1,9 @@
 import { getKbArticleRuBySlug } from "@/content/knowledge-base.ru";
 import { renderOg, OG_SIZE, OG_CONTENT_TYPE } from "@/lib/seo/og";
 
-export const runtime = "edge";
+// nodejs (не edge): RU-OG с кириллическим шрифтом переваливает лимит Edge
+// Function 1 МБ и роняет весь прод-деплой (memory reference_vercel_edge_og_1mb_limit).
+export const runtime = "nodejs";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 export const alt = "Right Way Phangan — База знаний";
