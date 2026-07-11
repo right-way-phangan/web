@@ -1,7 +1,10 @@
 import { getKbArticleBySlug } from "@/content/knowledge-base";
 import { renderOg, OG_SIZE, OG_CONTENT_TYPE } from "@/lib/seo/og";
 
-export const runtime = "edge";
+// nodejs, not edge: bundled knowledge-base content grows with every
+// auto-published guide; the RU twin already broke the 1 MB edge limit and
+// failed the whole deployment. → memory reference_vercel_edge_og_1mb_limit
+export const runtime = "nodejs";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 export const alt = "Right Way Phangan — Knowledge base";
