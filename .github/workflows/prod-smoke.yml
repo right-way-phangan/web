@@ -23,8 +23,10 @@ jobs:
 
           code=$(curl -s --max-time 30 -o /tmp/listings.html -w '%{http_code}' https://rightwaygroup.co/listings) || fail "listings unreachable"
           [ "$code" = "200" ] || fail "listings HTTP $code"
-          rw=$(grep -o 'href="/object/RW-[A-Z0-9-]*"' /tmp/listings.html | head -1 | sed 's/href="\/object\///;s/"//')
-          [ -n "$rw" ] || fail "no listing cards on /listings (amoCRM feed down?)"
+          # Skip RW-P#### project cards — they 307-redirect to /projects/[slug]
+          # by design, so /object/RW-P#### is never a 200. Pick a real object.
+          rw=$(grep -o 'href="/object/RW-[A-Z0-9-]*"' /tmp/listings.html | sed 's/href="\/object\///;s/"//' | grep -v '^RW-P' | head -1)
+          [ -n "$rw" ] || fail "no listing cards on /listings (catalog feed down?)"
 
           code=$(curl -s --max-time 30 -o /tmp/object.html -w '%{http_code}' "https://rightwaygroup.co/object/$rw") || fail "object page unreachable"
           [ "$code" = "200" ] || fail "object $rw HTTP $code"
