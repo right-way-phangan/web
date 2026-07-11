@@ -81,6 +81,19 @@ const nextConfig: NextConfig = {
     "/admin/guide/[slug]": ["./src/content/guide/**/*"],
     "/admin/api/search": ["./src/content/guide/**/*"],
   },
+  async rewrites() {
+    return [
+      // Same-origin proxy for object photos: *.r2.dev is state-blocked in
+      // Indonesia (Komdigi) and unreliable in China/Korea, so public pages
+      // link photos via /media/r2/* (src/lib/storage/r2-public.ts) and this
+      // rewrite streams them from the bucket through our own domain.
+      {
+        source: "/media/r2/:path*",
+        destination:
+          "https://pub-e6d4ecfb57d243b4801e5d6fa0a37220.r2.dev/:path*",
+      },
+    ];
+  },
   async headers() {
     return [
       {
