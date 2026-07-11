@@ -7,7 +7,7 @@ import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 import { Reveal } from "@/components/sections/reveal";
 import { Appear } from "@/components/motion/appear";
 import { Button } from "@/components/ui/button";
-import { LeadForm } from "@/components/forms/lead-form";
+import { SellerListingForm } from "@/components/forms/seller-listing-form";
 import { getSiteUrl } from "@/lib/site-url";
 
 export const metadata: Metadata = {
@@ -170,20 +170,14 @@ export default function SellPage() {
           <div className="rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5">
             <div className="rounded-core bg-cream-50 p-6 shadow-bezel md:p-8">
               <h3 className="font-serif text-2xl text-forest-900">
-                Request a valuation
+                List your property with us
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-forest-500/70">
-                Tell us where the property is and what you have. We reply within the
-                working day.
+                Tell us about your land, villa or house. We review every
+                submission personally and reply within the working day.
               </p>
               <div className="mt-6">
-                <LeadForm
-                  source="contact"
-                  kind="valuation"
-                  layout="card"
-                  submitLabel="Request a valuation"
-                  defaultMessage="I'd like a valuation for my property. Location / type / size: "
-                />
+                <SellerListingForm locale="en" />
               </div>
             </div>
           </div>
