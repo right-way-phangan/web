@@ -17,7 +17,7 @@ Status: ⏳ queued · ✅ published.
 <!-- discovered 2026-07-05, sources: silklegal.com, zagdim.com, nationthailand.com, lexbangkok.com, thaienquirer.com, thaiembassy.com, siam-legal.com -->
 | Land Department's nationwide audit of *existing* landholding companies (IBAS AI system, Section 96 forced divestment within 180 days-1yr, state auction risk) — what current company-structure owners must have ready | structures | 🔴 | ✅ |
 | Vacant-land tax step-up in 2026 (extra 0.3% after 3 years unused) and the "banana tree" agricultural-use loophole crackdown | costs | 🔴 | ✅ |
-| Thailand's new Will registration rules (effective 24 March 2026): what property owners need to update in their estate planning | documents | 🔴 | ⏳ |
+| Thailand's new Will registration rules (effective 24 March 2026): what property owners need to update in their estate planning | documents | 🔴 | ✅ |
 <!-- discovered 2026-07-02, sources: austchamthailand.com, nationthailand.com, silklegal.com, khaosodenglish.com, en.zonesamui.com -->
 | Supreme Court voids "30+30+30" lease renewal clauses (March 2025 ruling) — what it means for stacked-lease villas | structures | 🔴 | ✅ |
 | Thailand's proposed 99-year leasehold bill: where it stands and what changes if it passes | structures | 🔴 | ✅ |
@@ -50,7 +50,7 @@ Status: ⏳ queued · ✅ published.
 | New OCPB residential leasing rules for landlords renting 3+ units: deposit caps and contract requirements | costs | 🟡 | ⏳ |
 | Water supply and shortage risk on Koh Phangan: what it means for a villa's operating costs | phangan | 🟡 | ⏳ |
 | New villa and residential development pipeline 2025-2026: named projects and what they signal | phangan | 🟡 | ⏳ |
-| Healthcare and schools access for buyers relocating with family | phangan | 🟢 | ⏳ |
+| Healthcare and schools access for buyers relocating with family | phangan | 🟢 | ✅ |
 | Realistic villa rental yields: what actually drives returns beyond the headline percentage | costs | 🟡 | ⏳ |
 <!-- discovered 2026-07-05, sources: aseanbriefing.com, houseviser.com, thaienquirer.com (search snippets), thethaiger.com, centreforaviation.com, thailand-construction.com -->
 | The THB 40 million investment route: how a foreigner can legally hold up to 1,600 sqm of land in their own name | structures | 🟢 | ⏳ |

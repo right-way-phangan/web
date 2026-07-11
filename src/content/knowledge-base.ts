@@ -3611,6 +3611,117 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "costs",
     faqQuestion: "Why did my Thai land tax bill jump in 2026, and does planting fruit trees still lower it?",
   },
+  {
+    slug: "thailand-will-registration-rules-2026",
+    kbId: "kb-0053",
+    topic: "Documents",
+    title: "Thailand's new Will registration rules (24 March 2026): what property owners need to update",
+    short:
+      "A Ministerial Regulation that took effect on 24 March 2026 standardises how public wills are prepared, witnessed and registered at Thai district offices — the first overhaul of the process in over 60 years. It doesn't change who inherits what under Thai law, but it tightens the paperwork, and every foreign owner of Thai property should check their existing will still fits.",
+    updated: "2026-07-11",
+    body: [
+      "**Does this change who inherits your Thai property? No — it changes how a will gets made and registered.** The Ministerial Regulation on the Preparation of Wills and Declarations of Intention Concerning Inheritance, B.E. 2569, was published in the Government Gazette on 22 January 2026 and took effect 60 days later, on 24 March 2026. It replaces an administrative framework that had gone essentially unchanged since the 1960s for the 'public will' (a will made and registered before a district officer) — the form most commonly recommended to foreign property owners because it is drafted and held by a government office, not a private drawer.",
+      { h: "What actually changed" },
+      {
+        ul: [
+          "**Uniform national forms** — the Department of Provincial Administration (DOPA) now prescribes standardised forms used at every district office, replacing inconsistent local practice.",
+          "**Registration at any district office** — a testator can register a public will at any Amphur, King Amphur or Bangkok Khet office, not only the one covering their registered address.",
+          "**An official will register** — each district office maintains a formal register of wills made before it, with a certified copy and receipt issued to the testator.",
+          "**Stricter capacity and intent checks** — district officers are directed to more rigorously assess that the testator understands and freely intends the declaration, and to refuse a will where coercion or incapacity is suspected.",
+          "**Clearer witness rules** — a public will still requires at least two qualifying witnesses; beneficiaries and their spouses cannot act as witnesses, and minors or those without full mental capacity are disqualified.",
+        ],
+      },
+      { h: "What the process looks like now" },
+      "The core steps stay recognisable: bring identification, a schedule of assets and two qualifying witnesses to a district office; declare your testamentary wishes orally to the officer; the officer records the declaration on the standardised form and reads it back for confirmation; testator, witnesses and officer sign, the office seal is applied, and the will is entered in the district register. The regulation is procedural — it does not touch the substantive inheritance rules in the Civil and Commercial Code that determine who your statutory heirs are if you die without a will, or how forced-heirship shares work.",
+      { h: "Do you need to redo an existing will?" },
+      "No. A public will registered before 24 March 2026 under the old procedure remains legally valid — the regulation is not retroactive and does not invalidate anything already on file. Voluntary re-registration under the new standardised forms is optional, and mainly useful if your existing will is old, poorly documented, or you want the clarity of the new official register. What is worth checking, regardless of registration date, is whether the will's content still matches what you actually own today.",
+      { h: "Why this matters specifically for property owners" },
+      "As set out in [Inheritance on Koh Phangan](/knowledge/inheritance-leasehold-and-villa), a leasehold, the villa building and any company shares pass to heirs in different ways under Thai law, and a lease does not transfer automatically unless the contract itself provides for it. A will only works if it correctly names and describes each of these Thai assets — the more standardised registration process is a good prompt to review that your will actually lists your current leasehold, the villa structure, and any Thai company shares by their correct legal description, not just 'my property in Thailand.'",
+      {
+        ul: [
+          "**No citizenship or residency requirement** — a valid passport is sufficient to register a public will; you do not need a Thai visa, work permit or house registration to do it.",
+          "**Bring an interpreter if you don't speak Thai** — the declaration and forms are in Thai, and a qualified interpreter is needed to confirm you understand what is being recorded.",
+          "**Coordinate a Thai will with any will at home** — a separate Thai will covering only Thai assets, drafted so it doesn't unintentionally revoke a will made in your home country, is the standard advice from Thai law firms for foreign owners.",
+          "**Certified translations** — if the will (or the district register's certified copy) needs to be used abroad, budget for a certified translation alongside the Thai original.",
+        ],
+      },
+      "This is a paperwork-quality reform, not a change to inheritance law itself — but for a foreign owner, paperwork quality is exactly what determines whether your heirs get a smooth probate or a contested one. If your will predates a lease renewal, a company restructure, or simply hasn't been looked at in a few years, this is a reasonable moment to have a Thai lawyer confirm it against what you currently own. See also [Freehold condo vs leasehold villa for a foreigner](/knowledge/freehold-condo-vs-leasehold-villa) for how the asset type affects what an heir actually receives.",
+    ],
+    takeaways: [
+      "A Ministerial Regulation effective 24 March 2026 standardises how public wills are made and registered at Thai district offices — the first such overhaul since the 1960s.",
+      "It is procedural only: it does not change who inherits under the Civil and Commercial Code, and existing wills registered before the change remain valid without re-registration.",
+      "New rules add uniform national forms, an official will register, registration at any district office regardless of domicile, and stricter capacity/witness checks.",
+      "Foreigners need only a valid passport to register a public will — no visa, work permit or house registration required; bring a qualified interpreter if needed.",
+      "Use the update as a prompt to check your Thai will correctly names your current leasehold, villa building and any company shares — a lease does not pass to heirs automatically without a succession clause.",
+    ],
+    sources: [
+      { title: "Siam Legal — Thailand Updates Its Will and Inheritance Laws: What You Need to Know", url: "https://www.siam-legal.com/thailand-law/thailand-updates-its-will-and-inheritance-laws-what-you-need-to-know/" },
+      { title: "LEXbangkok — Thai Will Ministerial Regulation 2569: New Rules for Making Wills in Thailand", url: "https://lexbangkok.com/thai-will-ministerial-regulation-2569/" },
+      { title: "Silk Legal — Thailand Issues New Regulation Standardising Wills and Inheritance Procedures Before District Offices", url: "https://silklegal.com/thailand-issues-new-regulation-standardising-wills-and-inheritance-procedures-before-district-offices/" },
+      { title: "Global Law Experts — Public Wills Thailand", url: "https://globallawexperts.com/public-wills-thailand/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion: "What is Thailand's new will registration rule from March 2026, and do I need to redo my existing will?",
+  },
+  {
+    slug: "healthcare-schools-koh-phangan-families",
+    kbId: "kb-0054",
+    topic: "Phangan",
+    title: "Healthcare and schools on Koh Phangan: what a relocating family actually gets",
+    short:
+      "Koh Phangan has private hospitals for day-to-day and emergency care and a small but real set of international schools and kindergartens — but both systems are smaller than Koh Samui's, and serious medical cases or older secondary-school kids are often referred off-island. Buying here with a family means planning around that ceiling, not assuming it doesn't exist.",
+    updated: "2026-07-11",
+    body: [
+      "**Can you actually raise a family on Koh Phangan, or do you need to be near Samui? Both, depending on age and condition.** For most everyday healthcare and for pre-school through mid-secondary education, the island covers itself. For major surgery, complex specialist care, or the top tier of internationally accredited secondary education, residents routinely rely on Koh Samui (30–45 minutes by boat) or Bangkok. That split should factor into where on the island you buy, not just what the villa costs.",
+      { h: "Healthcare on the island" },
+      {
+        ul: [
+          "**Phangan International Hospital and First Western Hospital** — the main private facilities, with English-speaking staff, 24-hour emergency care, diagnostics (X-ray, some CT/lab capability), dentistry and outpatient services. This is where most residents and expats go for anything beyond a pharmacy visit.",
+          "**Smaller private clinics** — including operators such as Ocean Medical Clinic near Haad Rin and other doctor/house-call services, for primary care and minor injuries.",
+          "**Koh Phangan Hospital (government)** — cheaper, but generally recommended only for minor issues; equipment and specialist capacity are limited compared with the private hospitals.",
+          "**Emergency numbers to have saved** — 1669 (ambulance, 24/7), 191 (general emergency), 1155 (English-speaking tourist police).",
+        ],
+      },
+      "For anything serious — major trauma, complex surgery, cardiac or cancer care — patients are referred to larger hospitals on Koh Samui or flown/ferried to Bangkok. Foreigners, including long-term residents, are not covered by Thailand's Universal Coverage Scheme and rely on private insurance; Thai property-lawyer and expat guides commonly recommend cover of at least ฿3.5 million, from insurers such as Allianz, Cigna or Pacific Cross. Budget separately for medication: small island pharmacies don't reliably stock less common prescription drugs, so residents managing a chronic condition typically arrange a supply chain from Samui, Bangkok or abroad rather than assuming local availability.",
+      { h: "Schools and kindergartens" },
+      "Koh Phangan's education options have grown alongside its resident expat population, but the sector is still small relative to Samui or Phuket. For young children, the island covers itself comfortably; for the final years of secondary school, families increasingly weigh a move or a commute.",
+      {
+        ul: [
+          "**Si Ri Panya International School (Ban Tai)** — the island's original licensed international school, Cambridge International/UK-based curriculum, primary through secondary; reported annual fees in the range of roughly ฿205,000–271,000 depending on year level.",
+          "**Wisdom College (Thongsala)** — British curriculum at primary and lower-secondary, moving to an American-style structure at upper-secondary.",
+          "**Amor Infinito Learning Center (Hin Kong)** and smaller kindergartens such as Little Seeds Nursery — Montessori/Waldorf-influenced, bilingual (English/Thai) early-years options.",
+          "**Other small schools** (e.g. Fairfax Academy, Phangan Horizons) — newer or lower-profile operations; verify current licensing, accreditation and continuity directly before enrolling, since the smaller-school landscape here changes faster than Samui's.",
+        ],
+      },
+      "The honest caveat repeated across island parenting guides: some Phangan schools have a fairly homogeneous, small student body, which can matter for a child's social and language exposure, and academic pathways at the top end of secondary are less established than on Koh Samui. Many families with older teenagers, or who want a fully accredited IB/IGCSE exit pathway, end up choosing a Samui school and commuting by the regular ferry links, or relocating when children reach that stage.",
+      { h: "What this means for where you buy" },
+      {
+        ul: [
+          "**If you have young children or work remotely with flexible schooling needs**, most of the island is workable — check drive time to your preferred school and clinic rather than assuming proximity.",
+          "**If you have teenagers heading toward IB/IGCSE exams**, weigh proximity to the Thong Sala pier (for the Samui ferry commute) more heavily than you would for a couple without school-age kids.",
+          "**Either way, treat healthcare and schooling as a due-diligence item alongside title and utilities** — see [Due diligence before buying on Koh Phangan](/knowledge/due-diligence-checklist-koh-phangan) and [Utilities on Koh Phangan](/knowledge/utilities-water-electricity-internet-koh-phangan) for the same verify-before-you-commit approach applied to power, water and road access.",
+        ],
+      },
+      "None of this rules Phangan out for families — plenty live here year-round with young children and manage healthcare and schooling comfortably. The point is to plan around the island's actual ceiling: solid for everyday needs, dependent on Samui or Bangkok for the top end of either system.",
+    ],
+    takeaways: [
+      "Phangan International Hospital and First Western Hospital cover day-to-day and emergency private healthcare on-island; major surgery and specialist care are typically referred to Koh Samui or Bangkok.",
+      "Foreigners are not covered by Thailand's Universal Coverage Scheme — private insurance of at least ฿3.5 million cover is the standard recommendation for residents.",
+      "Si Ri Panya International School (Ban Tai) and Wisdom College (Thongsala) are the island's established international schools; a handful of smaller bilingual kindergartens cover early years.",
+      "The island's education options thin out at upper-secondary level — many families move to, or commute via ferry to, Koh Samui for IB/IGCSE-track teenagers.",
+      "Treat healthcare and school proximity as a due-diligence item when choosing where on the island to buy, alongside title, utilities and road access.",
+    ],
+    sources: [
+      { title: "Phanganist — Hospitals and Medical Centres on Koh Phangan", url: "https://phanganist.com/koh-phangan-health-travel-guide-hospital-koh-phangan-life-article/hospitals-and-medical-centres-koh-phangan" },
+      { title: "Islanders Properties — Emergency Medical Care on Koh Phangan", url: "https://islanders-properties.com/blog/medical-help-koh-phangan-117" },
+      { title: "Islanders Properties — Education in Koh Phangan: International Schools and Kindergartens", url: "https://islanders-properties.com/blog/education-in-koh-phangan-98" },
+      { title: "Nomad Mum — Koh Phangan International Schools: Full List", url: "https://nomadmum.com/koh-phangan-international-schools/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "Are there good hospitals and schools on Koh Phangan for a family relocating there?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
