@@ -3,6 +3,7 @@ import { unstable_cache } from "next/cache";
 import { listCatalogElements, AmoApiError } from "@/lib/amocrm/client";
 import { mapElementToObject } from "@/lib/amocrm/mapper";
 import { backendFetch } from "@/lib/api/backend";
+import { proxyR2Url } from "@/lib/storage/r2-public";
 import { getUsdPerThb } from "@/lib/data/fx";
 import { haversineMeters } from "@/lib/utils/geo";
 import { normalizeTenure } from "@/lib/utils/tenure";
@@ -51,7 +52,14 @@ export function sanitizePublicObject(o: RealEstateObject): RealEstateObject {
   void outreachNote;
   void outreachDate;
   void outreachAttempts;
-  return pub;
+  // r2.dev is state-blocked for entire countries (Indonesia et al.) — public
+  // pages serve photos through the same-origin /media/r2/* proxy instead.
+  return {
+    ...pub,
+    coverImage: pub.coverImage && proxyR2Url(pub.coverImage),
+    gallery: pub.gallery?.map(proxyR2Url),
+    floorplanUrls: pub.floorplanUrls?.map(proxyR2Url),
+  };
 }
 
 /**
