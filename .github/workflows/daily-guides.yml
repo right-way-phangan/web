@@ -33,7 +33,9 @@ concurrency:
 jobs:
   author:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    # Generous ceiling: session-limit retries may sleep up to ~5h before the usage
+    # window resets (public repo — Actions minutes are free). Authoring itself is ~15 min.
+    timeout-minutes: 350
     steps:
       - uses: actions/checkout@v4
         with:
@@ -91,7 +93,50 @@ jobs:
           # stopped being treated as the task, so the agent wandered and committed nothing.
           # --verbose surfaces tool calls/errors; pipefail (above) propagates a non-zero
           # claude exit through `tee` instead of masking it as a green run.
-          claude --print --verbose --dangerously-skip-permissions "$PROMPT" 2>&1 | tee claude-run.log
+          #
+          # Session-limit retry: the cron fires at ~03:00-04:00 Asia/Bangkok, when the
+          # Max subscription's 5h usage window is often already exhausted by evening work
+          # (7 of 10 runs on 2026-07-03..12 died with "You've hit your session limit").
+          # The error message names the reset time, so on that specific failure we sleep
+          # until the window resets and retry; any other error still fails immediately.
+          attempt=0
+          max_attempts=4
+          while :; do
+            attempt=$((attempt + 1))
+            echo "----- author attempt ${attempt}/${max_attempts} -----"
+            set +e
+            claude --print --verbose --dangerously-skip-permissions "$PROMPT" 2>&1 | tee claude-run.log
+            claude_status=$?
+            set -e
+            if [ "$claude_status" -eq 0 ]; then
+              break
+            fi
+            if ! grep -qi "hit your session limit" claude-run.log; then
+              echo "::error::claude exited ${claude_status} with a non-session-limit error. See the claude-run-log artifact."
+              exit "$claude_status"
+            fi
+            if [ "$attempt" -ge "$max_attempts" ]; then
+              echo "::error::Session limit still exhausted after ${max_attempts} attempts."
+              exit 1
+            fi
+            # Parse "resets 8:40pm (UTC)" / "resets 2:10am (UTC)"; fall back to 45 min.
+            reset_at="$(grep -oiE 'resets [0-9]{1,2}(:[0-9]{2})?(am|pm)' claude-run.log | head -1 | cut -d' ' -f2 || true)"
+            now="$(date -u +%s)"
+            wait_s=2700
+            if [ -n "$reset_at" ]; then
+              reset_epoch="$(date -u -d "$reset_at" +%s 2>/dev/null || echo 0)"
+              if [ "$reset_epoch" -gt 0 ]; then
+                [ "$reset_epoch" -le "$now" ] && reset_epoch=$((reset_epoch + 86400))
+                wait_s=$((reset_epoch - now + 180))
+              fi
+            fi
+            [ "$wait_s" -gt 19800 ] && wait_s=19800 # cap at 5.5h — the usage window itself is 5h
+            echo "Session limit hit — sleeping $((wait_s / 60)) min until the window resets (${reset_at:-time unknown})."
+            sleep "$wait_s"
+            # A partial attempt may have dirtied the tree — reset so the retry starts clean.
+            git checkout -- .
+            git clean -fd >/dev/null
+          done
           echo "----- working tree after author run -----"
           git status --porcelain
           # Tripwire: routine.md REQUIRES overwriting last-run.md every run. If it is
@@ -164,6 +209,21 @@ jobs:
             -d chat_id="${TG_CHAT}" \
             --data-urlencode text="$msg" \
             >/dev/null
+
+      - name: Notify Telegram — run failed
+        # Failures were silent for a week (2026-07-03..12): GH emails went unread and
+        # guides just stopped. Ping the same chat the success message uses.
+        if: failure()
+        env:
+          TG_TOKEN: ${{ secrets.TELEGRAM_NOTIFY_BOT_TOKEN }}
+          TG_CHAT: ${{ secrets.TELEGRAM_NOTIFY_CHAT_ID }}
+        run: |
+          msg="⚠️ daily-guides упал ($(date -u +%Y-%m-%d)) — гайды сегодня не вышли.
+          Логи: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          curl -s --max-time 20 "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
+            -d chat_id="${TG_CHAT}" \
+            --data-urlencode text="$msg" \
+            >/dev/null || true
 
       - name: Upload run log
         if: always()
