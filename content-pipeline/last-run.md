@@ -1,4 +1,4 @@
-# Last run — 2026-07-11
+# Last run — 2026-07-13
 
 **Guides published:** 2
 
@@ -6,34 +6,36 @@
 
 ## Guide 1
 
-- **slug:** `thailand-will-registration-rules-2026`
-- **kbId:** `kb-0053`
-- **title (EN):** Thailand's new Will registration rules (24 March 2026): what property owners need to update
-- **title (RU):** Новые правила регистрации завещаний в Таиланде (с 24 марта 2026): что обновить владельцу недвижимости
-- **faqCategory:** `documents`
-- **faqQuestion:** What is Thailand's new will registration rule from March 2026, and do I need to redo my existing will?
+- **slug:** `condo-foreign-ownership-quota-debate-2026`
+- **kbId:** `kb-0055`
+- **title (EN):** Thailand's 49% condo foreign-ownership quota in 2026: why the real fight is to raise it, not cut it
+- **title (RU):** Квота 49% для иностранцев на кондо в Таиланде в 2026 году: реальная борьба идёт за повышение, а не снижение
+- **faqCategory:** `ownership`
+- **faqQuestion:** Is Thailand about to cut the 49% foreign condo-ownership quota in tourist provinces like Phuket and Koh Samui?
+- **Note:** the backlog topic assumed a proposed *cut* to 25-39% in tourist provinces. Deeper sourcing (Bangkok Post, Chiang Rai Times, Thai Examiner, The Nation) shows that framing isn't corroborated by mainstream reporting — the actual live 2026 debate is a push to *raise* the cap to 70-75%, with a minority counter-proposal for tighter buyer-eligibility rules instead. The guide was written to reflect the verified state of the debate rather than repeat the unconfirmed SEO-blog claim, per the conservative-accuracy rule.
 - **Sources used:**
-  - Siam Legal — "Thailand Updates Its Will and Inheritance Laws: What You Need to Know" — overview of the Ministerial Regulation, effective date, procedural focus
-  - LEXbangkok — "Thai Will Ministerial Regulation 2569: New Rules for Making Wills in Thailand" — regulation name/number (B.E. 2569), Government Gazette publication date (22 Jan 2026), 60-day commencement
-  - Silk Legal — "Thailand Issues New Regulation Standardising Wills and Inheritance Procedures Before District Offices" — corroboration of district-office standardisation and DOPA administration
-  - Global Law Experts — "Public Wills Thailand" — district-office registration process detail, witness rules, foreigner eligibility (no residency/visa requirement), dual-will recommendation
+  - Bangkok Post — "Foreign condo ownership quota being reviewed" — primary reporting that the live proposal is a hike to 70-75%, not a cut
+  - Chiang Rai Times — "Thailand's Foreign Condo Ownership Rules Come Under Over Enclave Fears" — proposal detail, Phuket/Pattaya quota-maxed-out framing, foreign buyer data
+  - Thai Examiner — "Despite a slump in foreign condo sales, property industry leader touts stricter Chinese-type controls" — AREA counter-proposal, Q1 2026 transfer/value stats
+  - The Nation — "Thailand urged to tighten rules on foreign condo ownership" — AREA's Dr. Sopon Pornchokchai position
+  - Thailand Law Online — "Foreign ownership and condominium laws" — history of the 40%→49% quota (1979 Act, 1999 amendment)
 
 ## Guide 2
 
-- **slug:** `healthcare-schools-koh-phangan-families`
-- **kbId:** `kb-0054`
-- **title (EN):** Healthcare and schools on Koh Phangan: what a relocating family actually gets
-- **title (RU):** Здравоохранение и школы на Ко Пангане: что реально получает переезжающая семья
-- **faqCategory:** `phangan`
-- **faqQuestion:** Are there good hospitals and schools on Koh Phangan for a family relocating there?
+- **slug:** `ocpb-deposit-ban-villa-land-reservations`
+- **kbId:** `kb-0056`
+- **title (EN):** OCPB's 2025 deposit-confiscation ban only covers condos — what protects a villa or land reservation deposit on Phangan?
+- **title (RU):** Запрет СКБТ 2025 года на удержание задатка касается только кондо — что защищает задаток за виллу или землю на Пангане?
+- **faqCategory:** `costs`
+- **faqQuestion:** Does Thailand's new ban on developers confiscating reservation deposits apply to villa and land purchases, or just condos?
 - **Sources used:**
-  - Phanganist — "Hospitals and Medical Centres on Koh Phangan" — named private/government facilities, services offered
-  - Islanders Properties — "Emergency Medical Care on Koh Phangan" — emergency numbers, evacuation-to-Samui/Bangkok pattern, sample costs, insurance recommendation (≥฿3.5M)
-  - Islanders Properties — "Education in Koh Phangan: International Schools and Kindergartens" — curricula, fee ranges, bilingual kindergarten landscape
-  - Nomad Mum — "Koh Phangan International Schools: Full List" — named schools (Si Ri Panya, Wisdom College, Amor Infinito, etc.), locations, fee data
+  - Baker McKenzie InsightPlus — "Thailand: New OCPB Notification - Condominium unit reservation as a contract-controlled business" — notification scope, gazette/effective dates, prohibited clauses
+  - Tilleke & Gibbins — "Thailand Specifies Form of Reservation Contract for Sale of Condo Units" — confirms condo-only scope, penalty detail
+  - Thailand PRD (Government Public Relations Department) — coverage of the Land Allocation Act (No. 3) B.E. 2568, effective 1 March 2026 — infrastructure-guarantee protections for licensed land-allotment buyers
+  - Thailand Law Online — Civil and Commercial Code Sections 377-385 (Earnest and Stipulated Penalty) — Section 378 default earnest-money rule used as the fallback baseline
 
 ## Notes
 
-Topics chosen by priority order: the Will-registration item was the only remaining 🔴 (news-tier) row in backlog section A, so it went first; the healthcare/schools item was the top 🟢 evergreen row remaining in section B. Neither slug existed in `src/content/knowledge-base.ts` before this run (checked against all 53 existing slugs). Both backlog rows marked ✅. `faqCategory` varied (documents / phangan). Both guides cross-link to existing related guides — Guide 1 to `inheritance-leasehold-and-villa` and `freehold-condo-vs-leasehold-villa`; Guide 2 to `due-diligence-checklist-koh-phangan` and `utilities-water-electricity-internet-koh-phangan`. `tsc --noEmit` passes clean after the edits; EN/RU slug and kbId counts match (53→55, no duplicates).
+Topics chosen by priority order: both were the top two 🔴 (news-tier) rows remaining in backlog section A. Neither slug existed in `src/content/knowledge-base.ts` before this run (checked against all 55 existing slugs). Both backlog rows marked ✅. `faqCategory` varied (ownership / costs). Both guides cross-link to existing related guides — Guide 1 to `how-foreigners-own-a-villa`, `freehold-condo-vs-leasehold-villa` and `land-department-audit-existing-landholding-companies-2026`; Guide 2 to `due-diligence-checklist-koh-phangan` and `lease-contract-clauses-to-check`. `tsc --noEmit` passes clean after the edits; EN/RU slug and kbId counts match (55→57 articles, no duplicates).
 
-Remaining ⏳ backlog: 🟡 evergreen items discovered 2026-07-02 (OCPB leasing rules, water-shortage risk, 2025–2026 development pipeline, realistic rental-yield drivers) and 🟢/⚪️ items discovered 2026-07-05 (THB 40M investment route, untitled sea-view land scams, villa insurance costs, right of habitation, Phangan airport status) are queued for the next run.
+Remaining ⏳ backlog: 🔴 news-tier items on PEA's 2026 rooftop solar feed-in scheme, flood/drainage due diligence, and the "Samui Model" enforcement expanding to Phangan; plus 🟡/🟢 evergreen items from 2026-07-02 and 2026-07-05 batches (OCPB landlord leasing rules, water-shortage risk, 2025–2026 development pipeline, rental-yield drivers, THB 40M investment route, untitled sea-view land scams, villa insurance costs, right of habitation, Phangan airport status, company share-sale tax question, Land and Building Tax appeal process, undeveloped-neighbour due diligence) are queued for the next run.

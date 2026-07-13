@@ -15,8 +15,8 @@ Status: ⏳ queued · ✅ published.
 | Topic | faqCategory | Priority | Status |
 |---|---|---|---|
 <!-- discovered 2026-07-12, sources: asterofasia.com, thaiexaminer.com, restproperty.com, bambooroutes.com, nationthailand.com, khaosodenglish.com, ancra.my, pattayamail.com -->
-| Could the 49% condo foreign-ownership quota shrink to 25-39% in tourist provinces (Phuket/Samui/Pattaya-tier)? What's actually being proposed for 2026 and what it means for buyers weighing condo vs. leasehold villa | ownership | 🔴 | ⏳ |
-| OCPB's new off-plan deposit-confiscation ban (effective Jan 2025): does this condo-focused consumer protection actually apply to villa/land pre-sales on Phangan? | costs | 🔴 | ⏳ |
+| Could the 49% condo foreign-ownership quota shrink to 25-39% in tourist provinces (Phuket/Samui/Pattaya-tier)? What's actually being proposed for 2026 and what it means for buyers weighing condo vs. leasehold villa | ownership | 🔴 | ✅ |
+| OCPB's new off-plan deposit-confiscation ban (effective Jan 2025): does this condo-focused consumer protection actually apply to villa/land pre-sales on Phangan? | costs | 🔴 | ✅ |
 | PEA's 2026 rooftop solar feed-in scheme (applications opened 1 July 2026, 2.20 THB/kWh, 10-year PPA): what it means for villa owners' running costs and payback math | costs | 🔴 | ⏳ |
 | Flood risk and drainage due diligence: assessing a specific plot's runoff exposure after Phangan's recent monsoon-season disaster-area declarations | process | 🔴 | ⏳ |
 | The "Samui Model" drone/GPS enforcement task force expands to Phangan (2026): retroactive risk for owners of existing hillside villas built years ago | structures | 🔴 | ⏳ |

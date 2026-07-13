@@ -3722,6 +3722,138 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "phangan",
     faqQuestion: "Are there good hospitals and schools on Koh Phangan for a family relocating there?",
   },
+  {
+    slug: "condo-foreign-ownership-quota-debate-2026",
+    kbId: "kb-0055",
+    topic: "Ownership",
+    title: "Thailand's 49% condo foreign-ownership quota in 2026: why the real fight is to raise it, not cut it",
+    short:
+      "Online chatter claims tourist provinces like Phuket and Koh Samui could see the foreign condo quota shrink to 25-39%. Mainstream Thai reporting as of mid-2026 shows the opposite live debate: officials and developers are pushing to raise the national 49% cap to 70-75%, and nothing has changed in law either direction.",
+    updated: "2026-07-13",
+    body: [
+      "Is Thailand about to cut the 49% foreign condo-ownership quota in tourist provinces? No — as of July 2026 the quota is unchanged, and the actual proposal under live discussion in mainstream Thai press is to raise it, not lower it in specific provinces. Claims of a province-tiered cut to 25-39% circulating in SEO blog content aren't backed by Bangkok Post, The Nation, Thai Examiner or Chiang Rai Times reporting on this debate.",
+      { h: "What the law says today" },
+      "The Condominium Act caps foreign freehold ownership at 49% of a project's total registered floor area — measured by area, not by number of units. The original 1979 Act set the ceiling at 40%; an amendment gazetted in 1999 raised it to the current 49%, where it has stood for over 25 years. A temporary window between 1999 and 2004 allowed up to 100% foreign ownership in some projects as a post-crisis stimulus measure, but that expired and the general 49% rule has applied nationwide since.",
+      { h: "What's actually being debated in 2026" },
+      {
+        ul: [
+          "**A proposal to raise the national cap to 70-75%** — backed by developers and reportedly under review by government officials, driven by roughly 350,000 unsold condominium units in greater Bangkok and a sharp drop in foreign (especially Chinese) buyer transfers: foreign unit transfers fell about 17% and Chinese transfer value fell nearly 43% year-on-year in early-2026 data.",
+          "**Hotspots already at the ceiling** — in popular Phuket and Pattaya buildings, the 49% freehold quota is reportedly already fully allocated, meaning new foreign buyers in those specific projects can only buy on the secondary market or via leasehold, not new freehold units — this is the immediate pressure point cited for raising the cap.",
+          "**A counter-voice arguing the opposite direction** — Dr. Sopon Pornchokchai, president of the Agency for Real Estate Affairs (AREA), has publicly urged tighter rules instead: a residency requirement before a foreigner can buy, and a minimum purchase price, to curb speculative buying rather than simply expanding the quota.",
+          "**Foreign buyers already skew toward higher-value units** — REIC-linked data for Q1 2026 shows foreigners were about 13.6% of transferred condo units nationally but 23.9% of transaction value, underscoring the 'foreign enclave' and affordability concerns behind the pushback.",
+        ],
+      },
+      { h: "Status: nothing has passed" },
+      "No amendment bill has cleared Parliament in either direction as of this writing. Thailand's ordinary legislative process for a bill like this typically runs 8 to 18 months from introduction, so even if a proposal is formally tabled, a change is unlikely before late 2026 at the earliest — and any change would almost certainly apply to new transactions going forward, not unwind titles foreigners already hold.",
+      { h: "What it means for a Phangan buyer" },
+      {
+        ul: [
+          "**This quota doesn't touch you directly on Phangan** — the island has very few Condominium Act projects; the dominant structure here is a registered land lease plus ownership of the building, not a condominium unit. See [How foreigners legally own a villa on Koh Phangan](/knowledge/how-foreigners-own-a-villa).",
+          "**It does affect the condo-vs-leasehold-villa comparison** if you're also weighing Samui or Phuket — a higher cap would mean more freehold condo inventory opens up in those markets; a win for the AREA-style tightening instead would leave the condo cap where it is but add buyer-eligibility friction. See [Freehold condo vs leasehold villa for a foreigner](/knowledge/freehold-condo-vs-leasehold-villa) for how the two structures actually compare.",
+          "**Treat specific percentages you read online as unconfirmed** until they appear in the Government Gazette — a published notification, not a news article or blog post, is what actually changes the rule.",
+        ],
+      },
+      "The one constant through this debate is enforcement, not the quota itself: regardless of where the 49% line ends up, Thai authorities have sharply increased scrutiny of nominee structures used to get around it — see [The Land Department's 2026 audit of existing landholding companies](/knowledge/land-department-audit-existing-landholding-companies-2026).",
+    ],
+    takeaways: [
+      "The 49% foreign condo quota (measured by floor area) has stood since a 1999 amendment to the Condominium Act and remains unchanged as of July 2026 — no bill has passed Parliament.",
+      "Mainstream 2026 reporting (Bangkok Post, Chiang Rai Times, Thai Examiner, The Nation) shows the live proposal is to raise the cap to 70-75%, not cut it in tourist provinces — claims of a 25-39% province-tiered reduction aren't corroborated by that reporting.",
+      "The push to raise the cap is driven by roughly 350,000 unsold condo units in greater Bangkok and hotspots like Phuket and Pattaya where the 49% ceiling is reportedly already fully allocated in popular buildings.",
+      "A minority voice (AREA's Dr. Sopon Pornchokchai) argues for tighter buyer-eligibility rules — a residency requirement and minimum purchase price — instead of raising the quota; neither side has become law.",
+      "Phangan has very few Condominium Act projects, so this debate doesn't cap Phangan buyers directly — it mainly reshapes the freehold-condo-vs-leasehold-villa calculus for anyone also considering Samui or Phuket.",
+    ],
+    sources: [
+      {
+        title: "Bangkok Post — Foreign condo ownership quota being reviewed",
+        url: "https://www.bangkokpost.com/business/general/2815396/foreign-condo-ownership-quota-being-reviewed",
+      },
+      {
+        title: "Chiang Rai Times — Thailand's Foreign Condo Ownership Rules Come Under Over Enclave Fears",
+        url: "https://www.chiangraitimes.com/business/thailands-foreign-condo-ownership/",
+      },
+      {
+        title: "Thai Examiner — Despite a slump in foreign condo sales, property industry leader touts stricter Chinese-type controls",
+        url: "https://www.thaiexaminer.com/thai-news-foreigners/2026/06/22/despite-a-slump-in-foreign-condo-sales-property-industry-leader-touts-stricter-chinese-type-controls/",
+      },
+      {
+        title: "The Nation — Thailand urged to tighten rules on foreign condo ownership",
+        url: "https://www.nationthailand.com/business/property/40067631",
+      },
+      {
+        title: "Thailand Law Online — Foreign ownership and condominium laws (history of the 40%→49% quota)",
+        url: "https://www.thailandlawonline.com/article-older-archive/foreign-ownership-and-condominium-laws",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "ownership",
+    faqQuestion: "Is Thailand about to cut the 49% foreign condo-ownership quota in tourist provinces like Phuket and Koh Samui?",
+  },
+  {
+    slug: "ocpb-deposit-ban-villa-land-reservations",
+    kbId: "kb-0056",
+    topic: "Costs",
+    title: "OCPB's 2025 deposit-confiscation ban only covers condos — what protects a villa or land reservation deposit on Phangan?",
+    short:
+      "Since 31 January 2025, Thailand's consumer protection regulator has barred condo developers from keeping a reservation deposit when the buyer isn't at fault. The rule is written narrowly for condominium-unit reservations — villa and land reservations, which dominate Phangan's market, fall back to ordinary contract law, where a non-refundable clause is enforceable unless you negotiate otherwise.",
+    updated: "2026-07-13",
+    body: [
+      "Does Thailand's new ban on developers confiscating reservation deposits apply to a villa or land purchase? No — it's written specifically for condominium units. Almost everything sold on Koh Phangan is a villa or bare land, not a Condominium Act unit, so this widely-reported consumer protection almost certainly doesn't cover your deposit.",
+      { h: "What the OCPB notification actually bans — and for what" },
+      {
+        ul: [
+          "**The rule**: the Notification Prescribing the Business of Selling Condominium Units Through Reservations as a Contract-Controlled Business B.E. 2567, gazetted 3 October 2024 and effective 31 January 2025 (120 days later).",
+          "**What's prohibited**: a clause letting the developer confiscate all or part of a reservation payment while the buyer isn't in default; clauses excluding or limiting the developer's liability; and charging the buyer an assignment fee to transfer the reservation to someone else.",
+          "**Penalty for violating it**: up to one year's imprisonment and/or a fine of up to ฿200,000 under the Consumer Protection Act — real enforcement teeth, but only for the sector it covers.",
+          "**Defined scope**: the notification's own wording limits it to 'the business of selling condominium units through reservations.' Nothing in the text extends it to land, houses or villas.",
+        ],
+      },
+      { h: "Why villa and land reservations sit outside it" },
+      "For a business type to be bound by rules like this, the Contract Committee has to formally declare it a 'controlled contract business.' Condominium-unit reservation sales received that declaration in October 2024. Land and house reservation sales have not — no equivalent notification currently exists for them. That means a developer selling a villa or land plot on Phangan can still lawfully write a reservation agreement that forfeits your deposit for any reason, not just your own default.",
+      { h: "The other law that might apply — and where it falls short" },
+      "The Land Allocation Act (No. 3) B.E. 2568, effective 1 March 2026, does add real protection for buyers in licensed จัดสรรที่ดิน (land-allotment / housing-estate) projects: developers must now secure a bank or financial-institution guarantee to maintain shared infrastructure like roads, drainage and parks. That's a genuine improvement — but it addresses infrastructure upkeep, not reservation-deposit refunds, and it only reaches projects formally licensed as a land allotment. Many small villa developments on Phangan are sold plot-by-plot without that formal licence, which puts them outside this Act too.",
+      { h: "The fallback: ordinary contract law" },
+      "Absent a controlling statute, Section 378 of the Civil and Commercial Code sets the default rule for earnest money: if the buyer defaults, the deposit is forfeited; if the seller defaults or cancels, the deposit must be returned, with interest. That default rule can be overridden by what the contract itself says — and outside a declared 'controlled contract business,' Thai law lets a seller do exactly that. So for a villa or land reservation, whatever the printed form says about forfeiture is very likely what actually governs your money, not a general consumer-protection statute.",
+      { h: "What to check before signing a reservation for a villa or land plot" },
+      {
+        ul: [
+          "**Read the forfeiture clause literally** — does it forfeit your deposit only if you default, or does it say 'for any reason' or 'at the developer's discretion'?",
+          "**Negotiate a refund right** if the seller cancels, misses an agreed deadline, or can't deliver clear title — don't assume Section 378's default protection is in the contract unless it's written in.",
+          "**Ask whether the project is a licensed จัดสรรที่ดิน (land allotment)** and request the licence number — this matters for the Land Allocation Act's infrastructure guarantees and is a due-diligence item in its own right. See [Due diligence before buying on Koh Phangan](/knowledge/due-diligence-checklist-koh-phangan).",
+          "**Tie payments to verifiable milestones** — survey completion, title verification, contract signing — rather than handing over a large deposit against a bare promise.",
+          "**Have an independent Thai lawyer review the reservation agreement before you sign**, not just the final sale-and-purchase contract. See [The lease contract: clauses you must check](/knowledge/lease-contract-clauses-to-check) for the same negotiate-it-into-the-paper approach applied to lease terms.",
+        ],
+      },
+      "The OCPB's January 2025 rule was genuine progress — and matters directly if you're also weighing a Samui or Phuket condo. But it's targeted relief, not a general one, and it doesn't reach the villa and land contracts that dominate Phangan's market. There, your deposit is protected by what you negotiate into the agreement, not by a statute working in the background.",
+    ],
+    takeaways: [
+      "OCPB's Notification B.E. 2567 (effective 31 January 2025) bans developers from keeping a reservation deposit when the buyer isn't in default — but its defined scope is condominium-unit reservation sales only.",
+      "Violating it carries up to one year's imprisonment and/or a ฿200,000 fine under the Consumer Protection Act — real enforcement, but only for the condo sector it covers.",
+      "Villa and land reservation contracts — most of what's sold on Phangan — aren't a declared 'controlled contract business,' so a seller can still lawfully write a forfeit-for-any-reason clause into the paper.",
+      "The Land Allocation Act (No. 3) B.E. 2568 (effective 1 March 2026) adds real protection for licensed land-allotment (จัดสรรที่ดิน) buyers, but around infrastructure maintenance guarantees, not deposit refunds — and many small Phangan developments aren't licensed allotments at all.",
+      "Absent a controlling statute, Civil and Commercial Code Section 378's default earnest-money rule applies but can be contractually overridden — so the forfeiture clause you actually sign, ideally reviewed by an independent lawyer, is what protects your deposit.",
+    ],
+    sources: [
+      {
+        title: "Baker McKenzie InsightPlus — Thailand: New OCPB Notification - Condominium unit reservation as a contract-controlled business",
+        url: "https://insightplus.bakermckenzie.com/bm/real-estate_1/thailand-new-ocpb-notification-condominium-unit-reservation-as-a-contract-controlled-business",
+      },
+      {
+        title: "Tilleke & Gibbins — Thailand Specifies Form of Reservation Contract for Sale of Condo Units",
+        url: "https://www.tilleke.com/insights/thailand-specifies-form-of-reservation-contract-for-sale-of-condo-units/",
+      },
+      {
+        title: "Thailand PRD (Government Public Relations Department) — New land-allotment law takes effect 1 March 2026",
+        url: "https://www.prd.go.th/th/content/category/detail/id/33/iid/481003",
+      },
+      {
+        title: "Thailand Law Online — Civil and Commercial Code Sections 377-385 (Earnest and Stipulated Penalty)",
+        url: "https://www.thailandlawonline.com/civil-and-commercial-code/377-385-earnest-and-stipulated-penalty",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "Does Thailand's new ban on developers confiscating reservation deposits apply to villa and land purchases, or just condos?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
