@@ -124,49 +124,6 @@ export default async function CrmPage({
           >
             ☀️ Сегодня
           </Link>
-          {(() => {
-            const queue = leads.filter(
-              (l) =>
-                l.pipelineKey === "legacy" &&
-                (l.status ?? "open") === "open" &&
-                l.stageKey === "incoming",
-            ).length;
-            return queue > 0 ? (
-              <Link
-                href={{ pathname: "/admin/crm/triage" }}
-                className="rounded-full border border-brass-500/40 bg-brass-500/10 px-3 py-2 text-sm font-medium text-brass-700 hover:bg-brass-500/20"
-              >
-                🧹 Разбор
-                <span className="ml-1.5 rounded-full bg-brass-500/20 px-1.5 py-0.5 text-xs font-semibold">
-                  {queue}
-                </span>
-              </Link>
-            ) : null;
-          })()}
-          <Link
-            href={{ pathname: "/admin/crm/stats" }}
-            className="rounded-full border border-forest-900/15 px-3 py-2 text-sm font-medium text-forest-900/70 hover:bg-forest-900/5"
-          >
-            📈 Метрики
-          </Link>
-          <Link
-            href={{ pathname: "/admin/crm/calendar" }}
-            className="rounded-full border border-forest-900/15 px-3 py-2 text-sm font-medium text-forest-900/70 hover:bg-forest-900/5"
-          >
-            📅 Показы
-          </Link>
-          <Link
-            href={{ pathname: "/admin/crm/health" }}
-            className="rounded-full border border-forest-900/15 px-3 py-2 text-sm font-medium text-forest-900/70 hover:bg-forest-900/5"
-          >
-            🩺 Здоровье
-          </Link>
-          <Link
-            href={{ pathname: "/admin/crm/contacts" }}
-            className="rounded-full border border-forest-900/15 px-3 py-2 text-sm font-medium text-forest-900/70 hover:bg-forest-900/5"
-          >
-            👥 Контакты
-          </Link>
           <Link
             href={{ pathname: "/admin/crm/tasks" }}
             className="rounded-full border border-forest-900/15 px-3 py-2 text-sm font-medium text-forest-900/70 hover:bg-forest-900/5"
@@ -181,19 +138,71 @@ export default async function CrmPage({
               ) : null;
             })()}
           </Link>
-          {/* eslint-disable-next-line @next/next/no-html-link-for-pages -- route handler returns a file download, not a page nav */}
-          <a
-            href="/admin/crm/export"
-            className="rounded-full border border-forest-900/15 px-3 py-2 text-sm font-medium text-forest-900/70 hover:bg-forest-900/5"
-          >
-            ⤓ CSV
-          </a>
-          <Link
-            href={{ pathname: "/admin/crm/import" }}
-            className="rounded-full border border-forest-900/15 px-3 py-2 text-sm font-medium text-forest-900/70 hover:bg-forest-900/5"
-          >
-            ⤒ Импорт
-          </Link>
+          {/* Остальные разделы CRM — в выпадающем меню, чтобы не растягивать панель кнопками */}
+          <details className="group relative">
+            <summary className="flex cursor-pointer list-none items-center gap-1 rounded-full border border-forest-900/15 px-3 py-2 text-sm font-medium text-forest-900/70 hover:bg-forest-900/5 [&::-webkit-details-marker]:hidden">
+              ⋯ Ещё
+              <span className="text-forest-900/40 transition-transform group-open:rotate-180">▾</span>
+            </summary>
+            <div className="absolute right-0 z-30 mt-2 w-52 rounded-xl border border-forest-900/10 bg-cream-50 p-1 shadow-lg">
+              {(() => {
+                const queue = leads.filter(
+                  (l) =>
+                    l.pipelineKey === "legacy" &&
+                    (l.status ?? "open") === "open" &&
+                    l.stageKey === "incoming",
+                ).length;
+                return queue > 0 ? (
+                  <Link
+                    href={{ pathname: "/admin/crm/triage" }}
+                    className="flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm font-medium text-forest-900/75 hover:bg-forest-900/5"
+                  >
+                    🧹 Разбор
+                    <span className="rounded-full bg-brass-500/20 px-1.5 py-0.5 text-xs font-semibold text-brass-700">
+                      {queue}
+                    </span>
+                  </Link>
+                ) : null;
+              })()}
+              <Link
+                href={{ pathname: "/admin/crm/stats" }}
+                className="block rounded-lg px-3 py-2 text-sm font-medium text-forest-900/75 hover:bg-forest-900/5"
+              >
+                📈 Метрики
+              </Link>
+              <Link
+                href={{ pathname: "/admin/crm/calendar" }}
+                className="block rounded-lg px-3 py-2 text-sm font-medium text-forest-900/75 hover:bg-forest-900/5"
+              >
+                📅 Показы
+              </Link>
+              <Link
+                href={{ pathname: "/admin/crm/health" }}
+                className="block rounded-lg px-3 py-2 text-sm font-medium text-forest-900/75 hover:bg-forest-900/5"
+              >
+                🩺 Здоровье
+              </Link>
+              <Link
+                href={{ pathname: "/admin/crm/contacts" }}
+                className="block rounded-lg px-3 py-2 text-sm font-medium text-forest-900/75 hover:bg-forest-900/5"
+              >
+                👥 Контакты
+              </Link>
+              {/* eslint-disable-next-line @next/next/no-html-link-for-pages -- route handler returns a file download, not a page nav */}
+              <a
+                href="/admin/crm/export"
+                className="block rounded-lg px-3 py-2 text-sm font-medium text-forest-900/75 hover:bg-forest-900/5"
+              >
+                ⤓ Экспорт CSV
+              </a>
+              <Link
+                href={{ pathname: "/admin/crm/import" }}
+                className="block rounded-lg px-3 py-2 text-sm font-medium text-forest-900/75 hover:bg-forest-900/5"
+              >
+                ⤒ Импорт
+              </Link>
+            </div>
+          </details>
           <Link
             href={{ pathname: "/admin/crm/new" }}
             className="rounded-full bg-panel px-4 py-2 text-sm font-medium text-panel-fg hover:bg-panel/90"

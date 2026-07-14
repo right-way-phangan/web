@@ -33,6 +33,7 @@ export function CrmBoard({
   const [selected, setSelected] = useState<Set<number>>(new Set());
   const [bulkStage, setBulkStage] = useState("");
   const [pendingLost, setPendingLost] = useState<{ leadId: number; stageKey: string } | null>(null);
+  const [showLost, setShowLost] = useState(false);
   const [pending, start] = useTransition();
 
   function applyMove(leadId: number, stageKey: string, lostReason?: string) {
@@ -111,6 +112,9 @@ export function CrmBoard({
           (l) => l.pipelineKey === pipelineKey && l.stageKey === stage.key,
         );
         const isOver = overStage === stage.key;
+        // Потерянные (LOST) по умолчанию свёрнуты — карточки прячем, чтобы не
+        // тянуть длинный список внизу воронки; заголовок-переключатель разворачивает.
+        const lostHidden = stage.isLost && !showLost && colItems.length > 0;
         return (
           <div
             key={stage.key}
@@ -128,27 +132,47 @@ export function CrmBoard({
             }}
             className="flex w-full flex-col lg:min-w-[280px] lg:max-w-[280px]"
           >
-            <div className="mb-2 flex items-center justify-between px-1">
-              <h2
-                className={
-                  "text-xs font-semibold uppercase tracking-wide " +
-                  (stage.isWon
-                    ? "text-emerald-600"
-                    : stage.isLost
-                      ? "text-forest-900/40"
-                      : "text-forest-900/70")
-                }
+            {stage.isLost && colItems.length > 0 ? (
+              <button
+                type="button"
+                onClick={() => setShowLost((v) => !v)}
+                aria-expanded={showLost}
+                className="mb-2 flex w-full items-center justify-between px-1 text-left"
               >
-                {stage.name}
-              </h2>
-              <span className="text-xs text-forest-900/40">{colItems.length}</span>
-            </div>
+                <h2 className="text-xs font-semibold uppercase tracking-wide text-forest-900/40">
+                  {stage.name}
+                </h2>
+                <span className="inline-flex items-center gap-1 text-xs text-forest-900/40">
+                  {colItems.length}
+                  <span className={"transition-transform " + (showLost ? "rotate-180" : "")}>▾</span>
+                </span>
+              </button>
+            ) : (
+              <div className="mb-2 flex items-center justify-between px-1">
+                <h2
+                  className={
+                    "text-xs font-semibold uppercase tracking-wide " +
+                    (stage.isWon
+                      ? "text-emerald-600"
+                      : stage.isLost
+                        ? "text-forest-900/40"
+                        : "text-forest-900/70")
+                  }
+                >
+                  {stage.name}
+                </h2>
+                <span className="text-xs text-forest-900/40">{colItems.length}</span>
+              </div>
+            )}
             <div
               className={
-                // Пустую колонку на мобильном не раздуваем боксом «—»: остаётся
-                // только тонкая строка-заголовок «стадия · 0». На lg бокс виден —
-                // он же зона дропа для drag-and-drop.
-                (colItems.length === 0 ? "hidden lg:flex " : "flex ") +
+                // Пустую колонку на мобильном не раздуваем боксом «—»; потерянные
+                // в свёрнутом виде прячем целиком (и на мобильном, и на десктопе).
+                (lostHidden
+                  ? "hidden "
+                  : colItems.length === 0
+                    ? "hidden lg:flex "
+                    : "flex ") +
                 "flex-col gap-2 rounded-lg p-2 transition-colors lg:min-h-[80px] " +
                 (isOver
                   ? "bg-brass-500/10 ring-2 ring-brass-500/40"
