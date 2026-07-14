@@ -33,9 +33,10 @@ concurrency:
 jobs:
   author:
     runs-on: ubuntu-latest
-    # Generous ceiling: session-limit retries may sleep up to ~5h before the usage
-    # window resets (public repo — Actions minutes are free). Authoring itself is ~15 min.
-    timeout-minutes: 350
+    # Ceiling for 3 bounded retries (≤75 min each) + ~15 min authoring + overhead.
+    # If the account is under continuous load the whole night, the run gives up here
+    # rather than tying a runner up for hours (public repo — Actions minutes are free).
+    timeout-minutes: 260
     steps:
       - uses: actions/checkout@v4
         with:
@@ -94,13 +95,22 @@ jobs:
           # --verbose surfaces tool calls/errors; pipefail (above) propagates a non-zero
           # claude exit through `tee` instead of masking it as a green run.
           #
-          # Session-limit retry: the cron fires at ~03:00-04:00 Asia/Bangkok, when the
-          # Max subscription's 5h usage window is often already exhausted by evening work
-          # (7 of 10 runs on 2026-07-03..12 died with "You've hit your session limit").
-          # The error message names the reset time, so on that specific failure we sleep
-          # until the window resets and retry; any other error still fails immediately.
+          # Session-limit retry: the cron fires ~03:00-04:00 Asia/Bangkok, right at the
+          # boundary where the Max subscription's 5h usage window resets after evening
+          # work (7 of 10 runs on 2026-07-03..12 died with "You've hit your session
+          # limit"). On that specific failure we sleep until the window resets and retry;
+          # any other error still fails immediately.
+          #
+          # Waits are BOUNDED at 75 min/attempt (not the full 5h window): at the nightly
+          # cron time the reset is normally minutes-to-an-hour away, so one short wait
+          # catches it. A 2026-07-13 manual test at midday proved the pathological case —
+          # run head-to-head with an active interactive session, the reset time kept
+          # sliding forward every retry (continuous concurrent usage) and the old 5.5h cap
+          # just tied a runner up for 6h producing nothing. Capping low means each retry
+          # re-reads a fresh reset time, and a genuinely un-winnable night gives up in
+          # ~3.5h instead of ~22h — tomorrow's run catches the backlog up either way.
           attempt=0
-          max_attempts=4
+          max_attempts=3
           while :; do
             attempt=$((attempt + 1))
             echo "----- author attempt ${attempt}/${max_attempts} -----"
@@ -130,7 +140,7 @@ jobs:
                 wait_s=$((reset_epoch - now + 180))
               fi
             fi
-            [ "$wait_s" -gt 19800 ] && wait_s=19800 # cap at 5.5h — the usage window itself is 5h
+            [ "$wait_s" -gt 4500 ] && wait_s=4500 # cap at 75 min — see note above; don't wait out a whole 5h window
             echo "Session limit hit — sleeping $((wait_s / 60)) min until the window resets (${reset_at:-time unknown})."
             sleep "$wait_s"
             # A partial attempt may have dirtied the tree — reset so the retry starts clean.
@@ -213,7 +223,9 @@ jobs:
       - name: Notify Telegram — run failed
         # Failures were silent for a week (2026-07-03..12): GH emails went unread and
         # guides just stopped. Ping the same chat the success message uses.
-        if: failure()
+        # cancelled() too: a job-timeout cancel (retries never won the window) is a
+        # failure from our side but reports as `cancelled`, which failure() misses.
+        if: failure() || cancelled()
         env:
           TG_TOKEN: ${{ secrets.TELEGRAM_NOTIFY_BOT_TOKEN }}
           TG_CHAT: ${{ secrets.TELEGRAM_NOTIFY_CHAT_ID }}
