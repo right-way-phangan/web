@@ -59,6 +59,7 @@ export function sanitizePublicObject(o: RealEstateObject): RealEstateObject {
     coverImage: pub.coverImage && proxyR2Url(pub.coverImage),
     gallery: pub.gallery?.map(proxyR2Url),
     floorplanUrls: pub.floorplanUrls?.map(proxyR2Url),
+    videoUrls: pub.videoUrls?.map(proxyR2Url),
   };
 }
 
