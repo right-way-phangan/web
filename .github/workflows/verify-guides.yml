@@ -1,0 +1,192 @@
+name: Monthly guide verification
+
+# Maintenance counterpart to daily-guides.yml. Once a month, headless Claude Code
+# re-verifies a batch of the oldest YMYL knowledge guides (Thai property law, tax,
+# ownership) against fresh authoritative sources, corrects anything stale, and logs the
+# check — following content-pipeline/verify-routine.md. Guides auto-publish daily without
+# human review, so this keeps the older corpus from silently going out of date and being
+# cited wrong by search / AI answer engines. A tsc gate validates before anything commits.
+#
+# Reuses the same secret as daily-guides: CLAUDE_CODE_OAUTH_TOKEN (from `claude setup-token`).
+
+on:
+  schedule:
+    # 1st of each month, 22:41 UTC → ~05:41 Asia/Bangkok (before GH delay). Deliberately
+    # ~2h after the daily-guides cron (19:41 UTC) so the two headless runs don't fight over
+    # the same Max usage window; by 05:41 BKK the nightly window has reset (Vladimir asleep).
+    - cron: "41 22 1 * *"
+  workflow_dispatch:
+    inputs:
+      count:
+        description: "Max guides to re-verify this run (default 6)"
+        required: false
+        default: "6"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: verify-guides
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    # Ceiling for 3 bounded session-limit retries (<=75 min each) + verification + overhead.
+    timeout-minutes: 260
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Claude Code
+        run: npm i -g @anthropic-ai/claude-code
+
+      - name: Verify guides (headless Claude)
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          VERIFY_COUNT: ${{ github.event.inputs.count || '6' }}
+        run: |
+          set -eo pipefail
+          if [ -z "${CLAUDE_CODE_OAUTH_TOKEN}" ]; then
+            echo "::error::CLAUDE_CODE_OAUTH_TOKEN secret is not set. Run 'claude setup-token' and add it to repo secrets."
+            exit 1
+          fi
+          PROMPT="$(cat content-pipeline/verify-routine.md)
+          (This run: re-verify up to ${VERIFY_COUNT} guides.)"
+          # Same invocation + session-limit retry contract as daily-guides.yml: prompt as a
+          # positional arg (piped stdin stopped being treated as the task mid-June); on a
+          # "hit your session limit" failure, sleep until the window resets (bounded at
+          # 75 min/attempt, 3 attempts) and retry; any other error fails immediately.
+          attempt=0
+          max_attempts=3
+          while :; do
+            attempt=$((attempt + 1))
+            echo "----- verify attempt ${attempt}/${max_attempts} -----"
+            set +e
+            claude --print --verbose --dangerously-skip-permissions "$PROMPT" 2>&1 | tee claude-run.log
+            claude_status=$?
+            set -e
+            if [ "$claude_status" -eq 0 ]; then
+              break
+            fi
+            if ! grep -qi "hit your session limit" claude-run.log; then
+              echo "::error::claude exited ${claude_status} with a non-session-limit error. See the claude-run-log artifact."
+              exit "$claude_status"
+            fi
+            if [ "$attempt" -ge "$max_attempts" ]; then
+              echo "::error::Session limit still exhausted after ${max_attempts} attempts."
+              exit 1
+            fi
+            reset_at="$(grep -oiE 'resets [0-9]{1,2}(:[0-9]{2})?(am|pm)' claude-run.log | head -1 | cut -d' ' -f2 || true)"
+            now="$(date -u +%s)"
+            wait_s=2700
+            if [ -n "$reset_at" ]; then
+              reset_epoch="$(date -u -d "$reset_at" +%s 2>/dev/null || echo 0)"
+              if [ "$reset_epoch" -gt 0 ]; then
+                [ "$reset_epoch" -le "$now" ] && reset_epoch=$((reset_epoch + 86400))
+                wait_s=$((reset_epoch - now + 180))
+              fi
+            fi
+            [ "$wait_s" -gt 4500 ] && wait_s=4500 # cap at 75 min
+            echo "Session limit hit — sleeping $((wait_s / 60)) min until the window resets (${reset_at:-time unknown})."
+            sleep "$wait_s"
+            git checkout -- .
+            git clean -fd >/dev/null
+          done
+          echo "----- working tree after verify run -----"
+          git status --porcelain
+          # Tripwire: verify-routine.md REQUIRES overwriting verify-last-run.md every run
+          # (even a zero-candidate month writes the "verified nothing" digest). If it is
+          # untouched, the headless agent did nothing — fail loudly instead of a silent green.
+          # NOTE: unlike daily-guides there is NO knowledge-base.ts tripwire — a run that
+          # finds every guide still accurate legitimately leaves the content untouched.
+          if git diff --quiet -- content-pipeline/verify-last-run.md; then
+            echo "::error::Headless Claude made no edits (content-pipeline/verify-last-run.md unchanged). See the claude-run-log artifact."
+            exit 1
+          fi
+
+      - name: Type-check gate
+        run: npx tsc --noEmit
+
+      - name: Commit & push if changed
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/content/knowledge-base.ts src/content/knowledge-base.ru.ts \
+                  content-pipeline/verify-log.md content-pipeline/verify-last-run.md 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "Nothing to commit."
+            echo "committed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          DATE="$(date -u +%Y-%m-%d)"
+          git commit -m "content: monthly guide verification ($DATE) [auto]
+
+          Re-verified older YMYL guides via content-pipeline/verify-routine.md.
+
+          Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
+          # main may have moved during the long run — rebase on reject and retry.
+          for i in 1 2 3 4 5; do
+            if git push origin HEAD:main; then
+              echo "Pushed on attempt $i."
+              echo "committed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            echo "Push rejected (attempt $i) — rebasing onto origin/main..."
+            git fetch origin main
+            git rebase origin/main || { echo "::error::Rebase conflict — aborting."; git rebase --abort; exit 1; }
+          done
+          echo "::error::Could not push after retries."
+          exit 1
+
+      - name: Notify Telegram — verification done
+        if: steps.commit.outputs.committed == 'true'
+        env:
+          TG_TOKEN: ${{ secrets.TELEGRAM_NOTIFY_BOT_TOKEN }}
+          TG_CHAT: ${{ secrets.TELEGRAM_NOTIFY_CHAT_ID }}
+        run: |
+          n="$(grep -oE 'Guides verified:[^0-9]*[0-9]+' content-pipeline/verify-last-run.md | grep -oE '[0-9]+' | head -1 || true)"
+          upd="$(grep -ciE '\| *updated *\|' content-pipeline/verify-log.md || true)"
+          needs="$(grep -ciE 'needs-human' content-pipeline/verify-last-run.md || true)"
+          today="$(date -u +%Y-%m-%d)"
+          msg="$(printf '🔍 Проверка гайдов на актуальность (%s): проверено %s\nОбновлено записей всего: %s · требуют ручной проверки: %s\n→ content-pipeline/verify-last-run.md' "$today" "${n:-?}" "${upd:-0}" "${needs:-0}")"
+          curl -s --max-time 20 "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
+            -d chat_id="${TG_CHAT}" \
+            --data-urlencode text="$msg" \
+            >/dev/null
+
+      - name: Notify Telegram — run failed
+        # A timeout-cancel reports as `cancelled`, which failure() misses — include it so a
+        # broken verification pass is visible, not silent (same lesson as daily-guides #163/#165).
+        if: failure() || cancelled()
+        env:
+          TG_TOKEN: ${{ secrets.TELEGRAM_NOTIFY_BOT_TOKEN }}
+          TG_CHAT: ${{ secrets.TELEGRAM_NOTIFY_CHAT_ID }}
+        run: |
+          msg="⚠️ verify-guides упал ($(date -u +%Y-%m-%d)) — месячная проверка гайдов не прошла.
+          Логи: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          curl -s --max-time 20 "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
+            -d chat_id="${TG_CHAT}" \
+            --data-urlencode text="$msg" \
+            >/dev/null || true
+
+      - name: Upload run log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: verify-run-log
+          path: |
+            claude-run.log
+            content-pipeline/verify-last-run.md
+          if-no-files-found: ignore
+          retention-days: 14
