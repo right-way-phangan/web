@@ -3854,6 +3854,139 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "costs",
     faqQuestion: "Does Thailand's new ban on developers confiscating reservation deposits apply to villa and land purchases, or just condos?",
   },
+  {
+    slug: "pea-rooftop-solar-buyback-2026",
+    kbId: "kb-0057",
+    topic: "Costs",
+    title: "PEA's 2026 rooftop solar buyback scheme: what it means for a Koh Phangan villa's running costs",
+    short:
+      "From 1 July 2026 the Provincial Electricity Authority is buying surplus rooftop solar power from households at 2.20 baht per unit on a 10-year contract. Koh Phangan sits in PEA's territory, so villa owners can apply — but the real payback comes from offsetting your own daytime electricity bill, not from the sell-back rate itself.",
+    updated: "2026-07-14",
+    body: [
+      "Can a villa owner on Koh Phangan join Thailand's 2026 rooftop solar buyback scheme? Yes. The island is served entirely by the Provincial Electricity Authority (PEA) — not the Metropolitan Electricity Authority, which only covers Bangkok, Nonthaburi and Samut Prakan — so PEA's new Solar Rooftop Power Purchase Scheme for Households applies here on the same terms as everywhere else in PEA's territory. Applications opened 1 July 2026 and stay open until 30 November 2027.",
+      { h: "What's actually on offer" },
+      {
+        ul: [
+          "**Eligibility** — Type 1 (residential) electricity users only. The applicant's name must match the name on the registered PEA meter for the property; you must own the meter account, not merely occupy the address.",
+          "**Roof-mounted only** — the panels must sit on the roof, a rooftop deck, or another part of a residential building already in use. Ground-mounted arrays on a plot of land don't qualify for this scheme.",
+          "**Capacity cap** — a maximum of 5kW AC of export capacity per meter/applicant.",
+          "**Buyback rate** — 2.20 baht per kWh of surplus exported to the grid, fixed for a 10-year contract measured from the scheduled commercial operation date (SCOD).",
+          "**Fee** — a 2,000 baht (excluding VAT) charge for PEA's study, inspection and grid-connection process, payable after your application clears preliminary review.",
+          "**National scale** — the government raised its purchase cap from 90MW to 500MW for this round, allocated first-come, first-served, with further rounds expected once a quota fills.",
+        ],
+      },
+      { h: "Does the math work out for a villa" },
+      "The 2.20 baht/kWh buyback rate is well below the roughly 4–5 baht/kWh a residential customer pays PEA for grid electricity, so treating this as a straightforward sell-power-back investment understates the real return. The genuine value is self-consumption: every kWh your panels generate and you use directly — running the pool pump, water pump, fridges and daytime air-con — is a kWh you don't buy from PEA at the full retail rate. Only the surplus left over after your own use gets exported and paid at 2.20 baht. A system sized to your villa's daytime load (pumps, common-area lighting, any daytime AC use) captures far more value than one sized hoping to profit mainly from grid sales, since a Phangan villa that's occupied mostly by evening — with AC load concentrated after dark, once the sun isn't generating — will export more of its solar output at the lower rate rather than self-consuming it.",
+      { h: "A separate 2026 change: the progressive tariff cut" },
+      "On 29 April 2026 Thailand's National Energy Policy Council approved a second, unrelated measure worth knowing about alongside the solar scheme: a progressive electricity tariff structure for residential customers, expected to cut bills for roughly 90% of households (about 21 million accounts) — around 20% for consumption up to 200 units/month and around 10% for consumption up to 400 units/month. The same package also promised simplified rooftop-solar permitting, targeting approval within 7 days for self-use-only installations and 30 days for grid-connected ones, with utilities offering one-stop service. These are policy targets rather than a guarantee of a specific processing time on the island, so budget for some lead time regardless.",
+      { h: "Practical steps for an owner on the island" },
+      {
+        ul: [
+          "**Confirm your PEA account first** — the applicant name must match the registered meter owner. If the villa's meter is still in a builder's or previous owner's name, transfer it before applying.",
+          "**Apply through PEA's PPIM portal** (ppim.pea.co.th) any time between 1 July 2026 and 30 November 2027, then pay the 2,000 baht (+VAT) inspection fee once your application passes preliminary review.",
+          "**Understand this is net billing, not simple net metering** — you're paid only for verified surplus export, at 2.20 baht/kWh, not for your gross generation.",
+          "**Check single-phase vs three-phase supply** on your meter before sizing a system, particularly if you run a pool pump or other high-load equipment — see [Utilities on Koh Phangan](/knowledge/utilities-water-electricity-internet-koh-phangan) for how island power supply itself works.",
+          "**Factor the running-cost savings into your ownership numbers** alongside land tax and other holding costs — see [Owner's taxes: annual land tax and tax on taking income out](/knowledge/owners-taxes-annual-land-and-income).",
+        ],
+      },
+      "The 2026 scheme is a real, usable programme for a Koh Phangan villa owner, not a mainland-only initiative — but the sell-back rate is a modest bonus on top of the main benefit, which is cutting your own daytime grid draw.",
+    ],
+    takeaways: [
+      "Koh Phangan is entirely PEA territory, so the 2026 household rooftop solar buyback scheme (applications open 1 July 2026 – 30 November 2027) applies to villa owners here on standard terms.",
+      "The scheme pays 2.20 baht/kWh for surplus export only, on a 10-year contract, capped at 5kW AC per meter, roof-mounted systems only — ground-mounted arrays don't qualify.",
+      "Because the buyback rate is far below the retail rate PEA charges for grid power, the real financial win is self-consumption (offsetting your own daytime usage), not the export payment.",
+      "A separate 29 April 2026 tariff reform cuts bills for lower-usage residential customers and promises faster solar permitting (7 days self-use / 30 days grid-tied) — a related but distinct policy change.",
+      "Apply via ppim.pea.co.th with a PEA account already registered in your own name, and budget the 2,000 baht (+VAT) inspection fee once past preliminary review.",
+    ],
+    sources: [
+      {
+        title: "Nation Thailand — PEA launches 2026 household solar rooftop scheme at 2.20 baht per unit",
+        url: "https://www.nationthailand.com/sustainability/renewable-green-energy/40068182",
+      },
+      {
+        title: "Khaosod English — Thailand approves electricity bill cuts, boosts rooftop solar",
+        url: "https://www.khaosodenglish.com/news/2026/04/29/thailand-approves-electricity-bill-cuts-boosts-rooftop-solar/",
+      },
+      {
+        title: "PEA — Power Producer Information Management System (PPIM), Solar Rooftop application portal",
+        url: "https://ppim.pea.co.th/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "Can a villa owner on Koh Phangan join Thailand's 2026 rooftop solar buyback scheme, and is it worth it?",
+  },
+  {
+    slug: "flood-drainage-due-diligence-koh-phangan",
+    kbId: "kb-0058",
+    topic: "Process",
+    title: "Flood and drainage risk on Koh Phangan: how to check a specific plot before you buy",
+    short:
+      "Flood exposure on Koh Phangan varies sharply from one plot to the next, driven by steep hillside runoff rather than river overflow. After the island's December 2024 disaster-area declaration and repeated monsoon flooding since, checking a specific plot's drainage and elevation is a due-diligence step you can and should do before you commit.",
+    updated: "2026-07-14",
+    body: [
+      "Can you check whether a specific plot on Koh Phangan is at flood risk before buying? Yes — through public flood-monitoring tools, a site visit timed around heavy rain, and direct questions to neighbours and the district office, on top of the ordinary legal checks already covered in [Due diligence before buying on Koh Phangan](/knowledge/due-diligence-checklist-koh-phangan). Flood risk here is hyper-local: two plots a few hundred metres apart can have entirely different exposure depending on slope, drainage lines and elevation.",
+      { h: "Why Koh Phangan floods the way it does" },
+      "The island's flooding is overwhelmingly a runoff problem, not a river-overflow one. Steep granite hillsides shed heavy monsoon rainfall fast; that water has to reach the sea, and where drainage channels and culverts can't carry the volume, it backs up onto roads and low-lying land before it drains away. On 16 December 2024 the Surat Thani provincial government declared Koh Phangan, Koh Samui and several mainland districts disaster areas after three days of heavy rain combined with mountain runoff pushed floodwaters over a metre deep in places. On 28 December 2024, a separate heavy overnight downpour flooded the area around the Koh Phangan district office, police station and the Surat Thani Immigration office in Thong Sala, with district chief Noppadol Khaomali attributing it to runoff taking time to drain off the hills. Reporting on these events named Thong Sala, Sri Thanu, Ban Tai, Ban Khai and Wok Tum among the areas affected. More recently, Thailand's Department of Disaster Prevention and Mitigation issued a flash-flood and runoff warning covering six southern provinces including Surat Thani for early June 2026, underlining that this is a recurring seasonal risk rather than a one-off event.",
+      { h: "What the record shows" },
+      {
+        ul: [
+          "**16 December 2024** — Surat Thani's acting governor, with the Department of Disaster Prevention and Mitigation (DDPM) and local authorities, declared Koh Phangan among eight districts in official disaster-area status after sustained heavy rain and mountain runoff.",
+          "**28 December 2024** — a separate all-night downpour flooded roads and government buildings in Thong Sala; low-lying commercial and administrative areas were impassable to smaller vehicles until the runoff drained.",
+          "**Areas named in reporting as affected** — Thong Sala, Sri Thanu, Ban Tai, Ban Khai and Wok Tum, alongside Thong Nai Pan on the island's north-east.",
+          "**Early June 2026** — DDPM warned six southern provinces, including Surat Thani, of flash floods and heavy runoff from a strengthening south-west monsoon — a reminder that risk recurs seasonally rather than being confined to a single event.",
+        ],
+      },
+      { h: "Checking a specific plot before you commit" },
+      {
+        ul: [
+          "**Use GISTDA's public flood-monitoring tools** — the satellite-based flood extent dashboard at flood.gistda.or.th and the newer Flood Risk Assessment Mapping (FRAM) prototype at fram.gistda.or.th, or the 'เช็คน้ำ' mobile app, to see whether the plot's area has recorded flood extent in past events. Coverage granularity varies, so treat this as one input, not a final answer.",
+          "**Visit during or just after heavy rain**, not only on a dry-season viewing trip. Watching where water actually runs and pools on and around the plot tells you more than a dry inspection ever will.",
+          "**Ask the neighbours and the local village headman (ผู้ใหญ่บ้าน) directly** whether the specific soi or plot has flooded in past events — hyper-local knowledge here is often more current and precise than any map.",
+          "**Check the plot's elevation and drainage relative to the nearest canal, culvert or natural runoff line**, and confirm with your lawyer whether any drainage easement crossing the land is legally registered — the same principle covered for road access in [Utilities on Koh Phangan](/knowledge/utilities-water-electricity-internet-koh-phangan).",
+          "**Check whether the plot falls inside the island's 2025 environmental protection zones**, which restrict grading and terrain alteration on slopes of 35% gradient or more precisely because uncontrolled hillside grading worsens runoff — see [Koh Phangan's building zones](/knowledge/koh-phangan-building-zones).",
+          "**For an already-built villa**, ask the seller directly for confirmation it wasn't among the structures affected by the December 2024 or subsequent flooding, and have your lawyer request this in writing as a representation in the sale contract.",
+        ],
+      },
+      { h: "If you're building: reducing runoff risk on-site" },
+      {
+        ul: [
+          "**Set the building pad above any known high-water mark** for the specific location, based on what neighbours and local officials report for past events.",
+          "**Preserve or create permeable ground and retention capacity** rather than paving over the entire plot, so rainfall has somewhere to go besides the nearest drain.",
+          "**Don't block or redirect natural drainage lines when grading a slope** — beyond the flood-risk reason, altering terrain on steeper hillside zones without permission is itself a violation of the 2025 environmental protection zoning rules.",
+        ],
+      },
+      "Flood exposure on Koh Phangan is real but uneven — the point of due diligence is identifying which category a specific plot falls into, not writing off the island as a whole.",
+    ],
+    takeaways: [
+      "Koh Phangan's flooding is driven by fast hillside runoff overwhelming local drainage, not river overflow — risk is hyper-local and varies plot to plot.",
+      "On 16 December 2024 Koh Phangan was formally declared a disaster area alongside Koh Samui and several Surat Thani mainland districts after heavy rain and mountain runoff.",
+      "Areas named in flooding reports include Thong Sala, Sri Thanu, Ban Tai, Ban Khai, Wok Tum and Thong Nai Pan — but this is not an exhaustive or permanent list; check the specific plot regardless of area.",
+      "Use GISTDA's flood.gistda.or.th and fram.gistda.or.th tools plus a wet-weather site visit and direct questions to neighbours and the village headman — no single source is sufficient alone.",
+      "If building, the same 2025 environmental-zoning rules that restrict grading on steep slopes exist partly because uncontrolled hillside alteration worsens runoff — check zone restrictions alongside flood history.",
+    ],
+    sources: [
+      {
+        title: "Pattaya Mail — Thailand declares disaster area in Koh Samui, Koh Phangan and several districts in the south",
+        url: "https://www.pattayamail.com/thailandnews/thailand-declares-disaster-area-in-koh-samui-koh-phangan-and-several-districts-in-the-south-484053",
+      },
+      {
+        title: "Bangkok Post — Heavy rain and runoff hit Koh Phangan",
+        url: "https://www.bangkokpost.com/thailand/general/2928940/heavy-rain-and-runoff-hit-koh-phangan",
+      },
+      {
+        title: "Khaosod English — Thailand warns 6 southern provinces of floods and landslides",
+        url: "https://www.khaosodenglish.com/news/2026/06/03/thailand-warns-6-southern-provinces-of-floods-and-landslides/",
+      },
+      {
+        title: "GISTDA — Thailand Flood Monitoring System",
+        url: "https://flood.gistda.or.th/indexEN.html",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "How do I check whether a specific plot on Koh Phangan is at risk of flooding before I buy it?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
