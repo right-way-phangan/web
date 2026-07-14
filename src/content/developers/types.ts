@@ -49,10 +49,6 @@ export interface DeveloperProfile {
   hero?: { photo?: string; tagline?: Localized };
   /** Vetted project photos, paths under /public — renders the "Projects in photos" block when present. */
   gallery?: string[];
-  /** Logo path under /public — used in Organization JSON-LD when present. */
-  logo?: string;
-  /** Founding year ("2019") — feeds Organization JSON-LD foundingDate when present. */
-  foundingYear?: string;
   seo?: { title?: Localized; description?: Localized };
 }
 

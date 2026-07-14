@@ -31,15 +31,13 @@ export function DeveloperTimeline({
   return (
     <ol className="relative ml-2 space-y-8 border-l border-forest-500/15 pl-6">
       {items.map((entry) => {
-        // A "stub" entry — just a project name, no confirmed status/details yet.
-        // Render it dimmed with a "Coming soon" pill so the portfolio still reads
-        // as 6 projects without looking unfinished (details arrive from the developer).
-        const isSoon = !entry.status && !entry.description;
+        // A "stub" entry — just a project name, no confirmed details yet. Show a
+        // "Coming soon" pill + muted dot so the portfolio reads as N projects
+        // without looking unfinished (details arrive from the developer). An entry
+        // carrying a note (a real secondary detail) is not a stub.
+        const isSoon = !entry.status && !entry.description && !entry.note;
         return (
-          <li
-            key={entry.title}
-            className={cn("relative", isSoon && "opacity-60")}
-          >
+          <li key={entry.title} className="relative">
             <span
               className={cn(
                 "absolute -left-[1.69rem] top-1 h-3 w-3 rounded-full border-2 border-panel-fg",
@@ -63,7 +61,7 @@ export function DeveloperTimeline({
                   {t.developers.status[entry.status]}
                 </span>
               ) : isSoon ? (
-                <span className="inline-flex items-center rounded-sm bg-forest-900/5 px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.15em] text-forest-500/60">
+                <span className="inline-flex items-center rounded-sm bg-forest-900/[0.06] px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.15em] text-forest-600">
                   {t.developers.status.soon}
                 </span>
               ) : null}

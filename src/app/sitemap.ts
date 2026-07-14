@@ -7,12 +7,7 @@ import { DISTRICTS_RU } from "@/content/districts.ru";
 import { KB_ARTICLES_RU } from "@/content/knowledge-base.ru";
 import { BLOG_POSTS_RU } from "@/content/blog.ru";
 import { getPublicObjects } from "@/lib/data/objects";
-import {
-  getPublicProjects,
-  projectSlug,
-  isProjectUnit,
-  getDevelopers,
-} from "@/lib/data/projects";
+import { getPublicProjects, projectSlug, isProjectUnit, getDevelopers } from "@/lib/data/projects";
 import { getPublishedEstates } from "@/content/land-estates";
 
 export const revalidate = 3600; // 1 hour — fresh enough for new listings
@@ -25,8 +20,7 @@ export const revalidate = 3600; // 1 hour — fresh enough for new listings
 function parseListingDate(raw: string | undefined, fallback: Date): Date {
   if (!raw) return fallback;
   const secs = Number(raw);
-  const d =
-    Number.isFinite(secs) && secs > 0 ? new Date(secs * 1000) : new Date(raw);
+  const d = Number.isFinite(secs) && secs > 0 ? new Date(secs * 1000) : new Date(raw);
   return Number.isNaN(d.getTime()) ? fallback : d;
 }
 
@@ -41,258 +35,62 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: now,
       changeFrequency: "weekly",
       priority: 1,
-      alternates: {
-        languages: {
-          en: `${base}/`,
-          ru: `${base}/ru`,
-          "x-default": `${base}/`,
-        },
-      },
+      alternates: { languages: { en: `${base}/`, ru: `${base}/ru`, "x-default": `${base}/` } },
     },
-    {
-      url: `${base}/ru`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.7,
-    },
-    {
-      url: `${base}/ru/about`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    {
-      url: `${base}/ru/services`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    {
-      url: `${base}/ru/process`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    {
-      url: `${base}/ru/districts`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
-    {
-      url: `${base}/ru/listings`,
-      lastModified: now,
-      changeFrequency: "daily",
-      priority: 0.7,
-    },
-    {
-      url: `${base}/ru/calculator`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    {
-      url: `${base}/ru/insights`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    {
-      url: `${base}/ru/faq`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    {
-      url: `${base}/ru/knowledge`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.5,
-    },
-    {
-      url: `${base}/ru/blog`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.5,
-    },
-    {
-      url: `${base}/ru/contact`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    {
-      url: `${base}/listings`,
-      lastModified: now,
-      changeFrequency: "daily",
-      priority: 0.9,
-    },
+    { url: `${base}/ru`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${base}/ru/about`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${base}/ru/services`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${base}/ru/process`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${base}/ru/districts`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${base}/ru/listings`, lastModified: now, changeFrequency: "daily", priority: 0.7 },
+    { url: `${base}/ru/calculator`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${base}/ru/insights`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${base}/ru/faq`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${base}/ru/knowledge`, lastModified: now, changeFrequency: "weekly", priority: 0.5 },
+    { url: `${base}/ru/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.5 },
+    { url: `${base}/ru/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${base}/listings`, lastModified: now, changeFrequency: "daily", priority: 0.9 },
     {
       url: `${base}/leasehold`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.8,
-      alternates: {
-        languages: {
-          en: `${base}/leasehold`,
-          ru: `${base}/ru/leasehold`,
-          "x-default": `${base}/leasehold`,
-        },
-      },
+      alternates: { languages: { en: `${base}/leasehold`, ru: `${base}/ru/leasehold`, "x-default": `${base}/leasehold` } },
     },
-    {
-      url: `${base}/ru/leasehold`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
-    {
-      url: `${base}/projects`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${base}/ru/projects`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.6,
-    },
-    {
-      url: `${base}/developers`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.7,
-      alternates: {
-        languages: {
-          en: `${base}/developers`,
-          ru: `${base}/ru/developers`,
-          "x-default": `${base}/developers`,
-        },
-      },
-    },
-    {
-      url: `${base}/ru/developers`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.5,
-    },
-    {
-      url: `${base}/estates`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${base}/ru/estates`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.6,
-    },
-    {
-      url: `${base}/districts`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${base}/insights`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${base}/services`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
-    {
-      url: `${base}/process`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
-    {
-      url: `${base}/about`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
+    { url: `${base}/ru/leasehold`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${base}/projects`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${base}/ru/projects`, lastModified: now, changeFrequency: "weekly", priority: 0.6 },
+    { url: `${base}/developers`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${base}/ru/developers`, lastModified: now, changeFrequency: "weekly", priority: 0.5 },
+    { url: `${base}/estates`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${base}/ru/estates`, lastModified: now, changeFrequency: "weekly", priority: 0.6 },
+    { url: `${base}/districts`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${base}/insights`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${base}/services`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${base}/process`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${base}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
     {
       url: `${base}/due-diligence`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.7,
-      alternates: {
-        languages: {
-          en: `${base}/due-diligence`,
-          ru: `${base}/ru/due-diligence`,
-          "x-default": `${base}/due-diligence`,
-        },
-      },
+      alternates: { languages: { en: `${base}/due-diligence`, ru: `${base}/ru/due-diligence`, "x-default": `${base}/due-diligence` } },
     },
-    {
-      url: `${base}/ru/due-diligence`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    {
-      url: `${base}/knowledge`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.7,
-    },
-    {
-      url: `${base}/blog`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.6,
-    },
-    {
-      url: `${base}/faq`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${base}/contact`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    {
-      url: `${base}/tools/estimate`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${base}/ru/tools/estimate`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
+    { url: `${base}/ru/due-diligence`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${base}/knowledge`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${base}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.6 },
+    { url: `${base}/faq`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${base}/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${base}/tools/estimate`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${base}/ru/tools/estimate`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     {
       url: `${base}/sell`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.8,
-      alternates: {
-        languages: {
-          en: `${base}/sell`,
-          ru: `${base}/ru/sell`,
-          "x-default": `${base}/sell`,
-        },
-      },
+      alternates: { languages: { en: `${base}/sell`, ru: `${base}/ru/sell`, "x-default": `${base}/sell` } },
     },
-    {
-      url: `${base}/ru/sell`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
+    { url: `${base}/ru/sell`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
   ];
 
   const districtEntries: MetadataRoute.Sitemap = DISTRICTS.map((d) => ({
@@ -384,69 +182,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const projects = await getPublicProjects();
   const projectEntries: MetadataRoute.Sitemap = projects.flatMap((p) => {
     const slug = projectSlug(p, projects);
-    const languages = {
-      en: `${base}/projects/${slug}`,
-      ru: `${base}/ru/projects/${slug}`,
-    };
+    const languages = { en: `${base}/projects/${slug}`, ru: `${base}/ru/projects/${slug}` };
     return [
-      {
-        url: `${base}/projects/${slug}`,
-        lastModified: now,
-        changeFrequency: "weekly" as const,
-        priority: 0.8,
-        alternates: { languages },
-      },
-      {
-        url: `${base}/ru/projects/${slug}`,
-        lastModified: now,
-        changeFrequency: "weekly" as const,
-        priority: 0.6,
-        alternates: { languages },
-      },
+      { url: `${base}/projects/${slug}`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.8, alternates: { languages } },
+      { url: `${base}/ru/projects/${slug}`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.6, alternates: { languages } },
     ];
   });
 
   const developers = await getDevelopers();
   const developerEntries: MetadataRoute.Sitemap = developers.flatMap((d) => [
-    {
-      url: `${base}/developers/${d.slug}`,
-      lastModified: now,
-      changeFrequency: "weekly" as const,
-      priority: 0.6,
-    },
-    {
-      url: `${base}/ru/developers/${d.slug}`,
-      lastModified: now,
-      changeFrequency: "weekly" as const,
-      priority: 0.5,
-    },
+    { url: `${base}/developers/${d.slug}`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.6 },
+    { url: `${base}/ru/developers/${d.slug}`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.5 },
   ]);
 
   // Land estates (подборки участков) — content-driven, only published ones.
-  const estateEntries: MetadataRoute.Sitemap = getPublishedEstates().flatMap(
-    (e) => {
-      const languages = {
-        en: `${base}/estates/${e.slug}`,
-        ru: `${base}/ru/estates/${e.slug}`,
-      };
-      return [
-        {
-          url: `${base}/estates/${e.slug}`,
-          lastModified: now,
-          changeFrequency: "weekly" as const,
-          priority: 0.8,
-          alternates: { languages },
-        },
-        {
-          url: `${base}/ru/estates/${e.slug}`,
-          lastModified: now,
-          changeFrequency: "weekly" as const,
-          priority: 0.6,
-          alternates: { languages },
-        },
-      ];
-    },
-  );
+  const estateEntries: MetadataRoute.Sitemap = getPublishedEstates().flatMap((e) => {
+    const languages = { en: `${base}/estates/${e.slug}`, ru: `${base}/ru/estates/${e.slug}` };
+    return [
+      { url: `${base}/estates/${e.slug}`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.8, alternates: { languages } },
+      { url: `${base}/ru/estates/${e.slug}`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.6, alternates: { languages } },
+    ];
+  });
 
   return [
     ...staticEntries,
