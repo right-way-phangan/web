@@ -206,6 +206,13 @@ const chrome: Record<Locale, ChromeDict> = {
     ],
     groups: [
       {
+        label: "Developers",
+        items: [
+          { label: "All developers", href: "/developers" },
+          { label: "ARQA Development", href: "/developers/arqa-development" },
+        ],
+      },
+      {
         label: "Resources",
         items: [
           { label: "What's my property worth?", href: "/tools/estimate" },
@@ -259,6 +266,13 @@ const chrome: Record<Locale, ChromeDict> = {
       { label: "Продать", href: "/ru/sell" },
     ],
     groups: [
+      {
+        label: "Застройщики",
+        items: [
+          { label: "Все застройщики", href: "/ru/developers" },
+          { label: "ARQA Development", href: "/ru/developers/arqa-development" },
+        ],
+      },
       {
         label: "Ресурсы",
         items: [
@@ -1400,11 +1414,17 @@ export interface ProjectsDict {
     aboutTitle: string;
     historyTitle: string;
     catalogTitle: string;
-    status: { built: string; "under-construction": string; planned: string };
+    status: { built: string; "under-construction": string; planned: string; soon: string };
     formTitle: string;
     formLede: string;
     formSubmit: string;
     formDefaultMessage: (name: string) => string;
+    indexEyebrow: string;
+    indexTitle: string;
+    indexLede: string;
+    nav: { overview: string; history: string; projects: string; enquire: string };
+    kpi: { projects: string; delivered: string; building: string; portfolio: string };
+    galleryTitle: string;
   };
 }
 
@@ -1483,6 +1503,7 @@ const projectsDict: Record<Locale, ProjectsDict> = {
         built: "Delivered",
         "under-construction": "Under construction",
         planned: "Planned",
+        soon: "Coming soon",
       },
       formTitle: "Construction enquiry",
       formLede:
@@ -1490,6 +1511,13 @@ const projectsDict: Record<Locale, ProjectsDict> = {
       formSubmit: "Send request",
       formDefaultMessage: (name) =>
         `Hi! I'm interested in building with ${name} on Koh Phangan. Could we discuss my project?`,
+      indexEyebrow: "Developers",
+      indexTitle: "Developers building on Koh Phangan.",
+      indexLede:
+        "Vetted developers we work with on the island — their track record, current projects and a direct line to enquire, all in one place.",
+      nav: { overview: "Overview", history: "Track record", projects: "Projects", enquire: "Enquire" },
+      kpi: { projects: "Projects listed", delivered: "Delivered", building: "Under construction", portfolio: "Portfolio" },
+      galleryTitle: "Projects in photos",
     },
   },
   ru: {
@@ -1566,6 +1594,7 @@ const projectsDict: Record<Locale, ProjectsDict> = {
         built: "Сдан",
         "under-construction": "Строится",
         planned: "Планируется",
+        soon: "Скоро",
       },
       formTitle: "Заявка на строительство",
       formLede:
@@ -1573,6 +1602,13 @@ const projectsDict: Record<Locale, ProjectsDict> = {
       formSubmit: "Отправить заявку",
       formDefaultMessage: (name) =>
         `Здравствуйте! Интересует строительство с ${name} на Пангане. Хочу обсудить свой проект.`,
+      indexEyebrow: "Застройщики",
+      indexTitle: "Застройщики Ко Пангана.",
+      indexLede:
+        "Проверенные застройщики, с которыми мы работаем на острове — их история, текущие проекты и прямая заявка, всё в одном месте.",
+      nav: { overview: "О застройщике", history: "История", projects: "Проекты", enquire: "Заявка" },
+      kpi: { projects: "Проектов в каталоге", delivered: "Сдано", building: "Строится", portfolio: "Портфолио" },
+      galleryTitle: "Проекты в фото",
     },
   },
 };
