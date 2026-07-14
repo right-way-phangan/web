@@ -33,7 +33,7 @@ export function PriceContextBadge({
   const Icon = inLine ? Minus : below ? TrendingDown : TrendingUp;
 
   return (
-    <p className="mt-3 inline-flex items-center gap-1.5 text-sm text-forest-500/70">
+    <p className="mt-3 flex items-center gap-1.5 text-sm text-forest-500/70">
       <Icon className={`h-4 w-4 ${below && !inLine ? "text-brass-500" : "text-forest-500/50"}`} />
       {inLine ? (
         <span>{t.pcInLine(ctx.district, metric)}</span>

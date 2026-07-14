@@ -50,8 +50,17 @@ function buildGroups(
   propertyRows.push({ label: L.Type, value: typeName });
   if (o.district) propertyRows.push({ label: L.District, value: o.district });
   if (o.zone) propertyRows.push({ label: L.Zone, value: o.zone });
-  if (o.areaRai) propertyRows.push({ label: L["Plot area"], value: rai(o.areaRai) });
-  if (o.areaSqm) propertyRows.push({ label: L["Built area"], value: `${o.areaSqm.toLocaleString(nl)} m²` });
+  if (o.type === "Land") {
+    // Land has no building: rai and m² describe the SAME plot in two units.
+    // Show one "Plot area" row with both — never "Built area" for land.
+    const areaParts: string[] = [];
+    if (o.areaRai) areaParts.push(`${o.areaRai.toLocaleString(nl, { maximumFractionDigits: 2 })} ${t.rai}`);
+    if (o.areaSqm) areaParts.push(`${o.areaSqm.toLocaleString(nl)} m²`);
+    if (areaParts.length) propertyRows.push({ label: L["Plot area"], value: areaParts.join(" · ") });
+  } else {
+    if (o.areaRai) propertyRows.push({ label: L["Plot area"], value: rai(o.areaRai) });
+    if (o.areaSqm) propertyRows.push({ label: L["Built area"], value: `${o.areaSqm.toLocaleString(nl)} m²` });
+  }
   if (o.altitude !== undefined) propertyRows.push({ label: L.Altitude, value: `${o.altitude} m` });
   if (o.terrain) propertyRows.push({ label: L.Terrain, value: o.terrain });
   groups.push({ title: t.specGroups.Property, rows: propertyRows });
