@@ -97,6 +97,16 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
+        // Object videos stream via Range requests. Vercel's edge cached a 206
+        // partial response under the bare URL key and re-served that byte range
+        // for every Range — a player asking for the header bytes got a cached
+        // tail slice instead → MEDIA_ERR_SRC_NOT_SUPPORTED, video dead. Keying
+        // the cache on Range stops the cross-contamination. Images send no
+        // Range header, so this is a no-op for photo caching.
+        source: "/media/r2/:path*",
+        headers: [{ key: "Vary", value: "Range" }],
+      },
+      {
         source: "/:path*",
         headers: [
           // Enforced. Revert to "Content-Security-Policy-Report-Only" if a
