@@ -97,20 +97,6 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        // Object videos stream via Range requests, and Vercel's edge cached a
-        // 206 partial response under the bare URL key, then re-served that same
-        // byte slice for every Range — a player asking for the ftyp/moov header
-        // bytes got a cached tail slice → MEDIA_ERR_SRC_NOT_SUPPORTED, video
-        // dead (seen on verana-phase-2-drone.mp4). Vary: Range did NOT fix it —
-        // the edge range layer ignores response headers for keying. no-store
-        // does: it keeps these off the shared cache entirely, so each Range
-        // hits R2 fresh and correct. Scoped to video extensions only — photos
-        // (full 200s, no Range) stay on the edge cache. Long term this whole
-        // proxy should move to an R2 custom domain (Cloudflare handles Range).
-        source: "/media/r2/:path((?:.*)\\.(?:mp4|mov|webm|m4v|ogv))",
-        headers: [{ key: "Cache-Control", value: "no-store" }],
-      },
-      {
         source: "/:path*",
         headers: [
           // Enforced. Revert to "Content-Security-Policy-Report-Only" if a
