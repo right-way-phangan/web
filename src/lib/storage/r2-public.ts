@@ -17,3 +17,16 @@ export function proxyR2Url(url: string): string {
   if (!url.startsWith(R2_PUBLIC_BASE)) return url;
   return `${getSiteUrl()}/media/r2/${url.slice(R2_PUBLIC_BASE.length)}`;
 }
+
+/**
+ * R2 video URL → same-origin proxy, but via the /media/video route handler
+ * instead of the /media/r2 rewrite. Videos stream over Range requests, which
+ * Vercel's edge cache mis-serves off the cached rewrite (a cached tail slice
+ * gets returned for a header-byte request → MEDIA_ERR_SRC_NOT_SUPPORTED). The
+ * route handler is dynamic + no-store, so it never edge-caches. Photos stay on
+ * the cheaper cached rewrite. Non-R2 URLs pass through unchanged.
+ */
+export function proxyR2VideoUrl(url: string): string {
+  if (!url.startsWith(R2_PUBLIC_BASE)) return url;
+  return `${getSiteUrl()}/media/video/${url.slice(R2_PUBLIC_BASE.length)}`;
+}
