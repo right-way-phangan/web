@@ -1,7 +1,7 @@
 "use client";
 
 import { CurrencyToggle, useCurrency } from "@/components/ui/currency";
-import { leaseLine, leaseTotalThb } from "@/lib/objects/lease-format";
+import { leaseLine, escalatedLeaseTotalThb } from "@/lib/objects/lease-format";
 
 interface Props {
   priceThb?: number;
@@ -10,6 +10,7 @@ interface Props {
   rentPerRaiMonth?: number;
   leaseTermYears?: number;
   leaseEscPercent?: number;
+  leaseEscPeriodYears?: number;
   isLand?: boolean;
   locale?: "en" | "ru";
 }
@@ -33,6 +34,7 @@ export function ObjectPrice({
   rentPerRaiMonth,
   leaseTermYears,
   leaseEscPercent,
+  leaseEscPeriodYears,
   isLand,
   locale = "en",
 }: Props) {
@@ -66,7 +68,10 @@ export function ObjectPrice({
     const perLabel = rentPerMonth ? L.perMonth : L.perRaiMonth;
     // Whole-plot rent yields a concrete lease total; a per-rai rent needs the
     // plot area (not carried here), so it shows the term without a total.
-    const total = rentPerMonth && leaseTermYears ? leaseTotalThb(rentPerMonth, leaseTermYears) : undefined;
+    const total =
+      rentPerMonth && leaseTermYears
+        ? escalatedLeaseTotalThb(rentPerMonth, leaseTermYears, leaseEscPercent, leaseEscPeriodYears)
+        : undefined;
     return (
       <div>
         <div className={row}>

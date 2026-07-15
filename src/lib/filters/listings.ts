@@ -344,12 +344,17 @@ export function summarizeForBrief(f: ListingsFilter, query?: string): string | u
 export function deriveFilterOptions(objects: RealEstateObject[]) {
   const districts = new Set<string>();
   const types = new Set<ObjectType>();
+  let hasRentals = false;
   for (const o of objects) {
     if (o.district) districts.add(o.district);
     types.add(o.type);
+    if (isRental(o)) hasRentals = true;
   }
   return {
     districts: [...districts].sort(),
     types: VALID_TYPES.filter((t) => types.has(t)),
+    // Drives the Buy/Rent toggle: with no rentals in the catalog (leaseholds
+    // browse under Buy), the Rent tab would be a dead empty state.
+    hasRentals,
   };
 }

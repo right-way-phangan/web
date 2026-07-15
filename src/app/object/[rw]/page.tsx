@@ -188,6 +188,7 @@ export default async function ObjectPage({ params }: Props) {
             rentPerRaiMonth={object.rentPerRaiMonth}
             leaseTermYears={object.leaseTermYears}
             leaseEscPercent={object.leaseEscPercent}
+            leaseEscPeriodYears={object.leaseEscPeriodYears}
             isLand={object.type === "Land"}
           />
           {object.priceThb ? <PriceContextBadge object={object} catalog={catalog} /> : null}

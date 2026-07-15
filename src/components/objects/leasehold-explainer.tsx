@@ -35,12 +35,16 @@ const COPY = {
     body: "Foreigners can't own land outright on Koh Phangan — but you can own the building and hold the land on a long-term lease, the route most international buyers use. The house is registered in your name; the land sits on the lease.",
     model: "Model this lease",
     learn: "How leasehold works",
+    horizon: "Lease horizon",
+    year0: "Year 0",
   },
   ru: {
     heading: "Как здесь устроен лизхолд",
     body: "Иностранец не может владеть землёй на Пангане напрямую — но может владеть строением и держать землю в долгосрочном лизинге, как и делает большинство зарубежных покупателей. Дом оформлен на вас; земля — на лизинге.",
     model: "Посчитать лизинг",
     learn: "Как работает лизхолд",
+    horizon: "Горизонт лизинга",
+    year0: "Год 0",
   },
 } as const;
 
@@ -73,6 +77,21 @@ export function LeaseholdStructure({
           <h2 className="font-serif text-2xl text-forest-900">{t.heading}</h2>
         </div>
         <p className="mt-3 max-w-prose text-base leading-relaxed text-forest-500/85">{t.body}</p>
+        {years ? (
+          <div className="mt-5">
+            <div className="flex items-baseline justify-between text-xs font-medium text-forest-500/70">
+              <span>{t.horizon}</span>
+              <span>{locale === "ru" ? `${years} лет` : `${years} years`}</span>
+            </div>
+            <div className="mt-1.5 flex items-center gap-2">
+              <span className="text-[10px] text-forest-500/60">{t.year0}</span>
+              <div className="h-2 flex-1 rounded-full bg-gradient-to-r from-brass-500/70 to-brass-500/15" />
+              <span className="text-[10px] text-forest-500/60">
+                {locale === "ru" ? `Год ${years}` : `Year ${years}`}
+              </span>
+            </div>
+          </div>
+        ) : null}
         <div className="mt-5 flex flex-wrap items-center gap-3">
           <Button asChild variant="outline" size="sm">
             <Link href={calcHref}>{t.model} →</Link>
