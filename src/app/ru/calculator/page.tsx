@@ -49,6 +49,7 @@ export default async function RussianCalculatorPage({
       <div className="container-prose mt-12 md:mt-16">
         <Appear delay={0}>
           <RoiCalculator
+            entry
             catalog={catalog}
             market={market}
             initialPriceThb={initialPriceThb}

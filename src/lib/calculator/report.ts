@@ -17,6 +17,8 @@ interface ReportArgs {
   currency: Currency;
   rates: Record<Currency, number>;
   rwNumber?: string;
+  /** "My own property" context (bedrooms · district · Airbnb link) if entered. */
+  contextLabel?: string;
   locale?: CalcLocale;
 }
 
@@ -126,7 +128,7 @@ function chartSvg(
     </div>`;
 }
 
-export function buildCalcReportHtml({ inputs, result, currency, rates, rwNumber, locale = "en" }: ReportArgs): string {
+export function buildCalcReportHtml({ inputs, result, currency, rates, rwNumber, contextLabel, locale = "en" }: ReportArgs): string {
   const t = calcDict(locale);
   const R = REPORT_STRINGS[locale];
   const money = (thb: number, full = false) => formatMoney(thb, currency, rates, { compact: !full });
@@ -231,6 +233,7 @@ export function buildCalcReportHtml({ inputs, result, currency, rates, rwNumber,
     <div>
       <div class="brand">Right Way <span>Phangan</span></div>
       <div class="muted" style="font-size:12px;margin-top:2px">${esc(R.analysisTitle)}${rwNumber ? ` · ${esc(rwNumber)}` : ""}</div>
+      ${contextLabel ? `<div class="muted" style="font-size:12px;margin-top:2px">${esc(contextLabel)}</div>` : ""}
     </div>
     <div class="muted" style="font-size:12px">${esc(today)}</div>
   </div>
