@@ -33,6 +33,8 @@ export interface RmMeta {
   occupancyMeasuredAll?: number | null;
   nOccupancyAll?: number;
   thbPerUsd: number;
+  /** How many listings got the occupancy/bedrooms enrich pass (method transparency). */
+  enriched?: number;
   /**
    * Data-anchored capital-appreciation band (%/yr) for the ROI calculator's
    * "Expected growth" presets, so the figure is sourced rather than guessed.
@@ -93,6 +95,9 @@ export interface RmDistrictBedrooms {
   bedrooms: number;
   n: number;
   adrMedian: number;
+  /** p25–p75 nightly band for this district×bedroom cell (pipeline, n≥5). */
+  adrP25?: number | null;
+  adrP75?: number | null;
 }
 
 export interface RmFeaturePremium {

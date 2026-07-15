@@ -17,10 +17,16 @@ export function ProjectNav({
   items,
   ctaLabel,
   availabilityNote,
+  ariaLabel = "Project sections",
+  ctaHref = "enquire",
 }: {
   items: NavItem[];
   ctaLabel?: string;
   availabilityNote?: string;
+  /** Accessible name for the nav strip (defaults to the project-landing wording). */
+  ariaLabel?: string;
+  /** Section id the CTA button scrolls to (bare id, no "#"). */
+  ctaHref?: string;
 }) {
   const [active, setActive] = useState(items[0]?.id);
   const navRef = useRef<HTMLElement>(null);
@@ -75,7 +81,7 @@ export function ProjectNav({
       <div className="container-prose flex items-center gap-2 px-4">
         <nav
           ref={navRef}
-          aria-label="Project sections"
+          aria-label={ariaLabel}
           className="flex flex-1 gap-1 overflow-x-auto py-2 [mask-image:linear-gradient(to_right,transparent,black_1rem,black_calc(100%-1.5rem),transparent)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {items.map((item) => (
@@ -103,8 +109,8 @@ export function ProjectNav({
         ) : null}
         {ctaLabel ? (
           <a
-            href="#enquire"
-            onClick={(e) => onClick(e, "enquire")}
+            href={`#${ctaHref}`}
+            onClick={(e) => onClick(e, ctaHref)}
             className="hidden shrink-0 items-center rounded-sm bg-panel px-4 py-1.5 text-sm font-medium text-panel-fg transition-colors hover:bg-panel/90 lg:inline-flex"
           >
             {ctaLabel}
