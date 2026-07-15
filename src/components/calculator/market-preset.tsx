@@ -17,8 +17,8 @@ export type NightlyEstimate = {
   basis: string;
   n: number;
   measuredOk: boolean;
-  p25?: number;
-  p75?: number;
+  p25?: number | null;
+  p75?: number | null;
   nUsed: number;
 };
 
