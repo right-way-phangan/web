@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Route } from "next";
-import { KeyRound, ScrollText } from "lucide-react";
+import { KeyRound, ScrollText, ShieldCheck } from "lucide-react";
 import type { RealEstateObject } from "@/types/object";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { Button } from "@/components/ui/button";
@@ -37,6 +37,7 @@ const COPY = {
     learn: "How leasehold works",
     horizon: "Lease horizon",
     year0: "Year 0",
+    registered: "Lease registered at the Land Office",
   },
   ru: {
     heading: "Как здесь устроен лизхолд",
@@ -45,6 +46,7 @@ const COPY = {
     learn: "Как работает лизхолд",
     horizon: "Горизонт лизинга",
     year0: "Год 0",
+    registered: "Лизинг зарегистрирован в Земельном офисе",
   },
 } as const;
 
@@ -91,6 +93,12 @@ export function LeaseholdStructure({
               </span>
             </div>
           </div>
+        ) : null}
+        {object.leaseRegistered === true ? (
+          <p className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-forest-700">
+            <ShieldCheck className="h-4 w-4 text-brass-500" aria-hidden />
+            {t.registered}
+          </p>
         ) : null}
         <div className="mt-5 flex flex-wrap items-center gap-3">
           <Button asChild variant="outline" size="sm">
