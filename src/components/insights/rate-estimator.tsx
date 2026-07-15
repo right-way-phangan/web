@@ -498,7 +498,7 @@ function ForecastBars({
         {months.map((m, i) => {
           const h = Math.max(6, Math.round((m.monthly / max) * 108));
           return (
-            <div key={i} className="flex flex-1 flex-col items-center justify-end gap-1">
+            <div key={i} className="flex min-w-0 flex-1 flex-col items-center justify-end gap-1">
               <div
                 className={`w-full rounded-t-sm ${
                   m.tone === "peak"

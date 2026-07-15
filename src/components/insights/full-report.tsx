@@ -354,9 +354,12 @@ function DemandSeasonality({ seasonality }: { seasonality: RmSeasonality }) {
             const isLow = i === lowI;
             const vsAvg = v != null && avg ? Math.round(((v - avg) / avg) * 100) : null;
             return (
-              <div key={i} className="flex flex-1 flex-col items-center justify-end gap-1.5">
+              <div key={i} className="flex min-w-0 flex-1 flex-col items-center justify-end gap-1.5">
+                {/* per-bar "+X% vs avg" forces min-width — hide on mobile (12 bars
+                    won't fit ≤360px), keep on ≥sm; the peak/low line below carries
+                    the signal on small screens. */}
                 <span
-                  className={`text-[9px] tabular-nums ${isPeak ? "font-semibold text-brass-600" : "text-forest-500/45"}`}
+                  className={`hidden whitespace-nowrap text-[9px] tabular-nums sm:block ${isPeak ? "font-semibold text-brass-600" : "text-forest-500/45"}`}
                   title={vsAvg != null ? t.demandVsAvg(vsAvg) : undefined}
                 >
                   {vsAvg == null ? "" : t.demandVsAvg(vsAvg)}
