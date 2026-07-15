@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { backendFetch } from "@/lib/api/backend";
+import { isAdmin } from "@/lib/auth/require-admin";
 
 const API = process.env.OBJECTS_API_URL;
 const JSON_HEADERS = { "Content-Type": "application/json" };
@@ -190,6 +191,7 @@ export async function createManualLeadAction(formData: FormData): Promise<Create
 
 /** Delete a lead (test-lead cleanup), then return to the board. Form action. */
 export async function deleteLeadAction(formData: FormData): Promise<void> {
+  if (!(await isAdmin())) redirect("/admin/crm");
   const leadId = Number(formData.get("leadId"));
   if (API && leadId) {
     try {

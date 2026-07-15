@@ -64,7 +64,7 @@ export function ProjectCard({ project, href, availability }: Props) {
           <span className="rounded-sm bg-cream-50/90 px-2 py-1 text-[10px] font-medium uppercase tracking-[0.15em] text-forest-500 backdrop-blur-sm">
             {project.rwNumber}
           </span>
-          <StageBadge stage={project.stage} locale={locale} className="backdrop-blur-sm" />
+          <StageBadge stage={project.stage} locale={locale} className="bg-cream-50/90 backdrop-blur-sm" />
         </div>
       </div>
 

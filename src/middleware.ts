@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { AUTH_ENABLED, SESSION_COOKIE, verifySession } from "@/lib/auth/session";
+import { canAccessAdminPath } from "@/lib/auth/roles";
 
 /**
  * /admin/* gate. Two modes:
@@ -20,7 +21,10 @@ export async function middleware(req: NextRequest) {
   if (AUTH_ENABLED) {
     if (req.nextUrl.pathname === "/admin/login") return NextResponse.next();
     const session = await verifySession(req.cookies.get(SESSION_COOKIE)?.value);
-    if (session) return NextResponse.next();
+    if (session) {
+      if (canAccessAdminPath(session.role, req.nextUrl.pathname)) return NextResponse.next();
+      return new NextResponse("Forbidden.", { status: 403 });
+    }
     const url = req.nextUrl.clone();
     url.pathname = "/admin/login";
     return NextResponse.redirect(url);

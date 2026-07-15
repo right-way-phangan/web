@@ -105,7 +105,7 @@ export function CrmBoard({
 
   return (
     <>
-    <div className="flex flex-col gap-4 pb-4 lg:flex-row lg:overflow-x-auto">
+    <div className="flex flex-col gap-3 pb-4 lg:flex-row lg:gap-4 lg:overflow-x-auto">
       {stages.map((stage) => {
         const colItems = items.filter(
           (l) => l.pipelineKey === pipelineKey && l.stageKey === stage.key,
@@ -145,7 +145,11 @@ export function CrmBoard({
             </div>
             <div
               className={
-                "flex flex-col gap-2 rounded-lg p-2 transition-colors lg:min-h-[80px] " +
+                // Пустую колонку на мобильном не раздуваем боксом «—»: остаётся
+                // только тонкая строка-заголовок «стадия · 0». На lg бокс виден —
+                // он же зона дропа для drag-and-drop.
+                (colItems.length === 0 ? "hidden lg:flex " : "flex ") +
+                "flex-col gap-2 rounded-lg p-2 transition-colors lg:min-h-[80px] " +
                 (isOver
                   ? "bg-brass-500/10 ring-2 ring-brass-500/40"
                   : "bg-forest-900/[0.03]")

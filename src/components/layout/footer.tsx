@@ -16,7 +16,8 @@ const currentYear = new Date().getFullYear();
 
 export function Footer() {
   const pathname = usePathname();
-  const isRu = pathname === "/ru" || pathname.startsWith("/ru/");
+  const normalizedPathname = pathname === "/index" ? "/" : pathname === "/ru/index" ? "/ru" : pathname;
+  const isRu = normalizedPathname === "/ru" || normalizedPathname.startsWith("/ru/");
   const chrome = getChromeDict(isRu ? "ru" : "en");
   const f = chrome.footer;
   const exploreLinks = [...flatNav(chrome), { label: f.journal, href: isRu ? "/ru/blog" : "/blog" }];
@@ -28,7 +29,7 @@ export function Footer() {
   // The homepage ends on the full-bleed IslandCta band; let the footer sit flush
   // against it instead of floating below a wide cream gap. Other pages close on
   // light content and keep the breathing room.
-  const isHome = pathname === "/" || pathname === "/ru";
+  const isHome = normalizedPathname === "/" || normalizedPathname === "/ru";
 
   return (
     <footer

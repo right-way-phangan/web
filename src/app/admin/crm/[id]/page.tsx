@@ -25,6 +25,7 @@ import { makeShortlistToken } from "@/lib/shortlist-token";
 import { LeadMatches, type MatchItem } from "@/components/crm/lead-matches";
 import { MessageTemplates } from "@/components/crm/message-templates";
 import { addNoteAction, addTaskAction } from "@/lib/actions/lead-actions";
+import { isAdmin } from "@/lib/auth/require-admin";
 
 export const metadata: Metadata = {
   title: "CRM — лид",
@@ -86,6 +87,7 @@ export default async function LeadDetailPage({
   params: Promise<{ id: string }>;
 }) {
   if (!CRM_ENABLED) notFound();
+  const admin = await isAdmin();
   const { id } = await params;
   const lead = await getLead(Number(id));
   if (!lead) notFound();
@@ -320,6 +322,7 @@ export default async function LeadDetailPage({
           email={lead.email}
           phone={lead.phone}
           rwNumber={lead.rwNumber}
+          canDelete={admin}
         />
       </div>
 

@@ -7,8 +7,8 @@ import { SignJWT, jwtVerify } from "jose";
  * back to shared Basic Auth (current prod behavior).
  */
 export const SESSION_COOKIE = "rw_session";
-/** Session lifetime — long, so the installed CRM PWA doesn't re-ask login. */
-export const SESSION_DAYS = 90;
+/** Limits the window in which a lost device or cookie remains usable. */
+export const SESSION_DAYS = 7;
 const SECRET = process.env.AUTH_SECRET;
 export const AUTH_ENABLED = Boolean(SECRET);
 const key = SECRET ? new TextEncoder().encode(SECRET) : null;

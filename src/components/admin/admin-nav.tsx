@@ -5,6 +5,8 @@ import { getGuideDraftCount } from "@/lib/data/guide";
 import { getOpenTaskCount } from "@/lib/data/agent-tasks";
 import { getDraftPostCount } from "@/lib/data/social-posts";
 import { ADMIN_SECTIONS, helpHrefFor, type AdminSection } from "@/lib/admin-sections";
+import { isAdmin } from "@/lib/auth/require-admin";
+import { canAccessAdminPath } from "@/lib/auth/roles";
 
 /**
  * Shared sub-navigation for the /admin area (objects DB · CRM · articles · …).
@@ -25,6 +27,7 @@ export async function AdminNav({
   /** Count for the "Статьи" badge — fetched if omitted. */
   pendingArticles?: number;
 }) {
+  const admin = await isAdmin();
   const pending = pendingArticles ?? (await getPendingArticleCount());
   // Бейдж на «Справочник» — число страниц-черновиков, ждущих вычитки
   // (видно с любой страницы админки, не только с обзора справочника).
@@ -37,7 +40,7 @@ export async function AdminNav({
   // Контекстная справка: каждая рабочая страница ведёт на свой раздел учебника
   // (/admin/guide), в новой вкладке — чтобы не терять рабочий контекст.
   const helpHref = helpHrefFor(active);
-  const items = ADMIN_SECTIONS.map((s) => ({
+  const items = ADMIN_SECTIONS.filter((s) => admin || canAccessAdminPath("agent", s.href)).map((s) => ({
     key: s.key,
     href: s.href,
     label: s.label,
