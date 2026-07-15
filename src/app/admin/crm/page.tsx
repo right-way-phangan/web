@@ -114,7 +114,11 @@ export default async function CrmPage({
           <h1 className="mt-2 text-2xl font-semibold text-forest-900 md:text-3xl">Лиды</h1>
           <p className="mt-1 text-sm text-forest-900/60">
             {filtering ? `${filteredLeads.length} из ${leads.length}` : `${leads.length}`} лид(ов) ·
-            своя БД (Фаза B). Перетаскивайте карточку между колонками или меняйте стадию селектором.
+            своя БД (Фаза B).{" "}
+            <span className="hidden lg:inline">
+              Перетаскивайте карточку между колонками или меняйте стадию селектором.
+            </span>
+            <span className="lg:hidden">Меняйте стадию селектором.</span>
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2 lg:shrink-0">
