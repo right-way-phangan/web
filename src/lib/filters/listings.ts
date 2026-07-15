@@ -1,4 +1,5 @@
 import type { RealEstateObject, ObjectType, TenureType } from "@/types/object";
+import { leaseTotalThb } from "@/lib/objects/lease-format";
 
 export type SortOption = "featured" | "newest" | "price-asc" | "price-desc";
 
@@ -56,17 +57,54 @@ export function monthlyRentOf(o: RealEstateObject): number | undefined {
 }
 
 /**
- * The price figure a listing is ranked/filtered by, given the active view:
- * sale price (Buy) or monthly rent (Rent). Used by the sort and by the
- * map/cards so one accessor keeps every surface consistent.
+ * A lease of this many years or more reads as an acquisition, not a short-term
+ * rental. Phangan leaseholds publish at 30 years; genuine short tenancies are
+ * ≤ 1 year — 3 cleanly separates the two.
  */
-export function priceFieldOf(o: RealEstateObject, mode: ViewMode): number | undefined {
-  return mode === "rent" ? monthlyRentOf(o) : o.priceThb;
+const LONG_LEASE_MIN_YEARS = 3;
+
+/**
+ * A long leasehold (a multi-year land/villa lease) is a purchase route, not a
+ * rental — the buyer acquires the home for decades. It browses under Buy even
+ * though it carries a monthly rate. Short tenancies (no term, or < 3 years) stay
+ * rentals.
+ */
+export function isLongLeaseAcquisition(o: RealEstateObject): boolean {
+  return (o.leaseTermYears ?? 0) >= LONG_LEASE_MIN_YEARS;
 }
 
-/** A listing with any monthly rent (whole-unit or per-rai) is a rental. */
+/**
+ * The whole-plot THB figure a Buy listing is ranked/filtered by: the sale price,
+ * or — for a long leasehold priced by rent — the flat lease total over the term
+ * (monthly × 12 × years; per-rai rents are scaled by the plot area when known).
+ * This lets leaseholds sort and range-filter alongside freehold sale prices
+ * instead of sinking for lack of a `priceThb`.
+ */
+export function acquisitionValueThb(o: RealEstateObject): number | undefined {
+  if (o.priceThb) return o.priceThb;
+  if (!isLongLeaseAcquisition(o) || !o.leaseTermYears) return undefined;
+  const monthly =
+    o.rentPerMonth ?? (o.rentPerRaiMonth && o.areaRai ? o.rentPerRaiMonth * o.areaRai : undefined);
+  return monthly ? leaseTotalThb(monthly, o.leaseTermYears) : undefined;
+}
+
+/**
+ * The price figure a listing is ranked/filtered by, given the active view:
+ * acquisition value (Buy — sale price or lease total) or monthly rent (Rent).
+ * Used by the sort so one accessor keeps every surface consistent.
+ */
+export function priceFieldOf(o: RealEstateObject, mode: ViewMode): number | undefined {
+  return mode === "rent" ? monthlyRentOf(o) : acquisitionValueThb(o);
+}
+
+/**
+ * A (short-term) rental: priced by a monthly rate but NOT a multi-year lease.
+ * A long leasehold is an acquisition and belongs in Buy — see
+ * `isLongLeaseAcquisition` — even though it carries a monthly figure.
+ */
 export function isRental(o: RealEstateObject): boolean {
-  return o.rentPerMonth != null || o.rentPerRaiMonth != null;
+  const hasMonthly = o.rentPerMonth != null || o.rentPerRaiMonth != null;
+  return hasMonthly && !isLongLeaseAcquisition(o);
 }
 
 /**
@@ -180,8 +218,11 @@ export function makeFilterPredicate(f: ListingsFilter): (o: RealEstateObject) =>
       if (f.rentMinThb !== undefined && (!rent || rent < f.rentMinThb)) return false;
       if (f.rentMaxThb !== undefined && (!rent || rent > f.rentMaxThb)) return false;
     } else {
-      if (f.priceMinThb !== undefined && (!o.priceThb || o.priceThb < f.priceMinThb)) return false;
-      if (f.priceMaxThb !== undefined && (!o.priceThb || o.priceThb > f.priceMaxThb)) return false;
+      // Buy range runs on the acquisition value — sale price, or a long
+      // leasehold's total lease cost — so leaseholds match a ฿-range too.
+      const val = acquisitionValueThb(o);
+      if (f.priceMinThb !== undefined && (!val || val < f.priceMinThb)) return false;
+      if (f.priceMaxThb !== undefined && (!val || val > f.priceMaxThb)) return false;
     }
     if (f.beachfront && !o.beachfront) return false;
     if (f.seaView && !o.seaView) return false;
