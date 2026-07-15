@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import Link from "next/link";
 import { moveLead } from "@/lib/actions/move-lead";
 import { bulkMoveLeads, bulkDeleteLeads } from "@/lib/actions/bulk-leads";
@@ -36,6 +36,20 @@ export function CrmBoard({
   const [showLost, setShowLost] = useState(false);
   const [showWon, setShowWon] = useState(false);
   const [showEmpty, setShowEmpty] = useState(false);
+  // Компактный вид карточек — липкая настройка (localStorage), чтобы не
+  // сбрасывалась при каждом переходе. Инициализируем false (совпадает с SSR),
+  // читаем сохранённое значение после монтирования.
+  const [compact, setCompact] = useState(false);
+  useEffect(() => {
+    setCompact(localStorage.getItem("crm-compact") === "1");
+  }, []);
+  function toggleCompact() {
+    setCompact((v) => {
+      const next = !v;
+      localStorage.setItem("crm-compact", next ? "1" : "0");
+      return next;
+    });
+  }
   const [pending, start] = useTransition();
 
   function applyMove(leadId: number, stageKey: string, lostReason?: string) {
@@ -112,6 +126,16 @@ export function CrmBoard({
 
   return (
     <>
+    <div className="mb-3 flex justify-end">
+      <button
+        type="button"
+        onClick={toggleCompact}
+        aria-pressed={compact}
+        className="rounded-full border border-forest-900/15 px-3 py-1 text-xs font-medium text-forest-900/60 hover:bg-forest-900/5"
+      >
+        {compact ? "Обычный вид" : "Компактный вид"}
+      </button>
+    </div>
     <div className="flex flex-col gap-3 pb-4 lg:flex-row lg:gap-4 lg:overflow-x-auto">
       {stages.map((stage) => {
         const colItems = items.filter(
@@ -276,14 +300,16 @@ export function CrmBoard({
                           </span>
                         </span>
                       </div>
-                      <p className="mt-0.5 line-clamp-2 text-xs text-forest-900/70">{lead.name}</p>
+                      {!compact && (
+                        <p className="mt-0.5 line-clamp-2 text-xs text-forest-900/70">{lead.name}</p>
+                      )}
                       {contact && <p className="mt-1 text-xs text-forest-900/55">{contact}</p>}
-                      {stale && (
+                      {!compact && stale && (
                         <p className="mt-1 text-[11px] font-medium text-amber-600">
                           💤 {days} дн без касания
                         </p>
                       )}
-                      {(() => {
+                      {!compact && (() => {
                         if (!isOpen) return null;
                         const sla = slaStatus(lead.stageKey, lead.stageSince || lead.createdAt);
                         if (sla.breached) {
@@ -326,7 +352,7 @@ export function CrmBoard({
                             {lead.rwNumber}
                           </span>
                         )}
-                        {(lead.tags ?? [])
+                        {!compact && (lead.tags ?? [])
                           .filter((t) => !t.startsWith("object:"))
                           .slice(0, 4)
                           .map((t) => (
@@ -338,7 +364,7 @@ export function CrmBoard({
                             </span>
                           ))}
                       </div>
-                      {isOpen && (() => {
+                      {!compact && isOpen && (() => {
                         const nba = nextAction(lead);
                         return nba ? (
                           <div
