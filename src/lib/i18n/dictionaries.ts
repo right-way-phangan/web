@@ -977,6 +977,7 @@ export interface ObjectDict {
     perMonth: string;
     perRaiMonth: string;
   };
+  perMonth: string;
   perRaiMonth: string;
   priceOnRequest: string;
   aboutProperty: string;
@@ -1112,6 +1113,7 @@ const objectDict: Record<Locale, ObjectDict> = {
       perMonth: "/mo",
       perRaiMonth: "/rai·mo",
     },
+    perMonth: "/ month",
     perRaiMonth: "/ rai / month",
     priceOnRequest: "Price on request",
     aboutProperty: "About this property",
@@ -1247,6 +1249,7 @@ const objectDict: Record<Locale, ObjectDict> = {
       perMonth: "/мес",
       perRaiMonth: "/рай·мес",
     },
+    perMonth: "/ мес",
     perRaiMonth: "/ рай / мес",
     priceOnRequest: "Цена по запросу",
     aboutProperty: "Об объекте",

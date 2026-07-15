@@ -26,6 +26,7 @@ const CT = {
     remove: (rw: string) => `Remove ${rw}`,
     onRequest: "On request",
     perRai: "/rai",
+    perMo: "/mo",
     perRaiMo: "/rai/mo",
     rai: "rai",
     yr: "yr",
@@ -54,6 +55,7 @@ const CT = {
     remove: (rw: string) => `Убрать ${rw}`,
     onRequest: "По запросу",
     perRai: "/рай",
+    perMo: "/мес",
     perRaiMo: "/рай/мес",
     rai: "рай",
     yr: "лет",
@@ -89,9 +91,11 @@ function buildRows(
           ? fmt(o.priceThb)
           : o.pricePerRai
             ? `${fmt(o.pricePerRai)}${t.perRai}`
-            : o.rentPerRaiMonth
-              ? `${fmt(o.rentPerRaiMonth)}${t.perRaiMo}`
-              : t.onRequest,
+            : o.rentPerMonth
+              ? `${fmt(o.rentPerMonth)}${t.perMo}`
+              : o.rentPerRaiMonth
+                ? `${fmt(o.rentPerRaiMonth)}${t.perRaiMo}`
+                : t.onRequest,
       rank: (o) => o.priceThb ?? null,
     },
     {
