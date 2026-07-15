@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/sections/page-hero";
+import { Appear } from "@/components/motion/appear";
 import { Disclaimer } from "@/components/legal/disclaimer";
 import { RoiCalculator } from "@/components/calculator/roi-calculator";
+import { CalculatorOnboarding } from "@/components/calculator/calculator-onboarding";
 import { MarketMiniBlock } from "@/components/calculator/market-preset";
+import { CollapsedSection } from "@/components/calculator/collapsed-section";
 import { BuildProForma } from "@/components/calculator/build-proforma";
 import { CalculatorFaq } from "@/components/calculator/calculator-faq";
 import { getPublicObjects, slimObjectForCard } from "@/lib/data/objects";
@@ -42,22 +45,30 @@ export default async function RussianCalculatorPage({
         title="Узнайте, сколько может стоить объект на Пангане."
         lede="Задайте свой темп роста и горизонт. Мы спрогнозируем стоимость, ROI и кривую капитала — и подберём объекты под бюджет."
       />
+      <CalculatorOnboarding locale="ru" />
       <div className="container-prose mt-12 md:mt-16">
-        <RoiCalculator
-          catalog={catalog}
-          market={market}
-          initialPriceThb={initialPriceThb}
-          initialMode={initialMode}
-          initialTenure={initialTenure}
-          initialLeaseTermYears={initialLeaseTermYears}
-          initialOffplan={initialOffplan}
-        />
-        <div className="mt-10 md:mt-14">
+        <Appear delay={0}>
+          <RoiCalculator
+            catalog={catalog}
+            market={market}
+            initialPriceThb={initialPriceThb}
+            initialMode={initialMode}
+            initialTenure={initialTenure}
+            initialLeaseTermYears={initialLeaseTermYears}
+            initialOffplan={initialOffplan}
+          />
+        </Appear>
+        <Appear delay={0.1} className="mt-16 md:mt-24">
           <MarketMiniBlock market={market} />
-        </div>
-        <div className="mt-6 md:mt-8">
+        </Appear>
+        <CollapsedSection
+          id="build"
+          eyebrow="Ещё"
+          title="Думаете строить, а не покупать?"
+          lede="Откройте pro-forma «построй и сдавай» — земля плюс стройка против арендной доходности, которую она приносит."
+        >
           <BuildProForma market={market} />
-        </div>
+        </CollapsedSection>
         <CalculatorFaq locale="ru" />
         <Disclaimer locale="ru" />
       </div>

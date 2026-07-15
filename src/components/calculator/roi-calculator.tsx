@@ -602,6 +602,10 @@ export function RoiCalculator({
             />
           ) : null}
 
+          <p className="border-t border-forest-500/10 pt-4 text-[11px] font-medium uppercase tracking-wide text-forest-500/50">
+            {t.groupGrowth}
+          </p>
+
           <div>
             <label className="text-sm text-forest-500/70">{t.growthLabel}</label>
             <div className="mt-2 flex gap-2">
@@ -719,6 +723,11 @@ export function RoiCalculator({
 
           {/* Rental income is optional for completed properties — a single toggle
               replaces the old Buy & Hold / Buy & Rent mode tabs. */}
+          {!isOffplan ? (
+            <p className="border-t border-forest-500/10 pt-4 text-[11px] font-medium uppercase tracking-wide text-forest-500/50">
+              {t.groupRental}
+            </p>
+          ) : null}
           {!isOffplan ? (
             <label className="flex cursor-pointer items-center gap-2 rounded-sm border border-forest-500/15 bg-cream-50 p-3 text-sm text-forest-500/80">
               <input

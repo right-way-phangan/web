@@ -21,6 +21,9 @@ export interface CalcDict {
   // Assumptions header
   assumptionsTitle: string;
   assumptionsHint: string;
+  // Field-group labels
+  groupGrowth: string;
+  groupRental: string;
   // Core fields
   contractPrice: string;
   purchasePrice: string;
@@ -310,6 +313,8 @@ const EN: CalcDict = {
   leasehold: "Leasehold",
   assumptionsTitle: "Your assumptions",
   assumptionsHint: "Pre-filled with typical Koh Phangan figures — adjust to your case.",
+  groupGrowth: "Growth & horizon",
+  groupRental: "Rental income",
   contractPrice: "Contract price",
   purchasePrice: "Purchase price",
   growthLabel: "Expected annual price growth",
@@ -571,6 +576,8 @@ const RU: CalcDict = {
   freehold: "Фрихолд",
   leasehold: "Лизхолд",
   assumptionsTitle: "Ваши параметры",
+  groupGrowth: "Рост и горизонт",
+  groupRental: "Аренда",
   assumptionsHint: "Заполнено типичными для Пангана значениями — поправьте под свой случай.",
   contractPrice: "Цена по договору",
   purchasePrice: "Цена покупки",
