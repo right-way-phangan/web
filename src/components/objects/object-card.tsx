@@ -21,6 +21,7 @@ import type { BuildBadge } from "@/lib/data/build-envelope";
 import { BLUR_PLACEHOLDER } from "@/lib/utils/blur";
 import { useLocale, localeHref } from "@/lib/i18n/use-locale";
 import { getListingsDict, type ListingsDict } from "@/lib/i18n/dictionaries";
+import { escalatedLeaseTotalThb } from "@/lib/objects/lease-format";
 import { zoneCategory, buildWarnLabels } from "@/lib/data/zone-rules";
 import { SaveButton } from "./save-button";
 import { MagicCard } from "@/components/ui/magic-card";
@@ -263,6 +264,25 @@ export function ObjectCard({ object, priority = false, priceMode = "buy", buildB
         ) : (
           <p className="text-sm italic text-forest-500/55">{t.priceOnRequest}</p>
         )}
+
+        {/* Lease total: a monthly rate alone isn't comparable to sale prices in
+            the Buy grid, so surface the whole-term cost. */}
+        {!object.priceThb && object.rentPerMonth && object.leaseTermYears ? (
+          <p className="mt-0.5 text-xs text-forest-500/70">
+            ≈{" "}
+            {fmt(
+              escalatedLeaseTotalThb(
+                object.rentPerMonth,
+                object.leaseTermYears,
+                object.leaseEscPercent,
+                object.leaseEscPeriodYears,
+              ),
+            )}
+            <span className="ml-1">
+              {locale === "ru" ? `за ${object.leaseTermYears} лет` : `over ${object.leaseTermYears}y`}
+            </span>
+          </p>
+        ) : null}
 
         {/* Max build envelope — indicative ceiling; exact limits on the detail
             page's "What you can build" block. Pre-computed server-side. */}

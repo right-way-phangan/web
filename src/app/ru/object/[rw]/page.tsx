@@ -184,6 +184,7 @@ export default async function RussianObjectPage({ params }: Props) {
             rentPerRaiMonth={object.rentPerRaiMonth}
             leaseTermYears={object.leaseTermYears}
             leaseEscPercent={object.leaseEscPercent}
+            leaseEscPeriodYears={object.leaseEscPeriodYears}
             isLand={object.type === "Land"}
             locale="ru"
           />

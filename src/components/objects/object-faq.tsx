@@ -29,6 +29,48 @@ const PICKS: Record<ObjectType, string[]> = {
   Project: ["q21", "q24", "q22"], // timeline · backing out · buying remotely
 };
 
+/**
+ * Leasehold-specific Q&A prepended for leasehold listings — the type-based
+ * PICKS (esp. Land: q1/q6/q29) carry no lease answer, so a leasehold plot would
+ * otherwise never address resale or end-of-term. Also feeds FAQPage JSON-LD.
+ */
+function leaseholdFaqItems(locale: Locale): FaqItem[] {
+  if (locale === "ru") {
+    return [
+      {
+        id: "lease-resale",
+        question: "Можно ли продать или передать лизинг?",
+        answer: [
+          "Да. Права по лизингу можно переуступить другому покупателю или передать по наследству на оставшийся срок — в рамках условий договора. Мы структурируем лизинг так, чтобы перепродажа была прозрачной.",
+        ],
+      },
+      {
+        id: "lease-end",
+        question: "Что происходит в конце срока лизинга?",
+        answer: [
+          "Земельный лизинг на Пангане оформляется на 30 лет, часто с опциями продления (ещё 30+30). По окончании срока земля и построенное на ней возвращаются собственнику, если лизинг не продлён. На сайте публикуем первые 30 лет; условия продления согласуются с собственником земли.",
+        ],
+      },
+    ];
+  }
+  return [
+    {
+      id: "lease-resale",
+      question: "Can I sell or transfer the lease?",
+      answer: [
+        "Yes. The lease can be assigned to another buyer or passed on for the years remaining on the term, within the lease conditions. We structure the lease so a resale or transfer is straightforward.",
+      ],
+    },
+    {
+      id: "lease-end",
+      question: "What happens at the end of the lease?",
+      answer: [
+        "A Phangan land lease runs 30 years, often written with renewal options (a further 30+30). At the end of the term the land — and anything built on it — reverts to the owner unless the lease is renewed. We publish the initial 30-year term; renewal terms are agreed with the landowner.",
+      ],
+    },
+  ];
+}
+
 function blocksToText(blocks: FaqBlock[]): string {
   return blocks
     .map((b) => {
@@ -59,9 +101,15 @@ export function ObjectFaq({
 
   // Per-listing buildability Q&A first — the most specific, GEO/AEO-friendly.
   const build = object ? buildabilityFaq(object, locale) : null;
-  const items: FaqItem[] = build
-    ? [{ id: "buildability", question: build.question, answer: build.answer }, ...picked]
-    : picked;
+  // Leasehold listings get lease-specific Q&A; it trims the generic type picks
+  // so the section stays tight.
+  const lease = object?.tenure?.includes("Leasehold") ? leaseholdFaqItems(locale) : [];
+  const picks = lease.length ? picked.slice(0, 2) : picked;
+  const items: FaqItem[] = [
+    ...(build ? [{ id: "buildability", question: build.question, answer: build.answer }] : []),
+    ...lease,
+    ...picks,
+  ];
   if (items.length === 0) return null;
 
   const faqHref = (locale === "ru" ? "/ru/faq" : "/faq") as Route;

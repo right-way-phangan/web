@@ -9,6 +9,32 @@ export function leaseTotalThb(rentPerMonth: number, years: number): number {
 }
 
 /**
+ * Lease total with indexation: the rent steps up by `escPct`% every
+ * `escEveryYears` years, so later years cost more than the flat total implies.
+ * Falls back to the flat total when the escalation terms are unknown. Pure so
+ * it's unit-tested directly.
+ */
+export function escalatedLeaseTotalThb(
+  rentPerMonth: number,
+  years: number,
+  escPct?: number,
+  escEveryYears?: number,
+): number {
+  if (!escPct || !escEveryYears || escEveryYears <= 0) return leaseTotalThb(rentPerMonth, years);
+  const step = 1 + escPct / 100;
+  let total = 0;
+  let rate = rentPerMonth;
+  let remaining = years;
+  while (remaining > 0) {
+    const block = Math.min(escEveryYears, remaining);
+    total += rate * 12 * block;
+    remaining -= block;
+    rate *= step;
+  }
+  return Math.round(total);
+}
+
+/**
  * Lease line under the monthly rent: "30-year lease · ≈ ฿14.4M total +
  * indexation". The total is omitted when unknown (per-rai rents, whose
  * whole-plot cost needs the plot area). "+ indexation" flags that the flat
