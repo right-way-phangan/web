@@ -41,6 +41,8 @@ function buildGroups(
   if (o.priceThb) priceRows.push({ label: L["Asking price"], value: fmtFull(o.priceThb) });
   if (o.type === "Land" && o.pricePerRai)
     priceRows.push({ label: L["Price per rai"], value: `${fmt(o.pricePerRai)} / rai` });
+  if (o.rentPerMonth)
+    priceRows.push({ label: L["Lease rent"], value: `${fmtFull(o.rentPerMonth)} ${t.perMonth}` });
   if (o.rentPerRaiMonth)
     priceRows.push({ label: L["Lease rent"], value: `${fmtFull(o.rentPerRaiMonth)} ${t.perRaiMonth}` });
   if (priceRows.length > 0) groups.push({ title: t.specGroups.Pricing, rows: priceRows });

@@ -26,6 +26,7 @@ import { TrackView } from "@/components/objects/track-view";
 import { BehaviorTracker } from "@/components/objects/behavior-tracker";
 import { PriceContextBadge } from "@/components/objects/price-context-badge";
 import { ObjectPrice } from "@/components/objects/object-price";
+import { LeaseTermBadge, LeaseholdStructure } from "@/components/objects/leasehold-explainer";
 import { SaveButton } from "@/components/objects/save-button";
 import { ShareButton } from "@/components/objects/share-button";
 import { BrochureButton } from "@/components/objects/brochure-button";
@@ -168,6 +169,7 @@ export default async function ObjectPage({ params }: Props) {
                 {object.rwNumber} · {object.type}
               </p>
               <VettedBadge ddStatus={object.ddStatus} ddDate={object.ddDate} />
+              <LeaseTermBadge object={object} locale="en" />
             </div>
             <div className="flex shrink-0 items-center gap-2 print:hidden">
               <BrochureButton rw={object.rwNumber} />
@@ -184,6 +186,8 @@ export default async function ObjectPage({ params }: Props) {
             pricePerRai={object.pricePerRai}
             rentPerMonth={object.rentPerMonth}
             rentPerRaiMonth={object.rentPerRaiMonth}
+            leaseTermYears={object.leaseTermYears}
+            leaseEscPercent={object.leaseEscPercent}
             isLand={object.type === "Land"}
           />
           {object.priceThb ? <PriceContextBadge object={object} catalog={catalog} /> : null}
@@ -244,6 +248,8 @@ export default async function ObjectPage({ params }: Props) {
             <Appear>
               <InvestmentHighlights object={object} />
             </Appear>
+
+            <LeaseholdStructure object={object} locale="en" />
 
             <Appear>
               <section>

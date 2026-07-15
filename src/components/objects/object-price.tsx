@@ -1,12 +1,15 @@
 "use client";
 
 import { CurrencyToggle, useCurrency } from "@/components/ui/currency";
+import { leaseLine, leaseTotalThb } from "@/lib/objects/lease-format";
 
 interface Props {
   priceThb?: number;
   pricePerRai?: number;
   rentPerMonth?: number;
   rentPerRaiMonth?: number;
+  leaseTermYears?: number;
+  leaseEscPercent?: number;
   isLand?: boolean;
   locale?: "en" | "ru";
 }
@@ -28,6 +31,8 @@ export function ObjectPrice({
   pricePerRai,
   rentPerMonth,
   rentPerRaiMonth,
+  leaseTermYears,
+  leaseEscPercent,
   isLand,
   locale = "en",
 }: Props) {
@@ -56,21 +61,24 @@ export function ObjectPrice({
       </div>
     );
   }
-  if (rentPerMonth) {
+  if (rentPerMonth || rentPerRaiMonth) {
+    const monthly = (rentPerMonth ?? rentPerRaiMonth)!;
+    const perLabel = rentPerMonth ? L.perMonth : L.perRaiMonth;
+    // Whole-plot rent yields a concrete lease total; a per-rai rent needs the
+    // plot area (not carried here), so it shows the term without a total.
+    const total = rentPerMonth && leaseTermYears ? leaseTotalThb(rentPerMonth, leaseTermYears) : undefined;
     return (
-      <div className={row}>
-        <span className={big}>{fmtFull(rentPerMonth)}</span>
-        <span className={sub}>{L.perMonth}</span>
-        <CurrencyToggle className={toggle} />
-      </div>
-    );
-  }
-  if (rentPerRaiMonth) {
-    return (
-      <div className={row}>
-        <span className={big}>{fmtFull(rentPerRaiMonth)}</span>
-        <span className={sub}>{L.perRaiMonth}</span>
-        <CurrencyToggle className={toggle} />
+      <div>
+        <div className={row}>
+          <span className={big}>{fmtFull(monthly)}</span>
+          <span className={sub}>{perLabel}</span>
+          <CurrencyToggle className={toggle} />
+        </div>
+        {leaseTermYears ? (
+          <p className="mt-2 text-sm text-forest-500/70">
+            {leaseLine(locale, leaseTermYears, total != null ? fmt(total) : undefined, !!leaseEscPercent)}
+          </p>
+        ) : null}
       </div>
     );
   }
