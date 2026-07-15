@@ -74,6 +74,7 @@ export interface RealEstateObject {
   leaseEscPeriodYears?: number;
   leaseEscNotes?: string;
   leaseAdditionalTerms?: string;
+  leaseRegistered?: boolean; // lease registered at the Land Office (DD-confirmed)
 
   // Building (Villa/House/Apartment)
   bedrooms?: number;
