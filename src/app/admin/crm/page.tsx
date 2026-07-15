@@ -229,34 +229,62 @@ export default async function CrmPage({
             className="w-full rounded-full border border-forest-900/15 bg-cream-50 px-3 py-1.5 text-sm outline-none focus:border-brass-500 sm:w-64"
           />
         </form>
-        {QUICK.map((x) => {
-          const on = quick === x.key;
-          const query2 = on
-            ? { ...baseQ, f: undefined }
-            : { ...baseQ, f: x.key };
-          return (
+        {(() => {
+          const chips = QUICK.map((x) => {
+            const on = quick === x.key;
+            const query2 = on ? { ...baseQ, f: undefined } : { ...baseQ, f: x.key };
+            return (
+              <Link
+                key={x.key}
+                href={{ pathname: "/admin/crm", query: query2 }}
+                className={
+                  "rounded-full px-3 py-1.5 text-sm font-medium transition " +
+                  (on
+                    ? "bg-amber-500 text-panel-fg"
+                    : "bg-forest-900/5 text-forest-900/70 hover:bg-forest-900/10")
+                }
+              >
+                {x.label} <span className="opacity-60">({quickCounts[x.key] ?? 0})</span>
+              </Link>
+            );
+          });
+          const resetLink = filtering ? (
             <Link
-              key={x.key}
-              href={{ pathname: "/admin/crm", query: query2 }}
-              className={
-                "rounded-full px-3 py-1.5 text-sm font-medium transition " +
-                (on
-                  ? "bg-amber-500 text-panel-fg"
-                  : "bg-forest-900/5 text-forest-900/70 hover:bg-forest-900/10")
-              }
+              href={{ pathname: "/admin/crm", query: p ? { p } : {} }}
+              className="text-xs text-forest-900/50 hover:text-forest-900"
             >
-              {x.label} <span className="opacity-60">({quickCounts[x.key] ?? 0})</span>
+              Сбросить
             </Link>
+          ) : null;
+          const activeLabel = QUICK.find((x) => x.key === quick)?.label;
+          return (
+            <>
+              {/* Десктоп: быстрые фильтры чипами в ряд */}
+              <div className="hidden lg:flex lg:flex-wrap lg:items-center lg:gap-2">
+                {chips}
+                {resetLink}
+              </div>
+              {/* Мобильный: свёрнуто в «Фильтры ▾» — не растягивает панель */}
+              <details className="group relative lg:hidden">
+                <summary
+                  className={
+                    "flex cursor-pointer list-none items-center gap-1 rounded-full border px-3 py-1.5 text-sm font-medium [&::-webkit-details-marker]:hidden " +
+                    (quick
+                      ? "border-amber-500/40 bg-amber-500/15 text-forest-900"
+                      : "border-forest-900/15 text-forest-900/70")
+                  }
+                >
+                  {activeLabel ?? "Фильтры"}
+                  <span className="text-forest-900/40 transition-transform group-open:rotate-180">▾</span>
+                </summary>
+                <div className="absolute left-0 z-30 mt-2 w-64 rounded-xl border border-forest-900/10 bg-cream-50 p-2 shadow-lg">
+                  <div className="flex flex-wrap gap-2">{chips}</div>
+                  {resetLink && <div className="mt-2 px-1">{resetLink}</div>}
+                </div>
+              </details>
+            </>
           );
-        })}
-        {filtering && (
-          <Link
-            href={{ pathname: "/admin/crm", query: p ? { p } : {} }}
-            className="text-xs text-forest-900/50 hover:text-forest-900"
-          >
-            Сбросить
-          </Link>
-        )}
+        })()}
       </div>
 
       {/* Pipeline tabs */}
