@@ -16,6 +16,7 @@ import {
   CheckCircle,
   AlertTriangle,
   Gauge,
+  ChevronDown,
 } from "lucide-react";
 import { LeadForm } from "@/components/forms/lead-form";
 import { useLocale, localeHref } from "@/lib/i18n/use-locale";
@@ -39,6 +40,8 @@ import { InsightsNav } from "./insights-nav";
 import { RateEstimator } from "./rate-estimator";
 import { DistrictDemand } from "./district-demand";
 
+type Tab = "owner" | "investor";
+
 /**
  * /insights rental-market view. Reworked 2026-07-15 into an audience-segmented,
  * navigable page:
@@ -61,6 +64,7 @@ export function RentalInsights({
   const t = INS[useLocale()];
   const [unlocked, setUnlocked] = useState(false);
   const [currency, setCurrency] = useState<DisplayCurrency>("THB");
+  const [tab, setTab] = useState<Tab>("owner");
   const { meta } = data;
   const fmt = makeMoneyFmt(currency, meta.thbPerUsd);
 
@@ -78,117 +82,122 @@ export function RentalInsights({
 
   return (
     <div className="container-prose">
-      <InsightsNav />
-      <div className="mt-10 space-y-16 md:mt-14 md:space-y-24">
-        {/* ── #pulse — market pulse (shared) ────────────────────────────── */}
-        <MarketPulse data={data} currency={currency} onCurrency={setCurrency} fmt={fmt} />
+      {/* #pulse — market pulse (shared header, always visible) */}
+      <MarketPulse data={data} currency={currency} onCurrency={setCurrency} fmt={fmt} />
 
-        {/* ══ Zone: owners & hosts ══ */}
-        <ZoneDivider eyebrow={t.zoneOwnersEyebrow} title={t.zoneOwners} />
+      {/* Trust — one compact line, full cards on demand (shared) */}
+      <div className="mt-6">
+        <TrustStrip data={data} fmt={fmt} />
+      </div>
 
-        {/* #rate-check — interactive estimator (the hook) */}
-        <RateEstimator
-          market={data}
-          fmt={fmt}
-          unlocked={unlocked}
-          onUnlock={() => setUnlocked(true)}
-        />
+      {/* Audience split — owners see rent & income; investors see land, build & report */}
+      <AudienceTabs value={tab} onChange={setTab} />
+      <InsightsNav key={tab} tab={tab} />
 
-        {/* #rents — what homes earn: teaser + demand quality */}
-        <section id="rents" className="scroll-mt-32">
-          <SectionHead
-            icon={<TrendingUp className="h-4 w-4" />}
-            eyebrow={t.freePreview}
-            title={t.teaserTitle}
-            note={t.teaserNote}
-          />
-          <div className="mt-6 space-y-3">
-            {top3.map((d, i) => (
-              <BarRow
-                key={d.name}
-                label={d.name}
-                slug={d.slug}
-                value={d.adrMedian}
-                max={maxAdr}
-                right={fmt(d.adrMedian)}
-                band={d.adrP25 != null && d.adrP75 != null ? { p25: d.adrP25, p75: d.adrP75 } : null}
-                sub={t.teaserSub(
-                  d.n,
-                  fmt(effectiveAnnualThb(d, meta), true),
-                  Math.round(meta.occupancy.base * 100),
-                  measuredOccupancy(d, meta) != null
-                    ? Math.round((measuredOccupancy(d, meta) as number) * 100)
-                    : null,
-                )}
-                highlight
-                badge={i === 0 ? t.topPick : undefined}
+      <div className="mt-8 space-y-16 md:mt-10 md:space-y-20">
+        {tab === "owner" ? (
+          <>
+            {/* #rate-check — interactive estimator (the hook) */}
+            <RateEstimator
+              market={data}
+              fmt={fmt}
+              unlocked={unlocked}
+              onUnlock={() => setUnlocked(true)}
+            />
+
+            {/* #rents — what homes earn: teaser + demand quality */}
+            <section id="rents" className="scroll-mt-32">
+              <SectionHead
+                icon={<TrendingUp className="h-4 w-4" />}
+                eyebrow={t.freePreview}
+                title={t.teaserTitle}
+                note={t.teaserNote}
               />
-            ))}
-          </div>
-          {poolPremium != null ? (
-            <p className="mt-6 inline-flex items-center gap-2 rounded-sm bg-brass-200/40 px-4 py-2.5 text-sm text-forest-500">
-              <Waves className="h-4 w-4 text-brass-500" />
-              {t.poolPremium(poolPremium)}
-            </p>
-          ) : null}
+              <div className="mt-6 space-y-3">
+                {top3.map((d, i) => (
+                  <BarRow
+                    key={d.name}
+                    label={d.name}
+                    slug={d.slug}
+                    value={d.adrMedian}
+                    max={maxAdr}
+                    right={fmt(d.adrMedian)}
+                    band={d.adrP25 != null && d.adrP75 != null ? { p25: d.adrP25, p75: d.adrP75 } : null}
+                    sub={t.teaserSub(
+                      d.n,
+                      fmt(effectiveAnnualThb(d, meta), true),
+                      Math.round(meta.occupancy.base * 100),
+                      measuredOccupancy(d, meta) != null
+                        ? Math.round((measuredOccupancy(d, meta) as number) * 100)
+                        : null,
+                    )}
+                    highlight
+                    badge={i === 0 ? t.topPick : undefined}
+                  />
+                ))}
+              </div>
+              {poolPremium != null ? (
+                <p className="mt-6 inline-flex items-center gap-2 rounded-sm bg-brass-200/40 px-4 py-2.5 text-sm text-forest-500">
+                  <Waves className="h-4 w-4 text-brass-500" />
+                  {t.poolPremium(poolPremium)}
+                </p>
+              ) : null}
 
-          <DistrictDemand data={data} />
-        </section>
+              <DistrictDemand data={data} />
+            </section>
+          </>
+        ) : (
+          <>
+            {/* #land — land prices by district (server-rendered slot) */}
+            {landSlot ? (
+              <section id="land" className="scroll-mt-32">
+                {landSlot}
+              </section>
+            ) : null}
 
-        {/* ── #trust — why trust the numbers (shared) ───────────────────── */}
-        <TrustGroup data={data} fmt={fmt} />
+            {/* #build — what to build + our inventory against the market */}
+            <section id="build" className="scroll-mt-32 space-y-16 md:space-y-20">
+              <BuildRecommendation data={data} fmt={fmt} />
+              {inventory.length > 0 ? <InventoryYield rows={inventory} fmt={fmt} /> : null}
+            </section>
 
-        {/* ══ Zone: buyers & investors ══ */}
-        <ZoneDivider eyebrow={t.zoneInvestorsEyebrow} title={t.zoneInvestors} />
+            {/* #report — gate + full report */}
+            <section id="report" className="relative scroll-mt-32">
+              <SectionHead
+                icon={<Lock className="h-4 w-4" />}
+                eyebrow={unlocked ? t.fullReportEyebrow : t.unlockEyebrow}
+                title={t.gateTitle}
+                note={t.gateNote}
+              />
 
-        {/* #land — land prices by district (server-rendered slot) */}
-        {landSlot ? (
-          <section id="land" className="scroll-mt-32">
-            {landSlot}
-          </section>
-        ) : null}
+              {!unlocked ? (
+                <UnlockCard onSuccess={() => setUnlocked(true)} meta={meta} />
+              ) : (
+                <div className="mt-4 inline-flex items-center gap-2 rounded-sm border border-forest-500/20 bg-forest-50/40 px-4 py-2 text-sm text-forest-500">
+                  <CheckCircle2 className="h-4 w-4 text-forest-500" />
+                  {t.unlockedConfirm}
+                </div>
+              )}
 
-        {/* #build — what to build + our inventory against the market */}
-        <section id="build" className="scroll-mt-32 space-y-16 md:space-y-20">
-          <BuildRecommendation data={data} fmt={fmt} />
-          {inventory.length > 0 ? <InventoryYield rows={inventory} fmt={fmt} /> : null}
-        </section>
+              {/* Full content — blurred + inert until unlocked */}
+              <div
+                className={
+                  unlocked
+                    ? "mt-10 space-y-14"
+                    : "mt-10 space-y-14 select-none blur-[6px] pointer-events-none"
+                }
+                aria-hidden={!unlocked}
+              >
+                <FullReport data={data} fmt={fmt} />
+              </div>
+            </section>
+          </>
+        )}
+      </div>
 
-        {/* ── #report — gate + full report ──────────────────────────────── */}
-        <section id="report" className="relative scroll-mt-32">
-          <SectionHead
-            icon={<Lock className="h-4 w-4" />}
-            eyebrow={unlocked ? t.fullReportEyebrow : t.unlockEyebrow}
-            title={t.gateTitle}
-            note={t.gateNote}
-          />
-
-          {!unlocked ? (
-            <UnlockCard onSuccess={() => setUnlocked(true)} meta={meta} />
-          ) : (
-            <div className="mt-4 inline-flex items-center gap-2 rounded-sm border border-forest-500/20 bg-forest-50/40 px-4 py-2 text-sm text-forest-500">
-              <CheckCircle2 className="h-4 w-4 text-forest-500" />
-              {t.unlockedConfirm}
-            </div>
-          )}
-
-          {/* Full content — blurred + inert until unlocked */}
-          <div
-            className={
-              unlocked
-                ? "mt-10 space-y-14"
-                : "mt-10 space-y-14 select-none blur-[6px] pointer-events-none"
-            }
-            aria-hidden={!unlocked}
-          >
-            <FullReport data={data} fmt={fmt} />
-          </div>
-        </section>
-
-        {/* ── #method — methodology (shared, never gated) ───────────────── */}
-        <div id="method" className="scroll-mt-32">
-          <Methodology meta={meta} />
-        </div>
+      {/* #method — methodology (shared footer, never gated) */}
+      <div id="method" className="mt-16 scroll-mt-32 md:mt-20">
+        <Methodology meta={meta} />
       </div>
     </div>
   );
@@ -196,18 +205,82 @@ export function RentalInsights({
 
 /* --------------------------- Zone divider ------------------------------ */
 
-function ZoneDivider({ eyebrow, title }: { eyebrow: string; title: string }) {
+function AudienceTabs({ value, onChange }: { value: Tab; onChange: (t: Tab) => void }) {
+  const t = INS[useLocale()];
+  const tabs: { id: Tab; label: string; hint: string }[] = [
+    { id: "owner", label: t.tabOwners, hint: t.tabOwnersHint },
+    { id: "investor", label: t.tabInvestors, hint: t.tabInvestorsHint },
+  ];
   return (
-    <div className="flex items-center gap-4">
-      <div className="h-px flex-1 bg-forest-500/15" />
-      <div className="text-center">
-        <p className="text-[11px] font-medium uppercase tracking-[0.25em] text-brass-500">
-          {eyebrow}
-        </p>
-        <p className="mt-1 font-serif text-lg text-forest-900 md:text-xl">{title}</p>
-      </div>
-      <div className="h-px flex-1 bg-forest-500/15" />
+    <div
+      role="tablist"
+      aria-label={t.audienceAria}
+      className="mx-auto mt-8 grid max-w-lg grid-cols-2 gap-1.5 rounded-sm border border-forest-500/12 bg-cream-50 p-1.5"
+    >
+      {tabs.map((tb) => {
+        const on = value === tb.id;
+        return (
+          <button
+            key={tb.id}
+            type="button"
+            role="tab"
+            aria-selected={on}
+            onClick={() => onChange(tb.id)}
+            className={`rounded-sm px-4 py-2.5 text-center transition-colors ${
+              on ? "bg-panel text-panel-fg" : "text-forest-500/70 hover:bg-forest-500/5"
+            }`}
+          >
+            <span className="block text-sm font-medium">{tb.label}</span>
+            <span className={`block text-[11px] ${on ? "text-panel-fg/70" : "text-forest-500/50"}`}>
+              {tb.hint}
+            </span>
+          </button>
+        );
+      })}
     </div>
+  );
+}
+
+/* ------------------------------- Trust strip ------------------------------- */
+
+/**
+ * Trust, compacted: one line ("how the price checks out" + a platform-agreement
+ * pill) that expands on demand to the full triangulation + external-benchmark
+ * cards. Keeps the reassurance without a heavy always-open section.
+ */
+function TrustStrip({ data, fmt }: { data: RentalMarket; fmt: MoneyFmt }) {
+  const t = INS[useLocale()];
+  const showTriangulation = data.crossCheck && data.crossCheck.sources.length >= 2;
+  const showBenchmarks = data.meta.adrMedianAll != null;
+  if (!showTriangulation && !showBenchmarks) return null;
+  const cross = data.crossCheck;
+
+  return (
+    <details className="group rounded-sm border border-forest-500/10 bg-cream-50">
+      <summary className="flex cursor-pointer list-none items-center gap-2.5 px-5 py-3.5 text-sm [&::-webkit-details-marker]:hidden">
+        <Scale className="h-4 w-4 shrink-0 text-brass-500" />
+        <span className="font-medium text-forest-900">{t.trustTitle}</span>
+        {showTriangulation && cross && cross.spreadPct != null ? (
+          <span
+            className={`hidden rounded-full px-2.5 py-0.5 text-xs font-medium sm:inline-flex ${
+              cross.agree ? "bg-forest-500/10 text-forest-500" : "bg-brass-200/50 text-brass-600"
+            }`}
+          >
+            {cross.agree ? t.agree(cross.spreadPct) : t.diverge(cross.spreadPct)}
+          </span>
+        ) : null}
+        <span className="ml-auto flex shrink-0 items-center gap-1 text-xs text-forest-500/60">
+          {t.trustDetails}
+          <ChevronDown className="h-4 w-4 transition-transform group-open:rotate-180" />
+        </span>
+      </summary>
+      <div className="grid gap-4 border-t border-forest-500/10 px-5 py-5 lg:grid-cols-2">
+        {showTriangulation ? (
+          <TriangulationCard cross={data.crossCheck as RmCrossCheck} fmt={fmt} />
+        ) : null}
+        {showBenchmarks ? <BenchmarksCard meta={data.meta} fmt={fmt} /> : null}
+      </div>
+    </details>
   );
 }
 
@@ -340,29 +413,7 @@ function SourceMix({ meta }: { meta: RentalMarket["meta"] }) {
   );
 }
 
-/* ---------------------- Trust group (triangulation + benchmarks) ---------------------- */
-
-function TrustGroup({ data, fmt }: { data: RentalMarket; fmt: MoneyFmt }) {
-  const t = INS[useLocale()];
-  const showTriangulation = data.crossCheck && data.crossCheck.sources.length >= 2;
-  const showBenchmarks = data.meta.adrMedianAll != null;
-  if (!showTriangulation && !showBenchmarks) return null;
-
-  return (
-    <section id="trust" className="scroll-mt-32">
-      <SectionHead
-        icon={<Scale className="h-4 w-4" />}
-        eyebrow={t.trustEyebrow}
-        title={t.trustTitle}
-        note={t.trustNote}
-      />
-      <div className="mt-6 grid gap-4 lg:grid-cols-2">
-        {showTriangulation ? <TriangulationCard cross={data.crossCheck as RmCrossCheck} fmt={fmt} /> : null}
-        {showBenchmarks ? <BenchmarksCard meta={data.meta} fmt={fmt} /> : null}
-      </div>
-    </section>
-  );
-}
+/* ------------------- Trust cards (triangulation + benchmarks) ------------------- */
 
 function TriangulationCard({ cross, fmt }: { cross: RmCrossCheck; fmt: MoneyFmt }) {
   const t = INS[useLocale()];
