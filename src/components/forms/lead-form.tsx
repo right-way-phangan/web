@@ -30,7 +30,7 @@ interface Props {
   /** Visual layout. "card" = inquiry form sidebar; "block" = /contact full-width block */
   layout?: "card" | "block";
   /** "calculator" tags the lead as coming from the ROI calculator; "market-report" from /insights; "shortlist" from /saved; "saved-search" = a new-listing alert request; "valuation" = /tools/estimate seller lead; "construction" = developer-page build request. */
-  kind?: "inquiry" | "calculator" | "market-report" | "shortlist" | "saved-search" | "valuation" | "construction";
+  kind?: "inquiry" | "calculator" | "market-report" | "shortlist" | "saved-search" | "valuation" | "construction" | "match";
   /** Developer lead tag (developer-page construction requests) — becomes a CRM tag. */
   developer?: string;
   /** Submit button label override. */
