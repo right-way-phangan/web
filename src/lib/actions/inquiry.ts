@@ -12,7 +12,11 @@ import type { ObjectType } from "@/types/object";
 export type FormState =
   | { status: "idle" }
   | { status: "ok"; leadId: number; message: string }
-  | { status: "error"; message: string; fieldErrors?: Record<string, string[]> };
+  | {
+      status: "error";
+      message: string;
+      fieldErrors?: Record<string, string[]>;
+    };
 
 const inquirySchema = z
   .object({
@@ -30,19 +34,30 @@ const inquirySchema = z
     videoTour: z.literal("yes").optional(), // checkbox: send a video tour
 
     // Hidden / context fields
-    rwNumber: z.string().optional(),       // present on object inquiry, absent on /contact
-    vid: z.string().max(64).optional(),    // anonymous visitor id → links lead to its browse journey
+    rwNumber: z.string().optional(), // present on object inquiry, absent on /contact
+    vid: z.string().max(64).optional(), // anonymous visitor id → links lead to its browse journey
     source: z.enum(["object", "contact"]), // discriminator
     lang: z.enum(["en", "ru"]).optional(), // UI language the visitor submitted in → reply in their language
-    kind: z.enum(["inquiry", "calculator", "market-report", "shortlist", "saved-search", "valuation", "construction"]).optional(), // calculator = ROI-calc; market-report = /insights unlock; shortlist = saved-listings batch; saved-search = new-listing alert request; valuation = /tools/estimate seller lead; construction = developer-page build request
+    kind: z
+      .enum([
+        "inquiry",
+        "calculator",
+        "market-report",
+        "shortlist",
+        "saved-search",
+        "valuation",
+        "construction",
+        "match",
+      ])
+      .optional(), // calculator = ROI-calc; market-report = /insights unlock; shortlist = saved-listings batch; saved-search = new-listing alert request; valuation = /tools/estimate seller lead; construction = developer-page build request; match = AI-подбор /match
     developer: z.string().max(80).optional(), // developer lead tag (developer-page construction requests)
     utm_source: z.string().max(200).optional(),
     utm_medium: z.string().max(200).optional(),
     utm_campaign: z.string().max(200).optional(),
     utm_content: z.string().max(200).optional(),
     utm_term: z.string().max(200).optional(),
-    referrer: z.string().max(200).optional(),   // external referrer hostname (first touch)
-    landing: z.string().max(300).optional(),    // landing path+query (first touch)
+    referrer: z.string().max(200).optional(), // external referrer hostname (first touch)
+    landing: z.string().max(300).optional(), // landing path+query (first touch)
     // Honeypot — must remain empty
     website: z.string().max(0).optional(),
   })
@@ -56,7 +71,12 @@ const inquirySchema = z
  * /contact (no object) defaults to Land pipeline + a website-contact tag.
  */
 function pipelineFor(type: ObjectType | undefined): number {
-  if (type === "Villa" || type === "House" || type === "Apartment" || type === "Project") {
+  if (
+    type === "Villa" ||
+    type === "House" ||
+    type === "Apartment" ||
+    type === "Project"
+  ) {
     return amoEnv.AMOCRM_PIPELINE_VILLA_HOUSE;
   }
   return amoEnv.AMOCRM_PIPELINE_LAND;
@@ -75,7 +95,12 @@ function pipelineKeyFor(
 ): "land" | "villa_house" | "owners" {
   // /sell (valuation) — a property owner offering their object, not a buyer.
   if (isSeller) return "owners";
-  if (type === "Villa" || type === "House" || type === "Apartment" || type === "Project") {
+  if (
+    type === "Villa" ||
+    type === "House" ||
+    type === "Apartment" ||
+    type === "Project"
+  ) {
     return "villa_house";
   }
   return "land";
@@ -166,9 +191,12 @@ export async function submitInquiry(
   const isSavedSearch = data.kind === "saved-search";
   const isValuation = data.kind === "valuation";
   const isConstruction = data.kind === "construction";
+  const isMatch = data.kind === "match";
   // Construction requests carry no rwNumber → route to the villas pipeline
   // (one decision point for both the own-CRM and amoCRM branches below).
-  const pipelineType: ObjectType | undefined = isConstruction ? "Villa" : objectType;
+  const pipelineType: ObjectType | undefined = isConstruction
+    ? "Villa"
+    : objectType;
   const isViewing = Boolean(data.viewingDate);
   const wantsVideoTour = data.videoTour === "yes";
   const tags = [
@@ -180,6 +208,7 @@ export async function submitInquiry(
     ...(isSavedSearch ? ["saved-search"] : []),
     ...(isValuation ? ["valuation", "seller-lead"] : []),
     ...(isConstruction ? ["construction"] : []),
+    ...(isMatch ? ["match"] : []),
     ...(data.developer ? [`developer:${data.developer}`] : []),
     ...(isViewing ? ["viewing"] : []),
     ...(wantsVideoTour ? ["video-tour"] : []),
@@ -192,7 +221,9 @@ export async function submitInquiry(
   // Fold the extras into the message that becomes the lead note and the
   // Telegram ping, so the agent sees them without opening custom fields.
   const extras = [
-    data.lang === "ru" ? "🗣️ Submitted on the RU site — reply in Russian" : null,
+    data.lang === "ru"
+      ? "🗣️ Submitted on the RU site — reply in Russian"
+      : null,
     isViewing ? `Preferred viewing date: ${data.viewingDate}` : null,
     wantsVideoTour ? "🎥 Video tour requested" : null,
     data.replyVia ? `Reply via: ${data.replyVia}` : null,
@@ -205,21 +236,23 @@ export async function submitInquiry(
   // Build amoCRM payload — leads/complex creates lead + contact in one call.
   const namePrefix = isViewing
     ? "Viewing request"
-    : isConstruction
-      ? "Construction request"
-      : isValuation
-        ? "Valuation · seller"
-        : isMarketReport
-          ? "Market report"
-          : isShortlist
-            ? "Shortlist"
-            : isSavedSearch
-              ? "New-listing alert"
-              : isCalc
-                ? "Calc lead"
-                : data.rwNumber
-                  ? "Web inquiry"
-                : "Web contact";
+    : isMatch
+      ? "AI Match"
+      : isConstruction
+        ? "Construction request"
+        : isValuation
+          ? "Valuation · seller"
+          : isMarketReport
+            ? "Market report"
+            : isShortlist
+              ? "Shortlist"
+              : isSavedSearch
+                ? "New-listing alert"
+                : isCalc
+                  ? "Calc lead"
+                  : data.rwNumber
+                    ? "Web inquiry"
+                    : "Web contact";
   const leadName = data.rwNumber
     ? `${namePrefix} · ${data.rwNumber}${objectTitle ? ` · ${objectTitle.slice(0, 60)}` : ""}`
     : `${namePrefix} · ${data.name}`;
@@ -275,7 +308,12 @@ export async function submitInquiry(
         name: leadName,
         pipeline_id: pipelineId,
         _embedded: {
-          contacts: [{ first_name: data.name, custom_fields_values: contactCustomFields }],
+          contacts: [
+            {
+              first_name: data.name,
+              custom_fields_values: contactCustomFields,
+            },
+          ],
           tags: tags.map((name) => ({ name })),
         },
       });
@@ -311,7 +349,11 @@ export async function submitInquiry(
     };
   } catch (err) {
     if (err instanceof AmoApiError) {
-      console.error("[inquiry] amoCRM error", err.status, err.body.slice(0, 300));
+      console.error(
+        "[inquiry] amoCRM error",
+        err.status,
+        err.body.slice(0, 300),
+      );
     } else {
       console.error("[inquiry] unexpected:", err);
     }

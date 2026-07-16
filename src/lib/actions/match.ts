@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import { getPublicObjects, slimObjectForCard } from "@/lib/data/objects";
+import { recordSearchEvent } from "@/lib/data/demand";
 import { deriveFilterOptions } from "@/lib/filters/listings";
 import {
   sanitizeProfile,
@@ -69,7 +70,12 @@ function toResults(
       .map((r) => {
         const card = candidates.find((c) => c.rwNumber === r.rw);
         return card
-          ? { rw: r.rw, fitPct: r.fitPct, reason: r.reason, card: slimObjectForCard(card) }
+          ? {
+              rw: r.rw,
+              fitPct: r.fitPct,
+              reason: r.reason,
+              card: slimObjectForCard(card),
+            }
           : null;
       })
       .filter((r): r is MatchResult => r !== null);
@@ -100,29 +106,60 @@ export async function matchTurn(input: unknown): Promise<MatchTurnResult> {
     return { reply: LIMIT_MSG[locale], profile, done: false, limited: true };
   }
 
-  const fullHistory: MatchMessage[] = [...history, { role: "user", content: message }];
+  const fullHistory: MatchMessage[] = [
+    ...history,
+    { role: "user", content: message },
+  ];
   const userTurns = fullHistory.filter((m) => m.role === "user").length;
 
   // Жёсткий cap: дальше завершаем интервью текущим профилем без LLM-вызова.
   const turn =
     userTurns >= MAX_TURNS
       ? { reply: LIMIT_MSG[locale], profile, done: true }
-      : (await interviewTurn(fullHistory, profile, locale, districts)) ??
-        scriptedTurn(fullHistory, profile, locale, districts);
+      : ((await interviewTurn(fullHistory, profile, locale, districts)) ??
+        scriptedTurn(fullHistory, profile, locale, districts));
 
   if (!turn.done) {
     return { reply: turn.reply, profile: turn.profile, done: false };
   }
 
-  const { candidates, relaxations } = shortlistCandidates(objects, turn.profile);
+  const { candidates, relaxations } = shortlistCandidates(
+    objects,
+    turn.profile,
+  );
   const ranked = await rankShortlist(turn.profile, candidates, locale);
   const results = toResults(ranked, turn.profile, candidates, locale);
 
-  return { reply: turn.reply, profile: turn.profile, done: true, results, relaxations: relaxations as string[] };
+  // Сигнал спроса в /admin/demand (что ищут vs что в каталоге). Бэкенд сведёт
+  // kind к "filter"; structural-поля агрегируются. Fire-and-forget.
+  const p = turn.profile;
+  void recordSearchEvent({
+    kind: "filter",
+    matched: results.length > 0,
+    resultCount: results.length,
+    locale,
+    types: p.type ?? [],
+    districts: p.districts ?? [],
+    tenure: p.tenure ?? [],
+    features: p.mustHaves ?? [],
+    priceMinM: p.budgetMinMThb ?? null,
+    priceMaxM: p.budgetMaxMThb ?? null,
+    bedroomsMin: p.bedroomsMin ?? null,
+  });
+
+  return {
+    reply: turn.reply,
+    profile: turn.profile,
+    done: true,
+    results,
+    relaxations: relaxations as string[],
+  };
 }
 
 /** Пере-ранжирование после ♥/✕ фидбека — один LLM-вызов, фолбэк детерминированный. */
-export async function rerankMatches(input: unknown): Promise<{ results: MatchResult[] }> {
+export async function rerankMatches(
+  input: unknown,
+): Promise<{ results: MatchResult[] }> {
   const parsed = rerankSchema.safeParse(input);
   if (!parsed.success) return { results: [] };
   const { feedback, locale } = parsed.data;
