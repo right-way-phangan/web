@@ -1,10 +1,12 @@
-import type { RealEstateObject } from "@/types/object";
+import type { ObjectType, RealEstateObject, TenureType } from "@/types/object";
 import type {
   BuyerProfile,
   MatchFeature,
+  MatchGoal,
   MatchReasonCode,
   MatchResult,
   MatchScore,
+  MatchTimeframe,
 } from "@/types/match";
 import {
   type ListingsFilter,
@@ -26,10 +28,8 @@ import {
  * детерминированная ветка — фолбэк без ключа и валидатор ответа модели.
  */
 
-/** Фичи, которые умеет жёстко фильтровать `makeFilterPredicate`. */
-const HARD_FEATURES: MatchFeature[] = ["beachfront", "seaView", "mountainView"];
-
-/** Все фичи → поле объекта (для мягкого скоринга). */
+/** Все фичи → поле объекта. Первые три (view) умеет жёстко фильтровать
+ * `makeFilterPredicate`; остальные учитываются мягко в скоринге. */
 const FEATURE_FIELD: Record<MatchFeature, keyof RealEstateObject> = {
   seaView: "seaView",
   beachfront: "beachfront",
@@ -42,6 +42,85 @@ const FEATURE_FIELD: Record<MatchFeature, keyof RealEstateObject> = {
   parking: "parking",
   gated: "gated",
 };
+
+/** Фичи, доступные для выбора в профиле (ключи FEATURE_FIELD). */
+export const VALID_FEATURES = Object.keys(FEATURE_FIELD) as MatchFeature[];
+
+const VALID_GOALS: MatchGoal[] = ["live", "invest", "rent-out", "vacation", "mixed"];
+const VALID_TIMEFRAMES: MatchTimeframe[] = ["now", "1-3m", "3-6m", "browsing"];
+const VALID_PROFILE_TYPES: ObjectType[] = ["Land", "Villa", "House", "Apartment", "Project"];
+const VALID_TENURES: TenureType[] = ["Freehold", "Leasehold", "Mixed"];
+
+/**
+ * Приводит сырой профиль (от LLM или скриптованного фолбэка) к валидному
+ * `BuyerProfile`: отбрасывает неизвестные значения, чистит числа, ограничивает
+ * районы известным списком, дедуплицирует массивы. Чистая — тестируется.
+ */
+export function sanitizeProfile(
+  raw: Record<string, unknown> | null | undefined,
+  validDistricts: string[] = [],
+): BuyerProfile {
+  const r = raw ?? {};
+  const p: BuyerProfile = {};
+  const asArray = (v: unknown): unknown[] => (Array.isArray(v) ? v : []);
+  const posNum = (v: unknown): number | undefined => {
+    const n = Number(v);
+    return Number.isFinite(n) && n > 0 ? n : undefined;
+  };
+  const oneOf = <T extends string>(v: unknown, allowed: readonly T[]): T | undefined =>
+    typeof v === "string" && (allowed as readonly string[]).includes(v) ? (v as T) : undefined;
+  const uniqIn = <T extends string>(v: unknown, allowed: readonly T[]): T[] =>
+    [...new Set(asArray(v).filter((x): x is T => typeof x === "string" && (allowed as readonly string[]).includes(x)))];
+
+  const goal = oneOf(r.goal, VALID_GOALS);
+  if (goal) p.goal = goal;
+  const mode = oneOf(r.mode, ["buy", "rent"] as const);
+  if (mode) p.mode = mode;
+  const bMin = posNum(r.budgetMinMThb);
+  if (bMin) p.budgetMinMThb = bMin;
+  const bMax = posNum(r.budgetMaxMThb);
+  if (bMax) p.budgetMaxMThb = bMax;
+  const tenure = uniqIn(r.tenure, VALID_TENURES);
+  if (tenure.length) p.tenure = tenure;
+  if (r.leaseholdDiscussed === true) p.leaseholdDiscussed = true;
+  const districts = [...new Set(asArray(r.districts).filter(
+    (d): d is string => typeof d === "string" && (validDistricts.length === 0 || validDistricts.includes(d)),
+  ))];
+  if (districts.length) p.districts = districts;
+  const types = uniqIn(r.type, VALID_PROFILE_TYPES);
+  if (types.length) p.type = types;
+  const beds = posNum(r.bedroomsMin);
+  if (beds) p.bedroomsMin = Math.round(beds);
+  const feats = uniqIn(r.mustHaves, VALID_FEATURES);
+  if (feats.length) p.mustHaves = feats;
+  const timeframe = oneOf(r.timeframe, VALID_TIMEFRAMES);
+  if (timeframe) p.timeframe = timeframe;
+  if (typeof r.notes === "string" && r.notes.trim()) p.notes = r.notes.trim().slice(0, 600);
+  const lang = oneOf(r.lang, ["en", "ru"] as const);
+  if (lang) p.lang = lang;
+  return p;
+}
+
+/**
+ * Аккумулирующее слияние профилей (для скриптованного фолбэка без LLM): массивы
+ * объединяются, скаляры из `patch` перекрывают базу. LLM-путь возвращает полный
+ * профиль и в этом не нуждается.
+ */
+export function mergeProfile(base: BuyerProfile, patch: BuyerProfile): BuyerProfile {
+  const union = <T>(a?: T[], b?: T[]): T[] | undefined => {
+    if (!a && !b) return undefined;
+    return [...new Set([...(a ?? []), ...(b ?? [])])];
+  };
+  return {
+    ...base,
+    ...patch,
+    tenure: union(base.tenure, patch.tenure),
+    districts: union(base.districts, patch.districts),
+    type: union(base.type, patch.type),
+    mustHaves: union(base.mustHaves, patch.mustHaves),
+    notes: [base.notes, patch.notes].filter(Boolean).join(" ").trim().slice(0, 600) || undefined,
+  };
+}
 
 /** Профиль → `ListingsFilter`. Бюджет (млн THB) → диапазон цены (THB) в режиме buy. */
 export function profileToFilter(p: BuyerProfile): ListingsFilter {

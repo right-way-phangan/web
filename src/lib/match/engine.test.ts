@@ -6,6 +6,8 @@ import {
   deterministicRank,
   serializeCandidate,
   formatReasons,
+  sanitizeProfile,
+  mergeProfile,
 } from "./engine";
 import type { BuyerProfile } from "@/types/match";
 import type { RealEstateObject } from "@/types/object";
@@ -127,6 +129,47 @@ describe("deterministicRank & formatReasons", () => {
   it("falls back to a generic phrase with no matched criteria", () => {
     expect(formatReasons([], "en")).toBe("close to your criteria");
     expect(formatReasons([], "ru")).toBe("близко к вашим критериям");
+  });
+});
+
+describe("sanitizeProfile", () => {
+  it("keeps valid fields, coerces numbers, drops unknown districts and features", () => {
+    const p = sanitizeProfile(
+      {
+        goal: "invest",
+        budgetMaxMThb: "15",
+        type: ["Villa", "Spaceship"],
+        districts: ["Sri Thanu", "Atlantis"],
+        mustHaves: ["seaView", "helipad"],
+        timeframe: "1-3m",
+        junk: 123,
+      },
+      ["Sri Thanu", "Ban Tai"],
+    );
+    expect(p.goal).toBe("invest");
+    expect(p.budgetMaxMThb).toBe(15);
+    expect(p.type).toEqual(["Villa"]);
+    expect(p.districts).toEqual(["Sri Thanu"]);
+    expect(p.mustHaves).toEqual(["seaView"]);
+    expect(p.timeframe).toBe("1-3m");
+    expect(p).not.toHaveProperty("junk");
+  });
+
+  it("returns an empty profile for garbage input", () => {
+    expect(sanitizeProfile(null)).toEqual({});
+    expect(sanitizeProfile({ goal: "nonsense", budgetMaxMThb: -5 })).toEqual({});
+  });
+});
+
+describe("mergeProfile", () => {
+  it("unions arrays and prefers patch scalars", () => {
+    const merged = mergeProfile(
+      { type: ["Villa"], districts: ["Sri Thanu"], budgetMaxMThb: 10 },
+      { type: ["Land"], districts: ["Ban Tai"], budgetMaxMThb: 15 },
+    );
+    expect(merged.type).toEqual(["Villa", "Land"]);
+    expect(merged.districts).toEqual(["Sri Thanu", "Ban Tai"]);
+    expect(merged.budgetMaxMThb).toBe(15);
   });
 });
 

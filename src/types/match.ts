@@ -75,3 +75,23 @@ export interface MatchResult {
   reason: string;
   card: RealEstateObject;
 }
+
+/** Реплика диалога (стейт держит клиент; сервер stateless). */
+export interface MatchMessage {
+  role: "user" | "assistant";
+  content: string;
+}
+
+/** Результат одного хода интервью (от LLM или скриптованного фолбэка). */
+export interface InterviewResult {
+  reply: string;
+  profile: BuyerProfile;
+  done: boolean;
+}
+
+/** Строка ранжирования от LLM (до привязки к карточке объекта). */
+export interface RankedItem {
+  rw: string;
+  fitPct: number;
+  reason: string;
+}
