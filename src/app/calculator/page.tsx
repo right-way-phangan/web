@@ -3,7 +3,9 @@ import { PageHero } from "@/components/sections/page-hero";
 import { Appear } from "@/components/motion/appear";
 import { Disclaimer } from "@/components/legal/disclaimer";
 import { RoiCalculator } from "@/components/calculator/roi-calculator";
+import { CalculatorOnboarding } from "@/components/calculator/calculator-onboarding";
 import { MarketMiniBlock } from "@/components/calculator/market-preset";
+import { CollapsedSection } from "@/components/calculator/collapsed-section";
 import { BuildProForma } from "@/components/calculator/build-proforma";
 import { CalculatorFaq } from "@/components/calculator/calculator-faq";
 import { getPublicObjects, slimObjectForCard } from "@/lib/data/objects";
@@ -45,9 +47,11 @@ export default async function CalculatorPage({
         title="See what a Phangan property could be worth."
         lede="Set your own growth outlook and horizon. We'll project the value, ROI, and capital curve — then surface listings that fit the budget."
       />
-      <div className="container-prose mt-16 md:mt-24">
+      <CalculatorOnboarding locale="en" />
+      <div className="container-prose mt-12 md:mt-16">
         <Appear delay={0}>
           <RoiCalculator
+            entry
             catalog={catalog}
             market={market}
             initialPriceThb={initialPriceThb}
@@ -60,9 +64,14 @@ export default async function CalculatorPage({
         <Appear delay={0.1} className="mt-16 md:mt-24">
           <MarketMiniBlock market={market} />
         </Appear>
-        <Appear delay={0.2} className="mt-16 md:mt-24">
+        <CollapsedSection
+          id="build"
+          eyebrow="Also"
+          title="Thinking of building instead of buying?"
+          lede="Open the build-to-rent pro-forma — land plus construction cost against the rental yield it earns."
+        >
           <BuildProForma market={market} />
-        </Appear>
+        </CollapsedSection>
         <CalculatorFaq locale="en" />
         <Disclaimer locale="en" />
       </div>

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Route } from "next";
-import { ArrowRight, MapPin, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowRight, BarChart3, Calculator, MapPin, Scale, ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Hero } from "@/components/sections/hero";
 import { FeaturedListings } from "@/components/sections/featured-listings";
@@ -11,6 +11,7 @@ import { Magnetic } from "@/components/motion/magnetic";
 import type { HomeDict, Locale } from "@/lib/i18n/dictionaries";
 
 const VALUE_ICONS = [MapPin, ShieldCheck, Sparkles] as const;
+const TOOL_ICONS = [Calculator, Scale, BarChart3] as const;
 
 /**
  * The single home page, shared by the EN root (`/`) and RU (`/ru`) — one
@@ -63,6 +64,59 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
             );
           })}
         </div>
+      </section>
+
+      {/* Tools — the calculator, valuation and market data that power every listing */}
+      <section className="container-prose py-24 md:py-32">
+        <p className="flex items-center gap-3 text-xs font-medium uppercase tracking-eyebrow text-brass-700">
+          <span className="h-px w-10 bg-brass-600/60" aria-hidden />
+          {dict.tools.eyebrow}
+        </p>
+        <h2 className="mt-5 max-w-3xl text-balance">{dict.tools.title}</h2>
+        <p className="mt-5 max-w-xl text-lg text-forest-600/70">{dict.tools.lede}</p>
+
+        <div className="mt-16 grid gap-6 md:grid-cols-3">
+          {dict.tools.items.map((item, i) => {
+            const Icon = TOOL_ICONS[i] ?? Calculator;
+            return (
+              <Appear key={item.title} delay={i * 0.1} className="h-full">
+                <Link
+                  href={`${base}${item.href}` as Route}
+                  className="group block h-full rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5 transition-shadow duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:shadow-soft"
+                >
+                  <div className="flex h-full flex-col rounded-core bg-cream-50 p-8 shadow-bezel">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-forest-900 text-cream-50 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:-translate-y-0.5">
+                      <Icon className="h-5 w-5" strokeWidth={1.5} />
+                    </div>
+                    <h3 className="mt-7 flex items-center gap-2 font-serif text-2xl text-forest-900">
+                      {item.title}
+                      <ArrowRight
+                        className="h-4 w-4 -translate-x-1 text-brass-700 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+                        aria-hidden
+                      />
+                    </h3>
+                    <p className="mt-3 flex-1 text-base leading-relaxed text-forest-600/75">{item.text}</p>
+                  </div>
+                </Link>
+              </Appear>
+            );
+          })}
+        </div>
+
+        <p className="mt-10 text-sm text-forest-600/70">
+          <span className="text-forest-500/60">{dict.tools.moreLabel}: </span>
+          {dict.tools.more.map((m, i) => (
+            <span key={m.href}>
+              {i > 0 ? <span className="text-forest-500/40"> · </span> : null}
+              <Link
+                href={`${base}${m.href}` as Route}
+                className="nav-underline text-forest-700 hover:text-brass-700"
+              >
+                {m.label}
+              </Link>
+            </span>
+          ))}
+        </p>
       </section>
 
       <Reveal>

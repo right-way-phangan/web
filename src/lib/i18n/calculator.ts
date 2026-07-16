@@ -21,6 +21,30 @@ export interface CalcDict {
   // Assumptions header
   assumptionsTitle: string;
   assumptionsHint: string;
+  // Field-group labels
+  groupGrowth: string;
+  groupRental: string;
+  // Entry chooser — "what are we pricing?"
+  entryTitle: string;
+  entryFromCatalog: string;
+  entryOwn: string;
+  entryBuild: string;
+  entryPickListing: string;
+  entryPickPlaceholder: string;
+  entryBuildCta: string;
+  ownValueLabel: string;
+  ownDistrict: string;
+  ownBedrooms: string;
+  ownBedroomsAny: string;
+  ownStudio: string;
+  ownAirbnbLabel: string;
+  ownAirbnbHint: string;
+  ownAirbnbBad: string;
+  ownAirbnbHit: (asOf: string) => string;
+  ownAirbnbMiss: string;
+  ownApply: string;
+  ownApplied: string;
+  ownLeadTag: string;
   // Core fields
   contractPrice: string;
   purchasePrice: string;
@@ -310,6 +334,31 @@ const EN: CalcDict = {
   leasehold: "Leasehold",
   assumptionsTitle: "Your assumptions",
   assumptionsHint: "Pre-filled with typical Koh Phangan figures — adjust to your case.",
+  groupGrowth: "Growth & horizon",
+  groupRental: "Rental income",
+  entryTitle: "What are you pricing?",
+  entryFromCatalog: "One of our listings",
+  entryOwn: "My own property",
+  entryBuild: "Build on a plot",
+  entryPickListing: "Load a listing's price and figures.",
+  entryPickPlaceholder: "Choose a listing…",
+  entryBuildCta: "Open the build-to-rent calculator →",
+  ownValueLabel: "Current value or asking price (THB)",
+  ownDistrict: "District",
+  ownBedrooms: "Bedrooms",
+  ownBedroomsAny: "Any",
+  ownStudio: "Studio",
+  ownAirbnbLabel: "Airbnb link (optional)",
+  ownAirbnbHint:
+    "Paste your Airbnb listing — we'll use its nightly rate if it's in our island dataset, otherwise district rates. The link travels with your enquiry.",
+  ownAirbnbBad: "That doesn't look like an Airbnb room link.",
+  ownAirbnbHit: (asOf: string) =>
+    `Nightly rate from our market data${asOf ? ` (${asOf})` : ""} — adjust it to your place.`,
+  ownAirbnbMiss:
+    "This listing isn't in our dataset yet — using district rates. We'll attach the link to your enquiry.",
+  ownApply: "Use these figures",
+  ownApplied: "Loaded — the projection is below.",
+  ownLeadTag: "Own property",
   contractPrice: "Contract price",
   purchasePrice: "Purchase price",
   growthLabel: "Expected annual price growth",
@@ -571,6 +620,31 @@ const RU: CalcDict = {
   freehold: "Фрихолд",
   leasehold: "Лизхолд",
   assumptionsTitle: "Ваши параметры",
+  groupGrowth: "Рост и горизонт",
+  groupRental: "Аренда",
+  entryTitle: "Что считаем?",
+  entryFromCatalog: "Наш объект",
+  entryOwn: "Свой объект",
+  entryBuild: "Стройка на участке",
+  entryPickListing: "Подставим цену и параметры объекта.",
+  entryPickPlaceholder: "Выберите объект…",
+  entryBuildCta: "Открыть калькулятор «построй и сдавай» →",
+  ownValueLabel: "Текущая стоимость или цена (THB)",
+  ownDistrict: "Район",
+  ownBedrooms: "Спальни",
+  ownBedroomsAny: "Любое",
+  ownStudio: "Студия",
+  ownAirbnbLabel: "Ссылка на Airbnb (необязательно)",
+  ownAirbnbHint:
+    "Вставьте своё объявление Airbnb — подставим ставку за ночь, если оно есть в нашем срезе острова, иначе по данным района. Ссылка уйдёт с вашей заявкой.",
+  ownAirbnbBad: "Это не похоже на ссылку объявления Airbnb.",
+  ownAirbnbHit: (asOf: string) =>
+    `Ставка за ночь из наших данных рынка${asOf ? ` (${asOf})` : ""} — поправьте под свой объект.`,
+  ownAirbnbMiss:
+    "Этого объявления пока нет в нашем срезе — берём ставку по району. Ссылку приложим к заявке.",
+  ownApply: "Подставить",
+  ownApplied: "Готово — прогноз ниже.",
+  ownLeadTag: "Свой объект",
   assumptionsHint: "Заполнено типичными для Пангана значениями — поправьте под свой случай.",
   contractPrice: "Цена по договору",
   purchasePrice: "Цена покупки",

@@ -30,6 +30,14 @@ export interface HomeDict {
     lede: string;
     items: { title: string; text: string }[];
   };
+  tools: {
+    eyebrow: string;
+    title: string;
+    lede: string;
+    items: { title: string; text: string; href: string }[];
+    moreLabel: string;
+    more: { label: string; href: string }[];
+  };
   featured: { eyebrow: string; title: string; lede: string };
   stats: {
     listings: string;
@@ -70,6 +78,34 @@ const en: HomeDict = {
         title: "Honest numbers",
         text: "Yields, price history, drawbacks — all in. Our reports and calculator show figures we'd trust with our own money. No fantasy returns.",
       },
+    ],
+  },
+  tools: {
+    eyebrow: "Tools",
+    title: "Run the numbers yourself.",
+    lede: "Free, no sign-up. The data behind every listing, open to you.",
+    items: [
+      {
+        title: "Investment calculator",
+        text: "Project value, ROI and rent — for one of our listings or your own property.",
+        href: "/calculator",
+      },
+      {
+        title: "What's it worth?",
+        text: "Estimate land or a villa against real island sales data.",
+        href: "/tools/estimate",
+      },
+      {
+        title: "Market insights",
+        text: "Nightly rates, occupancy and district ratings — a live read of the rental market.",
+        href: "/insights",
+      },
+    ],
+    moreLabel: "More tools",
+    more: [
+      { label: "What can I build?", href: "/tools/zoning" },
+      { label: "Buying guides", href: "/knowledge" },
+      { label: "FAQ", href: "/faq" },
     ],
   },
   featured: {
@@ -122,6 +158,34 @@ const ru: HomeDict = {
         title: "Честные цифры",
         text: "Доходность, история цен, недостатки — всё как есть. В отчётах и калькуляторе — цифры, которым мы доверили бы свои деньги. Без сказочных процентов.",
       },
+    ],
+  },
+  tools: {
+    eyebrow: "Инструменты",
+    title: "Проверьте цифры сами.",
+    lede: "Бесплатно, без регистрации. Данные, что стоят за каждым объектом, — открыты вам.",
+    items: [
+      {
+        title: "Калькулятор инвестиций",
+        text: "Прогноз стоимости, ROI и аренды — по нашему объекту или по вашему.",
+        href: "/calculator",
+      },
+      {
+        title: "Сколько стоит объект?",
+        text: "Оценка земли или виллы по реальным данным продаж на острове.",
+        href: "/tools/estimate",
+      },
+      {
+        title: "Аналитика рынка",
+        text: "Ставки за ночь, загрузка и рейтинг районов — живой срез рынка аренды.",
+        href: "/insights",
+      },
+    ],
+    moreLabel: "Ещё инструменты",
+    more: [
+      { label: "Что можно построить?", href: "/tools/zoning" },
+      { label: "База знаний", href: "/knowledge" },
+      { label: "Вопросы и ответы", href: "/faq" },
     ],
   },
   featured: {
