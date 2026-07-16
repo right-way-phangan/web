@@ -30,7 +30,7 @@ export default async function InsightsPage() {
       <PageHero
         eyebrow="Market insights"
         title="The Phangan market — in numbers."
-        lede="Check what your place could earn a night, see what land costs by district, what a pool or sea view adds, and which configuration pays back fastest. Live data, so you don't have to guess."
+        lede="Check what your place could earn a night — paste your Airbnb link or pick the details — plus what land costs by district, what a pool or sea view adds, and which configuration pays back fastest. Live data, so you don't have to guess."
       />
       <RentalInsights
         data={data}

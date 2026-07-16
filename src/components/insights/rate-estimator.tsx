@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { track } from "@vercel/analytics";
-import { Calculator, Waves, Eye, Lock, TrendingUp } from "lucide-react";
+import { Calculator, Waves, Eye, Lock, TrendingUp, Link2, CheckCircle2 } from "lucide-react";
 import { LeadForm } from "@/components/forms/lead-form";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { type RentalMarket, type MoneyFmt } from "@/lib/data/rental-market";
@@ -80,6 +80,16 @@ const RE = {
     leadMsg: (summary: string) => `Rate check — ${summary}. Please send my full projection and a read on this property.`,
     summary: (p: { config: string; district: string; feats: string; nightly: string; monthly: string }) =>
       `${p.config} in ${p.district}${p.feats} — est. ${p.nightly}/night (~${p.monthly}/mo)`,
+    // Airbnb-link prefill
+    urlLabel: "Already listed on Airbnb?",
+    urlPlaceholder: "Paste your Airbnb listing link",
+    urlCheck: "Use my listing",
+    urlChecking: "Reading…",
+    urlHint: "We match it against our market sample — no request to Airbnb.",
+    urlFound: (cfg: string) => `Filled from your listing: ${cfg}. Adjust anything below.`,
+    urlNotFound: "Not in our sample yet — pick your details below (coverage grows weekly).",
+    urlBadLink: "That doesn't look like an Airbnb listing link.",
+    urlError: "Couldn't read that right now — pick your details below.",
   },
   ru: {
     eyebrow: "Проверка ставки",
@@ -141,8 +151,39 @@ const RE = {
       `Проверка ставки — ${summary}. Пришлите, пожалуйста, полный прогноз и разбор по объекту.`,
     summary: (p: { config: string; district: string; feats: string; nightly: string; monthly: string }) =>
       `${p.config} в ${p.district}${p.feats} — оценка ${p.nightly}/ночь (~${p.monthly}/мес)`,
+    // Подстановка по ссылке Airbnb
+    urlLabel: "Уже размещён на Airbnb?",
+    urlPlaceholder: "Вставьте ссылку на ваше объявление Airbnb",
+    urlCheck: "Взять из объявления",
+    urlChecking: "Читаем…",
+    urlHint: "Сверяем с нашей выборкой рынка — без обращения к Airbnb.",
+    urlFound: (cfg: string) => `Заполнили из вашего объявления: ${cfg}. Поля ниже можно поправить.`,
+    urlNotFound: "Пока нет в нашей выборке — выберите параметры ниже (покрытие растёт еженедельно).",
+    urlBadLink: "Это не похоже на ссылку объявления Airbnb.",
+    urlError: "Сейчас не получилось прочитать — выберите параметры ниже.",
   },
 };
+
+/* --------------------- Airbnb-link lookup helpers --------------------- */
+
+type RoomHit = { d: string; b: number | null; t: string | null; p: 0 | 1; s: 0 | 1 };
+
+/** Numeric room_id out of an Airbnb link (…/rooms/<id>) — mirrors the pipeline. */
+function extractRoomId(raw: string): string | null {
+  const m = raw.match(/\/rooms\/(?:plus\/)?(\d+)/);
+  if (m) return m[1];
+  const bare = raw.trim().match(/^(\d{5,})$/);
+  return bare ? bare[1] : null;
+}
+
+/** First 12 hex of SHA-256 — same key the exporter writes (hashlib.sha256). */
+async function sha256hex12(s: string): Promise<string> {
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s));
+  return Array.from(new Uint8Array(buf))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("")
+    .slice(0, 12);
+}
 
 type ReDict = (typeof RE)["en"];
 
@@ -176,6 +217,54 @@ export function RateEstimator({
   const [pool, setPool] = useState(false);
   const [seaView, setSeaView] = useState(false);
   const [scenario, setScenario] = useState<OccScenario>("base");
+
+  // Airbnb-link prefill: paste a listing URL → recognise it in our sample and
+  // fill the inputs. Pure lookup against a lazy-loaded hashed table — no fetch to
+  // Airbnb; misses fall back to manual entry.
+  const [url, setUrl] = useState("");
+  const [lookup, setLookup] = useState<{
+    state: "idle" | "loading" | "found" | "notfound" | "badlink" | "error";
+    label?: string;
+  }>({ state: "idle" });
+  const roomsCache = useRef<Record<string, RoomHit> | null>(null);
+
+  async function checkUrl() {
+    const rid = extractRoomId(url);
+    if (!rid) {
+      setLookup({ state: "badlink" });
+      return;
+    }
+    setLookup({ state: "loading" });
+    try {
+      let map = roomsCache.current;
+      if (!map) {
+        const res = await fetch("/data/airbnb-rooms.json");
+        if (!res.ok) throw new Error("no lookup table");
+        map = (await res.json()) as Record<string, RoomHit>;
+        roomsCache.current = map;
+      }
+      const hit = map[await sha256hex12(rid)];
+      if (!hit) {
+        setLookup({ state: "notfound" });
+        track("rate_check_url", { found: false });
+        return;
+      }
+      setDistrict(hit.d);
+      setType(hit.t && types.some((x) => x.type === hit.t) ? hit.t : "");
+      setBedrooms(
+        hit.b != null && bedroomOpts.some((b) => b.bedrooms === hit.b) ? String(hit.b) : "",
+      );
+      setPool(!!hit.p);
+      setSeaView(!!hit.s);
+      const typeLabel = types.find((x) => x.type === hit.t)?.label ?? "";
+      const brLabel = hit.b == null ? "" : hit.b === 0 ? t.studio : t.br(hit.b);
+      const cfg = [brLabel, typeLabel].filter(Boolean).join(" ");
+      setLookup({ state: "found", label: `${cfg ? `${cfg} · ` : ""}${hit.d}` });
+      track("rate_check_url", { found: true, district: hit.d });
+    } catch {
+      setLookup({ state: "error" });
+    }
+  }
 
   const est = useMemo<RateEstimate | null>(() => {
     if (!district) return null;
@@ -238,6 +327,55 @@ export function RateEstimator({
       <div className="mt-6 overflow-hidden rounded-sm border border-brass-300/50 bg-cream-50">
         {/* Inputs */}
         <div className="border-b border-forest-500/10 bg-brass-500/[0.04] p-5 md:p-6">
+          {/* Airbnb-link prefill — recognise the listing and fill the fields */}
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              void checkUrl();
+            }}
+            className="mb-4 border-b border-forest-500/10 pb-4"
+          >
+            <label
+              htmlFor="ab-url"
+              className="mb-1.5 flex items-center gap-1.5 text-[11px] font-medium text-forest-500/70"
+            >
+              <Link2 className="h-3.5 w-3.5 text-brass-500" />
+              {t.urlLabel}
+            </label>
+            <div className="flex flex-col gap-2 sm:flex-row">
+              <input
+                id="ab-url"
+                type="url"
+                inputMode="url"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                placeholder={t.urlPlaceholder}
+                className="min-w-0 flex-1 rounded-sm border border-forest-500/20 bg-cream-50 px-3 py-2 text-sm text-forest-900 outline-none placeholder:text-forest-500/40 focus:border-brass-500"
+              />
+              <button
+                type="submit"
+                disabled={!url || lookup.state === "loading"}
+                className="shrink-0 rounded-sm bg-panel px-4 py-2 text-sm font-medium text-panel-fg transition-colors hover:bg-panel/90 disabled:opacity-50"
+              >
+                {lookup.state === "loading" ? t.urlChecking : t.urlCheck}
+              </button>
+            </div>
+            {lookup.state === "found" && lookup.label ? (
+              <p className="mt-2 inline-flex items-center gap-1.5 text-xs text-forest-500">
+                <CheckCircle2 className="h-4 w-4 text-brass-500" />
+                {t.urlFound(lookup.label)}
+              </p>
+            ) : lookup.state === "notfound" ? (
+              <p className="mt-2 text-xs text-forest-500/60">{t.urlNotFound}</p>
+            ) : lookup.state === "badlink" ? (
+              <p className="mt-2 text-xs text-forest-500/60">{t.urlBadLink}</p>
+            ) : lookup.state === "error" ? (
+              <p className="mt-2 text-xs text-forest-500/60">{t.urlError}</p>
+            ) : (
+              <p className="mt-2 text-[11px] text-forest-500/45">{t.urlHint}</p>
+            )}
+          </form>
+
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             <Select label={t.district} value={district} onChange={setDistrict} placeholder={`— ${t.district} —`}>
               {districts.map((d) => (
