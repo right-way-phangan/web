@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState, useTransition } from "react";
-import { Send, Sparkles, RefreshCw } from "lucide-react";
+import { Send, Sparkles, RefreshCw, Mic } from "lucide-react";
 import { track } from "@vercel/analytics";
 import { matchTurn, rerankMatches } from "@/lib/actions/match";
 import { LeadForm } from "@/components/forms/lead-form";
 import { MatchResultCard } from "@/components/match/match-result-card";
+import { useSpeechInput } from "@/components/match/use-speech-input";
 import type { BuyerProfile, MatchMessage, MatchResult } from "@/types/match";
 import { cn } from "@/lib/utils/cn";
 
@@ -29,6 +30,8 @@ const COPY: Record<
     ctaSubmit: string;
     ctaMessage: (summary: string) => string;
     empty: string;
+    mic: string;
+    micStop: string;
   }
 > = {
   en: {
@@ -50,6 +53,8 @@ const COPY: Record<
     ctaMessage: (s) => `I used the AI matcher. What I'm after:\n${s}`,
     empty:
       "I couldn't find a close match in what's public right now — leave your contact and we'll check private/upcoming listings.",
+    mic: "Speak",
+    micStop: "Stop",
   },
   ru: {
     opening:
@@ -70,6 +75,8 @@ const COPY: Record<
     ctaMessage: (s) => `Я прошёл ИИ-подбор. Что ищу:\n${s}`,
     empty:
       "Среди опубликованного сейчас близкого совпадения не нашлось — оставьте контакт, проверим закрытые/будущие объекты.",
+    mic: "Голосом",
+    micStop: "Стоп",
   },
 };
 
@@ -121,6 +128,10 @@ export function MatchChat({ locale }: { locale: Locale }) {
   const [rejected, setRejected] = useState<Set<string>>(new Set());
   const [input, setInput] = useState("");
   const [pending, startTransition] = useTransition();
+
+  const speech = useSpeechInput(locale, (text) =>
+    setInput((v) => (v ? `${v} ${text}` : text)),
+  );
 
   const scrollRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -240,6 +251,27 @@ export function MatchChat({ locale }: { locale: Locale }) {
             disabled={pending}
             className="flex-1 rounded-sm border border-forest-500/20 bg-cream-100 px-3.5 py-2.5 text-sm text-forest-900 placeholder:text-forest-500/45 focus:border-brass-500/50 focus:outline-none disabled:opacity-60"
           />
+          {speech.supported ? (
+            <button
+              type="button"
+              onClick={() =>
+                speech.listening ? speech.stop() : speech.start()
+              }
+              disabled={pending}
+              aria-pressed={speech.listening}
+              title={speech.listening ? t.micStop : t.mic}
+              className={cn(
+                "inline-flex h-[42px] w-[42px] items-center justify-center rounded-sm border transition-colors disabled:opacity-50",
+                speech.listening
+                  ? "border-brass-500/50 bg-brass-500/15 text-brass-500"
+                  : "border-forest-500/20 text-forest-500/60 hover:border-brass-500/40 hover:text-brass-500",
+              )}
+            >
+              <Mic
+                className={cn("h-4 w-4", speech.listening && "animate-pulse")}
+              />
+            </button>
+          ) : null}
           <button
             type="submit"
             disabled={pending || !input.trim()}
