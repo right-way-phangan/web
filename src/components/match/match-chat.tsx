@@ -1,9 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState, useTransition } from "react";
-import { Send, Sparkles, RefreshCw, Mic } from "lucide-react";
+import { Send, Sparkles, RefreshCw, Mic, Bell } from "lucide-react";
+import Link from "next/link";
+import type { Route } from "next";
 import { track } from "@vercel/analytics";
 import { matchTurn, rerankMatches } from "@/lib/actions/match";
+import { saveMatchProfile } from "@/lib/actions/match-save";
 import { LeadForm } from "@/components/forms/lead-form";
 import { MatchResultCard } from "@/components/match/match-result-card";
 import { useSpeechInput } from "@/components/match/use-speech-input";
@@ -32,6 +35,9 @@ const COPY: Record<
     empty: string;
     mic: string;
     micStop: string;
+    notify: string;
+    notifyDone: string;
+    notifyOpen: string;
   }
 > = {
   en: {
@@ -55,6 +61,9 @@ const COPY: Record<
       "I couldn't find a close match in what's public right now — leave your contact and we'll check private/upcoming listings.",
     mic: "Speak",
     micStop: "Stop",
+    notify: "Notify me about new matches",
+    notifyDone: "Saved. Bookmark your matches page:",
+    notifyOpen: "open",
   },
   ru: {
     opening:
@@ -77,6 +86,9 @@ const COPY: Record<
       "Среди опубликованного сейчас близкого совпадения не нашлось — оставьте контакт, проверим закрытые/будущие объекты.",
     mic: "Голосом",
     micStop: "Стоп",
+    notify: "Уведомлять о новых совпадениях",
+    notifyDone: "Сохранено. Сохраните ссылку на страницу совпадений:",
+    notifyOpen: "открыть",
   },
 };
 
@@ -132,6 +144,19 @@ export function MatchChat({ locale }: { locale: Locale }) {
   const speech = useSpeechInput(locale, (text) =>
     setInput((v) => (v ? `${v} ${text}` : text)),
   );
+
+  const [savedToken, setSavedToken] = useState<string | null>(null);
+
+  function saveProfile() {
+    if (pending || savedToken) return;
+    startTransition(async () => {
+      const res = await saveMatchProfile(profile, locale);
+      if (res.ok && res.token) {
+        setSavedToken(res.token);
+        track("match_saved", {});
+      }
+    });
+  }
 
   const scrollRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -331,6 +356,35 @@ export function MatchChat({ locale }: { locale: Locale }) {
           ) : (
             <p className="text-sm text-forest-500/75">{t.empty}</p>
           )}
+
+          {/* Уведомлять о новых совпадениях — сохранить профиль (magic-link) */}
+          <div className="mt-8">
+            {savedToken ? (
+              <p className="text-sm text-forest-500/75">
+                {t.notifyDone}{" "}
+                <Link
+                  href={
+                    (locale === "ru"
+                      ? `/ru/match/saved/${savedToken}`
+                      : `/match/saved/${savedToken}`) as Route
+                  }
+                  className="text-brass-500 underline underline-offset-2"
+                >
+                  {t.notifyOpen}
+                </Link>
+              </p>
+            ) : (
+              <button
+                type="button"
+                onClick={saveProfile}
+                disabled={pending}
+                className="inline-flex items-center gap-1.5 rounded-sm border border-forest-500/20 px-3.5 py-2 text-sm text-forest-500 transition-colors hover:border-brass-500/40 hover:text-brass-500 disabled:opacity-50"
+              >
+                <Bell className="h-4 w-4" />
+                {t.notify}
+              </button>
+            )}
+          </div>
 
           {/* CTA — тёплое знакомство с агентом (лид kind=match) */}
           <div className="mt-14 rounded-sm border border-forest-500/15 bg-cream-50 p-6 md:p-8">
