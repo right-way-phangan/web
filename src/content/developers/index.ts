@@ -4,9 +4,11 @@ import type {
   ResolvedTimelineEntry,
 } from "./types";
 import { arqa } from "./arqa";
+import { venera } from "./venera";
 
 const profiles: Record<string, DeveloperProfile> = {
   [arqa.slug]: arqa,
+  [venera.slug]: venera,
 };
 
 /** Curated profile for a developer slug, or null when only the catalog group exists. */
