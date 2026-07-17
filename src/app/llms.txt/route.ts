@@ -16,6 +16,7 @@ export async function GET(): Promise<Response> {
 
   const corePages: Array<[string, string, string]> = [
     ["Listings", "/listings", "Curated land, villas, and houses currently for sale on Koh Phangan."],
+    ["AI Match", "/match", "Conversational AI property matcher: describe what you want and get a ranked shortlist of Koh Phangan listings with a fit score for each. Free, no sign-up."],
     ["Districts", "/districts", "Area-by-area guide to Koh Phangan: character, who each area suits, what to expect."],
     ["Services", "/services", "What Right Way does: buying and selling land, villas, and houses with end-to-end deal support."],
     ["Process", "/process", "The step-by-step buying journey: search, due diligence, contract, funds transfer, registration."],
