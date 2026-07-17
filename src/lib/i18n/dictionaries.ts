@@ -274,7 +274,6 @@ const chrome: Record<Locale, ChromeDict> = {
         items: [
           { label: "All developers", href: "/developers" },
           { label: "ARQA Development", href: "/developers/arqa-development" },
-          { label: "Venera", href: "/developers/venera" },
         ],
       },
       {
@@ -337,7 +336,6 @@ const chrome: Record<Locale, ChromeDict> = {
         items: [
           { label: "Все застройщики", href: "/ru/developers" },
           { label: "ARQA Development", href: "/ru/developers/arqa-development" },
-          { label: "Venera", href: "/ru/developers/venera" },
         ],
       },
       {
