@@ -3987,6 +3987,132 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "process",
     faqQuestion: "How do I check whether a specific plot on Koh Phangan is at risk of flooding before I buy it?",
   },
+  {
+    slug: "samui-model-hillside-enforcement-koh-phangan",
+    kbId: "kb-0059",
+    topic: "Structures",
+    title: "The 'Samui Model' hillside-enforcement playbook reaches Koh Phangan: retroactive risk for villas built years ago",
+    short:
+      "Since late 2024, a coalition of ISOC, the Royal Forest Department and local municipalities on Koh Samui — nicknamed the 'Samui Model' — has used aerial photography and GPS mapping to find hillside villas that exceed slope, height or forest-boundary limits, including ones built years earlier. The same aerial/GPS method reached Koh Phangan in September 2025, which means an existing hillside villa's safety now depends on what a fresh survey finds, not on how long it has stood.",
+    updated: "2026-07-18",
+    body: [
+      "Can a hillside villa that was built years ago still face a demolition order on Koh Phangan today? Yes — the risk doesn't come from a new law reaching back in time, but from new detection technology finding violations that were already there. Since 2024, aerial photography and GPS mapping have been used to systematically check hillside construction on Koh Samui, and the same method arrived on Koh Phangan in September 2025.",
+      { h: "What the 'Samui Model' actually is" },
+      {
+        ul: [
+          "**A coalition of the Internal Security Operations Command (ISOC), the Royal Forest Department and local municipalities**, active on Koh Samui since late 2024, tasked with enforcing hillside construction rules that had long existed on paper but were rarely checked on the ground.",
+          "**Aerial photography and GPS coordinate mapping** to record the exact footprint, elevation and gradient of every structure and cleared area on a slope — a materially more rigorous method than a single site inspection, and one that produces a defensible record for prosecution or demolition orders.",
+          "**Slope-based construction limits it enforces**: construction on a gradient over 50% is prohibited outright; on a 35–50% gradient, only a single dwelling is allowed, capped at 6 m in height (including the roof) and roughly 80 sqm of footprint, with at least 75% of the plot kept green and half of that under native trees.",
+          "**Real demolitions, not just warnings** — Koh Samui Municipality demolished two hillside villas in Bo Phut and Maret after finding they had been built without permission on slopes exceeding the 50% limit, at heights over 10 m against an approved 6 m cap.",
+        ],
+      },
+      { h: "The same method, now on Koh Phangan" },
+      "In September 2025, a task force under the Fourth Army Region applied the same aerial-photography-and-GPS approach to Koh Phangan and confirmed at least five buildings standing inside the island's national forest reserve, plus cleared and graded hillside land with wells already drilled for further construction — see [Illegal construction in Koh Phangan's forest reserves and hillsides](/knowledge/illegal-construction-forest-reserve-crackdown-koh-phangan) for the full findings. No source reviewed for this guide shows Surat Thani officially branding its Phangan operation the 'Samui Model' — but the detection method is identical, run by the same regional authorities, and aimed at the same category of hillside violation.",
+      { h: "Why 'built years ago' does not make a villa safe" },
+      "Koh Phangan's island-wide May 2025 environmental zoning regulation generally grandfathers structures completed before 21 May 2025 against its new elevation-based zoning bands — see [Island eco-zoning: where you can and can't build](/knowledge/koh-phangan-building-zones). That grandfathering protects a villa that was legally permitted when built from having to retrofit to the newer rules. It does not protect a villa that was already illegal at the time it was built — no valid permit, built inside a forest reserve, or exceeding the slope, height or footprint limits that already applied under the National Reserved Forest Act B.E. 2507 (1964) and local building bylaws. The Bo Phut and Maret demolitions on Samui were exactly this: villas found, years after construction, to have exceeded limits that were already in force when they were built. Aerial and GPS mapping doesn't change what was legal — it just makes it far harder for an old violation to go unnoticed.",
+      { h: "What an owner of an existing hillside villa should do now" },
+      {
+        ul: [
+          "**Get an independent slope and elevation survey done** by a licensed surveyor, rather than relying on figures in the original sale documents or the builder's own filing.",
+          "**Request the villa's approved building permit and plans directly from the local public-works office**, not just a copy handed over by the seller or builder — a March 2026 scandal confirmed 40 forged building permits tied to the Koh Phangan district, including completed villas; see [Forged building permits on Koh Phangan](/knowledge/forged-building-permits-koh-phangan-verify).",
+          "**Check whether any part of the footprint sits inside the forest-reserve boundary**, using a Royal Forest Department boundary overlay obtained through a Thai lawyer or licensed surveyor — a title deed alone does not prove a plot sits outside the reserve.",
+          "**Compare the as-built structure to the approved plans** — height, footprint and floor count all matter, since exceeding an approved plan is itself a separate violation from the slope or forest-reserve question.",
+          "**Treat any renovation or expansion as a fresh compliance event** — it will trigger a permit review under the current 2025 zoning bands, at which point any pre-existing discrepancy is likely to surface anyway.",
+        ],
+      },
+      "None of this means every older hillside villa on Koh Phangan is at risk — most were built to a genuine permit on a genuinely compliant slope. It means that the safety of an existing villa is now a question you can and should get an independent, current answer to, rather than one you infer from how long the building has stood without incident.",
+    ],
+    takeaways: [
+      "The 'Samui Model' — ISOC, the Royal Forest Department and local municipalities, active on Koh Samui since late 2024 — uses aerial photography and GPS mapping to enforce hillside slope-based construction limits, including against buildings constructed years earlier.",
+      "Samui's slope rules: construction on a gradient over 50% is banned outright; 35–50% gradient allows only a single dwelling capped at 6 m height and about 80 sqm footprint, with 75% of the plot kept green.",
+      "Since September 2025, a Fourth Army Region task force has applied the same aerial/GPS method on Koh Phangan, confirming buildings inside the island's national forest reserve.",
+      "Grandfathering under the May 2025 island-wide zoning regulation protects legally permitted structures built before 21 May 2025 from the newer zoning bands — it does not protect a villa that was already illegal (no valid permit, forest-reserve encroachment, or built beyond its approved slope/height/footprint) when it went up.",
+      "Owners of existing hillside villas should independently verify their original permit and slope/elevation figures now, rather than wait for an inspection to surface a discrepancy.",
+    ],
+    sources: [
+      {
+        title: "Bangkok Post — Two luxury Samui villas demolished",
+        url: "https://www.bangkokpost.com/thailand/general/2844787/two-luxury-samui-villas-demolished",
+      },
+      {
+        title: "Khaosod English — Koh Phangan Faces Illegal Development Crisis in Protected Areas",
+        url: "https://www.khaosodenglish.com/featured/2025/10/18/koh-phangan-faces-illegal-development-crisis-in-protected-areas/",
+      },
+      {
+        title: "Samui Best Homes — Koh Samui Land and Building Regulations",
+        url: "https://samuibesthomes.com/koh-samui-land-and-building-regulations/",
+      },
+      {
+        title: "Pattaya Mail — Samui luxury villas on hills face demolition amidst legal violations",
+        url: "https://www.pattayamail.com/thailandnews/samui-luxury-villas-on-hills-face-demolition-amidst-legal-violations-472885",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "Is my existing hillside villa on Koh Phangan at risk under the new drone-and-GPS enforcement used on Koh Samui, even if it was built years ago?",
+  },
+  {
+    slug: "thb-40-million-investment-land-ownership-route",
+    kbId: "kb-0060",
+    topic: "Structures",
+    title: "The THB 40 million investment route: how a foreigner can legally hold up to 1,600 sqm of land in their own name",
+    short:
+      "Section 96 bis of Thailand's Land Code lets a foreigner who invests at least ฿40 million in approved categories apply for Ministry of Interior approval to hold up to 1 rai (1,600 sqm) of land in their own name, for residence only. It is real law, but a narrow, discretionary and rarely used one — not a practical alternative to the standard lease-and-superficies structure for most Koh Phangan buyers.",
+    updated: "2026-07-18",
+    body: [
+      "Can a foreigner actually own land outright in Thailand by investing enough money? In one narrow case, yes. Section 96 bis of the Land Code, added by the Land Code Amendment Act (No. 8) B.E. 2542 (1999), lets a qualifying foreign investor apply to hold up to one rai (1,600 sqm) of land in their own name for a residence — an exception to the general rule that foreigners cannot own land in Thailand. It is genuine law, not a myth sold by unlicensed agents, but it was written narrowly, and more than 25 years on, legal commentators still describe nationwide use of it as very rare.",
+      { h: "What the law actually requires" },
+      {
+        ul: [
+          "**Minimum investment of ฿40,000,000**, brought into Thailand and placed in one or more categories set out in the Ministerial Regulation.",
+          "**Approved investment categories** — Thai government or state-enterprise bonds, a property fund or REIT investing in Thailand, or paid-up capital in a Board of Investment (BOI)-promoted business.",
+          "**A minimum holding period of at least 3 years** — the investment has to be maintained, not just briefly parked, to keep the land right.",
+          "**A hard cap of 1 rai (1,600 sqm)**, for residential use only — not for commercial development or as a standalone investment vehicle.",
+          "**Case-by-case written approval from the Ministry of Interior** — meeting the financial and location conditions creates eligibility to apply, not an automatic right.",
+        ],
+      },
+      { h: "Where the land itself must be" },
+      "The Ministerial Regulation also restricts where the land can sit: within the Bangkok Metropolitan Administration area, Pattaya City, a municipality (thesaban), or a zone designated residential under city-planning law. Koh Phangan's Thong Sala and Ban Tai area falls within the Ko Pha-ngan subdistrict municipality, so parts of the island may sit within the letter of this location test — but meeting the location test is only one condition among several, and approval remains discretionary even in Bangkok and Pattaya, where the test is unambiguous.",
+      { h: "Why this isn't a practical option for most villa buyers" },
+      {
+        ul: [
+          "**The ฿40 million threshold alone typically exceeds the combined value of the land and villa** most buyers are purchasing on Koh Phangan — the investor would be committing more capital to qualify than to the property itself.",
+          "**Approval is discretionary, not automatic**, even when the investment, holding period and location conditions are all satisfied — legal commentary consistently describes the review as slow and uptake nationwide as minimal.",
+          "**The right is tied to the approved investment**, not the property — if the underlying investment is withdrawn or the conditions lapse, the basis for holding the land lapses with it.",
+          "**It doesn't simplify succession or resale** the way a standard registered lease can be structured with negotiated renewal and assignment terms; see [The lease contract: clauses you must check](/knowledge/lease-contract-clauses-to-check).",
+        ],
+      },
+      "For the great majority of foreign buyers on Koh Phangan, the standard compliant structure — a registered 30-year land lease, ownership of the house itself, and a registered superficies — remains the accessible, tested route; see [How foreigners legally own a villa on Koh Phangan](/knowledge/how-foreigners-own-a-villa). Section 96 bis is worth knowing exists, but anyone with ฿40 million-plus in investible capital genuinely considering it should go through a Thai lawyer with BOI and investment-promotion experience, not a general property agent — the financial, holding-period and location conditions all have to line up, and the approval itself is discretionary.",
+    ],
+    takeaways: [
+      "Section 96 bis of the 1999 Land Code Amendment Act lets a foreigner who invests at least ฿40 million apply for Ministry of Interior approval to hold up to 1 rai (1,600 sqm) of land in their own name, for residence only.",
+      "Eligible investment categories are limited to Thai government/state-enterprise bonds, a property fund or REIT, or paid-up capital in a BOI-promoted business, maintained for at least 3 years.",
+      "The land itself must sit within Bangkok, Pattaya City, a municipality, or a city-planning-designated residential zone — Koh Phangan's Thong Sala/Ban Tai municipal area may technically qualify on location, but that is only one of several conditions.",
+      "Approval is discretionary and case-by-case; legal commentators describe nationwide uptake as very rare more than 25 years after the provision was introduced.",
+      "For the great majority of foreign buyers on Koh Phangan, the standard lease-plus-house-ownership-plus-superficies structure remains the practical route — the 40-million-baht path is a narrow option for large-capital investors, not a general alternative.",
+    ],
+    sources: [
+      {
+        title: "ThailandLawOnline — Land Code Amendment Act (No. 8) B.E. 2542 (1999), full translation",
+        url: "https://www.thailandlawonline.com/translations/land-code-amendment-act-1999",
+      },
+      {
+        title: "GoLawPhuket — Foreign Land Ownership in Thailand Under Section 96 bis (2026)",
+        url: "https://www.golawphuket.com/insights/real-estate/foreign-land-ownership-thailand-section-96bis-2026/",
+      },
+      {
+        title: "Integrity Legal — Foreigners CAN Own Land in Thailand: Section 96 Bis?",
+        url: "https://legal.co.th/resources/thailand-real-estate-property-law/title/foreigners-can-own-land-thailand-section-96-bis/",
+      },
+      {
+        title: "ASEAN Briefing — Thailand's Land Ownership Rules for Foreigners: A Comprehensive Guide",
+        url: "https://www.aseanbriefing.com/news/thailands-land-ownership-rules-for-foreigners-a-comprehensive-guide/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "Can a foreigner who invests 40 million baht in Thailand actually own land directly, and does it work on Koh Phangan?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

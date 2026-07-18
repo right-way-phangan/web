@@ -1,4 +1,4 @@
-# Last run — 2026-07-14
+# Last run — 2026-07-18
 
 **Guides published:** 2
 
@@ -6,33 +6,36 @@
 
 ## Guide 1
 
-- **slug:** `pea-rooftop-solar-buyback-2026`
-- **kbId:** `kb-0057`
-- **title (EN):** PEA's 2026 rooftop solar buyback scheme: what it means for a Koh Phangan villa's running costs
-- **title (RU):** Программа PEA 2026 года по выкупу солнечной энергии с крыш: что это значит для затрат виллы на Ко Пангане
-- **faqCategory:** `costs`
-- **faqQuestion:** Can a villa owner on Koh Phangan join Thailand's 2026 rooftop solar buyback scheme, and is it worth it?
+- **slug:** `samui-model-hillside-enforcement-koh-phangan`
+- **kbId:** `kb-0059`
+- **title (EN):** The 'Samui Model' hillside-enforcement playbook reaches Koh Phangan: retroactive risk for villas built years ago
+- **title (RU):** «Самуйская модель» контроля застройки склонов добралась до Ко Пангана: риск для вилл, построенных много лет назад
+- **faqCategory:** `structures`
+- **faqQuestion:** Is my existing hillside villa on Koh Phangan at risk under the new drone-and-GPS enforcement used on Koh Samui, even if it was built years ago?
 - **Sources used:**
-  - Nation Thailand — "PEA launches 2026 household solar rooftop scheme at 2.20 baht per unit" — scheme terms (eligibility, 5kW cap, rate, contract length, fee, application window)
-  - Khaosod English — "Thailand approves electricity bill cuts, boosts rooftop solar" (29 Apr 2026) — the separate progressive-tariff reform and streamlined-permitting targets
-  - PEA — Power Producer Information Management System (PPIM) portal (ppim.pea.co.th) — official application channel, cited as primary source
+  - Bangkok Post — "Two luxury Samui villas demolished" — Bo Phut/Maret demolitions, slope and height violations found years after construction
+  - Khaosod English — "Koh Phangan Faces Illegal Development Crisis in Protected Areas" (18 Oct 2025) — Fourth Army Region task force, aerial/GPS findings inside the forest reserve
+  - Samui Best Homes — "Koh Samui Land and Building Regulations" — slope-gradient construction thresholds (50%/35% bands, height, footprint, green-space rules)
+  - Pattaya Mail — "Samui luxury villas on hills face demolition amidst legal violations" — Samui Model naming and enforcement context
+  - Note: no source found officially brands the Phangan operation "Samui Model" — the guide is careful to say the *detection method* (aerial photography + GPS mapping, same regional authorities) is identical, not that Surat Thani has adopted the name.
 
 ## Guide 2
 
-- **slug:** `flood-drainage-due-diligence-koh-phangan`
-- **kbId:** `kb-0058`
-- **title (EN):** Flood and drainage risk on Koh Phangan: how to check a specific plot before you buy
-- **title (RU):** Риск подтопления и ливнёвки на Ко Пангане: как проверить конкретный участок перед покупкой
-- **faqCategory:** `process`
-- **faqQuestion:** How do I check whether a specific plot on Koh Phangan is at risk of flooding before I buy it?
+- **slug:** `thb-40-million-investment-land-ownership-route`
+- **kbId:** `kb-0060`
+- **title (EN):** The THB 40 million investment route: how a foreigner can legally hold up to 1,600 sqm of land in their own name
+- **title (RU):** Инвестиционный путь на 40 млн бат: как иностранец может законно держать в собственности до 1 600 кв.м земли
+- **faqCategory:** `structures`
+- **faqQuestion:** Can a foreigner who invests 40 million baht in Thailand actually own land directly, and does it work on Koh Phangan?
 - **Sources used:**
-  - Pattaya Mail — "Thailand declares disaster area in Koh Samui, Koh Phangan and several districts in the south" — 16 Dec 2024 disaster declaration, cause and scope
-  - Bangkok Post — "Heavy rain and runoff hit Koh Phangan" — 28 Dec 2024 Thong Sala flooding, district chief's runoff account, named affected areas
-  - Khaosod English — "Thailand warns 6 southern provinces of floods and landslides" — June 2026 DDPM flash-flood/runoff warning showing recurring seasonal risk
-  - GISTDA — Thailand Flood Monitoring System (flood.gistda.or.th) and FRAM (fram.gistda.or.th) — public tools cited for plot-level due diligence
+  - ThailandLawOnline — full translation of the Land Code Amendment Act (No. 8) B.E. 2542 (1999) — Section 96 bis text (investment threshold, 1-rai cap, 3-year holding period)
+  - GoLawPhuket — "Foreign Land Ownership in Thailand Under Section 96 bis (2026)" — current legal commentary
+  - Integrity Legal — "Foreigners CAN Own Land in Thailand: Section 96 Bis?" — approval mechanics and practical rarity
+  - ASEAN Briefing — "Thailand's Land Ownership Rules for Foreigners" — investment categories and location restrictions
+  - Wikipedia (Thong Sala / Ko Pha-ngan district) — used only for the descriptive, non-legal fact that Thong Sala/Ban Tai sit within a subdistrict municipality (thesaban tambon); framed as a location-test observation, not a claim that approval is likely.
 
 ## Notes
 
-Topics chosen by priority order: both were the top two remaining 🔴 (news-tier) rows in backlog section A (PEA solar scheme and flood/drainage due diligence — the third remaining 🔴, the "Samui Model" drone/GPS enforcement expansion, was left for the next run). Neither slug existed in `src/content/knowledge-base.ts` before this run (checked against all 55 existing slugs; next free kbIds were kb-0057/kb-0058). Both backlog rows marked ✅. `faqCategory` varied (costs / process). Guide 1 cross-links to `utilities-water-electricity-internet-koh-phangan` and `owners-taxes-annual-land-and-income`; Guide 2 cross-links to `due-diligence-checklist-koh-phangan`, `utilities-water-electricity-internet-koh-phangan` and `koh-phangan-building-zones`. `tsc --noEmit` passes clean after the edits; EN/RU slug and kbId counts match (55→57 articles, no duplicates).
+Both guides were the top two priority ⏳ topics in `backlog.md`: the sole remaining 🔴 (news-tier) row across the whole file ("Samui Model" drone/GPS enforcement expansion), then the top unpublished 🟢 row in section B (THB 40 million investment route) — no 🟢 rows preceded it in appearance order. Both are tagged `structures` in the backlog itself, so `faqCategory` could not be varied this round without breaking the priority-order rule. Neither slug existed in `src/content/knowledge-base.ts` before this run (checked against all 58 existing slugs; next free kbIds were kb-0059/kb-0060). Both backlog rows marked ✅. Guide 1 cross-links to `illegal-construction-forest-reserve-crackdown-koh-phangan`, `koh-phangan-building-zones` and `forged-building-permits-koh-phangan-verify`; Guide 2 cross-links to `how-foreigners-own-a-villa` and `lease-contract-clauses-to-check`. `tsc --noEmit` passes clean after the edits; EN/RU slug and kbId counts match (58→60 articles, no duplicates).
 
-Remaining ⏳ backlog: 🔴 news-tier item on the "Samui Model" drone/GPS enforcement task force expanding to Phangan; plus 🟡/🟢 evergreen items from the 2026-07-02 and 2026-07-05 batches (OCPB landlord leasing rules, water-shortage risk, 2025–2026 development pipeline, rental-yield drivers, THB 40M investment route, untitled sea-view land scams, villa insurance costs, right of habitation, Phangan airport status, company share-sale tax question, Land and Building Tax appeal process, undeveloped-neighbour due diligence) are queued for the next run.
+Remaining ⏳ backlog: OCPB landlord leasing rules (3+ units), water-shortage risk, 2025–2026 development pipeline, rental-yield drivers, untitled sea-view land scams, villa insurance costs, right of habitation, Phangan airport status, company share-sale tax question, Land and Building Tax appeal process, and undeveloped-neighbour due diligence — queued for the next run.
