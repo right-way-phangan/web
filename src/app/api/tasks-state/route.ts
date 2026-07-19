@@ -63,7 +63,9 @@ function checkAuth(req: Request): { ok: boolean } {
   const initData = req.headers.get("x-telegram-initdata") ?? "";
   const { ok, userId } = verifyInitData(initData);
   if (!ok) return { ok: false };
-  if (ALLOWED_ID && String(userId) !== ALLOWED_ID) return { ok: false };
+  // Fail-closed: без корректно заданного whitelist (ALLOWED_ID === undefined)
+  // доступ закрыт всем — иначе любой подписанный Mini App-юзер получил бы лиды.
+  if (!ALLOWED_ID || String(userId) !== ALLOWED_ID) return { ok: false };
   return { ok: true };
 }
 

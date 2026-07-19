@@ -37,11 +37,14 @@ export function sanitizePublicObject(o: RealEstateObject): RealEstateObject {
   const {
     ownerName, contacts, driveFolder, docs, circleCode, ddLawyer, ddChecklist,
     outreachStatus, outreachNote, outreachDate, outreachAttempts,
+    reasonForSelling, timeOnMarketMonths,
     needsReview,
     ...pub
   } = o;
   void ownerName;
   void needsReview;
+  void reasonForSelling; // мотивация продавца — внутренний переговорный сигнал
+  void timeOnMarketMonths; // время на рынке — внутренний сигнал переоценки
   void contacts; // контакты продавца (имя/телефон/мессенджеры) — строго внутренние
   void driveFolder;
   void docs;
