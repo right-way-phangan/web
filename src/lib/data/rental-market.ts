@@ -73,6 +73,15 @@ export interface RmCrossCheck {
   agree: boolean;
 }
 
+/** Villa nightly rate by bedroom count, Airbnb vs Booking — a second source
+ * validating the price×bedrooms curve. Only bedroom counts where both
+ * platforms have ≥8 villas. */
+export interface RmBedroomCrossCheck {
+  bedrooms: number;
+  airbnb: { adrMedian: number | null; n: number };
+  booking: { adrMedian: number | null; n: number };
+}
+
 export interface RmType {
   type: string;
   label: string;
@@ -154,6 +163,7 @@ export interface RentalMarket {
   seasonal: RmSeasonal;
   seasonality?: RmSeasonality | null;
   crossCheck?: RmCrossCheck | null;
+  bedroomCrossCheck?: RmBedroomCrossCheck[] | null;
 }
 
 /**

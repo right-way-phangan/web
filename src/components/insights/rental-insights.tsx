@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useState, useEffect, type ReactNode } from "react";
 import Link from "next/link";
 import type { Route } from "next";
 import {
@@ -17,12 +17,14 @@ import {
   AlertTriangle,
   Gauge,
   ChevronDown,
+  BedDouble,
 } from "lucide-react";
 import { LeadForm } from "@/components/forms/lead-form";
 import { useLocale, localeHref } from "@/lib/i18n/use-locale";
 import {
   type RentalMarket,
   type RmCrossCheck,
+  type RmBedroomCrossCheck,
   type RmSeasonal,
   type DisplayCurrency,
   type MoneyFmt,
@@ -252,7 +254,9 @@ function TrustStrip({ data, fmt }: { data: RentalMarket; fmt: MoneyFmt }) {
   const t = INS[useLocale()];
   const showTriangulation = data.crossCheck && data.crossCheck.sources.length >= 2;
   const showBenchmarks = data.meta.adrMedianAll != null;
-  if (!showTriangulation && !showBenchmarks) return null;
+  const bedroomCheck = data.bedroomCrossCheck ?? [];
+  const showBedroom = bedroomCheck.length > 0;
+  if (!showTriangulation && !showBenchmarks && !showBedroom) return null;
   const cross = data.crossCheck;
 
   return (
@@ -279,8 +283,59 @@ function TrustStrip({ data, fmt }: { data: RentalMarket; fmt: MoneyFmt }) {
           <TriangulationCard cross={data.crossCheck as RmCrossCheck} fmt={fmt} />
         ) : null}
         {showBenchmarks ? <BenchmarksCard meta={data.meta} fmt={fmt} /> : null}
+        {showBedroom ? (
+          <div className="lg:col-span-2">
+            <BedroomCrossCheckCard rows={bedroomCheck} fmt={fmt} />
+          </div>
+        ) : null}
       </div>
     </details>
+  );
+}
+
+/* ---------------------- Bedroom-level cross-check ---------------------- */
+
+// Villa-к-villa по спальням: Airbnb vs Booking. Второй источник валидирует
+// кривую цена×спальни (только спальни, где у обоих ≥8 вилл — фильтруется в пайплайне).
+function BedroomCrossCheckCard({
+  rows,
+  fmt,
+}: {
+  rows: RmBedroomCrossCheck[];
+  fmt: MoneyFmt;
+}) {
+  const t = INS[useLocale()];
+  return (
+    <div className="rounded-sm border border-forest-500/10 bg-cream-50 p-6">
+      <SubHead title={t.bedroomCheckTitle} icon={<BedDouble className="h-4 w-4" />} />
+      <p className="mt-1 text-sm text-forest-500/70">{t.bedroomCheckNote}</p>
+      <div className="mt-4 overflow-x-auto">
+        <table className="w-full min-w-[22rem] text-sm">
+          <thead>
+            <tr className="text-left text-xs uppercase tracking-wider text-forest-500/55">
+              <th className="py-1 pr-4 font-medium">{t.bedroomCheckTitle}</th>
+              <th className="py-1 pr-4 font-medium">Airbnb</th>
+              <th className="py-1 font-medium">Booking</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr key={r.bedrooms} className="border-t border-forest-500/5">
+                <td className="py-1.5 pr-4 text-forest-500/80">{t.bedroomCheckCol(r.bedrooms)}</td>
+                <td className="py-1.5 pr-4 font-medium text-forest-900 tabular-nums">
+                  {fmt(r.airbnb.adrMedian)}{" "}
+                  <span className="text-xs font-normal text-forest-500/50">· {r.airbnb.n}</span>
+                </td>
+                <td className="py-1.5 font-medium text-forest-900 tabular-nums">
+                  {fmt(r.booking.adrMedian)}{" "}
+                  <span className="text-xs font-normal text-forest-500/50">· {r.booking.n}</span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 }
 
@@ -312,7 +367,10 @@ function MarketPulse({
             </div>
           </div>
           <SourceMix meta={meta} />
-          <Stat label={t.snapshot} value={meta.date} />
+          <div className="flex flex-col gap-1">
+            <Stat label={t.snapshot} value={meta.date} />
+            <Freshness date={meta.date} />
+          </div>
           {meta.occupancyMeasuredAll != null ? (
             <Stat label={t.activeOcc} value={`${Math.round(meta.occupancyMeasuredAll * 100)}%`} />
           ) : null}
@@ -378,6 +436,33 @@ function AdrSparkline({
         ) : null}
       </div>
     </div>
+  );
+}
+
+/* ----------------------------- Freshness ------------------------------- */
+
+// Относительная свежесть снимка. Считаем на клиенте (useEffect), чтобы избежать
+// hydration-mismatch: на сервере рендерим пусто, дни проставляем в браузере.
+function Freshness({ date }: { date: string }) {
+  const t = INS[useLocale()];
+  const [days, setDays] = useState<number | null>(null);
+  useEffect(() => {
+    const d = new Date(`${date}T00:00:00`);
+    if (!Number.isNaN(d.getTime())) {
+      setDays(Math.max(0, Math.round((Date.now() - d.getTime()) / 86_400_000)));
+    }
+  }, [date]);
+  if (days === null) return null;
+  const stale = days > 10;
+  return (
+    <span
+      className={`inline-flex w-fit items-center gap-1.5 rounded-full px-2 py-0.5 text-[11px] font-medium ${
+        stale ? "bg-brass-200/50 text-brass-600" : "bg-forest-500/10 text-forest-500"
+      }`}
+    >
+      <span className={`h-1.5 w-1.5 rounded-full ${stale ? "bg-brass-500" : "bg-forest-500"}`} />
+      {days === 0 ? t.freshToday : t.freshDaysAgo(days)}
+    </span>
   );
 }
 
