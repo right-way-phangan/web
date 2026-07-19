@@ -36,12 +36,13 @@ export default async function RussianListingsPage({ searchParams }: PageProps) {
   const filter = parseListingsSearchParams(sp);
   const t = getListingsDict("ru");
 
-  // Проекты застройщиков (off-plan, RW-P) и их юниты (RW-P####-N) живут в
-  // отдельном разделе /projects — в общую сетку объектов их не включаем.
+  // Родительские проекты застройщиков (Atmos, Terra…) остаются в сетке и
+  // фильтрах (в т.ч. tenure=Leasehold) — карточка проекта дип-линкает на
+  // богатую /projects/[slug]. Прячем только юниты (RW-P####-N). Паритет с EN.
   // Slim once at the source so sorted/filtered share the same instances —
   // mapping per-prop would break reference sharing and double the RSC payload.
   const all = (await getPublicObjects())
-    .filter((o) => o.type !== "Project" && !isProjectUnit(o.rwNumber))
+    .filter((o) => !isProjectUnit(o.rwNumber))
     .map(slimObjectForList);
   const options = deriveFilterOptions(all);
   const filtered = all.filter(makeFilterPredicate(filter));

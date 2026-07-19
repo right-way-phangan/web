@@ -26,11 +26,15 @@ const MODEL = process.env.ANTHROPIC_MODEL ?? "claude-haiku-4-5-20251001";
 export async function parseSearchQuery(
   text: string,
   validDistricts: string[],
+  allowLlm = true,
 ): Promise<ParsedQuery> {
-  const trimmed = text.trim();
+  // Cap input: a real search phrase is short; the slice bounds LLM token cost and
+  // abuse. `allowLlm` lets the caller throttle the paid parse (see runNlSearch) —
+  // when false we still return heuristic results for free.
+  const trimmed = text.trim().slice(0, 200);
   if (!trimmed) return { params: {}, interpreted: [] };
 
-  if (process.env.ANTHROPIC_API_KEY) {
+  if (allowLlm && process.env.ANTHROPIC_API_KEY) {
     const viaLlm = await parseWithClaude(trimmed, validDistricts).catch(() => null);
     if (viaLlm) return viaLlm;
   }

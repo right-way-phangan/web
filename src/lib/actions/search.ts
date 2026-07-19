@@ -4,6 +4,7 @@ import { getPublicObjects } from "@/lib/data/objects";
 import { deriveFilterOptions, parseListingsSearchParams, makeFilterPredicate } from "@/lib/filters/listings";
 import { parseSearchQuery } from "@/lib/search/parse-query";
 import { recordSearchEvent } from "@/lib/data/demand";
+import { rateLimit } from "@/lib/ratelimit";
 
 export interface NlSearchResult {
   href: string;
@@ -37,7 +38,11 @@ function demandFieldsFromParams(params: Record<string, string>) {
 export async function runNlSearch(text: string, locale = "en"): Promise<NlSearchResult> {
   const objects = await getPublicObjects();
   const { districts } = deriveFilterOptions(objects);
-  const { params, interpreted } = await parseSearchQuery(text, districts);
+  // Gate the paid Claude parse behind a per-IP limit — this action is public on
+  // /listings, so an unthrottled LLM call is a cost-amplification vector. When
+  // throttled the free heuristic parser still answers.
+  const allowLlm = await rateLimit("nl-search", 20, 3600);
+  const { params, interpreted } = await parseSearchQuery(text, districts, allowLlm);
   const matched = interpreted.length > 0;
 
   // How many listings the interpreted filter actually returns (demand vs supply).

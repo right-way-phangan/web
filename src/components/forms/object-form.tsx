@@ -406,13 +406,13 @@ export function ObjectForm() {
     }
   }, [state.status]);
 
-  // Newly selected photos are appended, then ordered by a filename heuristic
-  // (likely cover first, plans/drawings last). The user can still override the
-  // cover with ★. Real content-based cover detection arrives with the AI layer.
+  // Order only the freshly-picked batch by the filename heuristic (likely cover
+  // first, plans/drawings last), then append after existing photos. Re-sorting
+  // the whole list would discard any manual reorder / ★-cover the user already
+  // set. Real content-based cover detection arrives with the AI layer.
   const onPhotosPicked = (files: FileList | null) => {
     if (!files?.length) return;
-    const merged = orderPhotos([...photos, ...Array.from(files)], v.type);
-    applyPhotos(merged);
+    applyPhotos([...photos, ...orderPhotos(Array.from(files), v.type)]);
   };
   const setCover = (i: number) => {
     if (i <= 0) return;
