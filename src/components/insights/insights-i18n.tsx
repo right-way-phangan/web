@@ -67,6 +67,14 @@ export const INS = {
     trustTitle: "How the price checks out",
     trustNote:
       "Two independent cross-checks sit behind the headline rate: platforms measured against each other, and our figure against outside trackers.",
+    // bedroom-level cross-check (Airbnb vs Booking)
+    bedroomCheckTitle: "By bedroom, both platforms",
+    bedroomCheckNote:
+      "Villa nightly rate per bedroom count — Airbnb vs Booking, where both list ≥8 villas. A second source on the size curve, not just the island median.",
+    bedroomCheckCol: (br: number) => (br === 0 ? "Studio" : `${br} BR`),
+    // freshness
+    freshToday: "updated today",
+    freshDaysAgo: (n: number) => `updated ${n} day${n === 1 ? "" : "s"} ago`,
     // external benchmarks (independent trackers)
     extEyebrow: "Independent trackers",
     extTitle: "How others measure the market",
@@ -330,6 +338,15 @@ export const INS = {
     trustTitle: "Как сходится цена",
     trustNote:
       "За итоговой ставкой стоят две независимые кросс-проверки: площадки сверены друг с другом, а наша цифра — с внешними трекерами.",
+    // bedroom-level cross-check (Airbnb vs Booking)
+    bedroomCheckTitle: "По спальням — обе площадки",
+    bedroomCheckNote:
+      "Ночная ставка виллы по числу спален — Airbnb против Booking, где у обеих ≥8 вилл. Второй источник по кривой размера, а не только островная медиана.",
+    bedroomCheckCol: (br: number) => (br === 0 ? "Студия" : `${br} сп.`),
+    // freshness
+    freshToday: "обновлено сегодня",
+    freshDaysAgo: (n: number) =>
+      `обновлено ${n} ${pluralRu(n, "день", "дня", "дней")} назад`,
     // external benchmarks (independent trackers)
     extEyebrow: "Независимые трекеры",
     extTitle: "Как рынок оценивают другие",
