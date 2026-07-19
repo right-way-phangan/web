@@ -14,6 +14,10 @@ Status: ⏳ queued · ✅ published.
 
 | Topic | faqCategory | Priority | Status |
 |---|---|---|---|
+<!-- discovered 2026-07-19, sources: thaiexaminer.com, silklegal.com, aimbangkok.com, globallawexperts.com -->
+| Koh Samui/Phangan-specific nominee company flagging (reportedly ~68% of registered firms on the two islands flagged, per DSI/Land Dept enforcement data): what it means for buyers of a villa already held via a Thai company | ownership | 🔴 | ⏳ |
+| Land Code Section 94 amendment under study — forced-sale-within-a-year could become outright forfeiture to the State: why owners in questionable structures should regularize now, not later | structures | 🔴 | ⏳ |
+| DBD's 2026 source-of-funds rules (Orders 2/2568 and 1/2569): new bank-statement and Investment Confirmation Letter requirements when incorporating or amending a Thai property-holding company | documents | 🔴 | ⏳ |
 <!-- discovered 2026-07-12, sources: asterofasia.com, thaiexaminer.com, restproperty.com, bambooroutes.com, nationthailand.com, khaosodenglish.com, ancra.my, pattayamail.com -->
 | Could the 49% condo foreign-ownership quota shrink to 25-39% in tourist provinces (Phuket/Samui/Pattaya-tier)? What's actually being proposed for 2026 and what it means for buyers weighing condo vs. leasehold villa | ownership | 🔴 | ✅ |
 | OCPB's new off-plan deposit-confiscation ban (effective Jan 2025): does this condo-focused consumer protection actually apply to villa/land pre-sales on Phangan? | costs | 🔴 | ✅ |
@@ -68,6 +72,14 @@ Status: ⏳ queued · ✅ published.
 | Selling a Thai company that holds your villa: is a share-sale really a tax shortcut versus a land transfer, and where does the Revenue Department draw the line? | structures | 🟢 | ⏳ |
 | Disputing your Land and Building Tax bill: the assessment appeal process, deadlines and evidence needed | costs | 🟡 | ⏳ |
 | Buying next to undeveloped land: how to check what can legally be built beside your plot before you commit | process | 🟡 | ⏳ |
+<!-- discovered 2026-07-19, sources: propertyscout.co.th, phuketrealtor.com, archi-studio.asia, re.sukhothaiinterlaw.com, fosrlaw.com, kinnara.asia, islanders-properties.com, samuiforsale.com -->
+| Withholding tax on a property sale: how the individual-seller calculation (years-owned deduction, progressive rates) differs from a company's flat 1% | costs | 🟢 | ⏳ |
+| Coastal setback rules in practice: exact height, floor-area and open-space limits by distance-from-beach zone | structures | 🟢 | ⏳ |
+| Hillside building limits in practice: the altitude and slope-percentage tiers that decide what you can actually build | structures | 🟢 | ⏳ |
+| The LTR visa's property-investment route: how a USD 500k+ real estate purchase unlocks 10-year residency and tax perks | ownership | 🟢 | ⏳ |
+| Managing a rental villa remotely: how to vet a property-management company (fees, contracts, red flags) | process | 🟢 | ⏳ |
+| Specific Business Tax's 5-year exemption: how the clock is counted and which transfers qualify | costs | 🟡 | ⏳ |
+| Protecting a foreign spouse's interest in property bought during a Thai marriage: usufruct and superficies in practice | structures | 🟡 | ⏳ |
 
 ## C. Per-district guides (~18 districts in districts.ts)
 
