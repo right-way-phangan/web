@@ -17,8 +17,14 @@ const CSP = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https://*.public.blob.vercel-storage.com https://*.r2.dev https://*.r2.cloudflarestorage.com https://*.basemaps.cartocdn.com https://*.longdo.com https://server.arcgisonline.com https://drive.google.com https://lh3.googleusercontent.com https://*.google-analytics.com https://www.googletagmanager.com",
   "font-src 'self' data:",
+  // media-src blob:: hero-flight грузит видео-пролёт через fetch→Blob→objectURL
+  // (полный 200 GET, seek — локальный декод), blob:-URL на <video> иначе режется
+  // default-src 'self'. Video-embed'ы застройщиков идут через <iframe> (frame-src).
+  "media-src 'self' blob:",
   // open.er-api.com: live FX fetched client-side by the ROI calculator.
-  "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.vercel-insights.com https://www.googletagmanager.com https://open.er-api.com",
+  // pub-*.r2.dev: прямой fetch видео hero-flight (бесплатный egress R2); при
+  // блокировке региона/отсутствии CORS падает на same-origin /media/r2 (self).
+  "connect-src 'self' https://pub-e6d4ecfb57d243b4801e5d6fa0a37220.r2.dev https://*.google-analytics.com https://*.analytics.google.com https://*.vercel-insights.com https://www.googletagmanager.com https://open.er-api.com",
   // youtube-nocookie/vimeo: project-landing video embeds (<iframe>).
   "frame-src 'self' https://www.googletagmanager.com https://www.youtube-nocookie.com https://player.vimeo.com",
   "worker-src 'self' blob:",
