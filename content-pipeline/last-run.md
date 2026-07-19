@@ -1,4 +1,4 @@
-# Last run — 2026-07-18
+# Last run — 2026-07-19
 
 **Guides published:** 2
 
@@ -6,36 +6,34 @@
 
 ## Guide 1
 
-- **slug:** `samui-model-hillside-enforcement-koh-phangan`
-- **kbId:** `kb-0059`
-- **title (EN):** The 'Samui Model' hillside-enforcement playbook reaches Koh Phangan: retroactive risk for villas built years ago
-- **title (RU):** «Самуйская модель» контроля застройки склонов добралась до Ко Пангана: риск для вилл, построенных много лет назад
-- **faqCategory:** `structures`
-- **faqQuestion:** Is my existing hillside villa on Koh Phangan at risk under the new drone-and-GPS enforcement used on Koh Samui, even if it was built years ago?
+- **slug:** `villa-held-by-thai-company-buyer-due-diligence-2026`
+- **kbId:** `kb-0061`
+- **title (EN):** Buying a villa that's already held by a Thai company on Koh Phangan: why 2026 due diligence has to go further
+- **title (RU):** Покупка виллы, уже оформленной на тайскую компанию, на Ко Пангане: почему проверка в 2026 году должна быть глубже
+- **faqCategory:** `ownership`
+- **faqQuestion:** I'm buying a villa that's currently owned by a Thai company — how do I know if that company is caught up in the nominee crackdown?
 - **Sources used:**
-  - Bangkok Post — "Two luxury Samui villas demolished" — Bo Phut/Maret demolitions, slope and height violations found years after construction
-  - Khaosod English — "Koh Phangan Faces Illegal Development Crisis in Protected Areas" (18 Oct 2025) — Fourth Army Region task force, aerial/GPS findings inside the forest reserve
-  - Samui Best Homes — "Koh Samui Land and Building Regulations" — slope-gradient construction thresholds (50%/35% bands, height, footprint, green-space rules)
-  - Pattaya Mail — "Samui luxury villas on hills face demolition amidst legal violations" — Samui Model naming and enforcement context
-  - Note: no source found officially brands the Phangan operation "Samui Model" — the guide is careful to say the *detection method* (aerial photography + GPS mapping, same regional authorities) is identical, not that Surat Thani has adopted the name.
+  - Thai Examiner (21 Jun 2026) — the 11,426-companies / ~68%-of-registered-firms Samui+Phangan nominee-flagging statistic (DBD data)
+  - Thai Newsroom (10 Jul 2026) — Justice Minister/DSI joint raid on 5 nominee networks across Samui and Phangan, incl. a law firm accused of registering 100+ companies from its own address
+  - The Nation (11 Jul 2026) — named DBD director-general and >3,500 flagged property-holding companies just below the 50% foreign-shareholding threshold in Surat Thani province
+  - Silk Legal — mechanics of how a flag can escalate into a Land Code Section 96 forced-disposal order
 
 ## Guide 2
 
-- **slug:** `thb-40-million-investment-land-ownership-route`
-- **kbId:** `kb-0060`
-- **title (EN):** The THB 40 million investment route: how a foreigner can legally hold up to 1,600 sqm of land in their own name
-- **title (RU):** Инвестиционный путь на 40 млн бат: как иностранец может законно держать в собственности до 1 600 кв.м земли
-- **faqCategory:** `structures`
-- **faqQuestion:** Can a foreigner who invests 40 million baht in Thailand actually own land directly, and does it work on Koh Phangan?
+- **slug:** `dbd-source-of-funds-orders-company-registration-2026`
+- **kbId:** `kb-0062`
+- **title (EN):** DBD's 2026 source-of-funds rules: what Orders 2/2568 and 1/2569 require when you set up or change a Thai property-holding company
+- **title (RU):** Правила DBD 2026 года об источнике средств: что требуют приказы № 2/2568 и № 1/2569 при регистрации или изменении тайской компании-владельца недвижимости
+- **faqCategory:** `documents`
+- **faqQuestion:** What new paperwork does the DBD require now when incorporating or changing a Thai company that will hold property?
 - **Sources used:**
-  - ThailandLawOnline — full translation of the Land Code Amendment Act (No. 8) B.E. 2542 (1999) — Section 96 bis text (investment threshold, 1-rai cap, 3-year holding period)
-  - GoLawPhuket — "Foreign Land Ownership in Thailand Under Section 96 bis (2026)" — current legal commentary
-  - Integrity Legal — "Foreigners CAN Own Land in Thailand: Section 96 Bis?" — approval mechanics and practical rarity
-  - ASEAN Briefing — "Thailand's Land Ownership Rules for Foreigners" — investment categories and location restrictions
-  - Wikipedia (Thong Sala / Ko Pha-ngan district) — used only for the descriptive, non-legal fact that Thong Sala/Ban Tai sit within a subdistrict municipality (thesaban tambon); framed as a location-test observation, not a claim that approval is likely.
+  - LawPlus (Apr 2026) — Order 1/2569 trigger conditions and Investment Confirmation Letter filing mechanics
+  - HLB Thailand — Order 1/2569 effective-date and amendment-scope detail
+  - AIM Bangkok — Order 2/2568's 3-month bank-statement / transaction-matching requirement at incorporation
+  - One Asia Lawyers — statutory penalty tiers (FBA Sections 36–37; false-statement and false-registration offences)
 
 ## Notes
 
-Both guides were the top two priority ⏳ topics in `backlog.md`: the sole remaining 🔴 (news-tier) row across the whole file ("Samui Model" drone/GPS enforcement expansion), then the top unpublished 🟢 row in section B (THB 40 million investment route) — no 🟢 rows preceded it in appearance order. Both are tagged `structures` in the backlog itself, so `faqCategory` could not be varied this round without breaking the priority-order rule. Neither slug existed in `src/content/knowledge-base.ts` before this run (checked against all 58 existing slugs; next free kbIds were kb-0059/kb-0060). Both backlog rows marked ✅. Guide 1 cross-links to `illegal-construction-forest-reserve-crackdown-koh-phangan`, `koh-phangan-building-zones` and `forged-building-permits-koh-phangan-verify`; Guide 2 cross-links to `how-foreigners-own-a-villa` and `lease-contract-clauses-to-check`. `tsc --noEmit` passes clean after the edits; EN/RU slug and kbId counts match (58→60 articles, no duplicates).
+Both guides come from the 🔴 (news-tier) section of the backlog, but not the literal top-to-bottom order: the #2 row ("Land Code Section 94 amendment under study... forfeiture to the State") was skipped this run. Research confirmed it's a real, distinct, live proposal (Cabinet acknowledged an Ombudsman progress report on it on 24 Feb 2026), but the *existing* `land-department-audit-existing-landholding-companies-2026` (kb-0051) and `thai-company-for-property-49-51` guides already state the core fact — a forfeiture-instead-of-forced-sale amendment is under study but not law — in enough depth that a dedicated third guide risked being a thin restatement rather than genuinely new ground. Left ⏳ for a future run once there's a more concrete legislative development (a tabled draft, a public-consultation date) to anchor a distinct guide. Rows #1 and #3 were picked instead: both cleared the dedup check against all 60 existing slugs (next free kbIds: kb-0061/kb-0062), both surfaced substantial sourced detail not already in the KB (the specific 68%/11,426 Samui-Phangan statistic and buyer-side due-diligence angle for Guide 1; the exact order numbers, trigger conditions, document contents and penalty tiers for Guide 2), and picking one from `ownership` and one from `documents` gave faqCategory variety. Guide 1 cross-links to `land-department-audit-existing-landholding-companies-2026`, `dbd-source-of-funds-orders-company-registration-2026`, `how-foreigners-own-a-villa` and `thai-company-for-property-49-51`; Guide 2 cross-links to `land-department-audit-existing-landholding-companies-2026` and `thai-company-for-property-49-51`. Both backlog rows marked ✅. `tsc --noEmit` passes clean after the edits; EN/RU slug and kbId counts match (60→62 articles, no duplicates).
 
-Remaining ⏳ backlog: OCPB landlord leasing rules (3+ units), water-shortage risk, 2025–2026 development pipeline, rental-yield drivers, untitled sea-view land scams, villa insurance costs, right of habitation, Phangan airport status, company share-sale tax question, Land and Building Tax appeal process, and undeveloped-neighbour due diligence — queued for the next run.
+Remaining ⏳ backlog: Land Code Section 94 forfeiture amendment (held back this run, see Notes above), OCPB landlord leasing rules (3+ units), water-shortage risk, 2025–2026 development pipeline, rental-yield drivers, untitled sea-view land scams, villa insurance costs, right of habitation, Phangan airport status, company share-sale tax question, Land and Building Tax appeal process, undeveloped-neighbour due diligence, withholding tax on individual vs company sales, coastal setback rules by zone, hillside building limits, LTR visa property route, remote rental-management vetting, SBT 5-year exemption, and foreign-spouse usufruct/superficies protection — queued for the next run.

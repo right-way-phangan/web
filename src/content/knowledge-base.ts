@@ -4113,6 +4113,136 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "structures",
     faqQuestion: "Can a foreigner who invests 40 million baht in Thailand actually own land directly, and does it work on Koh Phangan?",
   },
+  {
+    slug: "villa-held-by-thai-company-buyer-due-diligence-2026",
+    kbId: "kb-0061",
+    topic: "Ownership",
+    title: "Buying a villa that's already held by a Thai company on Koh Phangan: why 2026 due diligence has to go further",
+    short:
+      "The Department of Business Development has flagged roughly 11,426 companies on Koh Samui and Koh Phangan — nearly 68% of all registered firms on the two islands — as showing foreign-shareholding patterns typical of nominee arrangements. If the villa you're looking at is held through an existing Thai company, the odds that company sits inside this flagged pool are high, and buying the wrong one transfers someone else's legal risk onto you.",
+    updated: "2026-07-19",
+    body: [
+      "If a Koh Phangan villa is currently owned by a Thai company rather than held under a lease, does that automatically mean trouble? Not automatically — but as of mid-2026, the base rate is against you. The Department of Business Development (DBD) has publicly stated that 11,426 companies on Koh Samui and Koh Phangan combined, where foreigners hold a stake, show shareholding and control patterns consistent with nominee arrangements — nearly 68% of all registered firms on the two islands. A company-held villa listing isn't automatically one of them, but the enhanced due diligence this guide describes is no longer optional.",
+      { h: "What \"flagged\" actually means" },
+      {
+        ul: [
+          "**A flag is a risk signal, not a verdict.** It means the DBD's IBAS analytics system, cross-referencing corporate filings against Revenue Department, Customs, AMLO and Land Department data, has scored the company's shareholding, capital and directorship pattern as resembling known nominee structures. It does not by itself mean the company has been raided, charged, or ordered to divest.",
+          "**A flag can turn into an order.** If a follow-up review confirms a Thai shareholder is holding shares on paper only, with no genuine capital contribution, Land Code Section 96 lets the Director-General of the Department of Lands order the land sold within 180 days to a year — see [The Land Department's 2026 audit of existing landholding companies](/knowledge/land-department-audit-existing-landholding-companies-2026) for the full mechanism.",
+          "**The scale is not abstract.** A July 2026 joint operation led by the Justice Minister and the Department of Special Investigation (DSI) raided five nominee networks across Samui and Phangan, including one law firm accused of registering over 100 companies from its own office address on behalf of foreign clients.",
+        ],
+      },
+      { h: "Why this matters more for a buyer than for the current owner" },
+      "A seller who has held a flagged company for years may simply be waiting it out, or may not even know their structure has been scored as high-risk. Once you buy in — whether by taking over the company's shares or by having the company transfer the land to a new structure in your favour — you inherit whatever position that company is in. If the Land Department's disposal clock under Section 96 starts running after your purchase, it runs against you as the new beneficial owner, not against the seller who has already been paid and left.",
+      { h: "What to check before you buy a company-held villa" },
+      {
+        ul: [
+          "**Request the company's affidavit (หนังสือรับรอง) and full shareholder list from the DBD**, dated within the last 30 days, and compare the registered address against known high-density nominee addresses — a company sharing an address with dozens of others is a red flag the DBD's own systems are tuned to catch.",
+          "**Ask when the company was incorporated and whether it has filed any amendment since April 2026.** Since DBD Order 1/2569, any amendment that increases foreign control triggers a signed Investment Confirmation Letter — see [DBD's 2026 source-of-funds rules](/knowledge/dbd-source-of-funds-orders-company-registration-2026). A company that has never had to produce this paperwork has not yet been tested against the current standard.",
+          "**Ask for evidence the Thai shareholders funded their own shares** — bank statements or income records, not just a signed share register. This is exactly the documentation DBD Order 2/2568 now requires at incorporation, and its absence is the single clearest nominee signal.",
+          "**Decide, with a Thai lawyer, whether you're buying shares in the company or having it transfer the land** — a share purchase inherits the company's full history and any pending scrutiny; a land transfer out of the company to a new lease-and-superficies structure in your name resolves the nominee exposure but triggers its own transfer taxes and Land Office review.",
+          "**Treat a single-purpose company with no other business activity and a lone foreign director as the highest-risk profile** — precisely the pattern IBAS flags first, and precisely the structure most villa-holding companies on Phangan were originally set up as.",
+        ],
+      },
+      { h: "The alternative that avoids the question entirely" },
+      "None of this diligence is necessary if the villa is instead structured as a registered land lease plus a registered superficies over the building — a route that doesn't involve a Thai company or nominee shareholders at all. See [How foreigners legally own a villa on Koh Phangan](/knowledge/how-foreigners-own-a-villa) and [A Thai company for property: when it makes sense, when it's toxic](/knowledge/thai-company-for-property-49-51). If a seller insists the company route is the only option for a specific plot, that claim itself deserves scrutiny — it is very rarely true on Phangan today.",
+    ],
+    takeaways: [
+      "The DBD has flagged 11,426 companies on Koh Samui and Koh Phangan combined — nearly 68% of registered firms on the two islands — for foreign-shareholding patterns typical of nominee arrangements.",
+      "A flag is a risk score, not a verdict, but if later confirmed as a nominee structure, Land Code Section 96 lets officials order the land sold within 180 days to a year.",
+      "Buying into a flagged company transfers that company's legal exposure to you as the new beneficial owner — the disposal clock, if triggered, runs against the buyer, not the seller who already sold.",
+      "Before buying a company-held villa, obtain a recent DBD affidavit and shareholder list, check for a shared high-density registered address, and ask for proof Thai shareholders funded their own shares.",
+      "A registered lease plus superficies avoids this entire risk category — it requires no Thai company and no nominee shareholders, and is the standard, tested structure for foreign buyers on Phangan.",
+    ],
+    sources: [
+      {
+        title: "Thai Examiner — Nominee shareholding crackdown is impacting the property market in Phuket and small foreign investors",
+        url: "https://www.thaiexaminer.com/thai-news-foreigners/2026/06/21/nominee-shareholding-crackdown-is-impacting-the-property-market-in-phuket-and-small-foreign-investors/",
+      },
+      {
+        title: "Thai Newsroom — Minister joins raids on 5 nominee companies on Koh Samui, Koh Phangan (10 July 2026)",
+        url: "https://thainewsroom.com/2026/07/10/minister-joins-raids-on-5nominee-companies-on-koh-samui-koh-phangan/amp/",
+      },
+      {
+        title: "The Nation — DBD and DSI target property-holding companies below the 50% foreign-shareholding threshold (11 July 2026)",
+        url: "https://www.nationthailand.com/news/general/40068510",
+      },
+      {
+        title: "Silk Legal — What Thailand's New Lands Directives Mean for Nominee Shareholding and Property Ownership in 2026",
+        url: "https://silklegal.com/what-thailands-new-lands-directives-mean-for-nominee-shareholding-and-property-ownership-in-2026/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "ownership",
+    faqQuestion: "I'm buying a villa that's currently owned by a Thai company — how do I know if that company is caught up in the nominee crackdown?",
+  },
+  {
+    slug: "dbd-source-of-funds-orders-company-registration-2026",
+    kbId: "kb-0062",
+    topic: "Documents",
+    title: "DBD's 2026 source-of-funds rules: what Orders 2/2568 and 1/2569 require when you set up or change a Thai property-holding company",
+    short:
+      "Since 1 January 2026, Thai shareholders in any company with foreign minority ownership or a foreign signatory director must produce three months of bank statements proving they personally funded their shares. Since 1 April 2026, amendments that increase foreign control trigger a signed Investment Confirmation Letter. Both orders target the exact paperwork a 49/51 villa-holding company relies on.",
+    updated: "2026-07-19",
+    body: [
+      "What extra paperwork does the DBD now demand when you set up or amend a Thai company that will hold property? Two orders, issued back to back, cover the two moments that matter: incorporation and amendment. DBD Order No. 2/2568, effective 1 January 2026, applies at incorporation. DBD Order No. 1/2569, effective 1 April 2026, applies to later changes. Together they replace a 2012 framework that only required a basic bank-issued financial certificate — a document a shareholder could obtain without ever showing where the money actually came from.",
+      { h: "Order 2/2568 — at incorporation (since 1 January 2026)" },
+      {
+        ul: [
+          "**Who it applies to** — any limited company or partnership where foreigners hold less than 50% of registered capital (the standard 49/51 structure), and separately, any company with no foreign shareholders at all but a foreign authorized director holding signing power.",
+          "**What must be produced** — each Thai shareholder must submit personal bank statements covering at least the three months before their share-subscription payment date, from the specific account used to make that payment.",
+          "**What the registrar checks** — the statements must show a withdrawal or transfer matching the exact amount and date of the share payment, demonstrating the capital was \"seasoned\" money genuinely belonging to the shareholder, not funds deposited shortly beforehand solely to pass the registration check.",
+        ],
+      },
+      { h: "Order 1/2569 — at amendment (since 1 April 2026)" },
+      {
+        ul: [
+          "**Trigger for partnerships** — an amendment that drops the foreign partner's stake below 50% while no foreign managing partner is appointed.",
+          "**Trigger for limited companies** — an amendment that, for the first time, makes a foreign national an authorized signatory or co-signatory, where previously all authorized signatories were Thai.",
+          "**What must be filed** — the managing partner or authorized director must submit a signed Investment Confirmation Letter, on the DBD's prescribed form, confirming that all partners or shareholders genuinely invested their own capital and that no Thai national is acting as a nominee.",
+          "**What happens without it** — the registrar will not process the amendment. The letter is a filing precondition, not an optional disclosure.",
+        ],
+      },
+      { h: "Why this specifically targets villa-holding companies" },
+      "The classic Phangan structure — a company with a foreign director and Thai shareholders holding 51% on paper, formed for the sole purpose of letting a foreigner control land — sits directly inside both triggers. Order 2/2568 means that structure can no longer be formed with a same-day bank certificate; the shareholders must have three months of genuine transaction history behind them. Order 1/2569 means the company can't quietly add a foreign co-signatory, transfer shares, or restructure later without re-proving the same thing. See [The Land Department's 2026 audit of existing landholding companies](/knowledge/land-department-audit-existing-landholding-companies-2026) for how these filings feed the DBD's IBAS system, and [A Thai company for property: when it makes sense, when it's toxic](/knowledge/thai-company-for-property-49-51) for when the 49/51 structure is still lawful.",
+      { h: "Penalties for a false declaration" },
+      {
+        ul: [
+          "**Acting as a nominee** (Foreign Business Act Sections 36–37): up to 3 years' imprisonment and/or a fine of ฿100,000–1,000,000, plus daily penalties of ฿10,000–50,000 for continuing violations.",
+          "**A false statement about shareholding** made to the registrar: up to 6 months' imprisonment and/or a ฿10,000 fine.",
+          "**Filing a false entry in the public company register**: up to 3 years' imprisonment and/or a ฿60,000 fine.",
+        ],
+      },
+      "If you already hold property through a 49/51 company and haven't filed anything since these orders took effect, the company's paperwork has not yet been tested against the current standard. Compiling the bank-statement trail now, before an amendment or a routine review forces the issue, is far cheaper than trying to reconstruct three months of transaction history on demand.",
+    ],
+    takeaways: [
+      "DBD Order 2/2568 (effective 1 January 2026) requires Thai shareholders in a foreign-minority company, or any company with a foreign signatory director, to produce three months of matching bank statements at incorporation — replacing a simple bank certificate.",
+      "DBD Order 1/2569 (effective 1 April 2026) requires a signed Investment Confirmation Letter whenever an amendment increases foreign control — a foreign co-signatory added, or a partnership's foreign stake crossing 50% downward — and the registrar won't process the filing without it.",
+      "Both orders are aimed squarely at the standard 49/51 villa-holding company structure, not just large corporates.",
+      "False declarations carry real criminal exposure: up to 3 years and ฿100,000–1,000,000 for nominee arrangements under the Foreign Business Act, separate from the false-registration penalties under company law.",
+      "Owners of existing 49/51 companies should assemble source-of-funds documentation now, before an amendment or an IBAS-triggered review forces it on short notice.",
+    ],
+    sources: [
+      {
+        title: "LawPlus — The DBD Requires Investment Confirmation Letter from Partnerships and Companies on Registration of Changes to Their Partners or Directors",
+        url: "https://www.lawplusltd.com/2026/04/the-dbd-requires-investment-confirmation-letter-from-partnerships-and-companies-on-registration-of-changes-to-their-partners-or-directors/",
+      },
+      {
+        title: "HLB Thailand — New DBD order effective from 1 April 2026 for registering amendments",
+        url: "https://www.hlbthai.com/new-dbd-order-effective-from-1-april-2026-for-registering-amendments/",
+      },
+      {
+        title: "AIM Bangkok — New Thailand Company Registration Rules 2026: The 3-Month Bank Statement Requirement",
+        url: "https://aimbangkok.com/thailand-company-registration-rules-2026-bank-statements/",
+      },
+      {
+        title: "One Asia Lawyers — Legal Update: Strengthening the DBD's Measures Against Nominee Arrangements",
+        url: "https://oneasia.legal/en/7151",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion: "What new paperwork does the DBD require now when incorporating or changing a Thai company that will hold property?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
