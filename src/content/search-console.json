@@ -1,12 +1,357 @@
 {
-  "updated": "2026-07-11",
+  "updated": "2026-07-17",
   "range": "28d",
   "totals": {
-    "clicks": 0,
-    "impressions": 0,
-    "ctr": 0.0,
-    "position": 0.0
+    "clicks": 3,
+    "impressions": 110,
+    "ctr": 0.0273,
+    "position": 19.6
   },
-  "queries": [],
-  "pages": []
+  "queries": [
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0.0,
+      "position": 23.0,
+      "query": "chaloklum виски"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0.0,
+      "position": 33.8,
+      "query": "koh phangan real estate"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0.0,
+      "position": 17.5,
+      "query": "koh phangan real estate market"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0.0,
+      "position": 46.0,
+      "query": "listing to the right"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0.0,
+      "position": 52.0,
+      "query": "project management koh phangan"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0.0,
+      "position": 28.5,
+      "query": "real estate koh phangan"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0.0,
+      "position": 35.0,
+      "query": "real estate thailand koh phangan"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0.0,
+      "position": 32.0,
+      "query": "thailand leasehold 30 year renewal"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0.0,
+      "position": 88.0,
+      "query": "understanding 30 year leasehold renewal in phuket"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0.0,
+      "position": 8.5,
+      "query": "бан тай панган"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0.0,
+      "position": 98.2,
+      "query": "партнеры right estate"
+    }
+  ],
+  "pages": [
+    {
+      "clicks": 1,
+      "impressions": 24,
+      "ctr": 0.0417,
+      "position": 37.1,
+      "page": "https://rightwaygroup.co/"
+    },
+    {
+      "clicks": 1,
+      "impressions": 3,
+      "ctr": 0.3333,
+      "position": 6.7,
+      "page": "https://rightwaygroup.co/contact"
+    },
+    {
+      "clicks": 1,
+      "impressions": 5,
+      "ctr": 0.2,
+      "position": 6.0,
+      "page": "https://rightwaygroup.co/tools/zoning"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0.0,
+      "position": 19.3,
+      "page": "https://rightwaygroup.co/about"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0.0,
+      "position": 4.0,
+      "page": "https://rightwaygroup.co/blog/buying-land-koh-phangan-checks-that-matter"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0.0,
+      "position": 27.3,
+      "page": "https://rightwaygroup.co/calculator"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0.0,
+      "position": 2.0,
+      "page": "https://rightwaygroup.co/districts"
+    },
+    {
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0.0,
+      "position": 9.7,
+      "page": "https://rightwaygroup.co/districts/sri-thanu"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0.0,
+      "position": 10.0,
+      "page": "https://rightwaygroup.co/districts/thong-nai-pan"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0.0,
+      "position": 6.5,
+      "page": "https://rightwaygroup.co/districts/thong-sala"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0.0,
+      "position": 46.0,
+      "page": "https://rightwaygroup.co/due-diligence"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0.0,
+      "position": 8.5,
+      "page": "https://rightwaygroup.co/faq"
+    },
+    {
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0.0,
+      "position": 12.5,
+      "page": "https://rightwaygroup.co/insights"
+    },
+    {
+      "clicks": 0,
+      "impressions": 7,
+      "ctr": 0.0,
+      "position": 14.0,
+      "page": "https://rightwaygroup.co/knowledge"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0.0,
+      "position": 8.5,
+      "page": "https://rightwaygroup.co/knowledge/buying-in-hin-kong"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0.0,
+      "position": 2.0,
+      "page": "https://rightwaygroup.co/knowledge/buying-in-wok-tum"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0.0,
+      "position": 4.0,
+      "page": "https://rightwaygroup.co/knowledge/how-foreigners-own-a-villa"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0.0,
+      "position": 7.6,
+      "page": "https://rightwaygroup.co/knowledge/koh-phangan-building-zones"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0.0,
+      "position": 14.0,
+      "page": "https://rightwaygroup.co/knowledge/owners-taxes-annual-land-and-income"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0.0,
+      "position": 53.8,
+      "page": "https://rightwaygroup.co/knowledge/renewing-30-year-lease-risks"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0.0,
+      "position": 8.0,
+      "page": "https://rightwaygroup.co/listings?district=Chaloklum"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0.0,
+      "position": 5.0,
+      "page": "https://rightwaygroup.co/listings?pmin=15&pmax=22"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0.0,
+      "position": 10.0,
+      "page": "https://rightwaygroup.co/listings?pmin=5&pmax=8"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0.0,
+      "position": 40.0,
+      "page": "https://rightwaygroup.co/object/RW-0541"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0.0,
+      "position": 5.0,
+      "page": "https://rightwaygroup.co/object/RW-0544"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0.0,
+      "position": 8.0,
+      "page": "https://rightwaygroup.co/object/RW-0547"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0.0,
+      "position": 7.0,
+      "page": "https://rightwaygroup.co/object/RW-0626"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0.0,
+      "position": 2.0,
+      "page": "https://rightwaygroup.co/object/RW-0629"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0.0,
+      "position": 4.0,
+      "page": "https://rightwaygroup.co/object/RW-0630"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0.0,
+      "position": 8.0,
+      "page": "https://rightwaygroup.co/privacy"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0.0,
+      "position": 52.0,
+      "page": "https://rightwaygroup.co/projects"
+    },
+    {
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0.0,
+      "position": 4.0,
+      "page": "https://rightwaygroup.co/projects/atmos-villas"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0.0,
+      "position": 8.5,
+      "page": "https://rightwaygroup.co/ru/districts/ban-tai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0.0,
+      "position": 23.0,
+      "page": "https://rightwaygroup.co/ru/districts/chaloklum"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0.0,
+      "position": 59.0,
+      "page": "https://rightwaygroup.co/ru/knowledge/how-to-buy-property-step-by-step"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0.0,
+      "position": 8.0,
+      "page": "https://rightwaygroup.co/ru/knowledge/nominee-crackdown-krabi-islands-2026"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0.0,
+      "position": 37.0,
+      "page": "https://rightwaygroup.co/sell"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0.0,
+      "position": 9.0,
+      "page": "https://rightwaygroup.co/services"
+    }
+  ]
 }
