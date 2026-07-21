@@ -71,6 +71,9 @@ export interface RmCrossCheck {
   sources: { key: string; label: string; n: number; nPriced: number; adrMedian: number | null }[];
   spreadPct: number | null;
   agree: boolean;
+  /** spreadPct is size-controlled (median of per-bedroom villa spreads), not the
+   * raw island-median spread — so the verdict isn't skewed by sample composition. */
+  sizeControlled?: boolean;
 }
 
 /** Villa nightly rate by bedroom count, Airbnb vs Booking — a second source

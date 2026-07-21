@@ -270,7 +270,9 @@ function TrustStrip({ data, fmt }: { data: RentalMarket; fmt: MoneyFmt }) {
               cross.agree ? "bg-forest-500/10 text-forest-500" : "bg-brass-200/50 text-brass-600"
             }`}
           >
-            {cross.agree ? t.agree(cross.spreadPct) : t.diverge(cross.spreadPct)}
+            {cross.agree
+              ? (cross.sizeControlled ? t.agreeSized : t.agree)(cross.spreadPct)
+              : (cross.sizeControlled ? t.divergeSized : t.diverge)(cross.spreadPct)}
           </span>
         ) : null}
         <span className="ml-auto flex shrink-0 items-center gap-1 text-xs text-forest-500/60">
@@ -528,7 +530,9 @@ function TriangulationCard({ cross, fmt }: { cross: RmCrossCheck; fmt: MoneyFmt 
           }`}
         >
           {cross.agree ? <CheckCircle className="h-4 w-4" /> : <AlertTriangle className="h-4 w-4" />}
-          {cross.agree ? t.agree(cross.spreadPct) : t.diverge(cross.spreadPct)}
+          {cross.agree
+            ? (cross.sizeControlled ? t.agreeSized : t.agree)(cross.spreadPct)
+            : (cross.sizeControlled ? t.divergeSized : t.diverge)(cross.spreadPct)}
         </div>
       ) : null}
     </div>
