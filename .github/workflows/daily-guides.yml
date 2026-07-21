@@ -11,10 +11,12 @@ name: Daily knowledge guides
 
 on:
   schedule:
-    # GitHub delays scheduled runs ~4–5h, so 19:41 UTC fires late-evening UTC and the
-    # guides commit lands ~07:00 Asia/Bangkok next morning. The Telegram ping at the end
-    # announces the exact landing time, so the GH delay never leaves you guessing.
-    - cron: "41 19 * * *" # 19:41 UTC → commit ≈ 07:00 Asia/Bangkok (after GH ~4–5h delay)
+    # 16:41 UTC + GitHub's ~4–5h scheduled-run delay → fires ~03:00–05:00 Asia/Bangkok:
+    # deep night, when Vladimir is asleep and the Max 5-hour window has cooled down from
+    # the evening's interactive work. Earlier 19:41 UTC fired ~07:00 BKK, catching the tail
+    # of a burnt-out window → repeated "session limit exhausted" failures (see memory).
+    # The session-limit retry below still backstops any residual overlap.
+    - cron: "41 16 * * *" # 16:41 UTC → fires ~03:00–05:00 Asia/Bangkok (after GH ~4–5h delay)
   workflow_dispatch:
     inputs:
       count:
