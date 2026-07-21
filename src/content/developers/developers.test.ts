@@ -1,6 +1,5 @@
 import { describe, expect, it } from "vitest";
 import { arqa } from "./arqa";
-import { venera } from "./venera";
 import { getDeveloperProfile, profileSlugs, resolveTimeline } from "./index";
 
 describe("developer profiles registry", () => {
@@ -70,39 +69,5 @@ describe("resolveTimeline", () => {
     expect(resolved[1].href).toBeUndefined();
     // rwNumber present but not published → entry stays, just without a link.
     expect(resolved[2].href).toBeUndefined();
-  });
-});
-
-describe("Venera profile", () => {
-  it("resolves by its catalog-derived slug", () => {
-    expect(venera.slug).toBe("venera");
-    expect(getDeveloperProfile("venera")).toBe(venera);
-    expect(profileSlugs()).toContain("venera");
-  });
-
-  it("links both projects with valid RW-P numbers and statuses", () => {
-    const rw = venera.timeline.map((e) => e.rwNumber).filter(Boolean);
-    expect(rw).toEqual(["RW-P0020", "RW-P0021"]);
-    for (const entry of venera.timeline) {
-      if (entry.rwNumber) expect(entry.rwNumber).toMatch(/^RW-P\d{4}$/);
-      if (entry.status)
-        expect(["built", "under-construction", "planned"]).toContain(
-          entry.status,
-        );
-    }
-  });
-
-  it("localizes every bilingual field in both languages", () => {
-    expect(venera.bio.en.length).toBeGreaterThan(0);
-    expect(venera.bio.ru.length).toBeGreaterThan(0);
-    for (const fact of venera.facts) {
-      expect(fact.label.en && fact.label.ru).toBeTruthy();
-      expect(fact.value.en && fact.value.ru).toBeTruthy();
-    }
-    for (const entry of venera.timeline) {
-      if (entry.description)
-        expect(entry.description.en && entry.description.ru).toBeTruthy();
-      if (entry.note) expect(entry.note.en && entry.note.ru).toBeTruthy();
-    }
   });
 });
