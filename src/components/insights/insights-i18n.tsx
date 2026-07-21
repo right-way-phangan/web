@@ -56,6 +56,10 @@ export const INS = {
       "Median nightly rate for the same villa market, by platform. When independent platforms land on the same number, trust it.",
     agree: (pct: number) => `Platforms agree — within ±${pct}%`,
     diverge: (pct: number) => `Platforms diverge — ${pct}% spread`,
+    // size-controlled variants (spread measured on matched bedroom counts, so
+    // the raw bar gap — inflated by sample mix — doesn't drive the verdict)
+    agreeSized: (pct: number) => `Platforms agree — ±${pct}% on comparable sizes`,
+    divergeSized: (pct: number) => `${pct}% spread on comparable sizes`,
     sourceN: (n: number) => `${n.toLocaleString("en-US")} listings`,
     supplyUnder: "Under-supplied",
     supplySaturated: "Saturated",
@@ -328,6 +332,10 @@ export const INS = {
       "Медианная ставка за ночь по одному и тому же рынку вилл, по площадкам. Когда независимые площадки сходятся на одной цифре — ей можно доверять.",
     agree: (pct: number) => `Площадки сходятся — в пределах ±${pct}%`,
     diverge: (pct: number) => `Площадки расходятся — разброс ${pct}%`,
+    // size-controlled варианты (спред по сопоставимым размерам — сырой зазор
+    // баров, раздутый составом выборки, не определяет вердикт)
+    agreeSized: (pct: number) => `Площадки сходятся — ±${pct}% по сопоставимым размерам`,
+    divergeSized: (pct: number) => `Разброс ${pct}% по сопоставимым размерам`,
     sourceN: (n: number) => `${n.toLocaleString("ru-RU")} ${pluralRu(n, "объект", "объекта", "объектов")}`,
     supplyUnder: "Мало предложения",
     supplySaturated: "Насыщен",
