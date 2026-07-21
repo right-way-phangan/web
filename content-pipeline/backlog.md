@@ -16,7 +16,7 @@ Status: ⏳ queued · ✅ published.
 |---|---|---|---|
 <!-- discovered 2026-07-19, sources: thaiexaminer.com, silklegal.com, aimbangkok.com, globallawexperts.com -->
 | Koh Samui/Phangan-specific nominee company flagging (reportedly ~68% of registered firms on the two islands flagged, per DSI/Land Dept enforcement data): what it means for buyers of a villa already held via a Thai company | ownership | 🔴 | ✅ |
-| Land Code Section 94 amendment under study — forced-sale-within-a-year could become outright forfeiture to the State: why owners in questionable structures should regularize now, not later | structures | 🔴 | ⏳ |
+| Land Code Section 94 amendment under study — forced-sale-within-a-year could become outright forfeiture to the State: why owners in questionable structures should regularize now, not later | structures | 🔴 | ✅ |
 | DBD's 2026 source-of-funds rules (Orders 2/2568 and 1/2569): new bank-statement and Investment Confirmation Letter requirements when incorporating or amending a Thai property-holding company | documents | 🔴 | ✅ |
 <!-- discovered 2026-07-12, sources: asterofasia.com, thaiexaminer.com, restproperty.com, bambooroutes.com, nationthailand.com, khaosodenglish.com, ancra.my, pattayamail.com -->
 | Could the 49% condo foreign-ownership quota shrink to 25-39% in tourist provinces (Phuket/Samui/Pattaya-tier)? What's actually being proposed for 2026 and what it means for buyers weighing condo vs. leasehold villa | ownership | 🔴 | ✅ |
@@ -64,7 +64,7 @@ Status: ⏳ queued · ✅ published.
 | Realistic villa rental yields: what actually drives returns beyond the headline percentage | costs | 🟡 | ⏳ |
 <!-- discovered 2026-07-05, sources: aseanbriefing.com, houseviser.com, thaienquirer.com (search snippets), thethaiger.com, centreforaviation.com, thailand-construction.com -->
 | The THB 40 million investment route: how a foreigner can legally hold up to 1,600 sqm of land in their own name | structures | 🟢 | ✅ |
-| Untitled "sea-view land" scams: why cheap PBT5/Sor Por Kor plots overlapping national park or forest reserve boundaries can never get a chanote | documents | 🟢 | ⏳ |
+| Untitled "sea-view land" scams: why cheap PBT5/Sor Por Kor plots overlapping national park or forest reserve boundaries can never get a chanote | documents | 🟢 | ✅ |
 | Insuring a villa on Koh Phangan: what flood and storm coverage actually costs, and where standard policies fall short | costs | 🟢 | ⏳ |
 | The right of habitation: Thailand's overlooked fourth registered property right (and when it beats usufruct) | structures | ⚪️ | ⏳ |
 | Is a Koh Phangan airport actually coming? The abandoned Kan Air/national-park dispute and what it means for buyers today | phangan | ⚪️ | ⏳ |

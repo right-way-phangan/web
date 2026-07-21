@@ -4243,6 +4243,122 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "documents",
     faqQuestion: "What new paperwork does the DBD require now when incorporating or changing a Thai company that will hold property?",
   },
+  {
+    slug: "land-code-section-94-forfeiture-amendment",
+    kbId: "kb-0063",
+    topic: "Structures",
+    title: "Section 94 may soon mean forfeiture, not a forced sale: the amendment under study in 2026",
+    short:
+      "Today, land a foreigner acquires unlawfully must be sold off within 180 days to a year — but the (former) owner keeps the money. The Land Department is studying a change that would remove that entitlement entirely, so the land is forfeited to the State instead. It isn't law yet, but owners in questionable structures gain nothing by waiting to see.",
+    updated: "2026-07-21",
+    body: [
+      "If a foreigner is found to hold land unlawfully — most commonly through a nominee company — what happens to it today, and could that get worse? Under the current Section 94 of the Land Code, the Director-General of the Department of Lands orders the land disposed of within a period of not less than 180 days and not more than one year. If the foreign owner doesn't sell it themselves in that window, the Director-General has the power to auction it — but critically, the (former) owner still recovers the proceeds, including any gain from the land having risen in value. Under a proposal now being studied, that would change: the land would instead vest directly in the State, with no compensation at all.",
+      { h: "What's actually being studied" },
+      {
+        ul: [
+          "**The trigger.** Following recommendations from the Office of the Ombudsman, Thailand's Cabinet on 24 February 2026 acknowledged a consolidated inter-agency progress report, and the Land Department is expressly studying an amendment to Section 94.",
+          "**The change.** The proposal would deny an unlawful foreign owner any entitlement to proceeds from the disposal of the land — instead of a forced sale, the land would be forfeited to the State (ตกเป็นของแผ่นดิน) outright. Reports also describe study of increased criminal fines and imprisonment for the underlying violation.",
+          "**The status.** This is a study, not a bill before parliament and not a promulgated law. It would need a formal legislative amendment to take effect, and no effective date or retroactivity clause has been publicly confirmed as of this writing.",
+        ],
+      },
+      { h: "Why this isn't happening in isolation" },
+      "This proposal is one piece of a single enforcement push through 2026, not a standalone idea. The Department of Business Development has flagged roughly 68% of foreign-linked companies on Koh Samui and Koh Phangan for shareholding patterns typical of nominee arrangements — see [Buying a villa already held by a Thai company](/knowledge/villa-held-by-thai-company-buyer-due-diligence-2026) — and the Land Department's own [May 2026 \"Most Urgent\" circulars](/knowledge/land-office-source-of-funds-checks-2026) already tightened source-of-funds checks at registration. Section 94 sits at the end of that chain: it's the penalty that applies once a nominee holding is actually confirmed, whether through the [ongoing company audit](/knowledge/land-department-audit-existing-landholding-companies-2026) or a [DSI raid](/knowledge/nominee-crackdown-krabi-islands-2026).",
+      { h: "Why the timing matters for existing owners" },
+      "Under today's rule, a foreigner caught holding land through a nominee, worst case, is forced to sell within 180 days to a year and keeps the net proceeds — a costly, disruptive outcome, but not a total loss. If Section 94 is amended and later applied to a disposal order issued after the change takes effect, that same owner could lose the land outright with nothing recovered. Nothing has been confirmed yet about which rule would apply to structures set up before an amendment passes, and no one should assume the milder version protects them by default once a case is opened. The only position with no exposure to that uncertainty is not being in a flagged structure in the first place.",
+      { h: "What to do now, not later" },
+      {
+        ul: [
+          "**Get a Thai lawyer to review any company-held or otherwise indirect structure now**, rather than waiting for an IBAS flag, a DBD amendment filing, or a land-office query to force the question.",
+          "**Ask specifically whether the structure could be read as a nominee arrangement** under Land Code Section 96 and the Foreign Business Act — not just whether it was common practice when it was set up.",
+          "**Price in the cost of an orderly transition now** — restructuring into a registered lease plus superficies (see [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa)) — against the cost of a forced disposal later, under whichever version of Section 94 is in force when that happens.",
+          "**Don't treat \"it's not law yet\" as a reason to wait.** Amendments in this area have moved from study to enforceable circular within months in 2026; the safer structure is worth having in place before, not after.",
+        ],
+      },
+      "None of this is a reason to panic over a compliant holding — a registered lease and superficies were never inside Section 94's scope, because they don't involve unlawful land acquisition by a foreigner in the first place. The exposure described here is specific to nominee and disguised-freehold structures, and it is growing, not shrinking. See [A Thai company for property: when it makes sense, when it's toxic](/knowledge/thai-company-for-property-49-51) for the narrow cases where a compliant company structure still works.",
+    ],
+    takeaways: [
+      "Today, Section 94 orders unlawfully held land sold within 180 days to a year — but the foreign owner keeps the net proceeds, including any price appreciation.",
+      "A proposal under study by the Land Department, acknowledged by Cabinet on 24 February 2026, would instead forfeit the land to the State with no compensation at all.",
+      "This is a study, not an enacted law — no bill, effective date, or retroactivity rule has been publicly confirmed.",
+      "It's one part of 2026's wider nominee-enforcement push alongside DBD company flags, Land Department audits and stricter registration checks — not an isolated proposal.",
+      "Owners in nominee or disguised-freehold structures should regularize now with a Thai lawyer rather than wait to see which version of Section 94 applies when a case is opened.",
+    ],
+    sources: [
+      {
+        title: "AIM Bangkok — Thailand Cracks Down on Nominee Land Structures: Land Code 'Forfeiture to the State' Proposal Under Study",
+        url: "https://aimbangkok.com/thailand-foreign-nominee-land-ownership-confiscation-risk/",
+      },
+      {
+        title: "The Nation — Thailand nominee crackdown exposes property law loopholes",
+        url: "https://www.nationthailand.com/business/property/40067708",
+      },
+      {
+        title: "Lex Bangkok — Nominee Land Ownership Thailand: Confiscation Risk (2026)",
+        url: "https://lexbangkok.com/nominee-land-ownership-thailand-confiscation-risk/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "Could the land I hold through a nominee structure actually be forfeited to the State, not just forced to sell?",
+  },
+  {
+    slug: "untitled-sea-view-land-pbt5-sor-por-kor-scam",
+    kbId: "kb-0064",
+    topic: "Documents",
+    title: "\"Untitled sea-view land\" on Koh Phangan: why a PBT5 or Sor Por Kor plot can never become a chanote",
+    short:
+      "Cheap hillside or sea-view plots sold as PBT5 or Sor Por Kor documents aren't title deeds at all — they're tax receipts or agricultural-use permits, and the Land Department will not register a sale, lease, mortgage or upgrade on them. When the plot overlaps a national park or forest reserve boundary, as much of Phangan's hill and coastal land does, that upgrade is not just unlikely — it's legally impossible.",
+    updated: "2026-07-21",
+    body: [
+      "Can a seller's promise that a cheap sea-view plot will \"get its chanote soon\" ever be true? If the document on offer is a Por Bor Tor 5 (PBT5, ภ.บ.ท.5) or a Sor Por Kor 4-01, the honest answer is: only if the land sits outside a national park, forest reserve or other restricted zone — and on Koh Phangan's hillsides and coastline, a great deal of it doesn't. Understanding what these documents actually are is the difference between buying land and buying a tax receipt.",
+      { h: "What these documents actually are" },
+      {
+        ul: [
+          "**Por Bor Tor 5 (PBT5)** — issued by the Subdistrict Administrative Organization, it records that someone paid a local land-use (\"grass\") tax. It is not issued by the Department of Lands, confers no ownership, and the Land Department will not register a sale, lease, mortgage, usufruct or superficies against it.",
+          "**Sor Por Kor 4-01** — an allotment from the Agricultural Land Reform Office for landless farmers to occupy and work state land. It confers a right to occupy and farm only, cannot be bought or sold, and can only pass by inheritance.",
+          "**Sor Kor 1** — a decades-old notification of possession with no registrable rights at all; weaker than either of the above.",
+          "**Chanote (Nor Sor 4 Jor)** — the only document that is a true, government-surveyed ownership title, freely saleable, mortgageable and inheritable. See [Land titles on Koh Phangan: Chanote vs Nor Sor 3](/knowledge/land-titles-chanote-vs-nor-sor-3) for the full comparison, including Nor Sor 3 Gor.",
+        ],
+      },
+      { h: "Why the upgrade promise so often can't be kept" },
+      "A PBT5 or Sor Por Kor plot can, in principle, be surveyed and converted toward a title deed — but only for land the Land Department confirms sits inside a legitimate community or agricultural-use area, outside any national park, forest reserve, mangrove zone or military area. Much of Koh Phangan's most scenic land — hillside slopes and stretches of coastline offered as \"sea-view\" plots — falls inside or directly against national park and forest reserve boundaries mapped under the island's own [hillside and forest-reserve enforcement sweep](/knowledge/illegal-construction-forest-reserve-crackdown-koh-phangan). Where that overlap exists, no survey, no waiting period and no relationship with a local official changes the outcome: the law does not permit an upgrade, full stop.",
+      { h: "How to check before you pay a deposit" },
+      {
+        ul: [
+          "**Get the exact parcel/survey number off the PBT5 or Sor Por Kor document** and take it to the Provincial or District Land Office yourself — not through the seller or their broker — and ask directly whether the parcel has ever been proposed for title upgrade and whether it overlaps a forest reserve or national park boundary.",
+          "**Ask the Royal Forest Department or National Park office to check the coordinates** against gazetted reserve and park boundaries; overlap here is the single fact that makes an upgrade legally impossible, not just slow.",
+          "**Treat \"the government is about to allow an upgrade\" as a claim to verify, not a fact to accept** — it is the most common line used to justify a below-market price on land that will never be sellable, mortgageable or insurable in the buyer's own name.",
+          "**Assume you cannot register anything against a PBT5 or Sor Por Kor document** — no lease, no superficies, no usufruct — which rules out the standard compliant foreign-ownership structure entirely; see [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa).",
+          "**Walk away from any deal structured as a private \"assignment\" or possession-transfer agreement** over PBT5 or Sor Por Kor land — these documents have no legal mechanism for a foreigner (or, in the case of Sor Por Kor, almost anyone) to acquire the underlying right by purchase.",
+        ],
+      },
+      "If a plot is genuinely attractive, the only responsible next step is confirming it already carries a Chanote or, at minimum, a Nor Sor 3 Gor — and having a Thai lawyer verify that title independently at the Land Office before any money changes hands.",
+    ],
+    takeaways: [
+      "PBT5 is a local tax receipt, not a title deed — the Land Department will not register a sale, lease, mortgage or usufruct against it.",
+      "Sor Por Kor 4-01 is a farm-occupation allotment that legally cannot be bought or sold at all, only inherited.",
+      "An upgrade to a real title deed is only possible for land outside national park, forest reserve, mangrove and military boundaries — where Phangan hillside and coastal plots overlap those zones, upgrade is legally impossible, not just unlikely.",
+      "Verify the parcel directly with the Land Office and the Royal Forest Department or National Park office yourself — never rely solely on the seller's word that an upgrade is coming.",
+      "No standard foreign-ownership structure (lease, superficies, usufruct) can be registered against PBT5 or Sor Por Kor land, which rules out compliant ownership entirely.",
+    ],
+    sources: [
+      {
+        title: "ThaiLawOnline — Por Bor Tor 5 in Thailand (PBT 5 or ภ.บ.ท. 5)",
+        url: "https://www.thailawonline.com/por-bor-tor-5-in-thailand/",
+      },
+      {
+        title: "ThaiLawOnline — Title Deeds in Thailand: Chanote, Nor Sor 3",
+        url: "https://www.thailawonline.com/title-deeds-in-thailand/",
+      },
+      {
+        title: "Thailand Construction and Engineering News — Thailand's 'Sor Por Kor' land: degraded forest tracts that the government gives to poor farmers, continually courts controversy",
+        url: "https://thailand-construction.com/thailands-sor-por-kor-land-degraded-forest-tracts-that-the-government-gives-to-poor-farmers-continually-courts-controversy/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion: "The land I'm looking at only has a PBT5 or Sor Por Kor document — can it ever get a proper chanote?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
