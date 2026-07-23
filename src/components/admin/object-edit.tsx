@@ -51,6 +51,8 @@ export function ObjectEditButton({ object }: { object: EditableObject }) {
   const [photoPending, startPhotos] = useTransition();
   const [photoMsg, setPhotoMsg] = useState<string | null>(null);
   const [fileCount, setFileCount] = useState(0);
+  // Папка → живой объект одним действием: залить фото и сразу опубликовать.
+  const [publishAfter, setPublishAfter] = useState(false);
 
   function uploadPhotos() {
     const files = fileRef.current?.files;
@@ -80,10 +82,21 @@ export function ObjectEditButton({ object }: { object: EditableObject }) {
         added += res.added;
         if (res.coverSet) coverSet = true;
       }
-      setPhotoMsg(
-        `Загружено фото: ${added}.` +
-          (coverSet ? " Обложка задана — объект теперь на сайте." : ""),
-      );
+      if (publishAfter && status !== "Active") {
+        setPhotoMsg(`Загружено ${added}. Публикую…`);
+        const pub = await updateObjectAction(object.rwNumber, { status: "Active" });
+        if (pub.ok) {
+          setStatus("Active");
+          setPhotoMsg(`Загружено фото: ${added}. Объект опубликован (Active).`);
+        } else {
+          setPhotoMsg(`Загружено фото: ${added}, но публикация не удалась: ${pub.error ?? ""}`);
+        }
+      } else {
+        setPhotoMsg(
+          `Загружено фото: ${added}.` +
+            (coverSet ? " Обложка задана — объект теперь на сайте." : ""),
+        );
+      }
       if (fileRef.current) fileRef.current.value = "";
       setFileCount(0);
       router.refresh();
@@ -340,6 +353,16 @@ export function ObjectEditButton({ object }: { object: EditableObject }) {
                   {photoPending ? "Загружаю…" : fileCount > 0 ? `Загрузить ${fileCount}` : "Загрузить"}
                 </button>
               </div>
+              <label className="mt-2 flex items-center gap-2 text-xs text-forest-900/60">
+                <input
+                  type="checkbox"
+                  checked={publishAfter}
+                  onChange={(e) => setPublishAfter(e.target.checked)}
+                  disabled={photoPending}
+                  className="accent-brass-600"
+                />
+                …и сразу опубликовать (Active) после загрузки
+              </label>
               {photoMsg && <p className="mt-2 text-xs text-emerald-700">{photoMsg}</p>}
             </div>
 
