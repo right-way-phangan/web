@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { backendFetch } from "@/lib/api/backend";
 
 const API = process.env.OBJECTS_API_URL;
@@ -60,6 +60,9 @@ export async function updateObjectAction(
     return { ok: false, error: "Сетевая ошибка при сохранении." };
   }
   revalidatePath("/admin/objects");
+  // Каталог-грид кэшируется под тегом "catalog" (TTL 300с). Статус/цена меняют
+  // видимость и карточку — без сброса тега правка всплыла бы только по TTL.
+  revalidateTag("catalog");
   revalidatePath("/listings");
   revalidatePath(`/object/${rwNumber}`);
   revalidatePath(`/ru/object/${rwNumber}`);
