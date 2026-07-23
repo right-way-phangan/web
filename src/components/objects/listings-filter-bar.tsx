@@ -18,6 +18,7 @@ interface Props {
   options: {
     districts: string[];
     types: ObjectType[];
+    hasRentals: boolean;
   };
   totalCount: number;
 }
@@ -246,21 +247,27 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
       )}
     >
       <div className="flex flex-wrap items-center gap-2">
-        {/* Buy / Rent — primary mode switch (the market is pivoting to leasehold) */}
-        <div
-          role="tablist"
-          aria-label={dict.viewMode}
-          className="inline-flex overflow-hidden rounded-sm border border-forest-500/20 bg-cream-50"
-        >
-          <ModeTab active={!isRent} onClick={() => setMode("buy")}>
-            {dict.buy}
-          </ModeTab>
-          <ModeTab active={isRent} onClick={() => setMode("rent")}>
-            {dict.rent}
-          </ModeTab>
-        </div>
+        {/* Buy / Rent — primary mode switch (the market is pivoting to leasehold).
+            Hidden when the catalog has no rentals: leaseholds browse under Buy,
+            so a lone Rent tab would only ever open a dead empty state. */}
+        {options.hasRentals ? (
+          <>
+            <div
+              role="tablist"
+              aria-label={dict.viewMode}
+              className="inline-flex overflow-hidden rounded-sm border border-forest-500/20 bg-cream-50"
+            >
+              <ModeTab active={!isRent} onClick={() => setMode("buy")}>
+                {dict.buy}
+              </ModeTab>
+              <ModeTab active={isRent} onClick={() => setMode("rent")}>
+                {dict.rent}
+              </ModeTab>
+            </div>
 
-        <Divider />
+            <Divider />
+          </>
+        ) : null}
 
         {/* Type chips */}
         {options.types.map((ty) => {

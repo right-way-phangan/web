@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import Link from "next/link";
 import { moveLead } from "@/lib/actions/move-lead";
 import { bulkMoveLeads, bulkDeleteLeads } from "@/lib/actions/bulk-leads";
@@ -33,6 +33,23 @@ export function CrmBoard({
   const [selected, setSelected] = useState<Set<number>>(new Set());
   const [bulkStage, setBulkStage] = useState("");
   const [pendingLost, setPendingLost] = useState<{ leadId: number; stageKey: string } | null>(null);
+  const [showLost, setShowLost] = useState(false);
+  const [showWon, setShowWon] = useState(false);
+  const [showEmpty, setShowEmpty] = useState(false);
+  // Компактный вид карточек — липкая настройка (localStorage), чтобы не
+  // сбрасывалась при каждом переходе. Инициализируем false (совпадает с SSR),
+  // читаем сохранённое значение после монтирования.
+  const [compact, setCompact] = useState(false);
+  useEffect(() => {
+    setCompact(localStorage.getItem("crm-compact") === "1");
+  }, []);
+  function toggleCompact() {
+    setCompact((v) => {
+      const next = !v;
+      localStorage.setItem("crm-compact", next ? "1" : "0");
+      return next;
+    });
+  }
   const [pending, start] = useTransition();
 
   function applyMove(leadId: number, stageKey: string, lostReason?: string) {
@@ -102,15 +119,36 @@ export function CrmBoard({
   const STALE_DAYS = 3;
 
   const stageOptions = stages.map((s) => ({ key: s.key, name: s.name }));
+  // Стадии без карточек на мобильном скрываем под один тумблер (showEmpty).
+  const emptyStageCount = stages.filter(
+    (s) => !items.some((l) => l.pipelineKey === pipelineKey && l.stageKey === s.key),
+  ).length;
 
   return (
     <>
+    <div className="mb-3 flex justify-end">
+      <button
+        type="button"
+        onClick={toggleCompact}
+        aria-pressed={compact}
+        className="rounded-full border border-forest-900/15 px-3 py-1 text-xs font-medium text-forest-900/60 hover:bg-forest-900/5"
+      >
+        {compact ? "Обычный вид" : "Компактный вид"}
+      </button>
+    </div>
     <div className="flex flex-col gap-3 pb-4 lg:flex-row lg:gap-4 lg:overflow-x-auto">
       {stages.map((stage) => {
         const colItems = items.filter(
           (l) => l.pipelineKey === pipelineKey && l.stageKey === stage.key,
         );
         const isOver = overStage === stage.key;
+        // Терминальные стадии (WON/LOST) по умолчанию свёрнуты — карточки прячем,
+        // чтобы не тянуть длинный список внизу воронки; заголовок их разворачивает.
+        const isTerminal = stage.isWon || stage.isLost;
+        const terminalOpen = stage.isWon ? showWon : showLost;
+        const terminalHidden = isTerminal && !terminalOpen && colItems.length > 0;
+        // Пустые стадии на мобильном скрываем под общий тумблер showEmpty.
+        const emptyHiddenMobile = colItems.length === 0 && !showEmpty;
         return (
           <div
             key={stage.key}
@@ -126,29 +164,57 @@ export function CrmBoard({
               setOverStage(null);
               setDragId(null);
             }}
-            className="flex w-full flex-col lg:min-w-[280px] lg:max-w-[280px]"
+            className={
+              (emptyHiddenMobile ? "hidden lg:flex " : "flex ") +
+              "w-full flex-col lg:min-w-[280px] lg:max-w-[280px]"
+            }
           >
-            <div className="mb-2 flex items-center justify-between px-1">
-              <h2
-                className={
-                  "text-xs font-semibold uppercase tracking-wide " +
-                  (stage.isWon
-                    ? "text-emerald-600"
-                    : stage.isLost
-                      ? "text-forest-900/40"
-                      : "text-forest-900/70")
-                }
+            {isTerminal && colItems.length > 0 ? (
+              <button
+                type="button"
+                onClick={() => (stage.isWon ? setShowWon((v) => !v) : setShowLost((v) => !v))}
+                aria-expanded={terminalOpen}
+                className="mb-2 flex w-full items-center justify-between px-1 text-left"
               >
-                {stage.name}
-              </h2>
-              <span className="text-xs text-forest-900/40">{colItems.length}</span>
-            </div>
+                <h2
+                  className={
+                    "text-xs font-semibold uppercase tracking-wide " +
+                    (stage.isWon ? "text-emerald-600" : "text-forest-900/40")
+                  }
+                >
+                  {stage.name}
+                </h2>
+                <span className="inline-flex items-center gap-1 text-xs text-forest-900/40">
+                  {colItems.length}
+                  <span className={"transition-transform " + (terminalOpen ? "rotate-180" : "")}>▾</span>
+                </span>
+              </button>
+            ) : (
+              <div className="mb-2 flex items-center justify-between px-1">
+                <h2
+                  className={
+                    "text-xs font-semibold uppercase tracking-wide " +
+                    (stage.isWon
+                      ? "text-emerald-600"
+                      : stage.isLost
+                        ? "text-forest-900/40"
+                        : "text-forest-900/70")
+                  }
+                >
+                  {stage.name}
+                </h2>
+                <span className="text-xs text-forest-900/40">{colItems.length}</span>
+              </div>
+            )}
             <div
               className={
-                // Пустую колонку на мобильном не раздуваем боксом «—»: остаётся
-                // только тонкая строка-заголовок «стадия · 0». На lg бокс виден —
-                // он же зона дропа для drag-and-drop.
-                (colItems.length === 0 ? "hidden lg:flex " : "flex ") +
+                // Свёрнутую терминальную стадию прячем целиком; пустой бокс — как
+                // раньше (на мобильном не раздуваем, на lg остаётся зоной дропа).
+                (terminalHidden
+                  ? "hidden "
+                  : colItems.length === 0
+                    ? "hidden lg:flex "
+                    : "flex ") +
                 "flex-col gap-2 rounded-lg p-2 transition-colors lg:min-h-[80px] " +
                 (isOver
                   ? "bg-brass-500/10 ring-2 ring-brass-500/40"
@@ -234,14 +300,16 @@ export function CrmBoard({
                           </span>
                         </span>
                       </div>
-                      <p className="mt-0.5 line-clamp-2 text-xs text-forest-900/70">{lead.name}</p>
+                      {!compact && (
+                        <p className="mt-0.5 line-clamp-2 text-xs text-forest-900/70">{lead.name}</p>
+                      )}
                       {contact && <p className="mt-1 text-xs text-forest-900/55">{contact}</p>}
-                      {stale && (
+                      {!compact && stale && (
                         <p className="mt-1 text-[11px] font-medium text-amber-600">
                           💤 {days} дн без касания
                         </p>
                       )}
-                      {(() => {
+                      {!compact && (() => {
                         if (!isOpen) return null;
                         const sla = slaStatus(lead.stageKey, lead.stageSince || lead.createdAt);
                         if (sla.breached) {
@@ -284,7 +352,7 @@ export function CrmBoard({
                             {lead.rwNumber}
                           </span>
                         )}
-                        {(lead.tags ?? [])
+                        {!compact && (lead.tags ?? [])
                           .filter((t) => !t.startsWith("object:"))
                           .slice(0, 4)
                           .map((t) => (
@@ -296,7 +364,7 @@ export function CrmBoard({
                             </span>
                           ))}
                       </div>
-                      {isOpen && (() => {
+                      {!compact && isOpen && (() => {
                         const nba = nextAction(lead);
                         return nba ? (
                           <div
@@ -324,6 +392,16 @@ export function CrmBoard({
         );
       })}
     </div>
+
+    {emptyStageCount > 0 && (
+      <button
+        type="button"
+        onClick={() => setShowEmpty((v) => !v)}
+        className="mt-1 w-full rounded-lg border border-dashed border-forest-900/15 px-3 py-2 text-center text-xs font-medium text-forest-900/50 hover:bg-forest-900/[0.03] lg:hidden"
+      >
+        {showEmpty ? "Скрыть пустые стадии" : `Показать пустые стадии (${emptyStageCount})`}
+      </button>
+    )}
 
     {pendingLost && (
       <LostReasonDialog

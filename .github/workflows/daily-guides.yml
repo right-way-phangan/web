@@ -33,7 +33,10 @@ concurrency:
 jobs:
   author:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    # Ceiling for 3 bounded retries (≤75 min each) + ~15 min authoring + overhead.
+    # If the account is under continuous load the whole night, the run gives up here
+    # rather than tying a runner up for hours (public repo — Actions minutes are free).
+    timeout-minutes: 260
     steps:
       - uses: actions/checkout@v4
         with:
@@ -91,7 +94,59 @@ jobs:
           # stopped being treated as the task, so the agent wandered and committed nothing.
           # --verbose surfaces tool calls/errors; pipefail (above) propagates a non-zero
           # claude exit through `tee` instead of masking it as a green run.
-          claude --print --verbose --dangerously-skip-permissions "$PROMPT" 2>&1 | tee claude-run.log
+          #
+          # Session-limit retry: the cron fires ~03:00-04:00 Asia/Bangkok, right at the
+          # boundary where the Max subscription's 5h usage window resets after evening
+          # work (7 of 10 runs on 2026-07-03..12 died with "You've hit your session
+          # limit"). On that specific failure we sleep until the window resets and retry;
+          # any other error still fails immediately.
+          #
+          # Waits are BOUNDED at 75 min/attempt (not the full 5h window): at the nightly
+          # cron time the reset is normally minutes-to-an-hour away, so one short wait
+          # catches it. A 2026-07-13 manual test at midday proved the pathological case —
+          # run head-to-head with an active interactive session, the reset time kept
+          # sliding forward every retry (continuous concurrent usage) and the old 5.5h cap
+          # just tied a runner up for 6h producing nothing. Capping low means each retry
+          # re-reads a fresh reset time, and a genuinely un-winnable night gives up in
+          # ~3.5h instead of ~22h — tomorrow's run catches the backlog up either way.
+          attempt=0
+          max_attempts=3
+          while :; do
+            attempt=$((attempt + 1))
+            echo "----- author attempt ${attempt}/${max_attempts} -----"
+            set +e
+            claude --print --verbose --dangerously-skip-permissions "$PROMPT" 2>&1 | tee claude-run.log
+            claude_status=$?
+            set -e
+            if [ "$claude_status" -eq 0 ]; then
+              break
+            fi
+            if ! grep -qi "hit your session limit" claude-run.log; then
+              echo "::error::claude exited ${claude_status} with a non-session-limit error. See the claude-run-log artifact."
+              exit "$claude_status"
+            fi
+            if [ "$attempt" -ge "$max_attempts" ]; then
+              echo "::error::Session limit still exhausted after ${max_attempts} attempts."
+              exit 1
+            fi
+            # Parse "resets 8:40pm (UTC)" / "resets 2:10am (UTC)"; fall back to 45 min.
+            reset_at="$(grep -oiE 'resets [0-9]{1,2}(:[0-9]{2})?(am|pm)' claude-run.log | head -1 | cut -d' ' -f2 || true)"
+            now="$(date -u +%s)"
+            wait_s=2700
+            if [ -n "$reset_at" ]; then
+              reset_epoch="$(date -u -d "$reset_at" +%s 2>/dev/null || echo 0)"
+              if [ "$reset_epoch" -gt 0 ]; then
+                [ "$reset_epoch" -le "$now" ] && reset_epoch=$((reset_epoch + 86400))
+                wait_s=$((reset_epoch - now + 180))
+              fi
+            fi
+            [ "$wait_s" -gt 4500 ] && wait_s=4500 # cap at 75 min — see note above; don't wait out a whole 5h window
+            echo "Session limit hit — sleeping $((wait_s / 60)) min until the window resets (${reset_at:-time unknown})."
+            sleep "$wait_s"
+            # A partial attempt may have dirtied the tree — reset so the retry starts clean.
+            git checkout -- .
+            git clean -fd >/dev/null
+          done
           echo "----- working tree after author run -----"
           git status --porcelain
           # Tripwire: routine.md REQUIRES overwriting last-run.md every run. If it is
@@ -164,6 +219,23 @@ jobs:
             -d chat_id="${TG_CHAT}" \
             --data-urlencode text="$msg" \
             >/dev/null
+
+      - name: Notify Telegram — run failed
+        # Failures were silent for a week (2026-07-03..12): GH emails went unread and
+        # guides just stopped. Ping the same chat the success message uses.
+        # cancelled() too: a job-timeout cancel (retries never won the window) is a
+        # failure from our side but reports as `cancelled`, which failure() misses.
+        if: failure() || cancelled()
+        env:
+          TG_TOKEN: ${{ secrets.TELEGRAM_NOTIFY_BOT_TOKEN }}
+          TG_CHAT: ${{ secrets.TELEGRAM_NOTIFY_CHAT_ID }}
+        run: |
+          msg="⚠️ daily-guides упал ($(date -u +%Y-%m-%d)) — гайды сегодня не вышли.
+          Логи: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          curl -s --max-time 20 "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
+            -d chat_id="${TG_CHAT}" \
+            --data-urlencode text="$msg" \
+            >/dev/null || true
 
       - name: Upload run log
         if: always()

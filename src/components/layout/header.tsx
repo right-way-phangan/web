@@ -26,15 +26,14 @@ export function Header() {
   const { saved, ready } = useSaved();
   const savedCount = ready ? saved.length : 0;
   const pathname = usePathname();
-  const normalizedPathname = pathname === "/index" ? "/" : pathname === "/ru/index" ? "/ru" : pathname;
-  const isRu = normalizedPathname === "/ru" || normalizedPathname.startsWith("/ru/");
+  const isRu = pathname === "/ru" || pathname.startsWith("/ru/");
   const chrome = getChromeDict(isRu ? "ru" : "en");
   const contactHref = (isRu ? "/ru/contact" : "/contact") as Route;
   const savedHref = isRu ? "/ru/saved" : "/saved";
 
   // On the homepage the header floats transparent over the hero photo and
   // only gains its cream background after the visitor scrolls.
-  const isHome = normalizedPathname === "/" || normalizedPathname === "/ru";
+  const isHome = pathname === "/" || pathname === "/ru";
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     if (!isHome) return;
@@ -46,7 +45,7 @@ export function Header() {
   const overlay = isHome && !scrolled;
 
   const isActive = (href: string) =>
-    normalizedPathname === href || normalizedPathname.startsWith(`${href}/`);
+    pathname === href || pathname.startsWith(`${href}/`);
 
   // The overlay must portal to <body>: the header's backdrop-blur creates a
   // containing block that would otherwise trap our position:fixed overlay.

@@ -5,7 +5,7 @@ import type { Route } from "next";
 import { ShieldCheck, LineChart, Megaphone, FileCheck } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { Button } from "@/components/ui/button";
-import { LeadForm } from "@/components/forms/lead-form";
+import { SellerListingForm } from "@/components/forms/seller-listing-form";
 import { getSiteUrl } from "@/lib/site-url";
 
 export const metadata: Metadata = {
@@ -164,20 +164,13 @@ export default function SellPageRu() {
           </div>
 
           <div className="rounded-sm border border-forest-500/10 bg-cream-50 p-6 md:p-8">
-            <h3 className="font-serif text-2xl text-forest-900">Запросить оценку</h3>
+            <h3 className="font-serif text-2xl text-forest-900">Разместить объект</h3>
             <p className="mt-2 text-sm leading-relaxed text-forest-500/70">
-              Напишите, где находится объект и что у вас есть. Отвечаем в течение
-              рабочего дня.
+              Расскажите о вашей земле, вилле или доме. Каждую заявку смотрим
+              лично и отвечаем в течение рабочего дня.
             </p>
             <div className="mt-6">
-              <LeadForm
-                source="contact"
-                kind="valuation"
-                layout="card"
-                locale="ru"
-                submitLabel="Запросить оценку"
-                defaultMessage="Хочу оценку моего объекта. Локация / тип / площадь: "
-              />
+              <SellerListingForm locale="ru" />
             </div>
           </div>
         </div>

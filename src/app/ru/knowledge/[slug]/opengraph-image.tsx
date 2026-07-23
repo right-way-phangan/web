@@ -1,10 +1,11 @@
 import { getKbArticleRuBySlug } from "@/content/knowledge-base.ru";
 import { renderOg, OG_SIZE, OG_CONTENT_TYPE } from "@/lib/seo/og";
 
-// nodejs, not edge: the imported knowledge-base content is bundled into this
-// function and auto-published guides keep growing it — it broke the 1 MB edge
-// limit (1.01 MB, 2026-07-11) and that fails the WHOLE deployment.
-// → memory reference_vercel_edge_og_1mb_limit
+// Node runtime, not Edge: this route imports the whole knowledge-base.ru data
+// module, which the daily content bot keeps growing. On Edge that bundle pushed
+// past the 1 MB function-size limit and blocked prod deploys; Node's limit is
+// far higher. renderOg (next/og ImageResponse, system-ui fonts, no fetch) runs
+// fine on Node.
 export const runtime = "nodejs";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;

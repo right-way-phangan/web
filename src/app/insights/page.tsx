@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/sections/page-hero";
-import { Appear } from "@/components/motion/appear";
 import { Disclaimer } from "@/components/legal/disclaimer";
 import { RentalInsights } from "@/components/insights/rental-insights";
 import { SalePrices } from "@/components/insights/sale-prices";
@@ -14,7 +13,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/insights", languages: { en: "/insights", ru: "/ru/insights", "x-default": "/insights" } },
   title: "Market insights — Koh Phangan land prices & rental data",
   description:
-    "Median land price per rai by district on Koh Phangan, what a villa earns per night, the premium a pool or sea view commands, and which configuration is worth building for rental. Based on live listings.",
+    "Check what your Koh Phangan villa could earn per night, see median land prices by district, the premium a pool or sea view commands, and which configuration is worth building for rental. Based on live listings.",
 };
 
 export const revalidate = 300;
@@ -31,15 +30,14 @@ export default async function InsightsPage() {
       <PageHero
         eyebrow="Market insights"
         title="The Phangan market — in numbers."
-        lede="What land costs per rai by district, how much a villa earns a night, what a pool or sea view adds, and which configuration pays back fastest. Live data, so you don't have to guess — then run your own numbers in the calculator."
+        lede="Check what your place could earn a night, see what land costs by district, what a pool or sea view adds, and which configuration pays back fastest. Live data, so you don't have to guess."
       />
-      <div className="container-prose mt-16 space-y-16 md:mt-24 md:space-y-24">
-        <Appear delay={0.1}>
-          <SalePrices stats={salePrices} />
-        </Appear>
-        <Appear delay={0.3}>
-          <RentalInsights data={data} inventory={inventory} />
-        </Appear>
+      <RentalInsights
+        data={data}
+        inventory={inventory}
+        landSlot={<SalePrices stats={salePrices} />}
+      />
+      <div className="container-prose mt-16">
         <Disclaimer locale="en" />
       </div>
     </section>

@@ -15,14 +15,12 @@ export function LeadEdit({
   email,
   phone,
   rwNumber,
-  canDelete,
 }: {
   leadId: number;
   contactName?: string | null;
   email?: string | null;
   phone?: string | null;
   rwNumber?: string | null;
-  canDelete: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const [pending, start] = useTransition();
@@ -114,25 +112,23 @@ export function LeadEdit({
           Отмена
         </button>
 
-        {canDelete ? (
-          <form
-            action={deleteLeadAction}
-            className="ml-auto"
-            onSubmit={(e) => {
-              if (!confirm("Удалить лид безвозвратно? Заметки и задачи тоже удалятся.")) {
-                e.preventDefault();
-              }
-            }}
+        <form
+          action={deleteLeadAction}
+          className="ml-auto"
+          onSubmit={(e) => {
+            if (!confirm("Удалить лид безвозвратно? Заметки и задачи тоже удалятся.")) {
+              e.preventDefault();
+            }
+          }}
+        >
+          <input type="hidden" name="leadId" value={leadId} />
+          <button
+            type="submit"
+            className="rounded-full px-3 py-1.5 text-xs font-medium text-red-700 hover:bg-red-500/10"
           >
-            <input type="hidden" name="leadId" value={leadId} />
-            <button
-              type="submit"
-              className="rounded-full px-3 py-1.5 text-xs font-medium text-red-700 hover:bg-red-500/10"
-            >
-              Удалить лид
-            </button>
-          </form>
-        ) : null}
+            Удалить лид
+          </button>
+        </form>
       </div>
     </div>
   );

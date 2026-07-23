@@ -25,6 +25,7 @@ import { TrackView } from "@/components/objects/track-view";
 import { BehaviorTracker } from "@/components/objects/behavior-tracker";
 import { PriceContextBadge } from "@/components/objects/price-context-badge";
 import { ObjectPrice } from "@/components/objects/object-price";
+import { LeaseTermBadge, LeaseholdStructure } from "@/components/objects/leasehold-explainer";
 import { SaveButton } from "@/components/objects/save-button";
 import { ShareButton } from "@/components/objects/share-button";
 import { BrochureButton } from "@/components/objects/brochure-button";
@@ -164,6 +165,7 @@ export default async function RussianObjectPage({ params }: Props) {
                 <ShieldCheck className="h-3.5 w-3.5 text-brass-500" />
                 {t.verifiedBadge}
               </Link>
+              <LeaseTermBadge object={object} locale="ru" />
             </div>
             <div className="flex shrink-0 items-center gap-2 print:hidden">
               <BrochureButton rw={object.rwNumber} />
@@ -180,6 +182,9 @@ export default async function RussianObjectPage({ params }: Props) {
             pricePerRai={object.pricePerRai}
             rentPerMonth={object.rentPerMonth}
             rentPerRaiMonth={object.rentPerRaiMonth}
+            leaseTermYears={object.leaseTermYears}
+            leaseEscPercent={object.leaseEscPercent}
+            leaseEscPeriodYears={object.leaseEscPeriodYears}
             isLand={object.type === "Land"}
             locale="ru"
           />
@@ -235,6 +240,8 @@ export default async function RussianObjectPage({ params }: Props) {
             <ObjectDescription object={object} locale="ru" />
 
             <InvestmentHighlights object={object} />
+
+            <LeaseholdStructure object={object} locale="ru" />
 
             <section>
               <h2 className="font-serif text-3xl text-forest-900">{t.specifications}</h2>

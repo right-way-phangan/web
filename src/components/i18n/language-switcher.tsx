@@ -20,10 +20,7 @@ export function LanguageSwitcher({
   tone?: "default" | "light";
 }) {
   const pathname = usePathname();
-  // Some production navigations expose the route-module names /index and
-  // /ru/index. They are aliases of the home pages, not public canonical URLs.
-  const normalizedPathname = pathname === "/index" ? "/" : pathname === "/ru/index" ? "/ru" : pathname;
-  const isRu = normalizedPathname === "/ru" || normalizedPathname.startsWith("/ru/");
+  const isRu = pathname === "/ru" || pathname.startsWith("/ru/");
   const light = tone === "light";
 
   // Carry query/hash (calculator deep-links, listing filters) across the
@@ -34,7 +31,7 @@ export function LanguageSwitcher({
     setSuffix(window.location.search + window.location.hash);
   }, [pathname]);
 
-  const enPath = isRu ? normalizedPathname.slice("/ru".length) || "/" : normalizedPathname;
+  const enPath = isRu ? pathname.slice("/ru".length) || "/" : pathname;
   const hasRu = !EN_ONLY.some((p) => enPath === p || enPath.startsWith(`${p}/`));
   const enHref = enPath + suffix;
   const ruHref = hasRu

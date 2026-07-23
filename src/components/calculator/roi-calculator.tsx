@@ -24,6 +24,7 @@ import {
 import { CalcLeadButton } from "@/components/calculator/calc-lead-button";
 import { whatsappLink } from "@/lib/site-config";
 import { MarketPreset } from "@/components/calculator/market-preset";
+import { CalcEntry } from "@/components/calculator/calc-entry";
 import { buildCalcReportHtml } from "@/lib/calculator/report";
 import { track } from "@/lib/analytics/track";
 import { trackObjectEvent } from "@/lib/analytics/track-event";
@@ -79,6 +80,8 @@ interface Props {
   market?: RentalMarket;
   /** Buyable units (project pages) — enables the multi-unit picker. */
   projectUnits?: ProjectUnit[];
+  /** Standalone /calculator only — shows the "what are you pricing?" chooser. */
+  entry?: boolean;
 }
 
 export type { ProjectUnit } from "./roi-shared";
@@ -94,6 +97,7 @@ export function RoiCalculator({
   excludeRw,
   market,
   projectUnits,
+  entry,
 }: Props) {
   // Seed the calculator language from the URL (/ru/* → RU), but keep the manual
   // EN/RU toggle so a visitor can switch either tool independently.
@@ -126,6 +130,9 @@ export function RoiCalculator({
     offplan: offplanInit,
     rentAfterHandover: initialRent && offplanInit ? true : DEFAULT_INPUTS.rentAfterHandover,
   });
+  // "My own property" context (district/bedrooms/Airbnb link) — travels with the
+  // lead summary and PDF so the team sees what the buyer is actually pricing.
+  const [ownNote, setOwnNote] = useState<string | null>(null);
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [showYears, setShowYears] = useState(false);
   const [showSolver, setShowSolver] = useState(false);
@@ -228,7 +235,15 @@ export function RoiCalculator({
     currency === "THB" ? money(thb) : `≈ ${formatMoney(thb, "THB", rates, { compact: true })}`;
 
   const openReport = () => {
-    const html = buildCalcReportHtml({ inputs, result: r, currency, rates, rwNumber: excludeRw, locale });
+    const html = buildCalcReportHtml({
+      inputs,
+      result: r,
+      currency,
+      rates,
+      rwNumber: excludeRw,
+      contextLabel: ownNote ?? undefined,
+      locale,
+    });
     const w = window.open("", "_blank");
     if (w) {
       w.document.open();
@@ -431,6 +446,7 @@ export function RoiCalculator({
       : `${formatMoney(thb, currency, rates, { compact: false })} (≈ ${formatMoney(thb, "THB", rates, { compact: false })})`;
   const calcSummary = [
     `Investment calculation${excludeRw ? ` — ${excludeRw}` : ""} (${strategyLabel})`,
+    ownNote ? `Property: ${ownNote}` : "",
     `Tenure: ${isLeasehold ? `Leasehold, ${inputs.leaseTermYears}-yr term` : "Freehold"}`,
     isLeasehold && inputs.leaseMonthly
       ? `Land rent: ${disp(inputs.leaseMonthlyThb)}/mo, indexed ${inputs.leaseIndexationPct}%/yr (price covers the building only)`
@@ -461,6 +477,15 @@ export function RoiCalculator({
 
   return (
     <>
+    {entry ? (
+      <CalcEntry
+        catalog={catalog}
+        market={market}
+        t={t}
+        onApply={(patch) => setInputs((s) => ({ ...s, ...patch }))}
+        onOwnNote={setOwnNote}
+      />
+    ) : null}
     <div ref={rootRef} className="grid gap-10 pb-16 lg:grid-cols-[380px_1fr] lg:gap-14 lg:pb-0">
       {/* ---- Parameters ---- */}
       <div>
@@ -602,6 +627,10 @@ export function RoiCalculator({
             />
           ) : null}
 
+          <p className="border-t border-forest-500/10 pt-4 text-[11px] font-medium uppercase tracking-wide text-forest-500/50">
+            {t.groupGrowth}
+          </p>
+
           <div>
             <label className="text-sm text-forest-500/70">{t.growthLabel}</label>
             <div className="mt-2 flex gap-2">
@@ -719,6 +748,11 @@ export function RoiCalculator({
 
           {/* Rental income is optional for completed properties — a single toggle
               replaces the old Buy & Hold / Buy & Rent mode tabs. */}
+          {!isOffplan ? (
+            <p className="border-t border-forest-500/10 pt-4 text-[11px] font-medium uppercase tracking-wide text-forest-500/50">
+              {t.groupRental}
+            </p>
+          ) : null}
           {!isOffplan ? (
             <label className="flex cursor-pointer items-center gap-2 rounded-sm border border-forest-500/15 bg-cream-50 p-3 text-sm text-forest-500/80">
               <input

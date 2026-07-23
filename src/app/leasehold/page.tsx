@@ -12,6 +12,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
+import { LeaseholdListings } from "@/components/sections/leasehold-listings";
 import { Reveal } from "@/components/sections/reveal";
 import { Appear } from "@/components/motion/appear";
 import { Button } from "@/components/ui/button";
@@ -158,6 +159,9 @@ export default function LeaseholdPage() {
             </div>
           </div>
         </div>
+
+        {/* Live leasehold inventory — real cards, crawlable, one click to buy. */}
+        <LeaseholdListings locale="en" />
 
         {/* FAQ — visible Q&A mirrors the FAQPage JSON-LD above (AEO). */}
         <div className="mt-16 md:mt-20">

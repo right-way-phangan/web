@@ -29,8 +29,10 @@ interface Props {
   defaultMessage?: string;
   /** Visual layout. "card" = inquiry form sidebar; "block" = /contact full-width block */
   layout?: "card" | "block";
-  /** "calculator" tags the lead as coming from the ROI calculator; "market-report" from /insights; "shortlist" from /saved; "saved-search" = a new-listing alert request; "valuation" = /tools/estimate seller lead. */
-  kind?: "inquiry" | "calculator" | "market-report" | "shortlist" | "saved-search" | "valuation";
+  /** "calculator" tags the lead as coming from the ROI calculator; "market-report" from /insights; "shortlist" from /saved; "saved-search" = a new-listing alert request; "valuation" = /tools/estimate seller lead; "construction" = developer-page build request. */
+  kind?: "inquiry" | "calculator" | "market-report" | "shortlist" | "saved-search" | "valuation" | "construction";
+  /** Developer lead tag (developer-page construction requests) — becomes a CRM tag. */
+  developer?: string;
   /** Submit button label override. */
   submitLabel?: string;
   /** Show an optional "preferred viewing date" field (object pages). */
@@ -43,7 +45,7 @@ interface Props {
 
 type FieldKey = "name" | "email" | "phone" | "message";
 
-export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", kind, submitLabel, showViewingDate, onSuccess, locale = "en" }: Props) {
+export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", kind, developer, submitLabel, showViewingDate, onSuccess, locale = "en" }: Props) {
   const t = getFormDict(locale);
   const todayIso = new Date().toISOString().slice(0, 10);
   const [state, formAction] = useActionState(submitInquiry, initialState);
@@ -134,6 +136,7 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
       <input type="hidden" name="source" value={source} />
       <input type="hidden" name="lang" value={locale} />
       {kind ? <input type="hidden" name="kind" value={kind} /> : null}
+      {developer ? <input type="hidden" name="developer" value={developer} /> : null}
       {rwNumber ? <input type="hidden" name="rwNumber" value={rwNumber} /> : null}
       {vid ? <input type="hidden" name="vid" value={vid} /> : null}
       {utm.utm_source ? <input type="hidden" name="utm_source" value={utm.utm_source} /> : null}

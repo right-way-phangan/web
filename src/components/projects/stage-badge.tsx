@@ -3,7 +3,7 @@ import type { Stage } from "@/types/object";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getProjectsDict } from "@/lib/i18n/dictionaries";
 
-const STAGE_STYLE: Record<string, string> = {
+export const STAGE_STYLE: Record<string, string> = {
   Ready: "bg-forest-500/10 text-forest-700",
   "Under construction": "bg-brass-500/15 text-brass-600",
   "Off-plan": "bg-forest-900/8 text-forest-500",

@@ -41,6 +41,8 @@ function buildGroups(
   if (o.priceThb) priceRows.push({ label: L["Asking price"], value: fmtFull(o.priceThb) });
   if (o.type === "Land" && o.pricePerRai)
     priceRows.push({ label: L["Price per rai"], value: `${fmt(o.pricePerRai)} / rai` });
+  if (o.rentPerMonth)
+    priceRows.push({ label: L["Lease rent"], value: `${fmtFull(o.rentPerMonth)} ${t.perMonth}` });
   if (o.rentPerRaiMonth)
     priceRows.push({ label: L["Lease rent"], value: `${fmtFull(o.rentPerRaiMonth)} ${t.perRaiMonth}` });
   if (priceRows.length > 0) groups.push({ title: t.specGroups.Pricing, rows: priceRows });
@@ -50,8 +52,17 @@ function buildGroups(
   propertyRows.push({ label: L.Type, value: typeName });
   if (o.district) propertyRows.push({ label: L.District, value: o.district });
   if (o.zone) propertyRows.push({ label: L.Zone, value: o.zone });
-  if (o.areaRai) propertyRows.push({ label: L["Plot area"], value: rai(o.areaRai) });
-  if (o.areaSqm) propertyRows.push({ label: L["Built area"], value: `${o.areaSqm.toLocaleString(nl)} m²` });
+  if (o.type === "Land") {
+    // Land has no building: rai and m² describe the SAME plot in two units.
+    // Show one "Plot area" row with both — never "Built area" for land.
+    const areaParts: string[] = [];
+    if (o.areaRai) areaParts.push(`${o.areaRai.toLocaleString(nl, { maximumFractionDigits: 2 })} ${t.rai}`);
+    if (o.areaSqm) areaParts.push(`${o.areaSqm.toLocaleString(nl)} m²`);
+    if (areaParts.length) propertyRows.push({ label: L["Plot area"], value: areaParts.join(" · ") });
+  } else {
+    if (o.areaRai) propertyRows.push({ label: L["Plot area"], value: rai(o.areaRai) });
+    if (o.areaSqm) propertyRows.push({ label: L["Built area"], value: `${o.areaSqm.toLocaleString(nl)} m²` });
+  }
   if (o.altitude !== undefined) propertyRows.push({ label: L.Altitude, value: `${o.altitude} m` });
   if (o.terrain) propertyRows.push({ label: L.Terrain, value: o.terrain });
   groups.push({ title: t.specGroups.Property, rows: propertyRows });

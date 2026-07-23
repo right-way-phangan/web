@@ -11,6 +11,66 @@ import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 
 type Scenario = "conservative" | "base" | "high" | "measured";
 
+export type NightlyEstimate = {
+  nightlyRateThb: number;
+  occupancyPct: number;
+  basis: string;
+  n: number;
+  measuredOk: boolean;
+  p25?: number | null;
+  p75?: number | null;
+  nUsed: number;
+};
+
+/**
+ * Nightly rate + occupancy for a district, straight from the rental-market
+ * snapshot. Priority: district×bedroom median (most specific) → district median
+ * scaled by property-type factor → district median. Shared by the in-calculator
+ * preset and the "my own object" entry form so they agree.
+ */
+export function estimateNightly(
+  market: RentalMarket,
+  district: string,
+  bedrooms: number | null,
+  type = "",
+  scenario: Scenario = "base",
+): NightlyEstimate | null {
+  const d = market.districts.find((x) => x.name === district);
+  if (!d) return null;
+  let nightly = d.adrMedian;
+  let basis = "district median";
+
+  const br = bedrooms;
+  const db =
+    br != null && market.districtBedrooms.find((x) => x.district === district && x.bedrooms === br);
+  if (db) {
+    nightly = db.adrMedian;
+    basis = `${br === 0 ? "studio" : `${br}-bedroom`} comps in ${district}`;
+  } else if (type) {
+    const tt = market.byType.find((x) => x.type === type);
+    if (tt && market.meta.adrMedianAll) {
+      nightly = Math.round(d.adrMedian * (tt.adrMedian / market.meta.adrMedianAll));
+      basis = `${tt.label.toLowerCase()} in ${district}`;
+    }
+  }
+  const measuredOk = d.occupancyMeasured != null && (d.nOccupancy ?? 0) >= 5;
+  const occupancyPct =
+    scenario === "measured" && measuredOk
+      ? Math.round((d.occupancyMeasured as number) * 100)
+      : Math.round(market.meta.occupancy[scenario === "measured" ? "base" : scenario] * 100);
+  const nUsed = db ? db.n : d.n;
+  return {
+    nightlyRateThb: nightly,
+    occupancyPct,
+    basis,
+    n: d.n,
+    measuredOk,
+    p25: d.adrP25,
+    p75: d.adrP75,
+    nUsed,
+  };
+}
+
 const MM = {
   en: {
     context: "Market context",
@@ -63,33 +123,10 @@ export function MarketPreset({
   const [bedrooms, setBedrooms] = useState<string>("");
   const [scenario, setScenario] = useState<Scenario>("base");
 
-  const estimate = useMemo(() => {
-    const d = market.districts.find((x) => x.name === district);
-    if (!d) return null;
-    let nightly = d.adrMedian;
-    let basis = "district median";
-
-    const br = bedrooms === "" ? null : Number(bedrooms);
-    const db =
-      br != null && market.districtBedrooms.find((x) => x.district === district && x.bedrooms === br);
-    if (db) {
-      nightly = db.adrMedian;
-      basis = `${br === 0 ? "studio" : `${br}-bedroom`} comps in ${district}`;
-    } else if (type) {
-      const t = market.byType.find((x) => x.type === type);
-      if (t && market.meta.adrMedianAll) {
-        nightly = Math.round(d.adrMedian * (t.adrMedian / market.meta.adrMedianAll));
-        basis = `${t.label.toLowerCase()} in ${district}`;
-      }
-    }
-    const measuredOk = d.occupancyMeasured != null && (d.nOccupancy ?? 0) >= 5;
-    const occupancyPct =
-      scenario === "measured" && measuredOk
-        ? Math.round((d.occupancyMeasured as number) * 100)
-        : Math.round(market.meta.occupancy[scenario === "measured" ? "base" : scenario] * 100);
-    const nUsed = db ? db.n : d.n;
-    return { nightlyRateThb: nightly, occupancyPct, basis, n: d.n, measuredOk, p25: d.adrP25, p75: d.adrP75, nUsed };
-  }, [market, district, type, bedrooms, scenario]);
+  const estimate = useMemo(
+    () => estimateNightly(market, district, bedrooms === "" ? null : Number(bedrooms), type, scenario),
+    [market, district, type, bedrooms, scenario],
+  );
 
   return (
     <div className="space-y-3 rounded-sm border border-brass-500/25 bg-brass-500/[0.05] p-4">

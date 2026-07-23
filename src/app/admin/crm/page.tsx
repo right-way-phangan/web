@@ -114,7 +114,11 @@ export default async function CrmPage({
           <h1 className="mt-2 text-2xl font-semibold text-forest-900 md:text-3xl">Лиды</h1>
           <p className="mt-1 text-sm text-forest-900/60">
             {filtering ? `${filteredLeads.length} из ${leads.length}` : `${leads.length}`} лид(ов) ·
-            своя БД (Фаза B). Перетаскивайте карточку между колонками или меняйте стадию селектором.
+            своя БД (Фаза B).{" "}
+            <span className="hidden lg:inline">
+              Перетаскивайте карточку между колонками или меняйте стадию селектором.
+            </span>
+            <span className="lg:hidden">Меняйте стадию селектором.</span>
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2 lg:shrink-0">
@@ -123,49 +127,6 @@ export default async function CrmPage({
             className="rounded-full border border-brass-500/50 bg-brass-500/15 px-3 py-2 text-sm font-semibold text-brass-700 hover:bg-brass-500/25"
           >
             ☀️ Сегодня
-          </Link>
-          {(() => {
-            const queue = leads.filter(
-              (l) =>
-                l.pipelineKey === "legacy" &&
-                (l.status ?? "open") === "open" &&
-                l.stageKey === "incoming",
-            ).length;
-            return queue > 0 ? (
-              <Link
-                href={{ pathname: "/admin/crm/triage" }}
-                className="rounded-full border border-brass-500/40 bg-brass-500/10 px-3 py-2 text-sm font-medium text-brass-700 hover:bg-brass-500/20"
-              >
-                🧹 Разбор
-                <span className="ml-1.5 rounded-full bg-brass-500/20 px-1.5 py-0.5 text-xs font-semibold">
-                  {queue}
-                </span>
-              </Link>
-            ) : null;
-          })()}
-          <Link
-            href={{ pathname: "/admin/crm/stats" }}
-            className="rounded-full border border-forest-900/15 px-3 py-2 text-sm font-medium text-forest-900/70 hover:bg-forest-900/5"
-          >
-            📈 Метрики
-          </Link>
-          <Link
-            href={{ pathname: "/admin/crm/calendar" }}
-            className="rounded-full border border-forest-900/15 px-3 py-2 text-sm font-medium text-forest-900/70 hover:bg-forest-900/5"
-          >
-            📅 Показы
-          </Link>
-          <Link
-            href={{ pathname: "/admin/crm/health" }}
-            className="rounded-full border border-forest-900/15 px-3 py-2 text-sm font-medium text-forest-900/70 hover:bg-forest-900/5"
-          >
-            🩺 Здоровье
-          </Link>
-          <Link
-            href={{ pathname: "/admin/crm/contacts" }}
-            className="rounded-full border border-forest-900/15 px-3 py-2 text-sm font-medium text-forest-900/70 hover:bg-forest-900/5"
-          >
-            👥 Контакты
           </Link>
           <Link
             href={{ pathname: "/admin/crm/tasks" }}
@@ -181,19 +142,71 @@ export default async function CrmPage({
               ) : null;
             })()}
           </Link>
-          {/* eslint-disable-next-line @next/next/no-html-link-for-pages -- route handler returns a file download, not a page nav */}
-          <a
-            href="/admin/crm/export"
-            className="rounded-full border border-forest-900/15 px-3 py-2 text-sm font-medium text-forest-900/70 hover:bg-forest-900/5"
-          >
-            ⤓ CSV
-          </a>
-          <Link
-            href={{ pathname: "/admin/crm/import" }}
-            className="rounded-full border border-forest-900/15 px-3 py-2 text-sm font-medium text-forest-900/70 hover:bg-forest-900/5"
-          >
-            ⤒ Импорт
-          </Link>
+          {/* Остальные разделы CRM — в выпадающем меню, чтобы не растягивать панель кнопками */}
+          <details className="group relative">
+            <summary className="flex cursor-pointer list-none items-center gap-1 rounded-full border border-forest-900/15 px-3 py-2 text-sm font-medium text-forest-900/70 hover:bg-forest-900/5 [&::-webkit-details-marker]:hidden">
+              ⋯ Ещё
+              <span className="text-forest-900/40 transition-transform group-open:rotate-180">▾</span>
+            </summary>
+            <div className="absolute right-0 z-30 mt-2 w-52 rounded-xl border border-forest-900/10 bg-cream-50 p-1 shadow-lg">
+              {(() => {
+                const queue = leads.filter(
+                  (l) =>
+                    l.pipelineKey === "legacy" &&
+                    (l.status ?? "open") === "open" &&
+                    l.stageKey === "incoming",
+                ).length;
+                return queue > 0 ? (
+                  <Link
+                    href={{ pathname: "/admin/crm/triage" }}
+                    className="flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm font-medium text-forest-900/75 hover:bg-forest-900/5"
+                  >
+                    🧹 Разбор
+                    <span className="rounded-full bg-brass-500/20 px-1.5 py-0.5 text-xs font-semibold text-brass-700">
+                      {queue}
+                    </span>
+                  </Link>
+                ) : null;
+              })()}
+              <Link
+                href={{ pathname: "/admin/crm/stats" }}
+                className="block rounded-lg px-3 py-2 text-sm font-medium text-forest-900/75 hover:bg-forest-900/5"
+              >
+                📈 Метрики
+              </Link>
+              <Link
+                href={{ pathname: "/admin/crm/calendar" }}
+                className="block rounded-lg px-3 py-2 text-sm font-medium text-forest-900/75 hover:bg-forest-900/5"
+              >
+                📅 Показы
+              </Link>
+              <Link
+                href={{ pathname: "/admin/crm/health" }}
+                className="block rounded-lg px-3 py-2 text-sm font-medium text-forest-900/75 hover:bg-forest-900/5"
+              >
+                🩺 Здоровье
+              </Link>
+              <Link
+                href={{ pathname: "/admin/crm/contacts" }}
+                className="block rounded-lg px-3 py-2 text-sm font-medium text-forest-900/75 hover:bg-forest-900/5"
+              >
+                👥 Контакты
+              </Link>
+              {/* eslint-disable-next-line @next/next/no-html-link-for-pages -- route handler returns a file download, not a page nav */}
+              <a
+                href="/admin/crm/export"
+                className="block rounded-lg px-3 py-2 text-sm font-medium text-forest-900/75 hover:bg-forest-900/5"
+              >
+                ⤓ Экспорт CSV
+              </a>
+              <Link
+                href={{ pathname: "/admin/crm/import" }}
+                className="block rounded-lg px-3 py-2 text-sm font-medium text-forest-900/75 hover:bg-forest-900/5"
+              >
+                ⤒ Импорт
+              </Link>
+            </div>
+          </details>
           <Link
             href={{ pathname: "/admin/crm/new" }}
             className="rounded-full bg-panel px-4 py-2 text-sm font-medium text-panel-fg hover:bg-panel/90"
@@ -216,34 +229,62 @@ export default async function CrmPage({
             className="w-full rounded-full border border-forest-900/15 bg-cream-50 px-3 py-1.5 text-sm outline-none focus:border-brass-500 sm:w-64"
           />
         </form>
-        {QUICK.map((x) => {
-          const on = quick === x.key;
-          const query2 = on
-            ? { ...baseQ, f: undefined }
-            : { ...baseQ, f: x.key };
-          return (
+        {(() => {
+          const chips = QUICK.map((x) => {
+            const on = quick === x.key;
+            const query2 = on ? { ...baseQ, f: undefined } : { ...baseQ, f: x.key };
+            return (
+              <Link
+                key={x.key}
+                href={{ pathname: "/admin/crm", query: query2 }}
+                className={
+                  "rounded-full px-3 py-1.5 text-sm font-medium transition " +
+                  (on
+                    ? "bg-amber-500 text-panel-fg"
+                    : "bg-forest-900/5 text-forest-900/70 hover:bg-forest-900/10")
+                }
+              >
+                {x.label} <span className="opacity-60">({quickCounts[x.key] ?? 0})</span>
+              </Link>
+            );
+          });
+          const resetLink = filtering ? (
             <Link
-              key={x.key}
-              href={{ pathname: "/admin/crm", query: query2 }}
-              className={
-                "rounded-full px-3 py-1.5 text-sm font-medium transition " +
-                (on
-                  ? "bg-amber-500 text-panel-fg"
-                  : "bg-forest-900/5 text-forest-900/70 hover:bg-forest-900/10")
-              }
+              href={{ pathname: "/admin/crm", query: p ? { p } : {} }}
+              className="text-xs text-forest-900/50 hover:text-forest-900"
             >
-              {x.label} <span className="opacity-60">({quickCounts[x.key] ?? 0})</span>
+              Сбросить
             </Link>
+          ) : null;
+          const activeLabel = QUICK.find((x) => x.key === quick)?.label;
+          return (
+            <>
+              {/* Десктоп: быстрые фильтры чипами в ряд */}
+              <div className="hidden lg:flex lg:flex-wrap lg:items-center lg:gap-2">
+                {chips}
+                {resetLink}
+              </div>
+              {/* Мобильный: свёрнуто в «Фильтры ▾» — не растягивает панель */}
+              <details className="group relative lg:hidden">
+                <summary
+                  className={
+                    "flex cursor-pointer list-none items-center gap-1 rounded-full border px-3 py-1.5 text-sm font-medium [&::-webkit-details-marker]:hidden " +
+                    (quick
+                      ? "border-amber-500/40 bg-amber-500/15 text-forest-900"
+                      : "border-forest-900/15 text-forest-900/70")
+                  }
+                >
+                  {activeLabel ?? "Фильтры"}
+                  <span className="text-forest-900/40 transition-transform group-open:rotate-180">▾</span>
+                </summary>
+                <div className="absolute left-0 z-30 mt-2 w-64 rounded-xl border border-forest-900/10 bg-cream-50 p-2 shadow-lg">
+                  <div className="flex flex-wrap gap-2">{chips}</div>
+                  {resetLink && <div className="mt-2 px-1">{resetLink}</div>}
+                </div>
+              </details>
+            </>
           );
-        })}
-        {filtering && (
-          <Link
-            href={{ pathname: "/admin/crm", query: p ? { p } : {} }}
-            className="text-xs text-forest-900/50 hover:text-forest-900"
-          >
-            Сбросить
-          </Link>
-        )}
+        })()}
       </div>
 
       {/* Pipeline tabs */}

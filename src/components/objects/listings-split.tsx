@@ -119,7 +119,7 @@ export function ListingsSplit({
   const unmappedCount = objects.length - mappedCount;
 
   return (
-    <div className="mt-8 overflow-x-clip">
+    <div className="mt-8">
       {/* Mobile-only List/Map toggle */}
       <div className="mb-4 flex justify-end lg:hidden">
         <div className="inline-flex rounded-sm border border-forest-500/20 bg-cream-50 p-0.5">
