@@ -56,22 +56,37 @@ export function ObjectEditButton({ object }: { object: EditableObject }) {
     const files = fileRef.current?.files;
     if (!files || files.length === 0) return;
     setPhotoMsg(null);
-    const fd = new FormData();
-    fd.set("rwNumber", object.rwNumber);
-    for (const f of Array.from(files)) fd.append("photos", f);
+    // Шлём по одному файлу за раз: тело Server Action ограничено (дефолт Next
+    // ~1МБ, потолок платформы Vercel — 4.5МБ), и пачка тяжёлых рендеров его
+    // превышает — запрос падает ещё до загрузки. Сортируем по имени, чтобы
+    // обложка `01_…` ушла первой и на пустом объекте стала cover.
+    const list = Array.from(files).sort((a, b) => a.name.localeCompare(b.name));
     startPhotos(async () => {
-      const res = await addObjectPhotosAction(fd);
-      if (res.ok) {
-        setPhotoMsg(
-          `Загружено фото: ${res.added}.` +
-            (res.coverSet ? " Обложка задана — объект теперь на сайте." : ""),
-        );
-        if (fileRef.current) fileRef.current.value = "";
-        setFileCount(0);
-        router.refresh();
-      } else {
-        setPhotoMsg(res.error ?? "Не удалось загрузить.");
+      let added = 0;
+      let coverSet = false;
+      for (let i = 0; i < list.length; i++) {
+        setPhotoMsg(`Загружаю ${i + 1} из ${list.length}…`);
+        const fd = new FormData();
+        fd.set("rwNumber", object.rwNumber);
+        fd.append("photos", list[i]);
+        const res = await addObjectPhotosAction(fd);
+        if (!res.ok) {
+          setPhotoMsg(
+            `Загружено ${added} из ${list.length}. Сбой на «${list[i].name}»: ${res.error ?? "не удалось"}`,
+          );
+          router.refresh();
+          return;
+        }
+        added += res.added;
+        if (res.coverSet) coverSet = true;
       }
+      setPhotoMsg(
+        `Загружено фото: ${added}.` +
+          (coverSet ? " Обложка задана — объект теперь на сайте." : ""),
+      );
+      if (fileRef.current) fileRef.current.value = "";
+      setFileCount(0);
+      router.refresh();
     });
   }
 

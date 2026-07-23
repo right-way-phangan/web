@@ -73,6 +73,15 @@ const nextConfig: NextConfig = {
   // node_modules at runtime (the /staticmap brochure renderer uses it) instead
   // of trying to bundle the .node binary into the serverless function.
   serverExternalPackages: ["sharp"],
+  // Server Actions по умолчанию ограничены телом ~1МБ. Загрузка фото объектов
+  // в /admin идёт пофайлово через Server Action, и один тяжёлый рендер способен
+  // превысить дефолт — поднимаем до 4МБ (под потолком платформы Vercel 4.5МБ).
+  // Прямая (presigned) загрузка в R2 снимет ограничение полностью следующим шагом.
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "4mb",
+    },
+  },
   // Справочник (/admin/guide) читает markdown с диска на рантайме (страницы
   // dynamic из-за AdminNav) — без явного include Vercel не положит файлы в
   // серверный бандл и fs.readFileSync вернёт ENOENT.
