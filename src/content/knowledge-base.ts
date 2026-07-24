@@ -4359,6 +4359,159 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "documents",
     faqQuestion: "The land I'm looking at only has a PBT5 or Sor Por Kor document — can it ever get a proper chanote?",
   },
+  {
+    slug: "insuring-a-villa-koh-phangan-flood-storm-coverage",
+    kbId: "kb-0065",
+    topic: "Costs",
+    title: "Insuring a villa on Koh Phangan: what flood and storm coverage actually costs, and where standard policies fall short",
+    short:
+      "A standard Thai fire policy does not cover flood, storm or landslide by default — those come bundled as an optional rider, and that rider is often capped at a fraction of the building's real value. Premiums are trending upward nationwide after the November 2025 Hat Yai floods, and while no Koh Phangan-specific pricing exists, the World Bank rates the island's flood and landslide exposure as high.",
+    updated: "2026-07-24",
+    body: [
+      "Does a standard home-insurance policy in Thailand actually cover flood and storm damage to a villa? By default, no. The base product sold nationwide — \"fire insurance\" (อัคคีภัย) — is a narrow, Office of Insurance Commission-approved policy covering fire, lightning and explosion. Flood, windstorm, earthquake and landslide are sold separately as an optional rider, and that rider frequently caps the payout far below the building's actual rebuild cost, which matters directly on an island the World Bank's own hazard-mapping tool rates as high-risk for both flash flooding and landslide.",
+      { h: "What's actually on offer" },
+      {
+        ul: [
+          "**Basic fire insurance** — the OIC-standard named-peril policy; covers fire, lightning and explosion only, with a couple of residential variants adding a small number of extra perils.",
+          "**\"Home insurance\" products** — broader packages from insurers active in Thailand (AXA, MSIG, Bangkok Insurance, Viriyah, Muang Thai, Tokio Marine, Dhipaya/TIP and others) that layer windstorm, flood, earthquake, burglary and liability cover on top of the fire base, usually as selectable add-ons or higher tiers.",
+          "**Mortgage lenders require fire insurance** as a loan condition; a cash buyer is not legally obliged to carry any policy at all, which is worth weighing against the exposure of an uninsured villa on a flood- and landslide-rated island.",
+          "**Construction type changes the price and the terms** — insurers such as Bangkok Insurance restrict some residential products to concrete construction, and wood or mixed-material villas typically cost meaningfully more to insure than concrete ones.",
+        ],
+      },
+      { h: "What it actually costs" },
+      {
+        ul: [
+          "**Published rate example (MSIG My Home Premium)** — roughly ฿2,800–3,300/year on a ฿500,000 sum insured (about 0.56–0.67%), falling to roughly ฿12,000–22,600/year on a ฿10,000,000 sum insured (about 0.12–0.23%) — the rate as a percentage drops as the insured amount rises.",
+          "**Entry-level pricing exists too** — AXA's Sabuydee My Home starts from around ฿1,100/year for smaller cover amounts, though this isn't directly comparable to a full villa-scale policy.",
+          "**Insure the rebuild cost, not the market price** — Thai fire policies apply an \"Average Clause\": if the sum insured is below the property's true reinstatement value, a claim payout is reduced proportionally, so underinsuring to save on premium can cost far more at claim time.",
+          "**Premiums are trending up industry-wide for 2025–2026** — insurers and industry bodies point to rising reinsurance costs following the March 2025 earthquake and the November 2025 Hat Yai/Songkhla floods, which also affected Samui and Phangan with flash flooding and evacuations.",
+        ],
+      },
+      { h: "Where flood cover falls short" },
+      {
+        ul: [
+          "**Flood is excluded from the base policy** — confirmed directly on insurer product pages (e.g. TIP/Dhipaya's fire product) — and is only added back in through an optional \"natural perils\" rider covering flood, windstorm and earthquake together.",
+          "**That rider is often thinly capped** — sub-limits as low as ฿20,000 per year for flood have been published by more than one insurer, regardless of how much the building itself is insured for; treat any flood rider as a partial cushion, not full replacement cover.",
+          "**There is currently no standing national catastrophe fund** — the temporary scheme set up after the 2011 floods, which issued over 700,000 policies, has since wound down. A new permanent fund has been proposed but remains a preliminary government framework, not something to plan around; do not assume it will be in place on any particular timeline.",
+          "**Landslide and subsidence terms vary by insurer** and are not consistently documented — on hillside plots this needs a direct, written answer from the insurer before you rely on it, not an assumption based on the flood rider alone.",
+        ],
+      },
+      { h: "Open questions for lease- and company-held villas" },
+      {
+        ul: [
+          "**\"Insurable interest\" is the legal test, and it's broader than registered title** — under Section 863 of the Civil and Commercial Code, a lessee or a company with a registered right in the property should qualify to insure it, which fits how most foreign-held villas here are structured; see [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa).",
+          "**How insurers actually handle lease- or company-held policies in practice is not clearly documented publicly** — get written confirmation from a licensed broker on whose name the policy sits and what proof of the underlying lease or superficies they'll want, before assuming a policy purchased in the past will hold up at claim time.",
+          "**Whether unpermitted construction affects a claim is likewise undocumented** — another reason to keep permits and as-built approvals in order; see [Building a villa on the island: permits, zones, timelines, budgets](/knowledge/building-a-villa-koh-phangan).",
+          "**Short-term rental use commonly voids standard home cover** if it isn't disclosed — insurers typically treat Airbnb-style letting as commercial use requiring a different policy class; see [Renting out your villa: rules and taxes](/knowledge/renting-out-your-villa-rules-and-taxes).",
+        ],
+      },
+      "The practical takeaway: don't assume a villa is meaningfully covered against flood or storm just because it has \"insurance.\" Get a written quote from a licensed Thai broker that states the sum insured against genuine rebuild cost, the exact flood/windstorm sub-limit in baht, and how the policy treats the property's actual ownership structure and rental use — then compare more than one insurer before committing.",
+    ],
+    takeaways: [
+      "Standard Thai fire policies exclude flood, storm and landslide by default; those perils only come back as an optional rider, and that rider is frequently capped as low as ฿20,000/year regardless of the building's full sum insured.",
+      "Published rates run roughly 0.12–0.67% of sum insured per year depending on size and construction type, and premiums are trending upward nationwide since the November 2025 Hat Yai/Songkhla floods, which also reached Samui and Phangan.",
+      "Insure to rebuild cost, not market value — Thailand's Average Clause reduces a claim payout proportionally if the property is underinsured.",
+      "Koh Phangan and Samui are independently rated high-risk for flash flooding and landslide by the World Bank's ThinkHazard tool, even though no island-specific insurance pricing is published.",
+      "Thailand's post-2011 national catastrophe fund has wound down and its proposed replacement remains a preliminary government proposal — don't plan around it, and confirm lease/company-held insurance mechanics and rental-use disclosure directly with a licensed broker before relying on a policy.",
+    ],
+    sources: [
+      {
+        title: "TIP Insurance (Dhipaya) — Fire Insurance product page",
+        url: "https://ft.tipinsure.com/Fire/fire_product_choose",
+      },
+      {
+        title: "MSIG Thailand — My Home Premium (rate table by sum insured and construction type)",
+        url: "https://www.msig-thai.com/en/personal-insurance/my-home-premium",
+      },
+      {
+        title: "ThinkHazard (World Bank) — Surat Thani, Thailand hazard report (covers Koh Samui and Koh Phangan)",
+        url: "https://thinkhazard.org/en/report/2916-thailand-surat-thani/UF",
+      },
+      {
+        title: "Bangkok Post — Thai General Insurance Association catastrophe-fund proposal and 2025–2026 premium trends",
+        url: "https://www.bangkokpost.com/business/general/3161935",
+      },
+      {
+        title: "AXA Thailand — Sabuydee My Home insurance product page",
+        url: "https://www.axa.co.th/en/sabuydee-my-home-insurance",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "Does a standard Thai home-insurance policy cover flood and storm damage to my villa on Koh Phangan?",
+  },
+  {
+    slug: "selling-thai-company-holding-villa-share-sale-tax",
+    kbId: "kb-0066",
+    topic: "Structures",
+    title: "Selling a Thai company that holds your villa: is a share sale really a tax shortcut, and where does the Revenue Department draw the line?",
+    short:
+      "Selling the shares of the Thai company that holds your villa, instead of transferring the land itself, does legally sidestep the Land Department's transfer fee, Specific Business Tax and land withholding tax — but it is not a settled loophole. It carries real anti-avoidance exposure, transfers the company's entire liability history (including any nominee-compliance defect) to the buyer, and sits directly inside Thailand's intensifying 2026 crackdown on foreign-controlled landholding companies.",
+    updated: "2026-07-24",
+    body: [
+      "If a villa is held through the standard Thai 49/51 company structure, does selling the company's shares instead of the land itself actually save on tax — and is it safe? In form, yes, it avoids the Land Department's transfer taxes, because legal title to the land never moves. In substance, it is a materially riskier exit than it looks, for reasons that have sharpened considerably as Thailand's 2026 enforcement against foreign-controlled landholding companies has intensified. See [A Thai company for property: when it makes sense, when it's toxic](/knowledge/thai-company-for-property-49-51) for the underlying structure this guide assumes.",
+      { h: "What a share sale actually avoids — and what it costs instead" },
+      {
+        ul: [
+          "**A direct land/villa transfer at the Land Department** triggers a 2% transfer fee, up to 3.3% Specific Business Tax (or 0.5% stamp duty if SBT doesn't apply), and progressive or 1% withholding tax depending on the seller — none of that is triggered by a share sale, because the asset stays inside the company and only its ownership changes hands.",
+          "**Share transfer stamp duty is 0.1%** — but the Revenue Department's own schedule bases this on the shares' paid-up or par value, whichever is greater, not the actual sale price, so the duty paid can look small relative to the real deal value.",
+          "**A foreign corporate seller** faces 15% withholding tax on the gain under Revenue Code Section 70 (potentially reduced under a tax treaty); a **Thai company seller** pays standard 20% corporate income tax on the full gain, with no exemption; an **individual seller**'s unlisted-share gain is taxable income, and the exact withholding/progressive mechanics should be confirmed case by case with a Thai tax adviser.",
+        ],
+      },
+      { h: "The anti-avoidance risk is real, even without a settled test case" },
+      "Thailand has no single codified general anti-avoidance rule written specifically to recharacterize a share sale as a disguised land sale. But Thai law firms are consistently describing this as a live and intensifying audit risk, not a closed question — particularly where a company's only meaningful asset is the land and villa itself, making the commercial substance of the \"share sale\" hard to distinguish from a land sale in every way except the paperwork. Treat this as a genuine, growing exposure rather than either a confirmed loophole or a settled prohibition, and budget for the possibility that a future assessment could challenge the structure.",
+      { h: "Why 2026's nominee crackdown makes this sharper" },
+      {
+        ul: [
+          "**A share sale does not cure a pre-existing nominee defect** — if the Thai shareholders in the company were never genuine investors, that defect passes to the buyer along with the shares; a foreign buyer can face criminal liability under Foreign Business Act Sections 36–37 for continuing a nominee arrangement, even holding only a minority stake.",
+          "**The Land Department's IBAS screening and Section 96/97 nominee tests apply to the company regardless of who holds its shares** — see [The Land Department's 2026 audit of existing landholding companies](/knowledge/land-department-audit-existing-landholding-companies-2026) and [Section 94's forced-sale-to-forfeiture amendment](/knowledge/land-code-section-94-forfeiture-amendment) — a share sale changes who's exposed, not whether the company is exposed.",
+          "**The 49/51 ratio must be preserved after the sale**, and DBD enforcement has moved toward a substance test — Thai shareholders who hold shares on paper without real financial capacity or economic benefit from the company can still fail scrutiny even at a compliant headcount.",
+          "**Whether DBD's 2026 source-of-funds orders apply to a routine share transfer, rather than only to incorporation or to changes adding foreign control, is genuinely disputed among Thai law firms as of mid-2026** — don't assume a secondary share sale is exempt from that paperwork; confirm current guidance directly with DBD or a lawyer before relying on it. See [DBD's 2026 source-of-funds rules](/knowledge/dbd-source-of-funds-orders-company-registration-2026).",
+        ],
+      },
+      { h: "What a share buyer inherits — and should diligence" },
+      {
+        ul: [
+          "**The company's entire liability history** — debts, unresolved tax exposure, litigation, unfiled statutory returns and any nominee-compliance defect — unlike a land buyer, who takes clean title free of the seller's unrelated liabilities.",
+          "**The company's original (often low) cost basis in the land**, which carries forward and can create a large embedded latent gain for whoever eventually wants to extract the property as an asset rather than sell shares again.",
+          "**Standard mitigations lawyers recommend** — DBD, court and Revenue Department record searches, a financial-statement review, explicit warranties and indemnities in the share purchase agreement, an escrow or holdback against contingent tax risk, and, for larger deals, warranty-and-indemnity insurance.",
+        ],
+      },
+      "Thai law firms broadly agree that a share sale is often the only realistically available exit for a foreign-controlled villa-holding company, given that a foreigner cannot simply buy the land outright — but every firm pairs that observation with the same warning: treat it as the higher-risk, higher-diligence route, not a clean shortcut, and involve a Thai corporate lawyer (not just a conveyancer) on both the sell side and the buy side before signing anything.",
+    ],
+    takeaways: [
+      "A share sale of a villa-holding company legally avoids the Land Department's 2% transfer fee, up to 3.3% SBT and land withholding tax, but only 0.1% stamp duty (on par/paid-up value) applies to the share transfer instead.",
+      "There's no codified rule letting the Revenue Department recharacterize a share sale as a land sale, but Thai law firms describe this as a real and intensifying audit risk, especially where the company's only real asset is the land itself.",
+      "A share sale does not cure a pre-existing nominee-shareholder defect — that exposure, including potential criminal liability under the Foreign Business Act, passes to the buyer along with the shares.",
+      "A share buyer inherits the company's entire liability history (debts, tax exposure, litigation) and its original low cost basis in the land, unlike a clean land-transfer buyer.",
+      "Whether DBD's 2026 source-of-funds orders reach routine secondary share transfers is unresolved among Thai law firms — confirm current guidance before assuming a share sale sidesteps that paperwork.",
+    ],
+    sources: [
+      {
+        title: "Thai Revenue Department — Stamp Duty Schedule (official, share-transfer instrument basis)",
+        url: "https://www.rd.go.th/english/21986.html",
+      },
+      {
+        title: "DLA Piper REALWORLD — Taxation of real estate sales and purchases in Thailand",
+        url: "https://www.dlapiperrealworld.com/law/index.html?t=sale-and-purchase&s=taxation-of-real-estate-sales-and-purchases&c=TH",
+      },
+      {
+        title: "Lexology (FRANK Legal & Tax) — Risks of Shareholder Nominees in Thailand",
+        url: "https://www.lexology.com/library/detail.aspx?g=8f2f8ada-5d4a-423c-ba65-ce93713b5fb8",
+      },
+      {
+        title: "Legal500 — Scrutiny Guidelines to Prevent Land Holding for the Benefit of Foreigners",
+        url: "https://www.legal500.com/developments/thought-leadership/scrutiny-guidelines-to-prevent-land-holding-for-the-benefit-of-foreigners/",
+      },
+      {
+        title: "HLB Phuket — Villa resales for foreigners in Thailand's resort areas",
+        url: "https://www.hlb-phuket.com/villa-resales-for-foreigners-in-thailands-resort-areas/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "Can I sell the shares of the Thai company that holds my villa instead of transferring the land, and is that actually safer or cheaper?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

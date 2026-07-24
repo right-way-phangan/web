@@ -65,11 +65,11 @@ Status: ⏳ queued · ✅ published.
 <!-- discovered 2026-07-05, sources: aseanbriefing.com, houseviser.com, thaienquirer.com (search snippets), thethaiger.com, centreforaviation.com, thailand-construction.com -->
 | The THB 40 million investment route: how a foreigner can legally hold up to 1,600 sqm of land in their own name | structures | 🟢 | ✅ |
 | Untitled "sea-view land" scams: why cheap PBT5/Sor Por Kor plots overlapping national park or forest reserve boundaries can never get a chanote | documents | 🟢 | ✅ |
-| Insuring a villa on Koh Phangan: what flood and storm coverage actually costs, and where standard policies fall short | costs | 🟢 | ⏳ |
+| Insuring a villa on Koh Phangan: what flood and storm coverage actually costs, and where standard policies fall short | costs | 🟢 | ✅ |
 | The right of habitation: Thailand's overlooked fourth registered property right (and when it beats usufruct) | structures | ⚪️ | ⏳ |
 | Is a Koh Phangan airport actually coming? The abandoned Kan Air/national-park dispute and what it means for buyers today | phangan | ⚪️ | ⏳ |
 <!-- discovered 2026-07-12, sources: srpplaw.com, lexology.com, oceanwwp.com, bakermckenzie.com, libothai.com, khaosodenglish.com, malaymail.com, dda-realestate.com -->
-| Selling a Thai company that holds your villa: is a share-sale really a tax shortcut versus a land transfer, and where does the Revenue Department draw the line? | structures | 🟢 | ⏳ |
+| Selling a Thai company that holds your villa: is a share-sale really a tax shortcut versus a land transfer, and where does the Revenue Department draw the line? | structures | 🟢 | ✅ |
 | Disputing your Land and Building Tax bill: the assessment appeal process, deadlines and evidence needed | costs | 🟡 | ⏳ |
 | Buying next to undeveloped land: how to check what can legally be built beside your plot before you commit | process | 🟡 | ⏳ |
 <!-- discovered 2026-07-19, sources: propertyscout.co.th, phuketrealtor.com, archi-studio.asia, re.sukhothaiinterlaw.com, fosrlaw.com, kinnara.asia, islanders-properties.com, samuiforsale.com -->
