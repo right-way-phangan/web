@@ -14,6 +14,9 @@ Status: ⏳ queued · ✅ published.
 
 | Topic | faqCategory | Priority | Status |
 |---|---|---|---|
+<!-- discovered 2026-07-26, sources: khaosodenglish.com, nationthailand.com, thailand-construction.com, ehang.com -->
+| The 74-billion-baht Samui sea bridge/expressway (EXAT's 37km Don Sak-Khanom-Koh Samui link): 2026 feasibility study, 2029 construction start, and what a 20-minute mainland crossing (vs. today's 2-hour ferry) would do to Phangan and Koh Tao property demand | phangan | 🔴 | ⏳ |
+| Electric autonomous air-taxi service (EH216-S passenger drones) planned to connect Koh Samui, Koh Phangan and Koh Tao by late 2026: real project or vaporware, and what it means for buyer accessibility versus the stalled fixed-wing airport | phangan | 🔴 | ⏳ |
 <!-- discovered 2026-07-19, sources: thaiexaminer.com, silklegal.com, aimbangkok.com, globallawexperts.com -->
 | Koh Samui/Phangan-specific nominee company flagging (reportedly ~68% of registered firms on the two islands flagged, per DSI/Land Dept enforcement data): what it means for buyers of a villa already held via a Thai company | ownership | 🔴 | ✅ |
 | Land Code Section 94 amendment under study — forced-sale-within-a-year could become outright forfeiture to the State: why owners in questionable structures should regularize now, not later | structures | 🔴 | ✅ |
@@ -80,6 +83,10 @@ Status: ⏳ queued · ✅ published.
 | Managing a rental villa remotely: how to vet a property-management company (fees, contracts, red flags) | process | 🟢 | ⏳ |
 | Specific Business Tax's 5-year exemption: how the clock is counted and which transfers qualify | costs | 🟡 | ⏳ |
 | Protecting a foreign spouse's interest in property bought during a Thai marriage: usufruct and superficies in practice | structures | 🟡 | ⏳ |
+<!-- discovered 2026-07-26, sources: solarpanelsthailand.com, solar-phangan.com, thailawonline.com, hospitalitynet.org, travelandtourworld.com -->
+| Off-grid solar and battery storage for a Phangan villa: real 2026 install costs (THB/kWp) and payback versus the PEA grid-tied feed-in scheme, for owners who actually need outage independence | costs | 🟢 | ⏳ |
+| What a Phangan property lawyer's fee actually buys: due-diligence, conveyancing and title-search costs (THB 30,000-120,000) broken down against what each stage covers | process | 🟢 | ⏳ |
+| Minor Hotels' Avani and the KAIA tented resort opening on Phangan in 2026: what an international brand's first move onto the island signals for buyers weighing Thong Nai Pan and comparable areas | phangan | 🟡 | ⏳ |
 
 ## C. Per-district guides (~18 districts in districts.ts)
 
