@@ -4512,6 +4512,129 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "structures",
     faqQuestion: "Can I sell the shares of the Thai company that holds my villa instead of transferring the land, and is that actually safer or cheaper?",
   },
+  {
+    slug: "samui-sea-bridge-expressway-phangan-tao-demand",
+    kbId: "kb-0067",
+    topic: "Phangan",
+    title: "The 74-billion-baht Samui sea bridge: what a 20-minute mainland crossing would mean for Phangan and Koh Tao property demand",
+    short:
+      "EXAT's ฿74-billion, 37.41km Samui Expressway would replace the two-hour Don Sak–Samui ferry with a roughly 20-minute drive, but it is still at the feasibility/public-hearing stage as of February 2026 — cabinet approval isn't targeted until 2027, with construction starting 2028–2029 and opening projected 2033–2034. It connects only to Koh Samui; any effect on Phangan and Koh Tao demand would arrive indirectly, and only once it's actually built.",
+    updated: "2026-07-26",
+    body: [
+      "Is a bridge to Koh Samui actually happening, and would it make Koh Phangan property more valuable? The project is real and has advanced further than earlier proposals — the Expressway Authority of Thailand (EXAT) completed its third public hearing in February 2026 on a ฿74.044-billion, 37.41km elevated expressway with a 22km sea-crossing bridge from Don Sak to Koh Samui. But it has not been approved by the Cabinet, construction has not started, and — critically — the bridge itself only reaches Koh Samui. Any impact on Phangan or Koh Tao demand would be a second-order effect, arriving years after opening, not before.",
+      { h: "What's actually confirmed, as of February 2026" },
+      {
+        ul: [
+          "**Route** — from Highway 4142 in Don Sak (Surat Thani), across Ao Pratub Bay via a 22km sea bridge, to Laem So Hill on Koh Samui, connecting to Highway 4170.",
+          "**Cost** — ฿74.044 billion total, of which ฿63.275 billion is construction; EXAT projects ฿80.108 billion in toll revenue over a 30-year concession.",
+          "**Timeline** — feasibility study and EIA process ongoing in early 2026; Cabinet submission targeted for 2027; construction targeted to start 2028–2029; opening projected 2033–2034. Sources published within days of each other in February 2026 give slightly different start/open years, which itself signals the schedule isn't locked down yet.",
+          "**Travel time** — roughly 20 minutes by road, available 24/7, versus about two hours by ferry today, which is weather-dependent and stops running in rough seas.",
+          "**Tolls** — projected at opening: ฿1,000 for 4-wheeled vehicles, ฿2,000 for 6–10 wheel vehicles, ฿3,000 above that; motorcycles will be banned from the bridge on safety grounds (high winds at 50m+ clearance).",
+          "**Forecast economic impact** — EXAT projects up to ฿400 billion in economic circulation over 30 years from tourism, employment and logistics gains.",
+        ],
+      },
+      { h: "Why this doesn't reach Phangan or Koh Tao directly" },
+      "The expressway's entire route terminates on Koh Samui. Getting from Samui to Koh Phangan or Koh Tao still means a ferry — Bophut/Maenam to Thong Sala or Koh Tao runs 30–90 minutes today, and nothing in EXAT's published scope changes that leg. What a fixed mainland-to-Samui link would plausibly do is turn Samui into a genuine drive-to gateway for mainland Thai buyers and tourists who currently avoid the ferry crossing or the flight, which over time tends to lift arrivals into the Samui archipelago as a whole — Phangan and Tao's ferry-dependent tourism and rental demand would ride on that broader increase in throughput, not on the bridge itself. A separate, earlier-stage proposal — electric passenger drones connecting Samui, Phangan and Koh Tao directly — would matter more for Phangan's own accessibility if it goes ahead; see [Electric air-taxi drones for Samui-Phangan-Tao: real project or vaporware?](/knowledge/eh216-s-air-taxi-samui-phangan-tao).",
+      { h: "How to weigh this as a buyer today" },
+      {
+        ul: [
+          "**Don't price a 2033–2034 infrastructure outcome into a 2026 purchase decision.** Thai megaprojects at the public-hearing stage routinely see schedule slippage between Cabinet approval, EIA sign-off, land acquisition and actual groundbreaking — treat the 2028–2029 construction-start figure as EXAT's current target, not a commitment.",
+          "**The bridge is a Samui story first.** If it proceeds on anything close to schedule, the more direct real-estate effect lands on Don Sak/Khanom (mainland approach) and Koh Samui land near the Samui-side interchange, well before it reaches Phangan.",
+          "**Track the Cabinet submission, not the public hearings.** Public hearings are a required EIA/feasibility step under Thai law and don't indicate approval — the meaningful milestone is Cabinet sign-off, currently targeted for 2027.",
+          "**Weigh it alongside, not instead of, what already drives Phangan demand** — see [Phangan market seasonality: when to buy and when to sell](/knowledge/phangan-market-seasonality) for the demand drivers that are actually in effect now.",
+        ],
+      },
+      "The honest summary for a buyer: this is a large, credible, and increasingly well-documented infrastructure proposal — not vaporware — but it is still a proposal. It's worth watching, and worth understanding because it could reshape access to the whole Samui archipelago by the mid-2030s, but it shouldn't be a reason to buy (or wait) on Phangan today.",
+    ],
+    takeaways: [
+      "EXAT's Samui Expressway: ฿74.044 billion, 37.41km with a 22km sea bridge from Don Sak to Koh Samui, replacing a ~2-hour ferry with a ~20-minute drive.",
+      "As of February 2026 it's still at the public-hearing/feasibility stage — Cabinet approval is targeted for 2027, construction start 2028–2029, opening projected 2033–2034.",
+      "The bridge terminates on Koh Samui only — reaching Phangan or Koh Tao would still require the existing inter-island ferries; any demand effect on Phangan is indirect and years out.",
+      "Tolls are projected at ฿1,000–3,000 depending on vehicle class at opening; motorcycles will be banned from the bridge for safety reasons.",
+      "Treat the 2028–2029/2033–2034 dates as EXAT's current targets, not guarantees — track Cabinet approval as the real milestone, not the public hearings.",
+    ],
+    sources: [
+      {
+        title: "Khaosod English — 74-billion-baht Samui sea bridge set for 2029, 400-billion-baht economic boost forecast",
+        url: "https://www.khaosodenglish.com/news/2026/02/13/74-billion-baht-samui-sea-bridge-set-for-2029-400-billion-baht-economic-boost-forecast/",
+      },
+      {
+        title: "Thairath English — EXAT holds private-sector hearing to promote 74-billion-baht expressway connecting Koh Samui",
+        url: "https://en.thairath.co.th/news/governmentpolicy/2915253",
+      },
+      {
+        title: "The Nation Thailand — Koh Samui expressway project advances with public hearings, investor interest sought",
+        url: "https://www.nationthailand.com/news/policy/40039899",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "Is the proposed Koh Samui sea bridge actually happening, and would it increase property demand on Koh Phangan?",
+  },
+  {
+    slug: "eh216-s-air-taxi-samui-phangan-tao",
+    kbId: "kb-0068",
+    topic: "Phangan",
+    title: "Electric air-taxi drones for Samui–Phangan–Tao: real project or vaporware, and what it means for buyer accessibility",
+    short:
+      "Thai regulators and a private operator, Tao AAM Co., Ltd., have floated electric EH216-S passenger drones connecting Koh Samui, Koh Phangan and Koh Tao by late 2026. The aircraft and demo flights are real, but Thailand's Drone Act and CAAT type-certification are still being drafted — as of mid-2026 there is no approved commercial route, no Thai airworthiness certificate for the aircraft, and no fixed launch date beyond the operator's own target.",
+    updated: "2026-07-26",
+    body: [
+      "Will you actually be able to fly by autonomous drone between Koh Samui, Koh Phangan and Koh Tao this year? Not yet, and treat any \"late 2026\" date you see quoted as an operator's target, not a confirmed service. The aircraft exists and has flown demonstration flights in Thailand; the regulatory and certification steps that would let it carry paying passengers commercially do not yet exist in Thai law.",
+      { h: "What's real" },
+      {
+        ul: [
+          "**The aircraft** — the EH216-S, a fully electric, two-passenger autonomous aircraft made by China's EHang, cruising around 90km/h (130km/h max), already holds a Chinese Type Certificate, Production Certificate, Standard Airworthiness Certificate and Air Operator Certificate — real, in-service credentials, but issued by China's aviation regulator, not Thailand's.",
+          "**The operator** — Tao AAM Co., Ltd., working with J Capital Public Company Limited (GCAP), has proposed five pilot tourism routes: Pattaya, Phuket, Koh Samui, Koh Phangan and Koh Tao, and has run demonstration flights in Chachoengsao province on the Thai mainland.",
+          "**The regulator** — Thailand's Civil Aviation Authority (CAAT) is drafting the country's first comprehensive Drone Act, expected to take effect in 2026, alongside a master plan covering unmanned air-traffic management, urban flight zones and safety frameworks — described in CAAT's own framing as work still in progress, not a completed rulebook.",
+          "**A telecoms partner** — National Telecom (NT) has signed an MOU to help build the communications and tracking backbone the operation would need.",
+        ],
+      },
+      { h: "What's not yet confirmed" },
+      {
+        ul: [
+          "**No Thai type-certification or airworthiness approval for the EH216-S has been reported** — CAAT's own public statements describe it as \"preparing\" safety and regulatory frameworks, not certifying a specific aircraft for commercial passenger service.",
+          "**No fixed commercial launch date** — the widely quoted \"late 2026\" figure traces back to press coverage of CAAT's stated aim, not a published route license, ticketed timetable or CAAT certification decision.",
+          "**No confirmed pricing, ticketing or landing-site infrastructure on Koh Phangan** has been publicly disclosed for the Samui–Phangan–Tao route specifically.",
+          "**The Drone Act itself is still pending** — until it and its implementing regulations are in force, there is no legal framework in Thailand for licensing an autonomous aircraft to carry fare-paying passengers on a fixed route.",
+        ],
+      },
+      { h: "How to think about this if you're weighing accessibility" },
+      "Koh Phangan's single biggest structural accessibility problem is not a shortage of proposals — it's that ambitious transport projects here have a long history of stalling. The island's own fixed-wing airport project, led by Kan Air, was halted in 2015 after regulators found construction had encroached roughly 20 rai into Than Sadet-Ko Pha-ngan National Park; it has seen no further construction since, and Kan Air itself suspended operations in 2017. That history is a useful benchmark for how much weight to put on any single-year timeline for a new transport mode, drone or otherwise — regulatory and land-use friction in Thailand tends to add years, not weeks, to these projects.",
+      {
+        ul: [
+          "**If it eventually launches**, the direct benefit to Phangan is real: a same-day, weather-independent link to Samui's international airport would meaningfully cut the friction of the current ferry-plus-taxi routine, for whoever can afford the ticket.",
+          "**If it doesn't, or slips years**, nothing about today's access to Phangan changes — you're still routing through Samui or Surat Thani by ferry, exactly as buyers do now.",
+          "**Either way, it shouldn't factor into a purchase decision today.** A pre-certification, pre-route-license transport proposal is not a basis to pay a premium for a plot on the assumption of easier future access — see [Building a villa on the island: permits, zones, timelines, budgets](/knowledge/building-a-villa-koh-phangan) for what genuinely does affect a plot's value now, and [The Samui sea bridge and expressway](/knowledge/samui-sea-bridge-expressway-phangan-tao-demand) for the larger, further-along infrastructure proposal it would complement.",
+        ],
+      },
+      "The realistic read: this is a genuine, technically credible pilot proposal with real hardware and a real regulator engaged — not a hoax — but it is materially earlier-stage than the sea bridge, with no Thai certification and no binding timetable. Watch CAAT's Drone Act progress and any published route license before treating it as infrastructure you can plan around.",
+    ],
+    takeaways: [
+      "The EH216-S is a real, Chinese-certified electric autonomous 2-passenger aircraft; operator Tao AAM Co., Ltd. has proposed a Samui–Phangan–Tao route among five pilot tourism routes, alongside Pattaya and Phuket.",
+      "As of mid-2026, Thailand's Drone Act and CAAT's certification framework for passenger drones are still being drafted — there is no Thai airworthiness approval or route license for this service yet.",
+      "The 'late 2026' launch date circulating in coverage is CAAT's/the operator's stated aim, not a confirmed or ticketed commercial timetable.",
+      "Demonstration flights have taken place in Chachoengsao on the Thai mainland, not yet on the Samui–Phangan–Tao route itself.",
+      "Koh Phangan's stalled fixed-wing airport (halted 2015 over national-park encroachment, no construction since) is a useful reminder that transport-infrastructure timelines here routinely slip years beyond first announcements.",
+    ],
+    sources: [
+      {
+        title: "The Nation Thailand — Drone boom takes off in Thailand with Air Taxi on the horizon",
+        url: "https://www.nationthailand.com/news/general/40057643",
+      },
+      {
+        title: "The Nation Thailand — EH216-S: Unmanned Aerial Vehicle revolutionises Thailand urban mobility",
+        url: "https://www.nationthailand.com/sustainability/renewable-green-energy/40056820",
+      },
+      {
+        title: "Bangkok Post — Koh Phangan airport project hits snag",
+        url: "https://www.bangkokpost.com/thailand/general/1265631/koh-phangan-airport-project-hits-snag",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "Is the planned electric air-taxi drone service between Koh Samui, Koh Phangan and Koh Tao actually launching in 2026?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
