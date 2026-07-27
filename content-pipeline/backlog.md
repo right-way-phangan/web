@@ -76,8 +76,8 @@ Status: ⏳ queued · ✅ published.
 | Disputing your Land and Building Tax bill: the assessment appeal process, deadlines and evidence needed | costs | 🟡 | ⏳ |
 | Buying next to undeveloped land: how to check what can legally be built beside your plot before you commit | process | 🟡 | ⏳ |
 <!-- discovered 2026-07-19, sources: propertyscout.co.th, phuketrealtor.com, archi-studio.asia, re.sukhothaiinterlaw.com, fosrlaw.com, kinnara.asia, islanders-properties.com, samuiforsale.com -->
-| Withholding tax on a property sale: how the individual-seller calculation (years-owned deduction, progressive rates) differs from a company's flat 1% | costs | 🟢 | ⏳ |
-| Coastal setback rules in practice: exact height, floor-area and open-space limits by distance-from-beach zone | structures | 🟢 | ⏳ |
+| Withholding tax on a property sale: how the individual-seller calculation (years-owned deduction, progressive rates) differs from a company's flat 1% | costs | 🟢 | ✅ |
+| Coastal setback rules in practice: exact height, floor-area and open-space limits by distance-from-beach zone | structures | 🟢 | ✅ |
 | Hillside building limits in practice: the altitude and slope-percentage tiers that decide what you can actually build | structures | 🟢 | ⏳ |
 | The LTR visa's property-investment route: how a USD 500k+ real estate purchase unlocks 10-year residency and tax perks | ownership | 🟢 | ⏳ |
 | Managing a rental villa remotely: how to vet a property-management company (fees, contracts, red flags) | process | 🟢 | ⏳ |

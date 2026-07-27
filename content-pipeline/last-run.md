@@ -1,4 +1,4 @@
-# Last run — 2026-07-26
+# Last run — 2026-07-27
 
 **Guides published:** 2
 
@@ -6,40 +6,42 @@
 
 ## Guide 1
 
-- **slug:** `samui-sea-bridge-expressway-phangan-tao-demand`
-- **kbId:** `kb-0067`
-- **title (EN):** The 74-billion-baht Samui sea bridge: what a 20-minute mainland crossing would mean for Phangan and Koh Tao property demand
-- **title (RU):** Мост на Самуи за 74 миллиарда бат: что 20-минутный переезд с материка даст спросу на недвижимость Пангана и Ко Тао
-- **faqCategory:** `phangan`
-- **faqQuestion:** Is the proposed Koh Samui sea bridge actually happening, and would it increase property demand on Koh Phangan?
+- **slug:** `withholding-tax-property-sale-individual-vs-company`
+- **kbId:** `kb-0069`
+- **title (EN):** Withholding tax on a property sale: how the individual calculation differs from a company's flat 1%
+- **title (RU):** Налог у источника при продаже недвижимости: чем расчёт для физлица отличается от плоской ставки 1% для компании
+- **faqCategory:** `costs`
+- **faqQuestion:** How is withholding tax calculated when I sell my Koh Phangan property, and does it differ if I sell through a Thai company?
 - **Sources used:**
-  - Khaosod English (13 Feb 2026) — primary figures: ฿74.044bn cost, 37.41km route, 22km sea bridge, timeline (Cabinet 2027, construction 2028–2029, opening 2033–2034), ~20-min vs 2-hr ferry comparison, ฿400bn 30-year economic forecast
-  - Thairath English (Feb 2026) — corroborating cost/route/agency detail (EXAT), construction/opening year framing
-  - The Nation Thailand (19 Feb 2026) — toll pricing by vehicle class, motorcycle ban, 30-year concession revenue projection (฿80.108bn), confirms feasibility-study/EIA stage as of publication
+  - Acclime Thailand — step-by-step individual withholding-tax mechanics (appraised value → years-owned deduction → divide by years → progressive PIT → multiply back) and the company's flat 1% basis
+  - Terms.Law — corroborating deduction table (92%→50% across 1–8+ years), SBT/stamp-duty mutual exclusivity, tabien-baan exemption
+  - Siam Legal International — corroborating progressive PIT bracket structure and general transfer-tax picture
 
 ## Guide 2
 
-- **slug:** `eh216-s-air-taxi-samui-phangan-tao`
-- **kbId:** `kb-0068`
-- **title (EN):** Electric air-taxi drones for Samui–Phangan–Tao: real project or vaporware, and what it means for buyer accessibility
-- **title (RU):** Электрические аэротакси-дроны для Самуи–Пангана–Тао: реальный проект или пустышка, и что это значит для доступности острова
-- **faqCategory:** `phangan`
-- **faqQuestion:** Is the planned electric air-taxi drone service between Koh Samui, Koh Phangan and Koh Tao actually launching in 2026?
+- **slug:** `coastal-setback-rules-koh-phangan-distance-from-beach`
+- **kbId:** `kb-0070`
+- **title (EN):** Coastal setback rules on Koh Phangan in practice: height, floor-area and green-space limits by distance from the beach
+- **title (RU):** Прибрежные отступы на Ко Пангане на практике: ограничения по высоте, площади застройки и озеленению по удалённости от пляжа
+- **faqCategory:** `structures`
+- **faqQuestion:** How close to the beach can I build, and what height and floor-area limits apply on a Koh Phangan coastal plot?
 - **Sources used:**
-  - The Nation Thailand (2 Nov 2025) — operator (Tao AAM Co., Ltd. / GCAP), 5 proposed pilot routes, CAAT's Drone Act still in drafting, NT telecoms MOU, no confirmed launch date beyond "future"
-  - The Nation Thailand (15 Oct 2025) — EH216-S aircraft specs, Chinese-only certification status, CAAT's "preparing" framing (no Thai certification yet)
-  - Bangkok Post (archival) — Koh Phangan's stalled fixed-wing airport (Kan Air, halted 2015 over ~20 rai national-park encroachment, no construction since, Kan Air suspended ops 2017) — used as the accessibility-history benchmark the backlog topic explicitly asked for
-
-**Note on the "late 2026" date:** that figure appears in secondary coverage (e.g. nomadlawyer.org, 22 Apr 2026) attributed to CAAT's stated aim, not a certified/ticketed timetable — the guide flags it explicitly as a target, not a confirmation, since no Thai airworthiness certificate or route license exists as of this writing.
+  - ONEP (Office of Natural Resources and Environmental Policy and Planning) — primary: Royal Gazette citation for the Surat Thani provincial environmental protection notice (Vol. 142, Special Section 199 Ng, 21 May 2025, effective 22 May 2025, 5-year term), confirmed to explicitly cover Koh Phangan's subdistricts alongside Koh Samui/Koh Tao
+  - Sukhothai Inter Law — same source already cited in the existing overview guide `koh-phangan-building-zones`, used here for continuity/consistency
+  - Samui Island Realty and Conrad Properties — corroborating practical figures (10m/50m/200m distance bands; 6m/12m height caps; 75 m² footprint; 80m/140m elevation tiers; slope-based restrictions), cross-checked against each other and against numbers already published site-wide in existing per-district guides before use
 
 ---
 
 ## Notes
 
-Both were the two top-priority unpublished 🔴 rows in `backlog.md` section A (news-tier, discovered 2026-07-26) — taken top-down per priority order. Neither slug pre-existed in `knowledge-base.ts` (66 existing articles scanned; kbId continued cleanly at kb-0067/kb-0068).
+Both were the two top-priority unpublished 🟢 topics in `backlog.md` section B — no 🔴 rows remained anywhere in the backlog (all news-tier rows are ✅), so priority moved to the top of the 🟢 tier, taken top-down. Neither slug pre-existed in `knowledge-base.ts` (67 existing articles scanned before this run; kbId continued cleanly at kb-0069/kb-0070; 69 after).
 
-Both guides were deliberately conservative given how early-stage and fast-moving these two projects are: Guide 1 flags that construction-start/opening years differ slightly across sources published days apart in Feb 2026 (a sign the schedule isn't locked), explicitly separates "public hearing" from "Cabinet approval" as the real milestone, and states plainly that the bridge only reaches Koh Samui — any Phangan/Tao demand effect is indirect and conditional on the project actually being built on schedule, which Thai megaprojects routinely are not. Guide 2 is explicit that the aircraft/operator/demo-flight facts are real but that Thai certification, the Drone Act and any route license do not yet exist, and uses Koh Phangan's own stalled Kan Air airport (halted 2015, no construction since) as a concrete historical base rate for how far transport-project timelines here tend to slip — precisely the comparison the backlog topic asked for.
+Guide 1 fills a real gap flagged by the site's own existing content: the `selling-leasehold-villa-exit-liquidity` guide explicitly punts on the withholding-tax calculation ("consult a Thai accountant for the exact calculation"). This guide supplies that calculation, with a worked example independently recomputed from the standard PIT bracket table (rather than reused verbatim from a single source, since example figures varied slightly across sources — the mechanism itself, not any one source's arithmetic, is what's being claimed).
 
-Guide 1 cross-links to `eh216-s-air-taxi-samui-phangan-tao` (Guide 2) and `phangan-market-seasonality`. Guide 2 cross-links to `samui-sea-bridge-expressway-phangan-tao-demand` (Guide 1) and `building-a-villa-koh-phangan`. All target slugs verified to exist (or were the sibling guide) before publishing. Both backlog rows marked ✅. `tsc --noEmit` passes clean after the edits; EN/RU slug and kbId counts match (66→68 articles, no duplicates).
+Guide 2 is a deliberate practical companion to the existing `koh-phangan-building-zones` overview (kb-0003) and the many per-district guides that already cite the same numeric tiers (10m/50m/200m distance bands, 80m/140m elevation tiers) — it does not duplicate that overview but goes one level deeper into the exact figures those other guides already assume as background, and adds a primary legal citation (Royal Gazette via ONEP) that the existing guides lacked. One nuance flagged explicitly inside the guide: a separate, older nationwide coastal-setback rule (reported elsewhere as a 1997 Ministry of Science regulation, with 200m/400m bands up to 23m height) surfaced in one secondary source but was deliberately excluded, since it could not be confirmed as the operative rule for the current island-specific 2025 zoning and including it risked conflating two different regulations — kept conservative per the quality gate.
 
-Remaining ⏳ backlog: OCPB landlord leasing rules (3+ units), water-shortage risk, 2025–2026 development pipeline, rental-yield drivers, right of habitation, Phangan airport status (dedicated guide — not yet written; only referenced here as a source), Land and Building Tax appeal process, undeveloped-neighbour due diligence, withholding tax on individual vs company sales, coastal setback rules by zone, hillside building limits, LTR visa property route, remote rental-management vetting, SBT 5-year exemption, foreign-spouse usufruct/superficies protection, off-grid solar payback, lawyer-fee breakdown, and Minor Hotels' Avani/KAIA opening — queued for the next run.
+Both guides cross-link to existing, verified slugs (`thai-company-for-property-49-51`, `selling-thai-company-holding-villa-share-sale-tax`, `cost-of-buying-taxes-and-fees`, `koh-phangan-building-zones`, `building-a-villa-koh-phangan`), all confirmed present in both EN/RU files before use.
+
+`tsc --noEmit` passes clean. EN/RU slug sets are identical (69 slugs each), no duplicates, kbId sequence intact through kb-0070.
+
+Remaining ⏳ backlog, next-priority first: 🟢 — managing a rental villa remotely (vetting a property manager), off-grid solar/battery payback, what a Phangan property lawyer's fee buys; then 🟡 — OCPB landlord leasing rules (3+ units), water-shortage risk, 2025–2026 development pipeline, rental-yield drivers, Land and Building Tax appeal process, undeveloped-neighbour due diligence, SBT 5-year exemption, foreign-spouse usufruct/superficies protection, Minor Hotels' Avani/KAIA opening; then ⚪️ — right of habitation, Phangan airport status.

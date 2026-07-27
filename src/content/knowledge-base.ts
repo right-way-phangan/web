@@ -4635,6 +4635,139 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "phangan",
     faqQuestion: "Is the planned electric air-taxi drone service between Koh Samui, Koh Phangan and Koh Tao actually launching in 2026?",
   },
+  {
+    slug: "withholding-tax-property-sale-individual-vs-company",
+    kbId: "kb-0069",
+    topic: "Costs",
+    title: "Withholding tax on a property sale: how the individual calculation differs from a company's flat 1%",
+    short:
+      "A Thai company selling a villa or land pays a flat 1% withholding tax on the higher of appraised value or sale price. An individual seller's withholding tax is not a simple percentage at all — it runs the appraised value through a years-owned deduction table and Thailand's progressive income-tax rates, and can land well above or below 1% depending on how long the property was held.",
+    updated: "2026-07-27",
+    body: [
+      "Is withholding tax on a Thai property sale just \"1%,\" the way it's often quoted? Only if the seller is a company. If the seller is an individual — the more common case for a foreign-owned villa on Phangan — the Revenue Department runs a multi-step calculation that has nothing to do with a flat percentage, and getting it wrong is one of the more common surprises at the Land Office on completion day.",
+      { h: "The company route: flat and simple" },
+      "When the seller is a Thai limited company — the entity that typically holds land under a 49/51 structure, see [A Thai company for property](/knowledge/thai-company-for-property-49-51) — withholding tax at transfer is a flat **1% of whichever is higher: the government-appraised value or the actual sale price.** It is deducted at the Land Office and credited against the company's annual corporate income tax (20% on net profit) when it files its return. There is no years-owned deduction and no progressive scale — the mechanics are the same whether the company held the asset one year or twenty.",
+      { h: "The individual route: a five-step calculation" },
+      "For an individual seller, withholding tax is a proxy for personal income tax on the gain, calculated in steps by the Land Office official at the moment of transfer, using the **government-appraised value**, not the market price:",
+      {
+        ul: [
+          "**1. Start from the appraised value.** The Land Department's assessed value for the plot/building, which is typically below current market price and revised periodically.",
+          "**2. Apply the years-owned deduction.** A fixed percentage of the appraised value is deducted before any tax applies, and the percentage rises with how long the seller has held the property: 92% for 1 year owned, 84% for 2 years, 77% for 3, 71% for 4, 65% for 5, 60% for 6, 55% for 7, and 50% flat for 8 years or more. Part-years round up to a full year.",
+          "**3. Divide the remainder by the years owned.** What's left after the deduction is treated as if it were earned evenly across the holding period, capped at 10 years, giving a \"deemed annual income\" figure.",
+          "**4. Apply Thailand's progressive personal income tax brackets to that annual figure** — 0% up to ฿150,000, 5% on the next ฿150,000, 10% up to ฿500,000, rising in steps to 35% on amounts above ฿5,000,000.",
+          "**5. Multiply the resulting tax-per-year back by the number of years owned** to get the total withholding tax due at the Land Office.",
+        ],
+      },
+      { h: "A worked example" },
+      "A villa with a ฿4,000,000 appraised value, owned for 5 years: the 65% deduction removes ฿2,600,000, leaving ฿1,400,000. Divided by 5 years, that's ฿280,000 of deemed annual income. Running that through the brackets — ฿0 on the first ฿150,000, 5% on the next ฿130,000 — gives ฿6,500 of tax per year. Multiplied back by 5 years, the withholding tax due is **฿32,500**, well under 1% of the appraised value in this case. Change the years owned or the appraised value and the result moves in ways that don't track a flat percentage at all — a short holding period on a high-value property can push the effective rate above what a company would have paid on the same sale.",
+      { h: "Why the gap matters for a foreign-owned villa" },
+      {
+        ul: [
+          "**The withholding tax is only one line item.** Both individual and company sellers separately owe either Specific Business Tax (3.3%, if held under 5 years or the seller is deemed to be in the property business) or stamp duty (0.5%, if 5+ years and SBT doesn't apply) — never both — plus the standard 2% transfer fee, typically split with the buyer. See [Costs, taxes and the FET form](/knowledge/cost-of-buying-taxes-and-fees) for the full transaction picture.",
+          "**An individual's occupied-home exemption doesn't extend to a company.** A seller whose name has been on the house registration (tabien baan) at that address for a full year can qualify for SBT relief — a company can never meet that test, since tabien baan registration is personal, not corporate.",
+          "**Choosing to hold via a company changes which of these two calculations applies on exit**, alongside everything else that decision affects — see [A Thai company for property: when it makes sense, when it's toxic](/knowledge/thai-company-for-property-49-51) and, for the share-sale alternative some owners consider instead of a direct transfer, [Selling a Thai company that holds your villa](/knowledge/selling-thai-company-holding-villa-share-sale-tax).",
+          "**The appraised value, not the sale price, drives the individual calculation** — a villa selling well above its government appraisal doesn't pay proportionally more withholding tax on that excess, which is one reason cash buyers and sellers sometimes discuss the appraised figure separately from the headline price.",
+        ],
+      },
+      "None of this is optional or negotiable at the Land Office — the calculation is run by the registering officer on the day of transfer, and the tax is collected before the deed changes hands. Bring a Thai accountant or lawyer into the numbers before you set a sale price, not after, since the years-owned deduction and the appraised-value gap can move the seller's net proceeds by a meaningful amount either way.",
+    ],
+    takeaways: [
+      "A company seller pays a flat 1% withholding tax on the higher of appraised value or sale price — no years-owned deduction, no progressive scale.",
+      "An individual seller's withholding tax runs the appraised value through a years-owned deduction (92% at 1 year down to 50% at 8+ years), divides by years held, applies progressive income-tax brackets, then multiplies back by the years — it is not a flat percentage.",
+      "The calculation uses the government-appraised value, not the actual sale price, and is computed and collected by the Land Office official at the moment of transfer.",
+      "Withholding tax is separate from Specific Business Tax (3.3%, under 5 years) or stamp duty (0.5%, 5+ years) and the 2% transfer fee — all can apply on the same sale.",
+      "Whether the property is held personally or through a Thai company changes which withholding calculation applies on exit, so factor this in before choosing a holding structure, not after.",
+    ],
+    sources: [
+      {
+        title: "Acclime Thailand — Determining withholding tax on selling a condominium",
+        url: "https://thailand.acclime.com/guides/withholding-tax-selling-condominium/",
+      },
+      {
+        title: "Terms.Law — Thailand property transfer taxes: fees, withholding & stamps",
+        url: "https://terms.law/Thai/tax/property-transfer-taxes.html",
+      },
+      {
+        title: "Siam Legal International — Property taxes in Thailand",
+        url: "https://www.siam-legal.com/realestate/thailand-property-taxes.php",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "How is withholding tax calculated when I sell my Koh Phangan property, and does it differ if I sell through a Thai company?",
+  },
+  {
+    slug: "coastal-setback-rules-koh-phangan-distance-from-beach",
+    kbId: "kb-0070",
+    topic: "Structures",
+    title: "Coastal setback rules on Koh Phangan in practice: height, floor-area and green-space limits by distance from the beach",
+    short:
+      "Under the environmental protection zoning that has covered Koh Samui, Koh Phangan and Koh Tao since 22 May 2025, how close a plot sits to the high-tide line decides what can legally be built on it — down to specific height caps, floor-area limits and single-storey rules within the first 50 metres. This guide sets out the practical tiers behind the general zoning map covered in [Island eco-zoning: where you can and can't build](/knowledge/koh-phangan-building-zones).",
+    updated: "2026-07-27",
+    body: [
+      "Exactly how far from the beach does a plot need to be before you can build a two-storey villa? The zoning that applies island-wide splits coastal land into distance bands, and each one carries a different, specific limit on height and floor area — not just a general \"stay back from the water\" rule.",
+      { h: "The legal basis" },
+      "The current rules come from the Surat Thani provincial environmental protection area notification issued by the Ministry of Natural Resources and Environment, published in the Royal Gazette on 21 May 2025 and effective from 22 May 2025 for a five-year term. It explicitly covers Koh Phangan's subdistricts alongside Koh Samui and Koh Tao, replacing an earlier version of the same island-wide framework. See [Island eco-zoning: the 2025 environmental rules](/knowledge/koh-phangan-building-zones) for how this fits into the island's seven zones overall.",
+      { h: "The coastal distance bands" },
+      {
+        ul: [
+          "**0–10 m from the high-tide line — no construction.** This strip is kept clear outright, regardless of title class or plot size.",
+          "**10–50 m — single storey only, maximum 6 m height (including the roof), maximum 75 m² floor area.** This is the tightest buildable tier and rules out anything resembling a two-storey villa or a large footprint, even on a title deed that would otherwise allow it.",
+          "**50–200 m — up to 12 m height,** with larger footprints permitted (reported up to roughly 2,000 m² for commercial-scale buildings); a residential villa here has materially more room to work with than in the 10–50 m band, but still needs the plot-specific limit confirmed before design.",
+          "**Beyond 200 m — the coastal distance band no longer applies,** and the plot instead falls under whichever zoning category matches its actual character: standard residential rules, or the hillside elevation tiers below if the land rises.",
+        ],
+      },
+      { h: "The hillside overlay: a separate axis" },
+      "Distance from the beach and elevation are two different tests, and a plot can trigger either — or both, on land that both faces the coast and climbs a slope behind it.",
+      {
+        ul: [
+          "**Below 80 m elevation** — a single home faces no extra elevation-based restriction beyond the coastal band it sits in; a **hotel** must keep at least 50% of the plot as green space, and any **multi-unit development of 10 or more units** must install water supply and wastewater treatment systems as a condition of approval.",
+          "**80–140 m elevation (Zone 3(1))** — single-family home only, maximum 6 m height including the roof, a minimum plot size around 400 m², at least 50% of the land kept green, a drainage system required, and construction generally expected in a traditional Thai or tropical style. No land subdivision and no resort-style retaining walls.",
+          "**Above 140 m elevation (Zone 3(2))** — the strictest tier: total floor area capped around 90 m², with roughly 70% of the plot required as open space.",
+          "**Slope, independent of elevation** — land under roughly a 35% gradient faces no extra slope-based restriction; steeper slopes trigger a smaller minimum plot size, a tighter floor-area cap and a higher green-space requirement (with a share of native tree cover required); the steepest slopes are barred from construction outright, and any grading or large tree removal on sloped land needs separate environmental approval first.",
+        ],
+      },
+      { h: "What this means before you buy" },
+      {
+        ul: [
+          "**Get the exact distance-from-shore and elevation figures for the specific plot**, not the district average — a parcel that looks similar to its neighbour on a map can sit in a different band once surveyed, and the zone, not the seller's description, decides what you can build.",
+          "**Treat the 10–50 m tier as effectively a single-storey, small-footprint zone** — a common mistake is assuming a coastal title deed alone guarantees the villa design a buyer has in mind.",
+          "**Structures completed before 21 May 2025 are generally grandfathered**, but expansion, rebuilding or a change of use will usually be assessed against the current rules, not the ones in force when the original structure went up.",
+          "**Confirm wastewater and green-space obligations before committing to a multi-unit or hotel-scale project** — these trigger requirements that a single private villa does not face.",
+          "**Verify directly with the Koh Phangan District Office or a Thai lawyer before signing anything** — zone boundaries are drawn from surveyed elevation and shoreline data, not from a plot's marketing description, and getting this wrong after a deposit is paid is far costlier than checking first.",
+        ],
+      },
+      "The practical takeaway: on Koh Phangan's coastline, the plot's exact distance from the high-tide line and its elevation — not its title class or its view — are what decide whether the villa a buyer has in mind can actually be built there. Confirm both figures on the ground before any money changes hands; see [Building a villa on the island: permits, zones, timelines, budgets](/knowledge/building-a-villa-koh-phangan) for what comes next once the zone is confirmed.",
+    ],
+    takeaways: [
+      "0–10 m from the high-tide line: no construction. 10–50 m: single storey, 6 m height cap, 75 m² floor-area cap. 50–200 m: up to 12 m height with substantially more floor area.",
+      "The rules come from the Surat Thani provincial environmental protection notification (Royal Gazette, effective 22 May 2025, five-year term), which explicitly covers Koh Phangan alongside Koh Samui and Koh Tao.",
+      "A separate elevation-based overlay applies on hillsides: 80–140 m caps a single home at 6 m height with 50% green space; above 140 m caps total floor area at roughly 90 m² with about 70% open space.",
+      "Slopes over roughly 35% gradient trigger stricter minimum plot size, floor-area and green-space rules, and the steepest slopes bar construction outright — separate environmental approval is needed before any grading.",
+      "Structures completed before 21 May 2025 are generally grandfathered, but expansion or a change of use is assessed against the current rules — always verify a specific plot's zone with the District Office or a Thai lawyer before buying.",
+    ],
+    sources: [
+      {
+        title: "ONEP (Office of Natural Resources and Environmental Policy and Planning) — Surat Thani provincial environmental protection area notice, Royal Gazette Vol. 142, Special Section 199 Ng, 21 May 2025",
+        url: "https://www.onep.go.th/epa-suratthani-2568/",
+      },
+      {
+        title: "Sukhothai Inter Law — New zoning law for Koh Samui, Koh Phangan & Koh Tao (May 2025 update)",
+        url: "https://re.sukhothaiinterlaw.com/new-zoning-law-for-koh-samui-koh-phangan-koh-tao-what-property-owners-developers-need-to-know-may-2025-update/",
+      },
+      {
+        title: "Samui Island Realty — Koh Samui building regulations: land zoning & slope rules",
+        url: "https://samui-island-realty.com/koh-samui-building-regulations/",
+      },
+      {
+        title: "Conrad Properties — Building regulations in Koh Samui, Thailand",
+        url: "https://www.conradproperties.asia/blog-news/building-regulations-koh-samui-thailand",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "How close to the beach can I build, and what height and floor-area limits apply on a Koh Phangan coastal plot?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
