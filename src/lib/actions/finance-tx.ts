@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { appendTransactionToSheet, updateWalletsInSheet } from "@/lib/data/finance-sheet";
 import { categoriesForScope, type TxScope, type Currency } from "@/lib/data/finance";
+import { isAdmin } from "@/lib/auth/require-admin";
 
 const DISPLAY_CURRENCIES: Currency[] = ["THB", "USD", "RUB"];
 
@@ -12,6 +13,7 @@ const DISPLAY_CURRENCIES: Currency[] = ["THB", "USD", "RUB"];
  * Под middleware-авторизацией /admin/*. Сфера/категория валидируются.
  */
 export async function submitTransaction(formData: FormData): Promise<void> {
+  if (!(await isAdmin())) redirect("/admin/crm");
   const amount = Number(String(formData.get("amount") ?? "").replace(",", ".").trim());
   const rawCur = String(formData.get("currency") ?? "THB").toUpperCase() as Currency;
   const currency: Currency = DISPLAY_CURRENCIES.includes(rawCur) ? rawCur : "THB";
@@ -44,6 +46,7 @@ export async function submitTransaction(formData: FormData): Promise<void> {
  * Пишет суммы с сегодняшней датой as-of; дальше траты вычитаются автоматически.
  */
 export async function setWalletBalances(formData: FormData): Promise<void> {
+  if (!(await isAdmin())) redirect("/admin/crm");
   const numOf = (k: string) => Number(String(formData.get(k) ?? "0").replace(",", ".").trim() || "0");
   const personal = {
     thb: numOf("personalThb"),
