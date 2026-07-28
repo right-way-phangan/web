@@ -4768,6 +4768,128 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "structures",
     faqQuestion: "How close to the beach can I build, and what height and floor-area limits apply on a Koh Phangan coastal plot?",
   },
+  {
+    slug: "ltr-visa-property-investment-route",
+    kbId: "kb-0071",
+    topic: "Ownership",
+    title: "The LTR visa's property route: how a $500,000 Thai real estate purchase counts toward 10-year residency",
+    short:
+      "Thailand's Long-Term Resident (LTR) visa lets a Wealthy Global Citizen count Thai real estate toward the $500,000 Thailand-investment requirement, and as of February 2025 there is no personal income threshold to meet. But the property must be registered in the applicant's own name — a villa held through a Thai company does not qualify, which rules out the most common Phangan ownership structure unless the purchase is restructured around it from the outset.",
+    updated: "2026-07-28",
+    body: [
+      "Can buying a villa or land on Koh Phangan get you a 10-year Thai visa? Indirectly, yes — but only under one specific LTR category, and only if the property is held the right way. The Board of Investment's Long-Term Resident (LTR) visa has a **Wealthy Global Citizen** track that lets real estate count toward its investment threshold, and the rules on exactly what qualifies are stricter than most marketing copy suggests.",
+      { h: "What the Wealthy Global Citizen category requires" },
+      {
+        ul: [
+          "**At least $1,000,000 in global assets**, held personally — financial instruments (investment portfolio, bank deposits) and real property. Cryptocurrency, gold futures, amulets, art, designer goods and jewellery are explicitly excluded.",
+          "**At least $500,000 invested in Thailand**, in the applicant's own name. This is not additional to the $1 million — it counts toward it.",
+          "**No personal income requirement.** The previous $80,000/year income test was removed by BOI Announcement No. Por 3/2568 in February 2025; asset ownership alone now qualifies.",
+        ],
+      },
+      { h: "What counts toward the $500,000 — and the catch for villa buyers" },
+      "The Thailand-investment component can combine several qualifying assets, each separately documented:",
+      {
+        ul: [
+          "**Thai government bonds** with at least five years remaining to maturity.",
+          "**Direct equity** in a Thai-registered company, or SET-listed shares held at least one year.",
+          "**Thai real estate** — a freehold condominium unit is the clearest, best-documented route. Leasehold property with at least 10 years remaining may also count under some BOI guidance, but property is valued at its registered purchase price at the Land Department, not current market value, and — critically — **it must be registered directly in the applicant's own name.**",
+        ],
+      },
+      "That last point is the one that trips up most Phangan buyers. Foreigners cannot own land here, so the standard villa purchase is a registered land lease plus separate ownership of the building — and a significant share of existing villas sit inside a Thai company structure rather than the buyer's personal name (see [How foreigners own a villa on Koh Phangan](/knowledge/how-foreigners-own-a-villa)). Property held via a company does not count toward the LTR investment threshold; only assets registered to the individual do. A freehold condominium is unambiguous, but Phangan's condo market is small — around 66 units across four projects in the Sri Thanu/Haad Yao corridor, per [Visa and residency for property owners](/knowledge/visa-residency-property-owner-koh-phangan). Buyers who want to build the LTR requirement around a leasehold villa should get the structure certified by a BOI-registered advisor before relying on it, rather than assuming it will qualify.",
+      { h: "Health insurance: pick one of three" },
+      {
+        ul: [
+          "A health insurance policy with at least $50,000 of coverage valid in Thailand, or",
+          "A $100,000 bank deposit maintained continuously for at least 12 months, or",
+          "Existing Thai Social Security benefits.",
+        ],
+      },
+      { h: "What the visa gives you" },
+      "Ten years of residence, structured as two five-year terms, with multiple re-entry and no minimum-stay requirement. Reporting drops from the standard 90-day cycle to an annual report. An optional digital work permit (THB 3,000/year) covers remote work for an overseas employer. On tax, foreign-sourced income remitted into Thailand is exempt from Thai personal income tax under Royal Decree No. 743 — a meaningful benefit for someone drawing income from abroad, though it does not extend to Thai-sourced income, and separate, category-specific rules govern anyone who takes up local employment.",
+      { h: "Don't confuse this with the ฿40 million land-ownership route" },
+      "A different BOI programme lets a foreigner who invests ฿40 million in Thailand directly own up to 1,600 sqm of land in their own name — see [The ฿40 million investment route to land ownership](/knowledge/thb-40-million-investment-land-ownership-route). That programme grants land ownership itself; the LTR visa's property component grants residency status and simply lets a qualifying property count toward the investment test. They solve different problems and have different thresholds — treat them as separate decisions, not variations on the same scheme.",
+      "The practical takeaway: if an LTR visa is the goal, decide that before you structure the purchase — a freehold condo in your own name is the cleanest path to using real estate for the $500,000 test, and a leasehold villa can potentially work but needs BOI-level confirmation first. Get specialist immigration advice in parallel with your property lawyer, not after the deed is signed.",
+    ],
+    takeaways: [
+      "Wealthy Global Citizen LTR: $1M global assets, $500,000 invested in Thailand, no income requirement since the February 2025 BOI update (Announcement No. Por 3/2568).",
+      "Real estate can count toward the $500,000 — but only if registered directly in the applicant's own name; company-held villas do not qualify.",
+      "A freehold condominium is the clearest documented route; leasehold property with 10+ years remaining may count under some BOI guidance but should be confirmed case-by-case.",
+      "Health insurance test: $50,000 coverage, OR a $100,000 bank deposit held 12+ months, OR existing Thai Social Security benefits.",
+      "The visa gives 10 years of residence (two 5-year terms), annual instead of 90-day reporting, and an exemption on foreign-sourced income remitted into Thailand — it is a different programme from the ฿40 million route to direct land ownership.",
+    ],
+    sources: [
+      { title: "Thailand Board of Investment — LTR Visa programme (official)", url: "https://ltr.boi.go.th/" },
+      { title: "Emerhub — Thailand LTR Visa for Wealthy Global Citizens: 2026 Requirements", url: "https://emerhub.com/thailand/stay/long-term-resident/wealthy-global-citizen/" },
+      { title: "Jus Laws — Thailand LTR Visa for Wealthy Global Citizens: Complete Guide (2026)", url: "https://www.juslaws.com/articles/ltr-visa-wealthy-global-citizens-thailand" },
+      { title: "Siam Legal International — LTR Visa Thailand for Wealthy Global Citizens", url: "https://www.siam-legal.com/thailand-visa/ltr-visa-thailand-wealthy-global-citizens.php" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "ownership",
+    faqQuestion: "Can I use an LTR visa's property-investment route to get 10-year Thai residency by buying a villa on Koh Phangan?",
+  },
+  {
+    slug: "vetting-villa-property-management-company",
+    kbId: "kb-0072",
+    topic: "Process",
+    title: "Managing a rental villa on Koh Phangan remotely: how to vet a property-management company",
+    short:
+      "Full-service rental management on Phangan and Samui typically runs 15-25% of gross rental income, and the fee schedule is the least important thing to check. The clauses that actually protect an absentee owner cover exit and handover, maintenance spending limits, financial reporting, and whether the manager can confirm your villa's short-let is properly licensed at all.",
+    updated: "2026-07-28",
+    body: [
+      "If you won't be on the island to run the villa yourself, how do you know a management company is trustworthy before you've handed them the keys? Fees are the easy part to compare; the contract terms and the company's regulatory competence are where owners actually get burned.",
+      { h: "What management actually costs" },
+      "Full-service rental management — multi-platform listing across Airbnb, Booking.com and Agoda, guest screening, turnover cleaning, pool and garden upkeep, maintenance coordination, monthly financial statements and tax-withholding administration — typically runs **15-25% of gross rental income**, in line with the market across Koh Samui and Koh Phangan. Basic caretaking without rental coordination is usually a lower fixed monthly fee. Ask upfront whether the percentage applies to gross booking value or to revenue net of the OTA's own commission — the difference is material and easy to obscure in a quote. See [Renting out your villa: the 30-day rule, taxes and yield](/knowledge/renting-out-your-villa-rules-and-taxes) for how this cost feeds into a realistic yield calculation.",
+      { h: "Contract clauses that matter more than the fee percentage" },
+      {
+        ul: [
+          "**Exit and handover.** At termination, the manager typically controls the booking calendar, guest deposits, channel-manager accounts, keys and staff records. Without a clause specifying a structured handover of all of this back to the owner, you can regain physical possession of the villa while losing the operating information needed to run it.",
+          "**Minimum term and penalties.** Some contracts lock in 12 months to 3 years with an early-exit penalty. Know the real cost of leaving before you sign, not after a dispute starts.",
+          "**Maintenance pre-approval threshold.** The contract should set a spending limit above which the manager must get your sign-off before authorising repairs — otherwise routine upkeep becomes an open-ended bill.",
+          "**Governing law.** The agreement should be governed by Thai law and enforceable in Thai courts; a contract written under a foreign jurisdiction is slow and expensive to enforce if something goes wrong on the ground.",
+          "**Owner-occupancy terms.** Confirm what happens to the fee, and to any advance bookings, during weeks you use the villa yourself.",
+        ],
+      },
+      { h: "Confirm the licensing, not just the marketing" },
+      "Renting a Thai property for stays under 30 days is regulated as hotel operation under the Hotel Act; smaller villas can often use the lower-burden \"Non-Hotel\" registration with the district or provincial administration instead of a full hotel licence, but registration is still required, and foreign-guest details must be reported under the TM30 rule. A manager who cannot clearly explain your villa's licensing or registration status — or who waves the question away — is asking you to carry the compliance risk while they collect the booking fee. See [Renting out your villa: the 30-day rule, taxes and yield](/knowledge/renting-out-your-villa-rules-and-taxes) for the underlying rule.",
+      { h: "Red flags" },
+      {
+        ul: [
+          "**No itemized, booking-by-booking statement** — only a lump monthly total with no detail behind it.",
+          "**Refuses to provide references from current owners** — reluctance to let you speak to three existing clients is a signal worth taking seriously.",
+          "**Inflated or undocumented maintenance costs**, with no photographic evidence of completed work.",
+          "**No formal written contract**, or one that leaves fee basis, term and exit terms vague.",
+          "**Can't confirm Hotel Act or Non-Hotel registration status** for your specific property.",
+        ],
+      },
+      { h: "A five-point vetting framework" },
+      {
+        ul: [
+          "**Credentials** — confirm Thai company registration, years operating specifically on Koh Phangan (not just Samui), and speak to at least three current owners directly.",
+          "**Operational systems** — a channel manager across booking platforms to prevent double-bookings, documented inspection routines with photos, and a defined guest-response time.",
+          "**Financial transparency** — itemized monthly accounting and a clear pre-approval threshold for maintenance spend.",
+          "**Regulatory competence** — Hotel Act / Non-Hotel registration handled correctly, TM30 reporting in place, and coordination with a Thai accountant for annual tax filing on your rental income.",
+          "**Contract clarity** — exit and handover, minimum term, fee basis and owner-occupancy terms all specified in writing, governed by Thai law.",
+        ],
+      },
+      "The takeaway: a lower headline percentage is not the deciding factor. An absentee owner is exposed most by a vague exit clause, an unlicensed operation and opaque reporting — vet those three before you compare fee quotes.",
+    ],
+    takeaways: [
+      "Full-service villa rental management typically costs 15-25% of gross rental income across Koh Samui and Koh Phangan; confirm whether that's gross or net of OTA commission.",
+      "The exit/handover clause matters more than the fee — without it, an owner can regain the villa but lose the booking calendar, deposits and guest data needed to keep running it.",
+      "Set a maintenance pre-approval spending threshold in writing, and make sure the contract is governed by Thai law and enforceable in Thai courts.",
+      "Short-term lets under 30 days need Hotel Act licensing or the lighter-touch Non-Hotel registration, plus TM30 reporting for foreign guests — a manager who can't confirm this status is passing the compliance risk to you.",
+      "Vet with a five-point check: credentials and current-owner references, operational systems, financial transparency, regulatory competence, and contract clarity.",
+    ],
+    sources: [
+      { title: "Samui Property Group — Koh Samui Property Management: The Complete Owner's Guide", url: "https://samuipropertygroup.com/koh-samui-property-management-guide/" },
+      { title: "Horizon Homes Koh Samui — Property Management Fees: A Comprehensive Guide", url: "https://www.horizonhomes-samui.com/property-management-fees-a-comprehensive-guide/" },
+      { title: "Formichella & Sritawat — Short-Term Rentals in Thailand: Understanding the Non-Hotel Registration Framework", url: "https://fosrlaw.com/2026/short-term-rental-laws-thailand/" },
+      { title: "Lofty Phuket — The Contract and Vetting Guide: Villa Management", url: "https://www.loftyphuket.com/blog/the-contract-and-vetting-guide-villa-management-in-phuket-2/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "How do I vet a property-management company to run my Koh Phangan rental villa remotely?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

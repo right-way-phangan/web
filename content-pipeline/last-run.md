@@ -1,4 +1,4 @@
-# Last run — 2026-07-27
+# Last run — 2026-07-28
 
 **Guides published:** 2
 
@@ -6,42 +6,44 @@
 
 ## Guide 1
 
-- **slug:** `withholding-tax-property-sale-individual-vs-company`
-- **kbId:** `kb-0069`
-- **title (EN):** Withholding tax on a property sale: how the individual calculation differs from a company's flat 1%
-- **title (RU):** Налог у источника при продаже недвижимости: чем расчёт для физлица отличается от плоской ставки 1% для компании
-- **faqCategory:** `costs`
-- **faqQuestion:** How is withholding tax calculated when I sell my Koh Phangan property, and does it differ if I sell through a Thai company?
+- **slug:** `ltr-visa-property-investment-route`
+- **kbId:** `kb-0071`
+- **title (EN):** The LTR visa's property route: how a $500,000 Thai real estate purchase counts toward 10-year residency
+- **title (RU):** Инвестиционный путь визы LTR: как покупка тайской недвижимости на $500 000 засчитывается для 10-летнего резидентства
+- **faqCategory:** `ownership`
+- **faqQuestion:** Can I use an LTR visa's property-investment route to get 10-year Thai residency by buying a villa on Koh Phangan?
 - **Sources used:**
-  - Acclime Thailand — step-by-step individual withholding-tax mechanics (appraised value → years-owned deduction → divide by years → progressive PIT → multiply back) and the company's flat 1% basis
-  - Terms.Law — corroborating deduction table (92%→50% across 1–8+ years), SBT/stamp-duty mutual exclusivity, tabien-baan exemption
-  - Siam Legal International — corroborating progressive PIT bracket structure and general transfer-tax picture
+  - Thailand Board of Investment — official LTR Visa programme site (ltr.boi.go.th)
+  - Emerhub — Thailand LTR Visa for Wealthy Global Citizens: 2026 Requirements
+  - Jus Laws — Thailand LTR Visa for Wealthy Global Citizens: Complete Guide (2026)
+  - Siam Legal International — LTR Visa Thailand for Wealthy Global Citizens
 
 ## Guide 2
 
-- **slug:** `coastal-setback-rules-koh-phangan-distance-from-beach`
-- **kbId:** `kb-0070`
-- **title (EN):** Coastal setback rules on Koh Phangan in practice: height, floor-area and green-space limits by distance from the beach
-- **title (RU):** Прибрежные отступы на Ко Пангане на практике: ограничения по высоте, площади застройки и озеленению по удалённости от пляжа
-- **faqCategory:** `structures`
-- **faqQuestion:** How close to the beach can I build, and what height and floor-area limits apply on a Koh Phangan coastal plot?
+- **slug:** `vetting-villa-property-management-company`
+- **kbId:** `kb-0072`
+- **title (EN):** Managing a rental villa on Koh Phangan remotely: how to vet a property-management company
+- **title (RU):** Удалённое управление арендной виллой на Ко Пангане: как проверить компанию по управлению недвижимостью
+- **faqCategory:** `process`
+- **faqQuestion:** How do I vet a property-management company to run my Koh Phangan rental villa remotely?
 - **Sources used:**
-  - ONEP (Office of Natural Resources and Environmental Policy and Planning) — primary: Royal Gazette citation for the Surat Thani provincial environmental protection notice (Vol. 142, Special Section 199 Ng, 21 May 2025, effective 22 May 2025, 5-year term), confirmed to explicitly cover Koh Phangan's subdistricts alongside Koh Samui/Koh Tao
-  - Sukhothai Inter Law — same source already cited in the existing overview guide `koh-phangan-building-zones`, used here for continuity/consistency
-  - Samui Island Realty and Conrad Properties — corroborating practical figures (10m/50m/200m distance bands; 6m/12m height caps; 75 m² footprint; 80m/140m elevation tiers; slope-based restrictions), cross-checked against each other and against numbers already published site-wide in existing per-district guides before use
+  - Samui Property Group — Koh Samui Property Management: The Complete Owner's Guide
+  - Horizon Homes Koh Samui — Property Management Fees: A Comprehensive Guide
+  - Formichella & Sritawat — Short-Term Rentals in Thailand: Understanding the Non-Hotel Registration Framework
+  - Lofty Phuket — The Contract and Vetting Guide: Villa Management
 
 ---
 
 ## Notes
 
-Both were the two top-priority unpublished 🟢 topics in `backlog.md` section B — no 🔴 rows remained anywhere in the backlog (all news-tier rows are ✅), so priority moved to the top of the 🟢 tier, taken top-down. Neither slug pre-existed in `knowledge-base.ts` (67 existing articles scanned before this run; kbId continued cleanly at kb-0069/kb-0070; 69 after).
+No 🔴 rows remained in the backlog (all news-tier topics are ✅), so priority moved to the top of the 🟢 tier, taken top-down. The first 🟢 item in file order, "Hillside building limits in practice," was **deliberately skipped** under the hard quality gate: the guide published the previous run, `coastal-setback-rules-koh-phangan-distance-from-beach` (kb-0070), already contains a full "hillside overlay" section with the same elevation/slope tiers (below 80 m, 80–140 m, above 140 m, ~35% slope threshold, plot-size/green-space figures). A dedicated new guide built around the same numbers would be thin/duplicate content, which actively harms the site's GEO/AEO goal — so it was left ⏳ in the backlog for a future run that can bring a genuinely distinct angle (permit-approval process specifics, engineering/retaining-wall requirements, concrete enforcement case studies), and this run proceeded to the next two distinct 🟢 topics instead.
 
-Guide 1 fills a real gap flagged by the site's own existing content: the `selling-leasehold-villa-exit-liquidity` guide explicitly punts on the withholding-tax calculation ("consult a Thai accountant for the exact calculation"). This guide supplies that calculation, with a worked example independently recomputed from the standard PIT bracket table (rather than reused verbatim from a single source, since example figures varied slightly across sources — the mechanism itself, not any one source's arithmetic, is what's being claimed).
+Guide 1 also corrects a stale detail carried in the earlier `visa-residency-property-owner-koh-phangan` overview (kb-0028), which still cites the pre-2025 $80,000/year income requirement for the Wealthy Global Citizen LTR category. That requirement was removed by BOI Announcement No. Por 3/2568 (February 2025); the new guide reflects the current asset-only qualification (confirmed independently across BOI's own site and three law-firm summaries) and is explicit about the "must be registered in the applicant's own name" condition that excludes the company-held villa structures common on Phangan — the existing overview guide was not edited, since this run's scope is additive only.
 
-Guide 2 is a deliberate practical companion to the existing `koh-phangan-building-zones` overview (kb-0003) and the many per-district guides that already cite the same numeric tiers (10m/50m/200m distance bands, 80m/140m elevation tiers) — it does not duplicate that overview but goes one level deeper into the exact figures those other guides already assume as background, and adds a primary legal citation (Royal Gazette via ONEP) that the existing guides lacked. One nuance flagged explicitly inside the guide: a separate, older nationwide coastal-setback rule (reported elsewhere as a 1997 Ministry of Science regulation, with 200m/400m bands up to 23m height) surfaced in one secondary source but was deliberately excluded, since it could not be confirmed as the operative rule for the current island-specific 2025 zoning and including it risked conflating two different regulations — kept conservative per the quality gate.
+Guide 2 is a deliberate companion to the existing `renting-out-your-villa-rules-and-taxes` guide (kb-0010), which already covers the 30-day Hotel Act threshold and rental-income tax but explicitly defers day-to-day management ("that cost is real and comes out of your gross"). This guide fills that gap with the actual vetting mechanics — fee structure, contract clauses, licensing red flags — without repeating the tax/licence content already published there.
 
-Both guides cross-link to existing, verified slugs (`thai-company-for-property-49-51`, `selling-thai-company-holding-villa-share-sale-tax`, `cost-of-buying-taxes-and-fees`, `koh-phangan-building-zones`, `building-a-villa-koh-phangan`), all confirmed present in both EN/RU files before use.
+Both guides cross-link to existing, verified slugs (`how-foreigners-own-a-villa`, `visa-residency-property-owner-koh-phangan`, `thb-40-million-investment-land-ownership-route`, `renting-out-your-villa-rules-and-taxes`), all confirmed present in both EN/RU files before use.
 
-`tsc --noEmit` passes clean. EN/RU slug sets are identical (69 slugs each), no duplicates, kbId sequence intact through kb-0070.
+`tsc --noEmit` passes clean. EN/RU slug sets are identical (71 slugs each), no duplicates, kbId sequence intact through kb-0072.
 
-Remaining ⏳ backlog, next-priority first: 🟢 — managing a rental villa remotely (vetting a property manager), off-grid solar/battery payback, what a Phangan property lawyer's fee buys; then 🟡 — OCPB landlord leasing rules (3+ units), water-shortage risk, 2025–2026 development pipeline, rental-yield drivers, Land and Building Tax appeal process, undeveloped-neighbour due diligence, SBT 5-year exemption, foreign-spouse usufruct/superficies protection, Minor Hotels' Avani/KAIA opening; then ⚪️ — right of habitation, Phangan airport status.
+Remaining ⏳ backlog, next-priority first: 🟢 — hillside building limits in practice (needs a genuinely distinct angle to clear the dedup check), off-grid solar/battery payback, what a Phangan property lawyer's fee buys; then 🟡 — OCPB landlord leasing rules (3+ units), water-shortage risk, 2025–2026 development pipeline, rental-yield drivers, Land and Building Tax appeal process, undeveloped-neighbour due diligence, SBT 5-year exemption, foreign-spouse usufruct/superficies protection, Minor Hotels' Avani/KAIA opening; then ⚪️ — right of habitation, Phangan airport status.
