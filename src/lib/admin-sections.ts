@@ -18,6 +18,7 @@ export type AdminSection =
   | "demand"
   | "articles"
   | "posts"
+  | "ads"
   | "finance"
   | "valuation"
   | "comps"
@@ -98,6 +99,13 @@ export const ADMIN_SECTIONS: AdminSectionMeta[] = [
     href: "/admin/posts" as Route,
     guideSlug: "posts",
     needsGuide: false,
+  },
+  {
+    key: "ads",
+    label: "Реклама",
+    href: "/admin/ads" as Route,
+    guideSlug: "ads",
+    needsGuide: true,
   },
   {
     key: "finance",
