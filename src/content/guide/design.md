@@ -3,7 +3,6 @@ title: Дизайн и анимации сайта
 section: tools
 order: 11
 updated: 2026-06-16
-status: draft
 summary: Канон визуала, тёмная тема (переключатель ☀️/🌙) и сдержанный motion-слой — как устроено, где применено и как расширять.
 keywords: дизайн анимации motion framer reveal appear hero canon палитра шрифты premium reduced-motion тёмная тема dark mode переключатель theme toggle panel
 ---
