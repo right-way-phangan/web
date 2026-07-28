@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { backendFetch } from "@/lib/api/backend";
+import { isAdmin } from "@/lib/auth/require-admin";
 
 const API = process.env.OBJECTS_API_URL;
 const JSON_HEADERS = { "Content-Type": "application/json" };
@@ -33,6 +34,7 @@ export async function bulkMoveLeads(ids: number[], stageKey: string): Promise<Bu
 
 /** Delete several leads at once (bulk test-lead cleanup). */
 export async function bulkDeleteLeads(ids: number[]): Promise<BulkLeadsResult> {
+  if (!(await isAdmin())) return { ok: false, done: 0, failed: ids.length };
   if (!API || ids.length === 0) return { ok: false, done: 0, failed: ids.length };
   const results = await Promise.allSettled(
     ids.map((id) => backendFetch(`/leads/${id}`, { method: "DELETE", cache: "no-store" })),
