@@ -131,7 +131,46 @@ export async function r2PutObject(
 export async function uploadImageToR2(file: File, folder = "objects"): Promise<string> {
   const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
   const rand = Math.random().toString(36).slice(2, 10);
-  const key = `${folder}/${Date.now()}-${rand}-${safeName}`;
-  const body = new Uint8Array(await file.arrayBuffer());
-  return r2PutObject(key, body, file.type || "image/jpeg");
+  const raw = new Uint8Array(await file.arrayBuffer());
+  const { body, contentType, ext } = await compressForWeb(raw, file.type);
+  const name = ext ? safeName.replace(/\.[^.]+$/, "") + ext : safeName;
+  const key = `${folder}/${Date.now()}-${rand}-${name}`;
+  return r2PutObject(key, body, contentType);
+}
+
+/** Длинная сторона фото каталога — тот же предел, что задала миграция на R2. */
+const MAX_IMAGE_SIDE = 2000;
+
+/**
+ * Приводит загружаемое фото к весу каталога (≤2000px, JPEG q85).
+ *
+ * Раньше файл летел в R2 как есть, и снимки прямо с камеры оседали там по
+ * 5–10 МБ: страница проекта The Sands тянула 37.6 МБ картинок, Lighthouse
+ * показывал LCP 90 с. Пережимать на заливке дешевле, чем ловить это потом —
+ * оптимизатор Vercel нам недоступен (`images.unoptimized`, квота Hobby).
+ *
+ * `rotate()` без аргументов применяет EXIF-ориентацию: телефоны пишут её в
+ * метаданные, а после ресайза она теряется — без этого портретные фото легли бы
+ * на бок. SVG и GIF не трогаем (векторы и анимация), при сбое — заливаем оригинал.
+ */
+async function compressForWeb(
+  raw: Uint8Array,
+  mime: string,
+): Promise<{ body: Uint8Array; contentType: string; ext: string | null }> {
+  const asIs = { body: raw, contentType: mime || "image/jpeg", ext: null };
+  if (!mime.startsWith("image/") || mime === "image/svg+xml" || mime === "image/gif") return asIs;
+
+  try {
+    const sharp = (await import("sharp")).default;
+    const out = await sharp(raw)
+      .rotate()
+      .resize({ width: MAX_IMAGE_SIDE, height: MAX_IMAGE_SIDE, fit: "inside", withoutEnlargement: true })
+      .jpeg({ quality: 85, progressive: true, mozjpeg: true })
+      .toBuffer();
+    // Крохотные PNG-иконки/схемы JPEG может раздуть — тогда оставляем оригинал.
+    if (out.byteLength >= raw.byteLength) return asIs;
+    return { body: new Uint8Array(out), contentType: "image/jpeg", ext: ".jpg" };
+  } catch {
+    return asIs;
+  }
 }
