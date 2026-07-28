@@ -1,4 +1,4 @@
-import sharp from "sharp";
+import sharp, { type OverlayOptions } from "sharp";
 import { type NextRequest } from "next/server";
 
 /**
@@ -76,7 +76,7 @@ export async function GET(req: NextRequest): Promise<Response> {
   const yMin = Math.floor(top0 / TILE);
   const yMax = Math.floor((top0 + H) / TILE);
 
-  const composites: sharp.OverlayOptions[] = [];
+  const composites: OverlayOptions[] = [];
   await Promise.all(
     range(xMin, xMax).flatMap((tx) =>
       range(yMin, yMax).map(async (ty) => {
