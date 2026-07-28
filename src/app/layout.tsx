@@ -107,6 +107,11 @@ export default function RootLayout({
       className={`${sans.variable} ${serif.variable}`}
     >
       <body className="flex min-h-svh flex-col">
+        {/* Hoisted into <head> by React. Both origins are hit after first paint —
+            GA4 for its collect beacon, er-api for live FX in the price widgets —
+            so the handshake lands on the critical path (Lighthouse: ~310 ms). */}
+        <link rel="preconnect" href="https://www.google-analytics.com" />
+        <link rel="preconnect" href="https://open.er-api.com" />
         {/* Render-blocking, first in <body>: applies the persisted/system theme
             to <html> before paint so dark visitors never flash light. */}
         <ThemeScript />
