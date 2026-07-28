@@ -185,6 +185,15 @@ export function RoiCalculator({
   }, []);
 
   const r = useMemo(() => computeRoi(inputs), [inputs]);
+  // Conversion signal: the visitor ran their own calculation — touched an input
+  // and got a result. Landing on the page with defaults is not a conversion.
+  const calcTouched = useRef(false);
+  const calcTracked = useRef(false);
+  useEffect(() => {
+    if (!calcTouched.current || calcTracked.current || !Number.isFinite(r.roiPct)) return;
+    calcTracked.current = true;
+    track("roi_complete", { action: "calculate", type: inputs.mode });
+  }, [r, inputs.mode]);
   const solvedMaxPrice = useMemo(
     () => (showSolver ? solveMaxPrice(inputs, solverMetric, solverTarget) : null),
     [showSolver, inputs, solverMetric, solverTarget],
@@ -206,7 +215,10 @@ export function RoiCalculator({
     const mid = Math.floor(vals.length / 2);
     return vals.length % 2 ? vals[mid] : (vals[mid - 1] + vals[mid]) / 2;
   }, [catalog]);
-  const set = (patch: Partial<RoiInputs>) => setInputs((p) => ({ ...p, ...patch }));
+  const set = (patch: Partial<RoiInputs>) => {
+    calcTouched.current = true;
+    setInputs((p) => ({ ...p, ...patch }));
+  };
   const money: Money = (thb, full) => formatMoney(thb, currency, rates, { compact: !full });
 
   // Multi-unit picker: selecting units drives the combined price + count into
@@ -280,7 +292,7 @@ export function RoiCalculator({
       await navigator.clipboard.writeText(window.location.href);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-      track("roi_complete", { action: "share" });
+      track("share_listing", { kind: "calculator", method: "copy" });
     } catch {
       /* clipboard unavailable — ignore */
     }
@@ -482,7 +494,7 @@ export function RoiCalculator({
         catalog={catalog}
         market={market}
         t={t}
-        onApply={(patch) => setInputs((s) => ({ ...s, ...patch }))}
+        onApply={(patch) => set(patch)}
         onOwnNote={setOwnNote}
       />
     ) : null}

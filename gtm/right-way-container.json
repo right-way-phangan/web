@@ -79,6 +79,24 @@
           { "type": "BOOLEAN", "key": "setDefaultValue", "value": "false" },
           { "type": "TEMPLATE", "key": "name", "value": "action" }
         ]
+      },
+      {
+        "accountId": "0", "containerId": "0", "variableId": "9",
+        "name": "dlv - district", "type": "v",
+        "parameter": [
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" },
+          { "type": "BOOLEAN", "key": "setDefaultValue", "value": "false" },
+          { "type": "TEMPLATE", "key": "name", "value": "district" }
+        ]
+      },
+      {
+        "accountId": "0", "containerId": "0", "variableId": "10",
+        "name": "dlv - method", "type": "v",
+        "parameter": [
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" },
+          { "type": "BOOLEAN", "key": "setDefaultValue", "value": "false" },
+          { "type": "TEMPLATE", "key": "name", "value": "method" }
+        ]
       }
     ],
     "trigger": [
@@ -136,6 +154,22 @@
         "customEventFilter": [{ "type": "EQUALS", "parameter": [
           { "type": "TEMPLATE", "key": "arg0", "value": "{{_event}}" },
           { "type": "TEMPLATE", "key": "arg1", "value": "roi_complete" }
+        ]}]
+      },
+      {
+        "accountId": "0", "containerId": "0", "triggerId": "107",
+        "name": "ce - soft events", "type": "CUSTOM_EVENT",
+        "customEventFilter": [{ "type": "MATCH_REGEX", "parameter": [
+          { "type": "TEMPLATE", "key": "arg0", "value": "{{_event}}" },
+          { "type": "TEMPLATE", "key": "arg1", "value": "^(form_view|form_start|inquiry_error|rate_check|rate_check_url|public_estimate|match_done|match_refine|nl_search|search_in_area|map_pin_click|district_map_click|share_listing|save_toggle|brochure_print|estate_print|estate_lot_open|estate_lot_share|estate_lot_photos|estate_lot_enquire|estate_lot_whatsapp|estate_lot_telegram|project_enquire|project_whatsapp|project_telegram)$" }
+        ]}]
+      },
+      {
+        "accountId": "0", "containerId": "0", "triggerId": "108",
+        "name": "ce - high intent", "type": "CUSTOM_EVENT",
+        "customEventFilter": [{ "type": "MATCH_REGEX", "parameter": [
+          { "type": "TEMPLATE", "key": "arg0", "value": "{{_event}}" },
+          { "type": "TEMPLATE", "key": "arg1", "value": "^(public_estimate|rate_check|match_done)$" }
         ]}]
       }
     ],
@@ -228,6 +262,26 @@
           { "type": "BOOLEAN", "key": "supportDocumentWrite", "value": "false" }
         ],
         "firingTriggerId": ["106"],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "0", "containerId": "0", "tagId": "209",
+        "name": "EVT - soft (GA4)", "type": "html",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "html", "value": "<script>try{if(window.gtag)gtag('event','{{Event}}',{source:'{{dlv - source}}',rw:'{{dlv - rw}}',kind:'{{dlv - kind}}',type:'{{dlv - type}}',location:'{{dlv - location}}',action:'{{dlv - action}}',district:'{{dlv - district}}',method:'{{dlv - method}}'});}catch(e){}</script>" },
+          { "type": "BOOLEAN", "key": "supportDocumentWrite", "value": "false" }
+        ],
+        "firingTriggerId": ["107"],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "0", "containerId": "0", "tagId": "210",
+        "name": "EVT - high intent (Meta)", "type": "html",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "html", "value": "<script>try{if(window.fbq)fbq('trackCustom','HighIntent',{tool:'{{Event}}',district:'{{dlv - district}}'});}catch(e){}</script>" },
+          { "type": "BOOLEAN", "key": "supportDocumentWrite", "value": "false" }
+        ],
+        "firingTriggerId": ["108"],
         "tagFiringOption": "ONCE_PER_EVENT"
       }
     ]
