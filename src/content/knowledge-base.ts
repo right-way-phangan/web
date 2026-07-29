@@ -4890,6 +4890,123 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "process",
     faqQuestion: "How do I vet a property-management company to run my Koh Phangan rental villa remotely?",
   },
+  {
+    slug: "hillside-slope-building-limits-koh-phangan",
+    kbId: "kb-0073",
+    topic: "Structures",
+    title: "Hillside building limits on Koh Phangan: the slope-percentage tiers that decide what you can build",
+    short:
+      "Elevation isn't the only test a hillside plot has to pass — its gradient is a separate one. Under 35% slope carries no extra restriction; 35–50% caps you at a single home, 6 m height and roughly 80–90 m² footprint with 70–75% of the land left green; above 50% construction is prohibited outright. Get the slope certified before you design, not after.",
+    updated: "2026-07-29",
+    body: [
+      "How steep can a Koh Phangan plot be before you can't build on it at all? The environmental protection zoning that has covered Koh Samui, Koh Phangan and Koh Tao since 22 May 2025 tests a hillside plot on two independent axes — elevation above sea level, covered in [Coastal setback rules in practice](/knowledge/coastal-setback-rules-koh-phangan-distance-from-beach), and gradient, the percentage slope of the land itself. A plot can fail the slope test even at an elevation that would otherwise be unrestricted, and the reverse is also true. Both have to be checked, separately, before you commit to a design.",
+      { h: "The three slope tiers" },
+      {
+        ul: [
+          "**Under roughly 35% gradient** — no additional slope-based restriction. The plot is assessed under the standard rules for its elevation band and distance from shore, covered in [Building zones on Koh Phangan](/knowledge/koh-phangan-building-zones).",
+          "**35–50% gradient** — single-family home only, maximum height 6 m including the roof, building footprint capped at roughly 80–90 m², and at least 70–75% of the plot left unbuilt, with a portion of that green area required to be planted with native trees rather than lawn or hardscape. Cut-and-fill earthworks are limited to around 2 m of vertical change, and a licensed engineer's certification is required before permit approval. Land subdivision and resort-style retaining walls are not permitted on these plots.",
+          "**Above roughly 50% gradient** — construction is prohibited outright. These slopes are treated as protected, high-risk terrain regardless of title class, and any grading or significant tree removal needs separate environmental approval before it can proceed at all.",
+        ],
+      },
+      { h: "Why this catches buyers off guard" },
+      "A title deed says nothing about gradient. Two plots on the same hillside road, similar in size and price, can sit on opposite sides of the 35% or 50% line once a surveyor runs a contour survey — and the seller's listing almost never states the slope percentage, because it usually isn't measured until a buyer or their engineer asks for it. Judging a plot by eye, or by how steep the access road feels, is not a substitute for a survey.",
+      { h: "What due diligence should get from the seller or a surveyor" },
+      {
+        ul: [
+          "**A contour survey against the Chanote or Nor Sor 3 Gor**, showing the plot's gradient in percentage terms, not just a verbal “it's a gentle slope.”",
+          "**Confirmation of which tier the plot falls in** — under 35%, 35–50%, or over 50% — before any design work or budget is finalised.",
+          "**For 35–50% plots, the licensed engineer's certification** that a specific build fits within the 6 m height, footprint and green-space limits, plus a cut-and-fill plan that stays within the roughly 2 m earthworks cap.",
+          "**Written confirmation from the District Office** of the plot's zone status — the seller's or agent's description is not a substitute for the survey data the authority actually uses.",
+        ],
+      },
+      { h: "The enforcement backdrop" },
+      "These limits are not theoretical. The 'Samui Model' task force — a joint effort by ISOC, the Forestry Department and local municipalities — uses aerial and GPS mapping to monitor hillside construction across Koh Samui and, increasingly, Koh Phangan, and has already issued demolition orders against villas found built beyond their permitted slope tier. We cover the retroactive risk for existing structures in [The 'Samui Model' enforcement expands to Phangan](/knowledge/samui-model-hillside-enforcement-koh-phangan); this guide is about getting a new build's slope classification right from the start, so it never becomes an enforcement problem later.",
+      "The takeaway: on a hillside plot, ask for the gradient percentage before you ask about the view. A steep, beautiful plot that falls above 50% is not a smaller, more expensive version of the villa you had in mind — it's land you legally cannot build the villa on at all.",
+    ],
+    takeaways: [
+      "Gradient and elevation are tested separately — a plot can be restricted by slope even where its elevation band alone would allow more.",
+      "Under ~35% gradient: no extra slope-based restriction. 35–50%: single home, 6 m height, ~80–90 m² footprint, 70–75% left green, engineer certification required, cut-and-fill capped around 2 m.",
+      "Above ~50% gradient: construction is prohibited outright, regardless of title class.",
+      "A title deed does not state the slope — get a contour survey against the Chanote or Nor Sor 3 Gor before finalising any hillside design or budget.",
+      "The 'Samui Model' task force uses drone and GPS mapping to enforce these limits and has issued demolition orders for non-compliant hillside builds.",
+    ],
+    sources: [
+      {
+        title: "ONEP (Office of Natural Resources and Environmental Policy and Planning) — Surat Thani provincial environmental protection area notice, Royal Gazette Vol. 142, Special Section 199 Ng, 21 May 2025",
+        url: "https://www.onep.go.th/epa-suratthani-2568/",
+      },
+      {
+        title: "Samui Island Realty — Koh Samui building regulations: land zoning & slope rules",
+        url: "https://samui-island-realty.com/koh-samui-building-regulations/",
+      },
+      {
+        title: "Archi Studio — Koh Samui building regulations for villas",
+        url: "https://archi-studio.asia/koh-samui-building-regulations/",
+      },
+      {
+        title: "Khaosod English — Ex-Beckham villa among properties raided in Koh Samui crackdown (25 Jul 2025)",
+        url: "https://www.khaosodenglish.com/news/2025/07/25/ex-beckham-villa-among-properties-raided-in-koh-samui-crackdown/amp/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "What slope gradient triggers Koh Phangan's strictest hillside building limits, and how do I get a plot's slope tier confirmed before I design a villa?",
+  },
+  {
+    slug: "off-grid-solar-battery-storage-koh-phangan-villa",
+    kbId: "kb-0074",
+    topic: "Costs",
+    title: "Off-grid solar and battery storage for a Koh Phangan villa: 2026 costs and when it actually pays off",
+    short:
+      "A grid-tied solar system with no battery pays back in about 4-6 years but does nothing during an outage. Adding battery storage roughly doubles the upfront cost and stretches payback to 8-12 years, but buys outage independence on an island where the PEA grid is genuinely intermittent. Full off-grid — no PEA connection at all — is a different, more expensive proposition reserved for plots the grid doesn't reach.",
+    updated: "2026-07-29",
+    body: [
+      "Is battery storage worth adding to a solar system on Koh Phangan, given the island's grid problems? For most villas the honest answer is: it depends on what you're buying it for. A battery system does not meaningfully improve the economics of PEA's 2026 rooftop buyback scheme, covered in [PEA's 2026 rooftop solar buyback scheme](/knowledge/pea-rooftop-solar-buyback-2026) — it's a separate purchase, bought for outage protection and energy independence, not for a better payback on the panels themselves.",
+      { h: "Why outage protection is a real consideration here" },
+      "Koh Phangan's grid is supplied entirely by PEA, and villa owners and property managers on the island describe it as genuinely intermittent — cable faults and surges during high tourist season are a recurring cause of outages, and PEA's own long-term fix is a new undersea cable upgrade still working through planning. For a villa relying on well or pump-fed water, an outage isn't just inconvenient; it can mean no running water alongside no power.",
+      { h: "Three configurations, three different price points" },
+      {
+        ul: [
+          "**Grid-tied, no battery** — the cheapest option and the one PEA's 2026 buyback scheme is built around. Roughly ฿130,000–250,000 installed for a 5 kW system (around ฿25,000–50,000 per kW, falling at larger sizes — a 10 kW system runs closer to ฿250,000–430,000). Payback on electricity-bill savings alone typically lands around 4-6 years. Zero outage protection: when PEA's line goes down, so does the villa.",
+          "**Hybrid — grid-tied with battery** — stays connected to PEA and draws from the grid when the battery runs low, but switches to battery automatically during an outage. Battery storage roughly doubles the all-in cost: a 5 kW system with battery runs around ฿300,000–400,000, and a 10 kW system with a 14 kWh battery lands near ฿400,000. Payback stretches to roughly 8-12 years once the battery is priced in, because the battery's main return is resilience, not the PEA buyback rate. This is the right configuration for the great majority of Phangan villas that have a grid connection but want to keep the pool pump, fridges and wifi running through an outage.",
+          "**Full off-grid — no PEA connection at all** — only makes sense where grid connection genuinely isn't available or is prohibitively expensive to run in, which on Koh Phangan mainly means remote or elevated plots covered in guides like [Bottle Beach](/knowledge/buying-in-bottle-beach) and [Than Sadet](/knowledge/buying-in-than-sadet). It needs a substantially larger battery bank sized for multiple cloudy days plus a backup generator, pushing all-in costs well past ฿400,000-500,000 depending on load, with no feed-in income to offset any of it.",
+        ],
+      },
+      { h: "What the battery itself is worth" },
+      "Lithium iron phosphate (LFP) batteries — the standard chemistry sold in Thailand today — are typically rated for 3,000-6,000+ charge cycles, working out to roughly 10-15 years of daily use before capacity degrades meaningfully, with warranties usually running 10 years or a set cycle count, whichever comes first. That lifespan roughly matches the horizon over which the battery pays for itself through resilience rather than a specific monetary return, which is the honest way to think about this purchase: it's insurance against outages priced in baht, not a faster path to profit than the panels alone.",
+      { h: "Sizing the system to actual daytime load" },
+      "As with the PEA buyback scheme, self-consumption is what makes the economics work: a system and battery sized to the villa's own daytime and evening load — pool pump, water pump, fridges, wifi, a portion of the AC — captures far more value than one sized around exporting surplus at PEA's 2.20 baht/kWh rate. Get an installer to size the system against your actual meter history, not a generic 5 kW package, before committing.",
+      "The practical takeaway: if the goal is a lower electricity bill, skip the battery and take the 4-6 year payback on panels alone. If the goal is keeping the villa running through an outage, budget for the hybrid configuration and its longer payback — and reserve full off-grid for plots the PEA grid genuinely doesn't reach.",
+    ],
+    takeaways: [
+      "Grid-tied solar with no battery: ~฿130,000-250,000 for 5 kW, payback ~4-6 years, but zero protection during a PEA outage.",
+      "Hybrid (grid-tied + battery): roughly doubles the cost (~฿300,000-400,000 for 5 kW), stretches payback to ~8-12 years, but keeps the villa running through outages — the right fit for most grid-connected Phangan villas.",
+      "Full off-grid (no PEA connection): needs a much larger battery bank plus generator backup, ฿400,000-500,000+; only makes sense where grid connection isn't realistically available.",
+      "LFP batteries are typically rated 3,000-6,000+ cycles (~10-15 years of use), with warranties around 10 years — treat the battery as resilience insurance, not a faster payback than panels alone.",
+      "Koh Phangan's PEA grid is genuinely intermittent, with cable faults and high-season demand surges a recurring cause of outages, which is the real case for a battery here.",
+    ],
+    sources: [
+      {
+        title: "Green Energy Thailand — Solar Panel Installation Costs in Thailand 2026: Complete Price Guide",
+        url: "https://www.greenenergythailand.com/posts/solar-panel-installation-costs/",
+      },
+      {
+        title: "Green Energy Thailand — Off-Grid Solar in Thailand: Is Complete Energy Independence Possible?",
+        url: "https://www.greenenergythailand.com/posts/off-grid-solar-thailand/",
+      },
+      {
+        title: "Solar Panels Thailand — Solar Batteries & Storage Systems: Managing Excess Power in Thailand",
+        url: "https://solarpanelsthailand.com/solar-battery-storage-thailand/",
+      },
+      {
+        title: "Mykeythai — Power Supply Koh Samui: Electricity & Outages Guide",
+        url: "https://mykeythai.com/journal/guides/power-supply-koh-samui",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "Is off-grid solar and battery storage worth it for a Koh Phangan villa, and what does it actually cost in 2026?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
