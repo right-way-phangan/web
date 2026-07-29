@@ -57,7 +57,19 @@ fi
 #    against ~/.rw-site-audit/node_modules (NODE_PATH is ignored for ESM bare
 #    specifiers). Copy in the current script each run so it always tracks the
 #    repo version.
-cp -f "${SCRIPT_DIR}/site-audit.mjs" "${HOME_DIR}/site-audit.mjs"
+#    The repo lives under iCloud: if the file has been evicted to the cloud,
+#    `cp` fails with errno 11 (EDEADLK) and the whole audit dies after crawling.
+#    Force materialisation, retry, and fall back to last run's copy.
+copied=""
+for attempt in 1 2 3; do
+  if cp -f "${SCRIPT_DIR}/site-audit.mjs" "${HOME_DIR}/site-audit.mjs" 2>/dev/null; then copied=ok; break; fi
+  brctl download "${SCRIPT_DIR}/site-audit.mjs" 2>/dev/null || true
+  sleep $((attempt * 10))
+done
+if [ -z "${copied}" ]; then
+  [ -f "${HOME_DIR}/site-audit.mjs" ] || { echo "✗ site-audit.mjs недоступен (iCloud EDEADLK) и копии нет" >&2; exit 75; }
+  echo "⚠ site-audit.mjs не скопирован (iCloud EDEADLK) — гоню копию прошлого прогона" >&2
+fi
 
 TS="$(date +%Y-%m-%d_%H%M)"
 JSON="${REPORT_DIR}/audit_${TS}.json"
