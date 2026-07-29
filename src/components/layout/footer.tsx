@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import type { Route } from "next";
-import { usePathname } from "next/navigation";
 import { Logo } from "./logo";
+import { useAppPathname } from "@/lib/hooks/use-app-pathname";
 import {
   siteConfig,
   telegramChannelLink,
@@ -15,7 +15,7 @@ import { getChromeDict, flatNav } from "@/lib/i18n/dictionaries";
 const currentYear = new Date().getFullYear();
 
 export function Footer() {
-  const pathname = usePathname();
+  const pathname = useAppPathname();
   const isRu = pathname === "/ru" || pathname.startsWith("/ru/");
   const chrome = getChromeDict(isRu ? "ru" : "en");
   const f = chrome.footer;
