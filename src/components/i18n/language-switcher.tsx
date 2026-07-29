@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import type { Route } from "next";
-import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Globe } from "lucide-react";
+import { useAppPathname } from "@/lib/hooks/use-app-pathname";
 import { cn } from "@/lib/utils/cn";
 
 // The RU tree mirrors EN under /ru with identical slugs (objects, projects,
@@ -19,7 +19,7 @@ export function LanguageSwitcher({
   className?: string;
   tone?: "default" | "light";
 }) {
-  const pathname = usePathname();
+  const pathname = useAppPathname();
   const isRu = pathname === "/ru" || pathname.startsWith("/ru/");
   const light = tone === "light";
 

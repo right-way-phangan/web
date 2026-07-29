@@ -4,8 +4,8 @@ import Link from "next/link";
 import type { Route } from "next";
 import { useEffect, useId, useState } from "react";
 import { createPortal } from "react-dom";
-import { usePathname } from "next/navigation";
 import { Menu, X, Heart, ChevronDown } from "lucide-react";
+import { useAppPathname } from "@/lib/hooks/use-app-pathname";
 import { Logo } from "./logo";
 import { HeaderSearch } from "./header-search";
 import { ThemeToggle } from "./theme-toggle";
@@ -25,7 +25,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const { saved, ready } = useSaved();
   const savedCount = ready ? saved.length : 0;
-  const pathname = usePathname();
+  const pathname = useAppPathname();
   const isRu = pathname === "/ru" || pathname.startsWith("/ru/");
   const chrome = getChromeDict(isRu ? "ru" : "en");
   const contactHref = (isRu ? "/ru/contact" : "/contact") as Route;
