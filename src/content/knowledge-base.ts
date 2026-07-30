@@ -5007,6 +5007,122 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "costs",
     faqQuestion: "Is off-grid solar and battery storage worth it for a Koh Phangan villa, and what does it actually cost in 2026?",
   },
+  {
+    slug: "phangan-property-lawyer-fees-what-they-cover",
+    kbId: "kb-0075",
+    topic: "Process",
+    title: "What a Koh Phangan property lawyer's fee actually buys: due diligence, conveyancing and title-search costs",
+    short:
+      "A genuine due-diligence and conveyancing engagement on Koh Phangan runs roughly THB 30,000-120,000 depending on scope, with a realistic floor around THB 20,000-25,000 — quotes well below that usually mean a stage has been quietly dropped. The fee schedule matters less than what's actually included: pulling the original chanote at the Land Office, checking for forest-reserve overlap, and a physical site visit are the parts a cut-rate package skips first.",
+    updated: "2026-07-30",
+    body: [
+      "How much should a property lawyer cost on Koh Phangan, and what does that fee actually cover? No Phangan-specific fee schedule is published — Samui-based firms service both islands and their published rates are the closest available benchmark — but across Thai law firms with public pricing, a full due-diligence and conveyancing engagement typically lands between **THB 30,000 and 120,000**, scaling with plot size, title complexity and whether a company structure is involved. The number that should worry a buyer is not the top of that range but a quote well below the bottom of it.",
+      { h: "What a real due-diligence engagement covers" },
+      {
+        ul: [
+          "**Pulling the original title at the Provincial Land Office**, not relying on a photocopy the seller provides — copies can be altered or simply outdated, and this single step is the one most often skipped by a stripped-down engagement. See [Chanote vs Nor Sor 3 Gor in practice](/knowledge/land-titles-chanote-vs-nor-sor-3) for what the title grade itself does and doesn't guarantee.",
+          "**An encumbrance check** for mortgages, registered leases, usufructs, servitudes and any court attachment against the parcel.",
+          "**Ownership chronology** — tracing how the title passed between owners, to catch a break in the chain or a transfer that shouldn't have been possible.",
+          "**Zoning, setback and forest-reserve overlay checks** — confirming the plot doesn't sit inside a protected area regardless of what its title grade suggests. This matters specifically on Phangan, where forest-reserve and national-park boundaries have overlapped privately claimed land; see [Untitled 'sea-view land': the PBT5/Sor Por Kor scam](/knowledge/untitled-sea-view-land-pbt5-sor-por-kor-scam) and [Illegal construction in Phangan's forest reserve](/knowledge/illegal-construction-forest-reserve-crackdown-koh-phangan).",
+          "**A physical site visit**, confirming boundary markers on the ground match the deed — a desk-only review cannot catch a fence line that doesn't match the survey.",
+          "**Building-permit verification**, especially relevant after the [forged building permits found on Phangan in 2026](/knowledge/forged-building-permits-koh-phangan-verify).",
+          "**Company financial and shareholding review**, if the seller holds the land through a Thai company — back taxes, share-capital history and a check for nominee-pattern shareholding, covered in [Buying a villa held by a Thai company](/knowledge/villa-held-by-thai-company-buyer-due-diligence-2026).",
+        ],
+      },
+      { h: "Typical fee ranges by stage" },
+      {
+        ul: [
+          "**Preliminary title search alone** — roughly THB 1,000-8,500, useful as an early screen but not a substitute for full due diligence.",
+          "**Full due-diligence report** — roughly THB 30,000-100,000 depending on plot complexity; several firms flag anything priced well under THB 20,000-25,000 as a signal that a stage has been dropped.",
+          "**Sale-and-purchase agreement drafting or review** — roughly THB 10,000-20,000 as a standalone service, usually bundled into a full engagement instead.",
+          "**Full conveyancing package** (due diligence, contract, Land Office attendance) — a published Phuket benchmark runs THB 50,000-125,000 plus 7% VAT; treat this as broadly indicative for Samui/Phangan pricing given the lack of a dedicated local schedule.",
+          "**Thai company incorporation**, where a company structure is used — government fees of roughly THB 6,000-8,000 plus a service fee of THB 18,000-45,000 for a standard setup, rising to THB 120,000-200,000 where mixed Thai/foreign shareholding needs closer structuring and compliance review. See [A Thai company for property: when it makes sense, when it's toxic](/knowledge/thai-company-for-property-49-51).",
+        ],
+      },
+      { h: "Flat fee vs. a percentage of the price" },
+      "Published Thai law-firm pricing is overwhelmingly **flat-fee or tiered**, not a percentage of the purchase price — firms with public fee schedules quote fixed baht amounts by service, not a commission rate. Where a figure like \"1-3% of purchase price\" appears, it tends to come from generic buyer-guide portals rather than a law firm's own published pricing; treat percentage figures as rough market shorthand, not a quote to hold a firm to.",
+      { h: "The takeaway" },
+      "Compare quotes by scope, not just by the number. Ask explicitly whether the fee includes pulling the original title at the Land Office, a forest-reserve/zoning overlay check, a physical site visit, and — if relevant — a company back-tax and nominee-pattern review. A quote that's cheaper because it's silent on one of those is not a better deal; it's the same due diligence with a step removed, and the buyer is the one left holding the risk.",
+    ],
+    takeaways: [
+      "A genuine due-diligence and conveyancing engagement typically runs THB 30,000-120,000; a realistic floor sits around THB 20,000-25,000, and quotes well below that usually mean a stage has been dropped.",
+      "The single most-skipped step in a cut-rate quote is pulling the ORIGINAL title at the Land Office rather than relying on the seller's copy.",
+      "A full due-diligence check should also cover forest-reserve/zoning overlap, a physical site visit against boundary markers, and building-permit verification — not just an encumbrance search.",
+      "If the seller holds the land through a Thai company, budget separately for company financial/shareholding review — this is where nominee-structure risk hides.",
+      "Published fees are overwhelmingly flat/tiered by service, not a percentage of the purchase price — treat 'percent of price' figures as informal shorthand, not a firm quote.",
+    ],
+    sources: [
+      { title: "ThaiLawOnline — Property Legal Packages in Thailand (flat-fee tiers)", url: "https://www.thailawonline.com/property-legal-packages-in-thailand-flat-fees/" },
+      { title: "ThaiLawOnline — Due Diligence in Thailand", url: "https://thailawonline.com/due-diligence-in-thailand/" },
+      { title: "Anglo Thai Legal (Phuket) — Fees & Guarantees", url: "https://anglothailegal.com/fees-guarantees/" },
+      { title: "Isaan Lawyers — Legal Fees", url: "https://isaanlawyers.com/legal-fees/" },
+      { title: "KTP Legal — Property Due Diligence in Thailand", url: "https://ktp-legal.com/property-due-diligence-thailand/" },
+      { title: "Themis Partner — Costs & Fees of Thai Company Formation", url: "https://thailand.themispartner.com/guides/costs-fees-thai-company-formation/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "How much does a property lawyer cost on Koh Phangan, and what does the fee actually cover?",
+  },
+  {
+    slug: "ocpb-residential-lease-controlled-contract-2025",
+    kbId: "kb-0076",
+    topic: "Costs",
+    title: "Thailand's 2025 OCPB residential-lease rules: deposit caps for landlords renting out 3+ units",
+    short:
+      "Since 4 September 2025, any landlord renting out three or more residential units — down from the previous five-unit threshold — falls under Thailand's controlled-contract regime, capping deposits and advance rent at three months (or one year for annually-paid long-term leases) and setting refund deadlines and disclosure rules. It applies to month-to-month and multi-year residential leasing, not to nightly Airbnb-style lets, which remain a Hotel Act licensing question.",
+    updated: "2026-07-30",
+    body: [
+      "Do Thailand's new landlord rules apply to an owner renting out a few long-term units on Koh Phangan? Since **4 September 2025**, yes — a notification under the Consumer Protection Act designates residential leasing a \"controlled-contract business\" for any lessor with **at least three residential units**, down from the five-unit threshold set by the original 2018 rule. The notification was published in the Royal Gazette on 6 June 2025 and repeals the prior version.",
+      { h: "The deposit and advance-rent caps" },
+      {
+        ul: [
+          "**Short-term contracts (up to 3 years) and long-term contracts paid monthly** — combined security deposit plus advance rent capped at **three months' rent**.",
+          "**Long-term contracts (over 3 years, up to 30) paid annually** — capped at **one year's rent**.",
+          "These caps apply to the combined total of deposit and advance rent, not to each separately — a landlord can't charge three months' deposit plus a further three months' advance rent under the short-term/monthly band.",
+        ],
+      },
+      { h: "Refund timelines and prohibited charges" },
+      {
+        ul: [
+          "**No damage found** — the deposit must be refunded immediately at the end of the lease.",
+          "**Deductions apply** — refund of the undisputed balance within **7 days**; if repair costs are itemized and deducted, the remaining balance is due within **14 days**.",
+          "**Normal wear and tear cannot be charged against the deposit**, nor can damage caused by force majeure or by someone other than the tenant.",
+          "**Utility charges are capped at official government tariff rates** — a landlord can't mark up electricity or water resale.",
+          "**Renewal fees for extending the contract are prohibited**, and rent or fees cannot be increased mid-term.",
+        ],
+      },
+      { h: "Contract and disclosure requirements" },
+      {
+        ul: [
+          "A written, Thai-language contract stating lessor, lessee, property details, term, rent and the basis for calculating utility charges.",
+          "A **move-in condition report**, jointly signed by landlord and tenant, establishing the property's state at handover — the reference point for any later damage deduction.",
+          "Invoices for rent and utilities delivered **at least 3 days before** the payment due date.",
+          "Termination notice of **at least 30 days** for ordinary termination, or **7 days** for termination based on the tenant's misconduct; a tenant who has occupied the unit for at least half the contract term can terminate early with 30 days' notice and without further penalty.",
+        ],
+      },
+      { h: "Does this apply to short-term (Airbnb-style) rentals?" },
+      "No — the controlled-contract categories in this notification start at \"short-term\" meaning up to three years, not nightly or weekly stays, and hotels and hospitality businesses are explicitly excluded from its scope. An owner renting a villa on a nightly or weekly basis is instead governed by the Hotel Act B.E. 2547, under which any stay of 30 days or more falls outside the legal definition of a \"hotel\" and shorter stays generally require Hotel Act or Non-Hotel registration — see [Managing a rental villa remotely: how to vet a property-management company](/knowledge/vetting-villa-property-management-company) for how that licensing question plays out in practice. This OCPB notification instead targets landlords doing month-to-month or annual residential leasing of three or more units — most relevant to an owner who has built or bought multiple long-term rental units rather than one who runs short-let holiday rentals.",
+      { h: "Penalties" },
+      "Breaching the controlled-contract requirements is a criminal offence under the Consumer Protection Act, carrying imprisonment of up to one year, a fine of up to THB 200,000, or both — enforced by the Office of the Consumer Protection Board (OCPB/สคบ.). Separately, any contract clause that conflicts with the mandatory terms is void and unenforceable against the tenant, regardless of what the lease document says.",
+      "The takeaway: if you're leasing three or more residential units on a monthly or annual basis, your standard lease template needs checking against these caps and disclosure rules now, not after a tenant disputes a deposit deduction. If you're only doing short-term holiday rentals, this notification isn't the compliance question that matters to you — your Hotel Act/Non-Hotel registration status is.",
+    ],
+    takeaways: [
+      "Since 4 September 2025, landlords with 3+ residential units (down from 5) are a Consumer Protection Act \"controlled-contract business\" — gazetted 6 June 2025, repealing the 2018 rule.",
+      "Deposit + advance rent combined is capped at 3 months' rent (short-term or monthly long-term leases) or 1 year's rent (annually-paid long-term leases).",
+      "Refund deadlines: immediate if no damage, 7 days for the undisputed balance, 14 days once itemized repair deductions are applied.",
+      "Normal wear and tear, force-majeure damage, utility markups above official tariffs, and renewal fees are all prohibited charges.",
+      "This rule targets month-to-month/annual residential leasing, not nightly Airbnb-style lets — those remain governed by the Hotel Act's 30-day threshold and licensing requirements, not this notification.",
+    ],
+    sources: [
+      { title: "Tilleke & Gibbins — Thailand Strengthens Controls on Residential Lease Contracts", url: "https://www.tilleke.com/insights/thailand-strengthens-controls-on-residential-lease-contracts/" },
+      { title: "LawPlus — Residential Lease Now a Controlled Contract (2018 rule, for comparison)", url: "https://www.lawplusltd.com/2018/03/residential-lease-now-controlled-contract/" },
+      { title: "Conventus Law — New Contract Controls Introduced for Residential Property Leasing Businesses", url: "https://conventuslaw.com/report/new-contract-controls-introduced-for-residential/" },
+      { title: "Prachachat — อัปเดตกฎหมายควบคุมสัญญาเช่าที่อยู่อาศัย ฉบับปี 2568", url: "https://www.prachachat.net/hilight-prachachat/news-1919122" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "Do Thailand's new landlord rules cap security deposits, and do they apply to Airbnb-style rentals on Koh Phangan?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

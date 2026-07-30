@@ -60,7 +60,7 @@ Status: ⏳ queued · ✅ published.
 | Visa and residency for a property owner: what a purchase does and doesn't give | phangan | 🟡 | ✅ |
 | Phangan market seasonality: when to buy and when to sell | costs | ⚪️ | ✅ |
 <!-- discovered 2026-07-02, sources: fosrlaw.com, thethaiger.com, nationthailand.com, phanganist.com, bestbkkcondos.com -->
-| New OCPB residential leasing rules for landlords renting 3+ units: deposit caps and contract requirements | costs | 🟡 | ⏳ |
+| New OCPB residential leasing rules for landlords renting 3+ units: deposit caps and contract requirements | costs | 🟡 | ✅ |
 | Water supply and shortage risk on Koh Phangan: what it means for a villa's operating costs | phangan | 🟡 | ⏳ |
 | New villa and residential development pipeline 2025-2026: named projects and what they signal | phangan | 🟡 | ⏳ |
 | Healthcare and schools access for buyers relocating with family | phangan | 🟢 | ✅ |
@@ -85,7 +85,7 @@ Status: ⏳ queued · ✅ published.
 | Protecting a foreign spouse's interest in property bought during a Thai marriage: usufruct and superficies in practice | structures | 🟡 | ⏳ |
 <!-- discovered 2026-07-26, sources: solarpanelsthailand.com, solar-phangan.com, thailawonline.com, hospitalitynet.org, travelandtourworld.com -->
 | Off-grid solar and battery storage for a Phangan villa: real 2026 install costs (THB/kWp) and payback versus the PEA grid-tied feed-in scheme, for owners who actually need outage independence | costs | 🟢 | ✅ |
-| What a Phangan property lawyer's fee actually buys: due-diligence, conveyancing and title-search costs (THB 30,000-120,000) broken down against what each stage covers | process | 🟢 | ⏳ |
+| What a Phangan property lawyer's fee actually buys: due-diligence, conveyancing and title-search costs (THB 30,000-120,000) broken down against what each stage covers | process | 🟢 | ✅ |
 | Minor Hotels' Avani and the KAIA tented resort opening on Phangan in 2026: what an international brand's first move onto the island signals for buyers weighing Thong Nai Pan and comparable areas | phangan | 🟡 | ⏳ |
 
 ## C. Per-district guides (~18 districts in districts.ts)
