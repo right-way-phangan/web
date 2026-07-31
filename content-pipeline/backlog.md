@@ -61,8 +61,8 @@ Status: ⏳ queued · ✅ published.
 | Phangan market seasonality: when to buy and when to sell | costs | ⚪️ | ✅ |
 <!-- discovered 2026-07-02, sources: fosrlaw.com, thethaiger.com, nationthailand.com, phanganist.com, bestbkkcondos.com -->
 | New OCPB residential leasing rules for landlords renting 3+ units: deposit caps and contract requirements | costs | 🟡 | ✅ |
-| Water supply and shortage risk on Koh Phangan: what it means for a villa's operating costs | phangan | 🟡 | ⏳ |
-| New villa and residential development pipeline 2025-2026: named projects and what they signal | phangan | 🟡 | ⏳ |
+| Water supply and shortage risk on Koh Phangan: what it means for a villa's operating costs | phangan | 🟡 | ✅ |
+| New villa and residential development pipeline 2025-2026: named projects and what they signal | phangan | 🟡 | ✅ |
 | Healthcare and schools access for buyers relocating with family | phangan | 🟢 | ✅ |
 | Realistic villa rental yields: what actually drives returns beyond the headline percentage | costs | 🟡 | ⏳ |
 <!-- discovered 2026-07-05, sources: aseanbriefing.com, houseviser.com, thaienquirer.com (search snippets), thethaiger.com, centreforaviation.com, thailand-construction.com -->

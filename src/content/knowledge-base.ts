@@ -5123,6 +5123,134 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "costs",
     faqQuestion: "Do Thailand's new landlord rules cap security deposits, and do they apply to Airbnb-style rentals on Koh Phangan?",
   },
+  {
+    slug: "water-supply-shortage-risk-koh-phangan",
+    kbId: "kb-0077",
+    topic: "Phangan",
+    title: "Water supply and shortage risk on Koh Phangan: what it means for a villa's running costs",
+    short:
+      "Koh Phangan's Provincial Waterworks Authority branch was still rationing mains water on parts of the island through mid-2026 — the same dry-season pattern that has repeated for over a decade. The state's 500-million-baht reservoir meant to fix it missed its own completion target, so a buyer should treat water as a cost and due-diligence item, not an afterthought.",
+    updated: "2026-07-31",
+    body: [
+      "Is Koh Phangan's water shortage a real risk for a villa owner, or just seasonal noise? It's real and recurring: the island's Provincial Waterworks Authority (PWA) branch rationed government mains water on parts of Koh Phangan through June–August 2026, and the reservoir project meant to end the shortage for good missed its own mid-2025 completion target. That doesn't make the island uninvestable — but it does mean water source and storage need the same scrutiny as land title or building zone before you buy.",
+      { h: "What's happening right now" },
+      "On 16 June 2026, PWA's Koh Phangan branch issued Notice 7/2569 scheduling water cuts at two production stations. The Khao Chak Thong station — covering villages 5 through 8, roughly the Sri Thanu / Haad Jao Phao coast — ran on a one-day-on, five-days-off rotation from late June through early August. The Ban Tai RO station — covering village 1 and the Ban Tai area, including Thong Sala — ran on alternating days over the same window, with supply limited to 5am–4pm on service days. PWA cited irregular rainfall and extreme heat since February 2026 pushing raw water at both stations to critical levels. Anyone buying in [Sri Thanu](/knowledge/buying-in-sri-thanu), [Thong Sala](/knowledge/buying-in-thong-sala) or [Ban Tai / Ban Khai](/knowledge/buying-in-ban-tai-ban-khai) should ask specifically whether a plot sits in one of these rationed zones.",
+      { h: "Why this keeps happening" },
+      "The gap between demand and supply is structural, not a one-off drought. Royal Irrigation Department (RID) project documents for the island's reservoir put annual water demand well above the raw water the island can currently produce, and the mismatch shows up hardest in the dry months. In 2024, supply fell to a reported 3,500–4,000 m³ a day against a reverse-osmosis desalination plant adding only around 600 m³ daily — a shortfall serious enough that the Royal Thai Navy shipped roughly 1.5 million litres of fresh water from Koh Samui to Koh Phangan over 15 days that July.",
+      { h: "The reservoir meant to fix it — and why it hasn't yet" },
+      "RID's answer is the Thar Praves Reservoir, an earthen dam in Ban Tai subdistrict designed to hold more than 1.1 million m³ — roughly double the island's current mains storage. The project was first designed back in 2017, but a construction contractor wasn't actually signed until January 2023, on a 500-million-baht, 900-day contract targeting completion by mid-July 2025. As of PWA's June 2026 rationing notice — a full year past that target — the island was still running scheduled cuts, which means the reservoir has not yet ended the shortage. Don't assume it has without checking the current status locally.",
+      { h: "What it means for a villa's running costs" },
+      {
+        ul: [
+          "**Confirm the actual source, not just \"mains water nearby.\"** Ask which PWA production-station zone serves the specific plot, and request the meter's account history through the last dry season rather than a verbal assurance.",
+          "**A tested private well is a real asset, not a nice-to-have.** The island's granite and sandstone geology holds groundwater reasonably well, but yield and quality vary block to block — have any existing well tested for both before relying on it. See [Utilities on Koh Phangan](/knowledge/utilities-water-electricity-internet-koh-phangan) for the full picture across water, power, internet and roads.",
+          "**Storage capacity is the cheapest insurance.** A tank sized to bridge several days between mains deliveries turns an intermittent supply into a manageable one — check what's already installed, and budget for more if it's undersized.",
+          "**Treat delivered water as a standing dry-season cost**, not a rare emergency, if the plot has no well and sits in a rationed zone during February–August.",
+        ],
+      },
+      "None of this is a reason to walk away from an otherwise good plot — but it is a documented, government-acknowledged, recurring issue on this specific island, and verifying a plot's actual water resilience belongs in the same due-diligence pass as title and zoning. See [Due diligence before buying on Koh Phangan](/knowledge/due-diligence-checklist-koh-phangan).",
+    ],
+    takeaways: [
+      "PWA rationed mains water on parts of Koh Phangan through June–August 2026 (official Notice 7/2569), rotating supply at the Khao Chak Thong and Ban Tai RO production stations.",
+      "The shortage is structural and recurring: in 2024 supply fell to 3,500–4,000 m³/day and the Royal Thai Navy had to ship roughly 1.5 million litres of water from Koh Samui over 15 days.",
+      "The government's fix — the 500-million-baht, 1.1-million-m³ Thar Praves Reservoir — was contracted for completion by mid-July 2025, but PWA was still rationing water a year later; verify current status before assuming it's resolved.",
+      "Confirm which PWA zone serves a specific plot and its meter history, and treat a tested private well plus adequate storage capacity as genuine risk mitigants.",
+      "Budget dry-season (roughly February–August) water delivery or storage top-ups as a standing operating cost for any plot without its own reliable well.",
+    ],
+    sources: [
+      {
+        title: "Provincial Waterworks Authority — ประกาศ กปภ.สาขาเกาะพะงัน การจ่ายน้ำเป็นเวลา ฉบับที่ 7/2569",
+        url: "https://www.pwa.co.th/news/view/134185",
+      },
+      {
+        title: "Banmuang — ปภ.สุราษฎร์ธานีเดินหน้าแก้ภัยแล้งเกาะพะงัน หลัง อดีต ส.ส.วัชระ ยื่นเรื่องร้องเรียน",
+        url: "https://www.banmuang.co.th/news/region/389446",
+      },
+      {
+        title: "The Thaiger — Water crisis hits Koh Pha-ngan and Koh Samui, tap water rationed",
+        url: "https://thethaiger.com/news/national/water-crisis-hits-koh-pha-ngan-and-koh-samui-tap-water-rationed",
+      },
+      {
+        title: "JS100 — กรมชลประทาน วางกรอบสร้างอ่างเก็บน้ำธารประเวศ แก้ภัยแล้งเกาะพะงัน",
+        url: "https://www.js100.com/en/site/news/view/37729",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "Does Koh Phangan actually have a water shortage, and what should a villa buyer check before relying on mains supply?",
+  },
+  {
+    slug: "koh-phangan-development-pipeline-2025-2026",
+    kbId: "kb-0078",
+    topic: "Phangan",
+    title: "Koh Phangan's 2025–2026 villa development pipeline: named projects, where they cluster, and what it signals",
+    short:
+      "Koh Phangan counted 41 active residential projects and 438 units worth a combined ฿7.94 billion by Q1 2026, with holiday villas making up the large majority of new supply. This guide looks at the supply side specifically — where new construction is concentrated, a few named projects moving through it, and what the pattern means for a buyer weighing a resale plot against something new.",
+    updated: "2026-07-31",
+    body: [
+      "How much new villa and residential development is actually happening on Koh Phangan right now, and where? As of Q1 2026 the island had 41 active residential projects comprising 438 units worth roughly ฿7.94 billion, after adding more than 100 new units a year in both 2024 and 2025. [Koh Phangan property market in 2026](/knowledge/koh-phangan-market-outlook-2026) covers the pricing and investment-outlook side of that data; this guide covers the supply side — which projects are actually being built, where they cluster, and what that tells a buyer.",
+      { h: "The pipeline by segment" },
+      {
+        ul: [
+          "**Holiday villas dominate** — 26 projects, 294 units, ฿6.83 billion combined value: the large majority of new supply on the island.",
+          "**Condominiums remain a small, tightly constrained segment** — just 4 projects and 66 units, worth ฿380 million.",
+          "**Housing estates** — 11 projects, 78 units, ฿730 million.",
+          "**Supply growth** — around 231 new vacation homes were added across 2024–2025, with 131 of those launched in 2025 alone.",
+        ],
+      },
+      { h: "Where the new supply is concentrated" },
+      {
+        ul: [
+          "**Western and northwestern coastline** — Mae Haad, Haad Yao and Hin Kong are the current centre of gravity for new villa construction. See [Buying in Mae Haad](/knowledge/buying-in-mae-haad), [Haad Yao / Haad Salad](/knowledge/buying-in-haad-yao-haad-salad) and [Hin Kong](/knowledge/buying-in-hin-kong).",
+          "**Sri Thanu and Haad Yao** — where most of the island's limited condominium supply is concentrated. See [Buying in Sri Thanu](/knowledge/buying-in-sri-thanu).",
+          "**Thong Sala and Ban Tai** — favoured by yield-focused buyers for liquidity and access. See [Thong Sala](/knowledge/buying-in-thong-sala) and [Ban Tai / Ban Khai](/knowledge/buying-in-ban-tai-ban-khai).",
+          "**Chaloklum** — also emerging as a boutique villa location, including some of the named projects below. See [Buying in Chaloklum](/knowledge/buying-in-chaloklum).",
+        ],
+      },
+      { h: "Named projects moving through the pipeline" },
+      "A few examples currently marketed by island agencies illustrate the scale of what's actually being built — small, boutique developments rather than mass housing:",
+      {
+        ul: [
+          "**7 Palms (Chaloklum)** — a 48-unit boutique development delivered in two phases: phase 1 (24 units) around September 2025, phase 2 (24 units) targeted for March 2026.",
+          "**Sunset Paradise (Sri Thanu)** — 8 villas on a 1,600 m² plot, construction started May 2024 with completion targeted around August 2025.",
+          "**Terra Village** — 1–3 bedroom pool villas (roughly 200–280 m² built-up on 315–718 m² plots), targeted for completion in Q4 2026.",
+          "**Samma Villas (near Hin Kong)** — targeted for completion in Q1 2026.",
+        ],
+      },
+      "These figures come from developer and agency marketing, not official filings — treat unit counts and completion dates as indicative, and verify current construction status, permits and the underlying land title directly before relying on any brochure timeline. See [Buying off-plan on Koh Phangan](/knowledge/buying-off-plan-new-developments) for how to vet a developer properly.",
+      { h: "What it signals for buyers" },
+      "Larger, listed Thai developers — Supalai and Ornsirin Holding among them — entering the market in 2026 signals Koh Phangan moving from one-off, owner-built villas toward a more developer-driven pipeline. But the total footprint is still small: 438 units island-wide is a market of dozens of boutique projects, not mass-market supply, so a name entering the market is not yet a guarantee of scale or standardised quality.",
+      "Villas dominating over condos in the pipeline reflects land economics and the 2025 environmental zoning as much as demand — condominium projects need land and permitting that survive [the island's building-zone rules](/knowledge/koh-phangan-building-zones), which constrains where and how large a condo project can be. And Colliers' own caution about the wider Samui/Phangan market applies just as much project-by-project here: success depends on land-title verification, location and realistic pricing, not the render on the marketing page. A new, polished project deserves the same diligence as a resale plot — see [Due diligence before buying](/knowledge/due-diligence-checklist-koh-phangan) — plus confirmation of whether [OCPB's off-plan deposit protections](/knowledge/ocpb-deposit-ban-villa-land-reservations) actually apply to that specific project.",
+    ],
+    takeaways: [
+      "Q1 2026: 41 active residential projects on Koh Phangan (438 units, ~฿7.94bn); holiday villas are 26 of those projects (294 units, ฿6.83bn) — the dominant new-supply type, ahead of condos (4 projects) and housing estates (11 projects).",
+      "New supply has run above 100 units a year in both 2024 and 2025 (231 combined, 131 in 2025 alone).",
+      "New villa construction concentrates on the western/northwestern coast (Mae Haad, Haad Yao, Hin Kong) and increasingly Chaloklum; condo supply clusters in Sri Thanu/Haad Yao; Thong Sala/Ban Tai draw yield-focused buyers.",
+      "Listed developers (Supalai, Ornsirin Holding) entering in 2026 signals the market professionalising, but total supply is still small — this is boutique-project growth, not mass development.",
+      "Named off-plan projects and their completion dates come from agency marketing, not official filings — verify permits, land title and developer track record directly rather than relying on a brochure timeline.",
+    ],
+    sources: [
+      {
+        title: "Nation Thailand — Samui and Phangan boom as 61bn-baht property investment hub",
+        url: "https://www.nationthailand.com/business/property/40066940",
+      },
+      {
+        title: "Nation Thailand — Israel, Europe and Australia Anchor in Koh Phangan, Driving Property Investment Past THB7.9bn",
+        url: "https://www.nationthailand.com/business/property/40067434",
+      },
+      {
+        title: "Keller Henson — New Villa Developments in Koh Phangan",
+        url: "https://kellerhenson.com/blog/koh-phangan-new-villas",
+      },
+      {
+        title: "FazWaz — Top real estate projects directory, Koh Phangan",
+        url: "https://www.fazwaz.com/project-directory/thailand/surat-thani/koh-phangan",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "How much new villa development is happening on Koh Phangan right now, and where is it concentrated?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
