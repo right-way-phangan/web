@@ -14,6 +14,18 @@ export type Condition = "New" | "Good" | "Needs renovation" | "Off-plan";
 export type Stage = "Ready" | "Under construction" | "Off-plan";
 export type Furnishing = "Full" | "Partial" | "None";
 
+/**
+ * Одна запись «хода стройки» — фотоотчёт со стройплощадки на дату.
+ * Публичное: рендерится на /projects/[slug]/construction (EN) и /ru/... (RU).
+ */
+export interface ConstructionUpdate {
+  date: string;      // "July 2026" — как показываем в EN
+  dateRu?: string;   // "Июль 2026"; пусто → берём date
+  note?: string;     // подпись к этапу (EN)
+  noteRu?: string;
+  photos: string[];
+}
+
 /** Роль контакта по объекту — кто это в сделке. */
 export type ContactRole = "owner" | "broker" | "caretaker" | "lawyer" | "other";
 
@@ -118,6 +130,7 @@ export interface RealEstateObject {
   priceStages?: Array<{ label: string; value: string }>; // PRICE_STAGES — "stage | price"
   timeline?: Array<{ date: string; event: string }>;     // TIMELINE — "date | event"
   team?: Array<{ role: string; name: string }>;          // TEAM — "role | name"
+  constructionUpdates?: ConstructionUpdate[];            // фотоотчёты со стройки
 
   // Operational
   ownerName?: string;             // legacy free-text owner (мигрирован в contacts)

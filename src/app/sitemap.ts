@@ -183,9 +183,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const projectEntries: MetadataRoute.Sitemap = projects.flatMap((p) => {
     const slug = projectSlug(p, projects);
     const languages = { en: `${base}/projects/${slug}`, ru: `${base}/ru/projects/${slug}` };
+    const construction = { en: `${base}/projects/${slug}/construction`, ru: `${base}/ru/projects/${slug}/construction` };
     return [
       { url: `${base}/projects/${slug}`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.8, alternates: { languages } },
       { url: `${base}/ru/projects/${slug}`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.6, alternates: { languages } },
+      // Ход стройки — своя страница только у проектов с фотоотчётами.
+      ...((p.constructionUpdates?.length ?? 0) > 0
+        ? [
+            { url: construction.en, lastModified: now, changeFrequency: "weekly" as const, priority: 0.5, alternates: { languages: construction } },
+            { url: construction.ru, lastModified: now, changeFrequency: "weekly" as const, priority: 0.4, alternates: { languages: construction } },
+          ]
+        : []),
     ];
   });
 

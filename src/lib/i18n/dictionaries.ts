@@ -1448,6 +1448,7 @@ export interface ProjectsDict {
     pricing: string;
     returns: string;
     timeline: string;
+    construction: string;
     team: string;
     location: string;
     enquire: string;
@@ -1470,10 +1471,21 @@ export interface ProjectsDict {
     netYield: string;
     estIncome: string;
     timeline: string;
+    construction: string;
     team: string;
     location: string;
     amenities: string;
     facts: string;
+  };
+  /** Страница фотоотчётов со стройки — /projects/[slug]/construction. */
+  construction: {
+    title: string;
+    lede: string;
+    viewAll: string;
+    backToProject: string;
+    latest: string;
+    photos: (n: number) => string;
+    metaDescription: (name: string) => string;
   };
   watchVideo: string;
   contactMessage: (title: string) => string;
@@ -1528,6 +1540,7 @@ const projectsDict: Record<Locale, ProjectsDict> = {
       pricing: "Pricing",
       returns: "Returns",
       timeline: "Timeline",
+      construction: "Site progress",
       team: "Team",
       location: "Location",
       enquire: "Enquire",
@@ -1551,10 +1564,21 @@ const projectsDict: Record<Locale, ProjectsDict> = {
       netYield: "Net yield",
       estIncome: "Est. net income",
       timeline: "Construction timeline",
+      construction: "Site progress",
       team: "Developer & team",
       location: "Location",
       amenities: "What's included",
       facts: "Key facts",
+    },
+    construction: {
+      title: "Construction progress",
+      lede: "Photos from the site, newest first. We update this page as the build moves.",
+      viewAll: "See all construction photos",
+      backToProject: "Back to the project",
+      latest: "Latest update",
+      photos: (n) => `${n} ${n === 1 ? "photo" : "photos"}`,
+      metaDescription: (name) =>
+        `Construction progress at ${name}, Koh Phangan — dated photo updates from the site.`,
     },
     watchVideo: "Watch video",
     contactMessage: (title) => `Hi! I'm interested in ${title}. Could you share more details?`,
@@ -1619,6 +1643,7 @@ const projectsDict: Record<Locale, ProjectsDict> = {
       pricing: "Цена",
       returns: "Доходность",
       timeline: "Сроки",
+      construction: "Ход стройки",
       team: "Команда",
       location: "Локация",
       enquire: "Заявка",
@@ -1642,10 +1667,21 @@ const projectsDict: Record<Locale, ProjectsDict> = {
       netYield: "Чистая доходность",
       estIncome: "Оценка чистого дохода",
       timeline: "Этапы строительства",
+      construction: "Ход стройки",
       team: "Застройщик и команда",
       location: "Локация",
       amenities: "Что включено",
       facts: "Ключевые факты",
+    },
+    construction: {
+      title: "Ход строительства",
+      lede: "Фотографии со стройплощадки, новые — сверху. Страница пополняется по мере работ.",
+      viewAll: "Все фото со стройки",
+      backToProject: "Назад к проекту",
+      latest: "Последний отчёт",
+      photos: (n) => `${n} фото`,
+      metaDescription: (name) =>
+        `Ход строительства ${name} на Ко Пангане — фотоотчёты со стройплощадки по датам.`,
     },
     watchVideo: "Смотреть видео",
     contactMessage: (title) => `Здравствуйте! Интересует ${title}. Расскажите подробнее, пожалуйста.`,

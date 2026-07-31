@@ -62,6 +62,10 @@ export function sanitizePublicObject(o: RealEstateObject): RealEstateObject {
     coverImage: pub.coverImage && proxyR2Url(pub.coverImage),
     gallery: pub.gallery?.map(proxyR2Url),
     floorplanUrls: pub.floorplanUrls?.map(proxyR2Url),
+    constructionUpdates: pub.constructionUpdates?.map((u) => ({
+      ...u,
+      photos: u.photos.map(proxyR2Url),
+    })),
     // Videos use a dedicated route handler (not the cached rewrite) — Vercel's
     // edge mis-serves Range requests off the rewrite cache. See proxyR2VideoUrl.
     videoUrls: pub.videoUrls?.map(proxyR2VideoUrl),
@@ -75,8 +79,9 @@ export function sanitizePublicObject(o: RealEstateObject): RealEstateObject {
  * (getObjectByRwNumber) and keep the gallery.
  */
 export function slimObjectForList(o: RealEstateObject): RealEstateObject {
-  const { gallery, ...slim } = o;
+  const { gallery, constructionUpdates, ...slim } = o;
   void gallery;
+  void constructionUpdates; // десятки URL фото со стройки — только на своей странице
   return slim;
 }
 
