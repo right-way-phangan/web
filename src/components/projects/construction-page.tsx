@@ -77,7 +77,7 @@ export function ConstructionPage({
       </header>
 
       <div className="mt-12">
-        <ConstructionLog updates={updates} locale={locale} photosLabel={t.construction.photos} />
+        <ConstructionLog updates={updates} locale={locale} />
       </div>
 
       <div className="mt-16 grid gap-8 border-t border-forest-500/10 pt-10 lg:grid-cols-[1fr_360px]">
