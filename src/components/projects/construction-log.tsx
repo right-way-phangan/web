@@ -5,6 +5,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { X, ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
 import type { ConstructionUpdate } from "@/types/object";
 import type { Locale } from "@/lib/i18n/dictionaries";
+import { getProjectsDict } from "@/lib/i18n/dictionaries";
 import { updateDate, updateNote } from "@/lib/utils/construction";
 
 /**
@@ -16,12 +17,13 @@ import { updateDate, updateNote } from "@/lib/utils/construction";
 export function ConstructionLog({
   updates,
   locale,
-  photosLabel,
 }: {
   updates: ConstructionUpdate[];
   locale: Locale;
-  photosLabel: (n: number) => string;
 }) {
+  // Словарь берём здесь: функции-форматтеры нельзя передать пропом из
+  // серверного компонента (Next: "Functions cannot be passed to Client Components").
+  const photosLabel = getProjectsDict(locale).construction.photos;
   const flat = updates.flatMap((u) =>
     u.photos.map((url) => ({ url, caption: updateDate(u, locale) })),
   );
