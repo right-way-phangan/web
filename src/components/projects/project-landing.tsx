@@ -26,6 +26,7 @@ import {
 import { getAllObjects } from "@/lib/data/objects";
 import { buildObjectDescription } from "@/lib/generate/object-description";
 import { formatPriceTHB } from "@/lib/utils/price";
+import { updateDate, countPhotos } from "@/lib/utils/construction";
 import { localePath } from "@/lib/i18n/locale-path";
 import { ObjectGallery } from "@/components/objects/object-gallery";
 import { ObjectLocationMap } from "@/components/objects/object-location-map";
@@ -131,6 +132,8 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
   ) || hasStages;
   const hasReturns = Boolean(project.priceThb);
   const hasTimeline = (project.timeline?.length ?? 0) > 0;
+  const constructionUpdates = project.constructionUpdates ?? [];
+  const hasConstruction = constructionUpdates.length > 0;
   const hasTeam = (project.team?.length ?? 0) > 0;
   const hasLocation = Boolean(project.lat && project.lng) || Boolean(project.locationUrl);
 
@@ -144,11 +147,16 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
     ...(hasPricing ? [{ id: "pricing", label: t.nav.pricing }] : []),
     ...(hasReturns ? [{ id: "returns", label: t.nav.returns }] : []),
     ...(hasTimeline ? [{ id: "timeline", label: t.nav.timeline }] : []),
+    ...(hasConstruction ? [{ id: "construction", label: t.nav.construction }] : []),
     ...(hasTeam ? [{ id: "team", label: t.nav.team }] : []),
     ...(hasLocation ? [{ id: "location", label: t.nav.location }] : []),
   ];
 
   const projectsHref = localePath(locale, "/projects") as Route;
+  const constructionHref = localePath(
+    locale,
+    `/projects/${projectSlug(project, allProjects)}/construction`,
+  ) as Route;
   const homeHref = localePath(locale, "/") as Route;
   const projectsCrumb = locale === "ru" ? "Проекты" : "Projects";
 
@@ -394,6 +402,42 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
               <SectionEyebrow className="mb-3">{t.nav.timeline}</SectionEyebrow>
               <h2 className="mb-6 font-serif text-3xl text-forest-900">{t.sections.timeline}</h2>
               <ProjectTimeline items={project.timeline!} />
+            </section>
+            </Appear>
+          ) : null}
+
+          {/* Ход стройки — тизер последнего отчёта, всё остальное на своей странице */}
+          {hasConstruction ? (
+            <Appear delay={0.06}>
+            <section id="construction" className="scroll-mt-32">
+              <SectionEyebrow className="mb-3">{t.nav.construction}</SectionEyebrow>
+              <h2 className="font-serif text-3xl text-forest-900">{t.sections.construction}</h2>
+              <p className="mt-2 text-sm text-forest-500/70">
+                {t.construction.latest}: {updateDate(constructionUpdates[0], locale)}
+              </p>
+              <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                {constructionUpdates[0].photos.slice(0, 4).map((url) => (
+                  <Link
+                    key={url}
+                    href={constructionHref}
+                    className="group relative aspect-[3/4] overflow-hidden rounded-sm border border-forest-500/10 bg-cream-50"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={url}
+                      alt={updateDate(constructionUpdates[0], locale)}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                  </Link>
+                ))}
+              </div>
+              <Link
+                href={constructionHref}
+                className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-brass-600 underline-offset-2 transition-colors hover:text-brass-700 hover:underline"
+              >
+                {t.construction.viewAll} ({t.construction.photos(countPhotos(constructionUpdates))}) →
+              </Link>
             </section>
             </Appear>
           ) : null}

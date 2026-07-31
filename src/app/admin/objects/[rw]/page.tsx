@@ -8,6 +8,8 @@ import { matchLeadsToObject } from "@/lib/crm/matching";
 import { AdminNav } from "@/components/admin/admin-nav";
 import { ObjectWarmLeads, type WarmLeadRow } from "@/components/admin/object-warm-leads";
 import { ObjectContactsEditor } from "@/components/admin/object-contacts-editor";
+import { ConstructionEditor } from "@/components/admin/construction-editor";
+import { getPublicProjects, projectSlug } from "@/lib/data/projects";
 
 export const metadata: Metadata = {
   title: "Объект — тёплые лиды",
@@ -47,6 +49,10 @@ export default async function AdminObjectPage({
 
   const leads = CRM_ENABLED ? await getLeads() : [];
   const matched = matchLeadsToObject(object, leads, { limit: 20 });
+
+  // Ссылка на публичную страницу хода стройки — slug тот же, что у лендинга.
+  const projects = object.type === "Project" ? await getPublicProjects() : [];
+  const slug = object.type === "Project" ? projectSlug(object, projects) : "";
 
   const toRow = (m: (typeof matched)[number]): WarmLeadRow => ({
     id: m.lead.id,
@@ -143,6 +149,14 @@ export default async function AdminObjectPage({
       <div className="mt-8">
         <ObjectContactsEditor rwNumber={object.rwNumber} initial={object.contacts ?? []} />
       </div>
+
+      {object.type === "Project" && (
+        <ConstructionEditor
+          rwNumber={object.rwNumber}
+          initial={object.constructionUpdates ?? []}
+          publicHref={`/projects/${slug}/construction`}
+        />
+      )}
 
       {!CRM_ENABLED ? (
         <p className="mt-8 text-sm text-forest-900/55">CRM-бэкенд не подключён.</p>
