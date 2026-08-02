@@ -4,6 +4,7 @@ import type { Route } from "next";
 import { ArrowRight, BarChart3, Calculator, MapPin, Scale, ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Hero } from "@/components/sections/hero";
+import { HeroFlight } from "@/components/sections/hero-flight";
 import { FeaturedListings } from "@/components/sections/featured-listings";
 import { Reveal } from "@/components/sections/reveal";
 import { Appear } from "@/components/motion/appear";
@@ -25,9 +26,22 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
   const browseHref = `${base}/listings` as Route;
   const contactHref = `${base}/contact` as Route;
 
+  // Скраб-пролёт острова — прогрессивное улучшение поверх обычного hero. Флаг
+  // (NEXT_PUBLIC_HERO_FLIGHT=1, инлайнится при билде) держит его в Preview, пока
+  // не утверждён реальный видеоролик; в проде hero остаётся сегодняшним. Даже
+  // при флаге HeroFlight сам решает включаться (десктоп/не-reduced-motion/видео
+  // загрузилось) — иначе рендерит те же children без изменений.
+  const flightEnabled = process.env.NEXT_PUBLIC_HERO_FLIGHT === "1";
+
   return (
     <>
-      <Hero locale={locale} />
+      {flightEnabled ? (
+        <HeroFlight dict={dict.heroFlight}>
+          <Hero locale={locale} fill />
+        </HeroFlight>
+      ) : (
+        <Hero locale={locale} />
+      )}
 
       {/* The in-progress notice sits under the hero: the header floats
           transparent over the hero photo, so a strip above it would hide. */}
