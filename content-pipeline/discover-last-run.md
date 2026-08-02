@@ -1,46 +1,56 @@
-# Discovery run — 2026-07-26
+# Discovery run — 2026-08-02
 
-**New topics queued:** 5
-**Searches run:** 24
-**Sources read:** 3 fetched pages, plus corroborating search-snippet sources across the 24 searches
+**New topics queued:** 10
+**Searches run:** 6 discovery angles, ~12 WebSearch queries total
+**Sources read:** ~14 domains fetched in depth via WebFetch, ~25 domains surfaced across search results
 
 ## Topics added
 
 | Description | faqCategory | Priority |
 |---|---|---|
-| The 74-billion-baht Samui sea bridge/expressway (EXAT's 37km Don Sak-Khanom-Koh Samui link): 2026 feasibility study, 2029 construction start, and what a 20-minute mainland crossing would do to Phangan and Koh Tao property demand | phangan | 🔴 |
-| Electric autonomous air-taxi service (EH216-S passenger drones) planned to connect Koh Samui, Koh Phangan and Koh Tao by late 2026: real project or vaporware, and what it means for buyer accessibility versus the stalled fixed-wing airport | phangan | 🔴 |
-| Off-grid solar and battery storage for a Phangan villa: real 2026 install costs (THB/kWp) and payback versus the PEA grid-tied feed-in scheme | costs | 🟢 |
-| What a Phangan property lawyer's fee actually buys: due-diligence, conveyancing and title-search costs (THB 30,000-120,000) broken down against what each stage covers | process | 🟢 |
-| Minor Hotels' Avani and the KAIA tented resort opening on Phangan in 2026: what an international brand's first move onto the island signals for buyers weighing Thong Nai Pan and comparable areas | phangan | 🟡 |
+| Why the 0.01% transfer/mortgage fee discount (extended to 30 June 2027, ≤7M THB) doesn't apply to foreign buyers | costs | 🔴 |
+| Land Department's 8-province corporate landholder monitoring database (Surat Thani named a priority province) | structures | 🔴 |
+| Sap-Ing-Sith ("right of use") — Thailand's fifth registered property right under the 2019 Act | structures | 🟢 |
+| Non-resident vs. resident rental income tax (15% flat withholding vs. progressive 0-35%) plus PND.94/PND.90 filing deadlines | costs | 🟢 |
+| Inheritance tax on Thai property: the 100-million-baht threshold and rates for direct heirs vs. others | costs | 🟢 |
+| Koh Phangan's power grid reliability: single undersea cable, no major upgrade expected before 2030 | phangan | 🟢 |
+| 2027 land valuation reform: Treasury's Big Data appraisal cycle and its effect on land/building tax bills | costs | 🟡 |
+| Cruise ship pier proposal for Koh Samui/Phangan: tourism ministry infrastructure talks | phangan | 🟡 |
+| Who's actually buying on Phangan in 2026: Israeli, European and Australian buyer surge (THB 7.9bn+) | phangan | 🟡 |
+| Island wastewater/sewage rules: Section 17 "unfriendly activities" ban and rising enforcement pressure | structures | 🟡 |
 
 ## Sources consulted
 
-- **khaosodenglish.com, nationthailand.com, thailand-construction.com** — 74bn baht Samui sea bridge/expressway: EXAT study timeline, 2029 construction start, 2033 opening, expected knock-on effect for Phangan/Tao tourism and property investment.
-- **ehang.com, nationthailand.com, nomadlawyer.org** — EH216-S autonomous passenger drone (air taxi): CAAT-backed, Tao AAM Co. Ltd as operator, five routes including Samui-Phangan-Tao, targeted late 2026 launch; cross-checked against centreforaviation.com's Koh Phangan Airport profile, which confirms the fixed-wing airport project remains suspended over national-park encroachment and has no drone-connectivity content — the two are genuinely distinct stories.
-- **solarpanelsthailand.com, solar-phangan.com, phangan.solar** — off-grid/battery solar costs from Phangan-specific installers (Solar Phangan, Entropy Solaris), 2026 THB/kWp pricing for off-grid vs. grid-tied systems; cross-checked against the published `pea-rooftop-solar-buyback-2026` article, which covers only the grid-tied export scheme, confirming the off-grid/battery angle is a distinct gap.
-- **thailawonline.com, bambooroutes.com** — Thai conveyancing/due-diligence lawyer fee ranges (THB 30,000-120,000); grepped the full knowledge base for "lawyer fee"/"conveyancing" and found no standalone cost breakdown anywhere, despite the topic being a first-order question for any buyer.
-- **hospitalitynet.org, travelandtourworld.com, theopeninglist.com** — Avani Koh Phangan (Minor Hotels, Thong Nai Pan Noi, transitioning May 2026) and KAIA Koh Phangan luxury tented resort (opening early 2026) confirmed as genuinely new 2026 brand entries, not previously logged.
-- **aimbangkok.com, silklegal.com, lexology.com, tilleke.com, mondaq.com** — used to confirm several promising leads (May 2026 DOL "Most Urgent" circulars and national corporate registry, DBD Orders 2/2568 and 1/2569, IBAS audit figures, land tax full-enforcement/50%-cut proposal, BOI Por. 9/2568 notification, the March 2025 Supreme Court lease-renewal ruling) are already fully covered in published knowledge-base articles or existing backlog rows — this run's grep-first-before-search discipline caught them before they were wrongly queued as new.
+- **nationthailand.com, bangkokpost.com, thailand-real.estate, matching-property.com** — transfer/mortgage fee stimulus extended to 30 June 2027 (Cabinet decision), confirmed Thai-nationals-only eligibility and the ≤7M THB cap.
+- **aimbangkok.com** — Land Department's 8-province corporate landholder database (Phuket, Surat Thani, Mae Hong Son, Chiang Mai, Krabi, Chon Buri, Rayong, Chanthaburi), monthly foreign-shareholder checks, AML reporting thresholds, and AI cross-referencing across DOL/DBD/AMLO/DSI records.
+- **thailandlawonline.com, pattayatrader.com, lawyersforexpatsthailand.com** — Sap-Ing-Sith Act B.E. 2562 (2019) mechanics: 30-year statutory cap, no automatic renewal, transferability/inheritability, and 2026 marketing language claiming it's "stronger than a lease."
+- **wise.com, hlbthai.com, forbesandpartners.com** — non-resident (15% flat withholding on gross rental income) vs. resident (progressive 0-35% on net, after 30% deduction) tax treatment, and PND.94 (Sept 30)/PND.90 (Mar 31) filing deadlines.
+- **realting.com** — inheritance tax structure: 100M THB threshold, 5% direct heirs, 10% other beneficiaries.
+- **libothai.com, dansiam-property.com** — Treasury Department's 2027-2030 Big Data land appraisal reform aimed at closing the 20-40% gap between official and market valuations; 2026 confirmed as the first "full-rate" land/building tax year post-COVID relief.
+- **canvas.solar, phangan.solar** — Koh Phangan/Samui's single undersea power cable from the mainland, no major grid upgrade expected before 2030.
+- **kohphangannews.org** — tourism ministry meeting on a Koh Samui/Phangan cruise pier (40+ ships/year currently tender by small boat), plus local operators' credit-access and land-dispute concerns (used for context, not queued directly).
+- **nationthailand.com (business/property)** — reported THB 7.9bn+ in investment tied to Israeli, European and Australian buyers on Phangan.
+- **save-nemo.org, kohphangannews.org** — Section 17 "unfriendly activities" wastewater-discharge ban (marine environment law, 2018) and rising enforcement pressure from the island's growing waste volume.
+- **khaosodenglish.com, zagdim.com, globallawexperts.com** — Oct 2025 forest-reserve enforcement case and a pending Foreign Business Act amendment; reviewed for context but not queued (see Skipped/Gaps below).
 
 ## Skipped candidates
 
-- **BOI Notification Por. 9/2568** (residential land for BOI-promoted companies' operational-level workers) — too narrow/business-facing, doesn't answer a typical villa buyer's question.
-- **Land and Building Tax "full enforcement 2026" / proposed 50% cut** — already covered in `owners-taxes-annual-land-and-income` (line ~1622) and `thailand-99-year-leasehold-bill-status` (line ~3281).
-- **DBD Order 1/2569 "control test" / 46,918 flagged companies** — already covered in `dbd-source-of-funds-orders-company-registration-2026`.
-- **National corporate land registry + UBO checks (May 2026 circulars)** — already covered in `land-office-source-of-funds-checks-2026` and `villa-held-by-thai-company-buyer-due-diligence-2026`.
-- **Koh Phangan May 2026 nominee arrests** (22 foreigners, 40+ rai, FB Property Co.) — already cited directly in `nominee-crackdown-krabi-islands-2026` and `illegal-construction-forest-reserve-crackdown-koh-phangan`.
-- **Sor Por Kor 4-01 "agricultural chanote" conversion nuance** — already covered in `untitled-sea-view-land-pbt5-sor-por-kor-scam`.
-- **UOB/Thai bank mortgage details (LTV, rates)** — already covered in `financing-buying-as-a-foreigner`.
-- **Real-estate agent commission rates** — already briefly covered in `cost-of-buying-taxes-and-fees`.
-- **Supreme Court ruling on stacked lease-renewal clauses (Decision 4655/2566)** — same ruling as the already-published "30+30+30" article.
-- **Full Moon Party noise/zoning impact on property value** — no regulatory source found, only event-guide/travel content.
-- **Beach erosion/climate coastal risk** — only regional (Phuket academic study) data available, no Phangan-specific 2026 development; overlaps the published flood/storm insurance and flood-drainage-due-diligence articles.
-- **Koh Phangan waste/sewage infrastructure** — thin sourcing (one NGO composting initiative), more lifestyle-relevant than a real-estate decision driver.
+- **Land title deed red flags (Chanote vs. Nor Sor 3 vs. PBT5/Sor Por Kor scams)** — duplicates published `untitled-sea-view-land-pbt5-sor-por-kor-scam` and `land-titles-chanote-vs-nor-sor-3`.
+- **Can foreigners get a mortgage for Koh Phangan property** — duplicates published `financing-buying-as-a-foreigner`.
+- **Thai company 49/51 structure risks** — duplicates published `thai-company-for-property-49-51`.
+- **Off-grid vs. grid-tied solar cost comparison** — duplicates published `off-grid-solar-battery-storage-koh-phangan-villa` and `pea-rooftop-solar-buyback-2026`.
+- **DBD Order 1/2569 Investment Confirmation Letters for company amendments** — duplicates published `dbd-source-of-funds-orders-company-registration-2026`, which already names this exact order.
+- **May 2026 "Most Urgent" Land Department circulars enforcement mechanics** — duplicates published `land-office-source-of-funds-checks-2026`.
+- **Nominee crackdown hitting the construction/real-estate sector (21,459 flagged companies, IBAS AI)** — duplicates several already-published nominee/audit articles; theme is near saturation.
+- **Fourth Army/Governor task force forest-reserve case (Oct 2025, Than Sadet)** — too close to published `illegal-construction-forest-reserve-crackdown-koh-phangan`.
+- **Bottle Beach wooden walkway upgrade** — too thin/niche, not a real buyer-relevant decision driver.
+- **Named villa project completion calendar 2026 (Oak Verde, Akasha, 7 Palms, etc.)** — borders published `koh-phangan-development-pipeline-2025-2026`; reads as a near-duplicate rather than a distinct topic.
+- **Real-time digital tracking of condo 49% foreign quota** — condos are a minor share of the Phangan market (mostly villas/land); low local relevance.
+- **Foreign Business Act amendment under Cabinet review** — no confirmed bill number or enactment date yet, sourcing still thin.
 
 ## Gaps still open
 
-- **ONESDB / an official, current Koh Phangan zoning map** — could not find a citable 2026 source specific to Phangan (only general Thailand/Koh Samui/Phuket zoning explainers). Worth revisiting with a Thai-language search or a direct check of the Surat Thani Provincial Land Office.
-- **New car-ferry route or schedule change for Thong Sala** — no 2026-specific announcement found; existing ferry guides are static reference content, not news.
-- **Public search access to the new national corporate land registry** — sources confirm the registry now exists (May 2026 circulars) but none describe whether/how a buyer can query it directly before purchase. Worth a follow-up once the registry is more publicly documented.
-- **Company director/shareholder succession risk** (a Thai nominee dies or disappears) — flagged in the prior run (2026-07-19) as a real, distinct gap from the "selling a company" topic; still open and still worth queuing in a future run.
+- **Foreign Business Act amendment** — under Cabinet review with a vague "mid-to-late 2026" timeline; worth a follow-up search once a bill number or reading date is confirmed.
+- **Local business financing/credit-access squeeze** (surfaced alongside the cruise-pier story) — not real-estate-specific enough to queue now, but worth revisiting if it develops into a concrete tax-incentive or lending story relevant to villa/rental operators.
+- **Named villa project completion tracking** — the existing pipeline article could be revisited as a dated "2026 delivery scorecard" once more of the named projects (Oak Verde, Akasha, 7 Palms Chaloklum Phase 2, Gaia Residence, Sol Living, Venera Village) hit actual completion rather than announced status.
+- **Public query access to the new national corporate land registry** (flagged in the 2026-07-26 run) — still no source describing whether a buyer can check it directly pre-purchase.

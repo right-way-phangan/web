@@ -14,6 +14,9 @@ Status: ⏳ queued · ✅ published.
 
 | Topic | faqCategory | Priority | Status |
 |---|---|---|---|
+<!-- discovered 2026-08-02, sources: nationthailand.com, bangkokpost.com, thailand-real.estate, matching-property.com, aimbangkok.com -->
+| Why the 0.01% transfer/mortgage registration fee discount (extended to 30 June 2027, ≤7M THB) does NOT apply to foreign buyers — what a foreigner actually pays vs. a Thai co-owner or spouse on title | costs | 🔴 | ⏳ |
+| Land Department's new 8-province corporate landholder monitoring database (Surat Thani named a priority province): monthly foreign-shareholder checks and quarterly reporting to the DOL — what it means beyond the general nominee crackdown | structures | 🔴 | ⏳ |
 <!-- discovered 2026-07-26, sources: khaosodenglish.com, nationthailand.com, thailand-construction.com, ehang.com -->
 | The 74-billion-baht Samui sea bridge/expressway (EXAT's 37km Don Sak-Khanom-Koh Samui link): 2026 feasibility study, 2029 construction start, and what a 20-minute mainland crossing (vs. today's 2-hour ferry) would do to Phangan and Koh Tao property demand | phangan | 🔴 | ✅ |
 | Electric autonomous air-taxi service (EH216-S passenger drones) planned to connect Koh Samui, Koh Phangan and Koh Tao by late 2026: real project or vaporware, and what it means for buyer accessibility versus the stalled fixed-wing airport | phangan | 🔴 | ✅ |
@@ -87,6 +90,15 @@ Status: ⏳ queued · ✅ published.
 | Off-grid solar and battery storage for a Phangan villa: real 2026 install costs (THB/kWp) and payback versus the PEA grid-tied feed-in scheme, for owners who actually need outage independence | costs | 🟢 | ✅ |
 | What a Phangan property lawyer's fee actually buys: due-diligence, conveyancing and title-search costs (THB 30,000-120,000) broken down against what each stage covers | process | 🟢 | ✅ |
 | Minor Hotels' Avani and the KAIA tented resort opening on Phangan in 2026: what an international brand's first move onto the island signals for buyers weighing Thong Nai Pan and comparable areas | phangan | 🟡 | ⏳ |
+<!-- discovered 2026-08-02, sources: thailandlawonline.com, aimbangkok.com, wise.com, hlbthai.com, realting.com, canvas.solar, kohphangannews.org, libothai.com -->
+| Sap-Ing-Sith ("right of use"): Thailand's lesser-known fifth registered property right under the 2019 Act — how it differs from usufruct, superficies and habitation, and why "30+30" marketing claims for it aren't legally binding either | structures | 🟢 | ⏳ |
+| Non-resident vs. resident rental income tax: the flat 15% withholding on gross income vs. progressive rates (0-35%) with a 30% deduction — which status is cheaper, plus the PND.94/PND.90 filing deadlines owners miss | costs | 🟢 | ⏳ |
+| Inheritance tax on Thai property: the 100-million-baht threshold, and why most villa owners' estates fall under it — 5% for direct heirs, 10% for others | costs | 🟢 | ⏳ |
+| Koh Phangan's power grid reliability: the island runs on a single undersea cable from the mainland with no major upgrade expected before 2030 — what that outage risk means for a villa buyer's due diligence | phangan | 🟢 | ⏳ |
+| 2027 land valuation reform: the Treasury Department's new Big Data appraisal cycle (2027-2030) aims to close the 20-40% gap between official and market land values — what it could do to land and building tax bills even with unchanged rates | costs | 🟡 | ⏳ |
+| Cruise ship pier proposal for Koh Samui/Phangan: tourism ministry talks to fix the lack of deep-water berthing (40+ ships/year currently tender passengers by small boat) — a real infrastructure story or another stalled plan? | phangan | 🟡 | ⏳ |
+| Who's actually buying on Phangan in 2026: the Israeli, European and Australian buyer surge behind a reported THB 7.9bn+ in investment | phangan | 🟡 | ⏳ |
+| Island wastewater and sewage rules: the 2018 Section 17 "unfriendly activities" ban on marine-harming discharge, and rising pressure to enforce it as Phangan's waste volume grows — what it means for septic/treatment planning on a new build | structures | 🟡 | ⏳ |
 
 ## C. Per-district guides (~18 districts in districts.ts)
 
