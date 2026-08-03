@@ -5251,6 +5251,110 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "phangan",
     faqQuestion: "How much new villa development is happening on Koh Phangan right now, and where is it concentrated?",
   },
+  {
+    slug: "transfer-fee-discount-thai-nationals-only-2026-2027",
+    kbId: "kb-0079",
+    topic: "Costs",
+    title: "Thailand's 0.01% transfer fee discount (through June 2027): why it doesn't reach a foreign buyer",
+    short:
+      "Thailand cut the transfer fee from 2% to 0.01% and the mortgage fee from 1% to 0.01%, extended through 30 June 2027 — but only for a Thai national buying a home for their own use, priced at ฿7 million or under. A foreign buyer, a Thai company, and a leasehold villa structure all sit outside it and keep paying the standard rates.",
+    updated: "2026-08-03",
+    body: [
+      "Does the government's 0.01% property transfer fee discount apply to you as a foreign buyer on Koh Phangan? No. The cabinet resolution behind it is a domestic stimulus measure aimed squarely at Thai individual homebuyers, and it excludes foreign nationals and companies by design — not as an oversight.",
+      { h: "What the discount actually is" },
+      {
+        ul: [
+          "**Transfer fee cut from 2% to 0.01%** of the appraised value, and the **mortgage registration fee cut from 1% to 0.01%** of the loan amount, when registered together.",
+          "**Capped at ฿7 million** — the sale price, the official appraised value, and the mortgage amount must all be ฿7 million or under.",
+          "**Covers** condominium units, detached houses, semi-detached houses, townhouses, commercial buildings, and land sold together with such a building.",
+          "**Runs from Royal Gazette publication through 30 June 2027**, the latest of several one-year extensions the cabinet has approved since the measure first appeared in 2024.",
+        ],
+      },
+      { h: "Who actually qualifies" },
+      "The eligibility line is drawn narrowly: the buyer must be a **Thai individual**, not a Thai company and not a foreign national. Nothing in the resolution extends the rate to a foreigner buying a condo unit within [the 49% foreign-ownership quota](/knowledge/condo-foreign-ownership-quota-debate-2026), or to any land-plus-building transfer where a foreigner is the registered buyer. See [The full cost of buying: taxes, fees and the FET form](/knowledge/cost-of-buying-taxes-and-fees) for the standard rates this discount temporarily replaces for eligible Thai buyers.",
+      { h: "What a foreigner actually pays instead" },
+      {
+        ul: [
+          "**Buying a condo outright** (the one route to freehold ownership) — the full 2% transfer fee applies, by custom split 50/50 between buyer and seller, plus the full 1% mortgage fee on any financed portion. Thai banks rarely lend to foreign buyers, so most pay the transfer fee in cash with no mortgage fee at all — see [Financing as a foreigner](/knowledge/financing-buying-as-a-foreigner).",
+          "**Buying land via the leasehold + superficies structure** — the standard route for a villa on Phangan — sidesteps the land transfer fee question entirely, because the land itself is never transferred to the foreigner. But that doesn't mean the discount applies by another door: registering the lease costs its own **1% of the total rent over the term plus 0.1% stamp duty**, a completely separate fee schedule this stimulus measure doesn't touch. See [The lease contract: clauses to check](/knowledge/lease-contract-clauses-to-check).",
+          "**Buying land outright under the ฿40 million investment route** — still a foreign national as buyer, still outside the discount, still the standard 2% transfer fee on that land transfer. See [The THB 40 million investment route](/knowledge/thb-40-million-investment-land-ownership-route).",
+        ],
+      },
+      { h: "The Thai spouse or co-owner edge case" },
+      "One structure comes closest to qualifying: a Thai national married to a foreigner who buys land or a house in their own name, as required since a foreigner generally cannot hold Thai land title even through marriage. Because the registered buyer of record is a Thai individual, that transaction should, in principle, meet the discount's stated criteria if the price and value caps are met — the resolution's language turns on the nationality of the party named on the deed, not the marital status. In practice, the foreign spouse will still need to sign the standard Land Office declaration that the purchase funds are the Thai spouse's separate property, and how strictly a given Land Office applies the discount to a mixed-nationality household hasn't been tested in public guidance. Confirm directly with the receiving Land Office or your lawyer before budgeting on it — don't assume it from this article alone.",
+      "The larger point holds regardless of edge cases: this is a measure to support the Thai domestic housing market during a slow period for the sector, not a foreign-investment incentive. A foreign buyer on Koh Phangan should budget on the standard 2% transfer fee, and — separately — the standard lease or superficies registration costs, exactly as before the discount existed.",
+    ],
+    takeaways: [
+      "The 0.01% transfer and mortgage fee discount runs through 30 June 2027, capped at ฿7 million price/appraisal/mortgage value.",
+      "It's restricted to Thai national individual buyers — Thai companies and foreign nationals are both excluded by the cabinet resolution's own terms.",
+      "A foreigner buying a condo pays the full 2% transfer fee (customarily split with the seller) and full 1% mortgage fee if financed.",
+      "A leasehold villa's lease registration fee (1% of total rent plus 0.1% stamp duty) is a separate fee schedule this measure doesn't touch either way.",
+      "Land registered solely in a Thai spouse's name may qualify in principle, but confirm with the Land Office directly — it isn't spelled out in public guidance.",
+    ],
+    sources: [
+      { title: "BDO Thailand — Cabinet Resolution on Registration Fee Reduction for Residential Property (2026–2027)", url: "https://www.bdo.th/en-gb/insights/alert!-cabinet-resolution-on-registration-fee-reduction-for-residential-property-(2026%E2%80%932027)" },
+      { title: "Nation Thailand — Thailand extends 0.01% property fee cut in one-year lifeline for homebuyers", url: "https://www.nationthailand.com/business/property/40068066" },
+      { title: "HLB Thailand — Reduced registration fees for property transfers and mortgages extended for another year", url: "https://www.hlbthai.com/reduced-registration-fees-for-property-transfers-and-mortgages-extended-for-another-year/" },
+      { title: "Bangkok Post — Property stimulus extended a year", url: "https://www.bangkokpost.com/property/3279217/property-stimulus-extended-a-year" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "Does Thailand's 0.01% property transfer fee discount apply to me as a foreign buyer?",
+  },
+  {
+    slug: "sap-ing-sith-right-of-use-thailand",
+    kbId: "kb-0080",
+    topic: "Structures",
+    title: "Sap-Ing-Sith: Thailand's fifth registered property right, and why '30+30' claims for it aren't binding either",
+    short:
+      "A 2019 law created Sap-Ing-Sith ('ทรัพย์อิงสิทธิ'), a registrable right to use land or a building for up to 30 years that a foreigner can hold directly on the title deed. It sits between a lease and a superficies — but shares the same 30-year hard cap and the same problem: no statutory renewal, so a marketed '30+30' term is only ever a personal promise from today's landowner.",
+    updated: "2026-08-03",
+    body: [
+      "Is there a stronger alternative to a 30-year lease for a foreigner's villa on Koh Phangan? Sap-Ing-Sith is the newest candidate — a distinct registered property right created by the Sap-Ing-Sith Act B.E. 2562 (2019), separate from the lease, usufruct and superficies rights in the Civil and Commercial Code covered in [Superficies, usufruct and lease](/knowledge/superficies-vs-usufruct-vs-lease). It's real, it's registrable, and a foreigner can hold it — but it comes with the same term cap that trips up leaseholds, and marketing around it has gotten ahead of the law in the same way.",
+      { h: "What Sap-Ing-Sith actually is" },
+      {
+        ul: [
+          "**A real property right, not a personal contract.** Once registered, it's endorsed directly on the land title deed (chanote) or condominium ownership certificate — enforceable against the world, including a future buyer of the underlying land, the same way a registered lease or superficies is.",
+          "**Transferable, inheritable and mortgageable** — closer to superficies than to usufruct, and a meaningful upgrade on a lease in that respect.",
+          "**A foreigner can hold it directly**, without needing a Thai company or nominee structure, for land, a building, or both.",
+          "**Capped at 30 years per instrument**, with no statutory right of renewal or automatic extension written into the Act.",
+          "**Cannot be registered over only part of a property** — it applies to the whole parcel or unit as shown on the title.",
+        ],
+      },
+      { h: "How it compares to the other three rights" },
+      "Thai law now has four registrable rights a foreigner can hold to use land or a building they don't own outright, plus the separate right of habitation for occupying a house. A **lease** (Sections 537–571) gives occupancy only, capped at 30 years. A **usufruct** (Sections 1417–1428) adds the right to earn income from the property but can never be sold or inherited. A **superficies** (Sections 1410–1416) titles a building separately from the land beneath it. Sap-Ing-Sith is the newest entrant and, on paper, the most complete of the four for a single instrument — it can cover both land and building, and unlike a usufruct it can be sold or left to heirs. What it doesn't do is escape the 30-year ceiling that already limits a lease.",
+      { h: "Registration and cost" },
+      {
+        ul: [
+          "**Flat ฿20,000 registration fee** at the Land Department — a fixed amount, not a percentage of value or rent. Compare that to a lease's registration cost of **1% of the total rent over the term plus 0.1% stamp duty**, which on a high-value, long-term lease can run well above ฿20,000; Sap-Ing-Sith can work out cheaper for exactly that kind of deal.",
+          "**Must be in writing and registered** with the Land Office to take effect as a real right — an unregistered agreement is only a personal contract between the original parties, exactly as with an unregistered lease or superficies.",
+          "**Written consent from a mortgagee is required** if the underlying land already carries a mortgage or is pledged as business collateral.",
+        ],
+      },
+      { h: "The 30-year cap — and why '30+30' claims for it aren't binding either" },
+      "Some marketing materials and even some transaction documents describe a Sap-Ing-Sith deal as '30+30' — a second 30-year term promised alongside the first. Legally, that promise is a contractual clause, not a registered right: it binds only the specific landowner who signed it at the time, not that party's heirs or a future buyer of the land, and there's no provision in the 2019 Act creating an automatic or statutory renewal. This is the same problem the [March 2025 Supreme Court ruling (Case No. 4655/2566)](/knowledge/renewing-30-year-lease-risks) settled for '30+30+30' lease structures — a pre-agreed renewal signed on day one is not a property right, whatever the marketing brochure calls it. Treat any second Sap-Ing-Sith term the same way you'd treat a lease renewal promise: a negotiation to have with whoever owns the land in 30 years, not a guarantee you already hold.",
+      { h: "Where it fits for a Phangan buyer today" },
+      "In practice, Sap-Ing-Sith is still rare on the ground — the standard villa structure on the island remains a registered lease plus a fixed-term superficies, and most Land Offices, lawyers and title-search processes are built around that combination. Because Sap-Ing-Sith is newer and has less registration volume and case law behind it than a lease, treat it as an option worth asking a Thai property lawyer about — particularly for a buyer who wants a single instrument covering both land and building — rather than a default substitute for the lease-plus-superficies structure described in [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa).",
+    ],
+    takeaways: [
+      "Sap-Ing-Sith (2019 Act) is a registered real property right to use land or a building for up to 30 years — a foreigner can hold it directly, without a company structure.",
+      "It's transferable, inheritable and mortgageable, and can cover both land and building in a single instrument — closer to superficies than to usufruct.",
+      "Registration is a flat ฿20,000 at the Land Department, versus a lease's 1% of total rent plus 0.1% stamp duty — cheaper on a high-value, long-term deal.",
+      "It shares the lease's 30-year hard cap with no statutory renewal — a marketed '30+30' term is a personal promise from today's landowner, not a registered right, the same issue the March 2025 Supreme Court ruling exposed for '30+30+30' leases.",
+      "It remains rare in practice on Koh Phangan; the standard structure is still lease plus superficies, with Sap-Ing-Sith worth raising with a lawyer as an option rather than assuming as a default.",
+    ],
+    sources: [
+      { title: "AIM Bangkok — Sap-Ing-Sith Act, B.E. 2562 (2019): full English translation", url: "https://aimbangkok.com/sap-ing-sith-act-english-translation/" },
+      { title: "AIM Bangkok — Sap-Ing-Sith Thailand: practical guide to the registered use right", url: "https://aimbangkok.com/sap-ing-sith-thailand/" },
+      { title: "Samui For Sale — Sap-Ing-Sith Act B.E. 2562 (2019), full text", url: "https://www.samuiforsale.com/law-texts/sap-ing-sith-act-b-e-2562-2019.html" },
+      { title: "Samui For Sale — Sap-Ing-Sith renewal myth: legal facts vs real estate fiction", url: "https://www.samuiforsale.com/real-rights/sap-ing-sith-renewal-myth-legal-facts-vs-real-estate-fiction.html" },
+      { title: "Samui For Sale — Sap-Ing-Sith registration instructions", url: "https://www.samuiforsale.com/real-estate/sap-ing-sith-registration-instructions.html" },
+      { title: "Mondaq — The Sap-Ing-Sith: is Thailand's new property right a game changer?", url: "https://www.mondaq.com/real-estate/857336/the-sap-ing-sith-is-thailands-new-property-right-a-game-changer" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "What is Sap-Ing-Sith, and is it a better alternative to a leasehold for a foreign buyer?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

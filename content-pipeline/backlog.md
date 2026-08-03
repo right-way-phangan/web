@@ -15,7 +15,8 @@ Status: ⏳ queued · ✅ published.
 | Topic | faqCategory | Priority | Status |
 |---|---|---|---|
 <!-- discovered 2026-08-02, sources: nationthailand.com, bangkokpost.com, thailand-real.estate, matching-property.com, aimbangkok.com -->
-| Why the 0.01% transfer/mortgage registration fee discount (extended to 30 June 2027, ≤7M THB) does NOT apply to foreign buyers — what a foreigner actually pays vs. a Thai co-owner or spouse on title | costs | 🔴 | ⏳ |
+| Why the 0.01% transfer/mortgage registration fee discount (extended to 30 June 2027, ≤7M THB) does NOT apply to foreign buyers — what a foreigner actually pays vs. a Thai co-owner or spouse on title | costs | 🔴 | ✅ |
+<!-- 2026-08-03: skipped — substantially duplicates the already-published kb-0051 (land-department-audit-existing-landholding-companies-2026), which already covers the same May 2026 circulars, monthly review, quarterly reporting and Section 97/98 thresholds. Left ⏳; a future run could revisit narrowly on the Surat Thani-specific company counts if a genuinely new angle emerges. -->
 | Land Department's new 8-province corporate landholder monitoring database (Surat Thani named a priority province): monthly foreign-shareholder checks and quarterly reporting to the DOL — what it means beyond the general nominee crackdown | structures | 🔴 | ⏳ |
 <!-- discovered 2026-07-26, sources: khaosodenglish.com, nationthailand.com, thailand-construction.com, ehang.com -->
 | The 74-billion-baht Samui sea bridge/expressway (EXAT's 37km Don Sak-Khanom-Koh Samui link): 2026 feasibility study, 2029 construction start, and what a 20-minute mainland crossing (vs. today's 2-hour ferry) would do to Phangan and Koh Tao property demand | phangan | 🔴 | ✅ |
@@ -91,7 +92,7 @@ Status: ⏳ queued · ✅ published.
 | What a Phangan property lawyer's fee actually buys: due-diligence, conveyancing and title-search costs (THB 30,000-120,000) broken down against what each stage covers | process | 🟢 | ✅ |
 | Minor Hotels' Avani and the KAIA tented resort opening on Phangan in 2026: what an international brand's first move onto the island signals for buyers weighing Thong Nai Pan and comparable areas | phangan | 🟡 | ⏳ |
 <!-- discovered 2026-08-02, sources: thailandlawonline.com, aimbangkok.com, wise.com, hlbthai.com, realting.com, canvas.solar, kohphangannews.org, libothai.com -->
-| Sap-Ing-Sith ("right of use"): Thailand's lesser-known fifth registered property right under the 2019 Act — how it differs from usufruct, superficies and habitation, and why "30+30" marketing claims for it aren't legally binding either | structures | 🟢 | ⏳ |
+| Sap-Ing-Sith ("right of use"): Thailand's lesser-known fifth registered property right under the 2019 Act — how it differs from usufruct, superficies and habitation, and why "30+30" marketing claims for it aren't legally binding either | structures | 🟢 | ✅ |
 | Non-resident vs. resident rental income tax: the flat 15% withholding on gross income vs. progressive rates (0-35%) with a 30% deduction — which status is cheaper, plus the PND.94/PND.90 filing deadlines owners miss | costs | 🟢 | ⏳ |
 | Inheritance tax on Thai property: the 100-million-baht threshold, and why most villa owners' estates fall under it — 5% for direct heirs, 10% for others | costs | 🟢 | ⏳ |
 | Koh Phangan's power grid reliability: the island runs on a single undersea cable from the mainland with no major upgrade expected before 2030 — what that outage risk means for a villa buyer's due diligence | phangan | 🟢 | ⏳ |
