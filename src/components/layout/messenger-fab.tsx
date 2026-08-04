@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { MessageCircle, X } from "lucide-react";
 import { getChromeDict } from "@/lib/i18n/dictionaries";
@@ -15,11 +15,22 @@ import { cn } from "@/lib/utils/cn";
  */
 export function MessengerFab() {
   const [open, setOpen] = useState(false);
+  // Появляется только после первого экрана: у верха страницы кнопка
+  // перекрывала CTA hero на мобильном (SSR рендерит null — гидрация чистая).
+  const [shown, setShown] = useState(false);
   const pathname = usePathname();
   const isRu = pathname === "/ru" || pathname.startsWith("/ru/");
   const chrome = getChromeDict(isRu ? "ru" : "en");
 
+  useEffect(() => {
+    const onScroll = () => setShown(window.scrollY > window.innerHeight * 0.6);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   if (pathname.startsWith("/admin") || pathname.includes("/object/")) return null;
+  if (!shown) return null;
 
   return (
     <div className="fixed bottom-4 right-4 z-30 flex flex-col items-end gap-2 lg:hidden print:hidden">

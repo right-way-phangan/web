@@ -52,7 +52,13 @@ export function PageHero({ eyebrow, title, lede, image, imageAlt }: Props) {
   }
 
   return (
-    <header className="container-prose pt-16 md:pt-24">
+    <header className="container-prose relative isolate pt-16 md:pt-24">
+      {/* Тихий teal-перелив за заголовком — общий приём внутренних страниц,
+          парный к янтарному glow фото-варианта выше. */}
+      <div
+        className="pointer-events-none absolute -inset-x-12 -top-8 bottom-0 -z-10 bg-[radial-gradient(55%_100%_at_10%_0%,rgba(21,168,168,0.08),transparent_65%)]"
+        aria-hidden
+      />
       <SectionEyebrow>{eyebrow}</SectionEyebrow>
       <h1 className="mt-5 max-w-3xl text-balance">{title}</h1>
       {lede ? (

@@ -82,8 +82,8 @@ export function Header() {
           : "border-forest-500/10 bg-cream-100/80 backdrop-blur-md dark:border-bronze/25 dark:bg-cream-100/60 dark:backdrop-blur-xl dark:shadow-[0_8px_24px_-16px_rgba(0,0,0,0.7)]",
       )}
     >
-      <div className="container-prose flex h-16 items-center justify-between md:h-20">
-        <Logo tone={overlay ? "light" : "default"} />
+      <div className="container-prose flex h-16 items-center justify-between gap-6 md:h-20">
+        <Logo tone={overlay ? "light" : "default"} className="shrink-0" />
 
         <nav className="hidden lg:flex items-center gap-x-6" aria-label="Primary">
           {chrome.nav.map((item) => (
