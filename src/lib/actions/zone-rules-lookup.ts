@@ -221,7 +221,15 @@ export async function lookupZoneRules(
 
     // 5) Combine the layers into the strictest quantitative rule set.
     const norms = combineBuildingNorms(
-      { seaDistanceM, elevationM, slopePct, planZone: zone.planZone, plotSqm: overrides.plotSqm },
+      {
+        seaDistanceM,
+        elevationM,
+        slopePct,
+        // Only a surveyed slope binds the limits — the DEM's guess just warns.
+        slopeEstimated: overrides.slopePct == null,
+        planZone: zone.planZone,
+        plotSqm: overrides.plotSqm,
+      },
       locale,
     );
 
