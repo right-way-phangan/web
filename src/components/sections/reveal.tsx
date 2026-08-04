@@ -32,7 +32,7 @@ export function Reveal({
           obs.disconnect();
         }
       },
-      { rootMargin: "0px 0px -10% 0px" },
+      { rootMargin: "0px 0px 12% 0px" },
     );
     obs.observe(el);
     return () => obs.disconnect();

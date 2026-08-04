@@ -12,6 +12,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
+import { LeaseholdScheme } from "@/components/sections/leasehold-scheme";
 import { LeaseholdListings } from "@/components/sections/leasehold-listings";
 import { Button } from "@/components/ui/button";
 import { getSiteUrl } from "@/lib/site-url";
@@ -113,6 +114,15 @@ export default function LeaseholdPageRu() {
         eyebrow="Лизхолд"
         title="Вилла — ваша. Земля — в аренде. Без номиналов."
         lede="Лизхолд — это как международные покупатели держат дом на Пангане без тайской компании-прокладки: здание на ваше имя, земля в зарегистрированной долгосрочной аренде, задаток под защитой у юриста до регистрации. Вот как именно это работает."
+        aside={
+          <LeaseholdScheme
+            rows={[
+              { icon: "home", title: "Вилла — ваша", text: "Строение зарегистрировано на ваше имя." },
+              { icon: "land", title: "Земля — в лизхолде", text: "Зарегистрированный лиз на 30 лет, продления прописаны в договоре." },
+              { icon: "law", title: "Деньги — под защитой", text: "Задаток хранится у юриста до дня регистрации." },
+            ]}
+          />
+        }
       />
 
       <section className="container-prose py-16 md:py-24">

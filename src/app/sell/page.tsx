@@ -3,6 +3,7 @@ import { jsonLdHtml } from "@/lib/seo/json-ld";
 import Link from "next/link";
 import { ShieldCheck, LineChart, Megaphone, FileCheck } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
+import { SellPreviewCard } from "@/components/sections/sell-preview-card";
 import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 import { Reveal } from "@/components/sections/reveal";
 import { Appear } from "@/components/motion/appear";
@@ -13,7 +14,7 @@ import { getSiteUrl } from "@/lib/site-url";
 export const metadata: Metadata = {
   title: "Sell your land or villa on Koh Phangan",
   description:
-    "List your Koh Phangan land, villa or house with an agency that vets every property it represents. Honest, data-backed valuation, real exposure across the right channels, and the due diligence and paperwork handled end to end.",
+    "List your Koh Phangan land, villa or house with an agency that checks what it sells. Honest, data-backed valuation, real exposure across the right channels, and the due diligence and paperwork handled end to end.",
   alternates: {
     canonical: "/sell",
     languages: { en: "/sell", ru: "/ru/sell", "x-default": "/sell" },
@@ -94,7 +95,15 @@ export default function SellPage() {
       <PageHero
         eyebrow="For owners"
         title="Sell your land or villa, the right way."
-        lede="List with an agency that vets every property it represents — so serious buyers take yours seriously. One island, done properly: honest pricing, real exposure, and the paperwork handled from first enquiry to transfer."
+        lede="List with an agency that checks what it sells — so serious buyers take yours seriously. One island, done properly: honest pricing, real exposure, and the paperwork handled from first enquiry to transfer."
+        aside={
+          <SellPreviewCard
+            tag="Vetted"
+            title="Your villa, presented properly"
+            meta="Photos, plans and a clean title summary — the way serious buyers expect to see it."
+            foot="Checked · Priced on data · DD-ready"
+          />
+        }
       />
 
       <section className="container-prose py-16 md:py-24">

@@ -48,7 +48,7 @@ export function NlSearch({ initialQuery = "" }: { initialQuery?: string }) {
         }}
         className="flex flex-col gap-2 sm:flex-row sm:items-center"
       >
-        <div className="flex flex-1 items-center gap-2.5 rounded-sm border border-forest-500/20 bg-cream-100 px-3 py-2.5 focus-within:border-brass-500/50">
+        <div className="flex flex-1 items-center gap-2.5 rounded-sm border border-forest-500/20 bg-cream-100 px-3 py-2.5 transition-[border-color,box-shadow] duration-300 focus-within:border-brass-500/50 focus-within:shadow-[0_0_0_3px_rgba(217,138,30,0.12),0_10px_32px_-14px_rgba(217,138,30,0.45)]">
           <Sparkles className="h-4 w-4 shrink-0 text-brass-500" />
           <input
             ref={inputRef}

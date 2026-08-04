@@ -17,6 +17,8 @@ export function AvailabilityBar({
   if (!total || total <= 0) return null;
   const avail = Math.max(0, Math.min(available ?? 0, total));
   const soldPct = Math.round(((total - avail) / total) * 100);
+  // Ни одной продажи — пустая полоска читается как баг, а не как факт.
+  if (soldPct === 0) return null;
   return (
     <div
       className={cn("h-1.5 w-full overflow-hidden rounded-full bg-forest-500/10", className)}

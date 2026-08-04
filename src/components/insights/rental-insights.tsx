@@ -407,17 +407,19 @@ function AdrSparkline({
   const first = vals[0];
   const last = vals[vals.length - 1];
   const deltaPct = first ? Math.round(((last - first) / first) * 100) : 0;
-  const W = 96;
-  const H = 28;
+  const W = 168;
+  const H = 44;
   const n = pts.length - 1 || 1;
   const x = (i: number) => (i / n) * W;
   const y = (v: number) => H - 2 - ((v - min) / Math.max(1, max - min)) * (H - 4);
   const line = pts.map((p, i) => `${x(i)},${y(p.v)}`).join(" ");
+  const area = `0,${H} ${line} ${W},${H}`;
   return (
     <div>
       <div className="text-[11px] uppercase tracking-wider text-forest-500/55">{label}</div>
       <div className="mt-1 flex items-center gap-2">
         <svg viewBox={`0 0 ${W} ${H}`} width={W} height={H} className="shrink-0" role="img" aria-label={label}>
+          <polygon points={area} fill="var(--chart-accent)" opacity={0.12} />
           <polyline
             points={line}
             fill="none"

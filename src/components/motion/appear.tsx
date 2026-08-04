@@ -25,9 +25,9 @@ type AppearProps = {
 export function Appear({
   children,
   className,
-  y = 28,
+  y = 18,
   delay = 0,
-  duration = 0.7,
+  duration = 0.45,
 }: AppearProps) {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
@@ -50,7 +50,7 @@ export function Appear({
           obs.disconnect();
         }
       },
-      { rootMargin: "0px 0px -10% 0px" },
+      { rootMargin: "0px 0px 12% 0px" },
     );
     obs.observe(el);
     return () => obs.disconnect();

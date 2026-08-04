@@ -4,6 +4,7 @@ import type { Route } from "next";
 import { PageHero } from "@/components/sections/page-hero";
 import { ContentSection } from "@/components/sections/content-section";
 import { PrincipleGrid } from "@/components/sections/principle-grid";
+import { Testimonials } from "@/components/sections/testimonials";
 import { Button } from "@/components/ui/button";
 import { whatsappLink } from "@/lib/site-config";
 import { getAboutDict } from "@/lib/i18n/dictionaries";
@@ -33,6 +34,8 @@ export default function RussianAboutPage() {
         title={d.principlesTitle}
         principles={[...d.principles]}
       />
+
+      <Testimonials locale="ru" />
 
       <ContentSection eyebrow={d.nameSection.eyebrow} title={d.nameSection.title} spacing="default">
         {d.nameSection.body.map((p) => (
