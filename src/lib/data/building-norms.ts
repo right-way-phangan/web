@@ -42,6 +42,9 @@ export type PlanZone =
   | "red"
   | "purple"
   | "blue"
+  | "water"
+  | "olive"
+  | "brown"
   | "gray";
 
 /** Which layer a constraint came from — for provenance in the UI. */
