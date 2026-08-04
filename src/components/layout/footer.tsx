@@ -32,10 +32,15 @@ export function Footer() {
 
   return (
     <footer
-      className={`border-t border-forest-500/10 bg-cream-200/40 print:hidden ${
+      className={`relative border-t border-forest-500/10 bg-cream-200/40 print:hidden ${
         isHome ? "" : "mt-32"
       }`}
     >
+      {/* Янтарная градиент-нить поверх рамки — тёплый перелив на каждой странице */}
+      <div
+        className="pointer-events-none absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-brass-400/50 to-transparent"
+        aria-hidden
+      />
       <div className="container-prose py-16">
         <div className="grid gap-12 md:grid-cols-4">
           <div className="md:col-span-2 max-w-md">

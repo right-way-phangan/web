@@ -141,26 +141,45 @@ export function HeroFall({
       viewportHeight: window.innerHeight,
     });
 
+    let removeRetry: (() => void) | undefined;
+
     const begin = async () => {
-      if (!alive || !shouldEnableFlight(gate())) return;
+      // Статические гейты (указатель/ширина/reduce/канал) — здесь; позиционный
+      // «у верха страницы» переигрывается ниже, чтобы улистнувший вниз
+      // пользователь получил пролёт при возврате наверх, а не пустоту.
+      if (!alive || !shouldEnableFlight({ ...gate(), scrollY: 0 })) return;
       try {
         await Promise.all([SKY, CANOPY, LEAVES, BAY].map(preloadImage));
-        if (!alive) return;
-        // Повторный гейт: пока грузилось, пользователь мог уйти вниз.
-        if (!shouldEnableFlight(gate())) return;
-        setEnabled(true);
       } catch {
-        /* dormant — hero уже на экране, ничего не ломаем */
+        return; /* dormant — hero уже на экране, ничего не ломаем */
       }
+      if (!alive) return;
+      // Включаем только у самого верха: там сцена при p≈0 прозрачна, поэтому
+      // рост обёртки 100svh→320svh и появление слоёв не дают видимого скачка.
+      const tryEnable = () => {
+        if (!alive) return true;
+        if (window.scrollY > 4 || !shouldEnableFlight(gate())) return false;
+        setEnabled(true);
+        return true;
+      };
+      if (tryEnable()) return;
+      const onScroll = () => {
+        if (tryEnable()) removeRetry?.();
+      };
+      window.addEventListener("scroll", onScroll, { passive: true });
+      removeRetry = () => {
+        window.removeEventListener("scroll", onScroll);
+        removeRetry = undefined;
+      };
     };
 
     const arm = () => {
       armTimer = window.setTimeout(() => {
         const ric = window.requestIdleCallback;
         idleId = ric
-          ? ric(() => void begin(), { timeout: 2000 })
+          ? ric(() => void begin(), { timeout: 1200 })
           : window.setTimeout(() => void begin(), 0);
-      }, 2000);
+      }, 600);
     };
     if (document.readyState === "complete") arm();
     else window.addEventListener("load", arm, { once: true });
@@ -170,6 +189,7 @@ export function HeroFall({
       window.clearTimeout(armTimer);
       window.removeEventListener("load", arm);
       if (idleId != null) window.cancelIdleCallback?.(idleId);
+      removeRetry?.();
     };
   }, [reduce]);
 

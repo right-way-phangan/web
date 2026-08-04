@@ -52,7 +52,12 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
       ) : null}
 
       {/* Values — double-bezel cards, machined like physical hardware */}
-      <section className="container-prose py-24 md:py-32">
+      <section className="container-prose relative isolate py-16 md:py-24">
+        {/* Тихий teal-перелив за секцией — снимает «плоскость» песчаного поля */}
+        <div
+          className="pointer-events-none absolute -inset-x-16 inset-y-0 -z-10 bg-[radial-gradient(70%_90%_at_88%_8%,rgba(21,168,168,0.07),transparent_62%)]"
+          aria-hidden
+        />
         <p className="flex items-center gap-3 text-xs font-medium uppercase tracking-eyebrow text-brass-700">
           <span className="h-px w-10 bg-brass-600/60" aria-hidden />
           {dict.values.eyebrow}
@@ -81,7 +86,12 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
       </section>
 
       {/* Tools — the calculator, valuation and market data that power every listing */}
-      <section className="container-prose py-24 md:py-32">
+      <section className="container-prose relative isolate py-16 md:py-24">
+        {/* Тёплый янтарный отсвет слева-снизу — парный к teal-переливу выше */}
+        <div
+          className="pointer-events-none absolute -inset-x-16 inset-y-0 -z-10 bg-[radial-gradient(70%_90%_at_10%_95%,rgba(217,138,30,0.07),transparent_62%)]"
+          aria-hidden
+        />
         <p className="flex items-center gap-3 text-xs font-medium uppercase tracking-eyebrow text-brass-700">
           <span className="h-px w-10 bg-brass-600/60" aria-hidden />
           {dict.tools.eyebrow}

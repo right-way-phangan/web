@@ -307,14 +307,14 @@ const chrome: Record<Locale, ChromeDict> = {
       { label: "Listings", href: "/listings" },
       { label: "Leasehold", href: "/leasehold" },
       { label: "Projects", href: "/projects" },
-      { label: "Estates", href: "/estates" },
-      { label: "Districts", href: "/districts" },
       { label: "Sell", href: "/sell" },
     ],
     groups: [
       {
-        label: "Developers",
+        label: "Explore",
         items: [
+          { label: "Estates", href: "/estates" },
+          { label: "Districts", href: "/districts" },
           { label: "All developers", href: "/developers" },
           { label: "ARQA Development", href: "/developers/arqa-development" },
         ],
@@ -369,14 +369,14 @@ const chrome: Record<Locale, ChromeDict> = {
       { label: "Объекты", href: "/ru/listings" },
       { label: "Лизхолд", href: "/ru/leasehold" },
       { label: "Проекты", href: "/ru/projects" },
-      { label: "Участки", href: "/ru/estates" },
-      { label: "Районы", href: "/ru/districts" },
       { label: "Продать", href: "/ru/sell" },
     ],
     groups: [
       {
-        label: "Застройщики",
+        label: "Обзор",
         items: [
+          { label: "Участки", href: "/ru/estates" },
+          { label: "Районы", href: "/ru/districts" },
           { label: "Все застройщики", href: "/ru/developers" },
           { label: "ARQA Development", href: "/ru/developers/arqa-development" },
         ],
