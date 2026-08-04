@@ -33,7 +33,15 @@ const HERO_INTENT_PATHS = [
  * proves the catalogue is real — counts only (public-copy rule). Dict-driven so
  * the EN root (/) and RU (/ru) share one component with zero markup drift.
  */
-export async function Hero({ locale = "en" }: { locale?: Locale }) {
+export async function Hero({
+  locale = "en",
+  fill = false,
+}: {
+  locale?: Locale;
+  // Внутри скролл-падения (hero-fall) hero пинится в sticky-вьюпорт — тогда
+  // секция должна занять всю высоту экрана (min-h-svh), а не 88vh.
+  fill?: boolean;
+}) {
   const dict = getHomeDict(locale).hero;
   const t = getHomeDict(locale).stats;
   const base = locale === "ru" ? "/ru" : "";
@@ -57,7 +65,7 @@ export async function Hero({ locale = "en" }: { locale?: Locale }) {
   return (
     <section
       aria-label="Hero"
-      className="relative isolate flex min-h-[88vh] flex-col overflow-hidden bg-panel"
+      className={`relative isolate flex ${fill ? "min-h-svh" : "min-h-[88vh]"} flex-col overflow-hidden bg-panel`}
     >
       {/* Layer 1 — deep photographic scene on a slow scroll-zoom. Oversized so
           the parallax shift never bares an edge. */}

@@ -4,6 +4,7 @@ import type { Route } from "next";
 import { ArrowRight, BarChart3, Calculator, MapPin, Scale, ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Hero } from "@/components/sections/hero";
+import { HeroFall } from "@/components/sections/hero-fall";
 import { FeaturedListings } from "@/components/sections/featured-listings";
 import { Reveal } from "@/components/sections/reveal";
 import { Appear } from "@/components/motion/appear";
@@ -25,9 +26,22 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
   const browseHref = `${base}/listings` as Route;
   const contactHref = `${base}/contact` as Route;
 
+  // Скролл-падение «небо → джунгли → бухта» — прогрессивное улучшение поверх
+  // обычного hero. Включено по умолчанию; NEXT_PUBLIC_HERO_FALL=0 (инлайнится
+  // при билде) — аварийный выключатель. HeroFall сам решает включаться
+  // (десктоп, точный указатель, без reduced-motion, кадры декодированы) —
+  // иначе рендерит ровно children, т.е. сегодняшнюю страницу.
+  const fallEnabled = process.env.NEXT_PUBLIC_HERO_FALL !== "0";
+
   return (
     <>
-      <Hero locale={locale} />
+      {fallEnabled ? (
+        <HeroFall dict={dict.heroFlight}>
+          <Hero locale={locale} fill />
+        </HeroFall>
+      ) : (
+        <Hero locale={locale} />
+      )}
 
       {/* The in-progress notice sits under the hero: the header floats
           transparent over the hero photo, so a strip above it would hide. */}

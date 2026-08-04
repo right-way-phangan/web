@@ -49,6 +49,13 @@ export interface HomeDict {
   };
   cta: { eyebrow: string; title: string; lede: string; browse: string; talk: string };
   inProgress: string;
+  // Титры скролл-падения героя (hero-fall): подсказка скролла, кнопка пропуска
+  // и ровно 3 чекпоинта-фишки, всплывающие по ходу снижения.
+  heroFlight: {
+    scrollCue: string;
+    skip: string;
+    checkpoints: { title: string; text: string }[];
+  };
 }
 
 const en: HomeDict = {
@@ -129,6 +136,24 @@ const en: HomeDict = {
     talk: "Talk to us",
   },
   inProgress: "",
+  heroFlight: {
+    scrollCue: "Scroll to descend",
+    skip: "Skip intro",
+    checkpoints: [
+      {
+        title: "Every listing vetted",
+        text: "Two-level due diligence before a plot goes public.",
+      },
+      {
+        title: "Honest numbers, AI-checked",
+        text: "Valuation and ROI on real island data — not fantasy returns.",
+      },
+      {
+        title: "Cadastre & zoning, mapped",
+        text: "Title class and build zones for any plot on the island.",
+      },
+    ],
+  },
 };
 
 const ru: HomeDict = {
@@ -210,6 +235,24 @@ const ru: HomeDict = {
   },
   inProgress:
     "Русская версия в разработке. Каталог и формы работают; часть страниц пока доступна только на английском.",
+  heroFlight: {
+    scrollCue: "Листайте, чтобы снизиться",
+    skip: "Пропустить",
+    checkpoints: [
+      {
+        title: "Каждый объект проверен",
+        text: "Двухуровневый due diligence до публикации.",
+      },
+      {
+        title: "Честные цифры с ИИ",
+        text: "Оценка и доходность на реальных данных острова.",
+      },
+      {
+        title: "Кадастр и зоны на карте",
+        text: "Класс документа и зоны застройки для любого участка.",
+      },
+    ],
+  },
 };
 
 const DICTS: Record<Locale, HomeDict> = { en, ru };
