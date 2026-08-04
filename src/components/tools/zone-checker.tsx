@@ -56,7 +56,7 @@ const COPY = {
     estimatedNote:
       "Sea/elevation/slope are estimated from open data (~30 m). Edit elevation or slope if you have survey data; enter the plot area to get the footprint in m².",
     disclaimerLead:
-      "Indicative. Zone use is read from the Phangan city-plan colour; the precise limits come from the May-2025 environmental protection law applied to the estimated sea distance, elevation and slope. Exact figures for a plot are verified in our ",
+      "Indicative. The zone is read from the Phangan city-plan colour; house size and height come from that plan's own regulation (B.E. 2558, amended 2566), the remaining limits from the May-2025 environmental protection law applied to the estimated sea distance, elevation and slope. Exact figures for a plot are verified in our ",
     ddLink: "due diligence",
     disclaimerTail: " before any offer.",
     ddHref: "/due-diligence",
@@ -90,7 +90,7 @@ const COPY = {
     estimatedNote:
       "Море/высота/уклон оценены по открытым данным (~30 м). Впишите высоту или уклон, если есть топосъёмка; впишите площадь участка — посчитаем пятно застройки в м².",
     disclaimerLead:
-      "Индикативно. Использование зоны — по цвету городского плана Пангана; точные лимиты — из закона об охране среды (май 2025), применённого к оценённым расстоянию до моря, высоте и уклону. Точные цифры для участка проверяются в нашем ",
+      "Индикативно. Зона читается по цвету городского плана Пангана; размер дома и высота — из регламента этого плана (2558, ред. 2566), остальные лимиты — из закона об охране среды (май 2025) по оценённым расстоянию до моря, высоте и уклону. Точные цифры для участка проверяются в нашем ",
     ddLink: "due diligence",
     disclaimerTail: " до сделки.",
     ddHref: "/ru/due-diligence",
