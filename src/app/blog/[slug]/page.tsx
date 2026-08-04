@@ -12,7 +12,7 @@ import { ArticleByline } from "@/components/sections/article-byline";
 import { Reveal } from "@/components/sections/reveal";
 import { Appear } from "@/components/motion/appear";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
-import { DEFAULT_AUTHOR, authorPersonSchema } from "@/content/authors";
+import { DEFAULT_AUTHOR, authorOrgSchema } from "@/content/authors";
 import { siteConfig } from "@/lib/site-config";
 import { getSiteUrl } from "@/lib/site-url";
 
@@ -56,7 +56,7 @@ export default async function BlogPostPage({ params }: Props) {
     datePublished: p.published,
     dateModified: p.updated ?? p.published,
     inLanguage: "en",
-    author: authorPersonSchema(DEFAULT_AUTHOR, siteUrl, "en"),
+    author: authorOrgSchema(siteUrl),
     publisher: { "@type": "Organization", name: siteConfig.name },
     mainEntityOfPage: `${siteUrl}/blog/${p.slug}`,
   };

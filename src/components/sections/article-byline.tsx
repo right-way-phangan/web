@@ -23,10 +23,9 @@ function initials(name: string): string {
 }
 
 /**
- * Visible author byline for knowledge-base and journal articles. A named,
- * linked author (not a faceless brand) is the on-page half of the E-E-A-T
- * signal that the Person JSON-LD makes machine-readable. Links to the founder's
- * bio on /about — the same entity the schema `@id` resolves to.
+ * Visible author byline for knowledge-base and journal articles. Articles are
+ * signed by the brand (Organization), not a named person — the on-page half of
+ * the same entity the schema.org `author` `@id` resolves to. Links to /about.
  */
 export function ArticleByline({
   author,
@@ -35,7 +34,7 @@ export function ArticleByline({
   dateKind = "published",
   reviewer,
 }: Props) {
-  const href = authorPath(author, locale) as Route;
+  const href = authorPath(locale) as Route;
   const date = new Date(dateISO).toLocaleDateString(locale === "ru" ? "ru-RU" : "en-GB", {
     day: "numeric",
     month: "long",

@@ -1,26 +1,27 @@
 /**
- * Article authorship — a single source of truth for who writes/edits the
- * knowledge base and journal. Used to render visible bylines AND to emit a
- * schema.org Person as the `author` of every Article/BlogPosting (E-E-A-T:
- * named, identifiable, real-world-experienced author instead of a faceless
- * Organization). Locale-keyed text so EN and RU pages share one entity.
+ * Article authorship — single source of truth for who signs the knowledge
+ * base and the journal. Articles are attributed to the brand (Organization),
+ * not to a named person: the visible byline and the schema.org `author`
+ * both point at the same org entity as the site-wide RealEstateAgent node
+ * (`<siteUrl>#org`), so E-E-A-T weight accrues to the organisation.
  *
- * The canonical "author page" is the founder section on /about (anchor
- * #vladimir-buryi) — that page carries the matching Person + ProfilePage
- * markup, so the `@id` here resolves to a real bio rather than a dead link.
+ * Named Person authorship is a reversible asset: add an Author with a real
+ * bio here, point DEFAULT_AUTHOR at it and emit a Person schema again —
+ * every article re-bylines in one commit.
  */
 
 import type { FaqCategoryId } from "@/content/faq";
+import { siteConfig } from "@/lib/site-config";
 
 export interface Author {
-  /** Stable slug; doubles as the /about anchor id. */
+  /** Stable slug; doubles as an /about anchor id when a person has a bio there. */
   slug: string;
   name: string;
   /** Locale-keyed job title shown next to the name. */
   jobTitle: { en: string; ru: string };
   /** One-line role label for the byline (name + this). */
   byline: { en: string; ru: string };
-  /** Full bio — mirrors the /about founder copy; feeds Person.description. */
+  /** Full bio; feeds Person.description when a person is the author. */
   bio: { en: string; ru: string };
   /** Topics the author has demonstrable experience in (Person.knowsAbout). */
   knowsAbout: string[];
@@ -28,67 +29,36 @@ export interface Author {
   sameAs: string[];
 }
 
-export const VLADIMIR: Author = {
-  slug: "vladimir-buryi",
-  name: "Vladimir Buryi",
-  jobTitle: { en: "Founder", ru: "Основатель" },
-  byline: {
-    en: "Founder, Right Way Phangan",
-    ru: "Основатель Right Way Phangan",
-  },
-  bio: {
-    en:
-      "Founder of Right Way Phangan. Four years operating in the Koh Phangan land " +
-      "market — hundreds of plots assessed and over forty transactions supported. " +
-      "Lives on the island year-round. Writes from hands-on practice; legal claims " +
-      "are grounded in cited sources and verified with licensed Thai lawyers.",
-    ru:
-      "Основатель Right Way Phangan. Четыре года работы на земельном рынке Ко Пангана — " +
-      "сотни оценённых участков и более сорока сопровождённых сделок. Живёт на острове " +
-      "круглый год. Пишет из практики; юридические утверждения опираются на источники " +
-      "и сверяются с лицензированными тайскими юристами.",
-  },
-  knowsAbout: [
-    "Koh Phangan real estate",
-    "Thai property law",
-    "Leasehold and freehold land",
-    "Real estate due diligence",
-    "Land zoning",
-    "Foreign property ownership in Thailand",
-  ],
+/** Brand author — articles carry the organisation, not a person. */
+export const BRAND_AUTHOR: Author = {
+  slug: "right-way-phangan",
+  name: siteConfig.name,
+  jobTitle: { en: "Editorial", ru: "Редакция" },
+  byline: { en: "Editorial", ru: "Редакция" },
+  bio: { en: "", ru: "" },
+  knowsAbout: [],
   sameAs: [],
 };
 
-/** Every article is attributed to the founder until a second author appears. */
-export const DEFAULT_AUTHOR = VLADIMIR;
+export const DEFAULT_AUTHOR = BRAND_AUTHOR;
 
-/** Path to the author's canonical bio (founder section on /about). */
-export function authorPath(author: Author, locale: "en" | "ru"): string {
-  return locale === "ru"
-    ? `/ru/about#${author.slug}`
-    : `/about#${author.slug}`;
+/** Path behind the byline link — the brand's own /about. */
+export function authorPath(locale: "en" | "ru"): string {
+  return locale === "ru" ? "/ru/about" : "/about";
 }
 
 /**
- * schema.org Person for the `author` field of an Article/BlogPosting. The `@id`
- * is the locale-neutral founder anchor so all pages reference one entity; `url`
- * points to the language-appropriate bio.
+ * schema.org `author` for Article/BlogPosting — the Organization, with the
+ * same `@id` as the site-wide RealEstateAgent node so every page references
+ * one entity. name/url are inlined to keep the node valid on pages where
+ * the org snippet itself is absent.
  */
-export function authorPersonSchema(
-  author: Author,
-  siteUrl: string,
-  locale: "en" | "ru",
-) {
+export function authorOrgSchema(siteUrl: string) {
   return {
-    "@type": "Person",
-    "@id": `${siteUrl}/about#${author.slug}`,
-    name: author.name,
-    url: `${siteUrl}${authorPath(author, locale)}`,
-    jobTitle: author.jobTitle[locale],
-    description: author.bio[locale],
-    knowsAbout: author.knowsAbout,
-    worksFor: { "@id": `${siteUrl}#org` },
-    ...(author.sameAs.length ? { sameAs: author.sameAs } : {}),
+    "@type": "Organization",
+    "@id": `${siteUrl}#org`,
+    name: siteConfig.name,
+    url: siteUrl,
   };
 }
 

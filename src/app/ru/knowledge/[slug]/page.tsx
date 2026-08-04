@@ -11,7 +11,7 @@ import { ArticleByline } from "@/components/sections/article-byline";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import {
   DEFAULT_AUTHOR,
-  authorPersonSchema,
+  authorOrgSchema,
   legalReviewerFor,
   reviewerPersonSchema,
 } from "@/content/authors";
@@ -57,7 +57,7 @@ export default async function RussianKnowledgeArticlePage({ params }: Props) {
     datePublished: a.updated,
     dateModified: a.updated,
     inLanguage: "ru",
-    author: authorPersonSchema(DEFAULT_AUTHOR, siteUrl, "ru"),
+    author: authorOrgSchema(siteUrl),
     ...(reviewer ? { reviewedBy: reviewerPersonSchema(reviewer, siteUrl, "ru") } : {}),
     publisher: { "@type": "Organization", name: siteConfig.name },
     mainEntityOfPage: `${siteUrl}/ru/knowledge/${a.slug}`,
