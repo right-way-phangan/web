@@ -195,7 +195,9 @@ export async function lookupZoneRules(
     }
 
     // 3) Turn the zone + ticked signals into indicative (qualitative) rules.
-    const rules = zoneRulesFromSignals(zone.zone ?? "", signals, locale);
+    // Pass the fine-grained colour class: the three greens have different
+    // rules, and collapsing them to "Green" is what mislabelled clause 11.
+    const rules = zoneRulesFromSignals(zone.planZone ?? zone.zone ?? "", signals, locale);
 
     // 4) Geographic drivers of the precise numeric norms.
     //    Sea distance is always computed (coastline geometry). Elevation/slope
