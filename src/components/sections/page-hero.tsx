@@ -5,13 +5,15 @@ interface Props {
   eyebrow: string;
   title: string;
   lede?: string;
+  /** Optional right-column content (plain variant, lg+ only) — fills the empty half. */
+  aside?: React.ReactNode;
   /** Optional background photo (path under /public). When set, renders a photo banner. */
   image?: string;
   /** Alt text for the background photo. */
   imageAlt?: string;
 }
 
-export function PageHero({ eyebrow, title, lede, image, imageAlt }: Props) {
+export function PageHero({ eyebrow, title, lede, image, imageAlt, aside }: Props) {
   if (image) {
     return (
       <header className="container-prose pt-6 md:pt-8">
@@ -59,13 +61,18 @@ export function PageHero({ eyebrow, title, lede, image, imageAlt }: Props) {
         className="pointer-events-none absolute -inset-x-12 -top-8 bottom-0 -z-10 bg-[radial-gradient(55%_100%_at_10%_0%,rgba(21,168,168,0.08),transparent_65%)]"
         aria-hidden
       />
-      <SectionEyebrow>{eyebrow}</SectionEyebrow>
-      <h1 className="mt-5 max-w-3xl text-balance">{title}</h1>
-      {lede ? (
-        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-forest-500/75 md:text-xl">
-          {lede}
-        </p>
-      ) : null}
+      <div className={aside ? "grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)]" : undefined}>
+        <div>
+          <SectionEyebrow>{eyebrow}</SectionEyebrow>
+          <h1 className="mt-5 max-w-3xl text-balance">{title}</h1>
+          {lede ? (
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-forest-500/75 md:text-xl">
+              {lede}
+            </p>
+          ) : null}
+        </div>
+        {aside ? <div className="hidden lg:block">{aside}</div> : null}
+      </div>
     </header>
   );
 }

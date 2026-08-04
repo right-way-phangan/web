@@ -176,7 +176,7 @@ export function ListingsSplit({
                 >
                   {/* Каскадное проявление при выходе в кадр (Appear: SSR-safe,
                       над сгибом — мгновенно, reduced-motion отключает). */}
-                  <Appear className="h-full" y={20} delay={Math.min(i, 7) * 0.06}>
+                  <Appear className="h-full" y={20} delay={Math.min(i, 5) * 0.04}>
                     <ObjectCard
                       object={o}
                       priority={i < 4}

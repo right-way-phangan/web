@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { Route } from "next";
 import { ShieldCheck, LineChart, Megaphone, FileCheck } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
+import { SellPreviewCard } from "@/components/sections/sell-preview-card";
 import { Button } from "@/components/ui/button";
 import { SellerListingForm } from "@/components/forms/seller-listing-form";
 import { getSiteUrl } from "@/lib/site-url";
@@ -11,7 +12,7 @@ import { getSiteUrl } from "@/lib/site-url";
 export const metadata: Metadata = {
   title: "Продать землю или виллу на Пангане",
   description:
-    "Разместите землю, виллу или дом на Пангане в агентстве, которое проверяет каждый объект. Честная оценка по данным, реальный охват в нужных каналах, due diligence и все документы — под ключ.",
+    "Разместите землю, виллу или дом на Пангане в агентстве, которое проверяет то, что продаёт. Честная оценка по данным, реальный охват в нужных каналах, due diligence и все документы — под ключ.",
   alternates: {
     canonical: "/ru/sell",
     languages: { en: "/sell", ru: "/ru/sell", "x-default": "/sell" },
@@ -93,7 +94,15 @@ export default function SellPageRu() {
       <PageHero
         eyebrow="Собственникам"
         title="Продайте землю или виллу — как надо."
-        lede="Разместите объект в агентстве, которое проверяет каждый объект, который представляет, — чтобы серьёзные покупатели отнеслись к вашему серьёзно. Один остров, всё по-честному: адекватная цена, реальный охват и все документы — от первого обращения до передачи права."
+        lede="Разместите объект в агентстве, которое проверяет то, что продаёт, — чтобы серьёзные покупатели отнеслись к вашему серьёзно. Один остров, всё по-честному: адекватная цена, реальный охват и все документы — от первого обращения до передачи права."
+        aside={
+          <SellPreviewCard
+            tag="Проверено"
+            title="Ваш объект — подан как надо"
+            meta="Фото, планы и понятная выжимка по документам — так, как ждут серьёзные покупатели."
+            foot="Проверка · Цена по данным · Готов к DD"
+          />
+        }
       />
 
       <section className="container-prose py-16 md:py-24">

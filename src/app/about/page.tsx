@@ -3,6 +3,7 @@ import Link from "next/link";
 import { PageHero } from "@/components/sections/page-hero";
 import { ContentSection } from "@/components/sections/content-section";
 import { PrincipleGrid } from "@/components/sections/principle-grid";
+import { Testimonials } from "@/components/sections/testimonials";
 import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 import { Reveal } from "@/components/sections/reveal";
 import { Button } from "@/components/ui/button";
@@ -46,6 +47,8 @@ export default function AboutPage() {
         title="Three principles, in plain language."
         principles={[...PRINCIPLES]}
       />
+
+      <Testimonials locale="en" />
 
       <ContentSection eyebrow="The name" title='Why "Right Way"' spacing="default">
         <p>

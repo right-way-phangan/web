@@ -61,8 +61,8 @@ export interface HomeDict {
 const en: HomeDict = {
   hero: {
     eyebrow: "Koh Phangan · Thailand",
-    titleHtml: "Land, villas and homes on Phangan — <em>every listing vetted</em>.",
-    lede: "We check the title, zoning and numbers before a listing goes up. No 600-listing feeds, no fantasy 30% returns.",
+    titleHtml: "Land, villas and homes on Phangan — <em>done right</em>.",
+    lede: "Title, zoning, numbers — checked before the deal.",
     ctaBrowse: "Browse listings",
     ctaProcess: "How we work",
     intentLabel: "I'm looking for",
@@ -125,8 +125,8 @@ const en: HomeDict = {
     districts: "districts covered",
     reply: "typical first reply",
     replyValue: "≈ 1 hour",
-    vetted: "personally vetted",
-    vettedValue: "100%",
+    vetted: "due diligence, every deal",
+    vettedValue: "2-level",
   },
   cta: {
     eyebrow: "Tell us what you want",
@@ -141,8 +141,8 @@ const en: HomeDict = {
     skip: "Skip intro",
     checkpoints: [
       {
-        title: "Every listing vetted",
-        text: "Two-level due diligence before a plot goes public.",
+        title: "Checked before the deal",
+        text: "Two-level due diligence on every transaction.",
       },
       {
         title: "Honest numbers, AI-checked",
@@ -159,8 +159,8 @@ const en: HomeDict = {
 const ru: HomeDict = {
   hero: {
     eyebrow: "Ко Панган · Таиланд",
-    titleHtml: "Земля, виллы и дома на Пангане — <em>каждый объект проверен</em>.",
-    lede: "Документ, зону и цифры проверяем до публикации. Без витрин на 600 чужих листингов и сказок про 30% годовых.",
+    titleHtml: "Земля, виллы и дома на Пангане — <em>как надо</em>.",
+    lede: "Документ, зоны, цифры — проверяем до сделки.",
     ctaBrowse: "Смотреть объекты",
     ctaProcess: "Как мы работаем",
     intentLabel: "Я ищу",
@@ -223,8 +223,8 @@ const ru: HomeDict = {
     districts: "районов острова",
     reply: "обычное время ответа",
     replyValue: "≈ 1 час",
-    vetted: "проверено лично",
-    vettedValue: "100%",
+    vetted: "due diligence в каждой сделке",
+    vettedValue: "2 уровня",
   },
   cta: {
     eyebrow: "Расскажите, что нужно",
@@ -240,8 +240,8 @@ const ru: HomeDict = {
     skip: "Пропустить",
     checkpoints: [
       {
-        title: "Каждый объект проверен",
-        text: "Двухуровневый due diligence до публикации.",
+        title: "Проверка до сделки",
+        text: "Двухуровневый due diligence в каждой сделке.",
       },
       {
         title: "Честные цифры с ИИ",

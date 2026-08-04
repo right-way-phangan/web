@@ -34,14 +34,16 @@ export function PrincipleGrid({
         </h2>
       ) : null}
 
-      <div className={`mt-14 grid gap-10 ${gridCols} md:gap-8`}>
+      <div className={`mt-12 grid gap-6 ${gridCols}`}>
         {principles.map((p, i) => (
-          <Appear key={p.title} delay={(i % 3) * 0.08} className="h-full">
-            <div className="h-full border-t border-forest-900/10 pt-6">
-              <h3 className="font-serif text-2xl text-forest-900">{p.title}</h3>
-              <p className="mt-3 text-base leading-relaxed text-forest-600/80">
-                {p.text}
-              </p>
+          <Appear key={p.title} delay={(i % 3) * 0.05} className="h-full">
+            <div className="group h-full rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5 transition-shadow duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:shadow-soft">
+              <div className="flex h-full flex-col rounded-core bg-cream-50 p-8 shadow-bezel">
+                <h3 className="font-serif text-2xl text-forest-900">{p.title}</h3>
+                <p className="mt-3 text-base leading-relaxed text-forest-600/80">
+                  {p.text}
+                </p>
+              </div>
             </div>
           </Appear>
         ))}

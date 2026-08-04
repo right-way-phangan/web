@@ -12,6 +12,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
+import { LeaseholdScheme } from "@/components/sections/leasehold-scheme";
 import { LeaseholdListings } from "@/components/sections/leasehold-listings";
 import { Reveal } from "@/components/sections/reveal";
 import { Appear } from "@/components/motion/appear";
@@ -114,6 +115,15 @@ export default function LeaseholdPage() {
         eyebrow="Leasehold"
         title="Own the villa. Lease the land. Skip the nominee."
         lede="Leasehold is how international buyers hold a home on Phangan without a Thai shell company — the building in your name, the land on a registered long lease, the deposit held safely by a lawyer until registration. Here is exactly how it works."
+        aside={
+          <LeaseholdScheme
+            rows={[
+              { icon: "home", title: "The villa — yours", text: "Building title registered in your name." },
+              { icon: "land", title: "The land — leased", text: "30-year registered lease, renewals written into the contract." },
+              { icon: "law", title: "The money — protected", text: "Deposit sits with the lawyer until registration day." },
+            ]}
+          />
+        }
       />
 
       <section className="container-prose py-16 md:py-24">

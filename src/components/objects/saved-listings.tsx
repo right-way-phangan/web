@@ -223,7 +223,7 @@ export function SavedListings({ catalog }: { catalog: RealEstateObject[] }) {
       {/* Cards */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {items.map((o, i) => (
-          <Appear key={o.id} delay={(i % 3) * 0.08} className="h-full">
+          <Appear key={o.id} delay={(i % 3) * 0.05} className="h-full">
             <ObjectCard object={o} />
           </Appear>
         ))}

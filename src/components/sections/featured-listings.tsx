@@ -52,7 +52,7 @@ export async function FeaturedListings({ locale = "en" }: { locale?: Locale }) {
 
       <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {featured.map((object, i) => (
-          <Appear key={object.id} delay={(i % 3) * 0.08} className="h-full">
+          <Appear key={object.id} delay={(i % 3) * 0.05} className="h-full">
             <ObjectCard object={object} />
           </Appear>
         ))}

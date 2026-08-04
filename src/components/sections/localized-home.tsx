@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Hero } from "@/components/sections/hero";
 import { HeroFall } from "@/components/sections/hero-fall";
 import { FeaturedListings } from "@/components/sections/featured-listings";
+import { DistrictsBento } from "@/components/sections/districts-bento";
+import { Testimonials } from "@/components/sections/testimonials";
 import { Reveal } from "@/components/sections/reveal";
 import { Appear } from "@/components/motion/appear";
 import { Magnetic } from "@/components/motion/magnetic";
@@ -144,7 +146,11 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
       </section>
 
       <Reveal>
+        <DistrictsBento locale={locale} />
+
         <FeaturedListings locale={locale} />
+
+        <Testimonials locale={locale} />
       </Reveal>
 
       {/* Closing CTA — full-bleed coastal scene bookending the dark hero */}

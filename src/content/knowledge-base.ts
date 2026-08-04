@@ -4474,7 +4474,7 @@ export const KB_ARTICLES: KbArticle[] = [
         ul: [
           "**The company's entire liability history** — debts, unresolved tax exposure, litigation, unfiled statutory returns and any nominee-compliance defect — unlike a land buyer, who takes clean title free of the seller's unrelated liabilities.",
           "**The company's original (often low) cost basis in the land**, which carries forward and can create a large embedded latent gain for whoever eventually wants to extract the property as an asset rather than sell shares again.",
-          "**Standard mitigations lawyers recommend** — DBD, court and Revenue Department record searches, a financial-statement review, explicit warranties and indemnities in the share purchase agreement, an escrow or holdback against contingent tax risk, and, for larger deals, warranty-and-indemnity insurance.",
+          "**Standard mitigations lawyers recommend** — DBD, court and Revenue Department record searches, a financial-statement review, explicit warranties and indemnities in the share purchase agreement, a holdback against contingent tax risk, and, for larger deals, warranty-and-indemnity insurance.",
         ],
       },
       "Thai law firms broadly agree that a share sale is often the only realistically available exit for a foreign-controlled villa-holding company, given that a foreigner cannot simply buy the land outright — but every firm pairs that observation with the same warning: treat it as the higher-risk, higher-diligence route, not a clean shortcut, and involve a Thai corporate lawyer (not just a conveyancer) on both the sell side and the buy side before signing anything.",
