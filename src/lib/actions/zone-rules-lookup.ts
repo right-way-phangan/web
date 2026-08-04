@@ -81,6 +81,8 @@ export interface NormOverrides {
   elevationM?: number;
   slopeDeg?: number;
   seaDistanceM?: number;
+  /** Plot area in m² — turns the coverage % into an actual buildable footprint. */
+  plotSqm?: number;
 }
 
 export interface ZoneRulesLookupResult {
@@ -217,7 +219,10 @@ export async function lookupZoneRules(
     }
 
     // 5) Combine the layers into the strictest quantitative rule set.
-    const norms = combineBuildingNorms({ seaDistanceM, elevationM, slopeDeg }, locale);
+    const norms = combineBuildingNorms(
+      { seaDistanceM, elevationM, slopeDeg, planZone: zone.planZone, plotSqm: overrides.plotSqm },
+      locale,
+    );
 
     return {
       ok: true,

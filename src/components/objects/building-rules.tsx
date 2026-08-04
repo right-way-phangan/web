@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Route } from "next";
 import type { RealEstateObject } from "@/types/object";
 import { zoneBuildInfo } from "@/lib/data/zone-rules";
-import { combineBuildingNorms } from "@/lib/data/building-norms";
+import { combineBuildingNorms, type PlanZone } from "@/lib/data/building-norms";
 import { seaDistanceMeters } from "@/lib/geo/sea-distance";
 import { fetchTerrain } from "@/lib/geo/terrain";
 import type { Locale } from "@/lib/i18n/dictionaries";
@@ -60,6 +60,15 @@ const COPY = {
   },
 } as const;
 
+/** CRM Zone value → city-plan colour tier used by the norms engine. */
+const PLAN_ZONE_BY_CARD: Record<string, PlanZone | undefined> = {
+  Green: "green",
+  Yellow: "yellow",
+  Orange: "orange",
+  Red: "red",
+  Purple: "purple",
+};
+
 export async function BuildingRules({
   object,
   locale,
@@ -82,7 +91,18 @@ export async function BuildingRules({
     const terrain = await fetchTerrain(object.lat, object.lng);
     elevationM = terrain?.elevationM;
     slopeDeg = terrain?.slopeDeg;
-    norms = combineBuildingNorms({ seaDistanceM, elevationM, slopeDeg }, locale);
+    // The card's own zone drives the city-plan size cap; the three greens are
+    // not distinguished in the CRM field, so Green maps to the plain rural tier.
+    const planZone = PLAN_ZONE_BY_CARD[object.zone ?? ""];
+    // On Land, rai and m² describe the SAME plot in two units — take m² first.
+    // On a villa card areaSqm is the BUILT area, so only rai can mean the plot.
+    const plotSqm =
+      object.type === "Land"
+        ? (object.areaSqm ?? (object.areaRai != null ? object.areaRai * 1600 : undefined))
+        : object.areaRai != null
+          ? object.areaRai * 1600
+          : undefined;
+    norms = combineBuildingNorms({ seaDistanceM, elevationM, slopeDeg, planZone, plotSqm }, locale);
   }
 
   if (!info && !manual && !norms) return null;

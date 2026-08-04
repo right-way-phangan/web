@@ -47,10 +47,14 @@ const COPY = {
     geoSea: "Distance to sea",
     geoElev: "Elevation",
     geoSlope: "Slope",
+    geoPlot: "Plot area",
     aboveSea: "m a.s.l.",
     metres: "m",
     deg: "°",
-    estimatedNote: "Sea/elevation/slope are estimated from open data (~30 m). Edit elevation or slope if you have survey data.",
+    unitSqm: "m²",
+    unitRai: "rai",
+    estimatedNote:
+      "Sea/elevation/slope are estimated from open data (~30 m). Edit elevation or slope if you have survey data; enter the plot area to get the footprint in m².",
     disclaimerLead:
       "Indicative. Zone use is read from the Phangan city-plan colour; the precise limits come from the May-2025 environmental protection law applied to the estimated sea distance, elevation and slope. Exact figures for a plot are verified in our ",
     ddLink: "due diligence",
@@ -77,10 +81,14 @@ const COPY = {
     geoSea: "До моря",
     geoElev: "Высота",
     geoSlope: "Уклон",
+    geoPlot: "Площадь участка",
     aboveSea: "м н.у.м.",
     metres: "м",
     deg: "°",
-    estimatedNote: "Море/высота/уклон оценены по открытым данным (~30 м). Впишите высоту или уклон, если есть топосъёмка.",
+    unitSqm: "м²",
+    unitRai: "рай",
+    estimatedNote:
+      "Море/высота/уклон оценены по открытым данным (~30 м). Впишите высоту или уклон, если есть топосъёмка; впишите площадь участка — посчитаем пятно застройки в м².",
     disclaimerLead:
       "Индикативно. Использование зоны — по цвету городского плана Пангана; точные лимиты — из закона об охране среды (май 2025), применённого к оценённым расстоянию до моря, высоте и уклону. Точные цифры для участка проверяются в нашем ",
     ddLink: "due diligence",
@@ -103,6 +111,9 @@ export function ZoneChecker({ locale }: { locale: RuleLocale }) {
   // Manual overrides (survey beats DEM); empty string = use the estimate.
   const [elevStr, setElevStr] = useState("");
   const [slopeStr, setSlopeStr] = useState("");
+  // Plot size — nothing to estimate here, it only ever comes from the user.
+  const [plotStr, setPlotStr] = useState("");
+  const [plotUnit, setPlotUnit] = useState<"sqm" | "rai">("sqm");
 
   // Single lookup path — text input, map click, signal toggles and geo
   // overrides all funnel through here so the result always matches the inputs.
@@ -119,9 +130,18 @@ export function ZoneChecker({ locale }: { locale: RuleLocale }) {
     [locale],
   );
 
-  const parseOverrides = (elev: string, slope: string): NormOverrides => ({
+  const toSqm = (value: string, unit: "sqm" | "rai") =>
+    value.trim() === "" ? undefined : Number(value) * (unit === "rai" ? 1600 : 1);
+
+  const parseOverrides = (
+    elev: string,
+    slope: string,
+    plot: string = plotStr,
+    unit: "sqm" | "rai" = plotUnit,
+  ): NormOverrides => ({
     elevationM: elev.trim() === "" ? undefined : Number(elev),
     slopeDeg: slope.trim() === "" ? undefined : Number(slope),
+    plotSqm: toSqm(plot, unit),
   });
 
   function onMapPick(lat: number, lng: number) {
@@ -129,15 +149,16 @@ export function ZoneChecker({ locale }: { locale: RuleLocale }) {
     setInput(loc);
     setMarker({ lat, lng });
     // New location → drop any prior survey overrides, re-estimate from DEM.
+    // The plot area survives: it describes the plot, not the sampled point.
     setElevStr("");
     setSlopeStr("");
-    void run(loc, signals, {});
+    void run(loc, signals, { plotSqm: toSqm(plotStr, plotUnit) });
   }
 
   function onSubmitLocation() {
     setElevStr("");
     setSlopeStr("");
-    void run(input, signals, {});
+    void run(input, signals, { plotSqm: toSqm(plotStr, plotUnit) });
   }
 
   // Re-run against the current point with new signals or geo overrides.
@@ -155,6 +176,12 @@ export function ZoneChecker({ locale }: { locale: RuleLocale }) {
 
   const rules = result?.ok ? result.rules : null;
   const norms = result?.ok ? result.norms : null;
+  // Thai regulations quote gradients in percent, our DEM in degrees — show both.
+  const shownSlopeDeg = slopeStr.trim() !== "" ? Number(slopeStr) : result?.ok ? result.slopeDeg : undefined;
+  const slopePct =
+    shownSlopeDeg != null && Number.isFinite(shownSlopeDeg)
+      ? Math.round(Math.tan((shownSlopeDeg * Math.PI) / 180) * 100)
+      : null;
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1.05fr_1fr]">
@@ -265,8 +292,8 @@ export function ZoneChecker({ locale }: { locale: RuleLocale }) {
               </div>
             </div>
 
-            {/* Geographic drivers — sea read-only, elevation/slope editable. */}
-            <div className="grid grid-cols-3 gap-2">
+            {/* Geographic drivers — sea read-only, elevation/slope/plot editable. */}
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
               <div className="rounded-sm border border-forest-500/10 bg-cream-50 px-3 py-2">
                 <p className="text-[11px] uppercase tracking-wide text-forest-500/55">{t.geoSea}</p>
                 <p className="num text-base text-forest-900">
@@ -302,7 +329,37 @@ export function ZoneChecker({ locale }: { locale: RuleLocale }) {
                     onKeyDown={(e) => e.key === "Enter" && applyOverrides()}
                     className="num w-full min-w-0 bg-transparent text-base text-forest-900 placeholder:text-forest-500/45 focus:outline-none"
                   />
-                  <span className="text-xs text-forest-500/55">{t.deg}</span>
+                  <span className="text-xs text-forest-500/55">
+                    {t.deg}
+                    {slopePct != null ? ` ≈ ${slopePct}%` : ""}
+                  </span>
+                </span>
+              </label>
+              <label className="rounded-sm border border-forest-500/10 bg-cream-50 px-3 py-2">
+                <span className="block text-[11px] uppercase tracking-wide text-forest-500/55">{t.geoPlot}</span>
+                <span className="flex items-baseline gap-1">
+                  <input
+                    type="number"
+                    inputMode="numeric"
+                    value={plotStr}
+                    placeholder="—"
+                    onChange={(e) => setPlotStr(e.target.value)}
+                    onBlur={applyOverrides}
+                    onKeyDown={(e) => e.key === "Enter" && applyOverrides()}
+                    className="num w-full min-w-0 bg-transparent text-base text-forest-900 placeholder:text-forest-500/45 focus:outline-none"
+                  />
+                  <select
+                    value={plotUnit}
+                    onChange={(e) => {
+                      const unit = e.target.value as "sqm" | "rai";
+                      setPlotUnit(unit);
+                      rerun(signals, parseOverrides(elevStr, slopeStr, plotStr, unit));
+                    }}
+                    className="shrink-0 bg-transparent text-xs text-forest-500/55 focus:outline-none"
+                  >
+                    <option value="sqm">{t.unitSqm}</option>
+                    <option value="rai">{t.unitRai}</option>
+                  </select>
                 </span>
               </label>
             </div>
