@@ -1,15 +1,21 @@
 /**
  * Elevation + slope at a point, from the free Open-Meteo elevation API
  * (SRTM ~30m, no API key). One batched request fetches the centre plus eight
- * neighbours ~60m out; slope = atan(max neighbour drop / 60m) in DEGREES.
- * Indicative — not a substitute for a survey. Returns null on network failure.
+ * neighbours ~60m out; slope = max neighbour drop / distance, in PERCENT —
+ * the unit Thai regulations use (35% / 50% thresholds).
+ *
+ * Indicative, and it reads HIGH on Phangan: SRTM returns the top of the forest
+ * canopy, so both the elevation and the derived gradient come out above a real
+ * survey (a plot surveyed at 32–48 m a.s.l. / 27% samples as ~65 m / ~51%).
+ * Treat it as "is this flat or steep", not as a number to build with — the UI
+ * lets the user type survey figures over it. Returns null on network failure.
  */
 
 export interface TerrainSample {
   /** Elevation above sea level at the point, metres. */
   elevationM: number;
-  /** Estimated ground slope, degrees (steepest neighbour gradient). */
-  slopeDeg: number;
+  /** Estimated ground slope, PERCENT (steepest neighbour gradient). */
+  slopePct: number;
 }
 
 const NEIGHBOR_M = 60;
@@ -49,8 +55,7 @@ export async function fetchTerrain(lat: number, lng: number): Promise<TerrainSam
       const drop = Math.abs(e[i] - centre);
       maxGrade = Math.max(maxGrade, drop / dist(i));
     }
-    const slopeDeg = Math.atan(maxGrade) / rad;
-    return { elevationM: Math.round(centre), slopeDeg: Math.round(slopeDeg) };
+    return { elevationM: Math.round(centre), slopePct: Math.round(maxGrade * 100) };
   } catch {
     return null;
   }

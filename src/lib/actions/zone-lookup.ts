@@ -41,51 +41,89 @@ type ColorClass =
   | "red"
   | "purple"
   | "blue"
+  | "water"
+  | "olive"
+  | "brown"
   | "gray"
   | "white";
+
+/**
+ * The DPT tile palette, sampled from the real Ko Phangan tiles (225 tiles at
+ * z15, August 2026) rather than guessed. The three greens are what the size
+ * limits hang off, and they are NOT ordered by lightness the way the Thai
+ * names suggest — the "light green" recreation zone is drawn as vivid lime:
+ *
+ *   #37A700  rural & agricultural (สีเขียว, clause 10)      — 300 m² houses
+ *   #54FE00  open space / recreation (สีเขียวอ่อน, cl. 11)  — 150 m², 30% of plot
+ *   #4CE600  forest conservation (cl. 12) — drawn with white diagonal hatching
+ *
+ * Classification is nearest-colour with a tolerance, so anti-aliased edges and
+ * JPEG-ish noise land on the right class instead of falling through to null.
+ */
+const PALETTE: Array<{ rgb: [number, number, number]; cls: ColorClass }> = [
+  { rgb: [55, 167, 0], cls: "green" }, // #37A700 rural & agricultural
+  { rgb: [84, 254, 0], cls: "greenLight" }, // #54FE00 open space / recreation
+  { rgb: [76, 230, 0], cls: "greenBright" }, // #4CE600 forest conservation (hatched)
+  { rgb: [166, 243, 128], cls: "greenBright" }, // #A6F380 hatch edge blend
+  { rgb: [211, 249, 192], cls: "greenBright" }, // #D3F9C0 hatch edge blend
+  { rgb: [254, 254, 0], cls: "yellow" }, // #FEFE00 low-density residential
+  { rgb: [254, 126, 0], cls: "orange" }, // #FE7E00 medium-density residential
+  { rgb: [254, 0, 0], cls: "red" }, // #FE0000 commercial
+  { rgb: [160, 32, 160], cls: "purple" }, // industrial — not present on Phangan, unverified
+  { rgb: [0, 126, 254], cls: "blue" }, // #007EFE government / utilities
+  { rgb: [150, 218, 241], cls: "water" }, // #96DAF1 water / environmental open space
+  { rgb: [84, 114, 0], cls: "olive" }, // #547200 education
+  { rgb: [229, 151, 0], cls: "brown" }, // #E59700 cultural conservation
+  { rgb: [172, 172, 172], cls: "gray" }, // #ACACAC other / uncategorised
+];
+
+const MAX_COLOR_DIST = 70; // Euclidean in RGB — tight enough to keep zones apart
 
 function classifyPixel(r: number, g: number, b: number, a: number): ColorClass | null {
   if (a < 200) return null; // transparent → no plan data
   if (r >= 240 && g >= 240 && b >= 240) return "white"; // hatch background
-  const max = Math.max(r, g, b);
-  const min = Math.min(r, g, b);
-  if (max - min < 28) return "gray";
-  if (r > 200 && g > 200 && b < 130) return "yellow";
-  if (r > 200 && g > 120 && g < 200 && b < 110) return "orange";
-  if (r > 170 && g < 130 && b < 130) return "red";
-  if (r > 110 && b > 110 && g < Math.min(r, b) - 30) return "purple";
-  if (b > 140 && b >= g && r < 120) return "blue";
-  // Greens: pale (recreation) vs bright (conservation hatch) vs dark (rural).
-  // greenLight must be genuinely green-dominant — pale pastel categories
-  // (e.g. Bangkok's tan "cultural conservation") fall through to null.
-  if (g > 200 && r > 130 && g > r + 40 && b < g - 60) return "greenLight";
-  if (g > 190 && r < 130 && b < 100) return "greenBright";
-  if (g > 110 && r < 130 && b < 100) return "green";
-  return null;
+  let best: ColorClass | null = null;
+  let bestDist = Infinity;
+  for (const { rgb, cls } of PALETTE) {
+    const d = Math.hypot(r - rgb[0], g - rgb[1], b - rgb[2]);
+    if (d < bestDist) {
+      bestDist = d;
+      best = cls;
+    }
+  }
+  return bestDist <= MAX_COLOR_DIST ? best : null;
 }
 
-// Suggested Zone enum value + RU label per dominant class.
+// Suggested Zone enum value + RU label per dominant class. Labels name the
+// actual city-plan category (clause of the Ko Phangan plan) — the old
+// "заповедная сельхоз" wording described a zone that does not exist here.
 const CLASS_MAP: Record<Exclude<ColorClass, "white">, { zone: Zone; label: string }> = {
-  green: { zone: "Green", label: "Сельхоз / деревенская (зелёная)" },
-  greenBright: { zone: "Green", label: "Заповедная сельхоз (зелёная штриховка)" },
-  greenLight: { zone: "Green", label: "Рекреация / открытые пространства (салатовая)" },
+  green: { zone: "Green", label: "Сельская и сельхоз (зелёная)" },
+  greenBright: { zone: "Green", label: "Лесная консервация (зелёная штриховка)" },
+  greenLight: { zone: "Green", label: "Открытые пространства / рекреация (светло-зелёная)" },
   yellow: { zone: "Yellow", label: "Жилая малой плотности (жёлтая)" },
   orange: { zone: "Orange", label: "Жилая средней плотности (оранжевая)" },
   red: { zone: "Red", label: "Коммерческая (красная)" },
   purple: { zone: "Purple", label: "Промышленная (фиолетовая)" },
-  blue: { zone: "Unknown", label: "Гос. учреждения (синяя)" },
+  blue: { zone: "Unknown", label: "Гос. учреждения и инфраструктура (синяя)" },
+  water: { zone: "Unknown", label: "Акватория / водоохранная (голубая)" },
+  olive: { zone: "Unknown", label: "Образование (оливковая)" },
+  brown: { zone: "Unknown", label: "Культурная консервация (коричневая)" },
   gray: { zone: "Unknown", label: "Прочее / без категории (серая)" },
 };
 
 const CLASS_HEX: Record<Exclude<ColorClass, "white">, string> = {
   green: "#37A700",
-  greenBright: "#4BE500",
-  greenLight: "#AFF38E",
+  greenBright: "#4CE600",
+  greenLight: "#54FE00",
   yellow: "#FEFE00",
-  orange: "#FFA033",
-  red: "#E03C31",
-  purple: "#9B59B6",
-  blue: "#2E6FBF",
+  orange: "#FE7E00",
+  red: "#FE0000",
+  purple: "#A020A0",
+  blue: "#007EFE",
+  water: "#96DAF1",
+  olive: "#547200",
+  brown: "#E59700",
   gray: "#ACACAC",
 };
 

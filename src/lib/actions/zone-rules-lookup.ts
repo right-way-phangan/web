@@ -79,7 +79,8 @@ async function expandShortLink(url: string): Promise<{ lat: number; lng: number 
 /** Optional manual overrides for the geographic inputs (survey beats DEM). */
 export interface NormOverrides {
   elevationM?: number;
-  slopeDeg?: number;
+  /** Ground slope in PERCENT — the unit the environmental regulation uses. */
+  slopePct?: number;
   seaDistanceM?: number;
   /** Plot area in m² — turns the coverage % into an actual buildable footprint. */
   plotSqm?: number;
@@ -101,8 +102,8 @@ export interface ZoneRulesLookupResult {
   seaDistanceM?: number;
   /** Elevation above sea level, metres (DEM or user override). */
   elevationM?: number;
-  /** Ground slope, degrees (DEM or user override). */
-  slopeDeg?: number;
+  /** Ground slope, percent (DEM or user override). */
+  slopePct?: number;
   /** True when elevation/slope were estimated from DEM (vs. user-entered). */
   terrainEstimated?: boolean;
   /** Precise quantitative norms (height/area/%/min plot), or null. */
@@ -202,17 +203,17 @@ export async function lookupZoneRules(
     const seaDistanceM = overrides.seaDistanceM ?? seaDistanceMeters(coords.lat, coords.lng);
 
     let elevationM = overrides.elevationM;
-    let slopeDeg = overrides.slopeDeg;
+    let slopePct = overrides.slopePct;
     let terrainEstimated = false;
-    if (elevationM == null || slopeDeg == null) {
+    if (elevationM == null || slopePct == null) {
       const terrain = await fetchTerrain(coords.lat, coords.lng);
       if (terrain) {
         if (elevationM == null) {
           elevationM = terrain.elevationM;
           terrainEstimated = true;
         }
-        if (slopeDeg == null) {
-          slopeDeg = terrain.slopeDeg;
+        if (slopePct == null) {
+          slopePct = terrain.slopePct;
           terrainEstimated = true;
         }
       }
@@ -220,7 +221,7 @@ export async function lookupZoneRules(
 
     // 5) Combine the layers into the strictest quantitative rule set.
     const norms = combineBuildingNorms(
-      { seaDistanceM, elevationM, slopeDeg, planZone: zone.planZone, plotSqm: overrides.plotSqm },
+      { seaDistanceM, elevationM, slopePct, planZone: zone.planZone, plotSqm: overrides.plotSqm },
       locale,
     );
 
@@ -234,7 +235,7 @@ export async function lookupZoneRules(
       rules,
       seaDistanceM,
       elevationM,
-      slopeDeg,
+      slopePct,
       terrainEstimated,
       norms,
     };

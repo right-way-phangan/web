@@ -17,8 +17,9 @@ import { cn } from "@/lib/utils/cn";
  * tool (/admin/zoning) and the public page (/tools/zoning); the locale prop
  * switches copy and the DD link target. Wrapper over the lookupZoneRules server
  * action — no data of its own. Shows the qualitative zone use AND the precise
- * quantitative norms (height/area/%/min plot) driven by sea distance, elevation
- * and slope. Always indicative, links to DD.
+ * quantitative norms (house size / height / coverage / footprint) driven by the
+ * city-plan zone plus sea distance, elevation, slope and plot area. Always
+ * indicative, links to DD.
  */
 
 // Leaflet touches `window` → map is client-only (ssr:false in a client file).
@@ -50,11 +51,11 @@ const COPY = {
     geoPlot: "Plot area",
     aboveSea: "m a.s.l.",
     metres: "m",
-    deg: "°",
+    pct: "%",
     unitSqm: "m²",
     unitRai: "rai",
     estimatedNote:
-      "Sea/elevation/slope are estimated from open data (~30 m). Edit elevation or slope if you have survey data; enter the plot area to get the footprint in m².",
+      "Sea/elevation/slope are estimated from open data (~30 m) and read HIGH here — SRTM sees the forest canopy, so a surveyed plot can come out 15–20 m lower and far less steep. Type your survey figures over them; enter the plot area to get the footprint in m².",
     disclaimerLead:
       "Indicative. The zone is read from the Phangan city-plan colour; house size and height come from that plan's own regulation (B.E. 2558, amended 2566), the remaining limits from the May-2025 environmental protection law applied to the estimated sea distance, elevation and slope. Exact figures for a plot are verified in our ",
     ddLink: "due diligence",
@@ -84,11 +85,11 @@ const COPY = {
     geoPlot: "Площадь участка",
     aboveSea: "м н.у.м.",
     metres: "м",
-    deg: "°",
+    pct: "%",
     unitSqm: "м²",
     unitRai: "рай",
     estimatedNote:
-      "Море/высота/уклон оценены по открытым данным (~30 м). Впишите высоту или уклон, если есть топосъёмка; впишите площадь участка — посчитаем пятно застройки в м².",
+      "Море/высота/уклон оценены по открытым данным (~30 м) и здесь ЗАВЫШЕНЫ: SRTM видит кроны леса, поэтому по топосъёмке участок обычно на 15–20 м ниже и заметно положе. Впишите свои цифры поверх; впишите площадь участка — посчитаем пятно застройки в м².",
     disclaimerLead:
       "Индикативно. Зона читается по цвету городского плана Пангана; размер дома и высота — из регламента этого плана (2558, ред. 2566), остальные лимиты — из закона об охране среды (май 2025) по оценённым расстоянию до моря, высоте и уклону. Точные цифры для участка проверяются в нашем ",
     ddLink: "due diligence",
@@ -140,7 +141,7 @@ export function ZoneChecker({ locale }: { locale: RuleLocale }) {
     unit: "sqm" | "rai" = plotUnit,
   ): NormOverrides => ({
     elevationM: elev.trim() === "" ? undefined : Number(elev),
-    slopeDeg: slope.trim() === "" ? undefined : Number(slope),
+    slopePct: slope.trim() === "" ? undefined : Number(slope),
     plotSqm: toSqm(plot, unit),
   });
 
@@ -176,11 +177,11 @@ export function ZoneChecker({ locale }: { locale: RuleLocale }) {
 
   const rules = result?.ok ? result.rules : null;
   const norms = result?.ok ? result.norms : null;
-  // Thai regulations quote gradients in percent, our DEM in degrees — show both.
-  const shownSlopeDeg = slopeStr.trim() !== "" ? Number(slopeStr) : result?.ok ? result.slopeDeg : undefined;
-  const slopePct =
-    shownSlopeDeg != null && Number.isFinite(shownSlopeDeg)
-      ? Math.round(Math.tan((shownSlopeDeg * Math.PI) / 180) * 100)
+  // The regulation counts slope in percent; degrees are the familiar reading.
+  const shownSlopePct = slopeStr.trim() !== "" ? Number(slopeStr) : result?.ok ? result.slopePct : undefined;
+  const slopeDeg =
+    shownSlopePct != null && Number.isFinite(shownSlopePct)
+      ? Math.round((Math.atan(shownSlopePct / 100) * 180) / Math.PI)
       : null;
 
   return (
@@ -323,15 +324,15 @@ export function ZoneChecker({ locale }: { locale: RuleLocale }) {
                     type="number"
                     inputMode="numeric"
                     value={slopeStr}
-                    placeholder={result.slopeDeg != null ? String(result.slopeDeg) : ""}
+                    placeholder={result.slopePct != null ? String(result.slopePct) : ""}
                     onChange={(e) => setSlopeStr(e.target.value)}
                     onBlur={applyOverrides}
                     onKeyDown={(e) => e.key === "Enter" && applyOverrides()}
                     className="num w-full min-w-0 bg-transparent text-base text-forest-900 placeholder:text-forest-500/45 focus:outline-none"
                   />
                   <span className="text-xs text-forest-500/55">
-                    {t.deg}
-                    {slopePct != null ? ` ≈ ${slopePct}%` : ""}
+                    {t.pct}
+                    {slopeDeg != null ? ` ≈ ${slopeDeg}°` : ""}
                   </span>
                 </span>
               </label>
