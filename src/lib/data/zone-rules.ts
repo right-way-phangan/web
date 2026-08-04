@@ -45,6 +45,22 @@ const ZONE_USE: Record<string, { name: Bi; use: Bi }> = {
       ru: "Жильё низкой плотности и агротуризм. Частная вилла обычно допустима; плотная или коммерческая застройка — нет.",
     },
   },
+  // The three greens of the Phangan plan differ in what they allow — keyed by
+  // the finer colour class (PlanZone), so "green" alone never speaks for all.
+  greenlight: {
+    name: { en: "Open space / recreation", ru: "Открытые пространства / рекреация" },
+    use: {
+      en: "A protection zone that still allows a private home: recreation, farming, one detached house per plot. Subdivisions, terraced houses, condos and dormitories are banned outright.",
+      ru: "Охранная зона, где частный дом всё же разрешён: рекреация, сельское хозяйство, отдельно стоящий дом. Раздел под застройку, таунхаусы, кондоминиумы и общежития запрещены прямо.",
+    },
+  },
+  greenbright: {
+    name: { en: "Forest conservation", ru: "Лесная консервация" },
+    use: {
+      en: "Forest protection zone. On privately held land a detached home is allowed, but housing may take at most 30% of the plot.",
+      ru: "Зона охраны леса. На частной земле отдельно стоящий дом разрешён, но под жильё — не более 30% участка.",
+    },
+  },
   yellow: {
     name: { en: "Low-density residential", ru: "Жилая, низкая плотность" },
     use: {
@@ -103,6 +119,11 @@ const NEAR_COAST: Bi = {
 const ROAD_ACCESS: Bi = {
   en: "Access is an unpaved/no road — a building permit needs a legal road access; confirm right-of-way in DD.",
   ru: "Подъезд — грунтовка/без дороги — для разрешения нужен легальный доступ; проверяем право проезда (сервитут) в DD.",
+};
+
+const PROTECTED_USE: Bi = {
+  en: "Protection zone — build one house for yourself, not a project: no plot subdivision for sale, no terraced houses, condos or dormitories. Confirm the zone number against the land office map in DD.",
+  ru: "Охранная зона — дом для себя, но не проект: нельзя делить участок под продажу, строить таунхаусы, кондоминиумы и общежития. Номер зоны сверяем по карте земельного офиса в DD.",
 };
 
 const AGRI_USE: Bi = {
@@ -167,6 +188,9 @@ export function zoneRulesFromSignals(
     flags.push({ level: "warn", text: pick(ROAD_ACCESS, locale) });
   }
   if (key === "green") flags.push({ level: "info", text: pick(AGRI_USE, locale) });
+  if (key === "greenlight" || key === "greenbright") {
+    flags.push({ level: "warn", text: pick(PROTECTED_USE, locale) });
+  }
 
   if (lines.length === 0 && flags.length === 0) return null;
 
