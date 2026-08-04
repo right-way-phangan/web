@@ -118,9 +118,10 @@ export function RoiCalculator({
   const [inputs, setInputs] = useState<RoiInputs>({
     ...DEFAULT_INPUTS,
     purchasePriceThb: initialPriceThb ?? DEFAULT_INPUTS.purchasePriceThb,
-    // Default the headline growth to the data-anchored "base" so the projection
-    // starts from market context, not a hardcoded guess.
-    annualGrowthPct: appr.base,
+    // Default the headline growth to the data-anchored "optimistic" edge of the
+    // band so a listing opens on its upside case; the visitor can dial it back
+    // to base/conservative with one tap.
+    annualGrowthPct: appr.high,
     // Villa/house/project default to a rental model (initialRent): off-plan
     // shows income after handover, a completed home flips Buy→Rent. Land is
     // left as buy-&-hold.
@@ -276,10 +277,10 @@ export function RoiCalculator({
     setTimeout(() => URL.revokeObjectURL(url), 10_000);
   };
 
-  // Full reset to defaults (keeps the data-anchored "base" growth) — and forget
+  // Full reset to defaults (keeps the data-anchored "optimistic" growth) — and forget
   // the persisted session, otherwise it would re-apply on the next visit.
   const resetInputs = () => {
-    setInputs({ ...DEFAULT_INPUTS, annualGrowthPct: appr.base });
+    setInputs({ ...DEFAULT_INPUTS, annualGrowthPct: appr.high });
     try {
       window.localStorage.removeItem(STORAGE_KEY);
     } catch {
@@ -897,8 +898,12 @@ export function RoiCalculator({
       </div>
 
       {/* ---- Results ---- */}
-      <div id="calc-results" className="scroll-mt-24">
-        <div className="rounded-sm border border-forest-500/10 bg-cream-50 p-6 md:p-8">
+      {/* Column count / type scale key off this block's own width (container
+          query), not the viewport — embedded in a narrow project/object column
+          the viewport-based sm:/md: steps packed four KPIs into ~70px cells and
+          the figures overlapped. */}
+      <div id="calc-results" className="@container scroll-mt-24">
+        <div className="rounded-sm border border-forest-500/10 bg-cream-50 p-6 @[36rem]:p-8">
           <div className="flex items-start justify-between gap-4">
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
               {t.projectedValueIn(inputs.years)}
@@ -920,7 +925,7 @@ export function RoiCalculator({
             </div>
           </div>
           <div className="mt-2 flex flex-wrap items-center gap-3">
-            <p className="num text-4xl text-forest-900 md:text-5xl">{money(r.projectedValue, true)}</p>
+            <p className="num text-4xl text-forest-900 @[40rem]:text-5xl">{money(r.projectedValue, true)}</p>
             <DealBadge grade={dealGrade(r, isRent)} t={t} />
           </div>
           {inputs.inflationPct > 0 ? (
@@ -936,7 +941,7 @@ export function RoiCalculator({
             </div>
           ) : null}
 
-          <div className="mt-6 grid grid-cols-3 gap-4 border-t border-forest-500/10 pt-6">
+          <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-5 border-t border-forest-500/10 pt-6 @[26rem]:grid-cols-3">
             <Kpi label={t.totalRoi} value={fmtPct(r.roiPct)} accent tip={t.defRoi} />
             <Kpi label={t.cagrYear} value={fmtPct(r.cagrPct)} tip={t.defCagr} />
             <Kpi label={t.netProfit} value={money(r.netProfit)} />
@@ -946,21 +951,21 @@ export function RoiCalculator({
           ) : null}
 
           {isOffplan ? (
-            <div className="mt-4 grid grid-cols-2 gap-4 border-t border-forest-500/10 pt-4 sm:grid-cols-4">
+            <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-5 border-t border-forest-500/10 pt-4 @[34rem]:grid-cols-4">
               <Kpi label={t.valueAtHandover} value={money(r.handoverValue)} />
               <Kpi label={t.irrYear} value={fmtPct(r.irrPct)} accent tip={t.defIrr} />
               <Kpi label={t.totalInvested} value={money(r.initialInvestment)} />
               <Kpi label={t.paybackKpi} value={r.paybackYears != null ? t.paybackVal(r.paybackYears.toFixed(1)) : t.paybackNever} tip={t.defPayback} />
             </div>
           ) : isRent ? (
-            <div className="mt-4 grid grid-cols-2 gap-4 border-t border-forest-500/10 pt-4 sm:grid-cols-4">
+            <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-5 border-t border-forest-500/10 pt-4 @[34rem]:grid-cols-4">
               <Kpi label={t.capRate} value={fmtPct(r.capRatePct)} tip={t.defCapRate} />
               <Kpi label={t.cashOnCash} value={fmtPct(r.cashOnCashPct)} tip={t.defCashOnCash} />
               <Kpi label={t.grossYield} value={fmtPct(r.grossYieldPct)} tip={t.defGrossYield} />
               <Kpi label={t.paybackKpi} value={r.paybackYears != null ? t.paybackVal(r.paybackYears.toFixed(1)) : t.paybackNever} tip={t.defPayback} />
             </div>
           ) : (
-            <div className="mt-4 grid grid-cols-3 gap-4 border-t border-forest-500/10 pt-4">
+            <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-5 border-t border-forest-500/10 pt-4 @[26rem]:grid-cols-3">
               <Kpi label={t.paybackKpi} value={r.paybackYears != null ? t.paybackVal(r.paybackYears.toFixed(1)) : t.paybackNever} tip={t.defPayback} />
             </div>
           )}

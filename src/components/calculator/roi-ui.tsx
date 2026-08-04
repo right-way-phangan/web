@@ -64,12 +64,14 @@ export function WarnBox({ text }: { text: string }) {
 
 export function Kpi({ label, value, accent, tip }: { label: string; value: string; accent?: boolean; tip?: string }) {
   return (
-    <div>
-      <p className="flex items-center text-[11px] uppercase tracking-wide text-forest-500/50">
+    // min-h keeps one- and two-line labels on a shared baseline, so the figures
+    // below them line up across the row.
+    <div className="min-w-0">
+      <p className="flex min-h-[2.5em] items-start text-[11px] uppercase leading-tight tracking-wide text-forest-500/50">
         {label}
         {tip ? <InfoTip text={tip} /> : null}
       </p>
-      <p className={`num mt-1 text-xl ${accent ? "text-brass-600" : "text-forest-900"}`}>{value}</p>
+      <p className={`num mt-1 text-xl leading-tight ${accent ? "text-brass-600" : "text-forest-900"}`}>{value}</p>
     </div>
   );
 }
