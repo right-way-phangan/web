@@ -12,11 +12,14 @@
 
 import { PNG } from "pngjs";
 import type { Zone } from "@/lib/amocrm/dictionaries";
+import type { PlanZone } from "@/lib/data/building-norms";
 
 export interface ZoneLookupResult {
   ok: boolean;
   /** Suggested value for the form's Zone select (subset of ZONES). */
   zone?: Zone;
+  /** Colour class as classified — finer than Zone (the three greens differ). */
+  planZone?: PlanZone;
   /** Human label for the admin (RU), e.g. «Заповедная сельхоз (штриховка)». */
   label?: string;
   /** Dominant sampled colour, for the UI chip. */
@@ -152,5 +155,5 @@ export async function lookupZoneByLocation(lat: number, lng: number): Promise<Zo
   }
 
   const { zone, label } = CLASS_MAP[dominant];
-  return { ok: true, zone, label, colorHex: CLASS_HEX[dominant] };
+  return { ok: true, zone, planZone: dominant, label, colorHex: CLASS_HEX[dominant] };
 }
