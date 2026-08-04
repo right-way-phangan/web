@@ -154,6 +154,21 @@ function paramsToProfile(params: Record<string, string>): BuyerProfile {
   };
 }
 
+/**
+ * Голый ответ про бюджет: «8 million baht», «8 млн», «5–8m». parseHeuristic ловит
+ * только форму с предлогом («under 8m», «between 5 and 8m»), а на прямой вопрос
+ * скрипта клиент отвечает числом.
+ */
+function budgetFrom(text: string): Pick<BuyerProfile, "budgetMinMThb" | "budgetMaxMThb"> | undefined {
+  const unit = "(?:m(?![²2a-zа-яё])|mio|million|млн|миллион\\w*)";
+  const t = text.toLowerCase().replace(/,/g, "");
+  const range = t.match(new RegExp(`(\\d+(?:\\.\\d+)?)\\s*[-–—]\\s*(\\d+(?:\\.\\d+)?)\\s*${unit}`));
+  if (range) return { budgetMinMThb: Number(range[1]), budgetMaxMThb: Number(range[2]) };
+  const single = t.match(new RegExp(`(\\d+(?:\\.\\d+)?)\\s*${unit}`));
+  if (single) return { budgetMaxMThb: Number(single[1]) };
+  return undefined;
+}
+
 const SCRIPT: Record<Locale, string[]> = {
   en: [
     "Hi! I'll help you find the right place on Koh Phangan. First — are you buying to live, to invest, to rent out, or for holidays?",
@@ -176,10 +191,21 @@ const CLOSING: Record<Locale, string> = {
   ru: "Отлично — сейчас подберу для вас лучшие варианты.",
 };
 
+/** Заполнено ли поле, которое закрывает вопрос скрипта с тем же индексом. */
+const FILLED: Array<(p: BuyerProfile) => boolean> = [
+  (p) => p.goal !== undefined,
+  (p) => p.budgetMaxMThb !== undefined || p.budgetMinMThb !== undefined,
+  (p) => (p.type?.length ?? 0) > 0,
+  (p) => (p.districts?.length ?? 0) > 0,
+  (p) => (p.mustHaves?.length ?? 0) > 0,
+];
+
 /**
  * Скриптованный ход интервью без LLM: разбирает последнюю реплику клиента
- * (parseHeuristic + быстрый goal), копит профиль и задаёт следующий заготовленный
- * вопрос. done, когда пройдены все вопросы. Деградация, а не полный разговор.
+ * (parseHeuristic + быстрый goal + бюджет), копит профиль и задаёт следующий
+ * заготовленный вопрос — пропуская те, ответ на которые уже в профиле или которые
+ * уже звучали (клиент мог ответить «по всему острову»). done, когда спрашивать
+ * больше нечего. Деградация, а не полный разговор.
  */
 export function scriptedTurn(
   history: MatchMessage[],
@@ -187,20 +213,23 @@ export function scriptedTurn(
   locale: Locale,
   validDistricts: string[],
 ): InterviewResult {
-  const answered = history.filter((m) => m.role === "user").length;
   const lastUser = [...history].reverse().find((m) => m.role === "user")?.content ?? "";
 
   let merged = profile;
   if (lastUser) {
     const patch = paramsToProfile(parseHeuristic(lastUser, validDistricts).params);
     const goal = profile.goal ?? goalFrom(lastUser);
-    merged = mergeProfile(profile, sanitizeProfile({ ...patch, goal, notes: lastUser } as Record<string, unknown>, validDistricts));
+    const budget = patch.budgetMaxMThb === undefined && profile.budgetMaxMThb === undefined
+      ? budgetFrom(lastUser)
+      : undefined;
+    merged = mergeProfile(profile, sanitizeProfile({ ...patch, ...budget, goal, notes: lastUser } as Record<string, unknown>, validDistricts));
   }
 
   const script = SCRIPT[locale];
-  // answered = сколько ответов уже дал клиент; следующий вопрос — по этому индексу.
-  if (answered >= script.length) {
+  const asked = new Set(history.filter((m) => m.role === "assistant").map((m) => m.content));
+  const next = script.findIndex((q, i) => !asked.has(q) && !FILLED[i](merged));
+  if (next < 0) {
     return { reply: CLOSING[locale], profile: { ...merged, lang: locale }, done: true };
   }
-  return { reply: script[answered], profile: { ...merged, lang: locale }, done: false };
+  return { reply: script[next], profile: { ...merged, lang: locale }, done: false };
 }

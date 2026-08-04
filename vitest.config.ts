@@ -10,6 +10,10 @@ export default defineConfig({
     include: ["src/**/*.test.{ts,tsx}"],
   },
   resolve: {
-    alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) },
+    alias: {
+      "@": fileURLToPath(new URL("./src", import.meta.url)),
+      // server-only ставит Next для сборки; под vitest его нет — гасим стабом.
+      "server-only": fileURLToPath(new URL("./src/test-stubs/server-only.ts", import.meta.url)),
+    },
   },
 });
