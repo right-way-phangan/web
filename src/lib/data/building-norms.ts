@@ -1,8 +1,7 @@
 /**
  * Quantitative Koh Phangan building norms — the "precise rules" layer on top of
  * the city-plan colour (zone-rules.ts gives qualitative use; this gives numbers:
- * max height, max house size, plot coverage, footprint, setback, min plot,
- * buildable y/n).
+ * max height, max house size, plot coverage, footprint, setback, buildable y/n).
  *
  * SOURCES OF TRUTH (three laws, most-restrictive wins):
  *  1. Thai Building Control Act / Ministerial Regulation No. 55 (B.E. 2543) —
@@ -18,11 +17,14 @@
  *     Ko Phangan / Ko Tao), in force 21 May 2025 — extra limits driven by three
  *     geographic facts we estimate from coordinates: distance to sea, elevation
  *     (m a.s.l.) and slope (height 6/12 m, footprint caps, green %, no-build gates).
+ *     Its slope thresholds are PERCENT gradients (35% / 50%), not degrees —
+ *     verified against the clause text quoted in a lawyer's DD report (deed
+ *     13681, First Consultants 47, June 2026).
  *
  * Deliberately INDICATIVE. Caveats baked in and surfaced in the UI:
  *  - Sea distance / elevation / slope are estimated from open data (OSM
- *    coastline ~30m, SRTM elevation ~30m); not a substitute for a survey.
- *  - Slope thresholds are in DEGREES (sources sometimes loosely say "%").
+ *    coastline ~30m, SRTM elevation ~30m) and SRTM reads the forest canopy, so
+ *    on Phangan it overstates both; a survey overrides it in the UI.
  *  - The city-plan cap is read from the tile COLOUR, so a mis-read colour means
  *    a wrong tier — the exact zone number is confirmed against landsmaps in DD.
  *  - Enforcement varies; every figure is verified in Transaction DD.
@@ -40,6 +42,9 @@ export type PlanZone =
   | "red"
   | "purple"
   | "blue"
+  | "water"
+  | "olive"
+  | "brown"
   | "gray";
 
 /** Which layer a constraint came from — for provenance in the UI. */
@@ -55,7 +60,7 @@ export interface NormLine {
 }
 
 export interface BuildingNorms {
-  /** False when any layer forbids building (≤10m from sea, slope >50°). */
+  /** False when a layer forbids building outright (within 10 m of the shore). */
   buildable: boolean;
   /** Localized reason when not buildable. */
   noBuildReason?: string;
@@ -72,8 +77,16 @@ export interface NormInputs {
   seaDistanceM?: number;
   /** Elevation above sea level, metres (estimated or user-entered). */
   elevationM?: number;
-  /** Ground slope in DEGREES (estimated or user-entered). */
-  slopeDeg?: number;
+  /** Ground slope in PERCENT — the unit the regulation uses (estimated or surveyed). */
+  slopePct?: number;
+  /**
+   * True when the slope came from the DEM rather than a survey. The DEM takes
+   * the steepest neighbour gradient over 60 m of canopy-topped SRTM, which runs
+   * far above the surveyed average (51% vs 27% on deed 13681), and the
+   * regulation is read at the building spot anyway — so an estimated slope only
+   * warns, it never binds the limits.
+   */
+  slopeEstimated?: boolean;
   /** City-plan colour class at the point — drives the ผังเมือง size caps. */
   planZone?: PlanZone;
   /** Plot area in m² — turns the % coverage into an actual buildable footprint. */
@@ -126,27 +139,29 @@ const T = {
     maxFootprint: "Max footprint",
     setback: "Setback from boundary",
     setbackVal: "≥ 2 m (walls with windows) · ≥ 0.5 m (blank wall, eaves)",
-    minPlot: "Min plot size",
     use: "Allowed use",
     villa: "private villa / house",
     singleHome: "single-family home only",
     style: "Thai / tropical style, natural-colour roof",
     noBuildSea: "No construction within 10 m of the shoreline.",
-    noBuildSlope: "No construction on slopes steeper than 50°.",
     m: (n: number) => `${n} m`,
     floors1: " · 1 storey",
     sqm: (n: number) => `${Math.round(n).toLocaleString("en-US")} m²`,
-    allFloors: " (all floors)",
+    allFloors: " (all floors, per building)",
     pct: (n: number) => `${n}%`,
     ofPlot: (pct: number, sqm: number) => `${pct}% · up to ${Math.round(sqm).toLocaleString("en-US")} m²`,
     greenNote: (n: number) => `Of the open space, ≥ ${n}% must be planted (native trees).`,
     hotelGreen: "Hotels must leave ≥ 50% of the plot as green space.",
     units10: "Developments of 10+ units need wastewater treatment.",
-    noTerrain: "No terrain/slope alteration, retaining walls or land subdivision.",
     coastFree: "Inside 50 m of the shore: a ≥ 12 m strip along the beach must stay clear.",
     waterway: "A ≥ 6 m strip along canals and public water bodies must stay clear.",
     livingShare: (n: number) => `Protection zone — housing may take at most ${n}% of the plot.`,
-    plotBelowMin: "The plot is smaller than the minimum for this zone — building is doubtful.",
+    slopeGrading: "Steep ground: regrading limited to 3:1 (horizontal:vertical); no cut or fill deeper than 1 m except for foundations, basements and water tanks.",
+    slopeSmallPlot: "On a plot under 400 m² the footprint cap drops to 70 m² and 50% of the plot must stay permeable.",
+    slopeTrees: "Slope 50%+: mature trees (trunk ≥ 50 cm around at 1.3 m) must not be damaged — roots or trunk.",
+    slopeSurvey: "Slope is judged at the building spot, not as a plot average — a contour survey decides whether these limits apply.",
+    slopeMaybe: (n: number) =>
+      `Slope here estimates at ~${n}% from open data, which reads high. If a survey confirms 35%+: single house only, ≤ 6 m tall, footprint ≤ 90 m² (≤ 70 m² on a plot under 400 m²), ≥ 70% of the plot left permeable.`,
     source:
       "Source: Thai Building Control Act (Ministerial Reg. 55) + Koh Phangan city plan (Ministerial Reg. B.E. 2558, amended B.E. 2566) + MNRE environmental protection regulation for Surat Thani (Ko Samui / Ko Phangan / Ko Tao, in force 21 May 2025) — indicative, confirmed in due diligence.",
   },
@@ -157,27 +172,29 @@ const T = {
     maxFootprint: "Макс. пятно застройки",
     setback: "Отступ от границы",
     setbackVal: "≥ 2 м (стена с окнами) · ≥ 0.5 м (глухая стена, свесы)",
-    minPlot: "Мин. размер участка",
     use: "Разрешённое использование",
     villa: "частная вилла / дом",
     singleHome: "только одиночный жилой дом",
     style: "тайский / тропический стиль, крыша натурального цвета",
     noBuildSea: "Строительство в пределах 10 м от береговой линии запрещено.",
-    noBuildSlope: "Строительство на склонах круче 50° запрещено.",
     m: (n: number) => `${n} м`,
     floors1: " · 1 этаж",
     sqm: (n: number) => `${Math.round(n).toLocaleString("ru-RU")} м²`,
-    allFloors: " (все этажи)",
+    allFloors: " (все этажи, на здание)",
     pct: (n: number) => `${n}%`,
     ofPlot: (pct: number, sqm: number) => `${pct}% · до ${Math.round(sqm).toLocaleString("ru-RU")} м²`,
     greenNote: (n: number) => `Из свободной площади ≥ ${n}% — озеленение (местные деревья).`,
     hotelGreen: "Отель — оставить ≥ 50% участка под озеленение.",
     units10: "Застройка 10+ юнитов — нужны очистные сооружения.",
-    noTerrain: "Запрет на изменение рельефа/склона, подпорные стены и деление участка.",
     coastFree: "В 50 м от моря: полоса ≥ 12 м вдоль берега остаётся свободной.",
     waterway: "Вдоль каналов и водоёмов — свободная полоса ≥ 6 м.",
     livingShare: (n: number) => `Охранная зона — под жильё не более ${n}% участка.`,
-    plotBelowMin: "Участок меньше минимального для этой зоны — строительство под вопросом.",
+    slopeGrading: "Крутой склон: планировка грунта не круче 3:1 (гориз.:верт.), выемка и насыпь не глубже и не выше 1 м — кроме фундамента, подвала и подземных резервуаров.",
+    slopeSmallPlot: "На участке меньше 400 м² пятно застройки падает до 70 м², водопроницаемыми должны остаться 50% участка.",
+    slopeTrees: "Уклон 50%+: нельзя повреждать корни и стволы взрослых деревьев (обхват ≥ 50 см на высоте 1,3 м).",
+    slopeSurvey: "Уклон считается по месту постройки, а не в среднем по участку — попадание под эти лимиты решает топосъёмка.",
+    slopeMaybe: (n: number) =>
+      `Уклон здесь оценивается в ~${n}% по открытым данным, а они завышают. Если топосъёмка подтвердит 35%+: только одиночный дом, ≤ 6 м, пятно ≤ 90 м² (≤ 70 м² на участке меньше 400 м²), ≥ 70% участка — водопроницаемые.`,
     source:
       "Источник: Закон Таиланда о контроле строительства (регламент №55) + городской план Ко Пангана (регламент 2558, ред. 2566) + регламент Минприроды об охране среды Сурат-Тани (Самуи / Панган / Тао, в силе с 21 мая 2025) — индикативно, подтверждается в due diligence.",
   },
@@ -194,7 +211,6 @@ interface Acc {
   minOpenPct?: { v: number; layer: NormLayer };
   // Of that, how much must be planted greenery (env tiers only).
   minGreenPct?: { v: number; layer: NormLayer };
-  minPlotSqm?: { v: number; layer: NormLayer };
   singleHomeLayer?: NormLayer;
   styleRequired?: boolean;
 }
@@ -212,19 +228,17 @@ function loosen<T extends { v: number }>(cur: T | undefined, next: T): T {
  * applicable rule set for a private villa/house. Null when no inputs at all.
  */
 export function combineBuildingNorms(inputs: NormInputs, locale: RuleLocale): BuildingNorms | null {
-  const { seaDistanceM, elevationM, slopeDeg, planZone, plotSqm } = inputs;
-  if (seaDistanceM == null && elevationM == null && slopeDeg == null && planZone == null) return null;
+  const { seaDistanceM, elevationM, slopePct, slopeEstimated, planZone, plotSqm } = inputs;
+  if (seaDistanceM == null && elevationM == null && slopePct == null && planZone == null) return null;
 
   const t = T[locale];
   const notes: string[] = [];
   const acc: Acc = {};
 
-  // Hard "cannot build" gates first.
+  // Hard "cannot build" gate. Steep ground is NOT one: the regulation caps what
+  // may be built on a 35%+ / 50%+ slope, it does not forbid building there.
   if (seaDistanceM != null && seaDistanceM < 10) {
     return { buildable: false, noBuildReason: t.noBuildSea, lines: [], notes: [], source: t.source };
-  }
-  if (slopeDeg != null && slopeDeg > 50) {
-    return { buildable: false, noBuildReason: t.noBuildSlope, lines: [], notes: [], source: t.source };
   }
 
   // ── Baseline for any private dwelling (Building Control Act / MR 55) ──
@@ -261,36 +275,44 @@ export function combineBuildingNorms(inputs: NormInputs, locale: RuleLocale): Bu
   }
 
   // ── Elevation above sea level ──
+  // Below 80 m the environmental regulation adds no size limits of its own —
+  // the city plan governs (confirmed in the DD report for deed 13681).
   if (elevationM != null) {
     if (elevationM > 140) {
       acc.singleHomeLayer = "elevation";
       acc.maxHeightM = tighten(acc.maxHeightM, { v: 6, layer: "elevation" as const });
       acc.maxFootprintSqm = tighten(acc.maxFootprintSqm, { v: 90, layer: "elevation" as const });
-      acc.minOpenPct = loosen(acc.minOpenPct, { v: 50, layer: "elevation" as const });
+      acc.minOpenPct = loosen(acc.minOpenPct, { v: 70, layer: "elevation" as const });
       acc.minGreenPct = loosen(acc.minGreenPct, { v: 50, layer: "elevation" as const });
-      acc.minPlotSqm = loosen(acc.minPlotSqm, { v: 400, layer: "elevation" as const });
       acc.styleRequired = true;
     } else if (elevationM >= 80) {
       acc.singleHomeLayer = "elevation";
       acc.maxHeightM = tighten(acc.maxHeightM, { v: 6, layer: "elevation" as const });
       acc.minOpenPct = loosen(acc.minOpenPct, { v: 50, layer: "elevation" as const });
       acc.minGreenPct = loosen(acc.minGreenPct, { v: 50, layer: "elevation" as const });
-      acc.minPlotSqm = loosen(acc.minPlotSqm, { v: 400, layer: "elevation" as const });
       acc.styleRequired = true;
     } else {
       notes.push(t.hotelGreen, t.units10);
     }
   }
 
-  // ── Slope (degrees) ──
-  if (slopeDeg != null && slopeDeg >= 35) {
+  // ── Slope, PERCENT gradient (35% ≈ 19°, 50% ≈ 27°) ──
+  // 35%+: single house ≤ 6 m; footprint ≤ 90 m² on a plot over 100 sq.wah
+  // (400 m²), ≤ 70 m² below it; permeable open space ≥ 70% / 50% respectively;
+  // greenery ≥ 50% of that open space; grading limited to 3:1 and ±1 m.
+  if (slopePct != null && slopePct >= 35 && slopeEstimated) {
+    // Estimate only — flag what would apply, don't cut the limits on a guess.
+    notes.push(t.slopeMaybe(slopePct), t.slopeSurvey);
+  } else if (slopePct != null && slopePct >= 35) {
+    const smallPlot = plotSqm != null && plotSqm < 400;
     acc.singleHomeLayer = "slope";
     acc.maxHeightM = tighten(acc.maxHeightM, { v: 6, layer: "slope" as const });
-    acc.maxFootprintSqm = tighten(acc.maxFootprintSqm, { v: 80, layer: "slope" as const });
-    acc.minOpenPct = loosen(acc.minOpenPct, { v: 75, layer: "slope" as const });
+    acc.maxFootprintSqm = tighten(acc.maxFootprintSqm, { v: smallPlot ? 70 : 90, layer: "slope" as const });
+    acc.minOpenPct = loosen(acc.minOpenPct, { v: smallPlot ? 50 : 70, layer: "slope" as const });
     acc.minGreenPct = loosen(acc.minGreenPct, { v: 50, layer: "slope" as const });
-    acc.minPlotSqm = loosen(acc.minPlotSqm, { v: 480, layer: "slope" as const });
-    notes.push(t.noTerrain);
+    notes.push(t.slopeGrading, t.slopeSurvey);
+    if (plotSqm == null) notes.push(t.slopeSmallPlot);
+    if (slopePct >= 50) notes.push(t.slopeTrees);
   }
 
   // Build the display lines from the accumulator.
@@ -336,12 +358,10 @@ export function combineBuildingNorms(inputs: NormInputs, locale: RuleLocale): Bu
     });
   // Boundary setback — Building Control Act, applies to every dwelling.
   lines.push({ label: t.setback, value: t.setbackVal, layer: "bca" });
-  if (acc.minPlotSqm) lines.push({ label: t.minPlot, value: t.sqm(acc.minPlotSqm.v), layer: acc.minPlotSqm.layer });
 
   // Notes: greenery share of the open space, plus the conditional flags.
   if (acc.minGreenPct) notes.unshift(t.greenNote(acc.minGreenPct.v));
   if (acc.styleRequired) notes.push(t.style);
-  if (plotSqm != null && acc.minPlotSqm && plotSqm < acc.minPlotSqm.v) notes.unshift(t.plotBelowMin);
 
   // De-dupe notes while preserving order.
   const uniqNotes = [...new Set(notes)];

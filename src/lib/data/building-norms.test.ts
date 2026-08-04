@@ -9,60 +9,89 @@ function line(
   return norms?.lines.find((l) => l.label === label)?.value;
 }
 
-describe("combineBuildingNorms — city-plan house size", () => {
-  it("caps a rural (green) inland plot at 300 m² of combined floor area", () => {
-    // The case that started this: 945 m from the sea, 65 m a.s.l., 27° slope —
-    // no environmental tier bites, so the city plan is the only size limit.
+/**
+ * The reference case is deed 13681 (Ban Tai side, 9.72206/99.98950), where we
+ * have a lawyer's DD report to check against: light-green zone (clause 11),
+ * 1,237.2 m² plot, 940 m from the sea, surveyed at 32–48 m a.s.l. and 27%
+ * average slope. Its conclusion: 150 m² per house, 12 m tall, housing on at
+ * most 30% of the plot, no slope restrictions.
+ */
+describe("combineBuildingNorms — against the DD report for deed 13681", () => {
+  const plot = { seaDistanceM: 940, planZone: "greenLight" as const, plotSqm: 1237 };
+
+  it("matches the report when fed the surveyed figures", () => {
+    const n = combineBuildingNorms({ ...plot, elevationM: 48, slopePct: 27 }, "ru");
+    expect(line(n, "Макс. площадь дома")).toBe("150 м² (все этажи, на здание)");
+    expect(line(n, "Макс. высота")).toBe("12 м");
+    expect(line(n, "Макс. застройка участка")).toBe("30% · до 371 м²");
+    expect(line(n, "Разрешённое использование")).toBe("частная вилла / дом");
+  });
+
+  it("keeps the same limits when the DEM overstates the slope", () => {
+    // Our DEM reads 51% here against the survey's 27% — an estimate must warn,
+    // never cut the house down to a single 6 m storey on its own.
     const n = combineBuildingNorms(
-      { seaDistanceM: 945, elevationM: 65, slopeDeg: 27, planZone: "green" },
+      { ...plot, elevationM: 65, slopePct: 51, slopeEstimated: true },
       "ru",
     );
-    expect(n?.buildable).toBe(true);
-    expect(line(n, "Макс. площадь дома")).toBe("300 м² (все этажи)");
     expect(line(n, "Макс. высота")).toBe("12 м");
+    expect(line(n, "Макс. площадь дома")).toBe("150 м² (все этажи, на здание)");
+    expect(n?.notes.some((x) => x.includes("~51%"))).toBe(true);
+  });
+
+  it("applies the slope tier once a survey confirms it", () => {
+    const n = combineBuildingNorms({ ...plot, elevationM: 48, slopePct: 40 }, "ru");
+    expect(line(n, "Макс. высота")).toBe("6 м · 1 этаж");
+    expect(line(n, "Макс. пятно застройки")).toBe("90 м²");
+    expect(line(n, "Макс. застройка участка")).toBe("30% · до 371 м²");
+  });
+});
+
+describe("combineBuildingNorms — city-plan tiers", () => {
+  it("caps a rural (green) inland plot at 300 m²", () => {
+    const n = combineBuildingNorms({ seaDistanceM: 945, elevationM: 65, planZone: "green" }, "ru");
+    expect(line(n, "Макс. площадь дома")).toBe("300 м² (все этажи, на здание)");
+    expect(line(n, "Макс. застройка участка")).toBe("70%");
   });
 
   it("applies the stricter shoreline tier inside 50 m", () => {
-    // Green zone shoreline tier is 150 m², but the 2025 env rule cuts it to 75.
-    const n = combineBuildingNorms({ seaDistanceM: 30, planZone: "green" }, "en");
-    expect(line(n, "Max house size")).toBe("75 m² (all floors)");
+    // Yellow's shoreline tier is 300 m², but the 2025 env rule cuts it to 75.
+    const n = combineBuildingNorms({ seaDistanceM: 30, planZone: "yellow" }, "en");
+    expect(line(n, "Max house size")).toBe("75 m² (all floors, per building)");
     expect(line(n, "Max height")).toBe("6 m · 1 storey");
   });
 
-  it("keeps the zone tiers apart (residential yellow is 1000 m²)", () => {
+  it("keeps the zone tiers apart (residential yellow inland is 1000 m²)", () => {
     const n = combineBuildingNorms({ seaDistanceM: 800, planZone: "yellow" }, "en");
-    expect(line(n, "Max house size")).toBe("1,000 m² (all floors)");
+    expect(line(n, "Max house size")).toBe("1,000 m² (all floors, per building)");
   });
 
-  it("limits housing to 30% of the plot in a protection zone", () => {
+  it("limits housing to 30% of the plot in the forest-conservation zone", () => {
     const n = combineBuildingNorms({ seaDistanceM: 800, planZone: "greenBright" }, "ru");
     expect(line(n, "Макс. застройка участка")).toBe("30%");
-    expect(line(n, "Макс. площадь дома")).toBe("300 м² (все этажи)");
+    expect(line(n, "Макс. площадь дома")).toBe("300 м² (все этажи, на здание)");
   });
+});
 
-  it("turns the coverage % into m² once the plot area is known", () => {
+describe("combineBuildingNorms — footprint and gates", () => {
+  it("drops the footprint cap to 70 m² on a plot under 400 m²", () => {
     const n = combineBuildingNorms(
-      { seaDistanceM: 800, planZone: "green", plotSqm: 1600 },
+      { seaDistanceM: 800, slopePct: 40, planZone: "green", plotSqm: 300 },
       "en",
     );
-    expect(line(n, "Max plot coverage")).toBe("70% · up to 1,120 m²");
-  });
-
-  it("takes the strictest of the slope footprint and the coverage share", () => {
-    const n = combineBuildingNorms(
-      { seaDistanceM: 800, slopeDeg: 40, planZone: "green", plotSqm: 400 },
-      "en",
-    );
-    // Slope caps the footprint at 80 m²; 25% of 400 m² is 100 m² → 80 wins.
-    expect(line(n, "Max footprint")).toBe("80 m²");
-    expect(n?.notes).toContain(
-      "The plot is smaller than the minimum for this zone — building is doubtful.",
-    );
+    expect(line(n, "Max footprint")).toBe("70 m²");
+    expect(line(n, "Max plot coverage")).toBe("50% · up to 150 m²");
   });
 
   it("still refuses to build within 10 m of the shore", () => {
     const n = combineBuildingNorms({ seaDistanceM: 5, planZone: "yellow" }, "en");
     expect(n?.buildable).toBe(false);
+  });
+
+  it("does not forbid building on a steep slope — it limits it", () => {
+    const n = combineBuildingNorms({ seaDistanceM: 800, slopePct: 60, planZone: "green" }, "en");
+    expect(n?.buildable).toBe(true);
+    expect(n?.notes.some((x) => x.includes("50 cm"))).toBe(true);
   });
 
   it("returns null when nothing at all is known", () => {

@@ -85,12 +85,12 @@ export async function BuildingRules({
   let norms = null;
   let seaDistanceM: number | undefined;
   let elevationM: number | undefined;
-  let slopeDeg: number | undefined;
+  let slopePct: number | undefined;
   if (object.lat != null && object.lng != null) {
     seaDistanceM = seaDistanceMeters(object.lat, object.lng);
     const terrain = await fetchTerrain(object.lat, object.lng);
     elevationM = terrain?.elevationM;
-    slopeDeg = terrain?.slopeDeg;
+    slopePct = terrain?.slopePct;
     // The card's own zone drives the city-plan size cap; the three greens are
     // not distinguished in the CRM field, so Green maps to the plain rural tier.
     const planZone = PLAN_ZONE_BY_CARD[object.zone ?? ""];
@@ -102,7 +102,7 @@ export async function BuildingRules({
         : object.areaRai != null
           ? object.areaRai * 1600
           : undefined;
-    norms = combineBuildingNorms({ seaDistanceM, elevationM, slopeDeg, planZone, plotSqm }, locale);
+    norms = combineBuildingNorms({ seaDistanceM, elevationM, slopePct, planZone, plotSqm }, locale);
   }
 
   if (!info && !manual && !norms) return null;
@@ -110,11 +110,11 @@ export async function BuildingRules({
   const t = COPY[locale];
   const ddHref = (locale === "ru" ? "/ru/due-diligence" : "/due-diligence") as Route;
 
-  // "Based on ~120 m to sea · ~45 m elevation · ~12° slope (estimated)"
+  // "Based on ~120 m to sea · ~45 m elevation · ~22% slope (estimated)"
   const basisParts: string[] = [];
   if (seaDistanceM != null) basisParts.push(`~${seaDistanceM} m ${t.sea}`);
   if (elevationM != null) basisParts.push(`~${elevationM} m ${t.elev}`);
-  if (slopeDeg != null) basisParts.push(`~${slopeDeg}° ${t.slope}`);
+  if (slopePct != null) basisParts.push(`~${slopePct}% ${t.slope}`);
 
   return (
     <Appear>
