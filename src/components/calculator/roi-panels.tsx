@@ -2,7 +2,7 @@
 
 // Аналитические панели калькулятора: сравнения, таблицы, подборки (вынесено из roi-calculator.tsx, 2026-07-04).
 
-import { useMemo } from "react";
+import { useMemo, type ReactNode } from "react";
 import Link from "next/link";
 import type { Route } from "next";
 import { ArrowRight } from "lucide-react";
@@ -13,6 +13,41 @@ import type { RentalMarket } from "@/lib/data/rental-market";
 import type { CalcDict } from "@/lib/i18n/calculator";
 import { fmtPct, type Money, type SavedScenario } from "./roi-shared";
 import { Row } from "./roi-ui";
+
+/**
+ * Лента карточек-подборок вместо сетки. Подборки живут в колонке результатов
+ * калькулятора, а она на лендинге проекта/объекта узкая (~340px) — сетка там
+ * вырождалась в столбик, блок вырастал на два-три экрана, и рядом с ним висела
+ * пустая полоса под колонкой полей. Горизонтальный snap-скролл держит высоту в
+ * одну карточку на любой ширине; край следующей карточки видно — это и есть
+ * подсказка, что ленту можно листать (свайп на тач, трекпад/скроллбар на
+ * десктопе). Тот же паттерн, что в [[recently-viewed]].
+ */
+function CardRail({
+  children,
+  label,
+  className = "",
+}: {
+  children: ReactNode;
+  label: string;
+  className?: string;
+}) {
+  return (
+    <div
+      className={`flex snap-x snap-mandatory gap-5 overflow-x-auto overscroll-x-contain pb-2 ${className}`}
+      role="region"
+      aria-roledescription="carousel"
+      aria-label={label}
+    >
+      {children}
+    </div>
+  );
+}
+
+/** Слайд ленты: ширина в процентах от ленты, чтобы край соседа всегда торчал. */
+function RailItem({ children }: { children: ReactNode }) {
+  return <div className="w-[min(78%,280px)] shrink-0 snap-start">{children}</div>;
+}
 
 /** Break-even readout: the occupancy / growth at which the deal matches a deposit. */
 export function BreakEven({
@@ -165,21 +200,19 @@ export function RoiMatches({
       ) : (
         <>
           <p className="mt-2 text-sm text-forest-500/70">{t.roiTargetMatches(matches.length)}</p>
-          {/* Column count keys off this block's OWN width (container query), not
-              the viewport — the calculator is embedded in narrow columns on the
-              project/object pages where viewport-based lg:grid-cols-3 crushed the
-              cards into clipped slivers. */}
-          <div className="@container mt-6">
-            <div className="grid grid-cols-1 gap-6 @[30rem]:grid-cols-2 @[46rem]:grid-cols-3">
+          {/* Лента уходит под правый паддинг блока — карточка «обрезается»
+              краем, а не стеной, и видно, что есть продолжение. */}
+          <div className="-mr-6 mt-6">
+            <CardRail label={t.roiTargetTitle} className="pr-6">
               {matches.map(({ o, roi }) => (
-                <div key={o.id}>
+                <RailItem key={o.id}>
                   <div className="mb-2 inline-flex items-center rounded-sm bg-brass-500/10 px-2 py-0.5 text-xs font-medium text-brass-600">
                     ROI {fmtPct(roi)}
                   </div>
                   <ObjectCard object={o} />
-                </div>
+                </RailItem>
               ))}
-            </div>
+            </CardRail>
           </div>
         </>
       )}
@@ -309,16 +342,13 @@ export function SimilarObjects({
       <h3 className="mt-3 font-serif text-2xl text-forest-900">
         {t.aroundMatches(money(price), matches.length)}
       </h3>
-      {/* Columns key off this block's own width (container query), not the
-          viewport — embedded in narrow project/object columns, viewport-based
-          lg:grid-cols-3 crushed the cards into clipped slivers. */}
-      <div className="@container mt-6">
-        <div className="grid grid-cols-1 gap-6 @[30rem]:grid-cols-2 @[46rem]:grid-cols-3">
-          {matches.map((o) => (
-            <ObjectCard key={o.id} object={o} />
-          ))}
-        </div>
-      </div>
+      <CardRail label={t.propsForBudget} className="mt-6">
+        {matches.map((o) => (
+          <RailItem key={o.id}>
+            <ObjectCard object={o} />
+          </RailItem>
+        ))}
+      </CardRail>
       <Link
         href={href}
         className="mt-6 inline-flex items-center gap-2 rounded-sm bg-panel px-5 py-2.5 text-sm font-medium text-panel-fg transition-colors hover:bg-forest-400"
