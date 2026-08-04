@@ -10,18 +10,20 @@ import { getPublicObjects } from "@/lib/data/objects";
 import type { Locale } from "@/lib/i18n/dictionaries";
 
 // Шесть витринных районов — у всех есть фото /images/districts/<slug>.jpg.
-const FEATURED_SLUGS = ["sri-thanu", "haad-yao", "chaloklum", "thong-sala", "ban-tai", "haad-salad"];
+const FEATURED_SLUGS = ["sri-thanu", "haad-yao", "chaloklum", "thong-sala", "ban-tai"];
 
 const COPY = {
   en: {
+    guide: "District guide",
     eyebrow: "Where to look",
-    title: "Six districts, six characters.",
+    title: "Districts with character.",
     lede: "Every district has its own buyer. Start where yours lives.",
     all: "All districts",
   },
   ru: {
+    guide: "Гид по району",
     eyebrow: "Где искать",
-    title: "Шесть районов — шесть характеров.",
+    title: "Районы с характером.",
     lede: "У каждого района свой покупатель. Начните с того, который ваш.",
     all: "Все районы",
   },
@@ -114,7 +116,7 @@ export async function DistrictsBento({ locale }: { locale: Locale }) {
                   </div>
                   <div className="mt-1 flex items-center gap-1.5 text-[11px] uppercase tracking-[0.15em] text-panel-fg/70">
                     <MapPin className="h-3 w-3" aria-hidden />
-                    {n > 0 ? listingsLabel(n, locale) : d.amoName}
+                    {n > 0 ? listingsLabel(n, locale) : t.guide}
                   </div>
                 </div>
               </Link>
