@@ -16,7 +16,7 @@ const EN: Section[] = [
   {
     h: "Who we are",
     body: [
-      "Right Way Phangan Group is a real estate agency operating on Koh Phangan, Thailand. The business is in the process of formal incorporation in Thailand; this policy will be updated with the registered company details once that is complete. Until then the data controller is the founder, reachable at the contact below.",
+      "Right Way Phangan Group is a real estate agency operating on Koh Phangan, Thailand. The business is in the process of formal incorporation in Thailand; this policy will be updated with the registered company details once that is complete. Until then, privacy requests are handled through the contact below.",
     ],
   },
   {
@@ -63,7 +63,7 @@ const RU: Section[] = [
   {
     h: "Кто мы",
     body: [
-      "Right Way Phangan Group — агентство недвижимости, работающее на острове Панган (Таиланд). Компания находится в процессе официальной регистрации в Таиланде; после её завершения политика будет дополнена реквизитами зарегистрированного юрлица. До этого оператором данных выступает основатель — контакт указан ниже.",
+      "Right Way Phangan Group — агентство недвижимости, работающее на острове Панган (Таиланд). Компания находится в процессе официальной регистрации в Таиланде; после её завершения политика будет дополнена реквизитами зарегистрированного юрлица. До этого запросы, связанные с персональными данными, обрабатываются через контакт, указанный ниже.",
     ],
   },
   {

@@ -469,7 +469,7 @@ export interface AboutDict {
   principlesTitle: string;
   principles: { title: string; text: string }[];
   nameSection: { eyebrow: string; title: string; body: string[] };
-  founder: { eyebrow: string; name: string; role: string; body: string; languages: string; whatsapp: string; contact: string };
+  team: { eyebrow: string; title: string; role: string; body: string; languages: string; whatsapp: string; contact: string };
 }
 
 const about: Record<Locale, AboutDict> = {
@@ -477,7 +477,7 @@ const about: Record<Locale, AboutDict> = {
     hero: {
       eyebrow: "About",
       title: "A specialised advisory, not a listing portal.",
-      lede: "Right Way Phangan Group was founded in 2026 by Vladimir Buryi, building on four years of operational work in the local land market. We are a small, specialised team focused exclusively on Koh Phangan property.",
+      lede: "Right Way Phangan Group was founded in 2026 on years of ground work in the local land market. We are a small, specialised team focused exclusively on Koh Phangan property.",
     },
     principlesEyebrow: "What we believe",
     principlesTitle: "Three principles, in plain language.",
@@ -503,11 +503,11 @@ const about: Record<Locale, AboutDict> = {
         "We optimise for the first path. It costs a little more time. It is rarely the wrong choice.",
       ],
     },
-    founder: {
-      eyebrow: "The founder",
-      name: "Vladimir Buryi",
-      role: "Founder · Koh Phangan",
-      body: "Originally from Saint Petersburg, Russia. Four years operating in the Phangan land market, with hundreds of land plots assessed and over forty transactions supported in the local market. Living on Koh Phangan year-round for over four years.",
+    team: {
+      eyebrow: "The team",
+      title: "Small team, one focus.",
+      role: "Koh Phangan property only",
+      body: "Advisory, due diligence and market analytics under one roof. Every legal question goes through licensed Thai lawyers, and what we know we publish — the guides, market data and tools on this site.",
       languages: "Languages: English, Russian.",
       whatsapp: "Message on WhatsApp",
       contact: "Get in touch",
@@ -517,7 +517,7 @@ const about: Record<Locale, AboutDict> = {
     hero: {
       eyebrow: "О нас",
       title: "Профильное агентство, а не портал объявлений.",
-      lede: "Right Way Phangan Group основана в 2026 году Владимиром Бурым на четырёх годах работы на местном рынке земли. Небольшая команда специалистов — только недвижимость Ко Пангана.",
+      lede: "Right Way Phangan Group основана в 2026 году на многолетнем опыте работы на местном рынке земли. Небольшая команда специалистов — только недвижимость Ко Пангана.",
     },
     principlesEyebrow: "Во что мы верим",
     principlesTitle: "Три принципа, простыми словами.",
@@ -543,11 +543,11 @@ const about: Record<Locale, AboutDict> = {
         "Мы выбираем первый путь. Он стоит чуть больше времени. И почти никогда не оказывается ошибкой.",
       ],
     },
-    founder: {
-      eyebrow: "Основатель",
-      name: "Владимир Бурый",
-      role: "Основатель · Ко Панган",
-      body: "Родом из Санкт-Петербурга. Четыре года работы на рынке земли Пангана: сотни оценённых участков и более сорока сопровождённых сделок на местном рынке. Живу на Ко Пангане более четырёх лет.",
+    team: {
+      eyebrow: "Команда",
+      title: "Небольшая команда, один фокус.",
+      role: "Только недвижимость Ко Пангана",
+      body: "Консультации, проверка объектов и аналитика рынка — в одном месте. Все юридические вопросы проходят через лицензированных тайских юристов, а то, что мы знаем, мы публикуем: гиды, данные рынка и инструменты на этом сайте.",
       languages: "Языки: английский, русский.",
       whatsapp: "Написать в WhatsApp",
       contact: "Связаться",

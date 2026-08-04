@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { ArticleBody } from "@/components/sections/article-body";
 import { ArticleByline } from "@/components/sections/article-byline";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
-import { DEFAULT_AUTHOR, authorPersonSchema } from "@/content/authors";
+import { DEFAULT_AUTHOR, authorOrgSchema } from "@/content/authors";
 import { siteConfig } from "@/lib/site-config";
 import { getSiteUrl } from "@/lib/site-url";
 
@@ -54,7 +54,7 @@ export default async function RussianBlogPostPage({ params }: Props) {
     datePublished: p.published,
     dateModified: p.updated ?? p.published,
     inLanguage: "ru",
-    author: authorPersonSchema(DEFAULT_AUTHOR, siteUrl, "ru"),
+    author: authorOrgSchema(siteUrl),
     publisher: { "@type": "Organization", name: siteConfig.name },
     mainEntityOfPage: `${siteUrl}/ru/blog/${p.slug}`,
   };

@@ -16,7 +16,7 @@ import { Appear } from "@/components/motion/appear";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import {
   DEFAULT_AUTHOR,
-  authorPersonSchema,
+  authorOrgSchema,
   legalReviewerFor,
   reviewerPersonSchema,
 } from "@/content/authors";
@@ -62,7 +62,7 @@ export default async function KnowledgeArticlePage({ params }: Props) {
     datePublished: a.updated,
     dateModified: a.updated,
     inLanguage: "en",
-    author: authorPersonSchema(DEFAULT_AUTHOR, siteUrl, "en"),
+    author: authorOrgSchema(siteUrl),
     ...(reviewer ? { reviewedBy: reviewerPersonSchema(reviewer, siteUrl, "en") } : {}),
     publisher: { "@type": "Organization", name: siteConfig.name },
     mainEntityOfPage: `${siteUrl}/knowledge/${a.slug}`,

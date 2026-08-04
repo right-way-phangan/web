@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { jsonLdHtml } from "@/lib/seo/json-ld";
 import Link from "next/link";
 import { PageHero } from "@/components/sections/page-hero";
 import { ContentSection } from "@/components/sections/content-section";
@@ -8,14 +7,12 @@ import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 import { Reveal } from "@/components/sections/reveal";
 import { Button } from "@/components/ui/button";
 import { whatsappLink } from "@/lib/site-config";
-import { DEFAULT_AUTHOR, authorPersonSchema } from "@/content/authors";
-import { getSiteUrl } from "@/lib/site-url";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/about", languages: { en: "/about", ru: "/ru/about", "x-default": "/about" } },
   title: "About",
   description:
-    "Right Way Phangan Group — a real estate advisory on Koh Phangan, founded by Vladimir Buryi in 2026.",
+    "Right Way Phangan Group — real estate advisory on Koh Phangan: vetted listings, due diligence and market analytics.",
 };
 
 const PRINCIPLES = [
@@ -34,24 +31,12 @@ const PRINCIPLES = [
 ] as const;
 
 export default function AboutPage() {
-  const siteUrl = getSiteUrl();
-  // ProfilePage wrapping the founder Person — makes the #vladimir-buryi anchor
-  // an authoritative bio entity that every article's author @id resolves to.
-  const profileSchema = {
-    "@context": "https://schema.org",
-    "@type": "ProfilePage",
-    mainEntity: authorPersonSchema(DEFAULT_AUTHOR, siteUrl, "en"),
-  };
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: jsonLdHtml(profileSchema) }}
-      />
       <PageHero
         eyebrow="About"
         title="A specialised advisory, not a listing portal."
-        lede="Right Way Phangan Group was founded in 2026 by Vladimir Buryi, on four years of work in the local land market. A small, specialised team — Koh Phangan property only."
+        lede="Right Way Phangan Group was founded in 2026 on years of ground work in the local land market. A small, specialised team — Koh Phangan property only."
         image="/images/scenes/coast-aerial.jpg"
         imageAlt="Aerial view of the Koh Phangan coastline"
       />
@@ -74,16 +59,16 @@ export default function AboutPage() {
         </p>
       </ContentSection>
 
-      <section id={DEFAULT_AUTHOR.slug} className="container-prose scroll-mt-24 py-16 md:py-24">
+      <section className="container-prose py-16 md:py-24">
         <Reveal>
           <div className="grid gap-10 md:grid-cols-[1fr_2fr] md:gap-16">
             <div>
-              <SectionEyebrow>The founder</SectionEyebrow>
+              <SectionEyebrow>The team</SectionEyebrow>
               <h2 className="mt-3 font-serif text-3xl text-forest-900 md:text-4xl">
-                Vladimir Buryi
+                Small team, one focus.
               </h2>
               <p className="mt-2 text-sm text-forest-500/60">
-                Founder · Koh Phangan
+                Koh Phangan property only
               </p>
             </div>
 
@@ -91,10 +76,10 @@ export default function AboutPage() {
               <div className="rounded-core bg-cream-50 p-6 shadow-bezel md:p-8">
                 <div className="space-y-4 text-base leading-relaxed text-forest-500/85 md:text-lg">
                   <p>
-                    Originally from Saint Petersburg, Russia. Four years operating
-                    in the Phangan land market, with hundreds of land plots
-                    assessed and over forty transactions supported in the local
-                    market. Living on Koh Phangan year-round for over four years.
+                    Advisory, due diligence and market analytics under one roof.
+                    Every legal question goes through licensed Thai lawyers, and
+                    what we know we publish — the guides, market data and tools
+                    on this site.
                   </p>
                   <p className="text-sm text-forest-500/70">
                     Languages: English, Russian.
@@ -102,7 +87,7 @@ export default function AboutPage() {
                   <div className="flex flex-wrap gap-3 pt-4">
                     <Button asChild variant="outline" size="md">
                       <a
-                        href={whatsappLink("Hi Vladimir — I'd like to ask about Right Way Phangan.")}
+                        href={whatsappLink("Hi — I'd like to ask about Right Way Phangan.")}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
