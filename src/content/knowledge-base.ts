@@ -5355,6 +5355,118 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "structures",
     faqQuestion: "What is Sap-Ing-Sith, and is it a better alternative to a leasehold for a foreign buyer?",
   },
+  {
+    slug: "inheritance-tax-thai-property-100-million-threshold",
+    kbId: "kb-0081",
+    topic: "Costs",
+    title: "Inheritance tax on Thai property: the 100-million-baht threshold most villa owners' estates never reach",
+    short:
+      "Thailand has had a real inheritance tax since 2016 — but it only applies to what a single heir receives from a single deceased person above ฿100 million, valued at the Land Department's appraised value rather than market price. For most Phangan villa owners, that means the tax itself is a non-event; the real risk is an unplanned estate, not the tax bill.",
+    updated: "2026-08-04",
+    body: [
+      "Will your family owe Thai inheritance tax on your villa when you die? For the overwhelming majority of Phangan buyers, no — Thailand's Inheritance Tax Act B.E. 2558 (2015), in force since 1 February 2016, only taxes the value a single heir receives from a single deceased person above ฿100 million, and even then only the excess over that line. Below it, nothing is owed, and there's no requirement to file at all.",
+      { h: "Who's actually liable" },
+      {
+        ul: [
+          "**Thai nationals** — taxed on worldwide inherited assets.",
+          "**Foreigners domiciled in Thailand under immigration law** — also taxed on worldwide inherited assets, not just Thai ones.",
+          "**Any foreign heir, wherever they live** — taxed on assets situated in Thailand at the time of death, including a Phangan villa's land and building. Living abroad and never having set foot in Thailand doesn't exempt an heir from tax on a Thai-situated inheritance.",
+          "**A spouse of the deceased** — fully outside the Act; spousal inheritances are exempt entirely, at any value.",
+        ],
+      },
+      { h: "The threshold is per heir, per deceased person — not per estate" },
+      "The ฿100 million line isn't a single number applied to the whole estate; it's tested separately for each heir, against everything that heir receives from that particular deceased person, whether in one transfer or several over time (Section 12). If a parent leaves a villa worth ฿60 million and a bank deposit worth ฿50 million to a single child, that child's combined inheritance from that parent — ฿110 million — is what gets tested. Split the same estate three ways among three children instead, and each child's individual share may sit well under ฿100 million and owe nothing.",
+      { h: "How the villa itself is valued" },
+      "For immovable property, the Act values the inheritance at the Land Department's official appraised value used to calculate transfer fees — the same conservative government figure used throughout a purchase, not the market price a buyer would actually pay (Section 15). Appraised values on Koh Phangan typically run well below transaction prices; see [The full cost of buying on Koh Phangan](/knowledge/cost-of-buying-taxes-and-fees) for how that gap plays out at purchase. Outstanding third-party rights on the property — a registered mortgage, for instance — are deducted from that appraised value before the threshold test is applied. In practice, this appraisal gap is the main reason a villa that would sell for well over ฿100 million on the open market can still land an heir under the tax-free line.",
+      { h: "Rates — and only on the amount over the line" },
+      {
+        ul: [
+          "**5%** — where the heir is an ascendant or descendant of the deceased (a parent, grandparent or child).",
+          "**10%** — every other heir, including siblings, other relatives and unrelated beneficiaries.",
+          "Either rate applies only to the value above ฿100 million, not the full inheritance — an heir receiving ฿120 million from a parent owes 5% of ฿20 million, not of the full amount.",
+        ],
+      },
+      { h: "What counts as taxable inheritance" },
+      "The Act covers immovable property, listed securities, bank deposits, registered vehicles and other assets the government designates by Royal Decree (Section 14). A leasehold villa is more layered than an outright freehold: the lease, the building and any Thai company shares behind the structure can pass to heirs in different ways and are governed separately from whether tax is owed on them — see [Inheritance on Koh Phangan: what happens to your leasehold and villa when you die](/knowledge/inheritance-leasehold-and-villa) for how each piece actually transfers.",
+      { h: "Filing and payment, if the threshold is crossed" },
+      {
+        ul: [
+          "**150 days** from receiving the inheritance to file a return and pay, using the Revenue Department's prescribed form at any Area Revenue Branch Office (Section 17).",
+          "**Multiple heirs** must agree on one person to file; without agreement, any heir can petition the court to appoint an estate administrator (Section 19).",
+          "**Installments over up to 5 years** are available under Revenue Department rules — pay on schedule and the surcharge is waived entirely for plans of two years or less, and only partially applied for longer plans (Section 23). That matters when the estate's main asset is the villa itself and the cash to pay tax isn't sitting in a bank account.",
+          "**Missing the deadline** adds a surcharge plus a penalty equal to the tax owed (double if paid only after an assessment is issued) — the tax due itself is unaffected either way (Section 18).",
+        ],
+      },
+      "None of this changes the separate, more common planning question: whether your heirs actually receive the lease, the building and the company shares smoothly, which depends on contract wording and succession clauses, not on this tax. Pair this with a registered Thai will — see [Thailand's 2026 will registration rules](/knowledge/thailand-will-registration-rules-2026) — so the mechanics of transfer are settled well before the ฿100 million question ever comes up. Right Way doesn't file tax returns for clients; for the small minority of estates that do cross the threshold, a Thai tax lawyer should confirm the valuation and filing before the 150-day clock runs out.",
+    ],
+    takeaways: [
+      "Thailand's Inheritance Tax Act B.E. 2558 (2015) only taxes what a single heir receives from a single deceased person above ฿100 million — not the whole estate.",
+      "Spousal inheritances are fully exempt at any value; other heirs pay 5% (ascendants/descendants) or 10% (everyone else), and only on the amount above the threshold.",
+      "Real estate is valued at the Land Department's official appraised value, not market price — appraised values on Koh Phangan typically run well below what a villa would sell for.",
+      "A foreign heir is liable on Thailand-situated assets even if they've never lived in or visited Thailand.",
+      "If the threshold is crossed, heirs have 150 days to file and can pay in installments over up to 5 years without a full surcharge.",
+    ],
+    sources: [
+      { title: "Inheritance Tax Act, B.E. 2558 (2015) — Revenue Department unofficial English translation", url: "https://www.rd.go.th/fileadmin/user_upload/kormor/eng/ITA_Kung_Proofed.pdf" },
+      { title: "PwC Thailand Tax Summaries — Individual: Other taxes (inheritance tax)", url: "https://taxsummaries.pwc.com/thailand/individual/other-taxes" },
+      { title: "Expat Tax Thailand — A Comprehensive Expat's Guide to Thailand Inheritance Tax", url: "https://www.expattaxthailand.com/comprehensive-expats-guide-to-thailand-inheritance-tax/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "Does Thailand have an inheritance tax, and will my heirs owe it on my Koh Phangan villa?",
+  },
+  {
+    slug: "disputing-land-building-tax-assessment",
+    kbId: "kb-0082",
+    topic: "Costs",
+    title: "Disputing your Land and Building Tax bill: the appeal process, deadlines and what actually moves an assessment",
+    short:
+      "If a Koh Phangan villa's Land and Building Tax notice looks wrong — the wrong use category, the wrong area, an inflated appraised value — the law gives you a real, three-stage right of appeal. It starts with a 30-day window to object to the local OrBorTor, and paying the disputed amount isn't automatically required while you do.",
+    updated: "2026-08-04",
+    body: [
+      "Can you actually push back on a Land and Building Tax (LBT) bill, or is the annual notice final? You can push back — the Land and Buildings Tax Act B.E. 2562 (2019) sets out a formal, three-stage objection and appeal process in Chapter X, starting with a 30-day window to object once the assessment notice (form ภ.ด.ส.6) arrives, typically in February (Section 73). For the rates themselves and who's liable on a leasehold villa, see [Owner's taxes on Koh Phangan](/knowledge/owners-taxes-annual-land-and-income); this guide covers what to do when the number on that notice looks wrong.",
+      { h: "Step 1 — object to the local administrator (30 days)" },
+      {
+        ul: [
+          "**File within 30 days** of receiving the assessment or payment-demand notice, with the local administrator — the OrBorTor (Subdistrict Administrative Organisation) for most of Koh Phangan.",
+          "**Use the prescribed objection form** (ภ.ด.ส.10 in Ministry of Interior practice) and state clearly what's wrong — the appraised value, the property-use category, the recorded land area, or the taxpayer identified.",
+          "**The local administrator has 60 days** to decide and must notify a reasoned order in writing. Miss that window and the law deems the administrator to have agreed with you.",
+          "If they agree, any overpaid tax is refunded within 15 days of the written notice.",
+        ],
+      },
+      { h: "Step 2 — appeal to the Provincial Tax Assessment Appeal Committee (30 days)" },
+      "If the local administrator rejects the objection, the next step is an appeal to the Changwat (provincial) Tax Assessment Appeal Committee — for Koh Phangan, Surat Thani's committee, chaired by the provincial governor alongside the provincial land, treasury, public works and revenue officials (Section 74). The appeal is filed with the same local administrator within 30 days of the rejection notice, who must forward it to the committee within 15 days. The committee has 60 days to decide, extendable once by up to 30 days for good cause, and must notify its reasoned decision within 15 days of finishing its review (Section 81).",
+      { h: "Step 3 — court" },
+      "If the committee's decision still isn't satisfactory, the final route is a court action, filed within 30 days of receiving the committee's decision (Section 82).",
+      { h: "Do you have to pay while you dispute it?" },
+      "Filing an objection or appeal does not, by itself, pause the payment deadline — the tax is still due on the original schedule unless you separately apply to the local administrator for a stay of payment, and they grant it. Even when granted, a stay typically only covers the increase over what was assessed the previous year, not the whole bill, and the administrator can require security to grant it (Section 73). Don't assume disputing the number buys you time without asking for that stay explicitly.",
+      { h: "What actually moves an assessment" },
+      {
+        ul: [
+          "**Wrong use classification** is the most common and most winnable ground — a property taxed at the 0.30–0.70% rented/commercial band when it's genuinely an owner-occupied primary residence (0.02–0.10%) is a real error worth challenging with occupancy evidence. See [Owner's taxes on Koh Phangan](/knowledge/owners-taxes-annual-land-and-income) for the full rate table.",
+          "**Recorded land or building area** that doesn't match the chanote or building permit — a straightforward documentary correction.",
+          "**An appraised value pulled from the wrong zone or a mismatched comparable** — request the valuation basis from the OrBorTor and compare it against the Treasury Department's published zone tables for the specific parcel.",
+          "**Vacant-land status applied incorrectly** to land with genuine agricultural or residential use, or vice versa — relevant given the step-up penalty on land left vacant for multiple years; see the agricultural-use rules in [Vacant-land tax step-up](/knowledge/vacant-land-tax-step-up-agricultural-loophole-2026).",
+        ],
+      },
+      "Right Way doesn't file tax objections for clients — for a leasehold villa, check the lease first to see whether this cost and the right to dispute it sit with you or the landowner, since the LBT is legally assessed on the registered title holder. Where a real error exists, a local accountant or Thai lawyer familiar with the specific OrBorTor's valuation practice can usually resolve it faster than the formal appeal timeline suggests.",
+    ],
+    takeaways: [
+      "A Land and Building Tax assessment can be formally objected to within 30 days of the notice, filed with the local administrator (OrBorTor) under Section 73 of the LBT Act.",
+      "The local administrator has 60 days to rule; no response in that window counts as a decision in the taxpayer's favor.",
+      "A rejected objection can be appealed to the Provincial (Changwat) Tax Assessment Appeal Committee within 30 days, and from there to court within 30 days of its decision.",
+      "Objecting doesn't automatically pause payment — a stay must be requested separately and typically covers only the increase over last year's bill.",
+      "The most winnable disputes are factual: wrong use classification (rented vs owner-occupied), wrong recorded area, or a mismatched valuation zone — not the underlying tax rate itself.",
+    ],
+    sources: [
+      { title: "Land and Buildings Tax Act, B.E. 2562 (2019) — unofficial English translation, Sections 73-82", url: "https://www.fpo.go.th/main/getattachment/The-law-in-charge-of-FPO/Law-of-Finance-and-Taxation/17122/Land-and-Buildings-Tax-Act-B-E-2562-(2019).pdf.aspx" },
+      { title: "ThailandLawOnline — Thai Property Taxes: Land & Building Tax (assessment notice ภ.ด.ส.06, payment deadlines)", url: "https://www.thailandlawonline.com/article-older-archive/property-tax-land-and-building-tax" },
+      { title: "Pangae Subdistrict Administrative Organisation — e-Service: Objection to Land and Building Tax Assessment under Section 73 (form ภ.ด.ส.10)", url: "https://www.pangae.go.th/e-service/form/content/2483" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "What can I do if I think my Land and Building Tax assessment on Koh Phangan is wrong?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

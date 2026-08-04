@@ -68,6 +68,7 @@ Status: ⏳ queued · ✅ published.
 | Water supply and shortage risk on Koh Phangan: what it means for a villa's operating costs | phangan | 🟡 | ✅ |
 | New villa and residential development pipeline 2025-2026: named projects and what they signal | phangan | 🟡 | ✅ |
 | Healthcare and schools access for buyers relocating with family | phangan | 🟢 | ✅ |
+<!-- 2026-08-04: skipped — substantially duplicates the already-published kb-0010 (renting-out-your-villa-rules-and-taxes), whose title and body already frame realistic yield as median rate × occupancy minus real costs, vs. brochure projections. Left ⏳; no distinct angle identified. -->
 | Realistic villa rental yields: what actually drives returns beyond the headline percentage | costs | 🟡 | ⏳ |
 <!-- discovered 2026-07-05, sources: aseanbriefing.com, houseviser.com, thaienquirer.com (search snippets), thethaiger.com, centreforaviation.com, thailand-construction.com -->
 | The THB 40 million investment route: how a foreigner can legally hold up to 1,600 sqm of land in their own name | structures | 🟢 | ✅ |
@@ -77,7 +78,7 @@ Status: ⏳ queued · ✅ published.
 | Is a Koh Phangan airport actually coming? The abandoned Kan Air/national-park dispute and what it means for buyers today | phangan | ⚪️ | ⏳ |
 <!-- discovered 2026-07-12, sources: srpplaw.com, lexology.com, oceanwwp.com, bakermckenzie.com, libothai.com, khaosodenglish.com, malaymail.com, dda-realestate.com -->
 | Selling a Thai company that holds your villa: is a share-sale really a tax shortcut versus a land transfer, and where does the Revenue Department draw the line? | structures | 🟢 | ✅ |
-| Disputing your Land and Building Tax bill: the assessment appeal process, deadlines and evidence needed | costs | 🟡 | ⏳ |
+| Disputing your Land and Building Tax bill: the assessment appeal process, deadlines and evidence needed | costs | 🟡 | ✅ |
 | Buying next to undeveloped land: how to check what can legally be built beside your plot before you commit | process | 🟡 | ⏳ |
 <!-- discovered 2026-07-19, sources: propertyscout.co.th, phuketrealtor.com, archi-studio.asia, re.sukhothaiinterlaw.com, fosrlaw.com, kinnara.asia, islanders-properties.com, samuiforsale.com -->
 | Withholding tax on a property sale: how the individual-seller calculation (years-owned deduction, progressive rates) differs from a company's flat 1% | costs | 🟢 | ✅ |
@@ -93,8 +94,10 @@ Status: ⏳ queued · ✅ published.
 | Minor Hotels' Avani and the KAIA tented resort opening on Phangan in 2026: what an international brand's first move onto the island signals for buyers weighing Thong Nai Pan and comparable areas | phangan | 🟡 | ⏳ |
 <!-- discovered 2026-08-02, sources: thailandlawonline.com, aimbangkok.com, wise.com, hlbthai.com, realting.com, canvas.solar, kohphangannews.org, libothai.com -->
 | Sap-Ing-Sith ("right of use"): Thailand's lesser-known fifth registered property right under the 2019 Act — how it differs from usufruct, superficies and habitation, and why "30+30" marketing claims for it aren't legally binding either | structures | 🟢 | ✅ |
+<!-- 2026-08-04: skipped — substantially duplicates the already-published kb-0027 (owners-taxes-annual-land-and-income), which already covers resident/non-resident treatment, the 30% deduction, progressive rates and the PND.90 filing deadline in depth. Left ⏳; a future run could revisit narrowly on the PND.94 mid-year filing angle if a genuinely new angle emerges. -->
 | Non-resident vs. resident rental income tax: the flat 15% withholding on gross income vs. progressive rates (0-35%) with a 30% deduction — which status is cheaper, plus the PND.94/PND.90 filing deadlines owners miss | costs | 🟢 | ⏳ |
-| Inheritance tax on Thai property: the 100-million-baht threshold, and why most villa owners' estates fall under it — 5% for direct heirs, 10% for others | costs | 🟢 | ⏳ |
+| Inheritance tax on Thai property: the 100-million-baht threshold, and why most villa owners' estates fall under it — 5% for direct heirs, 10% for others | costs | 🟢 | ✅ |
+<!-- 2026-08-04: skipped — substantially overlaps the already-published kb-0026 (utilities-water-electricity-internet-koh-phangan), which already covers the submarine cable circuits, capacity and the EGAT/PEA upgrade project in its electricity section. Left ⏳; a future run could revisit narrowly on a Phangan-specific (vs. Samui-routed) cable angle if primary sourcing supports a genuinely distinct story. -->
 | Koh Phangan's power grid reliability: the island runs on a single undersea cable from the mainland with no major upgrade expected before 2030 — what that outage risk means for a villa buyer's due diligence | phangan | 🟢 | ⏳ |
 | 2027 land valuation reform: the Treasury Department's new Big Data appraisal cycle (2027-2030) aims to close the 20-40% gap between official and market land values — what it could do to land and building tax bills even with unchanged rates | costs | 🟡 | ⏳ |
 | Cruise ship pier proposal for Koh Samui/Phangan: tourism ministry talks to fix the lack of deep-water berthing (40+ ships/year currently tender passengers by small boat) — a real infrastructure story or another stalled plan? | phangan | 🟡 | ⏳ |
