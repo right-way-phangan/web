@@ -102,7 +102,11 @@ export async function BuildingRules({
         : object.areaRai != null
           ? object.areaRai * 1600
           : undefined;
-    norms = combineBuildingNorms({ seaDistanceM, elevationM, slopePct, planZone, plotSqm }, locale);
+    // A listing has no survey attached, so its slope is always the DEM estimate.
+    norms = combineBuildingNorms(
+      { seaDistanceM, elevationM, slopePct, slopeEstimated: true, planZone, plotSqm },
+      locale,
+    );
   }
 
   if (!info && !manual && !norms) return null;
