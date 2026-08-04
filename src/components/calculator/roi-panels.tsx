@@ -44,9 +44,14 @@ function CardRail({
   );
 }
 
-/** Слайд ленты: ширина в процентах от ленты, чтобы край соседа всегда торчал. */
+/**
+ * Слайд ленты. Ширина в процентах от самой ленты, а не от вьюпорта: калькулятор
+ * живёт и в узкой колонке лендинга (~280px), и на широком /calculator, а
+ * viewport-брейкпоинты в первом случае врут. 85% оставляют край соседа на виду,
+ * потолок 300px не даёт карточке распухнуть на широком экране.
+ */
 function RailItem({ children }: { children: ReactNode }) {
-  return <div className="w-[min(78%,280px)] shrink-0 snap-start">{children}</div>;
+  return <div className="w-[min(85%,300px)] shrink-0 snap-start">{children}</div>;
 }
 
 /** Break-even readout: the occupancy / growth at which the deal matches a deposit. */
