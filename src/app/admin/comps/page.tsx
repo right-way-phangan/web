@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { AdminNav } from "@/components/admin/admin-nav";
 import { getComps, byDistrict, daysOnMarket, median, type ExternalComp } from "@/lib/data/comps";
 import { getAllObjects } from "@/lib/data/objects";
 import type { RealEstateObject } from "@/types/object";
@@ -70,7 +69,6 @@ export default async function CompsPage() {
 
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="comps" />
 
       <h1 className="font-serif text-3xl text-forest-900">Рынок · компсы конкурентов</h1>
       <p className="mt-2 max-w-2xl text-sm text-forest-900/60">

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { AdminNav } from "@/components/admin/admin-nav";
 import { ZoneChecker } from "@/components/tools/zone-checker";
 
 export const metadata: Metadata = {
@@ -19,7 +18,6 @@ export const dynamic = "force-dynamic";
 export default function AdminZoningPage() {
   return (
     <div className="mx-auto max-w-5xl px-4 py-6">
-      <AdminNav active="zoning" />
 
       <header className="mt-6">
         <h1 className="font-serif text-3xl text-forest-900">Зоны застройки</h1>

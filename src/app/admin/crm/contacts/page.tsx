@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getContacts, CRM_ENABLED } from "@/lib/data/leads";
-import { AdminNav } from "@/components/admin/admin-nav";
 
 export const metadata: Metadata = {
   title: "CRM — контакты",
@@ -32,7 +31,6 @@ export default async function CrmContactsPage({
 
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="crm" />
       <Link href={{ pathname: "/admin/crm" }} className="text-xs text-forest-900/50 hover:text-forest-900">
         ← Доска лидов
       </Link>

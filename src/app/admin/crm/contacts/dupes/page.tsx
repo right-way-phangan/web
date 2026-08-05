@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getContacts, CRM_ENABLED, type CrmContact } from "@/lib/data/leads";
-import { AdminNav } from "@/components/admin/admin-nav";
 import { MergeButton } from "@/components/crm/merge-button";
 
 export const metadata: Metadata = {
@@ -43,7 +42,6 @@ export default async function ContactDupesPage() {
 
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="crm" />
       <Link
         href={{ pathname: "/admin/crm/contacts" }}
         className="text-xs text-forest-900/50 hover:text-forest-900"

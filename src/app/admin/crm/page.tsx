@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getLeads, getPipelines, CRM_ENABLED } from "@/lib/data/leads";
 import { CrmBoard } from "@/components/crm/crm-board";
-import { AdminNav } from "@/components/admin/admin-nav";
 import { leadScore } from "@/lib/crm/score";
 import { nextAction } from "@/lib/crm/next-action";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -105,7 +104,6 @@ export default async function CrmPage({
 
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="crm" />
       <div className="mb-6 flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
@@ -142,71 +140,15 @@ export default async function CrmPage({
               ) : null;
             })()}
           </Link>
-          {/* Остальные разделы CRM — в выпадающем меню, чтобы не растягивать панель кнопками */}
-          <details className="group relative">
-            <summary className="flex cursor-pointer list-none items-center gap-1 rounded-full border border-forest-900/15 px-3 py-2 text-sm font-medium text-forest-900/70 hover:bg-forest-900/5 [&::-webkit-details-marker]:hidden">
-              ⋯ Ещё
-              <span className="text-forest-900/40 transition-transform group-open:rotate-180">▾</span>
-            </summary>
-            <div className="absolute right-0 z-30 mt-2 w-52 rounded-xl border border-forest-900/10 bg-cream-50 p-1 shadow-lg">
-              {(() => {
-                const queue = leads.filter(
-                  (l) =>
-                    l.pipelineKey === "legacy" &&
-                    (l.status ?? "open") === "open" &&
-                    l.stageKey === "incoming",
-                ).length;
-                return queue > 0 ? (
-                  <Link
-                    href={{ pathname: "/admin/crm/triage" }}
-                    className="flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm font-medium text-forest-900/75 hover:bg-forest-900/5"
-                  >
-                    🧹 Разбор
-                    <span className="rounded-full bg-brass-500/20 px-1.5 py-0.5 text-xs font-semibold text-brass-700">
-                      {queue}
-                    </span>
-                  </Link>
-                ) : null;
-              })()}
-              <Link
-                href={{ pathname: "/admin/crm/stats" }}
-                className="block rounded-lg px-3 py-2 text-sm font-medium text-forest-900/75 hover:bg-forest-900/5"
-              >
-                📈 Метрики
-              </Link>
-              <Link
-                href={{ pathname: "/admin/crm/calendar" }}
-                className="block rounded-lg px-3 py-2 text-sm font-medium text-forest-900/75 hover:bg-forest-900/5"
-              >
-                📅 Показы
-              </Link>
-              <Link
-                href={{ pathname: "/admin/crm/health" }}
-                className="block rounded-lg px-3 py-2 text-sm font-medium text-forest-900/75 hover:bg-forest-900/5"
-              >
-                🩺 Здоровье
-              </Link>
-              <Link
-                href={{ pathname: "/admin/crm/contacts" }}
-                className="block rounded-lg px-3 py-2 text-sm font-medium text-forest-900/75 hover:bg-forest-900/5"
-              >
-                👥 Контакты
-              </Link>
-              {/* eslint-disable-next-line @next/next/no-html-link-for-pages -- route handler returns a file download, not a page nav */}
-              <a
-                href="/admin/crm/export"
-                className="block rounded-lg px-3 py-2 text-sm font-medium text-forest-900/75 hover:bg-forest-900/5"
-              >
-                ⤓ Экспорт CSV
-              </a>
-              <Link
-                href={{ pathname: "/admin/crm/import" }}
-                className="block rounded-lg px-3 py-2 text-sm font-medium text-forest-900/75 hover:bg-forest-900/5"
-              >
-                ⤒ Импорт
-              </Link>
-            </div>
-          </details>
+          {/* Остальные разделы CRM живут в общей навигации (группа «CRM»);
+              экспорт — действие, а не раздел, поэтому кнопкой здесь. */}
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages -- route handler returns file download, not page nav */}
+          <a
+            href="/admin/crm/export"
+            className="rounded-full border border-forest-900/15 px-3 py-2 text-sm font-medium text-forest-900/70 hover:bg-forest-900/5"
+          >
+            ⇩ Экспорт CSV
+          </a>
           <Link
             href={{ pathname: "/admin/crm/new" }}
             className="rounded-full bg-panel px-4 py-2 text-sm font-medium text-panel-fg hover:bg-panel/90"

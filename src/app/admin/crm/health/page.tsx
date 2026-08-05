@@ -3,7 +3,6 @@ import Link from "next/link";
 import { getLeads, CRM_ENABLED, type CrmLead } from "@/lib/data/leads";
 import { getAllObjects } from "@/lib/data/objects";
 import { slaStatus } from "@/lib/crm/sla";
-import { AdminNav } from "@/components/admin/admin-nav";
 
 export const metadata: Metadata = {
   title: "CRM — здоровье данных",
@@ -119,7 +118,6 @@ export default async function CrmHealthPage() {
 
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="crm" />
       <Link href={{ pathname: "/admin/crm" }} className="text-xs text-forest-900/50 hover:text-forest-900">
         ← Доска лидов
       </Link>

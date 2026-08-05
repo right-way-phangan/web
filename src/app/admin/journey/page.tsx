@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { AdminNav } from "@/components/admin/admin-nav";
 import { getJourneys, getHotLeads, getReturningVisitors, type JourneyLead, type HotLead } from "@/lib/data/journey";
 
 export const metadata: Metadata = {
@@ -89,7 +88,6 @@ export default async function JourneyPage() {
 
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="journey" />
 
       <h1 className="font-serif text-3xl text-forest-900">Путь посетителя</h1>
       <p className="mt-2 max-w-2xl text-sm text-forest-900/60">

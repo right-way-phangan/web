@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { AdminNav } from "@/components/admin/admin-nav";
 import { FinanceDonut } from "@/components/admin/finance-donut";
 import { FinanceTrend } from "@/components/admin/finance-trend";
 import {
@@ -301,7 +300,6 @@ export default async function FinancePage({
 
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="finance" />
 
       <div className="mb-6 flex items-start justify-between gap-4">
         <div>

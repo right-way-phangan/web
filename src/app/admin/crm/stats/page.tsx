@@ -5,7 +5,6 @@ import { getViewsByRw, getCrossShoppers } from "@/lib/data/views";
 import { getSiteEventStats, getOnPageFunnel } from "@/lib/data/events";
 import { getReferrals, getAiCitations, getAiCitationTrend, referralLabel } from "@/lib/data/referrals";
 import { classifyReferrer, isAiChannel } from "@/lib/analytics/referrer";
-import { AdminNav } from "@/components/admin/admin-nav";
 import { forecastPipeline, forecastByMonth } from "@/lib/crm/forecast";
 import { computeFunnel } from "@/lib/crm/funnel";
 import { getLiveRatesTHB } from "@/lib/data/fx-live";
@@ -274,7 +273,6 @@ export default async function CrmStatsPage() {
 
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="crm" />
       <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">

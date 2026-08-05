@@ -7,7 +7,6 @@ type Href = ComponentProps<typeof Link>["href"];
 import { getLeads, getPipelines, getEvents, getTasks, CRM_ENABLED } from "@/lib/data/leads";
 import { matchLeadsToObject } from "@/lib/crm/matching";
 import { computeCatalogHealth } from "@/lib/data/catalog-health";
-import { AdminNav } from "@/components/admin/admin-nav";
 import type { RealEstateObject } from "@/types/object";
 
 export const metadata: Metadata = {
@@ -286,7 +285,6 @@ export default async function AdminHomePage() {
 
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="home" />
 
       <div className="mb-6">
         <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">

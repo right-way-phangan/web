@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getLeads, getLead, CRM_ENABLED } from "@/lib/data/leads";
-import { AdminNav } from "@/components/admin/admin-nav";
 import { TriageActions } from "@/components/crm/triage-actions";
 import { ContactActions } from "@/components/crm/contact-actions";
 
@@ -53,7 +52,6 @@ export default async function TriagePage({
 
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="crm" />
       <Link
         href={{ pathname: "/admin/crm", query: { p: "legacy" } }}
         className="text-xs text-forest-900/50 hover:text-forest-900"

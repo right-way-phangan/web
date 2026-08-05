@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import type { Route } from "next";
-import { AdminNav } from "@/components/admin/admin-nav";
 import { getCatalogHealth } from "@/lib/data/catalog-health";
 
 export const metadata: Metadata = {
@@ -19,7 +18,6 @@ export default async function HealthPage() {
 
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="health" />
       <div className="max-w-4xl">
         <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
           Admin · качество данных

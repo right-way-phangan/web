@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 import { getAdminObjectByRwNumber } from "@/lib/data/objects";
 import { getLeads, CRM_ENABLED } from "@/lib/data/leads";
 import { matchLeadsToObject } from "@/lib/crm/matching";
-import { AdminNav } from "@/components/admin/admin-nav";
 import { ObjectWarmLeads, type WarmLeadRow } from "@/components/admin/object-warm-leads";
 import { ObjectContactsEditor } from "@/components/admin/object-contacts-editor";
 import { ConstructionEditor } from "@/components/admin/construction-editor";
@@ -69,7 +68,6 @@ export default async function AdminObjectPage({
 
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="objects" />
       <Link
         href={{ pathname: "/admin/objects" }}
         className="text-xs text-forest-900/50 hover:text-forest-900"

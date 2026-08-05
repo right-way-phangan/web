@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import type { Route } from "next";
-import { AdminNav } from "@/components/admin/admin-nav";
 import {
   GUIDE_SECTIONS,
   getGuideChangelog,
@@ -41,7 +40,6 @@ export default async function GuideIndexPage() {
 
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="guide" />
       <div className="max-w-5xl">
         <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
           Admin · как тут всё работает

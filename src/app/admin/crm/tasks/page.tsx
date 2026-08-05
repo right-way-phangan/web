@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getTasks, CRM_ENABLED, type CrmTaskItem } from "@/lib/data/leads";
-import { AdminNav } from "@/components/admin/admin-nav";
 import { TaskRow } from "@/components/crm/task-row";
 
 export const metadata: Metadata = {
@@ -96,7 +95,6 @@ export default async function CrmTasksPage() {
 
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="crm" />
       <Link href={{ pathname: "/admin/crm" }} className="text-xs text-forest-900/50 hover:text-forest-900">
         ← Доска лидов
       </Link>

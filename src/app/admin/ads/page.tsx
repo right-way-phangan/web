@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { AdminNav } from "@/components/admin/admin-nav";
 import { AdsGenerator, type AdsObjectOption } from "@/components/admin/ads-generator";
 import { getAllObjects } from "@/lib/data/objects";
 
@@ -36,7 +35,6 @@ export default async function AdminAdsPage() {
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
-      <AdminNav active="ads" />
       <div className="mb-6">
         <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
           Admin · Маркетинг

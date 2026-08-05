@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { getDemandSummary, DEMAND_ENABLED, type DemandTally } from "@/lib/data/demand";
 import { getAllObjects } from "@/lib/data/objects";
-import { AdminNav } from "@/components/admin/admin-nav";
 import type { RealEstateObject } from "@/types/object";
 
 export const metadata: Metadata = {
@@ -110,7 +109,6 @@ export default async function DemandPage({
 
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="demand" />
       <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">

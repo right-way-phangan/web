@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { AdminNav } from "@/components/admin/admin-nav";
 import {
   getSocialPosts,
   groupByPair,
@@ -135,7 +134,6 @@ export default async function AdminPostsPage() {
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-6">
-      <AdminNav active="posts" />
 
       <header className="mb-6 mt-4">
         <h1 className="font-display text-2xl text-forest-900 dark:text-cream-50">

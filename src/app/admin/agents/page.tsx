@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { AdminNav } from "@/components/admin/admin-nav";
 import {
   getAgentTasks,
   getCouncilSessions,
@@ -159,7 +158,6 @@ export default async function AdminAgentsPage() {
 
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="agents" />
 
       <div className="mb-6">
         <h1 className="text-2xl font-semibold text-forest-900 md:text-3xl">Агенты</h1>
