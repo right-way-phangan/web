@@ -8,7 +8,7 @@ import { getPublicObjects } from "@/lib/data/objects";
 import { ShortlistBeacon } from "@/components/shortlist-beacon";
 
 export const metadata: Metadata = {
-  title: "Подборка объектов — Right Way Phangan",
+  title: "Curated shortlist — Right Way Phangan",
   robots: { index: false, follow: false },
 };
 
