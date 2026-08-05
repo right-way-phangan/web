@@ -127,9 +127,26 @@ function Section({ title, pairs }: { title: string; pairs: SocialPostPair[] }) {
   );
 }
 
-export default async function AdminPostsPage() {
+export default async function AdminPostsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string }>;
+}) {
+  const { q } = await searchParams;
+  const rawQuery = (q ?? "").trim();
+  const query = rawQuery.toLowerCase();
   const rows = await getSocialPosts();
-  const pairs = groupByPair(rows);
+  const allPairs = groupByPair(rows);
+  // Очередь растёт монотонно — поиск по тексту любой из языковых версий.
+  const pairs = query
+    ? allPairs.filter((p) =>
+        [p.topic, ...p.versions.map((v) => v.body)]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase()
+          .includes(query),
+      )
+    : allPairs;
   const byStatus = (s: SocialPostStatus) => pairs.filter((p) => p.status === s);
 
   return (
@@ -146,10 +163,26 @@ export default async function AdminPostsPage() {
         </p>
       </header>
 
+      <form action="/admin/posts" className="mb-5">
+        <input
+          type="search"
+          name="q"
+          defaultValue={rawQuery}
+          placeholder="Поиск по теме или тексту поста…"
+          className="w-full rounded-full border border-forest-900/15 bg-cream-50 px-3 py-1.5 text-sm outline-none focus:border-brass-500 sm:w-72"
+        />
+      </form>
+
       {pairs.length === 0 ? (
         <p className="rounded-xl border border-forest-900/10 bg-white/50 p-6 text-center text-sm text-forest-700/60 dark:bg-white/[0.03]">
-          Очередь пуста. Создать черновик: <code>/пост &lt;тема&gt;</code> у{" "}
-          <span className="font-medium">@rightway_assistant_bot</span>.
+          {allPairs.length === 0 ? (
+            <>
+              Очередь пуста. Создать черновик: <code>/пост &lt;тема&gt;</code> у{" "}
+              <span className="font-medium">@rightway_assistant_bot</span>.
+            </>
+          ) : (
+            <>Под поиск «{rawQuery}» ничего не попало.</>
+          )}
         </p>
       ) : (
         <>

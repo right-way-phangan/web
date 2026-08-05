@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, useTransition } from "react";
+import { useUrlTab } from "@/lib/hooks/use-url-tab";
 import Link from "next/link";
 import type { Route } from "next";
 import {
@@ -47,7 +48,8 @@ function rowBucket(r: DdRow): TabKey {
 }
 
 export function DdQueue({ rows, defaultLawyer }: { rows: DdRow[]; defaultLawyer: string }) {
-  const [tab, setTab] = useState<TabKey>("queue");
+  // Вкладка в URL (?tab=): F5/шэринг/назад возвращают тот же срез.
+  const [tab, setTab] = useUrlTab<TabKey>("tab", TABS.map((t) => t.key), "queue");
   const [lawyer, setLawyer] = useState(defaultLawyer);
   const [openRw, setOpenRw] = useState<string | null>(null);
   const [busyRw, setBusyRw] = useState<string | null>(null);

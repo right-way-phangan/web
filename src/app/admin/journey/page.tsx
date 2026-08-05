@@ -99,7 +99,14 @@ export default async function JourneyPage() {
       {/* Позвонить первым — открытые лиды по теплоте (что делали до заявки) */}
       {hotScored.length > 0 ? (
         <div className="mt-6 rounded-2xl border border-brass-500/30 bg-brass-500/[0.06] p-5">
-          <h2 className="text-lg font-semibold text-forest-900">🔥 Позвонить первым</h2>
+          <h2 className="text-lg font-semibold text-forest-900">
+            🔥 Позвонить первым
+            {hotScored.length > 10 ? (
+              <span className="ml-2 text-sm font-normal text-forest-900/45">
+                топ-10 из {hotScored.length}
+              </span>
+            ) : null}
+          </h2>
           <p className="mb-3 text-xs text-forest-900/55">
             Открытые лиды по «теплоте» — что человек делал до заявки. Чем выше, тем горячее: время
             продаж сначала на этих, и есть с чем зайти в разговор.

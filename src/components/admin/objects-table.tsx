@@ -2,6 +2,7 @@
 
 import { useState, useTransition, type ReactNode } from "react";
 import Link from "next/link";
+import type { Route } from "next";
 import { useRouter } from "next/navigation";
 import { ObjectEditButton } from "@/components/admin/object-edit";
 import { bulkUpdateObjectStatus, setObjectNeedsReview, markAllNeedsReview, bulkDeleteObjects } from "@/lib/actions/bulk-objects";
@@ -56,10 +57,17 @@ export interface AdminObjectRow {
 export function ObjectsTable({
   rows,
   headerCells,
+  backQs,
 }: {
   rows: AdminObjectRow[];
   headerCells: ReactNode;
+  /** Текущий срез списка — уезжает в карточку как ?back=, чтобы вернуться в него. */
+  backQs?: string;
 }) {
+  const cardHref = (rw: string) =>
+    (backQs
+      ? `/admin/objects/${rw}?back=${encodeURIComponent(backQs)}`
+      : `/admin/objects/${rw}`) as Route;
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [pending, start] = useTransition();
   const [msg, setMsg] = useState<string | null>(null);
@@ -150,6 +158,7 @@ export function ObjectsTable({
         <div className="mb-3 flex flex-wrap items-center gap-3 rounded-xl border border-brass-500/30 bg-brass-500/[0.07] px-4 py-2.5">
           <span className="text-sm font-medium text-forest-900">
             Выбрано: {selected.size}
+            <span className="ml-1 font-normal text-forest-900/45">(на этой странице)</span>
           </span>
           <span className="text-xs text-forest-900/50">Сменить статус на:</span>
           {BULK_STATUSES.map((s) => (
@@ -334,7 +343,7 @@ export function ObjectsTable({
                     <td className="px-3 py-2 text-center">
                       {o.contactCount > 0 ? (
                         <Link
-                          href={`/admin/objects/${o.rwNumber}`}
+                          href={cardHref(o.rwNumber)}
                           title={o.contactLabel ?? "Контакты продавца"}
                           className="inline-flex items-center gap-0.5 rounded-full bg-forest-900/[0.06] px-2 py-0.5 text-xs font-medium text-forest-900/70 hover:bg-forest-900/10"
                         >
@@ -342,7 +351,7 @@ export function ObjectsTable({
                         </Link>
                       ) : (
                         <Link
-                          href={`/admin/objects/${o.rwNumber}`}
+                          href={cardHref(o.rwNumber)}
                           title="Контактов нет — добавить"
                           className="text-forest-900/25 hover:text-brass-600"
                         >

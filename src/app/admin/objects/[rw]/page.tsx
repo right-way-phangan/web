@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Route } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -37,12 +37,23 @@ function objPrice(o: {
  * instant calling list. Splits direct inquiries (asked about THIS object) from
  * matches (criteria fit).
  */
+/** Ключи фильтров списка, которые разрешено вернуть через ?back= (защита от подстановки). */
+const BACK_KEYS = ["q", "t", "s", "v", "sort", "dir", "page"];
+
 export default async function AdminObjectPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ rw: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const { rw } = await params;
+  const sp = await searchParams;
+  const backParams = new URLSearchParams();
+  for (const [k, v] of new URLSearchParams(typeof sp.back === "string" ? sp.back : "")) {
+    if (BACK_KEYS.includes(k)) backParams.set(k, v);
+  }
+  const backQs = backParams.toString();
   const object = await getAdminObjectByRwNumber(rw);
   if (!object) notFound();
 
@@ -69,7 +80,7 @@ export default async function AdminObjectPage({
   return (
     <section className="px-4 py-8 md:px-8">
       <Link
-        href={{ pathname: "/admin/objects" }}
+        href={(backQs ? `/admin/objects?${backQs}` : "/admin/objects") as Route}
         className="text-xs text-forest-900/50 hover:text-forest-900"
       >
         ← База объектов

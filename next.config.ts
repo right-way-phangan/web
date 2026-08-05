@@ -13,10 +13,14 @@ const CSP = [
   "base-uri 'self'",
   "object-src 'none'",
   "frame-ancestors 'self'",
+  // 'unsafe-eval' ТОЛЬКО в dev: React Refresh (быстрое обновление) исполняет
+  // код через eval, и без этого послабления на localhost падает гидрация —
+  // страница остаётся мёртвой разметкой, локально нечего проверять.
+  // В прод-сборку послабление не попадает.
   // *.posthog.com is wildcarded on PostHog's own advice — the SDK pulls its
   // recorder/surveys bundles from shifting subdomains (us-assets.i, us.i…),
   // and a missing entry fails silently: capture() calls just never arrive.
-  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.google-analytics.com https://va.vercel-scripts.com https://*.vercel-insights.com https://*.posthog.com",
+  `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === "production" ? "" : " 'unsafe-eval'"} https://www.googletagmanager.com https://*.google-analytics.com https://va.vercel-scripts.com https://*.vercel-insights.com https://*.posthog.com`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https://*.public.blob.vercel-storage.com https://*.r2.dev https://*.r2.cloudflarestorage.com https://*.basemaps.cartocdn.com https://*.longdo.com https://server.arcgisonline.com https://drive.google.com https://lh3.googleusercontent.com https://*.google-analytics.com https://www.googletagmanager.com",
   "font-src 'self' data:",
