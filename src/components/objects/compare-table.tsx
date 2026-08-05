@@ -109,9 +109,9 @@ function buildRows(
       label: t.rArea,
       get: (o) =>
         o.areaRai
-          ? `${o.areaRai.toLocaleString(undefined, { maximumFractionDigits: 2 })} ${t.rai}`
+          ? `${o.areaRai.toLocaleString(locale === "ru" ? "ru-RU" : "en-US", { maximumFractionDigits: 2 })} ${t.rai}`
           : o.areaSqm
-            ? `${o.areaSqm.toLocaleString()} m²`
+            ? `${o.areaSqm.toLocaleString(locale === "ru" ? "ru-RU" : "en-US")} m²`
             : "—",
     },
     { label: t.rTenure, get: (o) => o.tenure?.join(", ") ?? "—" },

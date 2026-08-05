@@ -104,7 +104,7 @@ function PlotRow({
   const area = plot.areaRai
     ? `${plot.areaRai} ${locale === "ru" ? "рай" : "rai"}`
     : plot.areaSqm
-      ? `${plot.areaSqm.toLocaleString()} m²`
+      ? `${plot.areaSqm.toLocaleString(locale === "ru" ? "ru-RU" : "en-US")} m²`
       : "—";
 
   const priceNode = plotPriceVisible(plot.status) ? (
