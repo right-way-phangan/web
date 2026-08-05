@@ -1,14 +1,7 @@
 import type { Metadata } from "next";
-import { MessageCircle, Send, Phone, Mail } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { LeadForm } from "@/components/forms/lead-form";
-import {
-  siteConfig,
-  whatsappLink,
-  telegramDmLink,
-  phoneDisplay,
-  telLink,
-} from "@/lib/site-config";
+import { ContactChannels } from "@/components/sections/contact-channels";
 import { getContactDict } from "@/lib/i18n/dictionaries";
 
 export const metadata: Metadata = {
@@ -18,8 +11,15 @@ export const metadata: Metadata = {
   alternates: { canonical: "/ru/contact", languages: { en: "/contact", ru: "/ru/contact", "x-default": "/contact" } },
 };
 
-export default function RussianContactPage() {
+interface PageProps {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}
+
+export default async function RussianContactPage({ searchParams }: PageProps) {
   const d = getContactDict("ru");
+  const sp = await searchParams;
+  const briefRaw = sp.brief;
+  const brief = (Array.isArray(briefRaw) ? briefRaw[0] : briefRaw) || undefined;
 
   return (
     <>
@@ -31,50 +31,21 @@ export default function RussianContactPage() {
         imageAlt="Виллы над морем на Ко Пангане"
       />
 
+      {brief ? (
+        <div className="container-prose pt-8">
+          <p className="rounded-sm border border-brass-500/20 bg-brass-500/5 px-4 py-3 text-sm text-forest-600">
+            {d.briefNote}
+          </p>
+        </div>
+      ) : null}
+
       <section className="container-prose py-16 md:py-24">
-        <div className="grid gap-10 md:grid-cols-[1.2fr_1fr] md:gap-16">
-          <div>
-            <h2 className="font-serif text-2xl text-forest-900 md:text-3xl">
-              {d.formHeading}
-            </h2>
-            <p className="mt-2 mb-6 text-sm text-forest-500/70">{d.formLede}</p>
-            <LeadForm source="contact" layout="block" locale="ru" />
+        <div className="grid gap-12 lg:grid-cols-[1fr_320px] lg:gap-16">
+          <div className="rounded-sm border border-forest-500/10 bg-cream-50 p-6 shadow-soft md:p-8">
+            <LeadForm source="contact" layout="block" locale="ru" defaultMessage={brief} />
           </div>
 
-          <aside className="space-y-5">
-            <a
-              href={whatsappLink("Здравствуйте — хочу узнать про объекты на Пангане.")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 rounded-sm border border-forest-500/10 bg-cream-50 p-4 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:border-forest-500/30 hover:shadow-soft motion-reduce:hover:translate-y-0"
-            >
-              <MessageCircle className="h-5 w-5 text-forest-500" />
-              <span className="text-sm text-forest-900">WhatsApp · {phoneDisplay()}</span>
-            </a>
-            <a
-              href={telegramDmLink()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 rounded-sm border border-forest-500/10 bg-cream-50 p-4 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:border-forest-500/30 hover:shadow-soft motion-reduce:hover:translate-y-0"
-            >
-              <Send className="h-5 w-5 text-forest-500" />
-              <span className="text-sm text-forest-900">Telegram</span>
-            </a>
-            <a
-              href={telLink()}
-              className="flex items-center gap-3 rounded-sm border border-forest-500/10 bg-cream-50 p-4 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:border-forest-500/30 hover:shadow-soft motion-reduce:hover:translate-y-0"
-            >
-              <Phone className="h-5 w-5 text-forest-500" />
-              <span className="text-sm text-forest-900">Позвонить · {phoneDisplay()}</span>
-            </a>
-            <a
-              href={`mailto:${siteConfig.contact.email}`}
-              className="flex items-center gap-3 rounded-sm border border-forest-500/10 bg-cream-50 p-4 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:border-forest-500/30 hover:shadow-soft motion-reduce:hover:translate-y-0"
-            >
-              <Mail className="h-5 w-5 text-forest-500" />
-              <span className="text-sm text-forest-900">{siteConfig.contact.email}</span>
-            </a>
-          </aside>
+          <ContactChannels dict={d} />
         </div>
       </section>
     </>

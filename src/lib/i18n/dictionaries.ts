@@ -608,6 +608,18 @@ export interface ContactDict {
   hero: { eyebrow: string; title: string; lede: string };
   formHeading: string;
   formLede: string;
+  /** Плашка над формой, когда бриф приехал из поиска (?brief=). */
+  briefNote: string;
+  channelsHeading: string;
+  channels: {
+    whatsapp: string;
+    whatsappHint: string;
+    tgChat: string;
+    tgChannel: string;
+    call: string;
+    email: string;
+  };
+  office: { heading: string; place: string; note: string };
 }
 
 const contact: Record<Locale, ContactDict> = {
@@ -619,6 +631,22 @@ const contact: Record<Locale, ContactDict> = {
     },
     formHeading: "Send a brief",
     formLede: "The more specific, the faster we can help.",
+    briefNote:
+      "We’ve pre-filled your brief below from your search — edit it if you like, then send.",
+    channelsHeading: "Or message us directly",
+    channels: {
+      whatsapp: "WhatsApp",
+      whatsappHint: "Reply within the hour",
+      tgChat: "Telegram chat",
+      tgChannel: "Telegram channel",
+      call: "Call",
+      email: "Email",
+    },
+    office: {
+      heading: "Office",
+      place: "Koh Phangan, Thailand",
+      note: "We meet clients on the island for viewings and signings.",
+    },
   },
   ru: {
     hero: {
@@ -628,6 +656,22 @@ const contact: Record<Locale, ContactDict> = {
     },
     formHeading: "Опишите задачу",
     formLede: "Чем конкретнее, тем быстрее мы поможем.",
+    briefNote:
+      "Мы подставили запрос из вашего поиска — поправьте, если нужно, и отправьте.",
+    channelsHeading: "Или напишите напрямую",
+    channels: {
+      whatsapp: "WhatsApp",
+      whatsappHint: "Отвечаем в течение часа",
+      tgChat: "Telegram — чат",
+      tgChannel: "Telegram — канал",
+      call: "Позвонить",
+      email: "Почта",
+    },
+    office: {
+      heading: "Офис",
+      place: "Ко Панган, Таиланд",
+      note: "Встречаемся с клиентами на острове — показы и подписание.",
+    },
   },
 };
 
