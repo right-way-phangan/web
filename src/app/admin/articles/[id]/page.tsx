@@ -7,6 +7,7 @@ import { AdminNav } from "@/components/admin/admin-nav";
 import { ArticleBody } from "@/components/sections/article-body";
 import { ArticleReview } from "@/components/admin/article-review";
 import {
+  editorialNotes,
   getAdminArticle,
   getPairedArticle,
   getPendingArticleCount,
@@ -47,6 +48,7 @@ export default async function AdminArticlePage({ params }: Props) {
   const blogBase = article.lang === "ru" ? "/ru/blog" : "/blog";
   const publicHref = `${blogBase}/${article.slug}`;
   const blocks = mdToBlocks(article.bodyMd);
+  const notes = editorialNotes(article.bodyMd);
 
   return (
     <section className="px-4 py-8 md:px-8">
@@ -88,6 +90,21 @@ export default async function AdminArticlePage({ params }: Props) {
 
         {/* Review rail */}
         <aside className="space-y-4 lg:sticky lg:top-6 lg:self-start">
+          {notes.length > 0 ? (
+            <div className="rounded-2xl border border-urgent/30 bg-urgent/5 p-5 text-sm">
+              <p className="text-xs font-medium uppercase tracking-[0.2em] text-urgent">
+                Пометка автора
+              </p>
+              <ul className="mt-3 space-y-2 text-forest-900/80">
+                {notes.map((n) => (
+                  <li key={n}>{n}</li>
+                ))}
+              </ul>
+              <p className="mt-3 text-xs text-forest-900/50">
+                На сайт не попадает — снять после того, как условие выполнено.
+              </p>
+            </div>
+          ) : null}
           <div className="rounded-2xl border border-forest-900/10 bg-cream-50 p-5 text-sm">
             <dl className="space-y-2">
               <div className="flex justify-between gap-4">

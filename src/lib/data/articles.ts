@@ -42,7 +42,9 @@ export interface DbArticle {
 
 /** Markdown → KbBlock[] (the minimal subset the blog renderer supports). */
 export function mdToBlocks(md: string): KbBlock[] {
-  const lines = md.replace(/\r\n/g, "\n").split("\n");
+  // HTML comments are editorial notes (drafting caveats, TODOs) — never public.
+  // Without this they fall through as plain paragraphs and render on the page.
+  const lines = md.replace(/\r\n/g, "\n").replace(/<!--[\s\S]*?-->/g, "").split("\n");
   const blocks: KbBlock[] = [];
   let para: string[] = [];
   let list: string[] = [];
@@ -84,6 +86,16 @@ export function mdToBlocks(md: string): KbBlock[] {
   flushList();
   flushPara();
   return blocks;
+}
+
+/**
+ * Editorial notes the writer left in the body as `<!-- … -->` (drafting
+ * caveats, "check with the lawyer first"). Stripped from the rendered article,
+ * so the review page surfaces them separately — that warning is the whole
+ * point of the review gate.
+ */
+export function editorialNotes(md: string): string[] {
+  return [...md.matchAll(/<!--([\s\S]*?)-->/g)].map((m) => m[1].trim()).filter(Boolean);
 }
 
 /** ISO datetime → "YYYY-MM-DD" (BlogPost.published is a date string). */
