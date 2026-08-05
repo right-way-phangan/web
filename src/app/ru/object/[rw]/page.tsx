@@ -159,7 +159,7 @@ export default async function RussianObjectPage({ params }: Props) {
                 {object.rwNumber} · {typeName}
               </p>
               <Link
-                href={"/due-diligence" as Route}
+                href={"/ru/due-diligence" as Route}
                 className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-forest-500/80 transition-colors hover:text-brass-500"
               >
                 <ShieldCheck className="h-3.5 w-3.5 text-brass-500" />
