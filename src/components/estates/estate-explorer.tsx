@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils/cn";
 import { Appear } from "@/components/motion/appear";
 import { ObjectLocationMap } from "@/components/objects/object-location-map";
 import { EstateSitePlan } from "./estate-site-plan";
+import { EstatePlanAside } from "./estate-plan-aside";
 import { EstatePlotsTable } from "./estate-plots-table";
 import { EstateGallery } from "./estate-gallery";
 import { EstateInquiry } from "./estate-inquiry";
@@ -101,6 +102,16 @@ export function EstateExplorer({ estate, locale, initialLot }: Props) {
 
   const drawerPlot = drawerLot ? (estate.plots.find((p) => p.code === drawerLot) ?? null) : null;
 
+  // Панель у схемы: приоритет у курсора, иначе — открытый в драуэре лот.
+  const activeCode = hovered ?? drawerLot;
+  const activePlot = activeCode ? (estate.plots.find((p) => p.code === activeCode) ?? null) : null;
+
+  // Ширина колонки схемы = её пропорции при ограничении по высоте экрана.
+  const planBox = estate.plan?.viewBox.split(/\s+/).map(Number);
+  const planWidth = planBox
+    ? `min(100%, max(17rem, calc((100dvh - 15rem) * ${planBox[2]} / ${planBox[3]})))`
+    : "100%";
+
   const filters: { key: Filter; label: string }[] = [
     { key: "all", label: t.filter.all },
     { key: "available", label: t.filter.available },
@@ -119,8 +130,20 @@ export function EstateExplorer({ estate, locale, initialLot }: Props) {
               <h2 className="font-serif text-3xl text-forest-900">{t.sections.plan}</h2>
               <p className="mt-2 max-w-prose text-sm text-forest-500/70">{t.planLede}</p>
             </div>
-            <div className="mt-6">
+            {/* Схема вытянута по вертикали и никогда не занимает всю ширину
+                колонки — место справа от неё отдано панели с деталями лота. */}
+            <div
+              className="mt-6 grid items-start gap-5 lg:grid-cols-[var(--plan-w)_minmax(210px,1fr)] lg:gap-6"
+              style={{ "--plan-w": planWidth } as React.CSSProperties}
+            >
               <EstateSitePlan estate={estate} locale={locale} hovered={hovered} selected={drawerLot} onHover={setHovered} onSelect={setDrawerLot} />
+              <EstatePlanAside
+                estate={estate}
+                plot={activePlot}
+                locale={locale}
+                onOpen={setDrawerLot}
+                onEnquire={onEnquire}
+              />
             </div>
           </section>
         ) : null}

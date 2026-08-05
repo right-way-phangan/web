@@ -537,6 +537,77 @@
   --tw-ring-color: rgb(var(--c-bronze) / 0.6);
 }
 
+/* Схема разбивки участка (EstateSitePlan). Цвета SVG живут здесь переменными,
+   потому что тема переключается классом `.dark`, а внутри SVG Tailwind-токены
+   и fill-opacity ненадёжны. Светлая — «пергаментный мастер-план», тёмная —
+   ночная карта: графит-петроль с золотыми лотами. */
+.site-plan {
+  --esp-p1: #f7f1e3;
+  --esp-p2: #eadfcb;
+  --esp-p3: #d7cbb0;
+  --esp-contour: rgba(31, 58, 46, 0.06);
+  --esp-line: #fbf7ee;
+  --esp-line-hover: #ffffff;
+  --esp-sel: #c77929;
+  --esp-avail-a: rgba(233, 185, 129, 0.52);
+  --esp-avail-b: rgba(187, 108, 34, 0.24);
+  --esp-availh-a: rgba(241, 180, 104, 0.9);
+  --esp-availh-b: rgba(187, 108, 34, 0.56);
+  --esp-res-a: rgba(199, 121, 41, 0.34);
+  --esp-res-b: rgba(199, 121, 41, 0.13);
+  --esp-sold-a: rgba(51, 84, 63, 0.32);
+  --esp-sold-b: rgba(31, 58, 46, 0.2);
+  --esp-road: rgba(199, 187, 156, 0.62);
+  --esp-road-mid: #f2ecdb;
+  --esp-chip: #fcf9f2;
+  --esp-chip-hover: #fffdf8;
+  --esp-chip-sel: #fbefd9;
+  --esp-chip-line: rgba(31, 58, 46, 0.14);
+  --esp-chip-ink: #1f3a2e;
+  --esp-chip-ink-sel: #8a5418;
+  --esp-chip-sub: #9b7a47;
+  --esp-sold-ink: #263f33;
+  --esp-ink: #1f3a2e;
+  --esp-west-ink: #7a4e18;
+  --esp-west-halo: rgba(252, 248, 241, 0.9);
+  --esp-sun-1: #f6ce84;
+  --esp-sun-2: #e0922f;
+  --esp-glow: rgba(224, 146, 47, 0.3);
+}
+.dark .site-plan {
+  --esp-p1: #16261f;
+  --esp-p2: #101d18;
+  --esp-p3: #0a1410;
+  --esp-contour: rgba(246, 239, 226, 0.05);
+  --esp-line: rgba(246, 239, 226, 0.22);
+  --esp-line-hover: rgba(246, 239, 226, 0.75);
+  --esp-sel: #f4be5c;
+  --esp-avail-a: rgba(244, 190, 92, 0.34);
+  --esp-avail-b: rgba(180, 118, 28, 0.14);
+  --esp-availh-a: rgba(247, 210, 168, 0.62);
+  --esp-availh-b: rgba(217, 138, 30, 0.34);
+  --esp-res-a: rgba(244, 190, 92, 0.2);
+  --esp-res-b: rgba(244, 190, 92, 0.07);
+  --esp-sold-a: rgba(10, 110, 116, 0.24);
+  --esp-sold-b: rgba(4, 38, 46, 0.3);
+  --esp-road: rgba(246, 239, 226, 0.1);
+  --esp-road-mid: rgba(246, 239, 226, 0.34);
+  --esp-chip: #0f1e1a;
+  --esp-chip-hover: #16302a;
+  --esp-chip-sel: #241a0c;
+  --esp-chip-line: rgba(246, 239, 226, 0.18);
+  --esp-chip-ink: #f6efe2;
+  --esp-chip-ink-sel: #f4be5c;
+  --esp-chip-sub: #c2a776;
+  --esp-sold-ink: rgba(230, 243, 243, 0.55);
+  --esp-ink: rgba(230, 243, 243, 0.75);
+  --esp-west-ink: #f4be5c;
+  --esp-west-halo: rgba(8, 18, 15, 0.8);
+  --esp-sun-1: #ffe0a8;
+  --esp-sun-2: #e8a03a;
+  --esp-glow: rgba(244, 190, 92, 0.22);
+}
+
 /* Печать (кнопка «Печать / PDF» на страницах подборок): убираем хром и
    оверлеи, печатаем на белом. Интерактивные слои уже помечены `print:hidden`. */
 @media print {
