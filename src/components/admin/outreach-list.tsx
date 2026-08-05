@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, useTransition } from "react";
+import { useUrlTab } from "@/lib/hooks/use-url-tab";
 import Link from "next/link";
 import type { Route } from "next";
 import { Phone, PhoneOff, Archive, FileSignature, CheckCircle2, Star, Pencil } from "lucide-react";
@@ -106,7 +107,8 @@ function bucket(r: OutreachRow): FilterKey {
 }
 
 export function OutreachList({ rows }: { rows: OutreachRow[] }) {
-  const [filter, setFilter] = useState<FilterKey>("todo");
+  // Фильтр в URL (?f=): F5/шэринг/назад возвращают тот же срез.
+  const [filter, setFilter] = useUrlTab<FilterKey>("f", FILTERS.map((f) => f.key), "todo");
   const [busyRw, setBusyRw] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   // локальные правки до сохранения
