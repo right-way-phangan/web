@@ -849,6 +849,7 @@ export interface ListingsDict {
   sortPriceDesc: string;
   sortTooltip: string;
   more: string;
+  filters: string;
   clear: string;
   saveSearch: string;
   saved: string;
@@ -927,6 +928,7 @@ const listings: Record<Locale, ListingsDict> = {
     sortPriceDesc: "Price ↓",
     sortTooltip: "Featured = the order we recommend (curated). Or sort by newest / price.",
     more: "More",
+    filters: "Filters",
     clear: "Clear",
     saveSearch: "Save search",
     saved: "Saved",
@@ -996,6 +998,7 @@ const listings: Record<Locale, ListingsDict> = {
     sortPriceDesc: "Цена ↓",
     sortTooltip: "Рекомендуемые = наш курируемый порядок. Или сортируйте по новизне / цене.",
     more: "Ещё",
+    filters: "Фильтры",
     clear: "Сбросить",
     saveSearch: "Сохранить поиск",
     saved: "Сохранено",
