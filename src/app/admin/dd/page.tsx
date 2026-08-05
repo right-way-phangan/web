@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { getAllObjects } from "@/lib/data/objects";
-import { AdminNav } from "@/components/admin/admin-nav";
 import { DdQueue, type DdRow } from "@/components/admin/dd-queue";
 
 export const metadata: Metadata = {
@@ -60,7 +59,6 @@ export default async function AdminDdPage() {
 
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="dd" />
       <h1 className="text-2xl font-semibold text-forest-900">DD · Проверки объектов</h1>
       <p className="mt-3 max-w-2xl text-sm text-forest-900/70">
         Listing Vetting (L1) по чек-листу DD v0.2: вердикт юриста по каждому

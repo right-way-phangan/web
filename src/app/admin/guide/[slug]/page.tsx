@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { Route } from "next";
 import { notFound } from "next/navigation";
-import { AdminNav } from "@/components/admin/admin-nav";
 import { GuideNav } from "@/components/admin/guide-nav";
 import { GuideArticle } from "@/components/admin/guide-article";
 import { GuideToc } from "@/components/admin/guide-toc";
@@ -96,7 +95,6 @@ export default async function GuidePageView({ params }: { params: Params }) {
 
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="guide" />
       <div className="lg:grid lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-10 xl:grid-cols-[15rem_minmax(0,1fr)_13rem]">
         <GuideNav pages={pages} active={slug} />
         <article className="max-w-3xl">

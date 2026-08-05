@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { AdminNav } from "@/components/admin/admin-nav";
 import { AddTransactionForm } from "@/components/admin/add-transaction-form";
 
 export const metadata: Metadata = {
@@ -31,7 +30,6 @@ export default async function AddTransactionPage({
   const { err } = await searchParams;
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="finance" />
       <div className="mx-auto max-w-md">
         <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">Admin · Финансы</p>
         <h1 className="mt-2 text-2xl font-semibold text-forest-900">Добавить трату</h1>

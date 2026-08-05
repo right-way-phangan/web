@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CRM_ENABLED } from "@/lib/data/leads";
-import { AdminNav } from "@/components/admin/admin-nav";
 import { NewLeadForm } from "@/components/crm/new-lead-form";
 
 export const metadata: Metadata = {
@@ -16,7 +15,6 @@ export default function NewLeadPage() {
   if (!CRM_ENABLED) notFound();
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="crm" />
       <Link
         href={{ pathname: "/admin/crm" }}
         className="text-xs text-forest-900/50 hover:text-forest-900"

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { AdminNav } from "@/components/admin/admin-nav";
 import { ValuationTool, type ValuationHistoryRow } from "@/components/admin/valuation-tool";
 import { backendFetch } from "@/lib/api/backend";
 import type { ExternalComp } from "@/lib/actions/valuation";
@@ -45,7 +44,6 @@ export default async function AdminValuationPage() {
 
   return (
     <section className="container-prose py-12 md:py-16">
-      <AdminNav active="valuation" />
       <div className="mb-8">
         <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
           Admin · RW Оценка

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { AdminNav } from "@/components/admin/admin-nav";
 import { AdminMatch } from "@/components/admin/admin-match";
 import { getAllObjects } from "@/lib/data/objects";
 import { deriveFilterOptions } from "@/lib/filters/listings";
@@ -22,7 +21,6 @@ export default async function AdminMatchPage() {
 
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="match" />
       <div className="mb-6">
         <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
           Admin · Подбор

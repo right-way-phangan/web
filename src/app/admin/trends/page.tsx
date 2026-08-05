@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { AdminNav } from "@/components/admin/admin-nav";
 import { getMetricsSeries, weekOverWeek, type SeriesPoint } from "@/lib/data/metrics";
 
 export const metadata: Metadata = {
@@ -84,7 +83,6 @@ export default async function TrendsPage() {
 
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="trends" />
 
       <h1 className="font-serif text-3xl text-forest-900">Тренды</h1>
       <p className="mt-2 max-w-2xl text-sm text-forest-900/60">

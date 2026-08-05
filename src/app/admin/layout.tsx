@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { AdminNav } from "@/components/admin/admin-nav";
 import { CommandPalette } from "@/components/admin/command-palette";
 
 /**
@@ -22,6 +23,12 @@ export const viewport: Viewport = {
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
+      {/* Навигация одна на всю админку; страницы её не подключают. Отступы
+          повторяют стандартную обёртку страниц (px-4 md:px-8), низ даёт
+          собственный mb навигации. */}
+      <div className="px-4 pt-8 md:px-8">
+        <AdminNav />
+      </div>
       {children}
       <CommandPalette />
     </>

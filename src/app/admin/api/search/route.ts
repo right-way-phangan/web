@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getLeads, type CrmLead } from "@/lib/data/leads";
 import { getAllObjects } from "@/lib/data/objects";
 import { getGuidePages } from "@/lib/data/guide";
+import { ADMIN_SECTIONS } from "@/lib/admin-sections";
 import type { RealEstateObject } from "@/types/object";
 
 export const dynamic = "force-dynamic";
@@ -15,18 +16,13 @@ export interface SearchHit {
 }
 
 // Static admin destinations — always searchable, no data fetch needed.
+// Разделы приходят из единого реестра ADMIN_SECTIONS (label + keywords),
+// чтобы палитра не отставала от навигации; здесь остаются только
+// страницы-действия, которые разделами не являются.
 const PAGES: { title: string; keywords: string; href: string }[] = [
-  { title: "Доска лидов", keywords: "crm борд лиды доска", href: "/admin/crm" },
-  { title: "Задачи", keywords: "tasks задачи снуз", href: "/admin/crm/tasks" },
-  { title: "Контакты", keywords: "contacts книга телефоны", href: "/admin/crm/contacts" },
+  ...ADMIN_SECTIONS.map((s) => ({ title: s.label, keywords: s.keywords ?? "", href: s.href as string })),
   { title: "Новый лид", keywords: "new lead добавить лид", href: "/admin/crm/new" },
-  { title: "Импорт лидов (CSV)", keywords: "import csv импорт", href: "/admin/crm/import" },
-  { title: "Объекты", keywords: "objects каталог объекты", href: "/admin/objects" },
-  { title: "Новый объект", keywords: "new object добавить объект", href: "/admin/new" },
-  { title: "Финансы", keywords: "finance деньги opex журнал сделок", href: "/admin/finance" },
-  { title: "Оценка недвижимости", keywords: "valuation estimate оценка цена компсы факторы", href: "/admin/valuation" },
-  { title: "Статьи", keywords: "articles блог статьи", href: "/admin/articles" },
-  { title: "Дашборд", keywords: "dashboard главная сводка", href: "/admin" },
+  { title: "Дубли контактов", keywords: "dupes дубли merge слить", href: "/admin/crm/contacts/dupes" },
 ];
 
 // The backend lists change slowly relative to keystrokes — cache one minute

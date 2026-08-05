@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { AdminNav } from "@/components/admin/admin-nav";
 import { loadDebtsFromSheet } from "@/lib/data/finance-sheet";
 import { getLiveRatesTHB } from "@/lib/data/fx-live";
 import { debtsSummary, fmtTHB, FX, type Currency } from "@/lib/data/finance";
@@ -29,7 +28,6 @@ export default async function DebtsPage() {
 
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="finance" />
       <div className="mx-auto max-w-2xl">
         <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
           Admin · Финансы

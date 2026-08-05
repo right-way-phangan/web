@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { getAllObjects } from "@/lib/data/objects";
-import { AdminNav } from "@/components/admin/admin-nav";
 import { OutreachList, type OutreachRow } from "@/components/admin/outreach-list";
 
 export const metadata: Metadata = {
@@ -70,7 +69,6 @@ export default async function AdminOutreachPage() {
 
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="outreach" />
       <h1 className="text-2xl font-semibold text-forest-900">Обзвон собственников</h1>
       <p className="mt-3 max-w-2xl text-sm text-forest-900/70">
         Кампания актуализации земельных лотов: подтвердить продажу и цену,

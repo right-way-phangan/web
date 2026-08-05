@@ -7,7 +7,6 @@ import {
   type CrmLead,
   type CrmTaskItem,
 } from "@/lib/data/leads";
-import { AdminNav } from "@/components/admin/admin-nav";
 import { TaskRow } from "@/components/crm/task-row";
 import { leadScore } from "@/lib/crm/score";
 import { forecastByMonth } from "@/lib/crm/forecast";
@@ -80,7 +79,6 @@ export default async function CrmTodayPage() {
   if (!CRM_ENABLED) {
     return (
       <section className="px-4 py-8 md:px-8">
-        <AdminNav active="crm" />
         <h1 className="mt-2 text-2xl font-semibold text-forest-900">Сегодня</h1>
         <p className="mt-3 text-sm text-forest-900/60">CRM-бэкенд не подключён.</p>
       </section>
@@ -156,7 +154,6 @@ export default async function CrmTodayPage() {
 
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="crm" />
       <Link href={{ pathname: "/admin/crm" }} className="text-xs text-forest-900/50 hover:text-forest-900">
         ← Доска лидов
       </Link>

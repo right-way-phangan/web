@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { Route } from "next";
 import { ObjectForm } from "@/components/forms/object-form";
-import { AdminNav } from "@/components/admin/admin-nav";
 
 export const metadata: Metadata = {
   title: "Новый объект",
@@ -15,7 +14,6 @@ export const dynamic = "force-dynamic";
 export default function NewObjectPage() {
   return (
     <section className="container-prose py-12 md:py-16">
-      <AdminNav active="new" />
       <div className="mb-8">
         <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
           Admin · приём объектов

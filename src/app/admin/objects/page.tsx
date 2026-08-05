@@ -4,7 +4,6 @@ import { getAllObjects, getPublicObjects } from "@/lib/data/objects";
 import { getLeads } from "@/lib/data/leads";
 import { getViewsByRw } from "@/lib/data/views";
 import { getEngagementByRw } from "@/lib/data/events";
-import { AdminNav } from "@/components/admin/admin-nav";
 import { ObjectsTable, type AdminObjectRow } from "@/components/admin/objects-table";
 import type { RealEstateObject } from "@/types/object";
 
@@ -134,7 +133,6 @@ export default async function ObjectsPage({
   if (all.length === 0) {
     return (
       <section className="px-4 py-8 md:px-8">
-        <AdminNav active="objects" />
         <h1 className="text-2xl font-semibold text-forest-900">База объектов</h1>
         <p className="mt-3 max-w-xl text-sm text-forest-900/70">
           Источник объектов не отвечает. Проверьте{" "}
@@ -353,7 +351,6 @@ export default async function ObjectsPage({
 
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="objects" />
 
       <div className="mb-5">
         <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">Admin · База</p>

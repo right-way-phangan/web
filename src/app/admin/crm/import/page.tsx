@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CRM_ENABLED } from "@/lib/data/leads";
-import { AdminNav } from "@/components/admin/admin-nav";
 import { ImportLeadsForm } from "@/components/crm/import-leads-form";
 
 export const metadata: Metadata = {
@@ -14,7 +13,6 @@ export const dynamic = "force-dynamic";
 export default function ImportLeadsPage() {
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="crm" />
       <Link href={{ pathname: "/admin/crm" }} className="text-xs text-forest-900/50 hover:text-forest-900">
         ← Доска лидов
       </Link>

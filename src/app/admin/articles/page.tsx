@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import type { Route } from "next";
-import { AdminNav } from "@/components/admin/admin-nav";
-import { getAdminArticles, getPendingArticleCount, type DbArticle } from "@/lib/data/articles";
+import { getAdminArticles, type DbArticle } from "@/lib/data/articles";
 
 export const metadata: Metadata = {
   title: "Статьи",
@@ -24,7 +23,7 @@ function fmtDate(iso: string): string {
 const ORDER: DbArticle["status"][] = ["pending", "rejected", "published"];
 
 export default async function AdminArticlesPage() {
-  const [articles, pending] = await Promise.all([getAdminArticles(), getPendingArticleCount()]);
+  const articles = await getAdminArticles();
 
   // every article ships as an EN+RU pair (same slug) — flag cards missing theirs
   const langsBySlug = new Map<string, Set<string>>();
@@ -44,7 +43,6 @@ export default async function AdminArticlesPage() {
 
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="articles" pendingArticles={pending} />
 
       <div className="mb-6">
         <h1 className="text-2xl font-semibold text-forest-900 md:text-3xl">Статьи</h1>

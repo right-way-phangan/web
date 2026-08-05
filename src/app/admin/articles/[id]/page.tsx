@@ -3,14 +3,12 @@ import Link from "next/link";
 import type { Route } from "next";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
-import { AdminNav } from "@/components/admin/admin-nav";
 import { ArticleBody } from "@/components/sections/article-body";
 import { ArticleReview } from "@/components/admin/article-review";
 import {
   editorialNotes,
   getAdminArticle,
   getPairedArticle,
-  getPendingArticleCount,
   mdToBlocks,
 } from "@/lib/data/articles";
 
@@ -37,10 +35,7 @@ function fmtDate(iso: string): string {
 
 export default async function AdminArticlePage({ params }: Props) {
   const { id } = await params;
-  const [article, pending] = await Promise.all([
-    getAdminArticle(Number(id)),
-    getPendingArticleCount(),
-  ]);
+  const article = await getAdminArticle(Number(id));
   if (!article) notFound();
   const paired = await getPairedArticle(article.slug, article.lang);
   const otherLang = article.lang === "ru" ? "en" : "ru";
@@ -52,7 +47,6 @@ export default async function AdminArticlePage({ params }: Props) {
 
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="articles" pendingArticles={pending} />
 
       <div className="mb-5">
         <Link

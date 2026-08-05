@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { AdminNav } from "@/components/admin/admin-nav";
 import { getSearchConsole, opportunities, type GscRow } from "@/lib/data/search-console";
 
 export const metadata: Metadata = {
@@ -66,7 +65,6 @@ export default function SeoPage() {
 
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="seo" />
 
       <h1 className="font-serif text-3xl text-forest-900">SEO · Search Console</h1>
       <p className="mt-2 max-w-2xl text-sm text-forest-900/60">
