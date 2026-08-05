@@ -106,7 +106,10 @@ export function EstateSitePlan({ estate, locale, hovered, selected, onHover, onS
   return (
     <figure
       ref={figRef}
-      className="site-plan -mx-6 overflow-hidden border-y border-forest-500/15 bg-cream-50 shadow-md sm:mx-auto sm:rounded-sm sm:border"
+      // -mx-6 + w-calc — край-в-край на мобильном; на sm+ обычная ширина колонки.
+      // Именно w-*, а не mx-auto: auto-поля у grid-элемента отключают растяжение,
+      // и фигура схлопывается до ширины содержимого легенды.
+      className="site-plan -mx-6 w-[calc(100%+3rem)] overflow-hidden border-y border-forest-500/15 bg-cream-50 shadow-md sm:mx-0 sm:w-full sm:rounded-sm sm:border"
       // Ограничение по высоте окна — чтобы вытянутая схема целиком помещалась в
       // экран и не приходилось скроллить её кусками. Ширина следует из пропорций;
       // нижний порог — чтобы в низком окне (ландшафт) схема не схлопнулась в полоску.
