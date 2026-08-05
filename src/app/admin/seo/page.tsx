@@ -59,7 +59,13 @@ function Rows({ rows, label }: { rows: GscRow[]; label: string }) {
   );
 }
 
-export default function SeoPage() {
+export default async function SeoPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ all?: string }>;
+}) {
+  const { all } = await searchParams;
+  const showAll = all === "1";
   const d = getSearchConsole();
   const opps = opportunities(d);
 
@@ -109,15 +115,42 @@ export default function SeoPage() {
 
           <div className="mt-10">
             <h2 className="mb-3 text-lg font-semibold text-forest-900">Топ запросов</h2>
-            <Rows rows={d.queries.slice(0, 30)} label="Запрос" />
+            <Rows rows={showAll ? d.queries : d.queries.slice(0, 30)} label="Запрос" />
+            <MoreLine total={d.queries.length} shown={showAll ? d.queries.length : 30} showAll={showAll} />
           </div>
 
           <div className="mt-10">
             <h2 className="mb-3 text-lg font-semibold text-forest-900">Топ страниц</h2>
-            <Rows rows={d.pages.slice(0, 30)} label="Страница" />
+            <Rows rows={showAll ? d.pages : d.pages.slice(0, 30)} label="Страница" />
+            <MoreLine total={d.pages.length} shown={showAll ? d.pages.length : 30} showAll={showAll} />
           </div>
         </>
       )}
     </section>
+  );
+}
+
+/** Честная подпись под срезанным списком + разворот на всю выборку. */
+function MoreLine({ total, shown, showAll }: { total: number; shown: number; showAll: boolean }) {
+  if (total <= shown && !showAll) return null;
+  return (
+    <p className="mt-2 text-xs text-forest-900/50">
+      Показаны {Math.min(shown, total)} из {total}
+      {showAll ? (
+        <>
+          {" · "}
+          <Link href={{ pathname: "/admin/seo" }} className="text-brass-600 underline">
+            свернуть
+          </Link>
+        </>
+      ) : (
+        <>
+          {" · "}
+          <Link href={{ pathname: "/admin/seo", query: { all: "1" } }} className="text-brass-600 underline">
+            показать все
+          </Link>
+        </>
+      )}
+    </p>
   );
 }

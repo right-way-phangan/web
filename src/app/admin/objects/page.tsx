@@ -150,7 +150,10 @@ export default async function ObjectsPage({
     ? (sp.s as StatusTab)
     : "All";
   const activeVis: VisTab = VIS_TABS.some((v) => v.key === sp.v) ? (sp.v as VisTab) : "all";
-  const query = (sp.q ?? "").trim().toLowerCase();
+  // Ввод храним как есть (в URL и поле поиска), нижний регистр — только для сравнения:
+  // иначе после клика по любому табу «Haad Yao» возвращалось в поле как «haad yao».
+  const rawQuery = (sp.q ?? "").trim();
+  const query = rawQuery.toLowerCase();
   const sortKey: SortKey = (SORT_KEYS as readonly string[]).includes(sp.sort ?? "")
     ? (sp.sort as SortKey)
     : "rw";
@@ -158,7 +161,7 @@ export default async function ObjectsPage({
 
   // Filters that survive across tab/sort/pagination links (page reset on change).
   const filterQuery: Record<string, string> = {
-    ...(query ? { q: query } : {}),
+    ...(rawQuery ? { q: rawQuery } : {}),
     ...(activeType !== "All" ? { t: activeType } : {}),
     ...(activeStatus !== "All" ? { s: activeStatus } : {}),
     ...(activeVis !== "all" ? { v: activeVis } : {}),
@@ -240,6 +243,13 @@ export default async function ObjectsPage({
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const page = Math.min(Math.max(1, parseInt(sp.page ?? "1", 10) || 1), totalPages);
   const pageRows = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
+  // Текущий срез списка, чтобы «← База объектов» из карточки возвращала
+  // на те же фильтры/сортировку/страницу, а не в начало каталога.
+  const backQs = new URLSearchParams({
+    ...filterQuery,
+    ...(page > 1 ? { page: String(page) } : {}),
+  }).toString();
 
   const rows: AdminObjectRow[] = pageRows.map((o) => ({
     rwNumber: o.rwNumber,
@@ -481,7 +491,7 @@ export default async function ObjectsPage({
           <input
             type="search"
             name="q"
-            defaultValue={query}
+            defaultValue={rawQuery}
             placeholder="RW / название / район…"
             className="w-56 rounded-full border border-forest-900/15 bg-cream-50 px-3 py-1.5 text-sm outline-none focus:border-brass-500"
           />
@@ -537,7 +547,7 @@ export default async function ObjectsPage({
         </div>
       </div>
 
-      <ObjectsTable rows={rows} headerCells={headerCells} />
+      <ObjectsTable rows={rows} headerCells={headerCells} backQs={backQs} />
 
       {/* Pagination */}
       <div className="mt-4 flex items-center justify-between text-xs text-forest-900/55">
