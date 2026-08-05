@@ -151,7 +151,8 @@ function SessionRow({ s }: { s: DbCouncilSession }) {
 export default async function AdminAgentsPage() {
   const [tasks, sessions] = await Promise.all([getAgentTasks(), getCouncilSessions(30)]);
   const open = tasks.filter((t) => t.status === "open");
-  const done = tasks.filter((t) => t.status === "done").slice(0, 20);
+  const doneAll = tasks.filter((t) => t.status === "done");
+  const done = doneAll.slice(0, 20);
   const hasActiveSessions = sessions.some(
     (s) => s.status === "pending" || s.status === "processing",
   );
@@ -190,7 +191,7 @@ export default async function AdminAgentsPage() {
           {done.length > 0 && (
             <>
               <h3 className="mb-2 mt-6 text-xs font-semibold uppercase tracking-wide text-forest-900/35">
-                Выполненные · {done.length}
+                Выполненные · {doneAll.length > done.length ? `${done.length} из ${doneAll.length}` : done.length}
               </h3>
               <div className="space-y-2">
                 {done.map((t) => (

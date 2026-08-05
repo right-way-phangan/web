@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { getComps, byDistrict, daysOnMarket, median, type ExternalComp } from "@/lib/data/comps";
 import { getAllObjects } from "@/lib/data/objects";
 import type { RealEstateObject } from "@/types/object";
@@ -31,7 +32,17 @@ function domBadge(dom: number | null): string {
   return `${dom} дн`;
 }
 
-export default async function CompsPage() {
+const PAGE_SIZE = 100;
+
+export default async function CompsPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const raw = await searchParams;
+  const sp = Object.fromEntries(
+    Object.entries(raw).map(([k, v]) => [k, Array.isArray(v) ? v[0] : v]),
+  ) as Record<string, string | undefined>;
   const [comps, objects] = await Promise.all([getComps(), getAllObjects()]);
   const active = comps.filter((c) => c.status === "active");
   const sold = comps.filter((c) => c.status === "sold");
@@ -65,7 +76,28 @@ export default async function CompsPage() {
     .map((c) => c.priceThb / (c.areaRai as number));
   const allDom = active.map(daysOnMarket).filter((x): x is number => x != null);
 
-  const sorted = [...comps].sort((a, b) => (b.createdAt || "").localeCompare(a.createdAt || ""));
+  // Фильтры ленты живут в URL: срез переживает F5 и уходит ссылкой коллеге.
+  const fType = sp.t && sp.t !== "all" ? sp.t : "";
+  const fDistrict = sp.d && sp.d !== "all" ? sp.d : "";
+  const fStatus = sp.s && sp.s !== "all" ? sp.s : "";
+  const feedFilters: Record<string, string> = {
+    ...(fType ? { t: fType } : {}),
+    ...(fDistrict ? { d: fDistrict } : {}),
+    ...(fStatus ? { s: fStatus } : {}),
+  };
+  const feedAll = [...comps]
+    .filter((c) => (!fType || c.type === fType) && (!fDistrict || c.district === fDistrict) && (!fStatus || c.status === fStatus))
+    .sort((a, b) => (b.createdAt || "").localeCompare(a.createdAt || ""));
+  const feedPages = Math.max(1, Math.ceil(feedAll.length / PAGE_SIZE));
+  const feedPage = Math.min(Math.max(1, parseInt(sp.page ?? "1", 10) || 1), feedPages);
+  const sorted = feedAll.slice((feedPage - 1) * PAGE_SIZE, feedPage * PAGE_SIZE);
+  const feedTypes = [...new Set(comps.map((c) => c.type).filter(Boolean))].sort();
+  const feedDistricts = [...new Set(comps.map((c) => c.district).filter(Boolean))].sort() as string[];
+  const feedStatuses: { key: string; label: string }[] = [
+    { key: "active", label: "🟢 активно" },
+    { key: "sold", label: "🔴 продано" },
+    { key: "gone", label: "⚪ ушло" },
+  ];
 
   return (
     <section className="px-4 py-8 md:px-8">
@@ -160,6 +192,36 @@ export default async function CompsPage() {
           {/* Лента объявлений */}
           <div className="mt-10">
             <h2 className="mb-3 text-lg font-semibold text-forest-900">Объявления · {nf.format(comps.length)}</h2>
+
+            <div className="mb-3 flex flex-wrap items-center gap-1.5 text-sm">
+              <FeedChip label="Все типы" href={{ pathname: "/admin/comps", query: { ...feedFilters, t: undefined } }} on={!fType} />
+              {feedTypes.map((t) => (
+                <FeedChip key={t} label={t} href={{ pathname: "/admin/comps", query: { ...feedFilters, t, page: undefined } }} on={fType === t} />
+              ))}
+              <span className="mx-1 h-4 w-px bg-forest-900/15" />
+              {feedStatuses.map((s) => (
+                <FeedChip key={s.key} label={s.label} href={{ pathname: "/admin/comps", query: { ...feedFilters, s: s.key, page: undefined } }} on={fStatus === s.key} />
+              ))}
+              {fStatus ? (
+                <FeedChip label="× статус" href={{ pathname: "/admin/comps", query: { ...feedFilters, s: undefined, page: undefined } }} on={false} />
+              ) : null}
+            </div>
+
+            {feedDistricts.length > 1 ? (
+              <div className="mb-3 flex flex-wrap items-center gap-1.5 text-sm">
+                <FeedChip label="Все районы" href={{ pathname: "/admin/comps", query: { ...feedFilters, d: undefined } }} on={!fDistrict} />
+                {feedDistricts.map((d) => (
+                  <FeedChip key={d} label={d} href={{ pathname: "/admin/comps", query: { ...feedFilters, d, page: undefined } }} on={fDistrict === d} />
+                ))}
+              </div>
+            ) : null}
+
+            <p className="mb-2 text-xs text-forest-900/50">
+              {feedAll.length === 0
+                ? "Под фильтр ничего не попало"
+                : `Показаны ${nf.format((feedPage - 1) * PAGE_SIZE + 1)}–${nf.format(Math.min(feedPage * PAGE_SIZE, feedAll.length))} из ${nf.format(feedAll.length)}`}
+            </p>
+
             <div className="overflow-x-auto">
               <table className="w-full min-w-[760px] text-sm">
                 <thead>
@@ -174,7 +236,7 @@ export default async function CompsPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {sorted.slice(0, 200).map((c: ExternalComp) => (
+                  {sorted.map((c: ExternalComp) => (
                     <tr key={c.id} className="border-b border-forest-900/5">
                       <td className="py-2 pr-3 text-forest-900/80">{c.type}</td>
                       <td className="py-2 pr-3 text-forest-900/80">{c.district || "—"}</td>
@@ -208,9 +270,54 @@ export default async function CompsPage() {
                 </tbody>
               </table>
             </div>
+
+            {feedPages > 1 ? (
+              <div className="mt-3 flex items-center gap-2 text-sm">
+                {feedPage > 1 ? (
+                  <FeedChip
+                    label="← Назад"
+                    href={{ pathname: "/admin/comps", query: { ...feedFilters, page: String(feedPage - 1) } }}
+                    on={false}
+                  />
+                ) : null}
+                <span className="text-forest-900/50">
+                  Страница {feedPage} из {feedPages}
+                </span>
+                {feedPage < feedPages ? (
+                  <FeedChip
+                    label="Вперёд →"
+                    href={{ pathname: "/admin/comps", query: { ...feedFilters, page: String(feedPage + 1) } }}
+                    on={false}
+                  />
+                ) : null}
+              </div>
+            ) : null}
           </div>
         </>
       )}
     </section>
+  );
+}
+
+/** Чип-ссылка фильтра ленты объявлений. */
+function FeedChip({
+  label,
+  href,
+  on,
+}: {
+  label: string;
+  href: { pathname: string; query: Record<string, string | undefined> };
+  on: boolean;
+}) {
+  return (
+    <Link
+      href={href as never}
+      className={
+        "rounded-full px-2.5 py-1 font-medium transition " +
+        (on ? "bg-panel text-panel-fg" : "bg-forest-900/5 text-forest-900/70 hover:bg-forest-900/10")
+      }
+    >
+      {label}
+    </Link>
   );
 }

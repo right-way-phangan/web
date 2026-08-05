@@ -22,8 +22,22 @@ function fmtDate(iso: string): string {
 
 const ORDER: DbArticle["status"][] = ["pending", "rejected", "published"];
 
-export default async function AdminArticlesPage() {
-  const articles = await getAdminArticles();
+export default async function AdminArticlesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string; s?: string }>;
+}) {
+  const { q, s } = await searchParams;
+  const rawQuery = (q ?? "").trim();
+  const query = rawQuery.toLowerCase();
+  const activeStatus = ORDER.includes(s as DbArticle["status"]) ? (s as DbArticle["status"]) : null;
+  const all = await getAdminArticles();
+  // Конвейер пишет статьи постоянно — без поиска и фильтра список растёт монотонно.
+  const articles = all.filter(
+    (a) =>
+      (!activeStatus || a.status === activeStatus) &&
+      (!query || `${a.title} ${a.slug} ${a.topic ?? ""}`.toLowerCase().includes(query)),
+  );
 
   // every article ships as an EN+RU pair (same slug) — flag cards missing theirs
   const langsBySlug = new Map<string, Set<string>>();
@@ -56,10 +70,48 @@ export default async function AdminArticlesPage() {
         </p>
       </div>
 
+      <div className="mb-5 flex flex-wrap items-center gap-2">
+        <form action="/admin/articles" className="flex items-center gap-2">
+          {activeStatus ? <input type="hidden" name="s" value={activeStatus} /> : null}
+          <input
+            type="search"
+            name="q"
+            defaultValue={rawQuery}
+            placeholder="Заголовок / slug / тема…"
+            className="w-full rounded-full border border-forest-900/15 bg-cream-50 px-3 py-1.5 text-sm outline-none focus:border-brass-500 sm:w-64"
+          />
+        </form>
+        <Link
+          href={{ pathname: "/admin/articles", query: rawQuery ? { q: rawQuery } : {} }}
+          className={
+            "rounded-full px-3 py-1.5 text-sm font-medium transition " +
+            (!activeStatus ? "bg-panel text-panel-fg" : "bg-forest-900/5 text-forest-900/70 hover:bg-forest-900/10")
+          }
+        >
+          Все · {all.length}
+        </Link>
+        {ORDER.map((status) => (
+          <Link
+            key={status}
+            href={{ pathname: "/admin/articles", query: { ...(rawQuery ? { q: rawQuery } : {}), s: status } }}
+            className={
+              "rounded-full px-3 py-1.5 text-sm font-medium transition " +
+              (activeStatus === status
+                ? "bg-panel text-panel-fg"
+                : "bg-forest-900/5 text-forest-900/70 hover:bg-forest-900/10")
+            }
+          >
+            {STATUS_META[status].label} · {all.filter((a) => a.status === status).length}
+          </Link>
+        ))}
+      </div>
+
       {articles.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-forest-900/15 bg-cream-50 p-8 text-center">
           <p className="text-sm text-forest-900/60">
-            Пока статей нет. Когда я подготовлю черновик, он появится здесь на согласование.
+            {all.length === 0
+              ? "Пока статей нет. Когда я подготовлю черновик, он появится здесь на согласование."
+              : "Под фильтр ничего не попало — сбрось поиск или статус."}
           </p>
         </div>
       ) : (

@@ -9,6 +9,8 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
+const PAGE_SIZE = 100;
+
 /**
  * The contact book — every person the agency knows (site leads, manual,
  * imports, the legacy amo book), with lead counters and a jump to the latest
@@ -17,17 +19,23 @@ export const dynamic = "force-dynamic";
 export default async function CrmContactsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string }>;
+  searchParams: Promise<{ q?: string; page?: string }>;
 }) {
-  const { q } = await searchParams;
-  const query = (q ?? "").trim().toLowerCase();
+  const { q, page: pageParam } = await searchParams;
+  const rawQuery = (q ?? "").trim();
+  const query = rawQuery.toLowerCase();
   const all = CRM_ENABLED ? await getContacts() : [];
-  const contacts = query
+  const found = query
     ? all.filter((c) =>
         [c.name, c.phone, c.email].filter(Boolean).join(" ").toLowerCase().includes(query),
       )
     : all;
   const withLeads = all.filter((c) => c.leadsCount > 0).length;
+  // Книга (импорт из amo) рендерилась одним списком целиком — листаем по 100.
+  const totalPages = Math.max(1, Math.ceil(found.length / PAGE_SIZE));
+  const page = Math.min(Math.max(1, parseInt(pageParam ?? "1", 10) || 1), totalPages);
+  const contacts = found.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const pageQuery = (n: number) => ({ ...(rawQuery ? { q: rawQuery } : {}), ...(n > 1 ? { page: String(n) } : {}) });
 
   return (
     <section className="px-4 py-8 md:px-8">
@@ -38,7 +46,7 @@ export default async function CrmContactsPage({
         <div>
           <h1 className="text-2xl font-semibold text-forest-900 md:text-3xl">Контакты</h1>
           <p className="mt-1 text-sm text-forest-900/60">
-            {query ? `${contacts.length} из ${all.length}` : all.length} контакт(ов) · с лидами —{" "}
+            {query ? `${found.length} из ${all.length}` : all.length} контакт(ов) · с лидами —{" "}
             {withLeads}. Вся книга, включая перенесённую из amoCRM.
           </p>
         </div>
@@ -136,6 +144,30 @@ export default async function CrmContactsPage({
           ))}
         </ul>
       )}
+
+      {totalPages > 1 ? (
+        <div className="mt-4 flex items-center gap-3 text-sm">
+          {page > 1 ? (
+            <Link
+              href={{ pathname: "/admin/crm/contacts", query: pageQuery(page - 1) }}
+              className="rounded-full bg-forest-900/5 px-3 py-1.5 font-medium text-forest-900/70 hover:bg-forest-900/10"
+            >
+              ← Назад
+            </Link>
+          ) : null}
+          <span className="text-forest-900/50">
+            Показаны {(page - 1) * PAGE_SIZE + 1}–{Math.min(page * PAGE_SIZE, found.length)} из {found.length}
+          </span>
+          {page < totalPages ? (
+            <Link
+              href={{ pathname: "/admin/crm/contacts", query: pageQuery(page + 1) }}
+              className="rounded-full bg-forest-900/5 px-3 py-1.5 font-medium text-forest-900/70 hover:bg-forest-900/10"
+            >
+              Вперёд →
+            </Link>
+          ) : null}
+        </div>
+      ) : null}
     </section>
   );
 }
