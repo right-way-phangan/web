@@ -42,7 +42,9 @@ export interface DbArticle {
 
 /** Markdown → KbBlock[] (the minimal subset the blog renderer supports). */
 export function mdToBlocks(md: string): KbBlock[] {
-  const lines = md.replace(/\r\n/g, "\n").split("\n");
+  // HTML comments are editorial notes (drafting caveats, TODOs) — never public.
+  // Without this they fall through as plain paragraphs and render on the page.
+  const lines = md.replace(/\r\n/g, "\n").replace(/<!--[\s\S]*?-->/g, "").split("\n");
   const blocks: KbBlock[] = [];
   let para: string[] = [];
   let list: string[] = [];
