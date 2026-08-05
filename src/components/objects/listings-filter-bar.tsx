@@ -67,18 +67,21 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
   const pinnedRef = useRef(false);
   const barRef = useRef<HTMLDivElement>(null);
   const expandedRef = useRef(0);
+  const flowTopRef = useRef(0);
 
   useEffect(() => {
     const el = barRef.current;
     if (!el) return;
     const onScroll = () => {
       const stickyTop = parseFloat(getComputedStyle(el).top) || 0;
-      // Точка, в которой бар прилипает к хедеру (место бара в потоке минус
-      // его sticky-отступ) — считаем от неё, а не от абсолютных пикселей:
-      // высота шапки страницы разная на мобильном и десктопе.
-      const stickPoint = el.offsetTop - stickyTop;
       const y = window.scrollY;
-      if (y <= stickPoint) {
+      const rectTop = el.getBoundingClientRect().top;
+      // Пока бар не прилип — запоминаем его место в потоке. Считать через
+      // `offsetTop` нельзя: у sticky-элемента он растёт вместе с прокруткой
+      // (замер: 358 наверху страницы, 1399 при скролле 1400), из-за чего
+      // порог убегал вперёд и бар не сворачивался вовсе.
+      if (rectTop > stickyTop + 1) {
+        flowTopRef.current = rectTop + y;
         pinnedRef.current = false;
         setCollapsed(false);
         return;
@@ -87,7 +90,7 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
       // Сворачиваем, только когда место бара в потоке целиком ушло за верх
       // экрана: тогда подмена «полный бар → полоса + распорка» происходит вне
       // поля зрения и каталог не дёргается. Заодно это гистерезис.
-      if (y > stickPoint + expandedRef.current) setCollapsed(true);
+      if (y > flowTopRef.current - stickyTop + expandedRef.current) setCollapsed(true);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
