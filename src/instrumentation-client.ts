@@ -13,17 +13,22 @@
  * /admin is deliberately excluded: the panel carries client PII (lead names,
  * phones, owner notes) that has no business inside a session replay.
  */
-import posthog from "posthog-js";
-
 const KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY;
 // Region is chosen when the project is created; US is PostHog's own default.
 const HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST ?? "https://us.i.posthog.com";
 
 if (KEY && !window.location.pathname.startsWith("/admin")) {
-  posthog.init(KEY, {
-    api_host: HOST,
-    // Modern default set — most importantly capture_pageview: 'history_change',
-    // which is what makes App Router client navigations count as pageviews.
-    defaults: "2026-06-25",
+  // Dynamic import keeps posthog-js (~60 KB) out of every page bundle: with no
+  // key the chunk is never even requested, and with one it loads in parallel
+  // instead of weighing down the hydration path. track() mirrors events through
+  // window.posthog, which is what the assignment below publishes.
+  void import("posthog-js").then(({ default: posthog }) => {
+    posthog.init(KEY, {
+      api_host: HOST,
+      // Modern default set — most importantly capture_pageview: 'history_change',
+      // which is what makes App Router client navigations count as pageviews.
+      defaults: "2026-06-25",
+    });
+    window.posthog = posthog;
   });
 }
