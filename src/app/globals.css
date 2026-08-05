@@ -117,14 +117,17 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    /* Декоративные glow-подложки (-inset-x-* в hero/секциях) шире вьюпорта.
-       clip, а не hidden: hidden создал бы scroll-container и сломал sticky
-       (хедер, фильтр-бар каталога). */
     overflow-x: clip;
   }
   body {
     @apply bg-cream-100 text-forest-900 font-sans antialiased;
     text-rendering: optimizeLegibility;
+    /* Декоративные glow-подложки (-inset-x-* в hero/секциях) шире вьюпорта.
+       clip на body, а не только на html: клип корневого элемента не убирает
+       вылет из scrollWidth документа (страница остаётся прокручиваемой из JS,
+       ночной аудит меряет именно scrollWidth). clip, а не hidden: hidden
+       создал бы scroll-container и сломал sticky (хедер, фильтр-бар каталога). */
+    overflow-x: clip;
   }
   /* Ease the light↔dark flip. Scoped to color properties so it never fights
      layout or transforms; reduced-motion zeroes it via the rule below. */
