@@ -52,6 +52,28 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
   // Secondary filters (tenure, views, beds) collapse on mobile to keep the bar
   // short; desktop always shows them via `lg:flex`.
   const [showMore, setShowMore] = useState(false);
+  // Десктоп: при прокрутке каталога бар сворачивается в тонкую строку — иначе
+  // на средних экранах чипы враппятся в 3-4 ряда и липкая плита закрывает
+  // половину вьюпорта. Разворот кнопкой «фильтры» прикалывает бар до возврата
+  // к верху страницы (гистерезис 120/320px — без дёрганья на границе).
+  const [collapsed, setCollapsed] = useState(false);
+  const pinnedRef = useRef(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (y < 120) {
+        pinnedRef.current = false;
+        setCollapsed(false);
+        return;
+      }
+      if (pinnedRef.current) return;
+      if (y > 320) setCollapsed(true);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   function update(mutator: (p: URLSearchParams) => void) {
     const next = new URLSearchParams(params.toString());
@@ -243,10 +265,33 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
     <div
       className={cn(
         "sticky top-16 z-30 -mx-6 mt-8 border-y border-forest-500/10 bg-cream-100/90 px-6 py-4 backdrop-blur-md md:top-20 md:-mx-8 md:px-8",
+        collapsed && "lg:py-2.5",
         pending && "opacity-90",
       )}
     >
-      <div className="flex flex-wrap items-center gap-2">
+      {collapsed ? (
+        <div className="hidden items-center gap-2 lg:flex">
+          <button
+            type="button"
+            onClick={() => {
+              pinnedRef.current = true;
+              setCollapsed(false);
+            }}
+            className="inline-flex items-center gap-1.5 rounded-sm border border-forest-500/20 bg-cream-50 px-3 py-1.5 text-xs font-medium text-forest-500 transition-colors hover:border-brass-500/50 hover:text-brass-700"
+          >
+            <SlidersHorizontal className="h-3 w-3" />
+            {dict.more}
+            {activeFilters.length > 0 ? (
+              <span className="inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-panel px-1 text-[10px] text-panel-fg">
+                {activeFilters.length}
+              </span>
+            ) : null}
+            <ChevronDown className="h-3 w-3" />
+          </button>
+        </div>
+      ) : null}
+
+      <div className={cn("flex flex-wrap items-center gap-2", collapsed && "lg:hidden")}>
         {/* Buy / Rent — primary mode switch (the market is pivoting to leasehold).
             Hidden when the catalog has no rentals: leaseholds browse under Buy,
             so a lone Rent tab would only ever open a dead empty state. */}
