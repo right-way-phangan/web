@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import type { Route } from "next";
-import { useEffect, useRef, useState, useTransition } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, useTransition } from "react";
 import { Check, X, ChevronDown, BellPlus, BellRing, SlidersHorizontal } from "lucide-react";
 import type { ObjectType, TenureType } from "@/types/object";
 import type { ListingsFilter, SortOption, ViewMode } from "@/lib/filters/listings";
@@ -22,6 +22,10 @@ interface Props {
   };
   totalCount: number;
 }
+
+// useLayoutEffect предупреждает при рендере на сервере — там подменяем его
+// на useEffect (эффекты в SSR всё равно не выполняются).
+const useIsoLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 const TENURE_OPTIONS: TenureType[] = ["Freehold", "Leasehold"];
 
@@ -52,27 +56,78 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
   // Secondary filters (tenure, views, beds) collapse on mobile to keep the bar
   // short; desktop always shows them via `lg:flex`.
   const [showMore, setShowMore] = useState(false);
-  // Десктоп: при прокрутке каталога бар сворачивается в тонкую строку — иначе
-  // на средних экранах чипы враппятся в 3-4 ряда и липкая плита закрывает
-  // половину вьюпорта. Разворот кнопкой «фильтры» прикалывает бар до возврата
-  // к верху страницы (гистерезис 120/320px — без дёрганья на границе).
+  // При прокрутке каталога бар сворачивается в тонкую строку — иначе чипы
+  // враппятся в 3-4 ряда и липкая плита закрывает пол-вьюпорта (замер на
+  // мобильном: 318px из 844 плюс хедер). Разворот кнопкой «фильтры»
+  // прикалывает бар до возврата к верху страницы.
   const [collapsed, setCollapsed] = useState(false);
+  // Свёрнутая плита ниже развёрнутой; разницу держит распорка сразу под
+  // баром, иначе в момент схлопывания список подпрыгнул бы на эту разницу.
+  const [reserve, setReserve] = useState(0);
   const pinnedRef = useRef(false);
+  const barRef = useRef<HTMLDivElement>(null);
+  const expandedRef = useRef(0);
 
   useEffect(() => {
+    const el = barRef.current;
+    if (!el) return;
     const onScroll = () => {
+      const stickyTop = parseFloat(getComputedStyle(el).top) || 0;
+      // Точка, в которой бар прилипает к хедеру (место бара в потоке минус
+      // его sticky-отступ) — считаем от неё, а не от абсолютных пикселей:
+      // высота шапки страницы разная на мобильном и десктопе.
+      const stickPoint = el.offsetTop - stickyTop;
       const y = window.scrollY;
-      if (y < 120) {
+      if (y <= stickPoint) {
         pinnedRef.current = false;
         setCollapsed(false);
         return;
       }
       if (pinnedRef.current) return;
-      if (y > 320) setCollapsed(true);
+      // Сворачиваем, только когда место бара в потоке целиком ушло за верх
+      // экрана: тогда подмена «полный бар → полоса + распорка» происходит вне
+      // поля зрения и каталог не дёргается. Заодно это гистерезис.
+      if (y > stickPoint + expandedRef.current) setCollapsed(true);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Замер высот: развёрнутую запоминаем, свёрнутую вычитаем — разница уходит
+  // в распорку. Layout-эффект, чтобы подмена случилась до отрисовки кадра.
+  useIsoLayoutEffect(() => {
+    const el = barRef.current;
+    if (!el) return;
+    if (collapsed) {
+      setReserve(Math.max(0, expandedRef.current - el.offsetHeight));
+    } else {
+      expandedRef.current = el.offsetHeight;
+      setReserve(0);
+    }
+  });
+
+  // Карта в сплите тоже липкая — без этого её контролы слоёв (Map/Satellite/
+  // Terrain, Parcels, Zoning) прилипают на 96px и уезжают под бар. Публикуем
+  // фактический низ бара (sticky-top + высота, оба меняются: брейкпоинт,
+  // свёрнут/развёрнут, ряд активных чипов), карта прилипает ровно под ним.
+  useEffect(() => {
+    const el = barRef.current;
+    if (!el) return;
+    const publish = () => {
+      const stickyTop = parseFloat(getComputedStyle(el).top) || 0;
+      document.documentElement.style.setProperty(
+        "--rw-filters-bottom",
+        `${Math.round(stickyTop + el.offsetHeight)}px`,
+      );
+    };
+    publish();
+    const ro = new ResizeObserver(publish);
+    ro.observe(el);
+    return () => {
+      ro.disconnect();
+      document.documentElement.style.removeProperty("--rw-filters-bottom");
+    };
   }, []);
 
   function update(mutator: (p: URLSearchParams) => void) {
@@ -262,25 +317,27 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
   ];
 
   return (
+    <>
     <div
+      ref={barRef}
       className={cn(
         "sticky top-16 z-30 -mx-6 mt-8 border-y border-forest-500/10 bg-cream-100/90 px-6 py-4 backdrop-blur-md md:top-20 md:-mx-8 md:px-8",
-        collapsed && "lg:py-2.5",
+        collapsed && "py-2 lg:py-2.5",
         pending && "opacity-90",
       )}
     >
       {collapsed ? (
-        <div className="hidden items-center gap-2 lg:flex">
+        <div className="flex items-center gap-3">
           <button
             type="button"
             onClick={() => {
               pinnedRef.current = true;
               setCollapsed(false);
             }}
-            className="inline-flex items-center gap-1.5 rounded-sm border border-forest-500/20 bg-cream-50 px-3 py-1.5 text-xs font-medium text-forest-500 transition-colors hover:border-brass-500/50 hover:text-brass-700"
+            className="inline-flex min-h-11 items-center gap-1.5 rounded-sm border border-forest-500/20 bg-cream-50 px-3 py-1.5 text-xs font-medium text-forest-500 transition-colors hover:border-brass-500/50 hover:text-brass-700 lg:min-h-0"
           >
             <SlidersHorizontal className="h-3 w-3" />
-            {dict.more}
+            {dict.filters}
             {activeFilters.length > 0 ? (
               <span className="inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-panel px-1 text-[10px] text-panel-fg">
                 {activeFilters.length}
@@ -288,10 +345,15 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
             ) : null}
             <ChevronDown className="h-3 w-3" />
           </button>
+          {/* Свёрнутая полоса — единственное, что видно при прокрутке, поэтому
+              счёт результатов переезжает сюда из строки под баром. */}
+          <span className="truncate text-xs text-forest-500/60">
+            {pending ? dict.updating : dict.matchesCount(totalCount)}
+          </span>
         </div>
       ) : null}
 
-      <div className={cn("flex flex-wrap items-center gap-2", collapsed && "lg:hidden")}>
+      <div className={cn("flex flex-wrap items-center gap-2", collapsed && "hidden")}>
         {/* Buy / Rent — primary mode switch (the market is pivoting to leasehold).
             Hidden when the catalog has no rentals: leaseholds browse under Buy,
             so a lone Rent tab would only ever open a dead empty state. */}
@@ -538,7 +600,7 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
         </div>
       </div>
 
-      {activeFilters.length > 0 ? (
+      {activeFilters.length > 0 && !collapsed ? (
         <div className="mt-3 flex flex-wrap items-center gap-1.5">
           {activeFilters.map((f) => (
             <button
@@ -558,7 +620,7 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
       {/* The hero subtitle already states the unfiltered total, so only surface
           this line once it carries new information (a filter/sort is active or
           a transition is in flight). */}
-      {filtered || pending ? (
+      {(filtered || pending) && !collapsed ? (
         <p className="mt-3 text-xs text-forest-500/50">
           {pending
             ? dict.updating
@@ -566,6 +628,9 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
         </p>
       ) : null}
     </div>
+    {/* Распорка на высоту схлопывания — держит поток неподвижным. */}
+    {reserve > 0 ? <div aria-hidden style={{ height: reserve }} /> : null}
+    </>
   );
 }
 

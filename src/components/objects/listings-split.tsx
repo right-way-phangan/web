@@ -190,10 +190,13 @@ export function ListingsSplit({
           )}
         </div>
 
-        {/* Map */}
+        {/* Map — прилипает под липким фильтр-баром, который публикует свой
+            фактический низ в `--rw-filters-bottom` (высота бара плавает:
+            свёрнут / развёрнут / ряд активных чипов). Без этого верх карты с
+            контролами слоёв уезжал под бар. Fallback 6rem = прежний lg:top-24. */}
         <div
           className={cn(
-            "lg:sticky lg:top-24 lg:h-[calc(100vh-8rem)]",
+            "lg:sticky lg:top-[calc(var(--rw-filters-bottom,6rem)_+_0.5rem)] lg:h-[calc(100vh_-_var(--rw-filters-bottom,6rem)_-_2.5rem)]",
             mobileView === "map"
               ? "block h-[70vh]"
               : "hidden h-[70vh] lg:block",
