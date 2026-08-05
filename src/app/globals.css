@@ -117,6 +117,10 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Декоративные glow-подложки (-inset-x-* в hero/секциях) шире вьюпорта.
+       clip, а не hidden: hidden создал бы scroll-container и сломал sticky
+       (хедер, фильтр-бар каталога). */
+    overflow-x: clip;
   }
   body {
     @apply bg-cream-100 text-forest-900 font-sans antialiased;
