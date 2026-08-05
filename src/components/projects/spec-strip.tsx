@@ -11,7 +11,7 @@ export function SpecStrip({ project: p, locale }: { project: RealEstateObject; l
 
   if (p.bedrooms != null) items.push({ icon: Bed, value: `${p.bedrooms} ${ru ? "спал." : "bd"}` });
   if (p.bathrooms != null) items.push({ icon: Bath, value: `${p.bathrooms} ${ru ? "сан." : "ba"}` });
-  if (p.areaSqm) items.push({ icon: Maximize2, value: `${p.areaSqm.toLocaleString()} m²` });
+  if (p.areaSqm) items.push({ icon: Maximize2, value: `${p.areaSqm.toLocaleString(ru ? "ru-RU" : "en-US")} m²` });
   if (p.tenure?.[0]) items.push({ icon: ScrollText, value: p.tenure[0] });
   if (p.leaseTermYears) items.push({ icon: Hourglass, value: `${p.leaseTermYears} ${ru ? "лет" : "yr"}` });
   if (p.completion) items.push({ icon: CalendarClock, value: p.completion });

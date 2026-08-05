@@ -117,7 +117,7 @@ export function Footer() {
         </div>
 
         <div className="mt-16 flex flex-col gap-3 border-t border-forest-500/10 pt-8 md:flex-row md:items-center md:justify-between">
-          <p className="text-xs text-forest-600">
+          <p className="text-xs text-forest-600" suppressHydrationWarning>
             © {currentYear} Right Way Phangan Group. {f.rights}
           </p>
           <div className="flex flex-col gap-2 text-xs text-forest-600 md:flex-row md:items-center md:gap-6">

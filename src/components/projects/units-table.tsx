@@ -112,7 +112,7 @@ function UnitRows({ units, locale }: { units: RealEstateObject[]; locale: "en" |
           <>
             <dt className="text-sm font-medium text-forest-900">{u.rwNumber}</dt>
             <dd className="hidden text-sm text-forest-500/70 sm:block">
-              {u.areaSqm ? `${u.areaSqm.toLocaleString()} m²` : u.titleEn}
+              {u.areaSqm ? `${u.areaSqm.toLocaleString(locale === "ru" ? "ru-RU" : "en-US")} m²` : u.titleEn}
             </dd>
             <dd className="num text-sm text-forest-900">
               {u.priceThb ? fmt(u.priceThb) : priceOnRequest}

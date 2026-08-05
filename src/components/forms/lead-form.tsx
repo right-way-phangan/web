@@ -47,7 +47,10 @@ type FieldKey = "name" | "email" | "phone" | "message";
 
 export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", kind, developer, submitLabel, showViewingDate, onSuccess, locale = "en" }: Props) {
   const t = getFormDict(locale);
-  const todayIso = new Date().toISOString().slice(0, 10);
+  // После маунта, как vid ниже: SSR-снимок мог быть отрендерен в другой день
+  // (static prerender), min="" до маунта ничем не мешает.
+  const [todayIso, setTodayIso] = useState("");
+  useEffect(() => setTodayIso(new Date().toISOString().slice(0, 10)), []);
   const [state, formAction] = useActionState(submitInquiry, initialState);
   const utm = useUtmParams();
   const formRef = useRef<HTMLFormElement | null>(null);
