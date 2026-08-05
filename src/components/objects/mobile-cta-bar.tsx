@@ -17,6 +17,12 @@ interface Props {
   rentPerRaiMonth?: number;
 }
 
+/** Страницы, где снизу закреплён этот CTA-бар. Единый источник для всех
+ *  плавающих элементов нижней полки (messenger-fab уступает бару место). */
+export function hasMobileCtaBar(pathname: string): boolean {
+  return pathname.includes("/object/");
+}
+
 /**
  * Mobile-only bar pinned to the bottom of object pages: price + an Enquire
  * shortcut down to the inquiry form (#inquiry). The form is the last thing on

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { MessageCircle, X } from "lucide-react";
 import { getChromeDict } from "@/lib/i18n/dictionaries";
 import { whatsappLink, telegramDmLink } from "@/lib/site-config";
+import { hasMobileCtaBar } from "@/components/objects/mobile-cta-bar";
 import { cn } from "@/lib/utils/cn";
 
 /**
@@ -29,11 +30,11 @@ export function MessengerFab() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  if (pathname.startsWith("/admin") || pathname.includes("/object/")) return null;
+  if (pathname.startsWith("/admin") || hasMobileCtaBar(pathname)) return null;
   if (!shown) return null;
 
   return (
-    <div className="fixed bottom-4 right-4 z-30 flex flex-col items-end gap-2 lg:hidden print:hidden">
+    <div className="fixed bottom-4 right-4 z-40 flex flex-col items-end gap-2 lg:hidden print:hidden">
       {open ? (
         <>
           <a
