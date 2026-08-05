@@ -1,14 +1,16 @@
 # Image credits & licensing
 
-Two sources, both free for commercial use. **Photographs only — no 3D renders / digital art.**
+Three sources, all free for commercial use. **Photographs only — no 3D renders / digital art.**
 
 1. **Pexels** (https://www.pexels.com/license/) — no attribution required. Used for
    *representative* Koh Phangan / Gulf-of-Thailand atmosphere (not a specific plot).
 2. **Wikimedia Commons** — used for *actual photographs of named places* (Bottle Beach,
    Ko Ma, Thong Sala pier, Haad Rin). CC licenses require attribution — see the Commons
    table below; this public credits page satisfies CC BY / CC BY-SA. CC0 needs none.
+3. **Unsplash** (https://unsplash.com/license) — no attribution required; author credited
+   below anyway. Same *representative* use as Pexels.
 
-Self-hosted copies, resized to ~1400–1600px wide.
+Self-hosted copies, resized to ~1400–1800px wide.
 
 ## District cards (`districts/<slug>.jpg`)
 
@@ -16,7 +18,6 @@ Representative imagery (Pexels, no attribution):
 
 | File | Pexels ID | Original caption |
 |------|-----------|------------------|
-| sri-thanu.jpg   | 5608209  | Palm silhouettes + people at tropical sunset (Zen Beach vibe) |
 | haad-salad.jpg  | 3822201  | Secluded beach cove (Gulf of Thailand) |
 | madeau-wan.jpg  | 4023503  | Coconut palm grove, Surat Thani, Thailand (inland, no beach) |
 | ban-tai.jpg     | 33853025 | Aerial of a long tropical coastline + turquoise water |
@@ -39,6 +40,12 @@ Actual photographs of the named place (Wikimedia Commons — **attribution requi
 | hin-kong.jpg     | Hin Kong Beach.jpg | Christophe95 | CC BY-SA 4.0 |
 | bottle-beach.jpg | View to Bottle Beach, Koh Phangan.jpg | kaaist | CC0 (no attribution needed) |
 | haad-rin.jpg     | Hat Rin from above.jpg | zhaffsky (Flickr) | CC BY-SA 2.0 |
+
+Representative imagery (Unsplash, attribution optional):
+
+| File | Unsplash ID | Author | Original caption |
+|------|-------------|--------|------------------|
+| sri-thanu.jpg | D_wuiyj2kXc | Arvydas Arnasius (@arvydasseventyone) | Aerial of a palm-lined coastline, turquoise shallows + headland |
 
 ## Scenes (`scenes/*.jpg`) — one unique image per page, no repeats
 
