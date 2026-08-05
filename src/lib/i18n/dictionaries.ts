@@ -1938,12 +1938,12 @@ const estatesDict: Record<Locale, EstatesDict> = {
     seeDistrict: "See all listings in this district",
     ddNote:
       "One owner, one parent title — due diligence is done once and inherited by every plot.",
-    planLede: "Hover a plot to see its details; tap it to open the plot card. Colour shows status. North is up — the sun marks the western side: sunset and the sea.",
+    planLede: "Hover a plot for details, tap to open its card. Colour shows status; north is up and the sun marks the west — sunset and sea.",
     planUi: {
       caption: "indicative subdivision · not to scale",
       west: "west · sunset · sea",
       hint: "Hover or tap a plot — its details show up here.",
-      orient: "North is up · west, with the sunset and the sea, is on the left",
+      orient: "North is up; west — sunset and sea — is on the left",
     },
     filter: { all: "All", available: "Available", sea: "Sea view", mountain: "Mountain view" },
     sortLabel: "Sort",
@@ -2042,7 +2042,7 @@ const estatesDict: Record<Locale, EstatesDict> = {
       caption: "ориентировочная разбивка · не в масштабе",
       west: "запад · закат · море",
       hint: "Наведи или нажми на участок — детали появятся здесь.",
-      orient: "Север вверху · запад с закатом и морем — слева",
+      orient: "Север вверху; запад — закат и море — слева",
     },
     filter: { all: "Все", available: "Свободные", sea: "Вид на море", mountain: "Вид на горы" },
     sortLabel: "Сортировка",
