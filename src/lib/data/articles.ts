@@ -88,6 +88,16 @@ export function mdToBlocks(md: string): KbBlock[] {
   return blocks;
 }
 
+/**
+ * Editorial notes the writer left in the body as `<!-- … -->` (drafting
+ * caveats, "check with the lawyer first"). Stripped from the rendered article,
+ * so the review page surfaces them separately — that warning is the whole
+ * point of the review gate.
+ */
+export function editorialNotes(md: string): string[] {
+  return [...md.matchAll(/<!--([\s\S]*?)-->/g)].map((m) => m[1].trim()).filter(Boolean);
+}
+
 /** ISO datetime → "YYYY-MM-DD" (BlogPost.published is a date string). */
 function toDateStr(iso: string | null, fallback: string): string {
   const src = iso || fallback;

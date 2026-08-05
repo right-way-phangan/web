@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { mdToBlocks } from "./articles";
+import { editorialNotes, mdToBlocks } from "./articles";
 
 describe("mdToBlocks", () => {
   it("drops HTML comments instead of rendering them as paragraphs", () => {
@@ -15,5 +15,14 @@ describe("mdToBlocks", () => {
     ].join("\n");
 
     expect(mdToBlocks(md)).toEqual(["Первый абзац.", { h: "Заголовок" }]);
+  });
+});
+
+describe("editorialNotes", () => {
+  it("collects the comments the review page has to show", () => {
+    expect(editorialNotes("<!-- ЧЕРНОВИК — до юриста -->\n\nТекст.")).toEqual([
+      "ЧЕРНОВИК — до юриста",
+    ]);
+    expect(editorialNotes("Текст без пометок.")).toEqual([]);
   });
 });
