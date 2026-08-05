@@ -1824,6 +1824,17 @@ export interface EstatesDict {
   ddNote: string;
   /** план разбивки */
   planLede: string;
+  /** подписи на самой схеме и в панели рядом с ней */
+  planUi: {
+    /** подпись под названием на схеме */
+    caption: string;
+    /** метка закатной/морской (западной) стороны */
+    west: string;
+    /** подсказка в панели, пока лот не выбран */
+    hint: string;
+    /** ориентир по сторонам света */
+    orient: string;
+  };
   /** фильтр и сортировка лотов */
   filter: { all: string; available: string; sea: string; mountain: string };
   sortLabel: string;
@@ -1927,7 +1938,13 @@ const estatesDict: Record<Locale, EstatesDict> = {
     seeDistrict: "See all listings in this district",
     ddNote:
       "One owner, one parent title — due diligence is done once and inherited by every plot.",
-    planLede: "Hover a plot to highlight it in the table; tap it to jump to its photos. Colour shows status; the arrow points to the sunset sea side.",
+    planLede: "Hover a plot to see its details; tap it to open the plot card. Colour shows status. North is up — the sun marks the western side: sunset and the sea.",
+    planUi: {
+      caption: "indicative subdivision · not to scale",
+      west: "west · sunset · sea",
+      hint: "Hover or tap a plot — its details show up here.",
+      orient: "North is up · west, with the sunset and the sea, is on the left",
+    },
     filter: { all: "All", available: "Available", sea: "Sea view", mountain: "Mountain view" },
     sortLabel: "Sort",
     sort: { recommended: "Recommended", priceLow: "Price ↑", priceHigh: "Price ↓", areaLarge: "Largest" },
@@ -2020,7 +2037,13 @@ const estatesDict: Record<Locale, EstatesDict> = {
     seeDistrict: "Все объекты этого района",
     ddNote:
       "Один собственник, один родительский титул — due diligence делается один раз и наследуется каждым участком.",
-    planLede: "Наведи на участок — подсветится в таблице; нажми — перейдёшь к его фото. Цвет = статус; стрелка указывает на закатную, морскую сторону.",
+    planLede: "Наведи на участок — покажем детали; нажми — откроется карточка. Цвет = статус. Север вверху, солнце — на западной стороне: закат и море.",
+    planUi: {
+      caption: "ориентировочная разбивка · не в масштабе",
+      west: "запад · закат · море",
+      hint: "Наведи или нажми на участок — детали появятся здесь.",
+      orient: "Север вверху · запад с закатом и морем — слева",
+    },
     filter: { all: "Все", available: "Свободные", sea: "Вид на море", mountain: "Вид на горы" },
     sortLabel: "Сортировка",
     sort: { recommended: "Рекомендуем", priceLow: "Цена ↑", priceHigh: "Цена ↓", areaLarge: "Площадь" },
