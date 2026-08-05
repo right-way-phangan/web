@@ -7,6 +7,7 @@
  * дефолтов движка) и внешние компсы (ручные наблюдения рынка).
  */
 import { useMemo, useState, useTransition } from "react";
+import { useUrlTab } from "@/lib/hooks/use-url-tab";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -1386,7 +1387,13 @@ export function ValuationTool({
   llmEnabled?: boolean;
   fx?: Fx;
 }) {
-  const [tab, setTab] = useState<Tab>("estimate");
+  // Вкладка в URL (?tab=): раньше 7 вкладок жили в useState — F5 и «назад»
+  // всегда возвращали на «Оценку», ссылку на «Факторы» было не прислать.
+  const [tab, setTab] = useUrlTab<Tab>(
+    "tab",
+    ["estimate", "catalog", "accuracy", "completeness", "factors", "comps", "history"],
+    "estimate",
+  );
   const [v, setV] = useState<SubjectForm>(emptySubject);
   const [result, setResult] = useState<{ r: ValuationResult; s: ValuationSubject } | null>(null);
   const [pending, startTransition] = useTransition();
