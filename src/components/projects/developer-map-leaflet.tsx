@@ -26,7 +26,10 @@ export default function DeveloperMapLeaflet({
 }) {
   const bounds = L.latLngBounds(locations.map((l) => [l.lat, l.lng] as [number, number]));
   return (
-    <div className="h-full w-full overflow-hidden rounded-sm border border-forest-500/10 bg-cream-300">
+    // `isolate` is load-bearing: Leaflet's panes/controls carry z-index 400–800,
+    // which would otherwise sit above the photo lightbox's z-100 overlay and let
+    // the map show through it. Own stacking context keeps them local.
+    <div className="relative isolate z-0 h-full w-full overflow-hidden rounded-sm border border-forest-500/10 bg-cream-300">
       <MapContainer
         bounds={bounds.pad(0.45)}
         boundsOptions={{ maxZoom: 15 }}
