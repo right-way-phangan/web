@@ -20,11 +20,13 @@ export const arqa: DeveloperProfile = {
       "ARQA Development is a villa developer on Koh Phangan. The team takes its communities through the full cycle — masterplan, construction, finished homes and day-to-day rental operations — so the villas it sells are backed by villas it already runs.",
       "Its flagship, Phangaia Garden Resort on the island's west coast near Thong Sala, is being delivered in phases: the first two phases are completed and operate as rental villas, and phase III — Verana Villas — is under construction.",
       "The delivered villas are handed over turnkey — furniture, appliances, air conditioning, landscaping and a pool. Phangaia also has a shared pool and sun deck inside the community; Demaya Resort, a separate delivered project, is built to the same standard in a one-bedroom format.",
+      "A project starts with an audit of the plot and the local building rules, a financial model and engineering design — renders come later. The villas are built to an upgraded European spec: double walls, panoramic glazing with sound and thermal insulation, insulated ceilings and premium climate control.",
     ].join("\n\n"),
     ru: [
       "ARQA Development — застройщик вилл на Ко Пангане. Команда ведёт свои посёлки по полному циклу: мастерплан, строительство, готовые дома и ежедневная работа с арендой — виллы, которые они продают, подкреплены виллами, которыми они уже управляют.",
       "Флагман — Phangaia Garden Resort на западном побережье острова рядом с Тонг Салой. Резорт строится очередями: первые две фазы сданы и работают как арендные виллы, фаза III — Verana Villas — строится.",
       "Сданные виллы передаются под ключ: мебель, техника, кондиционеры, ландшафт и бассейн. В Phangaia есть общий бассейн с зоной отдыха; Demaya Resort — отдельный сданный проект того же уровня в формате одной спальни.",
+      "Проект начинается с аудита участка и регламентов, финансовой модели и инженерной проработки — рендеры появляются позже. Виллы строят по усиленному европейскому стандарту: двойные стены, панорамное остекление со звуко- и теплоизоляцией, утеплённые потолки и премиальный климат-контроль.",
     ].join("\n\n"),
   },
   facts: [
@@ -45,8 +47,8 @@ export const arqa: DeveloperProfile = {
     {
       label: { en: "Delivered", ru: "Сдано" },
       value: {
-        en: "Phangaia phases I–II and Demaya Resort",
-        ru: "Фазы I–II Phangaia и Demaya Resort",
+        en: "Phangaia I–II (2023–2025) and Demaya Resort",
+        ru: "Фазы I–II Phangaia (2023–2025) и Demaya Resort",
       },
     },
     {
@@ -59,11 +61,12 @@ export const arqa: DeveloperProfile = {
   ],
   timeline: [
     {
+      year: "2023–2025",
       title: "Phangaia Garden Resort — phases I & II",
       status: "built",
       description: {
-        en: "Garden villa community in Nai Wok, near Thong Sala. The first two phases are delivered and operate as rental villas: dark-timber villas among the coconut palms, a landscaped garden and a shared pool with a sun deck.",
-        ru: "Вилловый посёлок-сад в Най Воке, рядом с Тонг Салой. Первые две очереди сданы и работают как арендные виллы: тёмные виллы в кокосовой роще, ландшафтный сад и общий бассейн с зоной отдыха.",
+        en: "Garden villa community in Nai Wok, near Thong Sala: six villas in three layouts, dark timber among the coconut palms, a shared pool with a sun deck and a garden planted with dozens of tropical species. Built from November 2023 to April 2025; the villas are delivered and operate as rentals. Three minutes from the international school, fifteen on foot to the sea, on a quiet road with no through traffic.",
+        ru: "Вилловый посёлок-сад в Най Воке, рядом с Тонг Салой: шесть вилл в трёх планировках, тёмное дерево в кокосовой роще, общий бассейн с зоной отдыха и сад с десятками видов тропических растений. Построен с ноября 2023 по апрель 2025; виллы сданы и работают в аренде. Три минуты до международной школы, пятнадцать пешком до моря, тихая улица без сквозного движения.",
       },
       photo: "/images/developers/arqa/phangaia-pool.jpg",
     },
@@ -72,8 +75,8 @@ export const arqa: DeveloperProfile = {
       title: "Demaya Resort",
       status: "built",
       description: {
-        en: "Delivered one-bedroom villa format: a private pool and sun loungers behind a green screen, an open kitchen-living room, a bedroom facing the water and a stone-clad bathroom. Handed over furnished.",
-        ru: "Сданный формат виллы с одной спальней: приватный бассейн и лежаки за зелёной ширмой, кухня-гостиная, спальня с выходом к воде и ванная в камне. Передаётся меблированной.",
+        en: "A separate delivered community inland, near Phaeng waterfall — one-bedroom villas with a private pool and sun loungers behind a green screen, an open kitchen-living room, a bedroom facing the water and a stone-clad bathroom. Handed over furnished.",
+        ru: "Отдельный сданный посёлок в глубине острова, рядом с водопадом Пэнг: виллы с одной спальней — приватный бассейн и лежаки за зелёной ширмой, кухня-гостиная, спальня с выходом к воде и ванная в камне. Передаются меблированными.",
       },
       photo: "/images/developers/arqa/demaya-pool-view.jpg",
     },
