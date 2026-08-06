@@ -65,7 +65,9 @@ export function InquiryForm({ rwNumber }: Props) {
       </div>
 
       <div className="mt-6 border-t border-forest-500/10 pt-4">
-        <p className="text-center text-[11px] uppercase tracking-[0.15em] text-forest-500/40">
+        {/* Разделитель к WhatsApp/Telegram: 11px на 40% — почти невидимо, а это
+            указатель к основному каналу связи. 12px и плотнее по тону. */}
+        <p className="text-center text-xs uppercase tracking-[0.15em] text-forest-500/70">
           {t.orMessageDirectly}
         </p>
         <div className="mt-3 grid grid-cols-2 gap-2">

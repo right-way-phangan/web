@@ -53,8 +53,10 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
     "price-asc": dict.sortPriceAsc,
     "price-desc": dict.sortPriceDesc,
   };
-  // Secondary filters (tenure, views, beds) collapse on mobile to keep the bar
-  // short; desktop always shows them via `lg:flex`.
+  // Secondary filters (tenure, views, beds) collapse behind «More» на всех
+  // ширинах: раньше десктоп разворачивал их всегда, и первичный выбор (что за
+  // объект, где, почём) тонул среди вторичных фич. Активные фильтры при этом
+  // видны всегда — отдельной строкой чипов ниже, так что свёрнутое ≠ забытое.
   const [showMore, setShowMore] = useState(false);
   // При прокрутке каталога бар сворачивается в тонкую строку — иначе чипы
   // враппятся в 3-4 ряда и липкая плита закрывает пол-вьюпорта (замер на
@@ -456,12 +458,17 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
           </>
         )}
 
-        {/* Mobile-only toggle for the secondary filters below */}
+        {/* Toggle for the secondary filters below. Был mobile-only: на десктопе
+            вторичные фильтры всегда стояли инлайн, и в ряду оказывалось до 15
+            равнозначных контролов — тип, владение и фича выглядят одинаковыми
+            пилюлями, различить группы по тонким разделителям глаз не успевает.
+            Теперь свёртка одна на все ширины: по умолчанию видно 8 контролов,
+            остальное — за счётчиком. */}
         <button
           type="button"
           onClick={() => setShowMore((s) => !s)}
           aria-expanded={showMore}
-          className="inline-flex min-h-11 items-center gap-1.5 rounded-sm border border-forest-500/20 bg-cream-50 px-3 py-1.5 text-xs font-medium text-forest-500 lg:hidden"
+          className="inline-flex min-h-11 items-center gap-1.5 rounded-sm border border-forest-500/20 bg-cream-50 px-3 py-1.5 text-xs font-medium text-forest-500 transition-colors hover:border-brass-500/50 hover:text-brass-700 lg:min-h-0"
         >
           <SlidersHorizontal className="h-3 w-3" />
           {dict.more}
@@ -473,10 +480,10 @@ export function ListingsFilterBar({ current, options, totalCount }: Props) {
           <ChevronDown className={cn("h-3 w-3 transition-transform", showMore && "rotate-180")} />
         </button>
 
-        {/* Secondary filters — collapsed on mobile, always inline on desktop */}
+        {/* Secondary filters — collapsed by default on every width */}
         <div
           className={cn(
-            "w-full flex-wrap items-center gap-2 lg:w-auto lg:flex",
+            "w-full flex-wrap items-center gap-2 lg:w-auto",
             showMore ? "flex" : "hidden",
           )}
         >

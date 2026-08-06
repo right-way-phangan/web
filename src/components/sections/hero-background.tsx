@@ -150,8 +150,10 @@ export function HeroBackground({
               aria-current={i === idx}
               onClick={() => setIdx(i)}
               // 24×24 tap target (WCAG 2.5.8) via the flex box; the visible dot
-              // stays small inside it.
-              className="group/dot flex h-6 w-6 items-center justify-center"
+              // stays small inside it. Псевдоэлемент растягивает зону нажатия
+              // до 44×44 (комфортный минимум для пальца), не трогая раскладку:
+              // сами точки остаются на прежних местах с прежним шагом.
+              className="group/dot relative flex h-6 w-6 items-center justify-center before:absolute before:-inset-2.5 before:content-['']"
             >
               <span
                 className={[

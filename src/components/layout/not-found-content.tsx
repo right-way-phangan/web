@@ -4,8 +4,6 @@ import Link from "next/link";
 import type { Route } from "next";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { ObjectCard } from "@/components/objects/object-card";
-import type { RealEstateObject } from "@/types/object";
 
 const COPY = {
   en: {
@@ -28,14 +26,21 @@ const COPY = {
   },
 };
 
-/**
- * Client chrome of the 404 (locale comes from the URL); the server not-found.tsx
- * fetches a few fresh listings so a dead link still ends in live inventory.
- */
-export function NotFoundContent({ fresh }: { fresh: RealEstateObject[] }) {
+/** Локаль 404 живёт в URL: страница общая для обеих версий сайта. */
+export function useNotFoundCopy() {
   const pathname = usePathname();
   const isRu = pathname === "/ru" || pathname.startsWith("/ru/");
-  const t = isRu ? COPY.ru : COPY.en;
+  return { t: isRu ? COPY.ru : COPY.en, isRu };
+}
+
+/**
+ * Client chrome of the 404 (locale comes from the URL). Подборка свежих
+ * объектов приезжает пропом-нодой из серверного not-found.tsx под Suspense:
+ * если каталог недоступен, здесь просто ничего не отрисуется, а сама 404
+ * останется целой (раньше падение запроса отдавало пустой <main>).
+ */
+export function NotFoundContent({ fresh }: { fresh?: React.ReactNode }) {
+  const { t, isRu } = useNotFoundCopy();
   const home = (isRu ? "/ru" : "/") as Route;
 
   return (
@@ -58,16 +63,7 @@ export function NotFoundContent({ fresh }: { fresh: RealEstateObject[] }) {
         </Button>
       </div>
 
-      {fresh.length > 0 ? (
-        <div className="mt-16">
-          <h2 className="font-serif text-2xl text-forest-900 md:text-3xl">{t.fresh}</h2>
-          <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {fresh.map((o) => (
-              <ObjectCard key={o.id} object={o} />
-            ))}
-          </div>
-        </div>
-      ) : null}
+      {fresh}
     </section>
   );
 }

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Route } from "next";
-import { ArrowRight, BarChart3, Calculator, MapPin, Scale, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowRight, BarChart3, Calculator, Scale } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Hero } from "@/components/sections/hero";
 import { HeroFall } from "@/components/sections/hero-fall";
@@ -14,7 +14,6 @@ import { Appear } from "@/components/motion/appear";
 import { Magnetic } from "@/components/motion/magnetic";
 import type { HomeDict, Locale } from "@/lib/i18n/dictionaries";
 
-const VALUE_ICONS = [MapPin, ShieldCheck, Sparkles] as const;
 const TOOL_ICONS = [Calculator, Scale, BarChart3] as const;
 
 /**
@@ -68,23 +67,25 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
         <h2 className="mt-5 max-w-3xl text-balance">{dict.values.title}</h2>
         <p className="mt-5 max-w-xl text-lg text-forest-600/70">{dict.values.lede}</p>
 
-        <div className="mt-16 grid gap-6 md:grid-cols-3">
-          {dict.values.items.map((item, i) => {
-            const Icon = VALUE_ICONS[i] ?? Sparkles;
-            return (
-              <Appear key={item.title} delay={i * 0.1} className="h-full">
-                <div className="group h-full rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5 transition-shadow duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:shadow-soft">
-                  <div className="flex h-full flex-col rounded-core bg-cream-50 p-8 shadow-bezel">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-forest-900 text-cream-50 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:-translate-y-0.5">
-                      <Icon className="h-5 w-5" strokeWidth={1.5} />
-                    </div>
-                    <h3 className="mt-7 font-serif text-2xl text-forest-900">{item.title}</h3>
-                    <p className="mt-3 text-base leading-relaxed text-forest-600/75">{item.text}</p>
-                  </div>
-                </div>
-              </Appear>
-            );
-          })}
+        {/* Манифест, а не каталог фич: набран типографикой без карточек.
+            Раньше эта секция и «инструменты» ниже шли подряд одинаковыми
+            тройками карточек с иконкой в кружке — с двух метров страница
+            читалась как одна длинная полоса. Разные задачи требуют разной
+            формы: во что мы верим — читают один раз, инструменты — сканируют
+            и кликают. Заодно из-под трёх кремовых плит наконец виден
+            teal-перелив секции. */}
+        <div className="mt-16 grid gap-x-10 gap-y-12 md:grid-cols-3">
+          {dict.values.items.map((item, i) => (
+            <Appear key={item.title} delay={i * 0.1}>
+              <div className="max-w-sm">
+                <span className="block h-px w-12 bg-brass-600/50" aria-hidden />
+                <h3 className="mt-6 font-serif text-[1.75rem] leading-tight text-forest-900">
+                  {item.title}
+                </h3>
+                <p className="mt-4 text-lg leading-relaxed text-forest-600/75">{item.text}</p>
+              </div>
+            </Appear>
+          ))}
         </div>
       </section>
 
@@ -165,17 +166,25 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
           sizes="100vw"
           className="object-cover"
         />
+        {/* Скрим затемняет там, где фото светлое. Раньше градиент шёл наоборот:
+            плотный низ (остров и вода — и так тёмные) и почти прозрачный верх,
+            где небо заката самое яркое. Текст отцентрован и попадал ровно в
+            эту засветку — надзаголовок давал ~1.3:1 при норме 4.5:1. */}
         <div
-          className="absolute inset-0 bg-gradient-to-t from-panel/92 via-panel/55 to-panel/30"
+          className="absolute inset-0 bg-gradient-to-t from-panel/92 via-panel/72 to-panel/60"
           aria-hidden
         />
+        {/* Тёплый ореол-«бук-энд» к герою оставлен, но уведён вниз: сверху он
+            клал амбер поверх и без того амберного неба и топил золотой текст. */}
         <div
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(110%_70%_at_50%_0%,rgba(217,138,30,0.20),transparent_60%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_60%_at_50%_100%,rgba(217,138,30,0.18),transparent_60%)]"
           aria-hidden
         />
 
         <Appear className="container-prose relative z-10 flex min-h-[60vh] flex-col items-center justify-center py-24 text-center md:min-h-[68vh] md:py-32">
-          <p className="flex items-center gap-3 text-xs font-medium uppercase tracking-eyebrow text-brass-300">
+          {/* Текст надзаголовка — светлый (золото среднего тона на фото не
+              читается), золото осталось на черте: акцент виден, контраст цел. */}
+          <p className="flex items-center gap-3 text-xs font-medium uppercase tracking-eyebrow text-panel-fg/90">
             <span className="h-px w-10 bg-brass-300/70" aria-hidden />
             {dict.cta.eyebrow}
           </p>

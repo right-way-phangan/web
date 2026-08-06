@@ -292,7 +292,8 @@ export function SellerListingForm({ locale = "en" }: Props) {
 
       <SubmitButton label={t.submit} sendingLabel={t.sending} />
 
-      <p className="text-center text-[11px] text-forest-500/50">
+      {/* Согласие на обработку данных — см. lead-form: было 11px/50%, ~2.6:1. */}
+      <p className="text-center text-xs text-forest-500/80">
         {t.privacy}{" "}
         <Link
           href={(locale === "ru" ? "/ru/privacy" : "/privacy") as Route}

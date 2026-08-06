@@ -3,7 +3,7 @@
 import Link from "next/link";
 import type { Route } from "next";
 import { Logo } from "./logo";
-import { useAppPathname } from "@/lib/hooks/use-app-pathname";
+import { useAppPathname, useIsAdminRoute } from "@/lib/hooks/use-app-pathname";
 import {
   siteConfig,
   telegramChannelLink,
@@ -16,6 +16,7 @@ const currentYear = new Date().getFullYear();
 
 export function Footer() {
   const pathname = useAppPathname();
+  const isAdmin = useIsAdminRoute();
   const isRu = pathname === "/ru" || pathname.startsWith("/ru/");
   const chrome = getChromeDict(isRu ? "ru" : "en");
   const f = chrome.footer;
@@ -29,6 +30,10 @@ export function Footer() {
   // against it instead of floating below a wide cream gap. Other pages close on
   // light content and keep the breathing room.
   const isHome = pathname === "/" || pathname === "/ru";
+
+  // Под CRM маркетинговый подвал не нужен: 21 ссылка на публичные разделы и
+  // описание агентства под таблицей лидов — чистый шум. Хедер остаётся.
+  if (isAdmin) return null;
 
   return (
     <footer

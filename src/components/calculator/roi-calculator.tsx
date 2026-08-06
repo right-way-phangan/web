@@ -61,6 +61,19 @@ const URL_BOOLS: [keyof RoiInputs, string][] = [
   ["leaseMonthly", "lpm"], ["longTermRent", "ltr"],
 ];
 
+/** Полная сериализация сценария. Одна на запись в URL и на снимок стартового
+ *  состояния — так diff «что менял посетитель» не разъедется с записью. */
+function serializeInputs(v: RoiInputs): URLSearchParams {
+  const p = new URLSearchParams();
+  p.set("price", String(Math.round(v.purchasePriceThb || 0)));
+  if (v.offplan) p.set("phase", "offplan");
+  else p.set("mode", v.mode);
+  p.set("tenure", v.tenure);
+  for (const [k, q] of URL_NUMS) p.set(q, String(v[k]));
+  for (const [k, q] of URL_BOOLS) p.set(q, v[k] ? "1" : "0");
+  return p;
+}
+
 // Last-used scenario survives a page reload (a shared link still wins).
 const STORAGE_KEY = "rw-roi-calc-v1";
 
@@ -131,6 +144,10 @@ export function RoiCalculator({
     offplan: offplanInit,
     rentAfterHandover: initialRent && offplanInit ? true : DEFAULT_INPUTS.rentAfterHandover,
   });
+  // Снимок сценария, с которым страница открылась (цена объекта, его же режим
+  // и владение). Всё, что совпадает с ним, в адрес не пишем — страница
+  // подставит эти значения сама, а ссылка остаётся короткой и пересылаемой.
+  const pristineInputs = useRef(inputs).current;
   // "My own property" context (district/bedrooms/Airbnb link) — travels with the
   // lead summary and PDF so the team sees what the buyer is actually pricing.
   const [ownNote, setOwnNote] = useState<string | null>(null);
@@ -358,18 +375,23 @@ export function RoiCalculator({
     }
   }, [inputs, currency, view]);
 
-  // Keep the URL in sync with the full input set so "Copy link" reproduces the scenario.
+  // Keep the URL in sync so "Copy link" reproduces the scenario — но только тем,
+  // что посетитель реально изменил. Раньше сюда писался весь набор целиком и
+  // сразу на монтировании: чистый /object/RW-0516 превращался в 282 символа с
+  // 37 параметрами ещё до единого клика. Ссылку на объект отправляют в Telegram
+  // и WhatsApp руками — простыня выглядит как спам. Значения, совпадающие со
+  // стартовым сценарием, из адреса выкидываем: страница подставит их сама.
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const p = new URLSearchParams();
-    p.set("price", String(Math.round(inputs.purchasePriceThb || 0)));
-    if (inputs.offplan) p.set("phase", "offplan");
-    else p.set("mode", inputs.mode);
-    p.set("tenure", inputs.tenure);
-    for (const [k, q] of URL_NUMS) p.set(q, String(inputs[k]));
-    for (const [k, q] of URL_BOOLS) p.set(q, inputs[k] ? "1" : "0");
-    window.history.replaceState(null, "", `${window.location.pathname}?${p.toString()}`);
-  }, [inputs]);
+    const full = serializeInputs(inputs);
+    const base = serializeInputs(pristineInputs);
+    for (const [key, value] of [...full.entries()]) {
+      if (base.get(key) === value) full.delete(key);
+    }
+    const qs = full.toString();
+    const { pathname } = window.location;
+    window.history.replaceState(null, "", qs ? `${pathname}?${qs}` : pathname);
+  }, [inputs, pristineInputs]);
 
   const activeScenario = growthScenarios.find((s) => s.growthPct === inputs.annualGrowthPct)?.key;
   const isOffplan = inputs.offplan;
