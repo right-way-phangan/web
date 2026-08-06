@@ -90,10 +90,14 @@ confirmation is still an open item with him.
 
 Sized for direct delivery — `images.unoptimized` is on (Vercel's optimizer is off, see
 `next.config.ts`), so what is committed is what the browser downloads: hero 2000px,
-timeline frames 1200px, gallery 1000px, JPEG q82.
+every other frame 1400px JPEG q82 plus a `-sm.webp` 760px sibling (the carousel loads
+the thumb, the lightbox the full frame).
+
+People in frame: the lifestyle set (`phangaia-poolside`, `phangaia-reading`,
+`phangaia-breakfast`) is published with the developer's written go-ahead (Aug 2026).
 
 | Prefix | Project | Status shown |
 |--------|---------|--------------|
-| `phangaia-*` | Phangaia Garden Resort, phases I–II (Nai Wok) | delivered, in rental use |
-| `demaya-*` | Demaya Resort, one-bedroom villa | delivered, furnished |
-| `verana-*` | Verana Villas (phase III) — completed villa of the same type | under construction |
+| `phangaia-*` (15) | Phangaia Garden Resort, phases I–II (Nai Wok) | delivered, in rental use |
+| `demaya-*` (9) | Demaya Resort, one-bedroom villa | delivered, furnished |
+| `verana-*` (9) | Verana Villas (phase III) — completed villa of the same type | under construction |
