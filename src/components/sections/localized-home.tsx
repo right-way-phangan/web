@@ -166,18 +166,26 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
           sizes="100vw"
           className="object-cover"
         />
-        {/* Скрим затемняет там, где фото светлое. Раньше градиент шёл наоборот:
-            плотный низ (остров и вода — и так тёмные) и почти прозрачный верх,
-            где небо заката самое яркое. Текст отцентрован и попадал ровно в
-            эту засветку — надзаголовок давал ~1.3:1 при норме 4.5:1. */}
+        {/* Лёгкий общий градиент: сажает подпись внизу и низ кадра, фотографию
+            не глушит. Затемнять всю секцию ради читаемости текста — плата
+            закатом, который тут и продаёт. */}
         <div
-          className="absolute inset-0 bg-gradient-to-t from-panel/92 via-panel/72 to-panel/60"
+          className="absolute inset-0 bg-gradient-to-t from-panel/90 via-panel/45 to-panel/35"
           aria-hidden
         />
-        {/* Тёплый ореол-«бук-энд» к герою оставлен, но уведён вниз: сверху он
-            клал амбер поверх и без того амберного неба и топил золотой текст. */}
+        {/* Скрим ровно под текстовым блоком. Градиент на всю высоту упирался в
+            потолок: солнечная дорожка настолько яркая, что даже panel/60 сверху
+            держал надзаголовок около 3:1 при норме 4.5:1. Локальное пятно
+            добирает контраст там, где лежат слова, и отпускает остальной кадр.
+            Через токен, а не хардкод: в тёмной теме --c-panel другой. */}
         <div
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_60%_at_50%_100%,rgba(217,138,30,0.18),transparent_60%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(58%_48%_at_50%_44%,rgb(var(--c-panel)/0.80),transparent_70%)]"
+          aria-hidden
+        />
+        {/* Тёплый ореол-«бук-энд» к герою — снизу: сверху он клал амбер поверх
+            и без того амберного неба. */}
+        <div
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_60%_at_50%_100%,rgb(var(--c-orange)/0.16),transparent_60%)]"
           aria-hidden
         />
 
