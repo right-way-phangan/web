@@ -5,10 +5,10 @@ import {
   objectOgAlt,
 } from "@/lib/seo/object-og";
 
-// Edge runtime requires fetch-only data sources. amoCRM client uses fetch — works.
+// Зеркало EN-роута: страница задаёт свой openGraph без images, поэтому
+// file-based картинка нужна и в русском сегменте — иначе ссылка на объект
+// уходит в Telegram и WhatsApp вообще без превью.
 export const runtime = "edge";
-// Photo card size: nearly every listing has a cover, so the hint matches the
-// dominant case (the rare no-photo fallback renders at 1200×630 — harmless).
 export const size = objectOgSize;
 export const contentType = objectOgContentType;
 export const alt = objectOgAlt;

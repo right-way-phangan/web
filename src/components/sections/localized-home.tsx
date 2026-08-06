@@ -165,17 +165,25 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
           sizes="100vw"
           className="object-cover"
         />
+        {/* Скрим затемняет там, где фото светлое. Раньше градиент шёл наоборот:
+            плотный низ (остров и вода — и так тёмные) и почти прозрачный верх,
+            где небо заката самое яркое. Текст отцентрован и попадал ровно в
+            эту засветку — надзаголовок давал ~1.3:1 при норме 4.5:1. */}
         <div
-          className="absolute inset-0 bg-gradient-to-t from-panel/92 via-panel/55 to-panel/30"
+          className="absolute inset-0 bg-gradient-to-t from-panel/92 via-panel/72 to-panel/60"
           aria-hidden
         />
+        {/* Тёплый ореол-«бук-энд» к герою оставлен, но уведён вниз: сверху он
+            клал амбер поверх и без того амберного неба и топил золотой текст. */}
         <div
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(110%_70%_at_50%_0%,rgba(217,138,30,0.20),transparent_60%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_60%_at_50%_100%,rgba(217,138,30,0.18),transparent_60%)]"
           aria-hidden
         />
 
         <Appear className="container-prose relative z-10 flex min-h-[60vh] flex-col items-center justify-center py-24 text-center md:min-h-[68vh] md:py-32">
-          <p className="flex items-center gap-3 text-xs font-medium uppercase tracking-eyebrow text-brass-300">
+          {/* Текст надзаголовка — светлый (золото среднего тона на фото не
+              читается), золото осталось на черте: акцент виден, контраст цел. */}
+          <p className="flex items-center gap-3 text-xs font-medium uppercase tracking-eyebrow text-panel-fg/90">
             <span className="h-px w-10 bg-brass-300/70" aria-hidden />
             {dict.cta.eyebrow}
           </p>
