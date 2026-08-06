@@ -105,22 +105,92 @@ export const arqa: DeveloperProfile = {
       ru: "Строит вилловые посёлки на Пангане и сам ими управляет.",
     },
   },
-  // Vetted photos from the developer's own shoots (Aug 2026) — delivered villas
-  // only, no renders. Lifestyle frames with recognisable people are excluded:
-  // no model release, and the developer has not confirmed publication in writing.
+  // The developer's own shoots (handed over Aug 2026, publication confirmed by
+  // Denis). Delivered objects only — no renders. Each frame needs a -sm.webp
+  // sibling: the carousel shows the thumb, the lightbox the full JPEG.
   gallery: [
-    "/images/developers/arqa/phangaia-villas.jpg",
-    "/images/developers/arqa/phangaia-living.jpg",
-    "/images/developers/arqa/demaya-pool.jpg",
-    "/images/developers/arqa/phangaia-dining.jpg",
-    "/images/developers/arqa/demaya-living.jpg",
-    "/images/developers/arqa/phangaia-bedroom.jpg",
-    "/images/developers/arqa/phangaia-garden-path.jpg",
-    "/images/developers/arqa/demaya-bedroom.jpg",
-    "/images/developers/arqa/phangaia-kitchen.jpg",
-    "/images/developers/arqa/demaya-kitchen.jpg",
-    "/images/developers/arqa/phangaia-bathroom.jpg",
-    "/images/developers/arqa/phangaia-grove.jpg",
+    {
+      title: "Phangaia Garden Resort",
+      note: { en: "Delivered · Nai Wok", ru: "Сдан · Най Вок" },
+      photos: [
+        "/images/developers/arqa/phangaia-pool-deck.jpg",
+        "/images/developers/arqa/phangaia-villas.jpg",
+        "/images/developers/arqa/phangaia-living.jpg",
+        "/images/developers/arqa/phangaia-dining.jpg",
+        "/images/developers/arqa/phangaia-terrace.jpg",
+        "/images/developers/arqa/phangaia-lounge.jpg",
+        "/images/developers/arqa/phangaia-suite.jpg",
+        "/images/developers/arqa/phangaia-bedroom.jpg",
+        "/images/developers/arqa/phangaia-kitchen.jpg",
+        "/images/developers/arqa/phangaia-bathroom.jpg",
+        "/images/developers/arqa/phangaia-garden-path.jpg",
+        "/images/developers/arqa/phangaia-grove.jpg",
+        "/images/developers/arqa/phangaia-poolside.jpg",
+        "/images/developers/arqa/phangaia-reading.jpg",
+        "/images/developers/arqa/phangaia-breakfast.jpg",
+      ],
+    },
+    {
+      title: "Demaya Resort",
+      note: { en: "Delivered · one-bedroom villa", ru: "Сдан · вилла с одной спальней" },
+      photos: [
+        "/images/developers/arqa/demaya-pool.jpg",
+        "/images/developers/arqa/demaya-exterior.jpg",
+        "/images/developers/arqa/demaya-terrace.jpg",
+        "/images/developers/arqa/demaya-living.jpg",
+        "/images/developers/arqa/demaya-bedroom.jpg",
+        "/images/developers/arqa/demaya-suite.jpg",
+        "/images/developers/arqa/demaya-kitchen.jpg",
+        "/images/developers/arqa/demaya-bath.jpg",
+        "/images/developers/arqa/demaya-garden.jpg",
+      ],
+    },
+    {
+      title: "Verana Villas",
+      note: {
+        en: "Phase III, under construction · a completed villa of the same type",
+        ru: "Фаза III, строится · построенная вилла того же типа",
+      },
+      photos: [
+        "/images/developers/arqa/verana-facade.jpg",
+        "/images/developers/arqa/verana-pool.jpg",
+        "/images/developers/arqa/verana-bedroom-pool.jpg",
+        "/images/developers/arqa/verana-open-plan.jpg",
+        "/images/developers/arqa/verana-living.jpg",
+        "/images/developers/arqa/verana-kitchen.jpg",
+        "/images/developers/arqa/verana-master.jpg",
+        "/images/developers/arqa/verana-bath.jpg",
+        "/images/developers/arqa/verana-ceiling.jpg",
+      ],
+    },
+  ],
+  // Pins from the developer (Aug 2026). Phangaia and Verana share a site —
+  // Verana is its phase III, so the two pins sit ~50 m apart by design.
+  locations: [
+    {
+      title: "Phangaia Garden Resort",
+      lat: 9.7215145,
+      lng: 99.9876952,
+      note: { en: "Delivered · Nai Wok, near Thong Sala", ru: "Сдан · Най Вок, рядом с Тонг Салой" },
+    },
+    {
+      title: "Verana Villas",
+      lat: 9.7215625,
+      lng: 99.9881875,
+      note: { en: "Under construction · phase III", ru: "Строится · фаза III" },
+    },
+    {
+      title: "Demaya Resort",
+      lat: 9.7369985,
+      lng: 100.009027,
+      note: { en: "Delivered · island centre", ru: "Сдан · центр острова" },
+    },
+    {
+      title: "AyA Villas",
+      lat: 9.728544,
+      lng: 100.004779,
+      note: { en: "Site — details to come", ru: "Площадка — данные уточняются" },
+    },
   ],
   seo: {
     title: {

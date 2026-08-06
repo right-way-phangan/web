@@ -36,6 +36,29 @@ export interface DeveloperFact {
   value: Localized;
 }
 
+/** One project's photo set — rendered as its own carousel inside the gallery block. */
+export interface DeveloperPhotoSet {
+  /** Project brand name — not localized. */
+  title: string;
+  /** Secondary line under the title, e.g. "Delivered · Nai Wok". */
+  note?: Localized;
+  /**
+   * Paths under /public. Every entry needs a `-sm.webp` sibling (the carousel
+   * shows the thumb, the lightbox the full frame) — see `estateThumb`.
+   */
+  photos: string[];
+}
+
+/** A project pin for the developer's mini-map. */
+export interface DeveloperLocation {
+  /** Project brand name — not localized. */
+  title: string;
+  lat: number;
+  lng: number;
+  /** Short clarifier in the pin's popup, e.g. "Delivered · 6 villas". */
+  note?: Localized;
+}
+
 export interface DeveloperProfile {
   /** Must equal developerSlug(<exact `developer` field value on catalog objects>). */
   slug: string;
@@ -47,8 +70,10 @@ export interface DeveloperProfile {
   /** Chronological: delivered first, then in-progress / planned. */
   timeline: DeveloperTimelineEntry[];
   hero?: { photo?: string; tagline?: Localized };
-  /** Vetted project photos, paths under /public — renders the "Projects in photos" block when present. */
-  gallery?: string[];
+  /** Vetted project photos, grouped by project — renders the "Projects in photos" block when present. */
+  gallery?: DeveloperPhotoSet[];
+  /** Project pins — renders the mini-map when there are two or more. */
+  locations?: DeveloperLocation[];
   seo?: { title?: Localized; description?: Localized };
 }
 
