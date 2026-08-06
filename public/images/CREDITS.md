@@ -1,6 +1,8 @@
 # Image credits & licensing
 
-Three sources, all free for commercial use. **Photographs only — no 3D renders / digital art.**
+Stock imagery — three sources, all free for commercial use. **Photographs only — no 3D
+renders / digital art.** Developer-supplied project photography is a separate case, see
+the section at the bottom.
 
 1. **Pexels** (https://www.pexels.com/license/) — no attribution required. Used for
    *representative* Koh Phangan / Gulf-of-Thailand atmosphere (not a specific plot).
@@ -76,3 +78,18 @@ catalog manifest, which surfaced watermarked land-plot aerials. The weekly
 | scene-4.jpg | 8300656  | Horseshoe bay, turquoise water | Gulf of Thailand |
 | scene-5.jpg | 29496454 | Turquoise reef bay | Gulf of Thailand |
 | scene-6.jpg | 32107700 | Secluded jungle beach (Bottle Beach) | **Koh Phangan** (tagged) |
+
+## Developer project photography (`developers/arqa/*.jpg`)
+
+Not stock — the developer's own photography of **delivered** objects, handed over by
+ARQA Development (Denis Butuzov) in August 2026 for use on their profile page. No
+renders, no confidential material (price lists / internal calculations never go into
+`public/`). Lifestyle frames with recognisable people are deliberately left out: no
+model release, and the developer has not yet confirmed publication in writing — that
+confirmation is still an open item with him.
+
+| Prefix | Project | Status shown |
+|--------|---------|--------------|
+| `phangaia-*` | Phangaia Garden Resort, phases I–II (Nai Wok) | delivered, in rental use |
+| `demaya-*` | Demaya Resort, one-bedroom villa | delivered, furnished |
+| `verana-*` | Verana Villas (phase III) — completed villa of the same type | under construction |
