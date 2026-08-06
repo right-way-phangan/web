@@ -17,3 +17,15 @@ export function useAppPathname(): string {
   if (pathname === "/ru/index") return "/ru";
   return pathname;
 }
+
+/**
+ * Админка живёт под тем же корневым layout, что и сайт, поэтому под CRM
+ * подкладывался публичный подвал на 21 ссылку («Смотреть объекты», «Журнал»,
+ * маркетинговое описание агентства) и висел плавающий WhatsApp для клиентов.
+ * Хедер при этом оставляем: в нём переключатель темы и выход на сайт, которых
+ * в AdminNav нет.
+ */
+export function useIsAdminRoute(): boolean {
+  const pathname = useAppPathname();
+  return pathname === "/admin" || pathname.startsWith("/admin/");
+}

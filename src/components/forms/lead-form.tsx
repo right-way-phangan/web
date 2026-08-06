@@ -274,7 +274,9 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
 
       <SubmitButton label={submitLabel ?? t.submit} sendingLabel={t.sending} />
 
-      <p className="text-center text-[11px] text-forest-500/50">
+      {/* Согласие на обработку данных: 11px на 50% прозрачности давало ~2.6:1
+          при норме 4.5:1 — юридически значимый текст нельзя прятать. */}
+      <p className="text-center text-xs text-forest-500/80">
         {t.privacyConsent}{" "}
         <Link
           href={(locale === "ru" ? "/ru/privacy" : "/privacy") as Route}
