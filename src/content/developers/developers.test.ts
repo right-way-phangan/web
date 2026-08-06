@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { arqa } from "./arqa";
 import { getDeveloperProfile, profileSlugs, resolveTimeline } from "./index";
@@ -45,6 +47,18 @@ describe("ARQA profile data integrity", () => {
       if (entry.description)
         expect(entry.description.en && entry.description.ru).toBeTruthy();
       if (entry.note) expect(entry.note.en && entry.note.ru).toBeTruthy();
+    }
+  });
+
+  it("points every photo at a file that exists under /public", () => {
+    const paths = [
+      arqa.hero?.photo,
+      ...arqa.timeline.map((e) => e.photo),
+      ...(arqa.gallery ?? []),
+    ].filter((p): p is string => Boolean(p));
+    expect(paths.length).toBeGreaterThan(0);
+    for (const p of paths) {
+      expect(existsSync(join(process.cwd(), "public", p))).toBe(true);
     }
   });
 });
