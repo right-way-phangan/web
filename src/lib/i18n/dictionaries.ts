@@ -1596,9 +1596,11 @@ export interface ProjectsDict {
     indexEyebrow: string;
     indexTitle: string;
     indexLede: string;
-    nav: { overview: string; history: string; projects: string; enquire: string };
+    nav: { overview: string; history: string; projects: string; photos: string; enquire: string };
     kpi: { projects: string; delivered: string; building: string; portfolio: string };
     galleryTitle: string;
+    mapTitle: string;
+    mapLede: string;
   };
 }
 
@@ -1701,9 +1703,11 @@ const projectsDict: Record<Locale, ProjectsDict> = {
       indexTitle: "Developers building on Koh Phangan.",
       indexLede:
         "Vetted developers we work with on the island — their track record, current projects and a direct line to enquire, all in one place.",
-      nav: { overview: "Overview", history: "Track record", projects: "Projects", enquire: "Enquire" },
+      nav: { overview: "Overview", history: "Track record", projects: "Projects", photos: "Photos", enquire: "Enquire" },
       kpi: { projects: "Projects listed", delivered: "Delivered", building: "Under construction", portfolio: "Portfolio" },
       galleryTitle: "Projects in photos",
+      mapTitle: "Where the projects are",
+      mapLede: "Sites confirmed by the developer — tap a pin for directions.",
     },
   },
   ru: {
@@ -1804,9 +1808,11 @@ const projectsDict: Record<Locale, ProjectsDict> = {
       indexTitle: "Застройщики Ко Пангана.",
       indexLede:
         "Проверенные застройщики, с которыми мы работаем на острове — их история, текущие проекты и прямая заявка, всё в одном месте.",
-      nav: { overview: "О застройщике", history: "История", projects: "Проекты", enquire: "Заявка" },
+      nav: { overview: "О застройщике", history: "История", projects: "Проекты", photos: "Фото", enquire: "Заявка" },
       kpi: { projects: "Проектов в каталоге", delivered: "Сдано", building: "Строится", portfolio: "Портфолио" },
       galleryTitle: "Проекты в фото",
+      mapTitle: "Где проекты",
+      mapLede: "Площадки подтверждены застройщиком — по пину открывается маршрут.",
     },
   },
 };

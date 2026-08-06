@@ -58,6 +58,15 @@ export const arqa: DeveloperProfile = {
         ru: "Verana Villas — первые 6 вилл к ноя. 2026",
       },
     },
+    {
+      // Public Airbnb standing of the villas the team runs — the developer
+      // confirmed in writing that we may quote it.
+      label: { en: "Rental record", ru: "В аренде" },
+      value: {
+        en: "Airbnb Superhost · 4.91 across ~192 reviews",
+        ru: "Суперхозяин Airbnb · 4,91 по ~192 отзывам",
+      },
+    },
   ],
   timeline: [
     {

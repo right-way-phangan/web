@@ -18,6 +18,8 @@ import { localePath } from "@/lib/i18n/locale-path";
 import { LeadForm } from "@/components/forms/lead-form";
 import { ProjectCard } from "./project-card";
 import { DeveloperTimeline } from "./developer-timeline";
+import { DeveloperGallery } from "./developer-gallery";
+import { DeveloperMap } from "./developer-map";
 import { DeveloperCtaBar } from "./developer-cta-bar";
 import { ProjectNav, type NavItem } from "./project-nav";
 import { BackToTop } from "./back-to-top";
@@ -79,6 +81,7 @@ export async function DeveloperPage({
   ].filter((k) => k.n > 0);
 
   const gallery = profile?.gallery ?? [];
+  const locations = profile?.locations ?? [];
 
   // "enquire" is the sticky-nav CTA (ctaLabel), not a tab — keep it out of items
   // to avoid a duplicate Enquire (tab + CTA) both pointing at #enquire.
@@ -90,6 +93,7 @@ export async function DeveloperPage({
     projects.length
       ? { id: "projects", label: t.developers.nav.projects }
       : null,
+    gallery.length ? { id: "photos", label: t.developers.nav.photos } : null,
   ].filter((x): x is NavItem => x != null);
 
   const base = getSiteUrl();
@@ -292,22 +296,28 @@ export async function DeveloperPage({
           ) : null}
 
           {gallery.length ? (
+            <div id="photos" className="mt-16 scroll-mt-32">
+              <Appear>
+                <DeveloperGallery
+                  sets={gallery}
+                  locale={locale}
+                  title={t.developers.galleryTitle}
+                />
+              </Appear>
+            </div>
+          ) : null}
+
+          {/* A single pin is the object page's job — the map earns its place
+              only when it shows how the developer's sites relate to each other. */}
+          {locations.length > 1 ? (
             <Appear className="mt-16">
-              <h2 className="mb-8 font-serif text-3xl text-forest-900">
-                {t.developers.galleryTitle}
+              <h2 className="font-serif text-3xl text-forest-900">
+                {t.developers.mapTitle}
               </h2>
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-                {gallery.map((src) => (
-                  <Image
-                    key={src}
-                    src={src}
-                    alt={name}
-                    width={480}
-                    height={360}
-                    className="h-full w-full rounded-sm object-cover"
-                  />
-                ))}
-              </div>
+              <p className="mt-2 max-w-prose text-sm text-forest-500/70">
+                {t.developers.mapLede}
+              </p>
+              <DeveloperMap locations={locations} locale={locale} />
             </Appear>
           ) : null}
 

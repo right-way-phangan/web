@@ -51,14 +51,30 @@ describe("ARQA profile data integrity", () => {
   });
 
   it("points every photo at a file that exists under /public", () => {
+    const gallery = (arqa.gallery ?? []).flatMap((set) => set.photos);
     const paths = [
       arqa.hero?.photo,
       ...arqa.timeline.map((e) => e.photo),
-      ...(arqa.gallery ?? []),
+      ...gallery,
     ].filter((p): p is string => Boolean(p));
     expect(paths.length).toBeGreaterThan(0);
     for (const p of paths) {
       expect(existsSync(join(process.cwd(), "public", p))).toBe(true);
+    }
+    // The carousel loads the -sm.webp sibling; a missing one is a broken thumb.
+    for (const p of gallery) {
+      const thumb = p.replace(/\.jpe?g$/i, "-sm.webp");
+      expect(existsSync(join(process.cwd(), "public", thumb))).toBe(true);
+    }
+  });
+
+  it("keeps map pins inside the Phangan bbox and localizes their notes", () => {
+    for (const loc of arqa.locations ?? []) {
+      expect(loc.lat).toBeGreaterThan(9.6);
+      expect(loc.lat).toBeLessThan(9.85);
+      expect(loc.lng).toBeGreaterThan(99.9);
+      expect(loc.lng).toBeLessThan(100.15);
+      if (loc.note) expect(loc.note.en && loc.note.ru).toBeTruthy();
     }
   });
 });
