@@ -19,8 +19,10 @@ describe("developer profiles registry", () => {
 });
 
 describe("ARQA profile data integrity", () => {
-  it("has six timeline entries with Verana linked to RW-P0018", () => {
-    expect(arqa.timeline).toHaveLength(6);
+  it("has five timeline entries with Verana linked to RW-P0018", () => {
+    // Five projects, not six: «Verana Villas 2» is phase 2 of Verana itself,
+    // confirmed by the developer 2026-08-06 — not a separate project.
+    expect(arqa.timeline).toHaveLength(5);
     const verana = arqa.timeline.find((e) => e.title === "Verana Villas");
     expect(verana?.rwNumber).toBe("RW-P0018");
     expect(verana?.status).toBe("under-construction");
