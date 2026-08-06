@@ -88,6 +88,10 @@ renders, no confidential material (price lists / internal calculations never go 
 model release, and the developer has not yet confirmed publication in writing — that
 confirmation is still an open item with him.
 
+Sized for direct delivery — `images.unoptimized` is on (Vercel's optimizer is off, see
+`next.config.ts`), so what is committed is what the browser downloads: hero 2000px,
+timeline frames 1200px, gallery 1000px, JPEG q82.
+
 | Prefix | Project | Status shown |
 |--------|---------|--------------|
 | `phangaia-*` | Phangaia Garden Resort, phases I–II (Nai Wok) | delivered, in rental use |
