@@ -13,6 +13,7 @@ import { Appear } from "@/components/motion/appear";
 import { MapSkeleton } from "./map-skeleton";
 import type { MapPoint, MapBounds } from "./listings-map";
 import { useMediaQuery } from "@/lib/hooks/use-media-query";
+import { Button } from "@/components/ui/button";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { getListingsDict } from "@/lib/i18n/dictionaries";
 import { cn } from "@/lib/utils/cn";
@@ -22,6 +23,10 @@ const ListingsMap = dynamic(() => import("./listings-map"), {
   ssr: false,
   loading: () => <MapSkeleton />,
 });
+
+/** Сколько карточек отдаём за раз. 24 = 12 рядов на десктопе, хватает,
+ *  чтобы понять выдачу, и не роняет DOM на телефоне. */
+const PAGE_SIZE = 24;
 
 /**
  * Split listings view: a scrollable card column on the left and a sticky map on
@@ -85,14 +90,6 @@ export function ListingsSplit({
   // Don't load the Leaflet chunk on mobile until the map tab is actually opened.
   const mountMap = (isDesktop && mapReady) || mobileView === "map";
 
-  // Pin click → select the card and bring it into view.
-  const handleSelect = useCallback((rw: string) => {
-    setActiveRw(rw);
-    track("map_pin_click", { rw });
-    const el = listRef.current?.querySelector<HTMLElement>(`[data-rw="${rw}"]`);
-    el?.scrollIntoView({ behavior: "smooth", block: "center" });
-  }, []);
-
   const enableAreaSync = useCallback(() => {
     setAreaSync((on) => {
       if (!on) track("search_in_area", { on: true });
@@ -114,6 +111,39 @@ export function ListingsSplit({
         o.lng >= bounds.west,
     );
   }, [objects, areaSync, bounds]);
+
+  // Рендерим порциями: список длинный, а карточка тяжёлая (фото + бейджи).
+  const [shownCount, setShownCount] = useState(PAGE_SIZE);
+  // Новый набор результатов (фильтр, сортировка, панорамирование карты) —
+  // отсчёт начинается заново, иначе после сужения выдачи «Показать ещё»
+  // висело бы с прошлой длинной сессии.
+  useEffect(() => {
+    setShownCount(PAGE_SIZE);
+  }, [visibleObjects]);
+  const shownObjects = useMemo(
+    () => visibleObjects.slice(0, shownCount),
+    [visibleObjects, shownCount],
+  );
+  const hiddenCount = visibleObjects.length - shownObjects.length;
+  const showMore = useCallback(() => setShownCount((n) => n + PAGE_SIZE), []);
+
+  // Pin click → select the card and bring it into view. Карточки под пином
+  // может ещё не быть в DOM из-за порционной выдачи: доотдаём ровно столько,
+  // чтобы она отрисовалась, и скроллим следующим кадром — иначе клик по пину
+  // за пределами первой порции молча ничего не делал.
+  const handleSelect = useCallback(
+    (rw: string) => {
+      setActiveRw(rw);
+      track("map_pin_click", { rw });
+      const idx = visibleObjects.findIndex((o) => o.rwNumber === rw);
+      if (idx >= 0) setShownCount((n) => (idx < n ? n : idx + 1));
+      requestAnimationFrame(() => {
+        const el = listRef.current?.querySelector<HTMLElement>(`[data-rw="${rw}"]`);
+        el?.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+    },
+    [visibleObjects],
+  );
 
   const mappedCount = points.length;
   const unmappedCount = objects.length - mappedCount;
@@ -159,7 +189,7 @@ export function ListingsSplit({
             </div>
           ) : (
             <div ref={listRef} className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
-              {visibleObjects.map((o, i) => (
+              {shownObjects.map((o, i) => (
                 <motion.div
                   key={o.id}
                   // Плавное перетекание к новым позициям при фильтрации по карте
@@ -188,6 +218,18 @@ export function ListingsSplit({
               ))}
             </div>
           )}
+
+          {/* Порционная выдача. Весь каталог разом давал 22 351 px и 94 карточки
+              в DOM — 27 экранов на телефоне без единой опоры. Данные все уже
+              здесь (карте нужны все пины, серверная пагинация её бы сломала),
+              режем только рендер. */}
+          {hiddenCount > 0 ? (
+            <div className="mt-10 flex justify-center">
+              <Button variant="outline" size="md" onClick={showMore}>
+                {t.showMore(Math.min(hiddenCount, PAGE_SIZE))}
+              </Button>
+            </div>
+          ) : null}
         </div>
 
         {/* Map — прилипает под липким фильтр-баром, который публикует свой

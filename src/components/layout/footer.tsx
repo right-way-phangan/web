@@ -10,7 +10,7 @@ import {
   telegramDmLink,
   whatsappLink,
 } from "@/lib/site-config";
-import { getChromeDict, flatNav } from "@/lib/i18n/dictionaries";
+import { getChromeDict } from "@/lib/i18n/dictionaries";
 
 const currentYear = new Date().getFullYear();
 
@@ -20,7 +20,20 @@ export function Footer() {
   const isRu = pathname === "/ru" || pathname.startsWith("/ru/");
   const chrome = getChromeDict(isRu ? "ru" : "en");
   const f = chrome.footer;
-  const exploreLinks = [...flatNav(chrome), { label: f.journal, href: isRu ? "/ru/blog" : "/blog" }];
+  // Колонки подвала = те же группы, что и в шапке. Первая собирает основные
+  // ссылки бара и группу «Разделы», последняя добирает «Журнал».
+  const [exploreGroup, resourcesGroup, companyGroup] = chrome.groups;
+  const footerColumns = [
+    { label: f.explore, items: [...chrome.nav, ...(exploreGroup?.items ?? [])] },
+    { label: resourcesGroup?.label ?? "", items: resourcesGroup?.items ?? [] },
+    {
+      label: companyGroup?.label ?? "",
+      items: [
+        ...(companyGroup?.items ?? []),
+        { label: f.journal, href: isRu ? "/ru/blog" : "/blog" },
+      ],
+    },
+  ].filter((c) => c.label && c.items.length > 0);
   const creditsHref = (isRu ? "/ru/credits" : "/credits") as Route;
   const creditsLabel = isRu ? "Кредиты фото" : "Photo credits";
   const privacyHref = (isRu ? "/ru/privacy" : "/privacy") as Route;
@@ -47,8 +60,8 @@ export function Footer() {
         aria-hidden
       />
       <div className="container-prose py-16">
-        <div className="grid gap-12 md:grid-cols-4">
-          <div className="md:col-span-2 max-w-md">
+        <div className="grid gap-12 md:grid-cols-4 lg:grid-cols-6">
+          <div className="max-w-md md:col-span-4 lg:col-span-2">
             <Logo size="lg" />
             <p className="mt-4 text-sm text-forest-600 leading-relaxed">
               {siteConfig.description}
@@ -56,23 +69,29 @@ export function Footer() {
             <p className="mt-6 text-xs text-forest-600 leading-relaxed">{f.blurb}</p>
           </div>
 
-          <div>
-            <h2 className="text-xs font-medium uppercase tracking-[0.2em] text-forest-600">
-              {f.explore}
-            </h2>
-            <ul className="mt-5 space-y-3">
-              {exploreLinks.map((item) => (
-                <li key={`${item.label}-${item.href}`}>
-                  <Link
-                    href={item.href as Route}
-                    className="block py-1.5 text-sm text-forest-500 hover:text-brass-500 transition-colors"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* Три колонки вместо одного плоского списка на 21 ссылку: столько
+              подряд глаз не сканирует, он их пролистывает. Заголовки и разбивка
+              берутся из тех же групп, что и меню в шапке, — подвал и навигация
+              больше не расходятся, и новых строк словаря не понадобилось. */}
+          {footerColumns.map((col) => (
+            <div key={col.label}>
+              <h2 className="text-xs font-medium uppercase tracking-[0.2em] text-forest-600">
+                {col.label}
+              </h2>
+              <ul className="mt-5 space-y-3">
+                {col.items.map((item) => (
+                  <li key={`${item.label}-${item.href}`}>
+                    <Link
+                      href={item.href as Route}
+                      className="block py-1.5 text-sm text-forest-500 hover:text-brass-500 transition-colors"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
 
           <div>
             <h2 className="text-xs font-medium uppercase tracking-[0.2em] text-forest-600">

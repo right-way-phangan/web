@@ -43,19 +43,25 @@ function apply(resolved: Resolved) {
   else cls.remove("dark");
 }
 
+// Дефолт — тёмная (решение 2026-08-06). Графит с золотом — сильнейшая версия
+// бренда: фотографии острова и карточки каталога в нём звучат заметно лучше,
+// чем на песке. Явный выбор посетителя всегда побеждает и запоминается, режим
+// «system» остаётся в переключателе для тех, кому нужна привязка к ОС.
+const DEFAULT_THEME: Theme = "dark";
+
 function readStored(): Theme {
   try {
     const s = localStorage.getItem(STORAGE_KEY);
     if (s === "light" || s === "dark" || s === "system") return s;
   } catch {
-    /* private mode / blocked storage — fall back to system */
+    /* private mode / blocked storage — fall back to the default */
   }
-  return "system";
+  return DEFAULT_THEME;
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("system");
-  const [resolved, setResolved] = useState<Resolved>("light");
+  const [theme, setThemeState] = useState<Theme>(DEFAULT_THEME);
+  const [resolved, setResolved] = useState<Resolved>("dark");
   const [mounted, setMounted] = useState(false);
 
   // Hydrate from storage once on mount (matches what ThemeScript already did to
@@ -109,10 +115,10 @@ export function useTheme(): ThemeCtx {
   const ctx = useContext(ThemeContext);
   if (!ctx) {
     // Defensive: never throw in render if a stray consumer mounts outside the
-    // provider — return inert values so the UI degrades to light.
+    // provider — return inert values matching the default theme.
     return {
-      theme: "system",
-      resolved: "light",
+      theme: DEFAULT_THEME,
+      resolved: "dark",
       mounted: false,
       setTheme: () => {},
       toggle: () => {},
@@ -128,6 +134,9 @@ export function useTheme(): ThemeCtx {
  * suppressHydrationWarning because this mutates its className pre-hydration.
  */
 export function ThemeScript() {
-  const js = `(function(){try{var e=localStorage.getItem('${STORAGE_KEY}');var m=window.matchMedia('(prefers-color-scheme:dark)').matches;var d=e==='dark'||((!e||e==='system')&&m);var c=document.documentElement.classList;if(d)c.add('dark');else c.remove('dark');}catch(_){}})();`;
+  // e === 'system' → по системе; 'light'/'dark' → как выбрали; ничего не
+  // сохранено → тёмная (дефолт, см. DEFAULT_THEME). Логика обязана совпадать
+  // с readStored(), иначе первый кадр разойдётся с состоянием провайдера.
+  const js = `(function(){try{var e=localStorage.getItem('${STORAGE_KEY}');var m=window.matchMedia('(prefers-color-scheme:dark)').matches;var d=e==='system'?m:(e?e==='dark':true);var c=document.documentElement.classList;if(d)c.add('dark');else c.remove('dark');}catch(_){c=document.documentElement.classList;c.add('dark');}})();`;
   return <script dangerouslySetInnerHTML={{ __html: js }} />;
 }

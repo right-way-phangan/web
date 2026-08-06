@@ -353,7 +353,11 @@ export function ObjectGallery({ rwNumber, type, gallery, title }: Props) {
     <button
       type="button"
       onClick={() => openAt(0)}
-      className="absolute bottom-3 right-3 z-10 inline-flex items-center gap-2 rounded-sm bg-cream-50/90 px-3 py-1.5 text-xs font-medium text-forest-900 shadow-sm backdrop-blur-sm transition-colors hover:bg-cream-50 md:bottom-5 md:right-5"
+      // Слева, а не справа: справа внизу лежит последняя плитка с оверлеем
+      // «+N», и две кнопки про одно и то же наезжали друг на друга в одном
+      // углу. Теперь у каждой своя работа и своё место — «сколько всего и
+      // открыть галерею» на большом фото, «ещё N за этой плиткой» на плитке.
+      className="absolute bottom-3 left-3 z-10 inline-flex items-center gap-2 rounded-sm bg-cream-50/90 px-3 py-1.5 text-xs font-medium text-forest-900 shadow-sm backdrop-blur-sm transition-colors hover:bg-cream-50 md:bottom-5 md:left-5"
     >
       <Images className="h-4 w-4" />
       {t.photosCount(photos.length)}

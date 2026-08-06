@@ -914,6 +914,7 @@ export interface ListingsDict {
   // map split
   inMapArea: (n: number) => string;
   showAll: string;
+  showMore: (n: number) => string;
   noneInArea: string;
   list: string;
   map: string;
@@ -990,6 +991,7 @@ const listings: Record<Locale, ListingsDict> = {
     newBadge: "New",
     inMapArea: (n) => `${n} ${n === 1 ? "property" : "properties"} in the map area`,
     showAll: "Show all",
+    showMore: (n) => `Show ${n} more`,
     noneInArea: "No listings in the current map area. Zoom out or pan to see more.",
     list: "List",
     map: "Map",
@@ -1060,6 +1062,7 @@ const listings: Record<Locale, ListingsDict> = {
     newBadge: "Новое",
     inMapArea: (n) => `${n} ${pluralRu(n, "объект", "объекта", "объектов")} в области карты`,
     showAll: "Показать все",
+    showMore: (n) => `Показать ещё ${n} ${pluralRu(n, "объект", "объекта", "объектов")}`,
     noneInArea: "В текущей области карты объектов нет. Отдалите или подвиньте карту.",
     list: "Список",
     map: "Карта",
