@@ -344,9 +344,16 @@
   transform-origin: left;
   transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.nav-underline:hover::after,
 .nav-underline[aria-current="page"]::after {
   transform: scaleX(1);
+}
+/* Подчёркивание по наведению — только там, где есть курсор: у пальца наведения
+   нет, и после тапа линия осталась бы висеть под чужим пунктом. Tailwind-утилиты
+   гейтит hoverOnlyWhenSupported, рукописные правила — вот эти обёртки. */
+@media (hover: hover) and (pointer: fine) {
+  .nav-underline:hover::after {
+    transform: scaleX(1);
+  }
 }
 
 @layer components {
@@ -496,23 +503,27 @@
   );
 }
 /* Hover в тёмной: подъём + бронзовый ореол по краю и яркий кант — карточка
-   «оживает» в брендовом зелёном. (object/project-card двигают transform.) */
-.dark .card-elevated:hover {
-  box-shadow:
-    inset 0 1px 0 0 rgba(176, 140, 90, 0.22),
-    0 1px 2px 0 rgba(0, 0, 0, 0.45),
-    0 30px 60px -22px rgba(0, 0, 0, 0.82),
-    0 0 0 1px rgba(176, 140, 90, 0.2),
-    0 14px 42px -16px rgba(176, 140, 90, 0.22);
-}
-.dark .card-elevated:hover::after {
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(176, 140, 90, 1) 14%,
-    rgba(176, 140, 90, 1) 86%,
-    transparent
-  );
+   «оживает» в брендовом зелёном. (object/project-card двигают transform.)
+   Под медиазапросом: на тач-экране этот ореол залипал бы на карточке до
+   следующего касания. */
+@media (hover: hover) and (pointer: fine) {
+  .dark .card-elevated:hover {
+    box-shadow:
+      inset 0 1px 0 0 rgba(176, 140, 90, 0.22),
+      0 1px 2px 0 rgba(0, 0, 0, 0.45),
+      0 30px 60px -22px rgba(0, 0, 0, 0.82),
+      0 0 0 1px rgba(176, 140, 90, 0.2),
+      0 14px 42px -16px rgba(176, 140, 90, 0.22);
+  }
+  .dark .card-elevated:hover::after {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(176, 140, 90, 1) 14%,
+      rgba(176, 140, 90, 1) 86%,
+      transparent
+    );
+  }
 }
 /* Подъём карточки — реакция на курсор, а не самостоятельный эффект: 250ms
    держит её в бюджете UI-анимации (≤300ms), иначе при прокрутке каталога
@@ -549,10 +560,12 @@
    контентные ссылки/CTA остаются золотыми. Цель — по структуре: nav-ссылки и
    кнопки-триггеры, активный пункт (aria-current) и ссылки футера. Покрывает
    меню, выпадашки, мобильное меню (портал) и футер без правки классов. */
-.dark nav a:hover,
-.dark nav button:hover,
-.dark footer a:hover {
-  color: rgb(var(--c-bronze));
+@media (hover: hover) and (pointer: fine) {
+  .dark nav a:hover,
+  .dark nav button:hover,
+  .dark footer a:hover {
+    color: rgb(var(--c-bronze));
+  }
 }
 .dark nav a[aria-current="page"] {
   color: rgb(var(--c-bronze));
