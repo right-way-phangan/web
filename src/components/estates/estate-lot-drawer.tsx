@@ -351,7 +351,7 @@ export function EstateLotDrawer({
 
           {/* Параметры */}
           <div>
-            <h3 className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">{t.drawer.facts}</h3>
+            <h3 className="mb-3 text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">{t.drawer.facts}</h3>
             <dl className="grid grid-cols-2 gap-x-4 gap-y-3 text-sm">
               <Fact label={t.table.area} value={area} />
               <Fact label={t.table.tenure} value={t.tenure[plot.tenure]} />
@@ -396,7 +396,7 @@ export function EstateLotDrawer({
           {/* Потенциал застройки */}
           {bp ? (
             <div className="rounded-sm border border-forest-500/12 bg-forest-500/[0.03] p-4">
-              <h3 className="mb-3 flex items-center gap-1.5 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+              <h3 className="mb-3 flex items-center gap-1.5 text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">
                 <Hammer className="h-3.5 w-3.5" /> {t.drawer.buildTitle}
               </h3>
               <div className="grid grid-cols-2 gap-4">
@@ -416,7 +416,7 @@ export function EstateLotDrawer({
           {/* Заметка */}
           {plot.note ? (
             <div>
-              <h3 className="mb-2 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">{t.drawer.note}</h3>
+              <h3 className="mb-2 text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">{t.drawer.note}</h3>
               <p className="text-sm leading-relaxed text-forest-500/80">{plot.note[locale]}</p>
             </div>
           ) : null}

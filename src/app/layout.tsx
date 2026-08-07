@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Cormorant_Garamond } from "next/font/google";
+import { Onest, Source_Serif_4 } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Header } from "@/components/layout/header";
@@ -21,19 +21,23 @@ import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
 
 // Cyrillic subsets cover the /ru pages — without them RU text falls back to
-// system fonts and the serif/sans pairing breaks.
-const sans = Inter({
+// system fonts and the serif/sans pairing breaks. Onest draws Cyrillic as a
+// first-class alphabet, so the RU pages no longer render lighter than the EN
+// ones the way Inter's Cyrillic did.
+const sans = Onest({
   subsets: ["latin", "cyrillic"],
   variable: "--font-sans",
   display: "swap",
 });
 
-// Only 400 (default) and 600 (one semibold spot) are used across the site —
-// declaring 500/700 preloaded two font files that never paint. Trimming to the
-// two real weights halves the serif payload on the LCP path.
-const serif = Cormorant_Garamond({
+// The `opsz` axis is the whole point of this face: with font-optical-sizing:auto
+// (set on body) the browser reshapes the glyphs per rendered size — airy and
+// high-contrast in the 60px hero, sturdier and more open at 18px in card titles.
+// Variable, so one file covers 400–600 instead of preloading separate weights.
+const serif = Source_Serif_4({
   subsets: ["latin", "cyrillic"],
-  weight: ["400", "600"],
+  style: ["normal", "italic"],
+  axes: ["opsz"],
   variable: "--font-serif",
   display: "swap",
 });

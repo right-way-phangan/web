@@ -21,7 +21,7 @@ export default async function RussianSavedPage() {
 
   return (
     <section className="container-prose py-16 md:py-24">
-      <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">Шорт-лист</p>
+      <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">Шорт-лист</p>
       <h1 className="mt-4 max-w-3xl text-balance">Ваши сохранённые объекты.</h1>
       <p className="mt-6 max-w-xl text-lg text-forest-500/70">
         Всё, что вы отметили, в одном месте. Сравните детали, отправьте нам список — дальше мы возьмём

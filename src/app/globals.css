@@ -122,6 +122,11 @@
   body {
     @apply bg-cream-100 text-forest-900 font-sans antialiased;
     text-rendering: optimizeLegibility;
+    /* Source Serif 4 несёт ось opsz (8–60): рисунок буквы должен меняться под
+       кегль, иначе оптические размеры не работают и сериф выглядит «растянутым».
+       auto — значение по умолчанию, но пишем явно: без него часть движков
+       оставляет opsz на дефолтных 14 для всех размеров. */
+    font-optical-sizing: auto;
     /* Декоративные glow-подложки (-inset-x-* в hero/секциях) шире вьюпорта.
        clip на body, а не только на html: клип корневого элемента не убирает
        вылет из scrollWidth документа (страница остаётся прокручиваемой из JS,
@@ -140,13 +145,18 @@
       border-color 0.3s ease,
       color 0.3s ease;
   }
+  /* У Source Serif 4 строчные заметно крупнее, чем у прежнего Cormorant, — при
+     том же кегле строка выглядит на ступень больше. Поэтому шкала опущена на
+     ступень, а межстрочное поджато: иначе крупные заголовки распадаются на
+     отдельные строки. Трекинг убывает с кеглем — плотный минус читается как
+     дефект на 20px и как класс на 60px. */
   h1, h2, h3, h4 {
-    @apply font-serif tracking-tight;
+    @apply font-serif;
     text-wrap: balance;
   }
-  h1 { @apply text-4xl md:text-6xl leading-tight; }
-  h2 { @apply text-3xl md:text-5xl leading-tight; }
-  h3 { @apply text-2xl md:text-3xl; }
+  h1 { @apply text-3xl md:text-5xl leading-[1.08] tracking-[-0.02em]; }
+  h2 { @apply text-2xl md:text-4xl leading-[1.12] tracking-[-0.018em]; }
+  h3 { @apply text-xl md:text-2xl leading-snug tracking-[-0.01em]; }
   p {
     text-wrap: pretty;
   }
@@ -322,10 +332,12 @@
 .dropcap::first-letter {
   float: left;
   font-family: var(--font-serif), Georgia, serif;
-  font-size: 3.3em;
-  line-height: 0.82;
+  /* Кегль опущен с 3.3em: у Source Serif 4 крупнее строчные, и прежний размер
+     перекрывал четвёртую строку абзаца вместо трёх. */
+  font-size: 2.9em;
+  line-height: 0.9;
   padding-right: 0.09em;
-  margin-top: 0.06em;
+  margin-top: 0.04em;
   font-weight: 600;
   @apply text-brass-500;
 }

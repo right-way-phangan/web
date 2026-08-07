@@ -39,7 +39,7 @@ export function EstateInquiry({ slug, name, selectedLot }: Props) {
       id="enquire"
       className="scroll-mt-24 rounded-sm border border-forest-500/10 bg-cream-50 p-6 md:sticky md:top-24 print:hidden"
     >
-      <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+      <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">
         {t.enquireOrBook}
       </p>
       <h2 className="mt-2 font-serif text-2xl text-forest-900">{name}</h2>

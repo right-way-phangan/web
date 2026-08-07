@@ -379,7 +379,7 @@ export function Waterfall({ r, money, isRent, t }: { r: RoiResult; money: Money;
 
   return (
     <div className="mt-6 rounded-sm border border-forest-500/10 bg-cream-50 p-6">
-      <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">{t.waterfallTitle}</p>
+      <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">{t.waterfallTitle}</p>
       <p className="mt-1 text-[11px] text-forest-500/55">{t.waterfallHint}</p>
       <div className="mt-4 space-y-2">
         {rows.map((b, i) => {

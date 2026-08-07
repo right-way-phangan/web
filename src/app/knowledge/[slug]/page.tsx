@@ -93,8 +93,7 @@ export default async function KnowledgeArticlePage({ params }: Props) {
       </div>
 
       <header className="container-prose pt-10 md:pt-14">
-        <p className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.3em] text-brass-700">
-          <span aria-hidden className="h-px w-10 bg-brass-600/60" />
+        <p className="flex items-center gap-2 text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-700">
           {a.topic}
         </p>
         <h1 className="mt-4 max-w-3xl text-balance">{a.title}</h1>
@@ -113,7 +112,7 @@ export default async function KnowledgeArticlePage({ params }: Props) {
       {a.takeaways.length > 0 ? (
         <section className="container-prose pb-12 md:pb-16">
           <div className="max-w-prose rounded-sm border border-forest-500/10 bg-cream-200/40 p-6 md:p-8">
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+            <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">
               Key points
             </p>
             <ul className="mt-4 space-y-2.5">
@@ -135,7 +134,7 @@ export default async function KnowledgeArticlePage({ params }: Props) {
         <div className="max-w-prose space-y-4">
           {a.sources.length > 0 ? (
             <div>
-              <p className="text-xs font-medium uppercase tracking-[0.2em] text-forest-500/50">
+              <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-forest-500/50">
                 Sources
               </p>
               <ul className="mt-3 space-y-1.5 text-sm text-forest-500/70">
@@ -170,7 +169,7 @@ export default async function KnowledgeArticlePage({ params }: Props) {
       {others.length > 0 ? (
         <section className="border-t border-forest-500/10 bg-cream-200/30">
           <div className="container-prose py-16 md:py-20">
-            <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-700">
+            <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-700">
               More guides
             </p>
             <div className="mt-8 grid gap-6 md:grid-cols-3">
@@ -181,7 +180,7 @@ export default async function KnowledgeArticlePage({ params }: Props) {
                     className="group flex h-full flex-col rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5 transition-[box-shadow] duration-300 hover:shadow-soft"
                   >
                     <div className="flex h-full flex-col rounded-core bg-cream-50 p-6 shadow-bezel">
-                      <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-700">
+                      <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-700">
                         {o.topic}
                       </p>
                       <h3 className="mt-2 font-serif text-lg text-forest-900">

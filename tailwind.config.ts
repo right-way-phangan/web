@@ -76,7 +76,10 @@ const config: Config = {
         container: "1280px",
       },
       letterSpacing: {
-        eyebrow: "0.3em",
+        // Было 0.3em — на таком разгоне капс перестаёт читаться словом и
+        // становится орнаментом. 0.12em ещё держит строку разреженной, но
+        // слово остаётся словом.
+        eyebrow: "0.12em",
       },
       transitionTimingFunction: {
         // Premium spring-ish curves — never raw linear/ease-in-out.

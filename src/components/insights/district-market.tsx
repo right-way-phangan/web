@@ -86,7 +86,7 @@ export function DistrictMarketPanel({
       <div className="rounded-sm border border-brass-300/40 bg-gradient-to-br from-cream-50 to-brass-200/15 p-7 md:p-9">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
-            <p className="inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+            <p className="inline-flex items-center gap-1.5 text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">
               <TrendingUp className="h-4 w-4" />
               {t.eyebrow}
             </p>

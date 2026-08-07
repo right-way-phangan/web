@@ -118,7 +118,7 @@ export function BuildProForma({ market }: { market: RentalMarket }) {
   return (
     <div className="rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5">
       <div className="rounded-core bg-cream-50 p-6 shadow-bezel md:p-8">
-        <p className="inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-[0.2em] text-brass-700">
+        <p className="inline-flex items-center gap-1.5 text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-700">
           <Hammer className="h-4 w-4" />
           {t.badge}
         </p>

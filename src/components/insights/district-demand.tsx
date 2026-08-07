@@ -69,7 +69,7 @@ export function DistrictDemand({ data }: { data: RentalMarket }) {
       {/* Booked now — measured occupancy */}
       {occRows.length > 0 ? (
         <div>
-          <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-brass-500">
+          <p className="text-[11px] font-medium uppercase tracking-eyebrow text-brass-500">
             {t.occEyebrow}
           </p>
           <div className="mt-2">
@@ -98,7 +98,7 @@ export function DistrictDemand({ data }: { data: RentalMarket }) {
       {/* Demand quality — guest-favorite share + reviews */}
       {qualRows.length > 0 ? (
         <div>
-          <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-brass-500">
+          <p className="text-[11px] font-medium uppercase tracking-eyebrow text-brass-500">
             {t.qualEyebrow}
           </p>
           <div className="mt-2">

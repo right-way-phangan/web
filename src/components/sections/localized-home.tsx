@@ -13,6 +13,7 @@ import { Reveal } from "@/components/sections/reveal";
 import { Appear } from "@/components/motion/appear";
 import { Magnetic } from "@/components/motion/magnetic";
 import type { HomeDict, Locale } from "@/lib/i18n/dictionaries";
+import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 
 const TOOL_ICONS = [Calculator, Scale, BarChart3] as const;
 
@@ -60,10 +61,7 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
           className="pointer-events-none absolute -inset-x-16 inset-y-0 -z-10 bg-[radial-gradient(70%_90%_at_88%_8%,rgba(21,168,168,0.07),transparent_62%)]"
           aria-hidden
         />
-        <p className="flex items-center gap-3 text-xs font-medium uppercase tracking-eyebrow text-brass-700">
-          <span className="h-px w-10 bg-brass-600/60" aria-hidden />
-          {dict.values.eyebrow}
-        </p>
+        <SectionEyebrow>{dict.values.eyebrow}</SectionEyebrow>
         <h2 className="mt-5 max-w-3xl text-balance">{dict.values.title}</h2>
         <p className="mt-5 max-w-xl text-lg text-forest-600/70">{dict.values.lede}</p>
 
@@ -96,10 +94,7 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
           className="pointer-events-none absolute -inset-x-16 inset-y-0 -z-10 bg-[radial-gradient(70%_90%_at_10%_95%,rgba(217,138,30,0.07),transparent_62%)]"
           aria-hidden
         />
-        <p className="flex items-center gap-3 text-xs font-medium uppercase tracking-eyebrow text-brass-700">
-          <span className="h-px w-10 bg-brass-600/60" aria-hidden />
-          {dict.tools.eyebrow}
-        </p>
+        <SectionEyebrow>{dict.tools.eyebrow}</SectionEyebrow>
         <h2 className="mt-5 max-w-3xl text-balance">{dict.tools.title}</h2>
         <p className="mt-5 max-w-xl text-lg text-forest-600/70">{dict.tools.lede}</p>
 
@@ -190,12 +185,9 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
         />
 
         <Appear className="container-prose relative z-10 flex min-h-[60vh] flex-col items-center justify-center py-24 text-center md:min-h-[68vh] md:py-32">
-          {/* Текст надзаголовка — светлый (золото среднего тона на фото не
-              читается), золото осталось на черте: акцент виден, контраст цел. */}
-          <p className="flex items-center gap-3 text-xs font-medium uppercase tracking-eyebrow text-panel-fg/90">
-            <span className="h-px w-10 bg-brass-300/70" aria-hidden />
-            {dict.cta.eyebrow}
-          </p>
+          {/* tone="dark" даёт brass-300 — светлое закатное золото, которое на
+              фото читается (золото среднего тона тут проваливалось). */}
+          <SectionEyebrow tone="dark">{dict.cta.eyebrow}</SectionEyebrow>
           <h2 className="mt-5 max-w-2xl text-balance text-panel-fg">{dict.cta.title}</h2>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-panel-fg/85">
             {dict.cta.lede}

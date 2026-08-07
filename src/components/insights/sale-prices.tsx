@@ -79,7 +79,6 @@ export function SalePrices({
       <header className="mb-6 flex items-start gap-3">
         <Landmark className="mt-0.5 h-5 w-5 shrink-0 text-brass-500" />
         <div>
-          <span aria-hidden className="mb-2 block h-px w-10 bg-brass-600/60" />
           <h2 className="font-serif text-2xl text-forest-900 md:text-3xl">{t.title}</h2>
           <p className="mt-1 max-w-2xl text-sm text-forest-500/70">
             {t.intro(medianAll, stats.landSampleAll)}

@@ -44,8 +44,7 @@ export function ProjectHero({ project, availability, locale, developerHref }: Pr
       {/* Text */}
       <div>
         <div className="flex flex-wrap items-center gap-3">
-          <span className="inline-flex items-center gap-2.5 text-xs font-medium uppercase tracking-eyebrow text-brass-700">
-            <span className="h-px w-7 bg-brass-600/60" aria-hidden />
+          <span className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-700">
             {project.rwNumber}
           </span>
           {/* When there's a cover, the stage badge lives on the image instead. */}

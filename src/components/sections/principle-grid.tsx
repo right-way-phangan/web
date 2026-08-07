@@ -1,4 +1,5 @@
 import { Appear } from "@/components/motion/appear";
+import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 
 interface Principle {
   title: string;
@@ -23,10 +24,7 @@ export function PrincipleGrid({
   return (
     <section className="container-prose py-20 md:py-28">
       {eyebrow ? (
-        <p className="flex items-center gap-3 text-xs font-medium uppercase tracking-eyebrow text-brass-700">
-          <span className="h-px w-10 bg-brass-600/60" aria-hidden />
-          {eyebrow}
-        </p>
+        <SectionEyebrow>{eyebrow}</SectionEyebrow>
       ) : null}
       {title ? (
         <h2 className="mt-5 max-w-3xl text-balance font-serif text-3xl text-forest-900 md:text-4xl">

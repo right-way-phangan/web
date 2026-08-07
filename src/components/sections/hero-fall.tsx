@@ -285,7 +285,7 @@ export function HeroFall({
               className="pointer-events-none absolute inset-x-0 bottom-10 z-30 flex flex-col items-center gap-2 text-panel-fg/70"
               style={{ opacity: cueOpacity }}
             >
-              <span className="text-xs uppercase tracking-[0.2em]">
+              <span className="text-[0.8125rem] uppercase tracking-eyebrow">
                 {dict.scrollCue}
               </span>
               <ChevronDown className="h-5 w-5 motion-safe:animate-bounce" />

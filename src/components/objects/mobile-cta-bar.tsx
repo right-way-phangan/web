@@ -71,7 +71,7 @@ export function MobileCtaBar({
     >
       <div className="flex items-center justify-between gap-4">
         <div className="min-w-0">
-          <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-forest-500/70">
+          <p className="text-[10px] font-medium uppercase tracking-eyebrow text-forest-500/70">
             {rwNumber}
           </p>
           {priceLabel ? (

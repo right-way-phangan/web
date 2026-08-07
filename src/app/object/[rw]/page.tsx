@@ -165,7 +165,7 @@ export default async function ObjectPage({ params }: Props) {
         <header className="mt-8 md:mt-12">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
+              <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">
                 {object.rwNumber} · {object.type}
               </p>
               <VettedBadge ddStatus={object.ddStatus} ddDate={object.ddDate} />

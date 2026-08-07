@@ -35,8 +35,7 @@ export function ProcessTimeline({ steps }: Props) {
                   {step.title}
                 </h3>
                 {step.duration ? (
-                  <p className="mt-1 flex items-center gap-2.5 text-xs font-medium uppercase tracking-[0.2em] text-brass-700">
-                    <span className="h-px w-7 bg-brass-600/60" aria-hidden />
+                  <p className="mt-1 flex items-center gap-2.5 text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-700">
                     {step.duration}
                   </p>
                 ) : null}

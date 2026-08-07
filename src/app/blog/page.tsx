@@ -45,7 +45,7 @@ export default async function BlogPage() {
                   className="group block h-full rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5 transition-[box-shadow] duration-300 hover:shadow-soft"
                 >
                   <div className="flex h-full flex-col rounded-core bg-cream-50 p-6 shadow-bezel md:p-8">
-                    <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-brass-700">
+                    <div className="flex items-center gap-2 text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-700">
                       <span>{p.topic}</span>
                       <span aria-hidden className="text-forest-500/30">·</span>
                       <span className="text-forest-500/50">{p.readMins} min</span>

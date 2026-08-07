@@ -319,7 +319,7 @@ export function EstimateTool({ lang }: { lang: Lang }) {
       {/* Результат */}
       {result && result.ok && (
         <div className="rounded-sm border border-brass-500/30 bg-brass-500/5 p-5 md:p-6">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">{t.resultEyebrow}</p>
+          <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">{t.resultEyebrow}</p>
           <div className="mt-3 flex flex-wrap items-end gap-x-8 gap-y-3">
             <div>
               <p className="text-xs text-forest-900/50">{t.expectedRange}</p>

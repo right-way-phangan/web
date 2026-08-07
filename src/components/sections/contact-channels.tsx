@@ -19,7 +19,7 @@ export function ContactChannels({ dict }: { dict: ContactDict }) {
   return (
     <aside className="space-y-6">
       <div>
-        <h2 className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+        <h2 className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">
           {dict.channelsHeading}
         </h2>
         <ul className="mt-4 space-y-3">
@@ -47,7 +47,7 @@ export function ContactChannels({ dict }: { dict: ContactDict }) {
       </div>
 
       <div className="border-t border-forest-500/10 pt-6">
-        <h2 className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+        <h2 className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">
           {dict.office.heading}
         </h2>
         <div className="mt-4 flex items-start gap-3 text-sm text-forest-500">

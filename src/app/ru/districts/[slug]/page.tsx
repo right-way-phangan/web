@@ -88,7 +88,7 @@ export default async function RussianDistrictPage({ params }: Props) {
           <div className="absolute inset-0 bg-gradient-to-t from-panel/92 via-panel/55 to-panel/25" aria-hidden />
           <div className="absolute inset-0 bg-gradient-to-r from-panel/75 via-panel/30 to-transparent" aria-hidden />
           <div className="relative z-10 flex min-h-[42vh] flex-col justify-end p-7 md:min-h-[48vh] md:p-12">
-            <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-300">Район</p>
+            <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-300">Район</p>
             <h1 className="mt-3 max-w-3xl text-balance text-panel-fg">{name}</h1>
             <p className="mt-3 max-w-2xl text-lg text-panel-fg/85 md:text-xl">{subtitle}</p>
           </div>
@@ -106,13 +106,13 @@ export default async function RussianDistrictPage({ params }: Props) {
       <section className="container-prose pb-16 md:pb-20">
         <div className="grid gap-12 md:grid-cols-2 md:gap-16">
           <div>
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+            <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">
               Кто здесь покупает
             </p>
             <p className="mt-4 text-base leading-relaxed text-forest-500/85 md:text-lg">{d.audience}</p>
           </div>
           <div>
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+            <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">
               Чего ожидать
             </p>
             <ul className="mt-4 space-y-2.5">
@@ -167,7 +167,7 @@ export default async function RussianDistrictPage({ params }: Props) {
       </section>
 
       <section className="container-prose py-16 md:py-24">
-        <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">Другие районы</p>
+        <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">Другие районы</p>
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           {others.map((o) => (
             <Link

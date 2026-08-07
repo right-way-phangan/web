@@ -45,7 +45,7 @@ export function NotFoundContent({ fresh }: { fresh?: React.ReactNode }) {
 
   return (
     <section className="container-prose py-24">
-      <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">404</p>
+      <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">404</p>
       <h1 className="mt-4 max-w-2xl text-balance">{t.title}</h1>
       <p className="mt-6 max-w-xl text-lg text-forest-500/70">{t.lede}</p>
       <div className="mt-10 flex flex-wrap gap-3">

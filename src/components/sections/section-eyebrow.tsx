@@ -1,9 +1,13 @@
 import { cn } from "@/lib/utils/cn";
 
 /**
- * The canonical section eyebrow — a tiny uppercase label preceded by a short
- * hairline rule. One helper so the ~15 hand-rolled headers across the site stay
- * consistent and AA-correct: deep amber (brass-700) on the light sand surface,
+ * The canonical section eyebrow — a small uppercase label, nothing else.
+ * The hairline rule that used to precede it is gone on purpose: rule + caps +
+ * wide tracking is the single most templated header pattern on the web, and it
+ * was the loudest generic tell on the site. Tracking is 0.12em, not the old
+ * 0.3em, which read as decoration rather than typography.
+ *
+ * Colours stay AA-correct: deep amber (brass-700) on the light sand surface,
  * vivid sunset gold (brass-300) on dark teal sections. Pure server component.
  */
 export function SectionEyebrow({
@@ -18,18 +22,11 @@ export function SectionEyebrow({
   return (
     <p
       className={cn(
-        "flex items-center gap-3 text-xs font-medium uppercase tracking-eyebrow",
+        "text-[0.8125rem] font-medium uppercase tracking-eyebrow",
         tone === "dark" ? "text-brass-300" : "text-brass-700",
         className,
       )}
     >
-      <span
-        className={cn(
-          "h-px w-10",
-          tone === "dark" ? "bg-brass-300/70" : "bg-brass-600/60",
-        )}
-        aria-hidden
-      />
       {children}
     </p>
   );

@@ -155,7 +155,7 @@ export function FaqExplorer({
             if (!items || items.length === 0) return null;
             return (
               <section key={cat.id} id={cat.id}>
-                <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+                <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">
                   {cat.title}
                 </p>
                 <h2 className="mt-2 font-serif text-3xl text-forest-900 md:text-4xl">
