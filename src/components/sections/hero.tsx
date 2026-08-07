@@ -197,7 +197,7 @@ function TickerItem({
   return (
     <div className="flex items-baseline gap-2">
       <span className="num text-lg text-panel-fg md:text-xl">{value}</span>
-      <span className="text-[11px] uppercase tracking-[0.18em] text-panel-fg/80">
+      <span className="text-xs uppercase tracking-eyebrow text-panel-fg/80">
         {label}
       </span>
     </div>

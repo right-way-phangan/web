@@ -32,7 +32,7 @@ export function SellPreviewCard({
       <div className="p-3">
         <div className="font-serif text-xl text-forest-900">{title}</div>
         <div className="mt-1 text-sm leading-relaxed text-forest-500/75">{meta}</div>
-        <div className="mt-3 border-t border-forest-500/10 pt-3 text-[11px] uppercase tracking-[0.15em] text-brass-700">
+        <div className="mt-3 border-t border-forest-500/10 pt-3 text-xs uppercase tracking-eyebrow text-brass-700">
           {foot}
         </div>
       </div>

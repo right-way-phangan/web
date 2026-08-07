@@ -114,7 +114,7 @@ export async function DistrictsBento({ locale }: { locale: Locale }) {
                   <div className={`font-serif text-panel-fg ${i === 0 ? "text-2xl md:text-3xl" : "text-lg"}`}>
                     {name}
                   </div>
-                  <div className="mt-1 flex items-center gap-1.5 text-[11px] uppercase tracking-[0.15em] text-panel-fg/70">
+                  <div className="mt-1 flex items-center gap-1.5 text-xs uppercase tracking-eyebrow text-panel-fg/70">
                     <MapPin className="h-3 w-3" aria-hidden />
                     {n > 0 ? listingsLabel(n, locale) : t.guide}
                   </div>
