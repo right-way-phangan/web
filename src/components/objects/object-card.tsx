@@ -133,7 +133,7 @@ export function ObjectCard({ object, priority = false, priceMode = "buy", buildB
         href={localeHref(locale, `/object/${object.rwNumber}`) as Route}
         target="_blank"
         rel="noopener"
-        className="flex h-full flex-col overflow-hidden rounded-sm card-elevated transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-panel/15 motion-reduce:hover:translate-y-0"
+        className="flex h-full flex-col overflow-hidden rounded-sm card-elevated hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-panel/15 motion-reduce:hover:translate-y-0"
       >
       {/* MagicCard несёт поверхность + рамку-spotlight (brass, следит за
           курсором). card-elevated/бронзовый кант/parallax остаются на Link. */}
@@ -161,7 +161,7 @@ export function ObjectCard({ object, priority = false, priceMode = "buy", buildB
               blurDataURL={BLUR_PLACEHOLDER}
               priority={priority}
               onError={() => setCoverFailed(true)}
-              className="object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08] motion-reduce:group-hover:scale-100"
+              className="object-cover transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:duration-700 group-hover:scale-[1.08] motion-reduce:group-hover:scale-100"
             />
           </div>
         ) : (

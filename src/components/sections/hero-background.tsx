@@ -157,10 +157,10 @@ export function HeroBackground({
             >
               <span
                 className={[
-                  "h-1.5 rounded-full transition-all duration-300",
+                  "h-1.5 w-1.5 rounded-full transition-[transform,background-color] duration-300",
                   i === idx
-                    ? "w-6 bg-cream-50"
-                    : "w-1.5 bg-cream-50/40 group-hover/dot:bg-cream-50/70",
+                    ? "scale-x-[4] bg-cream-50"
+                    : "bg-cream-50/40 group-hover/dot:bg-cream-50/70",
                 ].join(" ")}
               />
             </button>

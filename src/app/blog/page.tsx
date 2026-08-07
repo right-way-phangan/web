@@ -42,7 +42,7 @@ export default async function BlogPage() {
               <Appear key={p.slug} delay={(i % 3) * 0.1} className="h-full">
                 <Link
                   href={`/blog/${p.slug}` as Route}
-                  className="group block h-full rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5 transition-all hover:shadow-soft"
+                  className="group block h-full rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5 transition-[box-shadow] duration-300 hover:shadow-soft"
                 >
                   <div className="flex h-full flex-col rounded-core bg-cream-50 p-6 shadow-bezel md:p-8">
                     <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-brass-700">

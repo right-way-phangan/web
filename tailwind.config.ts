@@ -18,6 +18,11 @@ const withVar = (name: string) => `rgb(var(${name}) / <alpha-value>)`;
 const config: Config = {
   darkMode: "class",
   content: ["./src/**/*.{ts,tsx,mdx}"],
+  // Tailwind 3 применяет `hover:` без оглядки на устройство (гейт стал дефолтом
+  // только в v4). На тач-экране :hover залипает после тапа: карточка остаётся
+  // приподнятой, обложка — зумнутой, до следующего касания. Флаг заворачивает
+  // все hover-утилиты в `@media (hover: hover)`.
+  future: { hoverOnlyWhenSupported: true },
   theme: {
     extend: {
       colors: {

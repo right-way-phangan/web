@@ -119,7 +119,7 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
                     <h3 className="mt-7 flex items-center gap-2 font-serif text-2xl text-forest-900">
                       {item.title}
                       <ArrowRight
-                        className="h-4 w-4 -translate-x-1 text-brass-700 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+                        className="h-4 w-4 -translate-x-1 text-brass-700 opacity-0 transition-[transform,opacity] duration-300 group-hover:translate-x-0 group-hover:opacity-100"
                         aria-hidden
                       />
                     </h3>

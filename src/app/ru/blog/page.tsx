@@ -39,7 +39,7 @@ export default async function RussianBlogPage() {
             <Link
               key={p.slug}
               href={`/ru/blog/${p.slug}` as Route}
-              className="group flex flex-col rounded-sm border border-forest-500/10 bg-cream-50 p-6 transition-all hover:border-forest-500/30 hover:shadow-lg md:p-8"
+              className="group flex flex-col rounded-sm border border-forest-500/10 bg-cream-50 p-6 transition-[border-color,box-shadow] duration-300 hover:border-forest-500/30 hover:shadow-lg md:p-8"
             >
               <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
                 <span>{p.topic}</span>

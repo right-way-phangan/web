@@ -1,9 +1,14 @@
 "use client";
 
 import React, { useCallback, useEffect } from "react";
-import { motion, useMotionTemplate, useMotionValue } from "motion/react";
+import { motion, useMotionTemplate, useMotionValue, useSpring } from "motion/react";
 
 import { cn } from "@/lib/utils/cn";
+
+// Пятно догоняет курсор пружиной, а не липнет к нему пиксель в пиксель: жёсткая
+// привязка читается механически, инерция делает подсветку живой. Эффект чисто
+// декоративный — ровно тот случай, где физика уместна.
+const SPOTLIGHT_SPRING = { stiffness: 150, damping: 20, mass: 0.1 };
 
 /**
  * MagicCard — рамка-spotlight, следящая за курсором (подсветка границы +
@@ -51,6 +56,8 @@ export function MagicCard({
 }: MagicCardProps) {
   const mouseX = useMotionValue(-gradientSize);
   const mouseY = useMotionValue(-gradientSize);
+  const spotX = useSpring(mouseX, SPOTLIGHT_SPRING);
+  const spotY = useSpring(mouseY, SPOTLIGHT_SPRING);
 
   const reset = useCallback(() => {
     mouseX.set(-gradientSize);
@@ -59,6 +66,9 @@ export function MagicCard({
 
   const handlePointerMove = useCallback(
     (e: React.PointerEvent<HTMLDivElement>) => {
+      // Палец ничего не «наводит»: на тач-экране подсветка курсора смысла не
+      // имеет и только жжёт кадры во время скролла каталога.
+      if (e.pointerType !== "mouse") return;
       const rect = e.currentTarget.getBoundingClientRect();
       mouseX.set(e.clientX - rect.left);
       mouseY.set(e.clientY - rect.top);
@@ -76,14 +86,13 @@ export function MagicCard({
   // Рамка: поверхность (padding-box) + радиальный brass-градиент (border-box).
   const borderBackground = useMotionTemplate`
     linear-gradient(${background} 0 0) padding-box,
-    radial-gradient(${gradientSize}px circle at ${mouseX}px ${mouseY}px,
+    radial-gradient(${gradientSize}px circle at ${spotX}px ${spotY}px,
       ${gradientFrom}, ${gradientTo}, ${borderColor} 100%) border-box
   `;
-  // Заливка тела: мягкое пятно, проявляется только на hover.
-  const spotlight = useMotionTemplate`
-    radial-gradient(${gradientSize}px circle at ${mouseX}px ${mouseY}px,
-      ${gradientColor}, transparent 100%)
-  `;
+  // Заливка тела ездит трансформом, а не пересчётом градиента: полная строка
+  // translate3d вместо шортката x/y — так слой уходит на композитор и не роняет
+  // кадры, когда основной поток занят подгрузкой каталога.
+  const spotlightTransform = useMotionTemplate`translate3d(${spotX}px, ${spotY}px, 0)`;
 
   return (
     <motion.div
@@ -99,10 +108,22 @@ export function MagicCard({
         className="absolute inset-px z-20 rounded-[inherit]"
         style={{ background }}
       />
+      {/* Пятно всегда «включено» — за пределами карточки его просто не видно
+          (overflow-hidden у корня), поэтому гасить его на hover не нужно.
+          Размер слоя — диаметр, отрицательные margin центруют его на курсоре. */}
       <motion.div
+        aria-hidden
         suppressHydrationWarning
-        className="pointer-events-none absolute inset-px z-30 rounded-[inherit] opacity-0 transition-opacity duration-300 group-hover/magic:opacity-100 motion-reduce:transition-none"
-        style={{ background: spotlight, opacity: gradientOpacity }}
+        className="pointer-events-none absolute left-0 top-0 z-30 rounded-full"
+        style={{
+          width: gradientSize * 2,
+          height: gradientSize * 2,
+          marginLeft: -gradientSize,
+          marginTop: -gradientSize,
+          background: `radial-gradient(circle ${gradientSize}px at center, ${gradientColor}, transparent 100%)`,
+          opacity: gradientOpacity,
+          transform: spotlightTransform,
+        }}
       />
       <div className="relative z-40 h-full">{children}</div>
     </motion.div>

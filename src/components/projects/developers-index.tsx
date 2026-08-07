@@ -35,7 +35,7 @@ export async function DevelopersIndex({ locale }: { locale: Locale }) {
               <Appear key={dev.slug} delay={(i % 3) * 0.08} className="h-full">
                 <Link
                   href={href as Route}
-                  className="group flex h-full flex-col rounded-sm border border-forest-500/12 bg-cream-50/60 p-6 transition-all hover:-translate-y-0.5 hover:border-brass-500/40 hover:shadow-[0_16px_40px_-30px_rgba(4,38,46,0.55)]"
+                  className="group flex h-full flex-col rounded-sm border border-forest-500/12 bg-cream-50/60 p-6 transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-brass-500/40 hover:shadow-[0_16px_40px_-30px_rgba(4,38,46,0.55)]"
                 >
                   <h2 className="font-serif text-2xl text-forest-900">
                     {dev.name}

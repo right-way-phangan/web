@@ -178,7 +178,7 @@ export default async function KnowledgeArticlePage({ params }: Props) {
                 <Appear key={o.slug} delay={(i % 3) * 0.1} className="h-full">
                   <Link
                     href={`/knowledge/${o.slug}` as Route}
-                    className="group flex h-full flex-col rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5 transition-all hover:shadow-soft"
+                    className="group flex h-full flex-col rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5 transition-[box-shadow] duration-300 hover:shadow-soft"
                   >
                     <div className="flex h-full flex-col rounded-core bg-cream-50 p-6 shadow-bezel">
                       <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-700">

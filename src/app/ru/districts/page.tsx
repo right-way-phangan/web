@@ -63,7 +63,7 @@ export default async function RussianDistrictsPage() {
               <Link
                 key={d.slug}
                 href={`/ru/districts/${d.slug}` as Route}
-                className="group flex flex-col overflow-hidden rounded-sm border border-forest-500/10 bg-cream-50 transition-all hover:border-forest-500/30 hover:shadow-lg"
+                className="group flex flex-col overflow-hidden rounded-sm border border-forest-500/10 bg-cream-50 transition-[border-color,box-shadow] duration-300 hover:border-forest-500/30 hover:shadow-lg"
               >
                 <div className="relative aspect-[16/9] overflow-hidden bg-panel">
                   {districtHasHero(d.slug) ? (

@@ -4,7 +4,10 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils/cn";
 
 const buttonVariants = cva(
-  "group/btn inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium transition-[color,background-color,border-color,box-shadow,transform] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98] motion-reduce:active:scale-100 motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500/35 focus-visible:ring-offset-2 focus-visible:ring-offset-cream-100 disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:transition-transform [&_svg]:duration-300 hover:[&_svg]:translate-x-0.5",
+  // Нажатие и цвет живут в разном темпе: transform (press-scale, hover-лифт) —
+  // 140ms с резкой ease-out, чтобы кнопка отвечала мгновенно; цвет и тень —
+  // прежние 300ms на «шёлковой» кривой, они фоновые и торопиться им незачем.
+  "group/btn inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium [transition:color_300ms_cubic-bezier(0.32,0.72,0,1),background-color_300ms_cubic-bezier(0.32,0.72,0,1),border-color_300ms_cubic-bezier(0.32,0.72,0,1),box-shadow_300ms_cubic-bezier(0.32,0.72,0,1),transform_140ms_cubic-bezier(0.23,1,0.32,1)] active:scale-[0.98] motion-reduce:active:scale-100 motion-reduce:[transition:none] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500/35 focus-visible:ring-offset-2 focus-visible:ring-offset-cream-100 disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:transition-transform [&_svg]:duration-150 hover:[&_svg]:translate-x-0.5",
   {
     variants: {
       variant: {

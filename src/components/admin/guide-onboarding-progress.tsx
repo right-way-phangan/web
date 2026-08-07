@@ -66,8 +66,8 @@ export function GuideOnboardingProgress() {
       </div>
       <div className="h-2 overflow-hidden rounded-full bg-forest-900/10">
         <div
-          className={"h-full rounded-full transition-all " + (allDone ? "bg-panel" : "bg-brass-500")}
-          style={{ width: `${pct}%` }}
+          className={"h-full w-full origin-left rounded-full transition-transform duration-300 " + (allDone ? "bg-panel" : "bg-brass-500")}
+          style={{ transform: `scaleX(${pct / 100})` }}
         />
       </div>
       <p className="mt-2 text-xs text-forest-900/50">

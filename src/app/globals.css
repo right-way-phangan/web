@@ -153,6 +153,11 @@
   ::selection {
     @apply bg-forest-500 text-cream-100;
   }
+  /* Reduced motion — это меньше движения, а не ноль анимации. Перемещения и
+     трансформации убираем совсем (transition-property их больше не включает,
+     элемент просто оказывается в конечном состоянии), а проявление и перекраску
+     оставляем короткими: смена темы, фейд оверлея и подсветка фокуса помогают
+     понять, что изменилось, и укачивания не вызывают. */
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
@@ -160,7 +165,8 @@
     *, ::before, ::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
+      transition-property: opacity, color, background-color, border-color, box-shadow, fill, stroke !important;
+      transition-duration: 150ms !important;
     }
   }
 }
@@ -182,6 +188,20 @@
   }
   to {
     opacity: 1;
+  }
+}
+
+/* Смена надписи на кнопке («Отправить» → «Отправляем…»): подмена текста в лоб
+   читается как два разных объекта, размытие на старте склеивает их в одно
+   перетекающее состояние. Держим короткой — текст должен стать читаемым сразу. */
+@keyframes btnSwap {
+  from {
+    opacity: 0.6;
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
   }
 }
 
@@ -494,9 +514,17 @@
     transparent
   );
 }
+/* Подъём карточки — реакция на курсор, а не самостоятельный эффект: 250ms
+   держит её в бюджете UI-анимации (≤300ms), иначе при прокрутке каталога
+   карточки продолжают двигаться уже после ухода курсора. Здесь единственный
+   источник темпа для карточек — в разметке transition больше не дублируется,
+   поэтому в списке есть и рамка. */
 @media (prefers-reduced-motion: no-preference) {
   .card-elevated {
-    transition: box-shadow 0.4s ease, transform 0.4s ease;
+    transition:
+      box-shadow 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.25s cubic-bezier(0.22, 1, 0.36, 1);
   }
 }
 

@@ -102,7 +102,9 @@ export function CurrencyToggle({ className }: { className?: string }) {
           type="button"
           onClick={() => setCurrency(c)}
           aria-pressed={currency === c}
-          className={`rounded-full px-2.5 py-1 text-xs font-medium transition-colors ${
+          // Сегмент рисуется на 24px, а нажимается на 44: невидимый
+          // псевдоэлемент добирает высоту, размер плашки не меняется.
+          className={`relative rounded-full px-2.5 py-1 text-xs font-medium transition-colors before:absolute before:inset-x-0 before:-inset-y-2.5 before:content-[''] ${
             currency === c ? "bg-forest-900 text-cream-50" : "text-forest-500/70 hover:text-forest-900"
           }`}
         >
