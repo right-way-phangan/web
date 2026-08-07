@@ -5467,6 +5467,118 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "costs",
     faqQuestion: "What can I do if I think my Land and Building Tax assessment on Koh Phangan is wrong?",
   },
+  {
+    slug: "buying-next-to-undeveloped-land-what-can-be-built",
+    kbId: "kb-0083",
+    topic: "Process",
+    title: "Buying next to undeveloped land: how to check what can legally be built beside your plot",
+    short:
+      "An empty lot next door isn't a guarantee of a permanent view — it's a plot governed by the same zoning, setback and title rules as yours, and it can be filled in later. Before committing, check the neighbouring plot's title class, its zone under the 2025 eco-zoning rules, the setback law that governs how close a structure can rise to your boundary, and whether it's subject to a public-hearing threshold if a larger project ever files there.",
+    updated: "2026-08-07",
+    body: [
+      "Can a resort, a three-storey villa, or a fence wall legally go up on the vacant land next to the plot you're buying? The honest answer is: probably something can, and the only way to know what is to check the neighbouring parcel against the same four filters a buyer should apply to their own land — title class, zone, setback rules and project-scale triggers — before signing anything.",
+      { h: "1. Check the neighbouring plot's title class" },
+      "A chanote (full title) neighbour can build almost anything the zoning allows. A weaker title changes the picture: land held on Nor Sor 3 Gor is buildable but less precisely surveyed; land on Sor Kor 1 or PBT5/Sor Por Kor claims is agricultural-use paper that was never meant to authorise construction and often overlaps forest-reserve or national-park boundaries that can never be converted to chanote — see [Untitled \"sea-view land\" scams](/knowledge/untitled-sea-view-land-pbt5-sor-por-kor-scam). A neighbour on that kind of title is a double risk: it can attract an enforcement action that spills onto adjoining plots during a boundary survey, and if it later turns out to be reserve land, no legal structure can ever go up on it at all — which cuts both ways for your own view and your own risk exposure.",
+      { h: "2. Check the neighbouring plot's eco-zone, not just yours" },
+      "Since 22 May 2025, the Surat Thani provincial environmental protection notification covers the whole island with distance-from-shore and elevation-based building tiers — the same rules apply to the plot next door as to yours. A neighbouring coastal parcel within 10-50 m of the high-tide line is capped at a single storey, 6 m height and 75 m² floor area; beyond 200 m or above 80 m elevation, the caps loosen substantially. Pull the neighbour's exact distance-from-shore and elevation figures, not just your own — see [Coastal setback rules on Koh Phangan](/knowledge/coastal-setback-rules-koh-phangan-distance-from-beach) and [Hillside building limits](/knowledge/hillside-slope-building-limits-koh-phangan) for the full tier tables, and [Island eco-zoning](/knowledge/koh-phangan-building-zones) for how the zones fit together.",
+      { h: "3. The setback law that governs distance to your boundary" },
+      "Independent of zoning, the Building Control Act B.E. 2522 (1979) and its Ministerial Regulation No. 55 (B.E. 2543 / 2000) set fixed minimum distances between any structure and the property line, and these apply symmetrically — they constrain what a neighbour can build close to you just as they constrain you:",
+      {
+        ul: [
+          "**A wall with windows, doors or balconies** in a building over roughly 9 m tall must sit at least 3 m back from the boundary line.",
+          "**A blank wall closer than 3 m** must be solid (no openings) and set back at least 50 cm from the line, with a parapet at least 1.8 m high where it faces the boundary.",
+          "**A wall built directly on the boundary line** is allowed only up to 15 m in height and only with the adjoining landowner's written consent — meaning a neighbour cannot legally put a tall structure flush against your property line without your sign-off, and you can't do it to them either.",
+        ],
+      },
+      { h: "4. Whether a larger project would trigger a public hearing" },
+      "A single private villa next door rarely gives you advance notice. A larger development does: a hotel or resort of 80 rooms or more, or with 4,000 m² or more of usable floor area, requires an Environmental Impact Assessment under the Enhancement and Conservation of National Environmental Quality Act, and the EIA process legally requires a public hearing before approval — a channel through which a neighbouring landowner can see, and formally comment on, what's being proposed next door. Smaller guesthouses and single villas fall below this threshold and file for a standard building permit at the District Office with no public notice requirement at all.",
+      { h: "What to actually do before you commit" },
+      {
+        ul: [
+          "**Pull the title deed and its history for the neighbouring plot** at the Land Office, the same way you would for the plot you're buying — title class, registered owner, and any mortgages or existing structures noted on the back.",
+          "**Ask the District Office (or a local lawyer) for the neighbouring parcel's coastal-distance and elevation figures** under the 2025 zoning notification, not just its street address or general area.",
+          "**Check whether any building permit application is already on file** for the adjoining plot — permit applications are public records at the District Office once submitted.",
+          "**Don't rely on \"it's always been empty\"** as a substitute for checking the zone and title — vacant land on Phangan has filled in quickly in past building cycles, and the legal ceiling on what can go up there is set by paperwork, not by how the lot looks today.",
+        ],
+      },
+      "None of this replaces walking the boundary with a surveyor and confirming physical markers match the title, covered in [Due diligence before buying](/knowledge/due-diligence-checklist-koh-phangan) — but that checklist is about your plot. Extending the same rigor to the plot next door is what actually tells you whether the view, the quiet, or the setback you're paying for today is something the law protects, or something a future permit application can simply build over.",
+    ],
+    takeaways: [
+      "A neighbouring plot's title class matters to you too — weak titles (Sor Kor 1, PBT5/Sor Por Kor) can overlap forest-reserve boundaries and trigger enforcement action during a boundary survey.",
+      "The 2025 island-wide eco-zoning applies to the neighbouring plot's exact distance-from-shore and elevation, not a general area description — pull those figures separately from your own plot's.",
+      "Ministerial Regulation No. 55 (2000) under the Building Control Act sets fixed setbacks: 3 m for walls with openings over ~9 m height, 50 cm for blank walls (with a 1.8 m parapet), and a 15 m height cap for any wall built directly on the boundary — which requires the neighbour's written consent either way.",
+      "Only larger projects — 80+ rooms or 4,000+ m² of floor area — trigger a mandatory EIA public hearing; a single villa or small guesthouse next door files for a standard permit with no public notice.",
+      "Check the neighbouring plot's title, zone and any filed permit applications at the Land Office and District Office before you commit — vacant land today is not a guarantee of vacant land in five years.",
+    ],
+    sources: [
+      { title: "ONEP — Surat Thani provincial environmental protection area notification, Royal Gazette, effective 22 May 2025", url: "https://www.onep.go.th/epa-suratthani-2568/" },
+      { title: "G.A.M. Legal Alliance — Building Restrictions in Thailand (Building Control Act B.E. 2522, Ministerial Regulation No. 55 B.E. 2543 setback rules)", url: "https://gam-legalalliance.com/investment/building-restrictions-in-thailand/" },
+      { title: "Lorenz & Partners — Basic Conditions for Building Construction in Thailand", url: "https://lorenz-partners.com/conditions-construction-tha/" },
+      { title: "Kudun and Partners — Overview of the Environmental Impact Assessment in Thailand (EIA thresholds for hotel/resort projects)", url: "https://www.kap.co.th/thought-leadership/overview-of-the-environmental-impact-assessment-in-thailand/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "The plot next to the land I'm buying is empty — how do I check what can legally be built there later?",
+  },
+  {
+    slug: "specific-business-tax-five-year-exemption-clock",
+    kbId: "kb-0084",
+    topic: "Costs",
+    title: "Specific Business Tax's 5-year exemption: how the clock is counted and which sales qualify",
+    short:
+      "Specific Business Tax (3.3%) applies to a Thai property sale unless the seller has held title for more than five years, or has been on the house registration (tabien baan) at that address for at least one year. Both exemptions turn on precise dates, not round numbers — and getting the count wrong is the difference between owing 3.3% and owing 0.5% stamp duty instead.",
+    updated: "2026-08-07",
+    body: [
+      "Does Specific Business Tax (SBT) apply to every property sale in Thailand? No — it applies only when the sale counts as \"commercial or profitable\" under Royal Decree No. 342 (B.E. 2541), the decree issued under the Revenue Code that sets out exactly when a sale triggers it, and two exemptions cover most individual sellers of a single villa: the 5-year holding period, and the 1-year house-registration rule. Both interact directly with [Withholding tax on a property sale](/knowledge/withholding-tax-property-sale-individual-vs-company), which already covers the separate 1% company-seller and progressive individual-seller withholding calculations — this guide covers the tax that sits alongside that withholding: SBT itself.",
+      { h: "The rate, and the alternative" },
+      "SBT is charged at **3% of gross receipts (whichever is higher of the government-appraised value or the actual sale price) plus a 10% local (municipal) tax on top of that 3%, for a combined 3.3%.** SBT and stamp duty are mutually exclusive on the same transfer — a sale never pays both. When SBT doesn't apply, **stamp duty of 0.5%** is charged instead, making the exemption worth roughly 2.8 percentage points of the transaction value.",
+      { h: "Exemption 1 — held more than 5 years" },
+      "If the seller has held the property for more than five years from the date their name was registered on the title deed, the sale falls outside the \"commercial or profitable\" test and SBT does not apply — stamp duty (0.5%) is charged instead.",
+      {
+        ul: [
+          "**The clock starts at registration, not the purchase contract date** — the day ownership was formally recorded at the Land Office, which can be materially later than the day a deposit or purchase agreement was signed.",
+          "**Where land and a building on it were acquired at different times** (for example, land bought first, house built or registered later), the 5-year count runs from whichever acquisition was most recent.",
+          "**Part of a year counts in the seller's favour once the fifth anniversary has passed** — the test is a hard five-year threshold from the registration date, not a rounded number of tax years.",
+        ],
+      },
+      { h: "Exemption 2 — one year on the house registration" },
+      "Separately from the holding-period test, a seller whose name has been on the house registration (tabien baan) for that specific address for at least one year before the sale is exempt from SBT regardless of how long they've actually owned the property — the logic being that a genuine primary residence, not a short-term flip, shouldn't be taxed as a commercial sale. This exemption is available to a foreign owner registered on the yellow (non-Thai) house registration book on the same basis as a Thai national on the blue book, provided the one-year registration is genuine residence rather than a registration made solely to access the exemption.",
+      { h: "Other recognised exemptions" },
+      {
+        ul: [
+          "**Inherited property** — a transfer by inheritance is not a \"sale\" for SBT purposes and falls outside the tax regardless of how long the deceased held it.",
+          "**Expropriation or compulsory transfer to a government agency**, and property exchanges with government entities, for equivalent reasons.",
+          "**Gifts to a legitimate child without consideration** — a genuine, uncompensated transfer to a biological child is treated separately from a commercial sale.",
+        ],
+      },
+      { h: "Why this matters when planning a sale" },
+      {
+        ul: [
+          "**A sale in year four looks materially different from a sale in year six** on the same villa — the 2.8-point gap between 3.3% SBT and 0.5% stamp duty on, say, a ฿10,000,000 appraised value is ฿280,000, which is worth timing a sale around if the seller has flexibility.",
+          "**The house-registration route is a legitimate way to qualify early** if the seller has genuinely lived at the address, but registering purely to game the exemption without real residence is the kind of pattern the Revenue Department can and does scrutinise.",
+          "**This is separate from the withholding tax due at the same transfer** — see [Withholding tax on a property sale](/knowledge/withholding-tax-property-sale-individual-vs-company) for how that figure is calculated, since SBT (or stamp duty) and withholding tax are both collected at the Land Office on completion day, as distinct line items alongside the 2% transfer fee. For the full cost picture, see [Costs, taxes and the FET form](/knowledge/cost-of-buying-taxes-and-fees).",
+          "**A Thai company seller doesn't get either exemption on the same terms** — a company can't hold a personal house registration, so the 1-year route is closed to it, and company sales are more often structured or timed around the 5-year holding count instead; see [A Thai company for property](/knowledge/thai-company-for-property-49-51).",
+        ],
+      },
+      "The Land Office official calculates and collects SBT (or stamp duty, whichever applies) on the day of transfer, based on the registered dates already on file — there's no separate application. The only thing a seller controls in advance is timing the sale, or the residence-registration date, correctly. Confirm the exact registration date on the chanote and the tabien baan history with a Thai lawyer or accountant before setting a sale date, since both exemptions turn on specific dates that are easy to miscount by a matter of weeks.",
+    ],
+    takeaways: [
+      "Specific Business Tax is 3.3% (3% plus a 10% local surcharge) on the higher of appraised value or sale price; when it doesn't apply, 0.5% stamp duty is charged instead — never both.",
+      "The main exemption is holding the property for more than 5 years, counted from the date ownership was registered at the Land Office, not the purchase contract date.",
+      "A separate exemption applies if the seller's name has been on the house registration (tabien baan) at that address for at least one year, regardless of how long they've owned it — available to foreign owners on the yellow book too.",
+      "Inherited property, government expropriation, and uncompensated gifts to a legitimate child are also exempt from SBT.",
+      "SBT/stamp duty is calculated and collected by the Land Office at transfer, separate from withholding tax and the 2% transfer fee — all three can apply to the same sale.",
+    ],
+    sources: [
+      { title: "The Revenue Department of Thailand — Specific Business Tax", url: "https://www.rd.go.th/english/6042.html" },
+      { title: "Royal Decree Issued under the Revenue Code Regarding Sale of an Immovable Property for a Commercial or Profitable Purpose (No. 342), B.E. 2541", url: "https://www.rd.go.th/fileadmin/user_upload/kormor/eng/RD_342.pdf" },
+      { title: "MSNA Group — Specific Business Tax Criteria on Real Estate in Thailand", url: "https://msnagroup.com/specific-business-tax-criteria-on-real-estate-in-thailand/" },
+      { title: "Terms.Law — Thailand property transfer taxes: fees, withholding & stamps", url: "https://terms.law/Thai/tax/property-transfer-taxes.html" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "How is the 5-year Specific Business Tax exemption counted when I sell my Koh Phangan property?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
