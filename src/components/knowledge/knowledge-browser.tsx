@@ -131,7 +131,7 @@ export function KnowledgeBrowser({ articles, basePath, labels }: KnowledgeBrowse
             <Link
               key={a.slug}
               href={`${basePath}/${a.slug}` as Route}
-              className="group flex flex-col rounded-sm border border-forest-500/10 bg-cream-50 card-elevated p-6 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1.5 hover:border-forest-500/30 hover:shadow-2xl hover:shadow-panel/15 motion-reduce:hover:translate-y-0 md:p-7"
+              className="group flex flex-col rounded-sm border border-forest-500/10 bg-cream-50 card-elevated p-6 hover:-translate-y-1.5 hover:border-forest-500/30 hover:shadow-2xl hover:shadow-panel/15 motion-reduce:hover:translate-y-0 md:p-7"
             >
               <p className="text-xs font-medium uppercase tracking-[0.18em] text-brass-500">
                 {a.topic}

@@ -54,7 +54,9 @@ export function LanguageSwitcher({
         href={enHref as Route}
         aria-current={!isRu ? "page" : undefined}
         className={cn(
-          "rounded-sm px-1.5 py-0.5 transition-colors",
+          // Надпись остаётся мелкой, но нажимается по площади 44px: невидимый
+          // псевдоэлемент расширяет цель, не трогая вёрстку строки.
+          "relative rounded-sm px-1.5 py-0.5 transition-colors before:absolute before:-inset-x-1.5 before:-inset-y-[0.6875rem] before:content-['']",
           light ? "hover:text-brass-300" : "hover:text-brass-500",
           !isRu && (light ? "text-panel-fg" : "text-forest-500"),
         )}
@@ -66,7 +68,9 @@ export function LanguageSwitcher({
         href={ruHref as Route}
         aria-current={isRu ? "page" : undefined}
         className={cn(
-          "rounded-sm px-1.5 py-0.5 transition-colors",
+          // Надпись остаётся мелкой, но нажимается по площади 44px: невидимый
+          // псевдоэлемент расширяет цель, не трогая вёрстку строки.
+          "relative rounded-sm px-1.5 py-0.5 transition-colors before:absolute before:-inset-x-1.5 before:-inset-y-[0.6875rem] before:content-['']",
           light ? "hover:text-brass-300" : "hover:text-brass-500",
           isRu && (light ? "text-panel-fg" : "text-forest-500"),
         )}

@@ -31,7 +31,7 @@ export function EstateCard({ estate, href, locale }: Props) {
   return (
     <Link
       href={href as Route}
-      className="group flex h-full flex-col overflow-hidden rounded-sm border border-forest-500/10 bg-cream-50 card-elevated transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1.5 hover:border-forest-500/30 hover:shadow-2xl hover:shadow-panel/15 motion-reduce:hover:translate-y-0"
+      className="group flex h-full flex-col overflow-hidden rounded-sm border border-forest-500/10 bg-cream-50 card-elevated hover:-translate-y-1.5 hover:border-forest-500/30 hover:shadow-2xl hover:shadow-panel/15 motion-reduce:hover:translate-y-0"
     >
       <div
         className="relative aspect-[16/10] overflow-hidden bg-forest-500/5"
@@ -50,7 +50,7 @@ export function EstateCard({ estate, href, locale }: Props) {
             fill
             unoptimized
             sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-            className="object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08] motion-reduce:group-hover:scale-100"
+            className="object-cover transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:duration-700 group-hover:scale-[1.08] motion-reduce:group-hover:scale-100"
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center text-forest-500/25">

@@ -209,7 +209,11 @@ export function PhotoLightbox({ photos, index, onIndexChange, onClose, unoptimiz
     <Dialog.Root open={open} onOpenChange={(o) => !o && onClose()}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-[100] bg-forest-900/92 backdrop-blur-sm motion-safe:animate-[lbFade_200ms_ease-out]" />
-        <Dialog.Content className="fixed inset-0 z-[100] focus:outline-none print:hidden" aria-describedby={undefined}>
+        {/* Фейд принадлежит открытию, а не листанию: анимация на Content играет
+            один раз. Кадры сменяются мгновенно — иначе быстрый перебор стрелками
+            превращается в мигание, а keyframes на каждой смене стартует с нуля
+            и не даёт себя прервать. */}
+        <Dialog.Content className="fixed inset-0 z-[100] focus:outline-none print:hidden motion-safe:animate-[lbFade_240ms_ease-out]" aria-describedby={undefined}>
           <Dialog.Title className="sr-only">{title ?? `${i + 1} / ${n}`}</Dialog.Title>
 
           {/* Верхняя панель */}
@@ -237,7 +241,7 @@ export function PhotoLightbox({ photos, index, onIndexChange, onClose, unoptimiz
           >
             <div
               key={cur.src}
-              className={cn("relative h-full w-full motion-safe:animate-[lbFade_240ms_ease-out]", zoom.scale > 1 && "cursor-grab")}
+              className={cn("relative h-full w-full", zoom.scale > 1 && "cursor-grab")}
               style={{
                 transform: `translate3d(${zoom.tx}px, ${zoom.ty}px, 0) scale(${zoom.scale})`,
                 transition: gesturing ? "none" : "transform 200ms ease-out",
@@ -294,7 +298,7 @@ export function PhotoLightbox({ photos, index, onIndexChange, onClose, unoptimiz
                   aria-label={p.caption ? `${p.caption} ${x + 1}` : `${x + 1}`}
                   aria-current={x === i ? "true" : undefined}
                   className={cn(
-                    "relative h-12 w-16 shrink-0 overflow-hidden rounded-sm transition-all duration-200 md:h-14 md:w-20",
+                    "relative h-12 w-16 shrink-0 overflow-hidden rounded-sm transition-[opacity,box-shadow] duration-200 md:h-14 md:w-20",
                     x === i ? "opacity-100 ring-2 ring-brass-300" : "opacity-55 ring-1 ring-cream-50/20 hover:opacity-90",
                   )}
                 >

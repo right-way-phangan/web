@@ -206,7 +206,7 @@ export default async function DistrictPage({ params }: Props) {
             <Appear key={o.slug} delay={(i % 3) * 0.08} className="h-full">
               <Link
                 href={`/districts/${o.slug}` as Route}
-                className="group block h-full rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5 transition-all hover:shadow-soft"
+                className="group block h-full rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5 transition-[box-shadow] duration-300 hover:shadow-soft"
               >
                 <div className="flex h-full flex-col rounded-core bg-cream-50 p-6 shadow-bezel">
                   <h3 className="font-serif text-xl text-forest-900">

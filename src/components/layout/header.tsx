@@ -365,9 +365,12 @@ function NavDropdown({
       <div
         className={cn(
           "invisible absolute left-1/2 top-full z-50 -translate-x-1/2 pt-3 opacity-0",
-          "transition-[opacity] duration-150",
-          "group-hover:visible group-hover:opacity-100",
-          "group-focus-within:visible group-focus-within:opacity-100",
+          // Панель вырастает из-под своей кнопки, а не проявляется на месте:
+          // масштаб от верхней кромки связывает её с триггером (по центру
+          // появляются модалки — они ни к чему не привязаны).
+          "origin-top scale-[0.97] transition-[opacity,transform] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)]",
+          "group-hover:visible group-hover:scale-100 group-hover:opacity-100",
+          "group-focus-within:visible group-focus-within:scale-100 group-focus-within:opacity-100",
         )}
       >
         <ul id={panelId} className="min-w-44 rounded-md border border-forest-500/10 bg-cream-50 p-2 shadow-lg shadow-panel/10">

@@ -405,15 +405,18 @@ export function ObjectGallery({ rwNumber, type, gallery, title }: Props) {
             </span>
             {photos.length <= MAX_DOTS ? (
               <div
-                className="pointer-events-none absolute inset-x-0 bottom-3 flex justify-center gap-1.5"
+                className="pointer-events-none absolute inset-x-0 bottom-3 flex justify-center gap-2"
                 aria-hidden
               >
+                {/* Активная точка растягивается scaleX, а не шириной: ширина —
+                    layout-свойство, и её анимация пересчитывает раскладку ряда
+                    на каждом кадре свайпа. */}
                 {photos.map((url, i) => (
                   <span
                     key={url}
                     className={cn(
-                      "h-1.5 rounded-full bg-cream-50 shadow-sm transition-all duration-300",
-                      i === mobileIndex ? "w-4 opacity-95" : "w-1.5 opacity-55",
+                      "h-1.5 w-1.5 rounded-full bg-cream-50 shadow-sm transition-[transform,opacity] duration-300",
+                      i === mobileIndex ? "scale-x-[2.67] opacity-95" : "opacity-55",
                     )}
                   />
                 ))}
@@ -486,8 +489,12 @@ export function ObjectGallery({ rwNumber, type, gallery, title }: Props) {
       <Dialog.Root open={open} onOpenChange={setOpen}>
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 z-50 bg-forest-900/90 backdrop-blur-sm motion-safe:animate-[lbFade_200ms_ease-out]" />
+          {/* Проявление — свойство открытия лайтбокса, а не листания: анимация
+              висит на Content и играет один раз. Смена кадра происходит
+              мгновенно — стрелками фото листают десятками, и фейд на каждом
+              кадре превращает быстрый просмотр в мигание. */}
           <Dialog.Content
-            className="fixed inset-0 z-50 focus:outline-none"
+            className="fixed inset-0 z-50 focus:outline-none motion-safe:animate-[lbFade_240ms_ease-out]"
             aria-describedby={undefined}
           >
             <Dialog.Title className="sr-only">
@@ -518,10 +525,7 @@ export function ObjectGallery({ rwNumber, type, gallery, title }: Props) {
             >
               <div
                 key={photos[index]}
-                className={cn(
-                  "relative h-full w-full motion-safe:animate-[lbFade_240ms_ease-out]",
-                  zoom.scale > 1 && "cursor-grab",
-                )}
+                className={cn("relative h-full w-full", zoom.scale > 1 && "cursor-grab")}
                 style={{
                   transform: `translate3d(${zoom.tx}px, ${zoom.ty}px, 0) scale(${zoom.scale})`,
                   transition: gesturing ? "none" : "transform 200ms ease-out",
@@ -598,7 +602,7 @@ export function ObjectGallery({ rwNumber, type, gallery, title }: Props) {
                     aria-label={t.viewPhoto(i + 1)}
                     aria-current={i === index ? "true" : undefined}
                     className={cn(
-                      "relative h-12 w-16 shrink-0 overflow-hidden rounded-sm transition-all duration-200 md:h-14 md:w-20",
+                      "relative h-12 w-16 shrink-0 overflow-hidden rounded-sm transition-[opacity,box-shadow] duration-200 md:h-14 md:w-20",
                       i === index
                         ? "opacity-100 ring-2 ring-brass-300"
                         : "opacity-55 ring-1 ring-cream-50/20 hover:opacity-90",

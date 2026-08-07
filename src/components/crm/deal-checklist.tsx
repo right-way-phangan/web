@@ -49,8 +49,8 @@ export function DealChecklist({
       </div>
       <div className="mb-3 h-1.5 w-full overflow-hidden rounded-full bg-forest-900/10">
         <div
-          className="h-full rounded-full bg-brass-500 transition-all"
-          style={{ width: `${(progress.doneCount / progress.total) * 100}%` }}
+          className="h-full w-full origin-left rounded-full bg-brass-500 transition-transform duration-300"
+          style={{ transform: `scaleX(${progress.doneCount / progress.total})` }}
         />
       </div>
       <div className="space-y-4">

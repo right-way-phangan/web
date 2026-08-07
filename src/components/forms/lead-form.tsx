@@ -304,7 +304,11 @@ function SubmitButton({ label, sendingLabel }: { label?: string; sendingLabel?: 
   return (
     <Button type="submit" variant="primary" size="md" className="w-full" disabled={pending}>
       <Send className="h-4 w-4" />
-      {pending ? (sendingLabel ?? "Sending…") : (label ?? "Send enquiry")}
+      {/* key меняется вместе с надписью → короткая расфокусировка маскирует
+          подмену текста (см. btnSwap в globals.css). */}
+      <span key={pending ? "pending" : "idle"} className="motion-safe:animate-[btnSwap_220ms_ease-out]">
+        {pending ? (sendingLabel ?? "Sending…") : (label ?? "Send enquiry")}
+      </span>
     </Button>
   );
 }

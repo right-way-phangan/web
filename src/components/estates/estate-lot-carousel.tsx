@@ -161,7 +161,7 @@ export function EstateLotCarousel({
           >
             <ChevronRight className="h-4 w-4" />
           </button>
-          <div className="pointer-events-none absolute inset-x-0 bottom-2 flex items-center justify-center gap-1.5">
+          <div className="pointer-events-none absolute inset-x-0 bottom-2 flex items-center justify-center gap-2">
             {photos.map((_, idx) => (
               <button
                 key={idx}
@@ -169,7 +169,7 @@ export function EstateLotCarousel({
                 onClick={() => scrollTo(idx)}
                 aria-label={`${idx + 1}`}
                 aria-current={idx === i}
-                className={`pointer-events-auto h-1.5 rounded-full transition-all ${idx === i ? "w-4 bg-cream-50" : "w-1.5 bg-cream-50/55 hover:bg-cream-50/80"}`}
+                className={`pointer-events-auto h-1.5 w-1.5 rounded-full transition-[transform,background-color] duration-300 ${idx === i ? "scale-x-[2.67] bg-cream-50" : "bg-cream-50/55 hover:bg-cream-50/80"}`}
               />
             ))}
           </div>

@@ -45,7 +45,10 @@ const DialogContent = React.forwardRef<
       {...props}
     >
       {children}
-      <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-60 transition-opacity hover:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-forest-500/30">
+      {/* Крестик рисуется на 16px, но нажимается на 40: padding расширяет цель,
+          отрицательный margin возвращает её на место, чтобы вёрстка не поехала.
+          Плюс отклик на нажатие — без него кнопка кажется неживой. */}
+      <DialogPrimitive.Close className="absolute right-4 top-4 -m-3 rounded-sm p-3 opacity-60 transition-[opacity,transform] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:opacity-100 active:scale-95 motion-reduce:active:scale-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-forest-500/30">
         <X className="h-4 w-4" />
         <span className="sr-only">Close</span>
       </DialogPrimitive.Close>

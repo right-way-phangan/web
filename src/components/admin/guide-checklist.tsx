@@ -68,8 +68,8 @@ export function GuideChecklist({
       <div className="mb-3 flex items-center justify-between gap-3">
         <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-forest-900/10">
           <div
-            className={"h-full rounded-full transition-all " + (allDone ? "bg-panel" : "bg-brass-500")}
-            style={{ width: `${pct}%` }}
+            className={"h-full w-full origin-left rounded-full transition-transform duration-300 " + (allDone ? "bg-panel" : "bg-brass-500")}
+            style={{ transform: `scaleX(${pct / 100})` }}
           />
         </div>
         <span className="shrink-0 text-xs font-semibold tabular-nums text-forest-900/55">
