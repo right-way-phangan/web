@@ -70,7 +70,7 @@ export async function HomeArticles({ locale }: { locale: Locale }) {
               className="group block h-full rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5 transition-shadow duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:shadow-soft"
             >
               <div className="flex h-full flex-col rounded-core bg-cream-50 p-6 shadow-bezel">
-                <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-brass-700">
+                <div className="flex items-center gap-2 text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-700">
                   <span>{p.topic}</span>
                   <span aria-hidden className="text-forest-500/30">
                     ·

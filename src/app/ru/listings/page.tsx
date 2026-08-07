@@ -62,7 +62,7 @@ export default async function RussianListingsPage({ searchParams }: PageProps) {
       <link rel="preconnect" href="https://a.basemaps.cartocdn.com" crossOrigin="" />
       <link rel="dns-prefetch" href="https://b.basemaps.cartocdn.com" />
       <ItemListJsonLd name="Объекты недвижимости на Пангане — Right Way" objects={sorted} />
-      <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">{t.eyebrow}</p>
+      <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">{t.eyebrow}</p>
       <h1 className="mt-3 max-w-3xl text-balance scroll-mt-24">{t.title}</h1>
       <p className="mt-3 max-w-xl text-base text-forest-500/70">
         {isAnyFilter ? t.matches(sorted.length, all.length) : t.ready(all.length)}

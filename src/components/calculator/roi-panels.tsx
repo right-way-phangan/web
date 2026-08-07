@@ -74,7 +74,7 @@ export function BreakEven({
         : t.breakEvenGrowth(be.value.toLocaleString("en-US", { maximumFractionDigits: 1 }));
   return (
     <div className="mt-6 rounded-sm border border-forest-500/10 bg-cream-50 p-6">
-      <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">{t.breakEvenTitle}</p>
+      <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">{t.breakEvenTitle}</p>
       <p className="mt-2 text-sm leading-relaxed text-forest-900">{text}</p>
     </div>
   );
@@ -85,7 +85,7 @@ export function BankCompare({ r, years, bankRate, altRate, money, t }: { r: RoiR
   const betterAlt = r.vsAltThb >= 0;
   return (
     <div className="mt-6 rounded-sm border border-forest-500/10 bg-cream-50 p-6">
-      <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">{t.vsBank}</p>
+      <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">{t.vsBank}</p>
       <div className="mt-4 space-y-2">
         <Row label={t.bankDeposit(bankRate)} value={money(r.bankFinal, true)} muted />
         {altRate > 0 ? <Row label={t.indexRow(altRate)} value={money(r.altFinal, true)} muted /> : null}
@@ -185,7 +185,7 @@ export function RoiMatches({
   return (
     <div className="mt-6 rounded-sm border border-forest-500/10 bg-cream-50 p-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">{t.roiTargetTitle}</p>
+        <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">{t.roiTargetTitle}</p>
         <div className="flex items-center gap-2">
           <label className="text-xs text-forest-500/70">{t.roiTargetLabel}</label>
           <input
@@ -283,7 +283,7 @@ export function ScenarioCompare({
   return (
     <div className="mt-6 overflow-x-auto rounded-sm border border-forest-500/10 bg-cream-50 p-6">
       <div className="mb-3 flex items-center justify-between">
-        <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">{t.compareTitle}</p>
+        <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">{t.compareTitle}</p>
         <button type="button" onClick={onClear} className="text-[11px] text-forest-500/60 hover:text-forest-500">{t.clearAll}</button>
       </div>
       <table className="w-full text-sm tabular-nums">
@@ -343,7 +343,7 @@ export function SimilarObjects({
 
   return (
     <div className="mt-10 border-t border-forest-500/10 pt-10">
-      <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">{t.propsForBudget}</p>
+      <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">{t.propsForBudget}</p>
       <h3 className="mt-3 font-serif text-2xl text-forest-900">
         {t.aroundMatches(money(price), matches.length)}
       </h3>

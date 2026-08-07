@@ -41,9 +41,10 @@ export function CollapsedSection({
         className="group flex w-full items-start justify-between gap-4 text-left"
       >
         <span>
+          {/* SectionEyebrow рендерит <p> — внутри кнопки нельзя, поэтому
+              стили продублированы на span. */}
           {eyebrow ? (
-            <span className="flex items-center gap-3 text-xs font-medium uppercase tracking-eyebrow text-brass-700">
-              <span className="h-px w-10 bg-brass-600/60" aria-hidden />
+            <span className="block text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-700">
               {eyebrow}
             </span>
           ) : null}

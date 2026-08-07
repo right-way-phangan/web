@@ -170,7 +170,7 @@ export function LandEstateLanding({ estate, locale, initialLot }: Props) {
             {/* Highlights */}
             {estate.highlights && estate.highlights.length > 0 ? (
               <div className="mt-8">
-                <h3 className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+                <h3 className="mb-4 text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">
                   {t.sections.highlights}
                 </h3>
                 <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">

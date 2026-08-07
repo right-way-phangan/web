@@ -84,7 +84,7 @@ export default async function RussianBlogPostPage({ params }: Props) {
       </div>
 
       <header className="container-prose pt-10 md:pt-14">
-        <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
+        <div className="flex items-center gap-2 text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">
           <span>{p.topic}</span>
           <span aria-hidden className="text-forest-500/30">·</span>
           <span className="text-forest-500/50">{p.readMins} мин чтения</span>
@@ -103,7 +103,7 @@ export default async function RussianBlogPostPage({ params }: Props) {
       {p.takeaways && p.takeaways.length > 0 ? (
         <section className="container-prose pb-12 md:pb-16">
           <div className="max-w-prose rounded-sm border border-forest-500/10 bg-cream-200/40 p-6 md:p-8">
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+            <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">
               Главное
             </p>
             <ul className="mt-4 space-y-2.5">
@@ -134,7 +134,7 @@ export default async function RussianBlogPostPage({ params }: Props) {
       {others.length > 0 ? (
         <section className="border-t border-forest-500/10 bg-cream-200/30">
           <div className="container-prose py-16 md:py-20">
-            <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
+            <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">
               Ещё из журнала
             </p>
             <div className="mt-8 grid gap-6 md:grid-cols-2">
@@ -144,7 +144,7 @@ export default async function RussianBlogPostPage({ params }: Props) {
                   href={`/ru/blog/${o.slug}` as Route}
                   className="group flex flex-col rounded-sm border border-forest-500/10 bg-cream-50 p-6 transition-colors hover:border-forest-500/30"
                 >
-                  <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+                  <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">
                     {o.topic}
                   </p>
                   <h3 className="mt-2 font-serif text-lg text-forest-900">{o.title}</h3>

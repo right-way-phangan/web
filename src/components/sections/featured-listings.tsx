@@ -6,6 +6,7 @@ import { ObjectCard } from "@/components/objects/object-card";
 import { Appear } from "@/components/motion/appear";
 import { getPublicObjects, slimObjectForCard } from "@/lib/data/objects";
 import { getHomeDict, type Locale } from "@/lib/i18n/dictionaries";
+import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 
 /**
  * Homepage showcase — the six most photogenic active listings. getPublicObjects()
@@ -34,10 +35,7 @@ export async function FeaturedListings({ locale = "en" }: { locale?: Locale }) {
     <section className="container-prose py-24 md:py-32">
       <div className="flex flex-wrap items-end justify-between gap-6">
         <div>
-          <p className="flex items-center gap-3 text-xs font-medium uppercase tracking-eyebrow text-brass-700">
-            <span className="h-px w-10 bg-brass-600/60" aria-hidden />
-            {dict.eyebrow}
-          </p>
+          <SectionEyebrow>{dict.eyebrow}</SectionEyebrow>
           <h2 className="mt-5 max-w-3xl text-balance">{dict.title}</h2>
           <p className="mt-5 max-w-xl text-lg text-forest-600/70">{dict.lede}</p>
         </div>

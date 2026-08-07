@@ -22,7 +22,7 @@ export default function ErrorPage({
 
   return (
     <section className="container-prose flex min-h-[60vh] flex-col justify-center py-24">
-      <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
+      <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">
         Something went wrong
       </p>
       <h1 className="mt-4 max-w-2xl text-balance">

@@ -221,7 +221,7 @@ export function Header() {
                     </span>
                     <span
                       className={cn(
-                        "text-[0.7rem] font-medium tabular-nums tracking-[0.25em] transition-colors",
+                        "text-[0.7rem] font-medium tabular-nums tracking-eyebrow transition-colors",
                         active
                           ? "text-brass-500"
                           : "text-forest-500/30 group-hover:text-brass-500/70",
@@ -237,7 +237,7 @@ export function Header() {
 
           {chrome.groups.map((group) => (
             <div key={group.label} className="pb-6">
-              <p className="pt-2 text-xs font-medium uppercase tracking-[0.25em] text-forest-500/40">
+              <p className="pt-2 text-[0.8125rem] font-medium uppercase tracking-eyebrow text-forest-500/40">
                 {group.label}
               </p>
               <ul className="mt-2 flex flex-col">

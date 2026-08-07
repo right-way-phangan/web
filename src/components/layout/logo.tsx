@@ -27,9 +27,12 @@ export function Logo({
       )}
     >
       <span className="whitespace-nowrap font-semibold">Right Way</span>
+      {/* font-sans поверх серифного логотипа: капс 12px засечками теряет
+          штрихи в рендере. Разрядка снижена с 0.2em — на гротеске столько
+          не нужно, чтобы слово читалось как подпись к марке. */}
       <span
         className={cn(
-          "text-xs uppercase tracking-[0.2em] transition-colors group-hover:text-brass-500",
+          "font-sans text-[0.8125rem] uppercase tracking-[0.12em] transition-colors group-hover:text-brass-500",
           light ? "text-panel-fg/70 group-hover:text-brass-300" : "text-forest-500/70",
         )}
       >

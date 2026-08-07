@@ -101,8 +101,7 @@ export default async function DistrictPage({ params }: Props) {
             aria-hidden
           />
           <div className="relative z-10 flex min-h-[42vh] flex-col justify-end p-7 md:min-h-[48vh] md:p-12">
-            <p className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.3em] text-brass-300">
-              <span className="h-px w-10 bg-brass-300/70" aria-hidden />
+            <p className="flex items-center gap-3 text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-300">
               District
             </p>
             <h1 className="mt-3 max-w-3xl text-balance text-panel-fg">{name}</h1>
@@ -124,7 +123,7 @@ export default async function DistrictPage({ params }: Props) {
       <section className="container-prose pb-16 md:pb-20">
         <div className="grid gap-12 md:grid-cols-2 md:gap-16">
           <div>
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+            <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">
               Who buys here
             </p>
             <p className="mt-4 text-base leading-relaxed text-forest-500/85 md:text-lg">
@@ -132,7 +131,7 @@ export default async function DistrictPage({ params }: Props) {
             </p>
           </div>
           <div>
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+            <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">
               What to expect
             </p>
             <ul className="mt-4 space-y-2.5">

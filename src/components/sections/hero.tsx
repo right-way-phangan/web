@@ -3,6 +3,7 @@ import type { Route } from "next";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HeroBackground } from "./hero-background";
+import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 import { Parallax } from "@/components/motion/parallax";
 import { Magnetic } from "@/components/motion/magnetic";
 import { AnimatedNumber } from "@/components/motion/animated-number";
@@ -97,13 +98,14 @@ export async function Hero({
 
       {/* Layer 3 — content */}
       <div className="container-prose relative z-10 flex flex-1 flex-col justify-center py-28 md:py-32">
-        <p className="mask-rise flex items-center gap-3 text-xs font-medium uppercase tracking-eyebrow text-brass-300">
-          <span className="h-px w-10 bg-brass-300/70" aria-hidden />
+        <SectionEyebrow tone="dark" className="mask-rise">
           {dict.eyebrow}
-        </p>
+        </SectionEyebrow>
 
+        {/* Кегль опущен на ступень против прежнего 5xl/7xl: у Source Serif 4
+            крупнее строчные, и на 72px строка переставала помещаться в две. */}
         <h1
-          className="mask-rise mt-7 max-w-4xl text-balance text-5xl leading-[1.04] text-panel-fg md:text-7xl md:leading-[1.01]"
+          className="mask-rise mt-7 max-w-4xl text-balance text-4xl leading-[1.06] text-panel-fg md:text-6xl md:leading-[1.03]"
           style={{ animationDelay: "0.08s" }}
         >
           {titleBefore}
@@ -121,7 +123,7 @@ export async function Hero({
         {/* Intent bar — label on its own line, then a tidy wrap of chips into
             pre-filtered search (kept symmetric on narrow screens). */}
         <div className="mask-rise mt-9" style={{ animationDelay: "0.24s" }}>
-          <span className="text-xs uppercase tracking-[0.2em] text-panel-fg/55">
+          <span className="text-[0.8125rem] uppercase tracking-eyebrow text-panel-fg/55">
             {dict.intentLabel}
           </span>
           <div className="mt-3 flex flex-wrap gap-2">

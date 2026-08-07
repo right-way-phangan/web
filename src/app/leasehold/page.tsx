@@ -136,7 +136,7 @@ export default function LeaseholdPage() {
                     <p.icon className="h-5 w-5" />
                   </div>
                   <div>
-                    <p className="text-xs font-medium uppercase tracking-[0.25em] text-brass-700">
+                    <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-700">
                       {String(i + 1).padStart(2, "0")}
                     </p>
                     <h2 className="mt-1 font-serif text-2xl text-forest-900">{p.title}</h2>

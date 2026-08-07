@@ -613,7 +613,7 @@ export function RoiCalculator({
           </>
         ) : null}
 
-        <p className="mt-6 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+        <p className="mt-6 text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">
           {t.assumptionsTitle}
         </p>
         <p className="mt-1 text-[11px] text-forest-500/50">
@@ -927,7 +927,7 @@ export function RoiCalculator({
       <div id="calc-results" className="@container scroll-mt-24">
         <div className="rounded-sm border border-forest-500/10 bg-cream-50 p-6 @[36rem]:p-8">
           <div className="flex items-start justify-between gap-4">
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+            <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">
               {t.projectedValueIn(inputs.years)}
             </p>
             <div className="flex items-center gap-2">
@@ -1050,7 +1050,7 @@ export function RoiCalculator({
             <BankCompare r={r} years={inputs.years} bankRate={inputs.bankRatePct} altRate={inputs.altReturnPct} money={money} t={t} />
             <BreakEven be={breakEven} beatsNow={r.vsBankThb >= 0} t={t} />
             <div className="mt-6 rounded-sm border border-forest-500/10 bg-cream-50 p-6">
-              <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+              <div className="flex items-center gap-2 text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">
                 <TrendingUp className="h-4 w-4" />
                 {isOffplan && !inputs.rentAfterHandover ? t.capitalGrowth : t.returnVsBankTitle}
               </div>
@@ -1121,7 +1121,7 @@ export function RoiCalculator({
                   </div>
                   {solvedMaxPrice != null ? (
                     <div>
-                      <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">{t.maxPurchasePrice}</p>
+                      <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">{t.maxPurchasePrice}</p>
                       <p className="num mt-1 text-3xl text-forest-900">{money(solvedMaxPrice, true)}</p>
                       <p className="mt-1 text-[11px] text-forest-500/50">
                         {t.payUpTo(solverTarget, solveLabels(t)[solverMetric])}
@@ -1198,7 +1198,7 @@ export function RoiCalculator({
                 <>
                   <MonteCarlo mc={mc} rent={roiVariesByPrice} altRate={inputs.altReturnPct} t={t} />
                   <div className="mt-4 rounded-sm border border-forest-500/10 bg-cream-50 p-5">
-                    <p className="text-xs font-medium uppercase tracking-[0.2em] text-brass-500">{t.fanTitle}</p>
+                    <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">{t.fanTitle}</p>
                     <FanChart band={mc.band} money={money} t={t} />
                   </div>
                 </>
@@ -1223,7 +1223,7 @@ export function RoiCalculator({
             <BankCompare r={r} years={inputs.years} bankRate={inputs.bankRatePct} altRate={inputs.altReturnPct} money={money} t={t} />
             <BreakEven be={breakEven} beatsNow={r.vsBankThb >= 0} t={t} />
             <div className="rounded-sm border border-forest-500/10 bg-cream-50 p-6">
-              <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+              <div className="flex items-center gap-2 text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">
                 <TrendingUp className="h-4 w-4" />
                 {isOffplan && !inputs.rentAfterHandover ? t.capitalGrowth : t.returnVsBankTitle}
               </div>

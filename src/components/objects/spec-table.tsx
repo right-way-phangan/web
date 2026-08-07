@@ -131,17 +131,19 @@ export function SpecTable({ object }: { object: RealEstateObject }) {
     <div className="space-y-10">
       {groups.map((group) => (
         <div key={group.title}>
-          <h3 className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+          {/* font-sans поверх базового h3: серифный display на 13px капсом
+              разваливается — мелкое всегда набираем гротеском. */}
+          <h3 className="mb-4 font-sans text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">
             {group.title}
           </h3>
           <dl className="divide-y divide-forest-500/10 border-y border-forest-500/10">
             {group.rows.map((row) => (
               <div
                 key={row.label}
-                className="flex flex-col gap-1 py-3 sm:flex-row sm:items-baseline sm:justify-between"
+                className="flex flex-col gap-1 py-3.5 sm:flex-row sm:items-baseline sm:justify-between"
               >
-                <dt className="text-sm text-forest-500/70">{row.label}</dt>
-                <dd className="text-sm font-medium tabular-nums text-forest-900 sm:text-right">
+                <dt className="text-[0.9375rem] text-forest-500/70">{row.label}</dt>
+                <dd className="text-[0.9375rem] font-medium tabular-nums text-forest-900 sm:text-right">
                   {row.value}
                 </dd>
               </div>

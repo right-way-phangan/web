@@ -339,7 +339,7 @@ function DemandSeasonality({ seasonality }: { seasonality: RmSeasonality }) {
   return (
     <div>
       <div className="mb-1">
-        <p className="inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+        <p className="inline-flex items-center gap-1.5 text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">
           <TrendingUp className="h-4 w-4" />
           {t.demandEyebrow}
         </p>

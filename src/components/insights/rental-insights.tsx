@@ -612,7 +612,7 @@ function BuildRecommendation({ data, fmt }: { data: RentalMarket; fmt: MoneyFmt 
 
   return (
     <div className="rounded-sm border border-brass-300/50 bg-gradient-to-br from-cream-50 to-brass-200/20 p-7 md:p-9">
-      <p className="inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-[0.2em] text-brass-500">
+      <p className="inline-flex items-center gap-1.5 text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">
         <Hammer className="h-4 w-4" />
         {t.whatDataSuggests}
       </p>

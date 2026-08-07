@@ -120,7 +120,7 @@ export function ObjectCard({ object, priority = false, priceMode = "buy", buildB
               ) as Route
             }
             title={locale === "ru" ? "Калькулятор доходности" : "ROI calculator"}
-            className="inline-flex items-center gap-1 rounded-sm bg-panel/85 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-panel-fg backdrop-blur-sm transition-colors hover:bg-panel"
+            className="inline-flex items-center gap-1 rounded-sm bg-panel/85 px-2 py-1 text-[11px] font-semibold tracking-[0.06em] text-panel-fg backdrop-blur-sm transition-colors hover:bg-panel"
           >
             <TrendingUp className="h-3 w-3" />
             ROI
@@ -178,18 +178,18 @@ export function ObjectCard({ object, priority = false, priceMode = "buy", buildB
         />
 
         <div className="absolute left-3 top-3 flex items-center gap-1.5">
-          <span className="rounded-sm bg-cream-50/90 px-2 py-1 text-[10px] font-medium uppercase tracking-[0.15em] text-forest-500 backdrop-blur-sm">
+          <span className="rounded-sm bg-cream-50/90 px-2 py-1 text-[11px] font-medium tracking-[0.06em] text-forest-500 backdrop-blur-sm">
             {object.rwNumber}
           </span>
           {isFreshListing(object.dateAdded) ? (
-            <span className="rounded-sm bg-brass-500 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-panel-fg">
+            <span className="rounded-sm bg-brass-500 px-2 py-1 text-[11px] font-semibold tracking-[0.06em] text-panel-fg">
               {t.newBadge}
             </span>
           ) : null}
           {/* Leasehold is the strategic product — flag it in the grid so the
               tenure reads at a glance, not only deep in the spec table. */}
           {object.tenure?.includes("Leasehold") ? (
-            <span className="rounded-sm bg-panel/85 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-panel-fg backdrop-blur-sm">
+            <span className="rounded-sm bg-panel/85 px-2 py-1 text-[11px] font-semibold tracking-[0.06em] text-panel-fg backdrop-blur-sm">
               {t.leasehold}
             </span>
           ) : null}
@@ -207,7 +207,7 @@ export function ObjectCard({ object, priority = false, priceMode = "buy", buildB
       </div>
 
       <div className="flex flex-1 flex-col gap-3 p-5">
-        <div className="flex items-center gap-2 text-xs text-forest-500/70">
+        <div className="flex items-center gap-2 text-[0.8125rem] text-forest-500/70">
           <span className="font-medium">{t.types[object.type]}</span>
           {object.district ? (
             <>
@@ -224,51 +224,51 @@ export function ObjectCard({ object, priority = false, priceMode = "buy", buildB
         {priceMode === "rent" && (object.rentPerMonth || object.rentPerRaiMonth) ? (
           // Rent view: lead with the monthly rent — whole-unit for buildings
           // (฿/mo), per-rai land lease for land (฿/rai/mo).
-          <p className="num text-lg text-forest-900">
+          <p className="num text-xl text-forest-900">
             {object.rentPerMonth ? (
               <>
                 {fmt(object.rentPerMonth)}
-                <span className="ml-2 text-xs font-sans text-forest-500/70">{t.perMonthShort}</span>
+                <span className="ml-2 text-sm font-sans text-forest-500/70">{t.perMonthShort}</span>
               </>
             ) : (
               <>
                 {fmt(object.rentPerRaiMonth!)}
-                <span className="ml-2 text-xs font-sans text-forest-500/70">{t.perRaiMonth}</span>
+                <span className="ml-2 text-sm font-sans text-forest-500/70">{t.perRaiMonth}</span>
               </>
             )}
           </p>
         ) : object.priceThb ? (
-          <p className="num text-lg text-forest-900">
+          <p className="num text-xl text-forest-900">
             {fmt(object.priceThb)}
             {object.type === "Land" && object.pricePerRai ? (
-              <span className="ml-2 text-xs font-sans text-forest-500/70">
+              <span className="ml-2 text-sm font-sans text-forest-500/70">
                 {fmt(object.pricePerRai)}{t.perRai}
               </span>
             ) : null}
           </p>
         ) : object.pricePerRai ? (
-          <p className="num text-lg text-forest-900">
+          <p className="num text-xl text-forest-900">
             {fmt(object.pricePerRai)}
-            <span className="ml-2 text-xs font-sans text-forest-500/70">{t.perRai}</span>
+            <span className="ml-2 text-sm font-sans text-forest-500/70">{t.perRai}</span>
           </p>
         ) : object.rentPerMonth ? (
-          <p className="num text-lg text-forest-900">
+          <p className="num text-xl text-forest-900">
             {fmt(object.rentPerMonth)}
-            <span className="ml-2 text-xs font-sans text-forest-500/70">{t.perMonthShort}</span>
+            <span className="ml-2 text-sm font-sans text-forest-500/70">{t.perMonthShort}</span>
           </p>
         ) : object.rentPerRaiMonth ? (
-          <p className="num text-lg text-forest-900">
+          <p className="num text-xl text-forest-900">
             {fmt(object.rentPerRaiMonth)}
-            <span className="ml-2 text-xs font-sans text-forest-500/70">{t.perRaiMonth}</span>
+            <span className="ml-2 text-sm font-sans text-forest-500/70">{t.perRaiMonth}</span>
           </p>
         ) : (
-          <p className="text-sm italic text-forest-500/55">{t.priceOnRequest}</p>
+          <p className="text-[0.9375rem] italic text-forest-500/55">{t.priceOnRequest}</p>
         )}
 
         {/* Lease total: a monthly rate alone isn't comparable to sale prices in
             the Buy grid, so surface the whole-term cost. */}
         {!object.priceThb && object.rentPerMonth && object.leaseTermYears ? (
-          <p className="mt-0.5 text-xs text-forest-500/70">
+          <p className="mt-0.5 text-sm text-forest-500/70">
             ≈{" "}
             {fmt(
               escalatedLeaseTotalThb(
@@ -304,7 +304,7 @@ export function ObjectCard({ object, priority = false, priceMode = "buy", buildB
           </span>
         ) : null}
 
-        <div className="mt-auto flex flex-wrap items-center gap-3 text-xs text-forest-500/70">
+        <div className="mt-auto flex flex-wrap items-center gap-3 text-[0.8125rem] text-forest-500/70">
           {object.areaRai ? (
             <span>{formatRai(object.areaRai, t, nl)}</span>
           ) : object.areaSqm ? (
@@ -349,7 +349,7 @@ function FeatureBadge({
   label: string;
 }) {
   return (
-    <div className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-sm bg-panel/85 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.15em] text-panel-fg backdrop-blur-sm">
+    <div className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-sm bg-panel/85 px-2.5 py-1 text-[11px] font-medium tracking-[0.06em] text-panel-fg backdrop-blur-sm">
       <Icon className="h-3 w-3" />
       {label}
     </div>

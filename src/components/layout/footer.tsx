@@ -75,7 +75,7 @@ export function Footer() {
               больше не расходятся, и новых строк словаря не понадобилось. */}
           {footerColumns.map((col) => (
             <div key={col.label}>
-              <h2 className="text-xs font-medium uppercase tracking-[0.2em] text-forest-600">
+              <h2 className="font-sans text-[0.8125rem] font-medium uppercase tracking-eyebrow text-forest-600">
                 {col.label}
               </h2>
               <ul className="mt-5 space-y-3">
@@ -94,7 +94,7 @@ export function Footer() {
           ))}
 
           <div>
-            <h2 className="text-xs font-medium uppercase tracking-[0.2em] text-forest-600">
+            <h2 className="font-sans text-[0.8125rem] font-medium uppercase tracking-eyebrow text-forest-600">
               {f.contact}
             </h2>
             <ul className="mt-5 space-y-3 text-sm">

@@ -37,7 +37,7 @@ export default function RussianServicesPage() {
 
       <section className="bg-cream-200/30">
         <div className="container-prose py-16 md:py-24">
-          <p className="text-xs font-medium uppercase tracking-[0.3em] text-brass-500">
+          <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">
             {d.commission.eyebrow}
           </p>
           <h2 className="mt-3 font-serif text-3xl text-forest-900 md:text-4xl">
