@@ -12,7 +12,7 @@ keywords: дизайн анимации motion framer reveal appear hero canon �
 ## Канон (не меняем без задачи)
 
 - **Палитра:** forest (тёмно-зелёный) · brass (латунь) · cream (тёплый светлый). Заданы в `tailwind.config.ts`.
-- **Шрифты:** Cormorant Garamond (заголовки, serif) + Inter (текст, sans). Грузятся через `next/font`.
+- **Шрифты:** Source Serif 4 (заголовки, serif) + Onest (текст, sans). Грузятся через `next/font`. Подробно — в разделе [Типографика](/admin/guide/typography).
 - Подробности и правила использования — внутренний скилл `brand-style`. Палитру и шрифты на сайте **не подбираем заново**.
 
 ## Тёмная тема
