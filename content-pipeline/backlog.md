@@ -87,11 +87,11 @@ Status: ⏳ queued · ✅ published.
 | The LTR visa's property-investment route: how a USD 500k+ real estate purchase unlocks 10-year residency and tax perks | ownership | 🟢 | ✅ |
 | Managing a rental villa remotely: how to vet a property-management company (fees, contracts, red flags) | process | 🟢 | ✅ |
 | Specific Business Tax's 5-year exemption: how the clock is counted and which transfers qualify | costs | 🟡 | ✅ |
-| Protecting a foreign spouse's interest in property bought during a Thai marriage: usufruct and superficies in practice | structures | 🟡 | ⏳ |
+| Protecting a foreign spouse's interest in property bought during a Thai marriage: usufruct and superficies in practice | structures | 🟡 | ✅ |
 <!-- discovered 2026-07-26, sources: solarpanelsthailand.com, solar-phangan.com, thailawonline.com, hospitalitynet.org, travelandtourworld.com -->
 | Off-grid solar and battery storage for a Phangan villa: real 2026 install costs (THB/kWp) and payback versus the PEA grid-tied feed-in scheme, for owners who actually need outage independence | costs | 🟢 | ✅ |
 | What a Phangan property lawyer's fee actually buys: due-diligence, conveyancing and title-search costs (THB 30,000-120,000) broken down against what each stage covers | process | 🟢 | ✅ |
-| Minor Hotels' Avani and the KAIA tented resort opening on Phangan in 2026: what an international brand's first move onto the island signals for buyers weighing Thong Nai Pan and comparable areas | phangan | 🟡 | ⏳ |
+| Minor Hotels' Avani and the KAIA tented resort opening on Phangan in 2026: what an international brand's first move onto the island signals for buyers weighing Thong Nai Pan and comparable areas | phangan | 🟡 | ✅ |
 <!-- discovered 2026-08-02, sources: thailandlawonline.com, aimbangkok.com, wise.com, hlbthai.com, realting.com, canvas.solar, kohphangannews.org, libothai.com -->
 | Sap-Ing-Sith ("right of use"): Thailand's lesser-known fifth registered property right under the 2019 Act — how it differs from usufruct, superficies and habitation, and why "30+30" marketing claims for it aren't legally binding either | structures | 🟢 | ✅ |
 <!-- 2026-08-04: skipped — substantially duplicates the already-published kb-0027 (owners-taxes-annual-land-and-income), which already covers resident/non-resident treatment, the 30% deduction, progressive rates and the PND.90 filing deadline in depth. Left ⏳; a future run could revisit narrowly on the PND.94 mid-year filing angle if a genuinely new angle emerges. -->

@@ -5579,6 +5579,121 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "costs",
     faqQuestion: "How is the 5-year Specific Business Tax exemption counted when I sell my Koh Phangan property?",
   },
+  {
+    slug: "foreign-spouse-usufruct-thai-marriage-property",
+    kbId: "kb-0085",
+    topic: "Structures",
+    title: "Protecting a foreign spouse's interest when property is bought during a Thai marriage",
+    short:
+      "A foreigner can't be on the title, so land bought during a Thai marriage is registered in the Thai spouse's name alone, backed by a Land Office declaration that the funds are the Thai spouse's separate property. The real protection for the foreign spouse comes afterwards — a registered lifetime usufruct and a superficies over the building, put in place at the time of purchase, not promised for later.",
+    updated: "2026-08-08",
+    body: [
+      "Can a foreign spouse have any legal claim on land bought during a Thai marriage? Not as a co-owner on the title — the Land Code's foreign-ownership ban applies regardless of marital status. What a foreign spouse *can* hold is a separate, registered right over that same land: most commonly a usufruct for life, paired with a superficies over the building, both set up at the Land Office at the time of purchase.",
+      { h: "Why the land is titled to the Thai spouse alone" },
+      "When a Thai national married to a foreigner buys land, a 1999 Ministry of Interior regulation requires both spouses to appear at the Land Office and sign a joint declaration, under penalty of perjury, that the purchase funds are the Thai spouse's **sin suan tua** (separate personal property) — not **sin somros** (marital property subject to 50/50 division) — and that the foreign spouse has no claim to the land. The rule exists because if the land counted as marital property, the foreign spouse would effectively hold an interest in Thai land through the back door, which the Land Code doesn't allow.",
+      {
+        ul: [
+          "**The declaration is evidentiary, not absolute.** Thailand's Supreme Court (Dika Decision No. 14736/2555) held that the Land Office declaration is only preliminary evidence — if the full facts show the purchase wasn't genuinely intended as the Thai spouse's sole property, a court can still treat the land as marital property. In practice this cuts both ways and shouldn't be relied on as either a shield or a claim.",
+          "**Don't sign a false declaration.** A statement that funds are separate property when they visibly came from joint or foreign-spouse funds is a false declaration to a government official, and it undermines rather than helps any later claim.",
+          "**The declaration alone protects the marriage from foreign land ownership — it does nothing for the foreign spouse.** The registered rights below are what actually do that.",
+        ],
+      },
+      { h: "The registered protection: usufruct plus superficies" },
+      "The standard structure, put in place immediately after the Thai spouse's purchase, is two registrations on the back of the title deed:",
+      {
+        ul: [
+          "**Usufruct (สิทธิเก็บกิน), Sections 1417–1428 of the Civil and Commercial Code** — gives the foreign spouse the registered right to use the land and collect any income from it, typically for their lifetime. It survives divorce and survives the Thai spouse's death; it does not need to be renewed and cannot be unilaterally revoked by the landowner once registered. See [Superficies, usufruct and lease](/knowledge/superficies-vs-usufruct-vs-lease) for how the three rights differ.",
+          "**Superficies (สิทธิเหนือพื้นดิน), Sections 1410–1416** — separately titles any building on the land in the foreign spouse's name, so the house itself — not just the right to occupy — is an asset the foreign spouse owns, can mortgage, and can leave to heirs.",
+          "**Registration fee is nominal** — usufruct and superficies granted without payment are assessed on a zero consideration value, so the Land Office charges only its fixed registration fee (roughly ฿100), plus whatever a lawyer charges to draft and file the paperwork.",
+          "**Both must be registered on the title deed to bind third parties.** An unregistered agreement between spouses is only a personal contract and doesn't survive a sale of the land to someone else.",
+        ],
+      },
+      { h: "What a usufruct does and doesn't survive" },
+      {
+        ul: [
+          "**Divorce** — a lifetime usufruct registered on the title is not automatically cancelled by divorce; it continues to give the foreign spouse the right to live on and use the land. This is the main reason it's the standard structure, not a lease, which is capped at 30 years and easier to dispute.",
+          "**Section 1469 risk is real but narrow.** If the Thai landowner was already married when the usufruct was granted, Section 1469 of the Civil and Commercial Code lets a spouse contest a property transaction made without their consent. In practice, no reported Thai court decision has cancelled a registered usufruct on these grounds — but registering it with full transparency (and, where relevant, spousal consent on record) removes the exposure rather than testing it.",
+          "**The Thai spouse's death** — the land passes to their heirs under a will or intestate succession, but the registered usufruct continues to bind whoever inherits, so the foreign spouse's right to use the land is unaffected. See [Inheritance on Koh Phangan](/knowledge/inheritance-leasehold-and-villa) for how a lease or superficies inherits differently from land itself.",
+          "**The foreign spouse's death** — a usufruct is personal and cannot be inherited; it simply ends, and full rights revert to the landowner. This is the trade-off against a lease-plus-superficies structure, where the building ownership can pass to the foreign spouse's own heirs.",
+          "**No registered rights at all** — if the marriage ends and nothing was registered, the foreign spouse has no claim on the land itself, only a possible court claim for reimbursement of documented financial contributions (not a share of the land or its appreciation), and only if bank transfers, FET forms or receipts can prove the money was theirs.",
+        ],
+      },
+      { h: "Practical steps" },
+      {
+        ul: [
+          "**Register the usufruct and superficies at the same time as the purchase**, not years later — waiting makes a Thai spouse harder to bring back to the Land Office once a marriage is under strain, and a right registered early is cleaner evidence of genuine intent if a court ever looks at it.",
+          "**Keep a paper trail for every baht transferred** — bank statements, the FET form or equivalent inbound-transfer record (see [Bringing money into Thailand](/knowledge/bringing-money-into-thailand-fet-form)), and dated receipts, even though the goal is a registered right rather than a reimbursement claim.",
+          "**Use a lawyer who represents the foreign spouse specifically**, not one referred by or shared with the Thai spouse's family, when drafting the usufruct, any prenuptial agreement, and reviewing the declaration before it's signed.",
+          "**Weigh the alternative** — a standard leasehold-plus-superficies purchase (see [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa)) sidesteps the marital-property question entirely and is often simpler for a couple who isn't set on titling land to the Thai spouse specifically.",
+        ],
+      },
+      "None of this is a substitute for advice on the specific marriage and asset picture — a usufruct suits a long, stable relationship where the land is meant to support the foreign spouse for life; it suits a shaky one far less well. What it reliably does is convert a purchase that would otherwise leave the foreign spouse with nothing but a possible reimbursement claim into a registered, court-recognised right to the land itself.",
+    ],
+    takeaways: [
+      "A foreigner cannot be on a Thai land title even through marriage — the Land Office requires a signed declaration that purchase funds are the Thai spouse's separate property (sin suan tua), not marital property.",
+      "That declaration is only preliminary evidence in a Thai court (Supreme Court Decision No. 14736/2555) — it protects against a foreign-ownership finding, but does nothing to protect the foreign spouse.",
+      "The real protection is a registered lifetime usufruct (use and income rights) plus a superficies (separate building title), set up at the Land Office at the time of purchase, for a nominal registration fee.",
+      "A registered usufruct survives divorce and the Thai spouse's death, but ends automatically on the foreign spouse's own death and cannot be inherited — unlike a superficies over the building.",
+      "Without any registered rights, a foreign spouse's only recourse after divorce is a court claim for reimbursement of proven contributions — not a share of the land or its appreciation.",
+    ],
+    sources: [
+      { title: "Samui For Sale — Usufruct in a Thai marriage", url: "https://www.samuiforsale.com/family-law/usufruct-in-a-thai-marriage.html" },
+      { title: "Houseviser — Buying property in Thailand via a Thai spouse: what's actually allowed", url: "https://houseviser.com/guide/legal/marriage-property-thailand-foreigner" },
+      { title: "ThaiLawOnline — Usufruct Agreement in Thailand", url: "https://www.thailawonline.com/usufruct-agreement-in-thailand/" },
+      { title: "ThailandLawOnline — Sections 1417–1428, Civil and Commercial Code: Right of Usufruct", url: "https://www.thailandlawonline.com/thai-real-estate-law/1417-1428-civil-law-right-of-usufruct" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "How can I protect my interest in property bought in my Thai spouse's name during our marriage?",
+  },
+  {
+    slug: "avani-kaia-hotel-brands-koh-phangan-2026",
+    kbId: "kb-0086",
+    topic: "Phangan",
+    title: "Avani and KAIA: what two branded resort openings signal for Koh Phangan buyers in 2026",
+    short:
+      "Minor Hotels is rebranding the existing 63-key Buri Rasa Village in Thong Nai Pan Noi into Avani Koh Phangan, while Bound and Beyond — the group behind Four Seasons Bangkok and Capella Bangkok — is building KAIA, a new tented resort on the island's north-east coast, both opening through 2026-2027. Neither is proof of a broader building boom, but both mark the first time global-tier hospitality groups have put their own brand and reputation behind property on Phangan.",
+    updated: "2026-08-08",
+    body: [
+      "Does an international hotel brand actually opening on Koh Phangan matter for a buyer weighing where to invest, or is it just marketing? Two real, currently under-way projects are worth separating: Minor Hotels rebranding an existing resort to Avani, and Bound and Beyond building an entirely new tented resort under its new KAIA brand. They're different kinds of signal, and neither changes the fundamentals of due diligence — but both are evidence that operators who could open anywhere are choosing Phangan specifically.",
+      { h: "Two different projects, two different signals" },
+      {
+        ul: [
+          "**Avani Koh Phangan is a rebrand, not new construction.** The 63-key beachfront resort on Thong Nai Pan Noi currently operates as Buri Rasa Village Phangan, owned by Rasa Group. Minor Hotels took over management on 1 May 2026, with a phased renovation ahead of a full rebrand to Avani targeted for Q1 2027. It sits adjacent to the existing Anantara Rasananda Koh Phangan Villas, so this deepens Minor Hotels' presence in Thong Nai Pan rather than opening a new location. The signing was announced alongside a separate, unrelated Colbert Collection property on Koh Samui.",
+          "**KAIA is a ground-up build and a brand launch.** Bound and Beyond (BEYOND) — the Thai hospitality group behind Four Seasons Hotel Bangkok at Chao Phraya River and Capella Bangkok, ranked #2 and #3 in the *World's 50 Best Hotels 2025* — is building KAIA as its first proprietary hotel brand, with the Phangan property as the flagship. It's a tented-suite resort on the island's north-east coast, designed with Australian firms Eco Structures and Cloud Collective using lift-and-brace tent structures intended to adapt to the site's steep terrain rather than clear it. Reported unit counts vary by source between roughly 31 and 40 tented suites (plus a small number of sea-facing villas in some reporting); treat the exact number as unconfirmed until closer to opening. A late-2026 opening is targeted, alongside a standalone beach club, The Moken Club. Condé Nast Traveler named it among its Most Exciting Hotel Openings of 2026.",
+        ],
+      },
+      { h: "Why the distinction matters" },
+      "A rebrand tells you an operator is confident enough in an existing location and owner to attach its name and standards to it — a vote on the location, largely. A new-build flagship under a brand-new label tells you more: a group with Four Seasons- and Capella-calibre standards chose to build its first independent brand specifically on Phangan rather than in a more established luxury market like Samui or Phuket, and is investing in bespoke, site-adapted construction rather than a standard build. Both are stronger signals than a developer's own marketing about a project's prospects, since Minor Hotels and Bound and Beyond have their own broader brand reputations at stake, not just one project's sales.",
+      { h: "What it means — and doesn't mean — for buyers" },
+      {
+        ul: [
+          "**It reinforces Thong Nai Pan's premium positioning**, already the island's established high-end cluster — see [Buying in Thong Nai Pan](/knowledge/buying-in-thong-nai-pan) — rather than opening up a new area.",
+          "**KAIA is a genuinely new signal for the north-east coast** beyond Thong Nai Pan specifically, worth watching as exact plot details and any second-phase branded residences (common with this type of project elsewhere in Thailand) become public.",
+          "**Two branded openings are not the same as a broad building boom.** They sit within the wider, still-small development pipeline covered in [Koh Phangan's 2025–2026 villa development pipeline](/knowledge/koh-phangan-development-pipeline-2025-2026) — most of the island's new supply remains boutique, owner-built villas, not international-branded resorts.",
+          "**No branded residences have been announced alongside either project as of this writing** — these are hotel operations, not for-sale units. A buyer drawn by the halo effect should verify directly with the operator or developer before assuming any unit will be available for private purchase.",
+          "**Due diligence on any nearby land doesn't change.** Proximity to a branded resort is a demand signal, not a substitute for verifying title, zoning and access on the specific plot — see [Due diligence before buying on Koh Phangan](/knowledge/due-diligence-checklist-koh-phangan).",
+        ],
+      },
+      "Read together with the island's wider market data in [Koh Phangan's property market in 2026](/knowledge/koh-phangan-market-outlook-2026), these two openings support the case that Phangan is professionalising as a destination — but a global operator's logo on one resort a few kilometres away doesn't change the value of the plot you're actually buying. It changes the story you can tell about the area, not the paperwork you need to check.",
+    ],
+    takeaways: [
+      "Avani Koh Phangan is Minor Hotels rebranding the existing 63-key Buri Rasa Village on Thong Nai Pan Noi — management transferred 1 May 2026, full rebrand targeted Q1 2027.",
+      "KAIA is a new-build tented resort on Phangan's north-east coast from Bound and Beyond (owners of Four Seasons Bangkok and Capella Bangkok) — its first proprietary hotel brand, targeting a late-2026 opening.",
+      "Reported KAIA unit counts vary across sources (roughly 31–40 tented suites) — treat as unconfirmed until closer to opening.",
+      "Neither project has announced for-sale branded residences — both are hotel operations, not units available for private purchase, as of this writing.",
+      "Both openings reinforce Thong Nai Pan / the north-east coast as the island's premium cluster, but don't substitute for standard title, zoning and access due diligence on any specific plot.",
+    ],
+    sources: [
+      { title: "Minor Hotels Newsroom — Minor Hotels Signs First Colbert Collection in Asia and New Avani Resort in Koh Phangan", url: "https://media.minorhotels.com/en-GLO/264702-minor-hotels-signs-first-colbert-collection-in-asia-and-new-avani-resort-in-koh-phangan/" },
+      { title: "Bound and Beyond Newsroom — BEYOND Accelerates Luxury Lifestyle Hospitality Strategy, Launches KAIA Koh Phangan", url: "https://www.boundandbeyond.co.th/en/newsroom/news-and-updates/93/beyond-accelerates-luxury-lifestyle-hospitality-strategy-launches-kaia-koh-phangan-to-drive-sustainable-growth" },
+      { title: "Travel And Tour World — KAIA Koh Phangan: Thailand's Exclusive Luxury Resort Set to Open in 2026", url: "https://www.travelandtourworld.com/news/article/kaia-koh-phangan-thailands-exclusive-luxury-resort-set-to-open-in-2026-everything-you-need-to-know-now/" },
+      { title: "The Opening List — KAIA Koh Phangan", url: "https://theopeninglist.com/hotel/kaia-koh-phangan" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "Are international hotel brands like Avani and KAIA actually opening on Koh Phangan, and does it matter for buyers?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
