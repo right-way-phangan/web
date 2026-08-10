@@ -85,14 +85,14 @@ export function DeveloperReturns({
   const money = (v: number) => formatMoney(v, "THB", DEFAULT_RATES, { compact: true });
   const pct = (v: number) => `${v >= 0 ? "" : "−"}${Math.abs(v).toFixed(1)}%`;
 
+  // «Окупаемость» из движка здесь не показываем: при поэтапной оплате это год,
+  // когда накопленная прибыль выходит в плюс, а не возврат вложенного, — на
+  // витрине такая цифра читается как обещание, которого никто не давал.
   const kpis = [
     { label: t.kpiRoi, value: pct(result.roiPct) },
     { label: t.kpiCagr, value: pct(result.cagrPct) },
-    {
-      label: t.kpiPayback,
-      value: result.paybackYears == null ? "—" : t.yearsValue(result.paybackYears),
-    },
     { label: t.kpiRentYear, value: money(result.rentNetTotal / Math.max(1, years)) },
+    { label: t.kpiProfit, value: money(result.netProfit) },
   ];
 
   return (

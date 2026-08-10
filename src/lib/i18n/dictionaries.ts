@@ -1617,7 +1617,7 @@ export interface ProjectsDict {
     returns: {
       kpiRoi: string;
       kpiCagr: string;
-      kpiPayback: string;
+      kpiProfit: string;
       kpiRentYear: string;
       yearsLabel: string;
       yearsValue: (n: number) => string;
@@ -1795,7 +1795,7 @@ const projectsDict: Record<Locale, ProjectsDict> = {
       returns: {
         kpiRoi: "Total return",
         kpiCagr: "Per year",
-        kpiPayback: "Payback",
+        kpiProfit: "Profit over the hold",
         kpiRentYear: "Net rent / year",
         yearsLabel: "Hold for",
         yearsValue: (n) => `${n} ${n === 1 ? "year" : "years"}`,
@@ -1980,7 +1980,7 @@ const projectsDict: Record<Locale, ProjectsDict> = {
       returns: {
         kpiRoi: "Итоговая доходность",
         kpiCagr: "В год",
-        kpiPayback: "Окупаемость",
+        kpiProfit: "Прибыль за срок",
         kpiRentYear: "Чистая аренда / год",
         yearsLabel: "Держим",
         yearsValue: (n) =>
