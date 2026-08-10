@@ -252,7 +252,7 @@ export async function DeveloperPage({
           {timelineItems.length ? (
             <div id="history" className="mt-16 scroll-mt-32">
               <Appear>
-                <h2 className="mb-8 font-serif text-3xl text-forest-900">
+                <h2 className="font-serif text-3xl text-forest-900">
                   {t.developers.historyTitle}
                 </h2>
                 <DeveloperTimeline items={timelineItems} locale={locale} />
