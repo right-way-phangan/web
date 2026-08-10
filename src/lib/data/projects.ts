@@ -114,7 +114,12 @@ export function projectAvailability(
   project: RealEstateObject,
   units: RealEstateObject[],
 ): ProjectAvailability {
-  if (units.length > 0) {
+  // Unit cards can describe villa *formats* (Verana has one card per 1/2/3BR
+  // layout) rather than every sellable lot. When the project's own count is
+  // larger than the number of cards, the developer's figures are the real
+  // inventory — counting cards would report "3 of 3" for a 12-villa community.
+  const formatsOnly = project.unitsTotal != null && project.unitsTotal > units.length;
+  if (units.length > 0 && !formatsOnly) {
     const available = units.filter((u) => u.status === "Active").length;
     return { total: units.length, available, fromUnits: true };
   }
