@@ -34,7 +34,10 @@ export function DeveloperEconomics({
 
   return (
     <div className="space-y-6">
-      <p className="text-sm text-forest-500/70">{t.lede}</p>
+      <div className="space-y-2">
+        <h3 className="font-serif text-2xl text-forest-900">{t.heading}</h3>
+        <p className="text-sm text-forest-500/70">{t.lede}</p>
+      </div>
 
       {/* Four columns do not fit a phone — the table scrolls inside its own box. */}
       <div className="overflow-x-auto rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5">
@@ -42,7 +45,7 @@ export function DeveloperEconomics({
           <thead>
             <tr className="border-b border-forest-500/10">
               <th scope="col" className="px-4 py-3 text-left font-medium text-forest-500/60">
-                <span className="sr-only">{t.heading}</span>
+                <span className="sr-only">{t.rowHeaderLabel}</span>
               </th>
               {formats.map((f) => (
                 <th
