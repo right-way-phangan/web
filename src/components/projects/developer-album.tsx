@@ -7,6 +7,9 @@ import type { Locale } from "@/lib/i18n/dictionaries";
 import { getProjectsDict } from "@/lib/i18n/dictionaries";
 import { useDeveloperPhotos } from "./developer-photos";
 
+/** Сколько кадров показываем на вкладке «Все» до нажатия «показать ещё». */
+const ALL_TAB_PREVIEW = 12;
+
 /** Кадр альбома: лёгкое превью; полный кадр открывает общий лайтбокс. */
 export interface AlbumThumb {
   thumb: string;
@@ -31,10 +34,16 @@ export function DeveloperAlbum({
   const photos = useDeveloperPhotos();
   const groups = photos?.groups ?? [];
   const [active, setActive] = useState<string | null>(null);
+  const [expanded, setExpanded] = useState(false);
 
   const group = active ? groups.find((g) => g.title === active) : undefined;
   const from = group?.start ?? 0;
-  const shown = group ? thumbs.slice(from, from + group.count) : thumbs;
+  const inTab = group ? thumbs.slice(from, from + group.count) : thumbs;
+  // На вкладке «Все» показываем три ряда, иначе архив в 33 кадра сам по себе
+  // превращается в три экрана прокрутки — ровно то, от чего уходили.
+  const collapsed = !group && !expanded;
+  const shown = collapsed ? inTab.slice(0, ALL_TAB_PREVIEW) : inTab;
+  const hidden = inTab.length - shown.length;
 
   const tabs = [
     { key: null as string | null, label: labels.all, count: thumbs.length },
@@ -96,7 +105,18 @@ export function DeveloperAlbum({
         ))}
       </ul>
 
-      <p className="mt-4 text-sm text-forest-500/60">{labels.photos(shown.length)}</p>
+      <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
+        {hidden > 0 ? (
+          <button
+            type="button"
+            onClick={() => setExpanded(true)}
+            className="text-sm font-medium text-forest-900 underline-offset-4 hover:underline"
+          >
+            {labels.showAll(inTab.length)}
+          </button>
+        ) : null}
+        <p className="text-sm text-forest-500/60">{labels.photos(shown.length)}</p>
+      </div>
     </div>
   );
 }

@@ -16,6 +16,7 @@ import { getProjectEconomics } from "@/content/projects/economics";
 import { BUILD_COST_ARTICLE } from "@/lib/data/build-cost";
 import { getDeveloperProfile, resolveTimeline } from "@/content/developers";
 import { estateThumb } from "@/lib/utils/thumb";
+import { cn } from "@/lib/utils/cn";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getProjectsDict } from "@/lib/i18n/dictionaries";
 import { localePath } from "@/lib/i18n/locale-path";
@@ -46,14 +47,16 @@ function SectionHead({
   title,
   lede,
 }: {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   lede?: string;
 }) {
   return (
     <div className="mb-8">
-      <SectionEyebrow>{eyebrow}</SectionEyebrow>
-      <h2 className="mt-3 font-serif text-3xl text-forest-900 md:text-4xl">{title}</h2>
+      {eyebrow ? <SectionEyebrow>{eyebrow}</SectionEyebrow> : null}
+      <h2 className={cn("font-serif text-3xl text-forest-900 md:text-4xl", eyebrow && "mt-3")}>
+        {title}
+      </h2>
       {lede ? <p className="mt-3 max-w-prose text-forest-500/85">{lede}</p> : null}
     </div>
   );
@@ -182,10 +185,14 @@ export async function DeveloperPage({
     });
   }
   const dm = saleProject?.district ? getDistrictMarket(saleProject.district) : null;
+  // measuredOcc приходит долей (0.46), baseOccPct — уже процентами. Смешать их
+  // означает посчитать загрузку в сотую долю процента и получить убыток на
+  // ровном месте — приводим к одной шкале здесь.
+  const measuredPct = dm?.measuredOcc != null ? Math.round(dm.measuredOcc * 100) : null;
   const returnsMarket = dm
     ? {
         nightlyRateThb: dm.district.adrP75 ?? dm.district.adrMedian,
-        occupancyPct: dm.measuredOcc ?? dm.baseOccPct,
+        occupancyPct: measuredPct ?? dm.baseOccPct,
         districtLabel: dm.district.name,
       }
     : null;
@@ -520,10 +527,7 @@ export async function DeveloperPage({
 
           <section id="next" className="scroll-mt-32">
             <Appear>
-              <SectionHead
-                eyebrow={t.developers.sections.nextTitle}
-                title={t.developers.sections.nextTitle}
-              />
+              <SectionHead title={t.developers.sections.nextTitle} />
               <div className="grid gap-8 sm:grid-cols-3">
                 {nextLinks.map((col) => (
                   <div key={col.group}>

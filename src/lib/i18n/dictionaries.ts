@@ -1593,7 +1593,7 @@ export interface ProjectsDict {
     timelineHintTouch: string;
     viewListing: string;
     viewPhotos: (n: number) => string;
-    album: { all: string; photos: (n: number) => string };
+    album: { all: string; photos: (n: number) => string; showAll: (n: number) => string };
     build: {
       areaLabel: string;
       areaUnit: string;
@@ -1758,6 +1758,7 @@ const projectsDict: Record<Locale, ProjectsDict> = {
       album: {
         all: "All",
         photos: (n) => `${n} ${n === 1 ? "photo" : "photos"} — tap to open`,
+        showAll: (n) => `Show all ${n}`,
       },
       build: {
         areaLabel: "Built area",
@@ -1942,6 +1943,7 @@ const projectsDict: Record<Locale, ProjectsDict> = {
       album: {
         all: "Все",
         photos: (n) => `${n} ${n === 1 ? "кадр" : n < 5 ? "кадра" : "кадров"} — нажмите, чтобы открыть`,
+        showAll: (n) => `Показать все ${n}`,
       },
       build: {
         areaLabel: "Площадь дома",
