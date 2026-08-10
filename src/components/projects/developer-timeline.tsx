@@ -144,7 +144,7 @@ function EntryDetail({
             href={entry.href as Route}
             className="mt-3 inline-flex min-h-[44px] items-center gap-1.5 text-sm font-medium text-forest-900 underline-offset-4 hover:underline"
           >
-            {t.viewProject}
+            {entry.objectRw ? t.developers.viewListing : t.viewProject}
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         ) : null}
