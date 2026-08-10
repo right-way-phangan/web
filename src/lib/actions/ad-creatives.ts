@@ -3,6 +3,7 @@
 import { getAllObjects } from "@/lib/data/objects";
 import { getPublicProjects, projectSlug } from "@/lib/data/projects";
 import { generateAdCreatives, type AdChannel, type CreativeSet } from "@/lib/ads/creatives";
+import { requireAdmin } from "@/lib/auth/require-admin";
 
 /**
  * Собрать креативы под выбранные объекты.
@@ -15,6 +16,7 @@ export async function generateCreativesAction(
   rwNumbers: string[],
   channel: AdChannel,
 ): Promise<CreativeSet[]> {
+  await requireAdmin();
   const wanted = rwNumbers.filter(Boolean).slice(0, 10);
   if (wanted.length === 0) return [];
 

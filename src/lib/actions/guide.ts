@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { backendFetch } from "@/lib/api/backend";
 import { GUIDE_PUBLISHED_KEY, getPublishedGuideSlugs } from "@/lib/data/settings";
+import { requireAdmin } from "@/lib/auth/require-admin";
 
 const API = process.env.OBJECTS_API_URL;
 
@@ -25,6 +26,7 @@ async function writePublished(slugs: string[]): Promise<boolean> {
 
 /** Снять статус черновика со страницы справочника (оверрайд в app_settings). */
 export async function publishGuidePage(slug: string): Promise<boolean> {
+  await requireAdmin();
   const current = await getPublishedGuideSlugs();
   current.add(slug);
   const ok = await writePublished([...current]);
@@ -35,6 +37,7 @@ export async function publishGuidePage(slug: string): Promise<boolean> {
 
 /** Вернуть страницу справочника в черновики (убрать оверрайд). */
 export async function unpublishGuidePage(slug: string): Promise<boolean> {
+  await requireAdmin();
   const current = await getPublishedGuideSlugs();
   current.delete(slug);
   const ok = await writePublished([...current]);

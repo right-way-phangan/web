@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { backendFetch } from "@/lib/api/backend";
+import { requireStaff } from "@/lib/auth/require-admin";
 import type { ObjectContact } from "@/types/object";
 
 const API = process.env.OBJECTS_API_URL;
@@ -21,6 +22,7 @@ export async function saveObjectContacts(
   rwNumber: string,
   contacts: ObjectContact[],
 ): Promise<SaveContactsResult> {
+  await requireStaff();
   if (!API) return { ok: false, error: "Backend не подключён (OBJECTS_API_URL)." };
   try {
     const r = await backendFetch(`/objects/${encodeURIComponent(rwNumber)}/contacts`, {

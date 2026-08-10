@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { backendFetch } from "@/lib/api/backend";
 import { uploadImageToR2 } from "@/lib/storage/r2";
 import type { ConstructionUpdate } from "@/types/object";
+import { requireStaff } from "@/lib/auth/require-admin";
 
 const API = process.env.OBJECTS_API_URL;
 const MAX_FILES = 30;
@@ -13,6 +14,7 @@ const MAX_FILE_BYTES = 25 * 1024 * 1024;
 export async function uploadConstructionPhotosAction(
   formData: FormData,
 ): Promise<{ ok: boolean; urls: string[]; error?: string }> {
+  await requireStaff();
   const valid = (f: FormDataEntryValue): f is File =>
     f instanceof File &&
     f.size > 0 &&
@@ -38,6 +40,7 @@ export async function saveConstructionUpdatesAction(
   rwNumber: string,
   updates: ConstructionUpdate[],
 ): Promise<{ ok: boolean; error?: string }> {
+  await requireStaff();
   if (!API) return { ok: false, error: "Backend не подключён." };
   try {
     const res = await backendFetch(`/objects/${encodeURIComponent(rwNumber)}`, {

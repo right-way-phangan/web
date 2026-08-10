@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { backendFetch } from "@/lib/api/backend";
+import { requireStaff } from "@/lib/auth/require-admin";
 
 const API = process.env.OBJECTS_API_URL;
 const MAX_ROWS = 300;
@@ -68,6 +69,7 @@ const digits = (v: string) => v.replace(/\D/g, "");
  * digits / email). Created leads get tag `import` and NO auto follow-up task.
  */
 export async function importLeadsAction(formData: FormData): Promise<ImportResult> {
+  await requireStaff();
   const fail = (error: string): ImportResult => ({
     ok: false, created: 0, skippedDuplicates: 0, skippedInvalid: 0, error, notes: [],
   });

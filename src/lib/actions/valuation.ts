@@ -9,6 +9,7 @@ import { buildFactorMap } from "@/lib/valuation/factors";
 import { lookupZoneByLocation } from "@/lib/actions/zone-lookup";
 import { explainValuation } from "@/lib/valuation/llm-explain";
 import type { RealEstateObject } from "@/types/object";
+import { requireAdmin } from "@/lib/auth/require-admin";
 
 const API = process.env.OBJECTS_API_URL;
 
@@ -165,6 +166,7 @@ export async function explainValuationAction(
   subject: ValuationSubject,
   result: ValuationResult,
 ): Promise<{ ok: boolean; text?: string; error?: string }> {
+  await requireAdmin();
   try {
     const text = await explainValuation(subject, result);
     if (!text) return { ok: false, error: "LLM не подключён или не дал ответ." };
@@ -274,6 +276,7 @@ async function enrichZones(objects: RealEstateObject[]): Promise<Map<string, str
  * переоценку). В журнал НЕ пишет (массовый расчёт).
  */
 export async function scanCatalog(): Promise<ScanRow[]> {
+  await requireAdmin();
   const [objects, overrides, external] = await Promise.all([
     getAllObjects(),
     fetchFactorOverrides(),
@@ -391,6 +394,7 @@ function medianOf(a: number[]): number {
  * компсов sold. В журнал не пишет.
  */
 export async function backtestAccuracy(): Promise<BacktestResult> {
+  await requireAdmin();
   const empty: BacktestResult = {
     n: 0, mapePct: 0, medianAbsPct: 0, biasPct: 0, within10Pct: 0, within20Pct: 0,
     bandCoveragePct: 0, avgBandPct: 0,
@@ -489,6 +493,7 @@ export interface CompletenessReport {
  * архивируют. Главное узкое место точности — не алгоритм, а полнота данных.
  */
 export async function catalogCompleteness(): Promise<CompletenessReport> {
+  await requireAdmin();
   const objects = await getAllObjects();
   const objs = objects.filter((o) => !isUnit(o.rwNumber) && o.type !== "Project");
   const has = (v: unknown) => v != null && String(v).trim() !== "";
@@ -553,6 +558,7 @@ export type FactorActionResult = { ok: boolean; error?: string };
 export async function saveFactorOverrides(
   entries: Array<{ key: string; value: number | null }>,
 ): Promise<FactorActionResult> {
+  await requireAdmin();
   if (!API) return { ok: false, error: "Backend не подключён (OBJECTS_API_URL)." };
   try {
     const r = await backendFetch("/valuation/factors", {
@@ -588,6 +594,7 @@ export async function addExternalComp(input: {
   note?: string;
   seenAt?: string;
 }): Promise<FactorActionResult> {
+  await requireAdmin();
   if (!API) return { ok: false, error: "Backend не подключён (OBJECTS_API_URL)." };
   try {
     const r = await backendFetch("/valuation/comps", {
@@ -609,6 +616,7 @@ export async function addExternalComp(input: {
 
 /** active → sold/gone: компс становится прокси сделки, не удаляем. */
 export async function setCompStatus(id: number, status: string): Promise<FactorActionResult> {
+  await requireAdmin();
   if (!API) return { ok: false, error: "Backend не подключён (OBJECTS_API_URL)." };
   try {
     const r = await backendFetch(`/valuation/comps/${id}`, {
@@ -626,6 +634,7 @@ export async function setCompStatus(id: number, status: string): Promise<FactorA
 }
 
 export async function deleteExternalComp(id: number): Promise<FactorActionResult> {
+  await requireAdmin();
   if (!API) return { ok: false, error: "Backend не подключён (OBJECTS_API_URL)." };
   try {
     const r = await backendFetch(`/valuation/comps/${id}`, { method: "DELETE", cache: "no-store" });
