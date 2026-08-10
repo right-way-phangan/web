@@ -1590,6 +1590,7 @@ export interface ProjectsDict {
     catalogTitle: string;
     status: { built: string; "under-construction": string; planned: string; soon: string };
     timelineHint: string;
+    timelineHintTouch: string;
     dateTbc: string;
     soonLede: string;
     formTitle: string;
@@ -1696,7 +1697,8 @@ const projectsDict: Record<Locale, ProjectsDict> = {
         planned: "Planned",
         soon: "Coming soon",
       },
-      timelineHint: "Hover or tap a project to open its card.",
+      timelineHint: "Hover a project to open its card.",
+      timelineHintTouch: "Tap a project to open its card.",
       dateTbc: "Dates to be confirmed",
       soonLede:
         "The developer hasn't confirmed the details yet — we publish only what we can verify.",
@@ -1805,7 +1807,8 @@ const projectsDict: Record<Locale, ProjectsDict> = {
         planned: "Планируется",
         soon: "Скоро",
       },
-      timelineHint: "Наведите или нажмите на проект — откроется карточка.",
+      timelineHint: "Наведите на проект — откроется карточка.",
+      timelineHintTouch: "Нажмите на проект — откроется карточка.",
       dateTbc: "Даты уточняются",
       soonLede:
         "Детали пока не подтверждены застройщиком — публикуем только то, что проверили.",

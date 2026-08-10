@@ -6,7 +6,7 @@ import Link from "next/link";
 import type { Route } from "next";
 import type { Transition } from "motion/react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowRight, ChevronDown, Image as ImageIcon } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getProjectsDict } from "@/lib/i18n/dictionaries";
@@ -68,26 +68,35 @@ function StatusPill({
   return null;
 }
 
-/** The expanded card for one project — shared by the desktop panel and the mobile accordion. */
+/**
+ * The expanded card for one project — shared by the desktop panel and the
+ * mobile accordion. The accordion row already carries year/title/status, so it
+ * asks for `heading={false}` instead of repeating them inside the card.
+ */
 function EntryDetail({
   entry,
   locale,
+  heading = true,
 }: {
   entry: ResolvedTimelineEntry;
   locale: Locale;
+  heading?: boolean;
 }) {
   const t = getProjectsDict(locale);
   return (
-    <div
-      className={cn(
-        "grid gap-5 md:gap-7",
-        entry.photo && "md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]",
-      )}
-    >
-      {entry.photo ? (
-        // Fixed frame height on md+ keeps every project's card the same size,
-        // so the desktop panel does not jump as you move along the rail.
-        <div className="aspect-[3/2] overflow-hidden rounded-sm bg-forest-900/[0.04] md:aspect-auto md:h-64">
+    <div className="grid gap-5 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:gap-7">
+      {/* Fixed frame height on md+ keeps every project's card the same size, so
+          the desktop panel does not jump as you move along the rail. A project
+          whose photos haven't arrived yet keeps the frame as an empty plate. */}
+      <div
+        className={cn(
+          "aspect-[3/2] overflow-hidden rounded-sm md:aspect-auto md:h-64",
+          entry.photo
+            ? "bg-forest-900/[0.04]"
+            : "flex items-center justify-center border border-dashed border-forest-500/20",
+        )}
+      >
+        {entry.photo ? (
           <Image
             src={entry.photo}
             alt={entry.title}
@@ -96,16 +105,30 @@ function EntryDetail({
             className="h-full w-full object-cover"
             sizes="(min-width: 1024px) 480px, 100vw"
           />
-        </div>
-      ) : null}
+        ) : (
+          <ImageIcon aria-hidden className="h-7 w-7 text-forest-500/25" />
+        )}
+      </div>
       <div>
-        <div className="text-xs font-medium uppercase tracking-eyebrow text-brass-500">
-          {entry.year ?? t.developers.dateTbc}
-        </div>
-        <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-2">
-          <h3 className="font-serif text-2xl text-forest-900">{entry.title}</h3>
-          <StatusPill entry={entry} locale={locale} />
-        </div>
+        {heading ? (
+          <>
+            {entry.year ? (
+              <div className="text-xs font-medium uppercase tracking-eyebrow text-brass-500">
+                {entry.year}
+              </div>
+            ) : (
+              <div className="text-sm text-forest-500/55">
+                {t.developers.dateTbc}
+              </div>
+            )}
+            <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-2">
+              <h3 className="font-serif text-2xl text-forest-900">
+                {entry.title}
+              </h3>
+              <StatusPill entry={entry} locale={locale} />
+            </div>
+          </>
+        ) : null}
         {entry.note ? (
           <div className="mt-1 text-sm text-forest-500/60">
             {entry.note[locale]}
@@ -187,7 +210,8 @@ export function DeveloperTimeline({
   return (
     <div>
       <p className="mb-8 mt-3 text-sm text-forest-500/60">
-        {t.developers.timelineHint}
+        <span className="hidden lg:inline">{t.developers.timelineHint}</span>
+        <span className="lg:hidden">{t.developers.timelineHintTouch}</span>
       </p>
 
       {/* Desktop rail */}
@@ -370,7 +394,7 @@ export function DeveloperTimeline({
                 className="overflow-hidden"
               >
                 <div className="pb-4 pt-1">
-                  <EntryDetail entry={entry} locale={locale} />
+                  <EntryDetail entry={entry} locale={locale} heading={false} />
                 </div>
               </motion.div>
             </li>
