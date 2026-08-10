@@ -1592,6 +1592,59 @@ export interface ProjectsDict {
     timelineHint: string;
     timelineHintTouch: string;
     viewListing: string;
+    viewPhotos: (n: number) => string;
+    album: { all: string; photos: (n: number) => string };
+    build: {
+      areaLabel: string;
+      areaUnit: string;
+      finishLabel: string;
+      bands: Record<"basic" | "mid" | "premium", { name: string; hint: string }>;
+      poolLabel: string;
+      feesLabel: string;
+      feesHint: string;
+      budget: string;
+      perSqm: string;
+      duration: string;
+      months: (from: number, to: number) => string;
+      permitLine: (from: number, to: number) => string;
+      andUp: string;
+      excludedTitle: string;
+      excluded: string[];
+      disclaimer: string;
+      articleCta: string;
+      fullCalcCta: string;
+    };
+    returns: {
+      kpiRoi: string;
+      kpiCagr: string;
+      kpiPayback: string;
+      kpiRentYear: string;
+      yearsLabel: string;
+      yearsValue: (n: number) => string;
+      growthLabel: string;
+      claimed: (unit: string, yieldPct: number, payback: number) => string;
+      marketSource: (district: string, rate: number, occupancy: number) => string;
+      noMarket: string;
+      fullCta: string;
+    };
+    nextLeasehold: string;
+    nextOffplan: string;
+    nextVetting: string;
+    nextProcess: string;
+    nextZoning: string;
+    nextInsights: string;
+    sections: {
+      photosTitle: string;
+      photosLede: string;
+      returnsTitle: string;
+      returnsLede: string;
+      buildTitle: string;
+      buildLede: string;
+      nextTitle: string;
+      nextCatalog: string;
+      nextLearn: string;
+      nextTools: string;
+    };
     dateTbc: string;
     soonLede: string;
     formTitle: string;
@@ -1601,7 +1654,7 @@ export interface ProjectsDict {
     indexEyebrow: string;
     indexTitle: string;
     indexLede: string;
-    nav: { overview: string; history: string; projects: string; photos: string; enquire: string };
+    nav: { overview: string; history: string; projects: string; photos: string; returns: string; build: string; enquire: string };
     kpi: { projects: string; delivered: string; building: string; portfolio: string };
     galleryTitle: string;
     mapTitle: string;
@@ -1701,6 +1754,78 @@ const projectsDict: Record<Locale, ProjectsDict> = {
       timelineHint: "Hover a project to open its card.",
       timelineHintTouch: "Tap a project to open its card.",
       viewListing: "View the listing",
+      viewPhotos: (n) => `View ${n} ${n === 1 ? "photo" : "photos"}`,
+      album: {
+        all: "All",
+        photos: (n) => `${n} ${n === 1 ? "photo" : "photos"} — tap to open`,
+      },
+      build: {
+        areaLabel: "Built area",
+        areaUnit: "m²",
+        finishLabel: "Finish standard",
+        bands: {
+          basic: { name: "Basic", hint: "Thai standard, local materials" },
+          mid: { name: "Mid-range", hint: "Western standard — the usual choice" },
+          premium: { name: "Premium", hint: "High-spec materials, bespoke joinery" },
+        },
+        poolLabel: "With a pool",
+        feesLabel: "Design and supervision",
+        feesHint:
+          "Architect, engineer and site supervision run {pct} of the build cost.",
+        budget: "Build budget",
+        perSqm: "per m²",
+        duration: "Construction",
+        months: (a, b) => `${a}–${b} months`,
+        permitLine: (a, b) => `the permit, ${a}–${b} months before work starts`,
+        andUp: " and up",
+        excludedTitle: "Not included",
+        excluded: [
+          "the land",
+          "site prep: clearing, access road, retaining walls",
+          "utility connections and government fees",
+          "furniture and equipment",
+          "landscaping and driveways",
+        ],
+        disclaimer:
+          "An estimate from published market bands for Koh Phangan, not a quote. A builder's quote depends on the plot, the slope and the spec.",
+        articleCta: "How building on Phangan works",
+        fullCalcCta: "Full pro-forma with land",
+      },
+      returns: {
+        kpiRoi: "Total return",
+        kpiCagr: "Per year",
+        kpiPayback: "Payback",
+        kpiRentYear: "Net rent / year",
+        yearsLabel: "Hold for",
+        yearsValue: (n) => `${n} ${n === 1 ? "year" : "years"}`,
+        growthLabel: "Price growth / year",
+        claimed: (unit, y, p) =>
+          `The developer publishes ${y}% a year and ${p}-year payback for the ${unit} — that figure is theirs; the numbers above are ours.`,
+        marketSource: (d, rate, occ) =>
+          `Our own market data: ฿${rate.toLocaleString("en-US")} a night at ${occ}% occupancy, ${d}. Leasehold, 30 years, let from handover. An estimate, not a guarantee.`,
+        noMarket: "An estimate on our own assumptions, not a guarantee.",
+        fullCta: "Open the full calculator",
+      },
+      nextLeasehold: "Leasehold on Phangan",
+      nextOffplan: "Buying off-plan",
+      nextVetting: "What we check before listing",
+      nextProcess: "How a deal runs",
+      nextZoning: "What you can build here",
+      nextInsights: "Rental market data",
+      sections: {
+        photosTitle: "Projects in photos",
+        photosLede: "Delivered villas, shot by the developer — no renders.",
+        returnsTitle: "What it returns",
+        returnsLede:
+          "Run the numbers on the project that is for sale — our market data, your assumptions.",
+        buildTitle: "What it costs to build",
+        buildLede:
+          "A rough budget for building your own villa on the island, from published market bands.",
+        nextTitle: "Where to next",
+        nextCatalog: "Catalog",
+        nextLearn: "Get your bearings",
+        nextTools: "Tools",
+      },
       dateTbc: "Dates to be confirmed",
       soonLede:
         "The developer hasn't confirmed the details yet — we publish only what we can verify.",
@@ -1714,7 +1839,7 @@ const projectsDict: Record<Locale, ProjectsDict> = {
       indexTitle: "Developers building on Koh Phangan.",
       indexLede:
         "Vetted developers we work with on the island — their track record, current projects and a direct line to enquire, all in one place.",
-      nav: { overview: "Overview", history: "Track record", projects: "Projects", photos: "Photos", enquire: "Enquire" },
+      nav: { overview: "Overview", history: "Track record", projects: "Projects", photos: "Photos", returns: "Returns", build: "Build", enquire: "Enquire" },
       kpi: { projects: "Projects listed", delivered: "Delivered", building: "Under construction", portfolio: "Portfolio" },
       galleryTitle: "Projects in photos",
       mapTitle: "Where the projects are",
@@ -1812,6 +1937,80 @@ const projectsDict: Record<Locale, ProjectsDict> = {
       timelineHint: "Наведите на проект — откроется карточка.",
       timelineHintTouch: "Нажмите на проект — откроется карточка.",
       viewListing: "Смотреть объект",
+      viewPhotos: (n) =>
+        `Смотреть ${n} ${n === 1 ? "фото" : n < 5 ? "фото" : "фото"}`,
+      album: {
+        all: "Все",
+        photos: (n) => `${n} ${n === 1 ? "кадр" : n < 5 ? "кадра" : "кадров"} — нажмите, чтобы открыть`,
+      },
+      build: {
+        areaLabel: "Площадь дома",
+        areaUnit: "м²",
+        finishLabel: "Класс отделки",
+        bands: {
+          basic: { name: "Базовый", hint: "тайский стандарт, местные материалы" },
+          mid: { name: "Средний", hint: "западный стандарт — обычный выбор" },
+          premium: { name: "Премиум", hint: "дорогие материалы, столярка на заказ" },
+        },
+        poolLabel: "С бассейном",
+        feesLabel: "Проект и надзор",
+        feesHint:
+          "Архитектор, конструктор и технадзор — {pct} от стоимости стройки.",
+        budget: "Бюджет стройки",
+        perSqm: "за м²",
+        duration: "Стройка",
+        months: (a, b) => `${a}–${b} мес`,
+        permitLine: (a, b) => `разрешение, ${a}–${b} мес до начала работ`,
+        andUp: " и выше",
+        excludedTitle: "Не входит",
+        excluded: [
+          "земля",
+          "подготовка участка: расчистка, подъезд, подпорные стены",
+          "подключения и госпошлины",
+          "мебель и техника",
+          "ландшафт и дорожки",
+        ],
+        disclaimer:
+          "Прикидка по опубликованным рыночным вилкам для Пангана, а не смета. Реальная цена зависит от участка, уклона и спецификации.",
+        articleCta: "Как строят на Пангане",
+        fullCalcCta: "Полная проформа с землёй",
+      },
+      returns: {
+        kpiRoi: "Итоговая доходность",
+        kpiCagr: "В год",
+        kpiPayback: "Окупаемость",
+        kpiRentYear: "Чистая аренда / год",
+        yearsLabel: "Держим",
+        yearsValue: (n) =>
+          `${n} ${n === 1 ? "год" : n % 10 >= 2 && n % 10 <= 4 && (n < 12 || n > 14) ? "года" : "лет"}`,
+        growthLabel: "Рост цены / год",
+        claimed: (unit, y, p) =>
+          `Застройщик заявляет по формату ${unit} ${y}% годовых и окупаемость за ${p} лет — это его цифра; выше расчёт наш.`,
+        marketSource: (d, rate, occ) =>
+          `Наши рыночные данные: ${rate.toLocaleString("ru-RU")} ฿ за ночь при загрузке ${occ}%, ${d}. Лизхолд 30 лет, аренда с момента сдачи. Это оценка, а не гарантия.`,
+        noMarket: "Оценка на наших допущениях, не гарантия.",
+        fullCta: "Открыть полный калькулятор",
+      },
+      nextLeasehold: "Лизхолд на Пангане",
+      nextOffplan: "Покупка на стадии стройки",
+      nextVetting: "Что мы проверяем до публикации",
+      nextProcess: "Как проходит сделка",
+      nextZoning: "Что здесь можно построить",
+      nextInsights: "Данные рынка аренды",
+      sections: {
+        photosTitle: "Проекты в фото",
+        photosLede: "Сданные виллы, съёмка застройщика — не рендеры.",
+        returnsTitle: "Что это приносит",
+        returnsLede:
+          "Посчитайте проект, который сейчас в продаже: наши рыночные данные, ваши допущения.",
+        buildTitle: "Сколько стоит построить",
+        buildLede:
+          "Прикидка бюджета на свою виллу по опубликованным рыночным вилкам.",
+        nextTitle: "Куда дальше",
+        nextCatalog: "Каталог",
+        nextLearn: "Разобраться",
+        nextTools: "Инструменты",
+      },
       dateTbc: "Даты уточняются",
       soonLede:
         "Детали пока не подтверждены застройщиком — публикуем только то, что проверили.",
@@ -1825,7 +2024,7 @@ const projectsDict: Record<Locale, ProjectsDict> = {
       indexTitle: "Застройщики Ко Пангана.",
       indexLede:
         "Проверенные застройщики, с которыми мы работаем на острове — их история, текущие проекты и прямая заявка, всё в одном месте.",
-      nav: { overview: "О застройщике", history: "История", projects: "Проекты", photos: "Фото", enquire: "Заявка" },
+      nav: { overview: "О застройщике", history: "История", projects: "Проекты", photos: "Фото", returns: "Доходность", build: "Построить", enquire: "Заявка" },
       kpi: { projects: "Проектов в каталоге", delivered: "Сдано", building: "Строится", portfolio: "Портфолио" },
       galleryTitle: "Проекты в фото",
       mapTitle: "Где проекты",

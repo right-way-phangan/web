@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils/cn";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getProjectsDict } from "@/lib/i18n/dictionaries";
 import { STAGE_STYLE } from "./stage-badge";
+import { useDeveloperPhotos } from "./developer-photos";
 import type {
   ResolvedTimelineEntry,
   TimelineStatus,
@@ -83,6 +84,9 @@ function EntryDetail({
   heading?: boolean;
 }) {
   const t = getProjectsDict(locale);
+  // Кадры проекта живут в общем альбоме; связь — по названию проекта.
+  const photos = useDeveloperPhotos();
+  const shots = photos?.countOf(entry.title) ?? 0;
   return (
     <div className="grid gap-5 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:gap-7">
       {/* Fixed frame height on md+ keeps every project's card the same size, so
@@ -90,7 +94,7 @@ function EntryDetail({
           whose photos haven't arrived yet keeps the frame as an empty plate. */}
       <div
         className={cn(
-          "aspect-[3/2] overflow-hidden rounded-sm md:aspect-auto md:h-64",
+          "group/photo relative aspect-[3/2] overflow-hidden rounded-sm md:aspect-auto md:h-64",
           entry.photo
             ? "bg-forest-900/[0.04]"
             : "flex items-center justify-center border border-dashed border-forest-500/20",
@@ -108,6 +112,18 @@ function EntryDetail({
         ) : (
           <ImageIcon aria-hidden className="h-7 w-7 text-forest-500/25" />
         )}
+        {shots > 0 ? (
+          <button
+            type="button"
+            onClick={() => photos?.openGroup(entry.title)}
+            className="absolute inset-0 flex items-end justify-start bg-panel/0 p-3 text-left transition-colors duration-200 hover:bg-panel/35 focus-visible:bg-panel/35 focus-visible:outline-none"
+          >
+            <span className="inline-flex items-center gap-1.5 rounded-sm bg-panel/80 px-2.5 py-1.5 text-xs font-medium text-panel-fg opacity-0 transition-opacity duration-200 group-hover/photo:opacity-100 group-focus-within/photo:opacity-100">
+              <ImageIcon aria-hidden className="h-3.5 w-3.5" />
+              {t.developers.viewPhotos(shots)}
+            </span>
+          </button>
+        ) : null}
       </div>
       <div>
         {heading ? (

@@ -23,10 +23,12 @@ interface Props {
   project: RealEstateObject;
   href: string;
   availability: ProjectAvailability;
+  /** Off on the developer's own page — there the name is already the h1. */
+  showDeveloper?: boolean;
 }
 
 /** Index-grid card for a developer project — links to its landing page. */
-export function ProjectCard({ project, href, availability }: Props) {
+export function ProjectCard({ project, href, availability, showDeveloper = true }: Props) {
   const locale = useLocale();
   const t = getProjectsDict(locale);
   const h = hue(project.rwNumber);
@@ -70,7 +72,9 @@ export function ProjectCard({ project, href, availability }: Props) {
 
       <div className="flex flex-1 flex-col gap-3 p-5">
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-forest-500/60">
-          {project.developer ? <span className="font-medium">{project.developer}</span> : null}
+          {showDeveloper && project.developer ? (
+            <span className="font-medium">{project.developer}</span>
+          ) : null}
           {project.district ? (
             <span className="inline-flex items-center gap-1">
               <MapPin className="h-3 w-3" />
