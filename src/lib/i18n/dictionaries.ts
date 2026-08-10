@@ -1589,6 +1589,9 @@ export interface ProjectsDict {
     historyTitle: string;
     catalogTitle: string;
     status: { built: string; "under-construction": string; planned: string; soon: string };
+    timelineHint: string;
+    dateTbc: string;
+    soonLede: string;
     formTitle: string;
     formLede: string;
     formSubmit: string;
@@ -1693,6 +1696,10 @@ const projectsDict: Record<Locale, ProjectsDict> = {
         planned: "Planned",
         soon: "Coming soon",
       },
+      timelineHint: "Hover or tap a project to open its card.",
+      dateTbc: "Dates to be confirmed",
+      soonLede:
+        "The developer hasn't confirmed the details yet — we publish only what we can verify.",
       formTitle: "Construction enquiry",
       formLede:
         "Planning to build on Koh Phangan? Leave a request — we'll discuss your brief and coordinate it with the developer directly. Your enquiry goes to Right Way and we reply within a working day.",
@@ -1798,6 +1805,10 @@ const projectsDict: Record<Locale, ProjectsDict> = {
         planned: "Планируется",
         soon: "Скоро",
       },
+      timelineHint: "Наведите или нажмите на проект — откроется карточка.",
+      dateTbc: "Даты уточняются",
+      soonLede:
+        "Детали пока не подтверждены застройщиком — публикуем только то, что проверили.",
       formTitle: "Заявка на строительство",
       formLede:
         "Планируете строить на Пангане? Оставьте заявку — обсудим задачу и скоординируем её с застройщиком напрямую. Заявка приходит в Right Way, отвечаем в течение рабочего дня.",
