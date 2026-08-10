@@ -398,6 +398,27 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
                   excludeRw={project.rwNumber}
                   projectUnits={buyableUnits.length > 0 ? buyableUnits : undefined}
                 />
+                {project.priceThb ? (
+                  <Link
+                    href={
+                      localePath(
+                        locale,
+                        `/calculator?price=${project.priceThb}&mode=rent&tenure=${
+                          project.tenure?.includes("Leasehold") && !project.tenure?.includes("Freehold")
+                            ? "leasehold"
+                            : "freehold"
+                        }${project.leaseTermYears ? `&lease=${project.leaseTermYears}` : ""}${
+                          project.stage === "Off-plan" ? "&phase=offplan" : ""
+                        }`,
+                      ) as Route
+                    }
+                    className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-brass-600 underline-offset-2 transition-colors hover:text-brass-700 hover:underline"
+                  >
+                    {locale === "ru"
+                      ? "Открыть в полном калькуляторе — со сравнением по каталогу →"
+                      : "Open in the full calculator — compare against the catalogue →"}
+                  </Link>
+                ) : null}
               </div>
             </section>
             </Appear>
