@@ -362,6 +362,11 @@ export function DeveloperTimeline({
                   },
                 }}
                 transition={reduce ? { duration: 0 } : open ? FADE : FADE_OUT}
+                // Collapsed already in the SSR markup: without this the closed
+                // rows render full height until hydration and then snap shut (CLS).
+                style={
+                  open ? undefined : { height: 0, visibility: "hidden" }
+                }
                 className="overflow-hidden"
               >
                 <div className="pb-4 pt-1">
