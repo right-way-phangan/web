@@ -32,6 +32,8 @@ import { ObjectGallery } from "@/components/objects/object-gallery";
 import { ObjectLocationMap } from "@/components/objects/object-location-map";
 import { InquiryForm } from "@/components/objects/inquiry-form";
 import { RoiCalculator } from "@/components/calculator/roi-calculator";
+import { getProjectEconomics } from "@/content/projects/economics";
+import { DeveloperEconomics } from "./developer-economics";
 import { ProjectHero } from "./project-hero";
 import { ProjectNav, type NavItem } from "./project-nav";
 import { ProjectActionBar } from "./project-action-bar";
@@ -131,6 +133,7 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
     project.priceThb || project.paymentTerms || project.leasePrepayment || project.leaseTermYears,
   ) || hasStages;
   const hasReturns = Boolean(project.priceThb);
+  const economics = getProjectEconomics(project.rwNumber);
   const hasTimeline = (project.timeline?.length ?? 0) > 0;
   const constructionUpdates = project.constructionUpdates ?? [];
   const hasConstruction = constructionUpdates.length > 0;
@@ -374,6 +377,11 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
                     </div>
                   ) : null}
                 </dl>
+              ) : null}
+              {economics ? (
+                <div className="mt-8">
+                  <DeveloperEconomics economics={economics} locale={locale} />
+                </div>
               ) : null}
               <div className="mt-8">
                 <RoiCalculator
