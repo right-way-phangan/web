@@ -115,6 +115,7 @@ export const ECONOMICS_LABELS = {
     years: (n: number) => `${n} years`,
     sourceLabel: "Source",
     caveatsLabel: "What the table leaves out",
+    rowHeaderLabel: "Figure",
   },
   ru: {
     heading: "Экономика по расчёту застройщика",
@@ -132,6 +133,7 @@ export const ECONOMICS_LABELS = {
     years: (n: number) => `${n.toLocaleString("ru-RU")} года`,
     sourceLabel: "Источник",
     caveatsLabel: "Чего расчёт не учитывает",
+    rowHeaderLabel: "Показатель",
   },
 } as const;
 
