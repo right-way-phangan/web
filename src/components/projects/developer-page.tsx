@@ -55,14 +55,30 @@ export async function DeveloperPage({
       .map((e) => e.rwNumber)
       .filter(Boolean) as string[],
   );
-  const hrefByRw = Object.fromEntries(
-    allProjects
-      .filter((p) => timelineRws.has(p.rwNumber))
-      .map((p) => [
-        p.rwNumber,
-        localePath(locale, `/projects/${projectSlug(p, allProjects)}`),
-      ]),
+  // Timeline entries may also point at a plain catalog object (the developer's
+  // own house, for sale with us) — those link to the object page instead.
+  const timelineObjectRws = new Set(
+    (profile?.timeline ?? [])
+      .map((e) => e.objectRw)
+      .filter(Boolean) as string[],
   );
+  const hrefByRw: Record<string, string> = Object.fromEntries([
+    ...allProjects
+      .filter((p) => timelineRws.has(p.rwNumber))
+      .map(
+        (p) =>
+          [
+            p.rwNumber,
+            localePath(locale, `/projects/${projectSlug(p, allProjects)}`),
+          ] as const,
+      ),
+    ...allObjects
+      .filter((o) => timelineObjectRws.has(o.rwNumber))
+      .map(
+        (o) =>
+          [o.rwNumber, localePath(locale, `/object/${o.rwNumber}`)] as const,
+      ),
+  ]);
   const timelineItems = profile
     ? resolveTimeline(profile.timeline, hrefByRw)
     : [];

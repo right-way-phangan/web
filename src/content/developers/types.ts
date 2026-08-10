@@ -29,6 +29,11 @@ export interface DeveloperTimelineEntry {
   photo?: string;
   /** RW-P#### of a published catalog project → the entry links to its landing. */
   rwNumber?: string;
+  /**
+   * RW-#### of a published catalog *object* (not a project) → the entry links
+   * to its object page. Use when the developer's own house is for sale with us.
+   */
+  objectRw?: string;
 }
 
 export interface DeveloperFact {

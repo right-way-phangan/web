@@ -28,14 +28,29 @@ describe("ARQA profile data integrity", () => {
     expect(verana?.status).toBe("under-construction");
   });
 
-  it("uses only valid RW-P numbers and statuses", () => {
+  it("uses only valid RW numbers and statuses", () => {
     for (const entry of arqa.timeline) {
       if (entry.rwNumber) expect(entry.rwNumber).toMatch(/^RW-P\d{4}$/);
+      // Objects (not projects) carry a plain RW-#### and link to /object/…
+      if (entry.objectRw) expect(entry.objectRw).toMatch(/^RW-[A-Z]?\d{4}$/);
       if (entry.status)
         expect(["built", "under-construction", "planned"]).toContain(
           entry.status,
         );
     }
+  });
+
+  it("links Tree House to the object it is sold as", () => {
+    // The developer's own delivered house, listed with us as RW-0625
+    // (confirmed by Vladimir 2026-08-10) — the timeline card links to it.
+    const tree = arqa.timeline.find((e) => e.title === "Tree House");
+    expect(tree?.objectRw).toBe("RW-0625");
+    expect(tree?.status).toBe("built");
+    expect(tree?.rwNumber).toBeUndefined();
+  });
+
+  it("opens the timeline with Phangaia, the first project", () => {
+    expect(arqa.timeline[0].title).toBe("Phangaia Garden Resort");
   });
 
   it("localizes every bilingual field in both languages", () => {
@@ -86,20 +101,25 @@ describe("resolveTimeline", () => {
     { title: "Built one", rwNumber: "RW-P0001" },
     { title: "No link" },
     { title: "Unpublished", rwNumber: "RW-P0002" },
+    { title: "Sold as an object", objectRw: "RW-0625" },
   ];
 
   it("attaches hrefs from the map, preserving order", () => {
     const resolved = resolveTimeline(entries, {
       "RW-P0001": "/projects/built-one",
+      "RW-0625": "/object/RW-0625",
     });
     expect(resolved.map((e) => e.title)).toEqual([
       "Built one",
       "No link",
       "Unpublished",
+      "Sold as an object",
     ]);
     expect(resolved[0].href).toBe("/projects/built-one");
     expect(resolved[1].href).toBeUndefined();
     // rwNumber present but not published → entry stays, just without a link.
     expect(resolved[2].href).toBeUndefined();
+    // objectRw resolves through the same map, to the object page.
+    expect(resolved[3].href).toBe("/object/RW-0625");
   });
 });

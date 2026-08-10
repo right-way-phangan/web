@@ -22,14 +22,15 @@ export function profileSlugs(): string[] {
 /**
  * Attach catalog hrefs to timeline entries. The href map is built by the page —
  * projectSlug() lives in a server-only module, so it can't be imported here
- * (and this module stays importable from tests).
+ * (and this module stays importable from tests). It is keyed by RW number, so
+ * project landings (rwNumber) and object pages (objectRw) share one lookup.
  */
 export function resolveTimeline(
   entries: DeveloperTimelineEntry[],
   hrefByRw: Record<string, string>,
 ): ResolvedTimelineEntry[] {
-  return entries.map((entry) => ({
-    ...entry,
-    href: entry.rwNumber ? hrefByRw[entry.rwNumber] : undefined,
-  }));
+  return entries.map((entry) => {
+    const rw = entry.rwNumber ?? entry.objectRw;
+    return { ...entry, href: rw ? hrefByRw[rw] : undefined };
+  });
 }
