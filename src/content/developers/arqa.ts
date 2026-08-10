@@ -47,8 +47,8 @@ export const arqa: DeveloperProfile = {
     {
       label: { en: "Delivered", ru: "Сдано" },
       value: {
-        en: "Phangaia (2023–2025), Demaya and 9 villas at Verana",
-        ru: "Phangaia (2023–2025), Demaya и 9 вилл в Verana",
+        en: "Phangaia (2023–2025), Demaya, Tree House and 9 villas at Verana",
+        ru: "Phangaia (2023–2025), Demaya, Tree House и 9 вилл в Verana",
       },
     },
     {
@@ -68,6 +68,9 @@ export const arqa: DeveloperProfile = {
       },
     },
   ],
+  // Chronological: Phangaia is the developer's first project (confirmed by
+  // Vladimir 2026-08-10). The order of the rest is our reading until the
+  // developer sends start/handover dates.
   timeline: [
     {
       year: "2023–2025",
@@ -79,7 +82,19 @@ export const arqa: DeveloperProfile = {
       },
       photo: "/images/developers/arqa/phangaia-pool.jpg",
     },
-    { title: "Tree House" },
+    {
+      // The developer's own house, for sale through us as RW-0625 — facts come
+      // from the owner's listing text (plot, floor area, layout, pool).
+      title: "Tree House",
+      status: "built",
+      objectRw: "RW-0625",
+      note: { en: "For sale · Madeau Wan", ru: "В продаже · Мадеуван" },
+      description: {
+        en: "A three-bedroom villa of 151 m² on an 800 m² Chanote plot in Madeau Wan, in the middle of the island. A pool with a sun deck, a covered terrace behind a lattice-block screen, micro-cement walls and timber ceilings, kitchen and living room in one volume. Delivered and furnished — the house is in our catalog.",
+        ru: "Вилла с тремя спальнями, 151 м², на участке 800 м² с чанотом в Мадеуване, в центре острова. Бассейн с зоной отдыха, крытая терраса за решётчатой кладкой, микроцемент и дерево в отделке, кухня и гостиная одним объёмом. Дом сдан и меблирован — он есть в нашем каталоге.",
+      },
+      photo: "/images/developers/arqa/treehouse-pool.jpg",
+    },
     {
       title: "Demaya Resort",
       status: "built",
@@ -185,6 +200,12 @@ export const arqa: DeveloperProfile = {
       lat: 9.7215625,
       lng: 99.9881875,
       note: { en: "Under construction · phase III", ru: "Строится · фаза III" },
+    },
+    {
+      title: "Tree House",
+      lat: 9.718785,
+      lng: 100.005172,
+      note: { en: "For sale · Madeau Wan", ru: "В продаже · Мадеуван" },
     },
     {
       title: "Demaya Resort",
