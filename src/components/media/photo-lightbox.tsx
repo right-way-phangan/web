@@ -18,6 +18,11 @@ export interface LightboxPhoto {
   alt: string;
   /** Подпись под счётчиком (напр. код лота). */
   caption?: string;
+  /**
+   * Лёгкое превью для ленты миниатюр; полный кадр остаётся в `src`. Без него
+   * альбом на 38 кадров тянет все полноразмерные JPEG ради 80-пиксельных плиток.
+   */
+  thumb?: string;
 }
 
 interface ZoomState {
@@ -302,7 +307,7 @@ export function PhotoLightbox({ photos, index, onIndexChange, onClose, unoptimiz
                     x === i ? "opacity-100 ring-2 ring-brass-300" : "opacity-55 ring-1 ring-cream-50/20 hover:opacity-90",
                   )}
                 >
-                  <Image src={p.src} alt="" fill unoptimized={unoptimized} sizes="80px" className="object-cover" />
+                  <Image src={p.thumb ?? p.src} alt="" fill unoptimized={unoptimized} sizes="80px" className="object-cover" />
                 </button>
               ))}
             </div>

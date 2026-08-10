@@ -11,14 +11,24 @@ import {
   getPublicProjects,
 } from "@/lib/data/projects";
 import { getAllObjects } from "@/lib/data/objects";
+import { getDistrictMarket } from "@/lib/data/rental-market";
+import { getProjectEconomics } from "@/content/projects/economics";
+import { BUILD_COST_ARTICLE } from "@/lib/data/build-cost";
 import { getDeveloperProfile, resolveTimeline } from "@/content/developers";
+import { estateThumb } from "@/lib/utils/thumb";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getProjectsDict } from "@/lib/i18n/dictionaries";
 import { localePath } from "@/lib/i18n/locale-path";
 import { LeadForm } from "@/components/forms/lead-form";
 import { ProjectCard } from "./project-card";
 import { DeveloperTimeline } from "./developer-timeline";
-import { DeveloperGallery } from "./developer-gallery";
+import {
+  DeveloperPhotosProvider,
+  type DeveloperPhotoGroup,
+} from "./developer-photos";
+import { DeveloperAlbum, type AlbumThumb } from "./developer-album";
+import { DeveloperReturns, type ReturnsUnit } from "./developer-returns";
+import { DeveloperBuildCost } from "./developer-build-cost";
 import { DeveloperMap } from "./developer-map";
 import { DeveloperCtaBar } from "./developer-cta-bar";
 import { ProjectNav, type NavItem } from "./project-nav";
@@ -29,6 +39,25 @@ import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { jsonLdHtml } from "@/lib/seo/json-ld";
 import { getSiteUrl } from "@/lib/site-url";
+
+/** Заголовок секции: надзаголовок + h2 + необязательный лид — единая пара на всю страницу. */
+function SectionHead({
+  eyebrow,
+  title,
+  lede,
+}: {
+  eyebrow: string;
+  title: string;
+  lede?: string;
+}) {
+  return (
+    <div className="mb-8">
+      <SectionEyebrow>{eyebrow}</SectionEyebrow>
+      <h2 className="mt-3 font-serif text-3xl text-forest-900 md:text-4xl">{title}</h2>
+      {lede ? <p className="mt-3 max-w-prose text-forest-500/85">{lede}</p> : null}
+    </div>
+  );
+}
 
 /** Developer landing — one developer's profile, track record and catalog projects in one place. */
 export async function DeveloperPage({
@@ -93,28 +122,148 @@ export async function DeveloperPage({
     { n: profile?.timeline.length ?? 0, label: t.developers.kpi.portfolio },
     { n: delivered, label: t.developers.kpi.delivered },
     { n: building, label: t.developers.kpi.building },
-    { n: projects.length, label: t.developers.kpi.projects },
   ].filter((k) => k.n > 0);
 
   const gallery = profile?.gallery ?? [];
   const locations = profile?.locations ?? [];
 
+  // Один плоский список кадров на всю страницу: альбом показывает срез по
+  // проекту, но лайтбокс листает весь архив — и открывается он ещё и из
+  // карточек ленты истории. Индексная арифметика считается здесь, на сервере.
+  const flatPhotos = gallery.flatMap((set) =>
+    set.photos.map((src, i) => ({
+      src,
+      thumb: estateThumb(src),
+      alt: `${set.title} (${i + 1})`,
+      caption: set.title,
+    })),
+  );
+  const photoGroups: DeveloperPhotoGroup[] = [];
+  let acc = 0;
+  for (const set of gallery) {
+    photoGroups.push({
+      title: set.title,
+      note: set.note?.[locale],
+      start: acc,
+      count: set.photos.length,
+    });
+    acc += set.photos.length;
+  }
+  const albumThumbs: AlbumThumb[] = flatPhotos.map((p) => ({
+    thumb: p.thumb,
+    alt: p.alt,
+  }));
+
+  // Доходность считаем по проекту застройщика, который реально в продаже.
+  const saleProject = projects.find((p) => (p.priceThb ?? 0) > 0);
+  const saleUnits = saleProject ? getProjectUnits(saleProject, allObjects) : [];
+  const economics = saleProject
+    ? getProjectEconomics(saleProject.rwNumber)
+    : undefined;
+  const returnsUnits: ReturnsUnit[] = saleUnits
+    .filter((u) => u.status === "Active" && (u.priceThb ?? 0) > 0)
+    .map((u, i) => {
+      const label =
+        u.bedrooms != null ? `${u.bedrooms}BR` : u.rwNumber.split("-").pop() ?? `#${i + 1}`;
+      const claim = economics?.formats.find((f) => f.label === label);
+      return {
+        id: u.rwNumber,
+        label,
+        priceThb: u.priceThb!,
+        claimedYieldPct: claim?.yieldPct,
+        claimedPaybackYears: claim?.paybackYears,
+      };
+    });
+  if (!returnsUnits.length && saleProject?.priceThb) {
+    returnsUnits.push({
+      id: saleProject.rwNumber,
+      label: saleProject.rwNumber,
+      priceThb: saleProject.priceThb,
+    });
+  }
+  const dm = saleProject?.district ? getDistrictMarket(saleProject.district) : null;
+  const returnsMarket = dm
+    ? {
+        nightlyRateThb: dm.district.adrP75 ?? dm.district.adrMedian,
+        occupancyPct: dm.measuredOcc ?? dm.baseOccPct,
+        districtLabel: dm.district.name,
+      }
+    : null;
+  const showReturns = returnsUnits.length > 0;
+
+  // Площади юнитов — пресеты для калькулятора стройки (что реально строят рядом).
+  const presetAreas = Array.from(
+    new Set(
+      saleUnits
+        .map((u) => u.areaSqm)
+        .filter((a): a is number => typeof a === "number" && a >= 40 && a <= 600),
+    ),
+  ).sort((a, b) => a - b);
+
   // "enquire" is the sticky-nav CTA (ctaLabel), not a tab — keep it out of items
   // to avoid a duplicate Enquire (tab + CTA) both pointing at #enquire.
   const navItems: NavItem[] = [
     profile ? { id: "overview", label: t.developers.nav.overview } : null,
+    flatPhotos.length ? { id: "photos", label: t.developers.nav.photos } : null,
     timelineItems.length
       ? { id: "history", label: t.developers.nav.history }
       : null,
     projects.length
       ? { id: "projects", label: t.developers.nav.projects }
       : null,
-    gallery.length ? { id: "photos", label: t.developers.nav.photos } : null,
+    showReturns ? { id: "returns", label: t.developers.nav.returns } : null,
+    { id: "build", label: t.developers.nav.build },
   ].filter((x): x is NavItem => x != null);
 
   const base = getSiteUrl();
   const pageUrl = `${base}${localePath(locale, `/developers/${slug}`)}`;
   const devIndexHref = localePath(locale, "/developers");
+  const calcHref = localePath(locale, "/calculator");
+  const fullCalcHref = saleProject?.priceThb
+    ? `${calcHref}?price=${saleProject.priceThb}&mode=rent&tenure=leasehold&lease=30&phase=offplan`
+    : calcHref;
+  const articleHref = localePath(locale, `/knowledge/${BUILD_COST_ARTICLE}`);
+
+  // Перелинковка — только живые маршруты; district-ссылка идёт фильтром каталога,
+  // потому что у района проекта своей страницы может не быть.
+  const nextLinks: Array<{ group: string; items: Array<{ href: string; label: string }> }> = [
+    {
+      group: t.developers.sections.nextCatalog,
+      items: [
+        { href: localePath(locale, "/projects"), label: t.indexTitle.replace(/\.$/, "") },
+        { href: devIndexHref, label: t.developers.indexTitle.replace(/\.$/, "") },
+        ...(saleProject?.district
+          ? [
+              {
+                href: `${localePath(locale, "/listings")}?district=${encodeURIComponent(saleProject.district)}`,
+                label: saleProject.district,
+              },
+            ]
+          : []),
+        { href: localePath(locale, "/leasehold"), label: t.developers.nextLeasehold },
+      ],
+    },
+    {
+      group: t.developers.sections.nextLearn,
+      items: [
+        { href: articleHref, label: t.developers.build.articleCta },
+        {
+          href: localePath(locale, "/knowledge/buying-off-plan-new-developments"),
+          label: t.developers.nextOffplan,
+        },
+        { href: localePath(locale, "/due-diligence"), label: t.developers.nextVetting },
+        { href: localePath(locale, "/process"), label: t.developers.nextProcess },
+      ],
+    },
+    {
+      group: t.developers.sections.nextTools,
+      items: [
+        { href: calcHref, label: t.developers.returns.fullCta },
+        { href: localePath(locale, "/tools/zoning"), label: t.developers.nextZoning },
+        { href: localePath(locale, "/insights"), label: t.developers.nextInsights },
+      ],
+    },
+  ];
 
   const org: Record<string, unknown> = {
     "@context": "https://schema.org",
@@ -127,25 +276,8 @@ export async function DeveloperPage({
     org.description = profile.seo.description[locale];
   if (profile?.hero?.photo) org.image = `${base}${profile.hero.photo}`;
 
-  return (
+  const content = (
     <>
-      <BreadcrumbJsonLd
-        crumbs={[
-          {
-            name: locale === "ru" ? "Главная" : "Home",
-            url: locale === "ru" ? `${base}/ru` : `${base}/`,
-          },
-          { name: t.developers.indexEyebrow, url: `${base}${devIndexHref}` },
-          { name, url: pageUrl },
-        ]}
-      />
-      {profile ? (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: jsonLdHtml(org) }}
-        />
-      ) : null}
-
       {/* Hero */}
       <section className="container-prose pt-10 md:pt-14">
         {/* Plain breadcrumb (not the object Breadcrumbs — its middle crumb does
@@ -179,8 +311,7 @@ export async function DeveloperPage({
             </li>
           </ol>
         </nav>
-        <SectionEyebrow>{t.developer}</SectionEyebrow>
-        <h1 className="mt-3 max-w-3xl text-balance">{name}</h1>
+        <h1 className="max-w-3xl text-balance">{name}</h1>
         {profile?.hero?.tagline ? (
           <p className="mt-4 max-w-2xl text-lg text-forest-500/85">
             {profile.hero.tagline[locale]}
@@ -188,20 +319,22 @@ export async function DeveloperPage({
         ) : null}
 
         {profile?.hero?.photo ? (
-          <div className="mt-8 overflow-hidden rounded-sm">
+          // Рамка фиксированной пропорции: без неё кадр приезжает на 204px выше
+          // объявленной высоты и утаскивает за собой весь первый экран.
+          <div className="relative mt-8 aspect-[16/9] overflow-hidden rounded-sm bg-forest-900/[0.04] md:aspect-[21/9]">
             <Image
               src={profile.hero.photo}
               alt={name}
-              width={1280}
-              height={640}
-              className="h-auto w-full object-cover"
+              fill
+              sizes="(min-width: 1280px) 1216px, 100vw"
+              className="object-cover"
               priority
             />
           </div>
         ) : null}
 
         {kpis.length ? (
-          <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4">
+          <dl className="mt-8 grid grid-cols-3 gap-x-6 gap-y-5">
             {kpis.map((k) => (
               <div key={k.label}>
                 <dd className="font-serif text-3xl text-forest-900">
@@ -214,17 +347,6 @@ export async function DeveloperPage({
             ))}
           </dl>
         ) : null}
-
-        {profile ? (
-          <div className="mt-8">
-            <a
-              href="#enquire"
-              className="inline-flex h-11 items-center rounded-sm bg-forest-900 px-5 text-sm font-medium text-cream-50 transition-colors hover:bg-forest-900/90"
-            >
-              {t.developers.nav.enquire}
-            </a>
-          </div>
-        ) : null}
       </section>
 
       {/* ProjectNav (position: sticky) must be a DIRECT sibling of the content in
@@ -235,13 +357,14 @@ export async function DeveloperPage({
           <ProjectNav items={navItems} ctaLabel={t.developers.nav.enquire} />
         ) : null}
 
-        <section className="container-prose pb-24 md:pb-28">
+        <div className="container-prose space-y-20 pb-24 pt-14 md:space-y-28 md:pb-28">
           {profile ? (
-            <div id="overview" className="mt-14 scroll-mt-32">
+            <section id="overview" className="scroll-mt-32">
               <Appear>
-                <h2 className="font-serif text-3xl text-forest-900">
-                  {t.developers.aboutTitle}
-                </h2>
+                <SectionHead
+                  eyebrow={t.developers.indexEyebrow}
+                  title={t.developers.aboutTitle}
+                />
                 {profile.bio[locale].split("\n\n").map((para, i) => (
                   <p key={i} className="mt-4 max-w-prose text-forest-500/85">
                     {para}
@@ -262,32 +385,61 @@ export async function DeveloperPage({
                   </dl>
                 ) : null}
               </Appear>
-            </div>
+            </section>
+          ) : null}
+
+          {/* Фото стоят высоко: это главное доказательство, а не приложение
+              к тексту — раньше до них было три экрана прокрутки. */}
+          {albumThumbs.length ? (
+            <section id="photos" className="scroll-mt-32">
+              <Appear>
+                <SectionHead
+                  eyebrow={t.developers.nav.photos}
+                  title={t.developers.sections.photosTitle}
+                  lede={t.developers.sections.photosLede}
+                />
+                <DeveloperAlbum thumbs={albumThumbs} locale={locale} />
+              </Appear>
+            </section>
           ) : null}
 
           {timelineItems.length ? (
-            <div id="history" className="mt-16 scroll-mt-32">
+            <section id="history" className="scroll-mt-32">
               <Appear>
-                <h2 className="font-serif text-3xl text-forest-900">
-                  {t.developers.historyTitle}
-                </h2>
+                <SectionHead
+                  eyebrow={t.developers.nav.history}
+                  title={t.developers.historyTitle}
+                />
                 <DeveloperTimeline items={timelineItems} locale={locale} />
+                {/* A single pin is the object page's job — the map earns its place
+                    only when it shows how the developer's sites relate to each other. */}
+                {locations.length > 1 ? (
+                  <div className="mt-12">
+                    <h3 className="font-serif text-2xl text-forest-900">
+                      {t.developers.mapTitle}
+                    </h3>
+                    <p className="mt-2 max-w-prose text-sm text-forest-500/70">
+                      {t.developers.mapLede}
+                    </p>
+                    <DeveloperMap locations={locations} locale={locale} />
+                  </div>
+                ) : null}
               </Appear>
-            </div>
+            </section>
           ) : null}
 
           {projects.length ? (
-            <div id="projects" className="mt-16 scroll-mt-32">
+            <section id="projects" className="scroll-mt-32">
               <Appear>
-                {profile ? (
-                  <h2 className="font-serif text-3xl text-forest-900">
-                    {t.developers.catalogTitle}
-                  </h2>
-                ) : null}
+                <SectionHead
+                  eyebrow={t.developers.nav.projects}
+                  title={t.developers.catalogTitle}
+                />
                 <div
                   className={
-                    (profile ? "mt-8" : "mt-10") +
-                    " grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+                    projects.length === 1
+                      ? "max-w-md"
+                      : "grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
                   }
                 >
                   {projects.map((project) => {
@@ -303,64 +455,138 @@ export async function DeveloperPage({
                         project={project}
                         href={href}
                         availability={availability}
+                        showDeveloper={false}
                       />
                     );
                   })}
                 </div>
               </Appear>
-            </div>
+            </section>
           ) : null}
 
-          {gallery.length ? (
-            <div id="photos" className="mt-16 scroll-mt-32">
+          {showReturns ? (
+            <section id="returns" className="scroll-mt-32">
               <Appear>
-                <DeveloperGallery
-                  sets={gallery}
+                <SectionHead
+                  eyebrow={t.developers.nav.returns}
+                  title={t.developers.sections.returnsTitle}
+                  lede={t.developers.sections.returnsLede}
+                />
+                <DeveloperReturns
+                  units={returnsUnits}
+                  market={returnsMarket}
+                  fullCalcHref={fullCalcHref}
                   locale={locale}
-                  title={t.developers.galleryTitle}
                 />
               </Appear>
-            </div>
+            </section>
           ) : null}
 
-          {/* A single pin is the object page's job — the map earns its place
-              only when it shows how the developer's sites relate to each other. */}
-          {locations.length > 1 ? (
-            <Appear className="mt-16">
-              <h2 className="font-serif text-3xl text-forest-900">
-                {t.developers.mapTitle}
-              </h2>
-              <p className="mt-2 max-w-prose text-sm text-forest-500/70">
-                {t.developers.mapLede}
-              </p>
-              <DeveloperMap locations={locations} locale={locale} />
-            </Appear>
-          ) : null}
-
-          {profile ? (
-            <div id="enquire" className="mt-16 max-w-xl scroll-mt-32">
-              <Appear>
-                <h2 className="font-serif text-3xl text-forest-900">
-                  {t.developers.formTitle}
-                </h2>
-                <p className="mt-3 text-sm text-forest-500/70">
-                  {t.developers.formLede}
-                </p>
-                <div className="mt-6">
-                  <LeadForm
-                    source="contact"
-                    kind="construction"
-                    developer={profile.slug}
-                    defaultMessage={t.developers.formDefaultMessage(name)}
-                    submitLabel={t.developers.formSubmit}
-                    locale={locale}
-                  />
+          <section id="build" className="scroll-mt-32">
+            <Appear>
+              <SectionHead
+                eyebrow={t.developers.nav.build}
+                title={t.developers.sections.buildTitle}
+                lede={t.developers.sections.buildLede}
+              />
+              <DeveloperBuildCost
+                presetAreas={presetAreas}
+                articleHref={articleHref}
+                calcHref={`${calcHref}#build`}
+                locale={locale}
+              />
+              {profile ? (
+                <div id="enquire" className="mt-14 max-w-xl scroll-mt-32">
+                  <h3 className="font-serif text-2xl text-forest-900">
+                    {t.developers.formTitle}
+                  </h3>
+                  <p className="mt-3 text-sm text-forest-500/70">
+                    {t.developers.formLede}
+                  </p>
+                  <div className="mt-6">
+                    <LeadForm
+                      source="contact"
+                      kind="construction"
+                      developer={profile.slug}
+                      defaultMessage={t.developers.formDefaultMessage(name)}
+                      submitLabel={t.developers.formSubmit}
+                      locale={locale}
+                    />
+                  </div>
                 </div>
-              </Appear>
-            </div>
-          ) : null}
-        </section>
+              ) : null}
+            </Appear>
+          </section>
+
+          <section id="next" className="scroll-mt-32">
+            <Appear>
+              <SectionHead
+                eyebrow={t.developers.sections.nextTitle}
+                title={t.developers.sections.nextTitle}
+              />
+              <div className="grid gap-8 sm:grid-cols-3">
+                {nextLinks.map((col) => (
+                  <div key={col.group}>
+                    <div className="text-xs font-medium uppercase tracking-[0.15em] text-forest-500/55">
+                      {col.group}
+                    </div>
+                    <ul className="mt-3 space-y-2">
+                      {col.items.map((l) => (
+                        <li key={l.href + l.label}>
+                          <Link
+                            href={l.href as Route}
+                            className="text-sm text-forest-600 underline-offset-4 transition-colors hover:text-brass-500 hover:underline"
+                          >
+                            {l.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </Appear>
+          </section>
+        </div>
       </div>
+    </>
+  );
+
+  return (
+    <>
+      <BreadcrumbJsonLd
+        crumbs={[
+          {
+            name: locale === "ru" ? "Главная" : "Home",
+            url: locale === "ru" ? `${base}/ru` : `${base}/`,
+          },
+          { name: t.developers.indexEyebrow, url: `${base}${devIndexHref}` },
+          { name, url: pageUrl },
+        ]}
+      />
+      {profile ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: jsonLdHtml(org) }}
+        />
+      ) : null}
+
+      {flatPhotos.length ? (
+        <DeveloperPhotosProvider
+          photos={flatPhotos}
+          groups={photoGroups}
+          title={t.developers.sections.photosTitle}
+          labels={{
+            prev: locale === "ru" ? "Назад" : "Previous",
+            next: locale === "ru" ? "Вперёд" : "Next",
+            close: locale === "ru" ? "Закрыть" : "Close",
+          }}
+        >
+          {content}
+        </DeveloperPhotosProvider>
+      ) : (
+        content
+      )}
 
       <BackToTop />
       {profile ? <DeveloperCtaBar label={t.developers.nav.enquire} /> : null}
