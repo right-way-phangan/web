@@ -2,6 +2,7 @@
 
 import { generateObjectTitle } from "@/lib/generate/object-title";
 import { titleAttrsFromInput, type NewObjectInput } from "@/lib/amocrm/object-writer";
+import { requireStaff } from "@/lib/auth/require-admin";
 
 /** Subset of the intake form needed to suggest a title (preview, pre-create). */
 export interface TitlePreviewInput {
@@ -26,6 +27,7 @@ export interface TitlePreviewInput {
  * The RW number isn't known until publish, so `nonce` seeds the variety instead.
  */
 export async function previewObjectTitle(inp: TitlePreviewInput): Promise<string> {
+  await requireStaff();
   if (!inp.type) return "";
   const partial: NewObjectInput = {
     type: inp.type,

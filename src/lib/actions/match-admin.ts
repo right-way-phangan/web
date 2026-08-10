@@ -9,6 +9,7 @@ import {
 } from "@/lib/match/engine";
 import { rankShortlist } from "@/lib/match/llm";
 import { backendFetch } from "@/lib/api/backend";
+import { requireAdmin } from "@/lib/auth/require-admin";
 import type { BuyerProfile, MatchResult } from "@/types/match";
 
 /**
@@ -25,6 +26,7 @@ export async function adminMatch(
   rawProfile: unknown,
   locale: "en" | "ru" = "ru",
 ): Promise<{ results: MatchResult[] }> {
+  await requireAdmin();
   const objects = await getAllObjects();
   // Агент показывает и Active, и Hold (придержанные) — но не проданные/снятые.
   const sellable = objects.filter(
@@ -94,6 +96,7 @@ export async function createMatchLead(input: {
   profile: unknown;
   likedRws?: string[];
 }): Promise<{ ok: boolean; leadId?: number; error?: string }> {
+  await requireAdmin();
   const name = String(input.name ?? "").trim();
   if (name.length < 2) return { ok: false, error: "Укажите имя клиента." };
   if (!CRM_API_URL)

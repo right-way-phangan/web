@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { backendFetch } from "@/lib/api/backend";
+import { requireAdmin } from "@/lib/auth/require-admin";
 
 const API = process.env.OBJECTS_API_URL;
 
@@ -33,18 +34,21 @@ async function patchPost(id: number, patch: Record<string, unknown>): Promise<bo
  * в канал держится до запуска (launch sequencing) — «scheduled» = вычитано и готово.
  */
 export async function approvePostPair(ids: number[]): Promise<void> {
+  await requireAdmin();
   for (const id of ids) await patchPost(id, { status: "scheduled" });
   revalidatePosts();
 }
 
 /** Вернуть пару в черновики (на доработку Гермесом / ручную правку). */
 export async function reopenPostPair(ids: number[]): Promise<void> {
+  await requireAdmin();
   for (const id of ids) await patchPost(id, { status: "draft" });
   revalidatePosts();
 }
 
 /** Отклонить пару с заметкой-причиной. */
 export async function rejectPostPair(formData: FormData): Promise<void> {
+  await requireAdmin();
   const ids = String(formData.get("ids") ?? "")
     .split(",")
     .map((s) => Number(s.trim()))

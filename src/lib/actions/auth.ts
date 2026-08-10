@@ -18,7 +18,7 @@ export async function loginAction(
   if (!email || !password) return { error: "Введите email и пароль." };
 
   // Throttle password attempts per IP (10 / 15 min) — blunts brute-force.
-  if (!(await rateLimit("login", 10, 15 * 60))) {
+  if (!(await rateLimit("login", 10, 15 * 60, { failClosed: true }))) {
     return { error: "Слишком много попыток входа. Подождите несколько минут." };
   }
 

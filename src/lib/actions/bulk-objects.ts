@@ -2,6 +2,7 @@
 
 import { revalidatePath, revalidateTag } from "next/cache";
 import { backendFetch } from "@/lib/api/backend";
+import { requireStaff } from "@/lib/auth/require-admin";
 
 const API = process.env.OBJECTS_API_URL;
 
@@ -10,6 +11,7 @@ export async function setObjectNeedsReview(
   rw: string,
   needsReview: boolean,
 ): Promise<{ ok: boolean; error?: string }> {
+  await requireStaff();
   if (!API) return { ok: false, error: "Backend не подключён." };
   const r = await backendFetch(`/objects/${encodeURIComponent(rw)}`, {
     method: "PATCH",
@@ -26,6 +28,7 @@ export async function setObjectNeedsReview(
 export async function markAllNeedsReview(
   rwNumbers: string[],
 ): Promise<BulkResult> {
+  await requireStaff();
   if (!API) return { ok: false, updated: 0, failed: 0, error: "Backend не подключён." };
   const results = await Promise.allSettled(
     rwNumbers.map((rw) =>
@@ -56,6 +59,7 @@ export async function bulkUpdateObjectStatus(
   rwNumbers: string[],
   status: string,
 ): Promise<BulkResult> {
+  await requireStaff();
   if (!API) return { ok: false, updated: 0, failed: 0, error: "Backend не подключён." };
   if (rwNumbers.length === 0) return { ok: true, updated: 0, failed: 0 };
 
@@ -92,6 +96,7 @@ export async function bulkUpdateObjectStatus(
 export async function bulkDeleteObjects(
   rwNumbers: string[],
 ): Promise<BulkResult> {
+  await requireStaff();
   if (!API) return { ok: false, updated: 0, failed: 0, error: "Backend не подключён." };
   if (rwNumbers.length === 0) return { ok: true, updated: 0, failed: 0 };
 

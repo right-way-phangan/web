@@ -2,6 +2,7 @@
 
 import { revalidatePath, revalidateTag } from "next/cache";
 import { backendFetch } from "@/lib/api/backend";
+import { requireStaff } from "@/lib/auth/require-admin";
 
 const API = process.env.OBJECTS_API_URL;
 
@@ -43,6 +44,7 @@ export async function updateObjectAction(
   rwNumber: string,
   patch: ObjectPatch,
 ): Promise<UpdateObjectResult> {
+  await requireStaff();
   if (!API) return { ok: false, error: "Backend не подключён (OBJECTS_API_URL)." };
   try {
     const res = await backendFetch(`/objects/${encodeURIComponent(rwNumber)}`, {
@@ -77,6 +79,7 @@ export async function updateObjectAction(
 export async function regenerateDescriptionAction(
   rwNumber: string,
 ): Promise<{ ok: boolean; en?: string; ru?: string; error?: string }> {
+  await requireStaff();
   const { getObjectByRwNumber } = await import("@/lib/data/objects");
   const { generateObjectDescription } = await import("@/lib/generate/object-description");
   const obj = await getObjectByRwNumber(rwNumber);

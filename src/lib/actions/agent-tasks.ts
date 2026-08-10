@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { backendFetch } from "@/lib/api/backend";
+import { requireAdmin } from "@/lib/auth/require-admin";
 
 const API = process.env.OBJECTS_API_URL;
 
@@ -16,6 +17,7 @@ function revalidateAgents() {
  * поллером, посчитает и заполнит ответ. Здесь только постановка в очередь.
  */
 export async function askCouncil(formData: FormData): Promise<void> {
+  await requireAdmin();
   if (!API) return;
   const question = String(formData.get("question") ?? "").trim();
   if (!question) return;
@@ -35,6 +37,7 @@ export async function askCouncil(formData: FormData): Promise<void> {
 
 /** Отметить задачу выполненной. */
 export async function markTaskDone(id: number): Promise<void> {
+  await requireAdmin();
   if (!API) return;
   try {
     const res = await backendFetch(`/agent-tasks/${id}`, {
@@ -53,6 +56,7 @@ export async function markTaskDone(id: number): Promise<void> {
 
 /** Вернуть выполненную задачу в открытые. */
 export async function reopenTask(id: number): Promise<void> {
+  await requireAdmin();
   if (!API) return;
   try {
     const res = await backendFetch(`/agent-tasks/${id}`, {
@@ -70,6 +74,7 @@ export async function reopenTask(id: number): Promise<void> {
 
 /** Удалить задачу. */
 export async function deleteAgentTask(id: number): Promise<void> {
+  await requireAdmin();
   if (!API) return;
   try {
     const res = await backendFetch(`/agent-tasks/${id}`, { method: "DELETE", cache: "no-store" });

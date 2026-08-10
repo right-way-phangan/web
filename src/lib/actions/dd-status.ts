@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { backendFetch } from "@/lib/api/backend";
 import { DD_STATUSES, DD_CHECKLIST, type DdStatus } from "@/lib/dd";
+import { requireAdmin } from "@/lib/auth/require-admin";
 
 const API = process.env.OBJECTS_API_URL;
 
@@ -18,6 +19,7 @@ export async function setDdStatus(
   status: DdStatus | "",
   lawyer?: string,
 ): Promise<DdResult> {
+  await requireAdmin();
   if (!API) return { ok: false, error: "Backend не подключён (OBJECTS_API_URL)." };
   if (status !== "" && !DD_STATUSES.includes(status as DdStatus)) {
     return { ok: false, error: `Неизвестный статус: ${status}` };
@@ -58,6 +60,7 @@ export async function saveDdChecklist(
   rwNumber: string,
   checklist: Record<string, boolean>,
 ): Promise<DdResult> {
+  await requireAdmin();
   if (!API) return { ok: false, error: "Backend не подключён (OBJECTS_API_URL)." };
 
   const allowed = new Set(DD_CHECKLIST.map((i) => i.key));

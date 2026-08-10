@@ -7,6 +7,7 @@ import { OBJECT_TYPES } from "@/lib/amocrm/dictionaries";
 import { classifyImageIsDocument } from "@/lib/classify/image-doc";
 import { backendFetch } from "@/lib/api/backend";
 import { uploadImageToR2 } from "@/lib/storage/r2";
+import { requireStaff } from "@/lib/auth/require-admin";
 
 /**
  * Migration off amoCRM (Phase A): when OBJECTS_API_URL is set, new objects are
@@ -127,6 +128,7 @@ export async function createObject(
   _prev: NewObjectState,
   formData: FormData,
 ): Promise<NewObjectState> {
+  await requireStaff();
   const type = str(formData.get("type"));
   if (!type || !(OBJECT_TYPES as readonly string[]).includes(type)) {
     return { status: "error", message: "Выберите корректный тип объекта." };

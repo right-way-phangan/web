@@ -2,6 +2,7 @@
 
 import { revalidatePath, revalidateTag } from "next/cache";
 import { backendFetch } from "@/lib/api/backend";
+import { requireAdmin } from "@/lib/auth/require-admin";
 
 const API = process.env.OBJECTS_API_URL;
 
@@ -16,6 +17,7 @@ function revalidateBlog() {
 
 /** Approve → publish (goes live on /blog). */
 export async function approveArticle(id: number): Promise<void> {
+  await requireAdmin();
   if (!API) return;
   try {
     await backendFetch(`/articles/${id}`, {
@@ -32,6 +34,7 @@ export async function approveArticle(id: number): Promise<void> {
 
 /** Return for rework with an optional reviewer note. */
 export async function rejectArticle(id: number, note: string): Promise<void> {
+  await requireAdmin();
   if (!API) return;
   try {
     await backendFetch(`/articles/${id}`, {
@@ -48,6 +51,7 @@ export async function rejectArticle(id: number, note: string): Promise<void> {
 
 /** Unpublish a live post back to pending (rare — pulled for an edit). */
 export async function unpublishArticle(id: number): Promise<void> {
+  await requireAdmin();
   if (!API) return;
   try {
     await backendFetch(`/articles/${id}`, {
@@ -64,6 +68,7 @@ export async function unpublishArticle(id: number): Promise<void> {
 
 /** Delete an article (e.g. a rejected draft we won't revive). */
 export async function deleteArticle(id: number): Promise<void> {
+  await requireAdmin();
   if (!API) return;
   try {
     await backendFetch(`/articles/${id}`, { method: "DELETE", cache: "no-store" });

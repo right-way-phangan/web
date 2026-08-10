@@ -2,12 +2,14 @@
 
 import { revalidatePath } from "next/cache";
 import { backendFetch } from "@/lib/api/backend";
+import { requireAdmin } from "@/lib/auth/require-admin";
 import { MONTHLY_TARGET_KEY } from "@/lib/data/settings";
 
 const API = process.env.OBJECTS_API_URL;
 
 /** Set / clear the monthly commission target (THB). null clears it. */
 export async function setMonthlyTarget(thb: number | null): Promise<boolean> {
+  await requireAdmin();
   if (!API) return false;
   try {
     const r = await backendFetch(`/settings/${MONTHLY_TARGET_KEY}`, {

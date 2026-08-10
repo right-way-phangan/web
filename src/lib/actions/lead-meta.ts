@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { backendFetch } from "@/lib/api/backend";
+import { requireStaff } from "@/lib/auth/require-admin";
 
 const API = process.env.OBJECTS_API_URL;
 const JSON_HEADERS = { "Content-Type": "application/json" };
@@ -28,6 +29,7 @@ async function patchLead(leadId: number, body: object): Promise<boolean> {
 
 /** Set / clear the expected deal size (THB). */
 export async function updateLeadValue(leadId: number, dealValue: number | null): Promise<boolean> {
+  await requireStaff();
   return patchLead(leadId, { dealValue });
 }
 
@@ -36,11 +38,13 @@ export async function updateExpectedClose(
   leadId: number,
   expectedCloseAt: string | null,
 ): Promise<boolean> {
+  await requireStaff();
   return patchLead(leadId, { expectedCloseAt });
 }
 
 /** Replace the lead's tags — used by the shortlist (object:RW-… tags). */
 export async function updateLeadTags(leadId: number, tags: string[]): Promise<boolean> {
+  await requireStaff();
   return patchLead(leadId, { tags });
 }
 
@@ -49,6 +53,7 @@ export async function updateLeadCommission(
   leadId: number,
   commissionValue: number | null,
 ): Promise<boolean> {
+  await requireStaff();
   const ok = await patchLead(leadId, { commissionValue });
   revalidatePath("/admin/finance");
   return ok;
@@ -60,6 +65,7 @@ export async function toggleDealStep(
   key: string,
   done: boolean,
 ): Promise<boolean> {
+  await requireStaff();
   if (!API) return false;
   try {
     const r = await backendFetch(`/leads/${leadId}/deal-checklist`, {
