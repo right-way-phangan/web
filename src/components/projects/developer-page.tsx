@@ -12,7 +12,7 @@ import {
 } from "@/lib/data/projects";
 import { getAllObjects } from "@/lib/data/objects";
 import { getDistrictMarket } from "@/lib/data/rental-market";
-import { getProjectEconomics } from "@/content/projects/economics";
+import { getProjectEconomics, PUBLISH_DEVELOPER_ECONOMICS } from "@/content/projects/economics";
 import { BUILD_COST_ARTICLE } from "@/lib/data/build-cost";
 import { getDeveloperProfile, resolveTimeline } from "@/content/developers";
 import { estateThumb } from "@/lib/utils/thumb";
@@ -160,7 +160,7 @@ export async function DeveloperPage({
   // Доходность считаем по проекту застройщика, который реально в продаже.
   const saleProject = projects.find((p) => (p.priceThb ?? 0) > 0);
   const saleUnits = saleProject ? getProjectUnits(saleProject, allObjects) : [];
-  const economics = saleProject
+  const economics = saleProject && PUBLISH_DEVELOPER_ECONOMICS
     ? getProjectEconomics(saleProject.rwNumber)
     : undefined;
   const returnsUnits: ReturnsUnit[] = saleUnits
