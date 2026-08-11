@@ -113,7 +113,7 @@ export default async function DistrictsPage() {
       </section>
 
       <section className="border-t border-forest-500/10 bg-cream-200/30">
-        <div className="container-prose py-24 md:py-32">
+        <div className="container-prose py-16 md:py-24">
           <Reveal className="max-w-2xl">
             <SectionEyebrow>Find your fit</SectionEyebrow>
             <h2 className="mt-3 font-serif text-3xl text-forest-900 md:text-4xl">

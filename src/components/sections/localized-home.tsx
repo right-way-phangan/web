@@ -76,7 +76,7 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
           {dict.values.items.map((item, i) => (
             <Appear key={item.title} delay={i * 0.1}>
               <div className="max-w-sm">
-                <span className="block h-px w-12 bg-brass-600/50" aria-hidden />
+                <span className="rule-draw block h-px w-12 bg-brass-600/50" aria-hidden />
                 <h3 className="mt-6 font-serif text-[1.75rem] leading-tight text-forest-900">
                   {item.title}
                 </h3>
@@ -142,13 +142,23 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
         </p>
       </section>
 
+      {/* Один Reveal на все четыре секции прятал 2800px разом: блок раскрывался
+          целиком, когда его верх входил в кадр, — нижние секции успевали
+          «проявиться» задолго до того, как читатель до них доедет. Появление
+          посекционное: каждая встречает своего зрителя. */}
       <Reveal>
         <DistrictsBento locale={locale} />
+      </Reveal>
 
+      <Reveal>
         <FeaturedListings locale={locale} />
+      </Reveal>
 
+      <Reveal>
         <Testimonials locale={locale} />
+      </Reveal>
 
+      <Reveal>
         <HomeArticles locale={locale} />
       </Reveal>
 

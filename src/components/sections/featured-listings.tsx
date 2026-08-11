@@ -32,7 +32,7 @@ export async function FeaturedListings({ locale = "en" }: { locale?: Locale }) {
     .map(slimObjectForCard);
 
   return (
-    <section className="container-prose py-24 md:py-32">
+    <section className="container-prose py-16 md:py-24">
       <div className="flex flex-wrap items-end justify-between gap-6">
         <div>
           <SectionEyebrow>{dict.eyebrow}</SectionEyebrow>

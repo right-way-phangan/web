@@ -40,8 +40,9 @@ export function Footer() {
   const privacyLabel = isRu ? "Конфиденциальность" : "Privacy";
 
   // The homepage ends on the full-bleed IslandCta band; let the footer sit flush
-  // against it instead of floating below a wide cream gap. Other pages close on
-  // light content and keep the breathing room.
+  // against it. Other pages close on light content and get a thin breath — the
+  // last section already carries 96px of its own bottom padding, so the former
+  // mt-32 stacked into a ~300px empty band on every page (measured 2026-08-11).
   const isHome = pathname === "/" || pathname === "/ru";
 
   // Под CRM маркетинговый подвал не нужен: 21 ссылка на публичные разделы и
@@ -51,7 +52,7 @@ export function Footer() {
   return (
     <footer
       className={`relative border-t border-forest-500/10 bg-cream-200/40 print:hidden ${
-        isHome ? "" : "mt-32"
+        isHome ? "" : "mt-8"
       }`}
     >
       {/* Янтарная градиент-нить поверх рамки — тёплый перелив на каждой странице */}
