@@ -20,13 +20,22 @@ export function LeaseholdScheme({
       {/* Высота задана явно (top-14 + bottom-10 = 6rem): svg с viewBox иначе
           схлопывается до собственной пропорции вместо растяжения по top/bottom. */}
       <svg
-        className="pointer-events-none absolute left-[2.6rem] top-14 h-[calc(100%-6rem)] w-px"
+        className="draw-line draw-line-in pointer-events-none absolute left-[2.6rem] top-14 h-[calc(100%-6rem)] w-px"
         viewBox="0 0 1 100"
         preserveAspectRatio="none"
         aria-hidden
       >
         <defs>
-          <linearGradient id="scheme-line" x1="0" y1="0" x2="0" y2="1">
+          {/* userSpaceOnUse обязателен: у вертикальной линии bbox нулевой
+              ширины, и градиент в objectBoundingBox на нём не рисуется. */}
+          <linearGradient
+            id="scheme-line"
+            gradientUnits="userSpaceOnUse"
+            x1="0"
+            y1="0"
+            x2="0"
+            y2="100"
+          >
             <stop offset="0%" stopColor="rgb(var(--c-brass-500))" stopOpacity="0.5" />
             <stop offset="55%" stopColor="rgb(var(--c-forest-500))" stopOpacity="0.2" />
             <stop offset="100%" stopColor="rgb(var(--c-forest-500))" stopOpacity="0" />
@@ -37,11 +46,8 @@ export function LeaseholdScheme({
           y1="0"
           x2="0.5"
           y2="100"
-          pathLength={1}
           strokeWidth={1}
-          vectorEffect="non-scaling-stroke"
           stroke="url(#scheme-line)"
-          className="draw-path draw-path-in"
         />
       </svg>
       <ul className="space-y-6">
