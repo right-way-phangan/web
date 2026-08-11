@@ -1827,7 +1827,7 @@ const projectsDict: Record<Locale, ProjectsDict> = {
         nextLearn: "Get your bearings",
         nextTools: "Tools",
       },
-      dateTbc: "Dates to be confirmed",
+      dateTbc: "Years are shown where the developer has confirmed them.",
       soonLede:
         "The developer hasn't confirmed the details yet — we publish only what we can verify.",
       formTitle: "Construction enquiry",
@@ -2013,7 +2013,7 @@ const projectsDict: Record<Locale, ProjectsDict> = {
         nextLearn: "Разобраться",
         nextTools: "Инструменты",
       },
-      dateTbc: "Даты уточняются",
+      dateTbc: "Годы показаны там, где подтверждены застройщиком.",
       soonLede:
         "Детали пока не подтверждены застройщиком — публикуем только то, что проверили.",
       formTitle: "Заявка на строительство",

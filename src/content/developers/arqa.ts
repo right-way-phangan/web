@@ -134,7 +134,11 @@ export const arqa: DeveloperProfile = {
     {
       title: "Phangaia Garden Resort",
       note: { en: "Delivered · Nai Wok", ru: "Сдан · Най Вок" },
+      // Обложки (hero страницы и кадр карточки в ленте) входят в набор: иначе
+      // они не листаются в лайтбоксе, а у проекта не сходится счётчик кадров.
       photos: [
+        "/images/developers/arqa/phangaia-gateway.jpg",
+        "/images/developers/arqa/phangaia-pool.jpg",
         "/images/developers/arqa/phangaia-pool-deck.jpg",
         "/images/developers/arqa/phangaia-villas.jpg",
         "/images/developers/arqa/phangaia-living.jpg",
@@ -153,9 +157,15 @@ export const arqa: DeveloperProfile = {
       ],
     },
     {
+      title: "Tree House",
+      note: { en: "For sale · Madeau Wan", ru: "В продаже · Мадеуван" },
+      photos: ["/images/developers/arqa/treehouse-pool.jpg"],
+    },
+    {
       title: "Demaya Resort",
       note: { en: "Delivered · one-bedroom villa", ru: "Сдан · вилла с одной спальней" },
       photos: [
+        "/images/developers/arqa/demaya-pool-view.jpg",
         "/images/developers/arqa/demaya-pool.jpg",
         "/images/developers/arqa/demaya-exterior.jpg",
         "/images/developers/arqa/demaya-terrace.jpg",
@@ -174,6 +184,7 @@ export const arqa: DeveloperProfile = {
         ru: "Фаза III, строится · построенная вилла того же типа",
       },
       photos: [
+        "/images/developers/arqa/verana-exterior-pool.jpg",
         "/images/developers/arqa/verana-facade.jpg",
         "/images/developers/arqa/verana-pool.jpg",
         "/images/developers/arqa/verana-bedroom-pool.jpg",
