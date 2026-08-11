@@ -28,13 +28,24 @@ export function ProcessTimeline({ steps }: Props) {
                    вместо растяжения. Высота li плюс отступ top-16 как раз
                    доводят линию до цифры следующего шага. */
                 <svg
-                  className="pointer-events-none absolute left-3 top-16 hidden h-full w-px text-forest-500 md:block"
+                  className="draw-line draw-line-scroll pointer-events-none absolute left-3 top-16 hidden h-full w-px text-forest-500 md:block"
                   viewBox="0 0 1 100"
                   preserveAspectRatio="none"
                   aria-hidden
                 >
                   <defs>
-                    <linearGradient id={`step-line-${step.number}`} x1="0" y1="0" x2="0" y2="1">
+                    {/* userSpaceOnUse обязателен: bbox вертикальной линии
+                        нулевой ширины, а градиент в objectBoundingBox на
+                        вырожденном bbox не отрисовывается — линия просто
+                        исчезает. */}
+                    <linearGradient
+                      id={`step-line-${step.number}`}
+                      gradientUnits="userSpaceOnUse"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="100"
+                    >
                       <stop offset="0%" stopColor="currentColor" stopOpacity="0.28" />
                       <stop offset="70%" stopColor="currentColor" stopOpacity="0.18" />
                       <stop offset="100%" stopColor="currentColor" stopOpacity="0.04" />
@@ -45,11 +56,8 @@ export function ProcessTimeline({ steps }: Props) {
                     y1="0"
                     x2="0.5"
                     y2="100"
-                    pathLength={1}
                     strokeWidth={1}
-                    vectorEffect="non-scaling-stroke"
                     stroke={`url(#step-line-${step.number})`}
-                    className="draw-path draw-path-scroll"
                   />
                 </svg>
               ) : null}
