@@ -5694,6 +5694,121 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "phangan",
     faqQuestion: "Are international hotel brands like Avani and KAIA actually opening on Koh Phangan, and does it matter for buyers?",
   },
+  {
+    slug: "short-term-rental-airbnb-crackdown-2026",
+    kbId: "kb-0087",
+    topic: "Process",
+    title: "Airbnb and short-term rentals in Thailand's 2026 crackdown: what's actually illegal, what's exempt",
+    short:
+      "Any paid stay under 30 days is legally a hotel business under the Hotel Act — that applies to a standalone villa exactly as it does to a condo. But a 2023 exemption already lets most small villas register locally instead of getting a full hotel licence, and 2025-2026 enforcement is now data-driven: tax, immigration and district-office records are cross-checked against booking platforms.",
+    updated: "2026-08-11",
+    body: [
+      "Is it actually legal to rent out a Koh Phangan villa on Airbnb? Usually yes, but not automatically — a stay under 30 days is a \"hotel business\" under the Hotel Act B.E. 2547 regardless of whether the property is a condo unit or a standalone house, and operating one without a licence or a registered exemption is what the 2025-2026 crackdown targets. Most Phangan villas already qualify for a lighter-touch registration route; the risk is in skipping the paperwork, not in the rental itself.",
+      { h: "The 30-day line, and the exemption most villa owners actually use" },
+      {
+        ul: [
+          "**Under 30 days = hotel business.** The Hotel Act's definition of \"temporary accommodation\" catches any paid stay of less than a month, triggering the same licensing requirement whether the unit is a condo or a villa on titled land. A lease of 30 days or more is a residential tenancy under the Civil and Commercial Code instead — a Thai court ruling in early 2026 confirmed monthly-plus rentals sit outside the Hotel Act.",
+          "**The 8-room / 30-guest exemption.** A 2023 Ministerial Regulation (No. 2, B.E. 2566, effective 29 October 2023) raised the old 4-room/20-guest exemption threshold: a property with no more than 8 rooms and no more than 30 guests at a time is not classified as a hotel at all. An owner can apply at the local district office (amphoe) for a Certificate of Exemption instead of a hotel licence — valid five years, renewable. Most Phangan villas fall well inside this threshold; the certificate, not the room count alone, is what makes the rental lawful.",
+          "**Condos face a harder ceiling.** Individual condo units rarely clear a hotel licence's building and fire-safety requirements, and most condominium juristic persons have separately banned daily/weekly rentals in their house rules — so a condo owner is often boxed out of both the licence route and the exemption route, independent of the Hotel Act itself.",
+        ],
+      },
+      { h: "What changed in the 2025-2026 crackdown" },
+      {
+        ul: [
+          "**Cross-agency data sharing.** The Revenue Department, Immigration Bureau and Ministry of Interior (through district-level DOPA offices) now cross-reference tax filings, TM30 foreign-guest reports and business registrations — officials have described this as the first time the three agencies actively shared data specifically for short-term-rental enforcement.",
+          "**Platform monitoring.** Authorities increasingly cross-check Airbnb, Booking.com and Agoda listings against licence and TM30 records rather than relying only on complaints.",
+          "**Undercover bookings.** In prosecuted cases in Bangkok's Pratunam and Sukhumvit districts, district officials posed as tourists, booked condo units on Airbnb, then identified themselves on arrival — enforcement covering roughly 191 rooms across several buildings in one 2025 sweep.",
+          "**Penalties.** Operating without a licence or exemption certificate carries up to one year's imprisonment and a fine of ฿20,000 plus ฿10,000 for every day the violation continues. TM30 non-compliance is a separate fine of ฿800-2,000 per unreported guest.",
+        ],
+      },
+      { h: "A draft bill could reshape the rules further, mainly for condos" },
+      "A proposed \"Non-Hotel Accommodation Act\" was under Council of State review as of early 2026, covering lodgings, rooms, shared rooms, houses and buildings under one framework. It would let more operators — condos in particular — register rather than obtain a hotel licence, with a lighter tier for very small operations (around 8 rooms/30 guests, similar to today's exemption) and a company-registration requirement for larger ones. The Thai Hotels Association has pushed back, arguing the room/guest caps are too generous and risk undercutting licensed hotels. As of this writing the bill has not been promulgated — it changes nothing for a villa owner today, but is worth watching if it eventually extends a workable registration path to condos the way the 2023 regulation already does for houses.",
+      { h: "What this means for a Phangan villa owner" },
+      {
+        ul: [
+          "**Confirm your room and guest count against the 8/30 threshold**, and apply for the Certificate of Exemption at the local district office rather than assuming a villa is exempt by default — the certificate is what a Land Office or tourism-police inspection will actually ask for.",
+          "**File TM30 for every foreign guest**, not just long-stay tenants — this is the record now cross-checked against platform listings and tax filings.",
+          "**Report rental income** — a licensed or exempt short-term rental is still taxable income; see [Renting out your villa: rules and taxes](/knowledge/renting-out-your-villa-rules-and-taxes) for the tax side.",
+          "**If you use a management company**, confirm in writing that they hold or will obtain the exemption certificate on your behalf — see [Vetting a villa property-management company](/knowledge/vetting-villa-property-management-company) for the questions to ask before handing over the keys.",
+        ],
+      },
+      "None of this makes short-term rental on Phangan riskier than it already was for a compliant owner — the exemption route for small villas predates this crackdown by two years. What changed is that operating without it is now far more likely to be caught, through records that were previously siloed rather than through a new prohibition.",
+    ],
+    takeaways: [
+      "Any Thailand stay under 30 days is legally a \"hotel business\" under the Hotel Act B.E. 2547 — this applies to a standalone villa exactly as it does to a condo unit; only leases of 30 days or more are automatically exempt.",
+      "Properties with 8 rooms or fewer and 30 guests or fewer can register for a 5-year Certificate of Exemption at the local district office instead of a full hotel licence — the route most Phangan villas already qualify for.",
+      "2025-2026 enforcement is data-driven: the Revenue Department, Immigration Bureau and Interior Ministry now cross-reference tax filings, TM30 reports and business registrations, and have run undercover bookings to catch unlicensed operators.",
+      "Penalties for operating without a licence or exemption reach one year's imprisonment plus ฿20,000 and ฿10,000 per day it continues, separate from TM30 fines of ฿800-2,000 per unreported guest.",
+      "A draft Non-Hotel Accommodation Act would extend a lighter registration path to more operators, especially condos, but as of August 2026 it remains in Council of State review, not enacted law.",
+    ],
+    sources: [
+      { title: "Tilleke & Gibbins — Thailand Amends Hotel Regulations", url: "https://www.tilleke.com/insights/thailand-amends-hotel-regulations/" },
+      { title: "Rumavi — Thailand Airbnb Rules 2026: Short-Term Rental Laws", url: "https://rumavi.com/en/property-guides/short-term-rental-rules-in-thailand-what-airbnb-investors-need-to-know-in-2026" },
+      { title: "ReLife Properties — Is Airbnb Legal in Thailand in 2026?", url: "https://relifeproperties.com/airbnb-legal-thailand/" },
+      { title: "ProofSnap — Is Airbnb Legal in Thailand? 2026 Rules, Fines & 30-Day Rule Guide", url: "https://getproofsnap.com/posts/airbnb-thailand-bangkok-rules-expats-digital-nomads-2026.html" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "Is it legal to rent out my Koh Phangan villa short-term on Airbnb, and how is Thailand enforcing this in 2026?",
+  },
+  {
+    slug: "foreign-heir-inheriting-thai-land-section-93",
+    kbId: "kb-0088",
+    topic: "Ownership",
+    title: "A foreigner inherits Thai land directly: why Section 93's ministerial permission is effectively unobtainable",
+    short:
+      "A foreigner can legally be a statutory or will-named heir to Thai land — but registering ownership needs Ministry of Interior permission under Land Code Section 93, and that permission has had no legal basis since Thailand's last land-ownership treaty ended in 1970. In practice, an heir who can't register ownership must sell the land within a set window, the same as someone who acquired it unlawfully.",
+    updated: "2026-08-11",
+    body: [
+      "My Thai spouse or relative left me land in their will — can I actually keep it? Legally, yes, you can inherit as a statutory heir or a named beneficiary; Thai succession law doesn't block a foreigner from inheriting land. What it can't do is let you register as the owner without a permission that, for almost every foreigner today, doesn't exist to be granted.",
+      { h: "How Section 93 actually works" },
+      {
+        ul: [
+          "**The text.** Land Code Section 93 permits an alien lawful heir's ownership \"upon permission of the Minister\" — the Minister of Interior, delegated to the Director-General of the Department of Lands for Bangkok plots and to the provincial governor elsewhere.",
+          "**The catch: it depends on Section 86.** Section 93 was written to work alongside Section 86, which lets a foreigner acquire land \"by virtue of the provisions of a treaty.\" Thailand's last such treaty (with Sweden) was terminated in 1970, and no country currently has one in force.",
+          "**The practical result.** With no treaty basis, there is no current legal ground for the Minister to grant Section 93 permission to an ordinary foreign heir — approval is refused as a matter of course, not case by case.",
+        ],
+      },
+      { h: "What happens when permission isn't granted" },
+      "An heir who can't register ownership is treated the same as someone who acquired land unlawfully under Section 94: the Director-General sets a disposal period of not less than 180 days nor more than one year, during which the heir must sell. If the land isn't sold within that window, the Director-General can arrange the sale directly — with proceeds still going to the heir under today's law. A separate proposal to remove that entitlement and forfeit unlawfully held land to the State outright is under study but not yet enacted; see [Section 94 may soon mean forfeiture, not a forced sale](/knowledge/land-code-section-94-forfeiture-amendment) for where that stands.",
+      { h: "Does marrying a Thai national change this?" },
+      {
+        ul: [
+          "**No — a foreign spouse is a statutory heir under Section 1629 of the Civil and Commercial Code**, the same as a child or parent, but statutory heirship doesn't create a land-ownership right. The Section 93 permission constraint applies identically whether the heir is a spouse, a child or an unrelated beneficiary named in a will.",
+          "**This is a different gateway from the THB 40-million investment route.** A Ministerial Regulation under Section 96 bis lets a foreigner *purchase* up to 1 rai of land for residence against a large qualifying investment — see [The THB 40 million investment route](/knowledge/thb-40-million-investment-land-ownership-route). That route is unrelated to inheritance and can't be used to retain land you've inherited.",
+          "**Be cautious of claims that a spouse can simply keep up to 1 rai of inherited land indefinitely.** That claim circulates online but conflicts with the treaty-based limits above and with how the Section 93 permission process actually works today; verify with a Thai lawyer before relying on it.",
+        ],
+      },
+      { h: "Why this comes up at all: how the land got titled in the first place" },
+      "If a Thai spouse bought land during the marriage, a 1999 regulation required both spouses to declare at the Land Office that the funds were the Thai spouse's separate property, precisely so the foreign spouse wouldn't hold an indirect ownership interest — see [Protecting a foreign spouse's interest in property bought during a Thai marriage](/knowledge/foreign-spouse-usufruct-thai-marriage-property). That declaration is what makes the land solely the Thai spouse's to leave by will or intestate succession — and what puts the foreign heir back in Section 93's path when it's inherited.",
+      { h: "What to do instead of relying on inheriting the land" },
+      {
+        ul: [
+          "**Plan before death, not after.** A Thai landowner can grant a foreign spouse or intended heir a registered lifetime usufruct and a superficies over the building now — rights that are inherited or survive differently from the land title itself. See [Superficies vs usufruct vs lease](/knowledge/superficies-vs-usufruct-vs-lease).",
+          "**If land is inherited outright, move quickly.** The disposal clock starts from acquisition; a lawyer-managed sale on your own terms beats waiting for the Land Department to arrange one.",
+          "**A house on the land may be separable from the land sale** if it's structured as a distinct superficies before the issue arises — this isn't automatic and needs advance legal planning, not an assumption made after the fact.",
+          "**Condominium units follow a more forgiving rule** — a foreign heir who doesn't otherwise qualify to hold a unit has 60 days to notify the Land Office and one year to dispose of it, without the treaty-permission problem that blocks land. See [Freehold condo vs leasehold villa](/knowledge/freehold-condo-vs-leasehold-villa).",
+        ],
+      },
+      "The safe default is to never plan around inheriting Thai land itself. A registered usufruct, superficies or long lease set up while the Thai owner is alive passes to a foreign spouse or heir on terms the law actually supports — inheriting the title outright does not. See [Inheritance on Koh Phangan](/knowledge/inheritance-leasehold-and-villa) for how a lease, building and company shares each pass on their own terms.",
+    ],
+    takeaways: [
+      "A foreigner can legally be a statutory or will-named heir to Thai land, but registering ownership requires Ministry of Interior permission under Land Code Section 93.",
+      "That permission depends on a Section 86 land-ownership treaty — the last one (with Sweden) ended in 1970, and no country has one today, so ordinary foreign heirs are refused as a matter of course.",
+      "Without permission, an heir is treated like an unlawful holder under Section 94: forced to sell within 180 days to a year, with the Land Department empowered to arrange the sale if they don't.",
+      "Marrying a Thai landowner doesn't change this — a foreign spouse is a statutory heir under Civil and Commercial Code Section 1629, but still needs the same unobtainable Section 93 permission to keep inherited land.",
+      "The reliable alternative is planning ahead: a registered usufruct, superficies or long lease granted before death, not inheritance of the land title itself.",
+    ],
+    sources: [
+      { title: "Thailand Law Online — Thai Land Law: full translation of the Land Code Act (Sections 86, 93, 94, 96)", url: "https://www.thailandlawonline.com/thai-real-estate-law/thai-land-law-land-code-act" },
+      { title: "Thailand Law Online — Inheritance of Real Estate by Foreigners", url: "https://www.thailandlawonline.com/article-older-archive/inheritance-of-real-estate-by-foreigners" },
+      { title: "Expat Tax Thailand — Can Foreigners Inherit Land in Thailand? How to Avoid Issues", url: "https://www.expattaxthailand.com/can-foreigners-inherit-land-in-thailand-legal-limits/" },
+      { title: "Thai-Norwegian Chamber of Commerce — Foreign Spouse's Statutory Right to Inherit Land", url: "https://www.norcham.com/foreign-spouses-statutory-right-to-inherit-land/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "ownership",
+    faqQuestion: "I'm a foreigner and my Thai spouse or relative left me land in their will — can I actually keep it?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

@@ -1,4 +1,4 @@
-# Last run — 2026-08-08
+# Last run — 2026-08-11
 
 **Guides published:** 2
 
@@ -6,44 +6,46 @@
 
 ## Guide 1
 
-- **slug:** `foreign-spouse-usufruct-thai-marriage-property`
-- **kbId:** `kb-0085`
-- **title (EN):** Protecting a foreign spouse's interest when property is bought during a Thai marriage
-- **title (RU):** Как защитить интерес иностранного супруга, если недвижимость куплена в тайском браке
-- **faqCategory:** `structures`
-- **faqQuestion:** How can I protect my interest in property bought in my Thai spouse's name during our marriage?
+- **slug:** `short-term-rental-airbnb-crackdown-2026`
+- **kbId:** `kb-0087`
+- **title (EN):** Airbnb and short-term rentals in Thailand's 2026 crackdown: what's actually illegal, what's exempt
+- **title (RU):** Airbnb и краткосрочная аренда в Таиланде: облава 2026 года — что действительно незаконно, а что освобождено
+- **faqCategory:** `process`
+- **faqQuestion:** Is it legal to rent out my Koh Phangan villa short-term on Airbnb, and how is Thailand enforcing this in 2026?
 - **Sources used:**
-  - Samui For Sale — Usufruct in a Thai marriage — registered lifetime usufruct as the standard protection structure, survival through divorce and the Thai spouse's death, Section 1469 CCC risk and case-law note
-  - Houseviser — Buying property in Thailand via a Thai spouse: what's actually allowed — the 1999 Ministry of Interior Land Office declaration requirement (sin suan tua vs sin somros), divorce/reimbursement-claim mechanics, and practical registration steps
-  - ThaiLawOnline — Usufruct Agreement in Thailand — registration process, fee structure (~฿100 fixed fee), maximum duration (Section 1418: lifetime or ≤30 years), termination on the usufructuary's death
-  - ThailandLawOnline — Sections 1417–1428, Civil and Commercial Code — statutory basis for the right of usufruct
+  - Tilleke & Gibbins — Thailand Amends Hotel Regulations — the 2023 Ministerial Regulation No. 2 (B.E. 2566) that raised the non-hotel exemption threshold from 4 rooms/20 guests to 8 rooms/30 guests, effective 29 October 2023
+  - Rumavi — Thailand Airbnb Rules 2026 — the 30-day Hotel Act threshold, monthly-rental exemption confirmed by a 2026 court ruling, and villa vs condo distinctions
+  - ReLife Properties — Is Airbnb Legal in Thailand in 2026? — Hotel Act framework, condo juristic-person bylaws blocking daily rentals independent of the law, penalty amounts
+  - ProofSnap — Is Airbnb Legal in Thailand? 2026 Rules, Fines & 30-Day Rule Guide — 2025-2026 cross-agency enforcement detail (Revenue Dept/Immigration/Interior data sharing), Pratunam/Sukhumvit undercover-booking prosecutions, penalty figures
+  - Draft "Non-Hotel Accommodation Act" status (Council of State review, room/guest tiers, Thai Hotels Association opposition) corroborated via multiple search-result summaries of Bangkok Post, Nishimura & Asahi and Bangkok Global Law coverage; those pages 403'd or paywalled on direct fetch, so they're described conservatively in-body ("under review," not enacted) rather than added to the cited sources array
 
 ## Guide 2
 
-- **slug:** `avani-kaia-hotel-brands-koh-phangan-2026`
-- **kbId:** `kb-0086`
-- **title (EN):** Avani and KAIA: what two branded resort openings signal for Koh Phangan buyers in 2026
-- **title (RU):** Avani и KAIA: что открытие двух брендовых курортов значит для покупателей на Ко Пангане в 2026
-- **faqCategory:** `phangan`
-- **faqQuestion:** Are international hotel brands like Avani and KAIA actually opening on Koh Phangan, and does it matter for buyers?
+- **slug:** `foreign-heir-inheriting-thai-land-section-93`
+- **kbId:** `kb-0088`
+- **title (EN):** A foreigner inherits Thai land directly: why Section 93's ministerial permission is effectively unobtainable
+- **title (RU):** Иностранец напрямую наследует тайскую землю: почему разрешение министра по статье 93 практически недостижимо
+- **faqCategory:** `ownership`
+- **faqQuestion:** I'm a foreigner and my Thai spouse or relative left me land in their will — can I actually keep it?
 - **Sources used:**
-  - Minor Hotels Newsroom — official signing announcement: Avani Koh Phangan is a rebrand of the existing 63-key Buri Rasa Village Phangan (Thong Nai Pan Noi, owned by Rasa Group), management transfer 1 May 2026, full rebrand targeted Q1 2027
-  - Bound and Beyond Newsroom — official announcement that KAIA is BEYOND's first proprietary hotel brand, developer background (Four Seasons Bangkok, Capella Bangkok), The Moken Club beach club
-  - Travel And Tour World — KAIA location (north-east coast), design partners (Eco Structures, Cloud Collective), lift-and-brace tent construction method, late-2026 opening target
-  - The Opening List — corroborating/conflicting unit count (31 tented suites vs. other sources' 34+3) — used to flag the figure as unconfirmed rather than pick one number
+  - Thailand Law Online — full Land Code Act translation — primary text of Sections 86, 93, 94 and 96 (treaty-based acquisition, ministerial permission for heirs, disposal timelines, the nominee-disposal mechanism)
+  - Thailand Law Online — Inheritance of Real Estate by Foreigners — confirms the 1970 treaty termination as the reason Section 93 permission is unobtainable in practice, plus the parallel 60-day/1-year condo unqualified-heir rule used for contrast
+  - Expat Tax Thailand — Can Foreigners Inherit Land in Thailand? — independent corroboration of the one-year disposal default and the "plan ahead, don't rely on inheritance" framing
+  - Thai-Norwegian Chamber of Commerce (Norcham) — Foreign Spouse's Statutory Right to Inherit Land — used for the spouse-inheritance process and ministerial-approval mechanics; its claim that a spouse can retain up to 1 rai "indefinitely" conflicts with the treaty-based consensus from the other three sources, so the guide explicitly flags that specific claim as unverified rather than repeating it as fact
 
 ---
 
 ## Notes
 
-Selection followed backlog priority order (🔴 → 🟢 → 🟡 → ⚪️). The one remaining 🔴 item and both remaining 🟢 items were skipped again this run — each already carries a prior-run note that it substantially duplicates a published guide (kb-0051 land-department audit, kb-0027 owner's taxes, kb-0026 utilities/power-grid respectively), and no new distinct angle emerged on a fresh check. Moved to the 🟡 tier and took the first two genuinely fresh, non-duplicate topics in order:
+Selection followed backlog priority order (🔴 → 🟢 → 🟡 → ⚪️):
 
-- "Realistic villa rental yields" (top of 🟡) was skipped again — still duplicates `renting-out-your-villa-rules-and-taxes` (kb-0010) per the existing note.
-- "Protecting a foreign spouse's interest..." (next 🟡) was genuinely distinct — no existing guide covers the Land Department's spousal-declaration mechanics or usufruct/superficies specifically in the marriage context (the existing `superficies-vs-usufruct-vs-lease` guide is a general explainer, not marriage-specific). Well-sourced from Thai family-law specialist sites and the CCC sections themselves, including the Supreme Court's treatment of the Land Office declaration as preliminary (not conclusive) evidence. **Published as Guide 1.**
-- "Minor Hotels' Avani and the KAIA tented resort..." (next 🟡) was genuinely distinct — no existing guide covers branded hospitality openings; the existing `koh-phangan-development-pipeline-2025-2026` guide covers boutique villa/residential supply, not international hotel-brand resorts. Sourced directly from both operators' own newsroom announcements plus two independent hospitality-press write-ups. A unit-count discrepancy across secondary sources (31 vs. 34+3 tented suites) was disclosed in the guide rather than resolved by arbitrarily picking one figure. **Published as Guide 2.**
+- Top 🔴 item, "Short-term rental (Airbnb) 2026 enforcement crackdown," was undone and not a duplicate of any published slug. **Published as Guide 1.**
+- Second 🔴 item, the "8-province corporate landholder monitoring database," was re-checked against kb-0051 (`land-department-audit-existing-landholding-companies-2026`) — it already covers the IBAS system, the May 2026 monthly-review/quarterly-reporting circulars and the Section 96/97-98 thresholds in depth. Still a substantive duplicate; skipped again, left ⏳ for a future run only if a genuinely distinct angle (e.g. Surat Thani-specific counts) emerges.
+- No further 🔴 items were undone. Moved to 🟢 tier: "Non-resident vs resident rental income tax" and "Koh Phangan's power grid reliability" both carry existing duplicate-flag notes (kb-0027, kb-0026) and were left as-is without re-verifying, since their notes were already confirmed accurate in the prior run.
+- "Foreign spouse/heir inheriting Thai land directly" (🟢, discovered 2026-08-09) was genuinely distinct — checked against kb-0012 (`inheritance-leasehold-and-villa`, covers lease/building/company succession, not direct land title), kb-0063 (`land-code-section-94-forfeiture-amendment`, covers the forfeiture proposal generally, not the heir-specific Section 93 mechanism) and kb-0081 (inheritance *tax*, a different topic). No overlap found. **Published as Guide 2.**
 
-Both guides cross-link to existing, verified slugs (`superficies-vs-usufruct-vs-lease`, `how-foreigners-own-a-villa`, `inheritance-leasehold-and-villa`, `bringing-money-into-thailand-fet-form`, `buying-in-thong-nai-pan`, `koh-phangan-development-pipeline-2025-2026`, `koh-phangan-market-outlook-2026`, `due-diligence-checklist-koh-phangan`), all confirmed present in both EN/RU files before use.
+Both guides cross-link to existing, verified slugs — Guide 1: `renting-out-your-villa-rules-and-taxes`, `vetting-villa-property-management-company`; Guide 2: `land-code-section-94-forfeiture-amendment`, `thb-40-million-investment-land-ownership-route`, `foreign-spouse-usufruct-thai-marriage-property`, `superficies-vs-usufruct-vs-lease`, `freehold-condo-vs-leasehold-villa`, `inheritance-leasehold-and-villa` — all confirmed present in both EN/RU files before use.
 
-`npx tsc --noEmit` passes clean. kbId sequence intact through kb-0086. EN/RU slug and kbId sets confirmed identical (85 entries each after this run's additions, no duplicates) via `sort | uniq -d` and a full sorted-slug diff between the two files.
+`npx tsc --noEmit` passes clean. kbId sequence continues at kb-0087/kb-0088 (prior max was kb-0086).
 
-Remaining ⏳ backlog, next-priority first: 🔴 — 8-province landholder monitoring database (duplicate-flagged); 🟢 — non-resident/resident rental tax and power grid reliability (both duplicate-flagged); 🟡 — realistic rental yields (duplicate-flagged), 2027 land valuation reform, cruise ship pier proposal, who's buying on Phangan in 2026, island wastewater rules; ⚪️ — right of habitation, Koh Phangan airport status.
+Remaining ⏳ backlog, next-priority first: 🔴 — 8-province landholder monitoring database (duplicate-flagged); 🟢 — non-resident/resident rental tax and power grid reliability (both duplicate-flagged); 🟡 — realistic rental yields (duplicate-flagged), 2027 land valuation reform, cruise ship pier proposal, who's buying on Phangan in 2026, island wastewater rules, stamp duty vs SBT mutual exclusivity, VAT vs SBT on new-build sales (flagged as needing primary Revenue Dept verification), vetting off-plan projects amid the development boom; ⚪️ — right of habitation, Koh Phangan airport status.

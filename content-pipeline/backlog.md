@@ -15,7 +15,7 @@ Status: ⏳ queued · ✅ published.
 | Topic | faqCategory | Priority | Status |
 |---|---|---|---|
 <!-- discovered 2026-08-09, sources: lexology.com, fosrlaw.com, rentaltaxthailand.com, rumavi.com -->
-| Short-term rental (Airbnb) 2026 enforcement crackdown: cross-agency data-sharing (Revenue Dept/Immigration/Interior) and automated platform scanning against unlicensed daily/weekly lets under the Hotel Act, plus a draft bill that would let condos legally offer short-term rentals via simple registration instead of a hotel licence | process | 🔴 | ⏳ |
+| Short-term rental (Airbnb) 2026 enforcement crackdown: cross-agency data-sharing (Revenue Dept/Immigration/Interior) and automated platform scanning against unlicensed daily/weekly lets under the Hotel Act, plus a draft bill that would let condos legally offer short-term rentals via simple registration instead of a hotel licence | process | 🔴 | ✅ |
 <!-- discovered 2026-08-02, sources: nationthailand.com, bangkokpost.com, thailand-real.estate, matching-property.com, aimbangkok.com -->
 | Why the 0.01% transfer/mortgage registration fee discount (extended to 30 June 2027, ≤7M THB) does NOT apply to foreign buyers — what a foreigner actually pays vs. a Thai co-owner or spouse on title | costs | 🔴 | ✅ |
 <!-- 2026-08-03: skipped — substantially duplicates the already-published kb-0051 (land-department-audit-existing-landholding-companies-2026), which already covers the same May 2026 circulars, monthly review, quarterly reporting and Section 97/98 thresholds. Left ⏳; a future run could revisit narrowly on the Surat Thani-specific company counts if a genuinely new angle emerges. -->
@@ -106,7 +106,7 @@ Status: ⏳ queued · ✅ published.
 | Who's actually buying on Phangan in 2026: the Israeli, European and Australian buyer surge behind a reported THB 7.9bn+ in investment | phangan | 🟡 | ⏳ |
 | Island wastewater and sewage rules: the 2018 Section 17 "unfriendly activities" ban on marine-harming discharge, and rising pressure to enforce it as Phangan's waste volume grows — what it means for septic/treatment planning on a new build | structures | 🟡 | ⏳ |
 <!-- discovered 2026-08-09, sources: thailawonline.com, terms.law, dlapiperrealworld.com, oceanwwp.com, lordspropconsult.com, bangkokpost.com -->
-| Foreign spouse/heir inheriting Thai land directly (not via leasehold): the Land Code Section 93-94 rule forcing disposal within 1 year, and why Ministerial permission to keep it is effectively unavailable | ownership | 🟢 | ⏳ |
+| Foreign spouse/heir inheriting Thai land directly (not via leasehold): the Land Code Section 93-94 rule forcing disposal within 1 year, and why Ministerial permission to keep it is effectively unavailable | ownership | 🟢 | ✅ |
 | Stamp Duty vs Specific Business Tax: the mutual-exclusivity rule — when the 0.5% stamp duty applies instead of SBT, and why you never pay both | costs | 🟡 | ⏳ |
 | VAT vs Specific Business Tax on new-build/developer sales: what a buyer actually pays, and why sources disagree — needs primary Revenue Department verification before publishing | costs | 🟡 | ⏳ |
 | Vetting a specific off-plan project on Samui-Phangan amid the 2026 development boom (154 projects, THB 61bn+ pipeline): developer track record, escrow accounts and construction-licence checks before you pay a deposit | process | 🟡 | ⏳ |
