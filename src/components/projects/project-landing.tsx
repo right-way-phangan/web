@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Route } from "next";
 import {
   ChevronRight,
+  ChevronDown,
   Check,
   Waves,
   Trees,
@@ -189,14 +190,18 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
 
       <SpecStrip project={project} locale={locale} />
 
-      {/* The sticky section nav needs a tall parent to travel within, so the
-          body grid is nested beside it — wrapped alone it has zero scroll run
-          and never sticks. */}
+      {/* The sticky section nav needs a tall parent to travel within — the
+          sections are nested under the same wrapper, otherwise the strip has
+          zero scroll run and never sticks. */}
       <div className="mt-10">
-        <ProjectNav items={nav} ctaLabel={t.nav.enquire} availabilityNote={availNote} />
+        <ProjectNav
+          items={nav}
+          ctaLabel={t.nav.enquire}
+          availabilityNote={availNote}
+          priceNote={project.priceThb ? `${t.from} ${formatPriceTHB(project.priceThb)}` : undefined}
+        />
 
-        <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_360px] lg:gap-16">
-        <div className="min-w-0 space-y-24 lg:space-y-32">
+        <div className="mt-12 min-w-0 space-y-24 lg:space-y-32">
           {/* Overview */}
           <Appear>
           <section id="overview" className="scroll-mt-32">
@@ -309,7 +314,7 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
                   <PriceStages stages={project.priceStages!} />
                 </div>
               ) : null}
-              <dl className="mt-6 divide-y divide-forest-500/10 border-y border-forest-500/10">
+              <dl className="mt-6 max-w-3xl divide-y divide-forest-500/10 border-y border-forest-500/10">
                 {project.priceThb ? (
                   <Row label={t.from} value={formatPriceTHB(project.priceThb)} />
                 ) : null}
@@ -339,7 +344,7 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
                   <h3 className="mb-2 text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">
                     {t.sections.paymentTerms}
                   </h3>
-                  <p className="whitespace-pre-line text-sm leading-relaxed text-forest-500/85">
+                  <p className="max-w-prose whitespace-pre-line text-sm leading-relaxed text-forest-500/85">
                     {project.paymentTerms}
                   </p>
                 </div>
@@ -498,16 +503,10 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
           ) : null}
         </div>
 
-        {/* Sticky deal rail: the offer snapshot + inquiry form stay in view as
-            the visitor scrolls the sections. self-start keeps the item content-
-            height so it can stick within the tall grid row. */}
-        <div id="enquire" className="scroll-mt-32 lg:sticky lg:top-24 lg:self-start lg:space-y-4">
-          {project.priceThb || availability.total != null ? (
-            <RailSummary project={project} availability={availability} t={t} />
-          ) : null}
-          <InquiryForm rwNumber={project.rwNumber} />
-        </div>
-        </div>
+        {/* Заявка не занимает липкий рельс справа — свёрнута в строку внизу
+            контента. Раскрывают её кликом или кнопкой «Заявка» (nav / мобильный
+            бар): обе открывают этот <details> перед скроллом. */}
+        <EnquireDisclosure rwNumber={project.rwNumber} locale={locale} ctaLabel={t.nav.enquire} />
       </div>
 
       {/* Other projects */}
@@ -549,57 +548,36 @@ function Row({ label, value }: { label: string; value: string }) {
 }
 
 /**
- * Compact offer snapshot pinned above the inquiry form in the sticky rail —
- * keeps the "from" price, availability and yield in view once the hero scrolls
- * away. Desktop only (lg+): on mobile the hero + sticky action bar already carry
- * this, so the rail stays a plain form.
+ * Свёрнутая заявка внизу лендинга. Раньше форма жила в липком рельсе справа и
+ * забирала треть экрана — теперь это строка-переключатель, а форма открывается
+ * по требованию. Нативный <details>: кнопки «Заявка» (nav, мобильный бар) сами
+ * выставляют open перед скроллом, поэтому клиентский стейт не нужен.
  */
-function RailSummary({
-  project,
-  availability,
-  t,
+function EnquireDisclosure({
+  rwNumber,
+  locale,
+  ctaLabel,
 }: {
-  project: RealEstateObject;
-  availability: { total?: number; available?: number };
-  t: ReturnType<typeof getProjectsDict>;
+  rwNumber: string;
+  locale: Locale;
+  ctaLabel: string;
 }) {
-  const { total, available } = availability;
-  const soldOut = total != null && (available ?? 0) <= 0;
   return (
-    <div className="hidden rounded-sm border border-forest-500/10 bg-cream-50 p-5 shadow-sm lg:block">
-      {project.priceThb ? (
-        <>
-          <p className="text-[11px] font-medium uppercase tracking-eyebrow text-brass-500">
-            {t.from}
-          </p>
-          <p className="num mt-1 text-2xl text-forest-900">{formatPriceTHB(project.priceThb)}</p>
-        </>
-      ) : null}
-      {total != null || project.netYieldPct ? (
-        <dl
-          className={`space-y-2 text-sm ${
-            project.priceThb ? "mt-4 border-t border-forest-500/10 pt-4" : ""
-          }`}
-        >
-          {total != null ? (
-            <div className="flex items-center justify-between">
-              <dt className="text-forest-500/65">{t.units}</dt>
-              <dd className="inline-flex items-center gap-1.5 font-medium text-forest-900">
-                <span
-                  className={`h-1.5 w-1.5 rounded-full ${soldOut ? "bg-forest-500/30" : "bg-brass-500"}`}
-                />
-                {soldOut ? t.soldOut : `${available}/${total}`}
-              </dd>
-            </div>
-          ) : null}
-          {project.netYieldPct ? (
-            <div className="flex items-center justify-between">
-              <dt className="text-forest-500/65">{t.sections.netYield}</dt>
-              <dd className="font-medium text-forest-900">~{project.netYieldPct}%</dd>
-            </div>
-          ) : null}
-        </dl>
-      ) : null}
-    </div>
+    <details id="enquire" className="group mt-16 scroll-mt-32 print:hidden md:mt-20">
+      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-sm border border-forest-500/10 bg-cream-50 px-5 py-4 transition-colors hover:border-brass-500/40 [&::-webkit-details-marker]:hidden">
+        <span className="text-sm text-forest-500/85">
+          {locale === "ru"
+            ? "Заинтересовал проект? Задайте вопрос или запишитесь на просмотр"
+            : "Interested? Ask a question or book a viewing"}
+        </span>
+        <span className="inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-brass-600">
+          {ctaLabel}
+          <ChevronDown className="h-4 w-4 transition-transform group-open:rotate-180" aria-hidden />
+        </span>
+      </summary>
+      <div className="mt-4 max-w-xl">
+        <InquiryForm rwNumber={rwNumber} />
+      </div>
+    </details>
   );
 }
