@@ -566,16 +566,21 @@ function EnquireDisclosure({
     <details id="enquire" className="group mt-16 scroll-mt-32 print:hidden md:mt-20">
       <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-sm border border-forest-500/10 bg-cream-50 px-5 py-4 transition-colors hover:border-brass-500/40 [&::-webkit-details-marker]:hidden">
         <span className="text-sm text-forest-500/85">
-          {locale === "ru"
-            ? "Заинтересовал проект? Задайте вопрос или запишитесь на просмотр"
-            : "Interested? Ask a question or book a viewing"}
+          {locale === "ru" ? "Заинтересовал проект?" : "Interested in this project?"}
+          {/* Хвост подписи — только с sm: на 390px он ломал строку-переключатель
+              на три строки. */}
+          <span className="hidden sm:inline">
+            {locale === "ru"
+              ? " Задайте вопрос или запишитесь на просмотр"
+              : " Ask a question or book a viewing"}
+          </span>
         </span>
         <span className="inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-brass-600">
           {ctaLabel}
           <ChevronDown className="h-4 w-4 transition-transform group-open:rotate-180" aria-hidden />
         </span>
       </summary>
-      <div className="mt-4 max-w-xl">
+      <div className="mx-auto mt-4 w-full max-w-xl">
         <InquiryForm rwNumber={rwNumber} />
       </div>
     </details>
