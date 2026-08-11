@@ -32,7 +32,7 @@ import { ObjectGallery } from "@/components/objects/object-gallery";
 import { ObjectLocationMap } from "@/components/objects/object-location-map";
 import { InquiryForm } from "@/components/objects/inquiry-form";
 import { RoiCalculator } from "@/components/calculator/roi-calculator";
-import { getProjectEconomics } from "@/content/projects/economics";
+import { getProjectEconomics, PUBLISH_DEVELOPER_ECONOMICS } from "@/content/projects/economics";
 import { DeveloperEconomics } from "./developer-economics";
 import { ProjectHero } from "./project-hero";
 import { ProjectNav, type NavItem } from "./project-nav";
@@ -133,7 +133,7 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
     project.priceThb || project.paymentTerms || project.leasePrepayment || project.leaseTermYears,
   ) || hasStages;
   const hasReturns = Boolean(project.priceThb);
-  const economics = getProjectEconomics(project.rwNumber);
+  const economics = PUBLISH_DEVELOPER_ECONOMICS ? getProjectEconomics(project.rwNumber) : undefined;
   const hasTimeline = (project.timeline?.length ?? 0) > 0;
   const constructionUpdates = project.constructionUpdates ?? [];
   const hasConstruction = constructionUpdates.length > 0;

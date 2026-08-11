@@ -137,6 +137,14 @@ export const ECONOMICS_LABELS = {
   },
 } as const;
 
+/**
+ * Цифры застройщика сняты с сайта 11.08.2026 (решение Владимира). Данные,
+ * вёрстка и тесты остаются на месте — вернуть блок = поставить здесь `true`.
+ * Флаг гасит и таблицу на лендинге проекта, и строку «застройщик заявляет…»
+ * в калькуляторе на странице застройщика.
+ */
+export const PUBLISH_DEVELOPER_ECONOMICS: boolean = false;
+
 const BY_PROJECT: Record<string, ProjectEconomics> = { [VERANA.rwNumber]: VERANA };
 
 export function getProjectEconomics(rwNumber: string): ProjectEconomics | undefined {
