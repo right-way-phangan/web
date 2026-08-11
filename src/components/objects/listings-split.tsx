@@ -27,6 +27,10 @@ const ListingsMap = dynamic(() => import("./listings-map"), {
 /** Сколько карточек отдаём за раз. 24 = 12 рядов на десктопе, хватает,
  *  чтобы понять выдачу, и не роняет DOM на телефоне. */
 const PAGE_SIZE = 24;
+/** На телефоне те же 24 карточки идут одной колонкой — это ~14 500px ленты:
+ *  до «Показать ещё» полтора десятка экранов вслепую. Узкому экрану отдаём
+ *  половину порции, дальше — по кнопке. */
+const PAGE_SIZE_NARROW = 12;
 
 /**
  * Split listings view: a scrollable card column on the left and a sticky map on
@@ -114,18 +118,25 @@ export function ListingsSplit({
 
   // Рендерим порциями: список длинный, а карточка тяжёлая (фото + бейджи).
   const [shownCount, setShownCount] = useState(PAGE_SIZE);
+  // Размер порции знает только клиент: на сервере ширины экрана нет, поэтому
+  // стартуем с десктопной и уточняем сразу после гидрации — иначе разметка
+  // сервера и клиента разошлись бы количеством карточек.
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  useEffect(() => {
+    if (window.matchMedia("(max-width: 639px)").matches) setPageSize(PAGE_SIZE_NARROW);
+  }, []);
   // Новый набор результатов (фильтр, сортировка, панорамирование карты) —
   // отсчёт начинается заново, иначе после сужения выдачи «Показать ещё»
   // висело бы с прошлой длинной сессии.
   useEffect(() => {
-    setShownCount(PAGE_SIZE);
-  }, [visibleObjects]);
+    setShownCount(pageSize);
+  }, [visibleObjects, pageSize]);
   const shownObjects = useMemo(
     () => visibleObjects.slice(0, shownCount),
     [visibleObjects, shownCount],
   );
   const hiddenCount = visibleObjects.length - shownObjects.length;
-  const showMore = useCallback(() => setShownCount((n) => n + PAGE_SIZE), []);
+  const showMore = useCallback(() => setShownCount((n) => n + pageSize), [pageSize]);
 
   // Pin click → select the card and bring it into view. Карточки под пином
   // может ещё не быть в DOM из-за порционной выдачи: доотдаём ровно столько,
@@ -226,7 +237,7 @@ export function ListingsSplit({
           {hiddenCount > 0 ? (
             <div className="mt-10 flex justify-center">
               <Button variant="outline" size="md" onClick={showMore}>
-                {t.showMore(Math.min(hiddenCount, PAGE_SIZE))}
+                {t.showMore(Math.min(hiddenCount, pageSize))}
               </Button>
             </div>
           ) : null}
