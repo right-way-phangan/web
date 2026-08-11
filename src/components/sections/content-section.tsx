@@ -18,7 +18,7 @@ export function ContentSection({
     spacing === "tight"
       ? "py-10 md:py-12"
       : spacing === "loose"
-        ? "py-20 md:py-28"
+        ? "py-16 md:py-24"
         : "py-16 md:py-20";
 
   return (

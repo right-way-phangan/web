@@ -13,20 +13,52 @@ interface Props {
 
 export function ProcessTimeline({ steps }: Props) {
   return (
-    <section className="container-prose py-20 md:py-28">
+    <section className="container-prose py-16 md:py-24">
       <ol className="relative space-y-12 md:space-y-16">
         {steps.map((step, i) => (
           <Appear key={step.number} delay={(i % 2) * 0.06}>
             <li className="relative grid gap-6 md:grid-cols-[120px_1fr] md:gap-10">
+              {/* Связка до следующего шага: раньше это был градиентный обрубок
+                  высотой в цифру — теперь вектор во весь промежуток, который
+                  прочерчивается, пока шаг проходит экран. Путь ведёт от номера
+                  к номеру, поэтому читается как маршрут, а не как насечка. */}
+              {i < steps.length - 1 ? (
+                /* h-full, а не top/bottom: у svg есть внутренняя пропорция из
+                   viewBox, и при height:auto он схлопывается до неё (100px)
+                   вместо растяжения. Высота li плюс отступ top-16 как раз
+                   доводят линию до цифры следующего шага. */
+                <svg
+                  className="pointer-events-none absolute left-3 top-16 hidden h-full w-px text-forest-500 md:block"
+                  viewBox="0 0 1 100"
+                  preserveAspectRatio="none"
+                  aria-hidden
+                >
+                  <defs>
+                    <linearGradient id={`step-line-${step.number}`} x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="currentColor" stopOpacity="0.28" />
+                      <stop offset="70%" stopColor="currentColor" stopOpacity="0.18" />
+                      <stop offset="100%" stopColor="currentColor" stopOpacity="0.04" />
+                    </linearGradient>
+                  </defs>
+                  <line
+                    x1="0.5"
+                    y1="0"
+                    x2="0.5"
+                    y2="100"
+                    pathLength={1}
+                    strokeWidth={1}
+                    vectorEffect="non-scaling-stroke"
+                    stroke={`url(#step-line-${step.number})`}
+                    className="draw-path draw-path-scroll"
+                  />
+                </svg>
+              ) : null}
+
               {/* Number column */}
               <div className="relative">
                 <div className="font-serif text-5xl text-forest-500/25 md:text-6xl">
                   {step.number.toString().padStart(2, "0")}
                 </div>
-                {/* Vertical connector except after last */}
-                {i < steps.length - 1 ? (
-                  <div className="absolute left-3 top-16 hidden h-full w-px bg-gradient-to-b from-forest-500/20 to-transparent md:block" />
-                ) : null}
               </div>
 
               {/* Content */}

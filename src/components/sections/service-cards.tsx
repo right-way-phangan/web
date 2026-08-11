@@ -16,7 +16,7 @@ interface Props {
 
 export function ServiceCards({ services }: Props) {
   return (
-    <section className="container-prose py-20 md:py-28">
+    <section className="container-prose py-16 md:py-24">
       <div className="grid gap-6 md:grid-cols-3 md:gap-6">
         {services.map((s, i) => (
           <Appear key={s.title} delay={(i % 3) * 0.08} className="h-full">

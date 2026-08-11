@@ -59,7 +59,7 @@ export default function ServicesPage() {
       </ContentSection>
 
       <section className="bg-cream-200/30">
-        <div className="container-prose py-24 md:py-32">
+        <div className="container-prose py-16 md:py-24">
           <Reveal>
             <SectionEyebrow>Transparent pricing</SectionEyebrow>
             <h2 className="mt-3 font-serif text-3xl text-forest-900 md:text-4xl">
@@ -84,7 +84,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="container-prose py-24 md:py-32">
+      <section className="container-prose py-16 md:py-24">
         <Reveal className="max-w-2xl">
           <h2 className="font-serif text-3xl text-forest-900 md:text-4xl">
             Ready to start?

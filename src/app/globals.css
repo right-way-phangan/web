@@ -313,6 +313,70 @@
   }
 }
 
+/* ─── Векторные линии, которые рисуются штрихом ────────────────────────────
+   Связки в схемах (таймлайн процесса, схема лизхолда) — не декоративные
+   градиенты, а настоящие SVG-пути: они прочерчиваются, пока читатель
+   проходит секцию, и линия работает как индикатор «где я в процессе».
+   Механика: pathLength="1" нормализует длину пути, поэтому одна и та же
+   анимация одинаково точно ведёт себя и на связке в 40px, и на линии в три
+   экрана — без единого измерения в JS.
+   Базовое состояние всегда НАРИСОВАННОЕ (dashoffset: 0): где нет поддержки
+   scroll-driven анимаций (Safari/часть мобильных), при выключенном JS и под
+   reduced-motion человек видит законченную схему, а не пустое место. */
+@keyframes strokeDraw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.draw-path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Прочерк по скроллу — для длинных связок (таймлайн во весь рост секции). */
+  @supports (animation-timeline: view()) {
+    .draw-path-scroll {
+      animation: strokeDraw linear both;
+      animation-timeline: view();
+      animation-range: entry 30% cover 65%;
+    }
+  }
+
+  /* Прочерк при появлении — для компактных схем в первом экране. */
+  .draw-path-in {
+    animation: strokeDraw 1.1s cubic-bezier(0.32, 0.72, 0, 1) both;
+  }
+}
+
+/* Росчерк-подводка над заголовком: чертится от левого края, когда блок въезжает
+   в кадр. Только transform — бесплатно по кадрам. Привязка именно к скроллу, а
+   не ко времени: внутри <Appear> контент смонтирован задолго до появления, и
+   обычная анимация успела бы отыграть в невидимом блоке. */
+@keyframes ruleDraw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .rule-draw {
+      transform-origin: left center;
+      animation: ruleDraw linear both;
+      animation-timeline: view();
+      animation-range: entry 15% cover 32%;
+    }
+  }
+}
+
 /* Плёночная зернистость поверх тёмных секций (hero, island-CTA) — приём из
    luxury/fashion: едва заметный фрактальный шум через mix-blend, добавляет
    «плёночную» глубину forest-фону. Статичная, декоративная (aria-hidden). */
