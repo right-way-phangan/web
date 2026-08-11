@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 /**
@@ -17,7 +17,14 @@ let navigated = false;
 export default function Template({ children }: { children: React.ReactNode }) {
   const reduce = useReducedMotion();
   const isFirst = useRef(!navigated);
-  if (typeof window !== "undefined") navigated = true;
+  // Флаг ставится после монтирования, а НЕ во время рендера. Пока он менялся
+  // прямо в теле, повторный рендер (React прерывает и перезапускает гидрацию,
+  // когда разметка приходит медленно) видел navigated=true и подмешивал
+  // <motion.div>, которого нет в серверном HTML: hydration-ошибка React #418.
+  // Замерено на прод-сборке при Fast 3G: /calculator 5/12 прогонов → 0/12.
+  useEffect(() => {
+    navigated = true;
+  }, []);
 
   if (reduce || isFirst.current) return <>{children}</>;
 
