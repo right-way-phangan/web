@@ -230,10 +230,12 @@ export function MatchChat({ locale }: { locale: Locale }) {
 
   return (
     <div className="container-prose">
-      {/* Диалог */}
+      {/* Диалог. Ширину держим на уровне колонки чтения: на всю ширину
+          контейнера пара реплик и поле ввода терялись посреди пустого поля.
+          Подборка ниже остаётся широкой — там сетка карточек. */}
       <div
         ref={scrollRef}
-        className="max-h-[52vh] overflow-y-auto rounded-sm border border-forest-500/15 bg-cream-50 p-4 md:p-6"
+        className="max-h-[52vh] max-w-3xl overflow-y-auto rounded-sm border border-forest-500/15 bg-cream-50 p-4 md:p-6"
       >
         <div className="flex flex-col gap-3">
           {messages.map((m, i) => (
@@ -265,7 +267,7 @@ export function MatchChat({ locale }: { locale: Locale }) {
             e.preventDefault();
             send(input);
           }}
-          className="mt-3 flex items-center gap-2"
+          className="mt-3 flex max-w-3xl items-center gap-2"
         >
           <input
             type="text"

@@ -39,7 +39,7 @@ export default async function ContactPage({ searchParams }: PageProps) {
         </div>
       ) : null}
 
-      <section className="container-prose py-16 md:py-24">
+      <section className="container-prose py-14 md:py-20">
         <div className="grid gap-12 lg:grid-cols-[1fr_320px] lg:gap-16">
           <div className="rounded-sm border border-forest-500/10 bg-cream-50 p-6 shadow-soft md:p-8">
             <LeadForm source="contact" layout="block" defaultMessage={brief} />

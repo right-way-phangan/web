@@ -28,7 +28,7 @@ export default function KnowledgePage() {
         lede="Short, plain-language explainers on the legal and practical questions that decide a purchase — ownership structures, building zones, and the rules behind them. We keep these current; due diligence on every deal is part of how we work, not an add-on."
       />
 
-      <section className="container-prose py-16 md:py-24">
+      <section className="container-prose py-14 md:py-20">
         <KnowledgeBrowser
           basePath="/knowledge"
           articles={KB_ARTICLES.map((a) => ({
@@ -51,7 +51,7 @@ export default function KnowledgePage() {
       </section>
 
       <section className="border-t border-forest-500/10 bg-cream-200/30">
-        <div className="container-prose py-16 md:py-24">
+        <div className="container-prose py-14 md:py-20">
           <Reveal className="max-w-2xl">
             <SectionEyebrow>Still curious</SectionEyebrow>
             <h2 className="mt-3 font-serif text-3xl text-forest-900 md:text-4xl">

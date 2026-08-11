@@ -55,7 +55,7 @@ export default async function RussianDistrictsPage() {
         <DistrictsMap points={districtPoints} />
       </section>
 
-      <section className="container-prose py-16 md:py-24">
+      <section className="container-prose py-14 md:py-20">
         <div className="grid gap-6 md:grid-cols-2 md:gap-8">
           {DISTRICTS_RU.map((d) => {
             const [name, subtitle] = d.title.split(" — ");

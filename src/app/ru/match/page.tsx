@@ -17,7 +17,7 @@ export const maxDuration = 30;
 
 export default function RussianMatchPage() {
   return (
-    <section className="pb-24">
+    <section className="pb-16">
       <PageHero
         eyebrow="ИИ-подбор недвижимости"
         title="Расскажите, что вы ищете на самом деле."

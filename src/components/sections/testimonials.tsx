@@ -19,7 +19,7 @@ export function Testimonials({ locale }: { locale: Locale }) {
   const t = COPY[locale];
 
   return (
-    <section className="container-prose relative isolate py-16 md:py-24">
+    <section className="container-prose relative isolate py-14 md:py-20">
       <div
         className="pointer-events-none absolute -inset-x-16 inset-y-0 -z-10 bg-[radial-gradient(70%_90%_at_50%_0%,rgba(21,168,168,0.06),transparent_60%)]"
         aria-hidden

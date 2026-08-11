@@ -55,7 +55,7 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
       ) : null}
 
       {/* Values — double-bezel cards, machined like physical hardware */}
-      <section className="container-prose relative isolate py-16 md:py-24">
+      <section className="container-prose relative isolate py-14 md:py-20">
         {/* Тихий teal-перелив за секцией — снимает «плоскость» песчаного поля */}
         <div
           className="pointer-events-none absolute -inset-x-16 inset-y-0 -z-10 bg-[radial-gradient(70%_90%_at_88%_8%,rgba(21,168,168,0.07),transparent_62%)]"
@@ -88,7 +88,7 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
       </section>
 
       {/* Tools — the calculator, valuation and market data that power every listing */}
-      <section className="container-prose relative isolate py-16 md:py-24">
+      <section className="container-prose relative isolate py-14 md:py-20">
         {/* Тёплый янтарный отсвет слева-снизу — парный к teal-переливу выше */}
         <div
           className="pointer-events-none absolute -inset-x-16 inset-y-0 -z-10 bg-[radial-gradient(70%_90%_at_10%_95%,rgba(217,138,30,0.07),transparent_62%)]"
@@ -154,9 +154,10 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
         <FeaturedListings locale={locale} />
       </Reveal>
 
-      <Reveal>
-        <Testimonials locale={locale} />
-      </Reveal>
+      {/* Без Reveal: пока в content/testimonials.ts пусто, секция возвращает
+          null, а обёртка оставляла в разметке пустой div. Появятся отзывы —
+          их карточки въезжают своими <Appear>. */}
+      <Testimonials locale={locale} />
 
       <Reveal>
         <HomeArticles locale={locale} />

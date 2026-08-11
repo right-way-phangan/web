@@ -105,7 +105,7 @@ export default function DueDiligencePageRu() {
         lede="Каждый объект на этом сайте несёт один и тот же бейдж — и бейдж означает одни и те же восемь проверок, проведённых лично, каждый раз. Вот что именно за ним стоит."
       />
 
-      <section className="container-prose py-16 md:py-24">
+      <section className="container-prose py-14 md:py-20">
         <div className="grid gap-10 md:grid-cols-2 md:gap-x-14">
           {CHECKS.map((c, i) => (
             <div key={c.title} className="flex gap-5">

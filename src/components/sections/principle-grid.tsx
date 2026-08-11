@@ -22,7 +22,7 @@ export function PrincipleGrid({
   const gridCols = columns === 2 ? "md:grid-cols-2" : "md:grid-cols-3";
 
   return (
-    <section className="container-prose py-16 md:py-24">
+    <section className="container-prose py-14 md:py-20">
       {eyebrow ? (
         <SectionEyebrow>{eyebrow}</SectionEyebrow>
       ) : null}

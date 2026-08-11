@@ -27,7 +27,7 @@ export default function RussianKnowledgePage() {
         lede="Короткие, понятные разборы юридических и практических вопросов, которые решают сделку — структуры владения, строительные зоны и правила за ними. Мы держим их актуальными; юридическая проверка по каждой сделке — часть нашей работы, а не доп. опция."
       />
 
-      <section className="container-prose py-16 md:py-24">
+      <section className="container-prose py-14 md:py-20">
         <KnowledgeBrowser
           basePath="/ru/knowledge"
           articles={KB_ARTICLES_RU.map((a) => ({

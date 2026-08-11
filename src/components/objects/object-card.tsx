@@ -104,6 +104,10 @@ export function ObjectCard({ object, priority = false, priceMode = "buy", buildB
     <div className="group relative flex h-full flex-col">
       <div className="absolute right-3 top-3 z-10 flex flex-col items-end gap-2">
         <SaveButton rw={object.rwNumber} />
+        {/* Бейдж рисуется в 25px, а пальцем по нему промахиваются: тач-зону
+            растягиваем псевдоэлементом до ~44px, не трогая вид. Тот же приём,
+            что у переключателя валют. Вверх — меньше, чтобы не залезть на
+            кнопку «сохранить» над ним. */}
         {object.priceThb ? (
           <Link
             href={
@@ -120,7 +124,7 @@ export function ObjectCard({ object, priority = false, priceMode = "buy", buildB
               ) as Route
             }
             title={locale === "ru" ? "Калькулятор доходности" : "ROI calculator"}
-            className="inline-flex items-center gap-1 rounded-sm bg-panel/85 px-2 py-1 text-[11px] font-semibold tracking-[0.06em] text-panel-fg backdrop-blur-sm transition-colors hover:bg-panel"
+            className="relative inline-flex items-center gap-1 rounded-sm bg-panel/85 px-2 py-1 text-[11px] font-semibold tracking-[0.06em] text-panel-fg backdrop-blur-sm transition-colors before:absolute before:-inset-x-2 before:-bottom-3 before:-top-1.5 before:content-[''] hover:bg-panel"
           >
             <TrendingUp className="h-3 w-3" />
             ROI

@@ -27,7 +27,14 @@ export async function DevelopersIndex({ locale }: { locale: Locale }) {
           {t.empty}
         </p>
       ) : (
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        /* Колонки под фактическое число карточек: при двух застройщиках сетка
+           на три колонки оставляла пустую треть справа. Тот же приём, что в
+           секции отзывов. */
+        <div
+          className={`mt-10 grid gap-6 sm:grid-cols-2 ${
+            developers.length >= 3 ? "lg:grid-cols-3" : ""
+          }`}
+        >
           {developers.map((dev, i) => {
             const profile = getDeveloperProfile(dev.slug);
             const href = localePath(locale, `/developers/${dev.slug}`);

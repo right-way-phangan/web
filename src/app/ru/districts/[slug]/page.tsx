@@ -166,7 +166,7 @@ export default async function RussianDistrictPage({ params }: Props) {
         </div>
       </section>
 
-      <section className="container-prose py-16 md:py-24">
+      <section className="container-prose py-14 md:py-20">
         <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">Другие районы</p>
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           {others.map((o) => (

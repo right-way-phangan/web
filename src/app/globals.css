@@ -448,6 +448,28 @@
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
+  /* Мобильная лента карточек. Шесть объектов в столбик — это три экрана
+     вслепую: на телефоне главная разрасталась до 11 000px, треть из которых
+     занимала одна секция. Ниже sm карточки едут вбок по нативному
+     scroll-snap (без JS и без библиотек), край следующей выглядывает из-за
+     обреза и служит подсказкой «листай»; с sm раскладка возвращается в
+     обычную сетку, колонки задаются утилитами на самом элементе. */
+  .card-rail {
+    @apply -mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-2;
+    scroll-padding-left: 1.5rem;
+  }
+  .card-rail > * {
+    @apply w-[78vw] max-w-xs shrink-0 snap-start;
+  }
+  @media (min-width: 640px) {
+    .card-rail {
+      @apply mx-0 grid gap-6 overflow-visible px-0 pb-0;
+      scroll-padding-left: 0;
+    }
+    .card-rail > * {
+      @apply w-auto max-w-none;
+    }
+  }
 }
 
 /* Брошюра объекта: window.print() поверх print-оптимизированной страницы.

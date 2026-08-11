@@ -32,7 +32,7 @@ export async function FeaturedListings({ locale = "en" }: { locale?: Locale }) {
     .map(slimObjectForCard);
 
   return (
-    <section className="container-prose py-16 md:py-24">
+    <section className="container-prose py-14 md:py-20">
       <div className="flex flex-wrap items-end justify-between gap-6">
         <div>
           <SectionEyebrow>{dict.eyebrow}</SectionEyebrow>
@@ -48,7 +48,7 @@ export async function FeaturedListings({ locale = "en" }: { locale?: Locale }) {
         </Button>
       </div>
 
-      <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="card-rail mt-14 sm:grid-cols-2 lg:grid-cols-3">
         {featured.map((object, i) => (
           <Appear key={object.id} delay={(i % 3) * 0.05} className="h-full">
             <ObjectCard object={object} />

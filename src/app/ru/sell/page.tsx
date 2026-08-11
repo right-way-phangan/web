@@ -108,7 +108,7 @@ export default function SellPageRu() {
         }
       />
 
-      <section className="container-prose py-16 md:py-24">
+      <section className="container-prose py-14 md:py-20">
         <Reveal>
           <div className="grid gap-10 md:grid-cols-2 md:gap-x-14">
             {REASONS.map((r, i) => (
@@ -131,7 +131,7 @@ export default function SellPageRu() {
       </section>
 
       <section className="bg-cream-200/30">
-        <div className="container-prose py-16 md:py-24">
+        <div className="container-prose py-14 md:py-20">
           <Reveal>
             <SectionEyebrow>Как это работает</SectionEyebrow>
             <h2 className="mt-3 font-serif text-3xl text-forest-900 md:text-4xl">
@@ -156,7 +156,7 @@ export default function SellPageRu() {
         </div>
       </section>
 
-      <section className="container-prose py-16 md:py-24">
+      <section className="container-prose py-14 md:py-20">
         <div className="grid items-start gap-10 md:grid-cols-2 md:gap-x-16">
           <div>
             <h2 className="font-serif text-3xl text-forest-900 md:text-4xl">

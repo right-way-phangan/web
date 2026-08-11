@@ -62,7 +62,7 @@ export default function AboutPage() {
         </p>
       </ContentSection>
 
-      <section className="container-prose py-16 md:py-24">
+      <section className="container-prose py-14 md:py-20">
         <Reveal>
           <div className="grid gap-10 md:grid-cols-[1fr_2fr] md:gap-16">
             <div>

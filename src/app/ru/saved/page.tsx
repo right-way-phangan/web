@@ -20,7 +20,7 @@ export default async function RussianSavedPage() {
   const catalog = (await getPublicObjects()).map(slimObjectForCard);
 
   return (
-    <section className="container-prose py-16 md:py-24">
+    <section className="container-prose py-14 md:py-20">
       <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">Шорт-лист</p>
       <h1 className="mt-4 max-w-3xl text-balance">Ваши сохранённые объекты.</h1>
       <p className="mt-6 max-w-xl text-lg text-forest-500/70">

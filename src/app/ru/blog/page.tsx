@@ -33,7 +33,7 @@ export default async function RussianBlogPage() {
         lede="Вопросы, которые покупатели реально нам задают, с ответами в открытую — как работает юридическая проверка земли, сколько зарабатывают виллы и как читать рынок, который вознаграждает за домашнюю работу."
       />
 
-      <section className="container-prose py-16 md:py-24">
+      <section className="container-prose py-14 md:py-20">
         <div className="grid gap-6 md:grid-cols-2 md:gap-8">
           {posts.map((p) => (
             <Link
