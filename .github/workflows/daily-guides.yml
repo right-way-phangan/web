@@ -40,7 +40,7 @@ jobs:
     # rather than tying a runner up for hours (public repo — Actions minutes are free).
     timeout-minutes: 260
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
