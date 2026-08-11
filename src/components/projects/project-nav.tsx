@@ -17,12 +17,15 @@ export function ProjectNav({
   items,
   ctaLabel,
   availabilityNote,
+  priceNote,
   ariaLabel = "Project sections",
   ctaHref = "enquire",
 }: {
   items: NavItem[];
   ctaLabel?: string;
   availabilityNote?: string;
+  /** «от ฿6,550,000» — офер остаётся на виду после того, как уехал герой. */
+  priceNote?: string;
   /** Accessible name for the nav strip (defaults to the project-landing wording). */
   ariaLabel?: string;
   /** Section id the CTA button scrolls to (bare id, no "#"). */
@@ -71,6 +74,9 @@ export function ProjectNav({
     e.preventDefault();
     const el = document.getElementById(id);
     if (!el) return;
+    // Целью может быть свёрнутая заявка (<details>) — раскрываем, иначе визитёр
+    // приедет к закрытой строке и подумает, что кнопка не сработала.
+    if (el instanceof HTMLDetailsElement) el.open = true;
     const top = el.getBoundingClientRect().top + window.scrollY - 120;
     window.scrollTo({ top, behavior: "smooth" });
     history.replaceState(null, "", `#${id}`);
@@ -101,6 +107,9 @@ export function ProjectNav({
             </a>
           ))}
         </nav>
+        {priceNote ? (
+          <span className="num hidden shrink-0 text-sm text-forest-900 lg:inline">{priceNote}</span>
+        ) : null}
         {availabilityNote ? (
           <span className="hidden shrink-0 items-center gap-1.5 text-xs text-forest-500/70 lg:inline-flex">
             <span className="h-1.5 w-1.5 rounded-full bg-brass-500" />

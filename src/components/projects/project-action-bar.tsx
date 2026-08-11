@@ -43,6 +43,8 @@ export function ProjectActionBar({ rwNumber, titleEn, priceThb }: Props) {
     track("project_enquire", { rw: rwNumber });
     const el = document.getElementById("enquire");
     if (!el) return;
+    // На лендинге проекта заявка свёрнута в <details> — открываем перед скроллом.
+    if (el instanceof HTMLDetailsElement) el.open = true;
     const top = el.getBoundingClientRect().top + window.scrollY - 80;
     window.scrollTo({ top, behavior: "smooth" });
   };
