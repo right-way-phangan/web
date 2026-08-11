@@ -35,7 +35,7 @@ export default async function BlogPage() {
         lede="The questions buyers actually ask us, answered in the open — how land due diligence works, what villas earn, and how to read a market that rewards doing the homework."
       />
 
-      <section className="container-prose py-16 md:py-24">
+      <section className="container-prose py-14 md:py-20">
         <Reveal>
           <div className="grid gap-6 md:grid-cols-2 md:gap-8">
             {posts.map((p, i) => (

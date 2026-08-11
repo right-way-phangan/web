@@ -19,7 +19,7 @@ export default async function SavedPage() {
   const catalog = (await getPublicObjects()).map(slimObjectForCard);
 
   return (
-    <section className="container-prose py-16 md:py-24">
+    <section className="container-prose py-14 md:py-20">
       <SectionEyebrow>Shortlist</SectionEyebrow>
       <h1 className="mt-4 max-w-3xl text-balance">Your saved properties.</h1>
       <p className="mt-6 max-w-xl text-lg text-forest-500/70">

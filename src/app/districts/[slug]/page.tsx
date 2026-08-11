@@ -198,7 +198,7 @@ export default async function DistrictPage({ params }: Props) {
         </div>
       </section>
 
-      <section className="container-prose py-16 md:py-24">
+      <section className="container-prose py-14 md:py-20">
         <SectionEyebrow>More districts</SectionEyebrow>
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           {others.map((o, i) => (

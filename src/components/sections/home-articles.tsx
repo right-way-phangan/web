@@ -40,7 +40,7 @@ export async function HomeArticles({ locale }: { locale: Locale }) {
   if (!posts.length) return null;
 
   return (
-    <section className="container-prose relative isolate py-16 md:py-24">
+    <section className="container-prose relative isolate py-14 md:py-20">
       <div
         className="pointer-events-none absolute -inset-x-16 inset-y-0 -z-10 bg-[radial-gradient(70%_90%_at_12%_0%,rgba(217,138,30,0.06),transparent_62%)]"
         aria-hidden
@@ -62,7 +62,7 @@ export async function HomeArticles({ locale }: { locale: Locale }) {
         </Link>
       </div>
 
-      <div className="mt-10 grid gap-6 md:grid-cols-3">
+      <div className="card-rail mt-10 md:grid-cols-3">
         {posts.map((p, i) => (
           <Appear key={p.slug} delay={(i % 3) * 0.05} className="h-full">
             <Link

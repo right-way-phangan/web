@@ -13,7 +13,7 @@ interface Props {
 
 export function ProcessTimeline({ steps }: Props) {
   return (
-    <section className="container-prose py-16 md:py-24">
+    <section className="container-prose py-14 md:py-20">
       <ol className="relative space-y-12 md:space-y-16">
         {steps.map((step, i) => (
           <Appear key={step.number} delay={(i % 2) * 0.06}>

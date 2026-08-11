@@ -18,7 +18,7 @@ export const maxDuration = 30;
 
 export default function MatchPage() {
   return (
-    <section className="pb-24">
+    <section className="pb-16">
       <PageHero
         eyebrow="AI property match"
         title="Tell us what you're really after."

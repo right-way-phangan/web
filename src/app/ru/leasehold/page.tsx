@@ -125,7 +125,7 @@ export default function LeaseholdPageRu() {
         }
       />
 
-      <section className="container-prose py-16 md:py-24">
+      <section className="container-prose py-14 md:py-20">
         <div className="grid gap-10 md:grid-cols-2 md:gap-x-14">
           {PILLARS.map((p, i) => (
             <div key={p.title} className="flex gap-5">

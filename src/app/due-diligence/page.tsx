@@ -105,7 +105,7 @@ export default function DueDiligencePage() {
         lede="Every property on this site carries the same badge — and the badge means the same eight checks, done in person, every time. Here is exactly what stands behind it."
       />
 
-      <section className="container-prose py-16 md:py-24">
+      <section className="container-prose py-14 md:py-20">
         <Reveal>
           <div className="grid gap-10 md:grid-cols-2 md:gap-x-14">
             {CHECKS.map((c, i) => (
