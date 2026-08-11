@@ -128,16 +128,15 @@ function EntryDetail({
       <div>
         {heading ? (
           <>
+            {/* Года нет — молчим: «Даты уточняются» в каждой второй карточке
+                читалось как четыре одинаковые заглушки подряд. Один раз про это
+                сказано сноской под лентой. */}
             {entry.year ? (
               <div className="text-xs font-medium uppercase tracking-eyebrow text-brass-500">
                 {entry.year}
               </div>
-            ) : (
-              <div className="text-sm text-forest-500/55">
-                {t.developers.dateTbc}
-              </div>
-            )}
-            <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-2">
+            ) : null}
+            <div className={cn("flex flex-wrap items-center gap-x-3 gap-y-2", entry.year && "mt-1.5")}>
               <h3 className="font-serif text-2xl text-forest-900">
                 {entry.title}
               </h3>
@@ -194,11 +193,9 @@ export function DeveloperTimeline({
   const reduce = useReducedMotion();
   const baseId = useId();
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
-  // The project being built is the one that is actually for sale — open it first.
-  const initial = Math.max(
-    0,
-    items.findIndex((e) => e.status === "under-construction"),
-  );
+  // Лента открывается с начала: то, что продаётся, и так вынесено в отдельные
+  // секции ниже, а раскрытый четвёртый ряд на телефоне читался как сбой.
+  const initial = 0;
   // -1 = every mobile accordion row closed; the rail always keeps one open.
   const [selected, setSelected] = useState(initial);
   const [hovered, setHovered] = useState<number | null>(null);
@@ -228,6 +225,9 @@ export function DeveloperTimeline({
       <p className="mb-8 mt-3 text-sm text-forest-500/60">
         <span className="hidden lg:inline">{t.developers.timelineHint}</span>
         <span className="lg:hidden">{t.developers.timelineHintTouch}</span>
+        {items.some((e) => !e.year) ? (
+          <span className="block">{t.developers.dateTbc}</span>
+        ) : null}
       </p>
 
       {/* Desktop rail */}
