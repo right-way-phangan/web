@@ -1,4 +1,4 @@
-# Last run — 2026-08-11
+# Last run — 2026-08-12
 
 **Guides published:** 2
 
@@ -6,46 +6,46 @@
 
 ## Guide 1
 
-- **slug:** `short-term-rental-airbnb-crackdown-2026`
-- **kbId:** `kb-0087`
-- **title (EN):** Airbnb and short-term rentals in Thailand's 2026 crackdown: what's actually illegal, what's exempt
-- **title (RU):** Airbnb и краткосрочная аренда в Таиланде: облава 2026 года — что действительно незаконно, а что освобождено
-- **faqCategory:** `process`
-- **faqQuestion:** Is it legal to rent out my Koh Phangan villa short-term on Airbnb, and how is Thailand enforcing this in 2026?
+- **slug:** `land-appraisal-value-reform-2027-treasury-big-data`
+- **kbId:** `kb-0089`
+- **title (EN):** Thailand's 2027 land appraisal reset: what the Treasury's Big Data valuation cycle means for your tax bill
+- **title (RU):** Переоценка кадастровой стоимости земли в Таиланде в 2027 году: что новый цикл Big Data Казначейства значит для вашего налога
+- **faqCategory:** `costs`
+- **faqQuestion:** Will my land and building tax or transfer costs go up because of Thailand's 2027 land appraisal revaluation?
 - **Sources used:**
-  - Tilleke & Gibbins — Thailand Amends Hotel Regulations — the 2023 Ministerial Regulation No. 2 (B.E. 2566) that raised the non-hotel exemption threshold from 4 rooms/20 guests to 8 rooms/30 guests, effective 29 October 2023
-  - Rumavi — Thailand Airbnb Rules 2026 — the 30-day Hotel Act threshold, monthly-rental exemption confirmed by a 2026 court ruling, and villa vs condo distinctions
-  - ReLife Properties — Is Airbnb Legal in Thailand in 2026? — Hotel Act framework, condo juristic-person bylaws blocking daily rentals independent of the law, penalty amounts
-  - ProofSnap — Is Airbnb Legal in Thailand? 2026 Rules, Fines & 30-Day Rule Guide — 2025-2026 cross-agency enforcement detail (Revenue Dept/Immigration/Interior data sharing), Pratunam/Sukhumvit undercover-booking prosecutions, penalty figures
-  - Draft "Non-Hotel Accommodation Act" status (Council of State review, room/guest tiers, Thai Hotels Association opposition) corroborated via multiple search-result summaries of Bangkok Post, Nishimura & Asahi and Bangkok Global Law coverage; those pages 403'd or paywalled on direct fetch, so they're described conservatively in-body ("under review," not enacted) rather than added to the cited sources array
+  - Bangkok Post — Treasury seeks narrower gap in land appraisal prices — confirms the 2027–2030 cycle, the 20–40% appraisal-to-market gap Treasury is targeting, and the Big Data integration with bank loan-appraisal data
+  - The Nation Thailand — Developers warn 2027 land revaluation could deepen Thai property slump — the 1 Jan 2027 effective date, ~10–20% nationwide average increase estimate, and the Ananda Development CEO's "indirect tax" quote
+  - Lex Bangkok — Thailand Land Appraisal Value: 2027 Reset & D-Value Guide — the D-Value platform details (satellite search, ThaiD/Paotang verification) and how appraised value feeds transfer fee, mortgage fee, SBT, stamp duty and LBT
 
 ## Guide 2
 
-- **slug:** `foreign-heir-inheriting-thai-land-section-93`
-- **kbId:** `kb-0088`
-- **title (EN):** A foreigner inherits Thai land directly: why Section 93's ministerial permission is effectively unobtainable
-- **title (RU):** Иностранец напрямую наследует тайскую землю: почему разрешение министра по статье 93 практически недостижимо
-- **faqCategory:** `ownership`
-- **faqQuestion:** I'm a foreigner and my Thai spouse or relative left me land in their will — can I actually keep it?
+- **slug:** `koh-samui-cruise-terminal-proposal-phangan-impact`
+- **kbId:** `kb-0090`
+- **title (EN):** Koh Samui's ฿12-billion cruise terminal: a real project, still years off, and a Samui story before it's a Phangan one
+- **title (RU):** Круизный терминал на Ко Самуи за ฿12 миллиардов: реальный проект, но пока далёкий — и прежде всего история Самуи, а не Пангана
+- **faqCategory:** `phangan`
+- **faqQuestion:** Is a Koh Samui cruise ship terminal actually being built, and would it affect Koh Phangan tourism or property demand?
 - **Sources used:**
-  - Thailand Law Online — full Land Code Act translation — primary text of Sections 86, 93, 94 and 96 (treaty-based acquisition, ministerial permission for heirs, disposal timelines, the nominee-disposal mechanism)
-  - Thailand Law Online — Inheritance of Real Estate by Foreigners — confirms the 1970 treaty termination as the reason Section 93 permission is unobtainable in practice, plus the parallel 60-day/1-year condo unqualified-heir rule used for contrast
-  - Expat Tax Thailand — Can Foreigners Inherit Land in Thailand? — independent corroboration of the one-year disposal default and the "plan ahead, don't rely on inheritance" framing
-  - Thai-Norwegian Chamber of Commerce (Norcham) — Foreign Spouse's Statutory Right to Inherit Land — used for the spouse-inheritance process and ministerial-approval mechanics; its claim that a spouse can retain up to 1 rai "indefinitely" conflicts with the treaty-based consensus from the other three sources, so the guide explicitly flags that specific claim as unverified rather than repeating it as fact
+  - The Nation Thailand — Thailand advances Bt12bn Koh Samui cruise terminal project — the ฿12.17bn PPP cost breakdown, 47-rai Koh Samui site, 200,000–400,000 passenger/~240 call capacity, Cabinet-approval timeline
+  - The Star — Study plans for Thailand's Ko Samui and Pattaya cruise terminals sent back for review — confirms the PPP Committee rejected the initial EHIA in August 2025 and the resulting revised schedule (new EHIA early 2027, Cabinet approval late 2027/early 2028, tender 2028–2029, operations ~2032)
+  - Globe News Bangkok — Thailand Steps Up Koh Samui Cruise Terminal Development — corroborates cost/capacity/PPP structure and the ~46bn baht/30-year economic-value projection
+  - Discovering Hospitality — Thailand's US$366M Koh Samui Cruise Terminal Set for 2032 — confirms no Koh Phangan/Koh Tao component is in the published project scope
 
 ---
 
 ## Notes
 
-Selection followed backlog priority order (🔴 → 🟢 → 🟡 → ⚪️):
+Selection followed backlog priority order (🔴 → 🟢 → 🟡 → ⚪️), re-verifying (not just trusting) each existing duplicate-flag note by reading the flagged existing guide in full before skipping:
 
-- Top 🔴 item, "Short-term rental (Airbnb) 2026 enforcement crackdown," was undone and not a duplicate of any published slug. **Published as Guide 1.**
-- Second 🔴 item, the "8-province corporate landholder monitoring database," was re-checked against kb-0051 (`land-department-audit-existing-landholding-companies-2026`) — it already covers the IBAS system, the May 2026 monthly-review/quarterly-reporting circulars and the Section 96/97-98 thresholds in depth. Still a substantive duplicate; skipped again, left ⏳ for a future run only if a genuinely distinct angle (e.g. Surat Thani-specific counts) emerges.
-- No further 🔴 items were undone. Moved to 🟢 tier: "Non-resident vs resident rental income tax" and "Koh Phangan's power grid reliability" both carry existing duplicate-flag notes (kb-0027, kb-0026) and were left as-is without re-verifying, since their notes were already confirmed accurate in the prior run.
-- "Foreign spouse/heir inheriting Thai land directly" (🟢, discovered 2026-08-09) was genuinely distinct — checked against kb-0012 (`inheritance-leasehold-and-villa`, covers lease/building/company succession, not direct land title), kb-0063 (`land-code-section-94-forfeiture-amendment`, covers the forfeiture proposal generally, not the heir-specific Section 93 mechanism) and kb-0081 (inheritance *tax*, a different topic). No overlap found. **Published as Guide 2.**
+- Sole 🔴 ⏳ item, "8-province corporate landholder monitoring database," re-checked against `kb-0051` (`land-department-audit-existing-landholding-companies-2026`) — confirmed it already covers IBAS, the May 2026 monthly-review/quarterly-reporting circulars and Section 96/97-98 thresholds in full. Left ⏳ with existing note; no new angle found.
+- Both 🟢 ⏳ items re-checked directly this run: "Non-resident vs resident rental income tax" against `kb-0027` (`owners-taxes-annual-land-and-income` — already covers resident/non-resident treatment, 30% deduction, progressive rates, PND.90 in depth) and "Koh Phangan's power grid reliability" against `kb-0026` (`utilities-water-electricity-internet-koh-phangan` — already covers submarine cables, capacity, EGAT upgrade). Both confirmed genuine duplicates; left ⏳.
+- First 🟡 ⏳ item, "Realistic villa rental yields," re-checked against `kb-0010` (`renting-out-your-villa-rules-and-taxes`) — confirmed duplicate (already frames yield as rate × occupancy minus real costs vs. brochure projections). Left ⏳.
+- Next two 🟡 ⏳ items, "2027 land valuation reform" and "Cruise ship pier proposal for Koh Samui/Phangan," had no existing overlap in the KB and were well-sourced from primary/reputable outlets (Bangkok Post, The Nation Thailand, Marine Department-sourced reporting). **Published as Guides 1 and 2.**
 
-Both guides cross-link to existing, verified slugs — Guide 1: `renting-out-your-villa-rules-and-taxes`, `vetting-villa-property-management-company`; Guide 2: `land-code-section-94-forfeiture-amendment`, `thb-40-million-investment-land-ownership-route`, `foreign-spouse-usufruct-thai-marriage-property`, `superficies-vs-usufruct-vs-lease`, `freehold-condo-vs-leasehold-villa`, `inheritance-leasehold-and-villa` — all confirmed present in both EN/RU files before use.
+The cruise-terminal guide is deliberately conservative: every source I could verify places the project's entire scope on Koh Samui (Laem Hin Khom / 47-rai site), with no official mention of a Phangan-specific pier or berth. I did not repeat the backlog's "40+ ships/year currently tender passengers" figure since I could not verify a specific current-year count from a fetched source — the guide instead cites the terminal's own capacity target (up to ~240 calls/year) and describes today's situation qualitatively (anchor-and-tender via Nathon Pier). The guide frames any Phangan effect as indirect and long-run, consistent with the already-published Samui sea bridge guide (`kb-0067`), which it cross-links.
 
-`npx tsc --noEmit` passes clean. kbId sequence continues at kb-0087/kb-0088 (prior max was kb-0086).
+Both guides cross-link to existing, verified slugs — Guide 1: `cost-of-buying-taxes-and-fees`, `owners-taxes-annual-land-and-income`, `disputing-land-building-tax-assessment`; Guide 2: `samui-sea-bridge-expressway-phangan-tao-demand`, `eh216-s-air-taxi-samui-phangan-tao`, `phangan-market-seasonality` — all confirmed present in both EN/RU files before use.
 
-Remaining ⏳ backlog, next-priority first: 🔴 — 8-province landholder monitoring database (duplicate-flagged); 🟢 — non-resident/resident rental tax and power grid reliability (both duplicate-flagged); 🟡 — realistic rental yields (duplicate-flagged), 2027 land valuation reform, cruise ship pier proposal, who's buying on Phangan in 2026, island wastewater rules, stamp duty vs SBT mutual exclusivity, VAT vs SBT on new-build sales (flagged as needing primary Revenue Dept verification), vetting off-plan projects amid the development boom; ⚪️ — right of habitation, Koh Phangan airport status.
+`npx tsc --noEmit` and `npx eslint` on both content files pass clean. kbId sequence continues at kb-0089/kb-0090 (prior max was kb-0088).
+
+Remaining ⏳ backlog, next-priority first: 🔴 — 8-province landholder monitoring database (duplicate-flagged); 🟢 — non-resident/resident rental tax and power grid reliability (both duplicate-flagged); 🟡 — realistic rental yields (duplicate-flagged), who's buying on Phangan in 2026, island wastewater rules, stamp duty vs SBT mutual exclusivity, VAT vs SBT on new-build sales (flagged as needing primary Revenue Dept verification), vetting off-plan projects amid the development boom; ⚪️ — right of habitation, Koh Phangan airport status.

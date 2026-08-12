@@ -5809,6 +5809,141 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "ownership",
     faqQuestion: "I'm a foreigner and my Thai spouse or relative left me land in their will — can I actually keep it?",
   },
+  {
+    slug: "land-appraisal-value-reform-2027-treasury-big-data",
+    kbId: "kb-0089",
+    topic: "Costs",
+    title: "Thailand's 2027 land appraisal reset: what the Treasury's Big Data valuation cycle means for your tax bill",
+    short:
+      "From 1 January 2027, Thailand's Treasury Department starts a new four-year land and building appraisal cycle built on a Big Data system that pulls in real bank-loan and transaction prices — aimed at closing a gap that today runs 20–40% below actual market values. Appraised value is the base for transfer fees, Specific Business Tax, stamp duty and annual Land and Building Tax, so a higher appraisal raises what you pay even if no rate changes.",
+    updated: "2026-08-12",
+    body: [
+      "Will your land and building tax or transfer costs go up in 2027 even if the law itself doesn't change? Likely yes, for most owners — because the number the tax is calculated on is resetting, not just the rate. Thailand's Treasury Department revalues land nationwide on a fixed four-year cycle, and the 2023–2026 cycle expires at the end of this year. The 2027–2030 cycle that replaces it is built on a more data-driven process than any previous reset, and early signals point to appraised values rising for most owners, Koh Phangan included.",
+      { h: "What's changing on 1 January 2027" },
+      {
+        ul: [
+          "**A new four-year appraisal cycle** runs 1 January 2027 to 31 December 2030, replacing 2023–2026. The Treasury Department revalues land nationwide once per cycle; this has been standard practice since well before 2023.",
+          "**The goal is closing the gap to market prices** — official appraisals currently run an estimated 20–40% below actual transaction prices in many areas, versus a roughly 15% gap in comparable markets internationally.",
+          "**A Big Data system now feeds the appraisal**, integrating real transaction prices and loan-appraisal data shared by partner banks — Government Housing Bank, Krungthai Bank and the Bank for Agriculture and Agricultural Cooperatives (BAAC) — rather than relying solely on the department's own periodic surveys.",
+          "**Nationwide, appraised values are projected to rise roughly 10–20% on average** compared to the 2023–2026 cycle, though the Treasury Department has not published province- or district-level figures for the new cycle as of this writing — the actual move on a specific Koh Phangan plot could sit above or below that average.",
+        ],
+      },
+      { h: "Where the appraised value actually hits your wallet" },
+      "The appraised value isn't just a reference number — it's the tax base for most of the fees and taxes charged when property changes hands, and for the annual tax you pay just for holding it:",
+      {
+        ul: [
+          "**Transfer fee** — 2% of the appraised value (not the sale price, if the appraisal is higher).",
+          "**Mortgage registration fee** — 1% of the loan amount or appraised value, whichever applies.",
+          "**Specific Business Tax** — 3.3% of whichever is higher: the appraised value or the actual sale price.",
+          "**Stamp duty** — 0.5%, charged instead of Specific Business Tax when SBT doesn't apply (see [the full cost of buying on Koh Phangan](/knowledge/cost-of-buying-taxes-and-fees) for when each applies).",
+          "**Annual Land and Building Tax** — assessed each year on the appraised value under the tiered rates set out in [Owner's taxes on Koh Phangan](/knowledge/owners-taxes-annual-land-and-income); a higher appraisal moves every owner up the same rate table without the table itself changing.",
+        ],
+      },
+      "None of these percentages are changing in 2027 — what's changing is the number they're multiplied against. A villa plot whose appraised value rises 15% under the new cycle sees roughly the same proportional rise in transfer fee, mortgage fee, SBT or annual Land and Building Tax the next time each is triggered.",
+      { h: "Why this matters more in a place like Koh Phangan" },
+      "The 20–40% appraisal-to-market gap isn't evenly distributed — it tends to be widest in fast-appreciating tourist and resort areas, where land prices have moved well ahead of the last official reassessment. Koh Phangan's villa and land market fits that profile. Because the new Big Data system draws on real bank-loan appraisals and transaction data rather than periodic manual surveys, a market that's been running hot on paper values but not on official appraisals is exactly the kind of gap the reform is designed to close — which is a reason to expect Surat Thani province's revaluation could move by more than the 10–20% national average, not less. Treat that as a planning risk to watch, not a confirmed figure; no province-level number has been published yet.",
+      { h: "The pushback, and what it signals" },
+      "Property developers have been vocal that a higher appraisal base functions as a tax increase without a formal rate increase. Prasert Taedullayasatit, CEO of listed developer Ananda Development, has described adjusting the appraisal baseline as acting \"like an indirect tax that many citizens might not notice.\" Developers holding large unsold inventory and land banks face the same mechanics as individual owners — higher transfer costs on every future sale and higher annual holding costs in the meantime. That pushback is a useful signal for buyers too: it confirms the appraisal increase is expected to be broad-based, not a narrow technical adjustment.",
+      { h: "What to actually do before 2027" },
+      {
+        ul: [
+          "**Check the current appraised value now** via the Treasury Department's free D-Value platform — searchable by satellite map without needing a title deed, with results verified through the ThaiD or Paotang apps. It reflects the 2023–2026 cycle until the new figures are published.",
+          "**If you're closing a purchase or transfer near the end of 2026**, ask your lawyer to confirm which appraisal cycle applies to your registration date — the transfer fee and SBT/stamp duty calculation uses the appraised value in force on the day you register at the Land Office, not the day you sign a contract.",
+          "**Don't assume a stable Land and Building Tax bill going forward** — even with unchanged rates, a higher appraisal base means a higher bill each year of the 2027–2030 cycle. Budget for it rather than being surprised by the first post-reset assessment.",
+          "**If a future assessment looks disproportionate**, Thailand's appeal process exists for exactly this — see [Disputing your Land and Building Tax assessment](/knowledge/disputing-land-building-tax-assessment) for the deadlines and evidence involved.",
+        ],
+      },
+      "The honest summary: this is a confirmed, scheduled reform with a real mechanism behind it — not speculation — but the specific size of the increase for a given Koh Phangan plot isn't public yet. Budget for a real increase in transfer and annual costs from January 2027, verify your own plot's current value on D-Value today, and revisit the actual figures once the Treasury Department publishes the new cycle.",
+    ],
+    takeaways: [
+      "A new land appraisal cycle runs 1 January 2027 to 31 December 2030, replacing 2023–2026 — Thailand's Treasury Department revalues land nationwide once every four years.",
+      "The reform integrates real transaction and bank-loan appraisal data (from GH Bank, Krungthai Bank and BAAC) into a Big Data system aimed at closing a 20–40% gap between official and market land values.",
+      "Nationwide, appraised values are projected to rise roughly 10–20% on average — but no province- or district-level figures are published yet, and fast-appreciating tourist markets like Koh Phangan's could move by more.",
+      "Appraised value is the tax base for the 2% transfer fee, 1% mortgage fee, 3.3% Specific Business Tax (or 0.5% stamp duty), and the annual Land and Building Tax — a higher appraisal raises what you owe even with no rate change.",
+      "Check a specific plot's current appraised value for free on the Treasury Department's D-Value platform, and confirm with your lawyer which cycle applies if you're closing a deal near the end of 2026.",
+    ],
+    sources: [
+      {
+        title: "Bangkok Post — Treasury seeks narrower gap in land appraisal prices",
+        url: "https://www.bangkokpost.com/property/3278170/treasury-seeks-narrower-gap-in-land-appraisal-prices",
+      },
+      {
+        title: "The Nation Thailand — Developers warn 2027 land revaluation could deepen Thai property slump",
+        url: "https://www.nationthailand.com/business/property/40068017",
+      },
+      {
+        title: "Lex Bangkok — Thailand Land Appraisal Value: 2027 Reset & D-Value Guide",
+        url: "https://lexbangkok.com/thailand-land-appraisal-value/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "Will my land and building tax or transfer costs go up because of Thailand's 2027 land appraisal revaluation?",
+  },
+  {
+    slug: "koh-samui-cruise-terminal-proposal-phangan-impact",
+    kbId: "kb-0090",
+    topic: "Phangan",
+    title: "Koh Samui's ฿12-billion cruise terminal: a real project, still years off, and a Samui story before it's a Phangan one",
+    short:
+      "The Marine Department has a feasibility study finished for a deep-water cruise terminal at Koh Samui, designed to end today's small-boat tender system for cruise passengers. It's a credible, advancing project — but the environmental study was sent back for revision in 2025, Cabinet approval isn't targeted until late 2027/early 2028, and nothing in its published scope reaches Koh Phangan directly.",
+    updated: "2026-08-12",
+    body: [
+      "Is a cruise ship terminal actually being built near Koh Phangan, and would it lift tourism or property demand here? The project that's actually moving is a deep-water cruise terminal on Koh Samui — a real, government-studied proposal with a specific site, budget and capacity target — but it terminates entirely on Samui, is still years from breaking ground, and no official document ties it to Phangan. Here's what's confirmed, and how to weigh it.",
+      { h: "What's confirmed so far" },
+      {
+        ul: [
+          "**Location and scale** — a 47-rai site on Koh Samui (15 rai onshore, 32 rai offshore), studied by the Marine Department under Thailand's Ministry of Transport.",
+          "**Cost** — a total project value of ฿12.17 billion under a Public-Private Partnership Net Cost model: roughly ฿148.6 million in state investment against about ฿12.02 billion in private investment covering construction, equipment and 30 years of operations; an earlier Marine Department estimate put the construction-only figure at ฿6.415 billion.",
+          "**Capacity** — designed for 200,000–400,000 passengers and up to around 240 cruise calls a year.",
+          "**The problem it solves** — Koh Samui currently has no deep-water cruise berth. Large ships anchor offshore and passengers are ferried to Nathon Pier by tender boat, a slower and weather-exposed process that limits how many ships call and how long passengers can spend ashore.",
+          "**Structure** — a 30-year concession under a PPP Net Cost model, with the private partner handling construction, operation and maintenance and the government reimbursing infrastructure costs over 10 years.",
+        ],
+      },
+      { h: "Why it's still a proposal, not a project underway" },
+      "In August 2025, Thailand's PPP Committee sent the project's Environmental and Health Impact Assessment back for revision — alongside a similar proposed terminal in Pattaya — and instructed the Marine Department to commission a new EHIA. On the Marine Department's own published schedule from that point: the new EHIA is targeted for completion in early 2027, Cabinet approval is targeted for late 2027 to early 2028, tendering for the private partner follows in 2028–2029, construction takes roughly three years, and operations are targeted to start around 2032. A supportive comment from Deputy Transport Minister Sanphet Bunyamanee in May 2026 signals the project retains political momentum, but it is not the same as Cabinet approval, which hasn't happened yet.",
+      { h: "Why this doesn't reach Phangan directly" },
+      "Every published detail of this project — the site, the 47 rai, the terminal building, the capacity target — sits on Koh Samui's coastline. No Marine Department document, feasibility study summary or news report on the project mentions a Koh Phangan or Koh Tao component. Cruise passengers disembarking at a future Samui terminal would primarily feed Samui-based day-tour circuits (temples, viewpoints, beach clubs) rather than Phangan, unless a specific inter-island excursion product develops later — which nothing currently published points to. The realistic read is the same one that applies to [the proposed Samui sea bridge](/knowledge/samui-sea-bridge-expressway-phangan-tao-demand): a large piece of Samui infrastructure can raise the whole archipelago's profile as an international gateway over time, but any effect on Phangan itself is indirect, arrives only if the project is actually built, and rides on Samui's own increased throughput rather than on a direct link to Phangan.",
+      { h: "How to weigh this as a buyer today" },
+      {
+        ul: [
+          "**Don't price a 2032 outcome into a 2026 decision.** Thai infrastructure projects at the feasibility/EHIA stage routinely slip between study completion, Cabinet approval and an actual construction start — treat 2032 as the Marine Department's current target, not a commitment.",
+          "**Track EHIA resubmission and Cabinet approval, not ministerial statements of support.** A minister backing a project is not the same milestone as the Cabinet decision the schedule itself depends on.",
+          "**Recognise the scope is Samui-only.** Phangan's own accessibility case rests on the existing inter-island ferry network today, and — if it ever advances — on Phangan-specific proposals like [the Samui-Phangan-Tao electric air-taxi concept](/knowledge/eh216-s-air-taxi-samui-phangan-tao), not on a Samui cruise terminal.",
+          "**Weigh it alongside what already drives demand on Phangan now** — see [Phangan market seasonality](/knowledge/phangan-market-seasonality) for the factors actually in effect today, rather than a six-years-out infrastructure proposal.",
+        ],
+      },
+      "The honest summary for a buyer: this is a credible, increasingly well-studied Samui infrastructure proposal with real government backing — not vaporware — but it's a Samui project on a multi-year timeline, and there's no published basis today for treating it as a Phangan catalyst.",
+    ],
+    takeaways: [
+      "The Marine Department's Koh Samui cruise terminal is a real, studied proposal: a 47-rai site, ฿12.17 billion total PPP value, sized for 200,000–400,000 passengers and up to ~240 calls a year, replacing today's anchor-and-tender system via Nathon Pier.",
+      "In August 2025 the PPP Committee sent the project's Environmental and Health Impact Assessment back for revision; a new EHIA targets early 2027 completion, with Cabinet approval not expected until late 2027/early 2028.",
+      "Even on the Marine Department's own schedule, tendering follows in 2028–2029, construction takes about three years, and operations are targeted for around 2032 — roughly six years out from today.",
+      "The project's entire published scope sits on Koh Samui — no official source ties it to a Koh Phangan or Koh Tao pier; any tourism spillover to Phangan would be indirect and long-run, similar to the proposed Samui sea bridge.",
+      "Treat this as a Samui-side infrastructure story worth watching, not a reason to adjust a Phangan purchase decision today.",
+    ],
+    sources: [
+      {
+        title: "The Nation Thailand — Thailand advances Bt12bn Koh Samui cruise terminal project",
+        url: "https://www.nationthailand.com/business/economy/40068813",
+      },
+      {
+        title: "The Star — Study plans for Thailand's Ko Samui and Pattaya cruise terminals sent back for review",
+        url: "https://www.thestar.com.my/aseanplus/aseanplus-news/2025/08/24/study-plans-for-thailand039s-ko-samui-and-pattaya-cruise-terminals-sent-back-for-review",
+      },
+      {
+        title: "Globe News Bangkok — Thailand Steps Up Koh Samui Cruise Terminal Development",
+        url: "https://www.globe.co.th/news/thailand-moves-forward-with-new-koh-samui-cruise-terminal/",
+      },
+      {
+        title: "Discovering Hospitality — Thailand's US$366M Koh Samui Cruise Terminal Set for 2032",
+        url: "https://www.discoveringhospitality.com/post/news-thailand-s-us-366m-koh-samui-cruise-terminal-set-for-2032",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "Is a Koh Samui cruise ship terminal actually being built, and would it affect Koh Phangan tourism or property demand?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
