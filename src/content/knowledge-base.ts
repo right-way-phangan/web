@@ -5944,6 +5944,111 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "phangan",
     faqQuestion: "Is a Koh Samui cruise ship terminal actually being built, and would it affect Koh Phangan tourism or property demand?",
   },
+  {
+    slug: "right-of-habitation-thailand-fourth-property-right",
+    kbId: "kb-0091",
+    topic: "Structures",
+    title: "The right of habitation in Thailand: the overlooked fourth registered property right",
+    short:
+      "Habitation (สิทธิอาศัย, Sections 1402-1409 of the Civil and Commercial Code) gives someone a registered right to live in a building rent-free, for up to 30 years or for life. It is narrower than a usufruct — no income rights, no subletting — which is exactly why it fits a specific situation: giving a foreign spouse, relative or dependant secure housing without handing over any right to earn from the property.",
+    updated: "2026-08-14",
+    body: [
+      "Is there a registered Thai property right besides superficies, usufruct and a lease? Yes — habitation (arsai), set out in Sections 1402 to 1409 of the Civil and Commercial Code. It is the least-used of Thailand's real property rights for foreign buyers, and for good reason: it grants less than a usufruct does. But 'less' is occasionally exactly what a family situation calls for, which is why it is worth understanding rather than skipping straight to usufruct by default. See [Superficies, usufruct and lease](/knowledge/superficies-vs-usufruct-vs-lease) and [Sap-Ing-Sith, the fifth registered right](/knowledge/sap-ing-sith-right-of-use-thailand) for the other three.",
+      { h: "What habitation actually grants" },
+      {
+        ul: [
+          "**Section 1402** — the holder may occupy a specific building as a dwelling place, rent-free. It attaches to the building, not the land beneath it.",
+          "**Section 1403** — granted for a fixed term (capped at 30 years; a longer stated term is reduced to 30) or for the holder's lifetime. If no term is stated, either side can end it on reasonable notice.",
+          "**Section 1404** — strictly personal: the right cannot be sold, assigned or left to heirs, and it ends automatically when the holder dies, regardless of any remaining term.",
+          "**Section 1405** — unless the grant says otherwise, the holder's family and household staff may live there alongside them.",
+          "**Section 1406** — the holder may take natural produce needed for the household's own use, unless the grant forbids it.",
+          "**Sections 1407-1408** — the grantor has no duty to maintain the building or reimburse the holder's improvement costs; the holder must hand the building back at the end of the term.",
+          "**Section 1409** — a lessee's statutory duties (care of the property, permitted use, liability for damage) apply to a habitation holder by analogy.",
+        ],
+      },
+      { h: "How it differs from usufruct" },
+      {
+        ul: [
+          "**Income** — a usufructuary can sub-lease the property and keep the rent (Sections 1417-1428); a habitation holder cannot earn anything from it, only live in it.",
+          "**Scope** — usufruct can attach to land, buildings, or both; habitation attaches to a building only.",
+          "**Everything else matches** — like usufruct, habitation is non-transferable, non-inheritable, and (for a lifetime grant) ends at the holder's death; both must be registered at the Land Office, endorsed on the title deed, to bind a future owner of the land.",
+        ],
+      },
+      { h: "When habitation actually beats usufruct" },
+      "Most Thai family arrangements default to usufruct, because it does everything habitation does plus the option to earn rental income if circumstances change. Habitation earns its place in narrower cases: where the Thai landowner specifically does not want the holder able to sub-let or otherwise commercialise the property — for example, a parent housing an adult child or an in-law, where the family wants a clean, income-free arrangement that cannot later turn into that relative renting out the family home. A developer or landowner restricting a unit to owner-occupation only is another fit. Outside of those cases, a usufruct is almost always the more useful right for the same registration effort and cost, since it preserves the option of rental income without obliging the holder to use it.",
+      { h: "Registering it" },
+      "Like superficies and usufruct, habitation only binds third parties — including a buyer of the underlying land — once it is registered at the Provincial or District Land Office and endorsed on the back of the chanote. An unregistered arrangement is only a personal promise between the two original parties. Registration fees are nominal (a small, fixed fee per Land Office schedule), which is part of why habitation is sometimes chosen over a full lease for a straightforward family-housing situation: it is cheap and simple to set up correctly.",
+      "None of this replaces the standard villa-ownership structure for a foreign buyer purchasing in their own right — that remains a registered lease plus a fixed-term superficies, covered in [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa). Habitation is a tool for a specific family situation, most often alongside [protecting a foreign spouse's interest during a Thai marriage](/knowledge/foreign-spouse-usufruct-thai-marriage-property), not a substitute for the purchase structure itself.",
+    ],
+    takeaways: [
+      "Habitation (Sections 1402-1409 CCC) gives a registered, rent-free right to live in a specific building, for up to 30 years or for the holder's life.",
+      "It is strictly personal — non-transferable, non-inheritable, and it ends at the holder's death regardless of the stated term.",
+      "Unlike a usufruct, a habitation holder cannot sub-let the property or otherwise earn income from it — the right covers occupancy only.",
+      "It attaches to the building only, not the land, and must be registered at the Land Office and endorsed on the title deed to bind a future landowner.",
+      "It suits a narrow case — housing a relative or dependant with no intention of ever letting them earn rental income from the property — otherwise usufruct is almost always the more flexible choice.",
+    ],
+    sources: [
+      { title: "ThaiLawOnline — Right of Habitation in Thailand: Legal Use and Registration", url: "https://www.thailawonline.com/right-of-habitation-in-thailand/" },
+      { title: "ThailandLawOnline — Civil Code Sections 1402-1409, Right of Habitation", url: "https://www.thailandlawonline.com/thai-real-estate-law/1402-1409-civil-arsai-law-right-of-habitation" },
+      { title: "Siam Legal International — Civil and Commercial Code: Habitation (Sections 1402-1409)", url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-habitation-section-1402-1409/" },
+      { title: "Houseviser — Usufruct, superficies, habitation: alternative real rights for foreigners in Thailand", url: "https://houseviser.com/guide/legal/usufruct-superficies-habitation" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "What is the right of habitation in Thailand, and when is it a better choice than a usufruct?",
+  },
+  {
+    slug: "koh-phangan-airport-status-abandoned-project",
+    kbId: "kb-0092",
+    topic: "Phangan",
+    title: "Is a Koh Phangan airport actually coming? The abandoned Kan Air project and what it means for buyers in 2026",
+    short:
+      "Koh Phangan does not have an airport, and as of 2026 there is no active project to build one. Kan Air began construction in 2012, was ordered to stop in 2015 after clearing part of a national park, and has reported no progress since 2017 — buyers should plan around today's ferry access, not a runway that may never be finished.",
+    updated: "2026-08-14",
+    body: [
+      "Will Koh Phangan get its own airport? As of 2026, no — the one attempt sits abandoned, and nothing in the public record points to a revival. It is worth knowing the actual history, because the project still shows up in older listings, forum threads and secondhand claims that it is 'coming soon.'",
+      { h: "What was actually built" },
+      {
+        ul: [
+          "**Developer** — Kan Air, a Thai domestic airline, began construction in 2012 on a site intended to connect Phangan to Koh Samui, Koh Tao and the mainland.",
+          "**Specification** — a single 1,100-metre runway sized for ATR 72-class turboprops, with a terminal planned for roughly 1,000 passengers a day.",
+          "**Investment** — an initial budget in the hundreds of millions of baht grew to roughly ฿2 billion by 2016, with Kan Air seeking a further ฿1.5 billion in financing to complete it.",
+          "**Original target** — completion by 2014. That date was missed before the project stalled entirely.",
+        ],
+      },
+      { h: "What stopped it" },
+      "In 2015, Surat Thani provincial authorities ordered construction halted after finding that the site had encroached on Than Sadet-Koh Phangan National Park land — reported estimates of the affected area vary across contemporary accounts (from roughly 20 to over 40 rai), reflecting how the story was covered at the time rather than a single confirmed figure. Thailand's Forest Protection Unit subsequently filed a complaint over the illegal clearing. Kan Air continued to seek financing through 2016, suspended operations altogether in 2017, and no Thai aviation authority, the airline, or credible news outlet has reported any construction activity, funding round or regulatory filing since. The site remains an abandoned, uncompleted runway on protected land.",
+      { h: "Why it hasn't restarted" },
+      "Two separate problems would each need solving before the project could resume, and neither shows signs of movement: the legal one — the runway sits partly on national park land, which Thai law does not allow to be simply re-designated for private commercial use — and the financial one, a project that was already ฿1.5 billion short of completion in 2016 with no announced investor since. There is no CAAT (Civil Aviation Authority of Thailand) type-certification process, no Ministry of Transport announcement and no successor developer on record for a Koh Phangan airport as of 2026.",
+      { h: "What's actually moving on connectivity instead" },
+      "Buyers weighing future accessibility should look at the projects genuinely in motion rather than the dormant airport: the [Samui sea bridge and expressway](/knowledge/samui-sea-bridge-expressway-phangan-tao-demand), a ฿74-billion mainland-to-Samui link still at the feasibility stage with no construction start before 2028-2029, and the proposed [EH216-S electric air-taxi](/knowledge/eh216-s-air-taxi-samui-phangan-tao) service, which is real but not yet certified or operating. Both are unbuilt too, but both have active sponsors and public planning documents — a materially different status from the airport, which has neither.",
+      { h: "What it means for a buyer today" },
+      {
+        ul: [
+          "**Don't price a fixed-wing airport into a purchase decision.** There is no funded project, no timeline and no sign one will resume; treat any claim otherwise as unverified.",
+          "**Today's access is what it has been for years** — ferry from Koh Samui, Koh Tao or Surat Thani's Donsak pier, with Samui's airport (a 30-45 minute boat-plus-transfer away) the nearest air link.",
+          "**A plot near the Than Sadet-Koh Phangan National Park boundary carries its own, separate due-diligence question** — not airport risk, but the same forest-reserve and park-boundary checks that apply to any hillside or jungle-adjacent parcel on the island; see [illegal hillside and forest-reserve construction](/knowledge/illegal-construction-forest-reserve-crackdown-koh-phangan) for how to verify a plot doesn't sit inside protected land.",
+          "**If connectivity is a real factor in your decision**, weight it toward what's actually funded and moving — the sea bridge and the air-taxi proposal — rather than a project that has been dormant since 2017.",
+        ],
+      },
+    ],
+    takeaways: [
+      "Kan Air began building a Koh Phangan airport in 2012, targeting a 2014 opening; the project has been abandoned since construction was halted in 2015.",
+      "Authorities ordered a stop after the site was found to encroach on Than Sadet-Koh Phangan National Park land; the Forest Protection Unit filed a complaint over the clearing.",
+      "Investment had grown to roughly ฿2 billion by 2016, with an unfilled ฿1.5-billion funding gap; Kan Air suspended operations in 2017 and no revival has been reported since.",
+      "No CAAT certification process, ministry announcement or successor developer exists on record as of 2026 — treat the project as dead, not delayed.",
+      "For real, moving connectivity stories, look at the Samui sea bridge and the proposed EH216-S air-taxi service instead — both unbuilt, but both actively funded and planned.",
+    ],
+    sources: [
+      { title: "CAPA — Centre for Aviation: Koh Phangan Airport New Airport Profile", url: "https://centreforaviation.com/data/profiles/newairports/koh-phangan-airport" },
+      { title: "Thailand Construction and Engineering News — Thailand's Koh Phangan Airport: the abandoned airport project in the Gulf of Thailand", url: "https://thailand-construction.com/thailands-koh-phangan-airport-the-abandoned-airport-project-in-the-gulf-of-thailand/" },
+      { title: "Future Southeast Asia — Koh Phangan Airport: the abandoned airport project in the Gulf of Thailand", url: "https://futuresoutheastasia.com/koh-phangan-airport/" },
+      { title: "Wikipedia — Ko Pha-ngan Airport", url: "https://en.wikipedia.org/wiki/Ko_Pha-ngan_Airport" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "Is Koh Phangan getting an airport, and can I rely on it for future accessibility?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
