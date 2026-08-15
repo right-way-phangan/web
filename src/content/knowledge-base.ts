@@ -6049,6 +6049,57 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "phangan",
     faqQuestion: "Is Koh Phangan getting an airport, and can I rely on it for future accessibility?",
   },
+  {
+    slug: "vat-vs-specific-business-tax-developer-sales",
+    kbId: "kb-0093",
+    topic: "Costs",
+    title: "VAT or Specific Business Tax on a new-build purchase? What actually applies, and where the confusion comes from",
+    short:
+      "The land-and-building transfer on a new-build purchase is Specific Business Tax (3.3%), not VAT — real estate sales are carved out of the VAT system by law. Where 7% VAT genuinely shows up is on the pieces that aren't the land transfer itself: a separate construction-service contract, furniture and movable fittings, and professional fees. Reading an off-plan quote without knowing which line is which is how buyers end up thinking they've been double-charged.",
+    updated: "2026-08-15",
+    body: [
+      "Do you pay VAT or Specific Business Tax (SBT) when buying a new-build villa or condo from a developer on Koh Phangan? The transfer of the land and building itself is SBT, at the same 3.3% rate that applies to any commercial resale — not VAT. The confusion buyers run into is real, though: an off-plan land-and-build package usually bundles a separate construction-service contract, and construction services are taxed differently from the land transfer. Both can appear on the same project's paperwork, at different rates, without being the same tax.",
+      { h: "The legal basis: why property sales sit outside VAT" },
+      {
+        ul: [
+          "**Revenue Code Section 91/2(6)** makes the sale of immovable property \"in a commercial or profitable manner\" one of the categories subject to Specific Business Tax, with the detail of what counts as commercial set out in Royal Decree No. 342 (B.E. 2541) — the same decree that governs the individual-seller exemptions covered in [Specific Business Tax's 5-year exemption clock](/knowledge/specific-business-tax-five-year-exemption-clock).",
+          "**Revenue Code Section 91/4** provides that a business already subject to (or exempt from) Specific Business Tax under Section 91/2 is not also subject to VAT on that same transaction — the two systems are designed not to overlap. Real estate was deliberately placed inside SBT rather than VAT when SBT was introduced, precisely because valuing the \"added value\" in a land sale is impractical.",
+          "**A developer selling new-build units is squarely inside this rule.** Whether the seller is an individual, a Thai company, or a licensed property developer, the transfer of land and any building on it is taxed as SBT (or, for a qualifying seller, exempt from SBT and taxed as 0.5% stamp duty instead) — never as VAT on the transfer itself.",
+        ],
+      },
+      { h: "What SBT actually costs on a developer sale" },
+      "SBT on a commercial sale — which a developer's new-build sale always is — runs at 3% of the higher of the government-appraised value or the actual price, plus a 10% municipal surcharge on that 3%, for a combined 3.3%. This is paid at the Land Office on the day of transfer, alongside the 2% transfer fee, and is calculated the same way regardless of whether the seller is an individual reselling a villa or a developer selling its first unit — the 5-year holding exemption that lets an individual reseller drop to 0.5% stamp duty essentially never applies to a developer, since a company selling newly built stock has not held the land for five years.",
+      { h: "Where 7% VAT genuinely applies on a new-build purchase" },
+      {
+        ul: [
+          "**A standalone construction-service contract.** On Koh Phangan it's common to buy raw land, then sign a separate build contract with a construction company. Building is a supply of services under the Revenue Code, not a sale of immovable property — a VAT-registered contractor charges 7% VAT (the current reduced rate, extended to 30 September 2027) on its invoices for that work, entirely separate from any SBT due later when the land itself is registered in your name.",
+          "**Furniture, appliances and movable fittings** sold separately from the land-and-building package are goods, not immovable property — a VAT-registered seller charges 7% VAT on these regardless of how the underlying real estate is taxed.",
+          "**Professional and agency fees** — a VAT-registered law firm, architect, or agent's commission is a service, billed with 7% VAT on the fee itself, again distinct from the SBT or stamp duty due at the Land Office.",
+          "**A developer's own VAT registration matters here**, not for the land transfer, but for whether the construction, design and furnishing components it bundles into a \"turnkey\" price are separately VAT-invoiced or quietly absorbed into a single figure — ask for a breakdown.",
+        ],
+      },
+      { h: "Reading an off-plan land-and-build quote" },
+      "A turnkey off-plan quote on Koh Phangan typically has at least two tax lines hiding inside one headline price: the land-and-building transfer (SBT 3.3%, paid at the Land Office) and the construction-service portion (VAT 7%, invoiced by the builder as work is completed, typically against staged payments). Ask the developer or contractor to itemise which figure already includes VAT and which is the pre-transfer SBT estimate — a quote that states a single all-in number without separating these is not wrong by default, but it makes it impossible to verify either tax was calculated correctly. For the staged-payment and contract-review side of an off-plan purchase, see [Buying off-plan on Koh Phangan](/knowledge/buying-off-plan-new-developments); for the full cost stack at transfer, see [The full cost of buying on Koh Phangan](/knowledge/cost-of-buying-taxes-and-fees).",
+      "The short version: the land and the building you end up owning are taxed as SBT, not VAT, when you buy them from a developer — the VAT you may also see on the same project belongs to the services and goods that built and furnished them, not to the real estate itself.",
+    ],
+    takeaways: [
+      "A developer's sale of land and a new-build unit is Specific Business Tax (3.3% — 3% plus a 10% municipal surcharge), not VAT — Revenue Code Sections 91/2 and 91/4 keep real estate sales outside the VAT system.",
+      "SBT is paid at the Land Office on transfer day, calculated on the higher of appraised value or price — the same method used for any commercial resale.",
+      "7% VAT (extended through 30 September 2027) can still apply on a new-build purchase, but only on separable services and goods: a standalone construction-service contract, movable furniture and fittings, and professional or agency fees.",
+      "The 5-year SBT exemption that drops an individual reseller to 0.5% stamp duty essentially never applies to a developer selling newly built stock, since the land hasn't been held five years.",
+      "Ask for an itemised quote on any off-plan land-and-build package — a single bundled price makes it impossible to verify that SBT and VAT were each calculated on the right base.",
+    ],
+    sources: [
+      { title: "The Revenue Department of Thailand — Section 91: Specific Business Tax", url: "https://www.rd.go.th/english/37753.html" },
+      { title: "Royal Decree Issued under the Revenue Code Regarding Sale of an Immovable Property for a Commercial or Profitable Purpose (No. 342), B.E. 2541", url: "https://www.rd.go.th/fileadmin/user_upload/kormor/eng/RD_342.pdf" },
+      { title: "Forvis Mazars — A complete guide to Value Added Tax (VAT) in Thailand", url: "https://www.forvismazars.com/th/en/insights/doing-business-in-thailand/tax/value-added-tax-vat-in-thailand" },
+      { title: "HLB Thailand — Cabinet approves 1-year extension of 7% VAT rate until 30 September 2027", url: "https://www.hlbthai.com/cabinet-approves-1-year-extension-of-7-vat-rate-until-30-september-2027/" },
+      { title: "DLA Piper REALWORLD — VAT on an acquisition in Thailand", url: "https://www.dlapiperrealworld.com/law/index.html?t=taxes&s=tax-on-acquisitions&q=vat-on-an-acquisition&c=TH" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "Do I pay VAT or Specific Business Tax when buying a new-build villa from a developer on Koh Phangan?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

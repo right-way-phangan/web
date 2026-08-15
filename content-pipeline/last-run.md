@@ -1,56 +1,39 @@
-# Last run — 2026-08-14
+# Last run — 2026-08-15
 
-**Guides published:** 2
+**Guides published:** 1 (of 2 targeted — see Notes for why the second slot was left empty)
 
 ---
 
 ## Guide 1
 
-- **slug:** `right-of-habitation-thailand-fourth-property-right`
-- **kbId:** `kb-0091`
-- **title (EN):** The right of habitation in Thailand: the overlooked fourth registered property right
-- **title (RU):** Право проживания (habitation) в Таиланде: незаслуженно забытое четвёртое зарегистрированное вещное право
-- **faqCategory:** `structures`
-- **faqQuestion:** What is the right of habitation in Thailand, and when is it a better choice than a usufruct?
+- **slug:** `vat-vs-specific-business-tax-developer-sales`
+- **kbId:** `kb-0093`
+- **title (EN):** VAT or Specific Business Tax on a new-build purchase? What actually applies, and where the confusion comes from
+- **title (RU):** НДС или специальный налог на бизнес при покупке новостройки? Что применяется на самом деле, и откуда берётся путаница
+- **faqCategory:** `costs`
+- **faqQuestion:** Do I pay VAT or Specific Business Tax when buying a new-build villa from a developer on Koh Phangan?
 - **Sources used:**
-  - ThaiLawOnline — Right of Habitation in Thailand: Legal Use and Registration — plain-language summary of scope, term, non-transferability, registration cost
-  - ThailandLawOnline — Civil Code Sections 1402-1409 — section-by-section translation used for the body's statutory walkthrough
-  - Siam Legal International (library.siam-legal.com) — Civil and Commercial Code Habitation Sections 1402-1409 — cross-check of the statutory text
-  - Houseviser — Usufruct, superficies, habitation: alternative real rights for foreigners in Thailand — comparison table and "when habitation beats usufruct" use-case framing
+  - The Revenue Department of Thailand — Section 91 (rd.go.th, official English site) — primary text of Sections 91/2 (SBT categories, incl. commercial sale of immovable property) and 91/4 (SBT/VAT mutual exclusivity)
+  - Royal Decree No. 342 (B.E. 2541), issued under the Revenue Code — official PDF defining "commercial or profitable" property sales for SBT purposes
+  - Forvis Mazars — A complete guide to VAT in Thailand — general VAT mechanics and scope
+  - HLB Thailand — Cabinet approves 1-year extension of 7% VAT rate until 30 September 2027 — current VAT rate and expiry date
+  - DLA Piper REALWORLD — VAT on an acquisition in Thailand — cross-check on real estate's VAT-exempt/SBT-taxed treatment
+  - (Supporting, not cited in-article) samuijanerealty.com and thepropertycenter.asia — confirmed the real-world practice that villa construction-service contracts on Samui/Phangan carry 7% VAT separate from the land transfer
 
-## Guide 2
-
-- **slug:** `koh-phangan-airport-status-abandoned-project`
-- **kbId:** `kb-0092`
-- **title (EN):** Is a Koh Phangan airport actually coming? The abandoned Kan Air project and what it means for buyers in 2026
-- **title (RU):** Появится ли аэропорт на Ко Пангане? Заброшенный проект Kan Air и что это значит для покупателей в 2026 году
-- **faqCategory:** `phangan`
-- **faqQuestion:** Is Koh Phangan getting an airport, and can I rely on it for future accessibility?
-- **Sources used:**
-  - CAPA (Centre for Aviation) — Koh Phangan Airport New Airport Profile — runway spec, investment figures, 32,000sqm/rai encroachment claim, 2017 forest-authority complaint
-  - Thailand Construction and Engineering News — timeline, ~฿2bn cost, 2015 suspension
-  - Future Southeast Asia — corroborating timeline, investment and land-acquisition figures, confirms no revival since 2017
-  - Wikipedia — Ko Pha-ngan Airport — general corroboration of the 2012 start and 2015 encroachment finding
+This resolves the backlog note that prior runs left on this topic ("why sources disagree — needs primary Revenue Department verification"): the disagreement in secondary sources traces back to conflating the land-and-building transfer (always SBT under Revenue Code s.91/2 and 91/4, never VAT) with the separate construction-service, furniture and professional-fee components of an off-plan land-and-build package, which genuinely are VAT-able as supplies of services/goods. The guide states this distinction directly, grounded in the primary Revenue Code sections rather than secondary paraphrases.
 
 ---
 
-## Notes
+## Notes — why only one guide published today
 
-Selection followed backlog priority order (🔴 → 🟢 → 🟡 → ⚪️), re-verifying every "revisit narrowly" note left by prior runs rather than trusting it blindly, and checking each newly-considered 🟡 topic against the full existing KB before writing:
+Followed backlog priority order (🔴 → 🟢 → 🟡 → ⚪️) and re-checked every open item, including all "revisit narrowly" notes left by prior runs, before concluding the backlog's remaining topics don't yield a second genuinely distinct, well-sourced guide today:
 
-- 🔴 (8-province landholder database) and both 🟢 items (non-resident rental tax, power grid reliability) were re-confirmed as duplicates by the 2026-08-12 run and not re-litigated today — nothing has changed that would alter that conclusion.
-- 🟡 "Realistic villa rental yields" — already confirmed duplicate of kb-0010 by a prior run; not re-litigated.
-- 🟡 "Who's actually buying on Phangan in 2026" — checked fresh this run. The nationthailand.com "THB 7.9bn+, Israel/Europe/Australia" story turned out to be the *same* Q1 2026 Colliers dataset already reported in depth in the already-published `kb-0014` (koh-phangan-market-outlook-2026), which has a dedicated "Who is buying and why" section citing identical figures. Skipped as a duplicate; noted in the backlog.
-- 🟡 "Island wastewater and sewage rules" — checked fresh. Could not locate a citable primary source for the backlog's specific "2018 Section 17 unfriendly-activities ban" claim (checked both the Enhancement and Conservation of National Environmental Quality Act 1992 and the Marine and Coastal Resources Management Act 2015 — neither search turned up a matching, verifiable Section 17 provision), and found no Phangan-specific wastewater enforcement reporting. Per the quality gate, skipped rather than publish an unverified legal claim; noted in the backlog as needing a primary/lawyer-sourced citation before it can run.
-- 🟡 "Stamp Duty vs Specific Business Tax" — checked fresh. The already-published `kb-0084` (specific-business-tax-five-year-exemption-clock) already states the mutual-exclusivity rule explicitly, alongside the 0.5%/3.3% rates and the 5-year clock. Skipped as a duplicate; noted in the backlog.
-- 🟡 "VAT vs Specific Business Tax on new-build sales" — left as-is; the backlog's own note that it needs primary Revenue Department verification still applies, and today's pass found two clean topics before reaching it.
-- 🟡 "Vetting a specific off-plan project" — checked fresh. Overlaps substantially with the already-published `kb-0009` (buying-off-plan-new-developments), which already covers developer track record, land title, permits, staged payments and contract review; could not independently verify the backlog's "154 projects, THB 61bn+" figure as new (it's the same combined Samui+Phangan Q1 2026 dataset already cited in `kb-0014`). Skipped; noted in the backlog for a future narrower angle (vetting one named, live project).
-- ⚪️ "The right of habitation" and ⚪️ "Is a Koh Phangan airport actually coming?" — both checked against the full KB, found no existing dedicated coverage (the closest is `kb-0018`, which covers superficies/usufruct/lease but not habitation, and `kb-0067`/`kb-0068`, which cover the sea bridge and air-taxi but not the airport's own history). Both were well-sourced from reputable sites (Thai legal-reference sites citing CCC sections; CAPA/Thailand Construction/Wikipedia on the airport). **Published as Guides 1 and 2.**
+- 🔴 **8-province landholder database / Surat Thani angle** — researched fresh this run (see backlog note added 2026-08-15). Found real new data (Koh Phangan-specific: 4,761 registered companies, 3,213 foreign-linked/67.48%, nationality breakdown; the May 13 and May 23 2026 two-phase raid with named case examples), but the underlying "flagged companies + raid" story is already threaded through 5+ published guides (`kb-0013`, `kb-0051`, `kb-0061`, `kb-0063`, plus a passing citation of the same May raid figures in the forest-reserve crackdown guide). Publishing a 6th guide on the same raid, even with fresher numbers, would read as repetition rather than new ground — and the freshest sources name specific businesses under active investigation with inconsistent figures across outlets (฿150M vs ฿152M, 37 vs 45 land plots), which is a legal-accuracy risk not worth taking for a marginal angle. Skipped; detailed note left in the backlog.
+- Same-day news check (2026-08-14, Thai Examiner: hotels' international booking-platform data used as raid evidence, 104 companies/124 plots, 5 unlicensed hotels) — overlaps the already-published `kb-0087` (short-term-rental-airbnb-crackdown-2026, which already covers platform-data cross-checking as an enforcement method) and the same nominee cluster above. Not published.
+- 🟡 "Realistic villa rental yields", 🟢 "Non-resident vs resident rental income tax" (PND.94 angle), 🟢 "Koh Phangan's power grid reliability", 🟡 "Who's actually buying on Phangan in 2026", 🟡 "Stamp Duty vs SBT" — all re-confirmed as duplicates of already-published guides by prior runs (2026-08-04, 2026-08-12, 2026-08-14); not re-litigated today since nothing has changed that would alter those conclusions.
+- 🟡 "Island wastewater and sewage rules" — re-checked with a reframed angle (general septic-tank/building-effluent standards instead of the unverifiable "2018 Section 17" claim). Found only generic, non-Phangan-specific building-code sourcing (Ministry of Industry effluent standards for building types A–E) with no island-specific legal hook or news trigger, and the general permitting process is already covered in the evergreen "Building a villa on Koh Phangan" guide. Not distinct enough to publish; left ⏳.
+- 🟡 "Vetting a specific off-plan project" — still requires naming one live, real project by name to be distinct from the already-published `kb-0009`; decided against this today given the reputational/accuracy risk of publicly assessing a named, currently-selling developer's project without their input. Left ⏳.
 
-For the airport guide, sources disagreed on the exact encroachment area (~20 rai per CAPA's 32,000 sqm figure vs. 42 rai per Future Southeast Asia) and on the damages figure (CAPA: ~฿2.9bn; Future Southeast Asia: "almost 3 million baht" — an implausible ~1000x gap that reads like a unit error in one source). Rather than assert a single unverified number, the guide states the area as a reported range and omits the damages figure entirely, consistent with the conservative-claims rule.
+Per the hard quality gate (quality over count, no padding with thin or duplicate content), publishing zero or one guide is preferable to forcing a second topic that would duplicate existing coverage. One well-sourced, genuinely new guide went out today.
 
-Both guides cross-link to existing, verified slugs — Guide 1: `superficies-vs-usufruct-vs-lease`, `sap-ing-sith-right-of-use-thailand`, `how-foreigners-own-a-villa`, `foreign-spouse-usufruct-thai-marriage-property`; Guide 2: `samui-sea-bridge-expressway-phangan-tao-demand`, `eh216-s-air-taxi-samui-phangan-tao`, `illegal-construction-forest-reserve-crackdown-koh-phangan` — all confirmed present in both EN/RU files, and EN/RU slug sets confirmed identical, before finishing.
-
-`npx tsc --noEmit` and `npx eslint` on both content files pass clean. kbId sequence continues at kb-0091/kb-0092 (prior max was kb-0090).
-
-Remaining ⏳ backlog, next-priority first: 🔴 — 8-province landholder monitoring database (duplicate-flagged); 🟢 — non-resident/resident rental tax and power grid reliability (both duplicate-flagged); 🟡 — realistic rental yields (duplicate-flagged), who's buying on Phangan in 2026 (duplicate-flagged, new today), island wastewater rules (unsourced, new today), stamp duty vs SBT mutual exclusivity (duplicate-flagged, new today), VAT vs SBT on new-build sales (needs primary Revenue Dept verification), vetting off-plan projects (overlap-flagged, new today — revisit as "vet one named live project").
+`npx tsc --noEmit` on both content files passes clean. kbId sequence continues at kb-0093 (prior max was kb-0092).
