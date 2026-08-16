@@ -6100,6 +6100,146 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "costs",
     faqQuestion: "Do I pay VAT or Specific Business Tax when buying a new-build villa from a developer on Koh Phangan?",
   },
+  {
+    slug: "dbd-order-2-2569-consolidated-rules-2026",
+    kbId: "kb-0094",
+    topic: "Structures",
+    title: "DBD Order 2/2569: the August 2026 order that replaces the source-of-funds rules — and why 'in-person shareholder verification' never became law",
+    short:
+      "From 1 August 2026, a single consolidated DBD order — 2/2569 — replaces the two separate incorporation and amendment rules issued earlier in the year, folding bank-statement checks and the amendment-stage declaration into one filing standard. A widely reported in-person interview requirement was only ever a draft proposal; the enacted rules require paperwork, not an appearance before the registrar.",
+    updated: "2026-08-16",
+    body: [
+      "Does a Thai property-holding company now have to send a shareholder to appear in person before the DBD? No — not under the general documentation rules. What changed on 1 August 2026 is that the Central Partnership and Company Registration Office issued **Order 2/2569**, which repeals and consolidates the two orders that governed source-of-funds checks earlier in 2026 into a single instrument covering both new incorporation and later amendments.",
+      { h: "What Order 2/2569 requires, effective 1 August 2026" },
+      {
+        ul: [
+          "**Thai shareholder bank statements** — three months of statements from each Thai shareholder or partner's own account, showing withdrawals or transfers matching the exact amount and date of their capital contribution.",
+          "**Receiving-account statements** — bank records for the company's own account, showing it actually received the subscription funds from each shareholder named.",
+          "**An Investment Explanation Letter** — a prescribed DBD form tracing the flow of funds from each Thai shareholder to the company's receiving account.",
+          "**Who it applies to** — any partnership or limited company where foreigners hold under 50% of registered capital, or any company with no foreign shareholder that appoints a foreign national as an authorised (co-)signing director. It covers new incorporations and amendment filings that introduce a foreign minority investor or a foreign authorised signatory.",
+        ],
+      },
+      { h: "What it replaces" },
+      {
+        ul: [
+          "**Order 2/2568** (effective 1 January 2026) required three-month bank statements from Thai shareholders at incorporation only. Repealed and folded into Order 2/2569.",
+          "**Order 1/2569** (effective 1 April 2026) required a written Investment Confirmation Letter whenever an amendment increased foreign control. Repealed and folded into Order 2/2569, which renames the document an Investment Explanation Letter and now pairs it with bank-statement evidence at the amendment stage too — a step Order 1/2569 did not itself demand.",
+        ],
+      },
+      "Practically, this means a single filing standard applies from 1 August 2026 regardless of whether you're forming a new 49/51 structure or amending an existing one, and it now reaches the company's own receiving account, not just the paying shareholder's. See [The DBD's 2026 source-of-funds rules](/knowledge/dbd-source-of-funds-orders-company-registration-2026) for the detail of the two orders this one supersedes, and [The Land Department's 2026 audit of existing landholding companies](/knowledge/land-department-audit-existing-landholding-companies-2026) for how this paperwork feeds the wider compliance review.",
+      { h: "Where the 'in-person verification' story came from" },
+      "A draft order put out for public consultation between 29 February and 13 March 2026 would have gone further: requiring Thai partners in certain amendments — a partnership's foreign stake crossing above 50%, or a company appointing its first foreign authorised director — to appear in person, present valid ID, and sign a sworn statement denying nominee conduct. Commentary at the time expected this to take effect around 1 April 2026, alongside what became Order 1/2569.",
+      "It didn't happen that way. The order actually enacted on 1 April 2026 dropped the in-person, sworn-statement mechanism entirely in favour of the written Investment Confirmation Letter described above — later folded into Order 2/2569's Investment Explanation Letter. As of this writing, no enacted DBD order requires shareholders or directors in a standard 49/51 structure to physically appear before the registrar to prove genuine investment.",
+      { h: "Where in-person appearance genuinely is required" },
+      {
+        ul: [
+          "**AMLO watchlist match (Order 3/2568, effective 1 January 2026)** — if a shareholder, partner or director appears on an Anti-Money Laundering Office watchlist notified to the DBD, that person must appear in person with unexpired ID before the filing is accepted.",
+          "**State Welfare Card holder as director or major shareholder (Order 5/2568, effective 1 January 2026)** — if the registrar's system flags an incorporation where a low-income welfare-card holder (annual income under ฿100,000) is named as a director or major shareholder in a company with high registered capital, the filing is suspended pending in-person verification.",
+        ],
+      },
+      "These two triggers are narrow, automatic, and unrelated to the general bank-statement and Investment Explanation Letter requirements under Order 2/2569 — they fire only on a specific risk flag, not on every 49/51 filing. If your company and its shareholders don't match either flag, the compliance burden under the current rules is documentary, not an appearance.",
+    ],
+    takeaways: [
+      "DBD Order 2/2569 (effective 1 August 2026) repeals and consolidates the January and April 2026 source-of-funds orders into one filing standard covering both incorporation and amendments.",
+      "Order 2/2569 requires three months of Thai shareholder bank statements, receiving-account statements, and an Investment Explanation Letter tracing the fund flow.",
+      "A broader in-person shareholder verification requirement was only ever a draft proposal during February–March 2026 public consultation; it did not survive into the enacted Order 1/2569 or Order 2/2569.",
+      "In-person appearance under the current rules is limited to two narrow, automatic triggers: an AMLO watchlist match, or a State Welfare Card holder named as director or major shareholder in a high-capital company.",
+      "If your 49/51 structure doesn't match either risk flag, prepare the documentation now — three months of matching bank records plus the Investment Explanation Letter — rather than an in-person appearance that current rules don't require.",
+    ],
+    sources: [
+      {
+        title: "DFDL — Thailand Introduces Additional Registration Requirements to Combat Nominee Arrangements",
+        url: "https://www.dfdl.com/insights/legal-and-tax-updates/thailand-introduces-additional-registration-requirements-to-combat-nominee-arrangements/",
+      },
+      {
+        title: "AIM Bangkok — Navigating the 2026 Thailand Anti-Nominee Rules: Impact on Corporate Structures and Compliance",
+        url: "https://aimbangkok.com/thailand-dbd-2026-nominee-rules-full-framework/",
+      },
+      {
+        title: "Silk Legal — In-person shareholder verification expected as Thailand continues nominee crack down",
+        url: "https://silklegal.com/in-person-shareholder-verification-expected-as-thailand-continues-nominee-crack-down/",
+      },
+      {
+        title: "Forvis Mazars — Thailand's DBD cracks down on nominees and 'mule' accounts with strict new registration rules",
+        url: "https://www.forvismazars.com/th/en/insights/doing-business-in-thailand/legal/dbd-targets-nominee-and-mule-accounts",
+      },
+      {
+        title: "Dej-Udom & Associates — New Bank Statement Requirements From 1 August 2026",
+        url: "https://dejudomlaw.com/en/insight/new-bank-statement-requirements-from-1-august-2026",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "Do I now have to appear in person at the DBD to prove my Thai company isn't a nominee arrangement?",
+  },
+  {
+    slug: "condo-sinking-fund-cam-fees-thailand",
+    kbId: "kb-0095",
+    topic: "Costs",
+    title: "Condo sinking fund and CAM fees on Koh Phangan and Koh Samui: the recurring cost freehold buyers forget to budget",
+    short:
+      "A Thai condo purchase carries two ownership costs beyond the transfer taxes: a one-time sinking fund (roughly ฿500–1,000 per sqm, paid once and never refunded) and a monthly common-area-maintenance (CAM) charge that can run ฿25–180 per sqm depending on the building's tier. Both are set by the building's juristic person under the Condominium Act, and unpaid balances can block your eventual resale.",
+    updated: "2026-08-16",
+    body: [
+      "How much does a condo really cost to own once the transfer taxes are behind you? Two recurring charges follow every unit for as long as you own it: a sinking fund and a monthly common-area-maintenance (CAM) fee. Both are set and collected by the building's juristic person under the Condominium Act B.E. 2522 — not something an individual owner can opt out of or negotiate down.",
+      { h: "The sinking fund: paid once, never refunded" },
+      {
+        ul: [
+          "**What it's for** — a capital reserve for major, infrequent repairs: structural work, lift replacement, roof and facade repainting, pool resurfacing.",
+          "**Typical rate** — ฿500–1,000 per sqm of saleable area, charged once at handover or first registration. Budget buildings run as low as ฿300/sqm; luxury developments ฿1,000–1,500/sqm.",
+          "**Not refundable on resale** — it stays with the building's reserve fund permanently. A second-hand buyer normally doesn't pay the initial sinking fund again, unless the juristic person calls a fresh top-up.",
+          "**Special top-up calls** — beyond the initial contribution, a general-meeting resolution can levy a further ฿10,000–50,000 per unit for a major repair, typically once every 5–10 years in older buildings.",
+        ],
+      },
+      { h: "CAM: the monthly running cost" },
+      {
+        ul: [
+          "**Budget buildings** — roughly ฿25–40 per sqm per month.",
+          "**Mid-market buildings** — roughly ฿40–70 per sqm per month.",
+          "**Premium beachfront buildings** — roughly ฿70–120 per sqm per month.",
+          "**Branded or ultra-luxury developments** — roughly ฿120–180 per sqm per month.",
+          "CAM covers security, cleaning, landscaping, pool upkeep, lift servicing, shared utilities and the juristic person's own administration. It's billed monthly, quarterly or annually in advance, with the first year often collected at handover alongside the sinking fund.",
+        ],
+      },
+      "Published CAM rates are a floor, not a ceiling. The juristic person can raise CAM by a simple general-meeting vote, and older buildings that deferred maintenance often see CAM roughly double over ten years — a low CAM rate on an older building is a reason to ask what's being deferred, not a reason to celebrate the saving.",
+      { h: "What happens if you don't pay" },
+      {
+        ul: [
+          "**Late-payment surcharge (Condominium Act Section 18/1)** — up to 12% per year on the unpaid balance. Once arrears reach six months or more, the surcharge rises to up to 20% per year, and the by-laws can suspend the owner from common services and common-property use, including the right to vote at the general meeting.",
+          "**Blocked resale** — the Land Office will not register a transfer without a debt-free certificate from the juristic person, confirming no outstanding CAM, sinking-fund or utility debt on the unit. The certificate is typically valid for only 7–15 days from issue, so sellers need to time the request close to transfer day.",
+        ],
+      },
+      "Before buying resale, ask the juristic person for two to three years of financial statements and general-meeting minutes, and ask when the last special assessment was called and why — a building with a thin reserve and deferred maintenance is a future special assessment waiting to happen. For the taxes due at transfer, see [The full cost of buying on Koh Phangan](/knowledge/cost-of-buying-taxes-and-fees); for the ownership trade-offs against a leasehold villa, see [Freehold condo vs leasehold villa](/knowledge/freehold-condo-vs-leasehold-villa).",
+    ],
+    takeaways: [
+      "A Thai condo's sinking fund is a one-time charge of roughly ฿500–1,000/sqm at purchase, non-refundable on resale, with occasional special top-up calls in older buildings.",
+      "CAM is a recurring monthly cost of roughly ฿25–180/sqm depending on the building's tier, and can be raised by a simple general-meeting vote.",
+      "Arrears trigger a Condominium Act Section 18/1 surcharge of up to 12% per year, rising to up to 20% per year after six months, plus possible suspension from common services and voting rights.",
+      "The Land Office will not register a resale transfer without a debt-free certificate from the juristic person, valid for only 7–15 days from issue.",
+      "Ask for 2–3 years of juristic-person financial statements and minutes before buying resale to gauge reserve health and the risk of a near-term special assessment.",
+    ],
+    sources: [
+      {
+        title: "Thailand Condoshop — Thailand Condo Costs 2026: Complete Breakdown for Foreign Buyers",
+        url: "https://thailandcondoshop.com/guide/condo-costs-thailand/",
+      },
+      {
+        title: "Thailand Condominium Act B.E. 2522 (1979, as amended) — Section 18/1, common expense arrears surcharge",
+        url: "https://www.samuiforsale.com/law-texts/new-thailand-condominium-act-2008.html",
+      },
+      {
+        title: "PropertyScout — Debt-Free Certificate: The Key to Seamless Transactions",
+        url: "https://propertyscout.co.th/en/dictionary/debt-free-certificate-for-condo-house/",
+      },
+      {
+        title: "RestProperty — Comprehending Sinking Funds, Common Area Fees, and Maintenance Fees in Thailand",
+        url: "https://restproperty.com/article-en/stati-tayland/comprehending-sinking-funds-common-area-fees-and-maintenance-fees-in-thailand-en/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "What are sinking fund and CAM fees on a Thai condo, and what happens if I don't pay them?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
