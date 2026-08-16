@@ -14,6 +14,10 @@ Status: ⏳ queued · ✅ published.
 
 | Topic | faqCategory | Priority | Status |
 |---|---|---|---|
+<!-- discovered 2026-08-16, sources: aimbangkok.com, thailawonline.com, lexology.com, houseviser.com, lexbangkok.com, dansiam-property.com, nishimura.com, nationthailand.com, siam-legal.com, bighousekeeper.com -->
+| DBD's 2026 in-person shareholder verification (from 1 April 2026, Orders 1/2569 and 2/2569) plus real-time bank-statement/land-registry cross-checking for *amending* an existing Thai property-holding company (adding directors, changing shareholding, capital increases) — the compliance step every 49/51 structure eventually hits, distinct from the initial-incorporation source-of-funds rules already covered | structures | 🔴 | ⏳ |
+| 2026 (B.E. 2569) Land and Building Tax: for the first time since the 2020 restructuring, no reduction decree has been issued — owners pay full statutory rates, with assessment/payment deadlines pushed to June-July and a 3-installment option for bills over ฿3,000 | costs | 🔴 | ⏳ |
+| Foreign Business Act amendment under public consultation (closed April 2026): proposal to make nominee shareholding a money-laundering predicate offence under Thai AML law, not just an FBA violation — a materially higher risk tier if enacted (watch-item; not yet law, sourcing thinner than usual — verify before publishing) | structures | 🟡 | ⏳ |
 <!-- discovered 2026-08-09, sources: lexology.com, fosrlaw.com, rentaltaxthailand.com, rumavi.com -->
 | Short-term rental (Airbnb) 2026 enforcement crackdown: cross-agency data-sharing (Revenue Dept/Immigration/Interior) and automated platform scanning against unlicensed daily/weekly lets under the Hotel Act, plus a draft bill that would let condos legally offer short-term rentals via simple registration instead of a hotel licence | process | 🔴 | ✅ |
 <!-- discovered 2026-08-02, sources: nationthailand.com, bangkokpost.com, thailand-real.estate, matching-property.com, aimbangkok.com -->
@@ -115,6 +119,10 @@ Status: ⏳ queued · ✅ published.
 | VAT vs Specific Business Tax on new-build/developer sales: what a buyer actually pays, and why sources disagree — needs primary Revenue Department verification before publishing | costs | 🟡 | ✅ |
 <!-- 2026-08-14: skipped — substantially overlaps the already-published kb-0009 (buying-off-plan-new-developments), which already covers developer track record, land title, permits, staged/milestone payments and contract review; could not independently verify the backlog's "154 projects, THB 61bn+" figure as a fresh number (it is the same Q1 2026 combined Samui+Phangan dataset already cited in kb-0014). Left ⏳; a future run could revisit narrowly by naming and vetting one specific live project, which kb-0009 deliberately does not do. -->
 | Vetting a specific off-plan project on Samui-Phangan amid the 2026 development boom (154 projects, THB 61bn+ pipeline): developer track record, escrow accounts and construction-licence checks before you pay a deposit | process | 🟡 | ⏳ |
+<!-- discovered 2026-08-16, sources: phuketbuyhouse.com, thailandcondoshop.com, thailawonline.com, islanders-properties.com, samui-phangan-real-estate.com, nationthailand.com -->
+| Condo sinking fund and CAM (common-area maintenance) fees: the recurring ownership cost freehold condo buyers overlook, beyond the one-time transfer taxes already covered elsewhere | costs | 🟢 | ⏳ |
+| Why an offshore family trust can't hold Thai land: Thai law doesn't recognise private trusts domestically, so routing villa/land ownership through a home-country trust risks an unenforceable structure | structures | 🟡 | ⏳ |
+| Price-per-area benchmark 2026: how Thong Sala, Sri Thanu and Haad Yao land/villa prices actually compare today, beyond the general price-per-rai explainer and the single-district guides | phangan | 🟢 | ⏳ |
 
 ## C. Per-district guides (~18 districts in districts.ts)
 

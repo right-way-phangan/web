@@ -1,47 +1,45 @@
-# Discovery run — 2026-08-09
+# Discovery run — 2026-08-16
 
-**New topics queued:** 5
-**Searches run:** 6 discovery angles, 33 WebSearch queries total
-**Sources read:** ~8 domains fetched successfully via WebFetch, ~20 more domains surfaced/used via search-result snippets after direct fetch was blocked (403) on several reputable sites
+**New topics queued:** 6
+**Searches run:** 6 discovery angles, 34 WebSearch queries total (via 6 parallel research agents)
+**Sources read:** ~14 domains fetched successfully via WebFetch, ~20 more surfaced/corroborated via search-result snippets after direct fetch was blocked or failed on several sites
 
 ## Topics added
 
 | Description | faqCategory | Priority |
 |---|---|---|
-| Short-term rental (Airbnb) 2026 enforcement crackdown: cross-agency data-sharing and automated platform scanning against unlicensed daily/weekly lets, plus a draft bill letting condos register for short-term rental instead of needing a hotel licence | process | 🔴 |
-| Foreign spouse/heir inheriting Thai land directly (not via leasehold): Land Code Section 93-94 forces disposal within 1 year, Ministerial permission to keep it is effectively unavailable | ownership | 🟢 |
-| Stamp Duty vs Specific Business Tax: the mutual-exclusivity rule — when 0.5% stamp duty applies instead of SBT | costs | 🟡 |
-| VAT vs Specific Business Tax on new-build/developer sales: what a buyer actually pays (sources disagree — flagged for verification) | costs | 🟡 |
-| Vetting a specific off-plan project on Samui-Phangan amid the 2026 development boom: developer track record, escrow, construction-licence checks | process | 🟡 |
+| DBD's 2026 in-person shareholder verification + real-time bank/land-registry cross-checking for *amending* an existing Thai property-holding company (adding directors, changing shareholding, capital increases) | structures | 🔴 |
+| 2026 (B.E. 2569) Land and Building Tax: first year with no reduction decree — full statutory rates, shifted deadlines, 3-installment option | costs | 🔴 |
+| Foreign Business Act amendment: proposal to make nominee shareholding a money-laundering predicate offence (watch-item, not yet law) | structures | 🟡 |
+| Condo sinking fund and CAM (common-area maintenance) fees — a recurring ownership cost not covered by existing transfer-tax content | costs | 🟢 |
+| Why an offshore family trust can't hold Thai land (private trusts not recognised domestically) | structures | 🟡 |
+| Price-per-area benchmark 2026: Thong Sala vs Sri Thanu vs Haad Yao vs rest of island | phangan | 🟢 |
 
 ## Sources consulted
 
-- **lexology.com / fosrlaw.com / rentaltaxthailand.com / rumavi.com** — short-term rental legal status, 2026 enforcement mechanics (Revenue Dept/Immigration/Interior data-sharing, automated platform scanning), and a draft condo-registration bill.
-- **thailawonline.com / terms.law** — foreign statutory heirs and Land Code Sections 93-94: the forced-disposal-within-1-year rule for inherited land, and why Ministerial approval to keep it is effectively unavailable (last relevant treaty ended 1970).
-- **dlapiperrealworld.com / oceanwwp.com / lordspropconsult.com** — Stamp Duty vs Specific Business Tax mutual-exclusivity mechanics; when the 0.5% stamp duty rate applies instead of SBT.
-- **bangkokpost.com** ("Samui, Phangan are new property hotspots") — Q1 2026 Samui-Phangan development pipeline stats (154 residential projects, 2,860 units, THB 61bn+ development value).
-- **lawplusltd.com / superagent.co** — DBD Order 1/2569 Investment Confirmation Letter detail; confirmed as a duplicate of the already-queued/published DBD source-of-funds item, not used as a new topic.
-- **khaosodenglish.com** — Koh Phangan illegal-development crisis background (Oct 2025), used for context only, not a standalone topic.
-- **bakermckenzie.com** — Aug 2025 EIA threshold expansion to commercial buildings; confirmed weak fit for villa/resort buyers (thresholds are large-scale retail/mixed-use), not proposed.
-- **moregroup.estate** — LTR visa's cheaper ~3M THB freehold-condo route; single uncorroborated source, not proposed this run (see Gaps below).
-- **kohphangannews.org / siamentry.com** — general Phangan infrastructure and travel-guide content; siamentry.com's "Conrad Koh Phangan" and noise-ordinance claims could not be corroborated elsewhere and appear fabricated (Hilton's actual Conrad property in the region is on Koh Samui) — flagged, not used.
+- **aimbangkok.com / thailawonline.com / lexology.com / houseviser.com** — DBD Orders 1/2569–5/2569 and the April 2026 in-person verification requirement for company amendments; DBD–Land Department real-time bank/registry cross-checking.
+- **lexbangkok.com / dansiam-property.com / nishimura.com / nationthailand.com** — confirmation that no Land & Building Tax reduction decree was issued for 2026, full statutory rates, deadline shift to June-July, 3-installment option for bills ≥฿3,000.
+- **lexology.com / aimbangkok.com** (search-snippet corroboration only, one direct fetch failed) — FBA amendment public consultation (closed April 2026) proposing nominee shareholding as a money-laundering predicate offence.
+- **phuketbuyhouse.com / thailandcondoshop.com** — condo sinking-fund (฿500-1,500/sqm one-time) and CAM fee (฿25-150/sqm/month) figures, confirmed as an untouched cost category.
+- **thailawonline.com** — confirmation that Thai law does not recognise private/foreign trusts for domestic land holding.
+- **islanders-properties.com / samui-phangan-real-estate.com / nationthailand.com** — current villa (฿11.5M-30M+) and land price benchmarks by district, land prices 2-4x since 2022.
+- **bangkokpost.com / siam-legal.com / bighousekeeper.com** — Supreme Court ruling voiding pre-paid "30+30+30" lease-renewal clauses — confirmed this is **already published** (backlog Section A row, ✅) despite not appearing in the slug list search; used only to rule the topic out.
+- **canvas.solar, thephuketnews.com-type sources** — SSL/fetch failures on a few candidate sources; not used without corroboration.
 
 ## Skipped candidates
 
-- **49% condo quota "raise to 75%" counter-proposal** — duplicates published `condo-foreign-ownership-quota-debate-2026`, which already covers "what's actually being proposed for 2026."
-- **DBD point-of-incorporation financial-capacity check (effective 1 Jan 2026)** — real mechanism, but sits too close to an already-deep nominee/company cluster (5+ published pieces); would add reader fatigue rather than distinct value.
-- **LTR visa via 3M THB freehold condo** — plausible distinct angle (much lower threshold than the published 40M-land/500k-investment routes) but only one uncorroborated source found; risks overlapping with published `ltr-visa-property-investment-route`. Needs a second independent source before queuing.
-- **Company-held property's ongoing 20% corporate income tax + nominee-structure scrutiny** — borderline duplicate of published `withholding-tax-property-sale-individual-vs-company` and `owners-taxes-annual-land-and-income`.
-- **Mortgage financing for foreigners on Phangan** — confirmed duplicate of published `financing-buying-as-a-foreigner`.
-- **Utilities/water/power reality check for buyers** — confirmed duplicate of published `utilities-water-electricity-internet-koh-phangan` and `water-supply-shortage-risk-koh-phangan`.
-- **Than Sadet National Park historical boundary dispute** — overlaps with published `untitled-sea-view-land-pbt5-sor-por-kor-scam` and the existing `buying-in-than-sadet` district guide; framing not distinct enough to justify a standalone piece.
-- **EIA single-assessment-per-project reform (2026 draft)** — news-driven and plausible, but the primary source (thephuketnews.com) returned 403 on fetch and coverage found was Phuket-specific, not confirmed to apply nationwide or to Phangan. Left out for weak sourcing.
-- **Named villa developments, Koh Phangan-Koh Tao submarine power cable, telecom/5G infrastructure** — all confirmed duplicates of already-published or already-queued items.
-- **"Conrad Koh Phangan" resort opening, new Full Moon Party noise ordinance** — sole source (siamentry.com) appears to contain fabricated/hallucinated claims; could not corroborate with any reputable source, not proposed.
+- **Angle 2 (Koh Phangan development & infrastructure) — largely exhausted.** No genuinely new, well-sourced infrastructure story found: road, water, and pier searches returned nothing dated 2025-2026; PEA grid-upgrade-to-2030 and private-hospital-expansion angles both overlap too heavily with published solar/healthcare content. Same conclusion as the 2026-08-09 run — this angle needs Thai-language primary sources (provincial council budgets) to yield anything new.
+- **Rental income withholding tax refund mechanics (PND.90/91, 30% deduction vs itemized)** — too close to the already-queued "non-resident vs resident rental income tax" backlog item; left for that item to cover, or a future run to split out only if a materially distinct angle emerges.
+- **Rental income reality check (Airbnb occupancy/ADR data) and property-management fee economics** — both overlap with the already-queued "realistic villa rental yields" item; flagged for consolidation rather than separate topics.
+- **Buying-process timeline / time-to-close friction points** — too close to the published `how-to-buy-property-step-by-step`.
+- **Condo foreign-ownership quota 49%→75% reform chatter** — confirmed duplicate of published `condo-foreign-ownership-quota-debate-2026`.
+- **Noise ordinance / sound curfew for villas near villages** — real signal (aseannow.com forum, siamentry.com) but no primary municipal source found; too thin to queue, consistent with the prior run's caution about siamentry.com content reliability.
+- **DNP "One Map" national park boundary revocation program** — nationwide mechanism (Thap Lan NP is the flagship case) with no confirmed Koh Phangan application yet; speculative, not queued.
+- **Section 96 compulsory divestment mechanism** — real but overlaps heavily with the already-published nominee-crackdown/DBD source-of-funds cluster; not a distinct zoning/construction story despite surfacing under that search.
+- **"BOI property rules 2025 2026" search** — returned only US FinCEN Beneficial Ownership Information results, not Thailand's Board of Investment; no usable Thai content found.
 
 ## Gaps still open
 
-- **Angle 2 (development & infrastructure)** is now largely saturated by existing content — worth trying Thai-language primary sources (Prachachat, Surat Thani provincial government pages) next run instead of English blogs, since the English-language niche here is increasingly populated by low-quality AI-generated real estate content.
-- **EIA single-EIA-per-project reform** — worth revisiting once thephuketnews.com's article is accessible (try archive.org/cache) or a Bangkok Post / Phuket Gazette version surfaces, to confirm whether it applies beyond Phuket.
-- **LTR visa's cheaper condo-purchase route (~3M THB)** — worth a follow-up with a second independent source (siam-legal.com, globalcitizensolutions.com, or BOI's own LTR page) to confirm the threshold and structure, and to check it's genuinely distinct from the published land-investment LTR piece before queuing.
-- **VAT vs SBT on new-build sales** (queued above) — sources partially conflict; the daily author should verify against a Revenue Department primary source or law-firm citation before publishing, not just the two sources found this run.
+- **FBA/AML nominee predicate-offence amendment** — queued at 🟡 despite thinner sourcing (one direct fetch failed; relying on search-snippet corroboration from lexology.com and aimbangkok.com). The daily author should re-verify against a primary or law-firm source before publishing, and check whether the consultation has progressed to a bill by publish time.
+- **Angle 2 infrastructure searches** — English-language sources are saturated with developer marketing rather than real infrastructure news. Next run should try Thai-language provincial/municipal sources (Surat Thani PAO, กรมที่ดิน หนังสือเวียน) directly rather than English search translations, which returned irrelevant results this run.
+- **Noise ordinance / village-proximity nuisance angle** — worth revisiting if a primary municipal order (OrBorTor) surfaces; currently sourced only from a forum thread and one travel-guide site of uncertain reliability.
