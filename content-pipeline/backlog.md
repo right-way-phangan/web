@@ -123,8 +123,8 @@ Status: ⏳ queued · ✅ published.
 | Vetting a specific off-plan project on Samui-Phangan amid the 2026 development boom (154 projects, THB 61bn+ pipeline): developer track record, escrow accounts and construction-licence checks before you pay a deposit | process | 🟡 | ⏳ |
 <!-- discovered 2026-08-16, sources: phuketbuyhouse.com, thailandcondoshop.com, thailawonline.com, islanders-properties.com, samui-phangan-real-estate.com, nationthailand.com -->
 | Condo sinking fund and CAM (common-area maintenance) fees: the recurring ownership cost freehold condo buyers overlook, beyond the one-time transfer taxes already covered elsewhere | costs | 🟢 | ✅ |
-| Why an offshore family trust can't hold Thai land: Thai law doesn't recognise private trusts domestically, so routing villa/land ownership through a home-country trust risks an unenforceable structure | structures | 🟡 | ⏳ |
-| Price-per-area benchmark 2026: how Thong Sala, Sri Thanu and Haad Yao land/villa prices actually compare today, beyond the general price-per-rai explainer and the single-district guides | phangan | 🟢 | ⏳ |
+| Why an offshore family trust can't hold Thai land: Thai law doesn't recognise private trusts domestically, so routing villa/land ownership through a home-country trust risks an unenforceable structure | structures | 🟡 | ✅ |
+| Price-per-area benchmark 2026: how Thong Sala, Sri Thanu and Haad Yao land/villa prices actually compare today, beyond the general price-per-rai explainer and the single-district guides | phangan | 🟢 | ✅ |
 
 ## C. Per-district guides (~18 districts in districts.ts)
 

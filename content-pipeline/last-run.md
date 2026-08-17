@@ -1,4 +1,4 @@
-# Last run — 2026-08-16
+# Last run — 2026-08-17
 
 **Guides published:** 2 (of 2 targeted)
 
@@ -6,44 +6,46 @@
 
 ## Guide 1
 
-- **slug:** `dbd-order-2-2569-consolidated-rules-2026`
-- **kbId:** `kb-0094`
-- **title (EN):** DBD Order 2/2569: the August 2026 order that replaces the source-of-funds rules — and why 'in-person shareholder verification' never became law
-- **title (RU):** Приказ DBD 2/2569: постановление от августа 2026 года, заменившее правила подтверждения источника средств — и почему «личная явка акционеров» так и не стала законом
+- **slug:** `offshore-family-trust-cannot-hold-thai-land`
+- **kbId:** `kb-0096`
+- **title (EN):** Why an offshore family trust can't hold your Thai villa or land
+- **title (RU):** Почему зарубежный семейный траст не может владеть вашей тайской виллой или землёй
 - **faqCategory:** `structures`
-- **faqQuestion:** Do I now have to appear in person at the DBD to prove my Thai company isn't a nominee arrangement?
+- **faqQuestion:** Can I put my Thai villa or land into a family trust from my home country?
 - **Sources used:**
-  - DFDL — Thailand Introduces Additional Registration Requirements to Combat Nominee Arrangements (primary detail on Order 2/2569, effective 1 August 2026)
-  - AIM Bangkok — Navigating the 2026 Thailand Anti-Nominee Rules: Impact on Corporate Structures and Compliance (full chronological order-by-order breakdown, incl. Orders 3/2568, 4/2568, 5/2568 and the repeal/consolidation into 2/2569)
-  - Silk Legal — In-person shareholder verification expected as Thailand continues nominee crack down (the draft proposal, Feb–Mar 2026 public consultation, that did NOT survive into the enacted order)
-  - Forvis Mazars — Thailand's DBD cracks down on nominees and "mule" accounts with strict new registration rules (corroborates Orders 3/2568 and 5/2568's narrow, risk-triggered in-person requirements)
-  - Dej-Udom & Associates — New Bank Statement Requirements From 1 August 2026 (corroborates Order 2/2569's three-document requirement and scope)
+  - ThaiLawOnline — Trusts in Thailand via Foreign Jurisdiction (confirms no Land Office mechanism to register a trustee's title; recommends Thai wills/usufruct instead of a foreign trust)
+  - Sovereign Group — Planning for the future: how Trusts can elevate wealth and asset management in Thailand (confirms an offshore trust set up by a Thai resident must be limited to non-Thai assets; nominee-risk framing)
+  - Thailand Law Forum — Civil and Commercial Code Sections 1646–1710 (primary citation for Section 1686, the general trust-voiding provision in force since the Code's 1935 adoption)
+  - Lexology / Baker McKenzie — Thailand's Private Trust Act Is Approved by the Cabinet (basis for the July 2018 Cabinet approval; corroborated by a second search that the bill remains under Council of State review with no 2026 enactment found)
+  - Thailand SEC — Trust for Transactions in Capital Market Act B.E. 2550 (2007), primary statute text for the sole, capital-markets-only trust exception
 
-This topic was in the backlog as "DBD's 2026 in-person shareholder verification (Orders 1/2569 and 2/2569)... distinct from the initial-incorporation source-of-funds rules already covered" (kb-0062). Researching it turned up a materially different — and more accurate — story than the backlog framing assumed: there is no enacted in-person shareholder-verification requirement for the general 49/51 documentation track. A draft order during Feb–Mar 2026 public consultation proposed one, but the order actually enacted 1 April 2026 (Order 1/2569) dropped it for a written letter instead. The genuinely new, previously-uncovered fact is Order 2/2569 (effective 1 August 2026), which repeals and consolidates the January and April orders into one filing standard reaching both incorporation and amendments. The guide states the in-person-appearance correction explicitly, with the two narrow tracks (AMLO watchlist, State Welfare Card flag) where it actually does apply. Backlog note added explaining the correction.
+This was an unflagged, backlog item (structures, 🟡). No existing guide in `knowledge-base.ts` addressed trusts before this. Distinct from the published nominee-company and inheritance guides — the closest neighbors (`villa-held-by-thai-company-buyer-due-diligence-2026`, `foreign-heir-inheriting-thai-land-section-93`, `sap-ing-sith-right-of-use-thailand`) are cross-linked rather than duplicated.
 
 ---
 
 ## Guide 2
 
-- **slug:** `condo-sinking-fund-cam-fees-thailand`
-- **kbId:** `kb-0095`
-- **title (EN):** Condo sinking fund and CAM fees on Koh Phangan and Koh Samui: the recurring cost freehold buyers forget to budget
-- **title (RU):** Резервный фонд (sinking fund) и плата за содержание общих зон (CAM) в кондоминиумах Ко Пангана и Самуи: регулярные расходы, которые покупатели забывают заложить в бюджет
-- **faqCategory:** `costs`
-- **faqQuestion:** What are sinking fund and CAM fees on a Thai condo, and what happens if I don't pay them?
+- **slug:** `price-per-area-benchmark-2026-thong-sala-sri-thanu-haad-yao`
+- **kbId:** `kb-0097`
+- **title (EN):** Land price benchmarks 2026: Thong Sala vs Sri Thanu vs Haad Yao, per square metre and per rai
+- **title (RU):** Ориентиры цен на землю 2026: Тонг Сала против Шри Тхану против Хаад Яо, за квадратный метр и за рай
+- **faqCategory:** `phangan`
+- **faqQuestion:** How do Thong Sala, Sri Thanu and Haad Yao actually compare on land price per square metre?
 - **Sources used:**
-  - Thailand Condoshop — Thailand Condo Costs 2026: Complete Breakdown for Foreign Buyers (sinking fund and CAM rate ranges by building tier)
-  - Thailand Condominium Act B.E. 2522 (as amended) — Section 18/1, the 12%/20% arrears surcharge and service/voting suspension for 6+ months arrears
-  - PropertyScout — Debt-Free Certificate: The Key to Seamless Transactions (Land Office resale-transfer requirement, 7–15 day validity)
-  - RestProperty — Comprehending Sinking Funds, Common Area Fees, and Maintenance Fees in Thailand (supporting cross-check on fee mechanics)
+  - Islanders Properties — live August 2026 land-for-sale listing pages for Srithanu, Haad Yao and Thongsala. Per-m² figures were computed directly from each listing's price ÷ area (not taken from any third-party aggregate stat), and the guide explicitly discloses these are asking-price samples from one portal, not closed-sale or government valuation data.
+  - Cross-referenced (not re-cited as external) against the already-published `koh-phangan-market-outlook-2026` (kb-0014) for island-wide average price and west-coast appreciation context, to keep the two guides consistent.
 
-No existing guide covered sinking fund or CAM fees specifically (checked via full-text search of `knowledge-base.ts`) — the closest, `cost-of-buying-taxes-and-fees`, covers only one-time transfer taxes. Genuinely distinct, well-sourced recurring-cost topic.
+This was the second unflagged backlog item (phangan, 🟢). Distinct from the existing qualitative single-district guides (`buying-in-thong-sala`, `buying-in-sri-thanu`, `buying-in-haad-yao-haad-salad`, none of which give hard per-m²/per-rai figures) and from the general `how-land-is-priced-price-per-rai` explainer (which covers units and value drivers, not a district-by-district price table).
 
 ---
 
 ## Notes on backlog items evaluated but not published today
 
-- 🔴 **"2026 Land and Building Tax: no reduction decree"** — checked against the already-published `kb-0027` (owners-taxes-annual-land-and-income), which already states 2026 is "the first full-rate year without a pandemic-era across-the-board government discount," gives the full rate table, and covers the June 2026 deadline extension and the ≥฿3,000 installment option. Substantially duplicative; left ⏳ with a note.
-- 🔴 **8-province corporate landholder database (Surat Thani)** — not re-litigated today; already researched in depth by the 2026-08-15 run and found to overlap five-plus published guides on the same raid/flagged-company narrative. No new trigger to revisit.
+Several higher-tier backlog items were left `⏳` rather than re-attempted, because each already carries a prior-run note explaining a substantial-duplicate or unverifiable-claim finding, and this run did not identify a new angle changing that assessment:
+- 🔴 "2026 Land and Building Tax: no reduction decree" — flagged duplicate of `kb-0027`.
+- 🔴 "8-province corporate landholder database (Surat Thani)" — flagged as overlapping 5+ published guides on the same raid/flagged-company narrative.
+- 🟡 "Foreign Business Act amendment / nominee as AML predicate offence" — thinner sourcing noted in the backlog itself; not attempted this run in favor of the two cleaner, unflagged topics.
+- 🟢/🟡 "Non-resident vs resident rental income tax", "Realistic villa rental yields", "Who's actually buying on Phangan 2026", "Stamp Duty vs SBT", "Vetting a specific off-plan project" — each carries a prior-run duplicate note.
+- 🟢 "Koh Phangan's power grid reliability" and 🟡 "Island wastewater and sewage rules" — flagged respectively as overlapping `kb-0026` and as lacking a citable primary source for the core legal claim.
 
-Per the hard quality gate, both published guides are grounded in primary or reputable law-firm sourcing, are genuinely distinct from existing coverage, and correct an inaccurate premise (guide 1) rather than repeating it. `npx tsc --noEmit` passes clean on both content files. kbId sequence continues at kb-0095 (prior max was kb-0093).
+Per the hard quality gate, both published guides are grounded in sources fetched and verified this run (not carried over from memory), are genuinely distinct from existing coverage, and disclose their data's limits (asking-price listing sample; pending, non-enacted bill status) rather than overstating certainty. `npx tsc --noEmit` passes clean on both content files. kbId sequence continues at kb-0096–0097 (prior max was kb-0095).

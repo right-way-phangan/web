@@ -6240,6 +6240,147 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "costs",
     faqQuestion: "What are sinking fund and CAM fees on a Thai condo, and what happens if I don't pay them?",
   },
+  {
+    slug: "offshore-family-trust-cannot-hold-thai-land",
+    kbId: "kb-0096",
+    topic: "Structures",
+    title: "Why an offshore family trust can't hold your Thai villa or land",
+    short:
+      "Thailand's Civil and Commercial Code has voided trusts created by will or by any other legal act since 1935 — there is no exception for a foreign settlor's home-country trust. A trustee cannot be registered as titleholder at the Land Office, so routing Thai property through an offshore family trust creates an unenforceable arrangement, not an estate-planning shortcut.",
+    updated: "2026-08-17",
+    body: [
+      "Can a foreign family trust — set up in Jersey, Singapore, the US or anywhere else — hold a villa or land on Koh Phangan? No. Thai law does not recognise trusts for private estate or succession planning, and there is no mechanism to register a trustee as the legal owner of Thai real estate. A trust deed drafted abroad has no effect on title registered at a Thai Land Office.",
+      { h: "Why Thai law blocks it" },
+      {
+        ul: [
+          "**Civil and Commercial Code Section 1686** — in force since the Code's adoption in 1935 — states that a trust created directly or indirectly, whether by will or by any other juristic act, during life or after death, has no effect whatsoever under Thai law.",
+          "**The one statutory exception doesn't help families** — the Trust for Transactions in Capital Market Act B.E. 2550 (2007) created a narrow, SEC-regulated trust framework, but only for capital-market instruments such as REITs and securitisation vehicles. It has no application to residential property or family succession.",
+          "**A private trust law has been stuck since 2018** — the Cabinet approved a draft Private Trust Act in July 2018 that would have allowed Thai real estate to be held in trust, but as of 2026 the bill remains under review at the Office of the Council of State and has not been enacted. Until it is, the general prohibition stands.",
+        ],
+      },
+      { h: "What happens if you try anyway" },
+      {
+        ul: [
+          "**No registrable title** — the Land Department records only a direct legal owner (an individual or a properly qualified juristic person) on a chanote or other title deed. There is no title category for 'trustee for' a foreign beneficiary.",
+          "**It collapses into a nominee problem** — if a Thai or foreign trustee is put on title while a foreign settlor supplies the money and controls the asset in substance, the arrangement reads to the Land Department and DSI as an unlawful nominee structure under the Foreign Business Act and Land Code Section 96, not a trust. See [Villa held by a Thai company: buyer due diligence](/knowledge/villa-held-by-thai-company-buyer-due-diligence-2026) for how aggressively that risk is now enforced.",
+          "**The beneficiary has no proprietary right** — under Thai civil law, a beneficiary's claim against an offshore trustee is a personal contractual claim enforceable (if at all) in the trustee's home jurisdiction — not a right in the land itself that a Thai court will recognise or that survives the trustee's death, bankruptcy or a dispute with co-beneficiaries.",
+          "**Succession gets harder, not easier** — if the trustee is a natural person who dies, the Thai asset can become entangled in the trustee's own estate administration, in whichever jurisdiction that trustee was domiciled, before any beneficiary sees it.",
+        ],
+      },
+      { h: "What actually works instead" },
+      {
+        ul: [
+          "**A Thai will** — governed by Civil and Commercial Code Sections 1686–1692, a properly drafted Thai-language will naming Thai executors is the standard, enforceable way to direct who inherits a villa, land or leasehold on your death. See [Inheritance: leasehold and villa](/knowledge/inheritance-leasehold-and-villa).",
+          "**Registered property rights** to split use from ownership during your lifetime — usufruct, superficies, the right of habitation or sap-ing-sith can each give a spouse, partner or child a lifetime or fixed-term right to occupy or use the property without transferring the underlying title. See [Superficies vs usufruct vs lease](/knowledge/superficies-vs-usufruct-vs-lease) and [Sap-Ing-Sith: Thailand's fifth registered property right](/knowledge/sap-ing-sith-right-of-use-thailand).",
+          "**A genuinely operating Thai company**, structured under the real 49/51 rules for an active business — not a shell built solely to hold one villa — remains a lawful, if administratively heavier, ownership route. See [A Thai company for property (49/51)](/knowledge/thai-company-for-property-49-51).",
+          "**Foreign heirs inheriting directly** face their own separate rule — Land Code Section 93's one-year disposal requirement — covered in [Foreign heir inheriting Thai land](/knowledge/foreign-heir-inheriting-thai-land-section-93).",
+        ],
+      },
+      "The fix for cross-border estate planning in Thailand isn't a trust — it's combining a Thai will with the right registered property right, and coordinating that with your home-country trust or will so the two don't conflict. A lawyer who drafts both sides is worth the fee; a trust deed alone, however well drafted at home, will not move a Thai title.",
+    ],
+    takeaways: [
+      "Civil and Commercial Code Section 1686 has voided trusts created by will or other juristic act in Thailand since 1935 — there is no carve-out for foreign-settlor trusts.",
+      "The only statutory trust framework, the Trust for Transactions in Capital Market Act B.E. 2550 (2007), covers SEC-regulated capital-market instruments only — not family estate planning or residential property.",
+      "A draft Private Trust Act was approved by Cabinet in 2018 but remains stuck in Council of State review as of 2026 — it is not current law.",
+      "The Land Department has no title category for a trustee holding on behalf of a beneficiary; attempting it risks being read as an unlawful nominee arrangement.",
+      "Use a Thai will plus a registered property right (usufruct, superficies, habitation or sap-ing-sith) instead — these are the enforceable Thai-law tools for cross-border succession planning.",
+    ],
+    sources: [
+      {
+        title: "ThaiLawOnline — Trusts in Thailand via Foreign Jurisdiction",
+        url: "https://www.thailawonline.com/trusts-in-thailand-foreign-jurisdiction/",
+      },
+      {
+        title: "Sovereign Group — Planning for the future: how Trusts can elevate wealth and asset management in Thailand",
+        url: "https://www.sovereigngroup.com/news/planning-for-the-future-how-trusts-can-elevate-wealth-and-asset-management-in-thailand/",
+      },
+      {
+        title: "Thailand Law Forum — Civil and Commercial Code Sections 1646–1710 (Section 1686, trusts)",
+        url: "https://www.thailawforum.com/thailand-civil-and-commercial-code-sections-1646-1710/",
+      },
+      {
+        title: "Lexology / Baker McKenzie — Thailand's Private Trust Act Is Approved by the Cabinet",
+        url: "https://www.lexology.com/library/detail.aspx?g=12861aca-264f-4a08-bfd4-5603a20e5488",
+      },
+      {
+        title: "Thailand SEC — Trust for Transactions in Capital Market Act B.E. 2550 (2007)",
+        url: "https://www.sec.or.th/EN/Documents/ActandRoyalEnactment/Act/act_trust2007.pdf",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "Can I put my Thai villa or land into a family trust from my home country?",
+  },
+  {
+    slug: "price-per-area-benchmark-2026-thong-sala-sri-thanu-haad-yao",
+    kbId: "kb-0097",
+    topic: "Phangan",
+    title: "Land price benchmarks 2026: Thong Sala vs Sri Thanu vs Haad Yao, per square metre and per rai",
+    short:
+      "Sampling live asking-price listings across Koh Phangan's three most-referenced districts shows a clear spread: Thong Sala's flat, in-town land is the island's cheapest per square metre; Sri Thanu splits into an affordable inland tier and an increasingly scarce sea-view tier; and Haad Yao's small prime sea-view plots carry the strongest per-square-metre premium on the island.",
+    updated: "2026-08-17",
+    body: [
+      "How do Thong Sala, Sri Thanu and Haad Yao actually compare on price today, beyond the general 'land here is expensive' impression? Sampling current asking-price listings across the three districts in August 2026 shows real, consistent gaps by location and plot size — though these are asking prices from live listings, not closed-sale or government valuation data, so treat the ranges below as an orientation benchmark rather than an appraisal. For the island-wide context — a 2026 average land price of roughly ฿20.27 million and western-coast land up 2–4× since early 2022 — see [Koh Phangan property market in 2026](/knowledge/koh-phangan-market-outlook-2026).",
+      { h: "Thong Sala — the island hub, cheapest flat land" },
+      {
+        ul: [
+          "**Flat, road-accessible freehold plots** in and around town sampled at roughly **฿6,200–6,500/m²** (around ฿9.9–10.4 million per rai) — the lowest freehold rate of the three districts.",
+          "**Sea-view plots** near the Haad Khom side of town trend higher, toward **฿6,900–11,000/m²** (roughly ฿11–17.6 million per rai).",
+          "Thong Sala's advantage isn't the view — it's liquidity, ferry-port access and year-round rental demand. See [Buying in Thong Sala](/knowledge/buying-in-thong-sala).",
+        ],
+      },
+      { h: "Sri Thanu — wellness belt, a two-tier market" },
+      {
+        ul: [
+          "**Inland and jungle-view plots** sampled at roughly **฿4,250–7,900/m²** (around ฿6.8–12.6 million per rai) — still Koh Phangan's most internationally recognised long-stay community, at a meaningful discount to sea view.",
+          "**Sea-view plots** trend toward **฿6,250–8,750/m²**, and genuine beachfront parcels with existing structures were seen listed well above ฿30,000/m² — a figure that reflects the building on the land, not raw land value, and shouldn't be read as a land benchmark.",
+          "See [Buying in Sri Thanu](/knowledge/buying-in-sri-thanu) for who the district suits.",
+        ],
+      },
+      { h: "Haad Yao — the island's top price tier for sea view" },
+      {
+        ul: [
+          "**Small, prime sea-view plots** (roughly 500–1,000 m²) sampled at the island's strongest premium: **฿7,100–11,000/m²** (around ฿11.4–17.6 million per rai).",
+          "**Larger, more interior parcels** (3,000 m²+) discount sharply to roughly **฿2,800–3,400/m²** — a reminder that plot size drives price per square metre almost as much as location does.",
+          "This matches the district's existing profile as the northwest coast's premier sunset corridor. See [Buying in Haad Yao and Haad Salad](/knowledge/buying-in-haad-yao-haad-salad).",
+        ],
+      },
+      { h: "What the comparison actually shows" },
+      {
+        ul: [
+          "**Thong Sala** wins on entry price and liquidity, not on view or land appreciation potential.",
+          "**Sri Thanu** rewards buyers who don't need sea view — the inland community tier remains meaningfully cheaper than its coastal edge.",
+          "**Haad Yao** commands the clearest sea-view premium of the three, concentrated in smaller plots close to the water.",
+          "**Plot size matters as much as district** — bulk, interior parcels in every district sampled at a fraction of the per-square-metre rate of small, view-facing plots.",
+        ],
+      },
+      "A per-square-metre number is only a starting point. Before comparing two plots, confirm both carry the same title class — a chanote and an Nor Sor 3 Gor plot at the same headline price are not the same asset — and check what the 2025 zoning actually permits on each. See [Chanote vs Nor Sor 3 Gor](/knowledge/land-titles-chanote-vs-nor-sor-3) and [Building zones on Koh Phangan](/knowledge/koh-phangan-building-zones).",
+    ],
+    takeaways: [
+      "Thong Sala flat, in-town freehold land sampled cheapest of the three districts at roughly ฿6,200–6,500/m² (~฿9.9–10.4M/rai).",
+      "Sri Thanu splits into an inland tier at roughly ฿4,250–7,900/m² and a smaller, pricier sea-view tier at ฿6,250–8,750/m².",
+      "Haad Yao's small prime sea-view plots carry the island's strongest per-m² premium sampled, at roughly ฿7,100–11,000/m² (~฿11.4–17.6M/rai).",
+      "Larger, more interior parcels discount to roughly ฿2,800–3,400/m² regardless of district — plot size moves the per-m² rate as much as location.",
+      "These are asking-price listing samples from August 2026, not closed sales or government valuations — verify with a local agent and check title class before comparing two plots directly.",
+    ],
+    sources: [
+      {
+        title: "Islanders Properties — Land for sale in Srithanu, Koh Phangan",
+        url: "https://islanders-properties.com/thailand/type-land/for-sale/koh-phangan/srithanu/",
+      },
+      {
+        title: "Islanders Properties — Land for sale in Haad Yao, Koh Phangan",
+        url: "https://islanders-properties.com/thailand/type-land/for-sale/koh-phangan/haad-yao/",
+      },
+      {
+        title: "Islanders Properties — Land for sale in Thong Sala, Koh Phangan",
+        url: "https://islanders-properties.com/thailand/type-land/for-sale/koh-phangan/thongsala/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "How do Thong Sala, Sri Thanu and Haad Yao actually compare on land price per square metre?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
