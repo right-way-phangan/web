@@ -6381,6 +6381,144 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "phangan",
     faqQuestion: "How do Thong Sala, Sri Thanu and Haad Yao actually compare on land price per square metre?",
   },
+  {
+    slug: "pnd-94-mid-year-tax-return-rental-income",
+    kbId: "kb-0098",
+    topic: "Costs",
+    title: "The PND.94 mid-year tax return: the rental-income filing deadline landlords miss",
+    short:
+      "Thailand taxes rental income under two separate filings each year, not one. Most owners know about the annual return due 31 March. Fewer know about PND.94, a mid-year advance return covering January–June rental income, due by 30 September (8 October if filed online) — and the 1.5%-per-month surcharge for missing it.",
+    updated: "2026-08-18",
+    body: [
+      "Do you owe a Thai tax filing before September on rental income you already plan to declare next March? Yes — if you earned Thai rental income in the first half of 2026, **Por Ngor Dor 94 (PND.94)** is a separate mid-year advance return, distinct from the annual Por Ngor Dor 90 (PND.90) return covered in [Owner's taxes on Koh Phangan](/knowledge/owners-taxes-annual-land-and-income). It is easy for a foreign landlord to miss entirely, because nothing about the annual filing warns you it exists.",
+      { h: "Who has to file PND.94" },
+      "PND.94 applies to income falling under Revenue Code Section 40(5) through 40(8) — property rental, liberal professions, contracting, and business/trade income. **Rental income from a house, condo, land or vehicle falls squarely under Section 40(5).** Ordinary employment income (Section 40(1)) is excluded from this mid-year return entirely, which is why most salaried expats never encounter PND.94 — only landlords, freelancers and the self-employed do.",
+      {
+        ul: [
+          "**Filing threshold** — required once your first-half (January–June) income in these categories exceeds ฿60,000 for a single filer, or ฿120,000 for a married couple filing jointly.",
+          "**Applies to residents and non-residents alike** — rental income from Thai property is Thai-source income, taxable regardless of how many days a year you spend in the country, the same principle that governs the annual return.",
+          "**Covers only the first six months** — income earned July–December is reconciled later, on the annual PND.90 return.",
+        ],
+      },
+      { h: "How the half-year tax is calculated" },
+      {
+        ul: [
+          "**Same 30% deduction** — gross rental income gets the standard 30% flat deduction, exactly as on the annual return; no receipts or itemising required.",
+          "**Personal allowance halved** — because the return covers six months rather than twelve, the standard personal allowance is applied at half its annual value (roughly ฿30,000 rather than ฿60,000 for a single filer).",
+          "**Full progressive rates apply to what's left** — the resulting half-year taxable amount is taxed at the same 5–35% brackets used on the annual return; the brackets themselves are not halved.",
+        ],
+      },
+      { h: "A prepayment, not a second tax" },
+      "Tax paid under PND.94 is credited against your annual PND.90 liability, filed by 31 March the following year covering the full twelve months. If the second half of the year earns less, or annual deductions bring the full-year bill below what you already paid, the annual filing produces a refund. If not, you settle the balance in March. It is a genuine prepayment obligation on account of the year's tax, not an optional estimate — and a non-resident landlord whose tenant already withholds 15% at source under the rule described in [Owner's taxes on Koh Phangan](/knowledge/owners-taxes-annual-land-and-income) is not automatically excused from filing; the withholding and the PND.94 return are separate mechanisms that get reconciled against each other, not substitutes for one another.",
+      { h: "Penalties for missing the deadline" },
+      {
+        ul: [
+          "**1.5% monthly surcharge** on unpaid tax, accruing from the day after the deadline until paid, capped at the amount of tax owed.",
+          "**Late-filing fine** of up to ฿2,000 for not submitting the return itself, separate from and in addition to the surcharge on any unpaid tax.",
+          "**Deliberate evasion** carries its own criminal exposure under the Revenue Code — but an owner who simply didn't know PND.94 existed faces the administrative surcharge and fine, not a criminal case, provided the return is filed and tax paid once the omission is caught.",
+        ],
+      },
+      "Right Way does not file taxes for clients. If you rent out a Koh Phangan property, ask a Thai accountant to confirm your PND.94 position before the end of September — it is the one filing deadline most foreign landlords never hear about until they've already missed it. For the annual return, the full Land and Building Tax picture, and the licensing rules for short-term lets, see [Owner's taxes on Koh Phangan](/knowledge/owners-taxes-annual-land-and-income) and [Renting out your villa on Koh Phangan](/knowledge/renting-out-your-villa-rules-and-taxes).",
+    ],
+    takeaways: [
+      "PND.94 is a separate mid-year tax return covering January–June rental income, due 30 September on paper (8 October if e-filed) — distinct from the annual PND.90 return due the following March.",
+      "It applies to both Thai tax residents and non-residents, because rental income from Thai property is Thai-source income taxed regardless of residency status.",
+      "The same 30% standard deduction applies as on the annual return, but the personal allowance is halved to reflect the six-month period; the 5–35% progressive brackets themselves are not halved.",
+      "Tax paid under PND.94 is a prepayment credited against your annual PND.90 bill — it can produce either a refund or a top-up payment when you file in March.",
+      "Missing the deadline adds a 1.5% monthly surcharge on unpaid tax plus a separate late-filing fine of up to ฿2,000.",
+    ],
+    sources: [
+      {
+        title: "Revenue Department of Thailand — Personal Income Tax (rd.go.th)",
+        url: "https://www.rd.go.th/english/6045.html",
+      },
+      {
+        title: "MBMG Group — Understanding PND.94: Your Mid-Year Tax Filing Guide in Thailand",
+        url: "https://mbmg-group.com/understanding-pnd94-your-mid-year-tax-filing-guide-in-thailand/",
+      },
+      {
+        title: "ExpatTaxThailand — Half-Year Returns: Who Needs to File a PND.94 in Thailand?",
+        url: "https://www.expattaxthailand.com/half-year-returns-pnd-94-in-thailand/",
+      },
+      {
+        title: "Sherrings — Tax Evasion and Not Filing Tax Returns in Thailand",
+        url: "https://sherrings.com/tax-evasion-not-filing-tax-returns-thailand.html",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "Do I have to file a mid-year tax return on my Koh Phangan rental income?",
+  },
+  {
+    slug: "septic-tank-wastewater-rules-koh-phangan-villa",
+    kbId: "kb-0099",
+    topic: "Structures",
+    title: "Septic tanks and wastewater systems for a Koh Phangan villa: the 2024 rule change",
+    short:
+      "Since 25 March 2024, a national building-control regulation requires new or renovated houses to install a two-part grease-separation-and-treatment septic system, not the informal single-chamber soakaway many older Koh Phangan properties still rely on. Here's what the rule actually covers, and what it doesn't.",
+    updated: "2026-08-18",
+    body: [
+      "Building or renovating a villa on Koh Phangan? Since 25 March 2024, the sanitation system on your building-permit drawings has to meet a national standard for septic and wastewater treatment — not the informal soakaway pit many older island properties still use. Whether the rule reaches your project, and what it actually requires, depends on where and what you're building.",
+      { h: "The 2024 rule: Ministerial Regulation No. 71" },
+      "Ministerial Regulation No. 71 (B.E. 2566), issued under the Building Control Act B.E. 2522 (1979), was published in the Royal Gazette on 26 December 2023 and took effect 25 March 2024. It amends the older Ministerial Regulation No. 44 (B.E. 2538/1995), which first required a septic-and-soakaway design for new single houses, row houses, townhouses and twin houses. The new rule replaces that basic two-chamber design with a two-part system — a grease-separation section and a treatment section — built to a technical standard the Ministry sets separately, on the Building Control Committee's recommendation.",
+      {
+        ul: [
+          "**Applies to** new construction or renovation of a single house, row house, townhouse, twin house or a Type-ง building that requires a building permit, in any area without a centralised municipal wastewater system — which describes essentially all of Koh Phangan.",
+          "**Not retroactive** — an existing house that isn't being rebuilt or having its sanitation system modified isn't required to swap out an older, still-functioning system.",
+          "**Enforced at permit stage** — a building-permit application whose sanitation design doesn't meet the standard can be refused, and work already under way can be ordered to stop.",
+          "**Exemption for municipal connections** — a building that connects to a state-provided communal wastewater treatment system is exempt from the individual water-quality standard, though it must still meet a preliminary-treatment specification. Not relevant to almost any Koh Phangan plot today.",
+        ],
+      },
+      { h: "What the technical standard actually requires" },
+      "The follow-up ministerial notification sets out the detail: a prefabricated septic tank certified to Thai Industrial Standard (TIS) specifications, arranged as three grease-separation chambers followed by one filtration chamber in series, with filter media covering more than 80 square metres of surface per cubic metre of chamber volume and making up over half the chamber's volume. In practice, this means specifying a certified prefabricated tank model on the permit drawings rather than a poured-concrete soakaway pit designed on-site — the kind still common in older Phangan builds.",
+      { h: "Why this isn't a treatment-plant permit for a single villa" },
+      "A separate set of Ministry of Natural Resources and Environment notifications (Royal Gazette, 19 July 2021) sets effluent discharge standards for \"developed land\" under the Enhancement and Conservation of National Environmental Quality Act B.E. 2535 (1992) — but only for multi-unit housing estates and developments above a size threshold: Type A (over 500 units or more than 100 rai), Type B (100–499 units or 19–100 rai), and Type C (10–99 units or under 19 rai). A single private villa on its own plot falls below all three tiers and isn't a regulated discharge point under this notification. For a lone buyer or builder, the operative rule is the Building Control Act septic-tank design standard above, not an environmental discharge permit.",
+      { h: "Why it matters on an island with no central sewer network" },
+      "Koh Phangan has no centralised sewage treatment system; virtually every property, from the smallest bungalow to a hillside villa, disposes of wastewater on-site. That has consequences beyond a single build: an October 2025 government task-force sweep of illegal hillside and forest-reserve construction on the island found that unpermitted development was overwhelming local waste-management and wastewater-treatment capacity and contributing to reef degradation offshore — a reminder that a correctly specified septic system isn't paperwork for its own sake on an island where every plot's runoff eventually reaches the same coastline. See [Illegal hillside and forest-reserve construction crackdown](/knowledge/samui-model-hillside-enforcement-koh-phangan) for the enforcement side of unpermitted builds, and [Building a villa on Koh Phangan](/knowledge/building-a-villa-koh-phangan) for the permit process this sanitation standard is part of.",
+      { h: "What to check before you build or buy" },
+      {
+        ul: [
+          "**Ask your architect or builder to specify a TIS-certified prefabricated tank model** on the permit drawings, not a generic on-site soakaway design.",
+          "**Confirm your plot has no access to a centralised sewer line** — extremely unlikely on Koh Phangan, but the rule's requirement is specific to areas without one.",
+          "**If you're buying an existing villa**, ask when the sanitation system was last replaced. A pre-2024 system that hasn't been modified since isn't required to be upgraded, but a poorly maintained septic system is a real cost and odour risk regardless of which regulation built it.",
+          "**Check plot drainage and runoff more broadly** alongside the sanitation system — see [Flood and drainage due diligence on Koh Phangan](/knowledge/flood-drainage-due-diligence-koh-phangan).",
+        ],
+      },
+      "Right Way does not design or certify sanitation systems for clients — confirm the current technical notification with your architect and a licensed builder at the permit stage. For the wider permit, zoning and budget process a septic system sits inside, see [Building a villa on Koh Phangan](/knowledge/building-a-villa-koh-phangan).",
+    ],
+    takeaways: [
+      "Since 25 March 2024, Ministerial Regulation No. 71 (B.E. 2566) requires new or renovated houses on Koh Phangan to install a two-part grease-separation-and-treatment septic system, not the older single-soakaway design.",
+      "The rule applies to new construction or renovation needing a building permit, in areas without a centralised sewer — effectively the whole island — and isn't retroactive on unmodified existing systems.",
+      "The technical standard specifies a TIS-certified prefabricated tank with three grease-separation chambers and one filtration chamber — put the model on your permit drawings, not a poured on-site pit.",
+      "Separate 2021 environmental effluent-discharge standards apply only to multi-unit developments of 10+ units or 19+ rai — a single villa isn't a regulated discharge point under that rule.",
+      "Koh Phangan has no centralised sewage network, so every villa's wastewater system is on-site — which is why 2025 enforcement sweeps against illegal construction flagged strained island-wide waste capacity as a real, current concern.",
+    ],
+    sources: [
+      {
+        title: "Association of Siamese Architects (ASA) — Amendment to the Building Control Ministerial Regulation on Wastewater and Treatment Systems",
+        url: "https://asa.or.th/laws/news20240108/",
+      },
+      {
+        title: "YOTATHAI — Ministerial Regulation No. 71 (B.E. 2566) issued under the Building Control Act B.E. 2522",
+        url: "https://www.yotathai.com/yotanews/rule71-buildinglaw",
+      },
+      {
+        title: "Tank JRM — Thailand's New Septic Tank Law (2024): Standards & Fines",
+        url: "https://tankjrm.com/en/new-law-septic-tank-thailand/",
+      },
+      {
+        title: "Enviliance Asia — Thailand announces the effluent standard for housing estates",
+        url: "https://enviliance.com/regions/southeast-asia/th/report_3841",
+      },
+      {
+        title: "Khaosod English — Koh Phangan Faces Illegal Development Crisis in Protected Areas",
+        url: "https://www.khaosodenglish.com/featured/2025/10/18/koh-phangan-faces-illegal-development-crisis-in-protected-areas/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "What are the legal requirements for a septic tank or wastewater system on a Koh Phangan villa build?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

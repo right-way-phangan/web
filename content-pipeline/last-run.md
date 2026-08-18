@@ -1,4 +1,4 @@
-# Last run — 2026-08-17
+# Last run — 2026-08-18
 
 **Guides published:** 2 (of 2 targeted)
 
@@ -6,46 +6,44 @@
 
 ## Guide 1
 
-- **slug:** `offshore-family-trust-cannot-hold-thai-land`
-- **kbId:** `kb-0096`
-- **title (EN):** Why an offshore family trust can't hold your Thai villa or land
-- **title (RU):** Почему зарубежный семейный траст не может владеть вашей тайской виллой или землёй
-- **faqCategory:** `structures`
-- **faqQuestion:** Can I put my Thai villa or land into a family trust from my home country?
+- **slug:** `pnd-94-mid-year-tax-return-rental-income`
+- **kbId:** `kb-0098`
+- **title (EN):** The PND.94 mid-year tax return: the rental-income filing deadline landlords miss
+- **title (RU):** Полугодовая декларация PND.94: срок подачи по арендному доходу, который упускают владельцы
+- **faqCategory:** `costs`
+- **faqQuestion:** Do I have to file a mid-year tax return on my Koh Phangan rental income?
 - **Sources used:**
-  - ThaiLawOnline — Trusts in Thailand via Foreign Jurisdiction (confirms no Land Office mechanism to register a trustee's title; recommends Thai wills/usufruct instead of a foreign trust)
-  - Sovereign Group — Planning for the future: how Trusts can elevate wealth and asset management in Thailand (confirms an offshore trust set up by a Thai resident must be limited to non-Thai assets; nominee-risk framing)
-  - Thailand Law Forum — Civil and Commercial Code Sections 1646–1710 (primary citation for Section 1686, the general trust-voiding provision in force since the Code's 1935 adoption)
-  - Lexology / Baker McKenzie — Thailand's Private Trust Act Is Approved by the Cabinet (basis for the July 2018 Cabinet approval; corroborated by a second search that the bill remains under Council of State review with no 2026 enactment found)
-  - Thailand SEC — Trust for Transactions in Capital Market Act B.E. 2550 (2007), primary statute text for the sole, capital-markets-only trust exception
+  - Revenue Department of Thailand — Personal Income Tax (rd.go.th/english/6045.html) — general PIT reference; the RD's own PND.94 instructions PDF exists on rd.go.th but could not be machine-parsed for text in this session, so exact 2026-year dates are presented as the standard recurring rule rather than a confirmed 2026 notice
+  - MBMG Group — Understanding PND.94: Your Mid-Year Tax Filing Guide in Thailand (filing thresholds, Section 40(5)-(8) scope, deadlines)
+  - ExpatTaxThailand — Half-Year Returns: Who Needs to File a PND.94 in Thailand? (independently corroborates thresholds, deadlines, half-rate personal allowance, resident/non-resident scope)
+  - Sherrings — Tax Evasion and Not Filing Tax Returns in Thailand (penalty/surcharge figures)
 
-This was an unflagged, backlog item (structures, 🟡). No existing guide in `knowledge-base.ts` addressed trusts before this. Distinct from the published nominee-company and inheritance guides — the closest neighbors (`villa-held-by-thai-company-buyer-due-diligence-2026`, `foreign-heir-inheriting-thai-land-section-93`, `sap-ing-sith-right-of-use-thailand`) are cross-linked rather than duplicated.
+This is the narrow angle a 2026-08-04 backlog note explicitly reserved: the backlog item "Non-resident vs. resident rental income tax... plus PND.94/PND.90 filing deadlines" was previously judged a substantial duplicate of the already-published kb-0027 (owner's annual taxes guide), which covers resident/non-resident treatment, the 30% deduction and the annual PND.90 deadline in depth but never mentions PND.94 at all. This guide covers only the mid-year PND.94 obligation — a genuinely separate filing most foreign landlords don't know exists — and is timely: its deadline (typically 30 Sept / 8 Oct e-filed) falls about six weeks after this run. Backlog row marked ✅.
 
 ---
 
 ## Guide 2
 
-- **slug:** `price-per-area-benchmark-2026-thong-sala-sri-thanu-haad-yao`
-- **kbId:** `kb-0097`
-- **title (EN):** Land price benchmarks 2026: Thong Sala vs Sri Thanu vs Haad Yao, per square metre and per rai
-- **title (RU):** Ориентиры цен на землю 2026: Тонг Сала против Шри Тхану против Хаад Яо, за квадратный метр и за рай
-- **faqCategory:** `phangan`
-- **faqQuestion:** How do Thong Sala, Sri Thanu and Haad Yao actually compare on land price per square metre?
+- **slug:** `septic-tank-wastewater-rules-koh-phangan-villa`
+- **kbId:** `kb-0099`
+- **title (EN):** Septic tanks and wastewater systems for a Koh Phangan villa: the 2024 rule change
+- **title (RU):** Септики и системы очистки сточных вод для виллы на Ко Панган: изменение правил 2024 года
+- **faqCategory:** `structures`
+- **faqQuestion:** What are the legal requirements for a septic tank or wastewater system on a Koh Phangan villa build?
 - **Sources used:**
-  - Islanders Properties — live August 2026 land-for-sale listing pages for Srithanu, Haad Yao and Thongsala. Per-m² figures were computed directly from each listing's price ÷ area (not taken from any third-party aggregate stat), and the guide explicitly discloses these are asking-price samples from one portal, not closed-sale or government valuation data.
-  - Cross-referenced (not re-cited as external) against the already-published `koh-phangan-market-outlook-2026` (kb-0014) for island-wide average price and west-coast appreciation context, to keep the two guides consistent.
+  - Association of Siamese Architects (ASA) — amendment notice for Ministerial Regulation No. 71 (B.E. 2566), confirming the Building Control Act basis, Royal Gazette date (26 Dec 2023) and effective date (25 Mar 2024)
+  - YOTATHAI — Ministerial Regulation No. 71 (B.E. 2566) explainer, corroborating scope (single house/row house/townhouse/twin house/Type-ง, no-central-sewer condition)
+  - Tank JRM — Thailand's New Septic Tank Law (2024): Standards & Fines (technical tank spec: 3 grease-separation chambers + 1 filtration chamber, TIS certification, applies to new/renovated construction not existing systems)
+  - Enviliance Asia — Thailand announces the effluent standard for housing estates (the 2021 NEQA notifications, confirming they target multi-unit developments above a unit/rai threshold, not single villas — the deliberate "doesn't apply to you" contrast used in the guide)
+  - Khaosod English (18 Oct 2025) — Koh Phangan Faces Illegal Development Crisis in Protected Areas (current news anchor: unpermitted construction straining island wastewater capacity)
 
-This was the second unflagged backlog item (phangan, 🟢). Distinct from the existing qualitative single-district guides (`buying-in-thong-sala`, `buying-in-sri-thanu`, `buying-in-haad-yao-haad-salad`, none of which give hard per-m²/per-rai figures) and from the general `how-land-is-priced-price-per-rai` explainer (which covers units and value drivers, not a district-by-district price table).
+A 2026-08-14 backlog note had abandoned this topic's original framing (a claimed "2018 Section 17 unfriendly-activities ban") as unsourced after research failed to find a matching legal provision. This run found a different, real, well-documented legal basis instead — the Building Control Act septic-tank design regulation — and built the guide on that rather than reviving the discredited Section 17 claim. Backlog row marked ✅.
 
 ---
 
-## Notes on backlog items evaluated but not published today
+## Not published this run
 
-Several higher-tier backlog items were left `⏳` rather than re-attempted, because each already carries a prior-run note explaining a substantial-duplicate or unverifiable-claim finding, and this run did not identify a new angle changing that assessment:
-- 🔴 "2026 Land and Building Tax: no reduction decree" — flagged duplicate of `kb-0027`.
-- 🔴 "8-province corporate landholder database (Surat Thani)" — flagged as overlapping 5+ published guides on the same raid/flagged-company narrative.
-- 🟡 "Foreign Business Act amendment / nominee as AML predicate offence" — thinner sourcing noted in the backlog itself; not attempted this run in favor of the two cleaner, unflagged topics.
-- 🟢/🟡 "Non-resident vs resident rental income tax", "Realistic villa rental yields", "Who's actually buying on Phangan 2026", "Stamp Duty vs SBT", "Vetting a specific off-plan project" — each carries a prior-run duplicate note.
-- 🟢 "Koh Phangan's power grid reliability" and 🟡 "Island wastewater and sewage rules" — flagged respectively as overlapping `kb-0026` and as lacking a citable primary source for the core legal claim.
+- **Foreign Business Act amendment (nominee shareholding as AML predicate offence)** — researched in full; confirmed still an unenacted Ombudsman/AMLO recommendation as of the most recent dated source (24 Jul 2026), not adopted by government, with its likely legislative vehicle probably reset by the December 2025 House dissolution. Also found the backlog's "closed April 2026" consultation date was off by a year (the real consultation closed April 2025), and two of its four originally-cited sources don't actually discuss the claim. Left `⏳` with a dated note — not safe to publish as more than a stalled proposal.
+- All other `⏳` backlog rows were re-checked against this run's dedup pass and remain correctly skipped per their existing notes (duplicates of kb-0009, kb-0010, kb-0014, kb-0026, kb-0051, kb-0084).
 
-Per the hard quality gate, both published guides are grounded in sources fetched and verified this run (not carried over from memory), are genuinely distinct from existing coverage, and disclose their data's limits (asking-price listing sample; pending, non-enacted bill status) rather than overstating certainty. `npx tsc --noEmit` passes clean on both content files. kbId sequence continues at kb-0096–0097 (prior max was kb-0095).
+Per the hard quality gate, both published guides are grounded in sources fetched and verified this run, are genuinely distinct from existing coverage (confirmed by grepping existing slugs before writing), and disclose the limits of their sourcing (RD's own PDF unparsed; dates presented as the standard rule, not a confirmed 2026 notice) rather than overstating certainty. `npx tsc --noEmit` passes clean on both content files. kbId sequence continues at kb-0098–0099 (prior max was kb-0097).
