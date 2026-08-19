@@ -6519,6 +6519,111 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "structures",
     faqQuestion: "What are the legal requirements for a septic tank or wastewater system on a Koh Phangan villa build?",
   },
+  {
+    slug: "foreign-shareholder-monitoring-8-provinces-2026",
+    kbId: "kb-0100",
+    topic: "Process",
+    title: "36,277 foreign-linked companies, 8 priority provinces: how Thailand's 2026 nominee-monitoring network actually works",
+    short:
+      "On 18 August 2026 the Department of Business Development disclosed its first hard national count from the ongoing nominee-shareholding review: 36,277 foreign-linked companies screened, 4,761 of them facing stricter action. Surat Thani — the mother province for Koh Phangan and Koh Samui — sits on both that hotspot list and a separate Land Department framework prioritising monthly checks in 8 provinces.",
+    updated: "2026-08-19",
+    body: [
+      "How many companies has Thailand's nominee-shareholding review actually screened, and does it reach Koh Phangan? As of August 2026, two separate but coordinated tracking systems both name Surat Thani — the province Koh Phangan and Koh Samui sit under — as a priority area, and for the first time officials have put hard national numbers on the exercise.",
+      { h: "The DBD's first national count" },
+      "On 18 August 2026, Department of Business Development director-general Poonpong Naiyanapakorn disclosed that the DBD, cross-referencing its own registry against Department of Lands title data, had reviewed 144,706 legal entities nationwide and identified 36,277 as foreign-linked landholders. These split into two risk tiers: 31,516 companies with foreign ownership at or below the 49% cap, which now face verification that the Thai majority shareholding reflects a genuine investment rather than a nominee front, and 4,761 companies with foreign ownership above 49% — an outright breach of the Foreign Business Act cap — facing the stricter track. Roughly 35,154 of the flagged entities cluster in 16 named provinces, including Surat Thani, Phuket, Chon Buri and Chiang Mai. This builds on the AI-assisted IBAS screening already reviewing existing landholding companies; see [The Land Department's 2026 audit of existing landholding companies](/knowledge/land-department-audit-existing-landholding-companies-2026) for how that system flags a company in the first place.",
+      { h: "The Land Department's parallel 8-province framework" },
+      "Separately, the Department of Lands runs its own standing-review system: Provincial Land Offices check monthly for any company where a foreigner holds shares or a director seat, and report results quarterly to the central department, with immediate reporting required if a company crosses the foreign-control thresholds mid-cycle. As of mid-2026, that system names 8 priority provinces for the heaviest monitoring load: Phuket, Surat Thani, Mae Hong Son, Chiang Mai, Krabi, Chon Buri, Rayong and Chanthaburi. Every land office in these provinces was required to complete a baseline review of its existing company-landholder database by 26 June 2026, before settling into the routine monthly-check cycle.",
+      { h: "The penalties sit on top of losing the land, not instead of it" },
+      "A company flagged as a nominee structure still faces the land-focused consequence already covered elsewhere on this site: Land Code Section 96 lets the Director-General order the land sold within 180 days to a year (see [Section 94 forfeiture amendment](/knowledge/land-code-section-94-forfeiture-amendment) for the proposal to remove even that sale-proceeds entitlement). Separately, the company and the individuals who set it up face their own direct fines under the Land Code: Section 112 fines a juristic person up to ฿50,000 for the underlying illegal acquisition, and Section 113 fines a Thai national who acted as an agent for a foreigner up to ฿20,000, or up to 2 years' imprisonment, or both. Losing the land and paying these fines are separate exposures — a forced sale doesn't settle the criminal liability.",
+      { h: "Why Surat Thani sits on both lists" },
+      "Koh Phangan and Koh Samui fall under Surat Thani province for land registration and company jurisdiction, which is why both the DBD's national hotspot list and the Land Department's 8-province monitoring framework name it independently. In practice that means a company holding land on Koh Phangan is reviewed twice over: once through the DBD's registry-side screening of shareholding patterns, and again through the Provincial Land Office's monthly land-and-company cross-check. See [Buying a villa already held by a Thai company](/knowledge/villa-held-by-thai-company-buyer-due-diligence-2026) for what that means specifically for a buyer looking at company-held inventory on the island, and [A Thai company for property: when it makes sense, when it's toxic](/knowledge/thai-company-for-property-49-51) for the narrow cases where the structure still holds up.",
+      "None of this changes the underlying law — the 49% foreign-ownership cap and the ban on nominee shareholding were always the rule. What August 2026's disclosures confirm is that the monitoring machinery behind that rule is fully operational and producing hard numbers, not sitting as an unenforced directive on paper.",
+    ],
+    takeaways: [
+      "On 18 August 2026 the DBD disclosed reviewing 144,706 entities nationwide and identifying 36,277 foreign-linked landholders — 31,516 at or below the 49% cap (flagged for genuine-investment verification) and 4,761 above it (facing stricter action).",
+      "Surat Thani — the province covering Koh Phangan and Koh Samui — is named on both the DBD's 16-province hotspot list and a separate Land Department framework prioritising 8 provinces for monthly foreign-shareholder checks.",
+      "The Land Department's 8 priority provinces are Phuket, Surat Thani, Mae Hong Son, Chiang Mai, Krabi, Chon Buri, Rayong and Chanthaburi, with land offices required to complete a baseline company-landholder review by 26 June 2026.",
+      "A flagged company faces forced land disposal under Section 96 separately from direct fines: Section 112 fines the company itself up to ฿50,000; Section 113 fines a Thai nominee up to ฿20,000 and/or up to 2 years' imprisonment.",
+      "A company holding land on Koh Phangan is effectively reviewed twice — once by the DBD's registry-side screening, once by the Provincial Land Office's monthly monitoring cycle — reflecting Surat Thani's status as a priority area on both tracks.",
+    ],
+    sources: [
+      {
+        title: "Nation Thailand — DBD scrutinises 36,277 foreign-linked landholding firms",
+        url: "https://www.nationthailand.com/news/general/40069926",
+      },
+      {
+        title: "AIM Bangkok — Thailand's Nominee Land Crackdown: New Land Department Enforcement Measures Explained (2026)",
+        url: "https://aimbangkok.com/thailand-nominee-land-crackdown-dol-enforcement-2026/",
+      },
+      {
+        title: "Terms.Law — Thailand Land Code Penalties 2026: What Happens If You Get Caught",
+        url: "https://terms.law/Thai/property/land-code-penalties.html",
+      },
+      {
+        title: "Silk Legal — What Thailand's New Lands Directives Mean for Nominee Shareholding and Property Ownership in 2026",
+        url: "https://silklegal.com/what-thailands-new-lands-directives-mean-for-nominee-shareholding-and-property-ownership-in-2026/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "How many companies has Thailand's 2026 nominee-shareholder crackdown actually screened, and is Surat Thani (Koh Phangan/Samui) a priority province?",
+  },
+  {
+    slug: "koh-samui-phangan-raid-leases-nominee-scrutiny-2026",
+    kbId: "kb-0101",
+    topic: "Structures",
+    title: "Long-term leases now under nominee scrutiny too: what the August 2026 Koh Samui raid signals for Phangan buyers",
+    short:
+      "A 15 August 2026 raid reviewed all 12,906 registered companies on Koh Samui and opened 60 nominee cases — and officials say the same enforcement push is now examining whether long-term leases, not just companies, are being used to give foreigners disguised control of land. Here's what's confirmed, what's still an emerging signal, and what it means for the standard lease-plus-superficies structure.",
+    updated: "2026-08-19",
+    body: [
+      "Is a registered 30-year lease still the safe way for a foreigner to hold long-term rights over land on Koh Phangan? For a standard, single-term registered lease, yes — but as of mid-August 2026, Thai authorities have said publicly that the nominee-enforcement campaign is widening beyond companies to examine certain lease arrangements too. Here's the actual news, and where the line currently sits.",
+      { h: "The 15 August 2026 raid: what actually happened" },
+      "Described by officials as the seventh phase of the ongoing foreign-nominee-network crackdown, a coordinated operation involving 300+ police and officials reviewed all 12,906 companies registered on Koh Samui. Of those, 8,254 had foreign shareholders and 875 showed characteristics consistent with nominee arrangements. The review produced 60 criminal cases against 88 suspects (26 Thai nationals, 62 foreigners), 14 arrests of foreign nationals wanted on warrants, and identified 59 companies tied to 37 land plots and buildings worth an estimated ฿1.2 billion. Five business networks were targeted, spanning property development, unlicensed operations and suspected tax avoidance.",
+      { h: "The new signal: leases under the same lens" },
+      "A day earlier, on 16 August 2026, Thai Examiner reported that officials working the same Koh Samui-Koh Phangan enforcement push are now examining long-term leases as a possible alternative route foreigners use to secure effective decades-long control of land without appearing as a registered owner or a flagged company shareholder. Officials said the focus emerged from conversations with foreigners describing increased reliance on leasing over buying. This is a real, dated enforcement signal — but it is still an emerging one: reporting describes investigators \"examining\" whether particular lease structures circumvent ownership restrictions, without naming a specific statute, case, or enforcement mechanism yet. Treat it the way this site treats other studied-but-not-enacted proposals, such as the [Section 94 forfeiture amendment](/knowledge/land-code-section-94-forfeiture-amendment): real, worth tracking, not yet a settled rule with a defined test.",
+      { h: "What this does — and doesn't — mean for a standard lease-and-superficies buyer" },
+      {
+        ul: [
+          "**A single, cleanly registered 30-year lease combined with a registered superficies over the building** — the structure this site recommends throughout, see [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa) — is not, on current reporting, the type of arrangement under scrutiny. It's a standard, transparent property right, not a disguised ownership workaround.",
+          "**Stacked or serial leases** (the '30+30+30' pattern marketed as 60 or 90 years of tenure) are the clearest candidate for this scrutiny — and separately, the pre-agreed renewal periods in those structures are already void as a matter of contract law under the March 2025 Supreme Court ruling. See [Renewing a 30-year lease: what actually happens](/knowledge/renewing-30-year-lease-risks) for that ruling in full.",
+          "**Leases bundled with side agreements** — options to indefinitely extend without the landowner's fresh consent, loans from the lessee to the landowner secured against the land, or other arrangements that hand a foreign lessee decision-making or economic control beyond simple occupancy — fit the profile officials describe as giving 'effective control' without registered ownership.",
+          "**A lease used as a fallback after a company structure was rejected or flagged** is exactly the kind of pattern that draws attention in an environment where officials are actively comparing notes across enforcement tracks.",
+        ],
+      },
+      { h: "Why Koh Phangan sits inside the same net as Koh Samui" },
+      "Koh Phangan and Koh Samui share the same provincial jurisdiction (Surat Thani) for land registration and company oversight, and enforcement reporting through 2025-2026 has consistently treated the two islands as a single campaign area rather than separate cases — see [Nominee-ownership enforcement spreads to Krabi](/knowledge/nominee-crackdown-krabi-islands-2026) for how the same push has moved across provinces, and [36,277 foreign-linked companies and 8 priority provinces](/knowledge/foreign-shareholder-monitoring-8-provinces-2026) for the parallel company-monitoring numbers behind this same crackdown.",
+      "Nothing here changes what a compliant lease looks like. It does mean documentation discipline matters more than ever: a single registered term, no side letters implying disguised ownership, rent and any option terms genuinely negotiated rather than pre-agreed for decades, and independent legal advice before signing anything a broker describes as a workaround for the 49% ownership cap.",
+    ],
+    takeaways: [
+      "A 15 August 2026 raid — reported as the seventh phase of the ongoing nominee-network crackdown — reviewed all 12,906 companies registered on Koh Samui, opening 60 cases against 88 suspects and 14 arrests, tied to ฿1.2 billion in land and property.",
+      "On 16 August 2026, officials said the same enforcement push is now examining whether long-term leases, not just companies, are being used to give foreigners disguised, decades-long control of land — a new, still-emerging signal without a defined statute or test yet publicly named.",
+      "A single, cleanly registered 30-year lease plus a registered superficies — the standard structure recommended throughout this site — is not, on current reporting, the type of arrangement under scrutiny.",
+      "Stacked or serial '30+30+30' leases remain the clearest risk: separate from any nominee angle, their renewal periods are already void under the March 2025 Supreme Court ruling.",
+      "Koh Phangan shares Surat Thani provincial jurisdiction with Koh Samui, so enforcement reporting treats the two islands as one campaign area — documentation discipline on any lease matters more than ever.",
+    ],
+    sources: [
+      {
+        title: "Nation Thailand — Koh Samui nominee crackdown opens 60 cases linked to 1.2bn baht property",
+        url: "https://www.nationthailand.com/news/general/40069826",
+      },
+      {
+        title: "Bangkok Post — 60 illegal nominee firms found on Koh Samui",
+        url: "https://www.bangkokpost.com/thailand/general/3302225/60-illegal-nominee-firms-found-on-koh-samui",
+      },
+      {
+        title: "Thai Examiner — Drive against foreign owned property and business on Koh Samui and Koh Phangan now targets leases",
+        url: "https://www.thaiexaminer.com/thai-news-foreigners/2026/08/16/campaign-against-foreign-owned-property-and-business-on-koh-samui-and-koh-phangan-now-targets-leases/",
+      },
+      {
+        title: "Siam Legal International — Supreme Court Ruling on Long-Term Leases in Thailand",
+        url: "https://www.siam-legal.com/thailand-law/supreme-court-ruling-on-long-term-leases-in-thailand/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "Are long-term leases now being investigated as a nominee-ownership workaround in Thailand, like company structures are?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
