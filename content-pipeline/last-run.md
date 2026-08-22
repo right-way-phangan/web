@@ -1,69 +1,68 @@
-# Last run — 2026-08-19
+# Last run — 2026-08-22
 
-**Guides published:** 2 (of 2 targeted)
+**Guides published:** 1 (of 2 targeted)
 
-Every remaining `⏳` backlog row carried a prior-run note explaining why it duplicates an
-already-published guide (see backlog.md history for kb-0009/kb-0010/kb-0014/kb-0026/kb-0084
-overlaps). Rather than pad with a near-duplicate, this run searched live for genuinely new,
-dated news and found two distinct stories from the last four days, both grounded in
-directly-fetched primary/law-firm/news sources.
+Every remaining `⏳` backlog row already carried a prior-run note explaining why it
+duplicates a published guide or isn't safe to publish (kb-0009/kb-0010/kb-0014/kb-0026/
+kb-0084 overlaps, and the stalled FBA/AMLO predicate-offence proposal). This run re-checked
+every one of them against live sources dated as recently as today, plus a broad fresh-news
+sweep (nationthailand.com property section, Thai Examiner, Bangkok Post, and targeted
+searches on visas, mortgages, condo quota, SEZ/BOI zones, schools/hospitals, digital land
+services) covering 2026-08-19 through 2026-08-22. No new-since-last-run story emerged, and
+every stuck `⏳` row is confirmed still duplicate/unsafe (see dated 2026-08-22 notes added
+inline in backlog.md). One genuinely distinct, well-sourced, non-duplicate topic was found —
+published below. Per the hard quality gate, the second slot was left unfilled rather than
+padded with a near-duplicate.
 
 ---
 
 ## Guide 1
 
-- **slug:** `foreign-shareholder-monitoring-8-provinces-2026`
-- **kbId:** `kb-0100`
-- **title (EN):** 36,277 foreign-linked companies, 8 priority provinces: how Thailand's 2026 nominee-monitoring network actually works
-- **title (RU):** 36 277 компаний с иностранным участием и 8 приоритетных провинций: как в 2026 году реально работает система мониторинга номинальных владельцев
-- **faqCategory:** `process`
-- **faqQuestion:** How many companies has Thailand's 2026 nominee-shareholder crackdown actually screened, and is Surat Thani (Koh Phangan/Samui) a priority province?
+- **slug:** `d-value-check-official-appraised-value-online`
+- **kbId:** `kb-0102`
+- **title (EN):** D-Value: how to check a Koh Phangan property's official government appraised value online
+- **title (RU):** D-Value: как онлайн проверить официальную государственную оценочную стоимость недвижимости на Ко Пангане
+- **faqCategory:** `documents`
+- **faqQuestion:** How can I check the official government appraised value of a specific plot or condo on Koh Phangan?
 - **Sources used:**
-  - Nation Thailand — "DBD scrutinises 36,277 foreign-linked landholding firms" (18 Aug 2026, verified via direct fetch) — the fresh news hook: first hard national count, tiered ≤49%/>49% breakdown, 16-province hotspot list, named DG Poonpong Naiyanapakorn
-  - AIM Bangkok — "Thailand's Nominee Land Crackdown: New Land Department Enforcement Measures Explained" (13 Aug 2026, verified via direct fetch) — the specific 8 priority provinces and 26 June 2026 baseline-review deadline, not previously published on this site
-  - Terms.Law — "Thailand Land Code Penalties 2026" — Section 112/113 fine figures, independently cross-checked against a second search before use
-  - Silk Legal — nominee-shareholding directives explainer, corroborating detail
+  - Nation Thailand — "D-Value makes land & condominium valuation certificates free online" (27 Jun 2026, verified via direct fetch) — the launch details: free, certified, e-signed, ~10-minute email delivery, accepted by GHB/BAAC/Krungthai
+  - Thairath English — "The Treasury Department Launches New D-Value Feature for Online Certified Copies of Property Appraisal Accounts" — corroborating the launch
+  - Treasury Department of Thailand (treasury.go.th) — official e-Property Valuation portal, primary source for the access channel
+  - The Standard (Thai-language) — confirmed the satellite-map search feature that lets a user locate a parcel without already knowing its chanote or Nor Sor 3 Gor number
 
-The general monthly-check/quarterly-report mechanism was already published in kb-0051, so
-this guide deliberately leads with what kb-0051 doesn't have: the DBD's first hard national
-count (disclosed the day before this run), the exact 8-province priority list and its 26 Jun
-2026 baseline deadline, and the company-level Land Code Section 112/113 fines that sit
-alongside — not instead of — Section 96 land forfeiture. Backlog row marked ✅.
+D-Value had only ever appeared as a single bullet inside the already-published kb-0089
+(2027 valuation-reform forecast); it had never been given its own how-to treatment. This
+guide is the dedicated companion piece: exactly how to access it, why "no deed number
+needed" matters for a buyer checking a plot before seeing paperwork, which three banks
+accept the certificate, and how it plugs into two other published guides (financing as a
+foreigner, disputing a Land and Building Tax assessment). Backlog row added fresh to
+section A (news wasn't a pre-existing row) and marked ✅.
 
-## Guide 2
+## Not published this run (second slot)
 
-- **slug:** `koh-samui-phangan-raid-leases-nominee-scrutiny-2026`
-- **kbId:** `kb-0101`
-- **title (EN):** Long-term leases now under nominee scrutiny too: what the August 2026 Koh Samui raid signals for Phangan buyers
-- **title (RU):** Долгосрочная аренда теперь тоже под подозрением: что означает облава на Ко Самуи в августе 2026 года для покупателей на Пангане
-- **faqCategory:** `structures`
-- **faqQuestion:** Are long-term leases now being investigated as a nominee-ownership workaround in Thailand, like company structures are?
-- **Sources used:**
-  - Nation Thailand — "Koh Samui nominee crackdown opens 60 cases linked to 1.2bn baht property" (15 Aug 2026, verified via direct fetch) — the raid's hard numbers (12,906 companies reviewed, 60 cases, 88 suspects, 14 arrests, ฿1.2bn) and the "seventh phase" framing
-  - Bangkok Post — "60 illegal nominee firms found on Koh Samui" — corroborating the raid
-  - Thai Examiner — "Drive against foreign owned property and business on Koh Samui and Koh Phangan now targets leases" (16 Aug 2026, verified via direct fetch) — the genuinely new angle: officials examining long-term leases, not just companies, as a possible disguised-ownership vehicle
-  - Siam Legal International — Supreme Court lease ruling reference, reused to distinguish this new enforcement-scrutiny angle from the already-published March 2025 contract-validity ruling (kb-0020)
+Deliberately left at 1 guide rather than 2. Candidates considered and rejected:
 
-No existing guide covers leases themselves being scrutinized as a nominee-evasion vehicle —
-every prior mention frames registered lease + superficies as the safe alternative to a
-company. Because the Thai Examiner source names no specific statute, case, or enforcement
-mechanism yet, the guide frames this explicitly as an emerging signal (same treatment this
-site already gives the Section 94 forfeiture proposal in kb-0063), not a settled rule, and
-is explicit that a single, cleanly registered 30-year lease is not the target — stacked
-"30+30+30" leases and side-agreements that hand over de facto control are. This is new
-content added to backlog section A (news wasn't a pre-existing row) and marked ✅.
+- **Realistic villa rental yields** — even with a fresh Savills/Nation Thailand H1-2026 data
+  point (10-13% net for Phangan leasehold villas), still the same nightly-rate × occupancy −
+  costs methodology already in kb-0010. Still `⏳`.
+- **Koh Phangan's power grid reliability** — no new primary source beyond kb-0026. Still `⏳`.
+- **Who's actually buying on Phangan in 2026** — a newer Savills dataset (Israeli visitor
+  arrivals 70k→200k+, 800 H1-2026 villa units) still tells the same "who's buying and why"
+  story already in kb-0014. Still `⏳`.
+- **Stamp Duty vs Specific Business Tax** — no distinct angle beyond kb-0084. Still `⏳`.
+- **Vetting a specific off-plan project** — the only way to make this genuinely distinct from
+  kb-0009 is to name and vet one real, currently-selling project. Available sourcing
+  (developer marketing pages, listing-site copy) isn't primary/verifiable enough to
+  responsibly assert a specific project's escrow or licensing status either way — publishing
+  would read as either an unearned endorsement or an unverified accusation. Declined; left
+  `⏳` for a future run backed by actual lawyer-verified due diligence on a real transaction.
+- A dedicated news sweep (99-year leasehold bill status, 75% condo-quota SEZ proposal, FBA/
+  AMLO predicate-offence status, mortgage/LTV specifics, condo juristic-person amendments,
+  Southern Economic Corridor/BOI incentives, Koh Phangan schools/hospitals, the 16 Aug Koh
+  Samui "Phase 7" lease-scrutiny raid) turned up nothing both fresh-since-2026-08-19 and not
+  already covered by a published guide — several (the Phase 7 raid, the 75% quota proposal,
+  the 99-year lease bill) are the exact same underlying stories already in kb-0101, kb-0054,
+  and existing leasehold guides respectively.
 
-## Not published this run
-
-- Re-checked the two most promising stuck `⏳` rows before falling back to live research:
-  the "8-province monitoring database" row is the same underlying topic as Guide 1 above
-  (now ✅). "Vetting a specific off-plan project" — found real candidate projects (Sol Living
-  Hin Kong, 7 Palms Chaloklum, Samma Villas) but none had public escrow, permit, or corporate-
-  filing detail beyond what kb-0009 already covers generically, so a named-project guide
-  would add color without new substantive due-diligence facts. Left `⏳`.
-- All other `⏳` rows re-confirmed as correctly skipped per their existing dated notes
-  (duplicates of kb-0009, kb-0010, kb-0014, kb-0026, kb-0084; the FBA/AMLO predicate-offence
-  proposal remains an unenacted recommendation, not safe to publish as law).
-
-`npx tsc --noEmit` passes clean on both content files. kbId sequence continues at
-kb-0100–0101 (prior max was kb-0099).
+`npx tsc --noEmit` passes clean on both content files. kbId sequence continues at kb-0102
+(prior max was kb-0101).

@@ -6624,6 +6624,55 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "structures",
     faqQuestion: "Are long-term leases now being investigated as a nominee-ownership workaround in Thailand, like company structures are?",
   },
+  {
+    slug: "d-value-check-official-appraised-value-online",
+    kbId: "kb-0102",
+    topic: "Documents",
+    title: "D-Value: how to check a Koh Phangan property's official government appraised value online",
+    short:
+      "Thailand's Treasury Department launched D-Value in June 2026 — a free service that issues a certified, e-signed copy of a plot or condo's official appraised value by email in about 10 minutes, with no title deed number required. Here's what the certificate actually proves, and where it fits in a Koh Phangan purchase, tax dispute or loan application.",
+    updated: "2026-08-22",
+    body: [
+      "Can you check a specific Koh Phangan plot's official government appraised value yourself, without a lawyer or a trip to the Land Office? Since June 2026, yes — the Treasury Department's D-Value service issues a certified digital copy of a property's appraisal account free of charge, verified by ThaiD or Paotang, delivered by email in around 10 minutes, available around the clock.",
+      { h: "What D-Value actually gives you" },
+      "D-Value is an extension of the Treasury Department's existing property valuation system, covering both land plots and condominium units nationwide. The output is an official, electronically signed certificate of the appraised value the government has on file for that specific parcel or unit — the same figure the Land Office uses as the tax base for transfer fees, mortgage registration and Specific Business Tax, and that the local administrator uses for annual Land and Building Tax. It is not an independent market valuation; it's a certified copy of the government's own record.",
+      { h: "How to access it" },
+      {
+        ul: [
+          "**Where**: the Treasury Department's e-Property Valuation portal (treasury.go.th) or the **TRD Property Valuation** mobile app, iOS and Android.",
+          "**Identity verification**: required through **ThaiD** or **Paotang**, Thailand's government digital-ID apps.",
+          "**Finding the parcel**: search by satellite map, place name, street or nearby landmark and select the parcel directly on the map — you don't need to already know the chanote or Nor Sor 3 Gor number, which matters if you're checking a plot before you've seen the paperwork.",
+          "**Cost and speed**: free, with the certified copy emailed in about 10 minutes.",
+        ],
+      },
+      { h: "Where it's actually useful on Koh Phangan" },
+      {
+        ul: [
+          "**Sanity-checking an asking price.** The appraised value is not the market price — Treasury appraisals typically run 20–40% below what land actually transacts for, a gap covered in [the 2027 valuation reform](/knowledge/land-appraisal-value-reform-2027-treasury-big-data) — but it's a real, official reference point to weigh a seller's number against before you commit to due diligence on a specific plot.",
+          "**Loan applications.** The certified copy is accepted as supporting documentation by three participating banks: Government Housing Bank (GHB), the Bank for Agriculture and Agricultural Cooperatives (BAAC) and Krungthai Bank. This matters far more for a freehold condo purchase than for a villa or land, since Thai mortgage lending to foreigners for land is effectively closed — see [Financing as a foreigner](/knowledge/financing-buying-as-a-foreigner).",
+          "**Disputing a Land and Building Tax bill.** If an assessment looks inflated, the formal appeal process asks you to compare the notice against the Treasury Department's valuation for the specific parcel — D-Value is now the fastest way to pull that figure yourself before filing. See [Disputing your Land and Building Tax bill](/knowledge/disputing-land-building-tax-assessment).",
+          "**Getting ahead of the 2027 revaluation.** The current 2023–2026 appraisal cycle ends this year; checking today's figure on D-Value gives you a documented baseline to compare against once the new 2027–2030 cycle is published.",
+        ],
+      },
+      "The certificate is a genuine time-saver over a Land Office visit, but treat the number it returns for what it is: the government's tax base, not a market appraisal. For an actual purchase, it belongs alongside — not instead of — a lawyer's title search and your own comparison of recent sale prices in the area.",
+    ],
+    takeaways: [
+      "D-Value, launched June 2026 by Thailand's Treasury Department, issues a free, certified, e-signed copy of a property's official appraised value by email in about 10 minutes, available 24/7.",
+      "No title deed or Nor Sor 3 Gor number is required — you can locate the parcel by satellite map, place name or landmark and select it directly.",
+      "Access is via the Treasury Department's e-Property Valuation portal or the TRD Property Valuation app, with identity verified through ThaiD or Paotang.",
+      "The certificate is accepted for loan applications at three banks (GHB, BAAC, Krungthai) and is useful evidence when disputing a Land and Building Tax assessment.",
+      "The appraised value is the base for transfer fees, mortgage registration, SBT/stamp duty and annual property tax — but it typically runs well below actual market price, so treat it as a reference point, not a valuation.",
+    ],
+    sources: [
+      { title: "Nation Thailand — D-Value makes land & condominium valuation certificates free online", url: "https://www.nationthailand.com/business/property/40067940" },
+      { title: "Thairath English — The Treasury Department Launches New D-Value Feature for Online Certified Copies of Property Appraisal Accounts", url: "https://en.thairath.co.th/news/governmentpolicy/2941706" },
+      { title: "Treasury Department of Thailand — e-Property Valuation (official portal)", url: "https://www.treasury.go.th/th/e-property-valuation/" },
+      { title: "The Standard — กรมธนารักษ์ เปิดใช้ D-Value ค้นหาราคาประเมินที่ดินออนไลน์ 24 ชั่วโมง รองรับยื่นกู้ผ่าน 'ธอส.-ธ.ก.ส.-กรุงไทย'", url: "https://thestandard.co/d-value-land-appraisal-online-loans/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion: "How can I check the official government appraised value of a specific plot or condo on Koh Phangan?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
