@@ -26,13 +26,17 @@ import { zoneCategory, buildWarnLabels } from "@/lib/data/zone-rules";
 import { SaveButton } from "./save-button";
 import { MagicCard } from "@/components/ui/magic-card";
 import { useCurrency } from "@/components/ui/currency";
+import { parseListingDate } from "@/lib/utils/listing-date";
 
 const NEW_BADGE_DAYS = 14;
 
 function isFreshListing(dateAdded?: string): boolean {
   if (!dateAdded) return false;
-  const added = Date.parse(dateAdded);
-  if (Number.isNaN(added)) return false;
+  // dateAdded — строка Unix-секунд, Date.parse её не читает и всегда давал
+  // NaN: бейдж не загорался ни на одном объекте. Разбор — общей утилитой,
+  // нераспознанное значение (эпоха 0) считаем несвежим.
+  const added = parseListingDate(dateAdded, new Date(0)).getTime();
+  if (added === 0) return false;
   return Date.now() - added < NEW_BADGE_DAYS * 24 * 60 * 60 * 1000;
 }
 
