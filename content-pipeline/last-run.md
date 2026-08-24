@@ -1,49 +1,68 @@
-# Last run — 2026-08-08
+# Last run — 2026-08-22
 
-**Guides published:** 2
+**Guides published:** 1 (of 2 targeted)
+
+Every remaining `⏳` backlog row already carried a prior-run note explaining why it
+duplicates a published guide or isn't safe to publish (kb-0009/kb-0010/kb-0014/kb-0026/
+kb-0084 overlaps, and the stalled FBA/AMLO predicate-offence proposal). This run re-checked
+every one of them against live sources dated as recently as today, plus a broad fresh-news
+sweep (nationthailand.com property section, Thai Examiner, Bangkok Post, and targeted
+searches on visas, mortgages, condo quota, SEZ/BOI zones, schools/hospitals, digital land
+services) covering 2026-08-19 through 2026-08-22. No new-since-last-run story emerged, and
+every stuck `⏳` row is confirmed still duplicate/unsafe (see dated 2026-08-22 notes added
+inline in backlog.md). One genuinely distinct, well-sourced, non-duplicate topic was found —
+published below. Per the hard quality gate, the second slot was left unfilled rather than
+padded with a near-duplicate.
 
 ---
 
 ## Guide 1
 
-- **slug:** `foreign-spouse-usufruct-thai-marriage-property`
-- **kbId:** `kb-0085`
-- **title (EN):** Protecting a foreign spouse's interest when property is bought during a Thai marriage
-- **title (RU):** Как защитить интерес иностранного супруга, если недвижимость куплена в тайском браке
-- **faqCategory:** `structures`
-- **faqQuestion:** How can I protect my interest in property bought in my Thai spouse's name during our marriage?
+- **slug:** `d-value-check-official-appraised-value-online`
+- **kbId:** `kb-0102`
+- **title (EN):** D-Value: how to check a Koh Phangan property's official government appraised value online
+- **title (RU):** D-Value: как онлайн проверить официальную государственную оценочную стоимость недвижимости на Ко Пангане
+- **faqCategory:** `documents`
+- **faqQuestion:** How can I check the official government appraised value of a specific plot or condo on Koh Phangan?
 - **Sources used:**
-  - Samui For Sale — Usufruct in a Thai marriage — registered lifetime usufruct as the standard protection structure, survival through divorce and the Thai spouse's death, Section 1469 CCC risk and case-law note
-  - Houseviser — Buying property in Thailand via a Thai spouse: what's actually allowed — the 1999 Ministry of Interior Land Office declaration requirement (sin suan tua vs sin somros), divorce/reimbursement-claim mechanics, and practical registration steps
-  - ThaiLawOnline — Usufruct Agreement in Thailand — registration process, fee structure (~฿100 fixed fee), maximum duration (Section 1418: lifetime or ≤30 years), termination on the usufructuary's death
-  - ThailandLawOnline — Sections 1417–1428, Civil and Commercial Code — statutory basis for the right of usufruct
+  - Nation Thailand — "D-Value makes land & condominium valuation certificates free online" (27 Jun 2026, verified via direct fetch) — the launch details: free, certified, e-signed, ~10-minute email delivery, accepted by GHB/BAAC/Krungthai
+  - Thairath English — "The Treasury Department Launches New D-Value Feature for Online Certified Copies of Property Appraisal Accounts" — corroborating the launch
+  - Treasury Department of Thailand (treasury.go.th) — official e-Property Valuation portal, primary source for the access channel
+  - The Standard (Thai-language) — confirmed the satellite-map search feature that lets a user locate a parcel without already knowing its chanote or Nor Sor 3 Gor number
 
-## Guide 2
+D-Value had only ever appeared as a single bullet inside the already-published kb-0089
+(2027 valuation-reform forecast); it had never been given its own how-to treatment. This
+guide is the dedicated companion piece: exactly how to access it, why "no deed number
+needed" matters for a buyer checking a plot before seeing paperwork, which three banks
+accept the certificate, and how it plugs into two other published guides (financing as a
+foreigner, disputing a Land and Building Tax assessment). Backlog row added fresh to
+section A (news wasn't a pre-existing row) and marked ✅.
 
-- **slug:** `avani-kaia-hotel-brands-koh-phangan-2026`
-- **kbId:** `kb-0086`
-- **title (EN):** Avani and KAIA: what two branded resort openings signal for Koh Phangan buyers in 2026
-- **title (RU):** Avani и KAIA: что открытие двух брендовых курортов значит для покупателей на Ко Пангане в 2026
-- **faqCategory:** `phangan`
-- **faqQuestion:** Are international hotel brands like Avani and KAIA actually opening on Koh Phangan, and does it matter for buyers?
-- **Sources used:**
-  - Minor Hotels Newsroom — official signing announcement: Avani Koh Phangan is a rebrand of the existing 63-key Buri Rasa Village Phangan (Thong Nai Pan Noi, owned by Rasa Group), management transfer 1 May 2026, full rebrand targeted Q1 2027
-  - Bound and Beyond Newsroom — official announcement that KAIA is BEYOND's first proprietary hotel brand, developer background (Four Seasons Bangkok, Capella Bangkok), The Moken Club beach club
-  - Travel And Tour World — KAIA location (north-east coast), design partners (Eco Structures, Cloud Collective), lift-and-brace tent construction method, late-2026 opening target
-  - The Opening List — corroborating/conflicting unit count (31 tented suites vs. other sources' 34+3) — used to flag the figure as unconfirmed rather than pick one number
+## Not published this run (second slot)
 
----
+Deliberately left at 1 guide rather than 2. Candidates considered and rejected:
 
-## Notes
+- **Realistic villa rental yields** — even with a fresh Savills/Nation Thailand H1-2026 data
+  point (10-13% net for Phangan leasehold villas), still the same nightly-rate × occupancy −
+  costs methodology already in kb-0010. Still `⏳`.
+- **Koh Phangan's power grid reliability** — no new primary source beyond kb-0026. Still `⏳`.
+- **Who's actually buying on Phangan in 2026** — a newer Savills dataset (Israeli visitor
+  arrivals 70k→200k+, 800 H1-2026 villa units) still tells the same "who's buying and why"
+  story already in kb-0014. Still `⏳`.
+- **Stamp Duty vs Specific Business Tax** — no distinct angle beyond kb-0084. Still `⏳`.
+- **Vetting a specific off-plan project** — the only way to make this genuinely distinct from
+  kb-0009 is to name and vet one real, currently-selling project. Available sourcing
+  (developer marketing pages, listing-site copy) isn't primary/verifiable enough to
+  responsibly assert a specific project's escrow or licensing status either way — publishing
+  would read as either an unearned endorsement or an unverified accusation. Declined; left
+  `⏳` for a future run backed by actual lawyer-verified due diligence on a real transaction.
+- A dedicated news sweep (99-year leasehold bill status, 75% condo-quota SEZ proposal, FBA/
+  AMLO predicate-offence status, mortgage/LTV specifics, condo juristic-person amendments,
+  Southern Economic Corridor/BOI incentives, Koh Phangan schools/hospitals, the 16 Aug Koh
+  Samui "Phase 7" lease-scrutiny raid) turned up nothing both fresh-since-2026-08-19 and not
+  already covered by a published guide — several (the Phase 7 raid, the 75% quota proposal,
+  the 99-year lease bill) are the exact same underlying stories already in kb-0101, kb-0054,
+  and existing leasehold guides respectively.
 
-Selection followed backlog priority order (🔴 → 🟢 → 🟡 → ⚪️). The one remaining 🔴 item and both remaining 🟢 items were skipped again this run — each already carries a prior-run note that it substantially duplicates a published guide (kb-0051 land-department audit, kb-0027 owner's taxes, kb-0026 utilities/power-grid respectively), and no new distinct angle emerged on a fresh check. Moved to the 🟡 tier and took the first two genuinely fresh, non-duplicate topics in order:
-
-- "Realistic villa rental yields" (top of 🟡) was skipped again — still duplicates `renting-out-your-villa-rules-and-taxes` (kb-0010) per the existing note.
-- "Protecting a foreign spouse's interest..." (next 🟡) was genuinely distinct — no existing guide covers the Land Department's spousal-declaration mechanics or usufruct/superficies specifically in the marriage context (the existing `superficies-vs-usufruct-vs-lease` guide is a general explainer, not marriage-specific). Well-sourced from Thai family-law specialist sites and the CCC sections themselves, including the Supreme Court's treatment of the Land Office declaration as preliminary (not conclusive) evidence. **Published as Guide 1.**
-- "Minor Hotels' Avani and the KAIA tented resort..." (next 🟡) was genuinely distinct — no existing guide covers branded hospitality openings; the existing `koh-phangan-development-pipeline-2025-2026` guide covers boutique villa/residential supply, not international hotel-brand resorts. Sourced directly from both operators' own newsroom announcements plus two independent hospitality-press write-ups. A unit-count discrepancy across secondary sources (31 vs. 34+3 tented suites) was disclosed in the guide rather than resolved by arbitrarily picking one figure. **Published as Guide 2.**
-
-Both guides cross-link to existing, verified slugs (`superficies-vs-usufruct-vs-lease`, `how-foreigners-own-a-villa`, `inheritance-leasehold-and-villa`, `bringing-money-into-thailand-fet-form`, `buying-in-thong-nai-pan`, `koh-phangan-development-pipeline-2025-2026`, `koh-phangan-market-outlook-2026`, `due-diligence-checklist-koh-phangan`), all confirmed present in both EN/RU files before use.
-
-`npx tsc --noEmit` passes clean. kbId sequence intact through kb-0086. EN/RU slug and kbId sets confirmed identical (85 entries each after this run's additions, no duplicates) via `sort | uniq -d` and a full sorted-slug diff between the two files.
-
-Remaining ⏳ backlog, next-priority first: 🔴 — 8-province landholder monitoring database (duplicate-flagged); 🟢 — non-resident/resident rental tax and power grid reliability (both duplicate-flagged); 🟡 — realistic rental yields (duplicate-flagged), 2027 land valuation reform, cruise ship pier proposal, who's buying on Phangan in 2026, island wastewater rules; ⚪️ — right of habitation, Koh Phangan airport status.
+`npx tsc --noEmit` passes clean on both content files. kbId sequence continues at kb-0102
+(prior max was kb-0101).

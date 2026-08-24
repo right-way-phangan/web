@@ -5694,6 +5694,985 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "phangan",
     faqQuestion: "Are international hotel brands like Avani and KAIA actually opening on Koh Phangan, and does it matter for buyers?",
   },
+  {
+    slug: "short-term-rental-airbnb-crackdown-2026",
+    kbId: "kb-0087",
+    topic: "Process",
+    title: "Airbnb and short-term rentals in Thailand's 2026 crackdown: what's actually illegal, what's exempt",
+    short:
+      "Any paid stay under 30 days is legally a hotel business under the Hotel Act — that applies to a standalone villa exactly as it does to a condo. But a 2023 exemption already lets most small villas register locally instead of getting a full hotel licence, and 2025-2026 enforcement is now data-driven: tax, immigration and district-office records are cross-checked against booking platforms.",
+    updated: "2026-08-11",
+    body: [
+      "Is it actually legal to rent out a Koh Phangan villa on Airbnb? Usually yes, but not automatically — a stay under 30 days is a \"hotel business\" under the Hotel Act B.E. 2547 regardless of whether the property is a condo unit or a standalone house, and operating one without a licence or a registered exemption is what the 2025-2026 crackdown targets. Most Phangan villas already qualify for a lighter-touch registration route; the risk is in skipping the paperwork, not in the rental itself.",
+      { h: "The 30-day line, and the exemption most villa owners actually use" },
+      {
+        ul: [
+          "**Under 30 days = hotel business.** The Hotel Act's definition of \"temporary accommodation\" catches any paid stay of less than a month, triggering the same licensing requirement whether the unit is a condo or a villa on titled land. A lease of 30 days or more is a residential tenancy under the Civil and Commercial Code instead — a Thai court ruling in early 2026 confirmed monthly-plus rentals sit outside the Hotel Act.",
+          "**The 8-room / 30-guest exemption.** A 2023 Ministerial Regulation (No. 2, B.E. 2566, effective 29 October 2023) raised the old 4-room/20-guest exemption threshold: a property with no more than 8 rooms and no more than 30 guests at a time is not classified as a hotel at all. An owner can apply at the local district office (amphoe) for a Certificate of Exemption instead of a hotel licence — valid five years, renewable. Most Phangan villas fall well inside this threshold; the certificate, not the room count alone, is what makes the rental lawful.",
+          "**Condos face a harder ceiling.** Individual condo units rarely clear a hotel licence's building and fire-safety requirements, and most condominium juristic persons have separately banned daily/weekly rentals in their house rules — so a condo owner is often boxed out of both the licence route and the exemption route, independent of the Hotel Act itself.",
+        ],
+      },
+      { h: "What changed in the 2025-2026 crackdown" },
+      {
+        ul: [
+          "**Cross-agency data sharing.** The Revenue Department, Immigration Bureau and Ministry of Interior (through district-level DOPA offices) now cross-reference tax filings, TM30 foreign-guest reports and business registrations — officials have described this as the first time the three agencies actively shared data specifically for short-term-rental enforcement.",
+          "**Platform monitoring.** Authorities increasingly cross-check Airbnb, Booking.com and Agoda listings against licence and TM30 records rather than relying only on complaints.",
+          "**Undercover bookings.** In prosecuted cases in Bangkok's Pratunam and Sukhumvit districts, district officials posed as tourists, booked condo units on Airbnb, then identified themselves on arrival — enforcement covering roughly 191 rooms across several buildings in one 2025 sweep.",
+          "**Penalties.** Operating without a licence or exemption certificate carries up to one year's imprisonment and a fine of ฿20,000 plus ฿10,000 for every day the violation continues. TM30 non-compliance is a separate fine of ฿800-2,000 per unreported guest.",
+        ],
+      },
+      { h: "A draft bill could reshape the rules further, mainly for condos" },
+      "A proposed \"Non-Hotel Accommodation Act\" was under Council of State review as of early 2026, covering lodgings, rooms, shared rooms, houses and buildings under one framework. It would let more operators — condos in particular — register rather than obtain a hotel licence, with a lighter tier for very small operations (around 8 rooms/30 guests, similar to today's exemption) and a company-registration requirement for larger ones. The Thai Hotels Association has pushed back, arguing the room/guest caps are too generous and risk undercutting licensed hotels. As of this writing the bill has not been promulgated — it changes nothing for a villa owner today, but is worth watching if it eventually extends a workable registration path to condos the way the 2023 regulation already does for houses.",
+      { h: "What this means for a Phangan villa owner" },
+      {
+        ul: [
+          "**Confirm your room and guest count against the 8/30 threshold**, and apply for the Certificate of Exemption at the local district office rather than assuming a villa is exempt by default — the certificate is what a Land Office or tourism-police inspection will actually ask for.",
+          "**File TM30 for every foreign guest**, not just long-stay tenants — this is the record now cross-checked against platform listings and tax filings.",
+          "**Report rental income** — a licensed or exempt short-term rental is still taxable income; see [Renting out your villa: rules and taxes](/knowledge/renting-out-your-villa-rules-and-taxes) for the tax side.",
+          "**If you use a management company**, confirm in writing that they hold or will obtain the exemption certificate on your behalf — see [Vetting a villa property-management company](/knowledge/vetting-villa-property-management-company) for the questions to ask before handing over the keys.",
+        ],
+      },
+      "None of this makes short-term rental on Phangan riskier than it already was for a compliant owner — the exemption route for small villas predates this crackdown by two years. What changed is that operating without it is now far more likely to be caught, through records that were previously siloed rather than through a new prohibition.",
+    ],
+    takeaways: [
+      "Any Thailand stay under 30 days is legally a \"hotel business\" under the Hotel Act B.E. 2547 — this applies to a standalone villa exactly as it does to a condo unit; only leases of 30 days or more are automatically exempt.",
+      "Properties with 8 rooms or fewer and 30 guests or fewer can register for a 5-year Certificate of Exemption at the local district office instead of a full hotel licence — the route most Phangan villas already qualify for.",
+      "2025-2026 enforcement is data-driven: the Revenue Department, Immigration Bureau and Interior Ministry now cross-reference tax filings, TM30 reports and business registrations, and have run undercover bookings to catch unlicensed operators.",
+      "Penalties for operating without a licence or exemption reach one year's imprisonment plus ฿20,000 and ฿10,000 per day it continues, separate from TM30 fines of ฿800-2,000 per unreported guest.",
+      "A draft Non-Hotel Accommodation Act would extend a lighter registration path to more operators, especially condos, but as of August 2026 it remains in Council of State review, not enacted law.",
+    ],
+    sources: [
+      { title: "Tilleke & Gibbins — Thailand Amends Hotel Regulations", url: "https://www.tilleke.com/insights/thailand-amends-hotel-regulations/" },
+      { title: "Rumavi — Thailand Airbnb Rules 2026: Short-Term Rental Laws", url: "https://rumavi.com/en/property-guides/short-term-rental-rules-in-thailand-what-airbnb-investors-need-to-know-in-2026" },
+      { title: "ReLife Properties — Is Airbnb Legal in Thailand in 2026?", url: "https://relifeproperties.com/airbnb-legal-thailand/" },
+      { title: "ProofSnap — Is Airbnb Legal in Thailand? 2026 Rules, Fines & 30-Day Rule Guide", url: "https://getproofsnap.com/posts/airbnb-thailand-bangkok-rules-expats-digital-nomads-2026.html" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "Is it legal to rent out my Koh Phangan villa short-term on Airbnb, and how is Thailand enforcing this in 2026?",
+  },
+  {
+    slug: "foreign-heir-inheriting-thai-land-section-93",
+    kbId: "kb-0088",
+    topic: "Ownership",
+    title: "A foreigner inherits Thai land directly: why Section 93's ministerial permission is effectively unobtainable",
+    short:
+      "A foreigner can legally be a statutory or will-named heir to Thai land — but registering ownership needs Ministry of Interior permission under Land Code Section 93, and that permission has had no legal basis since Thailand's last land-ownership treaty ended in 1970. In practice, an heir who can't register ownership must sell the land within a set window, the same as someone who acquired it unlawfully.",
+    updated: "2026-08-11",
+    body: [
+      "My Thai spouse or relative left me land in their will — can I actually keep it? Legally, yes, you can inherit as a statutory heir or a named beneficiary; Thai succession law doesn't block a foreigner from inheriting land. What it can't do is let you register as the owner without a permission that, for almost every foreigner today, doesn't exist to be granted.",
+      { h: "How Section 93 actually works" },
+      {
+        ul: [
+          "**The text.** Land Code Section 93 permits an alien lawful heir's ownership \"upon permission of the Minister\" — the Minister of Interior, delegated to the Director-General of the Department of Lands for Bangkok plots and to the provincial governor elsewhere.",
+          "**The catch: it depends on Section 86.** Section 93 was written to work alongside Section 86, which lets a foreigner acquire land \"by virtue of the provisions of a treaty.\" Thailand's last such treaty (with Sweden) was terminated in 1970, and no country currently has one in force.",
+          "**The practical result.** With no treaty basis, there is no current legal ground for the Minister to grant Section 93 permission to an ordinary foreign heir — approval is refused as a matter of course, not case by case.",
+        ],
+      },
+      { h: "What happens when permission isn't granted" },
+      "An heir who can't register ownership is treated the same as someone who acquired land unlawfully under Section 94: the Director-General sets a disposal period of not less than 180 days nor more than one year, during which the heir must sell. If the land isn't sold within that window, the Director-General can arrange the sale directly — with proceeds still going to the heir under today's law. A separate proposal to remove that entitlement and forfeit unlawfully held land to the State outright is under study but not yet enacted; see [Section 94 may soon mean forfeiture, not a forced sale](/knowledge/land-code-section-94-forfeiture-amendment) for where that stands.",
+      { h: "Does marrying a Thai national change this?" },
+      {
+        ul: [
+          "**No — a foreign spouse is a statutory heir under Section 1629 of the Civil and Commercial Code**, the same as a child or parent, but statutory heirship doesn't create a land-ownership right. The Section 93 permission constraint applies identically whether the heir is a spouse, a child or an unrelated beneficiary named in a will.",
+          "**This is a different gateway from the THB 40-million investment route.** A Ministerial Regulation under Section 96 bis lets a foreigner *purchase* up to 1 rai of land for residence against a large qualifying investment — see [The THB 40 million investment route](/knowledge/thb-40-million-investment-land-ownership-route). That route is unrelated to inheritance and can't be used to retain land you've inherited.",
+          "**Be cautious of claims that a spouse can simply keep up to 1 rai of inherited land indefinitely.** That claim circulates online but conflicts with the treaty-based limits above and with how the Section 93 permission process actually works today; verify with a Thai lawyer before relying on it.",
+        ],
+      },
+      { h: "Why this comes up at all: how the land got titled in the first place" },
+      "If a Thai spouse bought land during the marriage, a 1999 regulation required both spouses to declare at the Land Office that the funds were the Thai spouse's separate property, precisely so the foreign spouse wouldn't hold an indirect ownership interest — see [Protecting a foreign spouse's interest in property bought during a Thai marriage](/knowledge/foreign-spouse-usufruct-thai-marriage-property). That declaration is what makes the land solely the Thai spouse's to leave by will or intestate succession — and what puts the foreign heir back in Section 93's path when it's inherited.",
+      { h: "What to do instead of relying on inheriting the land" },
+      {
+        ul: [
+          "**Plan before death, not after.** A Thai landowner can grant a foreign spouse or intended heir a registered lifetime usufruct and a superficies over the building now — rights that are inherited or survive differently from the land title itself. See [Superficies vs usufruct vs lease](/knowledge/superficies-vs-usufruct-vs-lease).",
+          "**If land is inherited outright, move quickly.** The disposal clock starts from acquisition; a lawyer-managed sale on your own terms beats waiting for the Land Department to arrange one.",
+          "**A house on the land may be separable from the land sale** if it's structured as a distinct superficies before the issue arises — this isn't automatic and needs advance legal planning, not an assumption made after the fact.",
+          "**Condominium units follow a more forgiving rule** — a foreign heir who doesn't otherwise qualify to hold a unit has 60 days to notify the Land Office and one year to dispose of it, without the treaty-permission problem that blocks land. See [Freehold condo vs leasehold villa](/knowledge/freehold-condo-vs-leasehold-villa).",
+        ],
+      },
+      "The safe default is to never plan around inheriting Thai land itself. A registered usufruct, superficies or long lease set up while the Thai owner is alive passes to a foreign spouse or heir on terms the law actually supports — inheriting the title outright does not. See [Inheritance on Koh Phangan](/knowledge/inheritance-leasehold-and-villa) for how a lease, building and company shares each pass on their own terms.",
+    ],
+    takeaways: [
+      "A foreigner can legally be a statutory or will-named heir to Thai land, but registering ownership requires Ministry of Interior permission under Land Code Section 93.",
+      "That permission depends on a Section 86 land-ownership treaty — the last one (with Sweden) ended in 1970, and no country has one today, so ordinary foreign heirs are refused as a matter of course.",
+      "Without permission, an heir is treated like an unlawful holder under Section 94: forced to sell within 180 days to a year, with the Land Department empowered to arrange the sale if they don't.",
+      "Marrying a Thai landowner doesn't change this — a foreign spouse is a statutory heir under Civil and Commercial Code Section 1629, but still needs the same unobtainable Section 93 permission to keep inherited land.",
+      "The reliable alternative is planning ahead: a registered usufruct, superficies or long lease granted before death, not inheritance of the land title itself.",
+    ],
+    sources: [
+      { title: "Thailand Law Online — Thai Land Law: full translation of the Land Code Act (Sections 86, 93, 94, 96)", url: "https://www.thailandlawonline.com/thai-real-estate-law/thai-land-law-land-code-act" },
+      { title: "Thailand Law Online — Inheritance of Real Estate by Foreigners", url: "https://www.thailandlawonline.com/article-older-archive/inheritance-of-real-estate-by-foreigners" },
+      { title: "Expat Tax Thailand — Can Foreigners Inherit Land in Thailand? How to Avoid Issues", url: "https://www.expattaxthailand.com/can-foreigners-inherit-land-in-thailand-legal-limits/" },
+      { title: "Thai-Norwegian Chamber of Commerce — Foreign Spouse's Statutory Right to Inherit Land", url: "https://www.norcham.com/foreign-spouses-statutory-right-to-inherit-land/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "ownership",
+    faqQuestion: "I'm a foreigner and my Thai spouse or relative left me land in their will — can I actually keep it?",
+  },
+  {
+    slug: "land-appraisal-value-reform-2027-treasury-big-data",
+    kbId: "kb-0089",
+    topic: "Costs",
+    title: "Thailand's 2027 land appraisal reset: what the Treasury's Big Data valuation cycle means for your tax bill",
+    short:
+      "From 1 January 2027, Thailand's Treasury Department starts a new four-year land and building appraisal cycle built on a Big Data system that pulls in real bank-loan and transaction prices — aimed at closing a gap that today runs 20–40% below actual market values. Appraised value is the base for transfer fees, Specific Business Tax, stamp duty and annual Land and Building Tax, so a higher appraisal raises what you pay even if no rate changes.",
+    updated: "2026-08-12",
+    body: [
+      "Will your land and building tax or transfer costs go up in 2027 even if the law itself doesn't change? Likely yes, for most owners — because the number the tax is calculated on is resetting, not just the rate. Thailand's Treasury Department revalues land nationwide on a fixed four-year cycle, and the 2023–2026 cycle expires at the end of this year. The 2027–2030 cycle that replaces it is built on a more data-driven process than any previous reset, and early signals point to appraised values rising for most owners, Koh Phangan included.",
+      { h: "What's changing on 1 January 2027" },
+      {
+        ul: [
+          "**A new four-year appraisal cycle** runs 1 January 2027 to 31 December 2030, replacing 2023–2026. The Treasury Department revalues land nationwide once per cycle; this has been standard practice since well before 2023.",
+          "**The goal is closing the gap to market prices** — official appraisals currently run an estimated 20–40% below actual transaction prices in many areas, versus a roughly 15% gap in comparable markets internationally.",
+          "**A Big Data system now feeds the appraisal**, integrating real transaction prices and loan-appraisal data shared by partner banks — Government Housing Bank, Krungthai Bank and the Bank for Agriculture and Agricultural Cooperatives (BAAC) — rather than relying solely on the department's own periodic surveys.",
+          "**Nationwide, appraised values are projected to rise roughly 10–20% on average** compared to the 2023–2026 cycle, though the Treasury Department has not published province- or district-level figures for the new cycle as of this writing — the actual move on a specific Koh Phangan plot could sit above or below that average.",
+        ],
+      },
+      { h: "Where the appraised value actually hits your wallet" },
+      "The appraised value isn't just a reference number — it's the tax base for most of the fees and taxes charged when property changes hands, and for the annual tax you pay just for holding it:",
+      {
+        ul: [
+          "**Transfer fee** — 2% of the appraised value (not the sale price, if the appraisal is higher).",
+          "**Mortgage registration fee** — 1% of the loan amount or appraised value, whichever applies.",
+          "**Specific Business Tax** — 3.3% of whichever is higher: the appraised value or the actual sale price.",
+          "**Stamp duty** — 0.5%, charged instead of Specific Business Tax when SBT doesn't apply (see [the full cost of buying on Koh Phangan](/knowledge/cost-of-buying-taxes-and-fees) for when each applies).",
+          "**Annual Land and Building Tax** — assessed each year on the appraised value under the tiered rates set out in [Owner's taxes on Koh Phangan](/knowledge/owners-taxes-annual-land-and-income); a higher appraisal moves every owner up the same rate table without the table itself changing.",
+        ],
+      },
+      "None of these percentages are changing in 2027 — what's changing is the number they're multiplied against. A villa plot whose appraised value rises 15% under the new cycle sees roughly the same proportional rise in transfer fee, mortgage fee, SBT or annual Land and Building Tax the next time each is triggered.",
+      { h: "Why this matters more in a place like Koh Phangan" },
+      "The 20–40% appraisal-to-market gap isn't evenly distributed — it tends to be widest in fast-appreciating tourist and resort areas, where land prices have moved well ahead of the last official reassessment. Koh Phangan's villa and land market fits that profile. Because the new Big Data system draws on real bank-loan appraisals and transaction data rather than periodic manual surveys, a market that's been running hot on paper values but not on official appraisals is exactly the kind of gap the reform is designed to close — which is a reason to expect Surat Thani province's revaluation could move by more than the 10–20% national average, not less. Treat that as a planning risk to watch, not a confirmed figure; no province-level number has been published yet.",
+      { h: "The pushback, and what it signals" },
+      "Property developers have been vocal that a higher appraisal base functions as a tax increase without a formal rate increase. Prasert Taedullayasatit, CEO of listed developer Ananda Development, has described adjusting the appraisal baseline as acting \"like an indirect tax that many citizens might not notice.\" Developers holding large unsold inventory and land banks face the same mechanics as individual owners — higher transfer costs on every future sale and higher annual holding costs in the meantime. That pushback is a useful signal for buyers too: it confirms the appraisal increase is expected to be broad-based, not a narrow technical adjustment.",
+      { h: "What to actually do before 2027" },
+      {
+        ul: [
+          "**Check the current appraised value now** via the Treasury Department's free D-Value platform — searchable by satellite map without needing a title deed, with results verified through the ThaiD or Paotang apps. It reflects the 2023–2026 cycle until the new figures are published.",
+          "**If you're closing a purchase or transfer near the end of 2026**, ask your lawyer to confirm which appraisal cycle applies to your registration date — the transfer fee and SBT/stamp duty calculation uses the appraised value in force on the day you register at the Land Office, not the day you sign a contract.",
+          "**Don't assume a stable Land and Building Tax bill going forward** — even with unchanged rates, a higher appraisal base means a higher bill each year of the 2027–2030 cycle. Budget for it rather than being surprised by the first post-reset assessment.",
+          "**If a future assessment looks disproportionate**, Thailand's appeal process exists for exactly this — see [Disputing your Land and Building Tax assessment](/knowledge/disputing-land-building-tax-assessment) for the deadlines and evidence involved.",
+        ],
+      },
+      "The honest summary: this is a confirmed, scheduled reform with a real mechanism behind it — not speculation — but the specific size of the increase for a given Koh Phangan plot isn't public yet. Budget for a real increase in transfer and annual costs from January 2027, verify your own plot's current value on D-Value today, and revisit the actual figures once the Treasury Department publishes the new cycle.",
+    ],
+    takeaways: [
+      "A new land appraisal cycle runs 1 January 2027 to 31 December 2030, replacing 2023–2026 — Thailand's Treasury Department revalues land nationwide once every four years.",
+      "The reform integrates real transaction and bank-loan appraisal data (from GH Bank, Krungthai Bank and BAAC) into a Big Data system aimed at closing a 20–40% gap between official and market land values.",
+      "Nationwide, appraised values are projected to rise roughly 10–20% on average — but no province- or district-level figures are published yet, and fast-appreciating tourist markets like Koh Phangan's could move by more.",
+      "Appraised value is the tax base for the 2% transfer fee, 1% mortgage fee, 3.3% Specific Business Tax (or 0.5% stamp duty), and the annual Land and Building Tax — a higher appraisal raises what you owe even with no rate change.",
+      "Check a specific plot's current appraised value for free on the Treasury Department's D-Value platform, and confirm with your lawyer which cycle applies if you're closing a deal near the end of 2026.",
+    ],
+    sources: [
+      {
+        title: "Bangkok Post — Treasury seeks narrower gap in land appraisal prices",
+        url: "https://www.bangkokpost.com/property/3278170/treasury-seeks-narrower-gap-in-land-appraisal-prices",
+      },
+      {
+        title: "The Nation Thailand — Developers warn 2027 land revaluation could deepen Thai property slump",
+        url: "https://www.nationthailand.com/business/property/40068017",
+      },
+      {
+        title: "Lex Bangkok — Thailand Land Appraisal Value: 2027 Reset & D-Value Guide",
+        url: "https://lexbangkok.com/thailand-land-appraisal-value/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "Will my land and building tax or transfer costs go up because of Thailand's 2027 land appraisal revaluation?",
+  },
+  {
+    slug: "koh-samui-cruise-terminal-proposal-phangan-impact",
+    kbId: "kb-0090",
+    topic: "Phangan",
+    title: "Koh Samui's ฿12-billion cruise terminal: a real project, still years off, and a Samui story before it's a Phangan one",
+    short:
+      "The Marine Department has a feasibility study finished for a deep-water cruise terminal at Koh Samui, designed to end today's small-boat tender system for cruise passengers. It's a credible, advancing project — but the environmental study was sent back for revision in 2025, Cabinet approval isn't targeted until late 2027/early 2028, and nothing in its published scope reaches Koh Phangan directly.",
+    updated: "2026-08-12",
+    body: [
+      "Is a cruise ship terminal actually being built near Koh Phangan, and would it lift tourism or property demand here? The project that's actually moving is a deep-water cruise terminal on Koh Samui — a real, government-studied proposal with a specific site, budget and capacity target — but it terminates entirely on Samui, is still years from breaking ground, and no official document ties it to Phangan. Here's what's confirmed, and how to weigh it.",
+      { h: "What's confirmed so far" },
+      {
+        ul: [
+          "**Location and scale** — a 47-rai site on Koh Samui (15 rai onshore, 32 rai offshore), studied by the Marine Department under Thailand's Ministry of Transport.",
+          "**Cost** — a total project value of ฿12.17 billion under a Public-Private Partnership Net Cost model: roughly ฿148.6 million in state investment against about ฿12.02 billion in private investment covering construction, equipment and 30 years of operations; an earlier Marine Department estimate put the construction-only figure at ฿6.415 billion.",
+          "**Capacity** — designed for 200,000–400,000 passengers and up to around 240 cruise calls a year.",
+          "**The problem it solves** — Koh Samui currently has no deep-water cruise berth. Large ships anchor offshore and passengers are ferried to Nathon Pier by tender boat, a slower and weather-exposed process that limits how many ships call and how long passengers can spend ashore.",
+          "**Structure** — a 30-year concession under a PPP Net Cost model, with the private partner handling construction, operation and maintenance and the government reimbursing infrastructure costs over 10 years.",
+        ],
+      },
+      { h: "Why it's still a proposal, not a project underway" },
+      "In August 2025, Thailand's PPP Committee sent the project's Environmental and Health Impact Assessment back for revision — alongside a similar proposed terminal in Pattaya — and instructed the Marine Department to commission a new EHIA. On the Marine Department's own published schedule from that point: the new EHIA is targeted for completion in early 2027, Cabinet approval is targeted for late 2027 to early 2028, tendering for the private partner follows in 2028–2029, construction takes roughly three years, and operations are targeted to start around 2032. A supportive comment from Deputy Transport Minister Sanphet Bunyamanee in May 2026 signals the project retains political momentum, but it is not the same as Cabinet approval, which hasn't happened yet.",
+      { h: "Why this doesn't reach Phangan directly" },
+      "Every published detail of this project — the site, the 47 rai, the terminal building, the capacity target — sits on Koh Samui's coastline. No Marine Department document, feasibility study summary or news report on the project mentions a Koh Phangan or Koh Tao component. Cruise passengers disembarking at a future Samui terminal would primarily feed Samui-based day-tour circuits (temples, viewpoints, beach clubs) rather than Phangan, unless a specific inter-island excursion product develops later — which nothing currently published points to. The realistic read is the same one that applies to [the proposed Samui sea bridge](/knowledge/samui-sea-bridge-expressway-phangan-tao-demand): a large piece of Samui infrastructure can raise the whole archipelago's profile as an international gateway over time, but any effect on Phangan itself is indirect, arrives only if the project is actually built, and rides on Samui's own increased throughput rather than on a direct link to Phangan.",
+      { h: "How to weigh this as a buyer today" },
+      {
+        ul: [
+          "**Don't price a 2032 outcome into a 2026 decision.** Thai infrastructure projects at the feasibility/EHIA stage routinely slip between study completion, Cabinet approval and an actual construction start — treat 2032 as the Marine Department's current target, not a commitment.",
+          "**Track EHIA resubmission and Cabinet approval, not ministerial statements of support.** A minister backing a project is not the same milestone as the Cabinet decision the schedule itself depends on.",
+          "**Recognise the scope is Samui-only.** Phangan's own accessibility case rests on the existing inter-island ferry network today, and — if it ever advances — on Phangan-specific proposals like [the Samui-Phangan-Tao electric air-taxi concept](/knowledge/eh216-s-air-taxi-samui-phangan-tao), not on a Samui cruise terminal.",
+          "**Weigh it alongside what already drives demand on Phangan now** — see [Phangan market seasonality](/knowledge/phangan-market-seasonality) for the factors actually in effect today, rather than a six-years-out infrastructure proposal.",
+        ],
+      },
+      "The honest summary for a buyer: this is a credible, increasingly well-studied Samui infrastructure proposal with real government backing — not vaporware — but it's a Samui project on a multi-year timeline, and there's no published basis today for treating it as a Phangan catalyst.",
+    ],
+    takeaways: [
+      "The Marine Department's Koh Samui cruise terminal is a real, studied proposal: a 47-rai site, ฿12.17 billion total PPP value, sized for 200,000–400,000 passengers and up to ~240 calls a year, replacing today's anchor-and-tender system via Nathon Pier.",
+      "In August 2025 the PPP Committee sent the project's Environmental and Health Impact Assessment back for revision; a new EHIA targets early 2027 completion, with Cabinet approval not expected until late 2027/early 2028.",
+      "Even on the Marine Department's own schedule, tendering follows in 2028–2029, construction takes about three years, and operations are targeted for around 2032 — roughly six years out from today.",
+      "The project's entire published scope sits on Koh Samui — no official source ties it to a Koh Phangan or Koh Tao pier; any tourism spillover to Phangan would be indirect and long-run, similar to the proposed Samui sea bridge.",
+      "Treat this as a Samui-side infrastructure story worth watching, not a reason to adjust a Phangan purchase decision today.",
+    ],
+    sources: [
+      {
+        title: "The Nation Thailand — Thailand advances Bt12bn Koh Samui cruise terminal project",
+        url: "https://www.nationthailand.com/business/economy/40068813",
+      },
+      {
+        title: "The Star — Study plans for Thailand's Ko Samui and Pattaya cruise terminals sent back for review",
+        url: "https://www.thestar.com.my/aseanplus/aseanplus-news/2025/08/24/study-plans-for-thailand039s-ko-samui-and-pattaya-cruise-terminals-sent-back-for-review",
+      },
+      {
+        title: "Globe News Bangkok — Thailand Steps Up Koh Samui Cruise Terminal Development",
+        url: "https://www.globe.co.th/news/thailand-moves-forward-with-new-koh-samui-cruise-terminal/",
+      },
+      {
+        title: "Discovering Hospitality — Thailand's US$366M Koh Samui Cruise Terminal Set for 2032",
+        url: "https://www.discoveringhospitality.com/post/news-thailand-s-us-366m-koh-samui-cruise-terminal-set-for-2032",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "Is a Koh Samui cruise ship terminal actually being built, and would it affect Koh Phangan tourism or property demand?",
+  },
+  {
+    slug: "right-of-habitation-thailand-fourth-property-right",
+    kbId: "kb-0091",
+    topic: "Structures",
+    title: "The right of habitation in Thailand: the overlooked fourth registered property right",
+    short:
+      "Habitation (สิทธิอาศัย, Sections 1402-1409 of the Civil and Commercial Code) gives someone a registered right to live in a building rent-free, for up to 30 years or for life. It is narrower than a usufruct — no income rights, no subletting — which is exactly why it fits a specific situation: giving a foreign spouse, relative or dependant secure housing without handing over any right to earn from the property.",
+    updated: "2026-08-14",
+    body: [
+      "Is there a registered Thai property right besides superficies, usufruct and a lease? Yes — habitation (arsai), set out in Sections 1402 to 1409 of the Civil and Commercial Code. It is the least-used of Thailand's real property rights for foreign buyers, and for good reason: it grants less than a usufruct does. But 'less' is occasionally exactly what a family situation calls for, which is why it is worth understanding rather than skipping straight to usufruct by default. See [Superficies, usufruct and lease](/knowledge/superficies-vs-usufruct-vs-lease) and [Sap-Ing-Sith, the fifth registered right](/knowledge/sap-ing-sith-right-of-use-thailand) for the other three.",
+      { h: "What habitation actually grants" },
+      {
+        ul: [
+          "**Section 1402** — the holder may occupy a specific building as a dwelling place, rent-free. It attaches to the building, not the land beneath it.",
+          "**Section 1403** — granted for a fixed term (capped at 30 years; a longer stated term is reduced to 30) or for the holder's lifetime. If no term is stated, either side can end it on reasonable notice.",
+          "**Section 1404** — strictly personal: the right cannot be sold, assigned or left to heirs, and it ends automatically when the holder dies, regardless of any remaining term.",
+          "**Section 1405** — unless the grant says otherwise, the holder's family and household staff may live there alongside them.",
+          "**Section 1406** — the holder may take natural produce needed for the household's own use, unless the grant forbids it.",
+          "**Sections 1407-1408** — the grantor has no duty to maintain the building or reimburse the holder's improvement costs; the holder must hand the building back at the end of the term.",
+          "**Section 1409** — a lessee's statutory duties (care of the property, permitted use, liability for damage) apply to a habitation holder by analogy.",
+        ],
+      },
+      { h: "How it differs from usufruct" },
+      {
+        ul: [
+          "**Income** — a usufructuary can sub-lease the property and keep the rent (Sections 1417-1428); a habitation holder cannot earn anything from it, only live in it.",
+          "**Scope** — usufruct can attach to land, buildings, or both; habitation attaches to a building only.",
+          "**Everything else matches** — like usufruct, habitation is non-transferable, non-inheritable, and (for a lifetime grant) ends at the holder's death; both must be registered at the Land Office, endorsed on the title deed, to bind a future owner of the land.",
+        ],
+      },
+      { h: "When habitation actually beats usufruct" },
+      "Most Thai family arrangements default to usufruct, because it does everything habitation does plus the option to earn rental income if circumstances change. Habitation earns its place in narrower cases: where the Thai landowner specifically does not want the holder able to sub-let or otherwise commercialise the property — for example, a parent housing an adult child or an in-law, where the family wants a clean, income-free arrangement that cannot later turn into that relative renting out the family home. A developer or landowner restricting a unit to owner-occupation only is another fit. Outside of those cases, a usufruct is almost always the more useful right for the same registration effort and cost, since it preserves the option of rental income without obliging the holder to use it.",
+      { h: "Registering it" },
+      "Like superficies and usufruct, habitation only binds third parties — including a buyer of the underlying land — once it is registered at the Provincial or District Land Office and endorsed on the back of the chanote. An unregistered arrangement is only a personal promise between the two original parties. Registration fees are nominal (a small, fixed fee per Land Office schedule), which is part of why habitation is sometimes chosen over a full lease for a straightforward family-housing situation: it is cheap and simple to set up correctly.",
+      "None of this replaces the standard villa-ownership structure for a foreign buyer purchasing in their own right — that remains a registered lease plus a fixed-term superficies, covered in [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa). Habitation is a tool for a specific family situation, most often alongside [protecting a foreign spouse's interest during a Thai marriage](/knowledge/foreign-spouse-usufruct-thai-marriage-property), not a substitute for the purchase structure itself.",
+    ],
+    takeaways: [
+      "Habitation (Sections 1402-1409 CCC) gives a registered, rent-free right to live in a specific building, for up to 30 years or for the holder's life.",
+      "It is strictly personal — non-transferable, non-inheritable, and it ends at the holder's death regardless of the stated term.",
+      "Unlike a usufruct, a habitation holder cannot sub-let the property or otherwise earn income from it — the right covers occupancy only.",
+      "It attaches to the building only, not the land, and must be registered at the Land Office and endorsed on the title deed to bind a future landowner.",
+      "It suits a narrow case — housing a relative or dependant with no intention of ever letting them earn rental income from the property — otherwise usufruct is almost always the more flexible choice.",
+    ],
+    sources: [
+      { title: "ThaiLawOnline — Right of Habitation in Thailand: Legal Use and Registration", url: "https://www.thailawonline.com/right-of-habitation-in-thailand/" },
+      { title: "ThailandLawOnline — Civil Code Sections 1402-1409, Right of Habitation", url: "https://www.thailandlawonline.com/thai-real-estate-law/1402-1409-civil-arsai-law-right-of-habitation" },
+      { title: "Siam Legal International — Civil and Commercial Code: Habitation (Sections 1402-1409)", url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-habitation-section-1402-1409/" },
+      { title: "Houseviser — Usufruct, superficies, habitation: alternative real rights for foreigners in Thailand", url: "https://houseviser.com/guide/legal/usufruct-superficies-habitation" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "What is the right of habitation in Thailand, and when is it a better choice than a usufruct?",
+  },
+  {
+    slug: "koh-phangan-airport-status-abandoned-project",
+    kbId: "kb-0092",
+    topic: "Phangan",
+    title: "Is a Koh Phangan airport actually coming? The abandoned Kan Air project and what it means for buyers in 2026",
+    short:
+      "Koh Phangan does not have an airport, and as of 2026 there is no active project to build one. Kan Air began construction in 2012, was ordered to stop in 2015 after clearing part of a national park, and has reported no progress since 2017 — buyers should plan around today's ferry access, not a runway that may never be finished.",
+    updated: "2026-08-14",
+    body: [
+      "Will Koh Phangan get its own airport? As of 2026, no — the one attempt sits abandoned, and nothing in the public record points to a revival. It is worth knowing the actual history, because the project still shows up in older listings, forum threads and secondhand claims that it is 'coming soon.'",
+      { h: "What was actually built" },
+      {
+        ul: [
+          "**Developer** — Kan Air, a Thai domestic airline, began construction in 2012 on a site intended to connect Phangan to Koh Samui, Koh Tao and the mainland.",
+          "**Specification** — a single 1,100-metre runway sized for ATR 72-class turboprops, with a terminal planned for roughly 1,000 passengers a day.",
+          "**Investment** — an initial budget in the hundreds of millions of baht grew to roughly ฿2 billion by 2016, with Kan Air seeking a further ฿1.5 billion in financing to complete it.",
+          "**Original target** — completion by 2014. That date was missed before the project stalled entirely.",
+        ],
+      },
+      { h: "What stopped it" },
+      "In 2015, Surat Thani provincial authorities ordered construction halted after finding that the site had encroached on Than Sadet-Koh Phangan National Park land — reported estimates of the affected area vary across contemporary accounts (from roughly 20 to over 40 rai), reflecting how the story was covered at the time rather than a single confirmed figure. Thailand's Forest Protection Unit subsequently filed a complaint over the illegal clearing. Kan Air continued to seek financing through 2016, suspended operations altogether in 2017, and no Thai aviation authority, the airline, or credible news outlet has reported any construction activity, funding round or regulatory filing since. The site remains an abandoned, uncompleted runway on protected land.",
+      { h: "Why it hasn't restarted" },
+      "Two separate problems would each need solving before the project could resume, and neither shows signs of movement: the legal one — the runway sits partly on national park land, which Thai law does not allow to be simply re-designated for private commercial use — and the financial one, a project that was already ฿1.5 billion short of completion in 2016 with no announced investor since. There is no CAAT (Civil Aviation Authority of Thailand) type-certification process, no Ministry of Transport announcement and no successor developer on record for a Koh Phangan airport as of 2026.",
+      { h: "What's actually moving on connectivity instead" },
+      "Buyers weighing future accessibility should look at the projects genuinely in motion rather than the dormant airport: the [Samui sea bridge and expressway](/knowledge/samui-sea-bridge-expressway-phangan-tao-demand), a ฿74-billion mainland-to-Samui link still at the feasibility stage with no construction start before 2028-2029, and the proposed [EH216-S electric air-taxi](/knowledge/eh216-s-air-taxi-samui-phangan-tao) service, which is real but not yet certified or operating. Both are unbuilt too, but both have active sponsors and public planning documents — a materially different status from the airport, which has neither.",
+      { h: "What it means for a buyer today" },
+      {
+        ul: [
+          "**Don't price a fixed-wing airport into a purchase decision.** There is no funded project, no timeline and no sign one will resume; treat any claim otherwise as unverified.",
+          "**Today's access is what it has been for years** — ferry from Koh Samui, Koh Tao or Surat Thani's Donsak pier, with Samui's airport (a 30-45 minute boat-plus-transfer away) the nearest air link.",
+          "**A plot near the Than Sadet-Koh Phangan National Park boundary carries its own, separate due-diligence question** — not airport risk, but the same forest-reserve and park-boundary checks that apply to any hillside or jungle-adjacent parcel on the island; see [illegal hillside and forest-reserve construction](/knowledge/illegal-construction-forest-reserve-crackdown-koh-phangan) for how to verify a plot doesn't sit inside protected land.",
+          "**If connectivity is a real factor in your decision**, weight it toward what's actually funded and moving — the sea bridge and the air-taxi proposal — rather than a project that has been dormant since 2017.",
+        ],
+      },
+    ],
+    takeaways: [
+      "Kan Air began building a Koh Phangan airport in 2012, targeting a 2014 opening; the project has been abandoned since construction was halted in 2015.",
+      "Authorities ordered a stop after the site was found to encroach on Than Sadet-Koh Phangan National Park land; the Forest Protection Unit filed a complaint over the clearing.",
+      "Investment had grown to roughly ฿2 billion by 2016, with an unfilled ฿1.5-billion funding gap; Kan Air suspended operations in 2017 and no revival has been reported since.",
+      "No CAAT certification process, ministry announcement or successor developer exists on record as of 2026 — treat the project as dead, not delayed.",
+      "For real, moving connectivity stories, look at the Samui sea bridge and the proposed EH216-S air-taxi service instead — both unbuilt, but both actively funded and planned.",
+    ],
+    sources: [
+      { title: "CAPA — Centre for Aviation: Koh Phangan Airport New Airport Profile", url: "https://centreforaviation.com/data/profiles/newairports/koh-phangan-airport" },
+      { title: "Thailand Construction and Engineering News — Thailand's Koh Phangan Airport: the abandoned airport project in the Gulf of Thailand", url: "https://thailand-construction.com/thailands-koh-phangan-airport-the-abandoned-airport-project-in-the-gulf-of-thailand/" },
+      { title: "Future Southeast Asia — Koh Phangan Airport: the abandoned airport project in the Gulf of Thailand", url: "https://futuresoutheastasia.com/koh-phangan-airport/" },
+      { title: "Wikipedia — Ko Pha-ngan Airport", url: "https://en.wikipedia.org/wiki/Ko_Pha-ngan_Airport" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "Is Koh Phangan getting an airport, and can I rely on it for future accessibility?",
+  },
+  {
+    slug: "vat-vs-specific-business-tax-developer-sales",
+    kbId: "kb-0093",
+    topic: "Costs",
+    title: "VAT or Specific Business Tax on a new-build purchase? What actually applies, and where the confusion comes from",
+    short:
+      "The land-and-building transfer on a new-build purchase is Specific Business Tax (3.3%), not VAT — real estate sales are carved out of the VAT system by law. Where 7% VAT genuinely shows up is on the pieces that aren't the land transfer itself: a separate construction-service contract, furniture and movable fittings, and professional fees. Reading an off-plan quote without knowing which line is which is how buyers end up thinking they've been double-charged.",
+    updated: "2026-08-15",
+    body: [
+      "Do you pay VAT or Specific Business Tax (SBT) when buying a new-build villa or condo from a developer on Koh Phangan? The transfer of the land and building itself is SBT, at the same 3.3% rate that applies to any commercial resale — not VAT. The confusion buyers run into is real, though: an off-plan land-and-build package usually bundles a separate construction-service contract, and construction services are taxed differently from the land transfer. Both can appear on the same project's paperwork, at different rates, without being the same tax.",
+      { h: "The legal basis: why property sales sit outside VAT" },
+      {
+        ul: [
+          "**Revenue Code Section 91/2(6)** makes the sale of immovable property \"in a commercial or profitable manner\" one of the categories subject to Specific Business Tax, with the detail of what counts as commercial set out in Royal Decree No. 342 (B.E. 2541) — the same decree that governs the individual-seller exemptions covered in [Specific Business Tax's 5-year exemption clock](/knowledge/specific-business-tax-five-year-exemption-clock).",
+          "**Revenue Code Section 91/4** provides that a business already subject to (or exempt from) Specific Business Tax under Section 91/2 is not also subject to VAT on that same transaction — the two systems are designed not to overlap. Real estate was deliberately placed inside SBT rather than VAT when SBT was introduced, precisely because valuing the \"added value\" in a land sale is impractical.",
+          "**A developer selling new-build units is squarely inside this rule.** Whether the seller is an individual, a Thai company, or a licensed property developer, the transfer of land and any building on it is taxed as SBT (or, for a qualifying seller, exempt from SBT and taxed as 0.5% stamp duty instead) — never as VAT on the transfer itself.",
+        ],
+      },
+      { h: "What SBT actually costs on a developer sale" },
+      "SBT on a commercial sale — which a developer's new-build sale always is — runs at 3% of the higher of the government-appraised value or the actual price, plus a 10% municipal surcharge on that 3%, for a combined 3.3%. This is paid at the Land Office on the day of transfer, alongside the 2% transfer fee, and is calculated the same way regardless of whether the seller is an individual reselling a villa or a developer selling its first unit — the 5-year holding exemption that lets an individual reseller drop to 0.5% stamp duty essentially never applies to a developer, since a company selling newly built stock has not held the land for five years.",
+      { h: "Where 7% VAT genuinely applies on a new-build purchase" },
+      {
+        ul: [
+          "**A standalone construction-service contract.** On Koh Phangan it's common to buy raw land, then sign a separate build contract with a construction company. Building is a supply of services under the Revenue Code, not a sale of immovable property — a VAT-registered contractor charges 7% VAT (the current reduced rate, extended to 30 September 2027) on its invoices for that work, entirely separate from any SBT due later when the land itself is registered in your name.",
+          "**Furniture, appliances and movable fittings** sold separately from the land-and-building package are goods, not immovable property — a VAT-registered seller charges 7% VAT on these regardless of how the underlying real estate is taxed.",
+          "**Professional and agency fees** — a VAT-registered law firm, architect, or agent's commission is a service, billed with 7% VAT on the fee itself, again distinct from the SBT or stamp duty due at the Land Office.",
+          "**A developer's own VAT registration matters here**, not for the land transfer, but for whether the construction, design and furnishing components it bundles into a \"turnkey\" price are separately VAT-invoiced or quietly absorbed into a single figure — ask for a breakdown.",
+        ],
+      },
+      { h: "Reading an off-plan land-and-build quote" },
+      "A turnkey off-plan quote on Koh Phangan typically has at least two tax lines hiding inside one headline price: the land-and-building transfer (SBT 3.3%, paid at the Land Office) and the construction-service portion (VAT 7%, invoiced by the builder as work is completed, typically against staged payments). Ask the developer or contractor to itemise which figure already includes VAT and which is the pre-transfer SBT estimate — a quote that states a single all-in number without separating these is not wrong by default, but it makes it impossible to verify either tax was calculated correctly. For the staged-payment and contract-review side of an off-plan purchase, see [Buying off-plan on Koh Phangan](/knowledge/buying-off-plan-new-developments); for the full cost stack at transfer, see [The full cost of buying on Koh Phangan](/knowledge/cost-of-buying-taxes-and-fees).",
+      "The short version: the land and the building you end up owning are taxed as SBT, not VAT, when you buy them from a developer — the VAT you may also see on the same project belongs to the services and goods that built and furnished them, not to the real estate itself.",
+    ],
+    takeaways: [
+      "A developer's sale of land and a new-build unit is Specific Business Tax (3.3% — 3% plus a 10% municipal surcharge), not VAT — Revenue Code Sections 91/2 and 91/4 keep real estate sales outside the VAT system.",
+      "SBT is paid at the Land Office on transfer day, calculated on the higher of appraised value or price — the same method used for any commercial resale.",
+      "7% VAT (extended through 30 September 2027) can still apply on a new-build purchase, but only on separable services and goods: a standalone construction-service contract, movable furniture and fittings, and professional or agency fees.",
+      "The 5-year SBT exemption that drops an individual reseller to 0.5% stamp duty essentially never applies to a developer selling newly built stock, since the land hasn't been held five years.",
+      "Ask for an itemised quote on any off-plan land-and-build package — a single bundled price makes it impossible to verify that SBT and VAT were each calculated on the right base.",
+    ],
+    sources: [
+      { title: "The Revenue Department of Thailand — Section 91: Specific Business Tax", url: "https://www.rd.go.th/english/37753.html" },
+      { title: "Royal Decree Issued under the Revenue Code Regarding Sale of an Immovable Property for a Commercial or Profitable Purpose (No. 342), B.E. 2541", url: "https://www.rd.go.th/fileadmin/user_upload/kormor/eng/RD_342.pdf" },
+      { title: "Forvis Mazars — A complete guide to Value Added Tax (VAT) in Thailand", url: "https://www.forvismazars.com/th/en/insights/doing-business-in-thailand/tax/value-added-tax-vat-in-thailand" },
+      { title: "HLB Thailand — Cabinet approves 1-year extension of 7% VAT rate until 30 September 2027", url: "https://www.hlbthai.com/cabinet-approves-1-year-extension-of-7-vat-rate-until-30-september-2027/" },
+      { title: "DLA Piper REALWORLD — VAT on an acquisition in Thailand", url: "https://www.dlapiperrealworld.com/law/index.html?t=taxes&s=tax-on-acquisitions&q=vat-on-an-acquisition&c=TH" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "Do I pay VAT or Specific Business Tax when buying a new-build villa from a developer on Koh Phangan?",
+  },
+  {
+    slug: "dbd-order-2-2569-consolidated-rules-2026",
+    kbId: "kb-0094",
+    topic: "Structures",
+    title: "DBD Order 2/2569: the August 2026 order that replaces the source-of-funds rules — and why 'in-person shareholder verification' never became law",
+    short:
+      "From 1 August 2026, a single consolidated DBD order — 2/2569 — replaces the two separate incorporation and amendment rules issued earlier in the year, folding bank-statement checks and the amendment-stage declaration into one filing standard. A widely reported in-person interview requirement was only ever a draft proposal; the enacted rules require paperwork, not an appearance before the registrar.",
+    updated: "2026-08-16",
+    body: [
+      "Does a Thai property-holding company now have to send a shareholder to appear in person before the DBD? No — not under the general documentation rules. What changed on 1 August 2026 is that the Central Partnership and Company Registration Office issued **Order 2/2569**, which repeals and consolidates the two orders that governed source-of-funds checks earlier in 2026 into a single instrument covering both new incorporation and later amendments.",
+      { h: "What Order 2/2569 requires, effective 1 August 2026" },
+      {
+        ul: [
+          "**Thai shareholder bank statements** — three months of statements from each Thai shareholder or partner's own account, showing withdrawals or transfers matching the exact amount and date of their capital contribution.",
+          "**Receiving-account statements** — bank records for the company's own account, showing it actually received the subscription funds from each shareholder named.",
+          "**An Investment Explanation Letter** — a prescribed DBD form tracing the flow of funds from each Thai shareholder to the company's receiving account.",
+          "**Who it applies to** — any partnership or limited company where foreigners hold under 50% of registered capital, or any company with no foreign shareholder that appoints a foreign national as an authorised (co-)signing director. It covers new incorporations and amendment filings that introduce a foreign minority investor or a foreign authorised signatory.",
+        ],
+      },
+      { h: "What it replaces" },
+      {
+        ul: [
+          "**Order 2/2568** (effective 1 January 2026) required three-month bank statements from Thai shareholders at incorporation only. Repealed and folded into Order 2/2569.",
+          "**Order 1/2569** (effective 1 April 2026) required a written Investment Confirmation Letter whenever an amendment increased foreign control. Repealed and folded into Order 2/2569, which renames the document an Investment Explanation Letter and now pairs it with bank-statement evidence at the amendment stage too — a step Order 1/2569 did not itself demand.",
+        ],
+      },
+      "Practically, this means a single filing standard applies from 1 August 2026 regardless of whether you're forming a new 49/51 structure or amending an existing one, and it now reaches the company's own receiving account, not just the paying shareholder's. See [The DBD's 2026 source-of-funds rules](/knowledge/dbd-source-of-funds-orders-company-registration-2026) for the detail of the two orders this one supersedes, and [The Land Department's 2026 audit of existing landholding companies](/knowledge/land-department-audit-existing-landholding-companies-2026) for how this paperwork feeds the wider compliance review.",
+      { h: "Where the 'in-person verification' story came from" },
+      "A draft order put out for public consultation between 29 February and 13 March 2026 would have gone further: requiring Thai partners in certain amendments — a partnership's foreign stake crossing above 50%, or a company appointing its first foreign authorised director — to appear in person, present valid ID, and sign a sworn statement denying nominee conduct. Commentary at the time expected this to take effect around 1 April 2026, alongside what became Order 1/2569.",
+      "It didn't happen that way. The order actually enacted on 1 April 2026 dropped the in-person, sworn-statement mechanism entirely in favour of the written Investment Confirmation Letter described above — later folded into Order 2/2569's Investment Explanation Letter. As of this writing, no enacted DBD order requires shareholders or directors in a standard 49/51 structure to physically appear before the registrar to prove genuine investment.",
+      { h: "Where in-person appearance genuinely is required" },
+      {
+        ul: [
+          "**AMLO watchlist match (Order 3/2568, effective 1 January 2026)** — if a shareholder, partner or director appears on an Anti-Money Laundering Office watchlist notified to the DBD, that person must appear in person with unexpired ID before the filing is accepted.",
+          "**State Welfare Card holder as director or major shareholder (Order 5/2568, effective 1 January 2026)** — if the registrar's system flags an incorporation where a low-income welfare-card holder (annual income under ฿100,000) is named as a director or major shareholder in a company with high registered capital, the filing is suspended pending in-person verification.",
+        ],
+      },
+      "These two triggers are narrow, automatic, and unrelated to the general bank-statement and Investment Explanation Letter requirements under Order 2/2569 — they fire only on a specific risk flag, not on every 49/51 filing. If your company and its shareholders don't match either flag, the compliance burden under the current rules is documentary, not an appearance.",
+    ],
+    takeaways: [
+      "DBD Order 2/2569 (effective 1 August 2026) repeals and consolidates the January and April 2026 source-of-funds orders into one filing standard covering both incorporation and amendments.",
+      "Order 2/2569 requires three months of Thai shareholder bank statements, receiving-account statements, and an Investment Explanation Letter tracing the fund flow.",
+      "A broader in-person shareholder verification requirement was only ever a draft proposal during February–March 2026 public consultation; it did not survive into the enacted Order 1/2569 or Order 2/2569.",
+      "In-person appearance under the current rules is limited to two narrow, automatic triggers: an AMLO watchlist match, or a State Welfare Card holder named as director or major shareholder in a high-capital company.",
+      "If your 49/51 structure doesn't match either risk flag, prepare the documentation now — three months of matching bank records plus the Investment Explanation Letter — rather than an in-person appearance that current rules don't require.",
+    ],
+    sources: [
+      {
+        title: "DFDL — Thailand Introduces Additional Registration Requirements to Combat Nominee Arrangements",
+        url: "https://www.dfdl.com/insights/legal-and-tax-updates/thailand-introduces-additional-registration-requirements-to-combat-nominee-arrangements/",
+      },
+      {
+        title: "AIM Bangkok — Navigating the 2026 Thailand Anti-Nominee Rules: Impact on Corporate Structures and Compliance",
+        url: "https://aimbangkok.com/thailand-dbd-2026-nominee-rules-full-framework/",
+      },
+      {
+        title: "Silk Legal — In-person shareholder verification expected as Thailand continues nominee crack down",
+        url: "https://silklegal.com/in-person-shareholder-verification-expected-as-thailand-continues-nominee-crack-down/",
+      },
+      {
+        title: "Forvis Mazars — Thailand's DBD cracks down on nominees and 'mule' accounts with strict new registration rules",
+        url: "https://www.forvismazars.com/th/en/insights/doing-business-in-thailand/legal/dbd-targets-nominee-and-mule-accounts",
+      },
+      {
+        title: "Dej-Udom & Associates — New Bank Statement Requirements From 1 August 2026",
+        url: "https://dejudomlaw.com/en/insight/new-bank-statement-requirements-from-1-august-2026",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "Do I now have to appear in person at the DBD to prove my Thai company isn't a nominee arrangement?",
+  },
+  {
+    slug: "condo-sinking-fund-cam-fees-thailand",
+    kbId: "kb-0095",
+    topic: "Costs",
+    title: "Condo sinking fund and CAM fees on Koh Phangan and Koh Samui: the recurring cost freehold buyers forget to budget",
+    short:
+      "A Thai condo purchase carries two ownership costs beyond the transfer taxes: a one-time sinking fund (roughly ฿500–1,000 per sqm, paid once and never refunded) and a monthly common-area-maintenance (CAM) charge that can run ฿25–180 per sqm depending on the building's tier. Both are set by the building's juristic person under the Condominium Act, and unpaid balances can block your eventual resale.",
+    updated: "2026-08-16",
+    body: [
+      "How much does a condo really cost to own once the transfer taxes are behind you? Two recurring charges follow every unit for as long as you own it: a sinking fund and a monthly common-area-maintenance (CAM) fee. Both are set and collected by the building's juristic person under the Condominium Act B.E. 2522 — not something an individual owner can opt out of or negotiate down.",
+      { h: "The sinking fund: paid once, never refunded" },
+      {
+        ul: [
+          "**What it's for** — a capital reserve for major, infrequent repairs: structural work, lift replacement, roof and facade repainting, pool resurfacing.",
+          "**Typical rate** — ฿500–1,000 per sqm of saleable area, charged once at handover or first registration. Budget buildings run as low as ฿300/sqm; luxury developments ฿1,000–1,500/sqm.",
+          "**Not refundable on resale** — it stays with the building's reserve fund permanently. A second-hand buyer normally doesn't pay the initial sinking fund again, unless the juristic person calls a fresh top-up.",
+          "**Special top-up calls** — beyond the initial contribution, a general-meeting resolution can levy a further ฿10,000–50,000 per unit for a major repair, typically once every 5–10 years in older buildings.",
+        ],
+      },
+      { h: "CAM: the monthly running cost" },
+      {
+        ul: [
+          "**Budget buildings** — roughly ฿25–40 per sqm per month.",
+          "**Mid-market buildings** — roughly ฿40–70 per sqm per month.",
+          "**Premium beachfront buildings** — roughly ฿70–120 per sqm per month.",
+          "**Branded or ultra-luxury developments** — roughly ฿120–180 per sqm per month.",
+          "CAM covers security, cleaning, landscaping, pool upkeep, lift servicing, shared utilities and the juristic person's own administration. It's billed monthly, quarterly or annually in advance, with the first year often collected at handover alongside the sinking fund.",
+        ],
+      },
+      "Published CAM rates are a floor, not a ceiling. The juristic person can raise CAM by a simple general-meeting vote, and older buildings that deferred maintenance often see CAM roughly double over ten years — a low CAM rate on an older building is a reason to ask what's being deferred, not a reason to celebrate the saving.",
+      { h: "What happens if you don't pay" },
+      {
+        ul: [
+          "**Late-payment surcharge (Condominium Act Section 18/1)** — up to 12% per year on the unpaid balance. Once arrears reach six months or more, the surcharge rises to up to 20% per year, and the by-laws can suspend the owner from common services and common-property use, including the right to vote at the general meeting.",
+          "**Blocked resale** — the Land Office will not register a transfer without a debt-free certificate from the juristic person, confirming no outstanding CAM, sinking-fund or utility debt on the unit. The certificate is typically valid for only 7–15 days from issue, so sellers need to time the request close to transfer day.",
+        ],
+      },
+      "Before buying resale, ask the juristic person for two to three years of financial statements and general-meeting minutes, and ask when the last special assessment was called and why — a building with a thin reserve and deferred maintenance is a future special assessment waiting to happen. For the taxes due at transfer, see [The full cost of buying on Koh Phangan](/knowledge/cost-of-buying-taxes-and-fees); for the ownership trade-offs against a leasehold villa, see [Freehold condo vs leasehold villa](/knowledge/freehold-condo-vs-leasehold-villa).",
+    ],
+    takeaways: [
+      "A Thai condo's sinking fund is a one-time charge of roughly ฿500–1,000/sqm at purchase, non-refundable on resale, with occasional special top-up calls in older buildings.",
+      "CAM is a recurring monthly cost of roughly ฿25–180/sqm depending on the building's tier, and can be raised by a simple general-meeting vote.",
+      "Arrears trigger a Condominium Act Section 18/1 surcharge of up to 12% per year, rising to up to 20% per year after six months, plus possible suspension from common services and voting rights.",
+      "The Land Office will not register a resale transfer without a debt-free certificate from the juristic person, valid for only 7–15 days from issue.",
+      "Ask for 2–3 years of juristic-person financial statements and minutes before buying resale to gauge reserve health and the risk of a near-term special assessment.",
+    ],
+    sources: [
+      {
+        title: "Thailand Condoshop — Thailand Condo Costs 2026: Complete Breakdown for Foreign Buyers",
+        url: "https://thailandcondoshop.com/guide/condo-costs-thailand/",
+      },
+      {
+        title: "Thailand Condominium Act B.E. 2522 (1979, as amended) — Section 18/1, common expense arrears surcharge",
+        url: "https://www.samuiforsale.com/law-texts/new-thailand-condominium-act-2008.html",
+      },
+      {
+        title: "PropertyScout — Debt-Free Certificate: The Key to Seamless Transactions",
+        url: "https://propertyscout.co.th/en/dictionary/debt-free-certificate-for-condo-house/",
+      },
+      {
+        title: "RestProperty — Comprehending Sinking Funds, Common Area Fees, and Maintenance Fees in Thailand",
+        url: "https://restproperty.com/article-en/stati-tayland/comprehending-sinking-funds-common-area-fees-and-maintenance-fees-in-thailand-en/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "What are sinking fund and CAM fees on a Thai condo, and what happens if I don't pay them?",
+  },
+  {
+    slug: "offshore-family-trust-cannot-hold-thai-land",
+    kbId: "kb-0096",
+    topic: "Structures",
+    title: "Why an offshore family trust can't hold your Thai villa or land",
+    short:
+      "Thailand's Civil and Commercial Code has voided trusts created by will or by any other legal act since 1935 — there is no exception for a foreign settlor's home-country trust. A trustee cannot be registered as titleholder at the Land Office, so routing Thai property through an offshore family trust creates an unenforceable arrangement, not an estate-planning shortcut.",
+    updated: "2026-08-17",
+    body: [
+      "Can a foreign family trust — set up in Jersey, Singapore, the US or anywhere else — hold a villa or land on Koh Phangan? No. Thai law does not recognise trusts for private estate or succession planning, and there is no mechanism to register a trustee as the legal owner of Thai real estate. A trust deed drafted abroad has no effect on title registered at a Thai Land Office.",
+      { h: "Why Thai law blocks it" },
+      {
+        ul: [
+          "**Civil and Commercial Code Section 1686** — in force since the Code's adoption in 1935 — states that a trust created directly or indirectly, whether by will or by any other juristic act, during life or after death, has no effect whatsoever under Thai law.",
+          "**The one statutory exception doesn't help families** — the Trust for Transactions in Capital Market Act B.E. 2550 (2007) created a narrow, SEC-regulated trust framework, but only for capital-market instruments such as REITs and securitisation vehicles. It has no application to residential property or family succession.",
+          "**A private trust law has been stuck since 2018** — the Cabinet approved a draft Private Trust Act in July 2018 that would have allowed Thai real estate to be held in trust, but as of 2026 the bill remains under review at the Office of the Council of State and has not been enacted. Until it is, the general prohibition stands.",
+        ],
+      },
+      { h: "What happens if you try anyway" },
+      {
+        ul: [
+          "**No registrable title** — the Land Department records only a direct legal owner (an individual or a properly qualified juristic person) on a chanote or other title deed. There is no title category for 'trustee for' a foreign beneficiary.",
+          "**It collapses into a nominee problem** — if a Thai or foreign trustee is put on title while a foreign settlor supplies the money and controls the asset in substance, the arrangement reads to the Land Department and DSI as an unlawful nominee structure under the Foreign Business Act and Land Code Section 96, not a trust. See [Villa held by a Thai company: buyer due diligence](/knowledge/villa-held-by-thai-company-buyer-due-diligence-2026) for how aggressively that risk is now enforced.",
+          "**The beneficiary has no proprietary right** — under Thai civil law, a beneficiary's claim against an offshore trustee is a personal contractual claim enforceable (if at all) in the trustee's home jurisdiction — not a right in the land itself that a Thai court will recognise or that survives the trustee's death, bankruptcy or a dispute with co-beneficiaries.",
+          "**Succession gets harder, not easier** — if the trustee is a natural person who dies, the Thai asset can become entangled in the trustee's own estate administration, in whichever jurisdiction that trustee was domiciled, before any beneficiary sees it.",
+        ],
+      },
+      { h: "What actually works instead" },
+      {
+        ul: [
+          "**A Thai will** — governed by Civil and Commercial Code Sections 1686–1692, a properly drafted Thai-language will naming Thai executors is the standard, enforceable way to direct who inherits a villa, land or leasehold on your death. See [Inheritance: leasehold and villa](/knowledge/inheritance-leasehold-and-villa).",
+          "**Registered property rights** to split use from ownership during your lifetime — usufruct, superficies, the right of habitation or sap-ing-sith can each give a spouse, partner or child a lifetime or fixed-term right to occupy or use the property without transferring the underlying title. See [Superficies vs usufruct vs lease](/knowledge/superficies-vs-usufruct-vs-lease) and [Sap-Ing-Sith: Thailand's fifth registered property right](/knowledge/sap-ing-sith-right-of-use-thailand).",
+          "**A genuinely operating Thai company**, structured under the real 49/51 rules for an active business — not a shell built solely to hold one villa — remains a lawful, if administratively heavier, ownership route. See [A Thai company for property (49/51)](/knowledge/thai-company-for-property-49-51).",
+          "**Foreign heirs inheriting directly** face their own separate rule — Land Code Section 93's one-year disposal requirement — covered in [Foreign heir inheriting Thai land](/knowledge/foreign-heir-inheriting-thai-land-section-93).",
+        ],
+      },
+      "The fix for cross-border estate planning in Thailand isn't a trust — it's combining a Thai will with the right registered property right, and coordinating that with your home-country trust or will so the two don't conflict. A lawyer who drafts both sides is worth the fee; a trust deed alone, however well drafted at home, will not move a Thai title.",
+    ],
+    takeaways: [
+      "Civil and Commercial Code Section 1686 has voided trusts created by will or other juristic act in Thailand since 1935 — there is no carve-out for foreign-settlor trusts.",
+      "The only statutory trust framework, the Trust for Transactions in Capital Market Act B.E. 2550 (2007), covers SEC-regulated capital-market instruments only — not family estate planning or residential property.",
+      "A draft Private Trust Act was approved by Cabinet in 2018 but remains stuck in Council of State review as of 2026 — it is not current law.",
+      "The Land Department has no title category for a trustee holding on behalf of a beneficiary; attempting it risks being read as an unlawful nominee arrangement.",
+      "Use a Thai will plus a registered property right (usufruct, superficies, habitation or sap-ing-sith) instead — these are the enforceable Thai-law tools for cross-border succession planning.",
+    ],
+    sources: [
+      {
+        title: "ThaiLawOnline — Trusts in Thailand via Foreign Jurisdiction",
+        url: "https://www.thailawonline.com/trusts-in-thailand-foreign-jurisdiction/",
+      },
+      {
+        title: "Sovereign Group — Planning for the future: how Trusts can elevate wealth and asset management in Thailand",
+        url: "https://www.sovereigngroup.com/news/planning-for-the-future-how-trusts-can-elevate-wealth-and-asset-management-in-thailand/",
+      },
+      {
+        title: "Thailand Law Forum — Civil and Commercial Code Sections 1646–1710 (Section 1686, trusts)",
+        url: "https://www.thailawforum.com/thailand-civil-and-commercial-code-sections-1646-1710/",
+      },
+      {
+        title: "Lexology / Baker McKenzie — Thailand's Private Trust Act Is Approved by the Cabinet",
+        url: "https://www.lexology.com/library/detail.aspx?g=12861aca-264f-4a08-bfd4-5603a20e5488",
+      },
+      {
+        title: "Thailand SEC — Trust for Transactions in Capital Market Act B.E. 2550 (2007)",
+        url: "https://www.sec.or.th/EN/Documents/ActandRoyalEnactment/Act/act_trust2007.pdf",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "Can I put my Thai villa or land into a family trust from my home country?",
+  },
+  {
+    slug: "price-per-area-benchmark-2026-thong-sala-sri-thanu-haad-yao",
+    kbId: "kb-0097",
+    topic: "Phangan",
+    title: "Land price benchmarks 2026: Thong Sala vs Sri Thanu vs Haad Yao, per square metre and per rai",
+    short:
+      "Sampling live asking-price listings across Koh Phangan's three most-referenced districts shows a clear spread: Thong Sala's flat, in-town land is the island's cheapest per square metre; Sri Thanu splits into an affordable inland tier and an increasingly scarce sea-view tier; and Haad Yao's small prime sea-view plots carry the strongest per-square-metre premium on the island.",
+    updated: "2026-08-17",
+    body: [
+      "How do Thong Sala, Sri Thanu and Haad Yao actually compare on price today, beyond the general 'land here is expensive' impression? Sampling current asking-price listings across the three districts in August 2026 shows real, consistent gaps by location and plot size — though these are asking prices from live listings, not closed-sale or government valuation data, so treat the ranges below as an orientation benchmark rather than an appraisal. For the island-wide context — a 2026 average land price of roughly ฿20.27 million and western-coast land up 2–4× since early 2022 — see [Koh Phangan property market in 2026](/knowledge/koh-phangan-market-outlook-2026).",
+      { h: "Thong Sala — the island hub, cheapest flat land" },
+      {
+        ul: [
+          "**Flat, road-accessible freehold plots** in and around town sampled at roughly **฿6,200–6,500/m²** (around ฿9.9–10.4 million per rai) — the lowest freehold rate of the three districts.",
+          "**Sea-view plots** near the Haad Khom side of town trend higher, toward **฿6,900–11,000/m²** (roughly ฿11–17.6 million per rai).",
+          "Thong Sala's advantage isn't the view — it's liquidity, ferry-port access and year-round rental demand. See [Buying in Thong Sala](/knowledge/buying-in-thong-sala).",
+        ],
+      },
+      { h: "Sri Thanu — wellness belt, a two-tier market" },
+      {
+        ul: [
+          "**Inland and jungle-view plots** sampled at roughly **฿4,250–7,900/m²** (around ฿6.8–12.6 million per rai) — still Koh Phangan's most internationally recognised long-stay community, at a meaningful discount to sea view.",
+          "**Sea-view plots** trend toward **฿6,250–8,750/m²**, and genuine beachfront parcels with existing structures were seen listed well above ฿30,000/m² — a figure that reflects the building on the land, not raw land value, and shouldn't be read as a land benchmark.",
+          "See [Buying in Sri Thanu](/knowledge/buying-in-sri-thanu) for who the district suits.",
+        ],
+      },
+      { h: "Haad Yao — the island's top price tier for sea view" },
+      {
+        ul: [
+          "**Small, prime sea-view plots** (roughly 500–1,000 m²) sampled at the island's strongest premium: **฿7,100–11,000/m²** (around ฿11.4–17.6 million per rai).",
+          "**Larger, more interior parcels** (3,000 m²+) discount sharply to roughly **฿2,800–3,400/m²** — a reminder that plot size drives price per square metre almost as much as location does.",
+          "This matches the district's existing profile as the northwest coast's premier sunset corridor. See [Buying in Haad Yao and Haad Salad](/knowledge/buying-in-haad-yao-haad-salad).",
+        ],
+      },
+      { h: "What the comparison actually shows" },
+      {
+        ul: [
+          "**Thong Sala** wins on entry price and liquidity, not on view or land appreciation potential.",
+          "**Sri Thanu** rewards buyers who don't need sea view — the inland community tier remains meaningfully cheaper than its coastal edge.",
+          "**Haad Yao** commands the clearest sea-view premium of the three, concentrated in smaller plots close to the water.",
+          "**Plot size matters as much as district** — bulk, interior parcels in every district sampled at a fraction of the per-square-metre rate of small, view-facing plots.",
+        ],
+      },
+      "A per-square-metre number is only a starting point. Before comparing two plots, confirm both carry the same title class — a chanote and an Nor Sor 3 Gor plot at the same headline price are not the same asset — and check what the 2025 zoning actually permits on each. See [Chanote vs Nor Sor 3 Gor](/knowledge/land-titles-chanote-vs-nor-sor-3) and [Building zones on Koh Phangan](/knowledge/koh-phangan-building-zones).",
+    ],
+    takeaways: [
+      "Thong Sala flat, in-town freehold land sampled cheapest of the three districts at roughly ฿6,200–6,500/m² (~฿9.9–10.4M/rai).",
+      "Sri Thanu splits into an inland tier at roughly ฿4,250–7,900/m² and a smaller, pricier sea-view tier at ฿6,250–8,750/m².",
+      "Haad Yao's small prime sea-view plots carry the island's strongest per-m² premium sampled, at roughly ฿7,100–11,000/m² (~฿11.4–17.6M/rai).",
+      "Larger, more interior parcels discount to roughly ฿2,800–3,400/m² regardless of district — plot size moves the per-m² rate as much as location.",
+      "These are asking-price listing samples from August 2026, not closed sales or government valuations — verify with a local agent and check title class before comparing two plots directly.",
+    ],
+    sources: [
+      {
+        title: "Islanders Properties — Land for sale in Srithanu, Koh Phangan",
+        url: "https://islanders-properties.com/thailand/type-land/for-sale/koh-phangan/srithanu/",
+      },
+      {
+        title: "Islanders Properties — Land for sale in Haad Yao, Koh Phangan",
+        url: "https://islanders-properties.com/thailand/type-land/for-sale/koh-phangan/haad-yao/",
+      },
+      {
+        title: "Islanders Properties — Land for sale in Thong Sala, Koh Phangan",
+        url: "https://islanders-properties.com/thailand/type-land/for-sale/koh-phangan/thongsala/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "How do Thong Sala, Sri Thanu and Haad Yao actually compare on land price per square metre?",
+  },
+  {
+    slug: "pnd-94-mid-year-tax-return-rental-income",
+    kbId: "kb-0098",
+    topic: "Costs",
+    title: "The PND.94 mid-year tax return: the rental-income filing deadline landlords miss",
+    short:
+      "Thailand taxes rental income under two separate filings each year, not one. Most owners know about the annual return due 31 March. Fewer know about PND.94, a mid-year advance return covering January–June rental income, due by 30 September (8 October if filed online) — and the 1.5%-per-month surcharge for missing it.",
+    updated: "2026-08-18",
+    body: [
+      "Do you owe a Thai tax filing before September on rental income you already plan to declare next March? Yes — if you earned Thai rental income in the first half of 2026, **Por Ngor Dor 94 (PND.94)** is a separate mid-year advance return, distinct from the annual Por Ngor Dor 90 (PND.90) return covered in [Owner's taxes on Koh Phangan](/knowledge/owners-taxes-annual-land-and-income). It is easy for a foreign landlord to miss entirely, because nothing about the annual filing warns you it exists.",
+      { h: "Who has to file PND.94" },
+      "PND.94 applies to income falling under Revenue Code Section 40(5) through 40(8) — property rental, liberal professions, contracting, and business/trade income. **Rental income from a house, condo, land or vehicle falls squarely under Section 40(5).** Ordinary employment income (Section 40(1)) is excluded from this mid-year return entirely, which is why most salaried expats never encounter PND.94 — only landlords, freelancers and the self-employed do.",
+      {
+        ul: [
+          "**Filing threshold** — required once your first-half (January–June) income in these categories exceeds ฿60,000 for a single filer, or ฿120,000 for a married couple filing jointly.",
+          "**Applies to residents and non-residents alike** — rental income from Thai property is Thai-source income, taxable regardless of how many days a year you spend in the country, the same principle that governs the annual return.",
+          "**Covers only the first six months** — income earned July–December is reconciled later, on the annual PND.90 return.",
+        ],
+      },
+      { h: "How the half-year tax is calculated" },
+      {
+        ul: [
+          "**Same 30% deduction** — gross rental income gets the standard 30% flat deduction, exactly as on the annual return; no receipts or itemising required.",
+          "**Personal allowance halved** — because the return covers six months rather than twelve, the standard personal allowance is applied at half its annual value (roughly ฿30,000 rather than ฿60,000 for a single filer).",
+          "**Full progressive rates apply to what's left** — the resulting half-year taxable amount is taxed at the same 5–35% brackets used on the annual return; the brackets themselves are not halved.",
+        ],
+      },
+      { h: "A prepayment, not a second tax" },
+      "Tax paid under PND.94 is credited against your annual PND.90 liability, filed by 31 March the following year covering the full twelve months. If the second half of the year earns less, or annual deductions bring the full-year bill below what you already paid, the annual filing produces a refund. If not, you settle the balance in March. It is a genuine prepayment obligation on account of the year's tax, not an optional estimate — and a non-resident landlord whose tenant already withholds 15% at source under the rule described in [Owner's taxes on Koh Phangan](/knowledge/owners-taxes-annual-land-and-income) is not automatically excused from filing; the withholding and the PND.94 return are separate mechanisms that get reconciled against each other, not substitutes for one another.",
+      { h: "Penalties for missing the deadline" },
+      {
+        ul: [
+          "**1.5% monthly surcharge** on unpaid tax, accruing from the day after the deadline until paid, capped at the amount of tax owed.",
+          "**Late-filing fine** of up to ฿2,000 for not submitting the return itself, separate from and in addition to the surcharge on any unpaid tax.",
+          "**Deliberate evasion** carries its own criminal exposure under the Revenue Code — but an owner who simply didn't know PND.94 existed faces the administrative surcharge and fine, not a criminal case, provided the return is filed and tax paid once the omission is caught.",
+        ],
+      },
+      "Right Way does not file taxes for clients. If you rent out a Koh Phangan property, ask a Thai accountant to confirm your PND.94 position before the end of September — it is the one filing deadline most foreign landlords never hear about until they've already missed it. For the annual return, the full Land and Building Tax picture, and the licensing rules for short-term lets, see [Owner's taxes on Koh Phangan](/knowledge/owners-taxes-annual-land-and-income) and [Renting out your villa on Koh Phangan](/knowledge/renting-out-your-villa-rules-and-taxes).",
+    ],
+    takeaways: [
+      "PND.94 is a separate mid-year tax return covering January–June rental income, due 30 September on paper (8 October if e-filed) — distinct from the annual PND.90 return due the following March.",
+      "It applies to both Thai tax residents and non-residents, because rental income from Thai property is Thai-source income taxed regardless of residency status.",
+      "The same 30% standard deduction applies as on the annual return, but the personal allowance is halved to reflect the six-month period; the 5–35% progressive brackets themselves are not halved.",
+      "Tax paid under PND.94 is a prepayment credited against your annual PND.90 bill — it can produce either a refund or a top-up payment when you file in March.",
+      "Missing the deadline adds a 1.5% monthly surcharge on unpaid tax plus a separate late-filing fine of up to ฿2,000.",
+    ],
+    sources: [
+      {
+        title: "Revenue Department of Thailand — Personal Income Tax (rd.go.th)",
+        url: "https://www.rd.go.th/english/6045.html",
+      },
+      {
+        title: "MBMG Group — Understanding PND.94: Your Mid-Year Tax Filing Guide in Thailand",
+        url: "https://mbmg-group.com/understanding-pnd94-your-mid-year-tax-filing-guide-in-thailand/",
+      },
+      {
+        title: "ExpatTaxThailand — Half-Year Returns: Who Needs to File a PND.94 in Thailand?",
+        url: "https://www.expattaxthailand.com/half-year-returns-pnd-94-in-thailand/",
+      },
+      {
+        title: "Sherrings — Tax Evasion and Not Filing Tax Returns in Thailand",
+        url: "https://sherrings.com/tax-evasion-not-filing-tax-returns-thailand.html",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "Do I have to file a mid-year tax return on my Koh Phangan rental income?",
+  },
+  {
+    slug: "septic-tank-wastewater-rules-koh-phangan-villa",
+    kbId: "kb-0099",
+    topic: "Structures",
+    title: "Septic tanks and wastewater systems for a Koh Phangan villa: the 2024 rule change",
+    short:
+      "Since 25 March 2024, a national building-control regulation requires new or renovated houses to install a two-part grease-separation-and-treatment septic system, not the informal single-chamber soakaway many older Koh Phangan properties still rely on. Here's what the rule actually covers, and what it doesn't.",
+    updated: "2026-08-18",
+    body: [
+      "Building or renovating a villa on Koh Phangan? Since 25 March 2024, the sanitation system on your building-permit drawings has to meet a national standard for septic and wastewater treatment — not the informal soakaway pit many older island properties still use. Whether the rule reaches your project, and what it actually requires, depends on where and what you're building.",
+      { h: "The 2024 rule: Ministerial Regulation No. 71" },
+      "Ministerial Regulation No. 71 (B.E. 2566), issued under the Building Control Act B.E. 2522 (1979), was published in the Royal Gazette on 26 December 2023 and took effect 25 March 2024. It amends the older Ministerial Regulation No. 44 (B.E. 2538/1995), which first required a septic-and-soakaway design for new single houses, row houses, townhouses and twin houses. The new rule replaces that basic two-chamber design with a two-part system — a grease-separation section and a treatment section — built to a technical standard the Ministry sets separately, on the Building Control Committee's recommendation.",
+      {
+        ul: [
+          "**Applies to** new construction or renovation of a single house, row house, townhouse, twin house or a Type-ง building that requires a building permit, in any area without a centralised municipal wastewater system — which describes essentially all of Koh Phangan.",
+          "**Not retroactive** — an existing house that isn't being rebuilt or having its sanitation system modified isn't required to swap out an older, still-functioning system.",
+          "**Enforced at permit stage** — a building-permit application whose sanitation design doesn't meet the standard can be refused, and work already under way can be ordered to stop.",
+          "**Exemption for municipal connections** — a building that connects to a state-provided communal wastewater treatment system is exempt from the individual water-quality standard, though it must still meet a preliminary-treatment specification. Not relevant to almost any Koh Phangan plot today.",
+        ],
+      },
+      { h: "What the technical standard actually requires" },
+      "The follow-up ministerial notification sets out the detail: a prefabricated septic tank certified to Thai Industrial Standard (TIS) specifications, arranged as three grease-separation chambers followed by one filtration chamber in series, with filter media covering more than 80 square metres of surface per cubic metre of chamber volume and making up over half the chamber's volume. In practice, this means specifying a certified prefabricated tank model on the permit drawings rather than a poured-concrete soakaway pit designed on-site — the kind still common in older Phangan builds.",
+      { h: "Why this isn't a treatment-plant permit for a single villa" },
+      "A separate set of Ministry of Natural Resources and Environment notifications (Royal Gazette, 19 July 2021) sets effluent discharge standards for \"developed land\" under the Enhancement and Conservation of National Environmental Quality Act B.E. 2535 (1992) — but only for multi-unit housing estates and developments above a size threshold: Type A (over 500 units or more than 100 rai), Type B (100–499 units or 19–100 rai), and Type C (10–99 units or under 19 rai). A single private villa on its own plot falls below all three tiers and isn't a regulated discharge point under this notification. For a lone buyer or builder, the operative rule is the Building Control Act septic-tank design standard above, not an environmental discharge permit.",
+      { h: "Why it matters on an island with no central sewer network" },
+      "Koh Phangan has no centralised sewage treatment system; virtually every property, from the smallest bungalow to a hillside villa, disposes of wastewater on-site. That has consequences beyond a single build: an October 2025 government task-force sweep of illegal hillside and forest-reserve construction on the island found that unpermitted development was overwhelming local waste-management and wastewater-treatment capacity and contributing to reef degradation offshore — a reminder that a correctly specified septic system isn't paperwork for its own sake on an island where every plot's runoff eventually reaches the same coastline. See [Illegal hillside and forest-reserve construction crackdown](/knowledge/samui-model-hillside-enforcement-koh-phangan) for the enforcement side of unpermitted builds, and [Building a villa on Koh Phangan](/knowledge/building-a-villa-koh-phangan) for the permit process this sanitation standard is part of.",
+      { h: "What to check before you build or buy" },
+      {
+        ul: [
+          "**Ask your architect or builder to specify a TIS-certified prefabricated tank model** on the permit drawings, not a generic on-site soakaway design.",
+          "**Confirm your plot has no access to a centralised sewer line** — extremely unlikely on Koh Phangan, but the rule's requirement is specific to areas without one.",
+          "**If you're buying an existing villa**, ask when the sanitation system was last replaced. A pre-2024 system that hasn't been modified since isn't required to be upgraded, but a poorly maintained septic system is a real cost and odour risk regardless of which regulation built it.",
+          "**Check plot drainage and runoff more broadly** alongside the sanitation system — see [Flood and drainage due diligence on Koh Phangan](/knowledge/flood-drainage-due-diligence-koh-phangan).",
+        ],
+      },
+      "Right Way does not design or certify sanitation systems for clients — confirm the current technical notification with your architect and a licensed builder at the permit stage. For the wider permit, zoning and budget process a septic system sits inside, see [Building a villa on Koh Phangan](/knowledge/building-a-villa-koh-phangan).",
+    ],
+    takeaways: [
+      "Since 25 March 2024, Ministerial Regulation No. 71 (B.E. 2566) requires new or renovated houses on Koh Phangan to install a two-part grease-separation-and-treatment septic system, not the older single-soakaway design.",
+      "The rule applies to new construction or renovation needing a building permit, in areas without a centralised sewer — effectively the whole island — and isn't retroactive on unmodified existing systems.",
+      "The technical standard specifies a TIS-certified prefabricated tank with three grease-separation chambers and one filtration chamber — put the model on your permit drawings, not a poured on-site pit.",
+      "Separate 2021 environmental effluent-discharge standards apply only to multi-unit developments of 10+ units or 19+ rai — a single villa isn't a regulated discharge point under that rule.",
+      "Koh Phangan has no centralised sewage network, so every villa's wastewater system is on-site — which is why 2025 enforcement sweeps against illegal construction flagged strained island-wide waste capacity as a real, current concern.",
+    ],
+    sources: [
+      {
+        title: "Association of Siamese Architects (ASA) — Amendment to the Building Control Ministerial Regulation on Wastewater and Treatment Systems",
+        url: "https://asa.or.th/laws/news20240108/",
+      },
+      {
+        title: "YOTATHAI — Ministerial Regulation No. 71 (B.E. 2566) issued under the Building Control Act B.E. 2522",
+        url: "https://www.yotathai.com/yotanews/rule71-buildinglaw",
+      },
+      {
+        title: "Tank JRM — Thailand's New Septic Tank Law (2024): Standards & Fines",
+        url: "https://tankjrm.com/en/new-law-septic-tank-thailand/",
+      },
+      {
+        title: "Enviliance Asia — Thailand announces the effluent standard for housing estates",
+        url: "https://enviliance.com/regions/southeast-asia/th/report_3841",
+      },
+      {
+        title: "Khaosod English — Koh Phangan Faces Illegal Development Crisis in Protected Areas",
+        url: "https://www.khaosodenglish.com/featured/2025/10/18/koh-phangan-faces-illegal-development-crisis-in-protected-areas/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "What are the legal requirements for a septic tank or wastewater system on a Koh Phangan villa build?",
+  },
+  {
+    slug: "foreign-shareholder-monitoring-8-provinces-2026",
+    kbId: "kb-0100",
+    topic: "Process",
+    title: "36,277 foreign-linked companies, 8 priority provinces: how Thailand's 2026 nominee-monitoring network actually works",
+    short:
+      "On 18 August 2026 the Department of Business Development disclosed its first hard national count from the ongoing nominee-shareholding review: 36,277 foreign-linked companies screened, 4,761 of them facing stricter action. Surat Thani — the mother province for Koh Phangan and Koh Samui — sits on both that hotspot list and a separate Land Department framework prioritising monthly checks in 8 provinces.",
+    updated: "2026-08-19",
+    body: [
+      "How many companies has Thailand's nominee-shareholding review actually screened, and does it reach Koh Phangan? As of August 2026, two separate but coordinated tracking systems both name Surat Thani — the province Koh Phangan and Koh Samui sit under — as a priority area, and for the first time officials have put hard national numbers on the exercise.",
+      { h: "The DBD's first national count" },
+      "On 18 August 2026, Department of Business Development director-general Poonpong Naiyanapakorn disclosed that the DBD, cross-referencing its own registry against Department of Lands title data, had reviewed 144,706 legal entities nationwide and identified 36,277 as foreign-linked landholders. These split into two risk tiers: 31,516 companies with foreign ownership at or below the 49% cap, which now face verification that the Thai majority shareholding reflects a genuine investment rather than a nominee front, and 4,761 companies with foreign ownership above 49% — an outright breach of the Foreign Business Act cap — facing the stricter track. Roughly 35,154 of the flagged entities cluster in 16 named provinces, including Surat Thani, Phuket, Chon Buri and Chiang Mai. This builds on the AI-assisted IBAS screening already reviewing existing landholding companies; see [The Land Department's 2026 audit of existing landholding companies](/knowledge/land-department-audit-existing-landholding-companies-2026) for how that system flags a company in the first place.",
+      { h: "The Land Department's parallel 8-province framework" },
+      "Separately, the Department of Lands runs its own standing-review system: Provincial Land Offices check monthly for any company where a foreigner holds shares or a director seat, and report results quarterly to the central department, with immediate reporting required if a company crosses the foreign-control thresholds mid-cycle. As of mid-2026, that system names 8 priority provinces for the heaviest monitoring load: Phuket, Surat Thani, Mae Hong Son, Chiang Mai, Krabi, Chon Buri, Rayong and Chanthaburi. Every land office in these provinces was required to complete a baseline review of its existing company-landholder database by 26 June 2026, before settling into the routine monthly-check cycle.",
+      { h: "The penalties sit on top of losing the land, not instead of it" },
+      "A company flagged as a nominee structure still faces the land-focused consequence already covered elsewhere on this site: Land Code Section 96 lets the Director-General order the land sold within 180 days to a year (see [Section 94 forfeiture amendment](/knowledge/land-code-section-94-forfeiture-amendment) for the proposal to remove even that sale-proceeds entitlement). Separately, the company and the individuals who set it up face their own direct fines under the Land Code: Section 112 fines a juristic person up to ฿50,000 for the underlying illegal acquisition, and Section 113 fines a Thai national who acted as an agent for a foreigner up to ฿20,000, or up to 2 years' imprisonment, or both. Losing the land and paying these fines are separate exposures — a forced sale doesn't settle the criminal liability.",
+      { h: "Why Surat Thani sits on both lists" },
+      "Koh Phangan and Koh Samui fall under Surat Thani province for land registration and company jurisdiction, which is why both the DBD's national hotspot list and the Land Department's 8-province monitoring framework name it independently. In practice that means a company holding land on Koh Phangan is reviewed twice over: once through the DBD's registry-side screening of shareholding patterns, and again through the Provincial Land Office's monthly land-and-company cross-check. See [Buying a villa already held by a Thai company](/knowledge/villa-held-by-thai-company-buyer-due-diligence-2026) for what that means specifically for a buyer looking at company-held inventory on the island, and [A Thai company for property: when it makes sense, when it's toxic](/knowledge/thai-company-for-property-49-51) for the narrow cases where the structure still holds up.",
+      "None of this changes the underlying law — the 49% foreign-ownership cap and the ban on nominee shareholding were always the rule. What August 2026's disclosures confirm is that the monitoring machinery behind that rule is fully operational and producing hard numbers, not sitting as an unenforced directive on paper.",
+    ],
+    takeaways: [
+      "On 18 August 2026 the DBD disclosed reviewing 144,706 entities nationwide and identifying 36,277 foreign-linked landholders — 31,516 at or below the 49% cap (flagged for genuine-investment verification) and 4,761 above it (facing stricter action).",
+      "Surat Thani — the province covering Koh Phangan and Koh Samui — is named on both the DBD's 16-province hotspot list and a separate Land Department framework prioritising 8 provinces for monthly foreign-shareholder checks.",
+      "The Land Department's 8 priority provinces are Phuket, Surat Thani, Mae Hong Son, Chiang Mai, Krabi, Chon Buri, Rayong and Chanthaburi, with land offices required to complete a baseline company-landholder review by 26 June 2026.",
+      "A flagged company faces forced land disposal under Section 96 separately from direct fines: Section 112 fines the company itself up to ฿50,000; Section 113 fines a Thai nominee up to ฿20,000 and/or up to 2 years' imprisonment.",
+      "A company holding land on Koh Phangan is effectively reviewed twice — once by the DBD's registry-side screening, once by the Provincial Land Office's monthly monitoring cycle — reflecting Surat Thani's status as a priority area on both tracks.",
+    ],
+    sources: [
+      {
+        title: "Nation Thailand — DBD scrutinises 36,277 foreign-linked landholding firms",
+        url: "https://www.nationthailand.com/news/general/40069926",
+      },
+      {
+        title: "AIM Bangkok — Thailand's Nominee Land Crackdown: New Land Department Enforcement Measures Explained (2026)",
+        url: "https://aimbangkok.com/thailand-nominee-land-crackdown-dol-enforcement-2026/",
+      },
+      {
+        title: "Terms.Law — Thailand Land Code Penalties 2026: What Happens If You Get Caught",
+        url: "https://terms.law/Thai/property/land-code-penalties.html",
+      },
+      {
+        title: "Silk Legal — What Thailand's New Lands Directives Mean for Nominee Shareholding and Property Ownership in 2026",
+        url: "https://silklegal.com/what-thailands-new-lands-directives-mean-for-nominee-shareholding-and-property-ownership-in-2026/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "How many companies has Thailand's 2026 nominee-shareholder crackdown actually screened, and is Surat Thani (Koh Phangan/Samui) a priority province?",
+  },
+  {
+    slug: "koh-samui-phangan-raid-leases-nominee-scrutiny-2026",
+    kbId: "kb-0101",
+    topic: "Structures",
+    title: "Long-term leases now under nominee scrutiny too: what the August 2026 Koh Samui raid signals for Phangan buyers",
+    short:
+      "A 15 August 2026 raid reviewed all 12,906 registered companies on Koh Samui and opened 60 nominee cases — and officials say the same enforcement push is now examining whether long-term leases, not just companies, are being used to give foreigners disguised control of land. Here's what's confirmed, what's still an emerging signal, and what it means for the standard lease-plus-superficies structure.",
+    updated: "2026-08-19",
+    body: [
+      "Is a registered 30-year lease still the safe way for a foreigner to hold long-term rights over land on Koh Phangan? For a standard, single-term registered lease, yes — but as of mid-August 2026, Thai authorities have said publicly that the nominee-enforcement campaign is widening beyond companies to examine certain lease arrangements too. Here's the actual news, and where the line currently sits.",
+      { h: "The 15 August 2026 raid: what actually happened" },
+      "Described by officials as the seventh phase of the ongoing foreign-nominee-network crackdown, a coordinated operation involving 300+ police and officials reviewed all 12,906 companies registered on Koh Samui. Of those, 8,254 had foreign shareholders and 875 showed characteristics consistent with nominee arrangements. The review produced 60 criminal cases against 88 suspects (26 Thai nationals, 62 foreigners), 14 arrests of foreign nationals wanted on warrants, and identified 59 companies tied to 37 land plots and buildings worth an estimated ฿1.2 billion. Five business networks were targeted, spanning property development, unlicensed operations and suspected tax avoidance.",
+      { h: "The new signal: leases under the same lens" },
+      "A day earlier, on 16 August 2026, Thai Examiner reported that officials working the same Koh Samui-Koh Phangan enforcement push are now examining long-term leases as a possible alternative route foreigners use to secure effective decades-long control of land without appearing as a registered owner or a flagged company shareholder. Officials said the focus emerged from conversations with foreigners describing increased reliance on leasing over buying. This is a real, dated enforcement signal — but it is still an emerging one: reporting describes investigators \"examining\" whether particular lease structures circumvent ownership restrictions, without naming a specific statute, case, or enforcement mechanism yet. Treat it the way this site treats other studied-but-not-enacted proposals, such as the [Section 94 forfeiture amendment](/knowledge/land-code-section-94-forfeiture-amendment): real, worth tracking, not yet a settled rule with a defined test.",
+      { h: "What this does — and doesn't — mean for a standard lease-and-superficies buyer" },
+      {
+        ul: [
+          "**A single, cleanly registered 30-year lease combined with a registered superficies over the building** — the structure this site recommends throughout, see [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa) — is not, on current reporting, the type of arrangement under scrutiny. It's a standard, transparent property right, not a disguised ownership workaround.",
+          "**Stacked or serial leases** (the '30+30+30' pattern marketed as 60 or 90 years of tenure) are the clearest candidate for this scrutiny — and separately, the pre-agreed renewal periods in those structures are already void as a matter of contract law under the March 2025 Supreme Court ruling. See [Renewing a 30-year lease: what actually happens](/knowledge/renewing-30-year-lease-risks) for that ruling in full.",
+          "**Leases bundled with side agreements** — options to indefinitely extend without the landowner's fresh consent, loans from the lessee to the landowner secured against the land, or other arrangements that hand a foreign lessee decision-making or economic control beyond simple occupancy — fit the profile officials describe as giving 'effective control' without registered ownership.",
+          "**A lease used as a fallback after a company structure was rejected or flagged** is exactly the kind of pattern that draws attention in an environment where officials are actively comparing notes across enforcement tracks.",
+        ],
+      },
+      { h: "Why Koh Phangan sits inside the same net as Koh Samui" },
+      "Koh Phangan and Koh Samui share the same provincial jurisdiction (Surat Thani) for land registration and company oversight, and enforcement reporting through 2025-2026 has consistently treated the two islands as a single campaign area rather than separate cases — see [Nominee-ownership enforcement spreads to Krabi](/knowledge/nominee-crackdown-krabi-islands-2026) for how the same push has moved across provinces, and [36,277 foreign-linked companies and 8 priority provinces](/knowledge/foreign-shareholder-monitoring-8-provinces-2026) for the parallel company-monitoring numbers behind this same crackdown.",
+      "Nothing here changes what a compliant lease looks like. It does mean documentation discipline matters more than ever: a single registered term, no side letters implying disguised ownership, rent and any option terms genuinely negotiated rather than pre-agreed for decades, and independent legal advice before signing anything a broker describes as a workaround for the 49% ownership cap.",
+    ],
+    takeaways: [
+      "A 15 August 2026 raid — reported as the seventh phase of the ongoing nominee-network crackdown — reviewed all 12,906 companies registered on Koh Samui, opening 60 cases against 88 suspects and 14 arrests, tied to ฿1.2 billion in land and property.",
+      "On 16 August 2026, officials said the same enforcement push is now examining whether long-term leases, not just companies, are being used to give foreigners disguised, decades-long control of land — a new, still-emerging signal without a defined statute or test yet publicly named.",
+      "A single, cleanly registered 30-year lease plus a registered superficies — the standard structure recommended throughout this site — is not, on current reporting, the type of arrangement under scrutiny.",
+      "Stacked or serial '30+30+30' leases remain the clearest risk: separate from any nominee angle, their renewal periods are already void under the March 2025 Supreme Court ruling.",
+      "Koh Phangan shares Surat Thani provincial jurisdiction with Koh Samui, so enforcement reporting treats the two islands as one campaign area — documentation discipline on any lease matters more than ever.",
+    ],
+    sources: [
+      {
+        title: "Nation Thailand — Koh Samui nominee crackdown opens 60 cases linked to 1.2bn baht property",
+        url: "https://www.nationthailand.com/news/general/40069826",
+      },
+      {
+        title: "Bangkok Post — 60 illegal nominee firms found on Koh Samui",
+        url: "https://www.bangkokpost.com/thailand/general/3302225/60-illegal-nominee-firms-found-on-koh-samui",
+      },
+      {
+        title: "Thai Examiner — Drive against foreign owned property and business on Koh Samui and Koh Phangan now targets leases",
+        url: "https://www.thaiexaminer.com/thai-news-foreigners/2026/08/16/campaign-against-foreign-owned-property-and-business-on-koh-samui-and-koh-phangan-now-targets-leases/",
+      },
+      {
+        title: "Siam Legal International — Supreme Court Ruling on Long-Term Leases in Thailand",
+        url: "https://www.siam-legal.com/thailand-law/supreme-court-ruling-on-long-term-leases-in-thailand/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "Are long-term leases now being investigated as a nominee-ownership workaround in Thailand, like company structures are?",
+  },
+  {
+    slug: "d-value-check-official-appraised-value-online",
+    kbId: "kb-0102",
+    topic: "Documents",
+    title: "D-Value: how to check a Koh Phangan property's official government appraised value online",
+    short:
+      "Thailand's Treasury Department launched D-Value in June 2026 — a free service that issues a certified, e-signed copy of a plot or condo's official appraised value by email in about 10 minutes, with no title deed number required. Here's what the certificate actually proves, and where it fits in a Koh Phangan purchase, tax dispute or loan application.",
+    updated: "2026-08-22",
+    body: [
+      "Can you check a specific Koh Phangan plot's official government appraised value yourself, without a lawyer or a trip to the Land Office? Since June 2026, yes — the Treasury Department's D-Value service issues a certified digital copy of a property's appraisal account free of charge, verified by ThaiD or Paotang, delivered by email in around 10 minutes, available around the clock.",
+      { h: "What D-Value actually gives you" },
+      "D-Value is an extension of the Treasury Department's existing property valuation system, covering both land plots and condominium units nationwide. The output is an official, electronically signed certificate of the appraised value the government has on file for that specific parcel or unit — the same figure the Land Office uses as the tax base for transfer fees, mortgage registration and Specific Business Tax, and that the local administrator uses for annual Land and Building Tax. It is not an independent market valuation; it's a certified copy of the government's own record.",
+      { h: "How to access it" },
+      {
+        ul: [
+          "**Where**: the Treasury Department's e-Property Valuation portal (treasury.go.th) or the **TRD Property Valuation** mobile app, iOS and Android.",
+          "**Identity verification**: required through **ThaiD** or **Paotang**, Thailand's government digital-ID apps.",
+          "**Finding the parcel**: search by satellite map, place name, street or nearby landmark and select the parcel directly on the map — you don't need to already know the chanote or Nor Sor 3 Gor number, which matters if you're checking a plot before you've seen the paperwork.",
+          "**Cost and speed**: free, with the certified copy emailed in about 10 minutes.",
+        ],
+      },
+      { h: "Where it's actually useful on Koh Phangan" },
+      {
+        ul: [
+          "**Sanity-checking an asking price.** The appraised value is not the market price — Treasury appraisals typically run 20–40% below what land actually transacts for, a gap covered in [the 2027 valuation reform](/knowledge/land-appraisal-value-reform-2027-treasury-big-data) — but it's a real, official reference point to weigh a seller's number against before you commit to due diligence on a specific plot.",
+          "**Loan applications.** The certified copy is accepted as supporting documentation by three participating banks: Government Housing Bank (GHB), the Bank for Agriculture and Agricultural Cooperatives (BAAC) and Krungthai Bank. This matters far more for a freehold condo purchase than for a villa or land, since Thai mortgage lending to foreigners for land is effectively closed — see [Financing as a foreigner](/knowledge/financing-buying-as-a-foreigner).",
+          "**Disputing a Land and Building Tax bill.** If an assessment looks inflated, the formal appeal process asks you to compare the notice against the Treasury Department's valuation for the specific parcel — D-Value is now the fastest way to pull that figure yourself before filing. See [Disputing your Land and Building Tax bill](/knowledge/disputing-land-building-tax-assessment).",
+          "**Getting ahead of the 2027 revaluation.** The current 2023–2026 appraisal cycle ends this year; checking today's figure on D-Value gives you a documented baseline to compare against once the new 2027–2030 cycle is published.",
+        ],
+      },
+      "The certificate is a genuine time-saver over a Land Office visit, but treat the number it returns for what it is: the government's tax base, not a market appraisal. For an actual purchase, it belongs alongside — not instead of — a lawyer's title search and your own comparison of recent sale prices in the area.",
+    ],
+    takeaways: [
+      "D-Value, launched June 2026 by Thailand's Treasury Department, issues a free, certified, e-signed copy of a property's official appraised value by email in about 10 minutes, available 24/7.",
+      "No title deed or Nor Sor 3 Gor number is required — you can locate the parcel by satellite map, place name or landmark and select it directly.",
+      "Access is via the Treasury Department's e-Property Valuation portal or the TRD Property Valuation app, with identity verified through ThaiD or Paotang.",
+      "The certificate is accepted for loan applications at three banks (GHB, BAAC, Krungthai) and is useful evidence when disputing a Land and Building Tax assessment.",
+      "The appraised value is the base for transfer fees, mortgage registration, SBT/stamp duty and annual property tax — but it typically runs well below actual market price, so treat it as a reference point, not a valuation.",
+    ],
+    sources: [
+      { title: "Nation Thailand — D-Value makes land & condominium valuation certificates free online", url: "https://www.nationthailand.com/business/property/40067940" },
+      { title: "Thairath English — The Treasury Department Launches New D-Value Feature for Online Certified Copies of Property Appraisal Accounts", url: "https://en.thairath.co.th/news/governmentpolicy/2941706" },
+      { title: "Treasury Department of Thailand — e-Property Valuation (official portal)", url: "https://www.treasury.go.th/th/e-property-valuation/" },
+      { title: "The Standard — กรมธนารักษ์ เปิดใช้ D-Value ค้นหาราคาประเมินที่ดินออนไลน์ 24 ชั่วโมง รองรับยื่นกู้ผ่าน 'ธอส.-ธ.ก.ส.-กรุงไทย'", url: "https://thestandard.co/d-value-land-appraisal-online-loans/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion: "How can I check the official government appraised value of a specific plot or condo on Koh Phangan?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

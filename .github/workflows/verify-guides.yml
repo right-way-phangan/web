@@ -35,7 +35,7 @@ jobs:
     # Ceiling for 3 bounded session-limit retries (<=75 min each) + verification + overhead.
     timeout-minutes: 260
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
