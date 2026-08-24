@@ -29,7 +29,7 @@
     "jose": "^6.2.9",
     "leaflet": "^1.9.4",
     "leaflet.markercluster": "^1.5.3",
-    "lucide-react": "^0.460.0",
+    "lucide-react": "^1.33.0",
     "motion": "^12.40.0",
     "next": "^15.0.0",
     "pngjs": "^7.0.0",
