@@ -6673,6 +6673,110 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "documents",
     faqQuestion: "How can I check the official government appraised value of a specific plot or condo on Koh Phangan?",
   },
+  {
+    slug: "21-agency-anti-nominee-mou-2026",
+    kbId: "kb-0103",
+    topic: "Structures",
+    title: "The 21-agency anti-nominee pact: what Thailand's April 2026 data-sharing MOU changes for company-held property",
+    short:
+      "On 29 April 2026, 21 Thai government agencies — from the Department of Lands and DBD to AMLO, the Bank of Thailand, Immigration and the Revenue Department — signed a formal cooperation pact to share data and jointly pursue nominee arrangements. It's a step beyond the DBD-Land Department link already covered elsewhere: a standing, cross-ministry mechanism, not a two-agency handshake.",
+    updated: "2026-08-24",
+    body: [
+      "Does Thailand's nominee-shareholding crackdown now have a permanent, formal backbone connecting every agency that touches a property or company file? As of 29 April 2026, yes. Prime Minister Anutin Charnvirakul chaired the signing of a memorandum of understanding on cooperation to prevent and suppress the use of Thai nationals as nominees, held at the Santi Maitri Building, Government House — bringing together 21 government agencies under one data-sharing framework.",
+      { h: "Who signed, and what it actually does" },
+      "The named signatories span the full chain an owner or buyer interacts with: the Ministry of Interior, Ministry of Digital Economy and Society, Royal Thai Police, the Anti-Money Laundering Office (AMLO), the Bank of Thailand, the Board of Investment (BOI), the Internal Security Operations Command (ISOC), the Department of Business Development (DBD), the Revenue Department, the Customs Department, the Department of Special Investigation (DSI), the Department of Lands, the Department of Tourism and the Department of Employment, among others. The stated aims are to improve data sharing between agencies, establish joint monitoring mechanisms, tighten legal measures against so-called 'grey' businesses, and — officials said — bolster confidence among foreign investors operating legally in Thailand. Practically, it lets investigators trace the financial transactions and assets of a suspected operator across agency lines, rather than each agency working its own siloed file.",
+      { h: "How this differs from what's already in place" },
+      "This site already covers narrower, agency-pair mechanisms: the DBD's [source-of-funds orders](/knowledge/dbd-source-of-funds-orders-company-registration-2026) and their [2026 consolidation](/knowledge/dbd-order-2-2569-consolidated-rules-2026) for incorporating or amending a landholding company, the Land Department's [IBAS-driven audit of existing companies](/knowledge/land-department-audit-existing-landholding-companies-2026), and a DBD-Land Department data link plus a separate MOU with the Central Investigation Bureau referenced in that audit guide. The 29 April pact is a different scale of thing: a single, PM-chaired, whole-of-government framework spanning immigration, customs, central banking and tourism alongside the property and company regulators — meaning a flag anywhere in that chain (an unusual fund transfer, a visa pattern, a customs declaration, a land-title cross-check) can now feed a shared investigation rather than staying inside one agency's file.",
+      { h: "The number officials are citing: a 75% drop in high-risk filings" },
+      "In the run-up to the signing, the government reported that the number of newly registered companies flagged as 'high-risk' for nominee characteristics fell 75% — from 658 in 1–23 April 2025 to 175 in the same window of 2026. That comparison covers the weeks immediately before the MOU was formally signed, so it reflects the deterrent effect of the broader 2025–2026 enforcement build-up (IBAS screening, DBD source-of-funds orders, the [8-province monitoring framework](/knowledge/foreign-shareholder-monitoring-8-provinces-2026)) rather than a measured outcome of the pact itself — no post-signing figures have been published yet. Treat the 75% figure as evidence the crackdown climate is already changing how companies are registered, not as proof of what this specific MOU has achieved since April.",
+      { h: "What it means for a Phangan owner or buyer" },
+      {
+        ul: [
+          "**Cross-referral is now the default assumption, not the exception.** A company already flagged for one issue (a foreign-shareholding ratio, an unusual capital injection) is more likely to surface in a parallel check by a completely different agency — immigration status, tax filings, customs history — than before this pact existed.",
+          "**Documentation discipline matters at every touchpoint, not just at the Land Office.** Bank statements, visa applications, tax filings and company filings are no longer effectively siloed from each other; keep the story they tell consistent and genuine across all of them.",
+          "**If you hold or are buying into a 49/51 structure**, see [A Thai company for property: when it makes sense, when it's toxic](/knowledge/thai-company-for-property-49-51) for the narrow cases that still hold up, and [buying a villa already held by a Thai company](/knowledge/villa-held-by-thai-company-buyer-due-diligence-2026) for what to check before you buy into existing company-held inventory.",
+          "**None of the underlying law changed on 29 April.** The 49% foreign-ownership cap and the ban on nominee shareholding are unchanged; what changed is how quickly and completely different agencies can now compare notes on a single owner or company.",
+        ],
+      },
+      "The practical takeaway is not that any new prohibition exists — it's that the enforcement machinery behind existing rules just got a formal, government-wide data-sharing layer. A structure that was already compliant has nothing new to fear; a structure that relied on one agency not talking to another now has materially less room to do so.",
+    ],
+    takeaways: [
+      "On 29 April 2026, 21 Thai government agencies — including the Department of Lands, DBD, AMLO, Bank of Thailand, Immigration, Customs, Revenue Department and BOI — signed a PM-chaired MOU to share data and jointly investigate nominee arrangements.",
+      "The pact is broader than the DBD-Land Department link already covered in this site's audit guides: it's a single, whole-of-government framework spanning finance, immigration, customs and tourism, not a two-agency data feed.",
+      "Officials cited a 75% drop in newly registered 'high-risk' companies (658 in April 2025 to 175 in the same weeks of April 2026) — a figure from the run-up to signing, not a measured post-signing result.",
+      "The underlying law is unchanged: the 49% foreign-ownership cap and nominee-shareholding ban were already in force. What changed is investigators' ability to cross-reference a company or individual across agencies.",
+      "For any existing 49/51 company structure, documentation now needs to be consistent across bank records, tax filings, visa status and company filings — not just at the point of Land Office registration.",
+    ],
+    sources: [
+      { title: "The Online Citizen — Thailand cuts high-risk nominee firms by 75% ahead of 21-agency anti-fraud pact", url: "https://theonlinecitizen.com/2026/04/27/thailand-cuts-high-risk-nominee-firms-by-75-ahead-of-21-agency-anti-fraud-pact" },
+      { title: "Bangkok Post — 'High-risk' business registrations plunge", url: "https://www.bangkokpost.com/thailand/general/3248787/highrisk-business-registrations-plunge" },
+      { title: "Pattaya Mail — Thailand escalates legal crackdown with agency alliance targeting illegal 'nominee' structures", url: "https://www.pattayamail.com/latestnews/news/thailand-escalates-legal-crackdown-with-23-agency-alliance-targeting-illegal-nominee-structures-547867" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "What is Thailand's 21-agency anti-nominee MOU signed in April 2026, and does it change the rules for a 49/51 company structure?",
+  },
+  {
+    slug: "thb-3-million-investment-visa-non-immigrant-b-2026",
+    kbId: "kb-0104",
+    topic: "Ownership",
+    title: "The THB 3 million property investment visa: how the Non-Immigrant B route actually works in 2026",
+    short:
+      "Since 1 October 2025, a THB 3 million property purchase can convert into a renewable Non-Immigrant 'B' (Investment) stay under Immigration Orders 237/2568 and 238/2568 — a lower threshold than the LTR visa's $500,000 test. The first 12-month renewals are now processing in 2026, but which property structures actually qualify is stricter, and less settled, than most marketing copy suggests.",
+    updated: "2026-08-24",
+    body: [
+      "Can a THB 3 million property purchase in Thailand buy you a renewable, ownership-linked visa? Since 1 October 2025, yes — under a specific Non-Immigrant 'B' (Investment) pathway formalised by Immigration Bureau Orders 237/2568 and 238/2568. It's a narrower, lower-threshold alternative to the [LTR visa's $500,000 property route](/knowledge/ltr-visa-property-investment-route) — but exactly which property structures qualify is stricter, and less consistently reported, than most marketing copy suggests. This site's own visa overview already flagged the leasehold/rental sub-route as suspended as of mid-2026 (see [Visa and residency for property owners](/knowledge/visa-residency-property-owner-koh-phangan)); here's the deeper mechanics of the route that is confirmed working.",
+      { h: "The legal basis and the two-stage process" },
+      "Orders 237/2568 (visa issuance and in-country category changes) and 238/2568 (extensions of temporary stay), both effective 1 October 2025, set out a two-stage sequence. Stage 1: the qualifying investment converts into a 90-day permission to stay. Stage 2: before that 90 days expires, the applicant files for a 12-month extension of Non-Immigrant B status, renewable annually as long as the qualifying investment is maintained. The first 90-day permits were issued in March–April 2026, and applicants who came through that first cohort are now processing their first 12-month renewals in 2026 — the first real test of the route's renewal mechanics.",
+      { h: "What actually qualifies — read past the marketing" },
+      {
+        ul: [
+          "**Freehold condominium purchase, ≥฿3 million, registered directly in the applicant's own name** at the Land Department. This is the one route consistently confirmed as reliably operating across every source checked for this guide — and, for a Koh Phangan buyer, the constraint that matters most: the island's condo market is small, around 66 units across four projects in the Sri Thanu/Haad Yao corridor (see [Visa and residency for property owners](/knowledge/visa-residency-property-owner-koh-phangan)).",
+          "**Leasehold or Sap-Ing-Sith (right of use) routes are described by some law-firm sources as qualifying** — with prepaid consideration of ฿3 million or more — but reporting is inconsistent. This site's own June 2026 review found the leasehold/rental sub-route suspended pending regulatory revision, and even sources that describe a leasehold route as active flag 'uneven' acceptance at individual immigration offices. Until a lawyer confirms current office practice in writing for your specific case, don't assume a leasehold villa purchase alone will qualify.",
+          "**A separate rental-based sub-route (a long-term lease at ≥฿85,000/month with a Thai landlord)** has also appeared in reporting; as of this site's most recent check it was suspended alongside the leasehold route, not an active fallback.",
+        ],
+      },
+      { h: "The mandatory Ministry of Tourism and Sports certification" },
+      "Every application requires a certification or request letter from the Ministry of Tourism and Sports, obtained through an authorised operator before the Immigration filing. This letter confirms the applicant supports Thailand's long-stay tourism objectives and meets programme eligibility — without it, an application fails regardless of the property's value or how clean the fund transfer looks.",
+      { h: "Fees, and what the visa does not include" },
+      {
+        ul: [
+          "**Government extension fee**: approximately ฿1,900.",
+          "**Re-entry permit**: ฿1,000 (single) or ฿3,800 (multiple).",
+          "**Programme administration/certification costs**: reported around ฿27,000 per applicant per renewal cycle, on top of standard immigration fees.",
+          "**No work authorisation.** This is a stay permission, not a work permit — employment requires a separate work permit regardless of visa status.",
+          "**Not a path to permanent residency**, and status is tied to continued ownership: sell the qualifying property and the visa basis disappears. Buying the property and securing the visa are two separate legal decisions requiring separate filings, not a single package.",
+        ],
+      },
+      { h: "How it compares to the LTR visa" },
+      {
+        ul: [
+          "**Threshold**: ฿3 million here vs. $500,000 (part of a $1 million global-asset test) for the LTR's Wealthy Global Citizen category — a materially lower bar to clear.",
+          "**Term**: 1 year, renewed annually, vs. the LTR's 10 years across two 5-year terms.",
+          "**Reporting**: standard 90-day reporting continues under this route; LTR holders report annually instead.",
+          "**Work and tax perks**: this route grants none — no digital work permit, no reduced tax rate. The LTR includes an optional digital work permit and, for Thai-source employment income, a flat 17% rate.",
+          "**Property eligibility**: this route needs a freehold condo (reliably) in the applicant's own name; the LTR can also count Thai government bonds or direct equity toward its $500,000 test, giving buyers without condo access another route to the same underlying goal — long-term Thai residency.",
+        ],
+      },
+      "The practical takeaway: this is a genuine, working residency route for a foreign condo buyer, and materially cheaper to qualify for than the LTR — but it is not, on current reporting, a reliable route for the standard Phangan leasehold villa. If a broker or developer presents a leasehold or land purchase as an automatic path to this visa, get that claim confirmed in writing by an immigration lawyer before you rely on it, not after you've signed.",
+    ],
+    takeaways: [
+      "Since 1 October 2025 (Immigration Orders 237/2568 and 238/2568), a ฿3 million qualifying property investment converts into a 90-day stay, then a renewable 12-month Non-Immigrant B extension — with the first cohort's 12-month renewals now processing in 2026.",
+      "Freehold condominium purchase registered in the applicant's own name is the only route consistently confirmed as reliably operating; leasehold, Sap-Ing-Sith and rental sub-routes are inconsistently reported and, per this site's own June 2026 check, were suspended.",
+      "A Ministry of Tourism and Sports certification letter is mandatory for every application — without it, the filing fails regardless of the property's value.",
+      "Costs beyond the property itself include a ~฿1,900 extension fee, re-entry permit fees, and reported ~฿27,000 in programme/certification costs per renewal cycle; the visa carries no work rights and is not a path to permanent residency.",
+      "It's a materially lower threshold than the LTR visa's $500,000 test, but also a much thinner visa: 1-year renewable terms vs. 10 years, standard 90-day reporting vs. annual, and no work permit or tax-rate benefit.",
+    ],
+    sources: [
+      { title: "Thai-Residence.com — Thailand Investment Visa for 3 Million Baht: Facts, Myths, and What the Law Actually Says", url: "https://thai-residence.com/en/info-guide/visa-thailand-3-million-baht" },
+      { title: "AIM Bangkok — 3M Property Visa Thailand (2026): Confirmed Rules & Process", url: "https://aimbangkok.com/thailand-3-million-baht-investment-visa/" },
+      { title: "Thai Law Online — New 3 Million Baht Property Investment Visa in Thailand", url: "https://www.thailawonline.com/new-3-million-baht-property-investment-visa-in-thailand/" },
+      { title: "Formichella & Sritawat — Thailand's 3 Million Baht Investment Visa: A Potential Long-Term Stay Pathway", url: "https://fosrlaw.com/2026/thailand-3-million-baht-investment-visa/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "ownership",
+    faqQuestion: "How does Thailand's THB 3 million property investment visa actually work, and does it cover a Koh Phangan leasehold villa?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

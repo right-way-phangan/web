@@ -1,68 +1,64 @@
-# Last run — 2026-08-22
+# Last run — 2026-08-24
 
-**Guides published:** 1 (of 2 targeted)
+**Guides published:** 2 (of 2 targeted)
 
-Every remaining `⏳` backlog row already carried a prior-run note explaining why it
-duplicates a published guide or isn't safe to publish (kb-0009/kb-0010/kb-0014/kb-0026/
-kb-0084 overlaps, and the stalled FBA/AMLO predicate-offence proposal). This run re-checked
-every one of them against live sources dated as recently as today, plus a broad fresh-news
-sweep (nationthailand.com property section, Thai Examiner, Bangkok Post, and targeted
-searches on visas, mortgages, condo quota, SEZ/BOI zones, schools/hospitals, digital land
-services) covering 2026-08-19 through 2026-08-22. No new-since-last-run story emerged, and
-every stuck `⏳` row is confirmed still duplicate/unsafe (see dated 2026-08-22 notes added
-inline in backlog.md). One genuinely distinct, well-sourced, non-duplicate topic was found —
-published below. Per the hard quality gate, the second slot was left unfilled rather than
-padded with a near-duplicate.
+Picked the top two undone 🔴 news-tier rows from `content-pipeline/backlog.md` section A
+(both discovered 2026-08-23, both untouched by any prior skip note), confirmed neither slug
+already existed in `src/content/knowledge-base.ts`, and grounded each against multiple
+independent live sources before writing.
 
 ---
 
 ## Guide 1
 
-- **slug:** `d-value-check-official-appraised-value-online`
-- **kbId:** `kb-0102`
-- **title (EN):** D-Value: how to check a Koh Phangan property's official government appraised value online
-- **title (RU):** D-Value: как онлайн проверить официальную государственную оценочную стоимость недвижимости на Ко Пангане
-- **faqCategory:** `documents`
-- **faqQuestion:** How can I check the official government appraised value of a specific plot or condo on Koh Phangan?
+- **slug:** `21-agency-anti-nominee-mou-2026`
+- **kbId:** `kb-0103`
+- **title (EN):** The 21-agency anti-nominee pact: what Thailand's April 2026 data-sharing MOU changes for company-held property
+- **title (RU):** Пакт 21 ведомства против номинального владения: что меняет апрельское соглашение об обмене данными 2026 года для недвижимости через компанию
+- **faqCategory:** `structures`
+- **faqQuestion:** What is Thailand's 21-agency anti-nominee MOU signed in April 2026, and does it change the rules for a 49/51 company structure?
 - **Sources used:**
-  - Nation Thailand — "D-Value makes land & condominium valuation certificates free online" (27 Jun 2026, verified via direct fetch) — the launch details: free, certified, e-signed, ~10-minute email delivery, accepted by GHB/BAAC/Krungthai
-  - Thairath English — "The Treasury Department Launches New D-Value Feature for Online Certified Copies of Property Appraisal Accounts" — corroborating the launch
-  - Treasury Department of Thailand (treasury.go.th) — official e-Property Valuation portal, primary source for the access channel
-  - The Standard (Thai-language) — confirmed the satellite-map search feature that lets a user locate a parcel without already knowing its chanote or Nor Sor 3 Gor number
+  - The Online Citizen — "Thailand cuts high-risk nominee firms by 75% ahead of 21-agency anti-fraud pact" (27 Apr 2026) — signing date, 21 agencies, PM Anutin chairing, Santi Maitri Building venue, the 75% (658→175) statistic
+  - Bangkok Post — "'High-risk' business registrations plunge" — independent corroboration of the same statistic (headline/byline confirmed via search; full-text fetch was blocked by a paywall redirect, so only the corroborating headline was relied on, not quoted content)
+  - Pattaya Mail — "Thailand escalates legal crackdown with agency alliance targeting illegal 'nominee' structures" (verified via direct fetch, 8 May 2026) — the operational mechanism: corporate/land-registry data sync, immigration-visa cross-checking, financial-intelligence tracing; named DBD/DOL/Immigration/Revenue/AMLO as signatories, corroborating the agency list
 
-D-Value had only ever appeared as a single bullet inside the already-published kb-0089
-(2027 valuation-reform forecast); it had never been given its own how-to treatment. This
-guide is the dedicated companion piece: exactly how to access it, why "no deed number
-needed" matters for a buyer checking a plot before seeing paperwork, which three banks
-accept the certificate, and how it plugs into two other published guides (financing as a
-foreigner, disputing a Land and Building Tax assessment). Backlog row added fresh to
-section A (news wasn't a pre-existing row) and marked ✅.
+This is a genuinely distinct escalation, not a rehash of the DBD-Land Department link already
+covered in kb-0051 (land-department-audit-existing-landholding-companies-2026): the April pact
+is a single, PM-chaired, 21-agency framework spanning immigration, customs, central banking and
+tourism, not a two-agency data feed. The 75% drop-in-filings statistic is presented carefully as
+a pre-signing deterrence indicator (the comparison window is 1–23 April, before the 29 April
+signing), not a measured post-MOU result, since no post-signing figures could be found.
 
-## Not published this run (second slot)
+## Guide 2
 
-Deliberately left at 1 guide rather than 2. Candidates considered and rejected:
+- **slug:** `thb-3-million-investment-visa-non-immigrant-b-2026`
+- **kbId:** `kb-0104`
+- **title (EN):** The THB 3 million property investment visa: how the Non-Immigrant B route actually works in 2026
+- **title (RU):** Инвестиционная виза за ฿3 миллиона: как на самом деле работает путь Non-Immigrant B в 2026 году
+- **faqCategory:** `ownership`
+- **faqQuestion:** How does Thailand's THB 3 million property investment visa actually work, and does it cover a Koh Phangan leasehold villa?
+- **Sources used:**
+  - Thai-Residence.com — "Thailand Investment Visa for 3 Million Baht: Facts, Myths, and What the Law Actually Says" — facts-vs-marketing framing, Orders 237/2568 & 238/2568, two-stage process, fee breakdown, LTR comparison
+  - AIM Bangkok — "3M Property Visa Thailand (2026): Confirmed Rules & Process" — freehold-condo-only framing and process detail
+  - Thai Law Online — "New 3 Million Baht Property Investment Visa in Thailand" — legal basis, two-stage process detail, Ministry of Tourism certification requirement
+  - Formichella & Sritawat (fosrlaw.com) — "Thailand's 3 Million Baht Investment Visa: A Potential Long-Term Stay Pathway" — regulatory-uncertainty framing on non-condo routes
 
-- **Realistic villa rental yields** — even with a fresh Savills/Nation Thailand H1-2026 data
-  point (10-13% net for Phangan leasehold villas), still the same nightly-rate × occupancy −
-  costs methodology already in kb-0010. Still `⏳`.
-- **Koh Phangan's power grid reliability** — no new primary source beyond kb-0026. Still `⏳`.
-- **Who's actually buying on Phangan in 2026** — a newer Savills dataset (Israeli visitor
-  arrivals 70k→200k+, 800 H1-2026 villa units) still tells the same "who's buying and why"
-  story already in kb-0014. Still `⏳`.
-- **Stamp Duty vs Specific Business Tax** — no distinct angle beyond kb-0084. Still `⏳`.
-- **Vetting a specific off-plan project** — the only way to make this genuinely distinct from
-  kb-0009 is to name and vet one real, currently-selling project. Available sourcing
-  (developer marketing pages, listing-site copy) isn't primary/verifiable enough to
-  responsibly assert a specific project's escrow or licensing status either way — publishing
-  would read as either an unearned endorsement or an unverified accusation. Declined; left
-  `⏳` for a future run backed by actual lawyer-verified due diligence on a real transaction.
-- A dedicated news sweep (99-year leasehold bill status, 75% condo-quota SEZ proposal, FBA/
-  AMLO predicate-offence status, mortgage/LTV specifics, condo juristic-person amendments,
-  Southern Economic Corridor/BOI incentives, Koh Phangan schools/hospitals, the 16 Aug Koh
-  Samui "Phase 7" lease-scrutiny raid) turned up nothing both fresh-since-2026-08-19 and not
-  already covered by a published guide — several (the Phase 7 raid, the 75% quota proposal,
-  the 99-year lease bill) are the exact same underlying stories already in kb-0101, kb-0054,
-  and existing leasehold guides respectively.
+Distinct from the already-published kb-0028 (visa-residency-property-owner-koh-phangan), which
+covers this visa in two summary paragraphs inside a broader 4-option visa overview. This guide
+is the dedicated deep-dive: specific order numbers, the exact two-stage process and 2026
+renewal milestone, the mandatory Ministry of Tourism certification step, a full fee breakdown,
+and a structured LTR comparison — none of which kb-0028 covers.
 
-`npx tsc --noEmit` passes clean on both content files. kbId sequence continues at kb-0102
-(prior max was kb-0101).
+Sourcing on which property structures qualify (freehold condo only vs. freehold + leasehold +
+Sap-Ing-Sith) was genuinely inconsistent across the law-firm/marketing sources checked, and a
+WebSearch-synthesized claim that a leasehold "pause" had been "lifted" could not be verified
+against a direct fetch of its origin page (aimbangkok.com returned empty content twice on
+direct WebFetch). Per the conservative-legal-claims rule, the guide does not assert the pause
+was lifted — it states freehold condo as the only reliably-confirmed route and explicitly flags
+leasehold/Sap-Ing-Sith/rental sub-routes as inconsistently reported, consistent with this site's
+own kb-0028 (June 2026), which stated the leasehold/rental route was suspended.
+
+---
+
+`npx tsc --noEmit` passes clean on both content files. kbId sequence continues at kb-0105
+(this run used kb-0103 and kb-0104; prior max was kb-0102).
