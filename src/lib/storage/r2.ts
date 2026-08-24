@@ -135,11 +135,45 @@ export async function uploadImageToR2(file: File, folder = "objects"): Promise<s
   const { body, contentType, ext } = await compressForWeb(raw, file.type);
   const name = ext ? safeName.replace(/\.[^.]+$/, "") + ext : safeName;
   const key = `${folder}/${Date.now()}-${rand}-${name}`;
-  return r2PutObject(key, body, contentType);
+  const url = await r2PutObject(key, body, contentType);
+  await putThumb(key, raw);
+  return url;
 }
 
 /** Длинная сторона фото каталога — тот же предел, что задала миграция на R2. */
 const MAX_IMAGE_SIDE = 2000;
+
+/**
+ * Длинная сторона превью для карточек каталога.
+ *
+ * Карточка на сетке занимает ~400px, но получала полноразмерный файл: у нас
+ * `images.unoptimized` (квота оптимизатора Hobby выжжена), а без оптимизатора
+ * Next игнорирует `sizes` и не собирает srcset. Lighthouse 2026-08-24 намерил
+ * на /listings LCP 19 с при 785/692/681 КБ на обложку. 800px WebP q80 весит
+ * ~106 КБ — те же 785 КБ ужимаются в семь раз.
+ */
+const THUMB_SIDE = 800;
+
+/** Ключ превью для ключа оригинала: `objects/x.jpg` → `thumbs/objects/x.jpg.webp`. */
+export const thumbKey = (key: string) => `thumbs/${key}.webp`;
+
+/**
+ * Кладёт рядом с оригиналом превью под `thumbs/`. Провал не роняет заливку:
+ * без превью карточка просто откатится на полноразмерное фото (см. ObjectCard).
+ */
+async function putThumb(key: string, raw: Uint8Array): Promise<void> {
+  try {
+    const sharp = (await import("sharp")).default;
+    const out = await sharp(raw)
+      .rotate()
+      .resize({ width: THUMB_SIDE, height: THUMB_SIDE, fit: "inside", withoutEnlargement: true })
+      .webp({ quality: 80 })
+      .toBuffer();
+    await r2PutObject(thumbKey(key), new Uint8Array(out), "image/webp");
+  } catch {
+    // sharp недоступен локально (его даёт рантайм Vercel) — на проде превью будет.
+  }
+}
 
 /**
  * Приводит загружаемое фото к весу каталога (≤2000px, JPEG q85).

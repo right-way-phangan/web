@@ -1,0 +1,27 @@
+name: CI
+
+# Быстрые гейты качества на каждый PR: типы + юнит-тесты (vitest). Полную
+# сборку проверяет Vercel-preview, поэтому здесь только tsc + тесты — секунды.
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Unit tests
+        run: npm run test

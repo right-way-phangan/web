@@ -17,6 +17,14 @@ on:
     # of a burnt-out window → repeated "session limit exhausted" failures (see memory).
     # The session-limit retry below still backstops any residual overlap.
     - cron: "41 16 * * *" # 16:41 UTC → fires ~03:00–05:00 Asia/Bangkok (after GH ~4–5h delay)
+    # Второй заход через ~8 ч. Три ретрая по 75 мин (≈3.75 ч суммарно) не
+    # дотягивали до сброса окна: 11 из 30 прогонов за месяц умерли на
+    # «session limit», и все три попытки в них уходили в потолок ожидания.
+    # Ждать дольше в одном прогоне уже пробовали — на непрерывной нагрузке
+    # время сброса уползает вперёд и рейс держит раннер часами впустую.
+    # Дешевле прийти ещё раз позже: шаг ниже сам выходит, если сегодня уже
+    # публиковали, поэтому удачный первый заход не даёт двойную порцию.
+    - cron: "41 0 * * *" # 00:41 UTC → ~11:00–13:00 Asia/Bangkok
   workflow_dispatch:
     inputs:
       count:
@@ -52,7 +60,23 @@ jobs:
       # forget: the dispatched scout refills for upcoming runs; today authors from what's
       # already queued. (workflow_dispatch is the documented exception to GITHUB_TOKEN's
       # no-recursion rule, so this dispatch does start a real run.)
+      # Второй ежедневный заход существует только чтобы подобрать день, в
+      # который окно Max было занято. Если утренний рейс уже опубликовал —
+      # выходим сразу, не тратя ни токенов, ни раннера.
+      - name: Skip if today's guides already published
+        id: already
+        run: |
+          today="$(date -u +%F)"
+          if grep -q "Last run — ${today}" content-pipeline/last-run.md 2>/dev/null \
+             && grep -qE "Guides published:[^0-9]*[1-9]" content-pipeline/last-run.md; then
+            echo "Сегодня (${today}) статьи уже вышли — второй заход не нужен."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Refill backlog if running low (closes the loop)
+        if: steps.already.outputs.skip != 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -69,17 +93,21 @@ jobs:
           fi
 
       - uses: actions/setup-node@v7
+        if: steps.already.outputs.skip != 'true'
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - name: Install dependencies
+        if: steps.already.outputs.skip != 'true'
         run: npm ci
 
       - name: Install Claude Code
+        if: steps.already.outputs.skip != 'true'
         run: npm i -g @anthropic-ai/claude-code
 
       - name: Author guides (headless Claude)
+        if: steps.already.outputs.skip != 'true'
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           GUIDE_COUNT: ${{ github.event.inputs.count || '2' }}
@@ -169,9 +197,11 @@ jobs:
           fi
 
       - name: Type-check gate
+        if: steps.already.outputs.skip != 'true'
         run: npx tsc --noEmit
 
       - name: Commit & push if changed
+        if: steps.already.outputs.skip != 'true'
         id: commit
         run: |
           git config user.name "github-actions[bot]"
@@ -205,7 +235,7 @@ jobs:
           exit 1
 
       - name: Notify Telegram — guides ready
-        if: steps.commit.outputs.committed == 'true'
+        if: steps.already.outputs.skip != 'true' && steps.commit.outputs.committed == 'true'
         env:
           TG_TOKEN: ${{ secrets.TELEGRAM_NOTIFY_BOT_TOKEN }}
           TG_CHAT: ${{ secrets.TELEGRAM_NOTIFY_CHAT_ID }}
@@ -227,7 +257,7 @@ jobs:
         # guides just stopped. Ping the same chat the success message uses.
         # cancelled() too: a job-timeout cancel (retries never won the window) is a
         # failure from our side but reports as `cancelled`, which failure() misses.
-        if: failure() || cancelled()
+        if: steps.already.outputs.skip != 'true' && (failure() || cancelled())
         env:
           TG_TOKEN: ${{ secrets.TELEGRAM_NOTIFY_BOT_TOKEN }}
           TG_CHAT: ${{ secrets.TELEGRAM_NOTIFY_CHAT_ID }}
@@ -240,7 +270,7 @@ jobs:
             >/dev/null || true
 
       - name: Upload run log
-        if: always()
+        if: always() && steps.already.outputs.skip != 'true'
         uses: actions/upload-artifact@v4
         with:
           name: claude-run-log

@@ -19,6 +19,7 @@ import {
 import type { RealEstateObject, ObjectType } from "@/types/object";
 import type { BuildBadge } from "@/lib/data/build-envelope";
 import { BLUR_PLACEHOLDER } from "@/lib/utils/blur";
+import { thumbFromProxiedUrl } from "@/lib/storage/r2-public";
 import { useLocale, localeHref } from "@/lib/i18n/use-locale";
 import { getListingsDict, type ListingsDict } from "@/lib/i18n/dictionaries";
 import { escalatedLeaseTotalThb } from "@/lib/objects/lease-format";
@@ -26,13 +27,17 @@ import { zoneCategory, buildWarnLabels } from "@/lib/data/zone-rules";
 import { SaveButton } from "./save-button";
 import { MagicCard } from "@/components/ui/magic-card";
 import { useCurrency } from "@/components/ui/currency";
+import { parseListingDate } from "@/lib/utils/listing-date";
 
 const NEW_BADGE_DAYS = 14;
 
 function isFreshListing(dateAdded?: string): boolean {
   if (!dateAdded) return false;
-  const added = Date.parse(dateAdded);
-  if (Number.isNaN(added)) return false;
+  // dateAdded — строка Unix-секунд, Date.parse её не читает и всегда давал
+  // NaN: бейдж не загорался ни на одном объекте. Разбор — общей утилитой,
+  // нераспознанное значение (эпоха 0) считаем несвежим.
+  const added = parseListingDate(dateAdded, new Date(0)).getTime();
+  if (added === 0) return false;
   return Date.now() - added < NEW_BADGE_DAYS * 24 * 60 * 60 * 1000;
 }
 
@@ -92,6 +97,13 @@ export function ObjectCard({ object, priority = false, priceMode = "buy", buildB
   // and memory project_image_optimization_limit.
   const [coverFailed, setCoverFailed] = useState(false);
   const showCover = Boolean(object.coverImage) && !coverFailed;
+  // Сначала пробуем превью 800px (см. thumbFromProxiedUrl): карточке хватает
+  // ~400px, а полный файл весит до 785 КБ. У фото, залитых до появления
+  // превью, его в бакете нет — первая же 404 переводит карточку на оригинал,
+  // и только его провал уводит в градиент.
+  const [thumbFailed, setThumbFailed] = useState(false);
+  const thumb = object.coverImage ? thumbFromProxiedUrl(object.coverImage) : null;
+  const coverSrc = thumb && !thumbFailed ? thumb : object.coverImage!;
   const locale = useLocale();
   const t = getListingsDict(locale);
   const { fmt } = useCurrency();
@@ -157,14 +169,14 @@ export function ObjectCard({ object, priority = false, priceMode = "buy", buildB
           // зум при наведении — на самом <img>, чтобы трансформации не конфликтовали.
           <div className="cover-parallax absolute -inset-[8%]">
             <Image
-              src={object.coverImage!}
+              src={coverSrc}
               alt={object.titleEn}
               fill
               sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
               placeholder="blur"
               blurDataURL={BLUR_PLACEHOLDER}
               priority={priority}
-              onError={() => setCoverFailed(true)}
+              onError={() => (thumb && !thumbFailed ? setThumbFailed(true) : setCoverFailed(true))}
               className="object-cover transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:duration-700 group-hover:scale-[1.08] motion-reduce:group-hover:scale-100"
             />
           </div>
