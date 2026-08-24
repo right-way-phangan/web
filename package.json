@@ -2,6 +2,9 @@
   "name": "right-way-web",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "node scripts/build-guide-changelog.mjs && next build",
