@@ -2,7 +2,7 @@
 
 // Поля ввода калькулятора: слайдеры, деньги, выбор юнитов (вынесено из roi-calculator.tsx, 2026-07-04).
 
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { Check } from "lucide-react";
 import { formatMoney, type Currency } from "@/lib/calculator/currency";
 import type { CalcDict } from "@/lib/i18n/calculator";
@@ -33,12 +33,19 @@ export function SliderField({
   small?: boolean;
 }) {
   const clamp = (v: number) => Math.min(max, Math.max(min, v));
+  const fieldId = useId();
   return (
     <div>
       <div className="flex items-baseline justify-between gap-2">
-        <label className={small ? "text-xs text-forest-500/70" : "text-sm text-forest-500/70"}>{label}</label>
+        <label
+          htmlFor={fieldId}
+          className={small ? "text-xs text-forest-500/70" : "text-sm text-forest-500/70"}
+        >
+          {label}
+        </label>
         <div className="flex items-baseline gap-1">
           <input
+            id={fieldId}
             type="number"
             value={Number.isFinite(value) ? value : ""}
             step={step}
@@ -254,13 +261,20 @@ export function MoneyField({
     onChangeThb(currency === "THB" ? v : v / fx);
   };
 
+  const fieldId = useId();
   return (
     <div>
       <div className="flex items-baseline justify-between">
-        <label className={small ? "text-xs text-forest-500/70" : "text-sm text-forest-500/70"}>{label}</label>
+        <label
+          htmlFor={fieldId}
+          className={small ? "text-xs text-forest-500/70" : "text-sm text-forest-500/70"}
+        >
+          {label}
+        </label>
         {hint ? <span className="text-xs font-medium text-forest-900">{hint}</span> : null}
       </div>
       <input
+        id={fieldId}
         type="text"
         inputMode="numeric"
         value={text}

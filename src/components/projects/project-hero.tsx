@@ -57,7 +57,7 @@ export function ProjectHero({ project, availability, locale, developerHref }: Pr
 
         <h1 className="mt-4 text-balance">{project.titleEn}</h1>
 
-        <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-forest-500/70">
+        <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-forest-500/80">
           {project.developer ? (
             developerHref ? (
               <Link

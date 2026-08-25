@@ -83,7 +83,13 @@ export default async function RussianListingsPage({ searchParams }: PageProps) {
           briefMessage={summarizeForBrief(filter, q)}
         />
       ) : (
-        <ListingsSplit objects={sorted} mode={filter.mode} badges={badges} />
+        <>
+          {/* h1 → h3 карточек рвал иерархию заголовков (Lighthouse
+              heading-order): между ними не было h2. Секция результатов
+              называется для скринридеров, на вид страница не меняется. */}
+          <h2 className="sr-only">Каталог объектов</h2>
+          <ListingsSplit objects={sorted} mode={filter.mode} badges={badges} />
+        </>
       )}
 
       <RecentlyViewed catalog={all} />

@@ -16,6 +16,7 @@ import type { ObjectType } from "@/types/object";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { getObjectDict } from "@/lib/i18n/dictionaries";
 import { BLUR_PLACEHOLDER } from "@/lib/utils/blur";
+import { thumbFromProxiedUrl } from "@/lib/storage/r2-public";
 import { cn } from "@/lib/utils/cn";
 import { trackObjectEvent } from "@/lib/analytics/track-event";
 
@@ -54,6 +55,7 @@ function SafeImage({
   priority,
   draggable,
   iconClassName = "h-10 w-10",
+  preferThumb = false,
 }: {
   src: string;
   alt: string;
@@ -65,8 +67,20 @@ function SafeImage({
   priority?: boolean;
   draggable?: boolean;
   iconClassName?: string;
+  /**
+   * Взять превью 800px вместо полноразмерного кадра. Ставим там, где картинка
+   * рисуется мелко — лента миниатюр, сетка, карусель: без оптимизатора Next
+   * (`images.unoptimized`) srcset не собирается, и в плитку 80px иначе летит
+   * файл 2000px. В лайтбоксе НЕ ставим: там кадр во весь экран и зумится.
+   */
+  preferThumb?: boolean;
 }) {
   const [failed, setFailed] = useState(false);
+  // У фото, залитых до появления превью, его в бакете нет — первая 404
+  // переводит на оригинал, и только его провал уводит в градиент.
+  const [thumbFailed, setThumbFailed] = useState(false);
+  const thumb = preferThumb ? thumbFromProxiedUrl(src) : null;
+  const useThumb = Boolean(thumb) && !thumbFailed;
   if (failed) {
     return (
       <div
@@ -82,7 +96,7 @@ function SafeImage({
   }
   return (
     <Image
-      src={src}
+      src={useThumb ? thumb! : src}
       alt={alt}
       fill
       priority={priority}
@@ -91,7 +105,7 @@ function SafeImage({
       blurDataURL={BLUR_PLACEHOLDER}
       className={className}
       draggable={draggable}
-      onError={() => setFailed(true)}
+      onError={() => (useThumb ? setThumbFailed(true) : setFailed(true))}
     />
   );
 }
@@ -392,6 +406,7 @@ export function ObjectGallery({ rwNumber, type, gallery, title }: Props) {
                 icon={Icon}
                 priority={i === 0}
                 sizes="100vw"
+                preferThumb
                 className="object-cover"
               />
             </button>
@@ -446,6 +461,7 @@ export function ObjectGallery({ rwNumber, type, gallery, title }: Props) {
             priority
             iconClassName="h-24 w-24"
             sizes="(min-width: 768px) 50vw, 100vw"
+            preferThumb
             className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
           />
           <span className="absolute inset-0 bg-forest-900/0 transition-colors duration-300 group-hover:bg-forest-900/10" />
@@ -470,6 +486,7 @@ export function ObjectGallery({ rwNumber, type, gallery, title }: Props) {
                 hueOffset={photoIndex * 60}
                 icon={Icon}
                 sizes="25vw"
+                preferThumb
                 className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
               />
               <span className="absolute inset-0 bg-forest-900/0 transition-colors duration-300 group-hover:bg-forest-900/10" />
@@ -616,6 +633,7 @@ export function ObjectGallery({ rwNumber, type, gallery, title }: Props) {
                       icon={Icon}
                       iconClassName="h-5 w-5"
                       sizes="80px"
+                      preferThumb
                       className="object-cover"
                     />
                   </button>
