@@ -1,11 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import type { Route } from "next";
 import { Building2, MapPin, CalendarClock } from "lucide-react";
 import type { RealEstateObject } from "@/types/object";
 import type { ProjectAvailability } from "@/lib/data/projects";
+import { thumbFromProxiedUrl } from "@/lib/storage/r2-public";
 import { formatPriceCompact } from "@/lib/utils/price";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { getProjectsDict } from "@/lib/i18n/dictionaries";
@@ -34,6 +36,13 @@ export function ProjectCard({ project, href, availability, showDeveloper = true 
   const h = hue(project.rwNumber);
   const { total, available } = availability;
 
+  // Карточка рисуется в треть ширины, а обложка проекта весит до 800 КБ:
+  // без оптимизатора Next srcset не собирается. Берём превью 800px, при
+  // его отсутствии откатываемся на оригинал (см. ObjectCard).
+  const [thumbFailed, setThumbFailed] = useState(false);
+  const thumb = project.coverImage ? thumbFromProxiedUrl(project.coverImage) : null;
+  const coverSrc = thumb && !thumbFailed ? thumb : project.coverImage;
+
   return (
     <Link
       href={href as Route}
@@ -51,9 +60,10 @@ export function ProjectCard({ project, href, availability, showDeveloper = true 
       >
         {project.coverImage ? (
           <Image
-            src={project.coverImage}
+            src={coverSrc!}
             alt={project.titleEn}
             fill
+            onError={() => thumb && !thumbFailed && setThumbFailed(true)}
             sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
             className="object-cover transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:duration-700 group-hover:scale-[1.08] motion-reduce:group-hover:scale-100"
           />
