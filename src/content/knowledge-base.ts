@@ -6777,6 +6777,92 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "ownership",
     faqQuestion: "How does Thailand's THB 3 million property investment visa actually work, and does it cover a Koh Phangan leasehold villa?",
   },
+  {
+    slug: "boi-promoted-company-land-ownership-2026",
+    kbId: "kb-0105",
+    topic: "Structures",
+    title: "BOI-promoted land ownership in 2026: the e-Land rules for offices and worker housing under Notification Por. 9/2568",
+    short:
+      "A foreign-majority company holding Board of Investment promotion can own land for its own office and for operational-level worker housing — but not for guest rooms, villas or any other part of a resort's paying business. Notification Por. 9/2568, effective for applications since 18 July 2025 and gazetted 6 January 2026, moved the whole process online through BOI's e-Land system and tightened what counts as qualifying worker housing.",
+    updated: "2026-08-25",
+    body: [
+      "Can a foreign-owned hotel or resort company that holds BOI investment promotion actually own the land it operates on? Only for a narrow slice of it — its own office and its operational-level staff housing, not the guest-facing part of the business. That land-ownership right runs through Section 27 of the Investment Promotion Act and a stack of BOI notifications, and the newest layer, Notification Por. 9/2568, digitised the application process and tightened the worker-housing rules from 2026 onward.",
+      { h: "The legal basis: a two-notification stack" },
+      "BOI Notification No. 16/2567 (issued 1 November 2024, gazetted 9 December 2024) is the base rule: a foreign juristic person holding BOI promotion, with paid-up registered capital of at least ฿50 million, may own land for an office of up to 5 rai (~8,000 m²) and for operational-level worker housing of up to 20 rai (~32,000 m²), whether on the same site as the promoted business or a separate plot. A subordinate notification, Por. 8/2567 (4 November 2024), set out the specific conditions for the worker-housing allowance.",
+      { h: "What Por. 9/2568 changed" },
+      "Notification Por. 9/2568 was issued 18 July 2025 and gazetted 6 January 2026, applying to applications submitted from its issue date onward. Two things changed. First, applications now go through BOI's e-Land system rather than a paper filing — submit documents online, and if BOI flags something incomplete, the applicant has 7 business days to correct or supplement it before the file is automatically rejected. Second, the definition of qualifying worker housing tightened: it must be a purpose-built structure exclusively for operational-level (unskilled) workers, not a condominium unit, a detached house, a shophouse, or part of a land-subdivision project. If the housing sits on a separate plot from the main business, it must be within roughly 10 km of the operational site along a public road, with room capacity sized to the actual workforce and standard facilities such as parking, a first-aid room and a kitchen.",
+      { h: "What this route does not cover" },
+      {
+        ul: [
+          "**No guest accommodation.** Rooms, villas or any structure a resort or hotel rents to paying guests fall outside this land-ownership allowance entirely — it exists for the company's own operational footprint, not its revenue-generating assets.",
+          "**No personal residence for the owner or investors.** The allowance is for the promoted company's operational-level worker housing, not a home for a director, shareholder or their family.",
+          "**Not a route to personal land ownership for a foreign individual.** This right belongs to the BOI-promoted juristic person, not to a person — it disappears if the promotion status lapses or the company is dissolved, and it doesn't substitute for the routes covered in [A Thai company for property (49/51)](/knowledge/thai-company-for-property-49-51) or [The ฿40 million investment route](/knowledge/thb-40-million-investment-land-ownership-route), which solve a different problem.",
+        ],
+      },
+      { h: "Who this actually matters to on Phangan" },
+      "This is a narrow, business-linked provision, not a general property-buying tool. It matters mainly to a foreign investor who already holds — or is applying for — BOI promotion for a qualifying hospitality or tourism-related business (a category some resort and hotel developments fall into) and wants to own, rather than lease, the land under the company's back-of-house office and staff quarters. For everyone else — anyone buying a villa or land for their own use, or structuring a rental business — this notification is not the relevant mechanism; see [Buying a villa held by a Thai company](/knowledge/villa-held-by-thai-company-buyer-due-diligence-2026) and [Short-term rental crackdown](/knowledge/short-term-rental-airbnb-crackdown-2026) for the rules that actually govern most Phangan resort and rental operations.",
+      "The takeaway: BOI-promoted land ownership got easier to file for in 2026 but stricter in what qualifies as worker housing. If you hold or are pursuing BOI promotion for a Phangan hospitality business, budget for the ฿50 million capital floor and the e-Land process — but don't mistake this narrow office-and-staff-housing allowance for a way to own the land under your guest rooms.",
+    ],
+    takeaways: [
+      "BOI Notification 16/2567 (Nov 2024) lets a BOI-promoted foreign company with ≥฿50m paid-up capital own up to 5 rai for an office and 20 rai for operational-level worker housing.",
+      "Notification Por. 9/2568 (issued 18 Jul 2025, gazetted 6 Jan 2026) moved applications onto BOI's online e-Land system, with a 7-business-day window to fix incomplete filings before automatic rejection.",
+      "Worker housing must now be purpose-built for unskilled operational staff only — no condo units, detached houses, shophouses or subdivision plots — and, if off-site, within roughly 10 km of the operational site.",
+      "This right belongs to the promoted company, not an individual, and covers only offices and staff housing — never guest rooms, villas or other revenue-generating parts of a resort.",
+      "It's not a substitute for the 49/51 company structure or the ฿40 million investment route, which address a foreigner's own land ownership rather than a promoted company's operational footprint.",
+    ],
+    sources: [
+      { title: "Tilleke & Gibbins — Thailand Revises Foreign Land Ownership Regulations for BOI-Promoted Companies", url: "https://www.tilleke.com/insights/thailand-revises-foreign-land-ownership-regulations-for-boi-promoted-companies/" },
+      { title: "AIM Bangkok — BOI Land Ownership Guide for Foreign Companies in Thailand", url: "https://aimbangkok.com/boi-land-ownership-rules-foreign-companies-thailand/" },
+      { title: "Mondaq — Thailand BOI Revises Land Ownership Allowance for Foreign Companies", url: "https://www.mondaq.com/privilege/1567422/thailand-boi-revises-land-ownership-allowance-for-foreign-companies" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "Can a BOI-promoted hotel or resort company on Koh Phangan own the land under its office and staff housing, and what changed under the 2026 e-Land rules?",
+  },
+  {
+    slug: "phuket-hillside-height-limit-change-koh-phangan-comparison",
+    kbId: "kb-0106",
+    topic: "Structures",
+    title: "Phuket raised its hillside building ceiling from 80m to 140m in 2024 — could Koh Phangan's rules loosen the same way?",
+    short:
+      "A December 2024 Cabinet decision let Phuket landowners build, for the first time since 2017, on hillside land between 80 and 140 metres above sea level — under a tight set of conditions. It's a real precedent worth knowing, but Koh Phangan's own hillside rules are built on a different legal instrument that was never structured as an outright ban, so the comparison doesn't transfer as directly as it might seem.",
+    updated: "2026-08-25",
+    body: [
+      "If Phuket loosened its hillside building ban, will Koh Phangan's do the same? It's a fair question given how often the two islands' rules get lumped together — but the honest answer is that Phangan's rules aren't structured the same way Phuket's were, so there's no equivalent pressure building toward the same fix. Here's what actually changed in Phuket, and why the read-across to Phangan is weaker than it looks.",
+      { h: "What actually changed in Phuket" },
+      "A Cabinet-approved rezoning by the Ministry of Natural Resources and Environment was published in the Royal Gazette on 13 December 2024 and took effect the next day. It raised the construction ceiling in Phuket's Zone 6 — most of the island, excluding the coast, the protected Nakkerd mountain range and dense areas like Phuket Town — from 80 metres above sea level to 140 metres. Before this, land above 80m had effectively been unbuildable since Phuket's own provincial environmental protection rules took hold in 2017, leaving owners of hillside plots paying land tax on land they legally couldn't use.",
+      { h: "The conditions attached" },
+      {
+        ul: [
+          "**Only land titled before 2017 qualifies** — this is relief for existing landowners caught by the 2017 rule, not an opening for new hillside subdivision.",
+          "**Single structures only** — no resorts, no multi-building villa compounds, and no adjacent buildings on neighbouring plots.",
+          "**6 m height cap and a 90 m² footprint cap**, with at least 70% of the plot left as green space and half of that area left unpaved for natural vegetation.",
+          "**A mandatory landslide, flooding and erosion impact assessment** by the Phuket Provincial Office of Public Works and Town & Country Planning before any specific project is approved.",
+        ],
+      },
+      "Officials framed the change as a fairness correction — landowners had been paying tax for years on land they couldn't build on — balanced against the same landslide and environmental risks that justified the original 80m line.",
+      { h: "Why Koh Phangan's starting point is different" },
+      "Phangan's hillside rules come from a separate, more recent instrument: the Surat Thani provincial environmental protection notification covering Koh Samui, Koh Phangan and Koh Tao, in force since 22 May 2025. Unlike Phuket's old rule, it was never an outright ban above a fixed elevation. As set out in [Hillside building limits on Koh Phangan](/knowledge/hillside-slope-building-limits-koh-phangan) and [Coastal setback rules in practice](/knowledge/coastal-setback-rules-koh-phangan-distance-from-beach), a single home above 140 m elevation is already legally buildable on Phangan today — capped at roughly 90 m² of floor area with about 70% of the plot left open, similar in spirit to what Phuket's new 80–140m tier now allows. Phangan owners were never in the position Phuket's pre-2024 landowners were in: paying tax on hillside land with zero legal path to build on it.",
+      { h: "The trend on Phangan is running the other way" },
+      "If anything, enforcement on Phangan is tightening, not loosening. The 'Samui Model' drone and GPS mapping task force has expanded onto the island and issued demolition orders against villas built beyond their permitted elevation or slope tier — see [The 'Samui Model' enforcement expands to Phangan](/knowledge/samui-model-hillside-enforcement-koh-phangan). That's the opposite pressure from what drove Phuket's 2024 change: Phuket responded to landowners with genuinely trapped, unusable equity; Phangan's current story is stricter policing of limits that already permit building, just within tight caps.",
+      "The precedent that does carry over is the mechanism, not the outcome: a Cabinet-approved rezoning of a provincial environmental protection notification is exactly the kind of instrument that set Phangan's current limits and could, in principle, amend them later. Nothing in current reporting suggests that's under consideration for Koh Samui, Koh Phangan or Koh Tao. Buy or design around today's caps — set out in [Hillside building limits on Koh Phangan](/knowledge/hillside-slope-building-limits-koh-phangan) — not a hoped-for loosening that Phuket's experience doesn't actually predict.",
+    ],
+    takeaways: [
+      "Phuket's Cabinet-approved rezoning (Royal Gazette 13 Dec 2024, effective 14 Dec 2024) raised its Zone 6 hillside ceiling from 80m to 140m MSL, but only for pre-2017 titled land, capped at a single 6m/90m² structure with 70% green space.",
+      "Phuket's old 80m line had been an effective outright ban since 2017 — the 2024 change was relief for landowners with trapped, unusable equity, plus a mandatory landslide/erosion review.",
+      "Koh Phangan's hillside rules run on a separate, newer instrument (the Surat Thani ONEP notification, effective 22 May 2025) that was never an outright ban above any elevation — a capped single home is already buildable above 140m today.",
+      "Because Phangan owners never faced Phuket's zero-build-rights problem, there's no equivalent grievance building political pressure toward a similar loosening.",
+      "Enforcement on Phangan is trending stricter, not looser — the 'Samui Model' task force is actively issuing demolition orders for hillside builds that exceed current limits.",
+    ],
+    sources: [
+      { title: "The Thaiger — Phuket lifts building restriction above 80 metres for hillside development", url: "https://thethaiger.com/news/phuket/phuket-lifts-building-restriction-above-80-metres-for-hillside-development" },
+      { title: "Thailand Construction and Engineering News — Phuket: Construction Now Permitted on Land at an Altitude of 80 Metres", url: "https://thailand-construction.com/phuket-construction-now-permitted-on-land-at-an-altitude-of-80-metres/" },
+      { title: "ONEP — Surat Thani provincial environmental protection area notice, Royal Gazette Vol. 142, Special Section 199 Ng, 21 May 2025", url: "https://www.onep.go.th/epa-suratthani-2568/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "Phuket raised its hillside building limit from 80m to 140m in 2024 — will Koh Phangan's hillside rules loosen the same way?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

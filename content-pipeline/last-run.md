@@ -1,64 +1,85 @@
-# Last run — 2026-08-24
+# Last run — 2026-08-25
 
 **Guides published:** 2 (of 2 targeted)
 
-Picked the top two undone 🔴 news-tier rows from `content-pipeline/backlog.md` section A
-(both discovered 2026-08-23, both untouched by any prior skip note), confirmed neither slug
-already existed in `src/content/knowledge-base.ts`, and grounded each against multiple
-independent live sources before writing.
+The top 🔴 candidate (Koh Phangan's "acute" water-crisis escalation) turned out not to hold up
+on inspection — see the note below — so I worked down the backlog past several already-flagged
+duplicates/thin items to the next two genuinely distinct, well-sourced 🟡/⚪️ topics, both
+`structures`-category regulatory deep-dives with no existing coverage in
+`src/content/knowledge-base.ts`.
+
+---
+
+## Skipped: Koh Phangan water crisis escalation (top 🔴 row)
+
+Re-checked the backlog's claim of "rotational rationing since March 2026, 3,500-4,000 m³/day,
+~740,000 m³ reservoir capacity, 600 m³/day RO plant, Koh Samui companion rationing in August
+2026." The 3,500-4,000 m³/day, 740,000 m³ and 600 m³/day figures trace to a Thaiger article
+dated **April 2024**, not 2026 — they're the same recurring dry-season figures already cited
+(correctly, as 2024 data) in the already-published `kb-0077`
+(water-supply-shortage-risk-koh-phangan, updated 2026-07-31), which also already covers PWA's
+most recent Phangan notice (7/2569, Jun–Aug 2026) in full. No PWA notice newer than 7/2569 was
+found on pwa.co.th. The one genuinely new fact — Koh Samui's own rationing starting 3 August
+2026 (Bangkok Post, ASEAN NOW) — is real, but it's Samui's story, not Phangan's, and doesn't
+support a distinct Phangan-focused guide without padding. Left ⏳ in the backlog with this note;
+would need a fresh Phangan-specific PWA notice (later than 7/2569) to justify a new guide.
+
+Also re-checked (per existing skip notes) and confirmed still duplicate/thin/unsafe: the 2026
+Land and Building Tax full-rate story (dupes kb-0027), the FBA/AMLA predicate-offence proposal
+(still an unenacted Ombudsman recommendation, thin sourcing), realistic rental yields (dupes
+kb-0010), power grid reliability (dupes kb-0026), the Israeli/European buyer surge (dupes
+kb-0014), Stamp Duty vs SBT (dupes kb-0084), and vetting a named off-plan project (declined —
+naming a live commercial project isn't safely sourceable). The February 2026
+election/Bhumjaithai coalition property-policy item was checked fresh this run and also
+declined: the only substantive source is a real-estate marketing site
+(dansiam-property.com) with no primary/government corroboration of specific policy commitments
+beyond the election result itself — exactly the "thin, verify before publishing" flag already on
+that row.
 
 ---
 
 ## Guide 1
 
-- **slug:** `21-agency-anti-nominee-mou-2026`
-- **kbId:** `kb-0103`
-- **title (EN):** The 21-agency anti-nominee pact: what Thailand's April 2026 data-sharing MOU changes for company-held property
-- **title (RU):** Пакт 21 ведомства против номинального владения: что меняет апрельское соглашение об обмене данными 2026 года для недвижимости через компанию
+- **slug:** `boi-promoted-company-land-ownership-2026`
+- **kbId:** `kb-0105`
+- **title (EN):** BOI-promoted land ownership in 2026: the e-Land rules for offices and worker housing under Notification Por. 9/2568
+- **title (RU):** Владение землёй для компаний с промоцией BOI в 2026 году: правила e-Land для офисов и жилья работников по Уведомлению Por. 9/2568
 - **faqCategory:** `structures`
-- **faqQuestion:** What is Thailand's 21-agency anti-nominee MOU signed in April 2026, and does it change the rules for a 49/51 company structure?
+- **faqQuestion:** Can a BOI-promoted hotel or resort company on Koh Phangan own the land under its office and staff housing, and what changed under the 2026 e-Land rules?
 - **Sources used:**
-  - The Online Citizen — "Thailand cuts high-risk nominee firms by 75% ahead of 21-agency anti-fraud pact" (27 Apr 2026) — signing date, 21 agencies, PM Anutin chairing, Santi Maitri Building venue, the 75% (658→175) statistic
-  - Bangkok Post — "'High-risk' business registrations plunge" — independent corroboration of the same statistic (headline/byline confirmed via search; full-text fetch was blocked by a paywall redirect, so only the corroborating headline was relied on, not quoted content)
-  - Pattaya Mail — "Thailand escalates legal crackdown with agency alliance targeting illegal 'nominee' structures" (verified via direct fetch, 8 May 2026) — the operational mechanism: corporate/land-registry data sync, immigration-visa cross-checking, financial-intelligence tracing; named DBD/DOL/Immigration/Revenue/AMLO as signatories, corroborating the agency list
+  - Tilleke & Gibbins — "Thailand Revises Foreign Land Ownership Regulations for BOI-Promoted Companies" — Por. 9/2568 issue/gazette dates, e-Land process, worker-housing restrictions
+  - AIM Bangkok — "BOI Land Ownership Guide for Foreign Companies in Thailand" — Section 27 legal basis, 5/20 rai limits, ฿50m capital floor, 10km/purpose-built worker-housing detail, confirmed guest-facing hospitality operations fall outside this framework
+  - Mondaq — "Thailand BOI Revises Land Ownership Allowance for Foreign Companies" — Notification 16/2567 and Por. 8/2567 dates and scope (the base rule Por. 9/2568 amends)
 
-This is a genuinely distinct escalation, not a rehash of the DBD-Land Department link already
-covered in kb-0051 (land-department-audit-existing-landholding-companies-2026): the April pact
-is a single, PM-chaired, 21-agency framework spanning immigration, customs, central banking and
-tourism, not a two-agency data feed. The 75% drop-in-filings statistic is presented carefully as
-a pre-signing deterrence indicator (the comparison window is 1–23 April, before the 29 April
-signing), not a measured post-MOU result, since no post-signing figures could be found.
+Never previously given its own guide — BOI land ownership only appeared as brief asides inside
+three other guides (49/51 company, ฿40m route, LTR visa). Framed conservatively and precisely:
+this right belongs to the promoted company (not an individual), and covers only office + staff
+housing — explicitly stated that it does **not** extend to guest rooms/villas, since that's the
+detail most likely to be blurred by marketing copy aimed at resort operators.
 
 ## Guide 2
 
-- **slug:** `thb-3-million-investment-visa-non-immigrant-b-2026`
-- **kbId:** `kb-0104`
-- **title (EN):** The THB 3 million property investment visa: how the Non-Immigrant B route actually works in 2026
-- **title (RU):** Инвестиционная виза за ฿3 миллиона: как на самом деле работает путь Non-Immigrant B в 2026 году
-- **faqCategory:** `ownership`
-- **faqQuestion:** How does Thailand's THB 3 million property investment visa actually work, and does it cover a Koh Phangan leasehold villa?
+- **slug:** `phuket-hillside-height-limit-change-koh-phangan-comparison`
+- **kbId:** `kb-0106`
+- **title (EN):** Phuket raised its hillside building ceiling from 80m to 140m in 2024 — could Koh Phangan's rules loosen the same way?
+- **title (RU):** Пхукет поднял потолок застройки склонов с 80 до 140 метров в 2024 году — могут ли смягчиться правила на Ко Пангане так же?
+- **faqCategory:** `structures`
+- **faqQuestion:** Phuket raised its hillside building limit from 80m to 140m in 2024 — will Koh Phangan's hillside rules loosen the same way?
 - **Sources used:**
-  - Thai-Residence.com — "Thailand Investment Visa for 3 Million Baht: Facts, Myths, and What the Law Actually Says" — facts-vs-marketing framing, Orders 237/2568 & 238/2568, two-stage process, fee breakdown, LTR comparison
-  - AIM Bangkok — "3M Property Visa Thailand (2026): Confirmed Rules & Process" — freehold-condo-only framing and process detail
-  - Thai Law Online — "New 3 Million Baht Property Investment Visa in Thailand" — legal basis, two-stage process detail, Ministry of Tourism certification requirement
-  - Formichella & Sritawat (fosrlaw.com) — "Thailand's 3 Million Baht Investment Visa: A Potential Long-Term Stay Pathway" — regulatory-uncertainty framing on non-condo routes
+  - The Thaiger — "Phuket lifts building restriction above 80 metres for hillside development" — Cabinet rezoning, Royal Gazette 13 Dec 2024, Zone 6, pre-2017 title, height/footprint/green-space conditions, official rationale
+  - Thailand Construction and Engineering News — corroborating detail on the same rezoning, including the mandatory landslide/erosion review and "no adjacent buildings" condition
+  - ONEP — Surat Thani provincial environmental protection notice (already cited in this site's own kb-0070/kb-0073) — used to accurately state Koh Phangan's own, separate elevation rules for the comparison
 
-Distinct from the already-published kb-0028 (visa-residency-property-owner-koh-phangan), which
-covers this visa in two summary paragraphs inside a broader 4-option visa overview. This guide
-is the dedicated deep-dive: specific order numbers, the exact two-stage process and 2026
-renewal milestone, the mandatory Ministry of Tourism certification step, a full fee breakdown,
-and a structured LTR comparison — none of which kb-0028 covers.
-
-Sourcing on which property structures qualify (freehold condo only vs. freehold + leasehold +
-Sap-Ing-Sith) was genuinely inconsistent across the law-firm/marketing sources checked, and a
-WebSearch-synthesized claim that a leasehold "pause" had been "lifted" could not be verified
-against a direct fetch of its origin page (aimbangkok.com returned empty content twice on
-direct WebFetch). Per the conservative-legal-claims rule, the guide does not assert the pause
-was lifted — it states freehold condo as the only reliably-confirmed route and explicitly flags
-leasehold/Sap-Ing-Sith/rental sub-routes as inconsistently reported, consistent with this site's
-own kb-0028 (June 2026), which stated the leasehold/rental route was suspended.
+Backlog explicitly flagged this as "not Phangan-specific news" and a comparative watch piece —
+treated it that way rather than implying Phangan's rules are about to change. The actual finding
+worth publishing: Phangan's hillside framework (Surat Thani ONEP notification, since 22 May
+2025) was never structured as an outright ban the way Phuket's pre-2024 80m line was — a capped
+single home above 140m is already legally buildable on Phangan today — so the "Phuket loosened,
+will Phangan too" read-across is weaker than it sounds, and current Phangan enforcement
+('Samui Model') is trending stricter, not looser. Cross-links to the site's own
+hillside-slope-building-limits and coastal-setback guides for the current Phangan caps.
 
 ---
 
-`npx tsc --noEmit` passes clean on both content files. kbId sequence continues at kb-0105
-(this run used kb-0103 and kb-0104; prior max was kb-0102).
+`npx tsc --noEmit` passes clean on both content files. kbId sequence continues at kb-0107
+(this run used kb-0105 and kb-0106; prior max was kb-0104).
