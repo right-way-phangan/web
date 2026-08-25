@@ -38,6 +38,7 @@
     "react-dom": "^18.3.0",
     "react-leaflet": "^4.2.1",
     "react-leaflet-cluster": "^2.1.0",
+    "sharp": "^0.35.0",
     "tailwind-merge": "^2.5.0",
     "zod": "^4.4.3"
   },
@@ -60,8 +61,8 @@
     "vitest": "^4.1.11"
   },
   "overrides": {
+    "brace-expansion": "^5.0.8",
     "postcss": "^8.5.15",
-    "sharp": "^0.35.0",
-    "brace-expansion": "^5.0.8"
+    "sharp": "^0.35.0"
   }
 }
