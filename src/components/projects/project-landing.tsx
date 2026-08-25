@@ -168,7 +168,7 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
     <article className="container-prose py-8 md:py-10">
       <nav
         aria-label="Breadcrumb"
-        className="mb-6 flex flex-wrap items-center gap-1.5 text-xs text-forest-500/60"
+        className="mb-6 flex flex-wrap items-center gap-1.5 text-xs text-forest-500/80"
       >
         <Link href={homeHref} className="transition-colors hover:text-brass-500">
           {t.home}

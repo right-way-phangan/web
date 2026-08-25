@@ -33,7 +33,7 @@ export function Logo({
       <span
         className={cn(
           "font-sans text-[0.8125rem] uppercase tracking-[0.12em] transition-colors group-hover:text-brass-500",
-          light ? "text-panel-fg/70 group-hover:text-brass-300" : "text-forest-500/70",
+          light ? "text-panel-fg/80 group-hover:text-brass-300" : "text-forest-500/80",
         )}
       >
         Phangan
