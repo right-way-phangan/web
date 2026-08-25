@@ -4,6 +4,7 @@ import type { Route } from "next";
 import { ArrowRight } from "lucide-react";
 import type { RealEstateObject } from "@/types/object";
 import { Button } from "@/components/ui/button";
+import { thumbFromProxiedUrl } from "@/lib/storage/r2-public";
 import { RelatedListings } from "@/components/objects/related-listings";
 import { getObjectDict, type Locale } from "@/lib/i18n/dictionaries";
 import { BLUR_PLACEHOLDER } from "@/lib/utils/blur";
@@ -59,8 +60,9 @@ export function UnavailableObject({ object, catalog, locale }: Props) {
 
         {object.coverImage ? (
           <div className="relative hidden aspect-[4/3] overflow-hidden rounded-sm lg:block">
+            {/* Рисуется в 420px — превью хватает с запасом. */}
             <Image
-              src={object.coverImage}
+              src={thumbFromProxiedUrl(object.coverImage) ?? object.coverImage}
               alt={`${object.titleEn} (${object.rwNumber})`}
               fill
               sizes="420px"
