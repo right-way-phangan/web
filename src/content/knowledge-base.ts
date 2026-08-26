@@ -6863,6 +6863,108 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "structures",
     faqQuestion: "Phuket raised its hillside building limit from 80m to 140m in 2024 — will Koh Phangan's hillside rules loosen the same way?",
   },
+  {
+    slug: "koh-phangan-land-disposal-orders-112-companies-2026",
+    kbId: "kb-0107",
+    topic: "Structures",
+    title: "112 Koh Pha Ngan companies flagged, 8 already ordered to sell: what a live disposal order actually means",
+    short:
+      "Surat Thani land officials have found 112 of Koh Pha Ngan's 1,832 registered landholding companies with foreign shareholdings above the legal limit, covering 124 plots. As of late August 2026 this has moved past investigation into action — 8 entities already have disposal orders on 9 plots, with 28 more under active consideration and 76 still being reviewed.",
+    updated: "2026-08-26",
+    body: [
+      "What happens once a Koh Pha Ngan company is actually issued a land disposal order, not just flagged for review? It has to sell — the Land Code gives it a fixed window, typically 180 days to a year, and if it doesn't comply the Land Department can force a sale at public auction. That's no longer a hypothetical on Phangan: as of 25 August 2026, 8 companies already have disposal orders covering 9 plots, and dozens more are in the pipeline behind them.",
+      { h: "The numbers, as of August 2026" },
+      {
+        ul: [
+          "**1,832** juristic persons hold registered land on Koh Pha Ngan.",
+          "**112** of them (5.7%) were found to have foreign shareholdings exceeding the legal cap — 104 identified through inspection, 8 already the subject of court rulings.",
+          "Those 112 entities hold **124 land plots**, totalling roughly **86.86 rai** (about 34 acres).",
+          "**8 entities have disposal orders already issued**, covering 9 plots.",
+          "**28 more** are under active consideration for a disposal order.",
+          "**76 more** remain under review at the Koh Pha Ngan Land Office before any order is considered.",
+        ],
+      },
+      "Surat Thani's provincial governor ordered the disposal actions in the week of 22–23 August 2026. Two days later, Deputy Interior Minister Worawit Liangprasert directed national agencies to combine land-ownership, hotel, business and foreign-worker data and accelerate follow-through specifically for Koh Samui and Koh Pha Ngan — a sign this is being treated as a priority, not a routine audit cycle. Officials were also careful to note that raw flags — several companies sharing an address, or one person holding shares across multiple firms — don't automatically prove wrongdoing; each case still gets individual scrutiny before an order is issued.",
+      { h: "The legal mechanism behind a disposal order" },
+      "This is the same Section 96 mechanism already covered in [Section 94 and the forfeiture amendment under study](/knowledge/land-code-section-94-forfeiture-amendment): when the Land Department's Director-General finds land held by a Thai nominee on a foreigner's behalf, in breach of Sections 97–98, it can order disposal within a period it sets — currently 180 days to one year, following Section 94's procedure. If the company or individual doesn't sell within that window, the Land Department can force the sale itself, typically by public auction, and the (former) owner keeps only the sale proceeds — not the land. A separate 2026 study is examining whether that entitlement to proceeds should be removed too, converting future orders into outright forfeiture; that change isn't law yet, but it underscores that waiting out a disposal order is not a safe strategy.",
+      { h: "How this differs from what's already been reported" },
+      "Phangan and Samui have had several nominee-crackdown stories through 2026 — the [8-province monitoring database](/knowledge/foreign-shareholder-monitoring-8-provinces-2026), the [Koh Samui raid and lease-scrutiny story](/knowledge/koh-samui-phangan-raid-leases-nominee-scrutiny-2026), and the broader company-audit and Section 94 pieces. Those were all about identification: flagging, raiding, reviewing. This is the first Phangan-specific figure showing the pipeline moving into its final stage — actual disposal orders being issued and executed, not just companies under investigation.",
+      { h: "What it means for a buyer or existing owner" },
+      {
+        ul: [
+          "**If you're buying a villa held by an existing Thai company**, this is a live reason to have your lawyer check the company's shareholding structure and any pending Land Office correspondence before you sign — not a generic disclaimer. See [Buying a villa held by a Thai company](/knowledge/villa-held-by-thai-company-buyer-due-diligence-2026) for the due-diligence checklist.",
+          "**If you already hold land through a 49/51-style structure**, regularising the shareholding now — genuine Thai majority control, documented source of funds — costs far less than a forced sale at auction later.",
+          "**A disposal order doesn't erase the building.** Section 96 targets the land; a separately registered superficies over a structure is a different legal question, but a forced land sale still upends the arrangement in practice, so it isn't a fallback to rely on.",
+          "**76 cases are still under review** — the final Phangan-wide count of disposal orders is very likely to grow well past 8 over the coming months.",
+        ],
+      },
+      "The takeaway: this crackdown has stopped being a monitoring exercise on Koh Pha Ngan and started producing forced sales. Anyone with exposure to a foreign-majority Thai landholding company on the island should treat a compliance review as urgent, not optional.",
+    ],
+    takeaways: [
+      "112 of Koh Pha Ngan's 1,832 registered landholding companies were found with foreign shareholdings above the legal limit, covering 124 plots (~86.86 rai).",
+      "As of 25 August 2026, 8 entities already have disposal orders covering 9 plots; 28 more are under active consideration and 76 remain under review.",
+      "A disposal order under Land Code Section 96 gives the company 180 days to a year to sell voluntarily; missing the deadline lets the Land Department force a sale at public auction.",
+      "The (former) owner currently keeps the sale proceeds, not the land — but a separate 2026 study is examining removing that entitlement too, making future orders outright forfeiture.",
+      "This marks a shift from monitoring/investigation (the 8-province database, the Koh Samui raid) to active enforcement outcomes specifically on Koh Pha Ngan.",
+    ],
+    sources: [
+      { title: "The Thaiger — 112 Koh Pha Ngan firms risk losing land over foreign shareholdings", url: "https://thethaiger.com/news/national/koh-pha-ngan-firms-land-foreign-shareholdings" },
+      { title: "The Thaiger — Interior Ministry probes 112 firms over Koh Pha Ngan land holdings", url: "https://thethaiger.com/news/south/interior-ministry-probes-112-firms-over-koh-pha-ngan-land-holdings" },
+      { title: "The Nation — Thailand nominee crackdown exposes property law loopholes", url: "https://www.nationthailand.com/business/property/40067708" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "What does it mean when a Koh Pha Ngan company is issued a land disposal order under the 2026 nominee crackdown?",
+  },
+  {
+    slug: "marriage-equality-act-property-rights-same-sex-couples",
+    kbId: "kb-0108",
+    topic: "Ownership",
+    title: "Thailand's Marriage Equality Act and property: what changed for same-sex couples buying on Phangan",
+    short:
+      "Thailand's Marriage Equality Act, in force since 23 January 2025, rewrote the Civil and Commercial Code's marital-property, consent and inheritance provisions in gender-neutral terms — extending the same legal toolkit opposite-sex couples already used to same-sex spouses. It doesn't open any new door to land ownership for foreigners; it makes the existing usufruct-and-superficies strategy, and spousal inheritance rights, apply equally regardless of the couple's sex.",
+    updated: "2026-08-26",
+    body: [
+      "Does marrying a Thai same-sex spouse change how a foreigner can hold property in Thailand? Not the underlying land-ownership rules — those are unchanged and apply the same way to every foreigner, married or not. What changed is everything built on top of marriage itself: marital-property classification, spousal consent requirements, and inheritance rights now apply to a same-sex couple exactly as they do to an opposite-sex one, over a year after the Marriage Equality Act took effect.",
+      { h: "What the Act actually did" },
+      "The Marriage Equality Act took effect on 23 January 2025, making Thailand the first country in Southeast Asia to legalise same-sex marriage. It amended more than 60 sections of the Civil and Commercial Code, replacing gendered terms like 'husband' and 'wife' with gender-neutral 'spouses.' Same-sex couples can register a marriage at any of Thailand's roughly 880 district offices or at a Thai embassy abroad — including two foreign nationals marrying in Thailand even if neither's home country recognises same-sex marriage.",
+      { h: "What it means for property specifically" },
+      {
+        ul: [
+          "**The marital-property regime applies identically.** Thailand's distinction between sin somros (marital property, split 50/50) and sin suan tua (separate personal property) now applies to a same-sex marriage exactly as it does to an opposite-sex one — relevant to anyone structuring a purchase the way described in [Protecting a foreign spouse's interest when property is bought during a Thai marriage](/knowledge/foreign-spouse-usufruct-thai-marriage-property).",
+          "**Section 1476 spousal consent now covers same-sex spouses.** Selling, mortgaging, granting a long lease over 3 years, or registering a usufruct or servitude over marital property requires both spouses' consent — a same-sex spouse's consent now carries the same legal weight as an opposite-sex spouse's.",
+          "**Statutory inheritance rights apply equally.** A surviving same-sex spouse now inherits the same statutory share as an opposite-sex spouse under Sections 1629 and 1635 of the Civil and Commercial Code, and is treated the same way for [inheritance tax purposes](/knowledge/inheritance-tax-thai-property-100-million-threshold) — a spouse's inheritance is exempt regardless of value.",
+          "**Prenuptial agreements are available on the same terms**, under Sections 1465–1466, for couples who want to define separate versus marital property before registering.",
+        ],
+      },
+      { h: "What didn't change" },
+      {
+        ul: [
+          "**Land-ownership restrictions for foreigners are untouched.** A foreign spouse — same-sex or opposite-sex — still cannot be named on a Thai land title. Marriage of any kind doesn't exempt anyone from the Land Code's foreign-ownership ban.",
+          "**The usufruct-and-superficies protection strategy works the same way.** Where a Thai national buys land and the foreign spouse needs a registered stake, the standard structure — a lifetime usufruct plus a superficies over the building, set up at the Land Office at the time of purchase — is now equally available and equally documented for same-sex couples. See [Superficies vs usufruct vs lease](/knowledge/superficies-vs-usufruct-vs-lease) for how the rights differ.",
+          "**The 40-million-baht investment route and 49/51 company structures aren't specifically addressed.** No law-firm guidance yet distinguishes same-sex from opposite-sex spouses for [the ฿40 million investment land-ownership route](/knowledge/thb-40-million-investment-land-ownership-route) or for a Thai spouse's shareholding in a [49/51 company structure](/knowledge/thai-company-for-property-49-51) — treat this as undocumented rather than confirmed identical, and raise it directly with your lawyer.",
+          "**A same-sex marriage performed abroad isn't automatically usable in Thailand.** It generally needs to be registered with Thai authorities — directly in Thailand or through a Thai embassy — before it supports a property or inheritance claim here; don't assume a foreign marriage certificate alone is sufficient.",
+        ],
+      },
+      "The practical takeaway: over a year on, the legal toolkit for protecting a spouse's interest in Thai property — marital-property declarations, registered usufruct and superficies, statutory and testamentary inheritance — now runs the same way for a same-sex couple as it always has for an opposite-sex one. It's still worth a lawyer's review of the specific structure, particularly on the investment-route and company-structure questions that haven't yet been tested in same-sex-specific guidance, but the core protective mechanism is no longer a gap.",
+    ],
+    takeaways: [
+      "The Marriage Equality Act took effect 23 January 2025, amending 60+ sections of the Civil and Commercial Code to apply in gender-neutral terms to same-sex spouses.",
+      "Marital-property classification (sin somros vs sin suan tua), Section 1476 spousal consent, and statutory inheritance rights now apply identically regardless of a couple's sex.",
+      "Land-ownership restrictions for foreigners are unchanged — a same-sex spouse still cannot be named on a Thai land title, exactly like an opposite-sex spouse.",
+      "The usufruct-plus-superficies strategy for protecting a foreign spouse's interest in Thai-titled land now applies the same way to same-sex couples.",
+      "The 40-million-baht investment route and 49/51 company structures haven't been specifically addressed for same-sex spouses in published guidance — confirm treatment with a lawyer before relying on it.",
+    ],
+    sources: [
+      { title: "UN Human Rights Office (OHCHR Bangkok) — Thailand: UN Human Rights Office welcomes enactment of historic marriage equality law", url: "https://bangkok.ohchr.org/news/2025/thailand-un-human-rights-office-welcomes-enactment-historic-marriage-equality-law" },
+      { title: "UNDP Thailand — Marriage equality law: the journey", url: "https://www.undp.org/thailand/blog/marriage-equality-law-journey" },
+      { title: "ThaiLawOnline — Same-Sex Marriage in Thailand", url: "https://www.thailawonline.com/same-sex-marriage-in-thailand/" },
+      { title: "Conventus Law — Thailand Real Estate Rights Under the Marriage Equality Act", url: "https://conventuslaw.com/report/thailand-real-estate-rights-under-the-marriage-equality-act/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "ownership",
+    faqQuestion: "Does Thailand's Marriage Equality Act change how a same-sex couple can hold or protect an interest in Thai property?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

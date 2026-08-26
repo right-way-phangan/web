@@ -1,85 +1,83 @@
-# Last run — 2026-08-25
+# Last run — 2026-08-26
 
 **Guides published:** 2 (of 2 targeted)
 
-The top 🔴 candidate (Koh Phangan's "acute" water-crisis escalation) turned out not to hold up
-on inspection — see the note below — so I worked down the backlog past several already-flagged
-duplicates/thin items to the next two genuinely distinct, well-sourced 🟡/⚪️ topics, both
-`structures`-category regulatory deep-dives with no existing coverage in
-`src/content/knowledge-base.ts`.
+Every ⏳ row in `content-pipeline/backlog.md` had already been re-checked and confirmed
+duplicate/thin/unsafe by prior runs. Rather than force something from an exhausted
+backlog, I ran a fresh news sweep and two targeted follow-up investigations, which
+surfaced one genuinely new news story and one genuinely new evergreen angle — neither
+previously in the backlog. Both are distinct, well-sourced, and cross-linked against
+the existing guides they're adjacent to.
 
 ---
 
-## Skipped: Koh Phangan water crisis escalation (top 🔴 row)
+## Backlog items re-checked this run (all remain ⏳, no change)
 
-Re-checked the backlog's claim of "rotational rationing since March 2026, 3,500-4,000 m³/day,
-~740,000 m³ reservoir capacity, 600 m³/day RO plant, Koh Samui companion rationing in August
-2026." The 3,500-4,000 m³/day, 740,000 m³ and 600 m³/day figures trace to a Thaiger article
-dated **April 2024**, not 2026 — they're the same recurring dry-season figures already cited
-(correctly, as 2024 data) in the already-published `kb-0077`
-(water-supply-shortage-risk-koh-phangan, updated 2026-07-31), which also already covers PWA's
-most recent Phangan notice (7/2569, Jun–Aug 2026) in full. No PWA notice newer than 7/2569 was
-found on pwa.co.th. The one genuinely new fact — Koh Samui's own rationing starting 3 August
-2026 (Bangkok Post, ASEAN NOW) — is real, but it's Samui's story, not Phangan's, and doesn't
-support a distinct Phangan-focused guide without padding. Left ⏳ in the backlog with this note;
-would need a fresh Phangan-specific PWA notice (later than 7/2569) to justify a new guide.
+- **Koh Phangan water crisis escalation** — re-checked pwa.co.th directly plus fresh
+  Thai/English search. Still no PWA notice newer than 7/2569 (Jun–Aug 2026, already
+  covered by kb-0077). All fresh August water news is Koh Samui's own PWA branch, not
+  Phangan's. Left ⏳.
+- **E-filing deadline extension for PND.90/91** — checked in depth. Confirmed the
+  backlog's own date was wrong (real 2026 e-filing deadline was 8 April, not 7 April,
+  vs. 31 March paper — verified via rd.go.th's extension formula and five Thai
+  outlets). Even corrected, it's one thin fact, not enough for a dedicated guide, and
+  both 2026 deadlines have already passed as of today. Left ⏳; better folded into
+  kb-0027 as a copy edit in a future run than published as its own kbId.
+- Land and Building Tax full-rate year, FBA/AMLA predicate-offence proposal, realistic
+  rental yields, power grid reliability, Israeli/European buyer surge, Stamp Duty vs
+  SBT, vetting a named off-plan project, and the February 2026 election/coalition
+  property-policy item — all previously confirmed duplicate/thin/unsafe by earlier
+  runs; not re-investigated further today since nothing suggested their status had
+  changed.
 
-Also re-checked (per existing skip notes) and confirmed still duplicate/thin/unsafe: the 2026
-Land and Building Tax full-rate story (dupes kb-0027), the FBA/AMLA predicate-offence proposal
-(still an unenacted Ombudsman recommendation, thin sourcing), realistic rental yields (dupes
-kb-0010), power grid reliability (dupes kb-0026), the Israeli/European buyer surge (dupes
-kb-0014), Stamp Duty vs SBT (dupes kb-0084), and vetting a named off-plan project (declined —
-naming a live commercial project isn't safely sourceable). The February 2026
-election/Bhumjaithai coalition property-policy item was checked fresh this run and also
-declined: the only substantive source is a real-estate marketing site
-(dansiam-property.com) with no primary/government corroboration of specific policy commitments
-beyond the election result itself — exactly the "thin, verify before publishing" flag already on
-that row.
-
----
+## New topics found and published (not from the existing backlog)
 
 ## Guide 1
 
-- **slug:** `boi-promoted-company-land-ownership-2026`
-- **kbId:** `kb-0105`
-- **title (EN):** BOI-promoted land ownership in 2026: the e-Land rules for offices and worker housing under Notification Por. 9/2568
-- **title (RU):** Владение землёй для компаний с промоцией BOI в 2026 году: правила e-Land для офисов и жилья работников по Уведомлению Por. 9/2568
+- **slug:** `koh-phangan-land-disposal-orders-112-companies-2026`
+- **kbId:** `kb-0107`
+- **title (EN):** 112 Koh Pha Ngan companies flagged, 8 already ordered to sell: what a live disposal order actually means
+- **title (RU):** 112 компаний на Ко Пангане под проверкой, 8 уже обязаны продать землю: что реально значит предписание об отчуждении
 - **faqCategory:** `structures`
-- **faqQuestion:** Can a BOI-promoted hotel or resort company on Koh Phangan own the land under its office and staff housing, and what changed under the 2026 e-Land rules?
+- **faqQuestion:** What does it mean when a Koh Pha Ngan company is issued a land disposal order under the 2026 nominee crackdown?
 - **Sources used:**
-  - Tilleke & Gibbins — "Thailand Revises Foreign Land Ownership Regulations for BOI-Promoted Companies" — Por. 9/2568 issue/gazette dates, e-Land process, worker-housing restrictions
-  - AIM Bangkok — "BOI Land Ownership Guide for Foreign Companies in Thailand" — Section 27 legal basis, 5/20 rai limits, ฿50m capital floor, 10km/purpose-built worker-housing detail, confirmed guest-facing hospitality operations fall outside this framework
-  - Mondaq — "Thailand BOI Revises Land Ownership Allowance for Foreign Companies" — Notification 16/2567 and Por. 8/2567 dates and scope (the base rule Por. 9/2568 amends)
+  - The Thaiger — "112 Koh Pha Ngan firms risk losing land over foreign shareholdings" (23 Aug 2026, direct fetch) — core numbers: 1,832 companies, 112 flagged, 124 plots, 86.86 rai, 8 disposal orders issued
+  - The Thaiger — "Interior Ministry probes 112 firms over Koh Pha Ngan land holdings" (25 Aug 2026, direct fetch) — Deputy Interior Minister's cross-agency acceleration order
+  - The Nation — "Thailand nominee crackdown exposes property law loopholes" — Section 96/94 legal mechanism (already cited in the site's own kb-0063)
+  - Corroborated against mtoday.co.th and topnews.co.th (numbers matched)
 
-Never previously given its own guide — BOI land ownership only appeared as brief asides inside
-three other guides (49/51 company, ฿40m route, LTR visa). Framed conservatively and precisely:
-this right belongs to the promoted company (not an individual), and covers only office + staff
-housing — explicitly stated that it does **not** extend to guest rooms/villas, since that's the
-detail most likely to be blurred by marketing copy aimed at resort operators.
+Found via a fresh news sweep (2026-08-26), not from any existing backlog row. Distinct
+from the already-published 8-province monitoring guide (kb-0100) and Koh Samui
+raid/lease guide (kb-0101) — both cover identification/monitoring/raiding, while this
+is the first Phangan-specific figure showing disposal orders actually issued and
+executing. Cross-links to kb-0063 (Section 94 mechanism), kb-0100, kb-0101, and the
+villa-held-by-a-company due-diligence guide.
 
 ## Guide 2
 
-- **slug:** `phuket-hillside-height-limit-change-koh-phangan-comparison`
-- **kbId:** `kb-0106`
-- **title (EN):** Phuket raised its hillside building ceiling from 80m to 140m in 2024 — could Koh Phangan's rules loosen the same way?
-- **title (RU):** Пхукет поднял потолок застройки склонов с 80 до 140 метров в 2024 году — могут ли смягчиться правила на Ко Пангане так же?
-- **faqCategory:** `structures`
-- **faqQuestion:** Phuket raised its hillside building limit from 80m to 140m in 2024 — will Koh Phangan's hillside rules loosen the same way?
+- **slug:** `marriage-equality-act-property-rights-same-sex-couples`
+- **kbId:** `kb-0108`
+- **title (EN):** Thailand's Marriage Equality Act and property: what changed for same-sex couples buying on Phangan
+- **title (RU):** Закон о равенстве браков в Таиланде и недвижимость: что изменилось для однополых пар, покупающих жильё на Пангане
+- **faqCategory:** `ownership`
+- **faqQuestion:** Does Thailand's Marriage Equality Act change how a same-sex couple can hold or protect an interest in Thai property?
 - **Sources used:**
-  - The Thaiger — "Phuket lifts building restriction above 80 metres for hillside development" — Cabinet rezoning, Royal Gazette 13 Dec 2024, Zone 6, pre-2017 title, height/footprint/green-space conditions, official rationale
-  - Thailand Construction and Engineering News — corroborating detail on the same rezoning, including the mandatory landslide/erosion review and "no adjacent buildings" condition
-  - ONEP — Surat Thani provincial environmental protection notice (already cited in this site's own kb-0070/kb-0073) — used to accurately state Koh Phangan's own, separate elevation rules for the comparison
+  - UN Human Rights Office (OHCHR Bangkok) — enactment confirmation, effective date 23 Jan 2025
+  - UNDP Thailand — background on the law's passage
+  - ThaiLawOnline — "Same-Sex Marriage in Thailand" — Civil and Commercial Code amendment scope (60+ sections)
+  - Conventus Law — "Thailand Real Estate Rights Under the Marriage Equality Act" — real-estate-specific analysis: marital-property regime, Section 1476 consent, pre-2025 protective strategies (usufruct/superficies) remaining relevant
 
-Backlog explicitly flagged this as "not Phangan-specific news" and a comparative watch piece —
-treated it that way rather than implying Phangan's rules are about to change. The actual finding
-worth publishing: Phangan's hillside framework (Surat Thani ONEP notification, since 22 May
-2025) was never structured as an outright ban the way Phuket's pre-2024 80m line was — a capped
-single home above 140m is already legally buildable on Phangan today — so the "Phuket loosened,
-will Phangan too" read-across is weaker than it sounds, and current Phangan enforcement
-('Samui Model') is trending stricter, not looser. Cross-links to the site's own
-hillside-slope-building-limits and coastal-setback guides for the current Phangan caps.
+Found via a targeted search for a genuinely distinct angle (2026-08-26), not from any
+existing backlog row — this site's only prior spousal-property guide (kb-0085) covers
+opposite-sex marriages only and never mentions the Marriage Equality Act. Framed
+conservatively: explicitly states that land-ownership restrictions for foreigners are
+unchanged, and flags the ฿40M investment route and 49/51 company structures as
+undocumented (not confirmed identical) for same-sex spouses, since no source
+addressed those specifically. Cross-links to kb-0085 (usufruct/superficies),
+superficies-vs-usufruct-vs-lease, the inheritance-tax guide, the ฿40M route, and the
+49/51 company guide.
 
 ---
 
-`npx tsc --noEmit` passes clean on both content files. kbId sequence continues at kb-0107
-(this run used kb-0105 and kb-0106; prior max was kb-0104).
+`npx tsc --noEmit` passes clean on both content files. kbId sequence continues at
+kb-0109 (this run used kb-0107 and kb-0108; prior max was kb-0106).
