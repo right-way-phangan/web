@@ -59,8 +59,7 @@ export default async function RussianListingsPage({ searchParams }: PageProps) {
 
   return (
     <section className="container-prose py-10 md:py-14 aura">
-      <link rel="preconnect" href="https://a.basemaps.cartocdn.com" crossOrigin="" />
-      <link rel="dns-prefetch" href="https://b.basemaps.cartocdn.com" />
+      <link rel="preconnect" href="https://server.arcgisonline.com" crossOrigin="" />
       <ItemListJsonLd name="Объекты недвижимости на Пангане — Right Way" objects={sorted} />
       <p className="text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">{t.eyebrow}</p>
       <h1 className="mt-3 max-w-3xl text-balance scroll-mt-24">{t.title}</h1>

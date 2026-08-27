@@ -22,7 +22,7 @@ const CSP = [
   // and a missing entry fails silently: capture() calls just never arrive.
   `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === "production" ? "" : " 'unsafe-eval'"} https://www.googletagmanager.com https://*.google-analytics.com https://va.vercel-scripts.com https://*.vercel-insights.com https://*.posthog.com`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https://*.public.blob.vercel-storage.com https://*.r2.dev https://*.r2.cloudflarestorage.com https://*.basemaps.cartocdn.com https://*.longdo.com https://server.arcgisonline.com https://drive.google.com https://lh3.googleusercontent.com https://*.google-analytics.com https://www.googletagmanager.com",
+  "img-src 'self' data: blob: https://*.public.blob.vercel-storage.com https://*.r2.dev https://*.r2.cloudflarestorage.com https://*.longdo.com https://server.arcgisonline.com https://drive.google.com https://lh3.googleusercontent.com https://*.google-analytics.com https://www.googletagmanager.com",
   "font-src 'self' data:",
   // open.er-api.com: live FX fetched client-side by the ROI calculator.
   "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.vercel-insights.com https://www.googletagmanager.com https://open.er-api.com https://*.posthog.com",

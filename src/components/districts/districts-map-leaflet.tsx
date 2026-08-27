@@ -9,7 +9,7 @@ import MarkerClusterGroup from "react-leaflet-cluster";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
-import { TILE_URL, TILE_ATTRIBUTION, TILE_SUBDOMAINS } from "@/lib/leaflet/tiles";
+import { TILE_URL, TILE_ATTRIBUTION } from "@/lib/leaflet/tiles";
 
 export interface DistrictPoint {
   slug: string;
@@ -85,7 +85,7 @@ export default function DistrictsMapLeaflet({ points }: { points: DistrictPoint[
         className="h-full w-full"
         style={{ background: "#e8e4da" }}
       >
-        <TileLayer attribution={TILE_ATTRIBUTION} url={TILE_URL} subdomains={TILE_SUBDOMAINS} />
+        <TileLayer attribution={TILE_ATTRIBUTION} url={TILE_URL} />
         <FitBounds points={points} />
         <MarkerClusterGroup
           maxClusterRadius={48}

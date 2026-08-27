@@ -13,7 +13,6 @@ import "leaflet/dist/leaflet.css";
 import {
   TILE_URL,
   TILE_ATTRIBUTION,
-  TILE_SUBDOMAINS,
   SATELLITE_TILE_URL,
   SATELLITE_ATTRIBUTION,
   SATELLITE_MAX_NATIVE_ZOOM,
@@ -153,7 +152,6 @@ export default function CoordPickerLeaflet({ pin, polygon, onPin, onPolygon }: C
               key="base-map"
               attribution={TILE_ATTRIBUTION}
               url={TILE_URL}
-              subdomains={TILE_SUBDOMAINS}
               maxNativeZoom={19}
               maxZoom={MAX_ZOOM}
             />
