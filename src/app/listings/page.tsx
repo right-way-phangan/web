@@ -59,10 +59,9 @@ export default async function ListingsPage({ searchParams }: PageProps) {
 
   return (
     <section className="container-prose py-10 md:py-14 aura">
-      {/* Map tiles (CARTO) load as soon as the split map mounts — warm the
+      {/* Map tiles (Esri) load as soon as the split map mounts — warm the
           connection up front to shave the handshake (Lighthouse flagged it). */}
-      <link rel="preconnect" href="https://a.basemaps.cartocdn.com" crossOrigin="" />
-      <link rel="dns-prefetch" href="https://b.basemaps.cartocdn.com" />
+      <link rel="preconnect" href="https://server.arcgisonline.com" crossOrigin="" />
       <ItemListJsonLd name="Koh Phangan property listings — Right Way" objects={sorted} />
       <SectionEyebrow>Listings</SectionEyebrow>
       <h1 className="mt-3 max-w-3xl text-balance scroll-mt-24">

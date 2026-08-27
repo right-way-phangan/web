@@ -3,7 +3,7 @@
 import { MapContainer, TileLayer, Marker, Popup, AttributionControl } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { TILE_URL, TILE_ATTRIBUTION, TILE_SUBDOMAINS } from "@/lib/leaflet/tiles";
+import { TILE_URL, TILE_ATTRIBUTION } from "@/lib/leaflet/tiles";
 import type { DeveloperLocation } from "@/content/developers/types";
 import type { Locale } from "@/lib/i18n/dictionaries";
 
@@ -42,7 +42,6 @@ export default function DeveloperMapLeaflet({
         <TileLayer
           attribution={TILE_ATTRIBUTION}
           url={TILE_URL}
-          subdomains={TILE_SUBDOMAINS}
           maxNativeZoom={19}
           maxZoom={19}
         />

@@ -7,7 +7,6 @@ import "leaflet/dist/leaflet.css";
 import {
   TILE_URL,
   TILE_ATTRIBUTION,
-  TILE_SUBDOMAINS,
   CITYPLAN_TILE_URL,
   CITYPLAN_MIN_NATIVE_ZOOM,
   CITYPLAN_MAX_NATIVE_ZOOM,
@@ -68,7 +67,6 @@ export default function ZoneMapPicker({
       <TileLayer
         attribution={TILE_ATTRIBUTION}
         url={TILE_URL}
-        subdomains={TILE_SUBDOMAINS}
         maxNativeZoom={19}
         maxZoom={MAX_ZOOM}
       />

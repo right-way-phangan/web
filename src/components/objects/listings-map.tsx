@@ -11,7 +11,6 @@ import type { ViewMode } from "@/lib/filters/listings";
 import {
   TILE_URL,
   TILE_ATTRIBUTION,
-  TILE_SUBDOMAINS,
   SATELLITE_TILE_URL,
   SATELLITE_ATTRIBUTION,
   SATELLITE_MAX_NATIVE_ZOOM,
@@ -308,7 +307,6 @@ export default function ListingsMap({
             key="base-map"
             attribution={TILE_ATTRIBUTION}
             url={TILE_URL}
-            subdomains={TILE_SUBDOMAINS}
             maxNativeZoom={19}
             maxZoom={LISTINGS_MAX_ZOOM}
           />

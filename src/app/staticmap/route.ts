@@ -3,11 +3,12 @@ import { type NextRequest } from "next/server";
 
 /**
  * Static map PNG for the print brochure (the interactive Leaflet map is
- * print-hidden). Stitches a few CARTO "voyager" base tiles around the plot and
- * drops a brass pin at centre — server-composed with sharp, no API key, same
- * labelled basemap as the live map. Cached hard on the Vercel CDN (the image is
- * deterministic per lat/lng/zoom/size). Degrades to whatever tiles loaded; a
- * failed tile just leaves the cream background showing, never a crash.
+ * print-hidden). Stitches a few Esri "World Topo" base tiles around the plot
+ * and drops a brass pin at centre — server-composed with sharp, no API key,
+ * same labelled basemap as the live map. Cached hard on the Vercel CDN (the
+ * image is deterministic per lat/lng/zoom/size). Degrades to whatever tiles
+ * loaded; a failed tile just leaves the cream background showing, never a
+ * crash.
  *
  * Guarded to the Phangan bbox — the only place we serve. Tile fetches use
  * computed x/y (no user-supplied URLs), so there's no SSRF surface.
@@ -15,7 +16,8 @@ import { type NextRequest } from "next/server";
 export const runtime = "nodejs";
 
 const TILE = 256;
-const TILE_BASE = "https://a.basemaps.cartocdn.com/rastertiles/voyager";
+const TILE_BASE =
+  "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile";
 const LAT_MIN = 9.0,
   LAT_MAX = 10.5,
   LNG_MIN = 99.4,
@@ -83,7 +85,8 @@ export async function GET(req: NextRequest): Promise<Response> {
         if (ty < 0 || ty >= nTiles) return;
         const wx = ((tx % nTiles) + nTiles) % nTiles; // wrap X at the antimeridian
         try {
-          const res = await fetch(`${TILE_BASE}/${z}/${wx}/${ty}.png`, {
+          // Esri: ось Y идёт перед X, и расширения в пути нет.
+          const res = await fetch(`${TILE_BASE}/${z}/${ty}/${wx}`, {
             cache: "force-cache",
             headers: { "User-Agent": "RightWayPhangan/1.0 (+https://rightwaygroup.co)" },
           });

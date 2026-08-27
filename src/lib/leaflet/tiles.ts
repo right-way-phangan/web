@@ -1,21 +1,29 @@
 /**
  * Shared basemap tiles for every Leaflet map on the site.
  *
- * CARTO "Voyager" — a clean, labelled, Google-Maps-like raster style. Free for
- * reasonable use, no API key, retina-aware ({r}). Centralised here so the look
- * can be swapped in one place (e.g. to a satellite layer, or to Google's Map
- * Tiles API once a billed key is provisioned).
+ * Esri "World Topo Map" — light, labelled, quiet: roads and buildings read
+ * clearly while the background stays pale, so the red cadastral outlines and
+ * amber pins we draw on top are the loudest thing on the map. No API key.
  *
- * Note: Google's own tile servers require the paid Map Tiles API + key and may
- * not be hit directly per their Terms — hence CARTO as the no-key default.
+ * Replaced CARTO Voyager on 2026-08-27. CARTO closed its keyless basemaps and
+ * started serving, with HTTP 200, a placeholder tile stamped "API KEY
+ * REQUIRED" — so every map on the site silently turned into that text. Esri
+ * was the natural landing spot: the satellite, relief and hillshade layers
+ * below already come from the same host, so it adds no new dependency.
+ *
+ * Two things differ from CARTO and are easy to get wrong:
+ *  - axis order is {z}/{y}/{x}, not {z}/{x}/{y};
+ *  - no retina variant — an `@2x` suffix returns the same 256px tile
+ *    (verified), so `{r}` is deliberately absent, and there are no subdomains
+ *    to rotate through.
+ *
+ * Native tiles reach z19 over Koh Phangan — enough for the parcel overlay.
  */
 export const TILE_URL =
-  "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png";
+  "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}";
 
 export const TILE_ATTRIBUTION =
-  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
-
-export const TILE_SUBDOMAINS = "abcd";
+  '&copy; <a href="https://www.esri.com/">Esri</a>, HERE, Garmin, FAO, NOAA, USGS &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
 /**
  * Satellite basemap — Esri World Imagery. Free with attribution; native tiles
