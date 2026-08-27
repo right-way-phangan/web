@@ -82,6 +82,40 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       alternates: { languages: { en: `${base}/sell`, ru: `${base}/ru/sell`, "x-default": `${base}/sell` } },
     },
     { url: `${base}/ru/sell`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    // Страницы отдавали `index, follow`, но в карту не попадали — робота звали,
+    // а адрес не называли (найдено сверкой маршрутов с sitemap 2026-08-27).
+    // `/saved` сюда намеренно не входит: у неё noindex.
+    {
+      url: `${base}/calculator`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+      alternates: { languages: { en: `${base}/calculator`, ru: `${base}/ru/calculator`, "x-default": `${base}/calculator` } },
+    },
+    {
+      url: `${base}/match`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+      alternates: { languages: { en: `${base}/match`, ru: `${base}/ru/match`, "x-default": `${base}/match` } },
+    },
+    { url: `${base}/ru/match`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
+    {
+      url: `${base}/privacy`,
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.3,
+      alternates: { languages: { en: `${base}/privacy`, ru: `${base}/ru/privacy`, "x-default": `${base}/privacy` } },
+    },
+    { url: `${base}/ru/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
+    {
+      url: `${base}/credits`,
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.3,
+      alternates: { languages: { en: `${base}/credits`, ru: `${base}/ru/credits`, "x-default": `${base}/credits` } },
+    },
+    { url: `${base}/ru/credits`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
   ];
 
   const districtEntries: MetadataRoute.Sitemap = DISTRICTS.map((d) => ({
