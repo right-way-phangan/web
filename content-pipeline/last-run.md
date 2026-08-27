@@ -1,83 +1,88 @@
-# Last run — 2026-08-26
+# Last run — 2026-08-27
 
 **Guides published:** 2 (of 2 targeted)
 
-Every ⏳ row in `content-pipeline/backlog.md` had already been re-checked and confirmed
-duplicate/thin/unsafe by prior runs. Rather than force something from an exhausted
-backlog, I ran a fresh news sweep and two targeted follow-up investigations, which
-surfaced one genuinely new news story and one genuinely new evergreen angle — neither
-previously in the backlog. Both are distinct, well-sourced, and cross-linked against
-the existing guides they're adjacent to.
+Every ⏳ row in `content-pipeline/backlog.md` was already re-checked and confirmed
+duplicate/thin/unsafe by runs as recent as 2026-08-25/26 — none had a new angle today.
+I ran an extensive fresh sweep (20+ searches) across the usual nominee-crackdown beat
+plus several verticals not recently checked (leasehold-bill status, condo quota,
+mortgage/LTV rules, remittance tax, digital land services, agent licensing,
+infrastructure, scams, luxury-market impact). Nearly everything nominee-crackdown
+related was either already published across 5+ existing guides or a rehash of the
+same May/August raid figures already assessed and rejected in prior runs. The two
+genuinely new, well-sourced, non-duplicate finds were both procedural/regulatory —
+one dated primary-source news event, one a real 2025-2026 regulatory tightening —
+rather than another crackdown recap.
 
 ---
 
 ## Backlog items re-checked this run (all remain ⏳, no change)
 
-- **Koh Phangan water crisis escalation** — re-checked pwa.co.th directly plus fresh
-  Thai/English search. Still no PWA notice newer than 7/2569 (Jun–Aug 2026, already
-  covered by kb-0077). All fresh August water news is Koh Samui's own PWA branch, not
-  Phangan's. Left ⏳.
-- **E-filing deadline extension for PND.90/91** — checked in depth. Confirmed the
-  backlog's own date was wrong (real 2026 e-filing deadline was 8 April, not 7 April,
-  vs. 31 March paper — verified via rd.go.th's extension formula and five Thai
-  outlets). Even corrected, it's one thin fact, not enough for a dedicated guide, and
-  both 2026 deadlines have already passed as of today. Left ⏳; better folded into
-  kb-0027 as a copy edit in a future run than published as its own kbId.
-- Land and Building Tax full-rate year, FBA/AMLA predicate-offence proposal, realistic
-  rental yields, power grid reliability, Israeli/European buyer surge, Stamp Duty vs
-  SBT, vetting a named off-plan project, and the February 2026 election/coalition
-  property-policy item — all previously confirmed duplicate/thin/unsafe by earlier
-  runs; not re-investigated further today since nothing suggested their status had
-  changed.
+Spot-checked for a fresh angle: Koh Phangan water crisis, 2026 Land and Building Tax
+full-rate year, FBA/AMLA predicate-offence proposal, realistic rental yields, power
+grid reliability, Israeli/European buyer surge, Stamp Duty vs SBT, vetting a named
+off-plan project, the February 2026 election/coalition property-policy item, and the
+PND.90/91 e-filing deadline. Nothing new found beyond what prior runs (2026-08-22
+through 08-26) already documented inline in the backlog; left ⏳ unchanged.
+
+Also checked and declined as not distinct/safe enough to publish today: the
+Anutin/EEC nationwide nominee-crackdown expansion (largely duplicates the existing
+8-province monitoring guide, kb-0100, and isn't Phangan-specific — it's about Chinese
+capital in the Eastern Economic Corridor); the September-2025 "50% land tax cut,
+99-year leasehold shelved" story (a year-old snapshot from the prior government,
+superseded by 2026 reporting that Pheu Thai revived the leasehold bill — using it
+would risk publishing stale/reversed information); Revenue Department Orders
+161/162 on foreign-sourced income (2023-dated rules already implicit in the existing
+tax guides); the August luxury-home crackdown story (Bangkok-specific — Krungthep
+Kreetha/Pattanakarn/Pattaya/Phuket/Chiang Mai — doesn't mention Phangan or Samui and
+isn't relevant to this site's audience); and real-estate agent/broker licensing
+(sourcing was internally contradictory on whether provincial licensing actually
+exists — not solid enough to publish a legal claim on).
 
 ## New topics found and published (not from the existing backlog)
 
-## Guide 1
+### Guide 1
 
-- **slug:** `koh-phangan-land-disposal-orders-112-companies-2026`
-- **kbId:** `kb-0107`
-- **title (EN):** 112 Koh Pha Ngan companies flagged, 8 already ordered to sell: what a live disposal order actually means
-- **title (RU):** 112 компаний на Ко Пангане под проверкой, 8 уже обязаны продать землю: что реально значит предписание об отчуждении
-- **faqCategory:** `structures`
-- **faqQuestion:** What does it mean when a Koh Pha Ngan company is issued a land disposal order under the 2026 nominee crackdown?
-- **Sources used:**
-  - The Thaiger — "112 Koh Pha Ngan firms risk losing land over foreign shareholdings" (23 Aug 2026, direct fetch) — core numbers: 1,832 companies, 112 flagged, 124 plots, 86.86 rai, 8 disposal orders issued
-  - The Thaiger — "Interior Ministry probes 112 firms over Koh Pha Ngan land holdings" (25 Aug 2026, direct fetch) — Deputy Interior Minister's cross-agency acceleration order
-  - The Nation — "Thailand nominee crackdown exposes property law loopholes" — Section 96/94 legal mechanism (already cited in the site's own kb-0063)
-  - Corroborated against mtoday.co.th and topnews.co.th (numbers matched)
+- **slug:** `apostille-convention-power-of-attorney-thailand-2027`
+- **kbId:** `kb-0109`
+- **title (EN):** Thailand joins the Apostille Convention: what actually changes for a Power of Attorney used to buy on Koh Phangan
+- **title (RU):** Таиланд присоединяется к Гаагской конвенции об апостиле: что реально изменится для доверенности при покупке на Пангане
+- **faqCategory:** documents
+- **Sources:** HCCH's own status table and news-archive page (primary/official —
+  accession deposited 30 June 2026, enters into force for Thailand 28 February 2027,
+  Thai MFA Department of Consular Affairs represented at the deposit ceremony); Silk
+  Legal's law-firm analysis; two independent sources confirming the Land
+  Department's specific POA forms (Tor Dor 21 ท.ด.21 for land/houses, Or Chor 21
+  อ.ช.21 for condos).
+- **Why this and why now:** a genuine, dated, primary-sourced regulatory event
+  (HCCH is the treaty depositary — about as strong as sourcing gets) with direct,
+  practical relevance to Phangan's many remote/absentee buyers who sign a POA rather
+  than fly in. No existing guide covers the Convention angle; the only prior mention
+  of a POA (in the land-office-registration-day guide) is a passing line, not a
+  dedicated treatment. Framed conservatively: made clear the current two-step
+  notarise-then-embassy-legalise process is unchanged until 28 Feb 2027, and that
+  even after that date the underlying document still needs notarising first.
 
-Found via a fresh news sweep (2026-08-26), not from any existing backlog row. Distinct
-from the already-published 8-province monitoring guide (kb-0100) and Koh Samui
-raid/lease guide (kb-0101) — both cover identification/monitoring/raiding, while this
-is the first Phangan-specific figure showing disposal orders actually issued and
-executing. Cross-links to kb-0063 (Section 94 mechanism), kb-0100, kb-0101, and the
-villa-held-by-a-company due-diligence guide.
+### Guide 2
 
-## Guide 2
+- **slug:** `thai-bank-account-foreign-property-buyer-2026`
+- **kbId:** `kb-0110`
+- **title (EN):** Can you still open a Thai bank account to buy a Koh Phangan property in 2026?
+- **title (RU):** Можно ли в 2026 году всё ещё открыть тайский банковский счёт для покупки недвижимости на Ко Пангане?
+- **faqCategory:** process
+- **Sources:** Bank of Thailand's own FAQ page on financial-threat/mule-account
+  measures (primary — ~3 million accounts suspended in H1 2025 alone); MBMG Group's
+  2026 update; Isaac Compass's 2026 visa-eligibility breakdown; Wise's Bangkok Bank
+  foreigner-account guide.
+- **Why this and why now:** grounded in a real, verifiable 2025-2026 regulatory
+  tightening (BOT's mule-account crackdown reshaping which visas qualify for account
+  opening — tourist visas, visa exemptions, and even the 5-year DTV no longer
+  reliably qualify at major banks). Positioned as the practical companion to the
+  existing FET-form guide (kb-0019), which already notes a buyer's own account is one
+  of three valid receiving options, not a requirement — this guide's distinct,
+  non-duplicate contribution is the account-opening eligibility rules themselves,
+  which no existing guide addresses.
 
-- **slug:** `marriage-equality-act-property-rights-same-sex-couples`
-- **kbId:** `kb-0108`
-- **title (EN):** Thailand's Marriage Equality Act and property: what changed for same-sex couples buying on Phangan
-- **title (RU):** Закон о равенстве браков в Таиланде и недвижимость: что изменилось для однополых пар, покупающих жильё на Пангане
-- **faqCategory:** `ownership`
-- **faqQuestion:** Does Thailand's Marriage Equality Act change how a same-sex couple can hold or protect an interest in Thai property?
-- **Sources used:**
-  - UN Human Rights Office (OHCHR Bangkok) — enactment confirmation, effective date 23 Jan 2025
-  - UNDP Thailand — background on the law's passage
-  - ThaiLawOnline — "Same-Sex Marriage in Thailand" — Civil and Commercial Code amendment scope (60+ sections)
-  - Conventus Law — "Thailand Real Estate Rights Under the Marriage Equality Act" — real-estate-specific analysis: marital-property regime, Section 1476 consent, pre-2025 protective strategies (usufruct/superficies) remaining relevant
-
-Found via a targeted search for a genuinely distinct angle (2026-08-26), not from any
-existing backlog row — this site's only prior spousal-property guide (kb-0085) covers
-opposite-sex marriages only and never mentions the Marriage Equality Act. Framed
-conservatively: explicitly states that land-ownership restrictions for foreigners are
-unchanged, and flags the ฿40M investment route and 49/51 company structures as
-undocumented (not confirmed identical) for same-sex spouses, since no source
-addressed those specifically. Cross-links to kb-0085 (usufruct/superficies),
-superficies-vs-usufruct-vs-lease, the inheritance-tax guide, the ฿40M route, and the
-49/51 company guide.
-
----
-
-`npx tsc --noEmit` passes clean on both content files. kbId sequence continues at
-kb-0109 (this run used kb-0107 and kb-0108; prior max was kb-0106).
+Both guides cross-link to existing related guides (FET form, Land Office
+registration day, superficies/usufruct/lease, visa & residency) and vice versa is
+left for a future pass if warranted.

@@ -6965,6 +6965,106 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "ownership",
     faqQuestion: "Does Thailand's Marriage Equality Act change how a same-sex couple can hold or protect an interest in Thai property?",
   },
+  {
+    slug: "apostille-convention-power-of-attorney-thailand-2027",
+    kbId: "kb-0109",
+    topic: "Documents",
+    title: "Thailand joins the Apostille Convention: what actually changes for a Power of Attorney used to buy on Koh Phangan",
+    short:
+      "Thailand deposited its instrument of accession to the 1961 Apostille Convention on 30 June 2026; it takes effect on 28 February 2027. Until that date, a Power of Attorney signed abroad to buy or sell Phangan property still needs full Thai embassy or consulate legalisation — a one-step apostille is not yet accepted.",
+    updated: "2026-08-27",
+    body: [
+      "Can you use a simple apostille on your Power of Attorney to buy a Koh Phangan property remotely? Not yet. Thailand formally acceded to the Hague Apostille Convention on 30 June 2026, but the convention only enters into force for Thailand on 28 February 2027. Until that date — and for any POA you need to use before then — the current two-step process (notarisation, then legalisation by a Royal Thai embassy or consulate) still applies in full.",
+      { h: "Why this matters for a remote buyer" },
+      "Most foreign buyers on Phangan are not physically present for every step of a purchase. Rather than fly in for signing, contract review and the Land Office transfer, many appoint their lawyer or a trusted representative to act for them under a Power of Attorney (POA). The Land Department will only accept its own official Thai-script forms for this: **Tor Dor 21 (ท.ด.21)** for land and houses, and **Or Chor 21 (อ.ช.21)** for condominium units. A POA drafted by a foreign lawyer on its own letterhead, however well written, is not a substitute for these forms.",
+      { h: "The process today (and still until 28 February 2027)" },
+      {
+        ul: [
+          "**Sign the official Land Department POA form** (Tor Dor 21 or Or Chor 21) in front of a notary public in your home country, with the required witnesses.",
+          "**Have the notarised document legalised by the Royal Thai embassy or consulate** with jurisdiction over where you signed. An apostille from your home country's own competent authority is not, on its own, accepted for documents used in Thailand — this is the step that changes once the convention takes effect.",
+          "**Arrange a certified Thai translation** if the document was drafted or notarised in English or another language; most Land Offices expect the Thai-language original form to be the operative document.",
+          "**Mind the validity window.** Land Offices and lawyers generally treat a POA as current only for a few months from signing — align the signing date with your expected transfer date, not months in advance.",
+        ],
+      },
+      { h: "What changes on 28 February 2027" },
+      "From that date, a public document — including a notarial act such as a POA — issued in another country that is also a party to the 1961 Convention can be authenticated with a single apostille certificate from a competent authority in the issuing country, without the extra step of Thai consular legalisation. Thailand's accession brings it in line with 130 other Contracting Parties. Two things to keep in mind: the underlying document still generally needs to be notarised first (the apostille certifies the notary's signature and seal, it doesn't replace notarisation), and a document from a country that has not joined the convention still needs full consular legalisation exactly as today.",
+      { h: "What this doesn't change" },
+      {
+        ul: [
+          "**The Land Department's own POA forms are still mandatory.** Tor Dor 21 and Or Chor 21 remain the only forms Land Offices accept for a third party to sign on your behalf — the apostille only changes how the underlying authorisation is authenticated, not which form is used.",
+          "**A POA is still a significant handover of control.** Grant only the specific authority needed for the transaction (signing the transfer, paying registration fees, receiving the title/lease document), with a defined expiry, rather than an open-ended general power.",
+          "**Buying via a Thai spouse, or through a lease, superficies or usufruct**, still involves its own separate registration steps at the Land Office regardless of how the POA itself is authenticated — see [Superficies vs usufruct vs lease](/knowledge/superficies-vs-usufruct-vs-lease) and [A day at the Land Office](/knowledge/land-office-registration-day).",
+        ],
+      },
+      "The takeaway for anyone signing before 28 February 2027: budget the extra week or two that consular legalisation typically adds versus a same-day apostille, and don't assume your home country's apostille will be accepted at a Thai Land Office — it won't be, until the convention is actually in force here.",
+    ],
+    takeaways: [
+      "Thailand deposited its accession to the 1961 Apostille Convention on 30 June 2026; it enters into force for Thailand on 28 February 2027.",
+      "Until then, a Power of Attorney signed abroad for a Phangan property deal still needs notarisation plus full legalisation by a Royal Thai embassy or consulate — a home-country apostille alone is not accepted.",
+      "The Land Department only accepts its own official forms for a third party to sign on your behalf: Tor Dor 21 (ท.ด.21) for land/houses, Or Chor 21 (อ.ช.21) for condominiums.",
+      "After 28 February 2027, a single apostille from the issuing country replaces the Thai consular legalisation step for documents from other Convention member states — but the document must still be notarised first.",
+      "Sign your POA close to the planned transfer date; Land Offices and lawyers generally treat it as current for only a few months.",
+    ],
+    sources: [
+      { title: "HCCH — Thailand accedes to the 1961 Apostille Convention", url: "https://www.hcch.net/en/news-archive/details/?varevent=1158" },
+      { title: "HCCH — Apostille Convention status table (Thailand: accession 30-VI-2026, EIF 28-II-2027)", url: "https://www.hcch.net/en/instruments/conventions/status-table/?cid=41" },
+      { title: "Silk Legal — Thailand's Accession to the Apostille Convention: What Businesses and Individuals Should Know", url: "https://silklegal.com/thailands-accession-to-the-apostille-convention-what-businesses-and-individuals-should-know/" },
+      { title: "Thailand-PropertyLawyer.com — Power of Attorney Tor Dor 21", url: "https://www.thailand-propertylawyer.com/power-of-attorney-tor-dor-21.html" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion: "Do I still need Thai embassy legalisation for my Power of Attorney to buy property on Koh Phangan, or can I use an apostille now?",
+  },
+  {
+    slug: "thai-bank-account-foreign-property-buyer-2026",
+    kbId: "kb-0110",
+    topic: "Process",
+    title: "Can you still open a Thai bank account to buy a Koh Phangan property in 2026?",
+    short:
+      "Thai banks tightened foreign-customer rules through 2025-2026 in response to a wave of scam-linked 'mule' accounts: tourist visas, visa exemptions and even the 5-year DTV are no longer enough at most branches. A property purchase itself doesn't require you personally to hold a Thai account — but knowing the current rules avoids a wasted trip before you sign.",
+    updated: "2026-08-27",
+    body: [
+      "Do you need a personal Thai bank account to buy a villa on Koh Phangan? No — your lawyer's client account or the developer's account can legally receive the funds and trigger the [FET form](/knowledge/bringing-money-into-thailand-fet-form) instead. But many buyers want their own account regardless, for paying utilities, the Land and Building Tax, or a property manager after closing — and opening one has gotten noticeably harder since 2025.",
+      { h: "What changed, and why" },
+      "In 2024-2025 Thailand saw a surge in scam-linked 'mule' accounts — often opened by transient foreigners and used to launder call-centre fraud proceeds. The Bank of Thailand responded with stricter customer due-diligence rules, and in the first half of 2025 alone banks suspended roughly 3 million accounts flagged for suspected mule activity. Retail banks reacted by tightening who they'll onboard at the counter, standardising around documented, long-term residency rather than tourist status.",
+      { h: "Which visas qualify in 2026" },
+      {
+        ul: [
+          "**Qualify at most major banks**: Non-Immigrant B (work), Non-Immigrant O (retirement/family), Non-Immigrant ED (education), and LTR (Long-Term Resident) — generally with a certificate of residence, proof of a Thai address, and a Thai mobile number on top of your passport.",
+          "**No longer accepted at most branches**: a tourist visa or visa-exemption stamp. This is now standard policy at Bangkok Bank, Kasikorn and the other major retail banks, not an occasional branch-level judgment call.",
+          "**The DTV (Destination Thailand Visa) is unreliable despite its 5-year validity** — it is classified as a tourist-category visa under the Immigration Act, so account approval is inconsistent and discretionary by branch. Some DTV-opened accounts have reportedly been frozen or flagged during later compliance reviews.",
+          "**A Non-Immigrant O-A/O-X (retirement) or Elite Visa** is generally treated the same as other qualifying long-stay visas, but expect banks to ask for the visa's supporting financial evidence as well.",
+        ],
+      },
+      { h: "If you don't hold a qualifying visa yet" },
+      "Most buyers are not resident in Thailand on a qualifying visa at the moment they're transferring purchase funds. That's normal, and it's exactly why the [FET form guide](/knowledge/bringing-money-into-thailand-fet-form) treats a personal Thai account as one option, not a requirement: your SWIFT transfer can instead go to your conveyancing lawyer's client account or the developer's escrow/receiving account, with the FET form issued in the recipient's name and passed to you. If you specifically want a personal account before you have a long-stay visa, options are limited and branch-dependent — an Elite Visa (which itself doesn't require a property purchase) is one of the few routes that reliably qualifies you at account-opening stage without first holding a work permit or marriage-based visa.",
+      { h: "Once you own the property" },
+      {
+        ul: [
+          "**After you register title or a lease and hold a long-stay visa** (retirement, LTR, or a Non-O tied to a Thai spouse), opening an account to pay running costs — Land and Building Tax, utilities, a property manager — becomes a normal transaction with the standard document list: passport, visa, certificate of residence, proof of Thai address and a Thai SIM.",
+          "**Bring more than the minimum the first time.** Certificate of residence requirements are now close to universal; get yours from Immigration or your embassy before the branch visit rather than after being turned away.",
+          "**Expect bank-by-bank variation.** Some branches are markedly more accustomed to foreign applicants than others — Kasikorn Bank and Bangkok Bank's larger branches are commonly cited as more foreigner-experienced, but this is branch culture, not a formal difference in the underlying rules.",
+        ],
+      },
+      "The rules aren't aimed at property buyers specifically — they're a side effect of Thailand's crackdown on scam-linked accounts. But they land on the same buyers already navigating [visas and residency](/knowledge/visa-residency-property-owner-koh-phangan) around a purchase, so it's worth checking your own visa's account-opening status before you assume you'll be able to walk into a branch and open one.",
+    ],
+    takeaways: [
+      "You don't need a personal Thai bank account to buy: a lawyer's client account or the developer's account can receive the funds and get the FET form issued in that name instead.",
+      "Since 2025, tourist visas and visa exemptions no longer qualify for a personal account at most major banks — this followed a Bank of Thailand crackdown on scam-linked 'mule' accounts (roughly 3 million suspended in H1 2025 alone).",
+      "The 5-year DTV visa is treated as a tourist-category visa for banking purposes and is not a reliable route to an account, despite its long validity.",
+      "Non-B, Non-O, Non-ED and LTR visas generally qualify, alongside a certificate of residence, proof of Thai address and a Thai phone number.",
+      "Once you hold a qualifying long-stay visa post-purchase, opening an account to pay Land and Building Tax, utilities or a property manager is routine.",
+    ],
+    sources: [
+      { title: "Bank of Thailand — FAQ: Financial threats (mule account measures and prevention)", url: "https://www.bot.or.th/en/faqs/faqs-03.html" },
+      { title: "MBMG Group — Why opening a Thai bank account is getting harder for foreigners (2026 update)", url: "https://mbmg-group.com/why-opening-a-thai-bank-account-is-getting-harder-for-foreigners-2026-update/" },
+      { title: "Isaac Compass — Opening a Thai bank account as a foreign resident in 2026: which visa types qualify", url: "https://www.issacompass.com/insights/opening-a-thai-bank-account-as-a-foreign-resident-in-2026-which-visa-types-quali" },
+      { title: "Wise — How to open a Bangkok Bank account for foreigners", url: "https://wise.com/en-th/blog/bangkok-bank-foreigners" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "Do I need a Thai bank account to buy property on Koh Phangan, and can I actually open one in 2026?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
