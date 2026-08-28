@@ -21,3 +21,13 @@ Re-checked the three remaining ⏳ backlog watch-items with fresh research:
 - **Feb 2026 coalition property-policy stance**: the transfer-fee-discount half is now solidly confirmed (30 Jun 2026 Cabinet resolution) but that's already fully covered by the published kb-0079 — not a fresh topic. The foreign-ownership-review pledge is still sourced only to marketing sites, no reputable-outlet confirmation. Left ⏳.
 
 With the news sweep empty and every evergreen ⏳ backlog row a confirmed duplicate or too thin (per extensive prior re-checks logged in `backlog.md`), I searched for genuinely uncovered evergreen gaps instead of padding a weak angle. TM30 and the yellow Tabien Baan were each previously only mentioned in passing inside other guides (property-management vetting, SBT exemption) but never given dedicated, well-sourced treatment — both are real, commonly-needed administrative-compliance topics for a foreign owner/landlord, distinct from anything already published. `backlog.md` updated with discovery notes and ✅ status for both.
+
+## Second invocation, same day (2026-08-28, later run)
+
+This routine was invoked a second time on the same calendar day. The above two guides (kb-0111, kb-0112) were already authored and committed by the earlier run. Re-ran a fresh-news sweep before touching anything further:
+
+- No successor to PWA Notice 7/2569 for Koh Phangan water supply (checked pwa.co.th directly again).
+- No change to the FBA/AMLA nominee predicate-offence proposal — still AMLO review, no cabinet approval or bill.
+- No new Koh Phangan-specific or general Thai property-law news dated 2026-08-27/28 beyond what the earlier run already found and used.
+
+Per the hard quality gate, published **zero additional guides** this invocation rather than force a duplicate or thin topic — the backlog is genuinely exhausted for today. No changes made to `src/content/knowledge-base.ts` / `.ru.ts` or to the ✅/⏳ statuses in `backlog.md` (nothing changed since the earlier run's re-checks). Next run should resume from the still-⏳ watch items (water crisis, FBA/AMLA, coalition stance) and a fresh news sweep for 2026-08-29.
