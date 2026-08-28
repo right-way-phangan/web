@@ -7065,6 +7065,96 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "process",
     faqQuestion: "Do I need a Thai bank account to buy property on Koh Phangan, and can I actually open one in 2026?",
   },
+  {
+    slug: "tm30-foreign-guest-notification-koh-phangan",
+    kbId: "kb-0111",
+    topic: "Process",
+    title: "TM30: the 24-hour foreign-guest notification every Koh Phangan landlord — and owner-occupier — must file",
+    short:
+      "Section 38 of Thailand's Immigration Act requires whoever owns, possesses or manages a residence to notify Immigration within 24 hours whenever a foreign national stays there — including a foreign owner living in their own villa. It's a separate obligation from Hotel Act licensing, and skipping it quietly blocks visa extensions and 90-day reporting later, not just risks a fine.",
+    updated: "2026-08-28",
+    body: [
+      "Do you have to file anything with Thai Immigration just because a foreign tenant, guest, or you yourself as a foreign owner, is staying at a Koh Phangan property? Yes — this is the TM30 notification, and it's a separate duty from the [Hotel Act licensing question](/knowledge/renting-out-your-villa-rules-and-taxes) that governs whether you can legally rent out a villa short-term. TM30 applies regardless of how long the stay is or whether any money changes hands.",
+      { h: "What the law actually requires" },
+      "Section 38 of the Immigration Act B.E. 2522 (1979) names four categories of people responsible for filing: the householder, the property owner, the possessor of a dwelling, or a hotel manager. Whichever of these applies to you must notify the local Immigration office within **24 hours** of a foreign national arriving to stay at that address — using form TM30 (ตม.30), online through Immigration's TM30 portal or the in-country \"Section 38\" reporting channel, or in person at the district Immigration office.",
+      {
+        ul: [
+          "**It applies to a foreign owner living in their own house**, not only to landlords with tenants — there is no ownership exemption. Each time you re-enter Thailand and return to your own registered address, a fresh notification is generally expected.",
+          "**It applies to short-stay guests and long-term tenants alike** — a two-week Airbnb booking and a one-year lease tenant both trigger the same 24-hour duty on whoever holds the property.",
+          "**Hotels and Hotel Act-licensed properties file guest reports automatically** through their own registered system, which satisfies TM30 for those guests — but this only covers properties actually operating under a hotel licence or [registered exemption certificate](/knowledge/short-term-rental-airbnb-crackdown-2026), not an individual owner or landlord renting privately.",
+          "**Some Immigration offices relax the re-filing requirement** for a guest who leaves briefly on a multiple-entry visa or valid re-entry permit and returns to the same address — but this is discretionary local practice, not a statutory exemption, so confirm with your local office rather than assuming it applies.",
+        ],
+      },
+      { h: "Why the paperwork matters more than the fine" },
+      "The fine itself is modest and inconsistently cited across sources — commonly reported in the ฿800–2,000 range for an individual owner or landlord, with higher amounts for a non-compliant hotel operator. Confirm the current figure with a Thai lawyer rather than relying on any single online source, since cited amounts vary. The real cost of skipping TM30 is procedural: Immigration checks the TM30 record before processing a visa extension, a 90-day address report, or a re-entry permit for the foreign national staying at that address. A missing or outdated filing can stall a tenant's or your own visa paperwork at exactly the moment you need it to go through quickly.",
+      { h: "The acknowledgment slip is what you actually need to keep" },
+      "Each successful TM30 filing produces a receipt or acknowledgment slip (sometimes referred to informally as the \"TM30 form\" itself). Keep a copy — a tenant or guest may need to present it alongside their own paperwork for a visa extension or 90-day report, and a property manager should be able to produce it on request as proof the address is correctly registered. See [Managing a rental villa remotely: how to vet a property-management company](/knowledge/vetting-villa-property-management-company) for how TM30 compliance fits into what a manager should be handling on your behalf.",
+      "TM30 is easy to treat as an afterthought because the fine is small — but it's the paperwork Immigration checks first. Whether you're renting out a villa, housing a long-term tenant, or simply living in the home you bought, file it within 24 hours and keep the slip.",
+    ],
+    takeaways: [
+      "Section 38 of the Immigration Act B.E. 2522 requires the property's householder, owner, possessor or hotel manager to notify Immigration within 24 hours whenever a foreign national stays there.",
+      "It applies to a foreign owner occupying their own home, not only to landlords with tenants — there's no ownership exemption.",
+      "It's separate from Hotel Act licensing: a fully licensed short-term rental still needs TM30 handled (usually automatically, via the hotel/exemption registration), and a private landlord or owner-occupier needs to file it themselves.",
+      "The fine for missing it is commonly cited around ฿800–2,000 for an individual, but the bigger practical risk is a blocked visa extension or 90-day report for the foreign national at that address.",
+      "Keep the acknowledgment slip from each filing — a tenant, guest, or your own future visa paperwork may need to show it.",
+    ],
+    sources: [
+      { title: "LegalClarity — TM30 Thailand: Filing Requirements, Documents and Fines", url: "https://legalclarity.org/tm30-thailand-filing-requirements-documents-and-fines/" },
+      { title: "RWT Law — The TM30 Form: What You Need to Know", url: "https://www.rwtlaw.co.th/dev/the-tm30-form-what-you-need-to-know/" },
+      { title: "Bangkok Post — TM30 reporting rule on foreigners eased", url: "https://www.bangkokpost.com/thailand/general/1941048/tm30-reporting-rule-on-foreigners-eased" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "What is TM30, and do I have to file it every time a foreign tenant or guest stays at my Koh Phangan property?",
+  },
+  {
+    slug: "yellow-house-book-tabien-baan-foreign-owner",
+    kbId: "kb-0112",
+    topic: "Documents",
+    title: "The yellow house-registration book (Tabien Baan): what it gives a foreign owner on Koh Phangan — and what it doesn't",
+    short:
+      "The yellow Tabien Baan (ทะเบียนบ้าน ท.ร.13) records that a foreigner lives at a specific Thai address — nothing more. It isn't a title deed, a visa, or a residence permit, and applying for one is a district-office process that varies by amphoe, not an automatic entitlement.",
+    updated: "2026-08-28",
+    body: [
+      "Does getting a yellow house book prove you own your Koh Phangan property, or give you the right to stay in Thailand? No to both. The yellow Tabien Baan (form ท.ร.13), issued under Thailand's house registration rules, is an address record — it lists who resides at a property, and that's the whole of what it legally does.",
+      { h: "What it actually is" },
+      "Every registered Thai address has a house registration book. Thai nationals and permanent residents go on the blue book (ท.ร.14); other foreign residents go on the separate yellow book. It's issued by the local district office — the amphoe, or khet in Bangkok — responsible for the property's location, and requirements can vary from one district office to the next, so confirm the current document list with your own amphoe before applying rather than assuming a generic online checklist covers it exactly.",
+      { h: "What it does NOT give you" },
+      {
+        ul: [
+          "**Not proof of ownership.** Being listed on a property's yellow book has no bearing on who legally owns it. Ownership of land and buildings runs through the [chanote and Land Department registration](/knowledge/land-titles-chanote-vs-nor-sor-3) — the title deed, not the house book, is the ownership document.",
+          "**Not a visa or residence permit.** The yellow book records where you live; it does nothing to establish your legal right to be in Thailand. Your visa remains the sole basis for your stay — see [Visa and residency for a property owner](/knowledge/visa-residency-property-owner-koh-phangan) for how ownership and immigration status actually relate.",
+          "**Not permanent residency.** Holding a yellow book doesn't advance or grant PR status, and it doesn't change any foreign-ownership restriction on land.",
+        ],
+      },
+      { h: "What it's actually useful for" },
+      {
+        ul: [
+          "**Administrative convenience** — a documented Thai address supports applications for a driver's licence, certain bank accounts, and utility connections in your own name.",
+          "**Evidence for the Specific Business Tax residence exemption.** A seller whose name has been on a property's house registration for at least a year before sale can qualify for SBT relief regardless of how long they've owned it — available to a foreign owner on the yellow book on the same basis as a Thai national on the blue book. See [Specific Business Tax's 5-year exemption: how the clock is counted](/knowledge/specific-business-tax-five-year-exemption-clock) for the full rule.",
+          "**A documented address for other paperwork** — some visa extensions, TM30 filings and official correspondence go more smoothly with a yellow book address of record already on file, though it isn't a substitute for [TM30 notification](/knowledge/tm30-foreign-guest-notification-koh-phangan) itself.",
+        ],
+      },
+      { h: "Applying: who qualifies and what's typically needed" },
+      "Eligibility generally runs through one of two routes: being married to a Thai national, or owning or leasing the property in question. Typical documents include your passport (photo and visa pages), your TM30 acknowledgment slip for that address, the chanote or lease agreement, the property owner's consent if you're renting rather than owning, and — at many district offices — two Thai witnesses who bring their own ID cards to the appointment. Some amphoe offices also ask for a supporting letter from your embassy. Because the exact list is set locally, treat any generic checklist as a starting point and confirm directly with your district office before the appointment.",
+      "A yellow Tabien Baan is a genuinely useful piece of paperwork for a foreign owner settling in on the island — but it's an address record, not a property right. Don't let anyone selling you on the process imply it does more than that.",
+    ],
+    takeaways: [
+      "The yellow Tabien Baan (ท.ร.13) records your residential address in Thailand — it is not a title deed, a visa, or a residence permit.",
+      "Land and building ownership is proven by the chanote and Land Department registration, never by the house registration book.",
+      "It's issued at the local amphoe (district office), and required documents vary by district — confirm the current list locally rather than assuming a standard checklist applies everywhere.",
+      "It can support the Specific Business Tax one-year residence exemption for a foreign owner, on the same terms as a Thai national on the blue book.",
+      "Eligibility generally requires either marriage to a Thai national or ownership/lease of the property, plus a TM30 acknowledgment slip, ID documents, and often two Thai witnesses at the district office.",
+    ],
+    sources: [
+      { title: "ThaiLawOnline — Thai Yellow House Book (Ta Bien Baan)", url: "https://www.thailawonline.com/thai-yellow-house-book-ta-bien-baan/" },
+      { title: "PS Law and Business — A Foreigner's Guide to the Thai Yellow House Book (Tabien Baan)", url: "https://www.pslawbusiness.com/blog/thai-house-book-thailand" },
+      { title: "Houseviser — Tabien Baan: the Thai house registration book explained", url: "https://houseviser.com/guide/glossary/tabien-baan" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion: "Does getting a yellow Tabien Baan give me residency or prove I own my Koh Phangan property?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

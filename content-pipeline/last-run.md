@@ -1,88 +1,23 @@
-# Last run — 2026-08-27
+# Last run — 2026-08-28
 
-**Guides published:** 2 (of 2 targeted)
+Published 2 guides (EN + RU each).
 
-Every ⏳ row in `content-pipeline/backlog.md` was already re-checked and confirmed
-duplicate/thin/unsafe by runs as recent as 2026-08-25/26 — none had a new angle today.
-I ran an extensive fresh sweep (20+ searches) across the usual nominee-crackdown beat
-plus several verticals not recently checked (leasehold-bill status, condo quota,
-mortgage/LTV rules, remittance tax, digital land services, agent licensing,
-infrastructure, scams, luxury-market impact). Nearly everything nominee-crackdown
-related was either already published across 5+ existing guides or a rehash of the
-same May/August raid figures already assessed and rejected in prior runs. The two
-genuinely new, well-sourced, non-duplicate finds were both procedural/regulatory —
-one dated primary-source news event, one a real 2025-2026 regulatory tightening —
-rather than another crackdown recap.
-
----
-
-## Backlog items re-checked this run (all remain ⏳, no change)
-
-Spot-checked for a fresh angle: Koh Phangan water crisis, 2026 Land and Building Tax
-full-rate year, FBA/AMLA predicate-offence proposal, realistic rental yields, power
-grid reliability, Israeli/European buyer surge, Stamp Duty vs SBT, vetting a named
-off-plan project, the February 2026 election/coalition property-policy item, and the
-PND.90/91 e-filing deadline. Nothing new found beyond what prior runs (2026-08-22
-through 08-26) already documented inline in the backlog; left ⏳ unchanged.
-
-Also checked and declined as not distinct/safe enough to publish today: the
-Anutin/EEC nationwide nominee-crackdown expansion (largely duplicates the existing
-8-province monitoring guide, kb-0100, and isn't Phangan-specific — it's about Chinese
-capital in the Eastern Economic Corridor); the September-2025 "50% land tax cut,
-99-year leasehold shelved" story (a year-old snapshot from the prior government,
-superseded by 2026 reporting that Pheu Thai revived the leasehold bill — using it
-would risk publishing stale/reversed information); Revenue Department Orders
-161/162 on foreign-sourced income (2023-dated rules already implicit in the existing
-tax guides); the August luxury-home crackdown story (Bangkok-specific — Krungthep
-Kreetha/Pattanakarn/Pattaya/Phuket/Chiang Mai — doesn't mention Phangan or Samui and
-isn't relevant to this site's audience); and real-estate agent/broker licensing
-(sourcing was internally contradictory on whether provincial licensing actually
-exists — not solid enough to publish a legal claim on).
-
-## New topics found and published (not from the existing backlog)
-
-### Guide 1
-
-- **slug:** `apostille-convention-power-of-attorney-thailand-2027`
-- **kbId:** `kb-0109`
-- **title (EN):** Thailand joins the Apostille Convention: what actually changes for a Power of Attorney used to buy on Koh Phangan
-- **title (RU):** Таиланд присоединяется к Гаагской конвенции об апостиле: что реально изменится для доверенности при покупке на Пангане
-- **faqCategory:** documents
-- **Sources:** HCCH's own status table and news-archive page (primary/official —
-  accession deposited 30 June 2026, enters into force for Thailand 28 February 2027,
-  Thai MFA Department of Consular Affairs represented at the deposit ceremony); Silk
-  Legal's law-firm analysis; two independent sources confirming the Land
-  Department's specific POA forms (Tor Dor 21 ท.ด.21 for land/houses, Or Chor 21
-  อ.ช.21 for condos).
-- **Why this and why now:** a genuine, dated, primary-sourced regulatory event
-  (HCCH is the treaty depositary — about as strong as sourcing gets) with direct,
-  practical relevance to Phangan's many remote/absentee buyers who sign a POA rather
-  than fly in. No existing guide covers the Convention angle; the only prior mention
-  of a POA (in the land-office-registration-day guide) is a passing line, not a
-  dedicated treatment. Framed conservatively: made clear the current two-step
-  notarise-then-embassy-legalise process is unchanged until 28 Feb 2027, and that
-  even after that date the underlying document still needs notarising first.
-
-### Guide 2
-
-- **slug:** `thai-bank-account-foreign-property-buyer-2026`
-- **kbId:** `kb-0110`
-- **title (EN):** Can you still open a Thai bank account to buy a Koh Phangan property in 2026?
-- **title (RU):** Можно ли в 2026 году всё ещё открыть тайский банковский счёт для покупки недвижимости на Ко Пангане?
+## 1. kb-0111 — `tm30-foreign-guest-notification-koh-phangan`
+- **Title:** TM30: the 24-hour foreign-guest notification every Koh Phangan landlord — and owner-occupier — must file
 - **faqCategory:** process
-- **Sources:** Bank of Thailand's own FAQ page on financial-threat/mule-account
-  measures (primary — ~3 million accounts suspended in H1 2025 alone); MBMG Group's
-  2026 update; Isaac Compass's 2026 visa-eligibility breakdown; Wise's Bangkok Bank
-  foreigner-account guide.
-- **Why this and why now:** grounded in a real, verifiable 2025-2026 regulatory
-  tightening (BOT's mule-account crackdown reshaping which visas qualify for account
-  opening — tourist visas, visa exemptions, and even the 5-year DTV no longer
-  reliably qualify at major banks). Positioned as the practical companion to the
-  existing FET-form guide (kb-0019), which already notes a buyer's own account is one
-  of three valid receiving options, not a requirement — this guide's distinct,
-  non-duplicate contribution is the account-opening eligibility rules themselves,
-  which no existing guide addresses.
+- **Sources:** LegalClarity (TM30 filing requirements, documents, fines); RWT Law (Section 38 Immigration Act B.E. 2522, penalty section); Bangkok Post (TM30 enforcement news). Fine figures were inconsistent across sources (฿800–2,000 range vs. one flat ฿1,600 claim), so the guide presents a conservative range rather than a single precise number.
 
-Both guides cross-link to existing related guides (FET form, Land Office
-registration day, superficies/usufruct/lease, visa & residency) and vice versa is
-left for a future pass if warranted.
+## 2. kb-0112 — `yellow-house-book-tabien-baan-foreign-owner`
+- **Title:** The yellow house-registration book (Tabien Baan): what it gives a foreign owner on Koh Phangan — and what it doesn't
+- **faqCategory:** documents
+- **Sources:** ThaiLawOnline (Thai Yellow House Book / form ท.ร.13, House Registration Act B.E. 2534); PS Law and Business (foreigner's guide, eligibility, required documents); Houseviser (glossary confirmation). All three independently confirm the "not ownership / not visa / not PR" framing.
+
+## Why these two, not backlog items
+Ran a fresh-news sweep (2026-08-27/28 window) via a research agent — found nothing genuinely new and property-relevant; the only fresh-dated story was a social-tension piece (Israeli-tourist protest fallout on Koh Samui) with no property-law substance, so it was skipped as a poor fit for this pipeline.
+
+Re-checked the three remaining ⏳ backlog watch-items with fresh research:
+- **Koh Phangan water crisis** (🔴): confirmed a third time that PWA Notice 7/2569 (through 1 Aug 2026) is still the newest Koh Phangan-specific notice — no successor found. Still no distinct angle beyond the already-published kb-0077. Left ⏳.
+- **FBA/AMLA nominee predicate-offence amendment**: still just an Ombudsman recommendation under AMLO review, no cabinet approval or bill. Left ⏳.
+- **Feb 2026 coalition property-policy stance**: the transfer-fee-discount half is now solidly confirmed (30 Jun 2026 Cabinet resolution) but that's already fully covered by the published kb-0079 — not a fresh topic. The foreign-ownership-review pledge is still sourced only to marketing sites, no reputable-outlet confirmation. Left ⏳.
+
+With the news sweep empty and every evergreen ⏳ backlog row a confirmed duplicate or too thin (per extensive prior re-checks logged in `backlog.md`), I searched for genuinely uncovered evergreen gaps instead of padding a weak angle. TM30 and the yellow Tabien Baan were each previously only mentioned in passing inside other guides (property-management vetting, SBT exemption) but never given dedicated, well-sourced treatment — both are real, commonly-needed administrative-compliance topics for a foreign owner/landlord, distinct from anything already published. `backlog.md` updated with discovery notes and ✅ status for both.
