@@ -41,3 +41,13 @@ than reading as overlapping content.
 
 `content-pipeline/backlog.md` updated: both new rows added under section A (discovered/published
 2026-08-29) and marked ✅; all previously-stalled ⏳ rows re-confirmed unchanged.
+
+## Addendum — later 2026-08-29 invocation, 0 additional guides
+
+A third invocation ran later the same day. Today's quota (2 guides, above) was already fulfilled by
+the prior run, and dedup was re-verified: both slugs above are present with matching entries in both
+`src/content/knowledge-base.ts` and `src/content/knowledge-base.ru.ts`. Re-ran a fresh-news sweep
+(Koh Phangan property law news, nominee-crackdown/Land Department news) — found nothing dated after
+the prior check that isn't already published or already flagged duplicate/thin in `backlog.md`'s
+remaining `⏳` rows. Per the hard quality gate, published **0 further guides** this invocation rather
+than force a third topic or duplicate existing coverage. No files changed.
