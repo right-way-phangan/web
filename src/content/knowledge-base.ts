@@ -7155,6 +7155,106 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "documents",
     faqQuestion: "Does getting a yellow Tabien Baan give me residency or prove I own my Koh Phangan property?",
   },
+  {
+    slug: "foreign-real-estate-agent-restrictions-thailand",
+    kbId: "kb-0113",
+    topic: "Process",
+    title: "Can a foreigner be your real estate agent on Koh Phangan? What Thai law actually allows",
+    short:
+      "No — hands-on brokerage (listing, negotiating and closing a deal for commission) is reserved for Thai nationals under the Foreign Business Act, and a wave of enforcement since 2024 has closed the informal grey market that once let foreigners do it anyway. A foreigner can work in marketing, business development or investor relations for an agency, but the substantive transaction work has to run through a Thai national or a properly structured, Thai-majority company.",
+    updated: "2026-08-29",
+    body: [
+      "Is it a problem that the charismatic foreign expat who showed you a villa is also the one negotiating your price? Under Thai law, yes — it can be. \"Brokerage or agency business\" is listed under the Foreign Business Act B.E. 2542 (1999) as an activity a foreign national or foreign-majority company may not carry out without a Foreign Business License, and real estate brokerage doesn't fall under any of that restriction's narrow carve-outs (which cover things like securities and futures brokering, or acting as an agent between affiliated companies). In practice, a Foreign Business License for ordinary residential brokerage on an island like Phangan is essentially never granted — so the activity itself is reserved for Thai nationals and Thai-majority-owned agencies.",
+      { h: "What \"brokerage work\" actually means" },
+      "The restriction targets the frontline transactional role: listing a property, showing it to buyers, negotiating price and terms, and earning a commission tied to the deal closing. It doesn't ban a foreigner from working in real estate in Thailand altogether — it bans a foreigner from being the one who does that specific work without the right structure behind them.",
+      { h: "What foreigners can legally do instead" },
+      {
+        ul: [
+          "**Marketing and lead generation** — running international marketing, managing overseas inquiries, or a website and social media presence aimed at foreign buyers.",
+          "**Business development and investor relations** — representing an agency's brand and network, without personally closing the deal.",
+          "**Non-transactional advisory roles** — architecture, project management, or investment consulting distinct from acting as the buyer's or seller's agent in a sale.",
+        ],
+      },
+      "Any of these roles still requires the foreigner to hold a **Non-Immigrant B visa and a valid work permit** matched to the actual job description, and the employing Thai company must maintain the standard ratio of Thai staff per foreign work-permit holder. A job title that says \"consultant\" on paper while the person actually lists, negotiates and closes deals doesn't change the underlying legal exposure.",
+      { h: "Why this has gotten stricter" },
+      "A series of enforcement actions since 2024 has targeted the informal arrangement common in tourist areas — a foreign national fronting as the face of an agency while technically employed elsewhere, or not employed at all. This sits alongside, but is legally separate from, the nominee-shareholding crackdown covered in [Koh Phangan's land disposal orders](/knowledge/koh-phangan-land-disposal-orders-112-companies-2026): that enforcement is about who can hold the land itself, while this one is about who can legally act as the intermediary in the sale. A buyer can get both wrong in the same transaction without realising it.",
+      { h: "What this means for you as a buyer" },
+      {
+        ul: [
+          "**Ask who is actually negotiating your deal.** A charming foreign point of contact isn't disqualifying on its own, but the substantive brokerage — the listing agreement, the offer and the negotiation — should run through a Thai national or a properly licensed, Thai-majority agency structure.",
+          "**Check the agency's registration**, not just its marketing. A real Thai company registered with the Department of Business Development, with genuine Thai shareholding, is a different thing from a foreign individual operating informally under an agency's name.",
+          "**Don't substitute a persuasive agent for independent legal advice.** Whoever introduces you to a listing, the contract review and title due diligence should still go through your own Thai lawyer — see [What a Phangan property lawyer's fee actually buys](/knowledge/phangan-property-lawyer-fees-what-they-cover) for what that should cover.",
+          "**Treat this as separate from the company-holding question.** A compliant brokerage doesn't tell you anything about whether the land itself is held in a compliant structure — that's its own due-diligence step, covered in [A Thai company for property (49/51)](/knowledge/thai-company-for-property-49-51).",
+        ],
+      },
+      "The takeaway: on Koh Phangan's largely foreign-buyer, foreign-facing property market, it's easy to assume the person doing the selling is also the one legally allowed to do it. Increasingly, regulators are checking — and so should you, before you rely on anyone's advice about price, terms or paperwork.",
+    ],
+    takeaways: [
+      "Frontline real estate brokerage — listing, negotiating and closing for commission — is reserved for Thai nationals under the Foreign Business Act; a Foreign Business License for this activity is essentially never granted for ordinary residential sales.",
+      "Foreigners can legally work in marketing, business development or non-transactional advisory roles in real estate, with a Non-Immigrant B visa and a work permit matched to the actual job.",
+      "Enforcement against foreigners doing informal frontline brokerage has tightened since 2024, alongside — but legally separate from — the nominee-shareholding land crackdown.",
+      "A compliant brokerage says nothing about whether the underlying land structure is compliant — check both, separately.",
+      "Whoever shows you the listing, route the contract review and due diligence through your own independent Thai lawyer.",
+    ],
+    sources: [
+      { title: "The Thaiger — Real Estate Work for Foreigners in Thailand: What's Legal and What's Not (6 May 2026)", url: "https://thethaiger.com/thai-life/property/working-in-real-estate-as-an-expat-in-thailand-what-you-need-to-know" },
+      { title: "Foreign Business Act B.E. 2542 (1999), List 3 — brokerage or agency business (general legal framework)", url: "https://library.siam-legal.com/thai-law/foreign-business-act-types-of-businesses-list-3/" },
+      { title: "Benoit & Partners — Opening a real estate agency in Thailand: legal requirements", url: "https://benoit-partners.com/real-estate-agency-thailand/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "Can a foreigner legally work as my real estate agent or broker on Koh Phangan?",
+  },
+  {
+    slug: "amlo-anti-money-laundering-checks-real-estate-agents",
+    kbId: "kb-0114",
+    topic: "Documents",
+    title: "AML checks your Phangan agent or lawyer must run: AMLO's customer due diligence rules explained",
+    short:
+      "Since being designated reporting entities under the Anti-Money Laundering Act, real estate brokers, agents and developers must verify your identity and the beneficial owner behind any buying company, and must report cash payments of ฿2 million or more and property transactions of ฿5 million or more to Thailand's Anti-Money Laundering Office. This runs alongside, not instead of, the Land Office's own source-of-funds checks.",
+    updated: "2026-08-29",
+    body: [
+      "Why is your agent suddenly asking for a passport copy, a source-of-funds explanation and details of who really controls your buying company — before you've even made an offer? Because since being designated \"reporting entities\" under the Anti-Money Laundering Act B.E. 2542 (1999) (AMLA), real estate brokers, agents and developers carry their own legal duty to check who they're dealing with and to report certain transactions to Thailand's Anti-Money Laundering Office (AMLO) — separate from, and in addition to, the checks a Land Office runs when a deal is registered.",
+      { h: "What your agent is now required to do" },
+      {
+        ul: [
+          "**Customer due diligence (CDD)** — verify your identity from your passport, under the Ministerial Regulation on Customer Due Diligence B.E. 2563 (2020), before acting for you on a sale, purchase, lease or transfer of real property.",
+          "**Beneficial-owner (UBO) identification** — if you're buying through a company (Thai or foreign), your agent or the closing lawyer must identify and verify the natural person who ultimately owns or controls it, generally anyone holding 25% or more of the shares or voting rights, directly or indirectly.",
+          "**Enhanced due diligence** — for higher-risk profiles: politically exposed persons, complex or opaque ownership structures, and buyers from jurisdictions AMLO treats as higher-risk.",
+          "**Transaction reporting to AMLO** — cash payments of roughly ฿2 million or more, and real-estate transactions valued at roughly ฿5 million or more, are reportable regardless of whether anything about the deal looks suspicious. A separate duty applies to genuinely suspicious transactions at any value.",
+        ],
+      },
+      { h: "Who exactly is covered" },
+      "Real estate brokers, agents and developers were brought within AMLA's reporting-entity net under the ministerial regulation designating additional non-financial businesses and professions (a category regulators call DNFBPs — designated non-financial businesses and professions), alongside lawyers, accountants and dealers in high-value goods when those professionals handle a real estate transaction, company formation or client funds on your behalf. AMLO's own guidelines on customer due diligence, which its inspectors use as an audit manual, spell out the specific expectations for each business type, including real estate.",
+      { h: "How this differs from the Land Office's checks" },
+      "This is a distinct compliance layer from the source-of-funds questioning a Provincial Land Office now runs at registration under its 2026 \"Most Urgent\" circulars — see [The Land Office's May 2026 source-of-funds checks](/knowledge/land-office-source-of-funds-checks-2026). The Land Office checks are a government registration control, applied by land officials at the point of transfer; AMLO's CDD and reporting duties sit with the private-sector intermediaries — your broker, agent or lawyer — and apply from the moment they start acting for you, well before any registration appointment.",
+      { h: "What this means for you as a buyer" },
+      {
+        ul: [
+          "**Expect it, and don't treat it as a red flag on its own.** A legitimate agency asking for your passport, the source of your funds and, if you're buying through a company, the identity of its ultimate owners is doing what the law requires — not being unusually cautious.",
+          "**Have your paperwork ready early.** Passport, proof of the funds' origin, and company documents showing beneficial ownership (if applicable) will be asked for before a listing agreement or offer proceeds, not just at the Land Office.",
+          "**Be wary of an agent who skips this entirely.** A broker who never asks any of these questions is either unaware of a legal duty that applies to them or ignoring it — neither is reassuring about the rest of how they'll handle your transaction.",
+          "**This is separate from moving the money itself** — how you actually transfer funds into Thailand and keep the paper trail is its own step; see [Bringing money into Thailand: the FET form](/knowledge/bringing-money-into-thailand-fet-form).",
+        ],
+      },
+      "The takeaway: the paperwork your Phangan agent asks for before you've signed anything isn't just prudent business practice — much of it is a specific legal obligation under Thailand's anti-money-laundering law. Treat a thorough intake process as a sign you're dealing with a compliant intermediary, not an obstacle to get around.",
+    ],
+    takeaways: [
+      "Real estate brokers, agents and developers are designated reporting entities under Thailand's Anti-Money Laundering Act, with their own customer due diligence duty separate from Land Office checks.",
+      "Your agent or the closing lawyer must verify your identity and, for a company buyer, identify the beneficial owner behind it — generally anyone with 25%+ ownership or control.",
+      "Cash payments of roughly ฿2 million or more, and property transactions of roughly ฿5 million or more, are reportable to AMLO regardless of whether anything looks suspicious.",
+      "This AML due-diligence layer runs alongside, not instead of, the Land Office's own 2026 source-of-funds questioning at registration.",
+      "A legitimate agency asking early for your passport, source-of-funds detail and company ownership information is complying with the law, not overstepping.",
+    ],
+    sources: [
+      { title: "Baker McKenzie / Global Compliance News — Thailand: AMLO's guidelines on customer due diligence for different businesses", url: "https://www.globalcompliancenews.com/2024/05/30/https-insightplus-bakermckenzie-com-bm-consumer-goods-retail_1-thailand-anti-money-laundering-offices-guidelines-on-customer-due-diligence-for-different-businesses_05162024/" },
+      { title: "Anti-Money Laundering Act B.E. 2542 (1999), Section 16 — reporting duties of designated non-financial businesses and professions (general legal framework)" },
+      { title: "Ministerial Regulation on Customer Due Diligence B.E. 2563 (2020) (general legal framework)" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion: "Why does my Koh Phangan real estate agent or lawyer need my passport and source-of-funds details before I've even made an offer?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

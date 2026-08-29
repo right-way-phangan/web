@@ -1,52 +1,43 @@
 # Last run — 2026-08-29
 
-Published **0 guides** this run. Backlog is genuinely exhausted and today's fresh-news sweep found nothing new.
+Published **2 guides** this run (EN + RU each).
 
-## What was checked
+## What was published
 
-**Backlog re-scan:** every `⏳` row in `content-pipeline/backlog.md` already carries repeated re-check notes
-(most recently 2026-08-25/26/28) confirming duplicate, thin, or unsafe-to-publish status:
-- Koh Phangan water crisis (🔴) — no PWA notice newer than 7/2569 found; re-confirmed again today.
-- Realistic villa rental yields — still the same framing already in kb-0010.
-- FBA/AMLA nominee predicate-offence amendment — still just an Ombudsman recommendation under AMLO
-  review, no cabinet approval or bill; re-confirmed today (also checked whether it had been conflated
-  with the unrelated 12 May 2026 Cabinet-approved *liberalization* of 9 FBA business categories —
-  it hasn't, and that's a different, deregulatory track, not this criminalization proposal).
-- Koh Phangan power grid reliability — still duplicate of kb-0026.
-- Who's buying on Phangan 2026 — still duplicate of kb-0014.
-- Stamp Duty vs SBT mutual exclusivity — still duplicate of kb-0084.
-- Vetting a specific off-plan project — still declined on the "naming a live commercial project"
-  responsibility concern.
-- Feb 2026 coalition "review foreign ownership regulations" pledge — still no reputable-outlet
-  (Bangkok Post / Nation Thailand / Thai Examiner) confirmation of specifics; re-confirmed today —
-  only real-estate marketing sites and one opinion piece (East Asia Forum, 25 Feb 2026) repeat it.
-- E-filing deadline extension (PND.90/91) — still too thin for a standalone guide.
+1. **`foreign-real-estate-agent-restrictions-thailand`** (kb-0113, faqCategory: `process`)
+   Title: "Can a foreigner be your real estate agent on Koh Phangan? What Thai law actually allows"
+   Sources: The Thaiger (6 May 2026, direct fetch — what's legal/not, 2024+ enforcement crackdowns,
+   compliant roles, work-permit requirements); Foreign Business Act B.E. 2542 List 3 (brokerage/agency
+   business restriction, via Siam Legal's library summary); Benoit & Partners (agency registration,
+   Thai-majority ownership requirements).
 
-**Fresh-news sweep (2026-08-27 to 2026-08-29 window):** ran a research agent across ~17 searches
-covering Land Department/DBD/BOI/Revenue Department circulars, Bank of Thailand rules, and
-Koh Phangan/Koh Samui-specific news. The one dated, numerically specific item it surfaced — a
-26 Aug 2026 Thai Examiner report citing Deputy Interior Minister Worasit Liengprasit's 25 Aug 2026
-figures (112 Koh Pha Ngan companies, 124 plots, ~86.86 rai, 8 disposal orders / 28 pending / 76 under
-review) — turned out to be **the same story already published on 2026-08-26 as kb-0107**
-(`koh-phangan-land-disposal-orders-112-companies-2026`), just re-reported by a second outlet a day
-later with identical figures. Not a fresh topic.
+2. **`amlo-anti-money-laundering-checks-real-estate-agents`** (kb-0114, faqCategory: `documents`)
+   Title: "AML checks your Phangan agent or lawyer must run: AMLO's customer due diligence rules explained"
+   Sources: Baker McKenzie / Global Compliance News (AMLO's 2024 CDD guidelines for designated
+   businesses, UBO 25% threshold, Ministerial Regulation on CDD B.E. 2563/2020); cross-checked against
+   Lexology, juslaws.com and siamcenterlawgroup.com for the AMLA Section 16 DNFBP framework and the
+   ~฿2m cash / ~฿5m property transaction reporting thresholds (also traced to an AMLO-hosted
+   Thai-language transaction-reporting guidance doc at sed.amlo.go.th, though its PDF text couldn't be
+   machine-extracted for direct quoting — figures presented as "roughly," not pinned to an exact clause).
 
-Other items the sweep turned up were either not property-relevant (Full Moon Party, tourism awards,
-a crypto-robbery arrest), a restatement of older news (DBD Order 2/2026 effective 1 Aug, already
-covered via kb-0094; the 12 May 2026 FBA liberalization track), or specific to Koh Samui rather than
-Koh Phangan (Samui's own PWA rationing since 3 Aug 2026 — a different island from this site's
-Phangan-focused water-shortage guide, kb-0077).
+## Why these two
 
-## Why zero, not one padded guide
+An earlier run today (committed 2026-08-29 00:44 UTC, see prior `last-run.md` history) had already
+found the backlog's `⏳` rows and the standard fresh-news sweep exhausted — every remaining watch item
+(water crisis, FBA/AMLA predicate-offence amendment, coalition property stance, rental yields, single
+undersea power cable, Stamp Duty vs SBT, off-plan project vetting, PND e-filing date) is still
+duplicate, thin, or unsafe to publish, and no new dated news broke since. Rather than pad with a weak
+angle, this run searched laterally for evergreen administrative-compliance gaps not yet covered by any
+existing guide, and found two: (1) the Foreign Business Act's restriction on foreigners personally
+doing real estate brokerage work — a distinct legal question from who can own the underlying land,
+which every existing nominee-crackdown guide already covers in depth; and (2) real estate agents' and
+lawyers' own AMLA/AMLO customer-due-diligence and transaction-reporting duties as designated reporting
+entities — distinct from the Land Office's own source-of-funds checks at registration (kb-0048), which
+is a government control applied at a different point in the transaction by a different agency.
 
-Per the hard quality gate: every backlog `⏳` item remains a confirmed duplicate, too thin, or unsafe
-to publish as currently sourced, and the fresh-news sweep found no genuinely new, distinct,
-well-sourced Koh Phangan property-law or market story dated in the last three days. Forcing a guide
-from the 112-companies figure would duplicate kb-0107 published three days ago; forcing one from any
-other lead would mean publishing thin or unconfirmed content. Neither serves the GEO/AEO goal.
+Both cross-link to existing guides (kb-0107 nominee crackdown, kb-0072 lawyer fees, kb-0011 company
+structuring, kb-0048 Land Office checks, kb-0019 FET form) to make the distinctions explicit rather
+than reading as overlapping content.
 
-No changes made to `src/content/knowledge-base.ts`, `.ru.ts`, or the ✅/⏳ statuses in `backlog.md`
-(all statuses already accurate from prior runs' re-checks).
-
-Next run should re-run a fresh-news sweep for 2026-08-30 and re-check the same watch items
-(water crisis, FBA/AMLA, coalition stance) in case any move.
+`content-pipeline/backlog.md` updated: both new rows added under section A (discovered/published
+2026-08-29) and marked ✅; all previously-stalled ⏳ rows re-confirmed unchanged.
