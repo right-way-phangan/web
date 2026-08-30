@@ -7255,6 +7255,107 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "documents",
     faqQuestion: "Why does my Koh Phangan real estate agent or lawyer need my passport and source-of-funds details before I've even made an offer?",
   },
+  {
+    slug: "landlocked-land-way-of-necessity-vs-servitude",
+    kbId: "kb-0115",
+    topic: "Structures",
+    title: "Landlocked land on Koh Phangan: the statutory way of necessity vs. a registered servitude",
+    short:
+      "A plot with no direct road frontage — common on Phangan's hillsides and interior — can reach a public road in two legally different ways: a compensated 'way of necessity' that Thai law grants automatically, or a registered servitude created by agreement or long use. They aren't interchangeable, and confusing them is a common due-diligence mistake.",
+    updated: "2026-08-30",
+    body: [
+      "If a plot you're considering has no direct frontage on a public road, does it automatically come with a legal right to cross the neighbour's land to reach one? Sometimes — but only under a specific statutory mechanism, and it's not the same thing as the registered access rights many sale listings casually call an 'easement.' Thailand's Civil and Commercial Code (CCC) actually provides two distinct legal routes to solve a landlocked plot's access problem, and which one applies changes what you can rely on as a buyer.",
+      { h: "Route one: the statutory way of necessity (CCC Sections 1349-1352)" },
+      "Section 1349 of the CCC gives the owner of land 'surrounded' by other land, with no access to a public way, the right to pass over the surrounding land to reach one — the passage must meet the landlocked owner's needs while causing as little damage as possible to the land crossed, and compensation is normally payable to the owner of the land crossed. This right exists by operation of law; it doesn't need to be negotiated, agreed, or registered to arise.",
+      {
+        ul: [
+          "**The compensation flips off in one specific case.** Section 1350 carves out an exception: if the landlocked condition was created by subdividing or partially transferring a larger plot — the classic case of a developer splitting land into parcels and leaving one without frontage — the resulting right of way runs only over the specific land that was split off, and no compensation is payable for it. This is the scenario most relevant to buyers of subdivided plots on Phangan's hillsides and interior.",
+          "**It's a personal right tied to the need, not an automatic entry on the title.** A way of necessity isn't self-evidently visible on a chanote in the way a registered servitude is — it exists because the statutory conditions are met, and if the neighbouring owner disputes its scope or route, it can end up argued in court.",
+        ],
+      },
+      { h: "Route two: a registered servitude (CCC Sections 1387-1401)" },
+      "A servitude (ภาระจำยอม) is a different, real right attaching to the land itself: the owner of one plot (the servient estate) is bound to tolerate a specific use by, or refrain from exercising some right against, the owner of another plot (the dominant estate) — access, but also drainage, utility lines, or a shared wall. Unlike a way of necessity, a servitude has to be created — either by explicit agreement registered at the Land Office, endorsed on the back of both title deeds, or by ten years of open, continuous, peaceful use (acquisitive prescription under Section 1401). It can also be extinguished by ten years of non-use (Section 1399).",
+      {
+        ul: [
+          "**Registration is what makes it bind a future buyer.** A registered servitude runs with the land — sell either plot, and the right and the obligation both survive the sale. An informal arrangement with the current neighbour that was never registered does not automatically bind whoever buys the neighbouring plot next.",
+          "**Prescriptive servitudes are real but hard to prove.** A ten-year history of unregistered use can ripen into a servitude, but establishing that in practice usually means convincing the Land Office or a court that the use was open, continuous and without the servient owner's objection for the full period — not something to assume you can rely on without documentation.",
+        ],
+      },
+      { h: "Why the difference matters when you're buying" },
+      {
+        ul: [
+          "**Check the title deed's annotations, not the marketing description.** A registered servitude will be noted on the back of the chanote for both the plot you're buying and the neighbouring plot it crosses — that's your evidence it exists and binds successors. If a seller or agent describes 'access rights' without a servitude annotation, ask what the actual legal basis is.",
+          "**A 'way of necessity' claim needs its own scrutiny.** If access instead rests on Section 1349-1350, confirm precisely how the landlocked condition arose — was this parcel split off from a larger one (no compensation owed, route fixed to that specific transferring land) or is it landlocked independent of any prior subdivision (compensation ordinarily owed, route negotiated for minimum damage)? This affects both your legal footing and what you may owe a neighbour.",
+          "**An unregistered handshake arrangement is the weakest position of all.** If the current owner simply has an informal understanding with a neighbour, neither a future dispute nor a future buyer of the neighbouring land is bound by it — get it converted to a registered servitude, or confirm a genuine statutory way of necessity applies, before you rely on it.",
+          "**This is a bigger issue on interior and hillside plots.** Landlocked and semi-landlocked parcels are more common away from Phangan's ring road, on subdivided hillside land and inland lots reached only via a track over someone else's property — exactly the terrain covered in [Hillside building limits in practice](/knowledge/hillside-slope-building-limits-koh-phangan) and [buying next to undeveloped land](/knowledge/buying-next-to-undeveloped-land-what-can-be-built).",
+        ],
+      },
+      "The takeaway: 'this plot has access' is not a single legal fact — it's either a statutory right that exists whether or not it's written down, or a registered real right that has to be created and endorsed to count. Before you commit to a plot without direct road frontage, have your lawyer confirm on the actual title deeds which one you're getting, not which one a listing implies. See the full [due diligence checklist](/knowledge/due-diligence-checklist-koh-phangan) for where this fits among the other checks a plot needs before you buy.",
+    ],
+    takeaways: [
+      "A landlocked plot's right to cross neighbouring land can come from two different legal sources: a statutory 'way of necessity' (CCC §1349-1352) or a registered servitude (CCC §1387-1401) — they are not interchangeable.",
+      "A way of necessity exists automatically by law and normally requires compensation, except when the landlocked condition resulted from subdividing or partially transferring land — in that case the route is fixed to the split-off land and no compensation is owed.",
+      "A servitude only binds future owners if it's registered and endorsed on the back of both title deeds, or provably established through ten years of open, continuous use.",
+      "An unregistered, informal access arrangement with the current neighbour does not bind a future buyer of either plot.",
+      "Landlocked and semi-landlocked parcels are more common on Phangan's subdivided hillside and interior land — check the title deed's actual annotations, not the listing's description of 'access.'",
+    ],
+    sources: [
+      { title: "Thailand Civil and Commercial Code, Book IV, Sections 1349-1352 (way of necessity) and 1387-1401 (servitudes) — SamuiForSale legal-text mirror", url: "https://www.samuiforsale.com/law-texts/thailand-civil-code-part-3.html" },
+      { title: "SamuiForSale — Servitudes / Easements under Thai law", url: "https://www.samuiforsale.com/real-rights/servitudes-easements.html" },
+      { title: "Ake Associates — Way of Necessity in Thailand", url: "https://ake-associates.co.th/way-of-necessity/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "If a plot on Koh Phangan has no direct road frontage, does it automatically come with a legal right of access?",
+  },
+  {
+    slug: "renting-out-villa-foreign-business-act-license",
+    kbId: "kb-0116",
+    topic: "Process",
+    title: "Does renting out your own Phangan villa require a Foreign Business License?",
+    short:
+      "Separate from Hotel Act licensing for short-term stays, the Foreign Business Act's catch-all restriction on 'other service businesses' technically covers rental services — but the Act only restricts activity carried out 'for the purpose of trade,' and no regulator guidance directly addresses where a single owner's rental income crosses that line. Treat it as an unresolved compliance question to raise with a lawyer, not a settled rule.",
+    updated: "2026-08-30",
+    body: [
+      "If you personally own a villa or condo on Koh Phangan and rent it out, do you need a Foreign Business License on top of everything else? The honest answer is that Thai law doesn't give a clean yes-or-no for the ordinary case of one foreign owner renting out one property — and that gap is worth understanding before you assume either that you're automatically covered or automatically exposed.",
+      { h: "The statutory hook" },
+      "The Foreign Business Act B.E. 2542 (1999) restricts foreigners from operating listed businesses without a licence. List Three, item (21) restricts 'other service businesses' generally, subject to exceptions the Ministerial Regulation may carve out — a broad catch-all category that, on its face, is not limited to any particular kind of service. Separately, item (17) restricts hotel business (with an exception for hotel management service), which is the basis for the Hotel Act licensing question already covered in [Thailand's 2026 short-term rental crackdown](/knowledge/short-term-rental-airbnb-crackdown-2026) — that guide addresses whether your rental needs a hotel licence. This one addresses a different, separate question: whether the act of renting itself is a restricted 'service business.'",
+      { h: "Where the ambiguity actually sits" },
+      "Section 4 of the Act defines 'business' as the operation of an undertaking in agriculture, industry, handicraft, commerce, services, 'or any other undertaking for the purpose of trade.' That phrase — for the purpose of trade — is the crux. A single foreign owner renting out one villa they live in part of the year looks, on a plain reading, closer to managing their own asset than to running a trade. A foreign owner or company operating a portfolio of rental units as an ongoing commercial letting operation looks much more like exactly what the restriction targets. Between those two poles is a wide grey area, and no Revenue Department, Department of Business Development, or court guidance was found that draws the line for real estate specifically.",
+      {
+        ul: [
+          "**No confirmed exemption covers this.** The Ministerial Regulation carve-outs issued under item (21) that are publicly documented address other service categories (for example, certain leasing arrangements between affiliated companies) — none confirms a general exemption for an individual owner renting out their own residential property.",
+          "**Enforcement to date has focused elsewhere.** The 2025-2026 crackdown on unlicensed short-term rentals has been prosecuted through Hotel Act licensing and, separately, through nominee-shareholding enforcement against company-held villas — not through Foreign Business Act 'service business' cases against individual owner-landlords. That's a practical observation about where regulators have actually been looking, not a legal opinion that the FBA doesn't apply.",
+          "**Scale plausibly matters, but isn't a documented bright line.** The more your rental activity resembles an organised commercial letting business — multiple units, dedicated staff, continuous turnover — the further it likely sits from a passive, personal-asset reading of Section 4, even though no source states a specific unit-count or revenue threshold.",
+        ],
+      },
+      { h: "What this means practically" },
+      {
+        ul: [
+          "**A licensed Thai-majority property management company is your cleanest structure.** If a Thai company (properly majority Thai-owned, distinct from a nominee arrangement) is the one contracting with guests, collecting rent and running the letting operation under its own name — with you as the owner receiving rental income under that arrangement — the 'service business' activity sits with a Thai entity, not with you personally. See [Vetting a villa property-management company](/knowledge/vetting-villa-property-management-company) for what that contract should cover.",
+          "**Renting out a single unit yourself is lower-profile than scaling up.** If you self-manage one property, the risk this specific FBA question presents appears lower than the Hotel Act licensing question already covered elsewhere — but 'lower-profile' isn't the same as 'confirmed compliant,' and this guide should not be read as legal advice that it is.",
+          "**Get this checked before you scale, not after.** If you're weighing whether to add a second or third rental unit, or move from occasional lets to a continuous letting operation, this is exactly the point to have a Thai lawyer confirm your structure — before regulatory attention, not in response to it.",
+          "**This sits alongside, not instead of, your other rental compliance obligations** — Hotel Act licensing, [TM30 guest notification](/knowledge/tm30-foreign-guest-notification-koh-phangan), and [rental income tax](/knowledge/renting-out-your-villa-rules-and-taxes) all apply regardless of how this particular question resolves.",
+        ],
+      },
+      "The takeaway: this is a real, largely unaddressed gap in the plain text of the Foreign Business Act, not a settled rule you can rely on in either direction. Running your rental through a properly structured, Thai-majority management company sidesteps the question entirely and is the safer default — treat any confident claim that individual owner-rental is definitely fine, or definitely restricted, with scepticism until your own lawyer has looked at your specific setup.",
+    ],
+    takeaways: [
+      "The Foreign Business Act's List Three, item (21) 'other service businesses' catch-all is a separate legal question from Hotel Act licensing, and could in principle cover rental activity — but no regulator guidance confirms where a single owner's rental crosses into a restricted 'business.'",
+      "The Act only restricts an undertaking carried out 'for the purpose of trade' (Section 4) — a definition that plausibly distinguishes passive, single-property rental from a commercial letting operation, though no bright-line threshold is documented.",
+      "2025-2026 enforcement against unlicensed rentals has run through Hotel Act licensing and nominee-shareholding rules, not through FBA 'service business' cases against individual landlords.",
+      "Renting through a genuinely Thai-majority property management company, rather than self-managing at scale, is the cleanest way to avoid the question entirely.",
+      "This is an unresolved compliance grey area, not settled law — confirm your specific structure with a Thai lawyer, especially before scaling beyond one property.",
+    ],
+    sources: [
+      { title: "Foreign Business Act B.E. 2542 (1999), official English translation (Dr. Pinai Nanakorn for the Department of Business Development) — Sections 4, 37, and List Three item (21)", url: "https://www.boi.go.th/upload/Foreign%20Business%20Act_5dd766122ff27.pdf" },
+      { title: "Siam Legal — Thailand Foreign Business License: Rental Services", url: "https://www.siam-legal.com/thailand-law/thailand-foreign-business-license-rental-services/" },
+      { title: "Forvis Mazars — Restricted Businesses List under the Foreign Business Act, Updated", url: "https://www.forvismazars.com/th/en/insights/doing-business-in-thailand/legal/restricted-businesses-list-under-the-fba-updated" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "Do I need a Foreign Business License to rent out my own villa or condo on Koh Phangan?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
