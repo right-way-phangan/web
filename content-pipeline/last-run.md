@@ -1,61 +1,69 @@
-# Last run — 2026-08-30
+# Last run — 2026-08-30 (second run)
 
-Published **2 guides** this run (EN + RU each).
+Published **2 guides** this run (EN + RU each). Note: this is a *second* invocation on
+2026-08-30 — a prior run the same day already published kb-0115 and kb-0116 (see git
+history / the backlog's first 2026-08-30 block). This run's job was to find two more
+genuinely new, non-duplicate topics without re-treading that ground.
 
 ## What was published
 
-1. **`landlocked-land-way-of-necessity-vs-servitude`** (kb-0115, faqCategory: `structures`)
-   Title: "Landlocked land on Koh Phangan: the statutory way of necessity vs. a registered servitude"
-   Sources: Thailand Civil and Commercial Code Sections 1349-1352 and 1387-1401, verified directly
-   against the samuiforsale.com primary-text mirror (right of way for landlocked land, the no-compensation
-   exception when the landlocked condition results from subdivision, and how servitudes are created by
-   registration or 10-year prescription); Ake Associates' comparison of the two legal institutions.
+1. **`land-allocation-act-subdivided-land-koh-phangan`** (kb-0117, faqCategory: `documents`)
+   Title: "Buying a subdivided plot on Koh Phangan: the Land Allocation Act's 10-plot rule"
+   Sources: WSR Law Group's summary of the Land Development Act B.E. 2543 (10-sub-lot licensing
+   threshold, 3-year anti-evasion lookback, 45-day committee review with silence-as-approval,
+   Section 59 penalty of up to 2 years' imprisonment and a ฿40,000-100,000 fine); a Siam Legal
+   Thailand Law Library search snippet independently confirming the same Section 59 figures;
+   Samui For Sale's practitioner summary (Section 22 registration-refusal power for suspected
+   evasion). The FAO official unofficial-translation PDF (primary text) was located but not
+   machine-readable for direct quoting, so the two independent secondary/law-firm sources carry
+   the figures instead.
 
-2. **`renting-out-villa-foreign-business-act-license`** (kb-0116, faqCategory: `process`)
-   Title: "Does renting out your own Phangan villa require a Foreign Business License?"
-   Sources: Foreign Business Act B.E. 2542 (1999), official English translation — read directly in full
-   (Section 4's "for the purpose of trade" definition, List Three item (21) catch-all, item (17) hotel
-   exception, Section 37/36 penalties); Siam Legal and Forvis Mazars for secondary commentary on the
-   rental-services angle (Siam Legal's page could only be checked via search snippet — its direct URL
-   returned HTTP 403 on fetch, noted in the guide's sourcing rather than hidden).
+2. **`thai-prenuptial-agreement-property-protection`** (kb-0118, faqCategory: `ownership`)
+   Title: "Thai prenuptial agreements and property: what they can and can't protect for a foreign spouse"
+   Sources: International Divorce, ThailandLawOnline and AIM Bangkok — three independent,
+   mutually consistent summaries of Civil and Commercial Code Sections 1465-1467 (foreign-law
+   clauses void, same-day Marriage Register registration required, court-only amendment after
+   marriage), cross-checked with a targeted follow-up search that confirmed the Section 1467
+   court-authorisation detail specifically.
 
 ## Why these two
 
-A research agent ran a fresh-news sweep for 2026-08-28 through 2026-08-30 first. It found nothing newly
-dated and property-law-relevant: the only two items in that window were activism-driven pieces (a
-nationalist group's meeting with the Deputy Interior Minister over Koh Samui foreign-business complaints,
-and a Samui zoo dispute turning into an anti-foreigner protest) — neither is a legal development, and the
-one substantive enforcement thread found (leases being scrutinized as disguised ownership) is already
-published as `koh-samui-phangan-raid-leases-nominee-scrutiny-2026`. The agent also re-checked
-Koh Phangan's water-rationing situation directly against pwa.co.th: PWA Notice 7/2569 (16 Jun 2026,
-covering through 1 Aug 2026) is still the only Koh Phangan-specific notice, with no successor found — that
-backlog item stays ⏳. All other stalled ⏳ watch items (FBA/AMLA predicate-offence amendment, the
-Feb 2026 coalition's property-policy stance) were re-checked with no change since 2026-08-29.
+A research agent ran a fresh-news sweep for the 2026-08-27 through 2026-08-30 window and found
+nothing dated beyond what the first run today already published. It also re-checked all standing
+⏳ watch items (Koh Phangan water crisis — still stuck on PWA Notice 7/2569, no successor;
+FBA/AMLA nominee-as-predicate-offence — still only an Ombudsman recommendation under AMLO review;
+the Bhumjaithai-led coalition's "review foreign ownership regulations" pledge — still sourced only
+to marketing sites) — no change on any of them.
 
-With the news angle and all stalled watch items still exhausted, the agent surfaced two evergreen
-structural/compliance gaps not covered by any of the ~120 existing guides, both of which I verified
-against primary sources myself before writing:
+The agent surfaced three evergreen candidates. I checked each directly against the full text of
+potentially-overlapping existing guides before deciding:
 
-- **Way of necessity vs. servitude** — two genuinely distinct CCC mechanisms for landlocked-land access
-  that no existing guide (including the due-diligence checklist and the "buying next to undeveloped land"
-  guide) addresses in this depth. I fetched the actual statute text directly rather than relying solely on
-  secondary summaries, and deliberately excluded three Supreme Court case numbers that appeared in only
-  one secondary source and couldn't be independently verified.
-- **FBA licensing for a self-managed rental** — a real, previously uncovered gap distinct from the Hotel
-  Act licensing question (kb-0087) and the brokerage-restriction question (kb-0113). I read the full
-  official Foreign Business Act translation PDF directly to confirm Section 4's "for the purpose of trade"
-  wording and the exact List Three/penalty sections, since this is the more legally ambiguous of the two
-  topics: no regulator guidance resolves where a single owner's rental income crosses into a restricted
-  "service business." The guide is written honestly as an unresolved compliance grey area with a
-  recommended safe practice (route rentals through a Thai-majority management company), not as a
-  confident bright-line claim — consistent with this site's conservative-claims standard for Thai legal
-  content.
+- **Lease-scrutiny "Phase 7" enforcement news (mid-to-late Aug 2026)** — rejected. Reading the
+  agent's cited figures against the already-published `koh-samui-phangan-raid-leases-nominee-scrutiny-2026`
+  (kb-0101) and `koh-phangan-land-disposal-orders-112-companies-2026` (kb-0107) showed the same raid
+  numbers and the same lease-scrutiny angle already covered — not a fresh story.
+- **Hotel Act "non-hotel exemption" angle** — rejected. I read the full body of the already-published
+  `short-term-rental-airbnb-crackdown-2026` (kb-0087) directly and it already covers the 8-room/30-guest
+  exemption, the exact penalty figures, and the draft Non-Hotel Accommodation Act in full — a dedicated
+  guide on this would have been a straight duplicate.
+- **Land Allocation Act's 10-plot subdivision rule** and **Thai prenuptial agreements** — both checked
+  and confirmed genuinely new: I read `due-diligence-checklist-koh-phangan`, `land-titles-chanote-vs-nor-3`
+  and `foreign-spouse-usufruct-thai-marriage-property` in full and none mentions the Land Development Act's
+  licensing mechanism or Thai prenuptial-agreement law at all. Both were then independently verified
+  against primary/law-firm sourcing myself (see above) before writing.
 
-Both cross-link to existing guides (hillside-slope-building-limits, buying-next-to-undeveloped-land,
-due-diligence-checklist for the first; short-term-rental-airbnb-crackdown-2026,
-vetting-villa-property-management-company, tm30-foreign-guest-notification, renting-out-your-villa-rules-and-taxes
-for the second) to make the distinctions from existing coverage explicit.
+Both guides are framed conservatively given sourcing limits: the Land Allocation Act guide states
+plainly that penalties fall on the seller/developer, not the buyer, and that an unlicensed allocation
+doesn't itself invalidate a buyer's title (the risk is the indirect lack of any infrastructure-maintenance
+obligation) — and doesn't overstate the "evasion pattern" beyond what the secondary sourcing supports.
+The prenuptial-agreement guide is explicit that a prenup can never grant a foreign spouse land ownership
+and is framed as a complement to, not a substitute for, the existing usufruct/superficies guide (kb-0085).
 
-`content-pipeline/backlog.md` updated: both new rows added under section A (discovered/published
-2026-08-30) and marked ✅; the fresh-news-sweep and re-check findings for the stalled ⏳ rows are noted
-inline. `tsc --noEmit` passes clean on both content files.
+Cross-links: kb-0117 links to `landlocked-land-way-of-necessity-vs-servitude` (kb-0115, published
+earlier today) on registered access, plus `due-diligence-checklist-koh-phangan` and
+`land-titles-chanote-vs-nor-sor-3`. kb-0118 links to `foreign-spouse-usufruct-thai-marriage-property`
+(kb-0085) to make the pre-marriage vs. post-purchase distinction explicit.
+
+`content-pipeline/backlog.md` updated: both new rows added under section A and marked ✅, with a
+dated inline note explaining the second-run fresh-news sweep, the three candidates checked, and why
+two were rejected as duplicates. `tsc --noEmit` passes clean on both content files.

@@ -7356,6 +7356,101 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "process",
     faqQuestion: "Do I need a Foreign Business License to rent out my own villa or condo on Koh Phangan?",
   },
+  {
+    slug: "land-allocation-act-subdivided-land-koh-phangan",
+    kbId: "kb-0117",
+    topic: "Documents",
+    title: "Buying a subdivided plot on Koh Phangan: the Land Allocation Act's 10-plot rule",
+    short:
+      "Selling 10 or more sub-lots cut from one larger parcel legally requires a Land Allocation Committee licence under the Land Development Act — a rule some sellers dodge by dividing into smaller batches. It doesn't block your title transfer, but it does affect whether your access road and shared infrastructure are anyone's legal obligation to maintain.",
+    updated: "2026-08-30",
+    body: [
+      "Does it matter, legally, whether a plot on Koh Phangan was cut from a larger family landholding rather than sold as a single original parcel? Usually not — but once a seller is dividing and selling 10 or more sub-lots from one main parcel, Thailand's Land Development Act B.E. 2543 (2000) requires them to hold a Land Allocation Committee licence, and whether that licence exists changes what obligations (if any) come with your access road and shared utilities.",
+      { h: "The 10-plot trigger, and the loophole the law closed" },
+      {
+        ul: [
+          "**The threshold is 10 sub-lots sold from one main parcel or adjoining parcels.** Below that, a private land sale is unregulated by this Act; at 10 or more, the seller must obtain a licence from the provincial Land Allocation Committee before selling.",
+          "**A 3-year anti-evasion rule closes the obvious workaround.** If a seller divides land into fewer than 10 sub-lots to avoid the licence requirement, then divides again within three years such that the combined total reaches 10 or more, the licence requirement still applies retroactively to the whole scheme.",
+          "**The application is substantial.** A licensed allocator must submit title deeds, a sub-lot map, infrastructure and public-facility plans (roads, drainage, utilities), a maintenance plan, sale-agreement terms, and a bank or financial-institution guarantee. The Land Allocation Committee has 45 days to decide; silence is treated as approval.",
+          "**Land officials can refuse to register a division they suspect is evading the Act.** A registrar who believes a division into fewer than 10 lots is really a staged allocation scheme can require proof it isn't before registering the transfer — which can stall a buyer's transfer if the seller's paperwork doesn't hold up.",
+        ],
+      },
+      { h: "Penalties fall on the seller, not the buyer" },
+      "Selling land as a subdivided allocation without the required licence is a criminal offence for the seller: up to two years' imprisonment and a fine of ฿40,000-100,000. This doesn't invalidate a buyer's own title once registered — the penalty targets whoever ran the unlicensed allocation, not the person who bought a lot from them. The real risk to a buyer is indirect: a seller cutting corners on the licence often cut the same corners on the infrastructure the licence would have obligated them to build and maintain.",
+      { h: "What this means for a Koh Phangan buyer" },
+      {
+        ul: [
+          "**Ask directly if the plot is part of a larger recent subdivision.** If a seller (or a single family estate) is offering several similarly-sized new plots cut from one parcel, that's the scenario this Act is built for — worth asking whether a Land Allocation Committee licence was obtained, especially once the count of plots being sold approaches ten.",
+          "**A licence means someone is on the hook for shared infrastructure.** A licensed allocation comes with an approved plan for roads, drainage and utilities, and a maintenance obligation on the developer. An unlicensed, informal subdivision has none of that — whatever access road exists was built informally and nobody is legally required to maintain it.",
+          "**Registered access still matters most.** Whether or not the parent parcel went through the licensing process, what actually protects you is a right of way registered on the back of your own title deed — see [Landlocked land: way of necessity vs servitude](/knowledge/landlocked-land-way-of-necessity-vs-servitude) for the two mechanisms that create one, and don't rely on an unregistered shared track just because neighbouring plots use it too.",
+          "**Fold this into standard due diligence.** This is one more question to raise alongside the checks already covered in [Due diligence before buying on Koh Phangan](/knowledge/due-diligence-checklist-koh-phangan) and [Land titles: Chanote vs Nor Sor 3](/knowledge/land-titles-chanote-vs-nor-sor-3) — it doesn't replace them.",
+        ],
+      },
+      "None of this should scare a buyer off subdivided land, which is common and often perfectly fine on Phangan's family-owned interior and hillside parcels. It's a reason to ask one extra question — was this parcel formally allocated, and if so, by whom — before assuming the access road you're looking at is anyone's legal responsibility besides your own.",
+    ],
+    takeaways: [
+      "Thailand's Land Development Act B.E. 2543 requires a Land Allocation Committee licence once a seller divides and sells 10 or more sub-lots from one parcel, with a 3-year lookback rule closing the obvious loophole of splitting the sale into smaller batches.",
+      "A licensed allocation application must include an infrastructure plan (roads, drainage, utilities) and a maintenance plan — an unlicensed, informal subdivision carries no such obligation on anyone.",
+      "Land officials can refuse to register a suspicious small-batch division without proof it isn't a staged evasion scheme, which can stall a buyer's own transfer.",
+      "Violating the licensing requirement is a criminal offence for the seller — up to two years' imprisonment and a ฿40,000-100,000 fine — but doesn't itself invalidate a buyer's registered title.",
+      "The real buyer protection either way is a right of way registered on your own deed, not the informal existence of a shared access track.",
+    ],
+    sources: [
+      { title: "WSR Law Group — Land Development Act, B.E. 2543", url: "https://wsrlawgroup.com/publications/law-library/thailand-civil-and-commercial-code/land-development-act/" },
+      { title: "Samui For Sale — Land Allocation Law Thailand", url: "https://www.samuiforsale.com/other-miscellaneous/land-allocation-law-thailand.html" },
+      { title: "Thailand Law Library (Siam Legal) — Land Development Act, B.E. 2543: Penalties, Sections 58-66", url: "https://library.siam-legal.com/thai-law/land-development-act-penalties-sections-58-66/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion: "How can I check if a Koh Phangan plot was created through an illegal land subdivision, and does it affect my purchase?",
+  },
+  {
+    slug: "thai-prenuptial-agreement-property-protection",
+    kbId: "kb-0118",
+    topic: "Ownership",
+    title: "Thai prenuptial agreements and property: what they can and can't protect for a foreign spouse",
+    short:
+      "A prenup can't let a foreign spouse own Thai land or opt out of Thai property law — any clause applying foreign law to a Thailand-based asset is void by statute. What it can do is put pre-marital savings, inheritances and their future income on the record as separate property, in writing, before the wedding.",
+    updated: "2026-08-30",
+    body: [
+      "Can a prenuptial agreement change the property rules of a Thai marriage for a foreign spouse — for example, let them hold an interest in land bought during the marriage? No. Thai law governs any Thailand-situated asset regardless of nationality, and Section 1465 of the Civil and Commercial Code voids any prenup clause that tries to apply foreign law to the marital property regime. What a prenup (สัญญาก่อนสมรส) actually does is narrower and more useful: it puts each spouse's pre-marital assets on the official record as separate property, before the marriage changes the default rules.",
+      { h: "What a prenup can lock in" },
+      {
+        ul: [
+          "**Pre-marital assets stay separate (sin suan tua).** Property owned before marriage, and anything later received by inheritance or as a personal gift, is already separate property by default under the Civil and Commercial Code — a prenup exists mainly to itemise it clearly and put it beyond later dispute, not to create the protection from scratch.",
+          "**The \"fruits\" of separate property can be kept separate too.** Rent, dividends and interest earned from a spouse's pre-marital assets would otherwise risk being treated as jointly acquired income during the marriage; a prenup can specify that this income stays separate rather than becoming sin somros.",
+          "**Management authority over joint assets (sin somros)** — Section 1476 of the Code lets spouses agree how jointly acquired property is managed, on top of the default rules.",
+          "**It cannot cover child custody or spousal maintenance**, and any provision contrary to public order or good morals is void regardless of what else the agreement says.",
+        ],
+      },
+      { h: "A strict, one-time registration window" },
+      "Section 1466 requires a prenup to be in writing, signed by both spouses and at least two witnesses, and entered in or annexed to the Marriage Register at the district office (Amphur) — at the same time as the marriage registration itself. It cannot be created before the wedding and registered later, and it cannot be registered after the marriage has already taken place; either way, it is void, and the couple falls back to the default statutory regime automatically. In practice this means drafting begins weeks ahead, but the signing happens at the Amphur counter on the wedding day itself, alongside the marriage registration paperwork.",
+      {
+        ul: [
+          "**Changing it later requires a court, not a redraft.** Under Section 1467, a registered prenup can only be modified or cancelled after marriage with court authorisation — the court then notifies the district registrar so the change is recorded on the Marriage Register. An informal side agreement between spouses to vary its terms has no legal effect.",
+          "**No prenup means the full default regime applies automatically.** Property acquired during the marriage becomes sin somros, split 50/50 between the spouses if the marriage ends in divorce — this is the outcome a prenup is used to opt out of for specified assets, not the outcome it creates.",
+        ],
+      },
+      { h: "Where this connects to a land purchase during the marriage" },
+      "It doesn't replace the protection covered in [Protecting a foreign spouse's interest when property is bought during a Thai marriage](/knowledge/foreign-spouse-usufruct-thai-marriage-property) — that guide's registered usufruct and superficies are still the only way a foreign spouse gets an enforceable right in land titled to their Thai spouse. What a prenup adds is upstream of that: if the money funding a future purchase is inherited or pre-marital savings, documenting it as separate property in the prenup builds a cleaner paper trail supporting the Land Office's own sin-suan-tua declaration at the time of purchase — relevant given that Thailand's Supreme Court (Decision No. 14736/2555) treats that declaration as only preliminary evidence, not an absolute shield, if a court later examines where the money actually came from.",
+      "For an international couple, a Thai prenup only governs Thailand-situated assets — it doesn't extend to property or accounts held elsewhere, which still need a separate agreement under the relevant home-country law if a couple wants both covered. Independent lawyers for each spouse, rather than one lawyer drafting for both, is the standard and sensible way to keep the agreement enforceable if it's ever tested.",
+    ],
+    takeaways: [
+      "A Thai prenup cannot let a foreign spouse own land or apply foreign law to a Thailand-based asset — Civil and Commercial Code Section 1465 voids any clause that tries.",
+      "It must be written, signed by both spouses plus two witnesses, and entered in the Marriage Register at the same time as the marriage registration (Section 1466) — not before, not after, or it's void.",
+      "Its practical value for a foreign spouse is documenting pre-marital savings and inheritances as separate property (sin suan tua), including designating their future rental/dividend/interest income as separate too.",
+      "Once registered, it can only be amended after marriage with court authorisation (Section 1467) — spouses can't simply agree to change it themselves.",
+      "It doesn't replace the registered usufruct and superficies that actually protect a foreign spouse's interest in land bought during the marriage — see [Protecting a foreign spouse's interest](/knowledge/foreign-spouse-usufruct-thai-marriage-property).",
+    ],
+    sources: [
+      { title: "International Divorce — Prenuptial Agreements in Thailand", url: "https://international-divorce.com/prenuptial-agreements-in-thailand/" },
+      { title: "ThailandLawOnline — Prenuptial Agreement Thailand: Rules, Registration and Validity", url: "https://www.thailandlawonline.com/thai-family-and-marriage-law/prenuptial-agreement-thailand" },
+      { title: "AIM Bangkok — Thai Marriage Contracts (Prenuptial Agreements): A Practical Guide for Foreigners", url: "https://aimbangkok.com/prenuptial-agreement-thailand-key-points/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "ownership",
+    faqQuestion: "Can a prenuptial agreement protect a foreign spouse's interest in property in a Thai marriage?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
