@@ -1,69 +1,66 @@
-# Last run — 2026-08-31
+# Last run — 2026-08-31 (second run, same day)
 
 Published **2 guides** this run (EN + RU each).
 
 ## What was published
 
-1. **`thailand-escrow-act-off-plan-deposit-protection`** (kb-0119, faqCategory: `costs`)
-   Title: "Thailand's Escrow Act: why almost no villa developer on Koh Phangan uses it"
-   Sources: Tilleke & Gibbins' overview of the Escrow Act B.E. 2551 (2008); Acclime Thailand's guide
-   (licensed-agent requirement, neutrality rule, 30-day fund-release rule, penalties reported up to
-   ฿1,000,000 for unlicensed operation); Thailand Real Estate's explainer confirming use is voluntary,
-   not mandatory; Siam Legal's "Practical Barriers to Escrow" plus a follow-up search corroborating
-   developers' reliance on buyer deposits/progress payments to fund construction.
+1. **`buying-land-condo-court-auction-thailand`** (kb-0121, faqCategory: `process`)
+   Title: "Buying land or a condo at a Thai government auction: what foreign bidders can actually complete"
+   Sources: Silk Legal's "A Guide for Buyers: Property Public Auction in Thailand" (eligibility, deposit
+   table by appraisal value, auction-round starting-price escalation 100%→90%→80%→70%); the Legal
+   Execution Department's own e-Service portal (led.go.th, confirming the auction administration body,
+   Ministry of Justice); Chandler MHM / In-House Community's summary of the Civil Procedure Code (No. 30)
+   B.E. 2560 (2017) amendment (interested-party objection window, bidding rights); Terms.Law's property
+   transfer tax figures (2% transfer fee, SBT 3.3%/stamp duty 0.5%, cross-linked for the taxes still due
+   on top of a winning bid). Independently re-verified the deposit-table and round-escalation facts by
+   direct fetch of the Silk Legal page before writing.
 
-2. **`mortgage-default-foreclosure-process-thailand`** (kb-0120, faqCategory: `process`)
-   Title: "What happens if you default on a Thai property mortgage: the foreclosure process"
-   Sources: ThailandLawOnline's CCC translation (Sections 728, 729, 733, fetched and quoted directly);
-   Thailand Law Library (Siam Legal)'s independent translation of the same sections; Siam Legal's
-   "New Thai Mortgage Foreclosure Law" for the 2015 Section 729/1 amendment history.
+2. **`co-ownership-partition-thai-property`** (kb-0122, faqCategory: `ownership`)
+   Title: "When co-owners fall out: partition rights for jointly-held condos and structures on Koh Phangan"
+   Sources: Samui For Sale's mirror of the Civil and Commercial Code Part III (Sections 1357, 1358, 1360,
+   1361, 1363, 1364 quoted directly — equal-shares presumption, joint-management/majority rule, use
+   rights, whole-property disposal requiring unanimous consent, the right to demand partition and its
+   10-year contractual-waiver cap, and the court's power to order physical division or a forced sale);
+   Thailand Law Library (Siam Legal)'s independent citation of the same Sections 1356-1366 as a
+   cross-check on section numbering. Verified the exact section text by direct fetch of the primary
+   Civil Code translation before writing, rather than relying on secondary summaries alone.
 
 ## Why these two
 
-A fresh-news sweep (research agent, dated 2026-08-27 through 2026-08-31) found nothing newly dated
-and property-law-relevant beyond the same nominee-crackdown/raid story cluster already covered by
-11+ existing guides (kb-0100, kb-0101, kb-0107, kb-0051, kb-0063, kb-0094 etc.). A Bangkok Post/SCMP
-piece on "foreign buyers hitting pause on villas" was checked directly and found to be a market-
-sentiment rehash of that same enforcement cluster, not a new legal development — not published.
-Standing watch items were re-confirmed unchanged from prior runs: the Koh Phangan water crisis is
-still stuck on PWA Notice 7/2569 with no successor; the FBA/AMLA nominee-as-predicate-offence
-amendment is still only an Ombudsman recommendation under AMLO review, not enacted; the coalition's
-"review foreign ownership regulations" pledge is still sourced only to marketing sites. All three
-stay ⏳.
+A fresh-news sweep (research agent, dated 2026-08-27 through 2026-08-31) again found nothing newly
+dated and property-law-relevant beyond the same nominee-crackdown/lease-scrutiny story cluster already
+covered by 12+ existing guides (kb-0100, kb-0101, kb-0107, kb-0051, kb-0063, kb-0094, etc.) — a
+"leases now under scrutiny on Samui/Phangan too" extension of the raid coverage was checked and found
+to be incremental to already-published kb-0101 and the lease-renewal-risk guide, not a fresh legal
+development. Standing watch items were re-confirmed unchanged from prior runs: the Koh Phangan water
+crisis is still stuck on PWA Notice 7/2569 with no successor found; the FBA/AMLA nominee-as-predicate-
+offence amendment is still only an Ombudsman recommendation under AMLO review, not enacted; the
+coalition's "review foreign ownership regulations" pledge remains sourced only to real-estate marketing
+sites, not reputable political coverage.
 
-The agent then surfaced several evergreen candidate areas to check for genuine gaps (escrow/deposit
-protection, digital land titling, condo co-ownership, foreclosure mechanics, public foreshore land,
-Condominium Act governance). Two were independently verified against the 118-slug existing list and
-against primary/near-primary legal text before writing:
+Rather than force a weak news angle, this run authored two evergreen legal-mechanics topics that a
+scan of all 121 existing guide titles/slugs confirmed were genuinely uncovered:
 
-- **Escrow Act** — genuinely uncovered. The existing `ocpb-deposit-ban-villa-land-reservations` guide
-  covers what a sale contract can say about keeping a deposit (2025 OCPB rule); it never addresses
-  the separate, older question of who physically holds the money during the transaction. Confirmed
-  by reading that guide's full body.
-- **Mortgage foreclosure on default** — genuinely uncovered. The existing `financing-buying-as-a-
-  foreigner` guide covers loan eligibility and rates but stops before default; confirmed by reading
-  its full body that foreclosure mechanics are never mentioned.
+- **Court/LED property auctions** — the existing `mortgage-default-foreclosure-process-thailand` (kb-0120)
+  covers the lender/borrower-side foreclosure process; nothing existing covered the buyer-side mechanics
+  of bidding at the resulting Legal Execution Department public auction, including the practically
+  important trap that winning a bid on raw land or a house-and-land package still doesn't let a
+  foreigner register title — only condo-quota units and stand-alone structures actually complete.
+- **CCC co-ownership/partition (Sections 1357-1366)** — the five registered property rights (superficies,
+  usufruct, lease, habitation, sap-ing-sith), inheritance, spousal usufruct and 49/51 company structuring
+  are all separately covered, but none addresses the default statutory regime for what happens when two
+  or more people hold undivided title to the *same* condo unit or structure and disagree — a distinct
+  trigger (partner/relationship breakdown, not tax/inheritance/nominee enforcement) and a distinct
+  remedy (Section 1364 court-ordered division or forced sale).
 
-## Sourcing notes / honesty flags
+Both topics were checked against the full existing slug list before writing to confirm no overlap, and
+both rest on primary legal text (Civil Code sections quoted/verified by direct fetch) rather than
+single-source secondary summaries.
 
-- The Escrow Act guide deliberately does not name specific developers reported to have piloted and
-  then discontinued escrow programmes — a claim surfaced in search results named specific companies,
-  but the exact company name/spelling could not be independently re-verified beyond a single secondary
-  source, so the guide describes the pattern generically instead. Two Siam Legal escrow pages returned
-  HTTP 403 on direct fetch; cited via their search-result-derived summaries, consistent with how prior
-  runs have handled that domain.
-- The foreclosure guide's core sections (728, 729, 733) were fetched and quoted directly from a primary-
-  adjacent statute translation and cross-checked against a second, independent translation — high
-  confidence. Section 729/1 (the 2015 out-of-court-auction amendment) could not be located in the first
-  source's fetched text, so that specific provision rests on one secondary (search-derived) source
-  rather than two — flagged as a minor single-source gap, not asserted with the same confidence as the
-  surrounding sections. No specific foreclosure timeline (e.g. "takes X months/years") is asserted,
-  since no source gave a reliable figure.
+## Backlog status
 
-Cross-links: kb-0119 links to `buying-off-plan-new-developments` and `phangan-property-lawyer-fees-
-what-they-cover`; also references (without linking to a nonexistent path) the existing OCPB deposit-
-ban guide by name. kb-0120 links to `financing-buying-as-a-foreigner`.
-
-`content-pipeline/backlog.md` updated: both new rows added under section A and marked ✅, with a dated
-inline note explaining the fresh-news sweep, the candidates checked, and the sourcing verification.
-`tsc --noEmit` passes clean on both content files.
+Every ⏳ item remaining in `backlog.md` (water crisis, FBA/AMLA predicate-offence, coalition stance,
+rental yields, single power cable, "who's buying" buyer-surge, stamp duty vs SBT, naming a specific
+off-plan project, PND e-filing deadline) was left as-is — all have been repeatedly re-checked across
+prior runs and remain duplicate, thin, or unsafe to publish per the inline notes in `backlog.md`. No
+change to that assessment this run.

@@ -7550,6 +7550,117 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "process",
     faqQuestion: "What happens if I default on a Thai bank mortgage for my condo or villa?",
   },
+  {
+    slug: "buying-land-condo-court-auction-thailand",
+    kbId: "kb-0121",
+    topic: "Process",
+    title: "Buying land or a condo at a Thai government auction: what foreign bidders can actually complete",
+    short:
+      "Thailand's Legal Execution Department auctions off seized real estate to the public, and foreigners can register and bid alongside Thai nationals. But winning the hammer doesn't override the Land Code — what you can actually register in your own name still depends entirely on the property type.",
+    updated: "2026-08-31",
+    body: [
+      "Can a foreigner buy land or a villa at a Thai government auction? Yes, you can register and bid — the Legal Execution Department (LED), under the Ministry of Justice, places no nationality bar on participating in its public auctions of seized property. The catch is that winning a bid is a sale mechanism, not an ownership exemption: the same Land Code restrictions that apply to any private purchase apply here too, so what a foreign winning bidder can actually complete registration on is narrower than what's on the auction block.",
+      { h: "What the LED sells, and why" },
+      "The LED auctions real estate seized through court judgments — most commonly a mortgage default that reaches the [foreclosure](/knowledge/mortgage-default-foreclosure-process-thailand) stage, plus bankruptcy proceedings and AMLO forfeiture cases. These are court-execution sales, run under the Civil Procedure Code's execution rules rather than an ordinary Land Code sale, which is why the process looks different from buying through an agent or developer.",
+      { h: "Registering and bidding" },
+      {
+        ul: [
+          "**Eligibility.** Both Thai nationals and foreigners can register to bid; a corporate bidder needs a company affidavit dated within one month of the auction.",
+          "**Documents.** An original passport or ID is required at registration; bidding through a proxy requires a duly stamped power of attorney.",
+          "**Deposit.** A bid deposit must be posted before bidding, scaled to the property's official appraisal value — roughly 25,000 THB on a 500,000-1,000,000 THB appraisal, stepping up to around 5,000,000 THB on a 50-100 million THB property, with amounts above 200 million THB set at the Director-General's discretion. Deposits can be paid in cash, cashier's cheque, bank guarantee, or through the LED's electronic bidding system.",
+        ],
+      },
+      { h: "How the price moves round to round" },
+      "The first auction opens at the property's official appraised value. If no one bids, the second auction opens at 90% of that appraisal, the third at 80%, and the fourth and later rounds at 70% — so an unwanted property can get progressively cheaper the longer it sits unsold. At each round the officer calls the price; when no higher bid follows, the hammer falls to the last bidder.",
+      { h: "The catch: winning the bid doesn't touch the Land Code" },
+      {
+        ul: [
+          "**Land and house-and-land packages.** A foreign bidder who wins an auction for raw land, or a house sold together with its land, still cannot register title in their own name — the Land Office applies exactly the same restriction it would to a private sale, per [how foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa). Completing that purchase requires the same lawful routes as any land deal: a Thai spouse's name with the marital declaration, a leasehold/superficies structure, or Thailand's [40-million-baht investment route](/knowledge/thb-40-million-investment-land-ownership-route).",
+          "**Condominium units.** A foreigner can complete registration on an auctioned condo unit, but only within the building's 49% foreign-ownership quota — the same limit that applies to any [freehold condo purchase](/knowledge/freehold-condo-vs-leasehold-villa), and worth checking before bidding given how the [quota debate](/knowledge/condo-foreign-ownership-quota-debate-2026) has developed.",
+          "**A structure without land.** Where the auction lot is a building only (no land title attached), the same logic that lets a foreigner own a [superficies-registered structure](/knowledge/superficies-vs-usufruct-vs-lease) can apply.",
+        ],
+      },
+      { h: "Bought as-is, and taxed as usual" },
+      {
+        ul: [
+          "**No warranty on condition.** An LED sale extinguishes liens tied to the debtor, but it does not warrant the physical condition of the property, occupancy status, or access — the LED's own guidance to bidders is to inspect the property and read the sale announcement's conditions before bidding, not to rely on the listing alone.",
+          "**Standard transfer costs still apply.** Registering the winning bid at the Land Office attracts the same 2% transfer fee, plus either Specific Business Tax (3.3%) or stamp duty (0.5%) and withholding tax depending on how the transfer is classified — see the [full cost breakdown](/knowledge/cost-of-buying-taxes-and-fees) — calculated off the LED's own appraisal value. Since there's no seller on the other side to negotiate a customary 50/50 split with, a winning bidder should budget for bearing the registration costs alone.",
+        ],
+      },
+      "An LED auction can be a genuine below-market opportunity, but the nationality filter narrows it in practice: for a foreign buyer, that mostly means condo units within quota and stand-alone structures, while land and house-and-land lots still require routing through the same ownership structures as an ordinary purchase — confirm which category a specific lot falls into before registering to bid.",
+    ],
+    takeaways: [
+      "The Legal Execution Department's public auctions of seized property (mortgage foreclosures, bankruptcy, AMLO forfeiture) are open to Thai and foreign bidders alike.",
+      "Winning a bid doesn't bypass the Land Code — a foreigner still can't register title to auctioned land or a house-and-land package in their own name.",
+      "A foreigner can complete registration on an auctioned condo unit within the building's 49% foreign quota, or on a stand-alone structure without land.",
+      "Bid deposits scale with the official appraisal value, from a small percentage on low-value lots up to several million baht on high-value properties, and must be posted before bidding.",
+      "If a property draws no bidders, the starting price steps down each round — 100% → 90% → 80% → 70% of appraisal — and standard transfer taxes still apply on top of the winning bid at registration.",
+    ],
+    sources: [
+      { title: "Silk Legal — A Guide for Buyers: Property Public Auction in Thailand", url: "https://silklegal.com/a-guide-for-buyers-property-public-auction-in-thailand-3/" },
+      { title: "Legal Execution Department (Ministry of Justice) — e-Service portal", url: "https://www.led.go.th/eservice/?lang=en" },
+      { title: "Chandler MHM / In-House Community — Act on the Amendment to the Civil Procedure Code (No. 30) B.E. 2560 (2017)", url: "https://www.inhousecommunity.com/article/thailand-act-amendment-civil-procedure-code-no-30-b-e-2560-2017/" },
+      { title: "Terms.Law — Thailand Property Transfer Taxes", url: "https://terms.law/Thai/tax/property-transfer-taxes.html" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "Can a foreigner buy land or a villa at a Thai government (Legal Execution Department) auction?",
+  },
+  {
+    slug: "co-ownership-partition-thai-property",
+    kbId: "kb-0122",
+    topic: "Ownership",
+    title: "When co-owners fall out: partition rights for jointly-held condos and structures on Koh Phangan",
+    short:
+      "Thai law never lets co-ownership be a permanent lock-in — any co-owner can demand partition, and a contract can only waive that right for up to 10 years at a time. Where a condo unit or villa structure can't physically be split, a court can order it sold and the proceeds divided instead.",
+    updated: "2026-08-31",
+    body: [
+      "If co-owners of a Thai condo unit or a jointly-registered building fall out, can one of them force a resolution? Yes — the Civil and Commercial Code's co-ownership rules (Sections 1357-1364) give every co-owner the right to demand partition at essentially any time, and if the co-owners can't agree on how, a court can step in, including ordering a forced sale.",
+      { h: "Where this comes up on Koh Phangan" },
+      {
+        ul: [
+          "**Two or more foreign buyers** — business partners, friends, an unmarried couple — jointly titled on a single [freehold condo unit](/knowledge/freehold-condo-vs-leasehold-villa).",
+          "**A foreign buyer and a Thai spouse or partner** jointly registering a building under a [superficies right](/knowledge/superficies-vs-usufruct-vs-lease) while the underlying land stays titled to the Thai party, sometimes alongside a [usufruct protecting the foreign spouse](/knowledge/foreign-spouse-usufruct-thai-marriage-property).",
+          "**Thai heirs** left holding undivided [inherited land](/knowledge/inheritance-leasehold-and-villa) in common, occasionally with a foreign spouse's usufruct layered on top.",
+        ],
+      },
+      { h: "The default rules, absent a contrary agreement" },
+      {
+        ul: [
+          "**Section 1357** — co-owners are presumed to hold equal shares unless proven otherwise.",
+          "**Section 1358** — co-owners are presumed to manage the property jointly; ordinary management decisions are made by majority.",
+          "**Section 1360** — each co-owner may use the property so long as that use doesn't conflict with the other co-owners' rights.",
+          "**Section 1361** — each co-owner may freely sell, mortgage or charge only their own share; the property as a whole can only be sold, mortgaged or charged with every co-owner's consent.",
+        ],
+      },
+      { h: "The exit valve: the right to demand partition" },
+      "Section 1363 gives any co-owner the right to demand partition at any time, unless barred by an agreement or by the permanent character of the co-ownership's purpose — and critically, a contract can only exclude that right for a maximum of 10 years at a stretch. A co-ownership agreement that tries to lock partners in indefinitely simply doesn't hold beyond that window; the right to demand partition revives.",
+      "Where the co-owners can't agree on how to split, Section 1364 lets a court order either an actual physical division of the property (with monetary compensation if that leaves shares unequal), or — where physical division isn't practical — a sale, whether a private auction among the co-owners or a public one, with proceeds distributed according to each owner's share.",
+      { h: "What this means in practice" },
+      {
+        ul: [
+          "**A single unit or structure rarely survives a physical-division order.** A condo unit or one villa building can't sensibly be cut in half, so a genuine falling-out among co-owners usually heads toward a court-ordered sale and a split of proceeds rather than a literal division.",
+          "**A written co-ownership agreement can shape the exit, but not block it.** Buyout rights, first-refusal terms, or an agreed valuation mechanism can keep a disagreement out of court — but any clause trying to waive the Section 1363 partition right for longer than 10 years won't be enforceable past that point.",
+          "**This is a different mechanism from a leasehold or company dispute.** Sections 1357-1366 apply to co-owned title itself — two or more names on the same condo unit title or building registration — not to a deadlock among shareholders in a [Thai company holding land](/knowledge/thai-company-for-property-49-51), which is governed by company law instead.",
+        ],
+      },
+      "Buying with a partner, friend, or business associate is common on the island, and it works well until it doesn't. Putting a co-ownership agreement in place before registration — covering buyout price, first refusal and decision-making — won't override the underlying right to demand partition, but it turns an eventual parting of ways into a negotiated buyout instead of a forced court auction.",
+    ],
+    takeaways: [
+      "Any co-owner of Thai property can legally demand partition at essentially any time (CCC Section 1363) — co-ownership is never an indefinite lock-in.",
+      "A contract can only exclude the right to demand partition for a maximum of 10 years at a time; longer waivers don't hold beyond that.",
+      "Selling, mortgaging or charging the whole property — not just one owner's share — requires every co-owner's consent (Section 1361).",
+      "Where physical division isn't practical, such as a single condo unit or villa structure, a court can order the property sold (privately among co-owners or at public auction) and the proceeds split (Section 1364).",
+      "This applies to any co-owned Thai title — a jointly-owned condo unit, a jointly-registered structure under superficies, or undivided inherited land — not to shares in a company that holds the land.",
+    ],
+    sources: [
+      { title: "Samui For Sale — Thailand Civil and Commercial Code, Part III (full text, Sections 1357-1364)", url: "https://www.samuiforsale.com/law-texts/thailand-civil-code-part-3.html" },
+      { title: "Thailand Law Library (Siam Legal) — Civil and Commercial Code: Property, Sections 1356-1366", url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-property-section-1356-1366/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "ownership",
+    faqQuestion: "If co-owners of a Thai condo unit or jointly-built villa structure fall out, can one of them force a sale?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
