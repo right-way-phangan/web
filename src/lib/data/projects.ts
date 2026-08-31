@@ -63,13 +63,34 @@ export async function getPublicProjects(): Promise<RealEstateObject[]> {
 export async function getProjectBySlug(
   slug: string,
 ): Promise<{ project: RealEstateObject; catalog: RealEstateObject[] } | null> {
-  // Резолв — по полному публичному набору: снятая обложка не должна превращать
-  // живой лендинг проекта в 404. В каталожные списки такой проект по-прежнему
-  // не попадает (там свой гейт isPubliclyListable).
+  // Резолв — по набору со статусным гейтом, но без требования обложки: снятая
+  // обложка не должна превращать живой лендинг в 404, а снятый с продажи проект
+  // не должен рендериться (см. LANDING_STATUSES).
   const catalog = await getPublicObjectsUnfiltered();
   const projects = catalog.filter((o) => o.type === "Project");
-  const project = projects.find((p) => projectSlug(p, projects) === slug);
-  return project ? { project, catalog } : null;
+
+  const exact = projects.find((p) => projectSlug(p, projects) === slug);
+  if (exact) return { project: exact, catalog };
+
+  // Слаг зависит от НАБОРА (тёзка добавляет суффикс с RW-номером), а ссылки
+  // печатает sitemap/индекс по своему, более узкому набору. Из-за развилки
+  // сайт мог вести на собственную ссылку, которую резолвер не находил.
+  // Принимаем и базовый вариант, если он однозначен.
+  const byBase = projects.filter((p) => slugifyProject(p.titleEn) === slug);
+  if (byBase.length === 1) return { project: byBase[0], catalog };
+
+  // И обратный случай: ссылка с суффиксом RW-номера, выданная когда тёзка ещё
+  // был в наборе. Она уже разошлась по индексации и переписке — держим её живой.
+  const m = slug.match(/-(p\d{3,5}(?:-\d{1,3})?)$/i);
+  if (m) {
+    const rw = `RW-${m[1].toUpperCase()}`;
+    const byRw = projects.find((p) => p.rwNumber.toUpperCase() === rw);
+    if (byRw && slugifyProject(byRw.titleEn) === slug.slice(0, -(m[1].length + 1))) {
+      return { project: byRw, catalog };
+    }
+  }
+
+  return null;
 }
 
 /**

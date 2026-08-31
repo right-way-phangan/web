@@ -16,6 +16,13 @@ import type { RealEstateObject, ObjectStatus, NearbyListing } from "@/types/obje
 export const CATALOG_REVALIDATE_SECONDS = 300;
 
 const PUBLIC_STATUSES: ObjectStatus[] = ["Active"];
+/**
+ * Статусы, при которых СТРАНИЦА объекта/проекта ещё существует, хотя в списки
+ * он уже не попадает. Reserved — зарезервирован, но живой: лендинг с ходом
+ * стройки и экономикой нужен покупателю и партнёру. Withdrawn/Sold сюда НЕ
+ * входят: снятый объект не должен рендерить полный лендинг с ценой.
+ */
+const LANDING_STATUSES: ObjectStatus[] = ["Active", "Reserved"];
 
 /**
  * Migration off amoCRM (Phase A): when OBJECTS_API_URL is set, objects come from
@@ -227,10 +234,20 @@ export function isPubliclyListable(o: RealEstateObject): boolean {
   return Boolean(o.rwNumber) && PUBLIC_STATUSES.includes(o.status) && !!o.coverImage;
 }
 
-/** Полный публичный набор БЕЗ каталожного гейта — для резолва страниц по slug/RW. */
+/**
+ * Набор для резолва страниц по slug/RW: статусный гейт СОХРАНЁН, снято только
+ * требование обложки.
+ *
+ * Снимать гейт целиком было ошибкой: Withdrawn/Sold-проект переставал быть в
+ * списках, но его лендинг продолжал рендериться с ценой и метаданными, а
+ * негейтованный каталог уезжал пропом в клиентские блоки «похожие объекты».
+ * Цель фикса была уже: страница не должна отдавать 404 только из-за снятой
+ * обложки (её удаляют по правилу медиа).
+ */
 export async function getPublicObjectsUnfiltered(): Promise<RealEstateObject[]> {
-  await getPublicObjects();
-  return lastGoodPublic ?? [];
+  const listed = await getPublicObjects();
+  const pool = lastGoodPublic ?? listed;
+  return pool.filter((o) => o.rwNumber && LANDING_STATUSES.includes(o.status));
 }
 
 export async function getPublicObjects(): Promise<RealEstateObject[]> {
