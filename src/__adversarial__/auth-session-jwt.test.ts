@@ -35,15 +35,16 @@ beforeEach(() => {
   vi.stubEnv("OBJECTS_API_URL", "https://backend.test");
 });
 
-describe("АТАКА 3 [MEDIUM]: сессия неотзываема 90 дней", () => {
+describe("АТАКА 3 [MEDIUM]: окно жизни сессии и строгая верификация", () => {
   // АТАКА 3 [MEDIUM]: у уволенного/пониженного сотрудника остаётся выданная кука
-  // | ОЖИДАЕТСЯ: сервер сверяет сессию с актуальной ролью/статусом пользователя
-  // (jti + чёрный список, либо version/tokenVersion в payload)
-  // | ФАКТ: verifySession() имеет ровно два входа — токен и секрет; роль берётся
-  // из payload и живёт SESSION_DAYS = 90 дней. Ни logout другого устройства, ни
-  // смена пароля, ни удаление юзера, ни понижение admin→agent сессию не гасят
-  // | код: web/src/lib/auth/session.ts:11,32-44
-  it("токен с ролью admin остаётся admin — механизма отзыва нет", async () => {
+  // | ОЖИДАЛОСЬ: сервер сверяет сессию с актуальной ролью/статусом пользователя
+  // | БЫЛО: роль берётся из payload и живёт SESSION_DAYS = 90 дней; ни logout
+  // другого устройства, ни смена пароля, ни понижение admin→agent её не гасят
+  // | ЧАСТИЧНО ИСПРАВЛЕНО 2026-08-31: серверного отзыва по-прежнему нет (нужен
+  // session store — вынесено в задачи), но окно сокращено 90 → 14 дней: это и
+  // есть максимальная задержка отзыва. Тест стережёт границу окна.
+  // | код: web/src/lib/auth/session.ts:14-16
+  it("окно жизни сессии ограничено 14 днями — это и есть задержка отзыва", async () => {
     const { signSession, verifySession, SESSION_DAYS } = await import(
       "@/lib/auth/session"
     );
@@ -61,15 +62,16 @@ describe("АТАКА 3 [MEDIUM]: сессия неотзываема 90 дней
     const exp = JSON.parse(atob(token.split(".")[1])).exp as number;
     const days = (exp - Math.floor(Date.now() / 1000)) / 86400;
     expect(Math.round(days)).toBe(SESSION_DAYS);
-    expect(SESSION_DAYS).toBe(90);
+    expect(SESSION_DAYS).toBe(14);
   });
 
   // АТАКА 3b [LOW]: токен, выпущенный другой системой на том же AUTH_SECRET
-  // | ОЖИДАЕТСЯ: jwtVerify с { issuer, audience, algorithms: ["HS256"] } —
-  // сессия сайта принимается только своя | ФАКТ: jwtVerify(token, key) без
-  // ограничений: любой HS-токен на том же секрете с claim role:"admin"
-  // становится админ-сессией сайта | код: web/src/lib/auth/session.ts:35
-  it("принимает чужой токен на том же секрете (нет проверки iss/aud)", async () => {
+  // | ОЖИДАЛОСЬ: jwtVerify с { issuer, audience, algorithms: ["HS256"] } |
+  // БЫЛО: jwtVerify(token, key) без ограничений — любой HS-токен на том же
+  // секрете с claim role:"admin" становился админ-сессией сайта (AUTH_SECRET
+  // подписывает ещё и клиентские ссылки /match/saved/*) | ИСПРАВЛЕНО 2026-08-31
+  // | код: web/src/lib/auth/session.ts:48-52
+  it("отвергает чужой токен на том же секрете (iss/aud/alg зафиксированы)", async () => {
     const { verifySession } = await import("@/lib/auth/session");
 
     const foreign = await new SignJWT({
@@ -85,29 +87,36 @@ describe("АТАКА 3 [MEDIUM]: сессия неотзываема 90 дней
       .setExpirationTime("30d")
       .sign(key);
 
-    expect(await verifySession(foreign)).toMatchObject({ role: "admin" });
+    expect(await verifySession(foreign)).toBeNull();
   });
 
   // АТАКА 3c [LOW]: токен вообще без claim `role`
-  // | ОЖИДАЕТСЯ: null (структура сессии не подтверждена) | ФАКТ: String(undefined)
-  // → роль "undefined", сессия считается валидной; спасает только то, что
-  // canAccessAdminPath отдаёт false на неизвестную роль — fail-closed держится
-  // на одной строке в другом файле | код: web/src/lib/auth/session.ts:36-41
-  it("считает валидной сессию без claim role (роль становится строкой \"undefined\")", async () => {
+  // | ОЖИДАЛОСЬ: null (структура сессии не подтверждена) | БЫЛО: String(undefined)
+  // → роль "undefined", id → NaN, сессия считалась валидной; fail-closed держался
+  // на одной строке в другом файле (canAccessAdminPath на неизвестной роли)
+  // | ИСПРАВЛЕНО 2026-08-31: verifySession требует строковый role и числовой id
+  // | код: web/src/lib/auth/session.ts:54-56
+  it("отвергает сессию без claim role", async () => {
     const { verifySession } = await import("@/lib/auth/session");
-    const { canAccessAdminPath } = await import("@/lib/auth/roles");
 
     const bare = await new SignJWT({})
       .setProtectedHeader({ alg: "HS256" })
+      .setIssuer("rightway:web")
+      .setAudience("rightway:admin")
       .setExpirationTime("1d")
       .sign(key);
 
-    const session = await verifySession(bare);
-    expect(session).not.toBeNull();
-    expect(session!.role).toBe("undefined");
-    expect(Number.isNaN(session!.id)).toBe(true);
-    // Единственное, что спасает:
-    expect(canAccessAdminPath(session!.role, "/admin/finance")).toBe(false);
+    expect(await verifySession(bare)).toBeNull();
+
+    // id нечислового типа тоже не сессия (раньше давал NaN)
+    const badId = await new SignJWT({ id: "7", role: "admin" })
+      .setProtectedHeader({ alg: "HS256" })
+      .setIssuer("rightway:web")
+      .setAudience("rightway:admin")
+      .setExpirationTime("1d")
+      .sign(key);
+
+    expect(await verifySession(badId)).toBeNull();
   });
 });
 

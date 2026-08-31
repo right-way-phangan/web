@@ -9,7 +9,8 @@ import { buildFactorMap } from "@/lib/valuation/factors";
 import { lookupZoneByLocation } from "@/lib/actions/zone-lookup";
 import { explainValuation } from "@/lib/valuation/llm-explain";
 import type { RealEstateObject } from "@/types/object";
-import { requireAdmin } from "@/lib/auth/require-admin";
+import { isAdmin, requireAdmin } from "@/lib/auth/require-admin";
+import { rateLimit } from "@/lib/ratelimit";
 
 const API = process.env.OBJECTS_API_URL;
 
@@ -114,14 +115,45 @@ async function fetchExternalComps(): Promise<ExternalComp[]> {
 }
 
 /**
+ * Срез результата для неадминского вызывающего: только агрегаты, которые и так
+ * показывает публичный фасад estimatePublic. Методика (разбивка по методам,
+ * компсы с ценами, множители факторов, чувствительность, ликвидность) — закупочные
+ * данные, наружу не уходят.
+ */
+function publicView(r: ValuationResult): ValuationResult {
+  return {
+    ok: r.ok,
+    reason: r.reason,
+    listValue: r.listValue,
+    fairValue: r.fairValue,
+    low: r.low,
+    high: r.high,
+    perRai: r.perRai,
+    confidence: r.confidence,
+    methods: [],
+    adjustments: [],
+    caveats: [],
+  };
+}
+
+/**
  * Выполнить оценку: каталог + внешние компсы + аналитика аренды + факторы →
  * движок; результат пишется в журнал valuations (best-effort, ошибки журнала
  * оценку не блокируют).
+ *
+ * Экшен лежит в клиентском манифесте (админские компоненты) и вдобавок обслуживает
+ * публичный фасад estimatePublic, т.е. дозвониться до него может кто угодно.
+ * Поэтому: админу — сырой результат, всем остальным — publicView и per-IP throttle
+ * (каждый вызов = полный каталог + 2 GET + запись в журнал valuations).
  */
 export async function runValuation(
   subject: ValuationSubject,
   opts?: { rwNumber?: string; createdBy?: string },
 ): Promise<ValuationResult> {
+  const admin = await isAdmin();
+  if (!admin && !(await rateLimit("valuation", 12, 60 * 60))) {
+    return { ok: false, reason: "rate-limited", methods: [], adjustments: [], caveats: [] };
+  }
   const [objects, overrides, external] = await Promise.all([
     getAllObjects(),
     fetchFactorOverrides(),
@@ -149,11 +181,12 @@ export async function runValuation(
         lowValue: result.low,
         highValue: result.high,
         confidence: result.confidence,
-        createdBy: opts?.createdBy ?? "admin",
+        // Атрибуцию журнала задаёт только админ; анонимный вызов всегда "public".
+        createdBy: admin ? opts?.createdBy ?? "admin" : "public",
       }),
     }).catch(() => {});
   }
-  return result;
+  return admin ? result : publicView(result);
 }
 
 /**

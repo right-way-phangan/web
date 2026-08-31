@@ -79,9 +79,13 @@ export function sanitizePublicObject(o: RealEstateObject): RealEstateObject {
  * (getObjectByRwNumber) and keep the gallery.
  */
 export function slimObjectForList(o: RealEstateObject): RealEstateObject {
-  const { gallery, constructionUpdates, ...slim } = o;
+  const { gallery, constructionUpdates, descriptionRaw, ...slim } = o;
   void gallery;
   void constructionUpdates; // десятки URL фото со стройки — только на своей странице
+  // legacy-заметки amoCRM: на карточке объекта не рендерятся (решение 2026-06-17),
+  // но уезжали в RSC-payload /listings — десятки описаний в исходнике страницы.
+  // Лендинги проектов читают своё поле напрямую и этим срезом не ходят.
+  void descriptionRaw;
   return slim;
 }
 
@@ -216,7 +220,12 @@ export async function getPublicObjects(): Promise<RealEstateObject[]> {
   if (OBJECTS_API_URL) {
     try {
       lastGoodPublic = await withUsd(
-        (await apiObjects("/objects")).map(sanitizePublicObject),
+        (await apiObjects("/objects"))
+          // Страховка своей стороны: тот же гейт, что и в ветке amoCRM ниже.
+          // На живом пути он держался только на backend, а его вет-гейт фото
+          // fail-open — скриншот прайса мог стать публичной обложкой.
+          .filter((o) => o.rwNumber && PUBLIC_STATUSES.includes(o.status) && !!o.coverImage)
+          .map(sanitizePublicObject),
       );
       return lastGoodPublic;
     } catch (err) {

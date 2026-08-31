@@ -1,5 +1,5 @@
 import type { RealEstateObject, ObjectType, TenureType } from "@/types/object";
-import { leaseTotalThb } from "@/lib/objects/lease-format";
+import { escalatedLeaseTotalThb } from "@/lib/objects/lease-format";
 
 export type SortOption = "featured" | "newest" | "price-asc" | "price-desc";
 
@@ -75,8 +75,9 @@ export function isLongLeaseAcquisition(o: RealEstateObject): boolean {
 
 /**
  * The whole-plot THB figure a Buy listing is ranked/filtered by: the sale price,
- * or — for a long leasehold priced by rent — the flat lease total over the term
- * (monthly × 12 × years; per-rai rents are scaled by the plot area when known).
+ * or — for a long leasehold priced by rent — the indexed lease total over the
+ * term (per-rai rents are scaled by the plot area when known), the same figure
+ * the card and the price headline print.
  * This lets leaseholds sort and range-filter alongside freehold sale prices
  * instead of sinking for lack of a `priceThb`.
  */
@@ -85,7 +86,12 @@ export function acquisitionValueThb(o: RealEstateObject): number | undefined {
   if (!isLongLeaseAcquisition(o) || !o.leaseTermYears) return undefined;
   const monthly =
     o.rentPerMonth ?? (o.rentPerRaiMonth && o.areaRai ? o.rentPerRaiMonth * o.areaRai : undefined);
-  return monthly ? leaseTotalThb(monthly, o.leaseTermYears) : undefined;
+  // Индексация обязательна: карточка и заголовок цены показывают
+  // escalatedLeaseTotalThb, и плоский total пускал в «до ฿20M» объект,
+  // открывающийся как «≈ ฿22.9M всего». Фильтр и витрина считают одинаково.
+  return monthly
+    ? escalatedLeaseTotalThb(monthly, o.leaseTermYears, o.leaseEscPercent, o.leaseEscPeriodYears)
+    : undefined;
 }
 
 /**
@@ -104,6 +110,12 @@ export function priceFieldOf(o: RealEstateObject, mode: ViewMode): number | unde
  */
 export function isRental(o: RealEstateObject): boolean {
   const hasMonthly = o.rentPerMonth != null || o.rentPerRaiMonth != null;
+  // Цена продажи и leasehold-тенура — признаки приобретения: объект остаётся во
+  // вкладке Buy, даже если у него заодно указана помесячная ставка. Без этого
+  // лизхолд без проставленного срока («срок обсуждается») выпадал из
+  // ?tenure=Leasehold, хотя секция /leasehold его показывала и туда же вела
+  // кнопкой, а вилла с ценой И арендной ставкой исчезала из Buy целиком.
+  if (o.priceThb != null || (o.tenure ?? []).includes("Leasehold")) return false;
   return hasMonthly && !isLongLeaseAcquisition(o);
 }
 

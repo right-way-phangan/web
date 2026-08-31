@@ -20,15 +20,15 @@ const sp = (q: string) =>
   parseListingsSearchParams(Object.fromEntries(new URLSearchParams(q).entries()));
 
 // АТАКА 1 [HIGH]: объект с тенурой "Mixed / N.A." (в проде — 46 из 89 публичных,
-// 52% каталога) | ОЖИДАЕТСЯ: смешанная форма владения попадает хотя бы в один
-// фильтр tenure (по правилу feedback_leasehold_everywhere — в Leasehold) | ФАКТ:
-// normalizeTenure даёт ["Mixed"], фильтр сверяет строгим включением по множеству
-// {Freehold, Leasehold} → объект выпадает И из ?tenure=Freehold, И из
-// ?tenure=Leasehold; "Mixed" не является допустимым значением URL-параметра, то
-// есть недостижим вообще. Половина каталога исчезает от одного клика по чипу.
-// код: src/lib/filters/listings.ts:207-211, src/lib/utils/tenure.ts:26,
-//      src/components/objects/listings-filter-bar.tsx:30
-describe("АТАКА 1 — tenure=Mixed выпадает из каталога", () => {
+// 52% каталога) | ОЖИДАЛОСЬ: смешанная форма владения попадает в фильтры tenure |
+// БЫЛО: normalizeTenure давал ["Mixed"], фильтр сверял строгим включением по
+// множеству {Freehold, Leasehold} → объект выпадал И из ?tenure=Freehold, И из
+// ?tenure=Leasehold, а "Mixed" не является допустимым значением URL-параметра —
+// то есть был недостижим вообще; половина каталога исчезала от клика по чипу |
+// ИСПРАВЛЕНО 2026-08-31: "Mixed / N.A." = «freehold ИЛИ leasehold на выбор»,
+// поэтому раскрывается в ОБЕ формы (правило feedback_leasehold_everywhere).
+// код: src/lib/utils/tenure.ts:30
+describe("АТАКА 1 — tenure=Mixed раскрывается в обе формы владения", () => {
   const mixed = o({
     rwNumber: "RW-L0900",
     type: "Land",
@@ -36,38 +36,38 @@ describe("АТАКА 1 — tenure=Mixed выпадает из каталога",
     tenure: normalizeTenure(["Mixed / N.A."]),
   });
 
-  it("сырой лейбл БД нормализуется в ['Mixed'] — без Leasehold и без Freehold", () => {
-    expect(normalizeTenure(["Mixed / N.A."])).toEqual(["Mixed"]);
+  it("сырой лейбл БД нормализуется в ['Freehold', 'Leasehold']", () => {
+    expect(normalizeTenure(["Mixed / N.A."])).toEqual(["Freehold", "Leasehold"]);
   });
 
-  it("объект выпадает из ?tenure=Leasehold", () => {
-    expect(makeFilterPredicate(sp("tenure=Leasehold"))(mixed)).toBe(false);
+  it("объект попадает в ?tenure=Leasehold", () => {
+    expect(makeFilterPredicate(sp("tenure=Leasehold"))(mixed)).toBe(true);
   });
 
-  it("и одновременно из ?tenure=Freehold — форма владения недостижима ни одним чипом", () => {
-    expect(makeFilterPredicate(sp("tenure=Freehold"))(mixed)).toBe(false);
-    expect(makeFilterPredicate(sp("tenure=Freehold,Leasehold"))(mixed)).toBe(false);
+  it("и в ?tenure=Freehold — обе опции достижимы своим чипом", () => {
+    expect(makeFilterPredicate(sp("tenure=Freehold"))(mixed)).toBe(true);
+    expect(makeFilterPredicate(sp("tenure=Freehold,Leasehold"))(mixed)).toBe(true);
   });
 
   it("?tenure=Mixed молча игнорируется парсером — фильтр не применяется вовсе", () => {
     expect(sp("tenure=Mixed").tenure).toEqual([]);
   });
 
-  it("инвентарь /leasehold использует то же includes('Leasehold') → секция его тоже не покажет", () => {
-    // src/components/sections/leasehold-listings.tsx:36 — при этом её же
-    // комментарий обещает ловить лейблы "Mixed / N.A.".
-    expect(normalizeTenure(mixed.tenure)?.includes("Leasehold")).toBe(false);
+  it("инвентарь /leasehold ловит его тем же includes('Leasehold')", () => {
+    // src/components/sections/leasehold-listings.tsx:36 — теперь секция
+    // действительно показывает лейблы "Mixed / N.A.", как обещает её комментарий.
+    expect(normalizeTenure(mixed.tenure)?.includes("Leasehold")).toBe(true);
   });
 });
 
-// АТАКА 2 [HIGH]: лизхолд-объект с помесячной ставкой, у которого срок лизинга
+// АТАКА 2 [HIGH, ИСПРАВЛЕНО 2026-08-31]: лизхолд-объект с помесячной ставкой, у которого срок лизинга
 // не заполнен (или < 3 лет) | ОЖИДАЕТСЯ: объект с tenure ⊇ Leasehold обязан быть
 // в /listings?tenure=Leasehold (memory feedback_leasehold_everywhere) | ФАКТ:
 // Buy/Rent-разделение считает его краткосрочной арендой и вырезает из вкладки
 // Buy (режим по умолчанию) ещё до проверки tenure; секция /leasehold его при
 // этом показывает и ведёт кнопкой «See all leasehold listings» в список, где
 // его нет. код: src/lib/filters/listings.ts:203 + :72-74
-describe("АТАКА 2 — лизхолд без срока пропадает из ?tenure=Leasehold", () => {
+describe("АТАКА 2 — лизхолд без срока остаётся в ?tenure=Leasehold", () => {
   const leaseNoTerm = o({
     rwNumber: "RW-L0901",
     type: "Land",
@@ -81,31 +81,38 @@ describe("АТАКА 2 — лизхолд без срока пропадает �
     expect(normalizeTenure(leaseNoTerm.tenure)?.includes("Leasehold")).toBe(true);
   });
 
-  it("а фильтр каталога — нет: он классифицирован как аренда", () => {
-    expect(isRental(leaseNoTerm)).toBe(true);
-    expect(makeFilterPredicate(sp("tenure=Leasehold"))(leaseNoTerm)).toBe(false);
+  it("и фильтр каталога тоже: leasehold-оффер больше не считается арендой", () => {
+    expect(isRental(leaseNoTerm)).toBe(false);
+    expect(makeFilterPredicate(sp("tenure=Leasehold"))(leaseNoTerm)).toBe(true);
   });
 
-  it("двухлетний лизинг ведёт себя так же — граница 3 года режет по живому", () => {
+  it("двухлетний лизинг ведёт себя так же — граница 3 года больше не режет по живому", () => {
     const twoYears = o({ ...leaseNoTerm, leaseTermYears: 2 });
-    expect(makeFilterPredicate(sp("tenure=Leasehold"))(twoYears)).toBe(false);
+    expect(makeFilterPredicate(sp("tenure=Leasehold"))(twoYears)).toBe(true);
   });
 
-  it("объект с ценой продажи И арендной ставкой тоже исчезает из вкладки Buy", () => {
+  it("объект с ценой продажи И арендной ставкой остаётся во вкладке Buy", () => {
     const both = o({ rwNumber: "RW-V0902", type: "Villa", priceThb: 18_000_000, rentPerMonth: 80_000 });
-    expect(makeFilterPredicate(sp(""))(both)).toBe(false);
+    expect(makeFilterPredicate(sp(""))(both)).toBe(true);
+  });
+
+  it("а настоящая краткосрочная аренда остаётся арендой", () => {
+    const rental = o({ rwNumber: "RW-V0903", type: "Villa", rentPerMonth: 60_000 });
+    expect(isRental(rental)).toBe(true);
+    expect(makeFilterPredicate(sp(""))(rental)).toBe(false);
+    expect(makeFilterPredicate(sp("mode=rent"))(rental)).toBe(true);
   });
 });
 
 // АТАКА 3 [HIGH, деньги]: диапазон цены в каталоге для лизхолда с индексацией |
-// ОЖИДАЕТСЯ: фильтр «до ฿20M» не показывает объект, чья карточка и страница
-// объявляют «≈ ฿22.9M всего» | ФАКТ: acquisitionValueThb считает ПЛОСКИЙ total
+// ОЖИДАЛОСЬ: фильтр «до ฿20M» не показывает объект, чья карточка и страница
+// объявляют «≈ ฿22.9M всего» | БЫЛО: acquisitionValueThb считал ПЛОСКИЙ total
 // (rent×12×years), а карточка и заголовок цены — ИНДЕКСИРОВАННЫЙ
-// (escalatedLeaseTotalThb). Расхождение 1.6× — объект проходит бюджетный фильтр
-// покупателя и открывается ценой на 8.5 млн выше запрошенного потолка.
-// код: src/lib/filters/listings.ts:88 vs src/components/objects/object-price.tsx:73
-//      (и src/components/objects/object-card.tsx:290)
-describe("АТАКА 3 — фильтр цены считает лизхолд без индексации, а показывает с ней", () => {
+// (escalatedLeaseTotalThb); расхождение 1.6× пускало объект в бюджетный фильтр
+// покупателя, и он открывался ценой на 8.5 млн выше запрошенного потолка |
+// ИСПРАВЛЕНО 2026-08-31: фильтр считает тем же escalatedLeaseTotalThb, что и витрина.
+// код: src/lib/filters/listings.ts:89-93
+describe("АТАКА 3 — фильтр цены и витрина считают лизхолд одинаково", () => {
   const lease = o({
     rwNumber: "RW-L0903",
     type: "Land",
@@ -119,15 +126,15 @@ describe("АТАКА 3 — фильтр цены считает лизхолд �
   const shown = escalatedLeaseTotalThb(40_000, 30, 10, 3);
   const filtered = acquisitionValueThb(lease)!;
 
-  it("витрина показывает ≈฿22.9M, фильтр видит ฿14.4M", () => {
-    expect(filtered).toBe(14_400_000);
+  it("фильтр видит ровно ту сумму, что показывает витрина (≈฿22.9M)", () => {
+    expect(filtered).toBe(shown);
     expect(shown).toBeGreaterThan(22_000_000);
-    expect(shown / filtered).toBeGreaterThan(1.5);
   });
 
-  it("?pmax=20 (до ฿20M) отдаёт объект с показанной суммой ฿22.9M", () => {
-    expect(makeFilterPredicate(sp("pmax=20"))(lease)).toBe(true);
-    expect(shown).toBeGreaterThan(20_000_000);
+  it("?pmax=20 (до ฿20M) больше не отдаёт объект за ฿22.9M", () => {
+    expect(makeFilterPredicate(sp("pmax=20"))(lease)).toBe(false);
+    // и остаётся в выдаче, когда потолок реально его покрывает
+    expect(makeFilterPredicate(sp("pmax=25"))(lease)).toBe(true);
   });
 });
 

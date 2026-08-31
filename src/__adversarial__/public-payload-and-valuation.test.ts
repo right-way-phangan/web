@@ -18,8 +18,8 @@ import type { RealEstateObject } from "@/types/object";
 // \"descriptionRaw\" в исходнике страницы. Ни одна карточка его не рисует:
 // это чистая утечка канала (любая заметка про комиссию/собственника,
 // оставленная в поле, публикуется мгновенно).
-// код: src/lib/data/objects.ts:36-70 (sanitizePublicObject), :81-85 (slimObjectForList)
-describe("АТАКА 9 — descriptionRaw уходит в публичный payload /listings", () => {
+// ИСПРАВЛЕНО 2026-08-31: slimObjectForList срезает поле (objects.ts:88-93)
+describe("АТАКА 9 — descriptionRaw больше не уходит в публичный payload /listings", () => {
   const raw = "Owner Somchai 084-000-0000, комиссия 5% сверху, чистыми 9.5M";
   const obj = {
     rwNumber: "RW-L0904",
@@ -38,12 +38,15 @@ describe("АТАКА 9 — descriptionRaw уходит в публичный pay
     expect(pub.docs).toBeUndefined();
   });
 
-  it("но оставляет descriptionRaw — и slimObjectForList его тоже не срезает", () => {
+  it("slimObjectForList режет descriptionRaw — в payload каталога его больше нет", () => {
+    // Лендинги проектов читают своё поле напрямую и этим срезом не ходят,
+    // поэтому сам sanitizePublicObject поле сохраняет.
     expect(pub.descriptionRaw).toBe(raw);
-    expect(slimObjectForList(pub).descriptionRaw).toBe(raw);
+    expect(slimObjectForList(pub).descriptionRaw).toBeUndefined();
+    expect(JSON.stringify(slimObjectForList(pub))).not.toContain("084-000-0000");
   });
 
-  it("более узкий slimObjectForCard поле не пропускает — значит защита существует, но /listings её не использует", () => {
+  it("более узкий slimObjectForCard поле тоже не пропускает", () => {
     expect(slimObjectForCard(pub).descriptionRaw).toBeUndefined();
   });
 });

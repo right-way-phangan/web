@@ -1,4 +1,5 @@
 import { backendFetch, BACKEND_URL } from "@/lib/api/backend";
+import { DISTRICTS } from "@/lib/amocrm/dictionaries";
 
 /**
  * Demand beacon for FILTER selections on /listings (NL search is logged
@@ -7,6 +8,9 @@ import { backendFetch, BACKEND_URL } from "@/lib/api/backend";
  * proxy. Always 204 — a demand counter must never surface errors to a visitor.
  */
 const TYPES = new Set(["Land", "Villa", "House", "Apartment", "Project"]);
+// Районы — по тому же справочнику, что и форма ввода объекта: без allow-set
+// произвольная строка из анонимного POST становилась строкой отчёта /admin/demand.
+const DISTRICT_SET = new Set<string>(DISTRICTS);
 const FEATURES = new Set(["beachfront", "seaView", "mountainView"]);
 
 function strArr(v: unknown, allow?: Set<string>, max = 12): string[] {
@@ -25,7 +29,7 @@ export async function POST(req: Request): Promise<Response> {
       const payload = {
         kind: "filter" as const,
         types: strArr(b.types, TYPES),
-        districts: strArr(b.districts),
+        districts: strArr(b.districts, DISTRICT_SET),
         tenure: strArr(b.tenure, new Set(["Freehold", "Leasehold"])),
         features: strArr(b.features, FEATURES),
         priceMinM: num(b.priceMinM),

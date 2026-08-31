@@ -12,7 +12,7 @@
  */
 
 import { NextResponse } from "next/server";
-import { createHmac } from "crypto";
+import { createHmac, timingSafeEqual } from "crypto";
 
 export const dynamic = "force-dynamic";
 
@@ -24,6 +24,10 @@ const ALLOWED_ID = (process.env.TELEGRAM_ALLOWED_USER_IDS ?? "")
   .split(",")
   .map((s) => s.trim())
   .find((s) => /^\d+$/.test(s));
+
+/** Окно годности initData: сутки, как рекомендует Telegram, + запас на часы клиента. */
+const INITDATA_MAX_AGE_SEC = 24 * 60 * 60;
+const INITDATA_CLOCK_SKEW_SEC = 5 * 60;
 
 function verifyInitData(initData: string): { ok: boolean; userId?: number } {
   if (!BOT_TOKEN || !initData) return { ok: false };
@@ -38,7 +42,16 @@ function verifyInitData(initData: string): { ok: boolean; userId?: number } {
       .join("\n");
     const secret = createHmac("sha256", "WebAppData").update(BOT_TOKEN).digest();
     const sig = createHmac("sha256", secret).update(pairs).digest("hex");
-    if (sig !== hash) return { ok: false };
+    const a = Buffer.from(sig, "hex");
+    const b = Buffer.from(hash, "hex");
+    if (a.length !== b.length || !timingSafeEqual(a, b)) return { ok: false };
+    // Свежесть подписи. initData уезжает в заголовке каждого запроса Mini App и
+    // оседает в логах/истории — без окна одна перехваченная строка открывала
+    // лиды с телефонами и мутации задач бессрочно (проверено подписью 2020 года).
+    const authDate = Number(params.get("auth_date"));
+    if (!Number.isFinite(authDate)) return { ok: false };
+    const ageSec = Date.now() / 1000 - authDate;
+    if (ageSec > INITDATA_MAX_AGE_SEC || ageSec < -INITDATA_CLOCK_SKEW_SEC) return { ok: false };
     // user.id из подписанного JSON
     const userStr = params.get("user");
     const userId = userStr ? (JSON.parse(userStr) as { id?: number }).id : undefined;

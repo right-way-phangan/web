@@ -2,10 +2,12 @@
 
 import { revalidatePath } from "next/cache";
 import { backendFetch } from "@/lib/api/backend";
-import { isAdmin } from "@/lib/auth/require-admin";
+import { isAdmin, isStaff } from "@/lib/auth/require-admin";
 
 const API = process.env.OBJECTS_API_URL;
 const JSON_HEADERS = { "Content-Type": "application/json" };
+/** Потолок батча: доска отдаёт вручную отмеченные лиды, не «весь этап». */
+const MAX_BATCH = 100;
 
 export type BulkLeadsResult = { ok: boolean; done: number; failed: number };
 
@@ -16,7 +18,12 @@ function settle(results: PromiseSettledResult<Response>[]): BulkLeadsResult {
 
 /** Move several leads to one stage at once (board bulk bar). */
 export async function bulkMoveLeads(ids: number[], stageKey: string): Promise<BulkLeadsResult> {
-  if (!API || ids.length === 0) return { ok: false, done: 0, failed: ids.length };
+  // Экшен вызывается по Next-Action ID с любого пути — middleware /admin его не
+  // видит, гейт обязан быть здесь. Уровень тот же, что у одиночного moveLead.
+  if (!(await isStaff())) return { ok: false, done: 0, failed: ids.length };
+  if (!API || ids.length === 0 || ids.length > MAX_BATCH) {
+    return { ok: false, done: 0, failed: ids.length };
+  }
   const results = await Promise.allSettled(
     ids.map((id) =>
       backendFetch(`/leads/${id}`, {

@@ -43,24 +43,18 @@ beforeEach(() => {
 
 describe("АТАКА 1 [CRITICAL]: bulkMoveLeads — server action без гейта", () => {
   // АТАКА 1 [CRITICAL]: анонимный POST с Next-Action ID `bulkMoveLeads` на любой
-  // публичный путь | ОЖИДАЕТСЯ: экшен зовёт requireStaff()/isAdmin() и ничего не
-  // делает без сессии, как его сосед bulkDeleteLeads | ФАКТ: гейта нет вообще —
-  // экшен PATCH-ит любые лиды в любую стадию серверным bearer-токеном
-  // | код: web/src/lib/actions/bulk-leads.ts:18
-  it("двигает лиды по воронке без какой-либо авторизации", async () => {
+  // публичный путь | ОЖИДАЛОСЬ: экшен зовёт гейт и ничего не делает без сессии,
+  // как его сосед bulkDeleteLeads | БЫЛО: гейта не было вообще — экшен PATCH-ил
+  // любые лиды в любую стадию серверным bearer-токеном
+  // | ИСПРАВЛЕНО 2026-08-31: isStaff() перед любой работой, до обращения к API
+  // | код: web/src/lib/actions/bulk-leads.ts:21-25
+  it("отбит гейтом: без сессии ни одного PATCH в backend", async () => {
     const { bulkMoveLeads } = await import("@/lib/actions/bulk-leads");
 
     const res = await bulkMoveLeads([101, 102, 103], "lost");
 
-    // ФАКТ: все три PATCH ушли в backend от анонима.
-    expect(res).toEqual({ ok: true, done: 3, failed: 0 });
-    expect(backendCalls.map((c) => c.path)).toEqual([
-      "/leads/101",
-      "/leads/102",
-      "/leads/103",
-    ]);
-    expect(backendCalls[0].init.method).toBe("PATCH");
-    expect(String(backendCalls[0].init.body)).toContain('"stageKey":"lost"');
+    expect(res).toEqual({ ok: false, done: 0, failed: 3 });
+    expect(backendCalls).toHaveLength(0);
   });
 
   it("КОНТРОЛЬ: сосед bulkDeleteLeads тем же анонимом отбит isAdmin()", async () => {
@@ -73,17 +67,18 @@ describe("АТАКА 1 [CRITICAL]: bulkMoveLeads — server action без гей
   });
 
   // АТАКА 1b [HIGH]: тот же экшен без ограничения длины массива ids
-  // | ОЖИДАЕТСЯ: потолок на размер батча | ФАКТ: сколько id прислали — столько
-  // параллельных PATCH-ов в Neon; усилитель нагрузки на БД от анонима
-  // | код: web/src/lib/actions/bulk-leads.ts:19-29
-  it("не ограничивает размер батча — усилитель записи в БД", async () => {
+  // | ОЖИДАЛОСЬ: потолок на размер батча | БЫЛО: сколько id прислали — столько
+  // параллельных PATCH-ов в Neon; усилитель нагрузки на БД
+  // | ИСПРАВЛЕНО 2026-08-31: MAX_BATCH = 100, батч сверх потолка отбивается целиком
+  // | код: web/src/lib/actions/bulk-leads.ts:11,26-28
+  it("батч сверх потолка отбивается целиком, ни одного PATCH", async () => {
     const { bulkMoveLeads } = await import("@/lib/actions/bulk-leads");
 
     const ids = Array.from({ length: 500 }, (_, i) => i + 1);
     const res = await bulkMoveLeads(ids, "won");
 
-    expect(res.done).toBe(500);
-    expect(backendCalls).toHaveLength(500);
+    expect(res.ok).toBe(false);
+    expect(backendCalls).toHaveLength(0);
   });
 });
 
@@ -141,30 +136,41 @@ describe("АТАКА 2 [HIGH]: runValuation — админский движок 
     }));
   });
 
-  it("отдаёт анониму внутреннюю методику: методы, компсы, множители", async () => {
+  it("анониму отдаются только агрегаты — методика срезана", async () => {
     const { runValuation } = await import("@/lib/actions/valuation");
 
     const result = await runValuation({ type: "Land", areaRai: 2 } as never);
 
-    // ФАКТ: наружу ушёл сырой результат, ничего не срезано.
-    expect(result).toEqual(RAW_RESULT);
-    expect(result.methods[0]).toHaveProperty("comps");
-    expect(result.adjustments.map((a) => a.label)).toContain("Вид на море");
+    // Цифры оценки видны (их и так показывает публичный фасад)...
+    expect(result.ok).toBe(true);
+    expect(result.fairValue).toBe(RAW_RESULT.fairValue);
+    // ...а закупочные данные — нет: ни компсов, ни множителей, ни разбивки.
+    expect(result.methods).toEqual([]);
+    expect(result.adjustments).toEqual([]);
+    expect(JSON.stringify(result)).not.toContain("RW-L0042");
+    expect(JSON.stringify(result)).not.toContain("Вид на море");
   });
 
   // АТАКА 2b [MEDIUM]: каждый анонимный вызов пишет строку в журнал `valuations`
-  // | ОЖИДАЕТСЯ: гейт и/или rateLimit(), как у публичных форм (inquiry 8/час)
-  // | ФАКТ: ни того, ни другого — неаутентифицированный усилитель записи в Neon
-  // (compute-квота уже выжигалась однажды) | код: web/src/lib/actions/valuation.ts:135
-  it("пишет строку в журнал valuations на каждый анонимный вызов, без rate-limit", async () => {
+  // | ОЖИДАЛОСЬ: гейт и/или rateLimit(), как у публичных форм (inquiry 8/час)
+  // | БЫЛО: ни того, ни другого — неаутентифицированный усилитель записи в Neon
+  // (compute-квота уже выжигалась однажды)
+  // | ИСПРАВЛЕНО 2026-08-31: каждый неадминский вызов проходит через rateLimit
+  // ("valuation", 12/час на IP), а запись в журнал атрибутируется как "public"
+  // | код: web/src/lib/actions/valuation.ts:150-152,184
+  it("каждый анонимный вызов проходит rate-limit и пишется как public", async () => {
     const { runValuation } = await import("@/lib/actions/valuation");
 
     await runValuation({ type: "Land", areaRai: 2 } as never);
-    await runValuation({ type: "Land", areaRai: 3 } as never);
     await new Promise((r) => setTimeout(r, 0)); // журнал пишется best-effort, без await
 
+    const throttle = backendCalls.filter((c) => c.path === "/ratelimit");
+    expect(throttle).toHaveLength(1);
+    expect(String(throttle[0].init.body)).toContain("valuation");
+
     const writes = backendCalls.filter((c) => c.path === "/valuations");
-    expect(writes).toHaveLength(2);
-    expect(writes[0].init.method).toBe("POST");
+    expect(writes).toHaveLength(1);
+    // Атрибуцию журнала задаёт только админ — аноним не может подписаться "admin".
+    expect(String(writes[0].init.body)).toContain('"createdBy":"public"');
   });
 });

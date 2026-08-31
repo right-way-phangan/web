@@ -16,6 +16,12 @@ vi.mock("@/lib/api/backend", () => ({
   }),
 }));
 
+// Без request-scope у next/headers rateLimit падает в fallback раньше, чем
+// доходит до счётчика, и throttle нельзя проверить честно.
+vi.mock("next/headers", () => ({
+  headers: () => Promise.resolve(new Headers({ "x-forwarded-for": "203.0.113.9" })),
+}));
+
 beforeEach(() => {
   backendCalls.length = 0;
   vi.resetModules();
@@ -31,29 +37,50 @@ const post = (body: unknown, headers: Record<string, string> = {}) =>
 
 describe("АТАКА 5 [MEDIUM]: track-* — неаутентифицированная запись в БД", () => {
   // АТАКА 5 [MEDIUM]: скрипт в цикле шлёт POST /api/track-view с валидным RW
-  // | ОЖИДАЕТСЯ: rateLimit() (как у публичных форм: inquiry 8/час) и/или проверка
-  // Origin, чтобы счётчик нельзя было накрутить и нельзя было раскачать Neon
-  // | ФАКТ: ни throttle, ни Origin, ни дедупликации — каждый запрос = одна запись
-  // в Postgres серверным bearer-токеном; compute-квота Neon уже выжигалась однажды
-  // | код: web/src/app/api/track-view/route.ts:12-25
-  it("каждый анонимный запрос уходит в backend — накрутка просмотров и нагрузка", async () => {
+  // | ОЖИДАЛОСЬ: rateLimit() и/или проверка Origin, чтобы счётчик нельзя было
+  // накрутить и нельзя было раскачать Neon | БЫЛО: ни throttle, ни Origin, ни
+  // дедупликации — каждый запрос = запись в Postgres серверным bearer-токеном
+  // (compute-квота Neon уже выжигалась однажды)
+  // | ИСПРАВЛЕНО 2026-08-31: обязателен same-origin + потолок 120/10 мин на IP
+  // | код: web/src/app/api/track-view/route.ts:19-27,36-39
+  it("200 запросов без Origin не дают ни одной записи в backend", async () => {
     const { POST } = await import("@/app/api/track-view/route");
 
     for (let i = 0; i < 200; i++) {
       const res = await POST(post({ rw: "RW-V0012" }));
-      expect(res.status).toBe(204);
+      expect(res.status).toBe(204); // счётчик по-прежнему молчит наружу
     }
 
-    expect(backendCalls.filter((c) => c.path === "/track/view")).toHaveLength(200);
+    expect(backendCalls.filter((c) => c.path === "/track/view")).toHaveLength(0);
+  });
+
+  it("чужой Origin тоже отбивается", async () => {
+    const { POST } = await import("@/app/api/track-view/route");
+
+    await POST(post({ rw: "RW-V0012" }, { origin: "https://evil.example" }));
+
+    expect(backendCalls.filter((c) => c.path === "/track/view")).toHaveLength(0);
+  });
+
+  it("свой Origin проходит — и только через счётчик rateLimit", async () => {
+    const { POST } = await import("@/app/api/track-view/route");
+
+    await POST(
+      post({ rw: "RW-V0012" }, { origin: "https://rightwaygroup.co", host: "rightwaygroup.co" }),
+    );
+
+    expect(backendCalls.filter((c) => c.path === "/ratelimit")).toHaveLength(1);
+    expect(backendCalls.filter((c) => c.path === "/track/view")).toHaveLength(1);
   });
 
   // АТАКА 5b [MEDIUM]: отравление аналитики спроса произвольными «районами»
-  // | ОЖИДАЕТСЯ: districts фильтруется по справочнику районов, как types/tenure/features
-  // | ФАКТ: strArr(b.districts) вызывается БЕЗ allow-set → в /admin/demand попадает
+  // | ОЖИДАЛОСЬ: districts фильтруется по справочнику районов, как types/tenure/features
+  // | БЫЛО: strArr(b.districts) вызывался БЕЗ allow-set → в /admin/demand попадало
   // до 12 произвольных строк по 60 символов за запрос; отчёт о спросе, на который
-  // опирается закупка объектов, управляется анонимом снаружи
-  // | код: web/src/app/api/track-search/route.ts:28 (ср. строки 27, 29, 30 — там allow-set есть)
-  it("track-search принимает произвольные districts и шлёт их дальше", async () => {
+  // опирается закупка объектов, управлялся анонимом снаружи
+  // | ИСПРАВЛЕНО 2026-08-31: allow-set по справочнику DISTRICTS
+  // | код: web/src/app/api/track-search/route.ts:12-14,34
+  it("track-search выбрасывает районы вне справочника", async () => {
     const { POST } = await import("@/app/api/track-search/route");
 
     const junk = [
@@ -61,16 +88,17 @@ describe("АТАКА 5 [MEDIUM]: track-* — неаутентифицирова�
       "Beachfront Thong Sala — ATTACKER",
       "'; DROP TABLE demand;--",
     ];
-    await POST(post({ districts: junk, types: ["NotAType"] }));
+    await POST(post({ districts: [...junk, "Haad Yao"], types: ["NotAType"] }));
 
     const sent = JSON.parse(String(backendCalls[0].init.body)) as {
       districts: string[];
       types: string[];
     };
-    expect(sent.districts).toEqual(junk); // не отфильтровано
-    expect(sent.types).toEqual([]); // а тут allow-set сработал
+    expect(sent.districts).toEqual(["Haad Yao"]); // мусор отфильтрован, реальный район прошёл
+    expect(sent.types).toEqual([]);
   });
 });
+
 
 describe("АТАКА 6 [MEDIUM]: tasks-state — initData без срока годности", () => {
   const BOT_TOKEN = "123456:adversarial-test-bot-token";
@@ -94,12 +122,12 @@ describe("АТАКА 6 [MEDIUM]: tasks-state — initData без срока го
 
   // АТАКА 6 [MEDIUM]: перехваченная/сохранённая строка initData (она уезжает в
   // заголовке каждого запроса Mini App, оседает в логах, в history, в отладке)
-  // переигрывается через годы | ОЖИДАЕТСЯ: проверка auth_date на свежесть
+  // переигрывается через годы | ОЖИДАЛОСЬ: проверка auth_date на свежесть
   // (Telegram рекомендует окно ~1 сутки) + timingSafeEqual на сравнении хеша
-  // | ФАКТ: auth_date не читается вовсе — подпись 2020 года открывает GET (лиды с
+  // | БЫЛО: auth_date не читался вовсе — подпись 2020 года открывает GET (лиды с
   // телефонами за 48 ч), POST/PATCH/DELETE задач в CRM
   // | код: web/src/app/api/tasks-state/route.ts:28-49 (auth_date не упоминается), :41
-  it("подпись 2020 года открывает лиды и мутации задач в 2026-м", async () => {
+  it("подпись 2020 года больше не открывает ни лиды, ни мутации задач", async () => {
     vi.stubEnv("TELEGRAM_ASSISTANT_BOT_TOKEN", BOT_TOKEN);
     vi.stubEnv("OBJECTS_API_URL", "https://backend.test");
     vi.stubEnv("OBJECTS_API_TOKEN", "backend-token");
@@ -124,9 +152,8 @@ describe("АТАКА 6 [MEDIUM]: tasks-state — initData без срока го
       new Request(url, { headers: { "x-telegram-initdata": stale } });
 
     const res = await GET(req("https://rightwaygroup.co/api/tasks-state"));
-    expect(res.status).toBe(200);
-    const body = (await res.json()) as { leads: Array<{ phone: string }> };
-    expect(body.leads[0].phone).toBe("+66840000000");
+    expect(res.status).toBe(401);
+    expect(await res.text()).not.toContain("+66840000000");
 
     const del = await DELETE(
       new Request("https://rightwaygroup.co/api/tasks-state?id=1", {
@@ -134,7 +161,15 @@ describe("АТАКА 6 [MEDIUM]: tasks-state — initData без срока го
         headers: { "x-telegram-initdata": stale },
       }),
     );
-    expect(del.status).toBe(200);
+    expect(del.status).toBe(401);
+
+    // ...а свежая подпись работает как прежде.
+    const okRes = await GET(
+      new Request("https://rightwaygroup.co/api/tasks-state", {
+        headers: { "x-telegram-initdata": initData(Math.floor(Date.now() / 1000)) },
+      }),
+    );
+    expect(okRes.status).toBe(200);
 
     vi.unstubAllGlobals();
   });

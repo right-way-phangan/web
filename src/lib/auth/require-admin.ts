@@ -55,6 +55,11 @@ export async function isAdmin(): Promise<boolean> {
   return canRunAction(await currentRole(), "admin");
 }
 
+/** Same, for staff-level actions that report a result instead of redirecting. */
+export async function isStaff(): Promise<boolean> {
+  return canRunAction(await currentRole(), "staff");
+}
+
 export async function requireAdmin(): Promise<void> {
   await requireActionRole("admin");
 }
