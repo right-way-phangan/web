@@ -1,3 +1,4 @@
+import { matchesTenure } from "@/lib/filters/listings";
 import type { ObjectType, RealEstateObject, TenureType } from "@/types/object";
 import type {
   BuyerProfile,
@@ -242,8 +243,10 @@ export function scoreObject(p: BuyerProfile, o: RealEstateObject): MatchScore {
   }
 
   if ((p.tenure?.length ?? 0) > 0) {
-    const owned = new Set(o.tenure ?? []);
-    add(1.5, p.tenure!.some((t) => owned.has(t)), "tenure");
+    // Та же политика, что и у каталожного фильтра: объект с неустановленным
+    // правом («Mixed / N.A.») засчитывается любому чипу. Иначе подбор и каталог
+    // расходились — выдача объект показывала, а критерий его не закрывал.
+    add(1.5, matchesTenure(o, p.tenure!), "tenure");
   }
 
   if (p.bedroomsMin != null) {

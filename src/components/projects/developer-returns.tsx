@@ -83,7 +83,11 @@ export function DeveloperReturns({
   if (!unit || !result) return null;
 
   const money = (v: number) => formatMoney(v, "THB", DEFAULT_RATES, { compact: true });
-  const pct = (v: number) => `${v >= 0 ? "" : "−"}${Math.abs(v).toFixed(1)}%`;
+  // Неопределённые величины (NaN/∞) печатаем как «—»: без этой проверки в
+  // публичный KPI лендинга попадало «−NaN%» — воспроизводится ползунками самой
+  // страницы (срок 29–30 лет на юните за ฿45M).
+  const pct = (v: number) =>
+    Number.isFinite(v) ? `${v >= 0 ? "" : "−"}${Math.abs(v).toFixed(1)}%` : "—";
 
   // «Окупаемость» из движка здесь не показываем: при поэтапной оплате это год,
   // когда накопленная прибыль выходит в плюс, а не возврат вложенного, — на

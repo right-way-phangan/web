@@ -6,6 +6,7 @@ import { ObjectCard } from "@/components/objects/object-card";
 import { Appear } from "@/components/motion/appear";
 import { getPublicObjects, slimObjectForCard } from "@/lib/data/objects";
 import { normalizeTenure } from "@/lib/utils/tenure";
+import { offersLeasehold } from "@/lib/filters/listings";
 import type { Locale } from "@/lib/i18n/dictionaries";
 
 /**
@@ -34,7 +35,7 @@ const COPY = {
 export async function LeaseholdListings({ locale = "en" }: { locale?: Locale }) {
   const all = await getPublicObjects();
   const leasehold = all
-    .filter((o) => normalizeTenure(o.tenure)?.includes("Leasehold"))
+    .filter((o) => offersLeasehold({ ...o, tenure: normalizeTenure(o.tenure) }))
     .map(slimObjectForCard);
   if (leasehold.length === 0) return null;
 

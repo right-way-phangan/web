@@ -1,5 +1,5 @@
 import "server-only";
-import { getPublicObjects, getAllObjects, sanitizePublicObject } from "@/lib/data/objects";
+import { getPublicObjectsUnfiltered, getPublicObjects, getAllObjects, sanitizePublicObject } from "@/lib/data/objects";
 import type { RealEstateObject } from "@/types/object";
 
 /** A unit card belongs to a project: RW-P####-N (project number + "-N"). */
@@ -63,7 +63,10 @@ export async function getPublicProjects(): Promise<RealEstateObject[]> {
 export async function getProjectBySlug(
   slug: string,
 ): Promise<{ project: RealEstateObject; catalog: RealEstateObject[] } | null> {
-  const catalog = await getPublicObjects();
+  // Резолв — по полному публичному набору: снятая обложка не должна превращать
+  // живой лендинг проекта в 404. В каталожные списки такой проект по-прежнему
+  // не попадает (там свой гейт isPubliclyListable).
+  const catalog = await getPublicObjectsUnfiltered();
   const projects = catalog.filter((o) => o.type === "Project");
   const project = projects.find((p) => projectSlug(p, projects) === slug);
   return project ? { project, catalog } : null;

@@ -442,7 +442,10 @@ function fxAdjusted(
   const adj = m0 > 0 ? mD / m0 : 1;
   const multiple = headlineMultiple * adj;
   const roiFxPct = (multiple - 1) * 100;
-  const cagrFxPct = multiple > 0 && years > 0 ? (Math.pow(multiple, 1 / years) - 1) * 100 : 0;
+  // NaN, а не 0 — по той же причине, что и в основном cagrPct: блок «в вашей
+  // валюте» печатал «−114.3% · +0%/yr», то есть полную потерю капитала как
+  // нулевой рост. fmtPct печатает NaN как «—».
+  const cagrFxPct = multiple > 0 && years > 0 ? (Math.pow(multiple, 1 / years) - 1) * 100 : NaN;
   return { roiFxPct, cagrFxPct };
 }
 

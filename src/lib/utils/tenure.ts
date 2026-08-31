@@ -7,11 +7,13 @@ import type { TenureType } from "@/types/object";
  * that never equal the clean filter values — map by keyword:
  *   contains "freehold"  → "Freehold"
  *   contains "leasehold" → "Leasehold"
- *   contains "mixed"     → "Freehold" + "Leasehold"
- * «Mixed / N.A.» — это «freehold ИЛИ leasehold на выбор», поэтому раскрывается
- * в обе формы: отдельный токен "Mixed" не выбирался ни одним чипом фильтра и
- * не ловился `includes("Leasehold")` на /leasehold — объект (52% каталога)
- * выпадал из выдачи целиком. Правило feedback_leasehold_everywhere.
+ *   contains "mixed"     → "Mixed"
+ * «Mixed / N.A.» в CRM означает «форма владения НЕ установлена», а не «freehold
+ * или leasehold на выбор». Раскрывать его в обе формы нельзя: сайт начинал
+ * печатать «Tenure: Freehold, Leasehold» и объявлять проект фрихолдом там, где
+ * право неизвестно. Токен остаётся отдельным, а в выдачу такой объект попадает
+ * за счёт matchesTenure() ниже — правило feedback_leasehold_everywhere
+ * выполняется фильтром, а не подменой данных.
  * Other labels (Superficies, Usufruct, Thai Company, Condo Foreign Quota…)
  * pass through unchanged so spec tables keep showing them; the filter only
  * matches Freehold/Leasehold, so pass-through values are inert there.
@@ -27,7 +29,7 @@ export function normalizeTenure(raw: string[] | undefined): TenureType[] | undef
     let matched = false;
     if (s.includes("freehold")) { add("Freehold"); matched = true; }
     if (s.includes("leasehold")) { add("Leasehold"); matched = true; }
-    if (s.includes("mixed")) { add("Freehold"); add("Leasehold"); matched = true; }
+    if (s.includes("mixed")) { add("Mixed"); matched = true; }
     if (!matched) add(v);
   }
   // Pass-through labels outside the union are tolerated by every consumer

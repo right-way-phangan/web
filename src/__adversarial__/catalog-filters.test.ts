@@ -4,6 +4,7 @@ import {
   parseListingsSearchParams,
   acquisitionValueThb,
   isRental,
+  offersLeasehold,
   summarizeForBrief,
 } from "@/lib/filters/listings";
 import { normalizeTenure } from "@/lib/utils/tenure";
@@ -36,8 +37,11 @@ describe("АТАКА 1 — tenure=Mixed раскрывается в обе фо�
     tenure: normalizeTenure(["Mixed / N.A."]),
   });
 
-  it("сырой лейбл БД нормализуется в ['Freehold', 'Leasehold']", () => {
-    expect(normalizeTenure(["Mixed / N.A."])).toEqual(["Freehold", "Leasehold"]);
+  it("сырой лейбл БД остаётся честным ['Mixed'] — право не установлено", () => {
+    // Раскрывать «Mixed / N.A.» в обе формы нельзя: сайт начинал печатать
+    // «Tenure: Freehold, Leasehold» там, где право неизвестно. В выдачу объект
+    // попадает за счёт matchesTenure, а не подмены данных.
+    expect(normalizeTenure(["Mixed / N.A."])).toEqual(["Mixed"]);
   });
 
   it("объект попадает в ?tenure=Leasehold", () => {
@@ -53,10 +57,10 @@ describe("АТАКА 1 — tenure=Mixed раскрывается в обе фо�
     expect(sp("tenure=Mixed").tenure).toEqual([]);
   });
 
-  it("инвентарь /leasehold ловит его тем же includes('Leasehold')", () => {
-    // src/components/sections/leasehold-listings.tsx:36 — теперь секция
-    // действительно показывает лейблы "Mixed / N.A.", как обещает её комментарий.
-    expect(normalizeTenure(mixed.tenure)?.includes("Leasehold")).toBe(true);
+  it("инвентарь /leasehold показывает его через offersLeasehold", () => {
+    expect(offersLeasehold({ ...mixed, tenure: normalizeTenure(mixed.tenure) })).toBe(true);
+    // ...но право по-прежнему не утверждается
+    expect(normalizeTenure(mixed.tenure)).toEqual(["Mixed"]);
   });
 });
 

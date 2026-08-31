@@ -216,21 +216,34 @@ async function apiObjects(path: string): Promise<RealEstateObject[]> {
  * Server-only — uses long-lived amoCRM token. Cached per CATALOG_REVALIDATE_SECONDS.
  * Returns [] on API failure rather than throwing — listing page degrades gracefully.
  */
+/**
+ * Годен ли объект для КАТАЛОГА: активен, с номером и с обложкой. Гейт «безфотные
+ * скрыты» — про выдачу списка, а не про существование объекта: лендинг проекта
+ * резолвится по slug и обязан открываться, даже когда обложку временно сняли
+ * (например, ею был скриншот прайса, удалённый по правилу медиа) — иначе
+ * страница отдаёт жёсткий 404 вместо graceful-состояния.
+ */
+export function isPubliclyListable(o: RealEstateObject): boolean {
+  return Boolean(o.rwNumber) && PUBLIC_STATUSES.includes(o.status) && !!o.coverImage;
+}
+
+/** Полный публичный набор БЕЗ каталожного гейта — для резолва страниц по slug/RW. */
+export async function getPublicObjectsUnfiltered(): Promise<RealEstateObject[]> {
+  await getPublicObjects();
+  return lastGoodPublic ?? [];
+}
+
 export async function getPublicObjects(): Promise<RealEstateObject[]> {
   if (OBJECTS_API_URL) {
     try {
-      lastGoodPublic = await withUsd(
-        (await apiObjects("/objects"))
-          // Страховка своей стороны: тот же гейт, что и в ветке amoCRM ниже.
-          // На живом пути он держался только на backend, а его вет-гейт фото
-          // fail-open — скриншот прайса мог стать публичной обложкой.
-          .filter((o) => o.rwNumber && PUBLIC_STATUSES.includes(o.status) && !!o.coverImage)
-          .map(sanitizePublicObject),
-      );
-      return lastGoodPublic;
+      const fetched = await withUsd((await apiObjects("/objects")).map(sanitizePublicObject));
+      // Кэш «последнего удачного» держим ДО гейта: иначе один штатный ответ с
+      // обнулёнными обложками отравляет его пустотой и переживает падение backend.
+      lastGoodPublic = fetched;
+      return fetched.filter(isPubliclyListable);
     } catch (err) {
       console.error("[objects] own-API failed:", err);
-      return lastGoodPublic ?? [];
+      return (lastGoodPublic ?? []).filter(isPubliclyListable);
     }
   }
   try {

@@ -69,6 +69,26 @@ const LONG_LEASE_MIN_YEARS = 3;
  * though it carries a monthly rate. Short tenancies (no term, or < 3 years) stay
  * rentals.
  */
+/**
+ * Совпадает ли объект с выбранными чипами формы владения.
+ *
+ * «Mixed» (сырое «Mixed / N.A.») = право НЕ установлено. Такой объект обязан
+ * попадать в обе выдачи — иначе половина каталога исчезает от одного клика
+ * (правило feedback_leasehold_everywhere), — но подменять ему данные нельзя:
+ * страница не должна утверждать право, которого в CRM нет.
+ */
+export function matchesTenure(o: RealEstateObject, wanted: TenureType[]): boolean {
+  const owned = new Set(o.tenure ?? []);
+  if (owned.has("Mixed")) return true;
+  return wanted.some((t) => owned.has(t));
+}
+
+/** Leasehold как ВОЗМОЖНАЯ форма: явный лизхолд либо неустановленное право. */
+export function offersLeasehold(o: RealEstateObject): boolean {
+  const owned = new Set(o.tenure ?? []);
+  return owned.has("Leasehold") || owned.has("Mixed");
+}
+
 export function isLongLeaseAcquisition(o: RealEstateObject): boolean {
   return (o.leaseTermYears ?? 0) >= LONG_LEASE_MIN_YEARS;
 }
@@ -115,6 +135,10 @@ export function isRental(o: RealEstateObject): boolean {
   // лизхолд без проставленного срока («срок обсуждается») выпадал из
   // ?tenure=Leasehold, хотя секция /leasehold его показывала и туда же вела
   // кнопкой, а вилла с ценой И арендной ставкой исчезала из Buy целиком.
+  // Приобретением объект делает ЯВНЫЙ лизхолд (или цена продажи), а не
+  // неустановленное право: `offersLeasehold` здесь загонял помесячную аренду с
+  // «Mixed / N.A.» во вкладку Buy с заголовком «฿/мес» — тот же симптом, что и
+  // при раскрытии токена, только по другой причине.
   if (o.priceThb != null || (o.tenure ?? []).includes("Leasehold")) return false;
   return hasMonthly && !isLongLeaseAcquisition(o);
 }
@@ -216,11 +240,7 @@ export function makeFilterPredicate(f: ListingsFilter): (o: RealEstateObject) =>
 
     if (!matchesTypeFilter(o, f.type)) return false;
     if (f.district.length > 0 && (!o.district || !f.district.includes(o.district))) return false;
-    if (f.tenure.length > 0) {
-      const owned = new Set(o.tenure ?? []);
-      const anyMatch = f.tenure.some((t) => owned.has(t));
-      if (!anyMatch) return false;
-    }
+    if (f.tenure.length > 0 && !matchesTenure(o, f.tenure)) return false;
     if (f.bedroomsMin !== undefined) {
       if (!o.bedrooms || o.bedrooms < f.bedroomsMin) return false;
     }

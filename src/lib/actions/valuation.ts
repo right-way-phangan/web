@@ -9,7 +9,7 @@ import { buildFactorMap } from "@/lib/valuation/factors";
 import { lookupZoneByLocation } from "@/lib/actions/zone-lookup";
 import { explainValuation } from "@/lib/valuation/llm-explain";
 import type { RealEstateObject } from "@/types/object";
-import { isAdmin, requireAdmin } from "@/lib/auth/require-admin";
+import { isStaff, requireAdmin } from "@/lib/auth/require-admin";
 import { rateLimit } from "@/lib/ratelimit";
 
 const API = process.env.OBJECTS_API_URL;
@@ -150,7 +150,10 @@ export async function runValuation(
   subject: ValuationSubject,
   opts?: { rwNumber?: string; createdBy?: string },
 ): Promise<ValuationResult> {
-  const admin = await isAdmin();
+  // Полный результат — любому сотруднику, а не только админу: роль agent
+  // работает в /admin/new, и срез publicView лишал её вердикта по цене и блока
+  // лизхолда — то есть главного, ради чего виджет там стоит.
+  const admin = await isStaff();
   if (!admin && !(await rateLimit("valuation", 12, 60 * 60))) {
     return { ok: false, reason: "rate-limited", methods: [], adjustments: [], caveats: [] };
   }

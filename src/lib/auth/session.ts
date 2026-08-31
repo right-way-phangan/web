@@ -33,7 +33,13 @@ export interface SessionUser {
 
 export async function signSession(user: SessionUser): Promise<string> {
   if (!key) throw new Error("AUTH_SECRET is not set");
-  return new SignJWT({ ...user })
+  // id приводим к числу здесь же: verifySession требует числовой id, а backend
+  // отдаёт пользователя нетипизированным res.json() — строковый id («7») давал
+  // токен, который сам же verify и отвергал: кука ставится, middleware её рвёт,
+  // получается петля логина без единой ошибки на экране.
+  const id = Number(user.id);
+  if (!Number.isFinite(id)) throw new Error("session: некорректный id пользователя");
+  return new SignJWT({ ...user, id })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuer(ISSUER)
     .setAudience(AUDIENCE)
