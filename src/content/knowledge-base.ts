@@ -7451,6 +7451,105 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "ownership",
     faqQuestion: "Can a prenuptial agreement protect a foreign spouse's interest in property in a Thai marriage?",
   },
+  {
+    slug: "thailand-escrow-act-off-plan-deposit-protection",
+    kbId: "kb-0119",
+    topic: "Costs",
+    title: "Thailand's Escrow Act: why almost no villa developer on Koh Phangan uses it",
+    short:
+      "Thailand has had a legal framework for licensed escrow agents to hold off-plan buyer deposits since 2008 — but using it is entirely voluntary, and most developers refuse because they rely on buyer deposits to fund construction. Here's what the Escrow Act actually requires, and what to ask for instead.",
+    updated: "2026-08-31",
+    body: [
+      "Can you insist your villa or condo deposit on Koh Phangan is held in a neutral escrow account until construction is finished? Legally, yes — Thailand's Escrow Act B.E. 2551 (2008) lets a buyer and seller agree to route funds through a Ministry of Finance-licensed escrow agent. In practice, almost no Phangan developer will agree to it, because the Act only ever made escrow optional, and the entire economics of small-scale villa development depend on the deposit money it would lock away.",
+      { h: "What the Act actually sets up" },
+      {
+        ul: [
+          "**Only licensed agents can hold the funds** — commercial banks, other Ministry of Finance-licensed financial institutions, or a juristic person specifically licensed for escrow business. An ordinary lawyer's client account or a real estate agent's office account is not a statutory escrow arrangement under this Act, whatever it's marketed as.",
+          "**The agent must be neutral.** It cannot be the developer's own bank or otherwise connected to either party — a structural safeguard against the agent quietly favouring the seller.",
+          "**Funds release on contract terms, not on request.** The tri-party escrow agreement sets out exactly when money moves — commonly tied to construction milestones — and the agent is required to transfer funds within 30 days of the trigger condition being met.",
+          "**Operating as an unlicensed escrow agent is a criminal offence**, with penalties reported up to ฿1,000,000 — the law is aimed at preventing informal, unregulated 'escrow' arrangements as much as protecting buyers who use the real thing.",
+        ],
+      },
+      { h: "Why developers say no" },
+      "The Act was written with off-plan pre-sales specifically in mind, but adoption never took hold. Villa and condo developers in Thailand — including some larger names that piloted escrow programmes after 2008 — depend on the 10-20% deposit and staged progress payments to actually fund construction; routing that cash through an independent agent who releases it only against verified milestones cuts off the working capital the build depends on. Several developers that did offer escrow later dropped it, citing too little buyer demand to justify the extra reporting and administration. On Koh Phangan's smaller-scale villa and land developments, escrow is essentially never offered.",
+      { h: "This is a different protection from the 2025 deposit-forfeiture rules" },
+      "Don't confuse this with the OCPB's [2025 ban on unfair deposit-confiscation clauses](/knowledge/ocpb-deposit-ban-villa-land-reservations) — that rule controls what a contract can say about keeping your deposit if you walk away. The Escrow Act is about something else entirely: who physically holds the money while the contract is being performed. A contract can pass the OCPB's fairness test on paper and still leave 100% of your deposit sitting in the developer's own operating account from day one.",
+      { h: "What to ask for instead" },
+      {
+        ul: [
+          "**A staged payment schedule tied to verified construction milestones** — foundation, structure, roof, finishing, completion — rather than a large upfront deposit followed by a few lump payments. This is the realistic substitute for escrow that most Phangan developers will actually agree to.",
+          "**An independent site inspection before each payment**, ideally by your own engineer or lawyer, so a milestone payment isn't released on the developer's word alone.",
+          "**A lawyer's review of the sale-and-purchase agreement's payment clauses**, not just the ownership and transfer clauses — see [what a Phangan property lawyer's fee actually buys](/knowledge/phangan-property-lawyer-fees-what-they-cover) for what this should cover.",
+          "**A track record check on the developer** before signing anything — completed past projects, land title status, and construction permits, as covered in [buying off-plan: new developments](/knowledge/buying-off-plan-new-developments).",
+        ],
+      },
+      "None of this means off-plan buying on Phangan is unsafe — it means the legal protection you might expect from an 'escrow' arrangement almost never actually exists here, so the real protection has to come from how the payment schedule and contract are structured, not from a neutral third party holding your money.",
+    ],
+    takeaways: [
+      "Thailand's Escrow Act B.E. 2551 (2008) lets buyers and sellers route off-plan payments through a licensed neutral agent, but using it is entirely voluntary — nothing in Thai law requires it.",
+      "Only Ministry of Finance-licensed banks or financial institutions can legally act as escrow agents; an unlicensed 'escrow' arrangement can itself be a criminal offence for whoever runs it.",
+      "Most Thai developers, including some that piloted escrow after 2008, refuse to use it because they depend on buyer deposits and progress payments to fund construction.",
+      "This is separate from the OCPB's 2025 deposit-forfeiture contract rules — one governs who holds the money, the other governs what the contract can say about keeping it.",
+      "The realistic substitute on Koh Phangan is a milestone-based payment schedule with independent inspection before each release, not statutory escrow.",
+    ],
+    sources: [
+      { title: "Tilleke & Gibbins — Using Thailand's Escrow Act in Property Development Transactions", url: "https://www.tilleke.com/insights/using-thailands-escrow-act-property-development-transactions/" },
+      { title: "Acclime Thailand — Escrow Accounts in Thailand", url: "https://thailand.acclime.com/guides/escrow-accounts/" },
+      { title: "Thailand Real Estate — The Escrow Act B.E. 2551", url: "https://www.thailand-realestate.com/blog/the-escrow-act-b-e-2551/" },
+      { title: "Siam Legal International — Practical Barriers to Escrow", url: "https://www.siam-legal.com/thailand-law/practical-barriers-to-escrow/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "Is a developer in Thailand required to hold my deposit in escrow for an off-plan villa or condo purchase?",
+  },
+  {
+    slug: "mortgage-default-foreclosure-process-thailand",
+    kbId: "kb-0120",
+    topic: "Process",
+    title: "What happens if you default on a Thai property mortgage: the foreclosure process",
+    short:
+      "Thai law doesn't let a bank simply seize a mortgaged property after a missed payment — foreclosure requires either a court judgment or, since a 2015 reform, a mortgagor-consented public auction. And unlike many Western jurisdictions, if the sale doesn't cover the debt, Thai law says you don't owe the difference.",
+    updated: "2026-08-31",
+    body: [
+      "If a foreign buyer's Thai bank loan on a condo — or seller/developer financing secured by a mortgage — falls into default, can the lender simply take the property? No. A registered mortgage in Thailand (Civil and Commercial Code Sections 702-746) gives the lender a secured claim, not a right of immediate seizure; enforcing it still requires either a court process or a specific consent-based public auction, and the rules that follow are more protective of the borrower than many buyers expect.",
+      { h: "Step one: written notice" },
+      "Before doing anything else, Section 728 requires the mortgagee (lender) to notify the debtor in writing to perform the outstanding obligation within a reasonable period. Only after that notice period passes without payment can the lender move to enforce the mortgage.",
+      { h: "Two routes to enforcement" },
+      {
+        ul: [
+          "**Court foreclosure (Section 728).** The default route: the lender sues in court for a judgment ordering the property seized and sold at public auction, with the proceeds applied to the debt. This is the standard, and slower, process.",
+          "**Court-ordered direct transfer (Section 729)** — a narrower alternative where the court can order the property transferred to the lender outright instead of auctioned, but only if three conditions are all met: the debtor has failed to pay interest for five years, the debtor hasn't shown the property is worth more than the debt, and there's no other registered mortgage or preferential right over the same property.",
+          "**Out-of-court public auction (Section 729/1, added in the 2015 reform).** Once the payment deadline has passed, the mortgagor can require the mortgagee to sell the property by public auction without going to court at all — a faster route introduced specifically to spare both sides a lengthy court case.",
+        ],
+      },
+      { h: "The protection most borrowers don't expect: no deficiency debt" },
+      "Section 733 is the clause that most differs from common Western mortgage law: if the foreclosure sale or auction proceeds are less than the outstanding debt, the debtor is not liable for the shortfall. A lender who sells the mortgaged property for less than what's owed absorbs that loss — it cannot then pursue the borrower personally for the difference, provided the security was a straightforward mortgage rather than the debtor also having signed a personal guarantee on top of it.",
+      { h: "What this means for a Koh Phangan buyer" },
+      {
+        ul: [
+          "**This applies to mortgaged freehold property** — most relevantly, a foreign buyer's freehold condo unit financed through a Thai bank, the route covered in [financing as a foreigner](/knowledge/financing-buying-as-a-foreigner). A foreigner can't mortgage land directly for the same reason they can't own it outright.",
+          "**A personal guarantee changes the outcome.** If a loan is also backed by a personal guarantee (common with seller or developer financing on a leasehold villa build), the no-deficiency protection in Section 733 applies to the mortgage itself, not necessarily to a separate guarantee obligation — read any guarantee clause in a financing contract as closely as the mortgage terms.",
+          "**Court foreclosure is not instant.** The written-notice requirement plus a full court proceeding under Section 728 means a lender cannot move directly from a missed payment to a forced sale — there is a real, if not precisely fixed, window during which a buyer in temporary difficulty can negotiate or cure the default before losing the property.",
+        ],
+      },
+      "None of this is a reason to treat mortgage default lightly — a foreclosure, however it proceeds, still means losing the property and the equity in it. But the mechanics are worth knowing before signing any Thai financing agreement: enforcement takes a defined legal route, and the risk of owing money beyond the property's value is lower here than in many buyers' home jurisdictions.",
+    ],
+    takeaways: [
+      "A Thai mortgage lender cannot seize a defaulted property directly — enforcement requires either a court judgment (Section 728) or a mortgagor-consented public auction (Section 729/1, added 2015).",
+      "The lender must first give written notice and a reasonable period to cure the default before any enforcement step can begin (Section 728).",
+      "A court can only order the property transferred to the lender outright, instead of auctioned, if the debtor has missed 5 years of interest payments and two other conditions are met (Section 729) — a narrow, rarely-used route.",
+      "If the sale proceeds are less than the debt, the borrower is not liable for the shortfall under a straightforward mortgage (Section 733) — unlike deficiency-judgment rules common in some Western jurisdictions.",
+      "This applies to Thai-bank-financed freehold property, most commonly a foreign buyer's condo unit — a personal guarantee attached to seller or developer financing can create separate liability beyond the mortgage itself.",
+    ],
+    sources: [
+      { title: "ThailandLawOnline — Civil and Commercial Code Sections 702-746: Mortgage, Foreclosure, Extinction and Sale", url: "https://www.thailandlawonline.com/civil-and-commercial-code/702-746-mortgage-foreclosure-extinction-and-sale" },
+      { title: "Thailand Law Library (Siam Legal) — Civil and Commercial Code Sections 728-735: Mortgage", url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-mortgage-section-728-735/" },
+      { title: "Siam Legal International — New Thai Mortgage Foreclosure Law", url: "https://www.siam-legal.com/thailand-law/new-mortgage-foreclosure-law-in-thailand/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "What happens if I default on a Thai bank mortgage for my condo or villa?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
