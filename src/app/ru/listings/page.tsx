@@ -79,7 +79,7 @@ export default async function RussianListingsPage({ searchParams }: PageProps) {
           // «отфильтровано», чтобы вёл к брифу, а не к «каталог обновляется».
           filtered={isAnyFilter || filter.mode === "rent"}
           clearHref="/ru/listings"
-          briefMessage={summarizeForBrief(filter, q)}
+          briefMessage={summarizeForBrief(filter, q, "ru")}
         />
       ) : (
         <>

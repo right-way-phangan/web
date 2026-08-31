@@ -21,12 +21,15 @@ export function escalatedLeaseTotalThb(
   escEveryYears?: number,
 ): number {
   if (!escPct || !escEveryYears || escEveryYears <= 0) return leaseTotalThb(rentPerMonth, years);
+  // Шаг индексации меньше года смысла не имеет, а дробное значение из данных
+  // (escEveryYears = 1e-9) раскручивало цикл на 3·10^10 итераций прямо в рендере.
+  const period = Math.max(1, Math.floor(escEveryYears));
   const step = 1 + escPct / 100;
   let total = 0;
   let rate = rentPerMonth;
   let remaining = years;
   while (remaining > 0) {
-    const block = Math.min(escEveryYears, remaining);
+    const block = Math.min(period, remaining);
     total += rate * 12 * block;
     remaining -= block;
     rate *= step;

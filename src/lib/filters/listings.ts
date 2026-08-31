@@ -322,7 +322,11 @@ export function describeFilter(f: ListingsFilter, query?: string): string {
  * pre-fill the "Send a brief" message when a search returns nothing, so the
  * visitor's intent isn't lost.
  */
-export function summarizeForBrief(f: ListingsFilter, query?: string): string | undefined {
+export function summarizeForBrief(
+  f: ListingsFilter,
+  query?: string,
+  locale: "en" | "ru" = "en",
+): string | undefined {
   const bits: string[] = [];
   if (f.mode === "rent") bits.push("for rent");
   if (f.type.length) bits.push(f.type.join(" / "));
@@ -342,10 +346,21 @@ export function summarizeForBrief(f: ListingsFilter, query?: string): string | u
 
   if (!query && bits.length === 0) return undefined;
 
-  const lines = ["Hi — I couldn't find a match on the site for what I'm after."];
-  if (query) lines.push(`I searched: "${query}".`);
-  if (bits.length) lines.push(`Criteria: ${bits.join(", ")}.`);
-  lines.push("Could you send any private or upcoming listings that fit?");
+  // Текст уходит в поле сообщения на /ru тоже — без локали русскоязычный
+  // посетитель получал заготовку по-английски (правило EN+RU одновременно).
+  const lines =
+    locale === "ru"
+      ? ["Здравствуйте! На сайте не нашёл подходящего варианта."]
+      : ["Hi — I couldn't find a match on the site for what I'm after."];
+  if (query)
+    lines.push(locale === "ru" ? `Искал: «${query}».` : `I searched: "${query}".`);
+  if (bits.length)
+    lines.push(locale === "ru" ? `Критерии: ${bits.join(", ")}.` : `Criteria: ${bits.join(", ")}.`);
+  lines.push(
+    locale === "ru"
+      ? "Пришлите, пожалуйста, закрытые или готовящиеся объекты, которые подходят."
+      : "Could you send any private or upcoming listings that fit?",
+  );
   return lines.join("\n");
 }
 

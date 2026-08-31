@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { sanitizePublicObject, slimObjectForList, slimObjectForCard } from "@/lib/data/objects";
 import { estimate, type ValuationSubject, type CompPoint, type EngineData } from "@/lib/valuation/engine";
 import { buildFactorMap } from "@/lib/valuation/factors";
@@ -83,53 +83,61 @@ const plot: ValuationSubject = {
   electricity: true,
 };
 
-// АТАКА 10 [MEDIUM, деньги]: срок лизинга введён как 0 | ОЖИДАЕТСЯ: либо отказ,
-// либо честный расчёт на дефолтные 30 лет, как обещает оговорка | ФАКТ:
-// `term = leaseTermYears ?? 30` пропускает 0 (?? ловит только null/undefined),
-// цикл NPV не выполняется ни разу → fairNpv = 0, при этом в caveats падает
-// «Срок lease не указан — NPV посчитан на 30 лет». Отчёт утверждает одно,
-// цифра показывает другое: стоимость лизхолда = ฿0.
-// код: src/lib/valuation/engine.ts:1239 vs :1257
-describe("АТАКА 10 — NPV лизхолда = 0 при сроке 0, а оговорка обещает 30 лет", () => {
+// АТАКА 10 [MEDIUM, деньги]: срок лизинга введён как 0 | ОЖИДАЛОСЬ: либо отказ,
+// либо честный расчёт на дефолтные 30 лет, как обещает оговорка | БЫЛО:
+// `term = leaseTermYears ?? 30` пропускал 0 (?? ловит только null/undefined),
+// цикл NPV не выполнялся ни разу → fairNpv = 0, при этом в caveats падало
+// «Срок lease не указан — NPV посчитан на 30 лет»: отчёт утверждал одно, а
+// цифра показывала стоимость лизхолда ฿0
+// | ИСПРАВЛЕНО 2026-08-31: срок ≤ 0 трактуется как «не указан» → те самые 30 лет
+// код: src/lib/valuation/engine.ts:1241-1243
+describe("АТАКА 10 — срок 0 считается как 30 лет, и оговорка это подтверждает", () => {
   const r = estimate({ ...plot, tenure: "Leasehold", leaseTermYears: 0 }, data(uniform));
 
   it("оценка возвращается успешной", () => {
     expect(r.ok).toBe(true);
   });
 
-  it("NPV обнулён", () => {
-    expect(r.leasehold?.fairNpv).toBe(0);
+  it("NPV больше не обнулён — считается на дефолтные 30 лет", () => {
+    expect(r.leasehold?.fairNpv).toBeGreaterThan(5_000_000);
   });
 
-  it("но оговорка утверждает, что посчитано на 30 лет", () => {
+  it("и оговорка говорит ровно то же самое", () => {
     expect(r.caveats ?? []).toContain("Срок lease не указан — NPV посчитан на 30 лет.");
   });
 
-  it("при незаполненном сроке (undefined) NPV честные ~5.4 млн — контраст виден", () => {
+  it("незаполненный срок (undefined) даёт ту же цифру — расхождения между 0 и undefined нет", () => {
     const ok = estimate({ ...plot, tenure: "Leasehold" }, data(uniform));
-    expect(ok.leasehold?.fairNpv).toBeGreaterThan(5_000_000);
+    expect(ok.leasehold?.fairNpv).toBe(r.leasehold?.fairNpv);
   });
 });
 
 // АТАКА 11 [MEDIUM, публичный лид-магнит]: площадь участка вне здравого смысла
-// на /tools/estimate | ОЖИДАЕТСЯ: верхняя граница правдоподобия (весь остров
-// Панган ≈ 78 км² ≈ 48 000 рай) либо отказ | ФАКТ: единственная проверка входа
-// — «конечное и > 0» (public-estimate.ts:47), движок линейно масштабирует
-// цену за рай и уверенно отдаёт ok:true c восьмитриллионной вилкой; результат
-// показывается посетителю и пишется строкой в журнал valuations (createdBy=
-// 'public') — то есть неаутентифицированный вход ещё и наполняет таблицу.
-// код: src/lib/actions/public-estimate.ts:45-47, src/lib/valuation/engine.ts:264-285
-describe("АТАКА 11 — публичная оценка без границы правдоподобия", () => {
-  const huge = estimate({ ...plot, areaRai: 1_000_000 }, data(uniform));
+// на /tools/estimate | ОЖИДАЛОСЬ: верхняя граница правдоподобия либо отказ |
+// БЫЛО: единственной проверкой входа было «конечное и > 0», движок линейно
+// масштабировал цену за рай и уверенно отдавал ok:true с восьмитриллионной
+// вилкой; результат показывался посетителю и писался строкой в журнал valuations
+// | ИСПРАВЛЕНО 2026-08-31: потолок на публичном фасаде (500 рай ≫ любого лота
+// на острове), движок как инструмент оценщика границ по-прежнему не ставит
+// код: src/lib/actions/public-estimate.ts:50-56,60-66
+describe("АТАКА 11 — публичный фасад отбивает невозможные площади", () => {
+  it("миллион рай отклоняется, не доходя до движка", async () => {
+    vi.resetModules();
+    const runValuation = vi.fn();
+    vi.doMock("@/lib/actions/valuation", () => ({ runValuation }));
 
-  it("миллион рай (в 20 раз больше всего острова) оценивается без оговорок", () => {
-    expect(huge.ok).toBe(true);
-    expect(huge.listValue!).toBeGreaterThan(1e12);
+    const { estimatePublic } = await import("@/lib/actions/public-estimate");
+    const res = await estimatePublic({ type: "Land", areaRai: 1_000_000 });
+
+    expect(res).toEqual({ ok: false, reason: "unsupported" });
+    expect(runValuation).not.toHaveBeenCalled();
+
+    vi.doUnmock("@/lib/actions/valuation");
+    vi.resetModules();
   });
 
-  it("а 0.0001 рай (0.16 м²) — тоже валидная оценка на ฿1 000", () => {
-    const tiny = estimate({ ...plot, areaRai: 0.0001 }, data(uniform));
-    expect(tiny.ok).toBe(true);
-    expect(tiny.listValue).toBe(1000);
+  it("а движок сам границ не ставит — вход валидирует фасад, не он", () => {
+    const huge = estimate({ ...plot, areaRai: 1_000_000 }, data(uniform));
+    expect(huge.ok).toBe(true);
   });
 });

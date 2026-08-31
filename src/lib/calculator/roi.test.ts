@@ -300,11 +300,17 @@ describe("solveMaxPrice — обратная задача", () => {
 });
 
 describe("computeRoi — устойчивость к пустому вводу", () => {
-  it("нулевая цена не роняет расчёт и не даёт NaN", () => {
+  it("нулевая цена не роняет расчёт: деньги конечны, а неопределённые ставки — NaN", () => {
     const r = computeRoi(bare({ purchasePriceThb: 0 }));
-    for (const v of [r.roiPct, r.cagrPct, r.netProfit, r.projectedValue, r.irrPct]) {
+    // Денежные величины обязаны быть числом.
+    for (const v of [r.roiPct, r.netProfit, r.projectedValue]) {
       expect(Number.isFinite(v)).toBe(true);
     }
+    // А среднегодовой рост и IRR без вложения не определены: раньше здесь
+    // получались «CAGR 0.0%» и «IRR 10%» (стартовая догадка Ньютона) —
+    // выдуманные цифры в витрине. fmtPct печатает NaN как «—».
+    expect(Number.isNaN(r.cagrPct)).toBe(true);
+    expect(Number.isNaN(r.irrPct)).toBe(true);
   });
 
   it("срок меньше года считается как один год", () => {

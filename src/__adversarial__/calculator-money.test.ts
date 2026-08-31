@@ -11,12 +11,13 @@ const I = (over: Partial<RoiInputs> = {}): RoiInputs => ({ ...DEFAULT_INPUTS, ..
 
 // АТАКА 5 [HIGH, деньги]: лизхолд, где срок владения = сроку лизинга — оба
 // значения доступны ползунками на /calculator (holding period 1–40 лет, lease
-// term 1–90) | ОЖИДАЕТСЯ: полная потеря капитала показывается как CAGR ≈ −100%
-// /год | ФАКТ: netProfit + initialInvestment = 0, ветка CAGR молча отдаёт 0 →
-// KPI «CAGR/год» рисует «+0.0%» рядом с «Total ROI −114.3%». Убыточнейший
-// сценарий выглядит как нулевая доходность.
-// код: src/lib/calculator/roi.ts:556-559 (и та же ветка в off-plan — :750)
-describe("АТАКА 5 — CAGR +0.0%/год при полной потере капитала", () => {
+// term 1–90) | ОЖИДАЛОСЬ: полная потеря капитала НЕ показывается как рост |
+// БЫЛО: netProfit + initialInvestment = 0, ветка CAGR молча отдавала 0 → KPI
+// «CAGR/год» рисовал «+0.0%» рядом с «Total ROI −114.3%», и убыточнейший
+// сценарий выглядел как нулевая доходность
+// | ИСПРАВЛЕНО 2026-08-31: величина не определена → NaN, fmtPct печатает «—»
+// код: src/lib/calculator/roi.ts:559-565 (и та же ветка в off-plan)
+describe("АТАКА 5 — полная потеря капитала больше не выглядит как ноль", () => {
   const r = computeRoi(I({ tenure: "leasehold", leaseTermYears: 30, years: 30 }));
 
   it("стоимость на выходе обнуляется линейным decay лизхолда", () => {
@@ -24,13 +25,19 @@ describe("АТАКА 5 — CAGR +0.0%/год при полной потере к
     expect(r.projectedValue).toBe(0);
   });
 
-  it("ROI показывает −114%, а CAGR — ровно ноль", () => {
+  it("ROI показывает −114%, а CAGR не выдаёт ложный ноль", () => {
     expect(r.roiPct).toBeLessThan(-100);
-    expect(r.cagrPct).toBe(0);
+    expect(Number.isNaN(r.cagrPct)).toBe(true);
   });
 
-  it("тот же ноль CAGR — при обвале цены на 100%", () => {
-    expect(computeRoi(I({ annualGrowthPct: -100 })).cagrPct).toBe(0);
+  it("обвал цены на 100% — тоже не ноль", () => {
+    expect(Number.isNaN(computeRoi(I({ annualGrowthPct: -100 })).cagrPct)).toBe(true);
+  });
+
+  it("а на живом прибыльном сценарии CAGR по-прежнему считается", () => {
+    const ok = computeRoi(I({ annualGrowthPct: 7, years: 10 }));
+    expect(Number.isFinite(ok.cagrPct)).toBe(true);
+    expect(ok.cagrPct).toBeGreaterThan(0);
   });
 });
 
@@ -51,23 +58,31 @@ describe("АТАКА 6 — IRR = NaN на убыточных сценариях"
       ),
     ).toBe(true);
   });
-  it("а нулевая цена, наоборот, рождает IRR из воздуха: 10% = стартовая догадка Ньютона", () => {
+  // ИСПРАВЛЕНО 2026-08-31: без знакопеременных потоков корня нет — раньше
+  // возвращалась стартовая догадка Ньютона 0.1 → «IRR 10%» на пустом сценарии.
+  it("нулевая цена больше не рождает IRR из воздуха", () => {
     const r = computeRoi(I({ purchasePriceThb: 0 }));
     expect(r.initialInvestment).toBe(0);
-    expect(r.irrPct).toBe(10);
+    expect(Number.isNaN(r.irrPct)).toBe(true);
   });
 });
 
 // АТАКА 7 [MEDIUM, деньги]: сценарий из ссылки «Copy link» — гидрация из URL
 // принимает любое конечное число, ползунковых границ там нет | ОЖИДАЕТСЯ:
 // значения вне допустимого диапазона отбрасываются или клампятся | ФАКТ:
-// inflationPct = −100 делит на (1 + −1) → realCagrPct = Infinity; расшаренная
-// ссылка воспроизводит у клиента «реальную доходность» = ∞.
-// код: src/lib/calculator/roi.ts:573 (realCagrPct), гидрация —
-//      src/components/calculator/roi-calculator.tsx:325-330
-describe("АТАКА 7 — realCagr = Infinity из расшаренной ссылки", () => {
-  it("inflationPct = −100 даёт бесконечность", () => {
-    expect(computeRoi(I({ inflationPct: -100 })).realCagrPct).toBe(Infinity);
+// inflationPct = −100 делил на (1 + −1) → realCagrPct = Infinity; расшаренная
+// ссылка воспроизводила у клиента «реальную доходность» = ∞
+// | ИСПРАВЛЕНО 2026-08-31: при 1 + infl ≤ 0 величина не определена → NaN
+// код: src/lib/calculator/roi.ts:578-579
+describe("АТАКА 7 — realCagr не уходит в бесконечность", () => {
+  it("inflationPct = −100 больше не даёт Infinity", () => {
+    const r = computeRoi(I({ inflationPct: -100 }));
+    expect(Number.isFinite(r.realCagrPct)).toBe(false);
+    expect(r.realCagrPct).not.toBe(Infinity);
+  });
+
+  it("обычная инфляция считается как прежде", () => {
+    expect(Number.isFinite(computeRoi(I({ inflationPct: 3 })).realCagrPct)).toBe(true);
   });
 });
 

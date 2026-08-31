@@ -47,9 +47,23 @@ const num = (v: unknown): number | undefined => {
   return Number.isFinite(n) && n > 0 ? n : undefined;
 };
 
+/**
+ * Границы правдоподобия. Панган — около 78 000 рай целиком, так что 500 рай
+ * (80 га) заведомо перекрывает любой реальный лот. Без потолка форма отвечала
+ * ok:true на 1 000 000 рай и печатала ฿8.25 трлн.
+ */
+const MAX = { areaRai: 500, builtSqm: 20_000, bedrooms: 50 };
+
 export async function estimatePublic(input: PublicSubjectInput): Promise<PublicEstimate> {
   const type = input.type;
   if (!["Land", "Villa", "House"].includes(type)) return { ok: false, reason: "unsupported" };
+  if (
+    (input.areaRai ?? 0) > MAX.areaRai ||
+    (input.builtSqm ?? 0) > MAX.builtSqm ||
+    (input.bedrooms ?? 0) > MAX.bedrooms
+  ) {
+    return { ok: false, reason: "unsupported" };
+  }
 
   const subject: ValuationSubject = {
     type,

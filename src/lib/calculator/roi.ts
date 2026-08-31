@@ -341,6 +341,10 @@ export function monteCarlo(
 }
 
 function computeIRR(cashflows: number[]): number {
+  // Без вложения и без возврата уравнение не имеет корня: раньше первая же
+  // проверка npv≈0 возвращала стартовую догадку 0.1 → «IRR 10%» на пустом
+  // сценарии (например, при нулевой цене).
+  if (!cashflows.some((c) => c < 0) || !cashflows.some((c) => c > 0)) return NaN;
   // Newton–Raphson with safe bounds.
   let r = 0.1;
   for (let iter = 0; iter < 100; iter++) {
@@ -553,10 +557,13 @@ export function computeRoi(input: RoiInputs): RoiResult {
   }
   const netProfit = totalReturn - initialInvestment;
   const roiPct = initialInvestment > 0 ? (netProfit / initialInvestment) * 100 : 0;
+  // NaN, а не 0: при неположительной итоговой стоимости среднегодовой рост не
+  // определён, и «+0.0%/год» рядом с «ROI −114%» читается как «ничего не потерял».
+  // fmtPct печатает NaN как «—».
   const cagrPct =
     initialInvestment > 0 && netProfit + initialInvestment > 0
       ? (Math.pow((netProfit + initialInvestment) / initialInvestment, 1 / years) - 1) * 100
-      : 0;
+      : NaN;
   const irrPct = computeIRR(cashflows);
   const paybackYears = paybackFrom(series);
   const { roiFxPct, cagrFxPct } = fxAdjusted(
@@ -570,7 +577,8 @@ export function computeRoi(input: RoiInputs): RoiResult {
   // Real (inflation-adjusted) headline figures — "in today's money".
   const infl = (input.inflationPct || 0) / 100;
   const realProjectedValue = projectedValue / Math.pow(1 + infl, years);
-  const realCagrPct = ((1 + cagrPct / 100) / (1 + infl) - 1) * 100;
+  // 1 + infl ≤ 0 (инфляция −100% и ниже) — деление на ноль давало Infinity в UI.
+  const realCagrPct = 1 + infl > 0 ? ((1 + cagrPct / 100) / (1 + infl) - 1) * 100 : NaN;
 
   const year1Gross = isRent ? annualGross(baseRate) : 0;
   const grossYieldPct = isRent && initialInvestment > 0 ? (year1Gross / initialInvestment) * 100 : 0;
@@ -747,11 +755,13 @@ function computeOffplan(input: RoiInputs): RoiResult {
   const totalReturn = netProceeds + rentNetTotal - leasePaymentsTotal - capitalGainsTax;
   const netProfit = totalReturn - totalInvested;
   const roiPct = totalInvested > 0 ? (netProfit / totalInvested) * 100 : 0;
+  // NaN по той же причине, что и в основном сценарии: рост не определён.
   const cagrPct =
-    totalInvested > 0 && totalReturn > 0 ? (Math.pow(totalReturn / totalInvested, 1 / years) - 1) * 100 : 0;
+    totalInvested > 0 && totalReturn > 0 ? (Math.pow(totalReturn / totalInvested, 1 / years) - 1) * 100 : NaN;
   const infl = (input.inflationPct || 0) / 100;
   const realProjectedValue = sellableExit / Math.pow(1 + infl, years);
-  const realCagrPct = ((1 + cagrPct / 100) / (1 + infl) - 1) * 100;
+  // 1 + infl ≤ 0 (инфляция −100% и ниже) — деление на ноль давало Infinity в UI.
+  const realCagrPct = 1 + infl > 0 ? ((1 + cagrPct / 100) / (1 + infl) - 1) * 100 : NaN;
 
   const monthlyIrr = computeIRR(cf) / 100;
   const irrPct = isFinite(monthlyIrr) ? (Math.pow(1 + monthlyIrr, 12) - 1) * 100 : NaN;

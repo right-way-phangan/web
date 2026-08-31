@@ -1236,7 +1236,9 @@ function leaseholdBlock(
   if (subject.areaRai && subject.areaRai > 0) {
     out.fairRentTotalMonth = Math.round((fairMonth * subject.areaRai) / 100) * 100;
   }
-  const term = subject.leaseTermYears ?? 30;
+  // `??` ловил только null/undefined: срок 0 давал term = 0 и fairNpv = 0,
+  // а оговорка ниже утверждала, что NPV посчитан на 30 лет.
+  const term = subject.leaseTermYears && subject.leaseTermYears > 0 ? subject.leaseTermYears : 30;
   const escPct = (subject.leaseEscPercent ?? 0) / 100;
   const escPeriod = subject.leaseEscPeriodYears && subject.leaseEscPeriodYears > 0 ? subject.leaseEscPeriodYears : 1;
   const npvOf = (monthPerRai: number): number => {
