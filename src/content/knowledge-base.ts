@@ -7661,6 +7661,105 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "ownership",
     faqQuestion: "If co-owners of a Thai condo unit or jointly-built villa structure fall out, can one of them force a sale?",
   },
+  {
+    slug: "groundwater-well-permit-koh-phangan",
+    kbId: "kb-0123",
+    topic: "Documents",
+    title: "Drilling a private well on Koh Phangan: the groundwater permit you legally need",
+    short:
+      "A well deep enough to be a reliable dry-season backup almost always counts as \"groundwater\" under Thai law — which means a drilling license before the rig arrives and a separate use license before you pump, regardless of who owns the land above it. Skipping either is a real, prosecutable offence, not a formality.",
+    updated: "2026-09-01",
+    body: [
+      "Do you need a permit to drill a well on Koh Phangan? Yes — under the Groundwater Act B.E. 2520 (1977), any well drawing water from below the Department of Groundwater Resources' (DGR) working depth threshold needs a drilling license before drilling starts and a separate use license before the water is pumped, and this applies **regardless of land ownership**. Given the island's recurring dry-season mains rationing (see [Water supply and shortage risk on Koh Phangan](/knowledge/water-supply-shortage-risk-koh-phangan)), a private well is one of the few genuine hedges a buyer has — but only if it's properly licensed, not just physically present.",
+      { h: "What counts as \"groundwater\" requiring a permit" },
+      "Section 3 of the Act defines groundwater as water below a depth the Minister prescribes, set at no less than 10 metres; DGR's current operating threshold — confirmed directly by its Region 6 office, which covers Surat Thani province (and therefore Koh Samui, Koh Phangan and Koh Tao) alongside Trang, Krabi, Phang Nga, Phuket, Chumphon, Ranong and Nakhon Si Thammarat — is **15 metres**. In practice this catches almost every drilled well on the island: the granite-and-sandstone aquifers that give reasonable dry-season yield typically sit well past that mark.",
+      { h: "Two separate licenses, not one" },
+      {
+        ul: [
+          "**Drilling license** — required before any rig touches the ground (Sections 16–18). Valid for **up to one year** (Section 20(1)).",
+          "**Use license** — required before the water is actually pumped and used. Valid for **up to ten years**, renewable before expiry (Section 20(2)).",
+          "Both are issued by the local groundwater office — for Koh Phangan, DGR's Region 6 branch — and neither exemption depends on holding a chanote or any other title to the land itself.",
+        ],
+      },
+      { h: "Fees and typical cost" },
+      "Under the Act's fee schedule, an application costs around ฿10 per document and each license roughly ฿1,000. Usage itself is fee-exempt for domestic and small-scale agricultural consumption up to 50 m³ a day; above that, or for commercial use, the standard rate runs around ฿8.50 per m³. None of this covers the physical drilling — a standard 4-inch well from a private contractor typically runs ฿40,000–120,000 in southern Thailand, on top of the license fees.",
+      { h: "The penalty for skipping it" },
+      "Section 16 makes unlicensed drilling, use or discharge into a well an offence, whatever the landowner's intentions: **up to six months' imprisonment, a fine of up to ฿20,000, or both**, with the court empowered to order the well filled in and equipment seized at the offender's expense. It is enforced, not a dead letter — provincial groundwater offices routinely inspect wells flagged by neighbours or during other permit applications.",
+      { h: "What this means before you buy" },
+      {
+        ul: [
+          "**Ask for both licenses, in the current owner's name — not just proof a well exists.** A drilled well with no paperwork is an inherited liability, not a free asset; fold it into [due diligence before buying](/knowledge/due-diligence-checklist-koh-phangan) alongside title and zoning checks.",
+          "**A pump running on an unlicensed well can be shut down and the well ordered filled** — don't rely on one as a dry-season backup without confirming both licenses are current.",
+          "**If a well needs drilling as part of a build**, apply through a local groundwater-licensed contractor rather than an informal driller; the license itself is what makes the asset transferable and defensible later, alongside the building's own permit (see [Building a villa on Koh Phangan](/knowledge/building-a-villa-koh-phangan)).",
+        ],
+      },
+      "None of this makes a well impractical — it's a routine, inexpensive permit most owners never think to ask about. Making “well licensed and current” a written condition in the sale or construction contract turns a common informal shortcut into a properly documented, defensible asset.",
+    ],
+    takeaways: [
+      "A well below roughly 15 metres on Koh Phangan needs a DGR drilling license before drilling and a separate use license before pumping — regardless of land ownership (Groundwater Act B.E. 2520, Sections 3, 16–18).",
+      "Two license types apply: a drilling license (valid up to 1 year) and a use license (valid up to 10 years, renewable) — Section 20.",
+      "Domestic and small agricultural use up to 50 m³/day is fee-exempt; commercial use above that runs roughly ฿8.50/m³.",
+      "Drilling or using a well without a license carries up to 6 months' imprisonment, a fine of up to ฿20,000, or both, plus a court order to fill in the well.",
+      "Before buying a villa with an existing well, ask for both licenses in the seller's name — not just confirmation the well exists.",
+    ],
+    sources: [
+      { title: "Groundwater Act, B.E. 2520 (1977), unofficial translation — FAOLEX", url: "https://faolex.fao.org/docs/pdf/tha181034.pdf" },
+      { title: "Department of Groundwater Resources, Region 6 (Trang) — provincial coverage including Surat Thani", url: "https://www.dgr.go.th/bgr6/th/about/131" },
+      { title: "Department of Groundwater Resources — license validity periods under Section 20", url: "https://www.dgr.go.th/th/newsAll/124/3767" },
+      { title: "Baan Lae Suan — groundwater drilling permits: process, fees and penalties", url: "https://www.baanlaesuan.com/229711/home-maintenance/outdoor/groundwater/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion: "Do I need a permit to drill a well on my Koh Phangan property?",
+  },
+  {
+    slug: "environmental-impact-assessment-villa-resort-koh-phangan",
+    kbId: "kb-0124",
+    topic: "Structures",
+    title: "Does your Koh Phangan project need an EIA? The room-count and area thresholds that trigger it",
+    short:
+      "Nationwide, a hotel or condominium needs a full Environmental Impact Assessment once it reaches 80 rooms or 4,000 m². Because Koh Phangan sits inside a government-designated Environmentally Protected Area, the bar is lower here — hotels above 49 rooms already need the lighter Initial Environmental Examination before a building permit can be issued.",
+    updated: "2026-09-01",
+    body: [
+      "At what size does a villa or resort project on Koh Phangan need an environmental assessment before it can get a building permit? Nationwide, a hotel or condominium triggers a full Environmental Impact Assessment (EIA) once it reaches **80 rooms/units or 4,000 m² of usable area**, reviewed by the Office of Natural Resources and Environmental Policy and Planning (ONEP). But Koh Phangan — along with Koh Samui and Koh Tao — sits inside a Ministry-designated Environmentally Protected Area under Surat Thani province, the same framework behind the island's 2025 building zones (see [Building zones on Koh Phangan](/knowledge/koh-phangan-building-zones)). Inside that zone, a lighter-weight Initial Environmental Examination (IEE) kicks in at a much lower threshold — a detail [Building a villa on Koh Phangan](/knowledge/building-a-villa-koh-phangan) flags in passing as a ≥50-room trigger; this guide sets out the full mechanism behind it.",
+      { h: "Two tiers: IEE vs. full EIA" },
+      {
+        ul: [
+          "**IEE (Initial Environmental Examination)** — the lighter study required inside a designated Environmentally Protected Area, under the Enhancement and Conservation of National Environmental Quality Act B.E. 2535 (1992). Since a September 2024 ministerial regulation, hotels with **1–49 rooms are exempt**; **50 rooms and up in a protected area need an IEE** — up from the previous 29-room exemption line.",
+          "**Full EIA** — triggered nationwide, protected area or not, once a hotel or condominium reaches **80 rooms/units or 4,000 m² of usable floor area**, whichever comes first, reviewed by ONEP's expert committee rather than the lighter local process.",
+          "**Housing estates and land subdivisions** run on a separate, plot-count-based licensing regime under the Land Development Act instead of this EIA/IEE framework — see [Subdivided land and the Land Development Act](/knowledge/land-allocation-act-subdivided-land-koh-phangan).",
+        ],
+      },
+      { h: "Who reviews it, and how long it adds" },
+      "ONEP receives and processes the report; an expert review committee — ONEP plus the relevant licensing authority and outside specialists — evaluates it, typically targeting a decision within around 60 days for a straightforward case. This runs on top of, not instead of, the Building Control Act's own 45-day permit-review window covered in [Building a villa on Koh Phangan](/knowledge/building-a-villa-koh-phangan); that guide's 6–14 month estimate for projects needing environmental review reflects the two processes combined, not the assessment alone.",
+      { h: "Building before approval is a separate offence" },
+      "Section 101/1 of the National Environmental Quality Act (added in the 2018 amendment) makes starting construction before EIA or IEE approval its own offence, distinct from ordinary Building Control Act penalties: a fine of up to **฿1,000,000**, plus a further fine of up to **฿100,000 for each day** the violation continues, rising to **1.5 times** those amounts if the project is classified a \"significant project.\" This stacks on top of — not instead of — the demolition-order and fine exposure an unpermitted building already carries.",
+      { h: "Why this matters for a buyer, not just a developer" },
+      {
+        ul: [
+          "**Ask specifically whether a project's room/unit count or usable area crosses either threshold**, and if so, request the IEE or EIA approval letter itself — not just the building permit. See [Vetting an off-plan project](/knowledge/buying-off-plan-new-developments).",
+          "**Sitting just under 50 rooms doesn't exempt a project from the building-control process** — only from this specific environmental layer.",
+          "**Given the island's active pipeline** (see [Koh Phangan's 2025–2026 development pipeline](/knowledge/koh-phangan-development-pipeline-2025-2026)), several current and planned projects are sized to sit inside this regime — worth asking about before paying a deposit, not after.",
+        ],
+      },
+      "For a single private villa, this rarely applies — the thresholds are built around hotels, condominiums and larger developments. But for anyone buying into a resort-style or larger residential project, the IEE/EIA approval is a genuine, checkable document, and its absence on a project large enough to need one is a real red flag, not a technicality.",
+    ],
+    takeaways: [
+      "Nationwide, a hotel or condominium needs a full EIA once it reaches 80 rooms/units or 4,000 m² of usable area, reviewed by ONEP.",
+      "Koh Phangan sits inside a designated Environmentally Protected Area (Surat Thani province), so the bar is lower locally: since September 2024, hotels above 49 rooms need the lighter IEE, up from the previous 29-room exemption.",
+      "Housing estates and land subdivisions follow a separate, plot-count-based regime, not this EIA/IEE framework.",
+      "Building before approval is a distinct offence under NEQA Section 101/1: up to ฿1,000,000 plus up to ฿100,000 for each day construction continues, 1.5x for a \"significant project.\"",
+      "Buyers into a larger off-plan project should ask for the IEE/EIA approval letter itself, not just the building permit.",
+    ],
+    sources: [
+      { title: "Lexology — Thailand's Environmental Impact Assessment Scheme at a Glance", url: "https://www.lexology.com/library/detail.aspx?g=608903c6-0e5c-4e52-b917-07751c480421" },
+      { title: "Khaosod English — No Demolition Needed: Thailand Eases Regulations for Coastal Hotels", url: "https://www.khaosodenglish.com/news/2024/08/01/no-demolition-needed-thailand-eases-regulations-for-coastal-hotels/" },
+      { title: "Lexology — Amendment to Environmental Act in Thailand: Penalties Imposed on Development without EIA", url: "https://www.lexology.com/library/detail.aspx?g=f6eafc8d-8b81-41f0-a12b-c10cd37261a3" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "At what size does a villa or resort project on Koh Phangan need an environmental impact assessment?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
