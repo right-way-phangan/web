@@ -1,63 +1,64 @@
-# Last run — 2026-09-01
+# Last run — 2026-09-01 (second run, same day)
 
 Published **2 guides** this run (EN + RU each).
 
 ## What was published
 
-1. **`groundwater-well-permit-koh-phangan`** (kb-0123, faqCategory: `documents`)
-   Title: "Drilling a private well on Koh Phangan: the groundwater permit you legally need"
-   Sources: FAOLEX's unofficial translation of the Groundwater Act B.E. 2520 (1977) (Sections 3,
-   16-18, 20 — depth threshold, drilling/use license split, validity periods); DGR's own Region 6
-   (Trang) office page confirming Surat Thani-province coverage (i.e. Koh Samui/Phangan/Tao) and the
-   15-metre practical depth threshold; a DGR Thai-language page (dgr.go.th) directly quoting Section
-   20's license-validity periods (drilling ≤1 year, use ≤10 years) — primary government source;
-   baanlaesuan.com (reputable Thai home/garden outlet) independently corroborating the 15m threshold,
-   the exact penalty text (≤6 months imprisonment / ≤฿20,000 fine or both) and fee figures.
+1. **`adverse-possession-squatters-vacant-land-koh-phangan`** (kb-0125, faqCategory: `ownership`)
+   Title: "Adverse possession on Koh Phangan: how a squatter can legally acquire your unused land"
+   Sources: Tilleke & Gibbins ("Land Ownership Through Adverse Possession" — the four legal elements,
+   the court-then-Land-Office registration procedure); Samui For Sale's full-text mirror of CCC Part III
+   (Sections 1367-1386, used to directly verify the exact wording of Sections 1382, 1383, 1384 and 1375);
+   Thailand Law Library (Siam Legal)'s independent CCC possession-section summary, cross-checked against
+   the same section numbers.
 
-2. **`environmental-impact-assessment-villa-resort-koh-phangan`** (kb-0124, faqCategory: `structures`)
-   Title: "Does your Koh Phangan project need an EIA? The room-count and area thresholds that trigger it"
-   Sources: Lexology's "Thailand's EIA Scheme At a Glance" (nationwide 80-room/4,000m² full-EIA
-   threshold, ONEP review); a second Lexology piece on NEQA Section 101/1 penalties (up to ฿1,000,000
-   plus ฿100,000/day, 1.5x for a "significant project," confirmed via direct quote of the statutory
-   text); Khaosod English's Aug 2024 report on the ministerial regulation raising the small-hotel IEE
-   exemption from 1-29 to 1-49 rooms in Environmentally Protected Area provinces (incl. Surat Thani).
+2. **`seller-liability-property-defects-after-closing-thailand`** (kb-0126, faqCategory: `documents`)
+   Title: "Hidden defects after closing: what Thai law gives a villa buyer, and why 'as-is' usually wins"
+   Sources: Thailand Law Library (Siam Legal)'s CCC Sections 472-474 summary; Thailand Law Online's
+   Sections 461-485 (duties/liabilities of a seller) page; ASEAN.org's official CCC Book III translation
+   PDF, used as the primary-text anchor. Both secondary sources independently converged on the same
+   section numbers, exceptions and the 1-year discovery-based limitation period.
 
 ## Why these two
 
-A fresh-news sweep (research agent, dated 2026-08-29 through 2026-09-01) found nothing newly dated
-and property-law-relevant. All three standing watch items were re-confirmed unchanged: the Koh Phangan
-water crisis is still stuck on PWA Notice 7/2569 with no successor (Koh Samui's own rationing since
-3 Aug 2026 is a neighbouring-island story, not a Phangan update); the FBA/AMLA nominee-as-predicate-
-offence amendment is still unenacted — a juslaws.com claim of a 25 Feb 2025 Cabinet approval could not
-be corroborated against any reputable outlet and conflicts with this backlog's own prior finding, so
-it was treated as unverified and not used; the coalition's "review foreign ownership regulations"
-pledge remains sourced only to real-estate marketing sites. A distinct, genuinely cabinet-approved
-12 May 2026 FBA licensing-exemption reform (delisting ~8-9 business categories from FBA licensing) was
-found but is not real-estate relevant and not fresh — not published.
+This was a second run on 2026-09-01 — an earlier run today had already published kb-0123 (groundwater
+well permits) and kb-0124 (EIA/IEE thresholds) after an exhaustive fresh-news sweep found nothing else.
+I re-ran a same-day news check myself: the only fresh-looking item was a Bangkok Post report on a
+~2.1bn baht nominee-land seizure, but it's in Krabi and duplicates the already-published
+`nominee-crackdown-krabi-islands-2026` / `koh-samui-phangan-raid-leases-nominee-scrutiny-2026` cluster —
+not published. All three standing watch items (Koh Phangan water-crisis update, FBA/AMLA
+nominee-as-predicate-offence amendment, coalition "review foreign ownership" pledge) remain unchanged
+from prior runs' findings — still stuck on the same stale/thin sourcing, not republished.
 
-Rather than force a weak news angle, this run authored two evergreen legal-mechanics topics that a
-scan of all 122 existing guide titles/slugs confirmed were genuinely uncovered, both verified against
-primary/official or independently corroborated reputable sources (not single-source secondary
-summaries):
+With 124 guides already live and the backlog's remaining ⏳ rows all repeatedly re-confirmed as
+duplicate/thin/unsafe, I delegated a research pass to scan every existing guide slug for genuinely
+uncovered CCC (Civil and Commercial Code) mechanics rather than force a weak news angle. It surfaced
+two statute-grounded gaps, both independently verified against Section text mirrored on
+samuiforsale.com and library.siam-legal.com (a close read of the actual section numbers, not just
+secondary paraphrase) and cross-checked against a second/third independent legal-reference source each:
 
-- **Groundwater well permits** — kb-0077 (water shortage) mentions "a tested private well is a real
-  asset" in one bullet with zero licensing detail, and no guide covers the Groundwater Act at all.
-  Directly relevant given Phangan buyers' routine fallback on private wells during PWA rationing.
-- **EIA/IEE thresholds** — kb-0022 (building a villa) asserts a "≥50 guest rooms" IEE trigger in one
-  uncited bullet; this guide sources and explains that figure (the Environmentally Protected Area
-  exemption change, Sept 2024), reconciles it against the separate nationwide 80-room/4,000m² full-EIA
-  threshold, and adds the NEQA Section 101/1 penalty regime kb-0022 doesn't cover.
+- **Adverse possession (Section 1382)** — no existing guide covers how a Thai possessor can acquire
+  ownership of land left unfenced and unvisited for 10 years. Directly relevant to Phangan's many
+  absentee-held undeveloped hillside/interior plots. Confirmed distinct from `land-titles-chanote-vs-nor-sor-3`
+  (title *types*, not loss/acquisition by possession), `untitled-sea-view-land-pbt5-sor-por-kor-scam`
+  (a different untitled-land scam pattern), and `landlocked-land-way-of-necessity-vs-servitude` (access
+  rights, a different property right).
+- **Seller liability for post-closing defects (Sections 472-485)** — no existing guide covers a buyer's
+  statutory recourse (or lack of it) for a structural defect found after closing, as distinct from
+  pre-purchase due diligence. Confirmed distinct from `due-diligence-checklist-koh-phangan` (pre-purchase
+  checklist) and `lease-contract-clauses-to-check` (lease clauses only, not sale-purchase agreements).
 
-Both topics were checked against the full existing slug list before writing to confirm no overlap, and
-key figures (15m depth threshold, Section 20 validity periods, the 49→50-room IEE line, Section 101/1
-penalties) were each corroborated across at least two independent sources — including two direct
-primary/government-site quotes for the groundwater guide — before being used.
+Both guides were framed conservatively: the adverse-possession guide flags that the "Chanote-only"
+scope of the 10-year rule is stated by two law-firm sources but not independently confirmed against a
+primary Land Department circular or Supreme Court citation, so it avoids naming unverified case numbers.
+The defects guide is explicit that "as-is" clauses are standard and usually control, and does not
+overstate the buyer's practical odds of proving a seller's known-and-concealed defect after the fact.
 
 ## Backlog status
 
-Every other ⏳ item remaining in `backlog.md` (water crisis, FBA/AMLA predicate-offence, coalition
-stance, rental yields, single power cable, "who's buying" buyer-surge, stamp duty vs SBT, naming a
-specific off-plan project, PND e-filing deadline) was left as-is — all have been repeatedly re-checked
-across prior runs and remain duplicate, thin, or unsafe to publish per the inline notes in
-`backlog.md`. No change to that assessment this run. Two new backlog rows were added and marked ✅ for
-today's two published guides.
+Two new rows were added to `backlog.md` under the existing "News / live-source driven" section (matching
+the pattern used for other recently-added evergreen legal-mechanics topics) and marked ✅. No other ⏳
+backlog item's status changed this run — the standing watch items (water crisis, FBA/AMLA
+predicate-offence, coalition stance, rental yields, single power cable, "who's buying" buyer-surge,
+stamp duty vs SBT, naming a specific off-plan project, PND e-filing deadline) remain unpublished per
+their existing inline notes.

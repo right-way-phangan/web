@@ -7760,6 +7760,95 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "structures",
     faqQuestion: "At what size does a villa or resort project on Koh Phangan need an environmental impact assessment?",
   },
+  {
+    slug: "adverse-possession-squatters-vacant-land-koh-phangan",
+    kbId: "kb-0125",
+    topic: "Ownership",
+    title: "Adverse possession on Koh Phangan: how a squatter can legally acquire your unused land",
+    short:
+      "Thai law lets someone else acquire full ownership of Chanote-titled land you leave unfenced, unvisited and undeveloped for ten straight years — a genuine risk for absentee buyers holding raw plots in Phangan's outlying districts. Fencing, dated records and an annual site visit are the cheap fix; finding out after year ten usually isn't.",
+    updated: "2026-09-01",
+    body: [
+      "Can someone else legally take ownership of land you own just by occupying it? Yes — under Civil and Commercial Code Section 1382, a person who possesses another's Chanote-titled land openly, peacefully and with the intent to own it, for an uninterrupted 10 years, can go to court and be registered as the new owner. It doesn't require the possessor to have paid anything, or to have honestly believed the land was theirs — only open, continuous, unchallenged possession. On Koh Phangan, where many foreign-linked buyers hold undeveloped hillside or interior plots through a [lease, company or usufruct structure](/knowledge/superficies-vs-usufruct-vs-lease) and visit only occasionally, this is a real and underappreciated risk, not a theoretical one.",
+      { h: "The four elements a court looks for" },
+      {
+        ul: [
+          "**Registered title (Chanote)** — Thai law firms are consistent that the 10-year clock runs against Chanote-titled land. Weaker or unregistered documents like Sor Kor 1 or the possessory papers flagged in [Untitled 'sea-view land' scams](/knowledge/untitled-sea-view-land-pbt5-sor-por-kor-scam) follow a different, faster dispute rule instead (Section 1375, roughly a one-year window to sue after being dispossessed) — not this 10-year ownership-transfer mechanism. See also [Chanote vs Nor Sor 3](/knowledge/land-titles-chanote-vs-nor-sor-3) on title strength generally.",
+          "**Open and peaceful possession** — fencing, building, cultivating or otherwise visibly using the land, not sneaking onto it or taking it by force or threat.",
+          "**Uninterrupted for 10 years** — a possessor who involuntarily loses possession but recovers it, or files suit, within one year keeps the clock running (Section 1384); it doesn't require continuous residence, just continuous, unbroken possession.",
+          "**Intent to own, not permission** — a caretaker, tenant, or someone the owner allowed to farm the land doesn't qualify, since they possess on the owner's behalf, not against it.",
+        ],
+      },
+      { h: "How it actually plays out" },
+      "Meeting those four elements doesn't transfer ownership automatically. The possessor has to petition a Thai court for an order recognizing the acquisition; the court summons the registered owner to contest the claim and typically orders a land survey; only after a favorable, unopposed or upheld ruling can the possessor take that order to the [Land Office](/knowledge/land-office-registration-day) to register the change. In practice, an owner who is notified of the case — or who simply visits often enough to notice an encroachment early — can very often defeat the claim by producing the registered title. The real danger is not contesting it, because you never found out.",
+      { h: "Why this specifically bites absentee owners" },
+      {
+        ul: [
+          "**Foreigners cannot themselves gain Thai land this way** — the Land Code's ban on direct foreign land ownership isn't sidestepped by adverse possession — but the risk runs the other direction: a foreign-linked landowner, holding personally, via a [30-year lease](/knowledge/renewing-30-year-lease-risks), a company or a usufruct, can still lose the underlying land to a Thai possessor who occupies it.",
+          "**Undeveloped hillside and interior plots are the highest-risk profile** — exactly the land bought as a long-term hold or future-build site and then left unvisited for years, common in Phangan's outer districts.",
+          "**Paying land tax in your own name, keeping dated photos of a fenced or marked boundary, and visiting or having an agent inspect the plot at least once a year** are the cheapest practical defenses — they build a documented record that possession was never left uncontested.",
+        ],
+      },
+      "None of this makes raw land a bad investment — it makes an empty, unfenced plot a maintenance item, not a set-and-forget asset. If you're buying vacant land specifically to hold rather than build on right away, ask your lawyer to fold periodic site inspections and boundary marking into the same routine covered in [Due diligence before buying on Koh Phangan](/knowledge/due-diligence-checklist-koh-phangan).",
+    ],
+    takeaways: [
+      "Under CCC Section 1382, a person who openly and peacefully possesses another's Chanote-titled land, with intent to own it, for an uninterrupted 10 years, can be registered as the new owner via court order.",
+      "Untitled or possessory land (e.g. Sor Kor 1) follows a different, faster dispute rule under Section 1375, not this 10-year ownership-transfer mechanism.",
+      "Ownership doesn't transfer automatically — the possessor must win a court case, and a registered owner who is notified and contests the claim can usually defeat it by producing title.",
+      "Foreigners cannot acquire Thai land through this route themselves; the practical risk for foreign-linked owners is losing undeveloped land to a Thai possessor, not gaining it.",
+      "Fencing, dated photos, paying land tax in your own name, and an annual site visit are the cheapest defenses against a future adverse-possession claim on unbuilt land.",
+    ],
+    sources: [
+      { title: "Tilleke & Gibbins — Land Ownership Through Adverse Possession", url: "https://www.tilleke.com/insights/land-ownership-through-adverse-possession/" },
+      { title: "Samui For Sale — Thailand Civil and Commercial Code, Part III (full text, Sections 1367-1386)", url: "https://www.samuiforsale.com/law-texts/thailand-civil-code-part-3.html" },
+      { title: "Thailand Law Library (Siam Legal) — Civil and Commercial Code: Possession, Sections 1367-1386", url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-possession-section-1367-1386/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "ownership",
+    faqQuestion: "Can someone else legally acquire my Koh Phangan land just by occupying it?",
+  },
+  {
+    slug: "seller-liability-property-defects-after-closing-thailand",
+    kbId: "kb-0126",
+    topic: "Documents",
+    title: "Hidden defects after closing: what Thai law gives a villa buyer, and why 'as-is' usually wins",
+    short:
+      "Thai law does give buyers a default right to sue over defects discovered after closing — but it's narrow, barred one year after discovery, and almost always signed away by the 'as-is' clause standard in Thai sale-purchase agreements. A pre-purchase structural survey protects you; a lawsuit after the fact rarely does.",
+    updated: "2026-09-01",
+    body: [
+      "Does a Koh Phangan villa buyer have any legal recourse if a serious defect — a cracked foundation, a leaking roof, unpermitted structural work — turns up only after the sale closes? In principle, yes: Civil and Commercial Code Section 472 makes a seller liable for any defect that impairs the property's value or its fitness for ordinary or contracted use, whether or not the seller actually knew about it. In practice, that default liability is almost always waived by the non-liability ('as-is') clause standard in Thai sale-purchase agreements — which is exactly why the pre-purchase checks covered in [Due diligence before buying on Koh Phangan](/knowledge/due-diligence-checklist-koh-phangan) matter far more than any post-closing remedy.",
+      { h: "The default rule: Section 472" },
+      "Absent a contrary agreement, a seller is liable for a defect that impairs the property's value, or its fitness for ordinary purposes or for a purpose the buyer made known at the time of sale — and this default liability applies **regardless of whether the seller actually knew of the defect.** It does not apply, however, if: the buyer already knew of the defect, or would have discovered it exercising ordinary prudence; the defect was apparent on delivery and the buyer accepted the property without reservation; or the property was bought at a public auction.",
+      { h: "The one-year clock" },
+      "Even where Section 472 liability applies, no claim can be brought later than **one year after the defect is discovered** — not one year from the sale itself. Miss that window after finding a problem, and the statutory claim is gone regardless of how serious the defect turns out to be.",
+      { h: "Why 'as-is' clauses usually settle it anyway" },
+      {
+        ul: [
+          "**Sections 483-485 let the parties contract out of Section 472 liability entirely** — and a non-liability ('as-is', 'sold in its current condition') clause is close to universal in Thai villa and land sale-purchase agreements, whether drafted by a developer, an agent or a private seller's own lawyer.",
+          "**The one carve-out that survives any as-is clause**: a seller can never contract away liability for their own acts, or for a defect they actually knew about and concealed. Proving that knowledge and concealment after the fact, however, is the buyer's burden — and for a latent structural issue it's often genuinely difficult without documentary evidence, such as inspection reports, messages or prior repair records.",
+          "**None of this touches title, zoning or tax risk** covered elsewhere — Sections 472-485 are about the physical condition of the structure itself, a narrower question than the land's legal status or your [ongoing ownership costs](/knowledge/owners-taxes-annual-land-and-income).",
+        ],
+      },
+      { h: "What this means in practice" },
+      "Given how routinely 'as-is' is signed and how tight the one-year discovery clock is, the realistic protection here isn't a lawsuit after the fact — it's what happens before signing: an independent structural survey, confirmed [building permits for any additions](/knowledge/forged-building-permits-koh-phangan-verify), and, where the seller's own disclosures matter, a written pre-contract representation on record — since the Section 483-485 carve-out for a known-and-concealed defect is only useful if you can later show what the seller actually knew.",
+      "A well-negotiated sale-purchase agreement can still improve on the statutory default: a longer, explicit inspection period before the deposit becomes non-refundable, or a seller warranty on specific known-risk items like the roof or septic system, does more real work than relying on Section 472 after the fact. Ask your lawyer to build that into the contract itself — see [what a Phangan property lawyer's fee actually covers](/knowledge/phangan-property-lawyer-fees-what-they-cover).",
+    ],
+    takeaways: [
+      "CCC Section 472 makes a seller liable by default for a defect impairing the property's value or normal use, whether or not the seller knew about it.",
+      "That claim is barred one year after the date the defect is discovered — not one year from the sale.",
+      "Sections 483-485 let sellers contract out of this liability entirely, and an 'as-is' clause is close to standard in Thai property sale-purchase agreements.",
+      "A seller can never disclaim liability for a defect they knew about and concealed — but proving that after the fact is the buyer's burden, and often hard without documentary evidence.",
+      "A pre-purchase structural survey and a negotiated inspection period do more real protective work than any post-closing legal claim.",
+    ],
+    sources: [
+      { title: "Thailand Law Library (Siam Legal) — Civil and Commercial Code: Contracts, Sections 472-474", url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-contracts-section-472-474/" },
+      { title: "Thailand Law Online — Civil and Commercial Code, Sections 461-485: Duties and Liabilities of Seller of Property Sold", url: "https://www.thailandlawonline.com/civil-and-commercial-code/461-485-duties-and-liabilities-seller-property-sold" },
+      { title: "ASEAN.org — Civil and Commercial Code of Thailand, Book III (official translation, PDF)", url: "https://asean.org/wp-content/uploads/2016/08/Thailand199.pdf" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion: "If I find a serious defect after buying a Koh Phangan villa, can I hold the seller liable?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
