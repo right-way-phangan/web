@@ -7949,6 +7949,101 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "ownership",
     faqQuestion: "If I die without a Thai will, who inherits my villa, land lease, or company shares?",
   },
+  {
+    slug: "gift-tax-property-transfers-family-thailand",
+    kbId: "kb-0129",
+    topic: "Costs",
+    title: "Gift tax on Thai property: what a parent-to-child or spouse-to-spouse transfer actually costs",
+    short:
+      "Transferring a Koh Phangan villa or land to a spouse, child or parent while you're alive isn't automatically tax-free just because no price changes hands. Revenue Code exemptions cover gifts up to ฿20 million a year for immediate family, with a flat 5% on anything above that — but the Land Office's own transfer fee, and sometimes Specific Business Tax, still apply on top.",
+    updated: "2026-09-02",
+    body: [
+      "Does gifting a villa or land to a Thai spouse or child avoid Thai property taxes because no money changes hands? Not entirely. A lifetime gift of Thai immovable property sits under its own set of Revenue Code exemptions — separate from, and in addition to, the Land Office's transfer fee and the Specific Business Tax or stamp duty already covered in [Costs, taxes and the FET form](/knowledge/cost-of-buying-taxes-and-fees) and [Specific Business Tax's 5-year exemption](/knowledge/specific-business-tax-five-year-exemption-clock). This guide covers the layer those don't: personal income tax on the gift itself.",
+      { h: "The three exemption tiers under Section 42" },
+      {
+        ul: [
+          "**Immovable property gifted to a legitimate child (Section 42(26))** — exempt up to ฿20,000,000 per child, per tax year; adopted children don't qualify for this specific exemption.",
+          "**Maintenance or gifts from ascendants, descendants or a spouse (Section 42(27))** — covers a parent, grandparent, child, grandchild or registered spouse giving property or money, exempt up to ฿20,000,000 per tax year.",
+          "**Gifts received on a customary or ceremonial occasion from anyone else (Section 42(28))** — a much lower ceiling of ฿10,000,000 per tax year, relevant if the intended recipient is a long-term partner who isn't a registered spouse, or another relative outside the first two tiers.",
+        ],
+      },
+      { h: "Above the threshold: a flat 5%, not Thailand's ordinary rates" },
+      "Any amount above these thresholds doesn't have to be added to the recipient's ordinary income and taxed at Thailand's progressive personal income tax rates, which run up to 35%. Sections 48(4/1), 48(6) and 48(7) of the Revenue Code let the taxpayer instead elect a flat 5% on just the excess — a materially better outcome for a large one-off transfer than folding it into a normal year's income.",
+      { h: "This sits on top of the transfer fee, and sometimes Specific Business Tax" },
+      {
+        ul: [
+          "**The Land Office's transfer fee itself drops to 0.5% of the appraised value for a qualifying gift between direct family (parent-child or spouse-spouse), instead of the standard 2%** — a separate saving from the income-tax exemption above, applied automatically at registration.",
+          "**The Specific Business Tax exemption is narrower.** As covered in [Specific Business Tax's 5-year exemption](/knowledge/specific-business-tax-five-year-exemption-clock), only a gift to a legitimate child is explicitly SBT-exempt — a gift to a spouse or parent doesn't get that specific carve-out, and instead needs to qualify under the ordinary 5-year holding or 1-year house-registration tests, or pay 0.5% stamp duty when SBT doesn't apply.",
+        ],
+      },
+      { h: "Who this actually applies to, given the foreign-ownership ban" },
+      "Because a foreigner cannot hold Thai land directly (see [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa)), the party making or receiving a land gift under Section 42(26) or (27) has to be someone who can lawfully hold that land — typically a Thai spouse, or the Thai side of a [company structure](/knowledge/thai-company-for-property-49-51), gifting to their own Thai children while still alive. A foreign spouse's interest in that land is usually protected separately, through a registered [usufruct or superficies](/knowledge/foreign-spouse-usufruct-thai-marriage-property), which isn't affected by who holds the underlying title.",
+      "Exactly who is liable to pay — donor or recipient — is where sources diverge in practice: some describe the 5% as collected from the recipient at the point of Land Office registration, others describe it as effectively falling on the transferor alongside the other transfer-day taxes. Settle this in writing between the parties before signing, and have a Thai tax advisor confirm the calculation. Used deliberately, a lifetime gift within the ฿20 million exemption is a legitimate way for a Thai family member to move land to the next generation early — an alternative worth weighing against simply waiting for [intestate succession](/knowledge/intestate-succession-statutory-heirs-thai-property) or the [฿100 million inheritance tax threshold](/knowledge/inheritance-tax-thai-property-100-million-threshold) to eventually apply instead.",
+    ],
+    takeaways: [
+      "Gifting Thai immovable property to a legitimate child is exempt up to ฿20,000,000/year per child (Revenue Code Section 42(26)); gifts from a parent, grandparent, child, grandchild or spouse are separately exempt up to ฿20,000,000/year (Section 42(27)).",
+      "Anything above those thresholds can be taxed at a flat 5% (Sections 48(4/1)/48(6)/48(7)) instead of Thailand's ordinary progressive rates, which run up to 35%.",
+      "This income-tax exemption is separate from the Land Office's own 0.5% family transfer fee (versus 2% standard) and from Specific Business Tax or stamp duty — all three can apply to the same gift transfer.",
+      "The Specific Business Tax gift exemption is narrower than the income-tax exemption — it specifically covers gifts to a legitimate child, not spouses or parents.",
+      "Because foreigners cannot hold Thai land directly, this mechanism mainly matters for a Thai spouse or Thai company partner moving land to their own children during their lifetime, as an alternative or complement to waiting for inheritance.",
+    ],
+    sources: [
+      { title: "The Revenue Department of Thailand — Revenue Code, Sections 38-64: Assessable Income and Personal Income Tax", url: "https://www.rd.go.th/english/37749.html" },
+      { title: "PwC Thailand — Thailand: Individual - Income determination", url: "https://taxsummaries.pwc.com/thailand/individual/income-determination" },
+      { title: "Sherrings — Gift Tax Law in Thailand", url: "https://sherrings.com/gift-tax-law-in-thailand.html" },
+      { title: "UnionSPACE — Gifting Property in Thailand: Gift Transfer, Family Wealth & Tax Planning", url: "https://unionspace.co.th/thailand/transfer-property-gift.php" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "Does Thailand tax property gifted to a spouse or child, and how much does a family transfer actually cost?",
+  },
+  {
+    slug: "legal-forms-of-a-thai-will",
+    kbId: "kb-0130",
+    topic: "Documents",
+    title: "Five legal forms of a Thai will — and which one actually fits a property owner",
+    short:
+      "Thai law recognises five distinct ways to make a valid will, not just the district-office 'public will' that got a 2026 paperwork overhaul. Each form has its own formal requirements, and picking the wrong one — or getting a witness disqualified — is one of the most common ways a foreign owner's estate plan quietly fails.",
+    updated: "2026-09-02",
+    body: [
+      "Is there only one kind of Thai will? No — the Civil and Commercial Code recognises five distinct forms (Sections 1656-1664), and picking the wrong one for your situation is one of the more common ways a foreign owner's estate plan for their Koh Phangan property fails. [Thailand's 2026 will registration reform](/knowledge/thailand-will-registration-rules-2026) modernised the paperwork for just one of these five forms — the 'public document' will made before a district officer — but it didn't touch the other four, and for some foreign owners, one of those other forms is actually the better fit.",
+      { h: "The five forms, in practice" },
+      {
+        ul: [
+          "**Ordinary written will (Section 1656)** — dated, signed by the testator, witnessed by at least two people. No district-office visit is required, so it's the fastest and most private option, and can be drafted bilingually with a lawyer.",
+          "**Holograph will (Section 1657)** — the entire document, including the date and signature, must be in the testator's own handwriting. No witnesses are needed, but a single typed line, printed template, or word not physically handwritten by the testator invalidates it — a real trap for a will drafted on a computer and only signed by hand.",
+          "**Public document will (Section 1658)** — the form covered by the March 2026 registration reform: the testator declares their wishes to a district officer in Thai (an interpreter is used if needed), the officer records and reads it back, and it is signed by testator, two witnesses and the officer, then kept in the district office's own register. This is the form Thai law firms most often recommend to foreign owners specifically because of that official custody.",
+          "**Secret document will (Section 1660)** — the testator signs and seals their own document, then delivers it closed to a district officer in front of two witnesses; the officer notes the delivery on the cover without ever reading the contents. It gives privacy plus an official record of the will's existence, but the sealed document itself still has to survive intact, and any drafting mistake inside stays hidden until it's opened after death.",
+          "**Oral will (Section 1663)** — valid only when 'exceptional circumstances such as imminent danger of death, epidemic or war' make every other form impossible, declared before at least two witnesses. It automatically expires one month after the testator is again able to make a will in one of the other four forms (Section 1664) — a stopgap, not a planning tool.",
+        ],
+      },
+      { h: "Two formalities that void a will outright" },
+      {
+        ul: [
+          "**Under 15 years old** — Section 1703 makes any will by a person who hasn't yet turned 15 void, with no exceptions.",
+          "**A witness — or their spouse — who also stands to inherit** — Section 1653 strikes the gift to that person, even though the rest of the will can still stand; never use a beneficiary, or a beneficiary's spouse, as one of the required witnesses. A witness also cannot be a person of unsound mind, adjudged quasi-incompetent, or deaf, dumb, or blind (Section 1670).",
+        ],
+      },
+      { h: "Which form actually fits a foreign property owner" },
+      "For most foreign owners with a villa, lease or company shares to leave behind, Thai law firms converge on two practical choices: the public document will, for the strongest evidentiary weight and safest custody (worth the Thai-language declaration and interpreter), or an ordinary written will, drafted by a lawyer and kept somewhere the executor can actually find it, when privacy or speed matters more. The holograph and secret forms are rarely recommended for a non-Thai-speaking foreigner specifically because their formal requirements — fully handwritten in one case, sealed and undisclosed in the other — are easy to get wrong without anyone catching the error until probate. Whichever form is chosen, it should be a will written in Thailand for Thai-situated assets — see [dying without a Thai will](/knowledge/intestate-succession-statutory-heirs-thai-property) for what happens by default if none of these five forms is ever completed — and coordinated with, not silently overridden by, any separate will made in the owner's home country.",
+      "None of these five forms is inherently 'better' in the abstract — the ordinary written will and the public document will cover the overwhelming majority of foreign property owners' needs, and the choice mostly comes down to whether official custody or speed and privacy matters more. What matters is picking one deliberately, executing it to the letter of its specific formal requirements, and keeping it findable — an otherwise perfectly reasoned Thai will can still fail over a missing signature, a disqualified witness, or a single typed word in what was meant to be a holograph.",
+    ],
+    takeaways: [
+      "Thai law recognises five distinct will forms (CCC Sections 1656-1663) — ordinary written, holograph, public document, secret document, and oral — each with its own formal requirements.",
+      "The March 2026 registration reform modernised only the public document will's procedure; the other four forms exist under the same rules as before.",
+      "A holograph will must be entirely in the testator's own handwriting, including the date and signature — a single typed word invalidates it.",
+      "An oral will is valid only in genuine emergencies (imminent death, epidemic, war) and automatically lapses one month after the testator can use another form again.",
+      "A witness (or their spouse) who is also a beneficiary voids their own gift under the will (Section 1653) — and anyone under 15 cannot make a will at all (Section 1703).",
+    ],
+    sources: [
+      { title: "Thailand Law Forum — Civil and Commercial Code, Sections 1646-1710 (Succession)", url: "https://www.thailawforum.com/thailand-civil-and-commercial-code-sections-1646-1710/" },
+      { title: "Samui For Sale — Forms of Wills under Thai Law", url: "https://www.samuiforsale.com/family-law/forms-of-wills-under-thai-law.html" },
+      { title: "Thailand Law Library (Siam Legal) — Civil and Commercial Code: Wills, Sections 1655-1672", url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-wills-section-1655-1672/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion: "What are the different legal forms a Thai will can take, and which one fits a foreign property owner?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

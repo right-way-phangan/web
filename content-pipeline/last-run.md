@@ -1,35 +1,39 @@
 # Content pipeline — last run
 
-**Date:** 2026-09-02
+**Date:** 2026-09-02 (second run, same day)
 
 Published 2 new guides (EN + RU each).
 
-## 1. kb-0127 — `khai-fak-sale-with-right-of-redemption-thailand`
-**Title:** Sale with right of redemption (khai fak): the Thai land contract that isn't a mortgage
-**faqCategory:** structures
+## 1. kb-0129 — `gift-tax-property-transfers-family-thailand`
+**Title:** Gift tax on Thai property: what a parent-to-child or spouse-to-spouse transfer actually costs
+**faqCategory:** costs
 
-Fresh-news sweep for 2026-08-30/09-02 found nothing newly dated beyond stories already covered by 10+ existing guides (nominee crackdown, lease scrutiny, the Q1-2026 61bn-baht Samui/Phangan development dataset). Fell back to an evergreen CCC mechanic with zero prior coverage on the site (confirmed via grep for "khai fak" / "right of redemption" — no hits).
-
-Sources used:
-- ThaiLawOnline — Section 491 (Khai Fak) and the Sections 491-520 table of contents, for the statutory definition, immediate-ownership-transfer mechanic, and the 10-year/3-year redemption-period caps.
-- Mondaq (mirroring Frank Legal & Tax's "Khai Fah" update) — for the 2019 Protection of Citizens in Land Sale-with-Right-of-Redemption Agreements Act's redemption-period floor and seller's right to occupy/farm during the period (direct fetch of the firm's own page returned HTTP 403, so used via the Mondaq mirror).
-- Thai-language search results corroborating the Act's ~15%-per-year effective redemption-price cap and 1-10 year redemption window (cross-checked against two independent Thai property-law sites, mitrmuangthai.com and investingprop.com, via search snippets).
-- Ministry of Commerce Legal Affairs Division's own listing of the Act — primary Thai government source, cited for the Act's existence/citation even though the Thai text itself wasn't machine-extracted for direct quoting.
-
-Framed conservatively: did not assert a specific buyer/seller-class restriction (e.g. "seller must be an individual") beyond what sources confirmed, and explicitly stated khai fak creates no exception to the foreign land-ownership ban.
-
-## 2. kb-0128 — `intestate-succession-statutory-heirs-thai-property`
-**Title:** Dying without a will in Thailand: who actually inherits your property
-**faqCategory:** ownership
-
-Also an evergreen CCC-mechanics fallback from the same news sweep. The site already references "statutory heir" and CCC Sections 1629/1635 in passing across several published guides (inheritance-leasehold-and-villa, foreign-heir-inheriting-thai-land-section-93, thai-prenuptial-agreement-property-protection, marriage-equality-act-property-rights-same-sex-couples), but none give the six-class order or the spouse's variable share table dedicated treatment — confirmed via grep across the full slug list.
+A same-day fresh-news sweep (two parallel research agents — one news-dated, one evergreen-gap-mining) found nothing newly dated beyond the same nominee-crackdown/lease-scrutiny cluster already covered by 10+ existing guides. Fell back to an evergreen tax mechanic with zero prior coverage on the site (confirmed via grep for "gift tax" across the full content file — no hits): the Revenue Code's lifetime-gift income-tax exemptions, distinct from the death-time ฿100m inheritance-tax threshold (kb-0026-ish) and from the SBT/transfer-fee guides, none of which touch this layer.
 
 Sources used:
-- Thailand Law Library (Siam Legal) — two pages (Sections 1629-1631, Sections 1635-1638) for the exact six-class order, the Section 1630 descendant/parent exception, and the precise Section 1635 spousal-share language (same-as-a-child / one-half / two-thirds / whole, depending on which class survives). Direct fetch of both pages returned HTTP 403; used via WebSearch's synthesis of their content, cross-checked against a second, independently-fetched source (ThaiLawOnline) for consistency on the share fractions before writing — one secondary source's own simplified table (flattening the "same as a child" rule to a flat 50%) was checked against the more precise Section 1635 text and not used, since it would misstate the outcome for a family with more than one child.
-- ThaiLawOnline's foreigner inheritance guide — for the sin-somros half-split-first rule (marital property) and independent corroboration of the six-class order.
-- Samui For Sale's succession guide — for corroboration of the marital-property split and the practical company-shares/directorship-stall point.
+- The Revenue Department of Thailand's own English page (rd.go.th/english/37749.html) — direct fetch, quoting Sections 42(26), 42(27), 42(28) and 48(4/1)/(6)/(7) verbatim. Primary government source.
+- PwC Thailand's tax summary (taxsummaries.pwc.com) — independent corroboration of the ฿20m/฿20m/฿10m threshold structure and the 5% flat-rate election.
+- Sherrings — Gift Tax Law in Thailand (sherrings.com, already used elsewhere on this site) — further corroboration of thresholds, plus the liability-at-registration detail.
+- UnionSPACE — Gifting Property in Thailand — for the 0.5%-vs-2% Land Office family-transfer-fee figure.
 
-Framed conservatively: kept the worked "land ends up co-owned with in-laws" scenario as an illustration of the mechanic rather than a claim about any specific case, and did not overstate cross-border succession/conflict-of-laws nuances (e.g. a foreign national's own home-country succession law) that weren't independently verified this run.
+Framed conservatively: explicitly noted that sources disagree on whether the donor or recipient formally bears the 5% liability on immovable property, and recommended settling this in writing and confirming with a Thai tax advisor rather than asserting a single answer. Also distinguished the narrower Specific Business Tax gift-to-child exemption (already covered in kb-0084) from this guide's broader income-tax exemption, which also covers spouses and parents — checked kb-0084's full text directly to confirm it never mentions the Section 42 gift-tax layer.
+
+## 2. kb-0130 — `legal-forms-of-a-thai-will`
+**Title:** Five legal forms of a Thai will — and which one actually fits a property owner
+**faqCategory:** documents
+
+Also an evergreen fallback from the same sweep. The site's existing will-related guide, kb-0053 (thailand-will-registration-rules-2026), covers only the March 2026 Ministerial Regulation's procedural reform of the public-document will — confirmed by reading it in full, it never mentions the other four legally valid will forms under the Civil and Commercial Code. kb-0128 (intestate-succession) covers dying *without* a will. Neither touches the mechanics of choosing between the five forms while alive.
+
+Sources used:
+- Thailand Law Forum's mirror of CCC Sections 1646-1710 (thailawforum.com) — direct fetch, quoting Sections 1656 (ordinary written), 1657 (holograph), 1658 (public document), 1660 (secret document), 1663 (oral), 1664 (oral-will lapse), 1670 (witness disqualification) and 1703 (minimum age 15) verbatim.
+- Samui For Sale — Forms of Wills under Thai Law — independent corroboration of all five forms' requirements.
+- Thailand Law Library (Siam Legal) — CCC Sections 1655-1672 — further corroboration.
+- A targeted search corroborating juslaws.com's Book VI translation for Section 1653 (a witness or their spouse who is also a beneficiary voids that specific gift, not the whole will).
+
+Framed conservatively: presented the five forms neutrally rather than ranking one as universally best, while noting which two (public document, ordinary written) Thai law firms most commonly recommend to foreign owners and why the holograph/secret forms carry more formal-compliance risk for a non-Thai-speaker.
+
+## Research process this run
+Two general-purpose research agents ran in parallel: one doing a fresh-news sweep (2026-08-30 through 2026-09-02) across Land Department, Revenue Department, BOI, Bank of Thailand and Koh Samui/Phangan-specific sources; one mining for evergreen CCC/tax/practical gaps not covered by any of the 129 previously-published slugs (full slug list supplied to the agent for dedup). The news sweep found nothing that cleared the freshness-and-distinctness bar. The gap-mining agent surfaced three zero-overlap candidates — gift tax, the five will forms, and condo juristic-person governance (Condominium Act ss.35-41, distinct from the sinking-fund/CAM-fees guide). The top two were published; condo governance is a good candidate for a future run.
 
 ## Backlog
-Both new topics added inline to `content-pipeline/backlog.md` under section A (News/evergreen) and marked ✅, with a discovery/sourcing note. No other backlog row changed status — all remaining ⏳ items (water-crisis PWA-notice watch, FBA/AMLA predicate-offence watch, Feb-2026 coalition-stance watch, rental-yields, who's-buying-2026, stamp-duty-vs-SBT, off-plan-project-vetting, power-grid-single-cable, PND e-filing date) were re-confirmed unchanged from the most recent prior check — still duplicate/thin/unsafe, no new sourcing found this run.
+Both new topics added inline to `content-pipeline/backlog.md` under section A, marked ✅, with discovery/sourcing notes. No other backlog row changed status — all remaining ⏳ items (water-crisis PWA-notice watch, FBA/AMLA predicate-offence watch, Feb-2026 coalition-stance watch, rental yields, who's-buying-2026, stamp-duty-vs-SBT, off-plan-project-vetting, power-grid-single-cable, PND e-filing date) were re-confirmed unchanged — still duplicate/thin/unsafe, no new sourcing found this run.
