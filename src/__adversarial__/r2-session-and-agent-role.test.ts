@@ -70,7 +70,7 @@ describe("АТАКА 39 — деплой фикса разлогинивает �
   it("новый формат отличается только claim'ами iss/aud — подпись та же", async () => {
     const { signSession, verifySession } = await import("@/lib/auth/session");
     const fresh = await signSession({ id: 7, email: "vladimir@rightwaygroup.co", role: "admin" });
-    const payload = JSON.parse(atob(fresh.split(".")[1])) as Record<string, unknown>;
+    const payload = JSON.parse(atob(fresh.split(".")[1])) as unknown as Record<string, unknown>;
 
     expect(payload.iss).toBe("rightway:web");
     expect(payload.aud).toBe("rightway:admin");
@@ -164,14 +164,14 @@ describe("АТАКА 41 — роль agent снова видит полную о
   };
 
   it("админ получает вердикт по цене продавца и лизхолд-блок", async () => {
-    const r = (await asRole("admin")) as Record<string, unknown>;
+    const r = (await asRole("admin")) as unknown as Record<string, unknown>;
     expect(r.askingVerdict).toBeDefined();
     expect(r.leasehold).toBeDefined();
     expect(r.caveats).toHaveLength(1);
   });
 
   it("agent получает ровно то же самое — вердикт, лизхолд-блок и оговорки", async () => {
-    const r = (await asRole("agent")) as Record<string, unknown>;
+    const r = (await asRole("agent")) as unknown as Record<string, unknown>;
     expect(r.fairValue).toBe(RAW.fairValue);
     expect(r.askingVerdict).toEqual(RAW.askingVerdict); // inline-estimate.tsx:127
     expect(r.leasehold).toEqual(RAW.leasehold); // inline-estimate.tsx:169
@@ -180,7 +180,7 @@ describe("АТАКА 41 — роль agent снова видит полную о
   });
 
   it("а анонимный вызов по-прежнему срезан до publicView — методика наружу не уходит", async () => {
-    const r = (await asRole(null)) as Record<string, unknown>;
+    const r = (await asRole(null)) as unknown as Record<string, unknown>;
     expect(r.fairValue).toBe(RAW.fairValue); // агрегаты публичны
     expect(r.askingVerdict).toBeUndefined();
     expect(r.leasehold).toBeUndefined();

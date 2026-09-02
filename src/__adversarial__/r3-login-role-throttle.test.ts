@@ -165,7 +165,7 @@ describe("АТАКА 58 — агент получает экшеном мето�
     const { signSession } = await import("@/lib/auth/session");
     cookieValue = await signSession({ id: 42, email: "agent@rightwaygroup.co", role: "agent" });
     const { runValuation } = await import("@/lib/actions/valuation");
-    const r = (await runValuation({ type: "Land", areaRai: 2 } as never)) as Record<string, unknown>;
+    const r = (await runValuation({ type: "Land", areaRai: 2 } as never)) as unknown as Record<string, unknown>;
 
     expect(r.methods).toEqual(RAW.methods); // цены компсов — закупочные данные
     expect(r.adjustments).toEqual(RAW.adjustments);
@@ -176,7 +176,7 @@ describe("АТАКА 58 — агент получает экшеном мето�
     const { signSession } = await import("@/lib/auth/session");
     cookieValue = await signSession({ id: 42, email: "agent@rightwaygroup.co", role: "agent" });
     const { estimatePublic } = await import("@/lib/actions/public-estimate");
-    const r = (await estimatePublic({ type: "Land", areaRai: 2 })) as Record<string, unknown>;
+    const r = (await estimatePublic({ type: "Land", areaRai: 2 })) as unknown as Record<string, unknown>;
     expect(Object.keys(r).sort()).toEqual(["confidence", "high", "low", "mid", "ok", "perRaiMid"]);
   });
 });
