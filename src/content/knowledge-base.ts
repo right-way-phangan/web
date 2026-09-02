@@ -7849,6 +7849,106 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "documents",
     faqQuestion: "If I find a serious defect after buying a Koh Phangan villa, can I hold the seller liable?",
   },
+  {
+    slug: "khai-fak-sale-with-right-of-redemption-thailand",
+    kbId: "kb-0127",
+    topic: "Structures",
+    title: "Sale with right of redemption (khai fak): the Thai land contract that isn't a mortgage",
+    short:
+      "Khai fak looks like informal seller financing, but it's legally a sale: full ownership passes to the buyer immediately, and if the seller misses the fixed redemption deadline, the land is forfeited automatically — no court process, no foreclosure notice. It sometimes shows up as an annotation on a Phangan title deed, and it is not a way around the foreign land-ownership ban.",
+    updated: "2026-09-02",
+    body: [
+      "Why does a Koh Phangan title deed occasionally carry a 'khai fak' annotation instead of a mortgage? Because khai fak (ขายฝาก), a 'sale with right of redemption' under Civil and Commercial Code Sections 491-502, is a different legal instrument from a mortgage. The buyer becomes the full legal owner the moment the contract is registered, and the seller only keeps a time-limited contractual right to buy the property back. Miss that deadline, and there's no court process to contest — the buyer's ownership is already complete.",
+      { h: "How it differs from a mortgage" },
+      {
+        ul: [
+          "**Ownership transfers immediately (Section 491)** — unlike a mortgage, where the borrower keeps title and only grants the lender a registered security interest over it.",
+          "**No foreclosure process on default** — because the buyer already owns the property, a missed redemption deadline doesn't trigger anything like the court foreclosure and auction process covered in [Mortgage default and foreclosure in Thailand](/knowledge/mortgage-default-foreclosure-process-thailand); ownership simply consolidates with the buyer.",
+          "**A hard cap on the redemption period** — a maximum of 10 years for land and buildings, 3 years for movable property (Section 494); any longer period written into the contract is automatically cut down to the statutory maximum (Section 495).",
+        ],
+      },
+      { h: "The 2019 law that protects sellers on land deals" },
+      "Because khai fak was long used to strip vulnerable landowners of their land informally at token 'sale' prices, the Protection of Citizens in Land Sale-with-Right-of-Redemption Agreements for Agriculture or Residence Act B.E. 2562 (2019) now specifically governs khai fak contracts over land used for farming or as a home. It sets the redemption period at no less than 1 year and no more than 10 years, caps the redemption price at an effective rate of no more than 15% per year (calculated from the sale date to the due date), lets the seller redeem early at a proportionally reduced price, and guarantees the seller the right to keep living on or farming the land during the redemption period without paying rent to the buyer.",
+      { h: "Why it matters for a buyer, or a company-held villa" },
+      {
+        ul: [
+          "**It doesn't create a route around the foreign land-ownership ban.** Khai fak is still a sale of land, and the Land Code's restriction on foreign ownership applies to it exactly as it does to any other transfer — see [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa).",
+          "**Check the back of the title deed.** A registered khai fak shows up as an annotation on the chanote, the same place a mortgage or servitude would appear — part of the standard checks in [Due diligence before buying on Koh Phangan](/knowledge/due-diligence-checklist-koh-phangan). Land still inside its redemption period means the registered owner's title is conditional, not final.",
+          "**A Thai-majority company holding your villa's land takes on a sharper risk with khai fak than with a mortgage** if it ever raises cash this way — miss the deadline and the land is gone immediately and without any court process, not just encumbered.",
+        ],
+      },
+      "Khai fak is a legitimate, long-standing Thai financing tool, but it behaves nothing like a Western-style mortgage. Treat any khai fak found on a title deed, or any seller-financing proposal structured this way, as a full sale with a ticking clock — not a loan.",
+    ],
+    takeaways: [
+      "Khai fak transfers full legal ownership to the buyer immediately on registration — it is a sale, not a loan secured by a mortgage.",
+      "If the seller misses the redemption deadline, ownership simply consolidates with the buyer — there is no court foreclosure process to contest, unlike a defaulted mortgage.",
+      "Land redemption periods are capped by law at 10 years maximum, and — under the 2019 Protection Act for agricultural/residential land — at least 1 year, with the redemption price capped near a 15%-per-year equivalent.",
+      "Khai fak creates no exception to the ban on foreign land ownership; it is a transfer between parties like any other land sale, subject to the same Land Code rules.",
+      "Always check a title deed's back page for a registered khai fak annotation before buying — it means the current registered owner's title is conditional until the redemption deadline passes.",
+    ],
+    sources: [
+      { title: "ThaiLawOnline — Section 491: Sale with Right of Redemption (Khai Fak)", url: "https://www.thailawonline.com/thai-civil-code/section-491/" },
+      { title: "ThaiLawOnline — Civil and Commercial Code, Sections 491-520: Sale with Right of Redemption", url: "https://www.thailandlawonline.com/civil-and-commercial-code/491-520-sale-with-right-of-redemption" },
+      { title: "Mondaq / Frank Legal & Tax — The 'Khai Fah': Updates Regarding the Sale with Right of Redemption in Thailand", url: "https://www.mondaq.com/withholding-tax/1036854/the-khai-fah-updates-regarding-the-sale-with-right-of-redemption-in-thailand" },
+      { title: "Ministry of Commerce, Legal Affairs Division — Protection of Citizens in Land Sale-with-Right-of-Redemption Agreements for Agriculture or Residence Act B.E. 2562 (2019)", url: "https://legal.ops.moc.go.th/th/content/category/detail/id/420/iid/4034" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "What is a 'khai fak' sale with right of redemption, and why does it matter for a Koh Phangan property deal?",
+  },
+  {
+    slug: "intestate-succession-statutory-heirs-thai-property",
+    kbId: "kb-0128",
+    topic: "Ownership",
+    title: "Dying without a will in Thailand: who actually inherits your property",
+    short:
+      "Without a Thai will, the Civil and Commercial Code's statutory succession rules — not the surviving spouse automatically — decide who inherits a villa, land lease or company shares. A spouse's share ranges from equal-with-the-children down to just one-half or two-thirds when the deceased's parents, siblings or other blood relatives survive, and Thai land can end up co-owned with in-laws.",
+    updated: "2026-09-02",
+    body: [
+      "Who actually inherits a Koh Phangan villa, lease or company shares if the owner dies without a Thai will? Not automatically 'the surviving spouse' — Civil and Commercial Code Sections 1629-1635 lay out a strict statutory order of blood-relative heirs, and a spouse's share of the estate depends entirely on which of those relatives is still alive. For a foreign spouse who assumed a will wasn't urgent because 'it all goes to my partner anyway,' this is often the first surprise in Thai succession law.",
+      { h: "The six classes, in order" },
+      {
+        ul: [
+          "**Section 1629 sets six classes of statutory heir, in strict priority**: (1) descendants (children, grandchildren), (2) parents, (3) full-blood siblings, (4) half-blood siblings, (5) grandparents, (6) uncles and aunts.",
+          "**A higher class shuts out every class below it.** As long as any heir survives — or is represented by their own descendants — in a given class, none of the lower classes inherit anything.",
+          "**One exception**: under Section 1630, if both descendants and parents survive, they share equally at that level rather than the parents being excluded.",
+        ],
+      },
+      { h: "The spouse's share is never automatic" },
+      "A registered spouse is a statutory heir in their own right under Section 1635, but their share shrinks the further down the family tree the deceased's surviving blood relatives reach:",
+      {
+        ul: [
+          "**Children survive** — the spouse takes the same share as one child, dividing the estate equally between the spouse and however many children there are.",
+          "**No children, but parents or full-blood siblings survive** — the spouse gets one-half; the other half is split among that surviving class.",
+          "**Only half-blood siblings, grandparents, or uncles/aunts survive** — the spouse gets two-thirds; the remaining third goes to them.",
+          "**No statutory heir at all survives** — the spouse inherits everything.",
+        ],
+      },
+      { h: "Marital property is split first" },
+      "Before any of the above division happens, property acquired during the marriage (sin somros) is split in half under Sections 1474-1533: the surviving spouse's half was already theirs and never enters the estate. Only the deceased's own half — plus anything that was their separate property — is what gets divided among the statutory heirs.",
+      { h: "The Phangan-specific risk: land ends up co-owned with in-laws" },
+      "Because a foreigner cannot hold Thai land directly, the land under a foreign-owned villa is typically titled to the Thai spouse, with the foreign spouse's interest protected by a registered [usufruct or superficies](/knowledge/foreign-spouse-usufruct-thai-marriage-property). If the Thai spouse dies without a will and the couple had no children, that land is inherited by the spouse (one-half) **and the Thai spouse's own parents or siblings (the other half)** — not by the foreign spouse alone. The registered usufruct or superficies keeps binding the land regardless of who inherits it, so the foreign spouse's right to live there and use the building doesn't lapse — but the land itself is now co-owned with in-laws, and the foreign spouse's own inherited share still faces the [Section 93 one-year disposal rule](/knowledge/foreign-heir-inheriting-thai-land-section-93) that applies to any foreigner who inherits Thai land. Untangling a co-owned inheritance an heir doesn't want held can mean a forced [partition sale](/knowledge/co-ownership-partition-thai-property).",
+      { h: "Company shares pass the same way" },
+      "Shares in a Thai company that holds villa land are personal property and pass through the same six-class system, not the land itself — see [A Thai company for property (49/51)](/knowledge/thai-company-for-property-49-51). Without a will naming an executor, appointing new directors or registering a share transfer at the Department of Business Development needs a shareholders' meeting, which can stall for months if the deceased was the company's sole authorized signatory.",
+      "None of this is a reason to panic — it's a reason to write a Thai will. A will covering Thai-situated assets, registered as described in [Thailand's will registration rules](/knowledge/thailand-will-registration-rules-2026), lets you set the actual distribution you want and name an executor to manage disposal deadlines, instead of leaving the outcome to a statutory formula and a shareholders' meeting nobody called.",
+    ],
+    takeaways: [
+      "Without a will, Thai intestate succession (CCC Sections 1629-1635) decides everything — a surviving spouse does not automatically inherit the whole estate.",
+      "Six classes of blood-relative heirs take priority in strict order; the spouse's share varies from equal-with-children down to as little as one-half or two-thirds when the deceased's parents, siblings or other relatives survive.",
+      "Half of the couple's marital property belongs to the surviving spouse outright before any of this division happens — only the deceased's own half is what gets split among heirs.",
+      "If Thai land held by a Thai spouse passes to multiple statutory heirs, a foreign spouse's inherited share still faces the Section 93 one-year disposal rule — now complicated by shared ownership with in-laws.",
+      "A Thai will is the only way to override the statutory default distribution and appoint an executor to manage disposal within the legal deadlines.",
+    ],
+    sources: [
+      { title: "Thailand Law Library (Siam Legal) — Civil and Commercial Code: Statutory Heirs, Sections 1629-1631", url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-statutory-heirs-section-1629-1631/" },
+      { title: "Thailand Law Library (Siam Legal) — Civil and Commercial Code: Statutory Heirs, Sections 1635-1638", url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-statutory-heirs-section-1635-1638/" },
+      { title: "ThaiLawOnline — Inheritance Law in Thailand: Complete Guide for Foreigners", url: "https://www.thailawonline.com/thailand-inheritance-guide-for-foreigners/" },
+      { title: "Samui For Sale — Thai Inheritance Laws: Last Will and Succession in Thailand", url: "https://www.samuiforsale.com/knowledge/inheritance-laws-thailand.html" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "ownership",
+    faqQuestion: "If I die without a Thai will, who inherits my villa, land lease, or company shares?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

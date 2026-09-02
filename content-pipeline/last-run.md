@@ -1,64 +1,35 @@
-# Last run — 2026-09-01 (second run, same day)
+# Content pipeline — last run
 
-Published **2 guides** this run (EN + RU each).
+**Date:** 2026-09-02
 
-## What was published
+Published 2 new guides (EN + RU each).
 
-1. **`adverse-possession-squatters-vacant-land-koh-phangan`** (kb-0125, faqCategory: `ownership`)
-   Title: "Adverse possession on Koh Phangan: how a squatter can legally acquire your unused land"
-   Sources: Tilleke & Gibbins ("Land Ownership Through Adverse Possession" — the four legal elements,
-   the court-then-Land-Office registration procedure); Samui For Sale's full-text mirror of CCC Part III
-   (Sections 1367-1386, used to directly verify the exact wording of Sections 1382, 1383, 1384 and 1375);
-   Thailand Law Library (Siam Legal)'s independent CCC possession-section summary, cross-checked against
-   the same section numbers.
+## 1. kb-0127 — `khai-fak-sale-with-right-of-redemption-thailand`
+**Title:** Sale with right of redemption (khai fak): the Thai land contract that isn't a mortgage
+**faqCategory:** structures
 
-2. **`seller-liability-property-defects-after-closing-thailand`** (kb-0126, faqCategory: `documents`)
-   Title: "Hidden defects after closing: what Thai law gives a villa buyer, and why 'as-is' usually wins"
-   Sources: Thailand Law Library (Siam Legal)'s CCC Sections 472-474 summary; Thailand Law Online's
-   Sections 461-485 (duties/liabilities of a seller) page; ASEAN.org's official CCC Book III translation
-   PDF, used as the primary-text anchor. Both secondary sources independently converged on the same
-   section numbers, exceptions and the 1-year discovery-based limitation period.
+Fresh-news sweep for 2026-08-30/09-02 found nothing newly dated beyond stories already covered by 10+ existing guides (nominee crackdown, lease scrutiny, the Q1-2026 61bn-baht Samui/Phangan development dataset). Fell back to an evergreen CCC mechanic with zero prior coverage on the site (confirmed via grep for "khai fak" / "right of redemption" — no hits).
 
-## Why these two
+Sources used:
+- ThaiLawOnline — Section 491 (Khai Fak) and the Sections 491-520 table of contents, for the statutory definition, immediate-ownership-transfer mechanic, and the 10-year/3-year redemption-period caps.
+- Mondaq (mirroring Frank Legal & Tax's "Khai Fah" update) — for the 2019 Protection of Citizens in Land Sale-with-Right-of-Redemption Agreements Act's redemption-period floor and seller's right to occupy/farm during the period (direct fetch of the firm's own page returned HTTP 403, so used via the Mondaq mirror).
+- Thai-language search results corroborating the Act's ~15%-per-year effective redemption-price cap and 1-10 year redemption window (cross-checked against two independent Thai property-law sites, mitrmuangthai.com and investingprop.com, via search snippets).
+- Ministry of Commerce Legal Affairs Division's own listing of the Act — primary Thai government source, cited for the Act's existence/citation even though the Thai text itself wasn't machine-extracted for direct quoting.
 
-This was a second run on 2026-09-01 — an earlier run today had already published kb-0123 (groundwater
-well permits) and kb-0124 (EIA/IEE thresholds) after an exhaustive fresh-news sweep found nothing else.
-I re-ran a same-day news check myself: the only fresh-looking item was a Bangkok Post report on a
-~2.1bn baht nominee-land seizure, but it's in Krabi and duplicates the already-published
-`nominee-crackdown-krabi-islands-2026` / `koh-samui-phangan-raid-leases-nominee-scrutiny-2026` cluster —
-not published. All three standing watch items (Koh Phangan water-crisis update, FBA/AMLA
-nominee-as-predicate-offence amendment, coalition "review foreign ownership" pledge) remain unchanged
-from prior runs' findings — still stuck on the same stale/thin sourcing, not republished.
+Framed conservatively: did not assert a specific buyer/seller-class restriction (e.g. "seller must be an individual") beyond what sources confirmed, and explicitly stated khai fak creates no exception to the foreign land-ownership ban.
 
-With 124 guides already live and the backlog's remaining ⏳ rows all repeatedly re-confirmed as
-duplicate/thin/unsafe, I delegated a research pass to scan every existing guide slug for genuinely
-uncovered CCC (Civil and Commercial Code) mechanics rather than force a weak news angle. It surfaced
-two statute-grounded gaps, both independently verified against Section text mirrored on
-samuiforsale.com and library.siam-legal.com (a close read of the actual section numbers, not just
-secondary paraphrase) and cross-checked against a second/third independent legal-reference source each:
+## 2. kb-0128 — `intestate-succession-statutory-heirs-thai-property`
+**Title:** Dying without a will in Thailand: who actually inherits your property
+**faqCategory:** ownership
 
-- **Adverse possession (Section 1382)** — no existing guide covers how a Thai possessor can acquire
-  ownership of land left unfenced and unvisited for 10 years. Directly relevant to Phangan's many
-  absentee-held undeveloped hillside/interior plots. Confirmed distinct from `land-titles-chanote-vs-nor-sor-3`
-  (title *types*, not loss/acquisition by possession), `untitled-sea-view-land-pbt5-sor-por-kor-scam`
-  (a different untitled-land scam pattern), and `landlocked-land-way-of-necessity-vs-servitude` (access
-  rights, a different property right).
-- **Seller liability for post-closing defects (Sections 472-485)** — no existing guide covers a buyer's
-  statutory recourse (or lack of it) for a structural defect found after closing, as distinct from
-  pre-purchase due diligence. Confirmed distinct from `due-diligence-checklist-koh-phangan` (pre-purchase
-  checklist) and `lease-contract-clauses-to-check` (lease clauses only, not sale-purchase agreements).
+Also an evergreen CCC-mechanics fallback from the same news sweep. The site already references "statutory heir" and CCC Sections 1629/1635 in passing across several published guides (inheritance-leasehold-and-villa, foreign-heir-inheriting-thai-land-section-93, thai-prenuptial-agreement-property-protection, marriage-equality-act-property-rights-same-sex-couples), but none give the six-class order or the spouse's variable share table dedicated treatment — confirmed via grep across the full slug list.
 
-Both guides were framed conservatively: the adverse-possession guide flags that the "Chanote-only"
-scope of the 10-year rule is stated by two law-firm sources but not independently confirmed against a
-primary Land Department circular or Supreme Court citation, so it avoids naming unverified case numbers.
-The defects guide is explicit that "as-is" clauses are standard and usually control, and does not
-overstate the buyer's practical odds of proving a seller's known-and-concealed defect after the fact.
+Sources used:
+- Thailand Law Library (Siam Legal) — two pages (Sections 1629-1631, Sections 1635-1638) for the exact six-class order, the Section 1630 descendant/parent exception, and the precise Section 1635 spousal-share language (same-as-a-child / one-half / two-thirds / whole, depending on which class survives). Direct fetch of both pages returned HTTP 403; used via WebSearch's synthesis of their content, cross-checked against a second, independently-fetched source (ThaiLawOnline) for consistency on the share fractions before writing — one secondary source's own simplified table (flattening the "same as a child" rule to a flat 50%) was checked against the more precise Section 1635 text and not used, since it would misstate the outcome for a family with more than one child.
+- ThaiLawOnline's foreigner inheritance guide — for the sin-somros half-split-first rule (marital property) and independent corroboration of the six-class order.
+- Samui For Sale's succession guide — for corroboration of the marital-property split and the practical company-shares/directorship-stall point.
 
-## Backlog status
+Framed conservatively: kept the worked "land ends up co-owned with in-laws" scenario as an illustration of the mechanic rather than a claim about any specific case, and did not overstate cross-border succession/conflict-of-laws nuances (e.g. a foreign national's own home-country succession law) that weren't independently verified this run.
 
-Two new rows were added to `backlog.md` under the existing "News / live-source driven" section (matching
-the pattern used for other recently-added evergreen legal-mechanics topics) and marked ✅. No other ⏳
-backlog item's status changed this run — the standing watch items (water crisis, FBA/AMLA
-predicate-offence, coalition stance, rental yields, single power cable, "who's buying" buyer-surge,
-stamp duty vs SBT, naming a specific off-plan project, PND e-filing deadline) remain unpublished per
-their existing inline notes.
+## Backlog
+Both new topics added inline to `content-pipeline/backlog.md` under section A (News/evergreen) and marked ✅, with a discovery/sourcing note. No other backlog row changed status — all remaining ⏳ items (water-crisis PWA-notice watch, FBA/AMLA predicate-offence watch, Feb-2026 coalition-stance watch, rental-yields, who's-buying-2026, stamp-duty-vs-SBT, off-plan-project-vetting, power-grid-single-cable, PND e-filing date) were re-confirmed unchanged from the most recent prior check — still duplicate/thin/unsafe, no new sourcing found this run.
