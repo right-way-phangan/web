@@ -8044,6 +8044,104 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "documents",
     faqQuestion: "What are the different legal forms a Thai will can take, and which one fits a foreign property owner?",
   },
+  {
+    slug: "mortgage-priority-ranking-thai-title-deed",
+    kbId: "kb-0131",
+    topic: "Documents",
+    title: "Multiple mortgages on one Thai title deed: how priority ranking actually works",
+    short:
+      "Thai law lets a property carry more than one registered mortgage at once, and it happens more often than buyers expect. Priority between them isn't decided by loan size or interest rate — it's fixed by the exact date and hour each mortgage was registered at the Land Office.",
+    updated: "2026-09-03",
+    body: [
+      "Can a property already carrying a mortgage be mortgaged again? Yes — Thai law doesn't require a first loan to be paid off before a second lender can take a registered claim on the same title, and a Land Office encumbrance search on a Koh Phangan property occasionally turns up two or three mortgages stacked on one deed. What decides which lender gets paid first if the property is ever foreclosed isn't the loan amount, the interest rate, or even which lender signed first — it's the Civil and Commercial Code's strict rule on **registration order**.",
+      { h: "A second mortgage doesn't need the first lender's consent" },
+      "Section 712 of the Civil and Commercial Code allows a mortgaged property to be mortgaged again to a different lender while the first mortgage is still in force — 'notwithstanding any clause in the contract to the contrary.' In practice, this is common with a property that already has a Thai bank mortgage from an earlier owner, or where a seller has taken separate secured loans from more than one source against the same land or condo unit.",
+      { h: "Priority runs by the clock, not the calendar" },
+      "Section 730 fixes the ranking: when the same property is mortgaged to several mortgagees, they rank 'according to the respective dates and hours of registration' — the earlier-registered mortgage is satisfied first. Not the date the loan contract was signed, not which lender did more diligence, not the size of the debt — only the timestamp the Land Office officer stamped on the registration. Section 731 backs this up directly: a later-ranked mortgagee 'cannot enforce his right to the injury of an earlier one.'",
+      { h: "What ranking decides at foreclosure" },
+      {
+        ul: [
+          "**Who gets paid, and in what order.** Section 732: the net proceeds of a foreclosure auction go to the mortgagees strictly by rank — the first-registered lender is paid in full before the second sees a baht, and so on down the line. Only the surplus after every ranked mortgagee is satisfied returns to the mortgagor.",
+          "**No jumping the queue.** A junior (later-registered) mortgagee can still foreclose to recover their own debt, but doing so doesn't let them collect ahead of a senior mortgagee — the senior lender's claim on the sale proceeds still comes first.",
+          "**The no-deficiency rule still applies per mortgage**, not per property — see [what happens if a mortgage goes into default](/knowledge/mortgage-default-foreclosure-process-thailand) for how Section 733 protects a borrower if a single mortgage's own foreclosure sale falls short.",
+        ],
+      },
+      { h: "Why this matters before you buy" },
+      {
+        ul: [
+          "**A mortgage runs with the property, not the borrower.** Because a registered mortgage secures a right against the thing itself (Section 702), it doesn't disappear when ownership changes — a buyer who completes a transfer without confirming every mortgage is discharged, or explicitly accounted for in the price and payoff instructions, inherits someone else's registered debt attached to the title.",
+          "**Multiple mortgages are a due-diligence flag, not an automatic dealbreaker.** A property can trade cleanly with an existing mortgage still on it, as long as the sale proceeds are used to pay it off (or the buyer knowingly takes on the obligation) as part of a properly structured closing at the Land Office.",
+          "**The encumbrance index is the only reliable source.** Ranking isn't visible from a contract or a lender's letter — only the dated registration entries on the back of the title deed (or the Land Office's own record) show the true order. This is exactly the check covered in [due diligence before buying on Koh Phangan](/knowledge/due-diligence-checklist-koh-phangan).",
+        ],
+      },
+      "None of this changes how a foreign buyer holds a mortgaged asset — a foreigner still can't mortgage land directly, only a freehold condo unit through a Thai bank loan, per [financing as a foreigner](/knowledge/financing-buying-as-a-foreigner). But if you're buying a property, taking over a seller's financing, or bidding at a [court auction](/knowledge/buying-land-condo-court-auction-thailand) where multiple mortgages show up in the file, knowing that priority is fixed by registration timestamp — not negotiation — tells you exactly what to verify before you sign.",
+    ],
+    takeaways: [
+      "A property already carrying a mortgage can be mortgaged again to a different lender without the first lender's consent (Civil and Commercial Code Section 712).",
+      "Priority between multiple mortgagees on the same property is fixed strictly by the date and hour of registration at the Land Office (Section 730) — not loan size, interest rate, or signing date.",
+      "A later-registered mortgagee cannot enforce their claim ahead of an earlier one (Section 731); foreclosure-auction proceeds pay each mortgagee in rank order, with only the surplus returning to the owner (Section 732).",
+      "A mortgage is a right against the property itself, so it survives a change of ownership — a buyer must confirm every existing mortgage is discharged or accounted for at closing.",
+      "The only reliable way to see the true ranking is the dated registration entries on the back of the title deed at the Land Office, not a lender's letter or the sale contract.",
+    ],
+    sources: [
+      { title: "ThailandLawOnline — Civil and Commercial Code Sections 702-746: Mortgage, Foreclosure, Extinction and Sale", url: "https://www.thailandlawonline.com/civil-and-commercial-code/702-746-mortgage-foreclosure-extinction-and-sale" },
+      { title: "Samui For Sale — Thailand Civil and Commercial Code, Part II (Mortgage, Sections 702-746)", url: "https://www.samuiforsale.com/law-texts/thailand-civil-code-part-2.html" },
+      { title: "Thailand Law Library (Siam Legal) — Civil and Commercial Code: Mortgage, Section 702-714", url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-mortgage-section-702-714/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion: "If a property I'm buying on Koh Phangan already has a mortgage on it, and there's more than one, which lender gets paid first?",
+  },
+  {
+    slug: "land-code-section-83-caveat-title-deed",
+    kbId: "kb-0132",
+    topic: "Process",
+    title: "Land Code Section 83: what a caveat (อายัด) on a Koh Phangan title deed actually does",
+    short:
+      "Finding the word 'อายัด' on a title deed during due diligence looks alarming, but a Land Code caveat is a narrow, 30-day hold that only a person with a direct claim to the land can request — it is not a court seizure, and it expires automatically if no lawsuit follows.",
+    updated: "2026-09-03",
+    body: [
+      "Does an 'อายัด' (caveat) noted on a title deed mean the property is legally frozen? Not necessarily, and not for long. Thailand's Land Code gives a narrow group of claimants — not creditors in general, and not the Land Office on its own initiative — the right to ask for a temporary hold on registration under Section 83. It lasts at most 30 days, and it is a different, weaker mechanism than the court-ordered seizure that follows a lawsuit or debt judgment.",
+      { h: "What Section 83 actually allows" },
+      "Section 83 of the Land Code lets a person with a direct legal interest in a plot — someone who could sue over its registration or transfer — apply to the local Land Office to suspend any registration or change to the title for a set period. The Land Department's own guidance is explicit that this is a reservation, not a seizure: it holds the paperwork still while a claim gets sorted out, it doesn't confiscate the property or transfer any right.",
+      { h: "Who can actually request one" },
+      {
+        ul: [
+          "**A buyer under an unfulfilled sale contract**, if a seller who has agreed to sell then tries to register a transfer to someone else or stalls on completing the deal.",
+          "**An heir**, where inheritance rights to a plot are disputed among multiple claimants and one wants to stop registration until the estate is settled.",
+          "**A spouse** asserting a marital-property claim over land registered solely in the other spouse's name.",
+          "**Ordinary creditors cannot use this route** — a lender or unrelated debt-holder with no direct claim on the land itself has to pursue a court judgment and go through the Legal Execution Department's own seizure process instead, the same mechanism behind property that ends up at [government auction](/knowledge/buying-land-condo-court-auction-thailand).",
+        ],
+      },
+      "The applicant must show the Land Office documentary evidence of their interest — a signed sale contract, a marriage certificate, probate paperwork — not just an assertion. Officers are not required to accept witness testimony alone as sufficient grounds.",
+      { h: "The 30-day clock, and what happens after" },
+      "Once accepted, a Section 83 caveat runs for 30 days from the date of the officer's order. If the applicant hasn't filed an actual lawsuit with a court asking it to order its own hold within that window, the caveat automatically lapses — and the same claimant cannot re-apply for a caveat over the same dispute. Filing a lawsuit in time doesn't extend the Land Code caveat itself; it shifts the matter to a court-ordered injunction or seizure under the Civil Procedure Code, which can then run for as long as the case is active — a genuinely different, longer-lived hold than the original 30-day reservation.",
+      { h: "What this means for a buyer on Koh Phangan" },
+      {
+        ul: [
+          "**Treat it as a question, not an automatic dealbreaker.** A caveat entry is a prompt to ask the seller and your own lawyer exactly what claim is behind it, when it was registered, and whether a lawsuit followed within the 30 days.",
+          "**Check whether it's actually still live.** A caveat past its 30-day window with no lawsuit on record should have lapsed — but a stale entry that the Land Office hasn't formally cleared from the file can still complicate a transaction until it's resolved administratively.",
+          "**Don't confuse it with a court seizure.** A caveat under Section 83 is a private claimant's short, self-limiting hold; a court-ordered seizure tied to a judgment or active lawsuit is a harder, longer block with no automatic 30-day expiry — see the [due diligence checklist](/knowledge/due-diligence-checklist-koh-phangan) for both entries to check on the back of a deed.",
+        ],
+      },
+      "The word 'อายัด' by itself tells you almost nothing about how serious the underlying dispute is — a caveat filed by a jilted buyer under a collapsed reservation agreement and a caveat tied to a contested inheritance both look identical on the page. What actually matters is the same thing due diligence always comes down to: read the entry's date, ask what claim sits behind it, and confirm its current status with the Land Office before you sign anything.",
+    ],
+    takeaways: [
+      "A Land Code Section 83 caveat only suspends registration for up to 30 days — it is a reservation, not a seizure, and doesn't itself confiscate any right in the land.",
+      "Only someone with a direct legal claim to the land — a buyer under an unfulfilled contract, a disputing heir, a spouse asserting marital rights — can request one; an ordinary creditor cannot.",
+      "The applicant must file an actual lawsuit within the 30 days or the caveat automatically lapses, and cannot be refiled for the same dispute.",
+      "Filing a lawsuit in time shifts protection to a court-ordered hold under the Civil Procedure Code, which can last as long as the case is active — a separate, longer mechanism than the Land Code caveat itself.",
+      "Finding 'อายัด' on a title deed during due diligence is a reason to ask what claim is behind it and check its current status at the Land Office — not an automatic reason to walk away.",
+    ],
+    sources: [
+      { title: "Department of Lands (dol.go.th) — Land Code Section 83 caveat (อายัดที่ดิน) FAQ", url: "https://www.dol.go.th/ask-question/faq-001/" },
+      { title: "Dharm Niti — What is a land caveat (การอายัดที่ดิน) and who can request one?", url: "https://www.dharmniti.co.th/caveat-land/" },
+      { title: "Department of Lands (dol.go.th) — official guidance note on land caveats under Section 83", url: "https://www.dol.go.th/media/813280667562545152/2026/03/815HrQGPdjTbcmEeXZYz6xMf.pdf" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "What does it mean if a title deed on Koh Phangan has an 'อายัด' (caveat) registered on it?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
