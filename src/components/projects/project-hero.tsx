@@ -17,6 +17,7 @@ import type { ProjectAvailability } from "@/lib/data/projects";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getProjectsDict } from "@/lib/i18n/dictionaries";
 import { formatPriceTHB } from "@/lib/utils/price";
+import { splitProjectTitle } from "@/lib/utils/project-title";
 import { whatsappLink, telegramDmLink } from "@/lib/site-config";
 import { Button } from "@/components/ui/button";
 import { Parallax } from "@/components/motion/parallax";
@@ -38,6 +39,7 @@ export function ProjectHero({ project, availability, locale, developerHref }: Pr
   const { total, available } = availability;
 
   const hasCover = !!project.coverImage;
+  const titleParts = splitProjectTitle(project.titleEn);
 
   return (
     <section className="flex flex-col-reverse gap-8 lg:grid lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-12">
@@ -55,7 +57,13 @@ export function ProjectHero({ project, availability, locale, developerHref }: Pr
           </div>
         </div>
 
-        <h1 className="mt-4 text-balance">{project.titleEn}</h1>
+        {/* Titles carry the format in brackets — "Verana Villas (1-3BR Pool
+            Villas)" — and the bracket broke the H1 mid-word on narrow screens.
+            Name is the headline; the bracket becomes a subtitle. */}
+        <h1 className="mt-4 text-balance">{titleParts.name}</h1>
+        {titleParts.spec ? (
+          <p className="mt-2 text-lg text-forest-500/80">{titleParts.spec}</p>
+        ) : null}
 
         <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-forest-500/80">
           {project.developer ? (

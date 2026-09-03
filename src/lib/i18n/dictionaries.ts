@@ -48,7 +48,6 @@ export interface HomeDict {
     vettedValue: string;
   };
   cta: { eyebrow: string; title: string; lede: string; browse: string; talk: string };
-  inProgress: string;
   // Титры скролл-падения героя (hero-fall): подсказка скролла, кнопка пропуска
   // и ровно 3 чекпоинта-фишки, всплывающие по ходу снижения.
   heroFlight: {
@@ -135,7 +134,6 @@ const en: HomeDict = {
     browse: "Browse listings",
     talk: "Talk to us",
   },
-  inProgress: "",
   heroFlight: {
     scrollCue: "Scroll to descend",
     skip: "Skip intro",
@@ -233,8 +231,6 @@ const ru: HomeDict = {
     browse: "Смотреть объекты",
     talk: "Связаться с нами",
   },
-  inProgress:
-    "Русская версия в разработке. Каталог и формы работают; часть страниц пока доступна только на английском.",
   heroFlight: {
     scrollCue: "Листайте, чтобы снизиться",
     skip: "Пропустить",

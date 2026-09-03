@@ -141,7 +141,12 @@ export function Header() {
 
         <div className="flex items-center gap-1 lg:hidden">
           <HeaderSearch light={overlay} />
-          <ThemeToggle light={overlay} />
+          {/* Logo 169px + four 44px buttons = 405px: on 375/390 phones the
+              burger sat off-screen. Below 420px the theme toggle moves into
+              the menu panel instead. */}
+          <div className="hidden min-[420px]:block">
+            <ThemeToggle light={overlay} />
+          </div>
           <SavedLink
             count={savedCount}
             label={chrome.savedAria}
@@ -183,14 +188,19 @@ export function Header() {
             >
         <div className="flex h-16 w-full items-center justify-between border-b border-forest-500/10 px-6 md:h-20 md:px-8">
           <Logo />
-          <button
-            type="button"
-            aria-label="Close navigation"
-            onClick={() => setOpen(false)}
-            className="flex h-11 w-11 items-center justify-center rounded-sm text-forest-500 transition-colors hover:text-brass-500"
-          >
-            <X className="h-6 w-6" />
-          </button>
+          <div className="flex items-center gap-1">
+            <div className="min-[420px]:hidden">
+              <ThemeToggle />
+            </div>
+            <button
+              type="button"
+              aria-label="Close navigation"
+              onClick={() => setOpen(false)}
+              className="flex h-11 w-11 items-center justify-center rounded-sm text-forest-500 transition-colors hover:text-brass-500"
+            >
+              <X className="h-6 w-6" />
+            </button>
+          </div>
         </div>
 
         <nav

@@ -267,7 +267,9 @@ function TrustStrip({ data, fmt }: { data: RentalMarket; fmt: MoneyFmt }) {
         {showTriangulation && cross && cross.spreadPct != null ? (
           <span
             className={`hidden rounded-full px-2.5 py-0.5 text-xs font-medium sm:inline-flex ${
-              cross.agree ? "bg-forest-500/10 text-forest-500" : "bg-brass-200/50 text-brass-600"
+              cross.agree
+                ? "bg-forest-500/10 text-forest-500"
+                : "bg-brass-200/50 text-brass-600 dark:bg-brass-500/15 dark:text-brass-300"
             }`}
           >
             {cross.agree
