@@ -188,7 +188,7 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
         developerHref={devHref}
       />
 
-      <SpecStrip project={project} locale={locale} />
+      <SpecStrip project={project} units={units} locale={locale} />
 
       {/* The sticky section nav needs a tall parent to travel within — the
           sections are nested under the same wrapper, otherwise the strip has

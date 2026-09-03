@@ -5,11 +5,22 @@ import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 
 /** Compact key-facts strip under the hero — fast scanning without jumping to
  * the spec sections. Renders only the facts that are present. */
-export function SpecStrip({ project: p, locale }: { project: RealEstateObject; locale: Locale }) {
+export function SpecStrip({
+  project: p,
+  units = [],
+  locale,
+}: {
+  project: RealEstateObject;
+  units?: RealEstateObject[];
+  locale: Locale;
+}) {
   const ru = locale === "ru";
   const items: Array<{ icon: LucideIcon; value: string }> = [];
 
-  if (p.bedrooms != null) items.push({ icon: Bed, value: `${p.bedrooms} ${ru ? "спал." : "bd"}` });
+  // A project with 1/2/3BR units said "1 bd" (the parent's own field) — show
+  // the range across its units when they carry bedrooms.
+  const bedroomsLabel = bedroomsRange(units) ?? (p.bedrooms != null ? String(p.bedrooms) : null);
+  if (bedroomsLabel) items.push({ icon: Bed, value: `${bedroomsLabel} ${ru ? "спал." : "bd"}` });
   if (p.bathrooms != null) items.push({ icon: Bath, value: `${p.bathrooms} ${ru ? "сан." : "ba"}` });
   if (p.areaSqm) items.push({ icon: Maximize2, value: `${p.areaSqm.toLocaleString(ru ? "ru-RU" : "en-US")} m²` });
   if (p.tenure?.[0]) items.push({ icon: ScrollText, value: p.tenure[0] });
@@ -17,6 +28,14 @@ export function SpecStrip({ project: p, locale }: { project: RealEstateObject; l
   if (p.completion) items.push({ icon: CalendarClock, value: p.completion });
 
   if (items.length === 0) return null;
+
+  function bedroomsRange(list: RealEstateObject[]): string | null {
+    const beds = list.map((u) => u.bedrooms).filter((b): b is number => typeof b === "number");
+    if (beds.length === 0) return null;
+    const min = Math.min(...beds);
+    const max = Math.max(...beds);
+    return min === max ? String(min) : `${min}–${max}`;
+  }
 
   return (
     <div className="mt-8">

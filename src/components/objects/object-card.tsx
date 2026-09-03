@@ -328,7 +328,12 @@ export function ObjectCard({ object, priority = false, priceMode = "buy", buildB
           ) : null}
 
           {object.bedrooms ? (
-            <span>· {object.bedrooms} {t.bed}</span>
+            // Separator only after a real value — projects often have no area,
+            // and a leading "·" read as a broken row.
+            <span>
+              {object.areaRai || object.areaSqm ? "· " : ""}
+              {object.bedrooms} {t.bed}
+            </span>
           ) : null}
 
           {zoneCat || buildWarns.length > 0 ? (
@@ -339,7 +344,12 @@ export function ObjectCard({ object, priority = false, priceMode = "buy", buildB
               {buildWarns.length > 0 ? (
                 <span aria-hidden className="text-amber-600 dark:text-amber-400">▲</span>
               ) : null}
-              {zoneCat ? <span>{zoneCat}</span> : null}
+              {/* The triangle alone (no zone label) meant nothing to a visitor. */}
+              {zoneCat ? (
+                <span>{zoneCat}</span>
+              ) : (
+                <span>{locale === "ru" ? "проверить нормы" : "check norms"}</span>
+              )}
             </span>
           ) : null}
 

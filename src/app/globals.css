@@ -765,3 +765,15 @@
     break-inside: avoid;
   }
 }
+
+/* iOS Safari zooms the page into any focused form control under 16px. Phone
+   inputs on the contact/object forms, catalog filters and calculator sat at
+   12–14px (Tailwind text-sm/text-xs), so every tap scaled the layout. Forced
+   here because utilities on the element would otherwise win on specificity. */
+@media (max-width: 767px) {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}

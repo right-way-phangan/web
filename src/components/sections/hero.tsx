@@ -159,14 +159,16 @@ export async function Hero({
               </Link>
             </Button>
           </Magnetic>
-          <Button
-            asChild
-            variant="outline"
-            size="lg"
-            className="w-full border-panel-fg/40 text-panel-fg hover:border-panel-fg hover:bg-panel-fg hover:text-panel sm:w-auto"
+          {/* One primary action. "How we work" used to be a second outlined
+              button of the same size and competed with it; as a text link it
+              stays reachable without splitting the first click. */}
+          <Link
+            href={processHref}
+            className="inline-flex min-h-11 items-center justify-center gap-1.5 self-center px-2 text-sm font-medium text-panel-fg/85 underline-offset-4 transition-colors hover:text-brass-300 hover:underline sm:justify-start"
           >
-            <Link href={processHref}>{dict.ctaProcess}</Link>
-          </Button>
+            {dict.ctaProcess}
+            <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
         </div>
       </div>
 

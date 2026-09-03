@@ -46,14 +46,6 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
         <Hero locale={locale} />
       )}
 
-      {/* The in-progress notice sits under the hero: the header floats
-          transparent over the hero photo, so a strip above it would hide. */}
-      {dict.inProgress ? (
-        <p className="bg-panel px-6 py-2 text-center text-xs text-panel-fg/80">
-          {dict.inProgress}
-        </p>
-      ) : null}
-
       {/* Values — double-bezel cards, machined like physical hardware */}
       <section className="container-prose relative isolate py-14 md:py-20">
         {/* Тихий teal-перелив за секцией — снимает «плоскость» песчаного поля */}
