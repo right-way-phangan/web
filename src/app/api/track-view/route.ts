@@ -1,4 +1,5 @@
 import { backendFetch, BACKEND_URL } from "@/lib/api/backend";
+import { isFirstParty } from "@/lib/api/first-party";
 import { rateLimit } from "@/lib/ratelimit";
 
 /**
@@ -15,16 +16,6 @@ import { rateLimit } from "@/lib/ratelimit";
  * Behind that, a per-IP ceiling — a session that reads 120 listing pages in
  * 10 minutes is a crawler either way.
  */
-function isFirstParty(req: Request): boolean {
-  const origin = req.headers.get("origin");
-  if (!origin) return false;
-  try {
-    return new URL(origin).host === (req.headers.get("host") ?? new URL(req.url).host);
-  } catch {
-    return false;
-  }
-}
-
 export async function POST(req: Request): Promise<Response> {
   if (BACKEND_URL && isFirstParty(req)) {
     try {

@@ -1,5 +1,5 @@
 import "server-only";
-import { createHmac } from "crypto";
+import { createHmac, timingSafeEqual } from "crypto";
 
 // HMAC-подпись вместо таблицы токенов: ссылка /s/<leadId>-<sig> живёт, пока
 // жив лид, ничего не хранит и не перечисляется подбором (16 base64url-знаков).
@@ -26,5 +26,9 @@ export function verifyShortlistToken(token: string): number | null {
   const m = /^(\d+)-([A-Za-z0-9_-]{16})$/.exec(token);
   if (!m) return null;
   const id = Number(m[1]);
-  return makeShortlistToken(id) === token ? id : null;
+  const expected = makeShortlistToken(id);
+  // Constant-time compare; lengths differ only for a zero-padded id, which is
+  // not a token we ever issued.
+  if (expected.length !== token.length) return null;
+  return timingSafeEqual(Buffer.from(expected), Buffer.from(token)) ? id : null;
 }

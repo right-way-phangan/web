@@ -1,8 +1,12 @@
 import { backendFetch, BACKEND_URL } from "@/lib/api/backend";
+import { isFirstParty } from "@/lib/api/first-party";
+import { rateLimit } from "@/lib/ratelimit";
 
 /**
  * Engagement-event beacon proxy → backend POST /track/event (bearer token stays
  * server-side). Validates kind so a stray POST can't grow garbage. Always 204.
+ * Same-origin + per-IP ceiling, like track-view: these counters feed the
+ * engagement index and "hot lead" ranking, so a curl loop must not move them.
  */
 const KINDS = new Set([
   "wa_click", "tg_click", "phone_click", "email_click",
@@ -22,7 +26,7 @@ export async function POST(req: Request): Promise<Response> {
       // Anonymous browser id only (alnum, capped) — links the action to a journey.
       const rawVid = String(vid ?? "");
       const v = /^[A-Za-z0-9_-]{1,64}$/.test(rawVid) ? rawVid : undefined;
-      if (KINDS.has(k) && rwOk) {
+      if (KINDS.has(k) && rwOk && isFirstParty(req) && (await rateLimit("track-event", 120, 10 * 60))) {
         await backendFetch("/track/event", {
           method: "POST",
           headers: { "Content-Type": "application/json" },

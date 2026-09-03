@@ -2,7 +2,7 @@
 
 import { revalidatePath, revalidateTag } from "next/cache";
 import { backendFetch } from "@/lib/api/backend";
-import { requireStaff } from "@/lib/auth/require-admin";
+import { requireAdmin, requireStaff } from "@/lib/auth/require-admin";
 
 const API = process.env.OBJECTS_API_URL;
 
@@ -96,7 +96,8 @@ export async function bulkUpdateObjectStatus(
 export async function bulkDeleteObjects(
   rwNumbers: string[],
 ): Promise<BulkResult> {
-  await requireStaff();
+  // Irreversible cascade over the catalogue — admin only, like bulkDeleteLeads.
+  await requireAdmin();
   if (!API) return { ok: false, updated: 0, failed: 0, error: "Backend не подключён." };
   if (rwNumbers.length === 0) return { ok: true, updated: 0, failed: 0 };
 

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { backendFetch, BACKEND_URL } from "@/lib/api/backend";
+import { isAdmin } from "@/lib/auth/require-admin";
 
 export const dynamic = "force-dynamic";
 
@@ -12,6 +13,9 @@ export const dynamic = "force-dynamic";
  * чтобы UI это показал.
  */
 export async function POST(req: Request) {
+  // Defence in depth: the /admin middleware is the first gate, but a route that
+  // deletes photos must not depend on the matcher alone.
+  if (!(await isAdmin())) return NextResponse.json({ error: "Forbidden." }, { status: 403 });
   if (!BACKEND_URL) {
     return NextResponse.json({ error: "Backend не подключён." }, { status: 503 });
   }

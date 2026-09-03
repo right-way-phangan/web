@@ -3,6 +3,7 @@ import { getLeads, type CrmLead } from "@/lib/data/leads";
 import { getAllObjects } from "@/lib/data/objects";
 import { getGuidePages } from "@/lib/data/guide";
 import { ADMIN_SECTIONS } from "@/lib/admin-sections";
+import { isStaff } from "@/lib/auth/require-admin";
 import type { RealEstateObject } from "@/types/object";
 
 export const dynamic = "force-dynamic";
@@ -42,6 +43,8 @@ function matches(haystack: (string | null | undefined)[], q: string): boolean {
 }
 
 export async function GET(req: Request) {
+  // Leads + objects in one search index — staff only, independent of middleware.
+  if (!(await isStaff())) return NextResponse.json({ hits: [] }, { status: 403 });
   const q = (new URL(req.url).searchParams.get("q") ?? "").trim().toLowerCase();
   if (q.length < 2) return NextResponse.json({ hits: [] as SearchHit[] });
 

@@ -1,4 +1,6 @@
 import { backendFetch, BACKEND_URL } from "@/lib/api/backend";
+import { isFirstParty } from "@/lib/api/first-party";
+import { rateLimit } from "@/lib/ratelimit";
 import { DISTRICTS } from "@/lib/amocrm/dictionaries";
 
 /**
@@ -47,7 +49,9 @@ export async function POST(req: Request): Promise<Response> {
         payload.priceMinM != null ||
         payload.priceMaxM != null ||
         payload.bedroomsMin != null;
-      if (hasIntent) {
+      // Same-origin + per-IP ceiling: this feeds the /admin/demand report, so a
+      // scripted POST loop would fabricate "demand" for a district.
+      if (hasIntent && isFirstParty(req) && (await rateLimit("track-search", 60, 10 * 60))) {
         await backendFetch("/track/search", {
           method: "POST",
           headers: { "Content-Type": "application/json" },

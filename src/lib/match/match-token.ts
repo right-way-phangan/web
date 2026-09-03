@@ -1,5 +1,5 @@
 import "server-only";
-import { createHmac } from "crypto";
+import { createHmac, timingSafeEqual } from "crypto";
 
 /**
  * HMAC-токен доступа к сохранённому профилю подбора — как shortlist-token, но
@@ -28,5 +28,7 @@ export function verifyMatchToken(token: string): number | null {
   const m = /^(\d+)-([A-Za-z0-9_-]{16})$/.exec(token);
   if (!m) return null;
   const id = Number(m[1]);
-  return makeMatchToken(id) === token ? id : null;
+  const expected = makeMatchToken(id);
+  if (expected.length !== token.length) return null;
+  return timingSafeEqual(Buffer.from(expected), Buffer.from(token)) ? id : null;
 }

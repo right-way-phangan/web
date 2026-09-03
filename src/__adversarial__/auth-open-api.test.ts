@@ -88,9 +88,18 @@ describe("АТАКА 5 [MEDIUM]: track-* — неаутентифицирова�
       "Beachfront Thong Sala — ATTACKER",
       "'; DROP TABLE demand;--",
     ];
-    await POST(post({ districts: [...junk, "Haad Yao"], types: ["NotAType"] }));
+    // С 2026-09-03 beacon требует свой Origin (как track-view) — иначе запись
+    // не уходит вовсе; здесь проверяем именно фильтрацию, поэтому Origin свой.
+    await POST(
+      post(
+        { districts: [...junk, "Haad Yao"], types: ["NotAType"] },
+        { origin: "https://rightwaygroup.co", host: "rightwaygroup.co" },
+      ),
+    );
 
-    const sent = JSON.parse(String(backendCalls[0].init.body)) as {
+    const call = backendCalls.find((c) => c.path === "/track/search");
+    expect(call).toBeDefined();
+    const sent = JSON.parse(String(call!.init.body)) as {
       districts: string[];
       types: string[];
     };

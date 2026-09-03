@@ -192,21 +192,34 @@ describe("АТАКА 58 — агент получает экшеном мето�
 // Ответ всегда 204, так что и обнаружить это по ошибкам нельзя.
 // код: src/app/api/track-search/route.ts:25-60 (нет rateLimit) против
 //      src/lib/actions/search.ts:42
+// | ИСПРАВЛЕНО 2026-09-03: same-origin + rateLimit("track-search", 60, 600),
+// как у track-view; общий isFirstParty вынесен в lib/api/first-party.ts
 describe("АТАКА 59 — /api/track-search пересылает всё без throttle", () => {
-  const hit = (body: unknown) =>
+  const hit = (body: unknown, headers: Record<string, string> = {}) =>
     new Request("https://rightwaygroup.co/api/track-search", {
       method: "POST",
+      headers: { host: "rightwaygroup.co", ...headers },
       body: JSON.stringify(body),
     });
 
-  it("50 подряд запросов — 50 записей спроса и ни одной проверки лимита", async () => {
+  it("50 запросов без Origin — 204 каждому и ни одной записи спроса", async () => {
     const { POST } = await import("@/app/api/track-search/route");
     for (let i = 0; i < 50; i++) {
       const res = await POST(hit({ types: ["Land"], districts: ["Sri Thanu"], resultCount: 0 }));
       expect(res.status).toBe(204);
     }
-    expect(backendCalls.filter((c) => c.path === "/track/search")).toHaveLength(50);
-    expect(backendCalls.filter((c) => c.path === "/ratelimit")).toHaveLength(0);
+    expect(backendCalls.filter((c) => c.path === "/track/search")).toHaveLength(0);
+  });
+
+  it("свой Origin — запись идёт, но только через счётчик rateLimit", async () => {
+    const { POST } = await import("@/app/api/track-search/route");
+    await POST(
+      hit({ types: ["Land"], districts: ["Sri Thanu"], resultCount: 0 }, { origin: "https://rightwaygroup.co" }),
+    );
+    expect(backendCalls.filter((c) => c.path === "/track/search")).toHaveLength(1);
+    const rl = backendCalls.find((c) => c.path === "/ratelimit");
+    expect(rl).toBeDefined();
+    expect(String(rl!.init.body)).toContain("track-search:");
   });
 
   it("для сравнения: NL-поиск на той же странице лимит проверяет", async () => {
