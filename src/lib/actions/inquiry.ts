@@ -20,21 +20,28 @@ export type FormState =
 
 const inquirySchema = z
   .object({
-    name: z.string().trim().min(2, "Please enter your name."),
+    // Upper bounds: a 4 MB action body would otherwise land in the CRM row and
+    // break the Telegram alert (4096-char limit) — a lead without a ping.
+    name: z.string().trim().min(2, "Please enter your name.").max(120, "Name is too long."),
     email: z
       .string()
       .trim()
+      .max(120, "Email is too long.")
       .email("Please enter a valid email.")
       .optional()
       .or(z.literal("")),
-    phone: z.string().trim().optional().or(z.literal("")),
-    message: z.string().trim().min(5, "Please write a short message."),
+    phone: z.string().trim().max(40, "Phone is too long.").optional().or(z.literal("")),
+    message: z
+      .string()
+      .trim()
+      .min(5, "Please write a short message.")
+      .max(4000, "Please keep the message under 4000 characters."),
     viewingDate: z.string().trim().optional(), // ISO date when booking a viewing
     replyVia: z.enum(["whatsapp", "telegram", "email"]).optional(), // preferred reply channel
     videoTour: z.literal("yes").optional(), // checkbox: send a video tour
 
     // Hidden / context fields
-    rwNumber: z.string().optional(), // present on object inquiry, absent on /contact
+    rwNumber: z.string().max(20).optional(), // present on object inquiry, absent on /contact
     vid: z.string().max(64).optional(), // anonymous visitor id → links lead to its browse journey
     source: z.enum(["object", "contact"]), // discriminator
     lang: z.enum(["en", "ru"]).optional(), // UI language the visitor submitted in → reply in their language

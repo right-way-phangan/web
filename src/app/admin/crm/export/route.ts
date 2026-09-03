@@ -1,4 +1,5 @@
 import { getLeads } from "@/lib/data/leads";
+import { isAdmin } from "@/lib/auth/require-admin";
 
 export const dynamic = "force-dynamic";
 
@@ -19,11 +20,14 @@ function channelOf(l: { source?: string | null; tags?: string[] | null }): strin
 }
 
 /**
- * Export all leads as CSV (admin only — gated by /admin middleware). One row per
- * lead with contact, pipeline/stage, source/channel, linked object and tags.
- * Opens as a download; Excel-friendly UTF-8 BOM.
+ * Export all leads as CSV. Admin only: the middleware lets the agent role into
+ * /admin/crm/*, but the whole contact base in one file is an admin privilege —
+ * the route checks the role itself. One row per lead with contact,
+ * pipeline/stage, source/channel, linked object and tags. Opens as a download;
+ * Excel-friendly UTF-8 BOM.
  */
 export async function GET() {
+  if (!(await isAdmin())) return new Response("Forbidden.", { status: 403 });
   const leads = await getLeads();
   const header = [
     "id",

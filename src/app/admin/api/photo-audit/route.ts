@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { backendFetch, BACKEND_URL } from "@/lib/api/backend";
+import { isAdmin } from "@/lib/auth/require-admin";
 
 export const dynamic = "force-dynamic";
 
@@ -11,6 +12,7 @@ export const dynamic = "force-dynamic";
  * rwNumbers?}; ответ backend — {enabled, scanned, flagged[]}.
  */
 export async function POST(req: Request) {
+  if (!(await isAdmin())) return NextResponse.json({ error: "Forbidden." }, { status: 403 });
   if (!BACKEND_URL) {
     return NextResponse.json({ error: "Backend не подключён." }, { status: 503 });
   }

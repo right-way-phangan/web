@@ -26,6 +26,8 @@ import { combineBuildingNorms, type BuildingNorms } from "@/lib/data/building-no
 import { seaDistanceMeters } from "@/lib/geo/sea-distance";
 import { fetchTerrain } from "@/lib/geo/terrain";
 import { notifyZoneLookupError } from "@/lib/notify/telegram";
+import { isAllowedShortLinkUrl } from "@/lib/geo/short-link-hosts";
+import { rateLimit } from "@/lib/ratelimit";
 
 // De-spam admin alerts: at most one Telegram ping per window across all genuine
 // failures (clicks are user-paced, so this only guards against a burst while
@@ -54,21 +56,28 @@ function inPhangan(lat: number, lng: number): boolean {
   );
 }
 
-/** Follow up to 5 redirect hops of a short maps link, reading lat/lng from each. */
+/**
+ * Follow up to 5 redirect hops of a short maps link, reading lat/lng from each.
+ * Only Google shortener/maps hosts are fetched (every hop re-checked) and each
+ * hop is capped at 5 s — this is a public action, so an open fetch here would
+ * let anyone aim the site's lambda at arbitrary hosts (SSRF).
+ */
 async function expandShortLink(url: string): Promise<{ lat: number; lng: number } | null> {
-  if (!/^https?:\/\//i.test(url)) return null;
+  if (!isAllowedShortLinkUrl(url)) return null;
   try {
     let target = url;
     for (let i = 0; i < 5; i++) {
       const res = await fetch(target, {
         redirect: "manual",
         headers: { "user-agent": "Mozilla/5.0 (compatible; RightWayBot/1.0)" },
+        signal: AbortSignal.timeout(5000),
       });
       const loc = res.headers.get("location");
       if (!loc) return parseLatLngText(res.url);
       const found = parseLatLngText(loc);
       if (found) return found;
       target = new URL(loc, target).href;
+      if (!isAllowedShortLinkUrl(target)) return null;
     }
   } catch {
     return null;
@@ -126,6 +135,18 @@ export async function lookupZoneRules(
 ): Promise<ZoneRulesLookupResult> {
   const raw = (input ?? "").trim();
   if (!raw) return { ok: false, error: locale === "ru" ? "Вставьте локацию" : "Paste a location" };
+
+  // Public, unauthenticated, and each call fans out to tile + DEM + (maybe)
+  // redirect fetches — cap per IP so a loop can't run the lambda for free.
+  if (!(await rateLimit("zone-rules", 30, 60 * 60))) {
+    return {
+      ok: false,
+      error:
+        locale === "ru"
+          ? "Слишком много запросов — попробуйте через час."
+          : "Too many requests — please try again in an hour.",
+    };
+  }
 
   // 1) Direct coords / full URL, then short-link redirect chase.
   let coords = parseLatLngText(raw);

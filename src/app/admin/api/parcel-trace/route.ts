@@ -6,6 +6,7 @@
  */
 import { PNG } from "pngjs";
 import { traceParcel, type DecodedTile } from "@/lib/geo/parcel-trace";
+import { isStaff } from "@/lib/auth/require-admin";
 
 export const runtime = "nodejs";
 
@@ -31,6 +32,8 @@ async function fetchTile(z: number, x: number, y: number): Promise<DecodedTile |
 }
 
 export async function POST(req: Request) {
+  // Fans out to cadastre tile fetches — staff only, independent of middleware.
+  if (!(await isStaff())) return Response.json({ ok: false, reason: "forbidden" }, { status: 403 });
   let body: unknown;
   try {
     body = await req.json();
