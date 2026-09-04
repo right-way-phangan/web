@@ -15,6 +15,7 @@ import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { DEFAULT_AUTHOR, authorOrgSchema } from "@/content/authors";
 import { siteConfig } from "@/lib/site-config";
 import { getSiteUrl } from "@/lib/site-url";
+import { seoTitle } from "@/lib/seo/seo-title";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const p = await getBlogPost(slug, "en");
   if (!p) return { title: "Post not found" };
   return {
-    title: p.title,
+    title: seoTitle(p.title),
     description: p.excerpt,
     alternates: {
       canonical: `/blog/${p.slug}`,
@@ -52,6 +53,8 @@ export default async function BlogPostPage({ params }: Props) {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: p.title,
+    // Обязательное поле для rich result Article — та же OG-картинка страницы.
+    image: `${siteUrl}/blog/${p.slug}/opengraph-image`,
     description: p.excerpt,
     datePublished: p.published,
     dateModified: p.updated ?? p.published,

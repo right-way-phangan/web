@@ -1,7 +1,6 @@
 import { Suspense } from "react";
-import { getPublicObjects, slimObjectForCard } from "@/lib/data/objects";
 import { NotFoundContent } from "@/components/layout/not-found-content";
-import { NotFoundFresh } from "@/components/layout/not-found-fresh";
+import { FreshListings } from "@/components/layout/not-found-fresh-server";
 
 /**
  * Smart 404: a dead link still lands on live inventory.
@@ -16,6 +15,9 @@ import { NotFoundFresh } from "@/components/layout/not-found-fresh";
  * Next embeds the root not-found into every page's initial RSC payload, so
  * the objects are cut down to exactly what ObjectCard renders — passing full
  * objects (galleries, descriptions, RU-sourced notes) would bloat every page.
+ *
+ * RU has its own not-found under app/ru (reached via app/ru/[...notFound]) so
+ * the Russian copy is server-rendered, not swapped in after hydration.
  */
 export default function NotFound() {
   return (
@@ -27,19 +29,4 @@ export default function NotFound() {
       }
     />
   );
-}
-
-async function FreshListings() {
-  try {
-    const objects = await getPublicObjects();
-    const fresh = objects
-      .filter((o) => o.coverImage)
-      .slice(0, 3)
-      .map(slimObjectForCard);
-    if (fresh.length === 0) return null;
-    return <NotFoundFresh fresh={fresh} />;
-  } catch {
-    // Каталог недоступен — 404 остаётся полноценной, просто без подборки.
-    return null;
-  }
 }
