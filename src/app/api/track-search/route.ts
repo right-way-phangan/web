@@ -53,6 +53,7 @@ export async function POST(req: Request): Promise<Response> {
       // scripted POST loop would fabricate "demand" for a district.
       if (hasIntent && isFirstParty(req) && (await rateLimit("track-search", 60, 10 * 60))) {
         await backendFetch("/track/search", {
+   scope: "track",
           method: "POST",
           headers: { "Content-Type": "application/json" },
           cache: "no-store",

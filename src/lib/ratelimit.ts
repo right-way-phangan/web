@@ -28,6 +28,7 @@ export async function rateLimit(
   try {
     const ip = await clientIp();
     const res = await backendFetch("/ratelimit", {
+   scope: "track",
       method: "POST",
       headers: { "Content-Type": "application/json" },
       cache: "no-store",
