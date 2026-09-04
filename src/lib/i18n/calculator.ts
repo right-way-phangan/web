@@ -215,6 +215,9 @@ export interface CalcDict {
   dealStrong: string;
   dealFair: string;
   dealWeak: string;
+  dealPending: string;
+  leaseHorizonCapped: (years: number) => string;
+  seededFrom: (basis: string, n: number) => string;
   // Market preset range / confidence
   mpRange: (lo: string, hi: string) => string;
   confHigh: string;
@@ -518,6 +521,9 @@ const EN: CalcDict = {
   dealStrong: "Strong",
   dealFair: "Fair",
   dealWeak: "Weak",
+  dealPending: "Rating appears once the nightly rate and occupancy reflect this property — pick a district preset or edit them.",
+  leaseHorizonCapped: (years) => `Horizon capped at the ${years}-year lease term — a lease can’t be held past its expiry.`,
+  seededFrom: (basis, n) => `Rate and occupancy pre-filled from ${basis} (${n} listings, cautious occupancy). Adjust to taste.`,
   mpRange: (lo, hi) => `range ${lo}–${hi}`,
   confHigh: "high confidence",
   confMed: "medium confidence",
@@ -805,6 +811,9 @@ const RU: CalcDict = {
   dealStrong: "Сильная",
   dealFair: "Средняя",
   dealWeak: "Слабая",
+  dealPending: "Оценка появится, когда ставка и загрузка будут отражать этот объект — выберите район или поправьте их.",
+  leaseHorizonCapped: (years) => `Горизонт ограничен сроком аренды ${years} лет — держать объект дольше нельзя.`,
+  seededFrom: (basis, n) => `Ставка и загрузка подставлены по данным: ${basis} (${n} объявлений, осторожная загрузка). Поправьте под себя.`,
   mpRange: (lo, hi) => `диапазон ${lo}–${hi}`,
   confHigh: "высокая достоверность",
   confMed: "средняя достоверность",
