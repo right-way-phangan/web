@@ -65,17 +65,19 @@ export const metadata: Metadata = {
     canonical: "/",
     types: { "application/rss+xml": "/feed.xml" },
   },
+  // No explicit og:title / og:url / twitter:title here: an explicit value at
+  // the root is inherited by every page that only sets `title`, so sharing a
+  // knowledge article or a project used to show the home page's title and
+  // URL. Without them Next derives og:title/twitter:title from the page title
+  // (template applied); pages that want their own og:url set openGraph.url.
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: siteUrl,
     siteName: siteConfig.name,
-    title: `${siteConfig.name} — ${siteConfig.tagline}`,
     description: siteConfig.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name} — ${siteConfig.tagline}`,
     description: siteConfig.description,
   },
   robots: {
