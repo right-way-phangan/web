@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { AdminNav } from "@/components/admin/admin-nav";
 import { getPartners, getPartnerReferrals } from "@/lib/data/partner-referrals";
 import { getLeads } from "@/lib/data/leads";
 import { getAllObjects } from "@/lib/data/objects";
@@ -46,8 +45,6 @@ export default async function AdminReferralsPage() {
 
   return (
     <section className="px-4 py-8 md:px-8">
-      <AdminNav active="referrals" />
-
       <div className="mb-6">
         <h1 className="text-2xl font-semibold text-forest-900 md:text-3xl">
           Партнёры и передачи лидов
