@@ -7,6 +7,8 @@ import { notFound } from "next/navigation";
  * flipped it to Russian after hydration. Static segments win over `[...]`,
  * so real /ru pages are unaffected.
  */
+export const dynamic = "force-dynamic";
+
 export default function RuCatchAll(): never {
   notFound();
 }
