@@ -1,21 +1,33 @@
-# Production smoke every 30 min: the catalog lives on the live amoCRM API, so
-# an expired token or amo outage empties /listings silently — clients would
-# notice before we do. Failures alert Vladimir via @rightway_admin_notify_bot.
+# Production smoke: every 30 min by schedule AND right after each successful
+# Production deploy (Vercel → deployment_status). The catalog lives on the own
+# API, so an expired token or outage empties /listings silently; a bad deploy
+# can ship an empty __next_error__ document or the home page's og:title on
+# every route (both happened on 2026-09-04 and were caught by hand).
+# Failures alert Vladimir via @rightway_admin_notify_bot.
 name: Prod smoke
 
 on:
   schedule:
     - cron: "*/30 * * * *"
+  deployment_status:
   workflow_dispatch:
 
 jobs:
   smoke:
+    # deployment_status fires for every Vercel status (preview, pending…):
+    # run only for a finished Production deploy; schedule/dispatch always run.
+    if: >
+      github.event_name != 'deployment_status' ||
+      (github.event.deployment_status.state == 'success' &&
+       contains(github.event.deployment_status.environment, 'Production'))
     runs-on: ubuntu-latest
     steps:
       - name: Check production
         id: check
         run: |
           fail() { echo "reason=$1" >> "$GITHUB_OUTPUT"; echo "FAILED: $1"; exit 1; }
+          # Fresh deploys take a minute to propagate to the edge — give it a moment.
+          [ "${{ github.event_name }}" = "deployment_status" ] && sleep 60
 
           code=$(curl -s --max-time 30 -o /tmp/home.html -w '%{http_code}' https://rightwaygroup.co/) || fail "home unreachable"
           [ "$code" = "200" ] || fail "home HTTP $code"
@@ -47,7 +59,31 @@ jobs:
             [ "$c" = "200" ] || fail "broken cover ($c): $u"
           done <<< "$covers"
 
-          echo "OK: home, listings ($rw), object page, no cyrillic, covers alive"
+          # Page-shape guard across the key routes (EN + RU): expected status,
+          # a rendered <h1>, no bare __next_error__ document, and an og:title
+          # that belongs to the page — the home title on an inner page means
+          # the root metadata leaked again (it did through 2026-09-03).
+          home_og=$(grep -o 'property="og:title" content="[^"]*"' /tmp/home.html | head -1)
+          [ -n "$home_og" ] || fail "home has no og:title"
+          check_page() { # url expected_status
+            local u="$1" want="$2" f=/tmp/page.html
+            local c; c=$(curl -s --max-time 30 -o "$f" -w '%{http_code}' "https://rightwaygroup.co$u") || fail "$u unreachable"
+            [ "$c" = "$want" ] || fail "$u HTTP $c (want $want)"
+            grep -q '__next_error__' "$f" && fail "$u is a bare __next_error__ document"
+            grep -q '<h1' "$f" || fail "$u has no <h1>"
+            if [ "$want" = "200" ] && [ "$u" != "/" ] && [ "$u" != "/ru" ]; then
+              local og; og=$(grep -o 'property="og:title" content="[^"]*"' "$f" | head -1)
+              [ -n "$og" ] || fail "$u has no og:title"
+              [ "$og" != "$home_og" ] || fail "$u carries the home og:title"
+            fi
+          }
+          for u in /ru /listings /ru/listings /projects /ru/projects /knowledge /ru/knowledge /blog /districts /calculator /ru/calculator /contact /ru/contact /faq /sell /leasehold; do
+            check_page "$u" 200
+          done
+          check_page "/no-such-page-smoke" 404
+          check_page "/ru/no-such-page-smoke" 404
+
+          echo "OK: home, listings ($rw), object page, no cyrillic, covers alive, 18 routes shaped"
 
       - name: Alert Telegram
         if: failure()
@@ -55,5 +91,5 @@ jobs:
           reason="${{ steps.check.outputs.reason }}"
           curl -s --max-time 20 "https://api.telegram.org/bot${{ secrets.TELEGRAM_NOTIFY_BOT_TOKEN }}/sendMessage" \
             -d chat_id="${{ secrets.TELEGRAM_NOTIFY_CHAT_ID }}" \
-            --data-urlencode text="🔴 rightwaygroup.co — smoke провален: ${reason:-unknown}. Лог: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --data-urlencode text="🔴 rightwaygroup.co — smoke провален (${{ github.event_name }}): ${reason:-unknown}. Лог: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
             >/dev/null
