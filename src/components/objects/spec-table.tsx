@@ -128,7 +128,9 @@ export function SpecTable({ object }: { object: RealEstateObject }) {
   const groups = buildGroups(object, t, typeName, numberLocale, fmt, fmtFull);
 
   return (
-    <div className="space-y-10">
+    // Two columns from md: a single key/value column ran ~1 000 px on the
+    // object page (audit 2026-09-03); groups stay intact, only the layout flows.
+    <div className="space-y-10 md:grid md:grid-cols-2 md:gap-x-10 md:gap-y-10 md:space-y-0">
       {groups.map((group) => (
         <div key={group.title}>
           {/* font-sans поверх базового h3: серифный display на 13px капсом

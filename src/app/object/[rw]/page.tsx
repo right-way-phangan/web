@@ -8,6 +8,8 @@ import { getObjectByRwNumber, getAnyObjectByRwNumber, getPublicObjects, slimObje
 import { UnavailableObject } from "@/components/objects/unavailable-object";
 import { isProjectUnit, parentProjectRw, projectSlug, getPublicProjects } from "@/lib/data/projects";
 import { RoiCalculator } from "@/components/calculator/roi-calculator";
+import { CalculatorDisclosure } from "@/components/calculator/calculator-disclosure";
+import { roiPreview } from "@/lib/calculator/preview";
 import { Breadcrumbs } from "@/components/objects/breadcrumbs";
 import { BuyingCosts } from "@/components/objects/buying-costs";
 import { ObjectFaq } from "@/components/objects/object-faq";
@@ -297,21 +299,23 @@ export default async function ObjectPage({ params }: Props) {
               outlook — every figure is illustrative.
             </p>
             <div className="mt-8">
-              <RoiCalculator
-                initialPriceThb={object.priceThb}
-                initialTenure={
-                  object.tenure?.includes("Leasehold") && !object.tenure?.includes("Freehold")
-                    ? "leasehold"
-                    : "freehold"
-                }
-                initialLeaseTermYears={object.leaseTermYears}
-                initialOffplan={object.type === "Project" ? true : undefined}
-                // Homes (villa/house/apartment/townhouse/project) lead with a
-                // rental model; land stays buy-&-hold.
-                initialRent={["Villa", "House", "Apartment", "Townhouse", "Project"].includes(object.type)}
-                catalog={catalog}
-                excludeRw={object.rwNumber}
-              />
+              <CalculatorDisclosure preview={roiPreview(object)} locale="en" anchor="roi">
+                <RoiCalculator
+                  initialPriceThb={object.priceThb}
+                  initialTenure={
+                    object.tenure?.includes("Leasehold") && !object.tenure?.includes("Freehold")
+                      ? "leasehold"
+                      : "freehold"
+                  }
+                  initialLeaseTermYears={object.leaseTermYears}
+                  initialOffplan={object.type === "Project" ? true : undefined}
+                  // Homes (villa/house/apartment/townhouse/project) lead with a
+                  // rental model; land stays buy-&-hold.
+                  initialRent={["Villa", "House", "Apartment", "Townhouse", "Project"].includes(object.type)}
+                  catalog={catalog}
+                  excludeRw={object.rwNumber}
+                />
+              </CalculatorDisclosure>
             </div>
           </section>
         ) : null}
