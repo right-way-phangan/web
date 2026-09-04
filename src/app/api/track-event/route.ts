@@ -28,6 +28,7 @@ export async function POST(req: Request): Promise<Response> {
       const v = /^[A-Za-z0-9_-]{1,64}$/.test(rawVid) ? rawVid : undefined;
       if (KINDS.has(k) && rwOk && isFirstParty(req) && (await rateLimit("track-event", 120, 10 * 60))) {
         await backendFetch("/track/event", {
+   scope: "track",
           method: "POST",
           headers: { "Content-Type": "application/json" },
           cache: "no-store",

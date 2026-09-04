@@ -23,6 +23,7 @@ export async function POST(req: Request): Promise<Response> {
         (await rateLimit("track-referral", 60, 10 * 60))
       ) {
         await backendFetch("/track/referral", {
+   scope: "track",
           method: "POST",
           headers: { "Content-Type": "application/json" },
           cache: "no-store",

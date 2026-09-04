@@ -27,6 +27,7 @@ export async function POST(req: Request): Promise<Response> {
         (await rateLimit("track-view", 120, 10 * 60))
       ) {
         await backendFetch("/track/view", {
+   scope: "track",
           method: "POST",
           headers: { "Content-Type": "application/json" },
           cache: "no-store",
