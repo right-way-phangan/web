@@ -30,7 +30,8 @@ import {
   type MoneyFmt,
   type InventoryYieldRow,
   makeMoneyFmt,
-  effectiveAnnualThb,
+  effectiveAnnualRangeThb,
+  formatAnnualRange,
   measuredOccupancy,
 } from "@/lib/data/rental-market";
 import { EXTERNAL_BENCHMARKS, BENCHMARKS_REFRESHED } from "@/lib/data/external-benchmarks";
@@ -127,7 +128,8 @@ export function RentalInsights({
                     band={d.adrP25 != null && d.adrP75 != null ? { p25: d.adrP25, p75: d.adrP75 } : null}
                     sub={t.teaserSub(
                       d.n,
-                      fmt(effectiveAnnualThb(d, meta), true),
+                      formatAnnualRange(d, meta, fmt),
+                      effectiveAnnualRangeThb(d, meta).lowPct,
                       Math.round(meta.occupancy.base * 100),
                       measuredOccupancy(d, meta) != null
                         ? Math.round((measuredOccupancy(d, meta) as number) * 100)
@@ -199,7 +201,7 @@ export function RentalInsights({
 
       {/* #method — methodology (shared footer, never gated) */}
       <div id="method" className="mt-16 scroll-mt-32 md:mt-20">
-        <Methodology meta={meta} />
+        <Methodology meta={meta} dates={data.seasonal?.dates} />
       </div>
     </div>
   );
@@ -624,7 +626,8 @@ function BuildRecommendation({ data, fmt }: { data: RentalMarket; fmt: MoneyFmt 
           feat,
           district: topD.name,
           nightly: fmt(bestConfig?.adrMedian ?? topD.adrMedian),
-          annual: fmt(effectiveAnnualThb(topD, data.meta), true),
+          annual: formatAnnualRange(topD, data.meta, fmt),
+          lowPct: effectiveAnnualRangeThb(topD, data.meta).lowPct,
           basePct: Math.round(data.meta.occupancy.base * 100),
           booked:
             measuredOccupancy(topD, data.meta) != null

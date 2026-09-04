@@ -99,12 +99,21 @@ export const INS = {
     topPick: "Top pick",
     poolPremium: (pct: number): ReactNode => (
       <>
-        Listings with a pool command a{" "}
-        <strong className="text-forest-900">+{pct}%</strong> nightly premium.
+        Listings with a pool list at a{" "}
+        <strong className="text-forest-900">+{pct}%</strong> higher median rate — a difference of
+        medians (pool villas are also larger and closer to the sea), not a like-for-like premium.
       </>
     ),
-    teaserSub: (n: number, annual: string, basePct: number, booked: number | null) =>
-      `${n} listings · est. ${annual}/yr at ${basePct}% base${
+    seasonNote: (season: "low" | "high", from: string, to: string): ReactNode => (
+      <>
+        <strong>Season coverage:</strong> every snapshot so far ({from} → {to}) falls in the{" "}
+        {season === "low" ? "LOW season (May–Oct)" : "HIGH season (Nov–Apr)"}. Rates and occupancy
+        here are {season === "low" ? "low-season" : "high-season"} figures, not an annual average —
+        the picture completes once the other season has been measured.
+      </>
+    ),
+    teaserSub: (n: number, annual: string, lowPct: number, basePct: number, booked: number | null) =>
+      `${n} listings · est. ${annual}/yr at ${lowPct}–${basePct}% occupancy${
         booked != null ? ` · ${booked}% booked now` : ""
       }`,
     // gate
@@ -135,6 +144,7 @@ export const INS = {
       district: string;
       nightly: string;
       annual: string;
+      lowPct: number;
       basePct: number;
       booked: number | null;
     }): ReactNode => (
@@ -148,7 +158,7 @@ export const INS = {
         ) : null}{" "}
         in <strong>{p.district}</strong>. It&apos;s the island&apos;s strongest nightly market — a
         median of <strong>{p.nightly}/night</strong>, an estimated <strong>{p.annual}/year</strong>{" "}
-        at {p.basePct}% base occupancy
+        at {p.lowPct}–{p.basePct}% occupancy (measured → base scenario)
         {p.booked != null ? ` (currently ${p.booked}% booked)` : ""}.
       </>
     ),
@@ -374,12 +384,21 @@ export const INS = {
     topPick: "Топ-выбор",
     poolPremium: (pct: number): ReactNode => (
       <>
-        Объекты с бассейном получают наценку{" "}
-        <strong className="text-forest-900">+{pct}%</strong> к ставке за ночь.
+        Объекты с бассейном стоят на{" "}
+        <strong className="text-forest-900">+{pct}%</strong> дороже по медиане — это разница медиан
+        (виллы с бассейном ещё и больше и ближе к морю), не наценка «за бассейн».
       </>
     ),
-    teaserSub: (n: number, annual: string, basePct: number, booked: number | null) =>
-      `${n} ${pluralRu(n, "объявление", "объявления", "объявлений")} · ориент. ${annual}/год при ${basePct}% базовой${
+    seasonNote: (season: "low" | "high", from: string, to: string): ReactNode => (
+      <>
+        <strong>Покрытие сезонов:</strong> все снимки ({from} → {to}) сделаны в{" "}
+        {season === "low" ? "НИЗКИЙ сезон (май–октябрь)" : "ВЫСОКИЙ сезон (ноябрь–апрель)"}. Ставки и
+        загрузка здесь — {season === "low" ? "низкосезонные" : "высокосезонные"}, не среднегодовые;
+        картина станет полной после замеров другого сезона.
+      </>
+    ),
+    teaserSub: (n: number, annual: string, lowPct: number, basePct: number, booked: number | null) =>
+      `${n} ${pluralRu(n, "объявление", "объявления", "объявлений")} · ориент. ${annual}/год при загрузке ${lowPct}–${basePct}%${
         booked != null ? ` · занято ${booked}%` : ""
       }`,
     fullReportEyebrow: "Полный отчёт",
@@ -409,6 +428,7 @@ export const INS = {
       district: string;
       nightly: string;
       annual: string;
+      lowPct: number;
       basePct: number;
       booked: number | null;
     }): ReactNode => (
@@ -422,7 +442,7 @@ export const INS = {
         ) : null}{" "}
         в районе <strong>{p.district}</strong>. Это сильнейший рынок посуточной аренды на острове —
         медиана <strong>{p.nightly}/ночь</strong>, ориентировочно <strong>{p.annual}/год</strong> при
-        базовой загрузке {p.basePct}%
+        загрузке {p.lowPct}–{p.basePct}% (измеренная → базовый сценарий)
         {p.booked != null ? ` (сейчас занято ${p.booked}%)` : ""}.
       </>
     ),
