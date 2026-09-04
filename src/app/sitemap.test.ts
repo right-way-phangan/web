@@ -40,13 +40,23 @@ function invitesIndexing(route: string): boolean {
   return !/index:\s*false|noindex/.test(source);
 }
 
+/** `/ru/about` → `/about`, `/ru` → `/` — RU-зеркало покрывается парой EN. */
+function route(r: string): string {
+  if (r === "/ru") return "/";
+  return r.startsWith("/ru/") ? r.slice(3) : r;
+}
+
 describe("sitemap covers every indexable static page", () => {
   const sitemapSource = readFileSync(join(APP_DIR, "sitemap.ts"), "utf8");
 
   it("lists each page that asks robots to index it", () => {
+    // Статика с 2026-09-04 перечислена парами EN/RU через pair(base, "/path")
+    // — ищем путь в кавычках; RU-зеркала выводятся из той же пары.
     const missing = staticRoutes(APP_DIR)
       .filter(invitesIndexing)
-      .filter((route) => !sitemapSource.includes(`\${base}${route}\``));
+      .map(route)
+      .filter((r, i, arr) => arr.indexOf(r) === i)
+      .filter((r) => !sitemapSource.includes(`"${r}"`) && !sitemapSource.includes(`\${base}${r}\``));
 
     expect(missing).toEqual([]);
   });

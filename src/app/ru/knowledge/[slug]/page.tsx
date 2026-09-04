@@ -17,6 +17,7 @@ import {
 } from "@/content/authors";
 import { siteConfig } from "@/lib/site-config";
 import { getSiteUrl } from "@/lib/site-url";
+import { seoTitle } from "@/lib/seo/seo-title";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const a = getKbArticleRuBySlug(slug);
   if (!a) return { title: "Статья не найдена" };
   return {
-    title: a.title,
+    title: seoTitle(a.title),
     description: a.short,
     alternates: {
       canonical: `/ru/knowledge/${a.slug}`,
@@ -53,6 +54,8 @@ export default async function RussianKnowledgeArticlePage({ params }: Props) {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: a.title,
+    // Обязательное поле для rich result Article — та же OG-картинка страницы.
+    image: `${siteUrl}/ru/knowledge/${a.slug}/opengraph-image`,
     description: a.short,
     datePublished: a.updated,
     dateModified: a.updated,

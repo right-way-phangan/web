@@ -26,10 +26,13 @@ const COPY = {
   },
 };
 
-/** Локаль 404 живёт в URL: страница общая для обеих версий сайта. */
-export function useNotFoundCopy() {
+/**
+ * Локаль 404: явный `locale` (RU not-found под app/ru рендерится на сервере
+ * уже по-русски), иначе — из URL после гидрации (корневая 404 общая).
+ */
+export function useNotFoundCopy(locale?: "en" | "ru") {
   const pathname = usePathname();
-  const isRu = pathname === "/ru" || pathname.startsWith("/ru/");
+  const isRu = locale ? locale === "ru" : pathname === "/ru" || pathname.startsWith("/ru/");
   return { t: isRu ? COPY.ru : COPY.en, isRu };
 }
 
@@ -39,8 +42,14 @@ export function useNotFoundCopy() {
  * если каталог недоступен, здесь просто ничего не отрисуется, а сама 404
  * останется целой (раньше падение запроса отдавало пустой <main>).
  */
-export function NotFoundContent({ fresh }: { fresh?: React.ReactNode }) {
-  const { t, isRu } = useNotFoundCopy();
+export function NotFoundContent({
+  fresh,
+  locale,
+}: {
+  fresh?: React.ReactNode;
+  locale?: "en" | "ru";
+}) {
+  const { t, isRu } = useNotFoundCopy(locale);
   const home = (isRu ? "/ru" : "/") as Route;
 
   return (
