@@ -2,6 +2,11 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
+import Link from "next/link";
+import type { Route } from "next";
+import { useSearchParams } from "next/navigation";
+import { useAppPathname } from "@/lib/hooks/use-app-pathname";
+import { nextPageHref, pageFromParams } from "@/lib/filters/listings-paging";
 import { track } from "@vercel/analytics";
 import { motion, useReducedMotion } from "motion/react";
 import { LayoutGrid, Map as MapIcon } from "lucide-react";
@@ -117,7 +122,13 @@ export function ListingsSplit({
   }, [objects, areaSync, bounds]);
 
   // Рендерим порциями: список длинный, а карточка тяжёлая (фото + бейджи).
-  const [shownCount, setShownCount] = useState(PAGE_SIZE);
+  // `?page=N` (ссылка «показать ещё» — настоящий href, чтобы робот дошёл до
+  // всех карточек) даёт N порций уже в SSR; клик по ссылке перехватывается и
+  // просто доотдаёт порцию на месте.
+  const searchParams = useSearchParams();
+  const pathname = useAppPathname();
+  const pageParam = pageFromParams(searchParams.get("page"));
+  const [shownCount, setShownCount] = useState(PAGE_SIZE * pageParam);
   // Размер порции знает только клиент: на сервере ширины экрана нет, поэтому
   // стартуем с десктопной и уточняем сразу после гидрации — иначе разметка
   // сервера и клиента разошлись бы количеством карточек.
@@ -129,14 +140,15 @@ export function ListingsSplit({
   // отсчёт начинается заново, иначе после сужения выдачи «Показать ещё»
   // висело бы с прошлой длинной сессии.
   useEffect(() => {
-    setShownCount(pageSize);
-  }, [visibleObjects, pageSize]);
+    setShownCount(pageSize * pageParam);
+  }, [visibleObjects, pageSize, pageParam]);
   const shownObjects = useMemo(
     () => visibleObjects.slice(0, shownCount),
     [visibleObjects, shownCount],
   );
   const hiddenCount = visibleObjects.length - shownObjects.length;
   const showMore = useCallback(() => setShownCount((n) => n + pageSize), [pageSize]);
+  const moreHref = nextPageHref(pathname, searchParams.toString(), shownCount, pageSize) as Route;
 
   // Pin click → select the card and bring it into view. Карточки под пином
   // может ещё не быть в DOM из-за порционной выдачи: доотдаём ровно столько,
@@ -236,8 +248,21 @@ export function ListingsSplit({
               режем только рендер. */}
           {hiddenCount > 0 ? (
             <div className="mt-10 flex justify-center">
-              <Button variant="outline" size="md" onClick={showMore}>
-                {t.showMore(Math.min(hiddenCount, pageSize))}
+              {/* Настоящая ссылка `?page=N+1` (робот идёт по ней и получает
+                  следующую порцию в SSR); у посетителя клик перехвачен и
+                  порция доотдаётся на месте, без перезагрузки. */}
+              <Button asChild variant="outline" size="md">
+                <Link
+                  href={moreHref}
+                  rel="next"
+                  scroll={false}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    showMore();
+                  }}
+                >
+                  {t.showMore(Math.min(hiddenCount, pageSize))}
+                </Link>
               </Button>
             </div>
           ) : null}
