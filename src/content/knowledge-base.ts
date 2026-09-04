@@ -8142,6 +8142,121 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "process",
     faqQuestion: "What does it mean if a title deed on Koh Phangan has an 'อายัด' (caveat) registered on it?",
   },
+  {
+    slug: "senate-proposal-foreign-ownership-tied-to-capital-2026",
+    kbId: "kb-0133",
+    topic: "Structures",
+    title: "A senator's proposal to scale foreign ownership to capital invested: what changed on 1 September 2026, and what didn't",
+    short:
+      "A sitting Thai senator publicly proposed letting a foreigner own 100% of a business if they provide 100% of the capital — a direct challenge to the 49% cap that pushes buyers toward nominee structures. It is one senator's floor remarks, not a bill: the 49/51 rule, and the criminal penalties for nominee arrangements, are unchanged today.",
+    updated: "2026-09-04",
+    body: [
+      "Can a foreigner now legally own 100% of a Thai property-holding company? No — as of this writing nothing in Thai law has changed. But on 1 September 2026, the idea got its highest-profile public airing yet, when a sitting senator proposed scrapping the 49% foreign-ownership ceiling entirely in favour of a rule tied to how much capital a foreigner actually puts in.",
+      { h: "What was actually proposed" },
+      "During a Senate meeting on 1 September 2026, Senator Prathum Wongsawat raised the proposal while the chamber discussed nominee businesses and so-called 'grey capital.' Her suggestion: let foreign ownership match the proportion of capital invested, so a foreigner funding 100% of a business could hold 100% of it, rather than being capped at 49% and required to find Thai shareholders for the remaining 51%. She argued the current rule itself creates the problem it's meant to prevent — that, in her words, 'investors who provide all of the capital are unlikely to willingly surrender control,' which pushes them toward paper Thai shareholders (nominees) instead of genuine partners. She framed the reform as converting undocumented 'grey capital' into transparent 'white capital' from the outset, cited her own investment experience in Russia (where she said ownership share can track capital contribution), and separately floated the idea of clear investment thresholds that would qualify a foreign investor for Thai residency or even citizenship.",
+      { h: "What the law still says today" },
+      "The Foreign Business Act (FBA) B.E. 2542 (1999) treats a company as 'foreign' once 50% or more of its shares are beneficially held by non-Thai nationals — in practice, a foreigner needing land or restricted-sector rights has had to keep their stake at 49% and find Thai shareholders for the rest. Using Thai nominees who hold shares on paper without real capital or control is a criminal offence under FBA Sections 36–37 (up to 3 years imprisonment, fines of THB 100,000–1,000,000) and exposes the land itself to forced sale under Land Code Section 94. None of this changed on 1 September 2026, and enforcement — the DBD/DSI/AMLO nominee crackdown covered in [the Land Department's 2026 audit of landholding companies](/knowledge/land-department-audit-existing-landholding-companies-2026) and [the 21-agency data-sharing pact](/knowledge/21-agency-anti-nominee-mou-2026) — continues under the existing rule. See [A Thai company for property (49/51)](/knowledge/thai-company-for-property-49-51) for the full mechanics and risk.",
+      { h: "Capital-linked ownership isn't unprecedented — but it's narrow today" },
+      "Thai law already lets ownership rights scale with capital in two narrow, discretionary channels: a foreigner investing at least ฿40 million in approved categories can apply for Ministry of Interior approval to hold up to 1,600 sqm of land directly (see [the THB 40 million investment route](/knowledge/thb-40-million-investment-land-ownership-route)), and BOI-promoted companies can hold land for their promoted business under separate, tightly scoped rules (see [BOI-promoted company land ownership](/knowledge/boi-promoted-company-land-ownership-2026)). Both show the principle isn't foreign to Thai policy — but both are narrow exceptions requiring individual government approval, not a general rule, and neither resembles the senator's proposal of an ownership percentage that automatically tracks invested capital.",
+      { h: "Status: a floor proposal, not a bill" },
+      "This is one senator's remarks during a Senate discussion, not a cabinet-endorsed policy, not a bill introduced to Parliament, and no ministry or government spokesperson has responded to it in reputable reporting found as of 4 September 2026. For comparison, the separate, better-documented 2026 debate over raising the *condominium* foreign-ownership quota from 49% to 70–75% — backed by developers and reportedly under government review — has been running since mid-2026 with still no bill passed (see [Thailand's 49% condo quota debate](/knowledge/condo-foreign-ownership-quota-debate-2026)). A structural change to the FBA's 49/51 rule for land-holding companies would be a considerably larger reform than adjusting a condo quota, and nothing in current reporting suggests it has a legislative vehicle at all.",
+      { h: "What it means for a Phangan buyer today" },
+      {
+        ul: [
+          "**Nothing changes your options right now.** The 49/51 rule, its criminal penalties for nominee arrangements, and the active enforcement campaign all remain exactly as they were before 1 September 2026.",
+          "**Treat any claim that '100% foreign company ownership is now legal in Thailand' as false** — it is not, and won't be unless and until an actual bill is drafted, approved by cabinet, and passed by Parliament.",
+          "**The clean route for a private villa remains leasehold plus superficies**, not a Thai company structure banking on a reform that may never happen — see [Leasehold vs freehold](/knowledge/leasehold-vs-freehold).",
+          "**Worth watching, not acting on.** If this idea gains a formal legislative vehicle — a drafted bill, a cabinet resolution, a committee referral — that would be the point to revisit the analysis, not a senator's floor remarks alone.",
+        ],
+      },
+      "The proposal is a genuine signal that pressure to reform the 49/51 rule is broadening beyond the usual developer lobbying over condo quotas — but a signal is not a law. Until something concrete moves through cabinet and Parliament, the existing rule, and the existing crackdown on those who try to route around it, are what actually govern a purchase on Koh Phangan today.",
+    ],
+    takeaways: [
+      "On 1 September 2026, Senator Prathum Wongsawat proposed letting foreign ownership match capital invested — up to 100% — instead of the current 49% cap, to reduce reliance on nominee structures.",
+      "Nothing in Thai law has changed: the FBA's 49/51 rule and its criminal penalties for nominee arrangements (up to 3 years imprisonment, THB 100,000–1,000,000 fines) remain fully in force.",
+      "Capital-linked ownership already exists narrowly in Thai law (the ฿40 million land route, BOI-promoted company land rights) but as individually-approved exceptions, not a general rule.",
+      "This is one senator's remarks in a Senate discussion — not a cabinet policy or a bill before Parliament — and no government response has been reported.",
+      "For a private villa purchase, the leasehold-plus-superficies structure remains the sound approach; don't restructure a purchase around an unenacted proposal.",
+    ],
+    sources: [
+      {
+        title: "The Thaiger — Thai senator proposes 100% foreign ownership as nominee fix",
+        url: "https://thethaiger.com/news/business/thai-senator-100-percent-foreign-ownership-nominee-fix",
+      },
+      {
+        title: "ASEAN NOW — Thai senator proposes 100% foreign ownership",
+        url: "https://aseannow.com/thailand-news/thai-senator-proposes-100-foreign-ownership-r3607",
+      },
+      {
+        title: "Foreign Business Act B.E. 2542 (1999), Sections 36–37; Land Code Section 94 (general practice, cross-referenced against existing site guides)",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "Has Thailand's 49% cap on foreign business ownership changed in 2026?",
+  },
+  {
+    slug: "estate-administrator-probate-thai-property-transfer",
+    kbId: "kb-0134",
+    topic: "Process",
+    title: "Getting a Thai court to appoint an estate administrator: the step every inherited property must go through",
+    short:
+      "A will alone does not move a Thai title into an heir's name. Whether or not there's a will, the Land Office won't register a transfer to an heir until a Thai court has appointed an estate administrator (ผู้จัดการมรดก) with legal authority to act — the procedural link between 'who inherits' and 'the property is now theirs.'",
+    updated: "2026-09-04",
+    body: [
+      "If you inherit a villa, lease or condo on Koh Phangan, does having a will — or simply being the closest living relative — let you walk into the Land Office and register it in your name? No. Thailand has no notarial or administrative probate shortcut: regardless of how clear the will is or how uncontested the inheritance seems, the Land Office and the Condominium Registry will not process a transfer until a Thai court has issued an order appointing an estate administrator with legal power to act on the estate's behalf. This sits between two things this site already covers — [who inherits under a will](/knowledge/legal-forms-of-a-thai-will) or [under the statutory-heir rules if there's no will](/knowledge/intestate-succession-statutory-heirs-thai-property) — and the moment the property is actually retitled.",
+      { h: "Why the court step exists at all" },
+      "Under the Civil and Commercial Code, Section 1711 defines an estate's administrators as the person named in a will or the person appointed by court order — there is no third route. Even a will that names an executor in plain terms doesn't, by itself, give that person authority the Land Office will accept; in practice a Thai court order is still what a title officer asks to see. The rule exists to protect the estate and creditors, and to give the Land Office a single, court-verified authority to deal with rather than competing claims from multiple relatives.",
+      { h: "Who can petition, and when (CCC Section 1713)" },
+      {
+        ul: [
+          "**The executor named in the will** — has first standing to petition for formal appointment.",
+          "**Any statutory heir** (the CCC Section 1629 heir classes covered in [intestate succession](/knowledge/intestate-succession-statutory-heirs-thai-property)) — if there's no will, or the named executor can't or won't act.",
+          "**An interested person** — a creditor of the estate, a co-owner of an asset, or another party with a legitimate stake.",
+          "**The Public Prosecutor** — can petition in specific circumstances, such as when no heir or legatee can be found or a named heir is a minor or abroad.",
+          "Section 1713 sets out the triggering conditions: a statutory heir or legatee is missing, abroad or a minor at the time of death; an existing administrator or heir is unable, unwilling or impeded from carrying on the administration; or a will's appointment of an administrator fails to take effect for any reason.",
+        ],
+      },
+      { h: "Which court, and roughly how long it takes" },
+      "The petition is filed with the provincial court (or the relevant Bangkok court) with jurisdiction over where the deceased was domiciled, or where the estate property is located. Timelines vary widely and shouldn't be assumed from any single figure: an uncontested petition with clear documentation commonly resolves within a matter of months, while a contested case — competing heirs, a disputed will, an administrator accused of misconduct — can run well over a year. Build the slower estimate into any plan that depends on retitling before a sale or before a lease renewal deadline.",
+      { h: "Can a foreign heir be the administrator?" },
+      "Yes — the Civil and Commercial Code sets no nationality bar on who can be appointed. In practice, though, a foreign petitioner who cannot attend Thai court hearings in person needs to grant a power of attorney to a Thai lawyer to act on their behalf, which (until Thailand's 2027 accession to the Apostille Convention takes effect) still requires full consular legalisation abroad — see [the Power of Attorney legalisation guide](/knowledge/apostille-convention-power-of-attorney-thailand-2027). For this reason, many foreign heirs appoint a Thai co-administrator or lean entirely on Thai counsel to handle the petition and the subsequent Land Office filing, even where they are legally entitled to be the sole administrator.",
+      { h: "What the administrator can and must do (CCC Section 1719)" },
+      "Once appointed, the administrator has the right and duty to do whatever is necessary to carry out the will's express or implied instructions, or, absent a will, to manage and distribute the estate under the statutory-heir rules. That includes collecting and safeguarding estate assets, settling the deceased's debts and taxes, and — the step that matters for a property owner's heirs — presenting the court order at the Land Office or Condominium Registry to retitle real property into the heirs' names. An administrator who mismanages the estate or acts outside the court's authorisation can be held accountable by the heirs.",
+      { h: "What happens at the Land Office once the order exists" },
+      "The administrator brings the certified court order, the deceased's death certificate, the original title deed (chanote or condominium unit title) and their own identification to the Land Office where the property is registered. The officer verifies the order and processes the transfer — either into the administrator's name for onward distribution, or directly to the named heir or beneficiary, alongside the standard registration fees covered in [a day at the Land Office](/knowledge/land-office-registration-day). If a foreign heir is inheriting land itself (not a condo unit or a building), the separate Land Code Section 93 disposal timeline still applies on top of this process — see [foreign heirs inheriting Thai land](/knowledge/foreign-heir-inheriting-thai-land-section-93).",
+      { h: "The practical takeaway" },
+      "A Thai will doesn't skip the court step — nothing does. But naming a specific, willing executor removes the most common trigger for a contested or delayed petition, and gives the court a clear, documented appointment to confirm rather than a dispute among statutory heirs to referee. Planning who that person is — and whether they can realistically get to a Thai courtroom, or will need a Thai co-administrator from day one — is worth doing before you need it, not after. See [inheritance on Koh Phangan](/knowledge/inheritance-leasehold-and-villa) for how this fits with lease succession and company shares.",
+    ],
+    takeaways: [
+      "Thailand has no administrative probate shortcut: the Land Office will not retitle inherited property without a Thai court order appointing an estate administrator (CCC Section 1711), even where a will clearly names a beneficiary.",
+      "Standing to petition the court (CCC Section 1713) belongs to the will's named executor, any statutory heir, an interested party such as a creditor, or the Public Prosecutor in specific circumstances.",
+      "There is no nationality bar on serving as administrator, but a foreign heir who can't attend Thai court in person needs a consular-legalised power of attorney for a Thai lawyer, and many appoint a Thai co-administrator in practice.",
+      "Timelines vary widely — commonly months for an uncontested petition, well over a year if the estate or the appointment is contested.",
+      "Once appointed, the administrator presents the court order, death certificate and title deed at the Land Office to complete the transfer — the same registration step covered in the Land Office day guide, plus the separate Section 93 disposal clock if a foreign heir inherits land directly.",
+    ],
+    sources: [
+      {
+        title: "Thailand Law Library (Siam Legal) — Civil and Commercial Code: Administration of Estate, Sections 1711–1718",
+        url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-administration-of-estate-section-1711-1718/",
+      },
+      {
+        title: "Thailand Law Library (Siam Legal) — Civil and Commercial Code: Administration of Estate, Sections 1719–1725",
+        url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-administration-of-estate-section-1719-1725/",
+      },
+      {
+        title: "Global Law Experts — Probate Process in Thailand",
+        url: "https://globallawexperts.com/probate-process-in-thailand/",
+      },
+      {
+        title: "TVC — Probate and Estate Administration in Thailand: Court Process for Heirs",
+        url: "https://tvc.co.th/guides/legal-services-probate-and-estate-administration",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "After someone dies owning property on Koh Phangan, how do their heirs actually get it transferred into their name?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
