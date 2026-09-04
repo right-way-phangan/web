@@ -10,6 +10,8 @@ import { isProjectUnit, parentProjectRw, projectSlug, getPublicProjects } from "
 import { RoiCalculator } from "@/components/calculator/roi-calculator";
 import { CalculatorDisclosure } from "@/components/calculator/calculator-disclosure";
 import { roiPreview } from "@/lib/calculator/preview";
+import { getRentalMarket } from "@/lib/data/rental-market";
+import { objectCalcSeed } from "@/lib/data/rental-estimate";
 import { Breadcrumbs } from "@/components/objects/breadcrumbs";
 import { BuyingCosts } from "@/components/objects/buying-costs";
 import { ObjectFaq } from "@/components/objects/object-faq";
@@ -312,6 +314,10 @@ export default async function ObjectPage({ params }: Props) {
                   // Homes (villa/house/apartment/townhouse/project) lead with a
                   // rental model; land stays buy-&-hold.
                   initialRent={["Villa", "House", "Apartment", "Townhouse", "Project"].includes(object.type)}
+                  initialLeaseMonthlyThb={object.rentPerMonth}
+                  initialLeaseEscPct={object.leaseEscPercent}
+                  initialLeaseEscPeriodYears={object.leaseEscPeriodYears}
+                  marketSeed={objectCalcSeed(getRentalMarket(), object.district, object.bedrooms, object.type)}
                   catalog={catalog}
                   excludeRw={object.rwNumber}
                 />

@@ -30,6 +30,7 @@ import { track } from "@/lib/analytics/track";
 import { trackObjectEvent } from "@/lib/analytics/track-event";
 import type { RealEstateObject } from "@/types/object";
 import { getAppreciation, type RentalMarket } from "@/lib/data/rental-market";
+import { CLOSING_COSTS_PCT } from "@/lib/calculator/preview";
 import { calcDict, type CalcDict, type CalcLocale } from "@/lib/i18n/calculator";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { fmtPct, type Money, type ProjectUnit, type SavedScenario } from "./roi-shared";
@@ -95,6 +96,17 @@ interface Props {
   projectUnits?: ProjectUnit[];
   /** Standalone /calculator only — shows the "what are you pricing?" chooser. */
   entry?: boolean;
+  /** Monthly land rent (leasehold with periodic rent) and its stepped indexation, from the object. */
+  initialLeaseMonthlyThb?: number;
+  initialLeaseEscPct?: number;
+  initialLeaseEscPeriodYears?: number;
+  /**
+   * Rent-mode seed from the district comps (server-side objectCalcSeed): nightly
+   * rate and a cautious occupancy. Without it the generic ฿8 000 × 50% defaults
+   * rated every villa "strong" — so the deal rating stays hidden until the
+   * visitor confirms or edits these.
+   */
+  marketSeed?: { nightlyRateThb: number; occupancyPct: number; basis: string; n: number } | null;
 }
 
 export type { ProjectUnit } from "./roi-shared";
@@ -111,6 +123,10 @@ export function RoiCalculator({
   market,
   projectUnits,
   entry,
+  initialLeaseMonthlyThb,
+  initialLeaseEscPct,
+  initialLeaseEscPeriodYears,
+  marketSeed,
 }: Props) {
   // Seed the calculator language from the URL (/ru/* → RU), but keep the manual
   // EN/RU toggle so a visitor can switch either tool independently.
@@ -141,6 +157,25 @@ export function RoiCalculator({
     mode: initialMode ?? (initialRent && !offplanInit ? "rent" : DEFAULT_INPUTS.mode),
     tenure: initialTenure ?? DEFAULT_INPUTS.tenure,
     leaseTermYears: initialLeaseTermYears ?? DEFAULT_INPUTS.leaseTermYears,
+    // Entry costs differ by tenure: leasehold registers at 1.1% (+ legal),
+    // freehold pays the transfer fee — the flat 5% understated leasehold ROI.
+    closingCostsPct:
+      (initialTenure ?? DEFAULT_INPUTS.tenure) === "leasehold"
+        ? CLOSING_COSTS_PCT.leasehold
+        : CLOSING_COSTS_PCT.freehold,
+    // Periodic land rent from the object, with ITS indexation step (the object
+    // page shows the same total via escalatedLeaseTotalThb).
+    ...(initialLeaseMonthlyThb
+      ? {
+          leaseMonthly: true,
+          leaseMonthlyThb: initialLeaseMonthlyThb,
+          leaseIndexationPct: initialLeaseEscPct ?? 0,
+          leaseIndexPeriodYears: initialLeaseEscPeriodYears ?? 1,
+        }
+      : {}),
+    ...(marketSeed
+      ? { nightlyRateThb: marketSeed.nightlyRateThb, occupancyPct: marketSeed.occupancyPct }
+      : {}),
     offplan: offplanInit,
     rentAfterHandover: initialRent && offplanInit ? true : DEFAULT_INPUTS.rentAfterHandover,
   });
@@ -148,6 +183,15 @@ export function RoiCalculator({
   // и владение). Всё, что совпадает с ним, в адрес не пишем — страница
   // подставит эти значения сама, а ссылка остаётся короткой и пересылаемой.
   const pristineInputs = useRef(inputs).current;
+  // Rating is only meaningful once rent assumptions describe THIS property:
+  // seeded from the district comps, or touched by the visitor. Buy & hold has
+  // no such inputs and is rated as before.
+  const rentAssumptionsOwned =
+    Boolean(marketSeed) ||
+    inputs.mode !== "rent" ||
+    inputs.nightlyRateThb !== pristineInputs.nightlyRateThb ||
+    inputs.occupancyPct !== pristineInputs.occupancyPct ||
+    inputs.longTermRent !== pristineInputs.longTermRent;
   // "My own property" context (district/bedrooms/Airbnb link) — travels with the
   // lead summary and PDF so the team sees what the buyer is actually pricing.
   const [ownNote, setOwnNote] = useState<string | null>(null);
@@ -768,7 +812,10 @@ export function RoiCalculator({
                   {inputs.longTermRent ? (
                     <MoneyField label={`${t.monthlyRent} (${currency})`} thbValue={inputs.monthlyRentThb} currency={currency} fx={fx} onChangeThb={(thb) => set({ monthlyRentThb: thb })} hint={thbHint(inputs.monthlyRentThb)} small />
                   ) : (
-                    <MoneyField label={`${t.nightlyRate} (${currency})`} thbValue={inputs.nightlyRateThb} currency={currency} fx={fx} onChangeThb={(thb) => set({ nightlyRateThb: thb })} hint={thbHint(inputs.nightlyRateThb)} small />
+                    <>
+                      <MoneyField label={`${t.nightlyRate} (${currency})`} thbValue={inputs.nightlyRateThb} currency={currency} fx={fx} onChangeThb={(thb) => set({ nightlyRateThb: thb })} hint={thbHint(inputs.nightlyRateThb)} small />
+                      {marketSeed ? <p className="mt-1 text-[11px] leading-relaxed text-forest-500/60">{t.seededFrom(marketSeed.basis, marketSeed.n)}</p> : null}
+                    </>
                   )}
                   <SliderField label={t.occupancy} value={inputs.occupancyPct} step={5} min={0} max={100} onChange={(v) => set({ occupancyPct: v })} small />
                   <SliderField label={t.mgmtFee} value={inputs.mgmtFeePct} step={1} min={0} max={100} onChange={(v) => set({ mgmtFeePct: v })} small />
@@ -841,7 +888,10 @@ export function RoiCalculator({
                 </>
               ) : (
                 <>
-                  <MoneyField label={`${t.nightlyRate} (${currency})`} thbValue={inputs.nightlyRateThb} currency={currency} fx={fx} onChangeThb={(thb) => set({ nightlyRateThb: thb })} hint={thbHint(inputs.nightlyRateThb)} small />
+                  <>
+                      <MoneyField label={`${t.nightlyRate} (${currency})`} thbValue={inputs.nightlyRateThb} currency={currency} fx={fx} onChangeThb={(thb) => set({ nightlyRateThb: thb })} hint={thbHint(inputs.nightlyRateThb)} small />
+                      {marketSeed ? <p className="mt-1 text-[11px] leading-relaxed text-forest-500/60">{t.seededFrom(marketSeed.basis, marketSeed.n)}</p> : null}
+                    </>
                   {isSeasonal && view === "full" ? (
                     <div className="space-y-4 rounded-sm border border-brass-500/15 bg-cream-50/60 p-3">
                       <SliderField label={t.highSeasonLength} value={inputs.highSeasonMonths} unit={t.unitMo} step={1} min={0} max={12} onChange={(v) => set({ highSeasonMonths: v })} small />
@@ -948,13 +998,17 @@ export function RoiCalculator({
           </div>
           <div className="mt-2 flex flex-wrap items-center gap-3">
             <p className="num text-4xl text-forest-900 @[40rem]:text-5xl">{money(r.projectedValue, true)}</p>
-            <DealBadge grade={dealGrade(r, isRent)} t={t} />
+            {rentAssumptionsOwned ? (
+              <DealBadge grade={dealGrade(r, isRent)} t={t} />
+            ) : (
+              <span className="text-xs text-forest-500/60">{t.dealPending}</span>
+            )}
           </div>
           {inputs.inflationPct > 0 ? (
             <p className="num mt-1 text-sm text-forest-500/55">≈ {money(r.realProjectedValue, true)} {t.inTodaysMoney}</p>
           ) : null}
 
-          <Verdict r={r} grade={dealGrade(r, isRent)} money={money} t={t} />
+          {rentAssumptionsOwned ? <Verdict r={r} grade={dealGrade(r, isRent)} money={money} t={t} /> : null}
 
           {inputs.fxDriftPct !== 0 ? (
             <div className="mt-3 rounded-sm border border-forest-500/10 bg-forest-500/[0.03] p-3">

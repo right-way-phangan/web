@@ -10,6 +10,8 @@ const COPY = {
     eyebrow: "Buy & hold, illustrative",
     inYears: (y: number) => `value in ${y} years`,
     growth: (g: number) => `at +${g}%/yr`,
+    leaseGrowth: (g: number, eff: number) =>
+      `+${g}%/yr on the asset, ≈${eff >= 0 ? "+" : ""}${eff}%/yr after the shrinking lease term`,
     show: "Show full projection",
     hide: "Hide projection",
   },
@@ -17,6 +19,8 @@ const COPY = {
     eyebrow: "Купить и держать, иллюстративно",
     inYears: (y: number) => `стоимость через ${y} лет`,
     growth: (g: number) => `при +${g}%/год`,
+    leaseGrowth: (g: number, eff: number) =>
+      `+${g}%/год на актив, ≈${eff >= 0 ? "+" : ""}${eff}%/год с учётом тающего срока аренды`,
     show: "Показать расчёт",
     hide: "Свернуть расчёт",
   },
@@ -65,7 +69,10 @@ export function CalculatorDisclosure({
             ≈ {formatPriceTHB(preview.projectedValueThb)}
           </p>
           <p className="mt-1 text-sm text-forest-500/70">
-            {t.inYears(preview.years)} · {t.growth(preview.growthPct)}
+            {t.inYears(preview.years)} ·{" "}
+            {preview.leasehold
+              ? t.leaseGrowth(preview.growthPct, preview.effectiveGrowthPct)
+              : t.growth(preview.growthPct)}
           </p>
         </div>
         <button

@@ -41,6 +41,9 @@ export interface RoiInputs {
   leaseMonthly: boolean;
   leaseMonthlyThb: number; // land rent, THB/month at year-1 level
   leaseIndexationPct: number; // annual escalation of the land rent
+  // Escalation step: the rent rises by leaseIndexationPct every N years
+  // (Phangan leases index «+10% every 3/5 years», not yearly). 1/undefined = yearly.
+  leaseIndexPeriodYears?: number;
   // Rent mode
   longTermRent: boolean; // monthly long-term let instead of nightly STR
   monthlyRentThb: number; // long-term: rent per month
@@ -380,6 +383,30 @@ function computeIRR(cashflows: number[]): number {
  * down (a 30-yr lease with 10 years left is worth a fraction of a fresh one).
  * Linear remaining-term fraction: transparent and conservative. Freehold = 1.
  */
+/**
+ * Land rent due in year `y` (1-based) for a monthly leasehold, with the
+ * contract's stepped indexation — +X% every N years, matching the object
+ * page's escalatedLeaseTotalThb so the two never disagree.
+ */
+export function leasePayForYear(input: RoiInputs, y: number): number {
+  if (input.tenure !== "leasehold" || !input.leaseMonthly) return 0;
+  const period = Math.max(1, Math.floor(input.leaseIndexPeriodYears || 1));
+  const steps = Math.floor((y - 1) / period);
+  return Math.max(0, input.leaseMonthlyThb || 0) * 12 * Math.pow(1 + (input.leaseIndexationPct || 0) / 100, steps);
+}
+
+/**
+ * Hold horizon actually modelled: a non-renewable leasehold cannot be held
+ * past its term, so `years` is capped at leaseTermYears (the UI already warns).
+ */
+export function effectiveHorizonYears(input: RoiInputs): number {
+  const years = Math.max(1, Math.round(input.years || 1));
+  if (input.tenure === "leasehold" && !input.leaseRenewable) {
+    return Math.min(years, Math.max(1, Math.round(input.leaseTermYears || 1)));
+  }
+  return years;
+}
+
 function leaseFactor(input: RoiInputs, year: number): number {
   if (input.tenure !== "leasehold") return 1;
   // Renewable lease (e.g. 30+30+30) — treated as effectively perpetual, no decay.
@@ -454,7 +481,7 @@ export function computeRoi(input: RoiInputs): RoiResult {
 
   const price = Math.max(0, input.purchasePriceThb || 0);
   const g = (input.annualGrowthPct || 0) / 100;
-  const years = Math.max(1, Math.round(input.years || 1));
+  const years = effectiveHorizonYears(input);
   const bank = (input.bankRatePct || 0) / 100;
   const isRent = input.mode === "rent";
 
@@ -491,11 +518,7 @@ export function computeRoi(input: RoiInputs): RoiResult {
 
   // Periodic land rent (leasehold, monthly structure) — an indexed annuity paid
   // through the hold; the purchase price then covers the building only.
-  const periodicLease = input.tenure === "leasehold" && input.leaseMonthly;
-  const leasePayAt = (y: number): number =>
-    periodicLease
-      ? Math.max(0, input.leaseMonthlyThb || 0) * 12 * Math.pow(1 + (input.leaseIndexationPct || 0) / 100, y - 1)
-      : 0;
+  const leasePayAt = (y: number): number => leasePayForYear(input, y);
 
   let grossValue = price; // underlying value before any lease decay
   const baseRate = input.longTermRent ? input.monthlyRentThb || 0 : input.nightlyRateThb || 0;
@@ -650,7 +673,7 @@ function computeOffplan(input: RoiInputs): RoiResult {
   const bank = (input.bankRatePct || 0) / 100;
   const months = Math.max(1, Math.round(input.constructionMonths || 1));
   const handoverYear = months / 12;
-  const years = Math.max(handoverYear, Math.round(input.years || 1));
+  const years = Math.max(handoverYear, effectiveHorizonYears(input));
   const down = Math.max(0, (input.downPaymentPct || 0) / 100);
   const hand = Math.max(0, (input.handoverPaymentPct || 0) / 100);
   const middle = Math.max(0, 1 - down - hand); // instalments during construction
@@ -710,7 +733,7 @@ function computeOffplan(input: RoiInputs): RoiResult {
       const frac = Math.min(1, years - (y - 1));
       if (frac <= 0) break;
       const pay =
-        Math.max(0, input.leaseMonthlyThb || 0) * 12 * Math.pow(1 + (input.leaseIndexationPct || 0) / 100, y - 1) * frac;
+        leasePayForYear(input, y) * frac;
       leaseByYear[y] = pay;
       leasePaymentsTotal += pay;
       payOut(Math.min(exitMonth, Math.round(y * 12)), pay);

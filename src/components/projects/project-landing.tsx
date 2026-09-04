@@ -35,6 +35,8 @@ import { InquiryForm } from "@/components/objects/inquiry-form";
 import { RoiCalculator } from "@/components/calculator/roi-calculator";
 import { CalculatorDisclosure } from "@/components/calculator/calculator-disclosure";
 import { roiPreview } from "@/lib/calculator/preview";
+import { getRentalMarket } from "@/lib/data/rental-market";
+import { objectCalcSeed } from "@/lib/data/rental-estimate";
 import { getProjectEconomics, PUBLISH_DEVELOPER_ECONOMICS } from "@/content/projects/economics";
 import { DeveloperEconomics } from "./developer-economics";
 import { ProjectHero } from "./project-hero";
@@ -405,6 +407,14 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
                   catalog={catalog}
                   excludeRw={project.rwNumber}
                   projectUnits={buyableUnits.length > 0 ? buyableUnits : undefined}
+                  initialLeaseMonthlyThb={project.rentPerMonth}
+                  initialLeaseEscPct={project.leaseEscPercent}
+                  initialLeaseEscPeriodYears={project.leaseEscPeriodYears}
+                  marketSeed={(() => {
+                    const s = objectCalcSeed(getRentalMarket(), project.district, null, "villa");
+                    if (!s) return null;
+                    return locale === "ru" ? { ...s, basis: `объявления района ${project.district}` } : s;
+                  })()}
                 />
                 </CalculatorDisclosure>
                 {project.priceThb ? (
