@@ -8257,6 +8257,131 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "process",
     faqQuestion: "After someone dies owning property on Koh Phangan, how do their heirs actually get it transferred into their name?",
   },
+  {
+    slug: "customs-duty-free-household-goods-vehicle-relocation-thailand",
+    kbId: "kb-0135",
+    topic: "Process",
+    title: "Shipping your furniture and a car to Koh Phangan: Thailand's duty-free relocation rules",
+    short:
+      "Thai Customs only waives duty on used household effects for a narrow set of visa/work-permit holders changing residence — and, per practitioner guidance, ordinary retirement (Non-O/O-A) and DTV visas commonly don't qualify. Vehicles are excluded from this relief entirely and face a separate, much harder import-permit regime.",
+    updated: "2026-09-05",
+    body: [
+      "If you've just bought a villa on Koh Phangan and are relocating with your belongings, can you ship your furniture and appliances into Thailand duty-free? Sometimes — but the exemption attaches to your immigration status, not to the fact that you're moving house, and several visa types this site covers for buyers don't reliably qualify.",
+      { h: "Who the duty exemption actually covers" },
+      {
+        ul: [
+          "**Foreigners granted an immigration \"change of domicile\" quota** noted in their passport or alien registration book.",
+          "**Foreigners with work permission** — Immigration approval for a stay of one year or more, or (pending final approval) an Immigration certification letter or a Labour Department work-authorisation letter covering one year or more.",
+          "**Government-contracted experts or specialists**, via a letter from the contracting agency confirming a non-immigrant visa and employment of one year or more.",
+          "**Returning Thai citizens** who worked or resided abroad continuously for a year or more, evidenced by a completed contract, duty recall, or a certified intent to resettle.",
+        ],
+      },
+      "That list is Thai Customs' own criterion set, published via the government's thailand.go.th portal — and none of its foreigner categories is simply \"bought a house\" or \"hold a long-stay visa.\" A one-year-plus Non-Immigrant visa tied to work is the reliable route; a [Non-B investment visa](/knowledge/thb-3-million-investment-visa-non-immigrant-b-2026) or work permit through a Thai company fits it cleanly. Practitioner guidance is explicit that an ordinary Non-Immigrant O/O-A retirement visa does **not** fall under the qualifying categories, and that a DTV alone — carrying no Thai work permit — doesn't satisfy the test either. No source found addresses the LTR visa's customs treatment specifically, so an [LTR holder](/knowledge/ltr-visa-property-investment-route) should confirm eligibility directly with a customs broker rather than assume it, given the visa's non-immigrant, long-stay status. If you're relocating on a retirement visa, the safe planning assumption is that you'll pay standard duty and 7% VAT on your shipment.",
+      { h: "The used-goods and timing rules, for those who do qualify" },
+      {
+        ul: [
+          "**Goods must be used**, not new-in-box — practitioner guidance points to roughly six months of prior ownership/use abroad as the benchmark customs officers look for.",
+          "**A timing window applies** around your arrival or visa/work-permit issuance date — sources describe it inconsistently (one month before to six months after arrival; or within six months of the permit or last entry date), so confirm the exact anchor date with your shipper or broker rather than relying on either figure alone.",
+          "**Quantity is limited to reasonable household use** — generally one air shipment and one sea shipment per person duty-free, and one unit of each type of major appliance; a second TV or a commercial quantity of anything gets normal duty and VAT.",
+          "**Documentation** typically includes a bilingual (English/Thai) itemised inventory, your original passport, the bill of lading or air waybill, and evidence of the qualifying visa or work permit.",
+        ],
+      },
+      { h: "Cars and motorbikes: not covered by this relief at all" },
+      "Vehicles sit outside the household-effects exemption entirely. Importing a car requires a separate import-permit application to the Department of Foreign Trade, full duty and excise assessment, and — per the sources reviewed — only diplomatic vehicles are exempt from duty. In practice, most relocating owners sell their car at home and buy locally on Koh Phangan rather than ship one; the import route is slow, costly and not something a standard relocation shipment can piggyback on.",
+      { h: "The practical takeaway" },
+      "Don't assume your visa buys you a duty-free move: the exemption is built around work-based immigration status, not property ownership or long-stay residence generally, and the two visa types most relevant to Phangan buyers weighing residency — retirement and the DTV — are the ones practitioner guidance flags as commonly excluded. If duty exemption genuinely matters to your budget, get your specific visa category confirmed against current Customs criteria by a licensed customs broker before you book the shipment, not after it lands. For the visa question itself, see [visa and residency for a property owner](/knowledge/visa-residency-property-owner-koh-phangan) and [opening a Thai bank account as a buyer](/knowledge/thai-bank-account-foreign-property-buyer-2026), a companion practical step for the same relocation.",
+    ],
+    takeaways: [
+      "Thai Customs' duty exemption for household effects is tied to immigration/work status, not to buying property — its published criteria list work-permit and long-stay-employment categories, not property ownership.",
+      "Practitioner guidance reports that an ordinary Non-Immigrant O/O-A retirement visa commonly does not qualify, and a DTV alone doesn't satisfy the test either, since neither carries a Thai work permit.",
+      "Qualifying goods must be used (roughly six months' prior ownership is the benchmark cited) and shipped within a timing window tied to arrival or visa/permit issuance — sources describe the exact window inconsistently, so confirm it directly with a broker.",
+      "Quantity limits apply: broadly one air and one sea shipment per person duty-free, one unit per major appliance type — extras and new goods pay normal duty and VAT.",
+      "Vehicles are excluded from this relief altogether and need a separate Department of Foreign Trade import permit with full duty and excise assessed; most relocating owners sell at home and buy locally instead.",
+    ],
+    sources: [
+      {
+        title: "Thailand.go.th (Suvarnabhumi Airport Passenger Inspection Customs Office) — Criteria for duty exemption on used household effects for relocation",
+        url: "https://www.thailand.go.th/issue-focus-detail/001_01_180",
+      },
+      {
+        title: "Clearpost — Importing Personal Effects to Thailand: 2026 Changing Residence Survival Guide",
+        url: "https://thailandcustomsclearance.com/resources/importing-personal-effects-to-thailand-changing-residence-guide-2026",
+      },
+      {
+        title: "Siam Relocation — Import Personal Effects to Thailand [Regulation]",
+        url: "https://siam-relocation.com/regulation-import-personal-effects-thailand/",
+      },
+      {
+        title: "Swift Cargo Solutions — Thailand Retirement Visa: What You Can and Can't Ship Duty-Free",
+        url: "https://blog.swiftcargo.solutions/retirement-visa-to-thailand-what-you-can-and-cant-ship-duty-free/",
+      },
+      {
+        title: "Swift Cargo Solutions — DTV Visa Holders' Guide to Shipping Belongings to Thailand",
+        url: "https://blog.swiftcargo.solutions/dtv-visa-holders-guide-to-ship-belongings-to-thailand-2026/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "Can I ship my furniture and belongings to Koh Phangan duty-free when I move into my new villa?",
+  },
+  {
+    slug: "condo-juristic-person-committee-governance-thailand",
+    kbId: "kb-0136",
+    topic: "Ownership",
+    title: "Who actually runs a Thai condominium: committee elections, voting weight and the anti-takeover vote cap",
+    short:
+      "A condominium's juristic person is governed by an elected 3-9 member committee and general meetings where votes are weighted by unit size, not head count — but a Condominium Act cap stops any single owner (foreign or Thai) from outvoting everyone else combined, even one holding a majority of the building.",
+    updated: "2026-09-05",
+    body: [
+      "If you buy into the 49% foreign-ownership quota of a Koh Phangan condo project, does owning a large share of the building give you control of how it's run? Not automatically — the Condominium Act's governance rules run on their own logic, separate from the ownership-quota mechanics covered in [the condo foreign-ownership quota guide](/knowledge/condo-foreign-ownership-quota-debate-2026), and they cap how much voting power any one owner can hold regardless of how many units they own.",
+      { h: "The committee: size, terms and who can sit on it" },
+      {
+        ul: [
+          "**Size** — the juristic person's management committee has a minimum of 3 and a maximum of 9 members (Condominium Act Section 37).",
+          "**Term** — two years per term, and a member may be reappointed but not for more than two consecutive terms.",
+          "**Election** — committee members are appointed by resolution of the general meeting of co-owners, and the committee then elects its own chairman and vice-chairman (Section 37/4).",
+          "**Who's eligible** — a unit owner, an owner's spouse, the legal representative of an incompetent or minor owner, one representative for a corporate unit owner, or one person per group of co-owners on a single unit (Section 37/1); no source reviewed found a nationality bar on committee membership itself.",
+          "**Who's disqualified** — minors, incompetent or quasi-incompetent persons, and anyone previously removed from a condominium committee for dishonesty or convicted of certain offences (Section 37/2).",
+        ],
+      },
+      { h: "General meetings: votes are weighted, not one-owner-one-vote" },
+      "At a general meeting, your vote isn't counted per person — it's weighted by your unit's ownership ratio (the same proportion used to calculate your share of the [sinking fund and CAM fees](/knowledge/condo-sinking-fund-cam-fees-thailand)). Quorum for a first general meeting is co-owners holding at least one-quarter of total votes; if that's not met, a second meeting is called (typically within 15 days) and proceeds without a minimum-quorum requirement, so a poorly-attended reconvened meeting can still pass resolutions.",
+      { h: "The anti-concentration cap on a majority owner's vote" },
+      "This is the detail most relevant to anyone eyeing a large stake in a small project: Section 45 caps the voting power of an owner who holds more than half of the building's total ownership ratio at no more than the combined votes of all other owners put together. In practice, owning a majority of the units — whether under the foreign 49% quota split across several units, or as a Thai majority owner — does not translate into majority control at a general meeting; the rest of the co-owners, voting together, can always match or outvote a single dominant holder.",
+      { h: "Committee meetings, separately" },
+      "Committee (not general) meetings run on different rules: quorum is at least half of the committee's members, decisions pass by majority, and — unlike the ownership-weighted general meeting — each committee member gets one vote regardless of how large a unit they personally own.",
+      { h: "The practical takeaway" },
+      "Buying condo units as a foreigner up to the 49% quota gets you ownership and, proportionally, a voting say — it doesn't get you boardroom control, and Section 45's cap is designed to prevent exactly that outcome for any single owner. If influence over building management (not just the unit itself) matters to your investment case, factor in the committee-election and vote-weighting mechanics before assuming a large stake equals control — and compare that against the very different governance-free structure of owning a standalone villa, covered in [freehold condo vs leasehold villa](/knowledge/freehold-condo-vs-leasehold-villa).",
+    ],
+    takeaways: [
+      "A condominium's management committee has 3-9 members serving 2-year terms (max 2 consecutive), elected by the general meeting; eligibility runs through unit ownership, not nationality (Condominium Act ss.37, 37/1, 37/4).",
+      "General-meeting votes are weighted by each unit's ownership ratio, not counted per person — the same ratio used for sinking-fund and CAM-fee allocation.",
+      "First-meeting quorum is 25% of total votes; a reconvened meeting after a failed quorum can pass resolutions with no minimum turnout.",
+      "Section 45 caps any owner holding over 50% of the building's ownership ratio at no more than the combined vote of everyone else — a majority stake never converts into an unbeatable majority vote.",
+      "Committee (board) meetings run separately from general meetings: quorum is half the committee, and each member gets one vote regardless of unit size.",
+    ],
+    sources: [
+      {
+        title: "G.A.M. Legal Alliance — Thailand Condominium Act (Chapter 5: Juristic Person)",
+        url: "https://gam-legalalliance.com/thai-statutory-laws/thailand-condominium-act-chapter-5/",
+      },
+      {
+        title: "Thailand Law Library (Siam Legal) — Condominium Act: Juristic Condominium (Sections 42-50)",
+        url: "https://library.siam-legal.com/thai-law/condominium-act-juristic-condominium-sections-42-50/",
+      },
+      {
+        title: "Thailand Law Library (Siam Legal) — Condominium Act: Juristic Condominium (Sections 37-41)",
+        url: "https://library.siam-legal.com/thai-law/condominium-act-juristic-condominium-sections-37-41/",
+      },
+      {
+        title: "Bangkok Post — To Vote, or Not to Vote: The Condominium Conundrum",
+        url: "https://www.bangkokpost.com/thailand/special-reports/348486/to-vote-or-not-to-vote-the-condominium-conundrum",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "ownership",
+    faqQuestion: "If I own a large share of a condo building's foreign quota, do I control how the building is managed?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

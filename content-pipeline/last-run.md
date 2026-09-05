@@ -1,8 +1,8 @@
 # Content pipeline — last run
 
-**Date:** 2026-09-04
+**Date:** 2026-09-05
 
-Published 2 new guides (EN + RU each), kb-0133 and kb-0134.
+Published 2 new guides (EN + RU each), kb-0135 and kb-0136.
 
 ## Process this run
 
@@ -10,95 +10,97 @@ The backlog's standing news-driven queue is still fully exhausted — every rema
 row (water crisis, FBA/AMLA predicate-offence amendment, coalition foreign-ownership
 stance, rental-yields, power-grid single-cable, stamp duty vs SBT, off-plan project
 vetting, PND e-filing date) was re-checked again and remains a confirmed duplicate,
-thin, or unsafe-to-publish item — no change since the 2026-09-03 run. Two parallel
-research agents ran today: one a fresh-news sweep (2026-09-02 through 2026-09-04,
+thin, or unsafe-to-publish item — no change since the 2026-09-04 run. Two parallel
+research agents ran today: one a fresh-news sweep (2026-09-02 through 2026-09-05,
 plus the three standing watch items), one an evergreen gap-mining pass over the full
-132-guide slug list.
+134-guide slug list.
 
-The news sweep confirmed all three watch items are still stuck (PWA Notice 7/2569
-remains the latest Koh Phangan-specific water notice, no successor; FBA/AMLA
-nominee-as-predicate-offence still only an Ombudsman/AMLO review item, no cabinet or
-bill progress; the coalition's "review foreign ownership regulations" pledge is still
-sourced only to real-estate marketing sites). It did surface one genuinely fresh,
-reputable-outlet item — a senator's Senate-floor reform proposal (below) — which was
-judged strong enough to publish, carefully framed as an unenacted proposal rather than
-policy. The gap-mining pass independently surfaced the court-appointed estate
-administrator (probate) procedure as a genuinely uncovered, well-sourced companion
-topic.
+The news sweep confirmed all three watch items are still stuck: (1) PWA Notice 7/2569
+remains the latest Koh Phangan-specific water notice, no successor found on pwa.co.th;
+(2) the FBA/AMLA nominee-as-predicate-offence amendment — a promising pair of
+Bangkokbiznews posts dated "05 ก.ย. 2569" traced back to recycled/re-timestamped
+content identical to an mgronline.com article actually dated 8 April 2025 (same
+"comment until April 25" deadline, i.e. 2025), so treated as a false lead rather than
+progress; still only an Ombudsman/AMLO-review item per the last-confirmed dated source
+(Thai Examiner, 24 Jul 2026); (3) the coalition's "review foreign ownership
+regulations" pledge is still sourced only to real-estate marketing sites, with the
+closest dated reputable item (Thai Examiner, 31 Aug 2026) discussing OECD-accession
+tension but reporting no Bhumjaithai legislative move specifically. No other new,
+dated, reputable-outlet property-law story was found in the window — everything else
+surfaced was part of the already-covered nominee-crackdown/raid cluster or a market-
+statistics recap.
 
-## 1. kb-0133 — senate-proposal-foreign-ownership-tied-to-capital-2026
+The gap-mining pass read the full existing slug/title/short catalog (134 guides) and
+surfaced three genuinely uncovered candidates. Two were published (below); the third
+— Alien Employment Act work-permit mechanics for a foreigner actively working in their
+own property-management/rental business — is a strong candidate left for a future run.
 
-**Title:** A senator's proposal to scale foreign ownership to capital invested: what
-changed on 1 September 2026, and what didn't
-**faqCategory:** structures
-**Sources:**
-- The Thaiger — "Thai senator proposes 100% foreign ownership as nominee fix" (3 Sep
-  2026), direct fetch: Senator Prathum Wongsawat, 1 Sep 2026 Senate meeting, proposal
-  to scale foreign ownership to capital invested, direct quote on investors unlikely
-  to surrender control, Russia comparison, residency/citizenship-threshold idea.
-- ASEAN NOW — independent corroboration of the same facts (senator name, date, core
-  proposal).
-- Foreign Business Act Sections 36-37 and Land Code Section 94, cross-referenced
-  against this site's own already-published `thai-company-for-property-49-51`,
-  `land-department-audit-existing-landholding-companies-2026` and
-  `21-agency-anti-nominee-mou-2026` guides for the current-law baseline (not
-  independently re-fetched this run, since those sections are already verified and
-  cited elsewhere on the site).
+## 1. kb-0135 — customs-duty-free-household-goods-vehicle-relocation-thailand
 
-Framed deliberately as "a senator's floor remarks, not a bill" throughout — no cabinet
-endorsement, no legislative vehicle, and no government response found in reputable
-reporting as of 2026-09-04. Cross-linked to the existing 49/51 company guide, the
-condo-quota debate (kb-0055, a materially more advanced and better-documented
-reform discussion, used as an explicit contrast), and the two existing narrow
-capital-linked ownership precedents already on the site (the ฿40M land route,
-BOI-promoted company land rights) to give the story real context rather than
-restating a bare news item. Distinct from kb-0055, which is specifically about the
-*condominium* quota (49%→70-75% debate), not the FBA's general 49/51 company rule.
-
-## 2. kb-0134 — estate-administrator-probate-thai-property-transfer
-
-**Title:** Getting a Thai court to appoint an estate administrator: the step every
-inherited property must go through
+**Title:** Shipping your furniture and a car to Koh Phangan: Thailand's duty-free
+relocation rules
 **faqCategory:** process
 **Sources:**
-- Thailand Law Library (Siam Legal) — CCC Administration of Estate, Sections
-  1711-1718 and Sections 1719-1725 (two pages), quoting Sections 1711, 1713 and 1719
-  verbatim via search-result extraction (direct fetch returned HTTP 403 on this
-  domain this run; text was cross-checked against an independent WebSearch query
-  returning the same verbatim section wording, so treated as reliably sourced despite
-  the fetch failure).
-- Global Law Experts — "Probate Process in Thailand," practitioner summary of
-  petition standing, jurisdiction, foreign-national eligibility, and Land Office
-  procedure post-court-order.
-- TVC — "Probate and Estate Administration in Thailand," independent corroboration
-  that Land Offices require a court order before transfer and that foreign executors
-  commonly need a Thai co-executor.
+- Thailand.go.th (Suvarnabhumi Airport Passenger Inspection Customs Office) —
+  official criteria page for duty exemption on used household effects when
+  relocating; primary/official source for the qualifying immigration/work-permit
+  categories.
+- Clearpost — "Importing Personal Effects to Thailand: 2026 Changing Residence
+  Survival Guide" — the 6-month used-goods rule, shipment quantity limits.
+- Siam Relocation — "Import Personal Effects to Thailand [Regulation]" — timing
+  window, one-air/one-sea-shipment limit, vehicle-import separateness.
+- Swift Cargo Solutions — two practitioner guides (retirement-visa shipping,
+  DTV-visa shipping) independently confirming that ordinary Non-Immigrant O/O-A
+  retirement visas and a bare DTV commonly do not satisfy the duty-exemption test.
 
-Verified via full read of the existing `legal-forms-of-a-thai-will`,
-`intestate-succession-statutory-heirs-thai-property`,
-`foreign-heir-inheriting-thai-land-section-93` and `inheritance-leasehold-and-villa`
-guides that none of them cover the court-petition/estate-administrator procedure
-itself — they cover who inherits and the post-inheritance Land Code Section 93
-disposal clock, not the mandatory court step that actually authorises the Land Office
-to retitle the property. Deliberately left out a specific "4-6 / 6-12 / 12-24 month"
-timeline breakdown and a claimed "2026 Land and Building Tax receipt requirement" that
-appeared in one fetched source but could not be corroborated by any other source this
-run — timelines are instead described conservatively in relative terms (uncontested:
-commonly months; contested: can run well over a year).
+Nothing in the knowledge base previously covered Thai Customs at all beyond a passing
+mention of the Customs Department as one of 21 agencies in the anti-nominee MOU guide.
+The most practically important finding for this site's buyer audience — many of whom
+relocate on retirement or DTV visas rather than a work permit — is that those two visa
+types commonly do *not* qualify for the household-effects duty exemption, while a
+work-permit-linked Non-Immigrant visa (e.g. the Non-B investment route already covered
+in `thb-3-million-investment-visa-non-immigrant-b-2026`) does. Framed conservatively:
+flagged that sources disagree on the exact timing-window anchor date, and that no
+source addresses the LTR visa's customs treatment specifically — recommended direct
+broker confirmation rather than assuming eligibility either way. Vehicles are covered
+as a clearly separate, much harder regime (Department of Foreign Trade import permit,
+full duty/excise, only diplomatic vehicles exempt) without citing an unverified,
+single-sourced motorcycle-cc exemption figure that turned up in one source only.
+
+## 2. kb-0136 — condo-juristic-person-committee-governance-thailand
+
+**Title:** Who actually runs a Thai condominium: committee elections, voting weight
+and the anti-takeover vote cap
+**faqCategory:** ownership
+**Sources:**
+- G.A.M. Legal Alliance — Thailand Condominium Act (Chapter 5: Juristic Person) —
+  Sections 37, 37/1, 37/2, 37/4, 45 (committee size 3-9, 2-year terms max 2
+  consecutive, eligibility/disqualification rules, the >50%-ownership vote cap).
+- Thailand Law Library (Siam Legal) — two independent pages on Sections 37-41 and
+  42-50, cross-checking the same provisions.
+- Bangkok Post — "To Vote, or Not to Vote: The Condominium Conundrum" — corroborating
+  general-meeting quorum (25% first meeting, no minimum on a reconvened one) and
+  ownership-ratio vote-weighting.
+
+Verified via full read of `condo-sinking-fund-cam-fees-thailand` (financial mechanics
+only — CAM/sinking-fund amounts, arrears surcharge) and
+`condo-foreign-ownership-quota-debate-2026` (ownership percentage, not governance)
+that neither covers committee elections, vote-weighting, or the Section 45
+anti-concentration cap. This was a repeat candidate first flagged by the gap-mining
+pass on 2026-09-02 and again 2026-09-03, previously deprioritized as lower-value for
+this site's villa-heavy audience; sourced properly and published this run as a
+genuinely distinct governance-mechanics angle, cross-linked to both guides above plus
+`freehold-condo-vs-leasehold-villa`. Practical hook: owning up to the 49% foreign
+condo quota does not translate into majority control of the building's management,
+since Section 45 caps any single owner's vote at no more than the combined vote of
+everyone else.
 
 ## Not published this run
 
-- **Senator's 100%-ownership proposal, as a bare news item** — considered but instead
-  folded into a fuller, context-linked guide (kb-0133 above) rather than published as
-  a thin single-fact story, consistent with the quality gate.
-- **Outbound capital repatriation (mirror of the inbound FET-form guide)** — a
-  candidate from the gap-mining pass, but on review the existing
-  `bringing-money-into-thailand-fet-form` guide already has a dedicated section
-  ("Using the FET to repatriate proceeds when you sell") covering the practical
-  outbound mechanism (FET + sale agreement + tax receipts presented to the bank).
-  Publishing a second guide on the same mechanism would read as duplicative rather
-  than distinct, so it was not published this run.
-- **Condo juristic-person governance** — repeat candidate flagged by prior runs
-  (2026-09-02, 2026-09-03) as not yet published; still not pursued this run because
-  Koh Phangan has very few Condominium Act projects, making it lower priority than
-  the two topics chosen above for this site's core villa-buyer audience.
+- **Alien Employment Act work-permit mechanics for an owner actively working in their
+  own rental/property-management business** — a genuinely distinct angle from the
+  existing `renting-out-villa-foreign-business-act-license` (FBA licensing question)
+  and `foreign-real-estate-agent-restrictions-thailand` (brokerage) guides, sourced
+  this run via ThailandLawOnline, DeeMED Consulting and the BOI's own OSOS portal.
+  Left unpublished only because two topics were already chosen this run — a strong
+  candidate for the next cycle.
