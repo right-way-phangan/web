@@ -1205,6 +1205,8 @@ export interface ObjectDict {
   pcDelta: (pct: number, dir: "below" | "above", district: string, metric: string) => string;
   // spec groups + rows
   specGroups: { Pricing: string; Property: string; Legal: string; Building: string; Features: string; Infrastructure: string };
+  /** Подписи форм владения. Mixed = «право не установлено», а не третья форма. */
+  tenureValues: Record<string, string>;
   specRows: Record<string, string>;
   yes: string;
   no: string;
@@ -1331,6 +1333,10 @@ const objectDict: Record<Locale, ObjectDict> = {
     pcInLine: (district, metric) => `≈ in line with the ${district} average (${metric})`,
     pcDelta: (pct, dir, district, metric) => `≈ ${pct}% ${dir} the ${district} average ${metric}`,
     specGroups: { Pricing: "Pricing", Property: "Property", Legal: "Legal", Building: "Building", Features: "Features", Infrastructure: "Infrastructure" },
+    // Значения формы владения. «Mixed / N.A.» в CRM означает «право не
+    // установлено» — печатать сырой токен «Mixed» покупателю нельзя, он читается
+    // как утверждение о какой-то третьей форме владения.
+    tenureValues: { Freehold: "Freehold", Leasehold: "Leasehold", Mixed: "To be confirmed" },
     specRows: {
       "Asking price": "Asking price", "Price per rai": "Price per rai", "Lease rent": "Lease rent",
       Type: "Type", District: "District", Zone: "Zone", "Plot area": "Plot area", "Built area": "Built area",
@@ -1467,6 +1473,7 @@ const objectDict: Record<Locale, ObjectDict> = {
     pcInLine: (district, metric) => `≈ на уровне среднего по ${district} (${metric})`,
     pcDelta: (pct, dir, district, metric) => `≈ на ${pct}% ${dir === "below" ? "ниже" : "выше"} среднего по ${district} (${metric})`,
     specGroups: { Pricing: "Цена", Property: "Объект", Legal: "Юридически", Building: "Строение", Features: "Особенности", Infrastructure: "Инфраструктура" },
+    tenureValues: { Freehold: "Фрихолд", Leasehold: "Лизхолд", Mixed: "Уточняется" },
     specRows: {
       "Asking price": "Запрашиваемая цена", "Price per rai": "Цена за рай", "Lease rent": "Аренда",
       Type: "Тип", District: "Район", Zone: "Зона", "Plot area": "Площадь участка", "Built area": "Площадь строения",

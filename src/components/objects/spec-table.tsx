@@ -70,7 +70,14 @@ function buildGroups(
   // Legal
   const legalRows: Row[] = [];
   if (o.documentType) legalRows.push({ label: L["Document type"], value: o.documentType });
-  if (o.tenure && o.tenure.length > 0) legalRows.push({ label: L.Tenure, value: o.tenure.join(", ") });
+  if (o.tenure && o.tenure.length > 0) {
+    // Переводим токены: «Mixed» в CRM значит «право не установлено», и сырой
+    // токен на странице читается как утверждение о третьей форме владения.
+    legalRows.push({
+      label: L.Tenure,
+      value: o.tenure.map((v) => t.tenureValues[v] ?? v).join(", "),
+    });
+  }
   if (o.leaseTermYears) legalRows.push({ label: L["Lease term"], value: t.years(o.leaseTermYears) });
   if (o.leaseEscPercent)
     legalRows.push({ label: L.Indexation, value: t.leaseEsc(o.leaseEscPercent, o.leaseEscPeriodYears) });
