@@ -422,6 +422,12 @@ function leaseFactor(input: RoiInputs, year: number): number {
  * bracketing years. Null when the deal never recovers within the horizon.
  */
 function paybackFrom(series: RoiYearPoint[]): number | null {
+  // Год окупаемости имеет смысл, только если к концу срока вложенное реально
+  // вернулось. На лизхолде, дожитом до конца срока, накопленная прибыль
+  // пересекала ноль в середине и уходила обратно в минус — а KPI печатал
+  // «Окупаемость 7.1 года» рядом с «ROI −114%» и вердиктом «прибыль с 7.1 года».
+  const last = series[series.length - 1];
+  if (!last || last.profit < 0) return null;
   for (let i = 1; i < series.length; i++) {
     const cur = series[i];
     if (cur.profit >= 0) {

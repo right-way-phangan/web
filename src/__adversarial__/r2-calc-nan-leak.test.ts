@@ -56,18 +56,18 @@ describe("АТАКА 35 — cagrFxPct больше не выдаёт ноль т
   });
 });
 
-// АТАКА 36 [MEDIUM]: KPI «окупаемость» на том же сценарии | ОЖИДАЕТСЯ: сделка,
-// вернувшая −114% вложенного, не сообщает года окупаемости | ФАКТ (НЕ ЗАКРЫТО):
-// `paybackFrom` ищет первый год, где НАКОПЛЕННАЯ прибыль стала неотрицательной,
+// АТАКА 36 [MEDIUM]: KPI «окупаемость» на том же сценарии | ОЖИДАЛОСЬ: сделка,
+// вернувшая −114% вложенного, не сообщает года окупаемости | БЫЛО:
+// `paybackFrom` искал первый год, где НАКОПЛЕННАЯ прибыль стала неотрицательной,
 // а у лизхолда стоимость гасится к концу срока — прибыль пересекает ноль в
-// середине и уходит обратно вниз. KPI печатает конкретное «≈7.1 года»
-// рядом с «CAGR —» и «ROI −114%». Фикс NaN этого поля не касался.
-// код: src/lib/calculator/roi.ts:397-408, рендер roi-calculator.tsx:980 и Verdict
+// середине и уходит обратно вниз, поэтому KPI печатал «≈7.1 года» рядом с
+// «CAGR —» и «ROI −114%»
+// | ИСПРАВЛЕНО 2026-09-05: год выдаётся только если к концу срока вложенное
+// вернулось (последняя точка серии неотрицательна)
+// код: src/lib/calculator/roi.ts:397-410
 describe("АТАКА 36 — «окупаемость 7.1 года» на сделке с ROI −114%", () => {
-  it("payback выдан конкретным числом", () => {
-    expect(wipedLeasehold.paybackYears).not.toBeNull();
-    expect(wipedLeasehold.paybackYears!).toBeGreaterThan(0);
-    expect(wipedLeasehold.paybackYears!).toBeLessThan(wipedLeasehold.series.length);
+  it("payback не выдаётся вовсе", () => {
+    expect(wipedLeasehold.paybackYears).toBeNull();
   });
 
   it("хотя итоговая прибыль глубоко отрицательна", () => {
@@ -75,11 +75,11 @@ describe("АТАКА 36 — «окупаемость 7.1 года» на сде�
     expect(wipedLeasehold.netProfit).toBeLessThan(0);
   });
 
-  it("строка вердикта собирается как «… окупаемость 7.1 · CAGR —»", () => {
-    const pay = wipedLeasehold.paybackYears!.toFixed(1);
-    const line = `profit from ${pay} yr · CAGR ${fmtPct(wipedLeasehold.cagrPct)}/yr`;
-    expect(line).toContain("CAGR —");
-    expect(line).toMatch(/profit from \d/);
+  it("и строка вердикта больше не обещает выхода в плюс", () => {
+    // Все три величины на этом сценарии — прочерк: рост, IRR и окупаемость.
+    expect(wipedLeasehold.paybackYears).toBeNull();
+    expect(fmtPct(wipedLeasehold.cagrPct)).toBe("—");
+    expect(fmtPct(wipedLeasehold.irrPct)).toBe("—");
   });
 });
 
