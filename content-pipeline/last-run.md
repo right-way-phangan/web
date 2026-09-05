@@ -1,106 +1,89 @@
 # Content pipeline — last run
 
-**Date:** 2026-09-05
+**Date:** 2026-09-05 (second run, same day)
 
-Published 2 new guides (EN + RU each), kb-0135 and kb-0136.
+Published 2 new guides (EN + RU each), kb-0137 and kb-0138.
 
 ## Process this run
 
-The backlog's standing news-driven queue is still fully exhausted — every remaining ⏳
-row (water crisis, FBA/AMLA predicate-offence amendment, coalition foreign-ownership
-stance, rental-yields, power-grid single-cable, stamp duty vs SBT, off-plan project
-vetting, PND e-filing date) was re-checked again and remains a confirmed duplicate,
-thin, or unsafe-to-publish item — no change since the 2026-09-04 run. Two parallel
-research agents ran today: one a fresh-news sweep (2026-09-02 through 2026-09-05,
-plus the three standing watch items), one an evergreen gap-mining pass over the full
-134-guide slug list.
+Every pre-existing ⏳ backlog row was re-checked once more and remains a confirmed
+duplicate, thin, or unsafe-to-publish item — no change since the earlier 2026-09-05
+run (water crisis still stuck on PWA Notice 7/2569 with no successor; FBA/AMLA
+predicate-offence still only Ombudsman/AMLO review; rental yields still the same
+nightly-rate × occupancy framing already in kb-0010; power-grid single-cable still
+duplicates kb-0026; stamp duty vs SBT still duplicates kb-0084; the "who's buying"
+Israeli/European surge still duplicates kb-0014's dataset; off-plan project vetting
+still declined on naming-a-specific-developer grounds; the coalition stance and the
+PND e-filing-date item are still thin/stale).
 
-The news sweep confirmed all three watch items are still stuck: (1) PWA Notice 7/2569
-remains the latest Koh Phangan-specific water notice, no successor found on pwa.co.th;
-(2) the FBA/AMLA nominee-as-predicate-offence amendment — a promising pair of
-Bangkokbiznews posts dated "05 ก.ย. 2569" traced back to recycled/re-timestamped
-content identical to an mgronline.com article actually dated 8 April 2025 (same
-"comment until April 25" deadline, i.e. 2025), so treated as a false lead rather than
-progress; still only an Ombudsman/AMLO-review item per the last-confirmed dated source
-(Thai Examiner, 24 Jul 2026); (3) the coalition's "review foreign ownership
-regulations" pledge is still sourced only to real-estate marketing sites, with the
-closest dated reputable item (Thai Examiner, 31 Aug 2026) discussing OECD-accession
-tension but reporting no Bhumjaithai legislative move specifically. No other new,
-dated, reputable-outlet property-law story was found in the window — everything else
-surfaced was part of the already-covered nominee-crackdown/raid cluster or a market-
-statistics recap.
+Two parallel research agents ran fresh: one a news sweep (2026-09-02 through
+2026-09-05 window, plus the three standing watch items), one an evergreen gap-mining
+pass over the now-136-guide slug list.
 
-The gap-mining pass read the full existing slug/title/short catalog (134 guides) and
-surfaced three genuinely uncovered candidates. Two were published (below); the third
-— Alien Employment Act work-permit mechanics for a foreigner actively working in their
-own property-management/rental business — is a strong candidate left for a future run.
+**News sweep** found one genuinely fresh, primary-sourced item: Thailand's Royal
+Gazette notice (published 31 Aug 2026) replacing the general 60-day visa exemption
+with a 30-day exemption for 60 countries (15 days for Seychelles/Mauritius, visa on
+arrival for Azerbaijan/Belarus/Serbia), effective 15 Sept 2026 — confirmed directly
+via a TAT Newsroom (Tourism Authority of Thailand, official) fetch, not just secondary
+coverage. Separately, and on its own 31 Aug 2026 effective date, the Destination
+Thailand Visa (DTV) now requires applying from the applicant's country of nationality
+or permanent residence plus a mandatory criminal-record check. Not property law
+itself, but material to buyers' viewing-trip and semi-permanent-stay planning, so it
+became a dedicated guide. All three standing watch items were re-confirmed unchanged
+(water: no successor to PWA Notice 7/2569 found on pwa.co.th; FBA/AMLA: still stuck at
+Ombudsman/AMLO review per the last-confirmed dated source; coalition stance: still
+marketing-site-only sourcing, closest reputable item — Thai Examiner, 31 Aug 2026 —
+covers OECD-accession tension, not a Bhumjaithai legislative move).
 
-## 1. kb-0135 — customs-duty-free-household-goods-vehicle-relocation-thailand
+**Evergreen gap-mining** independently verified a prior run's flagged-but-unpublished
+candidate (Alien Employment Act work-permit mechanics for a foreigner running their
+own rental/property-management business) and found it sourced only to secondary
+practitioner blogs for the exact capital/staffing figures — left unpublished again, as
+a candidate for a future run once a primary Department of Employment source can be
+found. It surfaced a stronger, better-sourced alternative instead: the Act on Conflict
+of Laws B.E. 2481, Section 37's *lex situs* rule — Thai law, not the deceased's home
+law or a foreign will's choice-of-law clause, governs succession of Thai-situated
+immovable property, and a foreign court's probate order isn't directly enforceable at
+a Thai Land Office. Genuinely distinct from the existing will-forms, intestate-
+succession and estate-administrator guides, all of which assume Thai law applies and
+never address *why*, or the foreign-will/foreign-probate-recognition angle.
 
-**Title:** Shipping your furniture and a car to Koh Phangan: Thailand's duty-free
-relocation rules
+## 1. kb-0137 — thailand-visa-exemption-cut-30-days-dtv-tightening-2026
+
+**Title:** Thailand's visa-free stay drops to 30 days and the DTV tightens: what it
+changes for a Phangan buyer
 **faqCategory:** process
-**Sources:**
-- Thailand.go.th (Suvarnabhumi Airport Passenger Inspection Customs Office) —
-  official criteria page for duty exemption on used household effects when
-  relocating; primary/official source for the qualifying immigration/work-permit
-  categories.
-- Clearpost — "Importing Personal Effects to Thailand: 2026 Changing Residence
-  Survival Guide" — the 6-month used-goods rule, shipment quantity limits.
-- Siam Relocation — "Import Personal Effects to Thailand [Regulation]" — timing
-  window, one-air/one-sea-shipment limit, vehicle-import separateness.
-- Swift Cargo Solutions — two practitioner guides (retirement-visa shipping,
-  DTV-visa shipping) independently confirming that ordinary Non-Immigrant O/O-A
-  retirement visas and a bare DTV commonly do not satisfy the duty-exemption test.
 
-Nothing in the knowledge base previously covered Thai Customs at all beyond a passing
-mention of the Customs Department as one of 21 agencies in the anti-nominee MOU guide.
-The most practically important finding for this site's buyer audience — many of whom
-relocate on retirement or DTV visas rather than a work permit — is that those two visa
-types commonly do *not* qualify for the household-effects duty exemption, while a
-work-permit-linked Non-Immigrant visa (e.g. the Non-B investment route already covered
-in `thb-3-million-investment-visa-non-immigrant-b-2026`) does. Framed conservatively:
-flagged that sources disagree on the exact timing-window anchor date, and that no
-source addresses the LTR visa's customs treatment specifically — recommended direct
-broker confirmation rather than assuming eligibility either way. Vehicles are covered
-as a clearly separate, much harder regime (Department of Foreign Trade import permit,
-full duty/excise, only diplomatic vehicles exempt) without citing an unverified,
-single-sourced motorcycle-cc exemption figure that turned up in one source only.
+**Sources used:**
+- TAT Newsroom (Tourism Authority of Thailand, official) — primary confirmation of the
+  30-day/15-day exemption tiers, 60-country list, land-border entry cap, Royal Gazette
+  publication date (31 Aug 2026) and effective date (15 Sept 2026); fetched directly.
+- Thai Examiner (1 Sep 2026) — DTV application-location and criminal-record-check
+  changes, effective 31 Aug 2026, and existing-holder grandfathering; fetched directly.
+- Siam Legal and Chiang Rai Times — secondary corroboration of the country list and
+  the (unconfirmed-by-TAT) reported 30-day extension option.
 
-## 2. kb-0136 — condo-juristic-person-committee-governance-thailand
+## 2. kb-0138 — foreign-will-thai-land-conflict-of-laws-lex-situs
 
-**Title:** Who actually runs a Thai condominium: committee elections, voting weight
-and the anti-takeover vote cap
-**faqCategory:** ownership
-**Sources:**
-- G.A.M. Legal Alliance — Thailand Condominium Act (Chapter 5: Juristic Person) —
-  Sections 37, 37/1, 37/2, 37/4, 45 (committee size 3-9, 2-year terms max 2
-  consecutive, eligibility/disqualification rules, the >50%-ownership vote cap).
-- Thailand Law Library (Siam Legal) — two independent pages on Sections 37-41 and
-  42-50, cross-checking the same provisions.
-- Bangkok Post — "To Vote, or Not to Vote: The Condominium Conundrum" — corroborating
-  general-meeting quorum (25% first meeting, no minimum on a reconvened one) and
-  ownership-ratio vote-weighting.
+**Title:** Your foreign will doesn't govern your Thai villa: the Conflict of Laws
+Act's lex situs rule
+**faqCategory:** documents
 
-Verified via full read of `condo-sinking-fund-cam-fees-thailand` (financial mechanics
-only — CAM/sinking-fund amounts, arrears surcharge) and
-`condo-foreign-ownership-quota-debate-2026` (ownership percentage, not governance)
-that neither covers committee elections, vote-weighting, or the Section 45
-anti-concentration cap. This was a repeat candidate first flagged by the gap-mining
-pass on 2026-09-02 and again 2026-09-03, previously deprioritized as lower-value for
-this site's villa-heavy audience; sourced properly and published this run as a
-genuinely distinct governance-mechanics angle, cross-linked to both guides above plus
-`freehold-condo-vs-leasehold-villa`. Practical hook: owning up to the 49% foreign
-condo quota does not translate into majority control of the building's management,
-since Section 45 caps any single owner's vote at no more than the combined vote of
-everyone else.
+**Sources used:**
+- Wikisource's full translation of the Act on Conflict of Laws, B.E. 2481 (1938) —
+  primary text of Sections 37 (immovable property/lex situs) and 38 (movable
+  property/domicile), cross-checked against a Samui For Sale mirror of the same
+  sections (verbatim match).
+- Thailand Law Library (Siam Legal) — Conflict of Laws Act: Succession (Sections
+  37-42) — independent secondary confirmation of the lex situs framing.
+- Global Law Experts — Probate Process in Thailand — practical effect: foreign
+  probate/letters of administration are not directly enforceable in Thailand; heirs
+  must open an independent Thai court proceeding, using the foreign will/grant as
+  supporting evidence rather than an order the Land Office honours directly.
 
-## Not published this run
-
-- **Alien Employment Act work-permit mechanics for an owner actively working in their
-  own rental/property-management business** — a genuinely distinct angle from the
-  existing `renting-out-villa-foreign-business-act-license` (FBA licensing question)
-  and `foreign-real-estate-agent-restrictions-thailand` (brokerage) guides, sourced
-  this run via ThailandLawOnline, DeeMED Consulting and the BOI's own OSOS portal.
-  Left unpublished only because two topics were already chosen this run — a strong
-  candidate for the next cycle.
+Both guides cross-verified for zero overlap against the closest existing guides
+(visa-residency-property-owner-koh-phangan, thb-3-million-investment-visa-non-
+immigrant-b-2026, ltr-visa-property-investment-route for kb-0137; legal-forms-of-a-
+thai-will, intestate-succession-statutory-heirs-thai-property, estate-administrator-
+probate-thai-property-transfer, offshore-family-trust-cannot-hold-thai-land for
+kb-0138) before writing.

@@ -8382,6 +8382,127 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "ownership",
     faqQuestion: "If I own a large share of a condo building's foreign quota, do I control how the building is managed?",
   },
+  {
+    slug: "thailand-visa-exemption-cut-30-days-dtv-tightening-2026",
+    kbId: "kb-0137",
+    topic: "Process",
+    title: "Thailand's visa-free stay drops to 30 days and the DTV tightens: what it changes for a Phangan buyer",
+    short:
+      "From 15 September 2026, Thailand's 60-day visa exemption is replaced by a 30-day exemption for 60 nationalities, and the Destination Thailand Visa now requires applying from your home country with a criminal-record check. Neither is a property-law change, but both shorten the runway buyers and owners have long used for viewing trips and semi-permanent stays.",
+    updated: "2026-09-05",
+    body: [
+      "Did Thailand just cut how long you can stay without a visa, and does it touch your property plans? Yes to the first part: a notice published in the Royal Gazette on 31 August 2026 replaces the general 60-day visa exemption with a 30-day exemption (for nationals of 60 countries, including Australia, Canada, most of the EU, the UK and the US), a 15-day exemption for Seychelles and Mauritius, and visa-on-arrival status for Azerbaijan, Belarus and Serbia, effective 15 September 2026. Separately, and on a different timeline (31 August 2026), the Destination Thailand Visa (DTV) — a popular route for owners who spend extended stretches on the island managing a build or a rental business — also got harder to obtain. Neither change alters who can own property or how; both change how long you can be here to do it.",
+      { h: "What changes on 15 September 2026" },
+      {
+        ul: [
+          "**30-day exemption, 60 countries** — the new default for most nationalities that previously got 60 days, including the major Western markets Right Way Phangan's buyers most often come from.",
+          "**Land-border entries capped** — travellers using the 30-day exemption may generally enter through a land checkpoint no more than twice per calendar year; this cap does not apply to Malaysia, Brunei, Indonesia or Singapore nationals.",
+          "**One extension, reportedly** — several law-firm and travel-industry summaries describe a single 30-day extension available at Thai Immigration, which would bring a maximum stay to 60 days; the Tourism Authority of Thailand's own announcement of the new tiers does not itself mention an extension, so treat this as commonly reported rather than officially guaranteed, and confirm at an Immigration office before planning around it.",
+          "**Reported transition detail** — several sources state that travellers who enter before 15 September under the current 60-day rule keep the full 60 days for that stay; this transition detail isn't spelled out in the primary notice either, so check your own entry stamp rather than assuming it.",
+        ],
+      },
+      { h: "The DTV also tightened, on its own timeline — 31 August 2026" },
+      "The Destination Thailand Visa used to be flexible about where you applied from — including while already travelling in the region, sometimes via a visa run to a neighbouring country. Since 31 August 2026, new applicants must apply from their country of nationality or country of permanent residence; a temporary immigration status elsewhere no longer satisfies that requirement. A criminal-record clearance from that same country is now also mandatory for new applications. Existing DTV holders are unaffected — their five-year validity and 180-day-per-entry terms stand as issued.",
+      { h: "Why this matters if you're buying or already own on Koh Phangan" },
+      {
+        ul: [
+          "**A single viewing trip** still fits comfortably inside 30 days, but a trip that also needs to cover due diligence, contract signing and [a day at the Land Office](/knowledge/land-office-registration-day) has less slack than it did under the old 60-day exemption.",
+          "**Owners overseeing a build or a rental business** who leaned on the 60-day exemption, or on a DTV obtained mid-trip from a neighbouring country, now have a narrower runway on both routes.",
+          "**Property-linked residency routes are unaffected** — the [THB 3 million investment visa](/knowledge/thb-3-million-investment-visa-non-immigrant-b-2026) and the [LTR visa's property-investment route](/knowledge/ltr-visa-property-investment-route) don't rely on the visa-exemption or DTV categories at all, and are worth weighing sooner if you expect to spend more than a month or two on the island per trip.",
+        ],
+      },
+      "None of this changes Thailand's foreign land-ownership rules, the 49/51 company framework, or any tax already covered elsewhere on this site — it changes only how long a buyer or owner can be physically present under the cheapest, simplest entry categories. If your plans depend on being on Koh Phangan for more than 30 days at a stretch without a dedicated visa, this is the moment to revisit which category actually fits — see the [visa and residency overview for property owners](/knowledge/visa-residency-property-owner-koh-phangan) for the fuller comparison.",
+    ],
+    takeaways: [
+      "Thailand's general 60-day visa exemption ends 15 September 2026 (Royal Gazette, 31 August 2026); most nationalities that qualified for it — including Australia, Canada, the UK, the US and most of the EU — move to a 30-day exemption instead.",
+      "Land-border entries under the new 30-day exemption are capped at twice per calendar year for most nationalities (Malaysia, Brunei, Indonesia and Singapore are exempt from the cap).",
+      "A single 30-day extension is commonly reported as available at Thai Immigration, but it isn't confirmed in the Tourism Authority of Thailand's own announcement — verify locally rather than assuming it.",
+      "Since 31 August 2026 the Destination Thailand Visa (DTV) must be applied for from your country of nationality or permanent residence, with a mandatory criminal-record check; existing DTV holders keep their current five-year/180-day terms.",
+      "Neither change touches property-ownership law — the THB 3 million investment visa and LTR visa remain the durable, property-linked residency routes for anyone who needs more time on the island than these entry categories allow.",
+    ],
+    sources: [
+      {
+        title: "TAT Newsroom (Tourism Authority of Thailand) — Thailand introduces new 30-day and 15-day visa exemption rules from 15 September",
+        url: "https://www.tatnews.org/2026/09/thailand-introduces-new-30-day-and-15-day-visa-exemption-rules-from-15-september/",
+      },
+      {
+        title: "Thai Examiner — New visa regime hits Western visitors and expats in Thailand hard with shorter stays",
+        url: "https://www.thaiexaminer.com/thai-news-foreigners/2026/09/01/new-visa-regime-hits-western-visitors-and-expats-in-thailand-hard-with-shorter-stays-and-long-haul-trips/",
+      },
+      {
+        title: "Siam Legal — Thailand Approves End of 60-Day Visa-Free Stay",
+        url: "https://siam-legal.com/travel-to-thailand/thailand-approves-end-of-60-day-visa-free-stay/",
+      },
+      {
+        title: "Chiang Rai Times — Thailand 30-Day Visa Exemption Starts Sept 15: Full List of 60 Countries",
+        url: "https://www.chiangraitimes.com/visas-immigration/thailand-30-day-visa-exemption-starts-sept-15-full-list-of-60-countries/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "Thailand just cut visa-free stays to 30 days from 15 September 2026 — does this affect a property buyer's plans?",
+  },
+  {
+    slug: "foreign-will-thai-land-conflict-of-laws-lex-situs",
+    kbId: "kb-0138",
+    topic: "Documents",
+    title: "Your foreign will doesn't govern your Thai villa: the Conflict of Laws Act's lex situs rule",
+    short:
+      "Thai law, not your home country's, decides who inherits land or a villa located in Thailand — and a foreign court's probate order isn't directly enforceable here either. The Act on Conflict of Laws B.E. 2481 routes immovable property through Thai succession rules regardless of the deceased's nationality, domicile, or what their will says.",
+    updated: "2026-09-05",
+    body: [
+      "If you write a will at home naming your children as heirs to your Koh Phangan villa, does that will control who inherits it? Only partly. Under Section 37 of Thailand's Act on Conflict of Laws B.E. 2481 (1938), succession of immovable property — land, a house, a condo unit — located in Thailand is governed exclusively by Thai law, the law of the place where the property sits (the *lex situs* rule), regardless of where the deceased was domiciled or which country's law their will names. This sits alongside [the five legal forms of a Thai will](/knowledge/legal-forms-of-a-thai-will) and [the statutory-heir order that applies without one](/knowledge/intestate-succession-statutory-heirs-thai-property) — this guide answers a different, earlier question: whose law even applies, and why a foreign court's ruling doesn't simply carry over.",
+      { h: "The lex situs rule: Section 37 vs Section 38" },
+      {
+        ul: [
+          "**Section 37 (immovable property)** — \"As far as succession concerns immovable property, the law of the place where such property is situated shall govern.\" For a villa, land or condo unit sitting in Thailand, that means Thai succession law applies in full, no matter the deceased's nationality.",
+          "**Section 38 (movable property), by contrast** — \"succession... is governed by the law of domicile of the deceased at the time of his death.\" Cash, vehicles, furniture and other movables can still follow the deceased's home-country law.",
+          "**The practical effect** — a will drafted under, say, English or Australian law, with an explicit choice-of-law clause naming that law, cannot override Thai succession rules for the Thai real estate itself. Thailand isn't party to an international convention that would force recognition of a foreign choice-of-law clause over land situated here.",
+        ],
+      },
+      { h: "A foreign will still counts as evidence — a foreign court order does not, on its own" },
+      "A will written abroad naming a beneficiary for the Thai property isn't invalid: Thai courts will treat a validly executed foreign will as evidence of the deceased's wishes. What doesn't carry over automatically is a foreign court's probate grant or letters of administration — Thai Land Offices and the Condominium Registry don't recognise a foreign court's order as authority to transfer title. Heirs still need [a Thai court to appoint an estate administrator](/knowledge/estate-administrator-probate-thai-property-transfer) through an independent Thai proceeding, using the foreign will and any foreign grant as supporting evidence rather than a ruling the Land Office simply honours.",
+      { h: "Why this adds time, not just paperwork" },
+      "In practice this means legalising and translating the foreign will (and any foreign grant of probate), then opening a new Thai court petition essentially from scratch — the same process covered in [the estate-administrator guide](/knowledge/estate-administrator-probate-thai-property-transfer), run in parallel with, not instead of, whatever happened at home. An estate that might have settled in a few months in the deceased's home country can stretch well past a year in Thailand, particularly if an heir is abroad, a minor, or the estate is contested. If the property being inherited is land itself (not a condo unit) and the heir is a foreigner, the separate [Section 93 disposal clock](/knowledge/foreign-heir-inheriting-thai-land-section-93) runs on top of this process, not instead of it.",
+      { h: "What this means for your estate planning now" },
+      {
+        ul: [
+          "**Write a Thailand-specific will** covering the Thai property alone, separate from a home-country will covering everything else — it narrows what needs legalising and translating, and avoids two wills giving conflicting instructions over the same asset.",
+          "**Name an executor who can realistically act in Thailand** — either by attending a Thai court petition in person or granting power of attorney to a Thai lawyer, which currently still requires consular legalisation abroad (see [the Power of Attorney legalisation guide](/knowledge/apostille-convention-power-of-attorney-thailand-2027)).",
+          "**Don't assume a foreign structure fixes this** — a foreign choice-of-law clause, an offshore trust, or a foreign court's ruling has no automatic effect on Thai-situated land; see also [why an offshore family trust can't hold Thai land](/knowledge/offshore-family-trust-cannot-hold-thai-land).",
+        ],
+      },
+      "The underlying point is simple even if the mechanics aren't: wherever you're from, and whatever your home will says, Thai law decides who inherits Thai land — and a Thai court, not a foreign one, is what actually moves the title. Planning around that from the start is far cheaper than discovering it after a death, mid-estate.",
+    ],
+    takeaways: [
+      "Section 37 of the Act on Conflict of Laws B.E. 2481 (1938): succession of immovable property in Thailand is governed exclusively by Thai law (the lex situs rule), regardless of the deceased's nationality, domicile, or a foreign will's choice-of-law clause.",
+      "Section 38 draws the contrast: movable property (cash, vehicles, personal effects) still follows the law of the deceased's domicile at death.",
+      "A validly executed foreign will is accepted as evidence of intent, but a foreign court's probate order or letters of administration are not directly enforceable in Thailand.",
+      "Heirs must open an independent Thai court proceeding to have an estate administrator appointed before the Land Office will retitle the property — foreign documents support that petition rather than replace it.",
+      "A separate, Thailand-only will naming a Thailand-reachable executor is the practical way to shorten this process, rather than relying on a single global will and hoping it transfers over.",
+    ],
+    sources: [
+      {
+        title: "Wikisource — Act on Conflict of Laws, Buddhist Era 2481 (1938), full translation",
+        url: "https://en.wikisource.org/wiki/Act_on_Conflict_of_Laws,_Buddhist_Era_2481_(1938)",
+      },
+      {
+        title: "Thailand Law Library (Siam Legal) — Conflict of Laws Act: Succession (Sections 37-42)",
+        url: "https://library.siam-legal.com/thai-law/conflict-of-laws-succession-sections-37-42/",
+      },
+      {
+        title: "Samui For Sale — Thailand Act on Conflict of Law (B.E. 2481), full text mirror",
+        url: "https://www.samuiforsale.com/law-texts/thai-act-on-conflict-of-law.html",
+      },
+      {
+        title: "Global Law Experts — Probate Process in Thailand",
+        url: "https://globallawexperts.com/probate-process-in-thailand/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion: "Does my home-country will control who inherits my villa or land in Thailand?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
