@@ -8503,6 +8503,154 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "documents",
     faqQuestion: "Does my home-country will control who inherits my villa or land in Thailand?",
   },
+  {
+    slug: "sale-purchase-agreement-earnest-money-ccc-thailand",
+    kbId: "kb-0139",
+    topic: "Documents",
+    title: "Earnest money and backing out: what Thai contract law says about your villa's sale agreement",
+    short:
+      "Before a sale reaches the Land Office, you sign a private sale-and-purchase agreement and usually hand over an earnest deposit — a separate contract governed by its own rules under the Civil and Commercial Code. Sections 453-457 decide whether that private agreement is enforceable at all, Sections 377-378 decide what happens to the deposit if either side backs out, and Sections 386-388 decide how and when a party can walk away.",
+    updated: "2026-09-06",
+    body: [
+      "Before your purchase reaches [a day at the Land Office](/knowledge/land-office-registration-day), you and the seller almost always sign a private sale-and-purchase agreement (SPA) and you hand over an earnest deposit. What actually makes that private document enforceable if one side gets cold feet — and what happens to the deposit? Thai contract law answers both questions directly, in provisions that sit underneath nearly every villa or land deal on the island but rarely get their own explanation.",
+      { h: "Two different documents, two different rules" },
+      {
+        ul: [
+          "**The final sale (CCC Section 456, paragraph 1)** — \"A sale of immovable property is void unless it is made in writing and registered by the competent official.\" This is the transfer deed itself, signed and registered at the Land Office — the step covered in [the Land Office registration day guide](/knowledge/land-office-registration-day).",
+          "**The agreement to sell (Section 456, paragraph 2)** — the private SPA you sign weeks or months earlier is not void for lacking registration. It's simply unenforceable by court action unless at least one of three things exists: written evidence signed by the party being sued, earnest given, or part performance. In practice, any signed SPA with a deposit clause clears this bar easily.",
+        ],
+      },
+      { h: "What earnest money (มัดจำ) legally does" },
+      "Section 377 gives earnest two functions at once: it's proof the contract was concluded, and it's security that it will be performed. Section 378 then sets the **default** outcome — the rule that applies only if your SPA doesn't say otherwise:",
+      {
+        ul: [
+          "**Buyer defaults, or is at fault for the deal collapsing** — the earnest is forfeited to the seller.",
+          "**Seller defaults, or is at fault** — the earnest must be returned to the buyer. The statute does not entitle the buyer to double the earnest back; a \"return double\" clause some contracts use is a negotiated term layered on top of Section 378, not an automatic legal entitlement.",
+          "**Performance becomes impossible for a reason neither party caused** — the earnest is simply returned.",
+        ],
+      },
+      "Because Section 378 only fills a gap the contract leaves open, a well-drafted SPA should spell out exactly what happens to the deposit rather than relying on the statutory default — particularly if you want a return-with-penalty clause rather than a plain refund. Note this is a distinct question from [the OCPB's deposit-confiscation ban on villa and land reservation agreements](/knowledge/ocpb-deposit-ban-villa-land-reservations), which regulates a narrower, earlier-stage reservation contract under consumer-protection rules, not the general law of earnest under the CCC.",
+      { h: "Rescinding the agreement: notice-and-cure vs. time-is-of-the-essence" },
+      {
+        ul: [
+          "**Section 386** — a right of rescission, whether granted by the contract or by law, is exercised by declaring that intention to the other party. Once declared, it cannot be revoked.",
+          "**Section 387 (the default mechanism)** — if one party fails to perform, the other must first fix a reasonable additional period and demand performance within it. Only once that grace period passes unused can the innocent party rescind.",
+          "**Section 388 (the exception)** — if the contract's nature, or an intention the parties actually declared, makes performance by a fixed date or within a fixed period essential, the innocent party can rescind immediately once that date passes — no Section 387 notice-and-cure step required.",
+        ],
+      },
+      "Rescission and damages are not an either/or choice: exercising the right to rescind does not prejudice a separate claim for damages caused by the breach.",
+      { h: "What this means for your SPA before you sign" },
+      {
+        ul: [
+          "**Don't rely on Section 378's default** — write out exactly what happens to the earnest on default by either side, especially if you want a penalty beyond a plain refund.",
+          "**Decide which dates are truly fixed** — if you want late performance to justify immediate rescission under Section 388 rather than a Section 387 cure period, the SPA needs to say so explicitly.",
+          "**Keep this stage distinct from the deposit-holding question** — a standard SPA earnest sits with the seller or the agent; [the Escrow Act](/knowledge/thailand-escrow-act-off-plan-deposit-protection) covers the (rarely used) alternative of a licensed neutral holder.",
+          "**Have a lawyer review the SPA before you pay earnest**, not only at the Land Office closing — see [what a Phangan property lawyer's fee actually covers](/knowledge/phangan-property-lawyer-fees-what-they-cover).",
+        ],
+      },
+      "None of this replaces the seller's post-closing liability for defects, which runs on separate rules — see [seller liability for property defects after closing](/knowledge/seller-liability-property-defects-after-closing-thailand). But before you get there, the private agreement and its earnest clause are what actually get you to the Land Office in the first place — and getting them wrong is one of the cheaper mistakes to fix, if you catch it before signing.",
+    ],
+    takeaways: [
+      "CCC Section 456: the final sale of immovable property is void unless written and registered at the Land Office — but the private agreement to sell that precedes it only needs written evidence, earnest, or part performance to be enforceable in court.",
+      "Earnest money (Section 377) proves the deal and secures performance; Section 378's default rule forfeits it to the seller if the buyer defaults, and requires its return if the seller defaults.",
+      "That default treatment applies only \"in the absence of agreement to the contrary\" — a well-drafted SPA should override it explicitly, especially for return-with-penalty terms.",
+      "Rescission generally requires a Section 387 notice-and-cure period first, unless the contract makes a date strictly essential under Section 388.",
+      "Rescinding the contract does not waive a claim for damages caused by the breach — the two remedies work together, not as alternatives.",
+    ],
+    sources: [
+      {
+        title: "Thailand Law Online — Civil and Commercial Code, Sections 453-457 (Sale)",
+        url: "https://www.thailandlawonline.com/civil-and-commercial-code/453-457-book-iii-specific-thai-contracts-law",
+      },
+      {
+        title: "Thailand Law Library (Siam Legal) — Civil and Commercial Code: Obligations, Sections 377-385 (Earnest and Stipulated Penalty)",
+        url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-obligations-section-377-385/",
+      },
+      {
+        title: "Thailand Law Online — Civil and Commercial Code, Sections 386-394 (Rescission of Contract)",
+        url: "https://www.thailandlawonline.com/civil-and-commercial-code/386-394-annulling-rescission-of-contract",
+      },
+      {
+        title: "ASEAN.org — Civil and Commercial Code of Thailand, Book III: Specific Contracts (full translation)",
+        url: "https://asean.org/wp-content/uploads/2016/08/Thailand199.pdf",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion: "What happens to my earnest money deposit if a Thai property sale falls through?",
+  },
+  {
+    slug: "residential-construction-controlled-contract-thailand",
+    kbId: "kb-0140",
+    topic: "Structures",
+    title: "Your villa-build contract is a 'controlled contract': the mandatory terms Thai law puts on your builder",
+    short:
+      "Since 1 January 2017, residential building construction for personal use has been a designated 'controlled contract' business under Thailand's consumer-protection regime — meaning certain terms are mandatory in your builder's contract and certain terms are void no matter what's typed into it. This sits alongside the practical permits-and-budget guide to building on the island, covering the contract law layer that guide doesn't.",
+    updated: "2026-09-06",
+    body: [
+      "If you're hiring a contractor to build a custom villa on Koh Phangan, does Thai law require anything specific to be in that construction contract? Yes. Since 1 January 2017, under the Notice of the Contract Committee Re: Prescribing the Business of a Residential Building Construction as a Business Subject to Contract Control B.E. 2559 (2016), a contract between a construction business and a consumer building for personal residential use is a **controlled contract** — a category under Thailand's Consumer Protection Act where certain terms are compulsory and certain terms are automatically unenforceable, regardless of what the builder's standard-form contract says. This is the contract-law layer sitting underneath [the practical guide to building a villa on Koh Phangan](/knowledge/building-a-villa-koh-phangan), which covers permits, zones and budget but not this regime.",
+      { h: "What controlled-contract status forces into your contract" },
+      {
+        ul: [
+          "**Total contract price, inclusive of VAT** — no vague or provisional pricing.",
+          "**A payment schedule tied to construction progress**, not a lump sum collected upfront.",
+          "**The construction period and a completion date.**",
+          "**Who is responsible for obtaining the building permit, and the timeframe for it.**",
+          "**A warranty: five years for structural parts, one year for non-structural parts.**",
+          "**The consumer's right to request design changes, with a corresponding price adjustment.**",
+          "**The consumer's right to terminate for the contractor's delay, and a force majeure clause.**",
+        ],
+      },
+      { h: "The 30-day cure period" },
+      "Any clause covering the consumer's own default has a floor the builder's contract can't undercut: the consumer must be given a rectification period of not less than 30 days before the builder can terminate for that default.",
+      { h: "Clauses the law strikes out regardless of what's signed" },
+      {
+        ul: [
+          "**Waiving or limiting the contractor's own liability.**",
+          "**A unilateral termination right held only by the builder.**",
+          "**Demanding early or advance payment not tied to an actual default by the consumer.**",
+          "**Unilateral changes to plans or price by the builder alone.**",
+          "**Declaring payments non-refundable outright.**",
+          "**Restricting the owner's right to inspect the site during construction.**",
+          "**Deeming work \"accepted\" without an actual inspection.**",
+        ],
+      },
+      "A contractor's standard contract that still contains one of these is not automatically void as a whole — but the offending clause itself doesn't bind you, because it falls outside what the Contract Committee's notice permits a controlled contract to say.",
+      { h: "The practical penalty for non-compliance" },
+      "A business operator who fails to provide a contract containing the required terms is subject to a fine of up to ฿100,000, imprisonment of up to one year, or both. That's a regulatory floor enforced by the consumer-protection authorities — useful leverage if a builder refuses to put these terms in writing, but not a substitute for your own lawyer reviewing the actual contract; see [what a Phangan property lawyer's fee covers](/knowledge/phangan-property-lawyer-fees-what-they-cover).",
+      { h: "The design side: who's actually allowed to sign your plans" },
+      "Separately from the contract-control regime, the Building Control Act requires architectural and structural drawings submitted for a permit to carry a Thailand-licensed architect's and engineer's registration numbers — already noted in [the building-a-villa guide](/knowledge/building-a-villa-koh-phangan). Worth flagging for a foreign buyer used to hiring an overseas designer: foreigners are barred from practicing as licensed architects or engineers in Thailand under the Engineering Profession Act B.E. 2542 (1999) and the Architect Act B.E. 2543 (2000), so an overseas-designed villa still needs a Thai-licensed local professional to take responsibility for, and stamp, the plans actually submitted. And because an end-buyer typically isn't a party to the separate design contract between the builder and its architect/engineer, a direct claim against a negligent designer for defects generally has to run through the general wrongful-act provisions (CCC Sections 420 and 434) rather than a straightforward breach-of-contract claim, unless your own building contract expressly gives you that right.",
+      "The controlled-contract regime is a floor of consumer protection, not a guarantee of good construction. Pair it with ordinary due diligence — checking the contractor's track record, confirming the architect's and engineer's registration numbers before the permit is filed, and structuring payments against inspected progress rather than a fixed calendar.",
+    ],
+    takeaways: [
+      "Since 1 January 2017, residential building construction contracts for personal use are a 'controlled contract' business under the Notice of the Contract Committee B.E. 2559 (2016) — certain terms are mandatory, certain terms are void.",
+      "Mandatory terms include a full price breakdown including VAT, a progress-based payment schedule, a completion date, and warranties of five years for structural work and one year for non-structural work.",
+      "Any clause covering the consumer's own default must give at least 30 days to cure before the builder can terminate.",
+      "Clauses waiving the contractor's liability, allowing unilateral price or plan changes, or declaring payments non-refundable outright are unenforceable regardless of what's signed.",
+      "A business operator who doesn't provide a compliant contract faces a fine of up to ฿100,000 and/or up to one year's imprisonment — a regulatory floor, not a substitute for a lawyer's review of the actual contract.",
+    ],
+    sources: [
+      {
+        title: "Thailand Law Online — Residential Building Construction: Contract Control Rules (2016)",
+        url: "https://www.thailandlawonline.com/thai-real-estate-law/residential-building-contract-control-2016",
+      },
+      {
+        title: "Tilleke & Gibbins — Thailand: New Controls to be Introduced for Residential Building Construction Agreements",
+        url: "https://www.tilleke.com/insights/thailand-new-controls-be-introduced-residential-building-construction-agreements/",
+      },
+      {
+        title: "DLA Piper REALWORLD — Construction: Legal Framework, Thailand",
+        url: "https://www.dlapiperrealworld.com/law/index.html?t=construction&s=legal-framework&c=TH",
+      },
+      {
+        title: "Benoit & Partners — How does the Building Control Act in Thailand regulate construction projects?",
+        url: "https://benoit-partners.com/building-control-act-thailand/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "What must a Thai villa construction contract legally include?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
