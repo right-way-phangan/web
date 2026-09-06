@@ -74,6 +74,14 @@ export interface RmCrossCheck {
   /** spreadPct is size-controlled (median of per-bedroom villa spreads), not the
    * raw island-median spread — so the verdict isn't skewed by sample composition. */
   sizeControlled?: boolean;
+  /** Same property listed on both platforms (merge.dedupe): Booking vs Airbnb
+   * price difference over those pairs — composition-free, unlike the medians. */
+  matched?: {
+    nPairs: number;
+    diffMedianPct: number | null;
+    diffP25Pct: number | null;
+    diffP75Pct: number | null;
+  } | null;
 }
 
 /** Villa nightly rate by bedroom count, Airbnb vs Booking — a second source
@@ -371,6 +379,16 @@ export function measuredOccupancy(d: RmDistrict | null, _meta: RmMeta): number |
     return d.occupancyMeasured;
   }
   return null;
+}
+
+/** Matched-pairs verdict when enough same-property pairs exist (≥ 10), else null. */
+export const XCHECK_AGREE_PCT = 35;
+export function matchedCross(
+  cross: RmCrossCheck | null | undefined,
+): { nPairs: number; diffMedianPct: number; agree: boolean } | null {
+  const m = cross?.matched;
+  if (!m || m.diffMedianPct == null || m.nPairs < 10) return null;
+  return { nPairs: m.nPairs, diffMedianPct: m.diffMedianPct, agree: Math.abs(m.diffMedianPct) <= XCHECK_AGREE_PCT };
 }
 
 /** Sample-size confidence for a group. */

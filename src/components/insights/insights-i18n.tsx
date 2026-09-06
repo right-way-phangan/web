@@ -60,6 +60,8 @@ export const INS = {
     // the raw bar gap — inflated by sample mix — doesn't drive the verdict)
     agreeSized: (pct: number) => `Platforms agree — ±${pct}% on comparable sizes`,
     divergeSized: (pct: number) => `${pct}% spread on comparable sizes`,
+    matchedPairs: (n: number, diff: number) =>
+      `Same ${n} villas on both platforms: Booking ${diff >= 0 ? "+" : "−"}${Math.abs(diff)}% vs Airbnb`,
     sourceN: (n: number) => `${n.toLocaleString("en-US")} listings`,
     supplyUnder: "Under-supplied",
     supplySaturated: "Saturated",
@@ -346,6 +348,8 @@ export const INS = {
     // баров, раздутый составом выборки, не определяет вердикт)
     agreeSized: (pct: number) => `Площадки сходятся — ±${pct}% по сопоставимым размерам`,
     divergeSized: (pct: number) => `Разброс ${pct}% по сопоставимым размерам`,
+    matchedPairs: (n: number, diff: number) =>
+      `Те же ${n} вилл на обеих площадках: Booking ${diff >= 0 ? "+" : "−"}${Math.abs(diff)}% к Airbnb`,
     sourceN: (n: number) => `${n.toLocaleString("ru-RU")} ${pluralRu(n, "объект", "объекта", "объектов")}`,
     supplyUnder: "Мало предложения",
     supplySaturated: "Насыщен",

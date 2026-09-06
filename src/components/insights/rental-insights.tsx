@@ -30,6 +30,7 @@ import {
   type MoneyFmt,
   type InventoryYieldRow,
   makeMoneyFmt,
+  matchedCross,
   effectiveAnnualRangeThb,
   formatAnnualRange,
   measuredOccupancy,
@@ -207,6 +208,21 @@ export function RentalInsights({
   );
 }
 
+/* ------------------------ Cross-check wording -------------------------- */
+
+/** Matched same-property pairs beat median-vs-median: use them when available. */
+function crossAgree(cross: RmCrossCheck): boolean {
+  return matchedCross(cross)?.agree ?? cross.agree;
+}
+function crossLabel(cross: RmCrossCheck, t: (typeof INS)[keyof typeof INS]): string {
+  const m = matchedCross(cross);
+  if (m) return t.matchedPairs(m.nPairs, m.diffMedianPct);
+  const pct = cross.spreadPct ?? 0;
+  return crossAgree(cross)
+    ? (cross.sizeControlled ? t.agreeSized : t.agree)(pct)
+    : (cross.sizeControlled ? t.divergeSized : t.diverge)(pct);
+}
+
 /* --------------------------- Zone divider ------------------------------ */
 
 function AudienceTabs({ value, onChange }: { value: Tab; onChange: (t: Tab) => void }) {
@@ -269,14 +285,12 @@ function TrustStrip({ data, fmt }: { data: RentalMarket; fmt: MoneyFmt }) {
         {showTriangulation && cross && cross.spreadPct != null ? (
           <span
             className={`hidden rounded-full px-2.5 py-0.5 text-xs font-medium sm:inline-flex ${
-              cross.agree
+              crossAgree(cross)
                 ? "bg-forest-500/10 text-forest-500"
                 : "bg-brass-200/50 text-brass-600 dark:bg-brass-500/15 dark:text-brass-300"
             }`}
           >
-            {cross.agree
-              ? (cross.sizeControlled ? t.agreeSized : t.agree)(cross.spreadPct)
-              : (cross.sizeControlled ? t.divergeSized : t.diverge)(cross.spreadPct)}
+            {crossLabel(cross, t)}
           </span>
         ) : null}
         <span className="ml-auto flex shrink-0 items-center gap-1 text-xs text-forest-500/60">
@@ -532,13 +546,11 @@ function TriangulationCard({ cross, fmt }: { cross: RmCrossCheck; fmt: MoneyFmt 
       {cross.spreadPct != null ? (
         <div
           className={`mt-5 inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-sm font-medium ${
-            cross.agree ? "bg-forest-50/60 text-forest-500" : "bg-brass-200/50 text-brass-600"
+            crossAgree(cross) ? "bg-forest-50/60 text-forest-500" : "bg-brass-200/50 text-brass-600"
           }`}
         >
-          {cross.agree ? <CheckCircle className="h-4 w-4" /> : <AlertTriangle className="h-4 w-4" />}
-          {cross.agree
-            ? (cross.sizeControlled ? t.agreeSized : t.agree)(cross.spreadPct)
-            : (cross.sizeControlled ? t.divergeSized : t.diverge)(cross.spreadPct)}
+          {crossAgree(cross) ? <CheckCircle className="h-4 w-4" /> : <AlertTriangle className="h-4 w-4" />}
+          {crossLabel(cross, t)}
         </div>
       ) : null}
     </div>
