@@ -1,0 +1,44 @@
+# Browser checks on production after each deploy (and nightly): what curl can't
+# see — a burger off-screen, a calculator that doesn't mount, a dead theme
+# toggle, console errors after hydration. The 2026-09-06 «calculator vanished»
+# report was exactly this class: HTML fine, interaction broken.
+name: Prod e2e
+
+on:
+  deployment_status:
+  schedule:
+    - cron: "15 3 * * *"
+  workflow_dispatch:
+
+jobs:
+  e2e:
+    if: >
+      github.event_name != 'deployment_status' ||
+      (github.event.deployment_status.state == 'success' &&
+       contains(github.event.deployment_status.environment, 'Production'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      # Playwright is not a project dependency — pulled here only.
+      - name: Install Playwright
+        run: |
+          npm i --no-save --no-audit --no-fund playwright@1.47.2
+          npx playwright install --with-deps chromium
+      - name: Wait for the edge to pick up the deploy
+        if: github.event_name == 'deployment_status'
+        run: sleep 90
+      - name: Run checks
+        id: run
+        run: node scripts/prod-e2e.mjs https://rightwaygroup.co 2>&1 | tee e2e.log
+      - name: Alert Telegram
+        if: failure()
+        run: |
+          reason=$(grep -m1 '^FAIL' e2e.log | cut -c1-200)
+          curl -s --max-time 20 "https://api.telegram.org/bot${{ secrets.TELEGRAM_NOTIFY_BOT_TOKEN }}/sendMessage" \
+            -d chat_id="${{ secrets.TELEGRAM_NOTIFY_CHAT_ID }}" \
+            --data-urlencode text="🔴 rightwaygroup.co — e2e в браузере провален (${{ github.event_name }}): ${reason:-см. лог}. https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            >/dev/null

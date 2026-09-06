@@ -3,6 +3,7 @@ import {
   confidenceOf,
   effectiveAnnualRangeThb,
   formatAnnualRange,
+  matchedCross,
   measuredOccupancy,
   snapshotSeason,
   type RentalMarket,
@@ -61,5 +62,19 @@ describe("snapshotSeason", () => {
     expect(snapshotSeason(["2026-08-31", "2026-12-14"])?.season).toBe("mixed");
     expect(snapshotSeason([])).toBeNull();
     expect(snapshotSeason(undefined)).toBeNull();
+  });
+});
+
+describe("matchedCross — вердикт по одним и тем же объектам", () => {
+  const base = { sources: [], spreadPct: 61, agree: false, sizeControlled: true } as RentalMarket["crossCheck"] & object;
+  it("нет пар или мало пар → null (остаётся медианный вердикт)", () => {
+    expect(matchedCross(null)).toBeNull();
+    expect(matchedCross({ ...base, matched: null })).toBeNull();
+    expect(matchedCross({ ...base, matched: { nPairs: 9, diffMedianPct: 5, diffP25Pct: -3, diffP75Pct: 12 } })).toBeNull();
+    expect(matchedCross({ ...base, matched: { nPairs: 40, diffMedianPct: null, diffP25Pct: null, diffP75Pct: null } })).toBeNull();
+  });
+  it("≥10 пар: согласие при |разнице| ≤ 35%", () => {
+    expect(matchedCross({ ...base, matched: { nPairs: 40, diffMedianPct: 12, diffP25Pct: -3, diffP75Pct: 25 } })).toEqual({ nPairs: 40, diffMedianPct: 12, agree: true });
+    expect(matchedCross({ ...base, matched: { nPairs: 40, diffMedianPct: -48, diffP25Pct: -60, diffP75Pct: -30 } })).toEqual({ nPairs: 40, diffMedianPct: -48, agree: false });
   });
 });
