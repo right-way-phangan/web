@@ -1,0 +1,47 @@
+# Dependabot: minor/patch мержим сами после зелёного CI, чтобы не копить по
+# пять PR к понедельнику (аудит 2026-09-03: пять висели с 31.08). Мажоры
+# остаются на ручной мерж — они ломают (motion 13, eslint 10, tailwind 4).
+# Ветка main без branch protection, поэтому не `--auto`, а ждём чеки сами.
+name: Dependabot automerge
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  automerge:
+    if: github.actor == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Dependabot metadata
+        id: meta
+        uses: dependabot/fetch-metadata@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Wait for CI, then merge minor/patch
+        if: steps.meta.outputs.update-type == 'version-update:semver-minor' || steps.meta.outputs.update-type == 'version-update:semver-patch'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          # Даём чекам появиться, затем ждём завершения всех (кроме этого job'а).
+          sleep 90
+          for i in $(seq 1 40); do
+            s=$(gh pr checks "$PR" --json name,bucket 2>/dev/null || echo "[]")
+            pending=$(jq '[.[] | select(.name != "automerge" and .bucket == "pending")] | length' <<<"$s")
+            failed=$(jq '[.[] | select(.name != "automerge" and .bucket == "fail")] | length' <<<"$s")
+            total=$(jq '[.[] | select(.name != "automerge")] | length' <<<"$s")
+            if [ "$failed" != "0" ]; then echo "checks failed — leaving PR for a human"; exit 0; fi
+            if [ "$total" != "0" ] && [ "$pending" = "0" ]; then
+              gh pr merge "$PR" --squash --delete-branch
+              exit 0
+            fi
+            sleep 30
+          done
+          echo "checks still pending after 20 min — not merging"
