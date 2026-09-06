@@ -17,6 +17,14 @@ const ok = (cond, msg) => {
   console.log(`${cond ? "ok " : "FAIL"} ${msg}`);
 };
 
+/** DOM ready + the page's key element + a beat for hydration — `networkidle`
+ * never settles here (PostHog/GA keep the socket busy). */
+async function go(page, url, selector) {
+  await page.goto(url, { waitUntil: "domcontentloaded", timeout: 45_000 });
+  await page.waitForSelector(selector, { timeout: 20_000 });
+  await page.waitForTimeout(1500);
+}
+
 const browser = await chromium.launch();
 try {
   const consoleErrors = [];
@@ -28,7 +36,7 @@ try {
   page.on("pageerror", (e) => consoleErrors.push(`pageerror: ${String(e).slice(0, 200)}`));
 
   // 1. Home on an iPhone width: burger fully on screen, no horizontal scroll.
-  await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
+  await go(page, `${BASE}/`, 'button[aria-label="Open navigation"]');
   const burger = await page.locator('button[aria-label="Open navigation"]').boundingBox();
   ok(burger && burger.x + burger.width <= 375, `burger inside 375px viewport (${burger ? Math.round(burger.x + burger.width) : "none"})`);
   ok((await page.evaluate(() => document.documentElement.scrollWidth)) <= 375, "no horizontal scroll on home");
@@ -37,7 +45,7 @@ try {
   await page.keyboard.press("Escape");
 
   // 2. Catalogue: cards render, a filter changes the URL and the result set.
-  await page.goto(`${BASE}/listings`, { waitUntil: "networkidle" });
+  await go(page, `${BASE}/listings`, 'a[href^="/object/RW-"]');
   const cards = await page.locator('a[href^="/object/RW-"]').count();
   ok(cards >= 12, `listings render ${cards} cards`);
   const firstObject = await page.locator('a[href^="/object/RW-"]').first().getAttribute("href");
@@ -45,7 +53,7 @@ try {
   ok(moreLink >= 1, "show-more is a real ?page=2 link");
 
   // 3. Object page: calculator present in a <details>, opens, computes.
-  await page.goto(`${BASE}${firstObject}`, { waitUntil: "networkidle" });
+  await go(page, `${BASE}${firstObject}`, "#roi");
   const details = page.locator("#roi details");
   ok((await details.count()) === 1, "object page has the collapsed calculator");
   await details.locator("summary").click();
@@ -56,7 +64,7 @@ try {
   ok(!/NaN|undefined/.test(roiText), "no NaN/undefined in calculator");
 
   // 4. Theme toggle flips and persists.
-  await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
+  await go(page, `${BASE}/`, "header");
   const themeBtn = page.locator('header button[aria-label*="theme" i]').first();
   const toggleVisible = await themeBtn.isVisible().catch(() => false);
   if (toggleVisible) {
@@ -70,7 +78,7 @@ try {
   }
 
   // 5. RU mirror: language switch lands on the RU page with RU copy.
-  await page.goto(`${BASE}/ru/listings`, { waitUntil: "networkidle" });
+  await go(page, `${BASE}/ru/listings`, "h1");
   ok(await page.locator("h1").first().innerText().then((t) => /[А-Яа-я]/.test(t)), "RU listings h1 is Russian");
   ok((await page.evaluate(() => document.documentElement.lang)) === "ru", "html lang flips to ru after hydration");
 
