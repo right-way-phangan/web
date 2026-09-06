@@ -48,7 +48,9 @@ try {
   await go(page, `${BASE}/listings`, 'a[href^="/object/RW-"]');
   const cards = await page.locator('a[href^="/object/RW-"]').count();
   ok(cards >= 12, `listings render ${cards} cards`);
-  const firstObject = await page.locator('a[href^="/object/RW-"]').first().getAttribute("href");
+  // Project cards (RW-P…) redirect to /projects/[slug], which has no #roi — pick a plain object.
+  const hrefs = await page.locator('a[href^="/object/RW-"]').evaluateAll((as) => as.map((a) => a.getAttribute("href")));
+  const firstObject = hrefs.find((h) => h && !h.startsWith("/object/RW-P")) ?? hrefs[0];
   const moreLink = await page.locator('a[rel="next"][href*="page=2"]').count();
   ok(moreLink >= 1, "show-more is a real ?page=2 link");
 
