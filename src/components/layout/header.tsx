@@ -217,6 +217,7 @@ export function Header() {
                 >
                   <Link
                     href={item.href as Route}
+                    prefetch={false}
                     onClick={() => setOpen(false)}
                     aria-current={active ? "page" : undefined}
                     className={cn(
@@ -257,6 +258,7 @@ export function Header() {
                     <li key={item.href}>
                       <Link
                         href={item.href as Route}
+                        prefetch={false}
                         onClick={() => setOpen(false)}
                         aria-current={active ? "page" : undefined}
                         className={cn(

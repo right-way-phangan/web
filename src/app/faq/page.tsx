@@ -19,7 +19,8 @@ export const metadata: Metadata = {
 export default function FaqPage() {
   return (
     <>
-      <FaqJsonLd items={ALL_FAQ_ITEMS} />
+      {/* Top 40 for rich results: all 161 Q&A made the RU page a 1 MB document. */}
+      <FaqJsonLd items={ALL_FAQ_ITEMS.slice(0, 40)} />
       <PageHero
         eyebrow="FAQ"
         title="Buying property on Phangan, demystified."

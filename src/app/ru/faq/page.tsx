@@ -20,7 +20,8 @@ export const metadata: Metadata = {
 export default function RussianFaqPage() {
   return (
     <>
-      <FaqJsonLd items={ALL_FAQ_ITEMS_RU} />
+      {/* Top 40 for rich results: all 161 Q&A made the RU page a 1 MB document. */}
+      <FaqJsonLd items={ALL_FAQ_ITEMS_RU.slice(0, 40)} />
       <PageHero
         eyebrow="Вопросы и ответы"
         title="Покупка недвижимости на Пангане — начистоту."
