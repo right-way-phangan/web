@@ -8651,6 +8651,127 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "structures",
     faqQuestion: "What must a Thai villa construction contract legally include?",
   },
+  {
+    slug: "housing-estate-juristic-entity-thailand",
+    kbId: "kb-0141",
+    topic: "Structures",
+    title: "Who runs a Koh Phangan housing estate once the developer sells out: the juristic entity buyers must form",
+    short:
+      "Once buyers hold at least half the licensed sub-lots in a housing estate, Thai law expects them — not the developer — to form a separate legal entity to run shared roads, drainage and fees. Most small Phangan villa estates never reach that step, leaving a real governance gap.",
+    updated: "2026-09-06",
+    body: [
+      "Once a developer has sold most of the plots in a licensed housing estate (a จัดสรรที่ดิน / housing allotment) on Koh Phangan, who is legally responsible for the shared roads, drainage and common facilities? Thailand's Land Development Act B.E. 2543 (2000) answers this directly, in Sections 44 through 53: once purchasers hold not less than half of the project's licensed sub-lots, they can pass a resolution to establish a **developed-estate juristic entity** (นิติบุคคลหมู่บ้านจัดสรร) — a separate legal person, governed by the buyers themselves, that takes over from the developer. This sits one layer above the Land Allocation Act's [10-plot licensing trigger already covered on this site](/knowledge/land-allocation-act-subdivided-land-koh-phangan): that guide explains when a project needs a licence at all; this one covers who actually runs it once it's licensed and majority-sold.",
+      { h: "How the entity gets formed" },
+      {
+        ul: [
+          "**The trigger** — buyers of not less than one-half of the sub-lots shown on the project's registered layout must pass a resolution to establish the entity and appoint a representative to register it.",
+          "**Automatic membership** — once registered, every plot buyer becomes a member by law, with no separate opt-in. Any sub-lots the developer hasn't sold yet keep the developer itself as a member for those plots.",
+          "**Governance** — an elected executive committee runs the entity, represents it in dealings with outsiders, calls general meetings, and can act on a complaint brought by ten or more members.",
+          "**Powers** — setting rules for using the common roads and facilities, levying and collecting maintenance fees, and providing the services the shared infrastructure needs.",
+        ],
+      },
+      { h: "What discharges the developer's own maintenance duty" },
+      "Before an entity exists, the Act puts maintenance of shared infrastructure on the developer by default. That duty ends only when one of three things happens: buyers form the juristic entity (a process the Act allows a minimum of 180 days for), the Land Allocation Committee approves an alternative arrangement, or the common-facility land is transferred to a local government body instead. Until one of these actually happens, the developer nominally remains on the hook — but an estate that never crosses the 50%-sold threshold, or whose buyers never organise, is left in a real gap: no juristic entity exists to enforce standards, act on the estate's behalf, or hold anyone accountable if a developer quietly stops maintaining a road.",
+      { h: "Maintenance fees have real teeth" },
+      "Fees are set per plot, usually scaled by land-use type or area, and approved by a resolution of the members (or, failing that, by the committee). The developer pays the fee for any lots it hasn't sold yet. Arrears aren't a purely internal matter: after three months unpaid, the entity can suspend the owner's access to shared services; after six months, it can ask the Land Office to suspend registration of any transaction on that title — meaning a delinquent owner may not be able to sell, transfer or mortgage the plot until the arrears are cleared.",
+      { h: "The tax angle" },
+      "When the developer eventually transfers the roads, drainage and other common-facility land to the juristic entity, that transfer — along with the maintenance fees the entity collects — is exempt from registration fees, taxes and duties under a Royal Decree issued for this purpose. It's one of the few points in Thai property law where the state actively subsidises a buyer-run governance structure.",
+      { h: "What this means for a buyer on Koh Phangan" },
+      {
+        ul: [
+          "**Ask directly whether the project is a licensed จัดสรรที่ดิน**, and if so, whether a juristic entity has actually been formed — see the licensing question in [Subdivided land and the Land Development Act](/knowledge/land-allocation-act-subdivided-land-koh-phangan).",
+          "**If under half the plots are sold, there's likely no entity yet** — shared costs and standards are running on informal, verbal arrangements with the developer, not a legal person you could hold accountable.",
+          "**If a majority is sold and there's still no entity, ask why** — owners may simply never have organised, or the developer may prefer the informal arrangement because it avoids handing over control (and the common-facility land) to the buyers.",
+          "**Request the entity's latest fee statement and any arrears** on the specific plot before buying — six months' arrears can block your own registration later if you inherit an unpaid balance.",
+        ],
+      },
+      "Most standalone villa developments on Phangan are small and informal enough that this framework is rarely invoked in practice — but for anyone buying into a larger, formally licensed estate, whether this entity exists, and whether it's solvent, is a due-diligence question in its own right, not a formality. See also the [due diligence checklist for buying on Koh Phangan](/knowledge/due-diligence-checklist-koh-phangan).",
+    ],
+    takeaways: [
+      "Thailand's Land Development Act B.E. 2543 (Sections 44-53) lets buyers of at least half a licensed estate's sub-lots form a separate 'developed-estate juristic entity' to take over shared-infrastructure maintenance from the developer.",
+      "Once formed, every plot buyer is automatically a member; the developer stays a member — and keeps paying fees — for any unsold lots.",
+      "The developer's own maintenance duty only ends once the entity is formed, the Land Allocation Committee approves an alternative, or the common-facility land is handed to a local government — until then it nominally continues.",
+      "Unpaid estate fees carry real leverage: after six months' arrears, the Land Office can be asked to suspend registration of any transaction on that title.",
+      "This is a governance question distinct from the Land Allocation Act's 10-plot licensing trigger — check both whether a project is licensed and whether its buyers have actually formed the entity.",
+    ],
+    sources: [
+      {
+        title: "WSR Law Group — Land Development Act, B.E. 2543",
+        url: "https://wsrlawgroup.com/publications/law-library/thailand-civil-and-commercial-code/land-development-act/",
+      },
+      {
+        title: "Thailand Law Library (Siam Legal) — Land Development Act: Establishing a Developed-Estate Juristic Entity",
+        url: "https://library.siam-legal.com/thai-law/land-development-act-establishing-developed-estate-juristic-entity-sections/",
+      },
+      {
+        title: "Thailand Law Library (Siam Legal) — Land Development Act: Fee for Maintenance and Management, Sections 49-53",
+        url: "https://library.siam-legal.com/thai-law/land-development-act-fee-for-maintenance-and-management-sections-49-53/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "Who is legally responsible for maintaining the roads and common areas in a Koh Phangan housing estate?",
+  },
+  {
+    slug: "buying-property-with-cryptocurrency-thailand",
+    kbId: "kb-0142",
+    topic: "Costs",
+    title: "Buying a Koh Phangan property with cryptocurrency: what the SEC's payment ban means for your purchase",
+    short:
+      "You can fund a Thai property purchase with crypto wealth, but you can't pay a seller directly in Bitcoin or USDT and register that as your payment. Thailand's SEC ban on crypto as a means of payment means the money has to convert to documented Thai baht first.",
+    updated: "2026-09-06",
+    body: [
+      "Can you pay for a villa or condo on Koh Phangan directly in Bitcoin or USDT? No — not in a way the Land Office will recognise. Since 1 April 2022, Thailand's Securities and Exchange Commission has banned licensed digital asset businesses from providing or promoting any service that lets a digital asset be used as a means of payment for goods and services. Holding, trading and investing in crypto stays fully legal; what's banned is treating it as a payment rail. For a foreign buyer, that ban collides directly with a separate, older requirement: the Land Office needs proof that a foreign buyer's purchase money arrived as a documented inward remittance of foreign currency, converted to Thai baht — the same [FET-form process every other foreign buyer follows](/knowledge/bringing-money-into-thailand-fet-form).",
+      { h: "What the ban actually restricts" },
+      {
+        ul: [
+          "**Banned** — a merchant or seller accepting crypto directly as the price of goods or services, and a licensed exchange or broker facilitating that use.",
+          "**Not banned** — owning, trading or investing in digital assets; the restriction is narrowly on using them as a payment method.",
+          "**Enforcement mechanism** — licensed digital asset business operators that detect a customer using their platform to pay for goods or services must warn the user and can suspend or close the account.",
+        ],
+      },
+      "The SEC's stated reasons were consumer protection, price-volatility risk and money-laundering concerns — not a judgment on crypto as an investment.",
+      { h: "The practical route: convert first, then remit" },
+      "Because a seller can't lawfully treat your crypto itself as the purchase price, and because the Land Office needs a documented THB remittance, the workable path is: sell the crypto through a Thai SEC-licensed digital asset exchange (a handful operate, such as Bitkub and Satang), let the baht proceeds land in a bank account, and then move that money through the ordinary foreign-buyer channel — the FET form or equivalent bank confirmation — before it reaches the seller or the Land Office registration.",
+      "Sending cryptocurrency directly to a developer's own wallet, even if the developer is informally willing to accept it, doesn't produce that paperwork. A wallet-to-wallet transfer generates none of the inward-remittance record a foreign buyer needs to prove their money arrived from abroad in convertible foreign currency — so a foreigner who pays that way has no clean way to register freehold condo ownership, and no standard proof of funds for a leasehold villa deal either.",
+      { h: "A 2026 wrinkle: large inbound transfers now draw more scrutiny" },
+      "Separately from the crypto question, the Bank of Thailand tightened its own documentation rules for large inbound foreign-currency transfers. Under BOT Circular 8434/2568, effective 29 December 2025, banks must obtain supporting documents verifying the source and purpose of any inbound transfer of USD 200,000 or more before crediting the funds — on top of the long-standing rule that any remittance over USD 50,000 needs a FET form at all. A crypto sale sized to fund a villa purchase can land squarely inside that higher-scrutiny band, so a buyer converting significant crypto holdings should expect the receiving bank to ask for a paper trail reaching back through the exchange — trade confirmations, the exchange's own KYC records — not just proof that baht arrived.",
+      { h: "What this means for a buyer" },
+      {
+        ul: [
+          "**Treat any 'we accept crypto' claim from a developer as shorthand for 'we accept baht converted from crypto through a licensed exchange'** — not a literal on-chain payment that skips the paper trail.",
+          "**Budget extra time** for a licensed exchange's own KYC/AML checks on a large sell order, especially before a Land Office registration date that's already fixed.",
+          "**Keep every document** — the exchange's trade confirmation, the bank's credit advice, and the FET form or bank inward-remittance letter may all be asked for, especially above the USD 200,000 verification threshold.",
+          "**Never pay a seller or developer directly from a crypto wallet** expecting it to count as your purchase funds — it satisfies neither the SEC's payment-method ban nor the Land Office's foreign-currency documentation requirement.",
+        ],
+      },
+      "Crypto wealth is a normal, legitimate source of funds for a growing share of Phangan buyers — but there's no shortcut around the standard documentation trail. Convert through a licensed exchange, let the money land as baht in a bank account, and follow the same FET-form path as every other foreign buyer; see [a day at the Land Office](/knowledge/land-office-registration-day) for what happens next.",
+    ],
+    takeaways: [
+      "Thailand's SEC has banned using digital assets as a direct means of payment for goods and services since 1 April 2022 — holding and trading crypto stays legal, but paying a seller directly in Bitcoin or USDT does not.",
+      "The workable route is to convert crypto to Thai baht through an SEC-licensed exchange first, then move the proceeds through the ordinary FET-form foreign-buyer process.",
+      "Sending crypto straight to a developer's wallet doesn't create the inward-remittance paperwork a foreign buyer needs to register title at the Land Office.",
+      "Since 29 December 2025 (BOT Circular 8434/2568), inbound transfers of USD 200,000 or more face enhanced source-of-funds verification — a threshold a villa-sized crypto conversion can easily cross.",
+      "Any remittance over USD 50,000 already needs a FET form regardless of the underlying source of funds, crypto included.",
+    ],
+    sources: [
+      {
+        title: "Baker McKenzie — Thai SEC Bans Cryptocurrency as a Means of Payment",
+        url: "https://blockchain.bakermckenzie.com/2022/03/27/thai-sec-bans-cryptocurrency-as-a-means-of-payment/",
+      },
+      {
+        title: "Silk Legal — The Bank of Thailand Tightens Inbound Foreign Exchange Controls",
+        url: "https://silklegal.com/the-bank-of-thailand-tightens-inbound-foreign-exchange-controls/",
+      },
+      {
+        title: "HLB Thailand — Bank of Thailand (BOT) Applies Stricter Document Checks for Foreign Currency Inflows",
+        url: "https://www.hlbthai.com/bank-of-thailand-bot-applies-stricter-document-checks-for-foreign-currency-inflows/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "Can I buy a Koh Phangan property directly with cryptocurrency?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
