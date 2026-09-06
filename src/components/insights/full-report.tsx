@@ -10,7 +10,8 @@ import {
   type RmSeasonal,
   type RmSeasonality,
   type MoneyFmt,
-  effectiveAnnualThb,
+  formatAnnualRange,
+  snapshotSeason,
   measuredOccupancy,
   confidenceOf,
 } from "@/lib/data/rental-market";
@@ -82,7 +83,7 @@ export function FullReport({ data, fmt }: { data: RentalMarket; fmt: MoneyFmt })
                 t.districtSub(
                   d.n,
                   d.adrP25 && d.adrP75 ? `${fmt(d.adrP25)}–${fmt(d.adrP75)}` : null,
-                  fmt(effectiveAnnualThb(d, meta), true),
+                  formatAnnualRange(d, meta, fmt),
                   measuredOccupancy(d, meta) != null
                     ? Math.round((measuredOccupancy(d, meta) as number) * 100)
                     : null,
@@ -470,8 +471,9 @@ function Seasonality({ seasonal, fmt }: { seasonal: RmSeasonal; fmt: MoneyFmt })
   );
 }
 
-export function Methodology({ meta }: { meta: RentalMarket["meta"] }) {
+export function Methodology({ meta, dates }: { meta: RentalMarket["meta"]; dates?: string[] }) {
   const t = INS[useLocale()];
+  const season = snapshotSeason(dates);
   return (
     <details className="rounded-sm border border-forest-500/10 bg-cream-200/30 p-5 text-sm text-forest-500/80">
       <summary className="cursor-pointer font-medium text-forest-500">{t.methodSummary}</summary>
@@ -479,6 +481,7 @@ export function Methodology({ meta }: { meta: RentalMarket["meta"] }) {
         {t.methodBullets(meta).map((b, i) => (
           <li key={i}>{b}</li>
         ))}
+        {season && season.season !== "mixed" ? <li>{t.seasonNote(season.season, season.from, season.to)}</li> : null}
       </ul>
     </details>
   );

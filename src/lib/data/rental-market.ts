@@ -309,7 +309,9 @@ export type MoneyFmt = ReturnType<typeof makeMoneyFmt>;
 /** STR running-cost defaults (mirror the ROI calculator). */
 export const MGMT_FEE = 0.25; // % of gross rent
 export const OPEX_PCT = 0.03; // % of price / year
-const OCC_MIN_SAMPLE = 5;
+// 15+ measured calendars before a district's occupancy is shown as «measured»
+// (5 let a handful of blocked calendars pass as demand).
+const OCC_MIN_SAMPLE = 15;
 
 /**
  * Annual income projection uses the BASE scenario occupancy — a single forward
@@ -319,6 +321,48 @@ const OCC_MIN_SAMPLE = 5;
  */
 export function effectiveAnnualThb(d: RmDistrict, meta: RmMeta): number {
   return Math.round(d.adrMedian * 365 * meta.occupancy.base);
+}
+
+/**
+ * Annual income as a RANGE instead of one number: the low end uses the
+ * measured forward-90d occupancy when the district sample allows (else the
+ * conservative scenario), the high end the base scenario. One figure at 55%
+ * read as a promise while calendars showed ~23%.
+ */
+export function effectiveAnnualRangeThb(
+  d: RmDistrict,
+  meta: RmMeta,
+): { low: number; high: number; lowPct: number; highPct: number } {
+  const measured = measuredOccupancy(d, meta);
+  const lowOcc = Math.min(measured ?? meta.occupancy.conservative, meta.occupancy.base);
+  const highOcc = Math.max(lowOcc, meta.occupancy.base);
+  return {
+    low: Math.round(d.adrMedian * 365 * lowOcc),
+    high: Math.round(d.adrMedian * 365 * highOcc),
+    lowPct: Math.round(lowOcc * 100),
+    highPct: Math.round(highOcc * 100),
+  };
+}
+
+/** «฿0.9M–2.2M» for the range above, in the caller's currency formatter. */
+export function formatAnnualRange(d: RmDistrict, meta: RmMeta, fmt: (v: number, compact?: boolean) => string): string {
+  const r = effectiveAnnualRangeThb(d, meta);
+  return r.low === r.high ? fmt(r.high, true) : `${fmt(r.low, true)}–${fmt(r.high, true)}`;
+}
+
+/**
+ * Which season the snapshots cover. Phangan high season is roughly Nov–Apr;
+ * with every snapshot in May–Oct the rates are LOW-season rates and must not
+ * be read as annual. Returns the month range for the note.
+ */
+export function snapshotSeason(dates: string[] | undefined): { season: "low" | "high" | "mixed"; from: string; to: string } | null {
+  if (!dates || dates.length === 0) return null;
+  const months = dates.map((s) => Number(s.slice(5, 7))).filter((m) => m >= 1 && m <= 12);
+  if (months.length === 0) return null;
+  const low = months.every((m) => m >= 5 && m <= 10);
+  const high = months.every((m) => m >= 11 || m <= 4);
+  const sorted = [...dates].sort();
+  return { season: low ? "low" : high ? "high" : "mixed", from: sorted[0], to: sorted[sorted.length - 1] };
 }
 
 /** Measured forward-90d occupancy of *active* listings in a district, or null. */
@@ -331,8 +375,10 @@ export function measuredOccupancy(d: RmDistrict | null, _meta: RmMeta): number |
 
 /** Sample-size confidence for a group. */
 export function confidenceOf(n: number): "low" | "medium" | "high" {
-  if (n < 5) return "low";
-  if (n < 12) return "medium";
+  // Medians over a dozen listings with a 3–4× p25–p75 spread were labelled
+  // «high» — 30 is the floor for that word now.
+  if (n < 12) return "low";
+  if (n < 30) return "medium";
   return "high";
 }
 
