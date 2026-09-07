@@ -29,18 +29,18 @@
     "jose": "^6.2.10",
     "leaflet": "^1.9.4",
     "leaflet.markercluster": "^1.5.3",
-    "lucide-react": "^1.34.0",
+    "lucide-react": "^1.40.0",
     "motion": "^12.40.0",
     "next": "^15.0.0",
     "pngjs": "^7.0.0",
-    "posthog-js": "^1.422.1",
+    "posthog-js": "^1.426.2",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
     "react-leaflet": "^4.2.1",
     "react-leaflet-cluster": "^2.1.0",
     "sharp": "^0.35.0",
     "tailwind-merge": "^2.5.0",
-    "zod": "^4.4.3"
+    "zod": "^4.5.4"
   },
   "devDependencies": {
     "@tailwindcss/container-queries": "^0.1.1",
