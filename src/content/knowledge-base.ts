@@ -8772,6 +8772,128 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "costs",
     faqQuestion: "Can I buy a Koh Phangan property directly with cryptocurrency?",
   },
+  {
+    slug: "deportation-regulation-foreign-business-act-2026",
+    kbId: "kb-0143",
+    topic: "Structures",
+    title: "Thailand's new fast-track deportation rule and the Foreign Business Act ground that can trigger it",
+    short:
+      "A new Prime Minister's Office regulation, effective since 28 August 2026, gives Thailand's Interior Minister a much faster, standardized deportation process — and running an unlawful business under the Foreign Business Act, the same law behind the nominee-shareholding crackdown, is one of its explicit grounds.",
+    updated: "2026-09-07",
+    body: [
+      "Can a foreigner now be deported from Thailand for a Foreign Business Act violation — the same law behind the island-wide nominee-shareholding crackdown? On paper, yes: since 28 August 2026, running a business unlawfully under the FBA is one of six explicit grounds in a new deportation regulation, processed on a faster administrative track than before. The regulation doesn't create a new offence — the Interior Minister already had deportation power under the Deportation Act B.E. 2499 (1956) — but it standardises and speeds up how that power gets used, arriving at a moment when courts and Land Offices are already actively pursuing nominee-shareholding structures on Koh Phangan and Koh Samui. See [Koh Phangan land disposal orders](/knowledge/koh-phangan-land-disposal-orders-112-companies-2026) and [Koh Samui/Phangan raid and lease scrutiny](/knowledge/koh-samui-phangan-raid-leases-nominee-scrutiny-2026) for the enforcement backdrop this sits inside.",
+      { h: "What the regulation actually changed" },
+      "The Prime Minister's Office Regulation on Deportation B.E. 2569 was signed by PM Anutin Charnvirakul on 26 August 2026, published in the Royal Gazette the next day, and took effect 28 August 2026. It formalises procedure under the existing Deportation Act rather than expanding the Minister's underlying authority, and covers two separate tracks: foreigners whose conduct is judged contrary to public order, good morals or public wellbeing (a broad, discretionary track), and foreigners convicted of one of six specified offence categories.",
+      {
+        ul: [
+          "Illegal entry into or overstaying in the Kingdom.",
+          "Unlawful employment under the foreign-worker law.",
+          "**Operating a business unlawfully under the Foreign Business Act** — the ground most relevant to a nominee-held landholding company or an unlicensed foreign real estate broker.",
+          "Forging or using forged official documents.",
+          "An offence carrying a prison term above a set statutory threshold.",
+          "Acting as principal, instigator or supporter of any of the above.",
+        ],
+      },
+      { h: "The mechanics: faster and more standardized" },
+      "The regulation links the Department of Corrections and the Interior Ministry directly: Corrections must flag a qualifying case to the Ministry at least 15 days before a convicted foreigner's release, so a deportation order can be ready to execute the moment a sentence ends rather than triggering a fresh, slower review afterward. The Interior Minister issues the order, which can also restrict the person's return to Thailand for a specified period.",
+      { h: "The first test case — and what it does and doesn't show" },
+      "The first reported deportation under the new regulation was Yaacov Ohayon, a five-year Koh Samui resident who ran a sandwich business and a real estate development, ordered removed on 4 September 2026 — about a week after the regulation took effect — with a reported seven-day window to appeal to the Prime Minister. His underlying conviction was a ฿5,000 fine plus a suspended 15-day sentence under Criminal Code Section 392 (causing fear or alarm), tied to a dispute unrelated to his property business. That's an important nuance: this first case demonstrates how quickly the *public-order/conduct* track can now move on a comparatively minor conviction — it isn't a worked example of the Foreign Business Act ground specifically. No FBA-based deportation has been publicly reported yet as of this writing.",
+      { h: "What this means for a foreign owner" },
+      {
+        ul: [
+          "**A new layer, not a replacement** — a foreigner convicted of an FBA nominee-shareholding violation already faces Land Code Section 96 forced land divestment and FBA fines; a fast-track deportation order can now follow on top of those, not instead of them. See [the Section 94/96 forced-sale mechanics](/knowledge/land-code-section-94-forced-sale-forfeiture).",
+          "**Conviction-triggered, not automatic** — holding a nominee stake informally isn't itself grounds under this regulation; a criminal conviction under the FBA is the trigger, the same evidentiary bar that already applies to existing nominee prosecutions.",
+          "**Brokerage risk too** — a foreigner illegally working as a real estate agent under FBA List Three, already restricted per [foreign real estate agent rules](/knowledge/foreign-real-estate-agent-restrictions-thailand), now carries this same fast-track removal exposure on conviction, not just a fine.",
+          "**Regularise sooner rather than later** — anyone still inside a legacy 49/51 structure with a real nominee problem has one more reason to review it against the [DBD's 2026 source-of-funds and disclosure rules](/knowledge/dbd-order-2-2569-consolidated-rules-2026) before, not after, a prosecution starts.",
+        ],
+      },
+      "This is a genuine escalation in enforcement machinery, not a new legal theory — the underlying FBA nominee prohibition is unchanged. What's new is how fast a conviction can now turn into removal from the country, on top of the asset consequences the crackdown already imposes. Whether a Foreign Business Act case actually gets processed through this new track is the detail worth watching next.",
+    ],
+    takeaways: [
+      "The Prime Minister's Office Regulation on Deportation B.E. 2569, effective 28 August 2026, formalises and speeds up deportation procedure under the existing Deportation Act — it doesn't create new legal grounds.",
+      "Six conviction categories qualify a foreigner for fast-track deportation, including 'operating a business unlawfully under the Foreign Business Act' — directly relevant to nominee-shareholding convictions.",
+      "A separate, broader track covers conduct judged contrary to public order or good morals, decided at the Interior Minister's discretion.",
+      "The first reported case (September 2026) used the public-order/criminal-conviction track for an unrelated offence, not the FBA ground — no FBA-based deportation has been publicly reported yet.",
+      "This layers on top of existing Land Code Section 96 forced divestment and FBA fines for nominee structures; it doesn't replace them.",
+    ],
+    sources: [
+      {
+        title: "Nation Thailand — Anutin signs deportation rules effective August 28",
+        url: "https://www.nationthailand.com/news/general/40070359",
+      },
+      {
+        title:
+          "Thai Examiner — Koh Samui Israeli expat the first to be deported under Prime Minister Anutin's new deportation regime",
+        url: "https://www.thaiexaminer.com/thai-news-foreigners/2026/09/05/koh-samui-israeli-expat-the-first-to-be-deported-under-prime-minister-anutins-new-deportation-regime/",
+      },
+      {
+        title: "Khaosod English — Thailand's new deportation rules put 'undesirable' foreigners on notice",
+        url: "https://www.khaosodenglish.com/featured/2026/08/28/thailands-new-deportation-rules-put-undesirable-foreigners-on-notice/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "Can a foreigner be deported from Thailand for a Foreign Business Act or nominee-shareholding violation?",
+  },
+  {
+    slug: "condo-inheritance-foreign-quota-full-section-19-7",
+    kbId: "kb-0144",
+    topic: "Ownership",
+    title: "Inheriting a Koh Phangan condo when the foreign quota is already full: Condominium Act Section 19/7",
+    short:
+      "A foreign heir doesn't automatically get to keep an inherited condo unit. If the building's 49% foreign-ownership quota is already full, or the heir doesn't otherwise qualify, Section 19/7 gives them 60 days to notify the Land Office and one year to sell — or the Land Department sells it for them.",
+    updated: "2026-09-07",
+    body: [
+      "If you inherit a freehold condo unit on Koh Phangan as a foreign heir, do you automatically get to keep it in your own name? Not necessarily. The building's 49% foreign-ownership quota must still be satisfied at the moment you acquire the unit — and if the quota is already full, or you don't otherwise meet Section 19's ownership conditions, Condominium Act Section 19/7 doesn't let you register title. Instead it starts a clock: 60 days to notify the Land Office in writing, and one year to sell. This is a distinct mechanism from [the Land Code Section 93 rule forcing a foreign heir who inherits land itself to dispose of it within a year](/knowledge/foreign-heir-inheriting-thai-land-section-93) — that guide covers land, where the constraint is the blanket ban on foreign land ownership; this one covers condo units, where the constraint is a building-wide ownership ratio that can fill up independently of anything the heir does.",
+      { h: "The 60-day notice, one-year sale clock" },
+      {
+        ul: [
+          "**60-day notification** — an unqualified foreign heir must notify the competent Land Office official in writing within 60 days of acquiring ownership of the unit.",
+          "**One-year disposal** — the heir then has up to one year from that same acquisition date to sell the unit.",
+          "**Applies either way** — whether the heir inherits under a will as a named legatee or as a statutory heir under intestate succession; see [the five legal forms of a Thai will](/knowledge/legal-forms-of-a-thai-will) and [the statutory-heir order without one](/knowledge/intestate-succession-statutory-heirs-thai-property).",
+          "**The clock doesn't start in a vacuum** — before either deadline is even reachable, a Thai court must first appoint an estate administrator, the mandatory procedural step covered in [the estate-administrator guide](/knowledge/estate-administrator-probate-thai-property-transfer). Probate delay eats into the one-year window, it doesn't run separately from it.",
+        ],
+      },
+      { h: "If the year runs out: a forced sale, not a free pass" },
+      "Section 19/7 applies the fourth paragraph of Section 19 quinque \"mutatis mutandis\" if the heir doesn't dispose of the unit in time — which authorises the Director-General of the Land Department to arrange the sale on the heir's behalf, retaining a 5% fee from the sale price before any other deductions or taxes. At that point the Land Department, not the heir, controls the timing and effectively the buyer — a forced sale is not built to get the best price.",
+      { h: "Is there a way to keep it instead of selling?" },
+      "Section 19/7 itself provides no requalification path — an unqualified heir cannot simply become qualified and register the inherited unit in their own name. The practical workaround reported by Thai property lawyers is different: the heir (or another family member) can separately buy the unit from the estate using Section 19's ordinary foreign-buyer qualification route — remitting foreign currency into Thailand equal to the government-appraised value, converting it to baht, and completing an [FET-form-documented purchase](/knowledge/bringing-money-into-thailand-fet-form) like any other foreign condo buyer. That's a fresh purchase transaction, not an exception written into the inheritance rule, and it only helps if the building's quota has room again by the time it happens — for instance because another unit resold to a Thai buyer in the meantime.",
+      { h: "Why the quota-full risk is easy to miss" },
+      {
+        ul: [
+          "A condo's foreign quota isn't fixed at your own purchase — it's a building-wide ratio that shifts every time another unit resells to a Thai or foreign buyer over the years you own yours.",
+          "A unit bought comfortably inside the 49% quota today can still land a future heir outside it, if enough other units flip to foreign ownership before the inheritance happens.",
+          "Check the juristic person's current foreign-ownership percentage before buying, and periodically afterward if you're estate-planning around leaving the unit to a foreign heir — see [condo juristic-person governance](/knowledge/condo-juristic-person-committee-governance-thailand) for how to request this figure from the committee.",
+          "A Thai heir faces no version of this constraint at all — a real difference for a mixed-nationality family's estate planning, separate from the choice between [freehold condo and leasehold villa](/knowledge/freehold-condo-vs-leasehold-villa) in the first place.",
+        ],
+      },
+      "This isn't a reason to avoid freehold condo ownership if you're planning to leave a unit to non-Thai heirs — but it is a concrete reason to check the building's current foreign-ownership ratio periodically, not just at purchase, and to build the 60-day notification deadline into any estate plan alongside the probate step in [the estate-administrator guide](/knowledge/estate-administrator-probate-thai-property-transfer).",
+    ],
+    takeaways: [
+      "Condominium Act Section 19/7: a foreign heir who doesn't qualify under Section 19 (quota full or otherwise) must notify the Land Office within 60 days and sell within one year of acquiring ownership.",
+      "Miss the deadline and the Land Department's Director-General can sell the unit on the heir's behalf, retaining a 5% fee before other deductions or taxes — the heir doesn't control price or timing.",
+      "Distinct from the Land Code Section 93 rule for inherited land — this is condo-specific and driven by the building's foreign-ownership ratio, not a blanket foreign-ownership ban.",
+      "Section 19/7 itself has no requalification exception, but an heir can separately buy the unit under Section 19's standard remitted-foreign-currency route if the building's quota has room.",
+      "The quota risk isn't fixed at purchase — it shifts over your ownership period as other units resell, which matters for anyone estate-planning around a foreign heir.",
+    ],
+    sources: [
+      {
+        title: "Samui For Sale — Inheritance & Foreign Ownership of Condos in Thailand",
+        url: "https://www.samuiforsale.com/real-estate/condo-inheritance.html",
+      },
+      {
+        title: "Thailand Law Online — Succession, Inheritance & Assignment of Foreign Condo Ownership",
+        url: "https://www.thailandlawonline.com/article-older-archive/succession-inheritance-assignment-foreign-condo-ownership",
+      },
+      {
+        title: "Lexology — Inheritance of condominium units by foreigners in Thailand",
+        url: "https://www.lexology.com/library/detail.aspx?g=d0657f29-d2a3-4395-9e96-f89d2d293a36",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "ownership",
+    faqQuestion: "What happens if I inherit a Koh Phangan condo but the building's 49% foreign quota is already full?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

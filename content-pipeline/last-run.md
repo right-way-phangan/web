@@ -1,56 +1,60 @@
-# Last run — 2026-09-06
+# Last run — 2026-09-07
 
-Published 2 guides (EN + RU each). Every ⏳ backlog item other than these two had already
-been checked and re-checked in prior runs as duplicate/thin/unsafe (water crisis stuck on
-PWA Notice 7/2569 with no successor; FBA/AMLA predicate-offence still Ombudsman/AMLO review
-only; rental yields, power-grid cable, stamp duty vs SBT, off-plan project vetting and the
-coalition policy stance all still duplicate or too thin — see inline notes in backlog.md).
-These two were the only backlog rows not yet resolved, both freshly discovered 2026-09-05/06
-and both flagged "verify before writing" — so this run's work was source verification first,
-then authoring.
+Published 2 guides (EN + RU each). The backlog is now almost entirely ✅ — every remaining
+⏳ row (water crisis on PWA Notice 7/2569, FBA/AMLA predicate-offence, coalition foreign-
+ownership stance, rental yields, power-grid cable, stamp duty vs SBT, off-plan project
+vetting, e-filing deadline) has been re-checked across multiple prior runs and confirmed
+duplicate/thin/unsafe again this run, so neither topic below came from a pre-existing ⏳
+row. Both were found fresh today via two parallel research passes — one dated-news sweep
+(2026-09-04 through 2026-09-07), one evergreen gap-mining pass over the full 143-slug
+catalog — and both were independently source-verified (direct fetches plus cross-checked
+search results) before writing.
 
-## 1. kb-0141 — `housing-estate-juristic-entity-thailand`
+## 1. kb-0143 — `deportation-regulation-foreign-business-act-2026`
 
-- **Title (EN):** Who runs a Koh Phangan housing estate once the developer sells out: the
-  juristic entity buyers must form
-- **Title (RU):** Кто управляет посёлком на Ко Пангане после того, как застройщик распродал
-  участки: юридическое лицо, которое обязаны создать покупатели
+- **Title (EN):** Thailand's new fast-track deportation rule and the Foreign Business Act
+  ground that can trigger it
+- **Title (RU):** Новое ускоренное правило депортации в Таиланде и основание по Закону об
+  иностранном бизнесе, которое его запускает
 - **faqCategory:** structures
 - **Sources:**
-  - WSR Law Group's summary of the Land Development Act B.E. 2543, Sections 44-53 — fetched
-    directly and successfully (the backlog flagged two of three candidate sources as 403ing;
-    this one wasn't among them and gave a full, internally consistent picture).
-  - Thailand Law Library (Siam Legal), two dedicated pages on establishing the juristic
-    entity and on the maintenance-fee sections — both 403'd on direct fetch, cited via
-    search-result-snippet content (consistent with this site's established practice for
-    paywalled/bot-blocked law-firm pages), cross-checked against WSR's numbers for internal
-    consistency.
-  - A Thai-language search corroborating the general-meeting half-vote threshold for by-law
-    and fee-ratio changes.
-- Distinct from the already-published `land-allocation-act-subdivided-land-koh-phangan`
-  (kb-0117), which covers only the 10-plot licensing trigger, never the buyer-governance
-  entity itself — confirmed by re-reading that guide's body in full before writing.
+  - Nation Thailand (direct fetch) — regulation name, sign/gazette/effective dates (signed
+    26 Aug 2026, effective 28 Aug 2026), the six deportation-trigger offence categories.
+  - Thai Examiner (direct fetch, 5 Sep 2026) — the first reported test case (Yaacov Ohayon,
+    Koh Samui) and its facts.
+  - Khaosod English (28 Aug 2026, corroborated via search) — general policy framing.
+- News-driven find: the regulation names "operating a business unlawfully under the Foreign
+  Business Act" as one of six fast-track deportation grounds — directly relevant to the
+  site's nominee-shareholding-crackdown coverage. Framed conservatively: the first actual
+  test case used the regulation's separate, broader public-order/conduct track for an
+  unrelated Section 392 criminal conviction (not an FBA case), so the guide says explicitly
+  that no FBA-based deportation has been publicly reported yet, rather than implying the
+  first case demonstrates the FBA angle in practice.
 
-## 2. kb-0142 — `buying-property-with-cryptocurrency-thailand`
+## 2. kb-0144 — `condo-inheritance-foreign-quota-full-section-19-7`
 
-- **Title (EN):** Buying a Koh Phangan property with cryptocurrency: what the SEC's payment
-  ban means for your purchase
-- **Title (RU):** Покупка недвижимости на Ко Пангане за криптовалюту: что означает запрет
-  SEC на оплату криптоактивами
-- **faqCategory:** costs
+- **Title (EN):** Inheriting a Koh Phangan condo when the foreign quota is already full:
+  Condominium Act Section 19/7
+- **Title (RU):** Наследование кондо на Ко Пангане, когда иностранная квота уже заполнена:
+  статья 19/7 Закона о кондоминиумах
+- **faqCategory:** ownership
 - **Sources:**
-  - Baker McKenzie (Blockchain blog) — directly fetched, confirms the core claim: Thailand's
-    SEC banned licensed digital-asset businesses from facilitating crypto as a payment
-    method for goods/services, effective 1 April 2022.
-  - Silk Legal and HLB Thailand — independent law/audit-firm sources confirming BOT Circular
-    8434/2568 (effective 29 Dec 2025), which requires enhanced source-of-funds verification
-    on inbound transfers of USD 200,000+.
-  - The backlog flagged the "convert first, developer-wallet doesn't count" mechanic as
-    thinly (marketing-adjacent) sourced. Rather than lean on those weak sources, the guide
-    derives that point as a direct logical consequence of this site's own already-verified
-    FET-form mechanics (`bringing-money-into-thailand-fet-form`): a foreign buyer's inward
-    remittance must be documented foreign currency, which a wallet-to-wallet crypto transfer
-    never generates. No claim in the guide rests on an unverified marketing source.
+  - Samui For Sale (direct fetch) — Section 19/7 mechanics: 60-day notification, 1-year
+    disposal deadline, forced-sale mechanism, Section 19(5) requalification-by-purchase
+    route.
+  - Thailand Law Online (direct fetch) — cross-check quoting the same operative text
+    ("shall notify in writing... within sixty days... dispose of such apartment within one
+    year").
+  - Lexology (403 on direct fetch, cited via corroborating search-result summary consistent
+    with both other sources).
+- Evergreen gap-mining find: the only prior mention anywhere on the site was a single
+  generic sentence inside `freehold-condo-vs-leasehold-villa` ("heirs may be required to
+  sell the unit... Thai law gives time to do so") with no Section 19/7 citation or
+  mechanics — confirmed via full-text grep before writing. Distinct from the Land Code
+  Section 93 land-inheritance guide (that's land, this is condo-quota-driven) and from the
+  political condo-quota-debate guide (that's about the 49% cap itself, not inheritance
+  mechanics). Cross-linked to the estate-administrator, will-forms, intestate-succession,
+  condo-governance and FET-form guides.
 
-Both guides type-check cleanly (`tsc --noEmit`) and cross-link to existing related guides in
-both languages.
+Backlog updated: both topics added as new rows (they weren't pre-existing ⏳ items) and
+marked ✅ with discovery/sourcing notes.
