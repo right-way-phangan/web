@@ -8894,6 +8894,130 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "ownership",
     faqQuestion: "What happens if I inherit a Koh Phangan condo but the building's 49% foreign quota is already full?",
   },
+  {
+    slug: "hire-purchase-installment-villa-forfeiture-risk-thailand",
+    kbId: "kb-0145",
+    topic: "Documents",
+    title: "Is your villa 'installment plan' actually a hire-purchase contract? The forfeiture risk in CCC Section 574",
+    short:
+      "A multi-year installment plan for a villa building can be structured two very different ways under Thai law — an ordinary sale agreement with staged payments, or a hire-purchase (เช่าซื้อ) contract where the seller keeps ownership until the final payment clears. Miss two installments under a hire-purchase structure and CCC Section 574 lets the seller keep every baht you've paid and take the building back.",
+    updated: "2026-09-07",
+    body: [
+      "If a developer offers to sell you a villa building on Koh Phangan through a multi-year installment plan, is that legally the same as an ordinary sale with a staged payment schedule? Not necessarily — and the difference is one of the more consequential things to check before signing, not after a payment gets missed. Thailand's Civil and Commercial Code recognizes hire-purchase (เช่าซื้อ) as a distinct contract type from an ordinary sale, and the two carry very different default remedies.",
+      { h: "Two structures, two very different outcomes on default" },
+      {
+        ul: [
+          "**Ordinary sale-and-purchase agreement (SPA) with milestone or staged payments** — covered in [earnest money and backing out of a Thai sale agreement](/knowledge/sale-purchase-agreement-earnest-money-ccc-thailand). Default remedies run through CCC Sections 377-388: earnest money forfeiture, notice-and-cure, rescission. The buyer typically has a growing equitable claim to the property as payments accumulate.",
+          "**Hire-purchase (CCC Sections 572-574)** — legally, you are not buying in installments; you are hiring the property with a promise it becomes yours once a set number of payments is made. Ownership stays with the seller ('the owner') throughout the term, regardless of how much you've already paid.",
+        ],
+      },
+      { h: "What Sections 572-574 actually say" },
+      {
+        ul: [
+          "**Section 572 (definition)** — a hire-purchase is a contract whereby the owner of a property lets it out on hire and promises to sell it to, or that it shall become the property of, the hirer, conditioned on the hirer making a certain number of payments. It must be made in writing to be enforceable.",
+          "**Section 573 (the hirer's exit)** — you may terminate the contract at any time simply by returning the property to the owner at your own expense. That protects you from being locked in, but it doesn't get you a refund.",
+          "**Section 574 (the owner's remedy on default)** — the owner may terminate the contract if you default on two successive installments, or breach a material term. On termination, **all previous payments are forfeited to the owner**, who is also entitled to resume possession of the property.",
+        ],
+      },
+      { h: "Why this matters more for a villa than for a car or a fridge" },
+      "Hire-purchase is the everyday legal form behind Thai car and appliance financing, where the forfeiture-on-default rule is well understood and the sums involved are modest. Applied to a villa building worth several million baht, the same clause is far higher-stakes: two missed installments — which could happen from a bank transfer delay, a currency-control snag, or a genuine dispute with the developer over construction quality — can legally cost you everything paid to date, with no court weighing proportionality first. Note the foreign land-ownership ban is unaffected either way: a hire-purchase structure for a villa **building** still requires a separate, lawful basis for the land under it, typically [a registered lease](/knowledge/leasehold-vs-freehold) or [superficies](/knowledge/superficies-vs-usufruct-vs-lease) — a hire-purchase contract doesn't and cannot extend to land ownership itself.",
+      { h: "How to tell which contract you're actually signing" },
+      {
+        ul: [
+          "**Read the title and the ownership clause, not just the payment schedule.** A hire-purchase contract will describe you as \"hirer\" (ผู้เช่าซื้อ) and the seller as \"owner\" (เจ้าของกรรมสิทธิ์) throughout the term, with title passing only on the final payment. An ordinary SPA describes both sides as buyer and seller from signing.",
+          "**Check the default clause specifically.** \"All sums paid are forfeited\" on missing two payments is the hire-purchase default rule (Section 574) unless negotiated away. An ordinary SPA's default clause should instead point back to earnest money and rescission mechanics.",
+          "**Ask when title actually transfers.** If the answer is \"only after the last installment, and not before,\" you are very likely inside a hire-purchase structure regardless of what the document is titled in English marketing material.",
+          "**Get independent legal review before signing**, not after a payment is missed — see [what a Phangan property lawyer's fee actually covers](/knowledge/phangan-property-lawyer-fees-what-they-cover). A lawyer can also negotiate Section 574's default rule down to something proportionate (a partial refund, a cure period) before you sign, since the statute's forfeiture rule applies only in the absence of a contrary agreement.",
+        ],
+      },
+      "None of this makes hire-purchase illegal or inherently predatory — it's a legitimate, widely used contract form. The risk is signing one without realizing it, and discovering only after a missed payment that the default consequence is total forfeiture rather than the earnest-money and cure-period protections an ordinary sale agreement would give you.",
+    ],
+    takeaways: [
+      "A villa 'installment plan' can be structured as either an ordinary sale agreement (CCC ss.377-388 default rules) or a hire-purchase contract (CCC ss.572-574) — the two have very different consequences on default.",
+      "Under hire-purchase, the seller keeps legal ownership until the final payment; you're a hirer, not a buyer, throughout the term.",
+      "CCC Section 574: two successive missed installments (or a material breach) lets the owner terminate, forfeit every payment made, and repossess the property — with no proportionality review built into the statute.",
+      "Section 573 lets a hirer exit anytime by returning the property, but that's not a refund right — it just stops further liability.",
+      "Check the contract's title, the ownership clause and the default clause before signing, and get it independently reviewed — Section 574's forfeiture rule applies only 'in the absence of agreement to the contrary,' so it can be negotiated.",
+    ],
+    sources: [
+      {
+        title: "FAO (FAOLEX) — Civil and Commercial Code of Thailand, official English translation (Sections 572-574)",
+        url: "https://faolex.fao.org/docs/pdf/tha200357.pdf",
+      },
+      {
+        title: "ILGA — Civil and Commercial Code of Thailand, Book III (1925), official translation mirror",
+        url: "https://database.ilga.org/api/downloader/download/1/TH%20-%20LEG%20-%20Civil%20and%20Commercial%20Code%20(part%20III)%20(1925)%20-%20TR%20(en).pdf",
+      },
+      {
+        title: "Thailand Law Forum — Civil and Commercial Code, Sections 572-607 (Hire-Purchase)",
+        url: "https://www.thailawforum.com/thailand-civil-and-commercial-code-sections-572-607/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion: "What happens if I miss a payment on a villa I'm buying through an installment or hire-purchase plan in Thailand?",
+  },
+  {
+    slug: "work-permit-foreign-owner-rental-management-business",
+    kbId: "kb-0146",
+    topic: "Process",
+    title: "Owning a rental villa doesn't need a work permit — personally running the business might",
+    short:
+      "Collecting rental income from a villa you own is not itself 'work' under Thai law. But if you personally handle the day-to-day of the rental business inside Thailand — bookings, guest check-in, marketing, bookkeeping — that crosses into work requiring a Thai work permit, a separate legal gate from the Foreign Business Act licensing question already covered elsewhere on this site.",
+    updated: "2026-09-07",
+    body: [
+      "Does a foreign villa owner on Koh Phangan need a work permit just to rent the place out? No — passively owning property and receiving rental income is not 'work' under Thai law, and doesn't require a permit on its own. The question changes if you personally perform the activity of running the rental as a business inside Thailand — answering guest messages, managing bookings, handling check-in, doing the marketing or bookkeeping yourself. That's a separate legal gate from [whether renting out a villa needs a Foreign Business Act license in the first place](/knowledge/renting-out-villa-foreign-business-act-license) — this guide covers whether *you personally doing the work* is allowed, not whether the underlying rental activity itself is restricted.",
+      { h: "Why 'work' catches more than a salaried job" },
+      "The Working of Alien Act B.E. 2551 (2008), consolidated into the Royal Ordinance Concerning the Management of Employment of Foreign Workers B.E. 2560 (2017), defines work broadly — engaging in work by exerting energy or using knowledge, whether or not done for wages or profit. That wording is deliberately wide: it doesn't require an employer-employee relationship or a paycheck to count, which is why practitioners commonly treat an owner actively operating their own rental business as performing 'work' in the legal sense, not merely collecting passive income.",
+      { h: "The company, capital and staffing gate behind a work permit" },
+      {
+        ul: [
+          "**A work permit sits on top of a Thai company sponsor**, not instead of one — an individual foreigner generally can't hold a work permit to operate a sole proprietorship rental business without a properly structured Thai entity behind it.",
+          "**Capital and staffing thresholds are commonly cited by immigration practitioners** at roughly ฿2,000,000 in registered/paid-up capital per work permit sought (reduced if the foreigner is married to a Thai national), and a Thai-to-foreign staffing ratio commonly cited around 4:1. These figures sit in Ministry of Labour / Department of Employment implementing criteria rather than a single number written directly into the Act itself, so treat them as the practitioner-reported standard, not a statutory citation, and confirm current figures with a licensed labour lawyer before relying on them.",
+          "**BOI promotion or an LTR visa doesn't itself substitute for a work permit** for ordinary villa-rental management — BOI capital/staffing exemptions target promoted industries, and [the LTR visa's property-investment route](/knowledge/ltr-visa-property-investment-route) grants long-term residency and tax benefits, not a blanket work-permit exemption for actively operating a rental business.",
+        ],
+      },
+      { h: "Where this sits next to the FBA question" },
+      "These are two independent compliance layers, and clearing one doesn't clear the other. [The FBA licensing question](/knowledge/renting-out-villa-foreign-business-act-license) asks whether a foreigner is allowed to conduct the rental-service business at all under the Foreign Business Act's restricted-business list — an unresolved grey area for a single owner's own rental income, as that guide explains. This guide's question is narrower and applies even if the FBA point is resolved favorably: assuming the rental activity itself is permitted, is a foreigner personally performing the operational work of running it also allowed to do so without a work permit? The same logic applies to [the separate restriction on foreigners working as real estate brokers](/knowledge/foreign-real-estate-agent-restrictions-thailand) — brokering other people's properties and actively managing your own rental are different activities, but both sit inside the same broader principle that active work by a foreigner in Thailand generally needs either a work permit or an exemption.",
+      { h: "Practical routes that avoid the question" },
+      {
+        ul: [
+          "**Stay passive** — contract day-to-day operations out to a licensed Thai property-management company and limit your own role to owner-level decisions (approving rates, reviewing statements). See [how to vet a villa property-management company](/knowledge/vetting-villa-property-management-company).",
+          "**Formalize it properly** — if you genuinely want to run the operational side yourself, set up a properly capitalized Thai company, meet the capital/staffing thresholds with a labour lawyer's help, and obtain a Non-Immigrant B visa and work permit before doing hands-on work, not after.",
+          "**Don't assume a Thai company structure alone solves it** — a 49/51 company that owns or manages the rental still needs the individual foreigner actively working inside it to separately hold a valid work permit; company formation and personal work authorization are two different filings.",
+        ],
+      },
+      "None of this changes anything about receiving rental income as a passive owner, which remains straightforward and is covered on the tax side by [owner's annual taxes](/knowledge/owners-taxes-annual-land-and-income). The risk this guide addresses is specifically the gap between owning a rental asset and personally operating it as a business inside Thailand — a distinction worth confirming with a lawyer before you start doing the day-to-day work yourself.",
+    ],
+    takeaways: [
+      "Passively owning a villa and collecting rental income is not 'work' under Thai law and doesn't require a work permit by itself.",
+      "Personally performing the operational work of running the rental business inside Thailand — bookings, guest communication, marketing, bookkeeping — can cross into 'work' under the Working of Alien Act's broad definition, permit or not.",
+      "A work permit requires a Thai company sponsor meeting capital/staffing thresholds commonly cited around ฿2,000,000 per permit and a 4:1 Thai-to-foreign staffing ratio — figures sourced to practitioner guidance on Ministry of Labour criteria, not a single statutory citation.",
+      "This is separate from the Foreign Business Act question of whether the rental activity itself is restricted — resolving one doesn't resolve the other.",
+      "The lowest-risk route for most owners is contracting operations out to a licensed Thai property-management company rather than personally running day-to-day operations.",
+    ],
+    sources: [
+      {
+        title: "Department of Employment (doe.go.th) — Working of Alien Act B.E. 2551 (2008), unofficial English translation",
+        url: "https://www.doe.go.th/prd/assets/upload/files/sukhothai_th/928cb9d2c6e07cd3e5812a43993a0fdd.pdf",
+      },
+      {
+        title: "ILO NATLEX — Royal Ordinance Concerning the Management of Employment of Foreign Workers B.E. 2560 (2017), official English translation",
+        url: "https://natlex.ilo.org/dyn/natlex2/natlex2/files/download/107728/THA107728%20Eng.pdf",
+      },
+      {
+        title: "DeeMED Consulting — Work Permit Quotas & Capital Requirements in Thailand",
+        url: "https://www.deemedconsulting.com/insights/2026-08-01-work-permit-quotas-capital-requirements-thailand",
+      },
+      {
+        title: "Thailand Law Online — Work Permit for Foreigners in Thailand",
+        url: "https://www.thailandlawonline.com/thai-company-and-foreign-business-law/work-permit-for-foreigners-in-thailand",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "Do I need a Thai work permit to manage my own rental villa on Koh Phangan?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

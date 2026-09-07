@@ -1,60 +1,67 @@
-# Last run — 2026-09-07
+# Last run — 2026-09-07 (second run, same day)
 
-Published 2 guides (EN + RU each). The backlog is now almost entirely ✅ — every remaining
-⏳ row (water crisis on PWA Notice 7/2569, FBA/AMLA predicate-offence, coalition foreign-
-ownership stance, rental yields, power-grid cable, stamp duty vs SBT, off-plan project
-vetting, e-filing deadline) has been re-checked across multiple prior runs and confirmed
-duplicate/thin/unsafe again this run, so neither topic below came from a pre-existing ⏳
-row. Both were found fresh today via two parallel research passes — one dated-news sweep
-(2026-09-04 through 2026-09-07), one evergreen gap-mining pass over the full 143-slug
-catalog — and both were independently source-verified (direct fetches plus cross-checked
-search results) before writing.
+This is a second content pass on 2026-09-07 — an earlier run today already published kb-0143
+(deportation-regulation-foreign-business-act-2026) and kb-0144
+(condo-inheritance-foreign-quota-full-section-19-7). This run published 2 more guides
+(EN + RU each). The backlog's remaining ⏳ rows (water crisis on PWA Notice 7/2569,
+FBA/AMLA predicate-offence, coalition foreign-ownership stance, rental yields, power-grid
+cable, stamp duty vs SBT, off-plan project vetting, e-filing deadline) were re-checked again
+this run and remain duplicate/thin/unsafe, so neither topic below came from a pre-existing
+⏳ row. Both were found fresh via two parallel research passes — one dated-news sweep
+(2026-09-05 through 2026-09-07), one evergreen gap-mining pass over the full 144-slug
+catalog — and independently source-verified before writing.
 
-## 1. kb-0143 — `deportation-regulation-foreign-business-act-2026`
+## 1. kb-0145 — `hire-purchase-installment-villa-forfeiture-risk-thailand`
 
-- **Title (EN):** Thailand's new fast-track deportation rule and the Foreign Business Act
-  ground that can trigger it
-- **Title (RU):** Новое ускоренное правило депортации в Таиланде и основание по Закону об
-  иностранном бизнесе, которое его запускает
-- **faqCategory:** structures
+- **Title (EN):** Is your villa 'installment plan' actually a hire-purchase contract? The
+  forfeiture risk in CCC Section 574
+- **Title (RU):** Ваш «план рассрочки» на виллу — это на самом деле хайр-перчейз? Риск
+  утраты всех платежей по статье 574 ГТК
+- **faqCategory:** documents
 - **Sources:**
-  - Nation Thailand (direct fetch) — regulation name, sign/gazette/effective dates (signed
-    26 Aug 2026, effective 28 Aug 2026), the six deportation-trigger offence categories.
-  - Thai Examiner (direct fetch, 5 Sep 2026) — the first reported test case (Yaacov Ohayon,
-    Koh Samui) and its facts.
-  - Khaosod English (28 Aug 2026, corroborated via search) — general policy framing.
-- News-driven find: the regulation names "operating a business unlawfully under the Foreign
-  Business Act" as one of six fast-track deportation grounds — directly relevant to the
-  site's nominee-shareholding-crackdown coverage. Framed conservatively: the first actual
-  test case used the regulation's separate, broader public-order/conduct track for an
-  unrelated Section 392 criminal conviction (not an FBA case), so the guide says explicitly
-  that no FBA-based deportation has been publicly reported yet, rather than implying the
-  first case demonstrates the FBA angle in practice.
+  - FAO/FAOLEX — official English translation of the Civil and Commercial Code (Sections
+    572-574 quoted directly).
+  - ILGA — independent official-translation mirror of CCC Book III (1925), cross-checking
+    the same section text.
+  - Thailand Law Forum — practitioner summary of Sections 572-607 confirming the
+    forfeiture/termination mechanics in plain language.
+- Evergreen gap-mining find: some villa-building sales on the island are structured as
+  multi-year installment plans, and Thai law recognizes two legally distinct contract forms
+  for that — an ordinary sale agreement (earnest-money/rescission default rules, already
+  covered in kb-0139) or a hire-purchase contract (CCC ss.572-574), where the seller retains
+  ownership throughout and two missed installments forfeit every payment made. Confirmed via
+  full read of sale-purchase-agreement-earnest-money-ccc-thailand and
+  thailand-escrow-act-off-plan-deposit-protection that neither covers the hire-purchase
+  contract form specifically — genuinely distinct legal mechanism, not a restatement.
+  Framed conservatively: did not claim hire-purchase structuring is common practice among
+  Phangan developers specifically (no source supports that), only that the legal risk exists
+  and is worth checking for before signing an installment plan.
 
-## 2. kb-0144 — `condo-inheritance-foreign-quota-full-section-19-7`
+## 2. kb-0146 — `work-permit-foreign-owner-rental-management-business`
 
-- **Title (EN):** Inheriting a Koh Phangan condo when the foreign quota is already full:
-  Condominium Act Section 19/7
-- **Title (RU):** Наследование кондо на Ко Пангане, когда иностранная квота уже заполнена:
-  статья 19/7 Закона о кондоминиумах
-- **faqCategory:** ownership
+- **Title (EN):** Owning a rental villa doesn't need a work permit — personally running the
+  business might
+- **Title (RU):** Владение виллой под аренду не требует рабочего разрешения — а личное
+  управление бизнесом может потребовать
+- **faqCategory:** process
 - **Sources:**
-  - Samui For Sale (direct fetch) — Section 19/7 mechanics: 60-day notification, 1-year
-    disposal deadline, forced-sale mechanism, Section 19(5) requalification-by-purchase
-    route.
-  - Thailand Law Online (direct fetch) — cross-check quoting the same operative text
-    ("shall notify in writing... within sixty days... dispose of such apartment within one
-    year").
-  - Lexology (403 on direct fetch, cited via corroborating search-result summary consistent
-    with both other sources).
-- Evergreen gap-mining find: the only prior mention anywhere on the site was a single
-  generic sentence inside `freehold-condo-vs-leasehold-villa` ("heirs may be required to
-  sell the unit... Thai law gives time to do so") with no Section 19/7 citation or
-  mechanics — confirmed via full-text grep before writing. Distinct from the Land Code
-  Section 93 land-inheritance guide (that's land, this is condo-quota-driven) and from the
-  political condo-quota-debate guide (that's about the 49% cap itself, not inheritance
-  mechanics). Cross-linked to the estate-administrator, will-forms, intestate-succession,
-  condo-governance and FET-form guides.
+  - Department of Employment (doe.go.th) — hosted unofficial English translation of the
+    Working of Alien Act B.E. 2551 (2008) (primary/official-domain source).
+  - ILO NATLEX — official English translation of the Royal Ordinance Concerning the
+    Management of Employment of Foreign Workers B.E. 2560 (2017), the consolidating law.
+  - DeeMED Consulting and Thailand Law Online — two independent practitioner sources
+    corroborating the commonly-cited ~฿2,000,000-per-work-permit capital threshold and 4:1
+    Thai-staffing ratio; independently cross-checked via a targeted WebSearch.
+- Evergreen gap-mining find: this candidate was flagged by a prior run (2026-09-05) but left
+  unpublished pending better sourcing on the exact capital/staffing figures. This run located
+  and verified the Act/Ordinance text itself against two independent official translations,
+  and explicitly caveats in the guide that the numeric capital/staffing figures are sourced
+  to practitioner-reported Ministry of Labour implementing criteria, not a number found in a
+  located ministerial regulation PDF — consistent with this site's conservative-claims
+  standard. Confirmed via full read of renting-out-villa-foreign-business-act-license and
+  foreign-real-estate-agent-restrictions-thailand that neither covers work-permit
+  capital/staffing mechanics; both address a different question (whether the activity itself
+  is FBA-restricted, not whether personally performing it needs a work permit).
 
-Backlog updated: both topics added as new rows (they weren't pre-existing ⏳ items) and
-marked ✅ with discovery/sourcing notes.
+Backlog updated: both topics added as new rows (neither was a pre-existing ⏳ item) and
+marked ✅ with a discovery/sourcing note.
