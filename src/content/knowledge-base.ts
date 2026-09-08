@@ -9018,6 +9018,114 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "process",
     faqQuestion: "Do I need a Thai work permit to manage my own rental villa on Koh Phangan?",
   },
+  {
+    slug: "land-expropriation-compensation-rights-thailand",
+    kbId: "kb-0147",
+    topic: "Ownership",
+    title: "Can the government take your land? Expropriation compensation rights in Thailand",
+    short:
+      "Yes — Thailand can expropriate privately owned land for public projects like roads or the proposed Samui-Phangan sea bridge, but the 2019 Expropriation Act requires a royal decree, a defined compensation process, and appeal rights. Here's what compensation actually covers and how to dispute a figure you think is too low.",
+    updated: "2026-09-08",
+    body: [
+      "Can the Thai government take privately owned land for a public project — a road widening, the proposed Samui-Phangan sea bridge, or a new cruise pier — and if so, what do you actually get paid? Yes: under the Expropriation and Acquisition of Immovable Property Act B.E. 2562 (2019), the state has the power to compel a sale for a defined range of public purposes, but the Act requires a structured process and fair compensation — it isn't a bare taking.",
+      { h: "How expropriation starts" },
+      "Expropriation begins with a royal decree that designates the affected zone — sometimes called an official 'red line' — for a permitted purpose: public utilities, roads and transport infrastructure, military use, agricultural development schemes, or town-and-country planning. From the decree date, land inside the zone faces development restrictions; major construction or modification generally needs special permission. Officials then survey and catalogue each parcel — land area, buildings, trees and other fixed assets — before a pricing committee sets compensation. Start to finish, the process commonly spans two to five years.",
+      { h: "What compensation is supposed to cover" },
+      {
+        ul: [
+          "**Land** — market value assessed as of the decree date, weighing location, permitted use and comparable actual sales.",
+          "**Structures** — replacement cost less depreciation for houses, outbuildings, fences, water tanks and similar fixed improvements.",
+          "**Trees and crops** — compensated against official per-tree or per-rai schedules rather than a case-by-case valuation.",
+          "**Relocation costs** — demolition and moving expenses, and the practical disruption to livelihood.",
+          "**Damage to the remainder** — if only part of a plot is taken and what's left is oddly shaped, loses road access, or can no longer be used as before, that diminished value is also compensable, not just the strip that was taken.",
+        ],
+      },
+      { h: "The compensation committee, and a legal wrinkle worth knowing" },
+      "A committee formed under Section 19 of the Act announces the per-parcel figure. Thai legal commentary flags a structural quirk worth understanding rather than assuming: compensation set by this committee is treated as an administrative act, reviewable by the Administrative Court, while compensation written directly into a specific expropriation act of parliament is a legislative act and isn't subject to the same administrative review. In practice, almost every everyday expropriation (road projects, utility corridors) runs through the Section 19 committee route, so the Administrative Court avenue below is the one that matters for most owners.",
+      { h: "Appeal rights — and why accepting payment doesn't end them" },
+      "An owner who disputes the committee's figure can appeal to the responsible minister, generally within a statutory window reported as around 90 days from notice of the compensation decision. If that doesn't resolve it, the next step is the Administrative Court. Importantly, accepting the compensation payment does not by itself forfeit the right to appeal — sources are consistent that reserving your right to dispute the amount at the time you receive payment keeps the appeal open, so an owner facing a compulsory taking doesn't have to choose between taking the money and continuing to fight for a fairer figure.",
+      "This is a separate legal track from the government forfeiture covered in [Land Code Section 94 and forced land sales](/knowledge/land-code-section-94-forfeiture-amendment) — that mechanism punishes illegal foreign-linked landholding; expropriation compensates a lawful owner for land the state needs for a public purpose. For Phangan and Samui specifically, the proposed [Samui-Phangan sea bridge and expressway](/knowledge/samui-sea-bridge-expressway-phangan-tao-demand) and the [Koh Samui cruise pier proposal](/knowledge/koh-samui-cruise-terminal-proposal-phangan-impact) are the kind of projects that would, if they proceed to a royal decree stage, trigger this process for any land along the designated route or landing site — worth asking about specifically if a plot you're evaluating sits near either alignment.",
+    ],
+    takeaways: [
+      "Expropriation requires a royal decree designating the zone; land inside it faces development restrictions from the decree date.",
+      "Compensation must cover land at market value, structures at replacement cost less depreciation, trees/crops, relocation costs, and damage to the diminished value of any remaining parcel.",
+      "A Section 19 committee sets per-parcel compensation; owners can appeal to the responsible minister within roughly 90 days, then to the Administrative Court.",
+      "Accepting a compensation payment doesn't forfeit your right to appeal, provided you reserve that right when you receive the payment.",
+      "A full expropriation typically spans two to five years from decree to completion — relevant given the proposed Samui-Phangan sea bridge and cruise-pier projects.",
+    ],
+    sources: [
+      {
+        title:
+          "My Property — Land Expropriation in Thailand: Your Rights, the Compensation Math, and How to Check Before You Buy",
+        url: "https://myproperty.in.th/en/blog/land-expropriation-rights-2569",
+      },
+      {
+        title: "DLA Piper REALWORLD — Expropriation/compulsory purchase in Thailand",
+        url: "https://www.dlapiperrealworld.com/law/index.html?c=TH&t=sale-and-purchase&s=real-estate-sales-and-public-law&q=expropriation-compulsory-purchase",
+      },
+      {
+        title:
+          "King Prajadhipok's Institute Journal — Legal Issues in Determining Compensation under the Expropriation and Acquisition of Immovable Property Act, B.E. 2562 (2019)",
+        url: "https://so06.tci-thaijo.org/index.php/kpi_journal/article/view/285482",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "ownership",
+    faqQuestion:
+      "Can the Thai government expropriate my land for a public project like the Samui-Phangan bridge, and how is compensation calculated?",
+  },
+  {
+    slug: "land-code-section-69-bis-boundary-resurvey",
+    kbId: "kb-0148",
+    topic: "Documents",
+    title:
+      "Your fence doesn't match your title deed: Land Code Section 69 bis and the boundary re-survey process",
+    short:
+      "A title deed's boundary and the fence on the ground don't always match, especially on older or subdivided Phangan plots. Land Code Section 69 bis lets any landowner apply to the Land Office to formally re-survey and correct the record — with defined notice periods for neighbours and a fallback to court if they object.",
+    updated: "2026-09-08",
+    body: [
+      "What happens when the fence line on a Koh Phangan plot doesn't match the boundary shown on the title deed — a common gap given decades-old surveys, hillside subdivisions and markers that have shifted or gone missing? Land Code Section 69 bis gives any titled landowner a formal administrative route to have the Land Office re-survey and, where justified, correct the record — without starting a civil lawsuit.",
+      { h: "Two routes into a re-survey" },
+      {
+        ul: [
+          "**Owner-initiated application** — under Section 69 bis, any rights-holder can apply at any time, submitting the title deed to the Land Office and requesting examination and verification of the boundary.",
+          "**Locality-wide verification campaign** — separately, when a Provincial Governor decides an area needs its boundaries re-checked against the cadastral map, the Land Office must give affected rights-holders at least 15 days' written notice in advance, plus a notice posted on the land itself and a follow-up notice of the actual survey date and time.",
+        ],
+      },
+      { h: "When possession and the map disagree" },
+      "If the on-the-ground survey shows the actual possessed area or boundary doesn't match what the title deed's map records, the land officer has the power to correct the map or the recorded area to match the real survey — but only once the owner of the adjoining land certifies the new boundary line. The one exception the law carves out: officers won't make the correction if the mismatch looks like collusion between neighbours to quietly expand a plot beyond what was legally acquired.",
+      { h: "The 30-day neighbour-notice window" },
+      "To get that certification, the Land Office sends the adjoining owner written notice asking them to confirm the boundary within 30 days. If there's no response in that window, and the applicant confirms no encroachment is involved, the correction can proceed without the neighbour's sign-off. This is the practical reason it matters to keep your registered address current with the Land Office and to actually open notices addressed to you as a landowner — a missed 30-day window can mean a boundary gets finalised without your input.",
+      { h: "If a neighbour objects" },
+      "Where a neighbour disputes the proposed line, land officers investigate and typically try to negotiate a compromise using the available survey evidence. If the parties still can't agree, both sides are formally notified of a 90-day window to take the dispute to court. If neither side files suit within that period, the boundary-correction application is treated as abandoned — the existing title deed stands unchanged, and the disputed line simply isn't resolved administratively.",
+      "This sits alongside, but is distinct from, the other title-deed mechanisms already covered on this site: a [Section 83 caveat](/knowledge/land-code-section-83-caveat-title-deed) is a private claimant's temporary hold on a pending transaction, not a boundary tool; [adverse possession](/knowledge/adverse-possession-squatters-vacant-land-koh-phangan) is about a stranger acquiring ownership through 10 years of open possession, not correcting a survey error between neighbours; and a [way of necessity or registered servitude](/knowledge/landlocked-land-way-of-necessity-vs-servitude) addresses access rights, not boundary lines. For a buyer, the practical takeaway sits inside standard due diligence: when [walking a plot with a licensed surveyor](/knowledge/due-diligence-checklist-koh-phangan), a mismatch between the concrete boundary markers and the deed's cadastral plan is exactly the kind of issue a Section 69 bis application exists to fix — ideally resolved by the seller before you buy, not inherited as your problem after.",
+    ],
+    takeaways: [
+      "Any titled landowner can apply under Land Code Section 69 bis at any time to have the Land Office formally re-survey and verify their boundary.",
+      "A locality-wide re-survey campaign requires the Provincial Governor to give at least 15 days' written notice, plus a notice posted on the land itself.",
+      "If the actual survey doesn't match the title's map, officers can correct it once the adjoining owner certifies the new line — unless the mismatch looks like an attempt to evade the law.",
+      "Adjoining owners get 30 days' written notice to certify a boundary; no response in that window lets the correction proceed without their sign-off, provided no encroachment is claimed.",
+      "If a neighbour objects and no compromise is reached, both sides get a 90-day window to sue; if neither does, the correction request is abandoned and the existing deed stands.",
+    ],
+    sources: [
+      {
+        title: "Thailand Law Online — Thai Land Law: Full Translation of the Thailand Land Code Act",
+        url: "https://www.thailandlawonline.com/thai-real-estate-law/thai-land-law-land-code-act",
+      },
+      {
+        title: "Thailand Law Library (Siam Legal) — Land Act 2497: Land Survey (Sections 65-70)",
+        url: "https://library.siam-legal.com/thai-law/land-act-2497-land-survey-sections-65-70/",
+      },
+      {
+        title: "FAO (FAOLEX) — Land Code Promulgating Act, B.E. 2497 (1954), official English translation",
+        url: "https://faolex.fao.org/docs/pdf/tha33176.pdf",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion:
+      "My plot's fence doesn't match the title deed's boundary — can the Land Office fix this without a lawsuit?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
