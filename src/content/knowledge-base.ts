@@ -9126,6 +9126,119 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "My plot's fence doesn't match the title deed's boundary — can the Land Office fix this without a lawsuit?",
   },
+  {
+    slug: "neighboring-properties-law-nuisance-drainage-thailand",
+    kbId: "kb-0149",
+    topic: "Structures",
+    title:
+      "Your neighbor's excavation or drainage damaged your plot: Thailand's law of neighboring properties",
+    short:
+      "A neighbor's hillside cut-and-fill cracks your retaining wall, or their new roofline dumps rainwater onto your land — do you have a claim? Civil and Commercial Code Sections 1337-1348, Thailand's 'law of neighboring properties', give adjoining landowners a direct civil remedy for nuisance, bad drainage and unsafe excavation, separate from any building-permit or zoning question.",
+    updated: "2026-09-08",
+    body: [
+      "Can you sue a neighbor whose construction damages your Koh Phangan land, even if their building permit is in order? Yes — Sections 1337 to 1348 of the Civil and Commercial Code (CCC) set out a distinct body of private civil law governing disputes between adjoining landowners: nuisance, water drainage, excavation safety, and shared boundary walls and trees. A permit being correctly issued doesn't excuse a builder from these rules, and a neighbor doesn't need to prove a permit violation to bring a claim under them.",
+      { h: "The general nuisance rule (Section 1337)" },
+      "Section 1337 is Thailand's closest equivalent to a nuisance doctrine: if a person's exercise of their own property rights causes an adjoining owner 'greater injury or inconvenience than should naturally and reasonably be expected' given the nature and location of the land, the affected owner can seek an order to stop the interference (abatement) plus compensation for the damage already done. This is the general catch-all a Phangan neighbor would reach for when construction activity — noise, dust, vibration, or the more concrete problems below — crosses the line from ordinary building disturbance into unreasonable harm.",
+      { h: "Water and drainage (Sections 1339-1341)" },
+      {
+        ul: [
+          "**Natural water flow must be accepted.** A lower plot must accept water that flows naturally from higher land; the upper landowner may only retain the water genuinely needed for their own property, not dam or hoard it to the lower owner's detriment.",
+          "**Artificially redirected drainage creates liability.** If an upper landowner channels water artificially — a graded driveway, a concrete apron, a French drain — onto a lower neighbor's land and it causes damage, the lower owner can require the water be redirected to a public watercourse at the upper owner's expense.",
+          "**Roofs can't be built to dump rainwater on a neighbor.** Section 1341 specifically bars constructing a roof or other structure so that rainwater falls onto the adjoining property — a common problem on Phangan's tightly built village lots where a new second story overhangs the boundary.",
+        ],
+      },
+      { h: "Excavation and soil stability (Sections 1342-1343)" },
+      {
+        ul: [
+          "**A 2-metre setback for wells, ponds and cesspools.** No well, pond, cesspool or similar waste receptacle may be dug within 2 metres of a boundary line.",
+          "**A depth-based setback for other excavation.** Trenches, foundations and buried pipework must keep back from the boundary by at least half the excavation's depth, with a 1-metre minimum regardless of how shallow the dig is.",
+          "**Excavation that endangers a neighbor's land needs protective works.** Section 1343 requires anyone excavating or loading their land in a way that could destabilise the adjoining soil to take adequate protective measures — think retaining walls and shoring on Phangan's hillside cut-and-fill builds, exactly the kind of construction the island's [Samui Model hillside enforcement](/knowledge/samui-model-hillside-enforcement-koh-phangan) sweep targets from the public-law side. Section 1343 is the private-law mirror of that same risk: even a fully permitted excavation can trigger a neighbor's civil claim if it isn't shored properly.",
+        ],
+      },
+      { h: "Boundary walls, fences and trees (Sections 1344-1348)" },
+      {
+        ul: [
+          "**A wall, fence, hedge or ditch sitting on the boundary line is presumed jointly owned** by both adjoining owners, with shared maintenance obligations, unless the title or a survey marker shows otherwise.",
+          "**Either owner can partition a shared hedge or ditch** by building their own wall or fence along the boundary at their own expense.",
+          "**A tree standing on the boundary line is presumed jointly owned**, and its fruit and timber are divided equally between the two neighbors.",
+          "**Roots that cross the boundary can be cut and kept** by the receiving landowner at any time; overhanging branches can be cut and kept too, but only after giving the tree owner notice to remove them first.",
+          "**Fruit that falls naturally onto a neighbor's land belongs to that land** — it isn't the tree owner's to reclaim.",
+        ],
+      },
+      { h: "How this differs from what else is on this site" },
+      "This is a distinct layer from several other guides here. [Landlocked land and the way of necessity](/knowledge/landlocked-land-way-of-necessity-vs-servitude) is about a right of access across a neighbor's land, not liability for nuisance or drainage. [Section 69 bis boundary re-survey](/knowledge/land-code-section-69-bis-boundary-resurvey) is an administrative Land Department procedure for correcting where a title's recorded boundary sits — it doesn't touch what one neighbor owes another once the boundary is settled. And [hillside slope building limits](/knowledge/hillside-slope-building-limits-koh-phangan) are public zoning caps enforced by the state; Sections 1337-1343 are a private right a neighbor holds regardless of whether the local authority ever gets involved.",
+      "The practical takeaway for anyone building near a boundary on Phangan: a signed-off permit protects you from the state, not from your neighbor. Before excavating, grading a driveway, or designing a roofline near a property line, check these setbacks and drainage rules — and if you're the one affected, know that a valid permit on the other side doesn't defeat your claim under Section 1337.",
+    ],
+    takeaways: [
+      "CCC Section 1337 lets an adjoining owner sue for abatement and compensation when a neighbor's construction causes injury or inconvenience beyond what's naturally expected — independent of any building-permit dispute.",
+      "Water must be allowed to flow naturally downhill, but artificially redirected drainage or a roofline that dumps rainwater on a neighbor's land creates liability under Sections 1339-1341.",
+      "Wells, ponds and cesspools need a 2-metre setback from the boundary; other excavation needs a setback of half its depth (1-metre minimum), and any dig that could destabilise a neighbor's soil requires protective works under Section 1343.",
+      "Boundary walls, fences, hedges, ditches and trees are presumed jointly owned, with shared maintenance and equally split fruit and timber.",
+      "A landowner can cut and keep roots that cross the boundary any time, but can only cut overhanging branches after giving the tree's owner notice to remove them first.",
+    ],
+    sources: [
+      { title: "Samui For Sale — Thailand Civil Code, Book IV Property (Sections 1298-1434)", url: "https://www.samuiforsale.com/law-texts/thailand-civil-code-part-3.html" },
+      { title: "Juslaws & Consult — Thai Civil and Commercial Code, Book IV: Property", url: "https://www.juslaws.com/thai-civil-and-commercial-code/book-4-property" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion:
+      "Can I sue a neighbor whose construction or drainage damages my plot on Koh Phangan?",
+  },
+  {
+    slug: "building-safety-inspection-section-32-bis-thailand",
+    kbId: "kb-0150",
+    topic: "Structures",
+    title:
+      "Does your Koh Phangan hotel or condo need an annual safety inspection? Building Control Act Section 32 bis",
+    short:
+      "Larger hotels, resorts and condominium buildings on Koh Phangan don't just need a construction permit — they need a recurring safety inspection for the life of the building. Section 32 bis of the Building Control Act requires periodic structural and systems checks for buildings above set size thresholds, and skipping it carries an accruing daily fine that can transfer straight to a buyer.",
+    updated: "2026-09-08",
+    body: [
+      "Does a completed hotel, resort or condominium building on Koh Phangan need any further safety compliance once construction is finished? For larger buildings, yes — a Ministerial Regulation issued under Section 32 bis of the Building Control Act B.E. 2522 (1979) requires certain building categories to undergo a periodic, licensed safety inspection for as long as the building stands, not just a one-time approval at completion.",
+      { h: "Which buildings are covered" },
+      {
+        ul: [
+          "**High-rise buildings** — 23 metres or taller.",
+          "**Extra-large buildings** — 10,000 sqm or more of total floor area.",
+          "**Places of public assembly** — 1,000 sqm or more, or a capacity of 500 people or more.",
+          "**Hotels** — 80 guest rooms or more.",
+          "**Entertainment venues and other service establishments** — 200 sqm or more.",
+          "**Residential and condominium buildings** — 2,000 sqm or more of total floor area.",
+          "**Industrial buildings** — multi-storey, with 5,000 sqm or more of usable area.",
+          "**Large advertising signs and structures** — 15 metres or taller, or 50 sqm or more (25 sqm if mounted on another building).",
+        ],
+      },
+      "A single private villa or a small guesthouse under these thresholds isn't covered by this regime. Note this is a different trigger from the [environmental impact assessment thresholds](/knowledge/environmental-impact-assessment-villa-resort-koh-phangan) for new hotel and resort projects — that's a project-approval question at the planning stage; Section 32 bis is a recurring, post-completion safety obligation that applies for the life of an existing building.",
+      { h: "What the inspection covers, and how often" },
+      "A qualifying building must be inspected by a licensed engineer or architect registered as a building inspector with the Building Control Committee. The inspection covers the structure itself plus its electrical, fire-prevention, ventilation, drainage and mechanical systems. Buildings covered by the rule need this done on two schedules: an annual inspection every year, and a more thorough structural and systems inspection every five years. Once the local building official is satisfied, they issue a certificate — commonly referred to as Ror.1 (ร.1) — which the owner is expected to keep current and be able to produce.",
+      { h: "The penalty for non-compliance (Section 65 bis)" },
+      {
+        ul: [
+          "**Up to 3 months' imprisonment and/or a fine of up to ฿60,000** for failing to arrange the required inspection.",
+          "**A continuing daily fine of up to ฿10,000** that keeps accruing until the building is brought into compliance — this is the detail that matters most for a buyer, because it means an owner who has ignored the requirement for years can be sitting on a large, growing liability that doesn't disappear on its own.",
+        ],
+      },
+      { h: "Why this matters when buying" },
+      "This regime is aimed at hotels, resorts and larger condominium or apartment buildings — not the single villas that make up most of this site's coverage — but it matters directly to anyone buying into, or taking over management of, a larger property on Phangan. Before closing on a hotel, resort, or a unit in a sizeable condominium building, ask for the current Ror.1 certificate and the inspection history. A lapsed or never-obtained certificate is a red flag distinct from the construction-quality questions covered in [your villa-build contract](/knowledge/residential-construction-controlled-contract-thailand) and the due-diligence points in [vetting a property-management company](/knowledge/vetting-villa-property-management-company) — it's an ongoing regulatory compliance gap that can also complicate renewing a hotel operating licence, and the accruing daily fine transfers with the building, not with whoever owned it when the fine started running.",
+    ],
+    takeaways: [
+      "A Ministerial Regulation under Building Control Act Section 32 bis requires periodic safety inspection for nine building categories, including hotels with 80+ rooms and residential/condominium buildings of 2,000 sqm or more — not single villas.",
+      "Inspection must be done by a licensed engineer or architect registered as a building inspector, covering the structure plus fire, electrical, ventilation and drainage systems.",
+      "Covered buildings need an annual inspection every year, plus a more thorough structural inspection every five years, after which the local official issues a certificate commonly called Ror.1.",
+      "Section 65 bis penalises non-compliance with up to 3 months' imprisonment and/or a ฿60,000 fine, plus a continuing daily fine of up to ฿10,000 until the building complies.",
+      "This is separate from the EIA/IEE room-count trigger for new hotel and resort projects — it's a recurring, post-completion obligation that a buyer of an existing hotel, resort or larger condo building can inherit along with the property.",
+    ],
+    sources: [
+      { title: "G.A.M. Legal Alliance — Building Control Act, Thailand (Sections 32 bis and 65 bis)", url: "https://gam-legalalliance.com/thai-statutory-laws/building-control-act-thailand/" },
+      { title: "JNP Construction — Building inspection requirements under the Building Control Act", url: "https://jnpconstruction.org/%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%A5%E0%B8%B0%E0%B9%80%E0%B8%AD%E0%B8%B5%E0%B8%A2%E0%B8%94-%E0%B8%95%E0%B8%A3%E0%B8%A7%E0%B8%88%E0%B8%AA%E0%B8%AD%E0%B8%9A%E0%B8%AD%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B8%A3/" },
+      { title: "AREA (Agency for Real Estate Affairs) — Thailand's Building Inspection for Safety Purposes", url: "https://www.area.co.th/t/5383" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion:
+      "Does a hotel or condo building on Koh Phangan need a recurring safety inspection, and what happens if the owner never had one done?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

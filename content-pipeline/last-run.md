@@ -1,70 +1,76 @@
-# Last run — 2026-09-08
+# Last run — 2026-09-08 (second run, same day)
 
-Published 2 new guides (EN + RU each). The backlog's remaining ⏳ rows (water crisis on
-PWA Notice 7/2569, FBA/AMLA predicate-offence, coalition foreign-ownership stance, rental
-yields, power-grid cable, stamp duty vs SBT, off-plan project vetting, e-filing deadline)
-were re-checked this run and remain duplicate/thin/unsafe — a fresh-news sweep (2026-09-05
-through 2026-09-08) also found nothing newly dated and property-relevant that clears the
-distinctness bar (see backlog.md discovery note for what was checked and ruled out). Both
-topics below came from an evergreen gap-mining pass over the full 145-slug catalog, not a
-pre-existing ⏳ row.
+The day's first run already published kb-0147 (`land-expropriation-compensation-rights-thailand`)
+and kb-0148 (`land-code-section-69-bis-boundary-resurvey`) — see git history for that run's own
+digest. This is a second invocation on the same day, so it needed genuinely new ground rather
+than repeating the first run's topics.
 
-One candidate was investigated and rejected before writing: "outbound FET form / repatriating
-sale proceeds" — a direct read of the existing kb-0019 (`bringing-money-into-thailand-fet-form`)
-showed it already has a dedicated section ("Using the FET to repatriate proceeds when you sell")
-covering the same mechanics (original FET form, Land Office sale agreement, tax receipts). Not
-published as a near-duplicate.
+Two parallel research agents ran: one fresh-news sweep (2026-09-05 through 2026-09-08 window),
+one evergreen gap-mining pass over the full 147-slug catalog (by then including kb-0147/kb-0148).
 
-## 1. kb-0147 — `land-expropriation-compensation-rights-thailand`
+**News sweep: nothing new.** Re-confirmed all standing watch items unchanged (PWA Notice 7/2569
+still the latest Koh Phangan-specific water notice, no successor; FBA/AMLA nominee-as-predicate-
+offence still stuck at Ombudsman/AMLO review; the coalition "review foreign ownership" pledge
+still sourced only to marketing sites). Checked two same-day leads and ruled both out: a Thai
+Examiner nominee-monitoring statistics refresh (36,277 firms, updated rai/condo-unit figures,
+8 Sep 2026) is incremental to 10+ existing nominee-crackdown guides, not a new angle; a Nation
+Thailand piece on a Laem Son Beach (Koh Phangan) public-land dispute (6 Sep 2026) overlaps
+existing illegal-construction/nominee coverage with no new legal mechanism.
 
-- **Title (EN):** Can the government take your land? Expropriation compensation rights in
-  Thailand
-- **Title (RU):** Может ли государство изъять вашу землю? Права на компенсацию при
-  экспроприации в Таиланде
-- **faqCategory:** ownership
+**Evergreen gap-mining surfaced two genuinely distinct, verified topics** — both published below.
+
+## 1. kb-0149 — `neighboring-properties-law-nuisance-drainage-thailand`
+
+- **Title (EN):** Your neighbor's excavation or drainage damaged your plot: Thailand's law of
+  neighboring properties
+- **Title (RU):** Земляные работы или дренаж соседа повредили ваш участок: тайское право
+  соседских отношений
+- **faqCategory:** structures
 - **Sources:**
-  - My Property — Land Expropriation in Thailand: Your Rights, the Compensation Math, and
-    How to Check Before You Buy (process/compensation-components/appeal-mechanics detail).
-  - DLA Piper REALWORLD — Expropriation/compulsory purchase in Thailand (direct fetch;
-    corroborates legal basis, permitted purposes, and the state's compensation obligation).
-  - King Prajadhipok's Institute Journal — Legal Issues in Determining Compensation under
-    the Expropriation and Acquisition of Immovable Property Act, B.E. 2562 (2019) (academic
-    source confirming the Section 19 committee mechanism and the administrative-act vs.
-    legislative-act judicial-review distinction).
-- Never covered on this site beyond a single passing mention of "government expropriation"
-  as one of several Specific Business Tax exemption triggers (in
-  `specific-business-tax-five-year-exemption-clock`) — confirmed via grep, no other
-  mention exists. Framed the Section 19 committee vs. legislative-act distinction
-  conservatively (a nuance, not asserted as the norm) and hedged the 90-day appeal window
-  and 2-5 year process length as "reported"/"typically" rather than pinned statutory figures,
-  since the fullest procedural detail came from a real-estate practitioner source rather than
-  a direct fetch of the Act's own text. Cross-linked to `land-code-section-94-forfeiture-amendment`
-  (explicitly distinguished — forfeiture punishes illegal nominee holding, expropriation
-  compensates a lawful owner), `samui-sea-bridge-expressway-phangan-tao-demand` and
-  `koh-samui-cruise-terminal-proposal-phangan-impact` (the live infrastructure proposals
-  that would trigger this process if they reach a royal-decree stage).
+  - Samui For Sale — Thailand Civil Code, Book IV Property (Sections 1298-1434) — direct fetch,
+    quoted Sections 1337-1348 text.
+  - Juslaws & Consult — Thai Civil and Commercial Code, Book IV: Property — direct fetch,
+    independently confirmed Section 1337's nuisance wording and Section 1347's root/branch
+    mechanism (cut-and-keep roots any time; cut-and-keep overhanging branches only after
+    giving the tree owner notice to remove them first).
+- CCC Sections 1337-1348 ("law of neighboring properties": general nuisance, natural/artificial
+  water drainage, excavation setbacks — 2m for wells/cesspools, half-depth/1m-minimum for other
+  digs — soil-stability duties, and the joint-ownership presumption for boundary walls, fences,
+  hedges, ditches and trees) were never covered on this site. Confirmed distinct, by reading each
+  in full, from `landlocked-land-way-of-necessity-vs-servitude` (access rights, not nuisance or
+  drainage liability), `land-code-section-69-bis-boundary-resurvey` (an administrative title-
+  correction procedure, not a private civil remedy) and `hillside-slope-building-limits-koh-phangan`
+  (public zoning enforced by the state, not a private right a neighbor holds independently).
+  Framed Section 1343 (excavation endangering neighboring soil) explicitly as the private-law
+  mirror of the public-law Samui Model hillside-enforcement risk, and cross-linked accordingly.
 
-## 2. kb-0148 — `land-code-section-69-bis-boundary-resurvey`
+## 2. kb-0150 — `building-safety-inspection-section-32-bis-thailand`
 
-- **Title (EN):** Your fence doesn't match your title deed: Land Code Section 69 bis and the
-  boundary re-survey process
-- **Title (RU):** Забор не совпадает с границей по документу: статья 69 bis Земельного
-  кодекса и процедура повторной геодезической съёмки
-- **faqCategory:** documents
+- **Title (EN):** Does your Koh Phangan hotel or condo need an annual safety inspection?
+  Building Control Act Section 32 bis
+- **Title (RU):** Нужна ли вашему отелю или кондоминиуму на Ко Пангане ежегодная проверка
+  безопасности? Статья 32 bis Закона о контроле зданий
+- **faqCategory:** process
 - **Sources:**
-  - Thailand Law Online — Thai Land Law: Full Translation of the Thailand Land Code Act
-    (direct fetch; quoted the operative 15-day locality-notice, 30-day neighbour-certification
-    window, and 90-day litigation-window mechanics).
-  - Thailand Law Library (Siam Legal) — Land Act 2497: Land Survey (Sections 65-70)
-    (independent corroboration of the same notice/certification mechanics via search-result
-    synthesis).
-  - FAO (FAOLEX) — Land Code Promulgating Act, B.E. 2497 (1954), official English
-    translation (primary-text mirror, cross-checked via search corroboration of the same
-    15-day/30-day figures).
-- Confirmed via grep of the full slug list and a direct read of the closest candidates that
-  this is genuinely uncovered: `land-code-section-83-caveat-title-deed` covers a private
-  claimant's pre-registration hold (a different mechanism entirely), `adverse-possession-squatters-vacant-land-koh-phangan`
-  covers a stranger acquiring title through possession (not a boundary-correction tool),
-  and `landlocked-land-way-of-necessity-vs-servitude` covers access rights, not boundary
-  lines. Cross-linked to all three plus `due-diligence-checklist-koh-phangan` (where a
-  Section 69 bis application fits into standard pre-purchase practice).
+  - G.A.M. Legal Alliance — Building Control Act, Thailand — direct fetch, confirmed Section 32
+    bis's covered-building categories and quoted Section 65 bis's penalty text verbatim (≤3
+    months imprisonment / ≤฿60,000 fine, plus a continuing ≤฿10,000/day fine until compliance).
+  - JNP Construction — practitioner guide on the 2005 Ministerial Regulation's nine building
+    categories/thresholds (high-rise ≥23m, extra-large ≥10,000 sqm, assembly ≥1,000 sqm/500
+    persons, hotels ≥80 rooms, service/entertainment ≥200 sqm, residential/condo ≥2,000 sqm,
+    industrial ≥5,000 sqm multi-storey, signage ≥15m or ≥50/25 sqm), the annual-plus-5-year
+    inspection schedule, and the Ror.1 certificate.
+  - AREA (Agency for Real Estate Affairs) — independently corroborated the same nine categories
+    and thresholds via a separate direct fetch.
+- Verified across three independent, mutually consistent practitioner sources before writing,
+  since the Act itself defers exact thresholds to a Ministerial Regulation rather than stating
+  them in the primary text. Framed conservatively: explicitly scoped to hotels/resorts/larger
+  condo buildings, not single villas, and distinguished from `environmental-impact-assessment-
+  villa-resort-koh-phangan` (a different, project-approval-stage trigger with its own room-count
+  threshold) and `residential-construction-controlled-contract-thailand` (pre-completion
+  build-contract terms, not a recurring post-completion safety obligation) by reading both guides
+  in full to confirm no overlap. Cross-linked to `vetting-villa-property-management-company` for
+  the buyer-due-diligence angle.
+
+No candidates were rejected mid-write this run beyond the two same-day leads noted above under
+"News sweep."
