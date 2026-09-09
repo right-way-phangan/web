@@ -1,45 +1,62 @@
-# Last run — 2026-09-09
+# Last run — 2026-09-09 (second run, same day)
 
-The backlog's `⏳` rows are all stalled watch-items already re-confirmed duplicate/thin/unsafe
-as recently as 2026-09-08 (Koh Phangan water crisis — stuck on PWA Notice 7/2569 with no
-successor; FBA/AMLA nominee-as-predicate-offence — still only Ombudsman/AMLO review, no
-cabinet/bill progress; the coalition "review foreign ownership" pledge — still marketing-site
-sourcing only; plus several confirmed duplicates: rental yields, single-cable power grid,
-stamp duty vs SBT, off-plan project vetting). Ran two parallel research agents instead: one
-fresh-news sweep (2026-09-05/09 window) and one evergreen gap-mining pass over the full
-150-slug catalog.
+Today's first run already published kb-0151/kb-0152 (see backlog history). This run needed
+genuinely new ground: every `⏳` backlog row is a stalled, previously re-confirmed
+duplicate/thin/unsafe watch-item (Koh Phangan water crisis — stuck on PWA Notice 7/2569 with
+no successor; FBA/AMLA nominee-as-predicate-offence — still only Ombudsman/AMLO review;
+coalition "review foreign ownership" pledge — still marketing-site sourcing only; plus several
+confirmed duplicates: rental yields, single-cable power grid, stamp duty vs SBT, off-plan
+project vetting, 2026 LBT full-rate year). Ran two parallel research agents: one fresh-news
+sweep (2026-09-05/09 window), one evergreen gap-mining pass over the full 152-slug catalog.
 
-The news sweep found nothing genuinely new and distinct — a Thai Examiner nominee-probe stat
-refresh and a repeated senate remark (same senator restating her already-published kb-0133
-proposal) were both checked and ruled non-distinct. The gap-mining pass, after grepping the
-full slug list for candidate terms (Section 61, revocation, accretion, alluvion, foreshore,
-1304, 1308) and finding zero hits, surfaced two genuinely uncovered, well-sourced Land
-Code/CCC mechanics — both published today:
+The news sweep found nothing genuinely new and distinct. It checked and confirmed already
+covered: the 4 Sep 2026 "permanent" DBD-DOPA-DOL joint nominee-tracing team (incremental to
+kb-0100/kb-0051/kb-0103), the repeated senate 100%-ownership remark (same senator restating
+her already-published kb-0133 proposal), the fast-track deportation regulation/first case
+(kb-0143), and the visa-exemption cut (kb-0137). No successor PWA notice, no AMLA/FBA
+cabinet movement, and no reputable-outlet sourcing on the coalition stance were found.
 
-## 1. `land-code-section-61-title-deed-revocation` (kb-0151)
-- **Title:** Can a title deed be cancelled after you already own it? Land Code Section 61
-  revocation explained
-- **faqCategory:** documents
-- **Sources:** Thailand Law Library (Siam Legal) — Land Act 2497 Sections 61-64 summary;
-  Thailand Law Online's Land Code translation; FAO/FAOLEX official Land Code translation
-  (both siam-legal.com and the FAOLEX PDF returned HTTP 403/non-extractable on direct
-  fetch, so statutory detail is corroborated via independent search-result summaries rather
-  than a page/PDF re-fetch); Nation Thailand's 6 Sep 2026 report on Koh Phangan's Laem Son
-  Beach dispute (direct fetch), used as the live grounding example.
+The gap-mining pass surfaced two genuinely uncovered, well-sourced topics — both published:
 
-## 2. `alluvion-foreshore-land-ownership-thailand` (kb-0152)
-- **Title:** Your beachfront plot's coastline moved: alluvion, accretion and Thailand's
-  public-foreshore rule
-- **faqCategory:** ownership
-- **Sources:** Samui For Sale's direct-fetched mirror of CCC Book IV (Sections 1304-1309
-  quoted verbatim); Thailand Law Library's Sections 1308-1334 summary (via search, site
-  returned HTTP 403 on direct fetch); the ILGA-hosted official English translation of CCC
-  Part III; the same Nation Thailand Laem Son Beach report (direct fetch) as the real-world
-  grounding — the beach itself grew from ~12.8 to ~19.04 hectares via natural accretion yet
-  remains classified public land for common use, with ~13-14 operators occupying it without
-  valid title as of the September 2026 reporting.
+## 1. `foreign-income-remittance-tax-thailand-por-161-2566` (kb-0153)
+- **Title:** Wiring foreign income into Thailand to fund a villa: the Por. 161/2566
+  remittance-tax rule
+- **faqCategory:** costs
+- **What it covers:** Revenue Department Order Por. 161/2566 (effective 1 Jan 2024), which
+  closed the old loophole letting a Thai tax resident avoid PIT on foreign-sourced income by
+  remitting it in a later calendar year than it was earned; Order Por. 162/2566's grandfathering
+  of pre-2024 income; and why this is a separate question from the FET form (which proves
+  funds are legitimate foreign currency for Land Office registration, not that they're tax-free).
+- **Overlap check:** kb-0027 (owners-taxes-annual-land-and-income) only dismisses the 2025
+  remittance-rule change in one sentence without explaining the mechanism; kb-0019
+  (bringing-money-into-thailand-fet-form) never addresses PIT exposure on remitted funds at
+  all. Confirmed distinct by reading both in full.
+- **Sources:** Revenue Department Order Por. 161/2566 — official translation hosted by HLB
+  Thailand (direct fetch); Mahanakorn Partners Group's comprehensive overview of Por. 161/2566
+  and Por. 162/2566; KPMG Flash Alert; Forvis Mazars; AIM Bangkok (confirms a further
+  worldwide-income taxation proposal was drafted but shelved ahead of the 2026 elections —
+  framed conservatively as not-yet-law).
 
-Both guides are cross-linked to each other and to the existing due-diligence, coastal-setback,
-Section 69 bis and Section 83 guides; confirmed distinct from all of those and from the
-untitled-land-scam and forest-reserve-crackdown guides by reading each in full before writing.
-Backlog marked accordingly (see `content-pipeline/backlog.md` discovery note dated 2026-09-09).
+## 2. `consumer-case-procedure-act-buyer-developer-disputes` (kb-0154)
+- **Title:** Developer breached your villa or condo contract? Thailand's Consumer Case
+  Procedure Act shortcut
+- **faqCategory:** process
+- **What it covers:** the Act on Establishment of and Procedure for Consumer Cases B.E. 2551
+  (2008) — a simplified, buyer-favouring litigation route against a business-operator
+  developer (not a private resale seller): no court filing fees, a reversed burden of proof on
+  facts only the developer knows, and available punitive damages; grounded in a documented
+  precedent of buyers successfully challenging unilateral spec-change clauses in condo
+  contracts.
+- **Overlap check:** distinguished explicitly from kb-0056/kb-0076 (OCPB substantive
+  contract-term rules — what a contract may say, not how to sue), kb-0119 (Escrow Act —
+  deposit custody, not litigation), kb-0139 (earnest-money/rescission — backing out of a deal,
+  not suing over breach), kb-0126 (seller defect liability — the substantive claim, not the
+  procedural forum) and kb-0140 (controlled-contract mandatory terms — not enforcement
+  mechanics). Confirmed distinct by reading all five in full.
+- **Sources:** OCPB's own hosted Act text (direct fetch); two independent Tilleke & Gibbins
+  pieces (condominium disputes precedent; the punitive-damages regime); Price Sanond; ThaiLawOnline.
+
+Both guides cross-link to the existing FET-form, owner's-taxes, OCPB, Escrow Act, earnest-money,
+seller-liability, controlled-contract and condo-governance guides. Backlog marked accordingly
+(see `content-pipeline/backlog.md` discovery note dated 2026-09-09, second run). `npx tsc
+--noEmit` passes clean with both new EN/RU entries.

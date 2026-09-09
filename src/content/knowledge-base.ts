@@ -9372,6 +9372,150 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "If sand builds up along my beachfront plot, do I automatically own the new land?",
   },
+  {
+    slug: "foreign-income-remittance-tax-thailand-por-161-2566",
+    kbId: "kb-0153",
+    topic: "Costs",
+    title:
+      "Wiring foreign income into Thailand to fund a villa: the Por. 161/2566 remittance-tax rule",
+    short:
+      "If you're a Thai tax resident and wire foreign-sourced income — sale proceeds, dividends, salary — into Thailand to fund a Koh Phangan purchase, Revenue Department Order Por. 161/2566 taxes it as personal income in the year you remit it, closing the old 'wait a year' loophole. That's a separate question from the FET form, which only proves your funds are legitimate foreign currency for Land Office registration.",
+    updated: "2026-09-09",
+    body: [
+      "Does wiring money from abroad to buy or build on Koh Phangan trigger Thai income tax? It can — but only if two things are both true: you're a Thai tax resident (180 or more days in Thailand in the calendar year), and the money counts as your own foreign-sourced income rather than capital that was never taxable to begin with. Since 1 January 2024, Revenue Department Order Por. 161/2566 has closed a long-standing loophole that let residents avoid this tax entirely by timing their remittances.",
+      { h: "The old rule, and the loophole Por. 161/2566 closed" },
+      "Revenue Code Section 41 paragraph 2 has always said a Thai tax resident owes Personal Income Tax on foreign-sourced income remitted into Thailand. For decades the Revenue Department read this narrowly: tax applied only if the income was remitted in the same calendar year it was earned. Wait until the following January to wire the money, and it arrived tax-free — a well-known planning technique for expatriates and returning Thais alike. Order Por. 161/2566, issued 15 September 2023 and effective from 1 January 2024, reinterprets the same statutory text to remove that timing gap: a resident who remits foreign-sourced income now owes PIT on it in the year of remittance, no matter what year it was earned.",
+      { h: "What's grandfathered: income earned before 2024" },
+      "A follow-up clarification, Order Por. 162/2566, confirms the new rule isn't retroactive in substance: foreign-sourced income earned before 1 January 2024 remains exempt even if it's remitted to Thailand years later. The trigger is the tax year the income was earned, not just the year of remittance — a distinction worth documenting carefully (bank statements, pay dates, sale contracts) if you're moving pre-2024 savings.",
+      { h: "This is separate from the FET form" },
+      "Don't confuse this with the [FET form](/knowledge/bringing-money-into-thailand-fet-form) — the Bank of Thailand foreign-exchange transaction document a receiving bank issues once an inward transfer of USD 50,000 or more clears, which the Land Office requires as evidence the purchase money genuinely came from abroad. A properly issued FET form proves the source and legitimacy of the funds for registration purposes; it says nothing about whether that money is subject to Personal Income Tax in your hands. A resident can remit fully FET-documented, legitimately-sourced funds and still owe PIT on them if they're current-year foreign income — the two questions sit with different agencies (bank/Bank of Thailand vs. Revenue Department) for different purposes.",
+      { h: "Who this actually affects" },
+      {
+        ul: [
+          "**Non-residents are unaffected.** If you spend fewer than 180 days a year in Thailand, you're taxed only on Thai-source income; foreign-sourced funds you remit to buy a villa fall outside Thai PIT entirely regardless of timing.",
+          "**Capital that was never 'income' isn't caught.** Remitting savings already fully taxed in an earlier year, or principal that was never income at all (a gift already taxed elsewhere, loan proceeds), doesn't create a new PIT liability just because it crosses the border in a resident year — though the burden of proving the character and timing of the funds sits with you.",
+          "**Current-year gains are the real exposure.** A tax resident who sells an overseas property, shares or other asset and remits the proceeds the same year to fund a Koh Phangan purchase is the clearest case Por. 161/2566 targets — the gain is foreign-sourced income remitted in the year it was earned.",
+          "**Retirees and DTV holders aren't automatically exempt.** Pension income, investment income or consulting fees earned after becoming a Thai tax resident are foreign-sourced income like any other; only the source-year and remittance-year facts matter, not your visa category.",
+        ],
+      },
+      { h: "A more radical proposal is still just a proposal" },
+      "A further reform floated by the Revenue Department — taxing Thai tax residents on worldwide income even if it's never remitted to Thailand at all, closer to a citizenship/residence-based system — was drafted but has not been enacted; 2026 reporting indicates it was shelved ahead of that year's elections. Nothing beyond the remittance-based Por. 161/2566 and Por. 162/2566 rules is currently law. Treat any claim that unremitted foreign income is now taxable as inaccurate unless a further order or amendment actually changes it.",
+      "Structuring the timing of a large remittance against your Thai tax-residency status is a Revenue Department income-tax question for a Thai tax advisor or accountant — it isn't something the FET-form process or your bank resolves for you. For the funds-transfer mechanics themselves, see [Bringing money into Thailand: the FET form step by step](/knowledge/bringing-money-into-thailand-fet-form); for the annual taxes that follow ownership itself, see [Owner's taxes on Koh Phangan](/knowledge/owners-taxes-annual-land-and-income).",
+    ],
+    takeaways: [
+      "Revenue Department Order Por. 161/2566 (effective 1 Jan 2024) taxes a Thai tax resident's foreign-sourced income in the year it's remitted to Thailand, regardless of what year it was earned — closing the old 'wait a year' loophole.",
+      "Order Por. 162/2566 grandfathers foreign-sourced income earned before 1 January 2024: it stays exempt even if remitted later.",
+      "This is a Revenue Department income-tax question, entirely separate from the Bank of Thailand FET form that proves your purchase funds are legitimate foreign currency for Land Office registration.",
+      "Non-residents (fewer than 180 days in Thailand a year) are unaffected — they're taxed only on Thai-source income.",
+      "A broader proposal to tax residents' worldwide income even without remittance has been drafted but not enacted as of 2026 — don't plan around it as if it were law.",
+    ],
+    sources: [
+      {
+        title:
+          "Revenue Department Order No. Por. 161/2566 — official translation (HLB Thailand)",
+        url: "https://www.hlbthai.com/wp-content/uploads/2023/09/RD-Instruction-No.-Paw161-2566-Translation.pdf",
+      },
+      {
+        title:
+          "Mahanakorn Partners Group — Comprehensive Overview of Order No. Por. 161/2566 and No. Por. 162/2566",
+        url: "https://mahanakornpartners.com/comprehensive-overview-of-order-no-por-161-2566-and-no-por-162-2566-on-personal-income-tax-for-foreign-sourced-income/",
+      },
+      {
+        title:
+          "KPMG Flash Alert — Further Guidelines on Foreign-Sourced Income Brought into Thailand",
+        url: "https://kpmg.com/xx/en/our-insights/gms-flash-alert/flash-alert-2023-238.html",
+      },
+      {
+        title:
+          "Forvis Mazars — Revenue Department's guidance on foreign-sourced income",
+        url: "https://www.forvismazars.com/th/en/insights/doing-business-in-thailand/tax/revenue-department-s-guidance-on-foreign-income",
+      },
+      {
+        title:
+          "AIM Bangkok — Foreign Income Tax Relaxation Initiative Shelved Due to 2026 Elections",
+        url: "https://aimbangkok.com/thailand-foreign-income-tax-relaxation-2025/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion:
+      "If I'm a Thai tax resident, is money I wire in from abroad to buy a villa subject to Thai income tax?",
+  },
+  {
+    slug: "consumer-case-procedure-act-buyer-developer-disputes",
+    kbId: "kb-0154",
+    topic: "Process",
+    title:
+      "Developer breached your villa or condo contract? Thailand's Consumer Case Procedure Act shortcut",
+    short:
+      "When a business-operator seller — a developer, not a private resale seller — delivers late, builds defectively, or breaches your sale-and-purchase agreement, the Consumer Case Procedure Act B.E. 2551 (2008) gives you a faster, buyer-favouring court route: no filing fees, a reversed burden of proof on facts only the developer knows, and the possibility of punitive damages.",
+    updated: "2026-09-09",
+    body: [
+      "Your off-plan villa was delivered a year late, built with cheaper materials than the contract specified, or the developer unilaterally changed the floor plan after you signed — is there a faster route than an ordinary civil lawsuit? Often yes: the Act on Establishment of and Procedure for Consumer Cases B.E. 2551 (2008) created a dedicated, simplified court procedure designed to favour the weaker party in a dispute against a business, and Thai law firms confirm it applies to condominium and villa/construction sale contracts, not just retail goods.",
+      { h: "Who qualifies: 'consumer' vs 'business operator'" },
+      "The Act only applies between a **consumer** — a person who buys or uses goods or services, including a property purchase, for personal or family purposes rather than resale or trade — and a **business operator**: a seller, developer, manufacturer, importer or service provider acting in the ordinary course of business. A developer selling off-plan villas or condo units to individual buyers fits squarely as a business operator. An ordinary resale — one private individual selling their existing villa to another — generally doesn't qualify, since neither side is a business operator selling in the course of trade.",
+      { h: "Why the Act favours a buyer-plaintiff" },
+      {
+        ul: [
+          "**No court filing fees for the consumer.** Ordinary Thai civil litigation charges court fees scaled to the amount claimed; a consumer-case plaintiff is exempt, removing a real cost barrier to suing over a defective or undelivered villa.",
+          "**Reversed burden of proof on the developer's own facts.** Where a fact about production methods, materials, design or the service provided is known only to the business operator, the Act shifts the burden onto the developer to prove its own compliance — the buyer doesn't have to reconstruct internal construction records to make a case.",
+          "**Punitive damages are available.** Courts can award damages beyond actual loss — reported case law and commentary describe multiples of actual damages — for a business operator's wilful or grossly negligent breach, a remedy ordinary contract law doesn't offer.",
+          "**A simplified, judge-driven procedure.** Consumer cases use relaxed pleading formalities and give the court a more active, inquisitorial role in gathering facts, aimed at resolving disputes faster than standard civil procedure.",
+        ],
+      },
+      { h: "A real precedent: unilateral spec-change clauses struck down" },
+      "This isn't theoretical. Reported condominium disputes have seen buyers successfully challenge standard-form clauses letting a developer unilaterally alter building specifications after signing — courts found such clauses unfair to the consumer, ordered contracts amended, and awarded buyer compensation. It's a concrete illustration of the Act's practical bite against boilerplate developer-favouring contract terms.",
+      { h: "How this differs from everything else already covered here" },
+      {
+        ul: [
+          "**Not the same as the OCPB's contract-term rules** ([the deposit-confiscation ban](/knowledge/ocpb-deposit-ban-villa-land-reservations) and [residential leasing rules](/knowledge/ocpb-residential-lease-controlled-contract-2025)) — those regulate what a contract is allowed to say. This Act governs how and where you sue once it's breached.",
+          "**Not the same as the Escrow Act** ([off-plan deposit protection](/knowledge/thailand-escrow-act-off-plan-deposit-protection)) — that's about who physically holds your deposit before completion, not litigation.",
+          "**Not the same as earnest-money and rescission mechanics** ([the CCC sale-agreement rules](/knowledge/sale-purchase-agreement-earnest-money-ccc-thailand)) — those govern a buyer backing out of the deal, not suing a business operator for breach.",
+          "**Not the same as seller defect liability** ([post-closing defects](/knowledge/seller-liability-property-defects-after-closing-thailand)) — that's the substantive claim you'd bring; the Consumer Case Procedure Act is the faster forum you'd bring it in when the seller is a business operator.",
+          "**Not the same as the controlled-contract rules for construction** ([mandatory build-contract terms](/knowledge/residential-construction-controlled-contract-thailand)) — those set the mandatory contract terms themselves; this Act is how you enforce them in court.",
+        ],
+      },
+      { h: "The asymmetry: it only runs one way" },
+      "The Act protects a consumer suing a business operator — it doesn't create equivalent shortcuts running the other way. A [condo juristic person](/knowledge/condo-juristic-person-committee-governance-thailand) pursuing an individual owner for unpaid common-area fees, for example, is an ordinary civil claim, not a consumer case, since the owner isn't a 'business operator' in that relationship.",
+      "None of this replaces a lawyer: a Thai litigation lawyer decides whether a specific dispute qualifies and where to file, and foreign buyers in particular still need Thai counsel to navigate the court process. But knowing the Consumer Case Procedure Act exists — and that it removes the filing-fee barrier and shifts key evidentiary burdens onto the developer — changes the practical calculus of whether pursuing a breach claim is worth it at all.",
+    ],
+    takeaways: [
+      "The Consumer Case Procedure Act B.E. 2551 (2008) gives a buyer suing a business-operator developer — not a private resale seller — a faster, cheaper court route than an ordinary civil lawsuit.",
+      "Consumer-case plaintiffs are exempt from court filing fees, and the burden of proving facts known only to the developer (materials, construction methods, design) shifts onto the developer.",
+      "Courts can award punitive damages beyond actual loss for a developer's wilful or grossly negligent breach.",
+      "It only protects the consumer-vs-business-operator direction — it doesn't apply to, say, a condo juristic person suing an individual owner over unpaid fees.",
+      "It's a procedural shortcut for enforcement, distinct from the OCPB's substantive contract-term rules, the Escrow Act's deposit-custody mechanism, and the CCC's seller-liability and earnest-money rules already covered on this site.",
+    ],
+    sources: [
+      {
+        title:
+          "Office of the Consumer Protection Board (OCPB) — Act on Establishment of and Procedure for Consumer Cases B.E. 2551 (official text)",
+        url: "https://www.ocpb.go.th/images/article/article_20250715151555.pdf",
+      },
+      {
+        title: "Tilleke & Gibbins — Condominium Disputes: Concerns for Joint Owners",
+        url: "https://www.tilleke.com/insights/condominium-disputes-concerns-joint-owners/",
+      },
+      {
+        title:
+          "Tilleke & Gibbins — Consumer Protection Cases: Thailand's Punitive Damage Regime",
+        url: "https://www.tilleke.com/insights/consumer-protection-cases-thailands-punitive-damage-regime/",
+      },
+      {
+        title:
+          "Price Sanond — Thailand's Product Liability Law and Consumer Case Procedures Act",
+        url: "https://www.pricesanond.com/knowledge/consumer-protection-and-regulatory-compliance/thailands-product-liability-law-and-consumer-case-procedures-act.php",
+      },
+      {
+        title: "ThaiLawOnline — Understanding Consumer Law in Thailand",
+        url: "https://thailawonline.com/consumer-law-in-thailand",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion:
+      "If my villa or condo developer breaches the contract, is there a faster legal route than an ordinary lawsuit?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
