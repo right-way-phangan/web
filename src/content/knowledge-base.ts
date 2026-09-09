@@ -9239,6 +9239,139 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "Does a hotel or condo building on Koh Phangan need a recurring safety inspection, and what happens if the owner never had one done?",
   },
+  {
+    slug: "land-code-section-61-title-deed-revocation",
+    kbId: "kb-0151",
+    topic: "Documents",
+    title:
+      "Can a title deed be cancelled after you already own it? Land Code Section 61 revocation explained",
+    short:
+      "A chanote isn't automatically permanent proof against the state: Land Code Section 61 lets the Department of Lands annul or amend a title deed years after issuance if it was granted in error or over land the law never allowed to be titled — forest reserve, national park or foreshore. Koh Phangan's own long-running Laem Son Beach dispute shows exactly what this looks like in practice.",
+    updated: "2026-09-09",
+    body: [
+      "Can the government really take back a title deed after a buyer has relied on it and registered a purchase? Yes, in a specific circumstance: Land Code Section 61 gives the Director-General of the Department of Lands (or a Deputy Director-General or authorised Land Inspector) the power to order a title deed or utilisation certificate annulled or corrected at any time it is discovered to be inaccurate or was issued unlawfully — most seriously, when it was granted over land that legally could never be privately titled in the first place, such as a forest reserve, national park or [public foreshore](/knowledge/alluvion-foreshore-land-ownership-thailand).",
+      { h: "Who can order a revocation, and on what grounds" },
+      {
+        ul: [
+          "**Authority** — the Director-General, a Deputy Director-General, or an Inspector the Director-General has authorised, not a provincial land office alone.",
+          "**Grounds** — an inaccuracy or illegality connected to the deed's original issuance, to the registration of a right or juristic act over the land, or to how it was recorded in the land register. In practice this covers overlapping surveys, duplicate titles, and — the highest-stakes version — a title issued over land that was state forest reserve, national park, or otherwise inalienable public land at the time.",
+          "**No fixed deadline** — unlike a private civil claim, there is no statute-of-limitations style cut-off on the state's own power to correct its register; a decades-old deed can still be reopened if the underlying issuance was unlawful.",
+        ],
+      },
+      { h: "The Committee of Enquiry process" },
+      "Before annulling or amending anything, the Director-General or authorised official must first set up a Committee of Enquiry empowered to call for the title deed, utilisation certificate, and any related registration documents, and to include representatives of the relevant public authority and the local administrative body. The committee's formation, its examination process, and how it notifies the people affected all follow procedures set out in Ministerial Regulations — this is not an informal, single-officer decision.",
+      { h: "Notice, objection and the appeal window" },
+      {
+        ul: [
+          "The current titleholder and other interested parties must be notified and given an opportunity to object before a final order is made.",
+          "The committee's examination is generally expected to run within about 60 days, extendable by a further 60 days for a complex case.",
+          "The Director-General issues a decision after reviewing the committee's findings.",
+          "A titleholder who disagrees with the outcome can file a lawsuit in court within 60 days of the decision; if no case is filed in that window, the revocation or amendment becomes final and stands.",
+        ],
+      },
+      { h: "What if you bought in good faith?" },
+      "This is the question that matters most to a buyer who inherits someone else's problem. Thai courts have, in cases where a title was originally issued in error by a district or land official over land that turned out to be forest reserve, drawn a distinction between the land itself and the buyer's loss: the state can still reclaim inalienable public land regardless of how many times it has changed hands, but a purchaser who bought registered land for value and in good faith — with no way to have known about the underlying defect — may have a claim for compensation against the officials or agency responsible for the original wrongful issuance. Good faith is a basis for compensation, not a shield that lets you keep land the law says can never be privately owned; under Civil and Commercial Code Sections 1304-1307, public domain property such as forest reserve and foreshore is inalienable and immune to adverse possession no matter how long anyone has held a paper title over it.",
+      { h: "Koh Phangan's Laem Son Beach: the mechanism in real life" },
+      "This isn't a theoretical risk for Phangan. Reporting in September 2026 detailed a more-than-30-year dispute over Laem Son Beach: a former mining concession area that, once mining ended, was gradually built on by local operators despite the land being classified public land for common use. The beach itself grew from roughly 12.8 to about 19.04 hectares as sand naturally accreted along the shore, and today an estimated 13-14 operators occupy the site without holding legal land documents, even though some hold ordinary business registrations. A former sub-district mayor obtained court rulings against the structures years ago, but enforcement stalled, and commentators have called for a wider anti-corruption investigation into how land, construction permits and nominee businesses intersect on the island. Section 61 is precisely the tool the Department of Lands would use to formally refuse or cancel any title purporting to cover ground like this — and precisely why land near a beach, a park boundary, or a forest-reserve line deserves more scrutiny than a currently-valid-looking chanote alone provides.",
+      { h: "What it means for your due diligence" },
+      "A clean current title search is necessary but not sufficient near sensitive land: check the plot's history, not just its present status, and ask specifically whether it borders forest reserve, national park, or foreshore land shown on official GIS/forest-boundary overlays. This sits alongside, and often overlaps with, the risks already covered in [untitled 'sea-view land' scams](/knowledge/untitled-sea-view-land-pbt5-sor-por-kor-scam), the [illegal hillside and forest-reserve construction crackdown](/knowledge/illegal-construction-forest-reserve-crackdown-koh-phangan), and general [due diligence before buying](/knowledge/due-diligence-checklist-koh-phangan) — none of which walk through the specific administrative mechanism the Land Department uses to actually cancel a deed once a problem surfaces. A [Section 83 caveat](/knowledge/land-code-section-83-caveat-title-deed) or a [Section 69 bis boundary correction](/knowledge/land-code-section-69-bis-boundary-resurvey) are the routine tools for ordinary title problems; Section 61 is the far more serious one reserved for titles that should never have existed at all.",
+    ],
+    takeaways: [
+      "Land Code Section 61 lets the Director-General of the Department of Lands (or an authorised inspector) annul or amend a title deed at any time it's found to be inaccurate or unlawfully issued — there's no statute-of-limitations cut-off on the state correcting its own register.",
+      "The highest-stakes ground is a title issued over land that could never legally be private, such as forest reserve, national park, or public foreshore.",
+      "A Committee of Enquiry must investigate first, and the current titleholder gets notice and a chance to object before any final order.",
+      "A titleholder can sue within 60 days of the Director-General's decision to challenge it; otherwise it becomes final.",
+      "Buying in good faith can support a compensation claim against the officials at fault, but doesn't let you keep land the law treats as inalienable public property — exactly the tension playing out in Koh Phangan's long-running Laem Son Beach dispute.",
+    ],
+    sources: [
+      {
+        title: "Thailand Law Library (Siam Legal) — Land Act 2497: Rights in Land (Sections 61-64)",
+        url: "https://library.siam-legal.com/thai-law/land-act-2497-rights-in-land-sections-61-64/",
+      },
+      {
+        title: "Thailand Law Online — Thai Land Law: Full Translation of the Thailand Land Code Act",
+        url: "https://www.thailandlawonline.com/thai-real-estate-law/thai-land-law-land-code-act",
+      },
+      {
+        title: "Nation Thailand — Koh Phangan land dispute raises questions over nominee businesses (6 Sep 2026)",
+        url: "https://www.nationthailand.com/news/general/40070710",
+      },
+      {
+        title: "FAO (FAOLEX) — Land Code Promulgating Act, B.E. 2497 (1954), official English translation",
+        url: "https://faolex.fao.org/docs/pdf/tha33176.pdf",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion:
+      "Can the Land Department cancel my title deed after I've already bought and registered the land?",
+  },
+  {
+    slug: "alluvion-foreshore-land-ownership-thailand",
+    kbId: "kb-0152",
+    topic: "Ownership",
+    title:
+      "Your beachfront plot's coastline moved: alluvion, accretion and Thailand's public-foreshore rule",
+    short:
+      "A Koh Phangan coastline isn't fixed — sand builds up in some seasons and washes away in others. Civil and Commercial Code Section 1308 gives a titled landowner the naturally accreted land next to their plot, but Section 1304 puts the foreshore itself permanently in the state's inalienable public domain — and Koh Phangan's own Laem Son Beach dispute shows how messy the gap between the two can get.",
+    updated: "2026-09-09",
+    body: [
+      "If sand naturally builds up along a beachfront plot on Koh Phangan, does the owner automatically own the new strip of land? Often yes — but only under specific conditions, and only up to the line where Thai law says private ownership simply cannot reach. Two provisions of the Civil and Commercial Code sit in tension here: Section 1308 hands a riparian or coastal landowner the accreted land that naturally forms against their title, while Section 1304 puts the foreshore itself in the state's public domain, off-limits to private title no matter how the coastline shifts.",
+      { h: "Alluvion: Section 1308" },
+      "Section 1308 states plainly: \"Where land is formed by alluvion, it becomes the property of the riparian owner.\" This is the general rule for land gradually and naturally built up by water action against an already-titled bank or shore — the new land simply attaches to the existing title without a separate registration act being strictly required, though in practice a landowner will still want the Land Office to survey and formally record the addition. The key word is natural: land created by dumping fill, building a seawall to trap sediment, or other artificial reclamation is a different legal question entirely and generally does not fall under this automatic rule — reclamation of state waterways or foreshore typically requires separate government permission and can result in state, not private, ownership.",
+      { h: "Foreshore is public domain, regardless of how it got there" },
+      {
+        ul: [
+          "**Section 1304** defines the state's public domain (sap-sin sathārana) to include land reserved for the common benefit of the public — expressly naming **foreshores**, waterways, highways and lakes alongside land abandoned or reverted to the state.",
+          "**Section 1305** — public domain property is inalienable except by a specific law or royal decree; nobody can simply buy, sell, or be granted title to it.",
+          "**Section 1306** — no length of possession, however long, can establish a private claim (prescription/adverse possession) against public domain property.",
+          "**Section 1307** — public domain property cannot be seized, whether for debt or otherwise.",
+        ],
+      },
+      "Put together, these sections mean the beach itself — the tidal foreshore used by the public — stays public domain even as its physical location shifts with erosion and accretion over the years. Newly accreted sand can, in principle, become private land under Section 1308 when it forms against an existing valid title; but land that is, or remains, classified as public foreshore for common use never converts to private ownership just because someone occupies or builds on it, and no amount of time changes that under Section 1306.",
+      { h: "Koh Phangan's Laem Son Beach: the tension in real life" },
+      "Reporting in September 2026 on Koh Phangan's Laem Son Beach shows exactly how contested this line can get. The beach was once a mining concession; after mining ended more than 30 years ago, sand naturally deposited along the shore expanded the beach from roughly 12.8 hectares to about 19.04 hectares — accretion in the Section 1308 sense — while local operators gradually built structures on it. The land is officially classified as public land for common use, and an estimated 13-14 operators currently occupy it without valid land title documents, despite some holding ordinary business registrations. A former sub-district mayor won court rulings against the structures years ago that were never effectively enforced, and the dispute has drawn calls for a wider anti-corruption investigation into land, construction and nominee-business practices on the island. It's a live illustration of why accreted coastal land can't simply be claimed by whoever occupies it first, and why the government retains — via [Land Code Section 61](/knowledge/land-code-section-61-title-deed-revocation) — the power to refuse or cancel any title purporting to privatise it.",
+      { h: "What this means for a beachfront buyer" },
+      {
+        ul: [
+          "**Don't assume a beachfront boundary is static.** A title's cadastral map reflects the shoreline at the time of the last survey; erosion can shrink usable land, and accretion can create adjacent land that isn't automatically yours just because it borders your plot informally.",
+          "**\"Extra\" land needs a formal process, not a fence.** Any genuinely accreted strip still needs the Land Office to survey and record it as an addition to your title before it's safely yours — informally extending a wall or building onto new sand doesn't secure ownership and can create exactly the kind of encroachment problem enforcement crackdowns target.",
+          "**Setback compliance moves with the coastline.** [Coastal setback rules](/knowledge/coastal-setback-rules-koh-phangan-distance-from-beach) are measured from the current shoreline, so a shifting coast can change what's buildable on a plot even when nothing about the paper title has changed.",
+          "**A public-use classification doesn't disappear with occupation.** Land mapped as public foreshore or common-use beach stays that way regardless of how long informal structures have stood on it, per Section 1306 — a fact that has repeatedly surprised long-term occupiers when enforcement finally arrives.",
+        ],
+      },
+      "None of this replaces a proper survey: before buying or building on any Phangan plot with beach frontage, have a licensed surveyor and lawyer confirm the current, officially recognised shoreline and boundary against the cadastral map as part of [standard due diligence](/knowledge/due-diligence-checklist-koh-phangan) — the same care that applies to [verifying a title's history near forest or park boundaries](/knowledge/land-code-section-61-title-deed-revocation) applies just as much to a boundary that moves with the tide.",
+    ],
+    takeaways: [
+      "CCC Section 1308: land naturally and gradually formed by alluvion belongs to the adjoining titled landowner — but only for a genuinely natural process, not artificial fill or reclamation.",
+      "CCC Section 1304 classifies foreshores as state public domain, held for the common benefit of the public, not private ownership.",
+      "Sections 1305-1307: public domain property is inalienable, immune to adverse possession no matter how long it's occupied, and cannot be seized.",
+      "Koh Phangan's Laem Son Beach grew from roughly 12.8 to about 19.04 hectares through natural accretion, yet remains classified public land for common use — with an estimated 13-14 operators occupying it without valid title as of September 2026 reporting.",
+      "A shifting coastline can change a plot's setback compliance and buildable area even when the registered title boundary hasn't been formally updated — get a current survey before you buy or build near the beach.",
+    ],
+    sources: [
+      {
+        title: "Samui For Sale — Thailand Civil Code, Book IV Property (Sections 1298-1434)",
+        url: "https://www.samuiforsale.com/law-texts/thailand-civil-code-part-3.html",
+      },
+      {
+        title: "Thailand Law Library (Siam Legal) — Civil and Commercial Code: Property (Sections 1308-1334)",
+        url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-property-section-1308-1334/",
+      },
+      {
+        title: "Nation Thailand — Koh Phangan land dispute raises questions over nominee businesses (6 Sep 2026)",
+        url: "https://www.nationthailand.com/news/general/40070710",
+      },
+      {
+        title: "ILGA — Civil and Commercial Code of Thailand (Part III), official English translation",
+        url: "https://database.ilga.org/api/downloader/download/1/TH%20-%20LEG%20-%20Civil%20and%20Commercial%20Code%20(part%20III)%20(1925)%20-%20TR%20(en).pdf",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "ownership",
+    faqQuestion:
+      "If sand builds up along my beachfront plot, do I automatically own the new land?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
