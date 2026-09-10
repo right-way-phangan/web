@@ -1,12 +1,7 @@
 "use client";
 
-import { useRef } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useReducedMotion,
-} from "motion/react";
+import { useEffect, useRef } from "react";
+import { prefersReducedMotion } from "@/lib/motion/reduced";
 
 type ParallaxProps = {
   children: React.ReactNode;
@@ -25,9 +20,10 @@ type ParallaxProps = {
 /**
  * Лёгкий scroll-parallax на GPU (только transform). Слой смещается/масштабируется
  * по мере прохода через кадр — основа «иммерсивной глубины» героя и акцентов
- * секций. SSR-safe: на сервере и под prefers-reduced-motion рендерится обычный
- * статичный div (ничего не прячем, никаких прыжков). useScroll сам слушает
- * пассивно — без ручных scroll-листенеров (никаких reflow на каждый кадр).
+ * секций. SSR-safe: на сервере и под prefers-reduced-motion слой статичен
+ * (ничего не прячем, никаких прыжков). Прогресс считается по РОДИТЕЛЮ
+ * (секции): у самого слоя transform, и его rect уже сдвинут — замер по нему
+ * дал бы обратную связь. Пассивный scroll-листенер + один rAF на кадр.
  */
 export function Parallax({
   children,
@@ -35,28 +31,41 @@ export function Parallax({
   speed = 60,
   zoom = 1,
 }: ParallaxProps) {
-  const reduce = useReducedMotion();
-  const localRef = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
-  const { scrollYProgress } = useScroll({
-    target: localRef,
-    offset: ["start end", "end start"],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], [-speed / 2, speed / 2]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, zoom]);
-
-  if (reduce) {
-    return <div className={className}>{children}</div>;
-  }
+  useEffect(() => {
+    const el = ref.current;
+    const host = el?.parentElement;
+    if (!el || !host || prefersReducedMotion()) return;
+    let raf = 0;
+    const paint = () => {
+      raf = 0;
+      const r = host.getBoundingClientRect();
+      const vh = window.innerHeight;
+      // 0 — верх секции у нижней кромки экрана, 1 — низ секции у верхней.
+      const p = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
+      const y = -speed / 2 + p * speed;
+      el.style.transform =
+        zoom === 1
+          ? `translateY(${y}px)`
+          : `translateY(${y}px) scale(${1 + (zoom - 1) * p})`;
+    };
+    const schedule = () => {
+      if (!raf) raf = requestAnimationFrame(paint);
+    };
+    paint();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    return () => {
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      cancelAnimationFrame(raf);
+    };
+  }, [speed, zoom]);
 
   return (
-    <motion.div
-      ref={localRef}
-      className={className}
-      style={{ y, scale: zoom === 1 ? undefined : scale, willChange: "transform" }}
-    >
+    <div ref={ref} className={className} style={{ willChange: "transform" }}>
       {children}
-    </motion.div>
+    </div>
   );
 }

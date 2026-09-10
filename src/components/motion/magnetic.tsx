@@ -1,12 +1,10 @@
 "use client";
 
-import { useRef } from "react";
-import {
-  motion,
-  useMotionValue,
-  useSpring,
-  useReducedMotion,
-} from "motion/react";
+import { useEffect, useRef } from "react";
+import { prefersReducedMotion } from "@/lib/motion/reduced";
+import { createSpring2d } from "@/lib/motion/spring";
+
+const clamp = (v: number, lim: number) => Math.max(-lim, Math.min(lim, v));
 
 /**
  * Деликатный «магнитный» эффект для ключевых CTA: элемент слегка тянется к
@@ -23,39 +21,37 @@ export function Magnetic({
   className?: string;
   strength?: number;
 }) {
-  const reduce = useReducedMotion();
   const ref = useRef<HTMLSpanElement>(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const sx = useSpring(x, { stiffness: 200, damping: 15, mass: 0.3 });
-  const sy = useSpring(y, { stiffness: 200, damping: 15, mass: 0.3 });
 
-  if (reduce) return <span className={className}>{children}</span>;
-
-  function onMove(e: React.PointerEvent) {
-    if (e.pointerType !== "mouse") return;
+  useEffect(() => {
     const el = ref.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    const mx = e.clientX - (r.left + r.width / 2);
-    const my = e.clientY - (r.top + r.height / 2);
-    x.set(Math.max(-12, Math.min(12, mx * strength)));
-    y.set(Math.max(-8, Math.min(8, my * strength)));
-  }
-  function reset() {
-    x.set(0);
-    y.set(0);
-  }
+    if (!el || prefersReducedMotion()) return;
+    const spring = createSpring2d(
+      (x, y) => {
+        el.style.transform = `translate(${x}px, ${y}px)`;
+      },
+      { stiffness: 200, damping: 15, mass: 0.3 },
+    );
+    const onMove = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse") return;
+      const r = el.getBoundingClientRect();
+      const mx = e.clientX - (r.left + r.width / 2);
+      const my = e.clientY - (r.top + r.height / 2);
+      spring.set(clamp(mx * strength, 12), clamp(my * strength, 8));
+    };
+    const reset = () => spring.set(0, 0);
+    el.addEventListener("pointermove", onMove);
+    el.addEventListener("pointerleave", reset);
+    return () => {
+      el.removeEventListener("pointermove", onMove);
+      el.removeEventListener("pointerleave", reset);
+      spring.stop();
+    };
+  }, [strength]);
 
   return (
-    <motion.span
-      ref={ref}
-      className={className}
-      style={{ x: sx, y: sy, display: "inline-flex" }}
-      onPointerMove={onMove}
-      onPointerLeave={reset}
-    >
+    <span ref={ref} className={className} style={{ display: "inline-flex" }}>
       {children}
-    </motion.span>
+    </span>
   );
 }

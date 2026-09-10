@@ -4,7 +4,7 @@ import type { Route } from "next";
 import { ArrowRight, BarChart3, Calculator, Scale } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Hero } from "@/components/sections/hero";
-import { HeroFall } from "@/components/sections/hero-fall";
+import dynamic from "next/dynamic";
 import { FeaturedListings } from "@/components/sections/featured-listings";
 import { DistrictsBento } from "@/components/sections/districts-bento";
 import { Testimonials } from "@/components/sections/testimonials";
@@ -16,6 +16,13 @@ import type { HomeDict, Locale } from "@/lib/i18n/dictionaries";
 import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 
 const TOOL_ICONS = [Calculator, Scale, BarChart3] as const;
+
+// Ленивый импорт: HeroFall выключен (NEXT_PUBLIC_HERO_FALL=0), но статический
+// импорт клиентского компонента всё равно клал его чанк (+motion) в бандл
+// главной — client reference живёт независимо от dead-code elimination ветки.
+const HeroFall = dynamic(() =>
+  import("@/components/sections/hero-fall").then((m) => m.HeroFall),
+);
 
 /**
  * The single home page, shared by the EN root (`/`) and RU (`/ru`) — one

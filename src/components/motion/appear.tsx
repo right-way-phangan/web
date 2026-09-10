@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { prefersReducedMotion } from "@/lib/motion/reduced";
 
 type AppearProps = {
   children: React.ReactNode;
@@ -19,7 +19,10 @@ type AppearProps = {
  * <Reveal>: на сервере и до гидрации контент полностью видим (краулеры и
  * посетители без JS видят всё), элемент прячется ТОЛЬКО после гидрации и лишь
  * если он ещё ниже сгиба — поэтому нет мигания того, что уже на экране. Скрытие
- * мгновенное (как у .reveal), проявление — с мягким «дорогим» easing.
+ * мгновенное, проявление — CSS-transition с мягким «дорогим» easing
+ * (.appear-hidden / .appear-visible в globals.css). Без motion: этот компонент
+ * стоит на каждой карточке каталога, и тащить ради него 44 КБ библиотеки в
+ * критический путь всех страниц было главным источником TBT главной.
  * Полностью отключается под prefers-reduced-motion.
  */
 export function Appear({
@@ -29,24 +32,19 @@ export function Appear({
   delay = 0,
   duration = 0.45,
 }: AppearProps) {
-  const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
-  // "ready" — статичный видимый рендер (SSR + до решения); затем hidden/shown.
-  const [phase, setPhase] = useState<"ready" | "hidden" | "shown">("ready");
+  const [phase, setPhase] = useState<"idle" | "hidden" | "visible">("idle");
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || reduce || !("IntersectionObserver" in window)) return;
-    // Уже на экране при гидрации → показываем сразу, без скрытия и анимации.
-    if (el.getBoundingClientRect().top < window.innerHeight * 0.9) {
-      setPhase("shown");
-      return;
-    }
+    if (!el || !("IntersectionObserver" in window) || prefersReducedMotion()) return;
+    // Уже на экране — не прятать то, на что смотрит посетитель.
+    if (el.getBoundingClientRect().top < window.innerHeight * 0.9) return;
     setPhase("hidden");
     const obs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setPhase("shown");
+          setPhase("visible");
           obs.disconnect();
         }
       },
@@ -54,28 +52,27 @@ export function Appear({
     );
     obs.observe(el);
     return () => obs.disconnect();
-  }, [reduce]);
+  }, []);
 
   // Класс `appear` нужен для print-оверрайда в globals.css: при печати
   // (брошюра объекта) блоки ниже сгиба иначе остались бы скрытыми (opacity:0).
-  const cls = ["appear", className].filter(Boolean).join(" ");
-
-  if (reduce) return <div className={cls}>{children}</div>;
+  const cls = ["appear", phase !== "idle" && `appear-${phase}`, className]
+    .filter(Boolean)
+    .join(" ");
 
   return (
-    <motion.div
+    <div
       ref={ref}
       className={cls}
-      initial={false}
-      animate={phase === "hidden" ? { opacity: 0, y } : { opacity: 1, y: 0 }}
-      // Прятать — мгновенно (как .reveal через класс), проявлять — плавно.
-      transition={
-        phase === "hidden"
-          ? { duration: 0 }
-          : { duration, delay, ease: [0.22, 1, 0.36, 1] }
+      style={
+        {
+          "--appear-y": `${y}px`,
+          "--appear-duration": `${duration}s`,
+          "--appear-delay": `${delay}s`,
+        } as React.CSSProperties
       }
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
