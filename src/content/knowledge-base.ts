@@ -9646,6 +9646,137 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "If I divorce abroad, does the foreign court's property order automatically transfer my Thai villa or leasehold to my ex-spouse?",
   },
+  {
+    slug: "double-sale-good-faith-buyer-protection-thailand",
+    kbId: "kb-0157",
+    topic: "Documents",
+    title:
+      "CCC Section 1300: why the buyer who registers first — not who paid first — wins a double-sold Koh Phangan plot",
+    short:
+      "Thai law protects whoever completes registration at the Land Office in good faith and for value — not whoever signed a contract first or paid the biggest deposit. A seller who takes money from two buyers, or leases already-leased land to someone new, creates a race to the registration counter, and the loser is left suing the seller, not the winning buyer.",
+    updated: "2026-09-10",
+    body: [
+      "If a seller signs a sale agreement with you, takes your deposit, and then registers the transfer to a different buyer at the Land Office first — who owns the land? Under Thailand's Civil and Commercial Code, the second buyer usually does, provided they registered in good faith and paid value for it. Your claim against the seller for breach of contract survives; your claim to the land itself generally does not.",
+      { h: "The two sections that decide it" },
+      {
+        ul: [
+          "**Section 1299** — no acquisition of immovable property or a real right over it is complete against third parties until it is registered in writing with the competent official; an unregistered claim, however genuine, can't be enforced against someone who wasn't party to it.",
+          "**Section 1300** — if a transfer is registered 'to the prejudice' of someone who had an earlier right to register it, that earlier claimant can sue to cancel the registration — **except** the cancellation can never be granted against a transferee who paid value and acted in good faith.",
+        ],
+      },
+      { h: "What 'good faith and for value' actually means" },
+      "Good faith here means the second buyer genuinely didn't know about your unregistered agreement when they registered theirs — a knowing accomplice to a seller's double-dealing doesn't get the protection, and a court can strip it from someone who paid a token price to help a seller escape an inconvenient first buyer. But proving bad faith after the fact is hard, and the burden falls on the party asking the court to cancel the registration — not on the registered owner to justify their purchase.",
+      { h: "Why lawyers push same-day registration, not just a signed contract" },
+      "This is the statutory reason behind a piece of advice buyers hear constantly and rarely understand: a signed [sale and purchase agreement](/knowledge/sale-purchase-agreement-earnest-money-ccc-thailand) with earnest money down is a real, enforceable contract between you and the seller — but it creates no right against a third party until it's registered. The gap between signing and [registration day](/knowledge/land-office-registration-day) is exactly the window where a seller could, in theory, sell or lease the same land again and let the second buyer win the race to the Land Office.",
+      { h: "Where this actually bites on Koh Phangan" },
+      {
+        ul: [
+          "**Multiple reservation deposits on the same plot** — a seller (or an unscrupulous agent) collects deposits from more than one interested buyer on hot 'sea-view' or beachfront land before any registration date is fixed. Whoever registers first keeps the land; everyone else is left claiming their deposit back from the seller, not the land from the new owner.",
+          "**A long lease granted twice** — a lease of more than three years must itself be registered to bind third parties beyond the first three years. A landlord who signs a second lease over land already under an unregistered (or not-yet-registered) long lease and gets it registered first can leave the first tenant with only a contract claim against the landlord.",
+          "**A stalling seller during a slow due-diligence period** — the longer the gap between a signed agreement and registration, the longer a seller has time to be tempted by, or pressured into, a better offer from someone else.",
+        ],
+      },
+      { h: "What actually protects you" },
+      {
+        ul: [
+          "**Register as close to signing as the deal allows.** The Section 1300 race has no consolation prize for being first to sign — only for being first (and in good faith) to register.",
+          "**If registration can't happen immediately, use a caveat.** A buyer under an unfulfilled sale contract is one of the specific claimants entitled to request a [Section 83 caveat](/knowledge/land-code-section-83-caveat-title-deed) — a 30-day hold on the title that blocks exactly the second-registration scenario Section 1300 is built around, provided you follow up with a lawsuit within the window.",
+          "**Treat a large or unusual deposit request with suspicion**, especially on desirable land with multiple interested buyers — see the [due diligence checklist](/knowledge/due-diligence-checklist-koh-phangan) and the [OCPB deposit-ban guide](/knowledge/ocpb-deposit-ban-villa-land-reservations) for what a reservation agreement should and shouldn't ask of you.",
+          "**Understand what you're actually owed if you lose the race.** Losing to a good-faith registered buyer doesn't erase the seller's liability — you can still sue for return of your deposit, damages, and in some cases double the earnest money if your agreement says so — but you can't undo the new owner's title.",
+        ],
+      },
+      "Section 1300 isn't a loophole for dishonest sellers — a seller who deliberately sells the same land twice is exposed to fraud and breach-of-contract claims regardless of who ends up with the title. But the rule is a reminder that in Thai property law, a contract creates a promise between two people; only registration creates a right that binds the rest of the world. On a market like Koh Phangan's, where a hot plot can draw more than one serious buyer at once, that gap between signing and registering is exactly where a deal can be lost — not to a better offer, but to a faster one.",
+    ],
+    takeaways: [
+      "Registration — not the signing date or deposit size — decides who wins when a seller deals with two buyers over the same land (CCC Sections 1299–1300).",
+      "A transferee who registers for value and in good faith cannot have that registration cancelled, even by someone with a genuinely earlier, unregistered claim.",
+      "A signed sale agreement with earnest money is fully enforceable between you and the seller, but creates no right against a third party until it's registered.",
+      "A buyer under an unfulfilled sale contract can request a Section 83 caveat to block a seller's registration to someone else — but only within a narrow, self-expiring window.",
+      "Losing the registration race doesn't erase a seller's liability for breach of contract — it just means your remedy is against the seller, not the land.",
+    ],
+    sources: [
+      {
+        title: "Siam Legal Thailand Law Library — Civil and Commercial Code, Property (Sections 1298–1307)",
+        url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-property-section-1298-1307/",
+      },
+      {
+        title: "Samui For Sale — Thailand Civil and Commercial Code, Part III (Property), full-text mirror",
+        url: "https://www.samuiforsale.com/law-texts/thailand-civil-code-part-3.html",
+      },
+      {
+        title: "ThailandLawOnline — Civil Code: Real Estate Rights and Property Law (Sections 1298–1366)",
+        url: "https://www.thailandlawonline.com/thai-real-estate-law/civil-code-real-estate-rights-and-property-law",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion:
+      "What happens if a seller sells or leases the same Koh Phangan plot to two different buyers?",
+  },
+  {
+    slug: "arbitration-clause-thai-property-lease-disputes",
+    kbId: "kb-0158",
+    topic: "Process",
+    title: "Arbitration for a Thai property contract: how it works, and what it can't do",
+    short:
+      "An arbitration clause lets a lease, sale agreement or construction contract be fought out privately in front of an arbitrator instead of a Thai court — faster and more confidential, with awards enforceable internationally. It only applies if you agreed to it in advance, and it doesn't replace the Land Office's own registration of your title.",
+    updated: "2026-09-10",
+    body: [
+      "Can a dispute over your Koh Phangan lease, villa sale agreement or construction contract be settled by arbitration instead of going to a Thai court? Yes, if — and only if — the contract itself contains an arbitration clause, or both sides agree to one after the dispute arises. Thailand's Arbitration Act B.E. 2545 (2002) gives that private agreement real legal teeth, but it works alongside the Land Office and the courts, not instead of them.",
+      { h: "The legal basis" },
+      "The Arbitration Act B.E. 2545, modelled on the UNCITRAL Model Law, governs both domestic arbitration and cases with a foreign party. An arbitration agreement must be in writing — a signed clause in the main contract, or an exchange of letters, faxes or electronic messages agreeing to it, is enough. If a case covered by a valid clause ends up filed in court anyway, the other side can ask the court to dismiss it in favour of arbitration.",
+      { h: "Who actually runs it" },
+      "Most institutional arbitration in Thailand runs through the Thailand Arbitration Center (THAC), founded in 2015, which administers proceedings in Thai or English under its own published rules and a standard model clause parties can drop straight into a contract. Parties can also agree to ad hoc arbitration outside any institution, though that's less common for the kind of lease, sale or construction contract a foreign buyer is likely to sign.",
+      { h: "What an award actually gets you" },
+      {
+        ul: [
+          "**It's enforceable, but not automatically.** The winning party must petition a Thai court to recognise and enforce the award — within three years of it becoming enforceable — rather than simply presenting it to the other side or to a government office.",
+          "**Courts can refuse enforcement on narrow grounds** — mainly if a party lacked capacity, the arbitration process itself was seriously flawed, or enforcing the award would conflict with Thai public order or good morals. Reopening the merits of the dispute isn't one of those grounds.",
+          "**Thailand is a New York Convention signatory**, so a Thai-seated award is generally enforceable abroad too, and a foreign award can be enforced in Thailand — relevant if either side isn't Thai.",
+        ],
+      },
+      { h: "What it doesn't do" },
+      {
+        ul: [
+          "**It doesn't replace Land Office registration.** An arbitrator can order a seller to transfer land or a lease, or award damages for breach — but actually moving title still runs through the ordinary [registration process](/knowledge/land-office-registration-day); a favourable award is a tool to get a reluctant party (or, if necessary, a court) to complete that step, not a substitute for it.",
+          "**It doesn't apply retroactively.** You can't invoke arbitration after a dispute has already started unless the other side agrees to it then — the clause has to be in the contract (or a later written agreement) before things go wrong.",
+          "**It isn't free.** Institutional arbitration carries filing and arbitrator fees on top of any lawyer's fees, generally more than the token cost of filing in a Thai court — a real tradeoff against the speed and confidentiality it buys.",
+        ],
+      },
+      { h: "Arbitration vs. the buyer-friendly court route" },
+      "For an individual buyer with a dispute against a business-operator developer, Thailand also offers a specifically low-cost, buyer-favouring alternative: the [Consumer Case Procedure Act](/knowledge/consumer-case-procedure-act-buyer-developer-disputes), which waives filing fees and reverses the burden of proof onto the developer. If a developer's standard contract already contains an arbitration clause, whether that clause can override a buyer's access to the Consumer Case Procedure Act route is a genuinely contested question that depends on the specific contract and hasn't been settled by a clear-cut rule found in the sources for this guide — worth raising with your own lawyer rather than assuming either way.",
+      "Arbitration is most useful where the parties value confidentiality and a neutral, bilingual forum over the lowest possible cost — a joint-venture dispute, a large off-plan development contract, or a cross-border deal where neither side wants to litigate in the other's home courts. For a straightforward single-villa purchase gone wrong, the ordinary Thai courts, or the Consumer Case Procedure Act's simplified track, are usually the more practical route unless your contract already commits you to arbitration.",
+    ],
+    takeaways: [
+      "An arbitration clause in a lease, sale agreement or construction contract lets a dispute be resolved privately by an arbitrator instead of a Thai court, under the Arbitration Act B.E. 2545 (2002).",
+      "It only applies if the contract already contains a written arbitration agreement, or both sides agree to one after a dispute starts — it can't be imposed unilaterally later.",
+      "An award is enforceable only after a Thai court grants a petition to recognise it, on narrow grounds for refusal — Thailand's New York Convention membership makes awards enforceable across borders both ways.",
+      "Arbitration doesn't replace Land Office registration — a favourable award over land or a lease still has to be carried through the ordinary registration process to actually change the title.",
+      "For an individual consumer dispute with a developer, the Consumer Case Procedure Act's no-filing-fee, reversed-burden-of-proof court track is often a simpler, cheaper alternative than arbitration.",
+    ],
+    sources: [
+      {
+        title: "Terms.Law — Arbitration in Thailand: Commercial Dispute Resolution under the Arbitration Act B.E. 2545",
+        url: "https://terms.law/Thai/criminal/arbitration-thailand.html",
+      },
+      {
+        title: "WSR Law Group — Arbitration Act in Thailand",
+        url: "https://wsrlawgroup.com/publications/law-library/thailand-civil-and-commercial-code/arbitration-act-in-thailand/",
+      },
+      {
+        title: "Thailand Arbitration Center (THAC) — Model Arbitration Clause",
+        url: "https://thac.or.th/model-clause/",
+      },
+      {
+        title: "Tilleke & Gibbins — Enforcement of Arbitral Awards under Thailand's Arbitration Act",
+        url: "https://www.tilleke.com/insights/enforcement-of-arbitral-awards-under-thailands-arbitration-act-legal-procedures-challenges-and-strategic-considerations/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion:
+      "Can a dispute over a Koh Phangan lease or villa contract be resolved by arbitration instead of going to court?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

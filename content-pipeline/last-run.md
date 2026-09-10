@@ -1,76 +1,74 @@
-# Last run — 2026-09-10
+# Last run — 2026-09-10 (second run, same day)
 
-Published 2 new guides (EN + RU each). The backlog's remaining `⏳` items are all
-previously-confirmed duplicates/thin/unsafe (water crisis stuck on PWA Notice 7/2569
-with no successor; FBA/AMLA predicate-offence still Ombudsman/AMLO review only;
-coalition foreign-ownership stance still marketing-site-only; rental yields, power-grid,
-stamp-duty-vs-SBT, off-plan vetting and "who's buying" all still duplicate existing
-guides). A fresh-news sweep (2026-09-06/10 window) found nothing new dated in that
-window that wasn't already a covered duplicate. Fell back to two evergreen gap-mining
-finds instead of padding with a weak/duplicate angle.
+Today's first run already published 2 guides (kb-0155, kb-0156) and logged its own
+`last-run.md`. This is a follow-up run on the same day; published 2 more new guides
+(EN + RU each), after confirming neither the backlog's standing `⏳` watch items nor a
+fresh-news sweep produced anything new (see "Not published" below).
 
-## 1. kb-0155 — `business-security-act-collateral-thai-property-company`
+## 1. kb-0157 — `double-sale-good-faith-buyer-protection-thailand`
 
-**Title:** Thailand's Business Security Act: how a villa-holding company can pledge its
-business or rental income, not just the land
-**faqCategory:** structures
+**Title:** CCC Section 1300: why the buyer who registers first — not who paid first —
+wins a double-sold Koh Phangan plot
+**faqCategory:** documents
 
-Thailand's Business Security Act B.E. 2558 (2015, effective 2 Jul 2016) created a
-second collateral system, registered with the Department of Business Development (DBD)
-rather than the Land Office — a company can pledge its business as a going concern,
-receivables (e.g. rental income), movable property or IP as loan collateral, separate
-from an ordinary Land Code mortgage. Directly relevant to any 49/51 villa-holding
-company's financing and to due diligence on one (a DBD search, not just a title search,
-is now warranted).
+Civil and Commercial Code Sections 1299–1300 decide who wins when a seller signs
+agreements with (or leases land to) more than one buyer: registration order, not
+signing date or deposit size, controls — and cancellation of a registered transfer can
+never be granted against a transferee who registered for value and in good faith. This
+is the statutory reason lawyers push same-day registration, and the mechanism behind
+real Phangan risk patterns (multiple reservation deposits on hot beachfront land, a
+long lease granted twice). Distinct from the existing registration-day, due-diligence
+and Section-83-caveat guides, none of which explain this underlying race-to-register
+rule itself.
 
 Sources used:
-- Thanathip & Partners — "Security Interest under Thai Laws" (direct fetch: security
-  receiver eligibility, priority rules, distinction from a mortgage)
-- Global Advisory Experts — "What Is the Business Security Act in Thailand?" (direct
-  fetch: collateral categories, registration mechanism, effective date)
-- Global Law Experts — same topic (direct fetch: corroborating collateral list, default
-  process)
-- Lexology — "The Thai Business Security Act 2017" (via search-result summary)
+- Samui For Sale — Thailand Civil and Commercial Code, Part III (Property), full-text
+  mirror (direct fetch, Sections 1299 and 1300 quoted verbatim)
+- Siam Legal Thailand Law Library — Civil and Commercial Code, Property (Sections
+  1298–1307)
+- ThailandLawOnline — Civil Code: Real Estate Rights and Property Law (Sections
+  1298–1366)
 
-Sources disagreed on whether a leasehold interest itself is standalone pledgeable
-collateral (one source said yes; a more detailed law-firm summary implied immovable
-collateral is narrower, tied to the grantor's own business being real estate) — framed
-conservatively in the guide as an unsettled point rather than asserted as fact.
+## 2. kb-0158 — `arbitration-clause-thai-property-lease-disputes`
 
-## 2. kb-0156 — `foreign-divorce-judgment-recognition-thai-property`
+**Title:** Arbitration for a Thai property contract: how it works, and what it can't do
+**faqCategory:** process
 
-**Title:** A foreign court awarded your ex-spouse the villa in the divorce — why that
-order alone doesn't move a Thai land title
-**faqCategory:** ownership
-
-Thailand has no treaty or statute for automatic recognition of a foreign court
-judgment — a foreign divorce decree dividing marital property is only evidence in a
-fresh Thai lawsuit. Separately, matrimonial property nominally follows the spouses'
-nationality law (Conflict of Laws Act Section 22, husband's nationality if they
-differ — an untested provision against the 2025 Marriage Equality Act), but Thai land
-itself always follows Thai lex situs law (Section 16) regardless. Distinct from the
-existing succession-specific lex-situs guide (Sections 37/38), the prenuptial-agreement
-guide, and the foreign-spouse-usufruct guide.
+Thailand's Arbitration Act B.E. 2545 (2002), modelled on the UNCITRAL Model Law, lets a
+lease, sale-and-purchase or construction contract be resolved privately by an
+arbitrator — typically under the Thailand Arbitration Center (THAC, founded 2015) —
+instead of in court, with awards enforceable via a court petition and, for a
+foreign party, under the New York Convention. Framed conservatively on its limits: it
+only applies if a written arbitration clause exists (or both sides agree after the
+fact), it doesn't replace Land Office registration, and whether a developer's
+arbitration clause can override an individual buyer's access to the Consumer Case
+Procedure Act's litigation route is flagged as a genuinely unresolved question rather
+than answered either way. Distinct from the existing Consumer Case Procedure Act guide,
+which covers only the court-litigation route.
 
 Sources used:
-- CMS — "Expert Guide to Recognition and Enforcement of Judgments: Thailand" (direct
-  fetch: no automatic-recognition legislation, jurisdiction/finality/due-process/public-
-  policy test, the 1918 default-judgment Supreme Court precedent)
-- Samui For Sale — full-text mirror of the Act on Conflict of Laws B.E. 2481 (direct
-  fetch, quoted Sections 8, 9, 16, 22, 23 verbatim)
-- FOSR Law — "Foreign Divorce in Thailand" (secondary corroboration)
-- Multilaw — "Enforcement of Foreign Judgments: Fundamental Principles (Thailand,
-  2024)" (secondary corroboration)
+- Terms.Law — Arbitration in Thailand: Commercial Dispute Resolution under the
+  Arbitration Act B.E. 2545
+- WSR Law Group — Arbitration Act in Thailand
+- Thailand Arbitration Center (THAC) — Model Arbitration Clause (thac.or.th, primary
+  institutional source)
+- Tilleke & Gibbins — Enforcement of Arbitral Awards under Thailand's Arbitration Act
 
-## Not published (checked, still duplicate/unsafe)
+## Not published (checked, still duplicate/unsafe/rejected)
 
-- Koh Phangan water crisis: pwa.co.th re-checked directly; Notice 7/2569 (through
-  1 Aug 2026) remains the latest Koh Phangan-specific item, no successor.
+- Koh Phangan water crisis: PWA Notice 7/2569 remains the latest Koh Phangan-specific
+  item, no successor.
 - FBA/AMLA nominee-as-predicate-offence: still Ombudsman/AMLO review only.
 - Coalition "review foreign ownership" pledge: still marketing-site-only sourcing.
-- 4 Sep 2026 inter-agency nominee-stats refresh and 6 Sep 2026 Nation Thailand recap of
-  the Laem Son Beach dispute: both real but incremental to 10+ existing
-  nominee-crackdown/foreshore guides, not a distinct angle.
+- 4 Sep 2026 Commerce Ministry nominee-stats refresh (144,706 entities, 125,622
+  DBD-supervised) and a "Take Thailand Back" protest at the Israeli Embassy (10 Sep
+  2026): both real but not a legal-mechanism change, and the stats refresh is
+  incremental to 10+ existing nominee-crackdown guides.
+- BOT's USD 200,000 source-of-funds threshold and the BOI land-notification framework:
+  both already covered by existing guides, not newly dated this window.
+- CCC Section 1304's inalienable-foreshore/public-domain status: a genuine candidate,
+  but rejected as substantially duplicating the already-published kb-0152
+  (alluvion-foreshore-land-ownership-thailand).
 
 `content-pipeline/backlog.md` updated: both new topics logged with a discovery note and
 marked ✅.
