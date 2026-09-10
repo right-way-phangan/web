@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
+import { StaticPhoto } from "@/components/ui/static-photo";
 import type { Route } from "next";
 import { ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
@@ -78,10 +78,9 @@ export default async function DistrictsPage() {
               >
                 <div className="relative aspect-[16/9] overflow-hidden bg-panel">
                   {districtHasHero(d.slug) ? (
-                    <Image
+                    <StaticPhoto
                       src={`/images/districts/${d.slug}.jpg`}
                       alt={`${name}, Koh Phangan`}
-                      fill
                       sizes="(min-width: 768px) 50vw, 100vw"
                       className="object-cover transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:duration-700 group-hover:scale-[1.08] motion-reduce:group-hover:scale-100"
                     />

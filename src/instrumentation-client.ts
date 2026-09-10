@@ -19,16 +19,27 @@ const HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST ?? "https://us.i.posthog.com";
 
 if (KEY && !window.location.pathname.startsWith("/admin")) {
   // Dynamic import keeps posthog-js (~60 KB) out of every page bundle: with no
-  // key the chunk is never even requested, and with one it loads in parallel
-  // instead of weighing down the hydration path. track() mirrors events through
+  // key the chunk is never even requested. track() mirrors events through
   // window.posthog, which is what the assignment below publishes.
-  void import("posthog-js").then(({ default: posthog }) => {
-    posthog.init(KEY, {
-      api_host: HOST,
-      // Modern default set — most importantly capture_pageview: 'history_change',
-      // which is what makes App Router client navigations count as pageviews.
-      defaults: "2026-06-25",
+  const start = () => {
+    void import("posthog-js").then(({ default: posthog }) => {
+      posthog.init(KEY, {
+        api_host: HOST,
+        // Modern default set — most importantly capture_pageview: 'history_change',
+        // which is what makes App Router client navigations count as pageviews.
+        defaults: "2026-06-25",
+      });
+      window.posthog = posthog;
     });
-    window.posthog = posthog;
-  });
+  };
+  // Аналитика не участвует в первом экране: ждём load и простой главного
+  // потока, чтобы posthog-js и session-recorder (~125 КБ) не толкались с
+  // гидрацией (Lighthouse TBT 800–1000 мс). Pageview текущей страницы всё
+  // равно снимается при init; теряются только события первых секунд.
+  const idle = () =>
+    typeof window.requestIdleCallback === "function"
+      ? window.requestIdleCallback(start, { timeout: 4000 })
+      : setTimeout(start, 2000);
+  if (document.readyState === "complete") idle();
+  else window.addEventListener("load", idle, { once: true });
 }

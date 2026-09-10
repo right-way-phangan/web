@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import { StaticPhoto } from "@/components/ui/static-photo";
 import type { Route } from "next";
 import { ArrowRight, MapPin } from "lucide-react";
 import { DISTRICTS } from "@/content/districts";
@@ -99,10 +99,9 @@ export async function DistrictsBento({ locale }: { locale: Locale }) {
                 href={`${base}/districts/${d.slug}` as Route}
                 className="group relative flex h-full w-full flex-col justify-end overflow-hidden rounded-lg bg-panel"
               >
-                <Image
+                <StaticPhoto
                   src={`/images/districts/${d.slug}.jpg`}
                   alt=""
-                  fill
                   sizes={i === 0 ? "(min-width: 768px) 640px, 100vw" : "(min-width: 768px) 320px, 50vw"}
                   className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-105"
                 />

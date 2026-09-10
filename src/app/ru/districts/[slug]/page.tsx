@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
+import { StaticPhoto } from "@/components/ui/static-photo";
 import type { Route } from "next";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { DISTRICTS_RU, getDistrictRuBySlug } from "@/content/districts.ru";
@@ -76,10 +76,9 @@ export default async function RussianDistrictPage({ params }: Props) {
       <header className="container-prose pt-6 md:pt-8">
         <div className="relative isolate overflow-hidden rounded-sm bg-panel">
           {districtHasHero(d.slug) ? (
-            <Image
+            <StaticPhoto
               src={`/images/districts/${d.slug}.jpg`}
               alt={`${name}, Ко Панган`}
-              fill
               priority
               sizes="(min-width: 1280px) 1216px, 100vw"
               className="object-cover"

@@ -20,12 +20,14 @@ import { siteConfig } from "@/lib/site-config";
 import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
 
-// Cyrillic subsets cover the /ru pages — without them RU text falls back to
-// system fonts and the serif/sans pairing breaks. Onest draws Cyrillic as a
-// first-class alphabet, so the RU pages no longer render lighter than the EN
-// ones the way Inter's Cyrillic did.
+// `subsets` у next/font — это только preload. @font-face с кириллицей всё
+// равно попадает в CSS с unicode-range, и браузер докачивает её лишь там,
+// где есть кириллический текст (/ru). Preload обоих алфавитов заставлял
+// EN-страницы тянуть ~140 КБ лишних шрифтов до первой отрисовки (LCP).
+// Onest рисует кириллицу как родной алфавит — RU-страницы не светлее EN,
+// как было у Inter.
 const sans = Onest({
-  subsets: ["latin", "cyrillic"],
+  subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
 });
@@ -35,7 +37,7 @@ const sans = Onest({
 // high-contrast in the 60px hero, sturdier and more open at 18px in card titles.
 // Variable, so one file covers 400–600 instead of preloading separate weights.
 const serif = Source_Serif_4({
-  subsets: ["latin", "cyrillic"],
+  subsets: ["latin"],
   style: ["normal", "italic"],
   axes: ["opsz"],
   variable: "--font-serif",
