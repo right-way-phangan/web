@@ -27,6 +27,7 @@ export function StaticPhoto({
   priority = false,
   className,
   variants = PHOTO_VARIANTS,
+  onError,
 }: {
   src: string;
   alt: string;
@@ -34,6 +35,8 @@ export function StaticPhoto({
   priority?: boolean;
   className?: string;
   variants?: readonly Variant[];
+  /** Только из клиентских компонентов (слайдшоу hero прячет битую сцену). */
+  onError?: () => void;
 }) {
   const base = src.replace(/\.[a-z]+$/i, "");
   const srcSet = variants.map(([suffix, width]) => `${base}${suffix}.webp ${width}w`).join(", ");
@@ -47,6 +50,8 @@ export function StaticPhoto({
       decoding="async"
       loading={priority ? "eager" : "lazy"}
       fetchPriority={priority ? "high" : undefined}
+      aria-hidden={alt === "" ? true : undefined}
+      onError={onError}
       className={cn("absolute inset-0 h-full w-full object-cover", className)}
     />
   );
