@@ -4,7 +4,7 @@ import type { Route } from "next";
 import { ArrowRight, BarChart3, Calculator, Scale } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Hero } from "@/components/sections/hero";
-import dynamic from "next/dynamic";
+import { HeroFallLazy } from "@/components/sections/hero-fall-lazy";
 import { FeaturedListings } from "@/components/sections/featured-listings";
 import { DistrictsBento } from "@/components/sections/districts-bento";
 import { Testimonials } from "@/components/sections/testimonials";
@@ -17,12 +17,9 @@ import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 
 const TOOL_ICONS = [Calculator, Scale, BarChart3] as const;
 
-// Ленивый импорт: HeroFall выключен (NEXT_PUBLIC_HERO_FALL=0), но статический
-// импорт клиентского компонента всё равно клал его чанк (+motion) в бандл
-// главной — client reference живёт независимо от dead-code elimination ветки.
-const HeroFall = dynamic(() =>
-  import("@/components/sections/hero-fall").then((m) => m.HeroFall),
-);
+// HeroFall — только через клиентскую калитку hero-fall-lazy: и статический
+// импорт, и next/dynamic из серверного компонента клали его чанк (+motion) в
+// скрипты главной, хотя при NEXT_PUBLIC_HERO_FALL=0 он не рендерится.
 
 /**
  * The single home page, shared by the EN root (`/`) and RU (`/ru`) — one
@@ -46,9 +43,9 @@ export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale
   return (
     <>
       {fallEnabled ? (
-        <HeroFall dict={dict.heroFlight}>
+        <HeroFallLazy dict={dict.heroFlight}>
           <Hero locale={locale} fill />
-        </HeroFall>
+        </HeroFallLazy>
       ) : (
         <Hero locale={locale} />
       )}
