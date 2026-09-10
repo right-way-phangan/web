@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { HERO_VARIANTS, StaticPhoto } from "@/components/ui/static-photo";
 import { useEffect, useRef, useState } from "react";
 
@@ -112,16 +111,14 @@ export function HeroBackground({
 
         {scenes.map((scene, i) =>
           warm.includes(i) && !failed.has(scene.src) ? (
-            <Image
+            <StaticPhoto
               key={scene.src}
               src={scene.src}
               // Сцены декоративны (дубль fallback'а, у которого есть осмысленный
               // alt) — пустой alt, чтобы при сбое загрузки не всплыл текст.
               alt=""
-              fill
               sizes="100vw"
-              quality={70}
-              aria-hidden
+              variants={HERO_VARIANTS}
               onError={() =>
                 setFailed((prev) => {
                   const next = new Set(prev);

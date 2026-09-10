@@ -2,7 +2,7 @@
 // Зачем: images.unoptimized (квота Hobby исчерпана) отдаёт исходный JPEG без
 // srcset — телефон тянул 1600px-кадры по 250–600 КБ. Варианты кладутся рядом
 // с оригиналом, оригинал остаётся fallback-`src` (см. ui/static-photo.tsx).
-// Запуск: node scripts/static-webp.mjs — после добавления нового фото района.
+// Запуск: node scripts/static-webp.mjs — после нового фото района или сцены hero.
 import sharp from "sharp";
 import { readdirSync } from "node:fs";
 import path from "node:path";
@@ -14,7 +14,15 @@ const JOBS = [
       .map((f) => path.join("public/images/districts", f)),
     variants: [["-sm", 640], ["-md", 1280]],
   },
-  { files: ["public/hero-phangan.jpg"], variants: [["-sm", 960], ["-lg", 1800]] },
+  {
+    files: [
+      "public/hero-phangan.jpg",
+      ...readdirSync("public/hero")
+        .filter((f) => /^scene-\d+\.jpe?g$/i.test(f))
+        .map((f) => path.join("public/hero", f)),
+    ],
+    variants: [["-sm", 960], ["-lg", 1800]],
+  },
 ];
 
 for (const job of JOBS) {
