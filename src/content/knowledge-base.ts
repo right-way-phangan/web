@@ -9516,6 +9516,136 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "If my villa or condo developer breaches the contract, is there a faster legal route than an ordinary lawsuit?",
   },
+  {
+    slug: "business-security-act-collateral-thai-property-company",
+    kbId: "kb-0155",
+    topic: "Structures",
+    title:
+      "Thailand's Business Security Act: how a villa-holding company can pledge its business or rental income, not just the land",
+    short:
+      "Since 2016, the Business Security Act B.E. 2558 (2015) lets a Thai company raise financing by pledging its business as a going concern, its receivables (like rental income) or its movable assets through a separate Department of Business Development registry — alongside, or instead of, an ordinary Land Code mortgage over the villa itself.",
+    updated: "2026-09-10",
+    body: [
+      "Can a Thai property-holding company borrow against something other than the land title itself? Yes — the Business Security Act B.E. 2558 (2015), effective 2 July 2016, created a second, entirely separate collateral system alongside the Land Department's mortgage registry: a company can pledge its business as a going concern, its contractual claims (including a stream of villa rental income), its movable property, or its intellectual property, registered instead with the Business Security Registration Office at the Department of Business Development (DBD), Ministry of Commerce.",
+      { h: "What can actually be pledged" },
+      {
+        ul: [
+          "**The business itself, as a going concern** — the operating enterprise, including goodwill and its ongoing customer relationships, not just a list of physical assets.",
+          "**Receivables and contractual claims** — a right to future payment, such as a villa-rental company's stream of booking income, can be pledged without needing a physical asset to hand over.",
+          "**Movable property used in the business** — machinery, vehicles, furniture, inventory and raw materials, without physically surrendering them to the lender.",
+          "**Intellectual property** — trademarks, patents, copyrights and similar rights.",
+          "**Immovable property, but only in a narrow case** — land or buildings can be pledged under this Act, rather than as an ordinary Land Code mortgage, only where the security provider's own business is itself a real estate business; it isn't a general substitute for a mortgage on every company-held villa.",
+          "**Other categories added by ministerial regulation** — perennial plants are one example the DBD has added since the Act's original passage.",
+        ],
+      },
+      { h: "A separate registry, a separate priority ladder" },
+      "Unlike a mortgage, which is registered against the title deed at the local Land Office, a Business Security Agreement is registered with the DBD's own centralised, searchable database — a different government office entirely, with its own filing system. Priority between competing security interests over the same collateral follows a strict first-to-file rule: whichever agreement the DBD's system time-stamps first ranks first, regardless of which lender negotiated terms first. A [due-diligence check](/knowledge/due-diligence-checklist-koh-phangan) on a company that already holds a villa should now include a DBD business-security search, not just a Land Office title search — a company's rental income or the business itself can be encumbered without anything appearing on the land title at all.",
+      { h: "What happens on default" },
+      "The Act restricts who can act as a **security receiver** to specific licensed institutions — banks, finance companies, credit foncier companies, insurance companies, and certain other prescribed entities; a purely offshore, unlicensed lender generally cannot hold this role directly. On default, the security receiver can take possession of the pledged collateral, manage or preserve it, and dispose of it — typically by public auction or private sale — without first having to go through a court foreclosure process of the kind that applies to an ordinary [mortgage in default](/knowledge/mortgage-default-foreclosure-process-thailand). Court enforcement remains available as a fallback if the debtor refuses to cooperate.",
+      { h: "Why this matters for a 49/51 structure" },
+      "For a foreign buyer using a [Thai company to hold a villa](/knowledge/thai-company-for-property-49-51), this Act creates a financing and encumbrance route that sits entirely outside the [Land Code mortgage system](/knowledge/mortgage-priority-ranking-thai-title-deed) most buyers are familiar with. A Thai co-shareholder or a joint-venture partner could, in principle, use the company's rental-income stream or the rental business itself as loan collateral without your knowledge showing up in a land-title search — reinforcing why reviewing a target company's full DBD filing history, not just its Land Office record, belongs in serious due diligence before buying into or lending against a company-held villa.",
+      { h: "The unsettled point: leasehold rights specifically" },
+      "Some practitioner sources describe a company's leasehold interest itself as directly pledgeable collateral under this Act; a more detailed law-firm analysis instead frames standalone immovable-property collateral as available only when the security provider's own business is real estate, describing the more general 'business as a going concern' and 'receivables' categories as the reliable route for a rental-villa company rather than the leasehold interest in isolation. Sources aren't fully consistent on this narrower point — confirm the specific structure with a Thai lawyer and the proposed security receiver institution rather than assuming a leasehold can always be pledged on its own.",
+      "None of this replaces conventional financing: most villa purchases still run through an ordinary [mortgage](/knowledge/financing-buying-as-a-foreigner) or seller/developer credit. But for a company that already owns a rental operation, the Business Security Act is a real, separate legal channel for raising capital against the business itself — and, just as importantly, a real channel through which a company's assets can be quietly encumbered by others.",
+    ],
+    takeaways: [
+      "The Business Security Act B.E. 2558 (2015), effective 2 July 2016, lets a company pledge its business as a going concern, receivables (like rental income), movable property or IP as loan collateral, registered with the DBD rather than the Land Office.",
+      "Immovable property itself can only be pledged under this Act, rather than as an ordinary mortgage, when the security provider's own business is real estate — it isn't a general substitute for a Land Code mortgage.",
+      "Priority between competing claims follows a strict first-to-file rule based on the DBD's registration timestamp, separate entirely from the Land Office's own priority system for mortgages.",
+      "On default, a licensed security receiver (banks, finance companies, insurers and similar institutions only) can take possession of and sell the collateral without a prior court foreclosure process.",
+      "A company-held villa's rental income or the rental business itself can be pledged without appearing on the land title — due diligence on a company-held villa should include a DBD business-security search, not just a Land Office title search.",
+    ],
+    sources: [
+      {
+        title: "Thanathip & Partners — Security Interest under Thai Laws",
+        url: "https://www.thanathippartners.com/insights/publications/security-interest-under-thai-laws-u2.html",
+      },
+      {
+        title:
+          "Global Advisory Experts — What Is the Business Security Act in Thailand? Collateral Types, DBD Registration, Lender Priority and Enforcement",
+        url: "https://globaladvisoryexperts.com/what-is-the-business-security-act-in-thailand/",
+      },
+      {
+        title: "Global Law Experts — What Is The Business Security Act In Thailand",
+        url: "https://globallawexperts.com/what-is-the-business-security-act-in-thailand/",
+      },
+      {
+        title: "Lexology — The Thai Business Security Act 2017",
+        url: "https://www.lexology.com/library/detail.aspx?g=9db2a51f-6e02-46a4-be40-73715d5de33d",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion:
+      "Can a Thai property-holding company borrow against its rental business itself, not just get a mortgage on the villa?",
+  },
+  {
+    slug: "foreign-divorce-judgment-recognition-thai-property",
+    kbId: "kb-0156",
+    topic: "Ownership",
+    title:
+      "A foreign court awarded your ex-spouse the villa in the divorce — why that order alone doesn't move a Thai land title",
+    short:
+      "Thailand has no treaty or statute for automatically recognising a foreign court judgment: a foreign divorce decree dividing marital property is only evidence in a fresh Thai lawsuit, and Thai land itself is always governed by Thai law regardless of which country's law decided the marriage or the divorce.",
+    updated: "2026-09-10",
+    body: [
+      "If you divorce abroad and the foreign court orders your Thai villa, leasehold, or company shares transferred to your ex-spouse, does that judgment itself change anything at the Land Office? No. Thailand has no legislation providing for automatic recognition or enforcement of a foreign court judgment — a party seeking to rely on one must bring an entirely fresh lawsuit in a Thai court, in which the foreign judgment is accepted only as evidence of the underlying facts, not as a binding order Thai authorities must carry out.",
+      { h: "What a Thai court checks before giving a foreign judgment any weight" },
+      {
+        ul: [
+          "**Jurisdiction** — did the foreign court have proper authority over the parties and the dispute in the first place?",
+          "**Finality** — is the judgment genuinely final under the law of the country that issued it, not still open to an ordinary appeal? A well-known early Supreme Court case rejected a foreign default judgment on exactly this ground, because the procedural rules of the issuing court didn't make it truly unappealable.",
+          "**Due process** — did both parties receive proper notice and a real opportunity to be heard?",
+          "**Public policy** — would recognising it offend Thai public policy or morals?",
+        ],
+      },
+      { h: "Which law even governs the marital property in the first place?" },
+      "Thailand's Act on Conflict of Laws B.E. 2481 (1938) answers this differently depending on what's being divided. Section 22 says that, absent a prenuptial agreement, matrimonial property is governed by the spouses' law of nationality — and if the spouses hold different nationalities, by the husband's nationality law specifically; a rule dating to 1938 that predates, and has not been rewritten for, the [2025 Marriage Equality Act](/knowledge/marriage-equality-act-property-rights-same-sex-couples)'s gender-neutral framework, leaving its application to a same-sex marriage genuinely untested. Section 23 then locks that governing law in place at the time of marriage: a later change of nationality by either spouse doesn't retroactively switch which country's law applies.",
+      { h: "But Thai land always follows Thai law regardless" },
+      "None of that actually decides what happens to Thai real estate. Section 16 of the same Act provides that movable and immovable property is governed by the law of the place where it is situated — and Section 9 separately confirms that the form required for a valid contract or juristic act concerning immovable property, and the capacity to enter into it, are likewise governed by the law of that location. In practice, that means Thai land, a Thai leasehold, or a Thai condominium unit is always subject to Thai property law when it comes to actually registering a change of ownership — including the ordinary ban on a foreign national holding Thai land outright — no matter what a foreign court decided, and no matter what Section 22's nationality-based rule would otherwise point to for the couple's other property.",
+      { h: "What this means in practice for a Phangan villa" },
+      {
+        ul: [
+          "**No automatic transfer.** An ex-spouse — Thai or foreign — generally needs a fresh Thai court case (or a negotiated private settlement executed in Thailand) before the Land Office will actually re-register a leasehold, a [superficies or usufruct](/knowledge/superficies-vs-usufruct-vs-lease), or transfer company shares.",
+          "**A foreign court still can't hand Thai land to a foreign ex-spouse outright.** If a foreign decree purports to award Thai land itself to a foreign national, Thailand's foreign-ownership rules still apply on the Thai side — the same disposal logic already covered for [foreign heirs](/knowledge/foreign-heir-inheriting-thai-land-section-93) is the closer analogy than a clean transfer.",
+          "**A registered usufruct sidesteps this entirely.** The reason a [registered usufruct for a foreign spouse](/knowledge/foreign-spouse-usufruct-thai-marriage-property) is the standard protective structure is precisely that it survives divorce automatically as a registered right — it doesn't depend on any court, foreign or Thai, re-litigating property division after the fact.",
+          "**Company shares are a separate, contractual layer.** Dividing shares in a [49/51 property-holding company](/knowledge/thai-company-for-property-49-51) on divorce is a matter of Thai corporate and contract law layered on top of, not replaced by, this judgment-recognition gap.",
+        ],
+      },
+      "None of this is a substitute for a [prenuptial agreement registered at the time of marriage](/knowledge/thai-prenuptial-agreement-property-protection) or a lifetime usufruct registered on the title — both settle the property question in advance, in a form the Land Office will act on directly, rather than leaving it to a cross-border court fight where the foreign judgment itself carries no automatic weight in Thailand.",
+    ],
+    takeaways: [
+      "Thailand has no treaty or statute for automatic recognition of a foreign court judgment; enforcing one requires a fresh Thai lawsuit in which it is only evidence, not a binding order.",
+      "A Thai court checks the foreign judgment's jurisdiction, finality, due process and consistency with Thai public policy before giving it any weight.",
+      "Matrimonial property is governed by the spouses' nationality law under Conflict of Laws Act Section 22 (the husband's nationality if they differ) — a 1938 rule untested against the 2025 Marriage Equality Act.",
+      "Thai land itself is always governed by Thai law under Section 16 (lex situs), regardless of which country's law governs the marriage or the couple's other property — including the ban on foreign land ownership.",
+      "A registered usufruct or a Thai prenuptial agreement settles the property question in advance and doesn't depend on any court re-litigating a property division after a foreign divorce.",
+    ],
+    sources: [
+      {
+        title:
+          "CMS — Expert Guide to Recognition and Enforcement of Judgments: Thailand",
+        url: "https://cms.law/en/int/expert-guides/cms-expert-guide-to-recognition-and-enforcement-of-judgements/thailand",
+      },
+      {
+        title: "Samui For Sale — Thailand Act on Conflict of Laws, B.E. 2481 (full text mirror)",
+        url: "https://www.samuiforsale.com/law-texts/thai-act-on-conflict-of-law.html",
+      },
+      {
+        title: "FOSR Law — Foreign Divorce in Thailand",
+        url: "https://fosrlaw.com/2026/foreign-divorce-in-thailand/",
+      },
+      {
+        title:
+          "Multilaw — Enforcement of Foreign Judgments: Fundamental Principles (Thailand, 2024)",
+        url: "https://www.multilaw.com/common/uploaded%20files/Enforcement_of_Foreign_Judgment/2024_Thailand_-_Multilaw_enforcement_fundamental_principles.pdf",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "ownership",
+    faqQuestion:
+      "If I divorce abroad, does the foreign court's property order automatically transfer my Thai villa or leasehold to my ex-spouse?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

@@ -1,62 +1,76 @@
-# Last run — 2026-09-09 (second run, same day)
+# Last run — 2026-09-10
 
-Today's first run already published kb-0151/kb-0152 (see backlog history). This run needed
-genuinely new ground: every `⏳` backlog row is a stalled, previously re-confirmed
-duplicate/thin/unsafe watch-item (Koh Phangan water crisis — stuck on PWA Notice 7/2569 with
-no successor; FBA/AMLA nominee-as-predicate-offence — still only Ombudsman/AMLO review;
-coalition "review foreign ownership" pledge — still marketing-site sourcing only; plus several
-confirmed duplicates: rental yields, single-cable power grid, stamp duty vs SBT, off-plan
-project vetting, 2026 LBT full-rate year). Ran two parallel research agents: one fresh-news
-sweep (2026-09-05/09 window), one evergreen gap-mining pass over the full 152-slug catalog.
+Published 2 new guides (EN + RU each). The backlog's remaining `⏳` items are all
+previously-confirmed duplicates/thin/unsafe (water crisis stuck on PWA Notice 7/2569
+with no successor; FBA/AMLA predicate-offence still Ombudsman/AMLO review only;
+coalition foreign-ownership stance still marketing-site-only; rental yields, power-grid,
+stamp-duty-vs-SBT, off-plan vetting and "who's buying" all still duplicate existing
+guides). A fresh-news sweep (2026-09-06/10 window) found nothing new dated in that
+window that wasn't already a covered duplicate. Fell back to two evergreen gap-mining
+finds instead of padding with a weak/duplicate angle.
 
-The news sweep found nothing genuinely new and distinct. It checked and confirmed already
-covered: the 4 Sep 2026 "permanent" DBD-DOPA-DOL joint nominee-tracing team (incremental to
-kb-0100/kb-0051/kb-0103), the repeated senate 100%-ownership remark (same senator restating
-her already-published kb-0133 proposal), the fast-track deportation regulation/first case
-(kb-0143), and the visa-exemption cut (kb-0137). No successor PWA notice, no AMLA/FBA
-cabinet movement, and no reputable-outlet sourcing on the coalition stance were found.
+## 1. kb-0155 — `business-security-act-collateral-thai-property-company`
 
-The gap-mining pass surfaced two genuinely uncovered, well-sourced topics — both published:
+**Title:** Thailand's Business Security Act: how a villa-holding company can pledge its
+business or rental income, not just the land
+**faqCategory:** structures
 
-## 1. `foreign-income-remittance-tax-thailand-por-161-2566` (kb-0153)
-- **Title:** Wiring foreign income into Thailand to fund a villa: the Por. 161/2566
-  remittance-tax rule
-- **faqCategory:** costs
-- **What it covers:** Revenue Department Order Por. 161/2566 (effective 1 Jan 2024), which
-  closed the old loophole letting a Thai tax resident avoid PIT on foreign-sourced income by
-  remitting it in a later calendar year than it was earned; Order Por. 162/2566's grandfathering
-  of pre-2024 income; and why this is a separate question from the FET form (which proves
-  funds are legitimate foreign currency for Land Office registration, not that they're tax-free).
-- **Overlap check:** kb-0027 (owners-taxes-annual-land-and-income) only dismisses the 2025
-  remittance-rule change in one sentence without explaining the mechanism; kb-0019
-  (bringing-money-into-thailand-fet-form) never addresses PIT exposure on remitted funds at
-  all. Confirmed distinct by reading both in full.
-- **Sources:** Revenue Department Order Por. 161/2566 — official translation hosted by HLB
-  Thailand (direct fetch); Mahanakorn Partners Group's comprehensive overview of Por. 161/2566
-  and Por. 162/2566; KPMG Flash Alert; Forvis Mazars; AIM Bangkok (confirms a further
-  worldwide-income taxation proposal was drafted but shelved ahead of the 2026 elections —
-  framed conservatively as not-yet-law).
+Thailand's Business Security Act B.E. 2558 (2015, effective 2 Jul 2016) created a
+second collateral system, registered with the Department of Business Development (DBD)
+rather than the Land Office — a company can pledge its business as a going concern,
+receivables (e.g. rental income), movable property or IP as loan collateral, separate
+from an ordinary Land Code mortgage. Directly relevant to any 49/51 villa-holding
+company's financing and to due diligence on one (a DBD search, not just a title search,
+is now warranted).
 
-## 2. `consumer-case-procedure-act-buyer-developer-disputes` (kb-0154)
-- **Title:** Developer breached your villa or condo contract? Thailand's Consumer Case
-  Procedure Act shortcut
-- **faqCategory:** process
-- **What it covers:** the Act on Establishment of and Procedure for Consumer Cases B.E. 2551
-  (2008) — a simplified, buyer-favouring litigation route against a business-operator
-  developer (not a private resale seller): no court filing fees, a reversed burden of proof on
-  facts only the developer knows, and available punitive damages; grounded in a documented
-  precedent of buyers successfully challenging unilateral spec-change clauses in condo
-  contracts.
-- **Overlap check:** distinguished explicitly from kb-0056/kb-0076 (OCPB substantive
-  contract-term rules — what a contract may say, not how to sue), kb-0119 (Escrow Act —
-  deposit custody, not litigation), kb-0139 (earnest-money/rescission — backing out of a deal,
-  not suing over breach), kb-0126 (seller defect liability — the substantive claim, not the
-  procedural forum) and kb-0140 (controlled-contract mandatory terms — not enforcement
-  mechanics). Confirmed distinct by reading all five in full.
-- **Sources:** OCPB's own hosted Act text (direct fetch); two independent Tilleke & Gibbins
-  pieces (condominium disputes precedent; the punitive-damages regime); Price Sanond; ThaiLawOnline.
+Sources used:
+- Thanathip & Partners — "Security Interest under Thai Laws" (direct fetch: security
+  receiver eligibility, priority rules, distinction from a mortgage)
+- Global Advisory Experts — "What Is the Business Security Act in Thailand?" (direct
+  fetch: collateral categories, registration mechanism, effective date)
+- Global Law Experts — same topic (direct fetch: corroborating collateral list, default
+  process)
+- Lexology — "The Thai Business Security Act 2017" (via search-result summary)
 
-Both guides cross-link to the existing FET-form, owner's-taxes, OCPB, Escrow Act, earnest-money,
-seller-liability, controlled-contract and condo-governance guides. Backlog marked accordingly
-(see `content-pipeline/backlog.md` discovery note dated 2026-09-09, second run). `npx tsc
---noEmit` passes clean with both new EN/RU entries.
+Sources disagreed on whether a leasehold interest itself is standalone pledgeable
+collateral (one source said yes; a more detailed law-firm summary implied immovable
+collateral is narrower, tied to the grantor's own business being real estate) — framed
+conservatively in the guide as an unsettled point rather than asserted as fact.
+
+## 2. kb-0156 — `foreign-divorce-judgment-recognition-thai-property`
+
+**Title:** A foreign court awarded your ex-spouse the villa in the divorce — why that
+order alone doesn't move a Thai land title
+**faqCategory:** ownership
+
+Thailand has no treaty or statute for automatic recognition of a foreign court
+judgment — a foreign divorce decree dividing marital property is only evidence in a
+fresh Thai lawsuit. Separately, matrimonial property nominally follows the spouses'
+nationality law (Conflict of Laws Act Section 22, husband's nationality if they
+differ — an untested provision against the 2025 Marriage Equality Act), but Thai land
+itself always follows Thai lex situs law (Section 16) regardless. Distinct from the
+existing succession-specific lex-situs guide (Sections 37/38), the prenuptial-agreement
+guide, and the foreign-spouse-usufruct guide.
+
+Sources used:
+- CMS — "Expert Guide to Recognition and Enforcement of Judgments: Thailand" (direct
+  fetch: no automatic-recognition legislation, jurisdiction/finality/due-process/public-
+  policy test, the 1918 default-judgment Supreme Court precedent)
+- Samui For Sale — full-text mirror of the Act on Conflict of Laws B.E. 2481 (direct
+  fetch, quoted Sections 8, 9, 16, 22, 23 verbatim)
+- FOSR Law — "Foreign Divorce in Thailand" (secondary corroboration)
+- Multilaw — "Enforcement of Foreign Judgments: Fundamental Principles (Thailand,
+  2024)" (secondary corroboration)
+
+## Not published (checked, still duplicate/unsafe)
+
+- Koh Phangan water crisis: pwa.co.th re-checked directly; Notice 7/2569 (through
+  1 Aug 2026) remains the latest Koh Phangan-specific item, no successor.
+- FBA/AMLA nominee-as-predicate-offence: still Ombudsman/AMLO review only.
+- Coalition "review foreign ownership" pledge: still marketing-site-only sourcing.
+- 4 Sep 2026 inter-agency nominee-stats refresh and 6 Sep 2026 Nation Thailand recap of
+  the Laem Son Beach dispute: both real but incremental to 10+ existing
+  nominee-crackdown/foreshore guides, not a distinct angle.
+
+`content-pipeline/backlog.md` updated: both new topics logged with a discovery note and
+marked ✅.
