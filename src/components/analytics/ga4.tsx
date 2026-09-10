@@ -27,7 +27,9 @@ export function Ga4Script() {
       <Script
         id="ga4-loader"
         src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}
-        strategy="afterInteractive"
+        // После load: 170 КБ gtag.js не конкурирует с гидрацией за главный
+        // поток (Lighthouse TBT). Вызовы gtag() до загрузки копятся в dataLayer.
+        strategy="lazyOnload"
       />
       <Script
         id="ga4-init"

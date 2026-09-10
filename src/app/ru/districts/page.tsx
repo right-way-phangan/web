@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
+import { StaticPhoto } from "@/components/ui/static-photo";
 import type { Route } from "next";
 import { ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
@@ -67,10 +67,9 @@ export default async function RussianDistrictsPage() {
               >
                 <div className="relative aspect-[16/9] overflow-hidden bg-panel">
                   {districtHasHero(d.slug) ? (
-                    <Image
+                    <StaticPhoto
                       src={`/images/districts/${d.slug}.jpg`}
                       alt={`${name}, Ко Панган`}
-                      fill
                       sizes="(min-width: 768px) 50vw, 100vw"
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />

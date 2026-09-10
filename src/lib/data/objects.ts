@@ -86,8 +86,13 @@ export function sanitizePublicObject(o: RealEstateObject): RealEstateObject {
  * (getObjectByRwNumber) and keep the gallery.
  */
 export function slimObjectForList(o: RealEstateObject): RealEstateObject {
-  const { gallery, constructionUpdates, descriptionRaw, ...slim } = o;
+  const { gallery, constructionUpdates, descriptionRaw, videoUrls, floorplanUrls, locationUrl, ...slim } = o;
   void gallery;
+  // ссылки на видео/планировки/карту нужны только странице объекта — в списке
+  // из 90 карточек это ~15 КБ в payload и ещё столько же в RSC-потоке
+  void videoUrls;
+  void floorplanUrls;
+  void locationUrl;
   void constructionUpdates; // десятки URL фото со стройки — только на своей странице
   // legacy-заметки amoCRM: на карточке объекта не рендерятся (решение 2026-06-17),
   // но уезжали в RSC-payload /listings — десятки описаний в исходнике страницы.

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { HERO_VARIANTS, StaticPhoto } from "@/components/ui/static-photo";
 import { useEffect, useRef, useState } from "react";
 
 type Scene = { src: string; alt: string };
@@ -101,14 +102,12 @@ export function HeroBackground({
           crossfade is opacity-only; the slow zoom rides underneath it. */}
       <div className="absolute inset-0 motion-safe:animate-[heroDrift_28s_ease-in-out_infinite_alternate]">
         {/* Fallback / LCP layer — always present underneath the scene crossfade. */}
-        <Image
+        <StaticPhoto
           src={fallbackSrc}
           alt={fallbackAlt}
-          fill
           priority
           sizes="100vw"
-          quality={72}
-          className="object-cover"
+          variants={HERO_VARIANTS}
         />
 
         {scenes.map((scene, i) =>
