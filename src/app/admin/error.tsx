@@ -4,7 +4,13 @@
  * Граница ошибки админки: раньше сбой раздела падал в глобальный error сайта
  * (публичная страница «что-то пошло не так» без пути назад в админку).
  */
+import { useEffect } from "react";
+import { reportClientError } from "@/lib/report-client-error";
+
 export default function AdminError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
+  useEffect(() => {
+    reportClientError(error, "boundary");
+  }, [error]);
   return (
     <section className="px-4 py-16 md:px-8">
       <div className="mx-auto max-w-md text-center">

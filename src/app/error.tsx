@@ -7,6 +7,7 @@ import {
   whatsappLink,
   telegramDmLink,
 } from "@/lib/site-config";
+import { reportClientError } from "@/lib/report-client-error";
 
 export default function ErrorPage({
   error,
@@ -18,6 +19,7 @@ export default function ErrorPage({
   useEffect(() => {
     // Surface server/client errors to console for Vercel log capture.
     console.error("[app:error]", error);
+    reportClientError(error, "boundary");
   }, [error]);
 
   return (
