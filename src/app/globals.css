@@ -300,15 +300,16 @@
 
 /* Построчный reveal заголовков героя: маска снизу вверх + лёгкий подъём.
    clip-path + translateY на GPU; заканчивается полностью видимым (fill both),
-   reduced-motion гасит. Каскад строк — через inline animationDelay. */
+   reduced-motion гасит. Каскад строк — через inline animationDelay.
+   Без opacity: элемент, въезжающий из opacity:0, Chrome не берёт в кандидаты
+   LCP — на мобильном Lighthouse LCP главной становился текст логотипа в шапке
+   (4,4 с), а не h1. Маска и так прячет строку до старта, глазу разницы нет. */
 @keyframes maskRise {
   from {
-    opacity: 0;
     transform: translateY(0.9em);
     clip-path: inset(0 0 100% 0);
   }
   to {
-    opacity: 1;
     transform: translateY(0);
     clip-path: inset(0 0 -0.15em 0);
   }
