@@ -251,6 +251,34 @@
     transform 0.4s ease;
 }
 
+/* <Appear> (components/motion/appear.tsx): тот же SSR-инвариант, что у .reveal,
+   но со смещением/длительностью/задержкой из инлайн-переменных — каскад
+   карточек. Прячем мгновенно, проявляем с «дорогим» easing. */
+.appear-hidden {
+  opacity: 0;
+  transform: translateY(var(--appear-y, 18px));
+}
+.appear-visible {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity var(--appear-duration, 0.45s) cubic-bezier(0.22, 1, 0.36, 1) var(--appear-delay, 0s),
+    transform var(--appear-duration, 0.45s) cubic-bezier(0.22, 1, 0.36, 1) var(--appear-delay, 0s);
+}
+
+/* Кросс-фейд контента при клиентской навигации (app/template.tsx). */
+@keyframes pageFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.page-fade {
+  animation: pageFade 0.3s ease-out both;
+}
+
 /* Лёгкий entrance над сгибом (hero) — чисто на CSS, поэтому работает и без JS:
    анимация проигрывается и заканчивается видимой (fill-mode both), а никакой
    inline opacity:0 не оставляет no-JS/AT-пользователей с невидимым контентом.
