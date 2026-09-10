@@ -1,5 +1,4 @@
 import "server-only";
-import { createHash } from "node:crypto";
 import { backendFetch, BACKEND_URL } from "@/lib/api/backend";
 import { notifySiteError } from "./telegram";
 
@@ -50,10 +49,24 @@ export function normalizePath(url?: string): string {
   }
 }
 
+/**
+ * FNV-1a 32 бит: instrumentation.ts собирается и под edge, где node:crypto
+ * недоступен (прод-сборка #324 упала именно на нём). Для дедупа алертов
+ * криптостойкость не нужна, коллизии на наших объёмах — нереальны.
+ */
+function fnv1a(input: string): string {
+  let h = 0x811c9dc5;
+  for (let i = 0; i < input.length; i++) {
+    h ^= input.charCodeAt(i);
+    h = Math.imul(h, 0x01000193) >>> 0;
+  }
+  return h.toString(16).padStart(8, "0");
+}
+
 /** Отпечаток: источник + сообщение без чисел + нормализованный путь. */
 export function errorFingerprint(e: Pick<SiteError, "source" | "message" | "url">): string {
   const msg = e.message.replace(/\d+/g, "#").replace(/\s+/g, " ").trim().toLowerCase().slice(0, 160);
-  return createHash("sha1").update(`${e.source}|${msg}|${normalizePath(e.url)}`).digest("hex").slice(0, 12);
+  return fnv1a(`${e.source}|${msg}|${normalizePath(e.url)}`);
 }
 
 export async function reportSiteError(e: SiteError): Promise<void> {
