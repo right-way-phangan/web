@@ -100,6 +100,37 @@ export async function notifyZoneLookupError(opts: {
   await send(lines, { text: "🗺 Открыть инструмент →", url: `${SITE_URL}/admin/zoning` });
 }
 
+export async function notifySiteError(opts: {
+  source: "client" | "server";
+  message: string;
+  stack?: string;
+  path: string;
+  url?: string;
+  digest?: string;
+  ua?: string;
+  fingerprint: string;
+}): Promise<void> {
+  const lines: string[] = [];
+  lines.push(`🧯 <b>Ошибка на сайте (${opts.source === "server" ? "сервер" : "браузер"})</b>`);
+  lines.push("");
+  lines.push(`<b>Где:</b> ${esc(opts.path)}`);
+  lines.push(`<b>Что:</b> ${esc(opts.message.slice(0, 300))}`);
+  if (opts.digest) lines.push(`<b>Digest:</b> <code>${esc(opts.digest)}</code>`);
+  if (opts.ua) lines.push(`<b>Браузер:</b> ${esc(opts.ua.slice(0, 120))}`);
+  // Первые кадры стека без строки сообщения — чтобы понять, чей код, не открывая логи.
+  const frames = (opts.stack ?? "")
+    .split("\n")
+    .filter((l) => /^\s+at\s|@/.test(l))
+    .slice(0, 3)
+    .map((l) => l.trim().slice(0, 160));
+  if (frames.length) lines.push(`<pre>${esc(frames.join("\n"))}</pre>`);
+  lines.push("");
+  lines.push(`<i>Отпечаток ${esc(opts.fingerprint)} — повтор не раньше, чем через 6 ч.</i>`);
+
+  const url = opts.url && /^https:\/\//.test(opts.url) ? opts.url.slice(0, 500) : null;
+  await send(lines, url ? { text: "🔗 Открыть страницу →", url } : null);
+}
+
 /** Lead deep-link: own CRM card in prod, amoCRM lead only as dev fallback. */
 function leadButton(leadId: number): Button | null {
   if (OWN_CRM) {
