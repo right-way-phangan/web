@@ -14,7 +14,7 @@ describe("site-error", () => {
     const a = errorFingerprint({ source: "client", message: "Cannot read properties of undefined (reading 'x') at line 12", url: "/object/RW-V0001" });
     const b = errorFingerprint({ source: "client", message: "Cannot read properties of undefined (reading 'x') at line 99", url: "/object/RW-L0042?x=1" });
     expect(a).toBe(b);
-    expect(a).toMatch(/^[0-9a-f]{12}$/);
+    expect(a).toMatch(/^[0-9a-f]{8}$/);
   });
 
   it("отпечаток различает источник, страницу и сообщение", () => {
