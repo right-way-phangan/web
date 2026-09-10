@@ -31,6 +31,7 @@ export type AdminSection =
   | "valuation"
   | "comps"
   | "journey"
+  | "partners"
   | "seo"
   | "trends"
   | "agents"
@@ -287,6 +288,15 @@ export const ADMIN_SECTIONS: AdminSectionMeta[] = [
     group: "analytics",
     keywords: "journey путь посетителя сессии поведение",
     guideSlug: "journey",
+    needsGuide: true,
+  },
+  {
+    key: "partners",
+    label: "Партнёры · отчёты",
+    href: "/admin/partners" as Route,
+    group: "analytics",
+    keywords: "партнёры застройщик отчёт developer-fee ссылка витрина статистика",
+    guideSlug: "partners",
     needsGuide: true,
   },
   {
