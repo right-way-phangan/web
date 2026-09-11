@@ -9777,6 +9777,112 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "Can a dispute over a Koh Phangan lease or villa contract be resolved by arbitration instead of going to court?",
   },
+  {
+    slug: "contractor-preferential-lien-unpaid-builder-thailand",
+    kbId: "kb-0159",
+    topic: "Structures",
+    title: "The builder's lien you won't see on the title deed: Thailand's preferential right for unpaid construction work",
+    short:
+      "Thai law gives an unpaid builder, architect or contractor an automatic statutory security right over the increase in value they created in a building — separate from any mortgage, and never disclosed by a simple title search. It rarely gets registered in practice, but a recently-built villa with an unresolved payment dispute is exactly where it can surface.",
+    updated: "2026-09-11",
+    body: [
+      "Can a contractor who was never fully paid for building a villa make a legal claim against the property after it's sold? Yes — the Civil and Commercial Code gives builders, architects and contractors a **preferential right (บุริมสิทธิ)**: a statutory security interest that arises automatically by law, without any contract creating it, over the specific increase in value their work added to the immovable. It sits alongside — and can even outrank — a bank's registered mortgage, yet it won't show up unless you know exactly what to look for.",
+      { h: "The legal basis" },
+      {
+        ul: [
+          "**CCC Section 273** recognises several categories of preferential right a creditor can hold over a debtor's specific immovable property, arising directly from the nature of the debt rather than from a registered contract like a mortgage.",
+          "**Section 275** creates the one that matters here: a builder, architect or contractor has a preferential right for unpaid charges relating to work done on a debtor's immovable — but only over **the increase in value the work produced**, not the property's full value, and only for as long as that increase still exists.",
+          "**Section 286** is the catch: to preserve priority against a mortgage or a later purchaser, the contractor must register a **provisional cost estimate before the work begins**. If the final cost runs over that estimate, the excess isn't protected.",
+          "**Section 287** gives a registered preferential right real teeth — it can be exercised **in preference to a mortgage**, even one registered earlier, because the mortgage only ever secured the land's pre-improvement value.",
+          "**Section 289** applies the Code's mortgage-enforcement rules to preferential rights correspondingly, meaning an unpaid contractor can, in principle, force a sale to recover what's owed.",
+        ],
+      },
+      { h: "Why it rarely bites — and where it still can" },
+      "In practice this mechanism is uncommon on Koh Phangan and across Thailand generally, precisely because Section 286 requires the contractor to register a cost estimate before a single brick is laid — a step most villa builders, especially smaller local outfits building on a handshake and staged cash payments, never take. Most unpaid-contractor disputes are instead fought as ordinary breach-of-contract claims under the [hire-of-work provisions](/knowledge/residential-construction-controlled-contract-thailand) (CCC Sections 587–607), not this lien. That's reassuring, but it doesn't make the risk zero: a dispute over a recent build — especially one rushed to completion for a quick resale, or where subcontractors or a labour crew went unpaid partway through — is exactly the scenario where a contractor with good legal advice might have registered, or could still be pursuing, this right.",
+      "A standard land-title search at the Land Office does show registered encumbrances, including a properly registered preferential right for construction work, alongside mortgages and leases on the back of a Chanote. The gap is buyer awareness: most due-diligence checklists (see the general [due diligence checklist](/knowledge/due-diligence-checklist-koh-phangan)) are written around mortgages, leases and caveats, and don't specifically prompt a check for this less-common entry.",
+      { h: "What a buyer of a recently-built villa should actually do" },
+      {
+        ul: [
+          "**Read the full encumbrance section of the title deed**, not just the mortgage line — a registered preferential right for work done would appear there too.",
+          "**Ask the seller for evidence the builder was paid in full** — final payment receipts, a signed completion/handover certificate, and ideally a written lien waiver or release from the main contractor.",
+          "**Ask specifically about subcontractors and labour crews**, not just the head contractor — a dispute further down the payment chain is a common source of an unresolved claim, even if the main contractor was paid.",
+          "**Treat an unusually fast, discounted sale of a newly finished villa** as a reason to dig deeper into the build's payment history, not less.",
+        ],
+      },
+      "This preferential right is a narrow, rarely-invoked corner of Thai property law — but it's a useful reminder that a villa's legal risk profile isn't only about who owns the land and whether the lease is registered. It can also include who built the structure standing on it, and whether they were ever paid.",
+    ],
+    takeaways: [
+      "Thai law (CCC Sections 273 and 275) gives an unpaid builder, architect or contractor an automatic statutory lien over the increase in value their work created in a building — separate from any mortgage.",
+      "To rank ahead of a mortgage (Section 287), the contractor must register a provisional cost estimate before work begins (Section 286) — a step rarely taken in practice, which is why this right is uncommon but not extinct.",
+      "A registered preferential right shows up on a full title-deed encumbrance search, but most buyer due-diligence checklists don't specifically prompt a check for it.",
+      "Most unpaid-contractor disputes are fought as ordinary breach-of-contract claims instead, not through this lien mechanism.",
+      "For a recently-built villa, ask for proof the builder and subcontractors were paid in full, not just a clean title search.",
+    ],
+    sources: [
+      {
+        title: "ThailandLawOnline — Civil and Commercial Code: Sections 251–289, Preferential Rights in Property Under Civil Law",
+        url: "https://www.thailandlawonline.com/civil-and-commercial-code/251-289-preferential-rights-in-property-under-civil-law",
+      },
+      {
+        title: "Juslaws & Consult — Thai Civil and Commercial Code, Book II: Obligations",
+        url: "https://www.juslaws.com/thai-civil-and-commercial-code/book-2-obligations",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "Can an unpaid contractor claim a legal right over a villa I'm buying?",
+  },
+  {
+    slug: "seller-warranty-against-eviction-thai-property",
+    kbId: "kb-0160",
+    topic: "Documents",
+    title: "The seller's warranty against eviction: what happens when someone else's prior right surfaces after you buy",
+    short:
+      "Beyond physical defects, Thai law makes a seller answerable if a third party's pre-existing right — an undisclosed lease, a lien, a servitude, an adverse-possession claim — later disturbs your possession of a Koh Phangan property. It's a distinct warranty from the physical-defect rules, with its own exceptions and its own court procedure.",
+    updated: "2026-09-11",
+    body: [
+      "You've registered your purchase, moved in, and months later someone shows up with an old, undisclosed claim over the property — a lease the seller never mentioned, a construction lien, a neighbour asserting an access servitude, or someone claiming years of adverse possession. Can you hold the seller responsible? Under CCC Sections 475–479, generally yes — Thai law makes a seller liable for disturbing your peaceful possession through a third party's prior right, a separate warranty from the [physical-defect liability](/knowledge/seller-liability-property-defects-after-closing-thailand) already covered for structural problems.",
+      { h: "The core warranty" },
+      {
+        ul: [
+          "**Section 475** — the seller is liable for the consequences of any disturbance to the buyer's peaceful possession caused by a person holding a right over the property that already existed at the time of sale, or caused by the seller's own fault.",
+          "**Section 476** — the exception: the seller isn't liable for a disturbance caused by a right the buyer already knew about at the time of sale. A disclosed lease, a disclosed servitude, or anything the buyer had actual notice of doesn't trigger this protection.",
+          "**Section 479** — the warranty extends to full or partial eviction from the property because of a pre-existing right, and to a right that isn't strong enough to evict the buyer outright but still materially reduces the property's value, fitness for its intended purpose, or usefulness.",
+        ],
+      },
+      { h: "The procedure if a third party actually sues" },
+      "Sections 477 and 478 give this warranty real practical teeth. If a third party brings a claim asserting a prior right over the property, the buyer can **summon the seller to appear in that same lawsuit** as a co-defendant or co-plaintiff, so the underlying ownership/rights dispute and the buyer's claim against the seller get resolved together rather than in two separate cases. The seller can also choose to intervene independently to fight the third party's claim directly, since a seller who successfully defeats the claim protects themselves from liability to the buyer too.",
+      { h: "How this differs from the other warranties already on this site" },
+      {
+        ul: [
+          "**Not the same as physical-defect liability.** [Seller liability for property defects](/knowledge/seller-liability-property-defects-after-closing-thailand) (CCC Sections 472–474, with the 483–485 \"as-is\" carve-outs) covers the physical condition of what you bought — cracks, a bad roof, a failing septic system. Sections 475–479 cover legal disturbance of your title or possession by someone else's right, an entirely separate warranty channel with its own rules.",
+          "**Not the same as the double-sale priority rule.** The [good-faith registered-buyer rule](/knowledge/double-sale-good-faith-buyer-protection-thailand) (CCC Sections 1299–1300) decides who keeps the land when a seller deals with two buyers. This warranty applies after that question is already settled — it's about what you can claim from your seller once someone else's right disturbs the possession you already hold.",
+          "**Doesn't undo a winner's title.** Just as in the double-sale scenario, this warranty gives you a claim against the seller — damages, and depending on the severity, rescission — not a way to reverse a third party's superior, validly established right to the land itself.",
+        ],
+      },
+      "On Koh Phangan specifically, this warranty is the buyer's civil-law backstop against exactly the kind of undisclosed prior claim the island's due-diligence checklists exist to catch in advance — an unregistered lease still binding for its first term, a neighbour's servitude, a builder's lien, or someone quietly building an adverse-possession claim on an unfenced corner of the plot. Good due diligence before signing is always cheaper and faster than relying on this warranty afterward, but it's a meaningful protection when something genuinely wasn't discoverable — or wasn't disclosed — at the time of sale.",
+    ],
+    takeaways: [
+      "CCC Sections 475–479 make a seller liable if a third party's pre-existing right over the property later disturbs the buyer's possession — a distinct warranty from physical-defect liability.",
+      "The seller isn't liable if the buyer already knew about the third party's right at the time of sale (Section 476) — disclosed encumbrances don't trigger this protection.",
+      "If a third party sues over a prior right, the buyer can summon the seller into the same case as co-defendant or co-plaintiff (Section 477), and the seller can also intervene independently (Section 478).",
+      "The warranty covers full or partial eviction, and also a right that merely reduces the property's value, fitness or usefulness without full eviction (Section 479).",
+      "This is a remedy against the seller personally, not a way to reverse a third party's validly established right to the land — good pre-purchase due diligence remains the cheaper protection.",
+    ],
+    sources: [
+      {
+        title: "ThailandLawOnline — Civil and Commercial Code: Sections 461–485, Duties and Liabilities of the Seller of Property Sold",
+        url: "https://www.thailandlawonline.com/civil-and-commercial-code/461-485-duties-and-liabilities-seller-property-sold",
+      },
+      {
+        title: "Thailand Law Forum — Thailand Civil and Commercial Code, Sections 453–485",
+        url: "https://www.thailawforum.com/thailand-civil-and-commercial-code-sections-453-485/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion: "What can I do if someone else turns out to have a right over land I already bought?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

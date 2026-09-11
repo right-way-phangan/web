@@ -1,74 +1,69 @@
-# Last run — 2026-09-10 (second run, same day)
+# Last run — 2026-09-11
 
-Today's first run already published 2 guides (kb-0155, kb-0156) and logged its own
-`last-run.md`. This is a follow-up run on the same day; published 2 more new guides
-(EN + RU each), after confirming neither the backlog's standing `⏳` watch items nor a
-fresh-news sweep produced anything new (see "Not published" below).
+Two parallel research agents ran first: one fresh-news sweep (2026-09-08/11 window),
+one evergreen-gap-mining pass over the full 158-slug catalog. The news sweep found
+nothing genuinely new (see "Not published" below) — the backlog's remaining `⏳` items
+are all previously-confirmed duplicates/thin/unsafe watch items. Fell back to two
+genuinely uncovered, well-sourced CCC mechanics found by the gap-mining pass.
 
-## 1. kb-0157 — `double-sale-good-faith-buyer-protection-thailand`
+## 1. kb-0159 — `contractor-preferential-lien-unpaid-builder-thailand`
 
-**Title:** CCC Section 1300: why the buyer who registers first — not who paid first —
-wins a double-sold Koh Phangan plot
+**Title:** The builder's lien you won't see on the title deed: Thailand's preferential
+right for unpaid construction work
+**faqCategory:** structures
+
+CCC Sections 273 and 275 give an unpaid builder, architect or contractor an automatic
+statutory preferential right (lien) over the increase in value their work created in a
+building — separate from any mortgage. To rank ahead of a mortgage (Section 287) the
+contractor must register a provisional cost estimate before work begins (Section 286),
+a step rarely taken in practice, so framed conservatively as an uncommon but real risk,
+most relevant to a recently-built villa with an unresolved contractor/subcontractor
+payment dispute. Distinct from mortgage-priority-ranking-thai-title-deed (registered
+mortgages only) and the general due-diligence-checklist-koh-phangan (doesn't prompt
+this specific check).
+
+Sources used:
+- ThailandLawOnline — Civil and Commercial Code: Sections 251–289, Preferential Rights
+  in Property Under Civil Law (direct fetch, Sections 273/275/286/287/289 quoted)
+- Juslaws & Consult — Thai Civil and Commercial Code, Book II: Obligations
+  (independent corroboration via search)
+
+## 2. kb-0160 — `seller-warranty-against-eviction-thai-property`
+
+**Title:** The seller's warranty against eviction: what happens when someone else's
+prior right surfaces after you buy
 **faqCategory:** documents
 
-Civil and Commercial Code Sections 1299–1300 decide who wins when a seller signs
-agreements with (or leases land to) more than one buyer: registration order, not
-signing date or deposit size, controls — and cancellation of a registered transfer can
-never be granted against a transferee who registered for value and in good faith. This
-is the statutory reason lawyers push same-day registration, and the mechanism behind
-real Phangan risk patterns (multiple reservation deposits on hot beachfront land, a
-long lease granted twice). Distinct from the existing registration-day, due-diligence
-and Section-83-caveat guides, none of which explain this underlying race-to-register
-rule itself.
+CCC Sections 475–479 make a seller liable if a third party's pre-existing right over
+the property (an undisclosed lease, lien, servitude, adverse-possession claim, etc.)
+later disturbs the buyer's possession — a warranty distinct from physical-defect
+liability, with its own knowledge-based exception (Section 476) and its own
+buyer-summons-seller court procedure (Sections 477–478). Cross-linked to, and
+explicitly distinguished from, the existing seller-liability-property-defects
+(physical defects, not legal disturbance) and double-sale-good-faith-buyer-protection
+(registration-priority race, not seller liability) guides.
 
 Sources used:
-- Samui For Sale — Thailand Civil and Commercial Code, Part III (Property), full-text
-  mirror (direct fetch, Sections 1299 and 1300 quoted verbatim)
-- Siam Legal Thailand Law Library — Civil and Commercial Code, Property (Sections
-  1298–1307)
-- ThailandLawOnline — Civil Code: Real Estate Rights and Property Law (Sections
-  1298–1366)
+- ThailandLawOnline — Civil and Commercial Code: Sections 461–485, Duties and
+  Liabilities of the Seller of Property Sold (direct fetch, Sections 475–479 quoted)
+- Thailand Law Forum — Thailand Civil and Commercial Code, Sections 453–485
+  (independent corroboration, consistent wording)
 
-## 2. kb-0158 — `arbitration-clause-thai-property-lease-disputes`
-
-**Title:** Arbitration for a Thai property contract: how it works, and what it can't do
-**faqCategory:** process
-
-Thailand's Arbitration Act B.E. 2545 (2002), modelled on the UNCITRAL Model Law, lets a
-lease, sale-and-purchase or construction contract be resolved privately by an
-arbitrator — typically under the Thailand Arbitration Center (THAC, founded 2015) —
-instead of in court, with awards enforceable via a court petition and, for a
-foreign party, under the New York Convention. Framed conservatively on its limits: it
-only applies if a written arbitration clause exists (or both sides agree after the
-fact), it doesn't replace Land Office registration, and whether a developer's
-arbitration clause can override an individual buyer's access to the Consumer Case
-Procedure Act's litigation route is flagged as a genuinely unresolved question rather
-than answered either way. Distinct from the existing Consumer Case Procedure Act guide,
-which covers only the court-litigation route.
-
-Sources used:
-- Terms.Law — Arbitration in Thailand: Commercial Dispute Resolution under the
-  Arbitration Act B.E. 2545
-- WSR Law Group — Arbitration Act in Thailand
-- Thailand Arbitration Center (THAC) — Model Arbitration Clause (thac.or.th, primary
-  institutional source)
-- Tilleke & Gibbins — Enforcement of Arbitral Awards under Thailand's Arbitration Act
-
-## Not published (checked, still duplicate/unsafe/rejected)
+## Not published (checked, still duplicate/thin/unsafe)
 
 - Koh Phangan water crisis: PWA Notice 7/2569 remains the latest Koh Phangan-specific
-  item, no successor.
-- FBA/AMLA nominee-as-predicate-offence: still Ombudsman/AMLO review only.
+  item, no successor found.
+- FBA/AMLA nominee-as-predicate-offence: still Ombudsman/AMLO review only, no
+  cabinet/bill progress.
 - Coalition "review foreign ownership" pledge: still marketing-site-only sourcing.
-- 4 Sep 2026 Commerce Ministry nominee-stats refresh (144,706 entities, 125,622
-  DBD-supervised) and a "Take Thailand Back" protest at the Israeli Embassy (10 Sep
-  2026): both real but not a legal-mechanism change, and the stats refresh is
-  incremental to 10+ existing nominee-crackdown guides.
-- BOT's USD 200,000 source-of-funds threshold and the BOI land-notification framework:
-  both already covered by existing guides, not newly dated this window.
-- CCC Section 1304's inalienable-foreshore/public-domain status: a genuine candidate,
-  but rejected as substantially duplicating the already-published kb-0152
-  (alluvion-foreshore-land-ownership-thailand).
+- Nation Thailand (8 Sep 2026) nominee-stats refresh (125,622 firms screened,
+  36,277 foreign-linked) and Thai Examiner (11 Sep 2026) asset-freeze update
+  (81.77% drop in flagged firms, ฿20.392bn/102 cases frozen): both real but
+  quantitative updates to the already-well-covered nominee-crackdown enforcement
+  story, not new legal mechanisms.
+- Laem Son Beach (Koh Phangan) land dispute recap (Nation Thailand, 6 Sep 2026):
+  already substantively covered by the published adverse-possession and
+  alluvion/foreshore-land guides.
 
-`content-pipeline/backlog.md` updated: both new topics logged with a discovery note and
-marked ✅.
+`content-pipeline/backlog.md` updated: both new topics logged with a discovery note
+and marked ✅.
