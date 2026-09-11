@@ -9883,6 +9883,119 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "documents",
     faqQuestion: "What can I do if someone else turns out to have a right over land I already bought?",
   },
+  {
+    slug: "tenant-lease-survives-sale-ccc-section-569",
+    kbId: "kb-0161",
+    topic: "Structures",
+    title: "Buying a Koh Phangan property with a sitting tenant: what CCC Section 569 actually guarantees",
+    short:
+      "Selling — or buying — a rented villa doesn't automatically end the tenant's lease: Thai law makes a hire-of-property contract survive a change of ownership, and the new owner inherits the landlord's rights and duties. But that protection has a registration-dependent limit that catches out tenants and buyers who assume it's absolute.",
+    updated: "2026-09-11",
+    body: [
+      "If you buy a Koh Phangan villa or plot that already has a paying tenant in it, does the sale let you evict them or re-let at a higher rate? Generally no. Civil and Commercial Code **Section 569** provides that a contract of hire of immovable property is not extinguished by a transfer of ownership — the buyer steps directly into the seller's shoes as landlord, inheriting both the rights and the duties toward the existing tenant for whatever term remains. The same rule runs the other way: if you're renting a property yourself and your landlord sells it, your tenancy doesn't end just because the owner changed.",
+      { h: "What Section 569 actually covers" },
+      {
+        ul: [
+          "**Section 569** — the core rule: a change of ownership doesn't end a lease; the new owner takes over as landlord for the rest of the term, bound by the same rent, permitted use and other core terms the outgoing owner agreed to.",
+          "**Section 538** — the registration threshold that decides how much of this actually applies to a given lease. A lease of immovable property exceeding three years must be made in writing and registered at the Land Office to be enforceable beyond the third year; an unregistered lease over three years is only good for three years, even between the original landlord and tenant.",
+          "**A short tenancy of three years or less** needs no registration to be valid, and Section 569 protects it in full for its whole term regardless of a sale — a one-year rental agreement survives a change of owner just as much as a registered long lease does.",
+        ],
+      },
+      { h: "Where the protection gets thinner" },
+      "Thai property-law commentary is consistent on the point that matters more than Section 569's wording alone: for anything running past three years, registration is what makes a lease genuinely bind whoever buys the property next. Practitioner guidance describes an unregistered long-term lease as effectively unenforceable against a new owner, even though it remains valid between the original landlord and tenant for its first three years. This is the same registration principle behind the site's own leasehold ownership structure — see [How foreigners legally own a villa](/knowledge/how-foreigners-own-a-villa) and [Renewing a 30-year lease](/knowledge/renewing-30-year-lease-risks) — and Section 569 is the actual statutory basis for a point those guides already make in passing: a **registered** lease survives a change of landowner, while a **renewal promise** never automatically binds a new owner, because Section 540 and the March 2025 Supreme Court ruling treat that promise as a separate, unregistered contractual undertaking rather than a property right.",
+      { h: "Two practical scenarios on Koh Phangan" },
+      {
+        ul: [
+          "**Buying an income property with a tenant in place** — confirm whether the existing tenancy exceeds three years and, if so, whether it's actually registered at the Land Office. An unregistered long lease you inherit informally from the seller may not bind you at all — which removes an unwanted tenant, but also means you can't rely on it if you were counting on that rental income continuing on the seller's terms. Get the signed agreement, the remaining term, the rent and any break clause confirmed before you commit, as part of the same discipline as the [general due-diligence checklist](/knowledge/due-diligence-checklist-koh-phangan).",
+          "**Renting long-term before you buy, or while you decide** — if your own landlord sells the villa or land you're renting, Section 569 protects you automatically for the remainder of your agreed term (registered, if it runs past three years) without needing the new owner's consent. What it doesn't protect is anything beyond the written term — an informal understanding that you'd be offered another year, or first refusal to buy, has to be in writing to mean anything against a new owner.",
+          "**If you're the one renting out** — a villa you intend to sell with a tenant still inside isn't a defect in the buyer's title, but it is something to disclose plainly: staying silent doesn't remove the tenant's Section 569 rights, it just makes for an unhappy buyer at handover. See [Renting out your villa](/knowledge/renting-out-your-villa-rules-and-taxes) and the [OCPB residential-lease rules](/knowledge/ocpb-residential-lease-controlled-contract-2025) for the landlord-side obligations that travel with the property too.",
+        ],
+      },
+      "Section 569 is a short, old provision doing a lot of quiet work behind every Koh Phangan rental and lease-based ownership structure. Treat it as a floor, not a guarantee: it protects the lease you actually have on paper, registered where the law requires it — not the informal promises layered on top.",
+    ],
+    takeaways: [
+      "CCC Section 569: a lease of immovable property is not extinguished by a sale — the buyer inherits the landlord's rights and duties for the remaining term.",
+      "A tenancy of three years or less needs no registration and is fully protected by Section 569 regardless of a sale.",
+      "A lease over three years needs Section 538 registration at the Land Office to reliably bind a new owner — Thai practitioners describe an unregistered long lease as effectively unenforceable against a purchaser.",
+      "This is the same rule behind why a registered 30-year land lease survives a change of landowner — but it never protects a renewal promise, which is a separate, unregistered contractual undertaking.",
+      "Buying a rental property with a sitting tenant, or renting one yourself: check the lease term, the rent and whether it's actually registered before relying on it surviving a sale.",
+    ],
+    sources: [
+      {
+        title: "ThailandLawOnline — Civil and Commercial Code: Sections 537–571, Lease or Hire of Property Laws",
+        url: "https://www.thailandlawonline.com/civil-and-commercial-code/537-571-lease-or-hire-of-property-laws",
+      },
+      {
+        title: "Samui For Sale — Thailand Civil and Commercial Code (Part II)",
+        url: "https://www.samuiforsale.com/law-texts/thailand-civil-code-part-2.html",
+      },
+      {
+        title: "Terms.Law — Thailand 30-Year Lease: Can Foreigners Actually Renew?",
+        url: "https://terms.law/Thai/property/leasehold-structures.html",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "If I buy a Koh Phangan property that already has a tenant, am I stuck with their lease?",
+  },
+  {
+    slug: "personal-guarantee-suretyship-thai-property-company",
+    kbId: "kb-0162",
+    topic: "Costs",
+    title: "Guaranteeing a Thai property company's loan: what suretyship law actually exposes you to",
+    short:
+      "Banks financing a 49/51 villa-holding company routinely ask the foreign shareholder to personally guarantee the loan, and personal guarantees behind seller or developer financing are common too. Thai suretyship law (CCC Sections 680–701, reformed in 2015) gives an individual guarantor real protections — but only if the guarantee is actually worded to reflect them.",
+    updated: "2026-09-11",
+    body: [
+      "Setting up a 49/51 Thai company to hold land, then having the company borrow to fund construction, sounds like it keeps a foreigner's personal liability contained to their shareholding. It often doesn't: Thai banks routinely require the foreign director or shareholder to sign a personal guarantee (suretyship, ค้ำประกัน) before lending to a young company with no track record and thin assets of its own. The same personal-guarantee question comes up with seller or developer financing on a leasehold villa build, already flagged in passing in [mortgage default and foreclosure](/knowledge/mortgage-default-foreclosure-process-thailand). CCC Sections 680–701 — reformed in 2015 specifically to rebalance a law that had heavily favoured creditors — set out exactly what signing one of these actually commits you to.",
+      { h: "The core suretyship rules" },
+      {
+        ul: [
+          "**Section 680** — suretyship is a separate contract: a third person (the surety) binds themself to a creditor to perform an obligation if the debtor — the company, in a 49/51 structure — fails to. It only attaches to a valid underlying debt.",
+          "**Section 686** — the creditor must give the guarantor written notice within 60 days of the debtor's default. Miss that window, and the creditor loses the right to claim interest, damages and expenses that accrued after the 60th day — a real, if partial, limit on how much a slow-moving bank can add to a guarantor's bill.",
+          "**Section 700** — if the creditor grants the debtor more time to pay without the guarantor's consent, the guarantor is discharged from the guarantee entirely.",
+          "**Section 701** — a guarantor can tender payment to the creditor as soon as the debt falls due; if the creditor refuses to accept it, the guarantor is discharged.",
+        ],
+      },
+      { h: "The 2015 reform that changed the balance" },
+      "Before amendments effective 11 February 2015 (Amendment Act No. 20 B.E. 2557) and refined again later the same year, Thai banks routinely drafted guarantees making the guarantor 'jointly liable' with the debtor — legally a co-debtor rather than a true secondary guarantor, which stripped away the guarantor's right to insist the creditor pursue the company's own assets first. Section 681/1 now voids any clause forcing an **individual** guarantor into joint-and-several liability; that restriction doesn't apply if a *corporate* guarantor knowingly consents to joint liability instead, so this individual-guarantor protection is exactly what matters to a foreign shareholder signing personally. Section 681 was also tightened to require a guarantee to clearly specify the underlying obligation, the guaranteed period and a maximum guaranteed amount — an open-ended, blank-cheque guarantee sits on much shakier ground than it did before 2015.",
+      { h: "What this means signing for a 49/51 company, in practice" },
+      {
+        ul: [
+          "**Check whether the guarantee is joint-and-several or a true secondary suretyship.** Since 2015 a bank cannot lawfully force an individual into joint liability by contract wording alone — if a draft guarantee still uses joint-liability language for a personal (not corporate) guarantor, that clause is a candidate for being void, but get it confirmed by a Thai lawyer rather than relying on the bank's own template.",
+          "**Confirm the guarantee states a maximum amount and a defined period.** A guarantee covering 'all present and future obligations' of the company with no cap is exactly the open-ended exposure the 2015 reform was meant to discourage — negotiate a ceiling tied to the actual loan amount.",
+          "**Keep your contact details with the bank current.** Section 686's 60-day notice clock only helps if the bank can actually reach you — a guarantor who's moved back overseas and never updated their address loses the practical benefit of the notice rule even though it remains legally in force.",
+          "**Watch for loan restructurings.** If the company later renegotiates repayment terms with the bank, insist on being asked to consent — under Section 700, an extension granted behind your back can discharge your guarantee, but that's easier to prove if you can show you were never consulted.",
+          "**A guarantee doesn't disappear if the company's own security is foreclosed.** Thailand's no-deficiency rule under [Sections 728–733](/knowledge/mortgage-default-foreclosure-process-thailand) protects a mortgagor from being chased for a shortfall after a foreclosure sale — but that protection covers the mortgage itself, not a personal guarantee layered on top, which the 2015 reform regulates on its own separate terms.",
+        ],
+      },
+      "A personal guarantee is the point where the limited-liability promise of a [49/51 company structure](/knowledge/thai-company-for-property-49-51) quietly stops applying to the person who signed it. The 2015 reform gives an individual guarantor real, usable protections, but only if the guarantee is actually worded to reflect them — read it with the same care as the loan agreement itself, not as boilerplate attached to it.",
+    ],
+    takeaways: [
+      "CCC Sections 680–701 govern suretyship (personal guarantees) — common where a bank finances a 49/51 Thai property-holding company, or a seller/developer extends financing.",
+      "Since a 2015 reform (Amendment Act No. 20 B.E. 2557, effective 11 February 2015, refined later that year), a bank cannot lawfully force an individual guarantor into joint-and-several ('co-debtor') liability by contract wording — only a consenting corporate guarantor can be bound that way.",
+      "Section 686 requires the creditor to notify the guarantor within 60 days of the debtor's default, or lose the right to claim interest and costs accruing after that window.",
+      "Section 700 discharges the guarantor entirely if the creditor grants the debtor a time extension without the guarantor's consent.",
+      "A personal guarantee is a separate obligation from the mortgage itself — Thailand's no-deficiency foreclosure rule (Section 733) doesn't automatically extend to it.",
+    ],
+    sources: [
+      {
+        title: "ThailandLawOnline — Civil and Commercial Code: Sections 680–701, Suretyship Contract, Creditor and Debtor of Obligation",
+        url: "https://www.thailandlawonline.com/civil-and-commercial-code/680-701-suretyship-contract-creditor-and-debtor-of-obligation",
+      },
+      {
+        title: "Tilleke & Gibbins — Legal Changes Will Affect Rights and Obligations of Corporate Guarantors",
+        url: "https://www.tilleke.com/insights/legal-changes-will-affect-rights-and-obligations-corporate-guarantors/",
+      },
+      {
+        title: "Tilleke & Gibbins — Enforcement of Loan Guarantees to Change under New Laws",
+        url: "https://www.tilleke.com/insights/enforcement-loan-guarantees-change-under-new-laws/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "If I personally guarantee my Thai company's property loan, what am I actually on the hook for?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
