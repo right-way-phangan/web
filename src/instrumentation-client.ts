@@ -29,15 +29,21 @@ if (KEY && !window.location.pathname.startsWith("/admin")) {
   // key the chunk is never even requested. track() mirrors events through
   // window.posthog, which is what the assignment below publishes.
   const start = () => {
-    void import("posthog-js").then(({ default: posthog }) => {
-      posthog.init(KEY, {
-        api_host: HOST,
-        // Modern default set — most importantly capture_pageview: 'history_change',
-        // which is what makes App Router client navigations count as pageviews.
-        defaults: "2026-06-25",
-      });
-      window.posthog = posthog;
-    });
+    void import("posthog-js")
+      .then(({ default: posthog }) => {
+        posthog.init(KEY, {
+          api_host: HOST,
+          // Modern default set — most importantly capture_pageview: 'history_change',
+          // which is what makes App Router client navigations count as pageviews.
+          defaults: "2026-06-25",
+        });
+        window.posthog = posthog;
+      })
+      // Чанк posthog-js (~270 КБ) не догрузился — обрыв сети, блокировщик,
+      // краулер, догоняющий старый HTML после деплоя. Страница от этого не
+      // страдает, а без catch отказ промиса всплывал через unhandledrejection
+      // как «Loading chunk NNNN failed» и слал ложный алерт об ошибке сайта.
+      .catch(() => {});
   };
   // Аналитика не участвует в первом экране: ждём load и простой главного
   // потока, чтобы posthog-js и session-recorder (~125 КБ) не толкались с
