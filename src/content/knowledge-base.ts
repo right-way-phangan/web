@@ -10115,6 +10115,146 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "ownership",
     faqQuestion: "Can a bank or a developer's creditor seize a Thai condo's common areas separately from the individually owned units?",
   },
+  {
+    slug: "amity-treaty-real-estate-brokerage-property-management-thailand",
+    kbId: "kb-0165",
+    topic: "Structures",
+    title:
+      "The US-Thailand Treaty of Amity: how a US-owned company can run a Phangan brokerage or property-management business 100% — but still can't own the land",
+    short:
+      "The 1966 US-Thailand Treaty of Amity lets a US citizen or US-majority company bypass the Foreign Business Act's Thai-majority rule and own 100% of a Thai real-estate brokerage, property-management, or hotel company. It changes nothing about who can own Thai land — Land Code Section 86 still applies to an Amity company exactly as it does to any other foreign-linked structure.",
+    updated: "2026-09-12",
+    body: [
+      "Can a US citizen own 100% of a real estate brokerage or property-management company on Koh Phangan, when [Thai law otherwise requires Thai-majority ownership](/knowledge/foreign-real-estate-agent-restrictions-thailand) for exactly that kind of business? For a US national or a US-majority company, yes — through a specific, long-standing treaty exemption, not a loophole. The 1966 Treaty of Amity and Economic Relations between Thailand and the United States lets a qualifying US-owned company bypass the Foreign Business Act's Thai-majority rule for most service businesses, including real estate brokerage, property management, and hotel operation. What it does not do is change who can own Thai land itself — that stays governed by the Land Code exactly as it does for every other foreign-linked structure.",
+      { h: "What the Treaty of Amity actually exempts" },
+      {
+        ul: [
+          "**Legal basis** — the Treaty of Amity and Economic Relations, signed in Bangkok on 29 May 1966, grants US citizens and US-majority companies \"national treatment\": the right to operate a business in Thailand on largely the same footing as a Thai national, rather than as a restricted foreigner.",
+          "**The statutory hook is Foreign Business Act Section 8** — the FBA itself carves out an exemption for foreigners operating businesses covered by a treaty Thailand is party to, governing them instead under that treaty's own terms.",
+          "**What this bypasses**: List 3 of the FBA restricts real estate brokerage/agency business, hotel business, and a broad \"other service businesses\" catch-all to Thai nationals or Thai-majority companies — the same List 3 restriction covered in [the real-estate-agent restrictions guide](/knowledge/foreign-real-estate-agent-restrictions-thailand). An Amity-certified company is exempt from that restriction for these activities.",
+          "**Ownership threshold**: a minimum of 51% of shares must be held by US citizens or US-registered entities. Sources differ slightly on the exact director-composition rule beyond that, so a specific structure's director makeup should be confirmed with a lawyer before relying on it.",
+        ],
+      },
+      { h: "What it doesn't touch: land ownership" },
+      "Several sectors are explicitly excluded from Amity treatment regardless of US ownership: communications and telecommunications, domestic transportation, deposit-taking banking, exploitation of land or other natural resources, domestic trade in indigenous agricultural products — and land ownership itself. Land Code Section 86 allows a foreigner to acquire land only by virtue of a treaty that specifically grants that right, and no such treaty exists today for any country, the United States included (the last treaty provision of that kind was effectively terminated around 1970). An Amity-protected company therefore still needs the same [registered lease, superficies, or 49/51 structure](/knowledge/thai-company-for-property-49-51) as any other foreign-linked entity to hold Thai land — the treaty changes who can run the business, not who can own the ground it operates on.",
+      { h: "How a company gets Amity-certified" },
+      {
+        ul: [
+          "**Apply through the US Commercial Service or the US Embassy in Bangkok**, submitting proof of US citizenship and the company's ownership structure.",
+          "**Receive an Amity certification letter** from the US side confirming the company qualifies.",
+          "**Register the certification with Thailand's Department of Business Development (DBD)**, under the Ministry of Commerce, so the company is formally recognised as exempt from the relevant FBA restrictions.",
+          "**Budget for processing time** — commonly reported at around four to eight weeks — and confirm current minimum capital requirements with a Thai corporate lawyer, since reported figures vary by source.",
+        ],
+      },
+      { h: "Practical implications for a Phangan buyer or business owner" },
+      {
+        ul: [
+          "**If you're a US citizen considering running your own brokerage or property-management company** on the island, rather than just [renting out your own villa](/knowledge/renting-out-villa-foreign-business-act-license), Amity certification is the one legitimate route to 100% US ownership of that business — worth raising with a lawyer before assuming a 49/51 structure is your only option.",
+          "**If you're evaluating a property-management or brokerage company that claims full foreign ownership**, ask to see its Amity Treaty certificate and DBD registration rather than taking the claim at face value — a company simply calling itself \"foreign-owned\" without Amity certification is operating outside the FBA's List 3 rules.",
+          "**Don't assume Amity solves land ownership.** A US-owned Amity company that legitimately runs your rental portfolio or brokered your purchase still cannot hold Phangan land in its own name any more than a Thai company with foreign shareholders can — the lease/superficies/49-51 toolkit is unavoidable either way.",
+          "**Non-US buyers get no benefit from this route.** The Treaty of Amity is a bilateral US-Thailand instrument with no equivalent for other nationalities, who remain subject to the ordinary FBA List 3 Thai-majority rule for brokerage and property-management businesses.",
+        ],
+      },
+      "The Treaty of Amity is a genuine, 60-year-old exception — not a workaround discovered by a marketing site — but it's narrow: it changes who can own the business operating on Koh Phangan's real estate market, not who can own the real estate itself. Anyone relying on it, on either side of a brokerage or property-management relationship, should verify the certificate and DBD registration directly rather than taking a company's word for it.",
+    ],
+    takeaways: [
+      "The 1966 Treaty of Amity lets a US citizen or US-majority company (minimum 51% US-held shares) bypass the Foreign Business Act's Thai-majority rule for real estate brokerage, property management, and hotel businesses, via FBA Section 8.",
+      "This exemption is about who can run the business — it has zero effect on Land Code Section 86, so an Amity-certified company still cannot own Thai land directly.",
+      "Land ownership, natural-resource exploitation, communications, domestic transport and deposit-taking banking are explicitly excluded from Amity treatment regardless of US ownership.",
+      "Certification runs through the US Commercial Service or Embassy Bangkok first, then registration with Thailand's Department of Business Development — not a DIY filing.",
+      "The Treaty of Amity is bilateral to the US only; other nationalities get no equivalent exemption and remain subject to the ordinary Thai-majority rule for these businesses.",
+    ],
+    sources: [
+      {
+        title: "Board of Investment — Foreign Business Act B.E. 2542, official translation",
+        url: "https://www.boi.go.th/upload/Foreign%20Business%20Act_5dd766122ff27.pdf",
+      },
+      {
+        title: "Wikipedia — Treaty of Amity and Economic Relations (Thailand–United States)",
+        url: "https://en.wikipedia.org/wiki/Treaty_of_Amity_and_Economic_Relations_(Thailand%E2%80%93United_States)",
+      },
+      {
+        title: "terms.law — US-Thailand Treaty of Amity: 100% American Ownership",
+        url: "https://terms.law/Thai/business/treaty-of-amity-us.html",
+      },
+      {
+        title: "Silk Legal — Thai-US Treaty of Amity Company",
+        url: "https://silklegal.com/practice-areas/thailand-business-practice/thai-us-treaty-of-amity-company/",
+      },
+      {
+        title: "terms.law — Can Foreigners Own Land in Thailand? (Land Code Section 86)",
+        url: "https://terms.law/Thai/property/land-ownership-foreigners.html",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "Can a US citizen legally own 100% of a real estate brokerage or property-management company in Thailand?",
+  },
+  {
+    slug: "timeshare-vacation-club-direct-sale-marketing-act-thailand",
+    kbId: "kb-0166",
+    topic: "Ownership",
+    title:
+      "Timeshare and \"vacation club\" villa memberships on Koh Phangan: why they're not property ownership, and the law that actually governs the sales pitch",
+    short:
+      "A \"fractional ownership,\" \"vacation club,\" or timeshare membership pitch for a Phangan villa or resort is usually not a titled property right at all — it's a contractual membership sold under the Direct Sale and Direct Marketing Act B.E. 2545, a consumer-protection statute with its own registration requirement, cooling-off period, and penalties, entirely separate from the Condominium Act or Land Code.",
+    updated: "2026-09-12",
+    body: [
+      "Is a \"vacation club\" or fractional-ownership villa membership pitched on Koh Phangan the same thing as buying property? Almost never. Unlike [a titled condo unit](/knowledge/freehold-condo-vs-leasehold-villa) or [a registered lease](/knowledge/leasehold-vs-freehold), a timeshare or vacation-club product is typically a contractual right to use an unregistered building for a fixed period each year — not a right registered at the Land Office, and not governed by the Condominium Act or Land Code at all. It falls instead under a specific consumer-protection statute: the Direct Sale and Direct Marketing Act B.E. 2545 (2002).",
+      { h: "What's actually being sold" },
+      "A membership contract of this kind gives the buyer a contractual claim against the selling company — not a real right that attaches to the property itself and survives a change of owner. If the company that sold the membership stops operating, sells the underlying building, or simply becomes unresponsive, the membership holder has no title, no registered lease, and no claim recorded at the Land Office to fall back on. That's the fundamental difference from every ownership structure covered elsewhere on this site, and it's why sales presentations for these products are regulated as a form of marketing conduct, not as a property transaction.",
+      { h: "The law behind the pitch: Direct Sale and Direct Marketing Act B.E. 2545" },
+      {
+        ul: [
+          "**Sections 20 and 27** require any business operating direct sales or direct marketing — the door-to-door and presentation-based sales model typical of timeshare and vacation-club pitches — to register with Thailand's Office of the Consumer Protection Board (OCPB) before operating.",
+          "**Section 33** gives the buyer a statutory 7-day cooling-off period from receipt of the goods or service to cancel in writing, with the seller required to refund in full within 15 days — a right the buyer holds regardless of what the sales contract itself says.",
+          "**Section 47** penalises operating an unregistered direct-sale or direct-marketing business with up to one year's imprisonment and/or a fine of up to ฿100,000, plus a continuing daily fine.",
+          "**Section 46** penalises pyramid-scheme structures specifically — relevant because some vacation-club products are sold with referral-commission incentives that can shade into a prohibited structure — with up to five years' imprisonment and/or a fine of up to ฿500,000.",
+        ],
+      },
+      { h: "Check before you sign: the OCPB Direct registry" },
+      "The OCPB maintains a public registry, OCPB Direct (ocpbdirect.ocpb.go.th), where a buyer can check whether a specific direct-sale or direct-marketing operator is actually registered. An unregistered seller is operating in breach of Sections 20/27 regardless of how professional the sales presentation looks — checking the registry before signing anything or paying a deposit takes a few minutes and is the single clearest due-diligence step available for this category of product.",
+      { h: "Practical checklist for a buyer approached with a membership or vacation-club pitch" },
+      {
+        ul: [
+          "**Confirm what you're actually being offered.** Ask directly whether the product is a registered lease, a titled condo unit, or a contractual membership — and get the answer in writing before paying anything.",
+          "**Check the OCPB Direct registry** for the selling company's registration before signing or paying a deposit.",
+          "**Use the Section 33 cooling-off period** if you've already signed — a written cancellation within 7 days of receiving the contract is a statutory right, not something the seller can waive by contract.",
+          "**Treat multi-decade membership terms with extra caution.** A membership contract carries none of the [registered-lease renewal protections](/knowledge/renewing-30-year-lease-risks) that apply to an actual leasehold interest — its enforceability over 20 or 30 years depends entirely on the selling company still existing and honouring the contract.",
+          "**Weigh it against an actual ownership structure.** If the goal is a place to stay or an investment, [leasehold vs freehold](/knowledge/leasehold-vs-freehold) and [freehold condo vs leasehold villa](/knowledge/freehold-condo-vs-leasehold-villa) both create a registered, transferable right in a way a vacation-club membership does not.",
+        ],
+      },
+      "A vacation-club or timeshare pitch isn't automatically fraudulent — but it is a fundamentally different legal product from buying property, regulated by consumer-protection law rather than the Condominium Act or Land Code. Checking the OCPB Direct registry and understanding exactly what right you're buying, before any money changes hands, is the difference between a flexible holiday product and an unenforceable promise.",
+    ],
+    takeaways: [
+      "A timeshare, fractional-ownership, or \"vacation club\" villa membership is typically a contractual right against the selling company, not a registered property right — it has no title and no Land Office record.",
+      "These products are regulated by the Direct Sale and Direct Marketing Act B.E. 2545, a consumer-protection statute, not the Condominium Act or Land Code.",
+      "Sections 20/27 require the seller to register with the Office of the Consumer Protection Board (OCPB) before operating; a buyer can check registration on the public OCPB Direct registry.",
+      "Section 33 gives buyers a statutory 7-day cooling-off period with a 15-day full-refund obligation, regardless of what the sales contract says.",
+      "A membership's enforceability over a 20-30 year term depends entirely on the selling company remaining in business — unlike a registered lease or titled unit, there's no independent legal claim if the company stops operating.",
+    ],
+    sources: [
+      {
+        title: "Samui For Sale — Direct Sale and Direct Marketing Act B.E. 2545, official translation",
+        url: "https://www.samuiforsale.com/law-texts/sales-and-marketing-act.html",
+      },
+      {
+        title: "OCPB Direct — public registry of registered direct-sale/direct-marketing operators",
+        url: "https://ocpbdirect.ocpb.go.th/",
+      },
+      {
+        title: "legalconcept.co.th — An Overview of the Thai Direct Marketing Law",
+        url: "https://legalconcept.co.th/thai-direct-marketing-law/",
+      },
+      {
+        title: "thailandlaw.org — Direct Sales and Marketing Act",
+        url: "https://www.thailandlaw.org/direct-sales-and-marketing-act.html",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "ownership",
+    faqQuestion: "Is a \"vacation club\" or timeshare villa membership on Koh Phangan the same as owning property?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
