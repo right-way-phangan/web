@@ -9996,6 +9996,125 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "costs",
     faqQuestion: "If I personally guarantee my Thai company's property loan, what am I actually on the hook for?",
   },
+  {
+    slug: "agency-law-power-of-attorney-liability-thailand",
+    kbId: "kb-0163",
+    topic: "Documents",
+    title: "What a Power of Attorney actually authorises: Thailand's agency law behind every POA-signed deal",
+    short:
+      "A Power of Attorney doesn't create its own legal force — it invokes Thailand's general law of agency (CCC Sections 797–844), which decides whether you're actually bound by what your agent signs, what happens if they overstep the document's wording, and who is left liable if something goes wrong. This is the substantive layer sitting behind every POA used to buy, sell, incorporate a company, or register a transfer on Koh Phangan.",
+    updated: "2026-09-12",
+    body: [
+      "Overseas buyers on Phangan routinely grant a Power of Attorney to a Thai lawyer or facilitator to sign a sale-and-purchase agreement, incorporate a company, or register a transfer at the Land Office without flying in. The POA document itself only proves that authority was granted and, until Thailand's 2027 accession to the Apostille Convention takes effect, that it was properly notarised and consular-legalised — see [the Power of Attorney legalisation guide](/knowledge/apostille-convention-power-of-attorney-thailand-2027) for that procedural layer. Whether you're actually bound by what the agent then does is a separate question, governed by the Civil and Commercial Code's general law of agency, Sections 797–844.",
+      { h: "The core rule: bound only within the scope actually granted" },
+      {
+        ul: [
+          "**Section 797** defines agency itself: a contract whereby the agent has authority to act for the principal, and agrees to do so.",
+          "**Section 820** — the principal is bound to third persons only by acts the agent performed **within the scope of the authority** the agency actually granted.",
+          "**Section 823** — if an agent acts without authority, or beyond the scope given, that act does not bind the principal unless the principal ratifies it. If the principal doesn't ratify, the agent becomes personally liable to the third party instead — unless that party knew the agent lacked or exceeded authority.",
+        ],
+      },
+      "In practice this cuts both ways. A POA drafted with broad, open-ended language (\"manage all my affairs in Thailand\") can let an agent bind you to things you never specifically intended. A POA drafted narrowly protects you from that, but means anything outside its exact wording needs either a fresh instrument or your own written ratification after the fact — a phone call authorising something extra isn't a substitute for either.",
+      { h: "Money and property passing through an agent's hands" },
+      "**Section 810** requires the agent to hand over to the principal all money and other property received in connection with the agency. This matters whenever a lawyer or facilitator temporarily holds a buyer's deposit, sale proceeds, or a refund on its way to Land Office registration or an FET-form-documented transfer (see [bringing money into Thailand](/knowledge/bringing-money-into-thailand-fet-form)) — you're entitled to a full accounting of every baht and document that passes through, not just a summary at the end.",
+      { h: "The overseas-principal rule that catches people off guard (Section 824)" },
+      "**Section 824** sets a default rule specific to agents acting for a foreign-domiciled principal: an agent who makes a contract on behalf of a principal who is, and has their domicile, in a foreign country is **personally liable on that contract even though the principal has been disclosed** — unless the contract's own terms are inconsistent with that liability. Concretely, if a Thai lawyer signs a sale-and-purchase agreement, lease, or company document naming you as the (disclosed) overseas principal, the statutory default makes the lawyer personally answerable on that contract too, not just you — unless the contract is drafted to say otherwise. This can work in a foreign buyer's favour (a local party genuinely on the hook alongside you), but it also means the wording of the underlying contract, not the POA, decides who actually carries the liability.",
+      { h: "Practical checklist for a Phangan buyer using a POA" },
+      {
+        ul: [
+          "**Scope it narrowly and specifically.** Name the exact acts authorised — sign the sale-and-purchase agreement for a named title deed, register the transfer at a named Land Office — rather than open-ended authority to \"manage all matters.\"",
+          "**Require an accounting.** Section 810 entitles you to demand every baht and document your agent received on your behalf; ask for bank statements and receipts tied specifically to the transaction, not just a verbal summary.",
+          "**Get ratification in writing if the agent needs to act beyond the POA's wording.** Widen the instrument or sign a written ratification afterward — don't leave it to an informal approval that a counterparty or court can't verify.",
+          "**Check how contracts are worded when you're the disclosed overseas principal.** Under Section 824's default rule, the person signing on your behalf can end up personally liable on the contract too unless it states otherwise — ask your lawyer's contract templates address this explicitly.",
+          "**Remember legalisation and authority are two different questions.** A POA's notarisation or (from 2027) apostille proves the document itself is genuine — it says nothing about whether a specific act your agent performed was actually within the scope that document grants.",
+        ],
+      },
+      "A Power of Attorney only ever authorises what its own wording covers. Before signing one for a Phangan purchase, the two questions worth asking are what exactly you're authorising (Sections 797, 820, 823) and who is left holding a contract's liability if it's later disputed (Sections 810, 824) — the same care you'd bring to [vetting your lawyer's fees](/knowledge/phangan-property-lawyer-fees-what-they-cover) or working through a [due-diligence checklist](/knowledge/due-diligence-checklist-koh-phangan) is worth bringing to the instrument that lets someone else act for you.",
+    ],
+    takeaways: [
+      "CCC Sections 797–844 — not the Power of Attorney document itself — are Thailand's substantive law of agency, deciding what an agent's actions actually bind a principal to.",
+      "Section 820 only binds you to acts your agent performed within the scope your POA actually grants — vague or overly broad wording can create exposure you didn't intend.",
+      "Section 823: if an agent acts beyond their authority and you don't ratify it, you're not bound — but the agent then becomes personally liable to the other party instead, unless that party knew the agent lacked authority.",
+      "Section 810 entitles you to a full accounting of any money or property your agent receives on your behalf, such as a deposit or sale proceeds passing through a lawyer's hands.",
+      "Section 824's default rule makes an agent who signs a contract for a disclosed but foreign-domiciled principal personally liable on that contract too, unless its wording says otherwise — worth confirming explicitly in any Thai sale, lease, or company document signed under your POA.",
+    ],
+    sources: [
+      {
+        title: "ThailandLawOnline — Civil and Commercial Code: Sections 797–844, Thai Law on Agent, Agency, Transaction on Behalf of Principal",
+        url: "https://www.thailandlawonline.com/civil-and-commercial-code/797-844-thai-law-on-agent-agency-transaction-on-behalf-principal",
+      },
+      {
+        title: "Siam Legal — Agency Law in International Commerce in Thailand",
+        url: "https://www.siam-legal.com/thailand-law/agency-law-in-international-commerce-in-thailand/",
+      },
+      {
+        title: "Samui For Sale — Thailand Civil and Commercial Code (Part II)",
+        url: "https://www.samuiforsale.com/law-texts/thailand-civil-code-part-2.html",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion: "If my Thai lawyer signs a contract for me under a Power of Attorney, am I automatically bound by it?",
+  },
+  {
+    slug: "condominium-common-property-definition-thailand",
+    kbId: "kb-0164",
+    topic: "Ownership",
+    title: "What legally counts as \"common property\" in a Thai condo — and why it can never be mortgaged away from the units",
+    short:
+      "The Condominium Act doesn't leave \"common property\" to a sales brochure to define. Sections 15–17/1 list exactly what counts — the land, structural frame, shared systems, the juristic person's own office — and attach real legal consequences: common property can never be mortgaged, divided, or auctioned apart from the individually titled units, and its commercial use is restricted to designated zones.",
+    updated: "2026-09-12",
+    body: [
+      "Freehold condo buyers on Phangan often assume \"common property\" is whatever a sales brochure describes — the pool, the lobby, the parking. The Condominium Act B.E. 2522 is more precise: Section 4 defines common property as everything in the building that isn't an individual unit and is provided for joint use or benefit, and Section 15 lists eleven specific categories. Two further sections attach protections that matter well beyond a marketing description, and neither is addressed by this site's existing [condo governance](/knowledge/condo-juristic-person-committee-governance-thailand) or [sinking fund and CAM fees](/knowledge/condo-sinking-fund-cam-fees-thailand) guides — those cover who runs the building and who pays for it, not what the building's shared spaces legally are or what happens to them if the building's finances go wrong.",
+      { h: "What Section 15 actually includes" },
+      {
+        ul: [
+          "The land the condominium building sits on, and any land designated for the joint use or benefit of all unit owners.",
+          "The structural frame and load-bearing or stability systems of the building itself.",
+          "Buildings, equipment and machinery provided for common use or shared benefit.",
+          "Facilities and services provided for common use.",
+          "The condominium juristic person's own office.",
+          "Immovable property the juristic person separately acquires under Section 48(1) — for example, using sinking-fund money to buy an adjoining plot.",
+          "Security, fire-prevention, lighting, ventilation, drainage and waste-disposal systems.",
+          "Property maintained using the Section 18 maintenance fund (the CAM-fee pool).",
+        ],
+      },
+      { h: "Section 16: why it can't be mortgaged or auctioned away from the units" },
+      "Section 16 states it plainly: \"common property which is immovable property shall neither be prosecuted for division in the enforcement of mortgage nor sold by auction separately from personal property.\" If a developer, or a fellow unit owner's creditor, forecloses or executes a judgment, the common areas can't be carved off and sold on their own — a unit's title carries its proportional share of common property with it, and the two can't be split. This is part of why a healthy [freehold condo purchase](/knowledge/freehold-condo-vs-leasehold-villa) doesn't expose a buyer to losing pool or lobby access just because a single unit owner, or even the developer, runs into financial trouble. It's a protection against severance, though, not a guarantee of upkeep — whether common areas are actually maintained still depends on the sinking fund and CAM fees being properly collected and spent.",
+      { h: "Section 17/1: business-use restrictions on common property" },
+      "Trade or commercial activity in a condominium's common areas is restricted to a specifically designated zone approved for that purpose — a unit owner or the juristic person can't simply open a shop out of the lobby or another area never designated as commercial, precisely to protect other owners' peaceful use of the building. This matters to a buyer eyeing a ground-floor unit or common space for retail or a rental check-in desk: it's a structural building-code question distinct from the Hotel Act licensing already covered in [the short-term rental crackdown guide](/knowledge/short-term-rental-airbnb-crackdown-2026).",
+      { h: "Practical implications for a buyer" },
+      {
+        ul: [
+          "**Check the condo's registered common-property list at the Land Office**, not just the marketing materials — the juristic person's registration documents should itemise what actually falls under Section 15, particularly interior car parks, roof terraces and adjoining land a developer might otherwise try to retain privately.",
+          "**Verify the legal basis of anything pitched as \"exclusive use.\"** A rooftop terrace or specific parking bay marketed that way may be separately titled personal property, or common property with a private-use allocation that a juristic-person vote could in principle revisit later.",
+          "**Remember Section 16's protection is about severance, not maintenance.** It stops a foreclosure from splitting off the pool or lobby, but says nothing about whether they're kept in good repair — that depends on the sinking fund and CAM fees actually being funded and spent.",
+          "**Confirm any planned commercial use sits inside a Section 17/1-designated zone** before assuming a common area is available for a shop, café or rental-management desk.",
+        ],
+      },
+      "\"Common property\" in a Thai condo isn't a marketing term — it's a defined legal category with real protections attached. Reading the juristic person's registered Section 15 list, alongside [who governs it](/knowledge/condo-juristic-person-committee-governance-thailand) and [who pays to maintain it](/knowledge/condo-sinking-fund-cam-fees-thailand), gives a much more complete picture than the sales brochure ever will.",
+    ],
+    takeaways: [
+      "Condominium Act Sections 4 and 15 define \"common property\" precisely — eleven listed categories from the land itself and structural frame to shared security/utility systems and the juristic person's own office — not whatever a sales brochure describes.",
+      "Section 16 bars common property that is immovable from ever being divided to enforce a mortgage or sold at auction separately from the individually titled units, protecting owners if a developer or another owner's creditor forecloses.",
+      "That protection covers severance risk, not upkeep — whether common areas are actually maintained still depends on the sinking fund and CAM fees being properly funded.",
+      "Section 17/1 restricts commercial or trade use of common property to a specifically designated zone, to protect other owners' peaceful enjoyment of the building.",
+      "Buyers should check the condo's registered Land Office documentation for exactly what's classified as common property, rather than relying on a developer's marketing description of shared amenities.",
+    ],
+    sources: [
+      {
+        title: "ThailandLawOnline — Condominium Act B.E. 2522, full translation (Sections 4, 15, 16, 17/1)",
+        url: "https://www.thailandlawonline.com/translations/condominium-law-thai-condo-act",
+      },
+      {
+        title: "G.A.M. Legal Alliance — Thailand Condominium Act, Chapter 2",
+        url: "https://gam-legalalliance.com/thai-statutory-laws/thailand-condominium-act-chapter-2/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "ownership",
+    faqQuestion: "Can a bank or a developer's creditor seize a Thai condo's common areas separately from the individually owned units?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

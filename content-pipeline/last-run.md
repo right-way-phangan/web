@@ -1,71 +1,23 @@
-# Last run — 2026-09-11 (second run, same day)
+# Last run — 2026-09-12
 
-Today's first run already published kb-0159 (contractor-preferential-lien-unpaid-builder-thailand)
-and kb-0160 (seller-warranty-against-eviction-thai-property). This pass needed genuinely new
-ground. Two parallel research agents ran: one fresh-news sweep (2026-09-08/11 window), one
-evergreen-gap-mining pass over the full 158-slug catalog. The news sweep found nothing genuinely
-new (see "Not published" below). Fell back to two well-sourced, previously-uncovered CCC
-mechanics found by the gap-mining pass.
+Published 2 new guides (EN + RU each).
 
-## 1. kb-0161 — `tenant-lease-survives-sale-ccc-section-569`
+## 1. kb-0163 — `agency-law-power-of-attorney-liability-thailand`
+- **Title:** What a Power of Attorney actually authorises: Thailand's agency law behind every POA-signed deal
+- **faqCategory:** documents
+- **Sources used:** ThailandLawOnline's Sections 797–844 translation (direct-fetched by the author; exact wording of Sections 797, 810, 820, 823, 824 confirmed), cross-checked against Siam Legal's "Agency Law in International Commerce in Thailand" and Samui For Sale's CCC Part II mirror (both found via WebSearch corroboration of the same statutory text).
 
-**Title:** Buying a Koh Phangan property with a sitting tenant: what CCC Section 569 actually
-guarantees
-**faqCategory:** structures
+## 2. kb-0164 — `condominium-common-property-definition-thailand`
+- **Title:** What legally counts as "common property" in a Thai condo — and why it can never be mortgaged away from the units
+- **faqCategory:** ownership
+- **Sources used:** ThailandLawOnline's full Condominium Act B.E. 2522 translation (direct-fetched by the author; Sections 4, 15, 16, 17/1 quoted), cross-checked against G.A.M. Legal Alliance's Condominium Act Chapter 2 page (also direct-fetched, independently consistent on the same three operative sections).
 
-CCC Section 569 ("sale does not break hire") provides that a lease of immovable property is not
-extinguished by a transfer of ownership — the buyer inherits the seller's rights and duties
-toward an existing tenant for the remaining term. The genuinely new contribution here: naming
-the actual statutory basis for a fact the site's existing lease guides (renewing-30-year-lease-risks,
-lease-contract-clauses-to-check) already assert only in passing without citation, explaining the
-Section 538 registration threshold that determines how reliably this protection binds a new
-owner for leases over three years, and — the real gap — covering the angle no existing guide
-addresses: a buyer purchasing a rental/income property that already has a sitting tenant, and
-what obligations transfer with it.
+## Process notes
+The backlog's Section A/B queues are almost entirely exhausted after a month of daily publishing (161 guides before today) — every remaining `⏳` row has been re-checked multiple times and confirmed duplicate, thin, or unsafe to publish (Koh Phangan water crisis stuck on PWA Notice 7/2569 with no successor; FBA/AMLA nominee-as-predicate-offence still at Ombudsman/AMLO review; the coalition's "review foreign ownership" pledge still marketing-site-sourced only; rental-yield, power-grid, stamp-duty-vs-SBT and off-plan-vetting angles all still duplicate existing guides).
 
-Sources used:
-- ThailandLawOnline — Civil and Commercial Code: Sections 537–571, Lease or Hire of Property
-  Laws (direct fetch, Section 569 quoted verbatim)
-- Samui For Sale — Thailand Civil and Commercial Code (Part II) (direct fetch, independent
-  corroboration of Section 569, 544, 550 text)
-- Terms.Law — Thailand 30-Year Lease: Can Foreigners Actually Renew? (direct fetch; source for
-  the registration-dependent limit on whether an unregistered long lease binds a purchaser)
+Two parallel research agents ran: one fresh-news sweep (2026-09-08/12 window), one evergreen gap-mining pass over the full 161-slug catalog.
 
-## 2. kb-0162 — `personal-guarantee-suretyship-thai-property-company`
+- **News sweep: zero qualifying candidates.** Nothing dated in the window cleared the bar of "genuinely new legal mechanism, not just an updated statistic." The closest lead — a 4 Sep 2026 "permanent joint nominee-tracing team" (DBD + Department of Provincial Administration + Land Department) and refreshed enforcement stats (125,622 firms screened; ฿20.39bn seized/frozen per an 11 Sep 2026 Thai Examiner update) — is administrative coordination among agencies already central to four existing guides (`21-agency-anti-nominee-mou-2026`, `land-department-audit-existing-landholding-companies-2026`, `foreign-shareholder-monitoring-8-provinces-2026`, `koh-phangan-land-disposal-orders-112-companies-2026`), with no new statute or agency power — not distinct enough to publish.
+- **Evergreen gap-mining surfaced three verified candidates.** The top two (agency law behind a POA; Condominium Act common-property definition) were independently re-verified by the author via direct WebFetch of primary-adjacent legal text before writing, and published. A third — the US-Thailand Treaty of Amity's FBA Section 8 exemption letting a US citizen/US-majority company own 100% of a real-estate brokerage, property-management, or hospitality company (with zero effect on Land Code Section 86 land ownership) — was also verified as genuinely distinct and well-sourced (Terms.Law, direct-fetched), but held back in favour of the two broader-audience topics above; logged in the backlog as a ready-to-write `⏳` candidate for a future run.
 
-**Title:** Guaranteeing a Thai property company's loan: what suretyship law actually exposes you
-to
-**faqCategory:** costs
-
-CCC Sections 680–701 govern suretyship (personal guarantees) — directly relevant where a bank
-financing a 49/51 villa-holding company requires the foreign shareholder's personal guarantee,
-or where seller/developer financing is backed by one. Centres on the 2015 reform (Amendment Act
-No. 20 B.E. 2557, effective 11 Feb 2015): Section 681/1's ban on forcing an individual guarantor
-into joint-and-several ("co-debtor") liability (corporate guarantors can still consent to it),
-the Section 686 60-day creditor-notice requirement (and the consequence of missing it — losing
-the right to claim post-window interest/costs, not full discharge), and Section 700's discharge
-of the guarantor if the creditor extends the debtor's time without consent. Distinct from the
-existing mortgage-default-foreclosure-process-thailand guide, which mentions "a personal
-guarantee changes the outcome" in one sentence with no citation to the suretyship provisions.
-
-Sources used:
-- ThailandLawOnline — Civil and Commercial Code: Sections 680–701, Suretyship Contract, Creditor
-  and Debtor of Obligation (direct fetch, Sections 680/681/686/691/700/701 quoted)
-- Tilleke & Gibbins — Legal Changes Will Affect Rights and Obligations of Corporate Guarantors
-  (direct fetch; Section 681/1 text and the 11 Feb 2015 effective date)
-- Tilleke & Gibbins — Enforcement of Loan Guarantees to Change under New Laws (referenced via
-  search-result corroboration of the Section 686 60-day notice mechanism and consequence)
-
-## Not published (checked, still duplicate/thin/unsafe)
-
-- Koh Phangan water crisis: PWA Notice 7/2569 remains the latest Koh Phangan-specific item, no
-  successor found on a direct pwa.co.th check.
-- FBA/AMLA nominee-as-predicate-offence: still Ombudsman/AMLO review only, no cabinet/bill
-  progress.
-- Coalition "review foreign ownership" pledge: still marketing-site-only sourcing.
-- Thai Examiner (11 Sep 2026) asset-freeze stat update (81.77% drop, ฿20.392bn/102 cases) and an
-  8 Sep 2026 nominee-stats refresh: both real but incremental updates to the already
-  well-covered nominee-crackdown story cluster (10+ existing guides), not a new legal mechanism.
-- A third gap-mining candidate (CCC Sections 797–844, agency/power-of-attorney law) was verified
-  as genuinely distinct but left for a future run to keep today's two guides at the highest
-  practical-relevance bar for this site's buyer audience.
+Both published guides were checked against the full existing slug list to confirm no overlap with the closest neighbouring guides (`apostille-convention-power-of-attorney-thailand-2027` for the agency-law guide; `condo-juristic-person-committee-governance-thailand` and `condo-sinking-fund-cam-fees-thailand` for the common-property guide) and cross-linked to them in both directions.
