@@ -1,23 +1,29 @@
-# Last run — 2026-09-12 (second run, same day)
+# Last run — 2026-09-13
 
-Published 2 new guides (EN + RU each). Today's first run already published kb-0163/kb-0164 (agency law / condo common property); this run needed genuinely new ground.
+Published 2 guides (EN + RU each).
 
-## 1. kb-0165 — `amity-treaty-real-estate-brokerage-property-management-thailand`
-- **Title:** The US-Thailand Treaty of Amity: how a US-owned company can run a Phangan brokerage or property-management business 100% — but still can't own the land
-- **faqCategory:** structures
-- **Sources used:** Board of Investment's official Foreign Business Act B.E. 2542 translation (Section 8's treaty-exemption text), Wikipedia/Lexology/RBA Asia on the 1966 Treaty of Amity's national-treatment basis, terms.law and Silk Legal on the 51%-US-shares threshold and the certification process, Herrera & Partners on director-composition nuances, terms.law on Land Code Section 86 (no country, including the US, currently has a treaty granting foreigners land-ownership rights).
+## 1. kb-0167 — `court-injunction-freeze-disputed-property-thailand`
+- **Title:** Freezing a Koh Phangan property mid-lawsuit: the Civil Procedure Code injunction that stops a sale before judgment
+- **faqCategory:** process
+- **Sources:**
+  - Thailand Law Forum — Thailand Civil Procedure Code, Sections 253–265 (direct fetch; Section 254's transfer-prohibition wording and Section 257's registrar-notification duty quoted directly).
+  - Juslaws & Consult — The Complete Practitioner's Guide to Civil Litigation in Thailand (direct fetch; ex parte procedure, prima facie/risk-of-harm test, security bond, Section 264's broader protective-measures scope).
+  - Multilaw — Enforcement of Foreign Judgments: Interim and Precautionary Measures, Thailand chapter (Section 260's post-judgment lapse mechanic; corroborated via search-result summary, direct WebFetch blocked but URL verified live via curl).
 
-## 2. kb-0166 — `timeshare-vacation-club-direct-sale-marketing-act-thailand`
-- **Title:** Timeshare and "vacation club" villa memberships on Koh Phangan: why they're not property ownership, and the law that actually governs the sales pitch
-- **faqCategory:** ownership
-- **Sources used:** Samui For Sale's hosted official translation of the Direct Sale and Direct Marketing Act B.E. 2545 (Sections 20/27 registration, Section 33 cooling-off/refund, Sections 46/47 penalties), legalconcept.co.th and thailandlaw.org for cross-checking, the OCPB's own public "OCPB Direct" registry (ocpbdirect.ocpb.go.th) as a citable due-diligence tool.
+## 2. kb-0168 — `notarial-services-attorney-document-legalization-thailand`
+- **Title:** Thailand has no notary public: what a Notarial Services Attorney certifies, and how to legalize a Thai document for use abroad
+- **faqCategory:** documents
+- **Sources:**
+  - ThaiLawOnline — Legalization of Documents in Thailand: MFA Steps (2026) (direct fetch; three-step outbound process, fees).
+  - ThaiLawOnline — Notary Public in Thailand (direct fetch; Notarial Services Attorney scope of acts, Lawyers Council Regulations B.E. 2566/2567, March 2026 E-Notary amendment).
+  - Ministry of Foreign Affairs of the Kingdom of Thailand — Legalization Division, Department of Consular Affairs (mfa.go.th, primary/official source; confirms the office and its role, direct fetch).
 
 ## Process notes
-Two parallel research agents ran: one verifying the previously-flagged, ready-to-write Amity Treaty candidate (left `⏳` in the backlog after today's first run deliberately held it back), one doing a fresh-news sweep (2026-09-08/12 window) plus evergreen gap-mining over the full 164-slug catalog for a second, independent topic.
 
-- **Amity Treaty verification**: re-confirmed independently rather than reused verbatim — BOI's own FBA translation for the Section 8 mechanism, cross-checked against three independent law-firm sources for the 51% US-ownership threshold and the excluded-sectors list (land ownership, natural resources, communications, domestic transport, deposit-taking banking). Framed conservatively: flagged the exact director-composition rule and a reported ~3M THB minimum capital figure as single-sourced, needing a lawyer's confirmation rather than asserted as settled. Confirmed distinct from `thai-company-for-property-49-51` and `foreign-real-estate-agent-restrictions-thailand` by reading both in full.
-- **News sweep: zero qualifying candidates.** The closest lead — a 4 Sep 2026 Truth-Investigation TV crew visit to Koh Phangan's Laem Son Beach dispute — is media attention on an already-covered nominee/foreshore story, not a new legal development. Standing watch items unchanged: water crisis still on PWA Notice 7/2569 with no successor; FBA/AMLA nominee-as-predicate-offence still at Ombudsman/AMLO review; coalition "review foreign ownership" pledge still marketing-site-sourced only.
-- **Evergreen gap-mining** surfaced the Direct Sale and Direct Marketing Act B.E. 2545 as a genuinely untouched statute — none of the 164 existing guides mention timeshare, fractional ownership, vacation clubs, or this Act. Deliberately did not name any specific vacation-club operator: the only real-world-harm leads found (a Samui-based club, a Phuket-based one) traced to Tripadvisor consumer-complaint threads, not a reputable/verifiable source — naming a company on that sourcing tier would risk an unverified accusation, so the guide covers the legal mechanism and the OCPB Direct registry check without naming names.
-- A third candidate — repatriating sale proceeds abroad under the Exchange Control Act B.E. 2485, including a 27 Jan 2026 Bank of Thailand repatriation-exemption threshold change (raised to USD 10 million) — was verified as genuinely distinct from the existing FET-form guide (which covers only inbound purchase funds) but held back in favour of the timeshare topic's broader buyer relevance. Logged in the backlog as a ready-to-write `⏳` candidate for a future run.
+Two research agents ran in parallel first:
+1. **Verification pass** on the backlog's one standing candidate ("repatriating sale proceeds abroad," Exchange Control Act, hooked to a 27 Jan 2026 BOT threshold change). Verdict: **declined**, not published. It substantially duplicates two existing guides (`bringing-money-into-thailand-fet-form` and `selling-leasehold-villa-exit-liquidity`, both of which already have a dedicated FET-repatriation section), and the BOT news hook turned out to be a factual mismatch — that rule relaxes *Thai residents'* obligation to repatriate their own *foreign-earned income held abroad*, not a foreign seller's outbound remittance of Thai sale proceeds. Full reasoning logged inline in `backlog.md`.
+2. **Fresh-news sweep (2026-09-08/13) + evergreen gap-mining** over the full 166-slug catalog. The news sweep found nothing new (only an incremental nominee-crackdown stats refresh, already covered by 10+ existing guides). Gap-mining surfaced the two topics above, both independently re-verified by me via direct source fetches before writing.
 
-Both published guides were checked against the full 164-slug catalog to confirm no overlap, and cross-linked in both directions to their closest neighbouring guides (`foreign-real-estate-agent-restrictions-thailand` and `thai-company-for-property-49-51` for the Amity guide; `leasehold-vs-freehold`, `freehold-condo-vs-leasehold-villa` and `renewing-30-year-lease-risks` for the timeshare guide).
+Both guides are cross-linked to existing content (`land-code-section-83-caveat-title-deed`, `buying-land-condo-court-auction-thailand`, `due-diligence-checklist-koh-phangan` for kb-0167; `apostille-convention-power-of-attorney-thailand-2027`, `estate-administrator-probate-thai-property-transfer`, `foreign-divorce-judgment-recognition-thai-property` for kb-0168) and confirmed distinct from those closest matches by reading them in full.
+
+`content-pipeline/backlog.md` updated: the repatriation row's decline reasoning logged inline (left at its permanent status, not re-queued), and two new rows added and marked ✅ for the two published topics.

@@ -10255,6 +10255,135 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "ownership",
     faqQuestion: "Is a \"vacation club\" or timeshare villa membership on Koh Phangan the same as owning property?",
   },
+  {
+    slug: "court-injunction-freeze-disputed-property-thailand",
+    kbId: "kb-0167",
+    topic: "Process",
+    title: "Freezing a Koh Phangan property mid-lawsuit: the Civil Procedure Code injunction that stops a sale before judgment",
+    short:
+      "If a seller, co-owner or business partner threatens to sell, mortgage or transfer a specific Koh Phangan title deed while a lawsuit over it is pending, Thailand's Civil Procedure Code — not the Land Code caveat already covered on this site — is the tool that can freeze it. Sections 254, 257 and 264 let a court bar disposal of the exact property in dispute and have that order recorded directly on the title.",
+    updated: "2026-09-13",
+    body: [
+      "A boundary fight, a co-owner who won't agree to a partition, a seller who pockets earnest money and then tries to sell the same plot to someone else, a dispute over who controls a 49/51 company's land — every one of these can end up in a Thai court, and the plaintiff's most urgent question is rarely about winning; it's about stopping the other side from selling, mortgaging or transferring the exact property before the case is decided. Thailand's Civil Procedure Code, Sections 254, 257 and 264, is the mechanism — a court-ordered freeze, distinct from the private, self-executing [Land Code Section 83 caveat](/knowledge/land-code-section-83-caveat-title-deed) already covered on this site, which needs no lawsuit at all and lapses automatically within 30 days.",
+      { h: "What Section 254 lets a court order before judgment" },
+      {
+        ul: [
+          "**Seizure or attachment of property** — the court can seize or attach the defendant's assets, including the property actually in dispute, where there's a real risk it would otherwise be put out of reach.",
+          "**A provisional injunction against disposal** — the court can prohibit the defendant from transferring, selling, removing or disposing of the property in dispute specifically, the core tool for freezing a single Koh Phangan title deed while a case over it is pending.",
+          "**Broader protective measures under Section 264** — a party can also ask the court, at any point during trial, for whatever measure genuinely protects their interest or a future judgment's enforcement — for example, ordering disputed earnest money or sale proceeds deposited with the court rather than left with either side.",
+        ],
+      },
+      { h: "How the order actually stops a Land Office transfer" },
+      "An injunction is only as strong as its enforcement. Section 257 requires the court to notify its order to \"the registrar, competent authority or person competent under law\" — for real property, the Land Office — which must then record the order in the register. In practice, that means the title deed itself carries an annotation a Land Office official has to check before processing any transfer, mortgage or other registration while the case is pending; an official who ignores a recorded court order isn't making a mere paperwork error.",
+      { h: "How a court decides whether to grant it" },
+      {
+        ul: [
+          "**A prima facie case.** The applicant has to show the underlying claim has genuine merit, not just assert that a dispute exists.",
+          "**A real, demonstrable risk of harm.** Courts look for concrete evidence the defendant is likely to sell, transfer or otherwise dissipate the property — not a hypothetical worry.",
+          "**Ex parte filing in urgent cases.** An application can be made together with the initial complaint or at any point before judgment, and in urgent circumstances a court can grant it without first hearing the defendant's side — though the defendant can then contest it.",
+          "**A security bond.** Applicants are commonly required to post security against the harm the defendant would suffer if the injunction later turns out to have been wrongly granted.",
+        ],
+      },
+      { h: "How this differs from the tools already covered on this site" },
+      "[The Section 83 caveat](/knowledge/land-code-section-83-caveat-title-deed) is a private, administrative hold — no lawsuit required, self-executing, and it lapses automatically after 30 days unless the claimant actually files suit. This Civil Procedure Code injunction is the opposite in almost every respect: it exists only because a court case is pending or about to be filed, it's granted (or refused) by a judge applying an evidentiary test, and it lasts for as long as the litigation does, not a fixed 30 days. The two aren't alternatives — a caveat is often the first, fast, non-judicial move, and this injunction is what a claimant who then actually files suit uses to keep that protection going once the caveat's 30 days run out. It's also distinct from [buying at a Legal Execution Department auction](/knowledge/buying-land-condo-court-auction-thailand), which covers post-judgment enforcement, not the pre-judgment freeze covered here.",
+      { h: "What happens when the case ends" },
+      "An interim order doesn't automatically survive the underlying lawsuit. Practitioner commentary on Section 260 describes interim relief tied to a claim the applicant ultimately loses as lapsing shortly after judgment — commonly cited as within about seven days — unless the court's own judgment addresses it separately. A defendant who successfully defends a case should confirm the annotation is actually removed from the title deed at the Land Office, rather than assuming it disappears on its own.",
+      "For a buyer or co-owner facing a genuine dispute over a Koh Phangan title — not just a routine [due-diligence check](/knowledge/due-diligence-checklist-koh-phangan) — this injunction, not a caveat alone, is usually what a lawyer reaches for once a case is actually filed. Whether it's worth pursuing depends on the same prima-facie-and-urgency test any Thai court applies, so it's a decision to make with litigation counsel, not an automatic step.",
+    ],
+    takeaways: [
+      "Civil Procedure Code Section 254 lets a party to a pending or about-to-be-filed lawsuit ask a Thai court to bar the other side from selling, transferring or disposing of the specific property in dispute — not just wait for a money judgment later.",
+      "Section 257 requires the court to notify the Land Office (or other relevant registrar), which records the order on the register — the practical enforcement teeth that stop a transfer from being processed while the case is pending.",
+      "Unlike the Land Code's Section 83 caveat, this is a court-ordered remedy that only exists once a lawsuit is filed or about to be, decided under an evidentiary test rather than granted automatically, and it lasts as long as the case does rather than a fixed 30 days.",
+      "Courts weigh a prima facie case and a genuine risk of harm before granting the order, can act without first hearing the defendant in urgent cases, and commonly require the applicant to post a security bond.",
+      "Section 264 gives courts a broader toolkit than a straight transfer ban — for example, ordering disputed earnest money or proceeds deposited with the court — relevant to contract disputes, not just title fights.",
+    ],
+    sources: [
+      {
+        title: "Thailand Law Forum — Thailand Civil Procedure Code, Sections 253–265 (full text)",
+        url: "http://www.thailawforum.com/thailand-civil-procedure-code-section-253-265/",
+      },
+      {
+        title: "Juslaws & Consult — The Complete Practitioner's Guide to Civil Litigation in Thailand",
+        url: "https://www.juslaws.com/articles/civil-litigation-in-thailand-guide",
+      },
+      {
+        title: "Multilaw — Enforcement of Foreign Judgments: Interim and Precautionary Measures, Thailand chapter",
+        url: "https://www.multilaw.com/common/Uploaded%20files/Enforcement_of_Foreign_Judgment/2024_Thailand_-_Multilaw_enforcement_interim_measures.pdf",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "If I'm suing over a Koh Phangan property, can I stop the other side from selling it before the court decides the case?",
+  },
+  {
+    slug: "notarial-services-attorney-document-legalization-thailand",
+    kbId: "kb-0168",
+    topic: "Documents",
+    title: "Thailand has no notary public: what a Notarial Services Attorney certifies, and how to legalize a Thai document for use abroad",
+    short:
+      "Thailand's legal system has no notary public in the Western sense — only lawyers registered with the Lawyers Council of Thailand as Notarial Services Attorneys can certify signatures, copies and powers of attorney, and a document leaving Thailand for a foreign court, bank or immigration file still needs a further Ministry of Foreign Affairs legalization stamp. The reverse of the inbound POA-legalisation guide already on this site.",
+    updated: "2026-09-13",
+    body: [
+      "Selling a share in a Thai property-holding company to a family member abroad, sending a Thai marriage or death certificate to a foreign bank or court, or having an overseas lawyer accept a certified copy of a Koh Phangan title deed — every one of these needs a Thai-issued document recognised outside Thailand. Thailand has no notary-public profession in the sense familiar to buyers from common-law or most civil-law countries. Instead, a defined process built on the Lawyers Council of Thailand's own licensed attorneys and the Ministry of Foreign Affairs' Department of Consular Affairs does the job — the mirror image of [the Power of Attorney legalisation guide](/knowledge/apostille-convention-power-of-attorney-thailand-2027) already on this site, which covers a POA signed abroad for use in Thailand. This guide covers the opposite direction: a document created in Thailand that needs to work overseas.",
+      { h: "Who can actually certify a Thai document" },
+      "Thailand has no independent notary-public profession. Only a Thai lawyer who has completed the Lawyers Council of Thailand's specific training and registered as a **Notarial Services Attorney** (ทนายความผู้ทำคำรับรองลายมือชื่อและเอกสาร) — under Lawyers Council Regulations B.E. 2566 (2023) and B.E. 2567 (2024), most recently amended in March 2026 (B.E. 2569) to add electronic certification — may perform this function. An ordinary Thai lawyer without that specific registration cannot.",
+      {
+        ul: [
+          "Certify true copies of documents.",
+          "Witness signatures on contracts, powers of attorney and agreements.",
+          "Administer oaths and take affidavits or statutory declarations.",
+          "Verify identity and certify a juristic person's status.",
+          "Certify a translation done by a qualified translator.",
+          "Draw up formal protests.",
+        ],
+      },
+      "The March 2026 amendment also introduced an E-Notary option — a Notarial Services Attorney can complete the certification over video call, verifying the signatory's passport and confirming they understand the document, rather than requiring an in-person visit.",
+      { h: "The three-step outbound process" },
+      {
+        ul: [
+          "**Notarial Services Attorney certification** — a signature is witnessed, or a copy is verified against the original, by a registered Notarial Services Attorney.",
+          "**Ministry of Foreign Affairs legalisation** — the ministry's Legalization Division (Department of Consular Affairs, Chaeng Watthana Road, Bangkok) applies its own stamp certifying the authenticity of the attorney's signature and seal, not the underlying content of the document. Fees run around 200 THB for regular service (roughly two to three weeks) or 400 THB same-day, plus about 200 THB per document if a translation needs verifying.",
+          "**The receiving country's embassy or consulate in Thailand** — until Thailand's own accession to the Hague Apostille Convention takes effect on 28 February 2027 (already covered in [the apostille guide](/knowledge/apostille-convention-power-of-attorney-thailand-2027)), most countries also require their own embassy in Bangkok to add a final authentication stamp before the document is accepted at home.",
+        ],
+      },
+      { h: "What changes once Thailand's apostille accession takes effect" },
+      "From 28 February 2027, a single apostille certificate issued by Thailand's Ministry of Foreign Affairs will replace the third step above for documents headed to any of the roughly 120-plus other Apostille Convention member states — cutting the destination embassy's own sign-off, not the Notarial Services Attorney certification step itself. The attorney's certification of the underlying document remains a precondition either way.",
+      { h: "Where this comes up for a Koh Phangan owner" },
+      {
+        ul: [
+          "Selling a share in a family's Thai holding company to a relative abroad who needs a certified Power of Attorney.",
+          "A foreign heir abroad needing a certified copy of a Thai death certificate, marriage certificate, or Land Office document for their own country's probate court — see [the estate-administrator guide](/knowledge/estate-administrator-probate-thai-property-transfer).",
+          "An overseas bank or mortgage lender wanting a certified copy of a Thai title deed or company registration before releasing financing.",
+          "A foreign court proceeding, such as a divorce dividing marital property, that needs a certified Thai document as evidence — see [the foreign divorce-judgment guide](/knowledge/foreign-divorce-judgment-recognition-thai-property).",
+        ],
+      },
+      "None of this substitutes for legal advice on which specific documents a foreign counterpart actually requires — countries differ on whether they'll accept a Thai Notarial Services Attorney's certification, an MFA-legalised copy, or, after 2027, an apostille outright. But knowing which of the three steps above is missing is usually what explains why an otherwise straightforward document exchange has stalled.",
+    ],
+    takeaways: [
+      "Thailand has no notary public — only a Lawyers Council-licensed Notarial Services Attorney can certify signatures, copies and powers of attorney, under Lawyers Council Regulations B.E. 2566 and B.E. 2567.",
+      "A Thai document leaving the country for use abroad needs three steps: Notarial Services Attorney certification, then Ministry of Foreign Affairs Department of Consular Affairs legalisation (roughly 200-400 THB per document), then, until 2027, the receiving country's own embassy in Bangkok.",
+      "This is the reverse of [Power of Attorney legalisation for documents coming into Thailand](/knowledge/apostille-convention-power-of-attorney-thailand-2027) — the two directions use different offices, and neither substitutes for the other.",
+      "From 28 February 2027, Thailand's own Apostille Convention accession replaces only the third step (the destination embassy's sign-off) for the roughly 120-plus member states — not the Notarial Services Attorney certification itself.",
+      "A March 2026 Lawyers Council amendment (B.E. 2569) added an E-Notary option, letting some certifications happen over video call rather than in person.",
+    ],
+    sources: [
+      {
+        title: "ThaiLawOnline — Legalization of Documents in Thailand: MFA Steps (2026)",
+        url: "https://www.thailawonline.com/legalization-of-documents-in-thailand/",
+      },
+      {
+        title: "ThaiLawOnline — Notary Public in Thailand: Fees From 950 THB, Online",
+        url: "https://www.thailawonline.com/notary-services-thailand/",
+      },
+      {
+        title: "Ministry of Foreign Affairs of the Kingdom of Thailand — Legalization Division, Department of Consular Affairs",
+        url: "https://www.mfa.go.th/en/publicservice/naturalization-legalization?cate=5d5bcb4e15e39c30600068d3",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion: "How do I get a Thai document, such as a power of attorney or a certified title deed copy, recognised by a bank or court in another country?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
