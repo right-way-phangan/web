@@ -10384,6 +10384,106 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "documents",
     faqQuestion: "How do I get a Thai document, such as a power of attorney or a certified title deed copy, recognised by a bank or court in another country?",
   },
+  {
+    slug: "crs-fatca-bank-account-reporting-thailand",
+    kbId: "kb-0169",
+    topic: "Costs",
+    title: "CRS and FATCA: does opening a Thai bank account to buy on Koh Phangan get reported to your home tax authority?",
+    short:
+      "Since 2023 Thailand automatically exchanges financial-account information with dozens of other countries under the Common Reporting Standard (CRS), and separately reports US-person accounts to the IRS under a 2016 FATCA agreement. A Thai bank account used to receive purchase funds or collect rental income can fall within both — this is a tax-residency reporting question, entirely separate from the AML and FET-form paperwork already covered on this site.",
+    updated: "2026-09-13",
+    body: [
+      "Will opening a Thai bank account to buy a villa on Koh Phangan get reported back to your home country's tax authority? For most buyers who open an account today, the honest answer is yes, eventually — but not because of anything property-specific. Thailand implemented the OECD's Common Reporting Standard (CRS) in 2023, and every bank operating in the country has been required since then to identify which of its accountholders are tax resident elsewhere and report those accounts to the Thai Revenue Department, which exchanges the data annually with the account holder's home tax authority. This sits alongside, and is legally distinct from, the AML customer-due-diligence duties covered in [AMLO's checks on real estate agents](/knowledge/amlo-anti-money-laundering-checks-real-estate-agents) and the Bank of Thailand's own account-eligibility rules covered in [opening a Thai bank account as a foreign buyer](/knowledge/thai-bank-account-foreign-property-buyer-2026) — CRS is about telling your home tax authority the account exists, not about verifying where the money came from.",
+      { h: "The legal basis: how Thailand adopted CRS" },
+      "Thailand's cabinet approved joining the Multilateral Competent Authority Agreement on CRS (MCAA CRS) on 18 May 2021; the Finance Minister signed it on 28 March 2022. Domestically it runs on the Royal Act on the Exchange of Information B.E. 2566 (2023) and a companion Ministerial Regulation, both effective 31 March 2023, plus a Ministry of Finance notification naming the actual list of Participating and Reportable Jurisdictions. Thailand completed its first exchange of 2022-year account data with partner countries by the end of September 2023, and has exchanged annually since.",
+      { h: "What actually triggers a report" },
+      {
+        ul: [
+          "**New accounts opened on or after 16 August 2023** — every one requires a tax-residency self-certification at account opening, regardless of balance. If you certify as tax resident of a participating jurisdiction, the account is reportable from day one.",
+          "**Pre-existing individual accounts** (open before 16 August 2023) — only reviewed once the balance exceeds **THB 30,000,000** as of 31 December 2022 or a later year-end; smaller personal accounts sit outside the review requirement.",
+          "**Pre-existing entity accounts** — including a 49/51 property-holding company's account, see [A Thai company for property](/knowledge/thai-company-for-property-49-51) — the threshold is lower, **THB 7,500,000**.",
+          "**A genuine escrow account** tied to the sale itself — the kind covered in [Thailand's Escrow Act](/knowledge/thailand-escrow-act-off-plan-deposit-protection) — is explicitly listed as an Excluded Account in the Revenue Department's own CRS guidance, provided it's funded solely with a deposit or earnest money securing the transaction and pays out only on completion. An ordinary receiving account you use to wire in purchase funds and then keep operating does not get this exclusion.",
+        ],
+      },
+      { h: "FATCA: a separate, US-specific layer" },
+      "Thailand and the United States signed a Model 1 intergovernmental agreement on 4 March 2016, independent of CRS and running under its own rules. Under it, Thai financial institutions identify US-person accountholders (US citizens, green-card holders, and US-resident aliens) and report their account details to the Thai Revenue Department, which passes them to the US IRS — with no minimum balance threshold. A US buyer's Thai account is essentially always in scope, CRS registration status aside.",
+      { h: "What this means practically for a buyer" },
+      {
+        ul: [
+          "It doesn't stop or delay a purchase — you still need a Thai bank account (or a lawyer/developer receiving account) to bring funds in via an FET form, as covered in [bringing money into Thailand](/knowledge/bringing-money-into-thailand-fet-form).",
+          "It's not optional or something a bank can waive for you — self-certification at account opening is now standard onboarding paperwork at every Thai bank.",
+          "Which countries Thailand actually exchanges with is a published, updated list, not a fixed one — for example, the OECD provisionally suspended Russia's own participation in automatic exchange in September 2022 as part of its broader response to the invasion of Ukraine, so a buyer shouldn't assume any particular country is or isn't currently on Thailand's exchange list without checking the current Ministry of Finance notification.",
+          "It affects what your home tax authority sees, not what you owe in Thailand — separate from Thai tax questions like those covered in [owners' annual taxes](/knowledge/owners-taxes-annual-land-and-income) and [foreign-income remittance tax](/knowledge/foreign-income-remittance-tax-thailand-por-161-2566).",
+        ],
+      },
+      "None of this is a reason to avoid a Thai bank account — you need one regardless to complete a compliant purchase. The practical takeaway is simpler: assume any Thai account you open today, in your own name or your holding company's, will eventually be visible to your home tax authority if you're tax resident in a participating jurisdiction, and keep your home-country filings consistent with that.",
+    ],
+    takeaways: [
+      "Since Thailand's Royal Act on the Exchange of Information B.E. 2566 took effect on 31 March 2023, Thai banks must collect a tax-residency self-certification from every account opened on or after 16 August 2023, regardless of balance, and report reportable accounts to the Revenue Department for exchange with the accountholder's home country.",
+      "Pre-existing individual accounts are only reviewed once the balance exceeds THB 30,000,000; pre-existing company accounts (e.g. a 49/51 holding company) once they exceed THB 7,500,000 — smaller accounts fall outside the review requirement for now.",
+      "A genuine escrow/earnest-money account tied to the sale itself is a CRS-Excluded Account under the Revenue Department's own guidance — an ordinary receiving account you keep using afterward is not.",
+      "FATCA runs alongside CRS for US persons under a 2016 Thailand-US agreement, with no minimum balance threshold — a US buyer's Thai account is essentially always reportable.",
+      "This is a tax-residency information-exchange question, separate from the AML/source-of-funds checks already covered on this site — it doesn't verify where your money came from, only tells your home tax authority the account exists.",
+    ],
+    sources: [
+      { title: "Revenue Department of Thailand — Guidance on Common Reporting Standard (CRS), updated 18 August 2023", url: "https://www.rd.go.th/fileadmin/user_upload/FATCA_File/crs/Thailand_CRS_Guidance_280823.pdf" },
+      { title: "Sherrings — Common Reporting Standard (CRS): Tax Laws Thailand", url: "https://sherrings.com/common-reporting-standard-crs-tax-laws-thailand.html" },
+      { title: "US Department of the Treasury — Thailand FATCA Model 1 Intergovernmental Agreement (4 March 2016)", url: "https://home.treasury.gov/system/files/131/FATCA-Agreement-Thailand-3-4-2016.pdf" },
+      { title: "OECD — Statement on further measures in response to Russia's large-scale aggression against Ukraine", url: "https://www.oecd.org/en/about/news/speech-statements/2022/03/statement-from-the-oecd-council-on-further-measures-in-response-to-russia-s-large-scale-aggression-against-ukraine.html" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "Will opening a Thai bank account to buy property on Koh Phangan get reported to my home country's tax authority?",
+  },
+  {
+    slug: "landsmaps-online-title-deed-verification-thailand",
+    kbId: "kb-0170",
+    topic: "Documents",
+    title: "LandsMaps: the Land Department's free online tool to check a Koh Phangan plot's real boundaries before you even view it",
+    short:
+      "LandsMaps (landsmaps.dol.go.th) and its companion SmartLands app are the Land Department's own free, official GIS portal — a buyer can pull up a marketed plot's registered boundary shape, area, deed type and assessed value over satellite imagery, without needing a title-deed number, before ever contacting a seller or booking a viewing.",
+    updated: "2026-09-13",
+    body: [
+      "Is there a free way to check whether a piece of land marketed on Koh Phangan actually has a real, registered boundary before you spend time and money viewing it? Yes — the Land Department's own LandsMaps portal (landsmaps.dol.go.th) and its SmartLands mobile app let anyone search the national parcel database directly, at no cost, 24 hours a day. It's a genuinely useful first-pass screening step this site's own [due-diligence checklist](/knowledge/due-diligence-checklist-koh-phangan) doesn't currently name, and a natural companion to [D-Value](/knowledge/d-value-check-official-appraised-value-online), the Treasury Department's own online appraised-value lookup — LandsMaps for the boundary and deed status, D-Value for the value figure.",
+      { h: "What LandsMaps actually shows" },
+      {
+        ul: [
+          "Deed number, survey sheet/block reference, and the subdistrict, district and province the parcel sits in.",
+          "The parcel's area in rai-ngan-square-wah, overlaid on satellite imagery so you can see the actual boundary shape against real terrain.",
+          "The Treasury Department's official assessed land value for the parcel.",
+          "GPS coordinates and directions/contact details for the relevant local Land Office branch.",
+        ],
+      },
+      "It deliberately does not show the current owner's name, for privacy reasons — LandsMaps is a boundary-and-classification tool, not an ownership register.",
+      { h: "Searching without a deed number — the part that matters most on Phangan" },
+      "Plenty of Phangan land, especially hillside and remote plots, is marketed by a GPS pin or \"near [landmark]\" rather than a deed number a buyer can plug straight in. LandsMaps supports this directly: alongside the standard province/district/deed-number search, you can navigate the map itself (zoom and click, much like any consumer mapping app) or search by proximity to a known landmark. That map-first search is exactly what lets a buyer check, before ever meeting a seller, whether a pinned location actually corresponds to a titled parcel with a real registered boundary at all — the question at the heart of [the untitled sea-view land scam guide](/knowledge/untitled-sea-view-land-pbt5-sor-por-kor-scam), where marketed \"land\" turns out to be an unregistered PBT5 or Sor Por Kor claim with no chanote boundary LandsMaps could ever show.",
+      { h: "What it doesn't do" },
+      {
+        ul: [
+          "It isn't complete legal information — the Land Department's own guidance is explicit that data must be verified against the actual title deed, and LandsMaps itself is not a substitute for a certified copy pulled at the Land Office.",
+          "It won't show a mortgage, a Section 83 caveat (see [the caveat guide](/knowledge/land-code-section-83-caveat-title-deed)), a pending court injunction (see [the injunction guide](/knowledge/court-injunction-freeze-disputed-property-thailand)), or a forest-reserve/national-park boundary overlap — those need a proper Land Office title search, not a map lookup.",
+          "Boundary lines on older or rural surveys can carry conversion imprecision when digitised — treat the shown polygon as indicative, not survey-grade, and still have a licensed surveyor walk the actual plot.",
+          "It doesn't tell you anything about the seller, the price, or whether a company holding the land has a foreign-shareholding problem — those are separate checks covered elsewhere on this site.",
+        ],
+      },
+      "None of this replaces a lawyer's title search or a surveyor's on-the-ground walk before you sign anything — see [what a Phangan property lawyer's fee actually buys](/knowledge/phangan-property-lawyer-fees-what-they-cover). But as a free, instant, zero-commitment first check on whether a marketed plot is what it claims to be, LandsMaps is worth using before you book a flight to view it.",
+    ],
+    takeaways: [
+      "LandsMaps (landsmaps.dol.go.th) and the SmartLands app are the Land Department's own free, official GIS tools — anyone can look up a parcel's registered boundary, area, assessed value and deed details, 24/7, at no cost.",
+      "Search works without a title-deed number: by province/district/deed number, by clicking the map directly, or by nearby-landmark search — useful for Phangan's GPS-pin-marketed hillside and remote plots.",
+      "The Land Department's own guidance is explicit that this is not complete legal information — always verify against the actual title deed and a licensed surveyor before relying on it for a purchase decision.",
+      "It won't show mortgages, caveats, court injunctions, forest-reserve overlaps or the current owner's name — pair it with [the due-diligence checklist](/knowledge/due-diligence-checklist-koh-phangan) and a lawyer's title search, not instead of them.",
+      "It's a natural first-pass companion to [D-Value](/knowledge/d-value-check-official-appraised-value-online) (official appraised value) and [the PBT5/Sor Por Kor scam guide](/knowledge/untitled-sea-view-land-pbt5-sor-por-kor-scam) (spotting land marketed without a real registered boundary at all).",
+    ],
+    sources: [
+      { title: "Department of Lands (Trat provincial office) — LandsMaps: ค้นหารูปแปลงที่ดินทั่วไทย สะดวก รวดเร็ว ไว้ใจได้", url: "https://www.dol.go.th/trat/cate-1769393600/news-1776996081/" },
+      { title: "LandProThailand — How to Use LandsMaps to Search for Land in Thailand", url: "https://www.landprothailand.com/blog/how-to-use-landsmaps-to-search-for-land-in-thailand" },
+      { title: "LAD.co.th — วิธีเช็คที่ดินผ่าน LandsMaps: คู่มือค้นหาโฉนดที่ดินออนไลน์จากกรมที่ดิน ก่อนซื้อ–ขายที่ดิน", url: "https://www.lad.co.th/post/%E0%B8%A7%E0%B8%B4%E0%B8%98%E0%B8%B5%E0%B9%80%E0%B8%8A%E0%B9%87%E0%B8%84%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%94%E0%B8%B4%E0%B8%99%E0%B8%9C%E0%B9%88%E0%B8%B2%E0%B8%99-landsmaps-%E0%B8%84%E0%B8%B9%E0%B9%88%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%84%E0%B9%89%E0%B8%99%E0%B8%AB%E0%B8%B2%E0%B9%82%E0%B8%89%E0%B8%99%E0%B8%94%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%94%E0%B8%B4%E0%B8%99%E0%B8%AD%E0%B8%AD%E0%B8%99%E0%B9%84%E0%B8%A5%E0%B8%99%E0%B9%8C%E0%B8%88%E0%B8%B2%E0%B8%81%E0%B8%81%E0%B8%A3%E0%B8%A1%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%94%E0%B8%B4%E0%B8%99-%E0%B8%81%E0%B9%88%E0%B8%AD%E0%B8%99%E0%B8%8B%E0%B8%B7%E0%B9%89%E0%B8%AD-%E0%B8%82%E0%B8%B2%E0%B8%A2%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%94%E0%B8%B4%E0%B8%99" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion: "Is there a free way to check a Koh Phangan plot's real title-deed boundaries online before I view it?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
