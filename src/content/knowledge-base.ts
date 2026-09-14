@@ -10590,6 +10590,112 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "process",
     faqQuestion: "Do I need to follow Thai labour law if I hire a housekeeper or gardener for my own villa on Koh Phangan?",
   },
+  {
+    slug: "land-code-section-58-title-adjudication-sor-kor-1",
+    kbId: "kb-0173",
+    topic: "Documents",
+    title: "How a Thai title deed is actually created: Land Code Section 58 adjudication, and why Sor Kor 1 land is stuck",
+    short:
+      "Chanote and Nor Sor 3 Gor titles didn't simply appear — every one was first issued through a government adjudication round under Land Code Sections 58, 58 bis and 59, or requested individually. Land still sitting on an old Sor Kor 1 possession notification missed the window to upgrade administratively decades ago and can now only become a registrable title through a Civil Court petition, not a Land Office application.",
+    updated: "2026-09-14",
+    body: [
+      "Buyers comparing [Chanote against Nor Sor 3 Gor](/knowledge/land-titles-chanote-vs-nor-sor-3) usually treat title classes as something to shop between. But every title deed on Koh Phangan was first created through a specific legal process — and land that never completed it isn't a lesser title, it's stuck. This guide covers how a title actually gets created under the Land Code, and what that means for the island's remaining Sor Kor 1 and untitled interior plots.",
+      { h: "How a government adjudication round works (Section 58)" },
+      {
+        ul: [
+          "**The Minister publishes a Government Gazette notice** naming the province and the year a systematic land survey will take place.",
+          "**The provincial Governor then designates the specific locality** and the survey's start date, and must post public notice of it **at least 30 days before** field survey begins.",
+          "**Officials carry out a cadastral or aerial-photograph survey** of the designated area, and Title Deeds or Utilization Certificates are issued to eligible possessors as the round proceeds.",
+        ],
+      },
+      { h: "Who actually receives a title, and what strings attach (Section 58 bis)" },
+      {
+        ul: [
+          "**Eligible claimant categories** include holders of a pre-emption certificate or other prior evidence of possession, those who notified their possession under Section 27 ter during the survey, and those who possessed and used the land after the Land Code itself took effect.",
+          "**A 50-rai cap applies** to title issuance for the broadest (possession-based) claimant category — anything larger needs the provincial Governor's separate, case-by-case approval.",
+          "**A 10-year transfer and execution ban follows issuance**: for a decade after receiving the Title Deed or Utilization Certificate, the holder cannot sell or mortgage it except through inheritance or a transfer to a state body, government enterprise or co-operative — and the land can't be seized to satisfy a debt during that period either.",
+        ],
+      },
+      { h: "Section 59: requesting a title outside a government round" },
+      "A landholder doesn't have to wait for their province to come up in the Minister's gazetted schedule. Section 59 lets anyone who possesses and uses land apply for individual title adjudication regardless of whether a Section 58 round has been announced for the area, if officials consider it appropriate — the mechanism behind most one-off title upgrades outside a large area-wide survey.",
+      { h: "Why Sor Kor 1 land is stuck" },
+      "Sor Kor 1 (สค.1) was a possession notification, not a title — and the Land Department stopped issuing new ones in 1972. For decades afterward, a Sor Kor 1 holder could still apply administratively to convert it into a proper title, but that window closed: practitioner reporting citing Bangkok Post coverage puts the final administrative deadline around 2010, after which conversion is no longer a Land Office filing at all. A Sor Kor 1 holder today can only become a registrable titleholder through a **Civil Court petition**, proving continuous, uninterrupted possession of the specific land described in the old notification — a materially slower, costlier and less certain path than anything Sections 58–59 describe for land that still qualifies.",
+      { h: "What it means for a Koh Phangan buyer" },
+      "Much of the island's interior and hillside land was surveyed unevenly over the decades, and some plots never advanced past a Sor Kor 1 notification or never entered an adjudication round at all — a category [the existing guide on Por Bor Tor 5 and Sor Por Kor scams](/knowledge/untitled-sea-view-land-pbt5-sor-por-kor-scam) covers from the angle of land that was never eligible for title in the first place. Sor Kor 1 land is different: it's a real, older possession right that simply missed its administrative upgrade window. If a seller's paperwork traces back to a Sor Kor 1 notification rather than a Nor Sor 3 or Chanote, don't assume the court upgrade is a formality they'll complete before closing — verify at the [Land Office](/knowledge/land-office-registration-day) whether it has actually happened, as part of the standard [due-diligence checklist](/knowledge/due-diligence-checklist-koh-phangan).",
+    ],
+    takeaways: [
+      "Every Thai title deed originated from a government adjudication round under Land Code Section 58 (area-wide survey) or an individual Section 59 request — titles are created through a specific legal process, not simply issued on demand.",
+      "A title issued to a possession-based claimant is capped at 50 rai without the provincial Governor's separate approval, and carries a 10-year ban on transfer or debt-execution except through inheritance or a transfer to the state or a co-operative.",
+      "Sor Kor 1 (possession notification) forms stopped being issued in 1972, and the administrative window to convert one into a full title lapsed around 2010.",
+      "A Sor Kor 1 holder today can only upgrade to a registrable title through a Civil Court petition proving continuous possession — not through a Land Office application.",
+      "Before buying land whose paperwork traces back to a Sor Kor 1 notification rather than a Nor Sor 3 or Chanote, confirm at the Land Office whether that court upgrade has actually been completed.",
+    ],
+    sources: [
+      {
+        title: "Thailand Law Online — full translation of the Thailand Land Code Act (Sections 58, 58 bis, 59)",
+        url: "https://www.thailandlawonline.com/thai-real-estate-law/thai-land-law-land-code-act",
+      },
+      {
+        title: "Thailand Law Forum — Act Promulgating the Land Code B.E. 2497 (1954), translated text",
+        url: "https://www.thailawforum.com/laws/Land%20Code%20Act.pdf",
+      },
+      {
+        title: "Thailand Property Lawyer — Sor Kor 1 (Sor Kor Nung), citing Bangkok Post reporting on the 2010 administrative upgrade deadline",
+        url: "https://www.thailand-propertylawyer.com/sor-kor-nung.html",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion: "How was a Thai land title actually created, and can old Sor Kor 1 possession land still be upgraded to one?",
+  },
+  {
+    slug: "town-planning-act-comprehensive-plan-koh-phangan",
+    kbId: "kb-0174",
+    topic: "Structures",
+    title: "Koh Phangan's other zoning layer: the Town Planning Act comprehensive plan behind the 2025 eco-zone rules",
+    short:
+      "The May 2025 environmental-protection notification isn't the only zoning instrument on Koh Phangan. A separate Town Planning Act \"comprehensive plan\" — last set by a 2015 Ministerial Regulation — layers its own land-use classification underneath it, and Thailand's own architects' association documents places nationwide, Koh Phangan included, where an older plan has had to run on a temporary ordinance pending a replacement.",
+    updated: "2026-09-14",
+    body: [
+      "[The 2025 environmental-protection rules](/knowledge/koh-phangan-building-zones) tell you about elevation and coastal-distance limits — but they're not the only zoning law governing a Koh Phangan plot. A separate, older instrument under the Town Planning Act (the \"ผังเมืองรวม,\" or comprehensive plan) sets the underlying land-use classification — whether a parcel is even zoned residential, agricultural or conservation in the first place — and it sits on top of, not instead of, the 2025 eco-zoning.",
+      { h: "What a comprehensive plan is, and Koh Phangan's own" },
+      "Koh Phangan's current-generation comprehensive plan was set by a Ministerial Regulation dated B.E. 2558 (2015), gazetted 24 August 2015, covering Koh Phangan and Ban Tai subdistricts. It's administered locally by Phet Phangan Municipality together with the Surat Thani Provincial Town Planning Committee, and it's a live instrument, not a historical curiosity: the municipality petitioned to amend it as recently as 2023 (to permit a new Koh Phangan hospital building), with the provincial committee giving its approval on 2 March 2023.",
+      { h: "Why comprehensive plans expire — and why that matters" },
+      {
+        ul: [
+          "**Under the old Town Planning Act (B.E. 2518)**, a comprehensive plan was valid for a fixed 5-year period and had to be formally renewed or replaced by a new Ministerial Regulation once that period lapsed.",
+          "**The 2019 Town Planning Act (B.E. 2562) changed this going forward**: a plan no longer expires on a fixed clock — instead, an evaluation report is required at least every 5 years, and the plan stays in force unless conditions justify a formal revision.",
+          "**That 2019 change doesn't retroactively cure a plan that had already lapsed under the old rule.** The Association of Siamese Architects — Thailand's professional architecture body — maintains a public list of dozens of localities nationwide where an old comprehensive plan expired before a replacement was gazetted, forcing a temporary local ordinance restricting construction to bridge the gap. Koh Phangan appears on that list, with an entry dated B.E. 2551 (2008), predating the current 2015 plan.",
+        ],
+      },
+      { h: "What this means for a buyer or builder" },
+      "Two separate regulators and two separate documents govern what you can build: the 2025 environmental-protection notification (elevation and coastal-distance limits) and the Town Planning Act comprehensive plan (the underlying land-use classification and floor-area/open-space rules for that classification). A plot has to clear both. Because comprehensive plans nationwide do lapse and sometimes run for years on an interim ordinance before a replacement is gazetted, don't assume a zoning summary from a seller or agent reflects the version currently in force. As part of the [due-diligence checklist](/knowledge/due-diligence-checklist-koh-phangan) — alongside the [hillside](/knowledge/hillside-slope-building-limits-koh-phangan) and [coastal setback](/knowledge/coastal-setback-rules-koh-phangan-distance-from-beach) checks already covered — confirm directly with the Surat Thani Provincial Town Planning Office or Phet Phangan Municipality which comprehensive plan or interim ordinance currently governs the specific tambon your plot sits in.",
+    ],
+    takeaways: [
+      "The May 2025 environmental-protection eco-zoning is not the only zoning law on Koh Phangan — a separate Town Planning Act \"comprehensive plan,\" last set by a 2015 Ministerial Regulation, layers its own land-use classification underneath it.",
+      "Koh Phangan's current comprehensive plan is administered locally by Phet Phangan Municipality and the Surat Thani Provincial Town Planning Committee, and was still being actively amended as recently as March 2023.",
+      "Under the old Town Planning Act, comprehensive plans expired on a fixed 5-year clock; the 2019 Act replaced that with indefinite validity and periodic review going forward — but didn't retroactively fix plans that had already lapsed under the old rule.",
+      "Thailand's own architects' association documents dozens of localities nationwide, Koh Phangan included, where an expired comprehensive plan had to be bridged with a temporary local construction ordinance before a replacement was gazetted.",
+      "Before relying on a zoning summary from a seller or agent, confirm directly with the Surat Thani Provincial Town Planning Office or Phet Phangan Municipality which comprehensive plan or interim ordinance currently governs your specific plot — in addition to, not instead of, the 2025 eco-zone check.",
+    ],
+    sources: [
+      {
+        title: "Surat Thani Provincial Government — Koh Phangan Comprehensive Town Plan amendment record (Provincial Town Planning Committee, 2 March 2023)",
+        url: "https://www.suratthani.go.th/home/17-news-announcement/executive-news/2187-2558.html",
+      },
+      {
+        title: "Association of Siamese Architects (ASA) — localities operating under temporary construction ordinances pending a replacement comprehensive plan",
+        url: "https://asa.or.th/mb-zonings2/",
+      },
+      {
+        title: "Association of Siamese Architects (ASA) — summary of Town Planning Act B.E. 2562 changes to comprehensive-plan validity",
+        url: "https://asa.or.th/laws/news20191217/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "Is the 2025 eco-zoning the only zoning law that decides what I can build on a Koh Phangan plot?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

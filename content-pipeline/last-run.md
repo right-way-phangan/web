@@ -1,34 +1,33 @@
-# Last run — 2026-09-14
+# Last run — 2026-09-14 (second run, same day)
 
-Published 2 guides (EN + RU each). The backlog's remaining pre-existing ⏳ rows (water crisis, FBA/AMLA predicate-offence, rental yields, power-grid cable, "who's buying" surge, stamp duty vs SBT, off-plan project vetting, coalition stance, PND e-filing date, repatriation/Exchange Control Act) were all previously re-checked as duplicate/thin/unsafe as recently as 2026-09-13 — none had new developments today, so this run went straight to fresh research rather than re-checking each again.
+Today's first run already published kb-0171/kb-0172 (see git history / backlog for that pass). This second invocation published 2 more guides (EN + RU each), found via a fresh two-agent research pass since every standing ⏳ backlog row remains duplicate/thin/unsafe as of today.
 
-## 1. kb-0171 — `accession-building-on-anothers-land-thailand`
-- **Title:** Building on land you don't own: Thailand's accession rule for informal builds and boundary encroachments
+## 1. kb-0173 — `land-code-section-58-title-adjudication-sor-kor-1`
+- **Title:** How a Thai title deed is actually created: Land Code Section 58 adjudication, and why Sor Kor 1 land is stuck
+- **faqCategory:** documents
+- **Sources:**
+  - Thailand Law Online — full translation of the Land Code Act (Sections 58, 58 bis, 59) — direct fetch.
+  - Thailand Law Forum — Act Promulgating the Land Code B.E. 2497 (1954), translated text — cross-check via WebSearch quote (50-rai cap, 10-year transfer/execution ban confirmed consistent with the first source).
+  - Thailand Property Lawyer — Sor Kor 1 (Sor Kor Nung) explainer, citing Bangkok Post's reporting of the ~2010 administrative-upgrade deadline (direct fetch).
+
+## 2. kb-0174 — `town-planning-act-comprehensive-plan-koh-phangan`
+- **Title:** Koh Phangan's other zoning layer: the Town Planning Act comprehensive plan behind the 2025 eco-zone rules
 - **faqCategory:** structures
 - **Sources:**
-  - ThailandLawOnline — Civil Code: Real Estate Rights and Property Law (Sections 1298–1366) — direct fetch, Sections 1310–1312 quoted verbatim.
-  - Thailand Law Library (Siam Legal) — Civil and Commercial Code: Property (Section 1308–1334) — independent corroboration of the same three sections.
-  - Samui For Sale — Thailand Civil and Commercial Code, Part III (Property) — third independent mirror, consistent wording.
-  - A targeted follow-up search additionally confirmed Section 1310's full proviso text (the negligence carve-out and the "constructor must buy the land at market price" remedy), since the first two fetches summarized it slightly differently.
-
-## 2. kb-0172 — `domestic-worker-labour-law-villa-staff-thailand`
-- **Title:** Hiring a housekeeper, gardener or nanny for your Koh Phangan villa: what Thai labour law actually requires
-- **faqCategory:** process
-- **Sources:**
-  - International Labour Organization (ILO Regional Office for Asia and the Pacific) — "2024 Thai Regulations on Domestic Work" one-page summary of Ministerial Regulation 15 (30 Apr 2024) — near-primary, ILO-issued, direct PDF text extraction (minimum wage, 8hr/48hr working-time cap, maternity leave, salary-deduction caps, penalties up to ฿200,000/1yr).
-  - Bangkok Mothers & Babies International (BAMBI) — "Domestic Workers and Thai Labor Laws" — independent corroboration plus the Social Security/severance/workmen's-compensation exclusions not covered in the ILO one-pager.
-  - Hello Nanny — "The Legal Basics of Hiring a Nanny or Maid in Thailand" (2026) — third independent, more recent source corroborating minimum-wage figures and the "no severance, no social security" framing.
+  - Surat Thani Provincial Government — Koh Phangan comprehensive-plan amendment record (Provincial Town Planning Committee, 2 March 2023) — direct fetch, primary/official source.
+  - Association of Siamese Architects (ASA) — list of localities (including Koh Phangan) operating under a temporary construction ordinance pending a replacement comprehensive plan — direct fetch.
+  - Association of Siamese Architects (ASA) — summary of the Town Planning Act B.E. 2562 (2019)'s change from a fixed 5-year plan validity to indefinite validity with periodic review — direct fetch.
 
 ## Process notes
 
 Two research agents ran in parallel first:
-1. **Fresh-news sweep** (2026-09-10/14 window) re-checked all four standing watch items directly (PWA notices, FBA/AMLA predicate-offence, coalition foreign-ownership stance, 99-year leasehold bill/condo-quota reform) — all unchanged. The one candidate it surfaced (Thailand's 60→30-day visa exemption cut, effective 15 Sep 2026) turned out, on checking the existing catalog, to already be fully covered by the published `thailand-visa-exemption-cut-30-days-dtv-tightening-2026` (kb-0137, published 2026-09-05) — discarded as a duplicate, not used.
-2. **Evergreen gap-mining** over the full 170-slug catalog (at the time) surfaced two genuinely uncovered candidates after checking several rejected ideas (Thai REIT/property funds, Elite visa deep-dive, Sor Kor 1 adjudication, National Park Act pre-existing rights near Than Sadet — all either already covered or too thin): CCC Sections 1310–1312 (accession/building on another's land) and the Labour Protection Act's domestic-worker carve-out (Ministerial Regulation 15, 2024).
+1. **Fresh-news sweep** (2026-09-10/14 window) found nothing genuinely new — independently re-confirmed the four standing watch items unchanged (PWA Notice 7/2569 still the only Koh Phangan-specific water notice, no successor; FBA/AMLA predicate-offence still Ombudsman/AMLO review only; coalition "review foreign ownership" pledge still marketing-site-only; 99-year leasehold bill/condo-quota reform both still cabinet-study-only) and traced every other lead (nominee-enforcement stats refreshes, the Laem Son Beach recap, a Thai Examiner recap piece) to the already-excluded enforcement-statistics cluster or already-published guides (thailand-visa-exemption-cut-30-days-dtv-tightening-2026, thailand-99-year-leasehold-bill-status ruling).
+2. **Evergreen gap-mining** over the full 172-slug catalog revisited "Sor Kor 1 adjudication" — flagged and rejected earlier today (first run) as "already threaded through existing guides." A closer read of `land-titles-chanote-vs-nor-sor-3` showed it gives Sor Kor 1 only one summary sentence, with no explanation of the Land Code's actual title-creation mechanism (Sections 58/58 bis/59) or of how a Sor Kor 1 claim can still be upgraded today — a genuinely distinct, deeper angle, so it was re-verified from scratch and published rather than deferred again. A second candidate — Koh Phangan's Town Planning Act comprehensive plan, a separate zoning layer from the already-published 2025 eco-zone notification (`koh-phangan-building-zones`) — was also surfaced, verified, and published.
 
-Both published guides were independently re-verified by the author via direct source fetches before writing (not reused verbatim from the research agent's summary): the accession guide's exact statutory text was cross-checked across three independent mirrors plus one targeted follow-up search to resolve a wording discrepancy in the Section 1310 proviso; the domestic-worker guide was upgraded from the research agent's original citation (Ministerial Regulation 14, 2012 only) after discovering the more current and materially more newsworthy Ministerial Regulation 15 (30 April 2024), which added minimum wage and working-hours protections the 2012 regulation never provided — confirmed via a direct PDF fetch of the ILO's own summary document.
+Both guides were independently verified by the author via direct source fetches (not reused verbatim from the research agent's summary) before writing. The town-planning guide is framed conservatively: primary/official and professional-body sourcing confirms the 2015 comprehensive plan exists, was actively amended as recently as March 2023, and that comprehensive plans nationwide (Koh Phangan included, per ASA's own list) can lapse and run on a temporary ordinance — but Koh Phangan's *exact current* plan status (in force vs. lapsed vs. running on an interim ordinance right now) could not be confirmed from available English/Thai sources, so the guide recommends buyers verify directly with the Provincial Town Planning Office rather than asserting a status either way.
 
-Confirmed distinct from the closest existing guides by reading them in full: `superficies-vs-usufruct-vs-lease`, `building-a-villa-koh-phangan`, `land-code-section-69-bis-boundary-resurvey`, `neighboring-properties-law-nuisance-drainage-thailand`, `landlocked-land-way-of-necessity-vs-servitude` (for kb-0171 — none of them address accession/who-owns-the-building when nothing was registered); `vetting-villa-property-management-company`, `work-permit-foreign-owner-rental-management-business`, `foreign-real-estate-agent-restrictions-thailand`, `renting-out-villa-foreign-business-act-license` (for kb-0172 — none of them address employment law for an owner's own household staff).
+Confirmed distinct from the closest existing guides by reading them in full: `land-titles-chanote-vs-nor-sor-3`, `untitled-sea-view-land-pbt5-sor-por-kor-scam`, `due-diligence-checklist-koh-phangan`, `land-office-registration-day` (for kb-0173 — none explain the Section 58 adjudication mechanism or the Sor Kor 1 court-upgrade route in any depth); `koh-phangan-building-zones`, `hillside-slope-building-limits-koh-phangan`, `coastal-setback-rules-koh-phangan-distance-from-beach` (for kb-0174 — all three cover only the 2025 environmental eco-zoning, never the separate Town Planning Act comprehensive-plan layer).
 
-`content-pipeline/backlog.md` updated: a discovery note logged inline (end of section A) documenting today's research and the two published topics; no pre-existing ⏳ row matched either topic since both were found via evergreen gap-mining, not the standing backlog list.
+`content-pipeline/backlog.md` updated: a discovery note logged inline (end of section A) documenting this second run's research and the two published topics, plus two new rows marked ✅.
 
-TypeScript typecheck (`npx tsc --noEmit -p .`) run clean against both content files before finishing; verified no duplicate slugs/kbIds and full EN/RU slug parity (171 matching entries each) before finishing.
+TypeScript typecheck (`npx tsc --noEmit -p .`) run clean against both content files. Verified no duplicate slugs/kbIds and full EN/RU slug parity (173 matching entries each) before finishing.
