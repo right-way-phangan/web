@@ -10484,6 +10484,112 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "documents",
     faqQuestion: "Is there a free way to check a Koh Phangan plot's real title-deed boundaries online before I view it?",
   },
+  {
+    slug: "accession-building-on-anothers-land-thailand",
+    kbId: "kb-0171",
+    topic: "Structures",
+    title: "Building on land you don't own: Thailand's accession rule for informal builds and boundary encroachments",
+    short:
+      "Civil and Commercial Code Sections 1310–1312 answer a question that comes up constantly on Koh Phangan's subdivided hillside plots and informal family arrangements: who owns a building put up on someone else's land? The default rule is counter-intuitive — the landowner, not the builder, ends up owning it — and a separate provision handles the common case of a structure that simply spills a little over the boundary line.",
+    updated: "2026-09-14",
+    body: [
+      "If you fund or build a structure on land titled to someone else — a Thai partner, a friend, or a plot you're mid-negotiation to buy — who legally owns the finished building? Absent a registered superficies, usufruct or lease (see [superficies vs usufruct vs lease](/knowledge/superficies-vs-usufruct-vs-lease)), the answer isn't \"whoever paid for it.\" The Civil and Commercial Code's accession rules (Sections 1310–1312) decide it instead, and the default outcome surprises most people: the landowner ends up owning the building, not the person who built it.",
+      { h: "The default rule: Section 1310 — the landowner ends up owning the building" },
+      "Section 1310 states that if a person, in good faith, constructs a building on another person's land, the landowner becomes the owner of the building — but must pay the builder for the increase in the land's value caused by the building. There's a carve-out: if the landowner can show the builder was negligent about not realising the land wasn't theirs, the landowner can instead refuse the building outright and demand it be removed and the land restored — unless that would be unreasonably costly, in which case the builder must buy the land (or the relevant part of it) at market price.",
+      { h: "Bad faith changes everything: Section 1311" },
+      "If the builder knew the land wasn't theirs and built anyway, Section 1311 flips the default: the builder must restore the land to its original condition at their own expense — in practice, demolish and clear it. The landowner has an alternative, though, entirely at the landowner's own option: keep the building as-is and pay the builder either the building's price or the amount by which it increased the land's value, whichever the landowner chooses. The builder doesn't get to pick this outcome; only the landowner does.",
+      { h: "The boundary-encroachment variant: Section 1312" },
+      "A different, narrower scenario: you own your own land and build on it in good faith, but the structure ends up extending a little over the boundary onto a neighbour's plot — a common outcome on Phangan's informally surveyed hillside land, where a fence line and the cadastral map don't always agree (see [Land Code Section 69 bis boundary re-survey](/knowledge/land-code-section-69-bis-boundary-resurvey)). Here a good-faith encroacher keeps ownership of the whole building, but must pay the neighbouring landowner for the land actually used and have a servitude registered over the encroached strip. If the encroachment was in bad faith, the neighbour can force removal at the builder's expense instead.",
+      { h: "Why this matters on Koh Phangan specifically" },
+      {
+        ul: [
+          "**Informal builds on a partner's or friend's land** — a common Phangan pattern where a foreigner funds a villa on land held by a Thai partner without ever registering a superficies. If the relationship sours, Section 1310 — not the couple's private understanding — decides who owns the finished villa, and it isn't automatically the person who paid for it.",
+          "**Subdivided hillside plots with informally marked boundaries** make Section 1312 encroachment disputes a real risk — pair this with [the law of neighbouring properties](/knowledge/neighboring-properties-law-nuisance-drainage-thailand) and [the way-of-necessity/servitude guide](/knowledge/landlocked-land-way-of-necessity-vs-servitude) for the related access and boundary mechanisms.",
+          "**\"Good faith\" is a factual question a court decides, not a label either side can simply assert** — it turns on whether the builder reasonably believed they owned the land or had a right to build on it at the time.",
+          "**None of this substitutes for registering first.** A superficies or long-term lease registered before construction starts (see [building a villa on Koh Phangan](/knowledge/building-a-villa-koh-phangan)) avoids the accession question entirely — Sections 1310–1312 are the fallback default that applies only when nobody registered anything and the arrangement falls apart.",
+        ],
+      },
+      "The practical lesson isn't that these rules are a trap to fear — it's that they're the state's answer to a question you should never let a court decide for you. If you're funding or building on land that isn't titled in your own name, registering a superficies or lease before laying a single brick turns an uncertain accession dispute into a documented, enforceable right.",
+    ],
+    takeaways: [
+      "Section 1310's default: a good-faith builder who puts a building on someone else's land does not end up owning it — the landowner does, subject only to paying the builder for the resulting increase in the land's value.",
+      "If the landowner can show the builder was negligent about not owning the land, the landowner can refuse the building and demand removal instead — unless removal is unreasonably costly, in which case the builder must buy the land outright at market price.",
+      "Bad-faith construction (Section 1311) is worse for the builder: the default is restoring the land to its original state at their own cost, though the landowner can instead choose to keep the building and pay for it or for the increased land value.",
+      "A good-faith boundary encroachment (Section 1312) — a building that legitimately spills slightly over a property line — works differently: the builder keeps the building but must pay for the land used and register a servitude over the encroached strip.",
+      "These accession rules are the legal default only when nobody registered a superficies, usufruct or lease before building — the safe route is to register first, not to rely on a private understanding.",
+    ],
+    sources: [
+      { title: "ThailandLawOnline — Civil Code: Real Estate Rights and Property Law (Sections 1298–1366)", url: "https://www.thailandlawonline.com/thai-real-estate-law/civil-code-real-estate-rights-and-property-law" },
+      { title: "Thailand Law Library (Siam Legal) — Civil and Commercial Code: Property (Section 1308–1334)", url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-property-section-1308-1334/" },
+      { title: "Samui For Sale — Thailand Civil and Commercial Code, Part III (Property)", url: "https://www.samuiforsale.com/law-texts/thailand-civil-code-part-3.html" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "If I build a villa on land that isn't titled in my name, who legally owns the building?",
+  },
+  {
+    slug: "domestic-worker-labour-law-villa-staff-thailand",
+    kbId: "kb-0172",
+    topic: "Process",
+    title: "Hiring a housekeeper, gardener or nanny for your Koh Phangan villa: what Thai labour law actually requires",
+    short:
+      "Directly employing household staff — a housekeeper, gardener, cook, driver or nanny — for your own villa sits in its own carve-out under Thailand's Labour Protection Act, one that changed materially in 2024. Ministerial Regulation 15 (30 April 2024) gave domestic workers minimum wage and capped working hours for the first time, but they remain excluded from social security and severance pay — a distinct question from the work-permit and property-management rules already covered on this site.",
+    updated: "2026-09-14",
+    body: [
+      "Does hiring a live-in housekeeper or a twice-weekly gardener for your own Koh Phangan villa come with formal employment-law obligations? Yes — and since 2024, more than most owners assume. This is about you personally employing someone for your own household, distinct from [vetting a rental property-management company](/knowledge/vetting-villa-property-management-company) (hiring a business, not an individual) and from [the work-permit question for an owner running their own rental business](/knowledge/work-permit-foreign-owner-rental-management-business) (your own right to work, not your staff's).",
+      { h: "The baseline: domestic work is a carve-out, not a full exemption" },
+      "The Labour Protection Act B.E. 2541 (1998) generally excludes \"domestic work which is not connected with a business\" from most of its default provisions. Ministerial Regulation No. 14 (B.E. 2555/2012) clawed back a baseline set of protections specifically for domestic workers — a weekly rest day, paid public holidays, sick leave, wage-payment mechanics, a minimum working age of 15, and a ban on employers holding a worker's identity documents. For over a decade, though, domestic workers stayed excluded from minimum wage, standard working-hours limits and overtime pay.",
+      { h: "What changed on 30 April 2024: Ministerial Regulation 15" },
+      {
+        ul: [
+          "**Minimum wage now applies** — previously excluded entirely; a domestic worker is now entitled to at least the applicable provincial daily minimum wage rate.",
+          "**Maximum 8-hour workday plus a 1-hour break, 48-hour maximum week**, with overtime pay required beyond that — a real change from the old \"negotiate your own hours\" default.",
+          "**98 days' maternity leave**, with the employer paying 45 days at regular salary; a pregnant worker cannot be dismissed because of pregnancy, and cannot be required to work nights (22:00–06:00), overtime, or holidays while pregnant.",
+          "**Salary deductions capped** to five permitted categories (provident fund, tax, repayment for damage from wilful or grossly negligent conduct, debt benefiting the worker, and union dues), each capped at 10% of salary and 20% of salary in total for any single payment.",
+          "**Workers aged 15–17** get 30 paid days off to attend educational classes, and the employer must notify the Labour Inspector both at hiring and at termination.",
+        ],
+      },
+      { h: "Carried over from the existing framework" },
+      {
+        ul: [
+          "At least one full rest day per week.",
+          "A minimum of 13 paid public holidays a year.",
+          "6 paid annual-leave days after one full year of service.",
+          "Up to 30 paid sick days a year (a medical certificate can be required for sick leave beyond three consecutive working days).",
+          "Holiday-work pay premiums — not less than 1x the hourly rate for a monthly-paid worker, not less than 2x for a daily-paid worker.",
+          "A minimum working age of 15, with hazardous work and night work barred for 15–17 year-olds.",
+        ],
+      },
+      { h: "What still doesn't apply" },
+      {
+        ul: [
+          "**No Social Security Act enrolment or contribution obligation** for a domestic worker — a real, ongoing difference from an ordinary company employee.",
+          "**No statutory severance pay**, regardless of how many years the worker has been employed.",
+          "**No Workmen's Compensation Act coverage** either — private insurance for household staff is the owner's own choice, not a legal requirement.",
+        ],
+      },
+      { h: "Termination and penalties" },
+      "Ending the employment requires one pay-cycle's notice, with final pay — including any unused annual-leave days — settled within three days of the last working day, plus a work-experience certificate on request. Violating the Ministerial Regulation risks a fine and/or imprisonment, commonly reported as up to ฿200,000 and/or one year, though treat the exact figure as the reported ceiling rather than a fixed schedule until confirmed for your specific situation. Separately, under the Criminal Code, it is a criminal offence for an employer to hold onto a domestic worker's identity documents, or to sexually harass or abuse a domestic worker.",
+      { h: "If your household staff isn't Thai" },
+      "Hiring a non-Thai national as household staff raises a separate question under the Alien Employment Act — whether that person, and whether you as the sponsoring employer, meet the work-permit requirements — distinct from the labour-protection obligations covered here. The closest existing treatment of foreign work-permit mechanics on this site is [the work-permit guide for a foreign owner running a rental-management business](/knowledge/work-permit-foreign-owner-rental-management-business), but domestic staffing specifically is a separate question this guide doesn't resolve — confirm it with a lawyer before hiring.",
+      "Most Phangan villa owners still think of a housekeeper or gardener as an informal cash arrangement. Since the 2024 reform, it's a real employment relationship with minimum-wage, working-hours and maternity obligations attached — even though it stays outside social security and severance pay. Put the basic terms (duties, pay, days, notice period) in writing, even informally, so both sides know what's actually agreed.",
+    ],
+    takeaways: [
+      "Since Ministerial Regulation 15 (30 April 2024), domestic workers in Thailand are covered by minimum wage and an 8-hour/48-hour maximum working-time rule with overtime pay — protections they were excluded from before.",
+      "Domestic workers remain excluded from Thailand's Social Security Act and from statutory severance pay, regardless of years of service — a real gap ordinary Labour Protection Act employees don't have.",
+      "Baseline protections carried over from Ministerial Regulation 14 (2012) include at least one weekly rest day, 13 paid public holidays, 6 paid annual-leave days after a year, and up to 30 paid sick days.",
+      "Termination requires one pay-cycle's notice and final settlement within three days; violating the Ministerial Regulation risks a fine and/or imprisonment, separate from Criminal Code offences for confiscating ID documents or harassment.",
+      "Hiring a non-Thai national for household staff raises a separate Alien Employment Act work-permit question this guide doesn't resolve — distinct from these labour-protection obligations.",
+    ],
+    sources: [
+      { title: "International Labour Organization (ILO Regional Office for Asia and the Pacific) — \"2024 Thai Regulations on Domestic Work: Are you following the law?\"", url: "https://www.ilo.org/resource/article/2024-thai-regulations-domestic-work-are-you-following-law" },
+      { title: "Bangkok Mothers & Babies International (BAMBI) — \"Domestic Workers and Thai Labor Laws\"", url: "https://www.bambiweb.org/news/domestic-workers-and-thai-labor-laws" },
+      { title: "Hello Nanny — \"The Legal Basics of Hiring a Nanny or Maid in Thailand: What Expat Employers Should Know\"", url: "https://hellonanny-san.com/en/blog/Legal_Basics_of_Hiring_a_Nanny_or_Maid_in_Thailand/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "Do I need to follow Thai labour law if I hire a housekeeper or gardener for my own villa on Koh Phangan?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
