@@ -1,11 +1,11 @@
 {
-  "updated": "2026-09-04",
+  "updated": "2026-09-11",
   "range": "28d",
   "totals": {
-    "clicks": 35,
-    "impressions": 2919,
-    "ctr": 0.012,
-    "position": 17.0
+    "clicks": 37,
+    "impressions": 3346,
+    "ctr": 0.0111,
+    "position": 14.8
   },
   "queries": [
     {
@@ -24,9 +24,16 @@
     },
     {
       "clicks": 0,
-      "impressions": 6,
+      "impressions": 1,
       "ctr": 0.0,
-      "position": 38.7,
+      "position": 7.0,
+      "query": "4500000/7"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0.0,
+      "position": 46.8,
       "query": "agence immobiliere koh phangan"
     },
     {
@@ -38,9 +45,9 @@
     },
     {
       "clicks": 0,
-      "impressions": 2,
+      "impressions": 1,
       "ctr": 0.0,
-      "position": 16.0,
+      "position": 19.0,
       "query": "arqa developments"
     },
     {
@@ -82,7 +89,7 @@
       "clicks": 0,
       "impressions": 7,
       "ctr": 0.0,
-      "position": 22.9,
+      "position": 21.7,
       "query": "building permits koh phangan"
     },
     {
@@ -101,9 +108,9 @@
     },
     {
       "clicks": 0,
-      "impressions": 12,
+      "impressions": 1,
       "ctr": 0.0,
-      "position": 19.9,
+      "position": 18.0,
       "query": "chaloklum виски"
     },
     {
@@ -138,15 +145,15 @@
       "clicks": 0,
       "impressions": 1,
       "ctr": 0.0,
-      "position": 49.0,
-      "query": "fairfax real estate thailand"
+      "position": 4.0,
+      "query": "fet bank"
     },
     {
       "clicks": 0,
       "impressions": 1,
       "ctr": 0.0,
-      "position": 4.0,
-      "query": "fet bank"
+      "position": 7.0,
+      "query": "fet перевод"
     },
     {
       "clicks": 0,
@@ -192,16 +199,16 @@
     },
     {
       "clicks": 0,
-      "impressions": 13,
+      "impressions": 12,
       "ctr": 0.0,
       "position": 26.2,
       "query": "ko phangan real estate"
     },
     {
       "clicks": 0,
-      "impressions": 6,
+      "impressions": 8,
       "ctr": 0.0,
-      "position": 25.5,
+      "position": 24.4,
       "query": "koh phangan construction"
     },
     {
@@ -213,44 +220,44 @@
     },
     {
       "clicks": 0,
-      "impressions": 17,
+      "impressions": 12,
       "ctr": 0.0,
-      "position": 28.5,
+      "position": 28.3,
       "query": "koh phangan new houses"
     },
     {
       "clicks": 0,
-      "impressions": 66,
+      "impressions": 58,
       "ctr": 0.0,
-      "position": 23.3,
+      "position": 23.2,
       "query": "koh phangan real estate"
     },
     {
       "clicks": 0,
-      "impressions": 4,
+      "impressions": 2,
       "ctr": 0.0,
-      "position": 26.0,
+      "position": 25.5,
       "query": "koh phangan real estate for sale"
     },
     {
       "clicks": 0,
-      "impressions": 22,
+      "impressions": 19,
       "ctr": 0.0,
-      "position": 20.1,
+      "position": 15.9,
       "query": "koh phangan real estate market"
     },
     {
       "clicks": 0,
       "impressions": 8,
       "ctr": 0.0,
-      "position": 17.2,
+      "position": 16.8,
       "query": "koh phangan realty"
     },
     {
       "clicks": 0,
-      "impressions": 6,
+      "impressions": 7,
       "ctr": 0.0,
-      "position": 39.5,
+      "position": 35.4,
       "query": "new developments koh phangan"
     },
     {
@@ -276,44 +283,44 @@
     },
     {
       "clicks": 0,
-      "impressions": 6,
+      "impressions": 5,
       "ctr": 0.0,
-      "position": 21.8,
+      "position": 20.4,
       "query": "phangan real estate"
-    },
-    {
-      "clicks": 0,
-      "impressions": 8,
-      "ctr": 0.0,
-      "position": 56.4,
-      "query": "project management koh phangan"
     },
     {
       "clicks": 0,
       "impressions": 1,
       "ctr": 0.0,
-      "position": 39.0,
-      "query": "real estate for sale in koh phangan"
+      "position": 11.0,
+      "query": "phangan tropical villas"
     },
     {
       "clicks": 0,
-      "impressions": 9,
+      "impressions": 7,
       "ctr": 0.0,
-      "position": 32.1,
+      "position": 58.7,
+      "query": "project management koh phangan"
+    },
+    {
+      "clicks": 0,
+      "impressions": 7,
+      "ctr": 0.0,
+      "position": 31.7,
       "query": "real estate in koh phangan"
     },
     {
       "clicks": 0,
-      "impressions": 21,
+      "impressions": 18,
       "ctr": 0.0,
-      "position": 21.7,
+      "position": 20.7,
       "query": "real estate koh phangan"
     },
     {
       "clicks": 0,
-      "impressions": 8,
+      "impressions": 7,
       "ctr": 0.0,
-      "position": 26.6,
+      "position": 27.1,
       "query": "real estate thailand koh phangan"
     },
     {
@@ -322,13 +329,6 @@
       "ctr": 0.0,
       "position": 67.0,
       "query": "ride real estate"
-    },
-    {
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0.0,
-      "position": 69.0,
-      "query": "right buy"
     },
     {
       "clicks": 0,
@@ -362,13 +362,6 @@
       "clicks": 0,
       "impressions": 1,
       "ctr": 0.0,
-      "position": 35.0,
-      "query": "rightway car lot"
-    },
-    {
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0.0,
       "position": 63.0,
       "query": "rightway developments"
     },
@@ -385,13 +378,6 @@
       "ctr": 0.0,
       "position": 71.0,
       "query": "rightway investments"
-    },
-    {
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0.0,
-      "position": 55.0,
-      "query": "rightway properties"
     },
     {
       "clicks": 0,
@@ -418,7 +404,7 @@
       "clicks": 0,
       "impressions": 2,
       "ctr": 0.0,
-      "position": 9.5,
+      "position": 10.5,
       "query": "sri thanu koh phangan yoga wellness area"
     },
     {
@@ -446,26 +432,12 @@
       "clicks": 0,
       "impressions": 1,
       "ctr": 0.0,
-      "position": 23.0,
-      "query": "the right way company"
-    },
-    {
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0.0,
-      "position": 40.0,
-      "query": "the way realty"
-    },
-    {
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0.0,
       "position": 51.0,
       "query": "unzoned land"
     },
     {
       "clicks": 0,
-      "impressions": 5,
+      "impressions": 4,
       "ctr": 0.0,
       "position": 6.8,
       "query": "villa arqa"
@@ -486,6 +458,13 @@
     },
     {
       "clicks": 0,
+      "impressions": 1,
+      "ctr": 0.0,
+      "position": 1.0,
+      "query": "на пангане"
+    },
+    {
+      "clicks": 0,
       "impressions": 9,
       "ctr": 0.0,
       "position": 9.0,
@@ -493,17 +472,10 @@
     },
     {
       "clicks": 0,
-      "impressions": 48,
+      "impressions": 49,
       "ctr": 0.0,
-      "position": 81.4,
+      "position": 81.1,
       "query": "партнеры right estate"
-    },
-    {
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0.0,
-      "position": 11.0,
-      "query": "чалоклам"
     },
     {
       "clicks": 0,
@@ -523,6 +495,13 @@
       "clicks": 0,
       "impressions": 1,
       "ctr": 0.0,
+      "position": 7.0,
+      "query": "קופנגן תאילנד"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0.0,
       "position": 2.0,
       "query": "ค่าโอน 0.01%"
     },
@@ -530,73 +509,94 @@
       "clicks": 0,
       "impressions": 1,
       "ctr": 0.0,
+      "position": 2.0,
+      "query": "อันไหนดีกว่า"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0.0,
       "position": 3.0,
       "query": "เกิน 5 ปี"
+    },
+    {
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0.0,
+      "position": 1.0,
+      "query": "เกิน5ปี"
     }
   ],
   "pages": [
     {
       "clicks": 5,
-      "impressions": 45,
-      "ctr": 0.1111,
-      "position": 30.2,
-      "page": "https://rightwaygroup.co/tools/zoning"
-    },
-    {
-      "clicks": 4,
-      "impressions": 65,
-      "ctr": 0.0615,
-      "position": 6.8,
+      "impressions": 79,
+      "ctr": 0.0633,
+      "position": 6.2,
       "page": "https://rightwaygroup.co/knowledge/dbd-order-2-2569-consolidated-rules-2026"
     },
     {
-      "clicks": 3,
-      "impressions": 340,
-      "ctr": 0.0088,
-      "position": 35.9,
-      "page": "https://rightwaygroup.co/"
+      "clicks": 4,
+      "impressions": 42,
+      "ctr": 0.0952,
+      "position": 27.5,
+      "page": "https://rightwaygroup.co/tools/zoning"
     },
     {
       "clicks": 3,
-      "impressions": 84,
-      "ctr": 0.0357,
-      "position": 6.4,
+      "impressions": 306,
+      "ctr": 0.0098,
+      "position": 10.1,
+      "page": "https://rightwaygroup.co/knowledge"
+    },
+    {
+      "clicks": 3,
+      "impressions": 87,
+      "ctr": 0.0345,
+      "position": 6.6,
       "page": "https://rightwaygroup.co/knowledge/thailand-99-year-leasehold-bill-status"
     },
     {
       "clicks": 3,
-      "impressions": 38,
-      "ctr": 0.0789,
-      "position": 6.1,
+      "impressions": 47,
+      "ctr": 0.0638,
+      "position": 6.0,
       "page": "https://rightwaygroup.co/knowledge/thb-40-million-investment-land-ownership-route"
     },
     {
       "clicks": 2,
-      "impressions": 47,
-      "ctr": 0.0426,
-      "position": 7.9,
+      "impressions": 279,
+      "ctr": 0.0072,
+      "position": 37.6,
+      "page": "https://rightwaygroup.co/"
+    },
+    {
+      "clicks": 2,
+      "impressions": 43,
+      "ctr": 0.0465,
+      "position": 8.7,
       "page": "https://rightwaygroup.co/developers/arqa-development"
     },
     {
       "clicks": 2,
-      "impressions": 269,
-      "ctr": 0.0074,
-      "position": 10.8,
-      "page": "https://rightwaygroup.co/knowledge"
-    },
-    {
-      "clicks": 2,
-      "impressions": 3,
-      "ctr": 0.6667,
-      "position": 2.0,
+      "impressions": 7,
+      "ctr": 0.2857,
+      "position": 1.9,
       "page": "https://rightwaygroup.co/ru"
     },
     {
       "clicks": 1,
-      "impressions": 18,
-      "ctr": 0.0556,
-      "position": 19.7,
+      "impressions": 21,
+      "ctr": 0.0476,
+      "position": 16.7,
       "page": "https://rightwaygroup.co/contact"
+    },
+    {
+      "clicks": 1,
+      "impressions": 41,
+      "ctr": 0.0244,
+      "position": 9.3,
+      "page": "https://rightwaygroup.co/districts"
     },
     {
       "clicks": 1,
@@ -607,52 +607,45 @@
     },
     {
       "clicks": 1,
-      "impressions": 204,
-      "ctr": 0.0049,
-      "position": 13.2,
+      "impressions": 164,
+      "ctr": 0.0061,
+      "position": 12.2,
       "page": "https://rightwaygroup.co/insights"
     },
     {
       "clicks": 1,
-      "impressions": 73,
-      "ctr": 0.0137,
+      "impressions": 86,
+      "ctr": 0.0116,
       "position": 6.5,
       "page": "https://rightwaygroup.co/knowledge/avani-kaia-hotel-brands-koh-phangan-2026"
     },
     {
       "clicks": 1,
-      "impressions": 31,
-      "ctr": 0.0323,
-      "position": 8.4,
+      "impressions": 35,
+      "ctr": 0.0286,
+      "position": 7.9,
       "page": "https://rightwaygroup.co/knowledge/offshore-family-trust-cannot-hold-thai-land"
     },
     {
       "clicks": 1,
-      "impressions": 10,
-      "ctr": 0.1,
-      "position": 7.4,
+      "impressions": 14,
+      "ctr": 0.0714,
+      "position": 7.1,
       "page": "https://rightwaygroup.co/knowledge/samui-sea-bridge-expressway-phangan-tao-demand"
     },
     {
       "clicks": 1,
-      "impressions": 40,
-      "ctr": 0.025,
-      "position": 11.1,
+      "impressions": 44,
+      "ctr": 0.0227,
+      "position": 10.9,
       "page": "https://rightwaygroup.co/knowledge/sap-ing-sith-right-of-use-thailand"
     },
     {
       "clicks": 1,
-      "impressions": 8,
-      "ctr": 0.125,
-      "position": 8.8,
+      "impressions": 7,
+      "ctr": 0.1429,
+      "position": 8.1,
       "page": "https://rightwaygroup.co/knowledge/vacant-land-tax-step-up-agricultural-loophole-2026"
-    },
-    {
-      "clicks": 1,
-      "impressions": 10,
-      "ctr": 0.1,
-      "position": 2.4,
-      "page": "https://rightwaygroup.co/ru/districts/ban-nai-suan"
     },
     {
       "clicks": 1,
@@ -663,58 +656,72 @@
     },
     {
       "clicks": 1,
-      "impressions": 10,
-      "ctr": 0.1,
-      "position": 6.5,
+      "impressions": 11,
+      "ctr": 0.0909,
+      "position": 6.8,
       "page": "https://rightwaygroup.co/ru/knowledge/short-term-rental-airbnb-crackdown-2026"
     },
     {
+      "clicks": 1,
+      "impressions": 2,
+      "ctr": 0.5,
+      "position": 9.0,
+      "page": "https://rightwaygroup.co/ru/match"
+    },
+    {
+      "clicks": 1,
+      "impressions": 23,
+      "ctr": 0.0435,
+      "position": 46.0,
+      "page": "https://rightwaygroup.co/sell"
+    },
+    {
       "clicks": 0,
-      "impressions": 11,
+      "impressions": 13,
       "ctr": 0.0,
-      "position": 32.7,
+      "position": 28.5,
       "page": "https://rightwaygroup.co/about"
     },
     {
       "clicks": 0,
-      "impressions": 6,
+      "impressions": 4,
       "ctr": 0.0,
-      "position": 7.2,
+      "position": 6.0,
       "page": "https://rightwaygroup.co/blog"
     },
     {
       "clicks": 0,
       "impressions": 15,
       "ctr": 0.0,
-      "position": 10.4,
+      "position": 10.6,
       "page": "https://rightwaygroup.co/blog/building-on-koh-phangan-what-to-check-before-buying-land"
     },
     {
       "clicks": 0,
-      "impressions": 4,
+      "impressions": 3,
       "ctr": 0.0,
-      "position": 6.5,
+      "position": 7.0,
       "page": "https://rightwaygroup.co/blog/buying-land-koh-phangan-checks-that-matter"
     },
     {
       "clicks": 0,
       "impressions": 1,
       "ctr": 0.0,
-      "position": 9.0,
-      "page": "https://rightwaygroup.co/blog/how-we-value-property-koh-phangan-fair-price"
+      "position": 3.0,
+      "page": "https://rightwaygroup.co/blog/cost-of-buying-koh-phangan-beyond-the-asking-price"
     },
     {
       "clicks": 0,
       "impressions": 1,
       "ctr": 0.0,
-      "position": 9.0,
+      "position": 10.0,
       "page": "https://rightwaygroup.co/blog/leasehold-koh-phangan-how-it-actually-works"
     },
     {
       "clicks": 0,
-      "impressions": 6,
+      "impressions": 5,
       "ctr": 0.0,
-      "position": 6.0,
+      "position": 6.4,
       "page": "https://rightwaygroup.co/blog/realistic-rental-yield-koh-phangan"
     },
     {
@@ -747,38 +754,38 @@
     },
     {
       "clicks": 0,
-      "impressions": 3,
+      "impressions": 1,
       "ctr": 0.0,
-      "position": 13.7,
+      "position": 9.0,
       "page": "https://rightwaygroup.co/blog/where-to-buy-koh-phangan-choosing-your-area"
     },
     {
       "clicks": 0,
       "impressions": 35,
       "ctr": 0.0,
-      "position": 25.1,
+      "position": 21.3,
       "page": "https://rightwaygroup.co/calculator"
     },
     {
       "clicks": 0,
-      "impressions": 5,
+      "impressions": 1,
       "ctr": 0.0,
-      "position": 37.6,
+      "position": 6.0,
+      "page": "https://rightwaygroup.co/commercial/buy/investment-deal-3-one-bedroom-homes-with-700-m2-of-extra-land"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0.0,
+      "position": 30.0,
       "page": "https://rightwaygroup.co/credits"
     },
     {
       "clicks": 0,
-      "impressions": 4,
+      "impressions": 9,
       "ctr": 0.0,
-      "position": 21.5,
+      "position": 19.1,
       "page": "https://rightwaygroup.co/developers"
-    },
-    {
-      "clicks": 0,
-      "impressions": 46,
-      "ctr": 0.0,
-      "position": 9.1,
-      "page": "https://rightwaygroup.co/districts"
     },
     {
       "clicks": 0,
@@ -789,58 +796,65 @@
     },
     {
       "clicks": 0,
-      "impressions": 8,
+      "impressions": 9,
       "ctr": 0.0,
-      "position": 6.9,
+      "position": 6.6,
       "page": "https://rightwaygroup.co/districts/ban-nai-suan"
-    },
-    {
-      "clicks": 0,
-      "impressions": 2,
-      "ctr": 0.0,
-      "position": 11.0,
-      "page": "https://rightwaygroup.co/districts/ban-tai"
     },
     {
       "clicks": 0,
       "impressions": 1,
       "ctr": 0.0,
-      "position": 11.0,
+      "position": 12.0,
+      "page": "https://rightwaygroup.co/districts/ban-tai"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0.0,
+      "position": 10.0,
       "page": "https://rightwaygroup.co/districts/hin-kong"
     },
     {
       "clicks": 0,
-      "impressions": 22,
+      "impressions": 2,
       "ctr": 0.0,
-      "position": 7.7,
-      "page": "https://rightwaygroup.co/districts/sri-thanu"
+      "position": 6.5,
+      "page": "https://rightwaygroup.co/districts/madeau-wan"
     },
     {
       "clicks": 0,
       "impressions": 1,
       "ctr": 0.0,
       "position": 4.0,
-      "page": "https://rightwaygroup.co/districts/than-sadet"
+      "page": "https://rightwaygroup.co/districts/mae-haad"
     },
     {
       "clicks": 0,
-      "impressions": 5,
+      "impressions": 18,
       "ctr": 0.0,
-      "position": 4.8,
+      "position": 7.7,
+      "page": "https://rightwaygroup.co/districts/sri-thanu"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0.0,
+      "position": 5.0,
       "page": "https://rightwaygroup.co/due-diligence"
     },
     {
       "clicks": 0,
-      "impressions": 9,
+      "impressions": 6,
       "ctr": 0.0,
-      "position": 58.1,
+      "position": 66.2,
       "page": "https://rightwaygroup.co/estates"
     },
     {
       "clicks": 0,
-      "impressions": 89,
+      "impressions": 77,
       "ctr": 0.0,
-      "position": 12.5,
+      "position": 14.2,
       "page": "https://rightwaygroup.co/faq"
     },
     {
@@ -852,58 +866,65 @@
     },
     {
       "clicks": 0,
-      "impressions": 3,
+      "impressions": 2,
       "ctr": 0.0,
-      "position": 4.3,
+      "position": 4.0,
       "page": "https://rightwaygroup.co/knowledge/buying-in-bottle-beach"
     },
     {
       "clicks": 0,
-      "impressions": 3,
+      "impressions": 5,
       "ctr": 0.0,
-      "position": 6.3,
+      "position": 6.2,
       "page": "https://rightwaygroup.co/knowledge/buying-in-chaloklum"
     },
     {
       "clicks": 0,
       "impressions": 1,
       "ctr": 0.0,
-      "position": 2.0,
+      "position": 4.0,
+      "page": "https://rightwaygroup.co/knowledge/buying-in-haad-yuan-haad-tien"
+    },
+    {
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0.0,
+      "position": 3.3,
       "page": "https://rightwaygroup.co/knowledge/buying-in-hin-kong"
     },
     {
       "clicks": 0,
-      "impressions": 13,
+      "impressions": 11,
       "ctr": 0.0,
-      "position": 5.7,
+      "position": 5.6,
       "page": "https://rightwaygroup.co/knowledge/buying-in-than-sadet"
     },
     {
       "clicks": 0,
-      "impressions": 6,
+      "impressions": 11,
       "ctr": 0.0,
-      "position": 7.3,
+      "position": 7.1,
       "page": "https://rightwaygroup.co/knowledge/buying-in-thong-nai-pan"
     },
     {
       "clicks": 0,
-      "impressions": 7,
+      "impressions": 8,
       "ctr": 0.0,
-      "position": 7.4,
+      "position": 7.1,
       "page": "https://rightwaygroup.co/knowledge/buying-in-thong-sala"
     },
     {
       "clicks": 0,
       "impressions": 1,
       "ctr": 0.0,
-      "position": 6.0,
+      "position": 9.0,
       "page": "https://rightwaygroup.co/knowledge/buying-in-wok-tum"
     },
     {
       "clicks": 0,
-      "impressions": 8,
+      "impressions": 9,
       "ctr": 0.0,
-      "position": 25.4,
+      "position": 23.4,
       "page": "https://rightwaygroup.co/knowledge/buying-next-to-undeveloped-land-what-can-be-built"
     },
     {
@@ -915,30 +936,30 @@
     },
     {
       "clicks": 0,
-      "impressions": 20,
+      "impressions": 27,
       "ctr": 0.0,
-      "position": 5.8,
+      "position": 5.4,
       "page": "https://rightwaygroup.co/knowledge/coastal-setback-rules-koh-phangan-distance-from-beach"
-    },
-    {
-      "clicks": 0,
-      "impressions": 20,
-      "ctr": 0.0,
-      "position": 28.4,
-      "page": "https://rightwaygroup.co/knowledge/condo-foreign-ownership-quota-debate-2026"
-    },
-    {
-      "clicks": 0,
-      "impressions": 5,
-      "ctr": 0.0,
-      "position": 4.0,
-      "page": "https://rightwaygroup.co/knowledge/condo-sinking-fund-cam-fees-thailand"
     },
     {
       "clicks": 0,
       "impressions": 26,
       "ctr": 0.0,
-      "position": 9.7,
+      "position": 23.8,
+      "page": "https://rightwaygroup.co/knowledge/condo-foreign-ownership-quota-debate-2026"
+    },
+    {
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0.0,
+      "position": 4.5,
+      "page": "https://rightwaygroup.co/knowledge/condo-sinking-fund-cam-fees-thailand"
+    },
+    {
+      "clicks": 0,
+      "impressions": 35,
+      "ctr": 0.0,
+      "position": 9.3,
       "page": "https://rightwaygroup.co/knowledge/dbd-source-of-funds-orders-company-registration-2026"
     },
     {
@@ -950,128 +971,135 @@
     },
     {
       "clicks": 0,
-      "impressions": 7,
+      "impressions": 9,
       "ctr": 0.0,
-      "position": 16.3,
+      "position": 14.2,
       "page": "https://rightwaygroup.co/knowledge/eh216-s-air-taxi-samui-phangan-tao"
     },
     {
       "clicks": 0,
-      "impressions": 13,
+      "impressions": 15,
       "ctr": 0.0,
-      "position": 4.8,
+      "position": 4.5,
       "page": "https://rightwaygroup.co/knowledge/flood-drainage-due-diligence-koh-phangan"
-    },
-    {
-      "clicks": 0,
-      "impressions": 5,
-      "ctr": 0.0,
-      "position": 8.0,
-      "page": "https://rightwaygroup.co/knowledge/foreign-heir-inheriting-thai-land-section-93"
-    },
-    {
-      "clicks": 0,
-      "impressions": 9,
-      "ctr": 0.0,
-      "position": 15.9,
-      "page": "https://rightwaygroup.co/knowledge/foreign-spouse-usufruct-thai-marriage-property"
-    },
-    {
-      "clicks": 0,
-      "impressions": 6,
-      "ctr": 0.0,
-      "position": 4.0,
-      "page": "https://rightwaygroup.co/knowledge/forged-building-permits-koh-phangan-verify"
-    },
-    {
-      "clicks": 0,
-      "impressions": 27,
-      "ctr": 0.0,
-      "position": 6.9,
-      "page": "https://rightwaygroup.co/knowledge/healthcare-schools-koh-phangan-families"
-    },
-    {
-      "clicks": 0,
-      "impressions": 27,
-      "ctr": 0.0,
-      "position": 5.2,
-      "page": "https://rightwaygroup.co/knowledge/hillside-slope-building-limits-koh-phangan"
-    },
-    {
-      "clicks": 0,
-      "impressions": 5,
-      "ctr": 0.0,
-      "position": 8.0,
-      "page": "https://rightwaygroup.co/knowledge/how-foreigners-own-a-villa"
-    },
-    {
-      "clicks": 0,
-      "impressions": 5,
-      "ctr": 0.0,
-      "position": 13.2,
-      "page": "https://rightwaygroup.co/knowledge/how-to-buy-property-step-by-step"
-    },
-    {
-      "clicks": 0,
-      "impressions": 7,
-      "ctr": 0.0,
-      "position": 15.7,
-      "page": "https://rightwaygroup.co/knowledge/illegal-construction-forest-reserve-crackdown-koh-phangan"
-    },
-    {
-      "clicks": 0,
-      "impressions": 29,
-      "ctr": 0.0,
-      "position": 35.4,
-      "page": "https://rightwaygroup.co/knowledge/inheritance-tax-thai-property-100-million-threshold"
-    },
-    {
-      "clicks": 0,
-      "impressions": 7,
-      "ctr": 0.0,
-      "position": 5.6,
-      "page": "https://rightwaygroup.co/knowledge/insuring-a-villa-koh-phangan-flood-storm-coverage"
-    },
-    {
-      "clicks": 0,
-      "impressions": 20,
-      "ctr": 0.0,
-      "position": 4.4,
-      "page": "https://rightwaygroup.co/knowledge/koh-phangan-building-zones"
-    },
-    {
-      "clicks": 0,
-      "impressions": 20,
-      "ctr": 0.0,
-      "position": 4.7,
-      "page": "https://rightwaygroup.co/knowledge/koh-phangan-development-pipeline-2025-2026"
     },
     {
       "clicks": 0,
       "impressions": 8,
       "ctr": 0.0,
-      "position": 3.9,
-      "page": "https://rightwaygroup.co/knowledge/koh-samui-cruise-terminal-proposal-phangan-impact"
+      "position": 6.6,
+      "page": "https://rightwaygroup.co/knowledge/foreign-heir-inheriting-thai-land-section-93"
+    },
+    {
+      "clicks": 0,
+      "impressions": 11,
+      "ctr": 0.0,
+      "position": 14.4,
+      "page": "https://rightwaygroup.co/knowledge/foreign-spouse-usufruct-thai-marriage-property"
     },
     {
       "clicks": 0,
       "impressions": 9,
       "ctr": 0.0,
-      "position": 6.6,
-      "page": "https://rightwaygroup.co/knowledge/land-appraisal-value-reform-2027-treasury-big-data"
-    },
-    {
-      "clicks": 0,
-      "impressions": 22,
-      "ctr": 0.0,
-      "position": 5.9,
-      "page": "https://rightwaygroup.co/knowledge/land-code-section-94-forfeiture-amendment"
+      "position": 3.7,
+      "page": "https://rightwaygroup.co/knowledge/forged-building-permits-koh-phangan-verify"
     },
     {
       "clicks": 0,
       "impressions": 1,
       "ctr": 0.0,
-      "position": 9.0,
+      "position": 7.0,
+      "page": "https://rightwaygroup.co/knowledge/freehold-condo-vs-leasehold-villa"
+    },
+    {
+      "clicks": 0,
+      "impressions": 17,
+      "ctr": 0.0,
+      "position": 7.8,
+      "page": "https://rightwaygroup.co/knowledge/healthcare-schools-koh-phangan-families"
+    },
+    {
+      "clicks": 0,
+      "impressions": 28,
+      "ctr": 0.0,
+      "position": 5.4,
+      "page": "https://rightwaygroup.co/knowledge/hillside-slope-building-limits-koh-phangan"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0.0,
+      "position": 3.0,
+      "page": "https://rightwaygroup.co/knowledge/how-foreigners-own-a-villa"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0.0,
+      "position": 5.0,
+      "page": "https://rightwaygroup.co/knowledge/how-to-buy-property-step-by-step"
+    },
+    {
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0.0,
+      "position": 22.6,
+      "page": "https://rightwaygroup.co/knowledge/illegal-construction-forest-reserve-crackdown-koh-phangan"
+    },
+    {
+      "clicks": 0,
+      "impressions": 30,
+      "ctr": 0.0,
+      "position": 34.4,
+      "page": "https://rightwaygroup.co/knowledge/inheritance-tax-thai-property-100-million-threshold"
+    },
+    {
+      "clicks": 0,
+      "impressions": 10,
+      "ctr": 0.0,
+      "position": 5.7,
+      "page": "https://rightwaygroup.co/knowledge/insuring-a-villa-koh-phangan-flood-storm-coverage"
+    },
+    {
+      "clicks": 0,
+      "impressions": 23,
+      "ctr": 0.0,
+      "position": 4.3,
+      "page": "https://rightwaygroup.co/knowledge/koh-phangan-building-zones"
+    },
+    {
+      "clicks": 0,
+      "impressions": 28,
+      "ctr": 0.0,
+      "position": 4.8,
+      "page": "https://rightwaygroup.co/knowledge/koh-phangan-development-pipeline-2025-2026"
+    },
+    {
+      "clicks": 0,
+      "impressions": 32,
+      "ctr": 0.0,
+      "position": 6.2,
+      "page": "https://rightwaygroup.co/knowledge/koh-samui-cruise-terminal-proposal-phangan-impact"
+    },
+    {
+      "clicks": 0,
+      "impressions": 12,
+      "ctr": 0.0,
+      "position": 6.1,
+      "page": "https://rightwaygroup.co/knowledge/land-appraisal-value-reform-2027-treasury-big-data"
+    },
+    {
+      "clicks": 0,
+      "impressions": 30,
+      "ctr": 0.0,
+      "position": 5.8,
+      "page": "https://rightwaygroup.co/knowledge/land-code-section-94-forfeiture-amendment"
+    },
+    {
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0.0,
+      "position": 7.5,
       "page": "https://rightwaygroup.co/knowledge/land-department-audit-existing-landholding-companies-2026"
     },
     {
@@ -1083,157 +1111,122 @@
     },
     {
       "clicks": 0,
-      "impressions": 7,
+      "impressions": 3,
       "ctr": 0.0,
-      "position": 8.6,
+      "position": 3.0,
+      "page": "https://rightwaygroup.co/knowledge/land-office-source-of-funds-checks-2026"
+    },
+    {
+      "clicks": 0,
+      "impressions": 9,
+      "ctr": 0.0,
+      "position": 8.3,
       "page": "https://rightwaygroup.co/knowledge/lease-contract-clauses-to-check"
     },
     {
       "clicks": 0,
-      "impressions": 239,
+      "impressions": 244,
       "ctr": 0.0,
-      "position": 35.3,
+      "position": 34.7,
       "page": "https://rightwaygroup.co/knowledge/ltr-visa-property-investment-route"
     },
     {
       "clicks": 0,
-      "impressions": 23,
+      "impressions": 26,
       "ctr": 0.0,
-      "position": 13.0,
+      "position": 12.5,
       "page": "https://rightwaygroup.co/knowledge/ocpb-deposit-ban-villa-land-reservations"
     },
     {
       "clicks": 0,
-      "impressions": 28,
+      "impressions": 76,
       "ctr": 0.0,
-      "position": 8.3,
+      "position": 6.9,
       "page": "https://rightwaygroup.co/knowledge/ocpb-residential-lease-controlled-contract-2025"
     },
     {
       "clicks": 0,
-      "impressions": 4,
+      "impressions": 7,
       "ctr": 0.0,
-      "position": 9.5,
+      "position": 9.1,
       "page": "https://rightwaygroup.co/knowledge/off-grid-solar-battery-storage-koh-phangan-villa"
     },
     {
       "clicks": 0,
-      "impressions": 4,
+      "impressions": 5,
       "ctr": 0.0,
       "position": 7.2,
       "page": "https://rightwaygroup.co/knowledge/owners-taxes-annual-land-and-income"
     },
     {
       "clicks": 0,
-      "impressions": 26,
+      "impressions": 32,
       "ctr": 0.0,
-      "position": 6.5,
+      "position": 6.7,
       "page": "https://rightwaygroup.co/knowledge/pea-rooftop-solar-buyback-2026"
-    },
-    {
-      "clicks": 0,
-      "impressions": 3,
-      "ctr": 0.0,
-      "position": 5.0,
-      "page": "https://rightwaygroup.co/knowledge/phangan-property-lawyer-fees-what-they-cover"
-    },
-    {
-      "clicks": 0,
-      "impressions": 6,
-      "ctr": 0.0,
-      "position": 20.3,
-      "page": "https://rightwaygroup.co/knowledge/renewing-30-year-lease-risks"
-    },
-    {
-      "clicks": 0,
-      "impressions": 1,
-      "ctr": 0.0,
-      "position": 5.0,
-      "page": "https://rightwaygroup.co/knowledge/renting-out-your-villa-rules-and-taxes"
-    },
-    {
-      "clicks": 0,
-      "impressions": 13,
-      "ctr": 0.0,
-      "position": 25.1,
-      "page": "https://rightwaygroup.co/knowledge/right-of-habitation-thailand-fourth-property-right"
-    },
-    {
-      "clicks": 0,
-      "impressions": 3,
-      "ctr": 0.0,
-      "position": 8.3,
-      "page": "https://rightwaygroup.co/knowledge/samui-model-hillside-enforcement-koh-phangan"
     },
     {
       "clicks": 0,
       "impressions": 4,
       "ctr": 0.0,
-      "position": 44.2,
+      "position": 4.8,
+      "page": "https://rightwaygroup.co/knowledge/phangan-property-lawyer-fees-what-they-cover"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0.0,
+      "position": 27.8,
+      "page": "https://rightwaygroup.co/knowledge/renewing-30-year-lease-risks"
+    },
+    {
+      "clicks": 0,
+      "impressions": 22,
+      "ctr": 0.0,
+      "position": 17.1,
+      "page": "https://rightwaygroup.co/knowledge/right-of-habitation-thailand-fourth-property-right"
+    },
+    {
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0.0,
+      "position": 7.8,
+      "page": "https://rightwaygroup.co/knowledge/samui-model-hillside-enforcement-koh-phangan"
+    },
+    {
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0.0,
+      "position": 27.6,
       "page": "https://rightwaygroup.co/knowledge/selling-thai-company-holding-villa-share-sale-tax"
     },
     {
       "clicks": 0,
-      "impressions": 235,
+      "impressions": 434,
       "ctr": 0.0,
-      "position": 7.3,
+      "position": 6.9,
       "page": "https://rightwaygroup.co/knowledge/short-term-rental-airbnb-crackdown-2026"
     },
     {
       "clicks": 0,
-      "impressions": 44,
+      "impressions": 75,
       "ctr": 0.0,
-      "position": 8.5,
+      "position": 7.4,
       "page": "https://rightwaygroup.co/knowledge/specific-business-tax-five-year-exemption-clock"
     },
     {
       "clicks": 0,
-      "impressions": 3,
+      "impressions": 4,
       "ctr": 0.0,
-      "position": 7.3,
+      "position": 6.5,
       "page": "https://rightwaygroup.co/knowledge/thailand-will-registration-rules-2026"
-    },
-    {
-      "clicks": 0,
-      "impressions": 15,
-      "ctr": 0.0,
-      "position": 4.6,
-      "page": "https://rightwaygroup.co/knowledge/transfer-fee-discount-thai-nationals-only-2026-2027"
-    },
-    {
-      "clicks": 0,
-      "impressions": 14,
-      "ctr": 0.0,
-      "position": 3.3,
-      "page": "https://rightwaygroup.co/knowledge/untitled-sea-view-land-pbt5-sor-por-kor-scam"
-    },
-    {
-      "clicks": 0,
-      "impressions": 6,
-      "ctr": 0.0,
-      "position": 35.8,
-      "page": "https://rightwaygroup.co/knowledge/vat-vs-specific-business-tax-developer-sales"
-    },
-    {
-      "clicks": 0,
-      "impressions": 10,
-      "ctr": 0.0,
-      "position": 18.5,
-      "page": "https://rightwaygroup.co/knowledge/vetting-villa-property-management-company"
     },
     {
       "clicks": 0,
       "impressions": 17,
       "ctr": 0.0,
-      "position": 5.6,
-      "page": "https://rightwaygroup.co/knowledge/villa-held-by-thai-company-buyer-due-diligence-2026"
-    },
-    {
-      "clicks": 0,
-      "impressions": 7,
-      "ctr": 0.0,
-      "position": 17.0,
-      "page": "https://rightwaygroup.co/knowledge/visa-residency-property-owner-koh-phangan"
+      "position": 4.8,
+      "page": "https://rightwaygroup.co/knowledge/transfer-fee-discount-thai-nationals-only-2026-2027"
     }
   ]
 }
