@@ -36,6 +36,8 @@ export type Subscription = {
 /** Текущие подписки/сервисы (OpEx). Источник — OpEx tracker §2/§3. */
 export const subscriptions: Subscription[] = [
   { item: "Claude Code (ИИ-ассистент)", provider: "Anthropic", plan: "Max 20x", priceOrig: 200, currency: "USD", period: "month", payment: "личная карта", status: "active" },
+  { item: "Генерация медиа (фото/видео)", provider: "Higgsfield", plan: "PLUS monthly", priceOrig: 49, currency: "USD", period: "month", payment: "личная карта", status: "active", note: "с 14.09.2026" },
+  { item: "ИИ-ассистент (чат)", provider: "OpenAI", plan: "ChatGPT Plus", priceOrig: 20, currency: "USD", period: "month", payment: "личная карта", status: "active", note: "с 14.09.2026" },
   { item: "CRM", provider: "amoCRM", plan: "Расширенный, 1 польз.", priceOrig: 11988, currency: "RUB", period: "year", payment: "личная карта", status: "paid", note: "оплачено до 09.01.2027" },
   { item: "Домен rightwaygroup.co", provider: "GoDaddy", plan: "renewal", priceOrig: 30, currency: "USD", period: "year", payment: "личная карта", status: "active" },
   { item: "Хостинг сайта", provider: "Vercel", plan: "Hobby", priceOrig: 0, currency: "USD", period: "none", payment: "—", status: "free" },
