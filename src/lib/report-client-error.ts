@@ -18,10 +18,14 @@ export function reportClientError(err: unknown, source: ClientErrorSource): void
   const message = (e.message || "").trim().slice(0, 500);
   // «Script error.» — кросс-доменный скрипт без деталей, разбирать нечего.
   if (!message || message === "Script error.") return;
+  const stack = (e.stack || "").slice(0, 2000);
+  // Расширения браузера (MetaMask и прочие кошельки) роняют свои ошибки в наше
+  // окно — код сайта к ним отношения не имеет, а алерт выглядит как поломка.
+  if (/-extension:\/\//.test(stack)) return;
   sent += 1;
   const body = JSON.stringify({
     message,
-    stack: (e.stack || "").slice(0, 2000),
+    stack,
     url: window.location.href,
     source,
     digest: (e as { digest?: string }).digest,
