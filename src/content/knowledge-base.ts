@@ -10696,6 +10696,120 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "structures",
     faqQuestion: "Is the 2025 eco-zoning the only zoning law that decides what I can build on a Koh Phangan plot?",
   },
+  {
+    slug: "repatriating-sale-proceeds-exchange-control-act",
+    kbId: "kb-0175",
+    topic: "Costs",
+    title: "Repatriating your Thai property sale proceeds: what the bank needs for the profit, not just the principal",
+    short:
+      "Wiring a Thai property sale abroad doesn't need Bank of Thailand approval, but your bank won't move a baht without a specific paperwork bundle. Your original FET form only proves the principal — the profit above it needs a different kind of proof.",
+    updated: "2026-09-15",
+    body: [
+      "Can you freely send the proceeds of a Phangan villa sale abroad? Yes — Thailand puts no cap on repatriating a legitimate, foreign-funded property investment, and no case-by-case Bank of Thailand approval is required. But \"no restriction\" doesn't mean \"no paperwork\": the bank will not release an outward wire without a specific bundle of documents, and the further your sale price sits above your original purchase price, the more that bundle matters.",
+      { h: "Two different things your FET form does — and doesn't — prove" },
+      "The Foreign Exchange Transaction (FET) form you obtained when you originally bought — covered in [Bringing money into Thailand correctly](/knowledge/bringing-money-into-thailand-fet-form) — proves one specific fact: that a defined amount of foreign currency entered Thailand and was converted to baht for your purchase. It proves the *principal*. It says nothing about a higher sale price years later. If you paid ฿10 million for a villa in 2021 and sell for ฿15 million in 2026, the FET only supports repatriating the first ฿10 million as return of foreign capital — the ฿5 million gain needs its own evidence trail.",
+      { h: "What the bank actually asks for" },
+      {
+        ul: [
+          "**The original inbound FET certificate** (or credit-note/bank letter for sub-USD 50,000 purchases) — proves the investment itself was foreign-sourced.",
+          "**The Land Office transfer documents** — the registered sale record and the [Land Department's collection receipts](/knowledge/cost-of-buying-taxes-and-fees) for withholding tax, specific business tax or stamp duty, and the transfer fee. These state the actual sale price and stand in as evidence for the gain above the FET-covered principal.",
+          "**Your outbound FET request** — for any single outward transfer of USD 50,000 or more, the sending bank issues a new (outbound) FET on request, the mirror image of the one you received on the way in.",
+          "**Standard bank compliance questions** — under the same anti-money-laundering duties covered in [AML checks on real estate agents](/knowledge/amlo-anti-money-laundering-checks-real-estate-agents), the bank's own compliance desk can ask for a simple cover letter or sale summary tying the wire to the Land Office paperwork, especially for larger amounts.",
+        ],
+      },
+      { h: "No Bank of Thailand approval — but no shortcuts either" },
+      "Thailand's exchange-control regime, run under the Exchange Control Act B.E. 2485, doesn't require a foreign seller to get individual Bank of Thailand sign-off to move genuine investment proceeds out of the country — this isn't like the capital controls some neighbouring countries use. The gatekeeping happens at the commercial bank counter, not a government office: banks apply their own compliance checks against BOT reporting rules, and a wire without the right documents simply won't go through, regardless of legality. In practice this means the process is administrative, not discretionary — but it can stall for weeks if a document is missing or a name doesn't match across the FET, the title deed and your passport.",
+      { h: "The Tax Clearance Certificate is a separate, narrower requirement" },
+      "Don't confuse this documentation bundle with a Tax Clearance Certificate (ใบผ่านภาษี, Form P.3). The Revenue Department only requires one from a foreigner who owes outstanding Thai tax, or in a limited set of departure scenarios, before leaving the country for good — it is not a blanket requirement for every outward property-sale wire. Most sellers who have kept current on their [annual land and building tax](/knowledge/owners-taxes-annual-land-and-income) and had withholding tax deducted at the Land Office on registration day never need to apply for one specifically to repatriate a sale.",
+      { h: "A January 2026 rule change that sounds relevant but isn't" },
+      "In January 2026 the Ministry of Finance and Bank of Thailand raised the exemption threshold under Thailand's *repatriation requirement* from USD 1 million to USD 10 million, in two stages (20 January for export proceeds, 27 January for other foreign-sourced funds). This is genuine, recent easing of Thai exchange controls — but it runs in the opposite direction from what a foreign property seller needs. The repatriation requirement obliges *Thai residents* to bring foreign currency they earn *abroad* back into Thailand; the new threshold just means smaller amounts held offshore no longer have to come home. It has no bearing on a foreign seller wiring Thai sale proceeds *out* of Thailand, and doesn't change any of the documentation above. Treat any claim that it \"eases property-sale repatriation\" with caution.",
+      "The practical takeaway is to keep the paper trail intact from day one, not to reconstruct it under time pressure at exit. Keep the original FET, every Land Office receipt from both the purchase and the eventual sale, and match the name on all of them to your passport exactly. For the sale-side tax mechanics that produce those receipts, see [Withholding tax on a property sale](/knowledge/withholding-tax-property-sale-individual-vs-company) and [Selling your leasehold villa](/knowledge/selling-leasehold-villa-exit-liquidity).",
+    ],
+    takeaways: [
+      "A legitimate outbound transfer of Thai property sale proceeds needs no case-by-case Bank of Thailand approval — but your bank will still require a full documentation bundle before it wires.",
+      "Your original FET form proves only the principal; the gain above your purchase price is backed by the Land Office's sale, withholding-tax and SBT/stamp-duty receipts instead.",
+      "Outward transfers of USD 50,000 or more require a new outbound FET issued by the sending bank — separate from the inbound one you received at purchase.",
+      "A Tax Clearance Certificate (Form P.3) is a narrower Revenue Department requirement for outstanding tax or departure scenarios — not a blanket requirement for every property-sale wire.",
+      "The Bank of Thailand's January 2026 threshold change eased the rule requiring Thai residents to bring foreign-held money home — it doesn't apply to a foreign seller sending Thai sale proceeds abroad.",
+    ],
+    sources: [
+      {
+        title: "Baker McKenzie — Thailand: Repatriation Exemption for Foreign-Sourced Funds",
+        url: "https://www.bakermckenzie.com/en/insight/publications/2026/02/thailand-repatriation-exemption-for-foreign-sourced-funds",
+      },
+      {
+        title: "Acclime — Profit Repatriation: Transferring Money Out of Thailand",
+        url: "https://thailand.acclime.com/guides/profit-repatriation/",
+      },
+      {
+        title: "Silk Legal — Repatriating Profits from Thailand in 2025",
+        url: "https://silklegal.com/repatriating-profits-from-thailand-in-2025/",
+      },
+      {
+        title: "Thai Revenue Department — Tax Clearance Certificate",
+        url: "https://www.rd.go.th/english/23518.html",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "How do I transfer my Thai property sale proceeds, including the profit, out of the country?",
+  },
+  {
+    slug: "electronic-signatures-property-contracts-thailand",
+    kbId: "kb-0176",
+    topic: "Documents",
+    title: "Can you sign a Koh Phangan property contract electronically? What the Electronic Transactions Act does and doesn't cover",
+    short:
+      "Thailand's Electronic Transactions Act makes e-signatures generally valid — but a Royal Decree specifically carves out the sale, mortgage and long lease of immovable property. Here's what that means for a buyer signing from abroad.",
+    updated: "2026-09-15",
+    body: [
+      "Can a buyer overseas sign their way through a Koh Phangan purchase electronically without ever mailing an original? Partly. Thailand's Electronic Transactions Act (ETA) B.E. 2544 (2001) gives electronic signatures and records the same general legal standing as paper and ink — but a specific carve-out for immovable property means the registered core of a real estate deal still can't be completed that way, no matter how the surrounding paperwork is signed.",
+      { h: "What the ETA generally allows" },
+      "The ETA makes an electronic signature legally valid provided the method used reliably identifies the signer and reflects their intent to approve the content — the same evidentiary bar Thai courts apply to paper signatures. Since 2001, this has covered ordinary contracts, correspondence and a wide range of commercial documents, and it's why e-signature services are routinely used for Thai business generally.",
+      { h: "The carve-out for immovable property" },
+      "A Royal Decree Prescribing Civil and Commercial Transactions Exempted from the Law on Electronic Transactions, B.E. 2549 (2006), lists specific categories of transaction the ETA doesn't reach — among them the **sale of immovable property, mortgages of immovable property, and leases of immovable property of three years or more**. These remain governed entirely by the Civil and Commercial Code's own formalities: a written instrument, and — for a sale, mortgage or long lease to take legal effect — registration in person at the Land Office. There is no internal Land Department regulation that permits electronic registration, so this isn't a temporary gap: it's the current, settled rule.",
+      { h: "What that means in practice" },
+      {
+        ul: [
+          "**Registering the sale, a mortgage, or a lease of 3+ years — never electronic.** This step happens at the Land Office counter with a wet-ink signature, in person or via a properly [legalised power of attorney](/knowledge/apostille-convention-power-of-attorney-thailand-2027) if you can't attend yourself.",
+          "**The private sale and purchase agreement (SPA) — technically arguable, but treat as wet-ink.** A preliminary SPA signed before registration is a separate instrument from the registered sale itself, and the ETA's general validity arguably reaches it. In practice, Thai legal practitioners routinely advise against relying on an e-signed SPA for a property deal, given how closely courts and Land Officers tie it to the underlying registrable transaction — see [Sale and purchase agreements and earnest money](/knowledge/sale-purchase-agreement-earnest-money-ccc-thailand) for what the SPA needs to hold up regardless of signature method.",
+          "**Reservation agreements and earnest-money receipts — lower risk.** These document a deposit rather than complete a sale, and are commonly handled electronically in practice, though a wet-ink signature remains the safer default for anything with money attached.",
+          "**Leases under three years — clearly fine electronically.** Short residential or rental agreements sit outside the Royal Decree's carve-out entirely.",
+        ],
+      },
+      { h: "A redraft is coming, but it doesn't touch this rule (yet)" },
+      "Thailand's Electronic Transactions Development Agency (ETDA) ran a public hearing from 12 May to 15 June 2026 on a comprehensive overhaul of the ETA — biometric e-signatures, e-timestamps, digital seals and a unified framework across government and private transactions. It's a genuine modernisation effort, but nothing in the draft or the surrounding law-firm commentary suggests it touches the Royal Decree's immovable-property exemption specifically. Until a specific change is enacted, assume the current registration-in-person rule holds.",
+      "For a buyer abroad, the practical shape of a deal stays the same regardless of this Act: sign preliminary paperwork however is convenient, but plan for the registration step itself — wet ink, in person or by power of attorney, at the Land Office. See [Land Office registration day](/knowledge/land-office-registration-day) for what that day actually involves.",
+    ],
+    takeaways: [
+      "Thailand's Electronic Transactions Act generally makes e-signatures valid — but a 2006 Royal Decree excludes the sale, mortgage and 3+ year lease of immovable property.",
+      "The registered core of any property deal — sale, mortgage, long lease — still requires a wet-ink signature and in-person (or power-of-attorney) registration at the Land Office.",
+      "A preliminary sale and purchase agreement sits in a legal grey zone; Thai lawyers generally advise wet-ink signatures for it despite the ETA's general validity.",
+      "Reservation agreements and short leases under three years are the clearest cases where e-signing is genuinely low-risk.",
+      "A 2026 draft overhaul of the ETA is in public consultation, but doesn't appear to touch the immovable-property exemption.",
+    ],
+    sources: [
+      {
+        title: "Thanathip & Partners — Electronic Signature",
+        url: "https://www.thanathippartners.com/insights/publications/electronic-signature-z2.html",
+      },
+      {
+        title: "FRANK Legal & Tax / Lexology — Is It Secure to Use E-Signatures for Commercial Transactions in Thailand?",
+        url: "https://www.lexology.com/library/detail.aspx?g=3cccfd87-5c18-4bff-89cb-1090a39ae505",
+      },
+      {
+        title: "Docusign — Electronic Signature Legality Summary: Thailand",
+        url: "https://www.docusign.com/products/electronic-signature/legality/thailand",
+      },
+      {
+        title: "Tilleke & Gibbins — Thailand Set to Overhaul Its E-Transactions Framework",
+        url: "https://www.tilleke.com/insights/thailand-set-to-overhaul-its-e-transactions-framework/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion: "Can I sign my Koh Phangan property purchase contract electronically from abroad?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

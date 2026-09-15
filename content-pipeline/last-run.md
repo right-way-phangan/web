@@ -1,33 +1,35 @@
-# Last run — 2026-09-14 (second run, same day)
+# Last run — 2026-09-15
 
-Today's first run already published kb-0171/kb-0172 (see git history / backlog for that pass). This second invocation published 2 more guides (EN + RU each), found via a fresh two-agent research pass since every standing ⏳ backlog row remains duplicate/thin/unsafe as of today.
+Published 2 guides (EN + RU each). One was a long-standing, previously-verified ⏳ backlog candidate (held back on 2026-09-12 in favour of the timeshare topic); the other was a fresh find from an evergreen-gap-mining pass, since a parallel fresh-news sweep turned up nothing new.
 
-## 1. kb-0173 — `land-code-section-58-title-adjudication-sor-kor-1`
-- **Title:** How a Thai title deed is actually created: Land Code Section 58 adjudication, and why Sor Kor 1 land is stuck
+## 1. kb-0175 — `repatriating-sale-proceeds-exchange-control-act`
+- **Title:** Repatriating your Thai property sale proceeds: what the bank needs for the profit, not just the principal
+- **faqCategory:** costs
+- **Sources:**
+  - Baker McKenzie — "Thailand: Repatriation Exemption for Foreign-Sourced Funds" (Feb 2026 insight) — direct fetch; confirmed the two-stage January 2026 threshold change (20 Jan, export proceeds; 27 Jan, all other foreign-sourced funds; USD 1M → USD 10M).
+  - Acclime — "Profit Repatriation: Transferring Money Out of Thailand" — search-verified on the documentation bundle and lack of case-by-case BOT approval for legitimate outbound transfers.
+  - Silk Legal — "Repatriating Profits from Thailand in 2025" — cross-check on the same mechanics.
+  - Thai Revenue Department — official Tax Clearance Certificate page (rd.go.th/english/23518.html) — direct fetch, primary source, confirmed the Form P.3 scope (outstanding tax/departure scenarios only, not a blanket requirement).
+
+**Why it's distinct / framing note:** The backlog row framed the Jan 2026 BOT threshold change as relevant to a seller repatriating sale proceeds. On verification this doesn't hold up as originally framed — that change eases the *inbound* repatriation requirement for Thai residents' foreign-held funds, the opposite direction from a foreign seller's *outbound* transfer. Rather than dropping the topic, the guide corrects this explicitly (a dedicated section explains why the news hook doesn't apply) and instead earns its place through the genuinely distinct principal-vs-profit documentation angle: the existing `bringing-money-into-thailand-fet-form` (kb-0019) covers inbound purchase funds and only briefly touches outbound repatriation in its closing section; this guide is the first to explain that the original FET only backs the *principal*, and that the gain above it is evidenced by the Land Office's own sale/withholding-tax/SBT receipts instead — plus the separate, narrower Tax Clearance Certificate question. Confirmed distinct by reading kb-0019 in full.
+
+## 2. kb-0176 — `electronic-signatures-property-contracts-thailand`
+- **Title:** Can you sign a Koh Phangan property contract electronically? What the Electronic Transactions Act does and doesn't cover
 - **faqCategory:** documents
 - **Sources:**
-  - Thailand Law Online — full translation of the Land Code Act (Sections 58, 58 bis, 59) — direct fetch.
-  - Thailand Law Forum — Act Promulgating the Land Code B.E. 2497 (1954), translated text — cross-check via WebSearch quote (50-rai cap, 10-year transfer/execution ban confirmed consistent with the first source).
-  - Thailand Property Lawyer — Sor Kor 1 (Sor Kor Nung) explainer, citing Bangkok Post's reporting of the ~2010 administrative-upgrade deadline (direct fetch).
+  - Thanathip & Partners — "Electronic Signature" — direct fetch; confirmed the Royal Decree B.E. 2549 exemption text covers "sale of immovable property... mortgage, lease of immovable property for three years or more."
+  - FRANK Legal & Tax / Lexology — "Is It Secure to Use E-Signatures for Commercial Transactions in Thailand?" — cross-check.
+  - Docusign — Thailand legality summary — direct fetch; the clearest single source, stating outright that Land Office registration can't be done electronically (no enabling internal regulation) and that Thai legal professionals advise wet-ink signatures for property sale agreements specifically, despite the ETA's general validity.
+  - Tilleke & Gibbins — "Thailand Set to Overhaul Its E-Transactions Framework" — direct fetch; confirmed the ETDA's 12 May–15 June 2026 public hearing dates on a full ETA redraft, and that neither the draft nor law-firm commentary on it touches the immovable-property exemption.
 
-## 2. kb-0174 — `town-planning-act-comprehensive-plan-koh-phangan`
-- **Title:** Koh Phangan's other zoning layer: the Town Planning Act comprehensive plan behind the 2025 eco-zone rules
-- **faqCategory:** structures
-- **Sources:**
-  - Surat Thani Provincial Government — Koh Phangan comprehensive-plan amendment record (Provincial Town Planning Committee, 2 March 2023) — direct fetch, primary/official source.
-  - Association of Siamese Architects (ASA) — list of localities (including Koh Phangan) operating under a temporary construction ordinance pending a replacement comprehensive plan — direct fetch.
-  - Association of Siamese Architects (ASA) — summary of the Town Planning Act B.E. 2562 (2019)'s change from a fixed 5-year plan validity to indefinite validity with periodic review — direct fetch.
+**Why it's distinct:** Confirmed via full-text check across the catalog that no existing guide mentions e-signatures, electronic transactions, or DocuSign. Closest guides are `sale-purchase-agreement-earnest-money-ccc-thailand` (CCC enforceability of the SPA and earnest money — never addresses signature method) and `apostille-convention-power-of-attorney-thailand-2027` (document legalisation for a POA — a different formality problem). Read both in full to confirm no overlap.
+
+**Flagged uncertainty:** Could not obtain the Royal Decree's primary text directly (two WebFetch attempts on secondary sources both quoted the same exemption clause but neither clarified whether it reaches the *preliminary* private SPA, as opposed to only the registered sale itself). Resolved conservatively: rather than asserting a bright-line answer the primary text doesn't clearly support, the guide follows the converging practical advice from multiple independent sources (wet-ink for the SPA regardless) and only calls e-signing genuinely low-risk for reservation/earnest-money receipts and leases under three years, which sit unambiguously outside the Royal Decree's carve-out.
 
 ## Process notes
 
-Two research agents ran in parallel first:
-1. **Fresh-news sweep** (2026-09-10/14 window) found nothing genuinely new — independently re-confirmed the four standing watch items unchanged (PWA Notice 7/2569 still the only Koh Phangan-specific water notice, no successor; FBA/AMLA predicate-offence still Ombudsman/AMLO review only; coalition "review foreign ownership" pledge still marketing-site-only; 99-year leasehold bill/condo-quota reform both still cabinet-study-only) and traced every other lead (nominee-enforcement stats refreshes, the Laem Son Beach recap, a Thai Examiner recap piece) to the already-excluded enforcement-statistics cluster or already-published guides (thailand-visa-exemption-cut-30-days-dtv-tightening-2026, thailand-99-year-leasehold-bill-status ruling).
-2. **Evergreen gap-mining** over the full 172-slug catalog revisited "Sor Kor 1 adjudication" — flagged and rejected earlier today (first run) as "already threaded through existing guides." A closer read of `land-titles-chanote-vs-nor-sor-3` showed it gives Sor Kor 1 only one summary sentence, with no explanation of the Land Code's actual title-creation mechanism (Sections 58/58 bis/59) or of how a Sor Kor 1 claim can still be upgraded today — a genuinely distinct, deeper angle, so it was re-verified from scratch and published rather than deferred again. A second candidate — Koh Phangan's Town Planning Act comprehensive plan, a separate zoning layer from the already-published 2025 eco-zone notification (`koh-phangan-building-zones`) — was also surfaced, verified, and published.
+A research agent ran a fresh-news sweep (2026-09-10/15 window) in parallel with the author's own targeted research. The sweep re-confirmed all four standing watch items unchanged (PWA Notice 7/2569 still the only Koh Phangan-specific water notice, no successor; FBA/AMLA predicate-offence still Ombudsman/AMLO review only; coalition "review foreign ownership" pledge still marketing-site-only; 99-year leasehold bill/condo-quota reform both still cabinet-study-only) and found nothing newly dated beyond items already published. The agent's own evergreen-gap-mining pass (grepping all 174 pre-existing slugs) surfaced the e-signature topic as genuinely uncovered.
 
-Both guides were independently verified by the author via direct source fetches (not reused verbatim from the research agent's summary) before writing. The town-planning guide is framed conservatively: primary/official and professional-body sourcing confirms the 2015 comprehensive plan exists, was actively amended as recently as March 2023, and that comprehensive plans nationwide (Koh Phangan included, per ASA's own list) can lapse and run on a temporary ordinance — but Koh Phangan's *exact current* plan status (in force vs. lapsed vs. running on an interim ordinance right now) could not be confirmed from available English/Thai sources, so the guide recommends buyers verify directly with the Provincial Town Planning Office rather than asserting a status either way.
+`content-pipeline/backlog.md` updated: the pre-existing repatriation row marked ✅ with a publish note; a discovery note logged inline (top of section A, the most-recent-first convention this file uses) documenting both topics, their sourcing, and why no new row was added for the e-signature topic (it wasn't a pre-existing ⏳ backlog item, consistent with how this file has handled fresh evergreen finds before).
 
-Confirmed distinct from the closest existing guides by reading them in full: `land-titles-chanote-vs-nor-sor-3`, `untitled-sea-view-land-pbt5-sor-por-kor-scam`, `due-diligence-checklist-koh-phangan`, `land-office-registration-day` (for kb-0173 — none explain the Section 58 adjudication mechanism or the Sor Kor 1 court-upgrade route in any depth); `koh-phangan-building-zones`, `hillside-slope-building-limits-koh-phangan`, `coastal-setback-rules-koh-phangan-distance-from-beach` (for kb-0174 — all three cover only the 2025 environmental eco-zoning, never the separate Town Planning Act comprehensive-plan layer).
-
-`content-pipeline/backlog.md` updated: a discovery note logged inline (end of section A) documenting this second run's research and the two published topics, plus two new rows marked ✅.
-
-TypeScript typecheck (`npx tsc --noEmit -p .`) run clean against both content files. Verified no duplicate slugs/kbIds and full EN/RU slug parity (173 matching entries each) before finishing.
+TypeScript typecheck (`npx tsc --noEmit -p .`) run clean against both content files. Verified no duplicate slugs/kbIds and full EN/RU slug parity (175 matching entries each) before finishing. Verified every internal `/knowledge/<slug>` cross-link added in both new guides resolves to a real, existing slug.
