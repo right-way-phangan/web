@@ -10810,6 +10810,130 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "documents",
     faqQuestion: "Can I sign my Koh Phangan property purchase contract electronically from abroad?",
   },
+  {
+    slug: "pdpa-personal-data-protection-villa-rental-thailand",
+    kbId: "kb-0177",
+    topic: "Process",
+    title: "Villa rental guest data and Thailand's PDPA: what a Koh Phangan owner must do beyond TM30",
+    short:
+      "Filing a TM30 for a guest covers only the immigration report itself — collecting passport copies, ID scans, payment details or CCTV footage from paying guests makes you a data controller under Thailand's Personal Data Protection Act, with its own consent, notice and breach-reporting duties. Enforcement has moved from theory to real fines since 2024.",
+    updated: "2026-09-16",
+    body: [
+      "Does filing a TM30 for a guest cover your data-protection obligations as a villa owner? No — TM30 is a separate immigration duty. The moment you're collecting passport copies, ID scans, payment details or CCTV footage from paying guests, you're a **data controller** under Thailand's Personal Data Protection Act (PDPA) B.E. 2562 (2019), which has been fully in force since June 2022 — and the Personal Data Protection Committee (PDPC) has been issuing real administrative fines since 2024, not just guidance.",
+      { h: "Why the household exemption doesn't save you" },
+      "Section 4 of the PDPA exempts data processing carried out purely \"for personal benefit or household activity,\" with no commercial connection. That exemption is narrowly construed and falls away the moment guest data is collected in the course of a paid rental — a villa, room or condo let via Airbnb, a booking platform or a direct reservation. An owner renting to paying guests is a data controller like any other business, regardless of how small the operation is.",
+      { h: "What actually needs to happen" },
+      {
+        ul: [
+          "**Have a lawful basis for every use of guest data.** TM30 reporting to Immigration is covered by the 'legal obligation' basis and needs no separate consent for that specific report. Using the same passport copy for anything else — a marketing list, sharing with a booking platform beyond what the booking itself requires, indefinite CCTV retention — needs its own basis, usually consent or the 'necessary to perform a contract' basis that covers ordinary booking administration.",
+          "**Tell guests what you're doing with their data.** A short privacy notice — purpose, retention period, who it's shared with — covers most of the PDPA's core transparency requirement. It doesn't need to be a legal document, just clear, and given before or at the point of data collection.",
+          "**A passport copy or ID scan is ordinary personal data, not automatically 'sensitive.'** Sensitive data under Section 26 is a specific list — health, biometric data, criminal record, religion, ethnicity and similar categories, each needing separate explicit consent. An ordinary passport photo page doesn't qualify on its own. It crosses into the sensitive-data tier only if you're extracting a biometric identifier from it — a facial-recognition check-in kiosk or a fingerprint-linked door lock, for example.",
+          "**CCTV needs its own notice and a narrower footprint.** Cameras covering common areas and entrances are standard practice with a visible sign; cameras inside bedrooms or bathrooms are not defensible under any lawful basis.",
+          "**A Data Protection Officer is very unlikely to be required for a single villa or small rental operation.** The DPO trigger needs large-scale processing — the PDPC's own guidance points to roughly 100,000+ data subjects — or regular, systematic monitoring as a core business activity, both well beyond a handful of bookings a month.",
+          "**Report a real breach within 72 hours.** If guest data is exposed — a hacked booking system, a lost laptop with passport scans on it — the notification clock to the PDPC runs from when you become aware of the breach, not from when it happened.",
+        ],
+      },
+      { h: "The fine exposure is real, not theoretical" },
+      "The PDPC's administrative fines run in three broad tiers depending on the violation: roughly up to ฿1 million for failures like not appointing a required DPO or not informing data subjects of processing purposes; up to ฿3 million for using data outside its stated purpose or processing without a valid lawful basis; and up to ฿5 million for mishandling sensitive data or an unsafe cross-border transfer. This isn't hypothetical — in November 2024 the PDPC issued its first major administrative fine, ฿7 million against a company that had failed to appoint a DPO, lacked adequate security around a data breach linked to a call-centre scam, and missed the breach-notification deadline. Criminal penalties exist on top of this — up to a year's imprisonment or a ฿1 million fine (or both) for unlawfully disclosing sensitive data for unlawful gain.",
+      { h: "Where this fits alongside your other rental duties" },
+      "This is a distinct compliance layer from the immigration reporting duty itself, covered in [TM30 foreign guest notification](/knowledge/tm30-foreign-guest-notification-koh-phangan), from the licensing question covered in [Airbnb and short-term rentals in Thailand's 2026 crackdown](/knowledge/short-term-rental-airbnb-crackdown-2026), and from [Renting out your villa: rules and taxes](/knowledge/renting-out-your-villa-rules-and-taxes). If you use a [property management company](/knowledge/vetting-villa-property-management-company) to handle bookings and guest onboarding, get written clarity on who is the data controller for guest data — you, the manager, or both jointly — since PDPA liability follows the controller relationship, not simply who physically holds the passport copies.",
+      "The bar for a small operation isn't complicated: a short privacy notice, a lawful basis for anything beyond the strict TM30 report, sensible CCTV placement, and secure, time-limited storage of passport copies covers most of the practical risk — but treat it as a real compliance duty, not paperwork theatre, given how active PDPC enforcement has become since 2024.",
+    ],
+    takeaways: [
+      "Thailand's PDPA applies to any villa or room rental collecting guest data for payment — the Section 4 household exemption doesn't cover a commercial rental, however small.",
+      "TM30 reporting to Immigration is covered by its own 'legal obligation' lawful basis; it does not cover other uses of the same guest data (CCTV, marketing, platform sharing), which need their own basis.",
+      "An ordinary passport copy is not 'sensitive personal data' under the PDPA — biometric identifiers (facial recognition, fingerprint) are, and need separate explicit consent.",
+      "Administrative fines run up to roughly ฿1m/฿3m/฿5m depending on violation type; the PDPC's first landmark case levied ฿7 million in November 2024 for a combination of failures.",
+      "A Data Protection Officer is very unlikely to be required for a single villa or small rental operation — the threshold is large-scale processing (roughly 100,000+ subjects) or systematic core-activity monitoring.",
+    ],
+    sources: [
+      {
+        title: "Tilleke & Gibbins — Landmark Fine Imposed under Thailand's Personal Data Protection Act",
+        url: "https://www.tilleke.com/insights/landmark-fine-imposed-under-thailands-personal-data-protection-act/",
+      },
+      {
+        title: "Tilleke & Gibbins — Thailand: Operationalising PDPA (Lawful Basis, Sensitive Personal Data, Data Processing Safeguards)",
+        url: "https://www.tilleke.com/insights/thailand-operationalising-pdpa-lawful-basis-sensitive-personal-data-and-data-processing-safeguards/",
+      },
+      {
+        title: "CMS Law — Thailand Provides Clarity on When a DPO Must Be Appointed",
+        url: "https://cms.law/en/int/legal-updates/thailand-provides-clarity-on-when-a-dpo-must-be-appointed",
+      },
+      {
+        title: "Securiti — Thailand Personal Data Protection Act (PDPA): Ultimate Guide",
+        url: "https://securiti.ai/thailand-personal-data-protection-act-pdpa/",
+      },
+      {
+        title: "belaws — What Are the Penalties for Breaching the PDPA?",
+        url: "https://belaws.com/thailand/penalties-for-breaching-the-pdpa/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "Does filing a TM30 for my guests cover my data protection obligations as a villa owner in Thailand?",
+  },
+  {
+    slug: "guest-injury-liability-public-liability-insurance-thailand",
+    kbId: "kb-0178",
+    topic: "Costs",
+    title: "If a guest is hurt at your Koh Phangan villa: Civil Code possessor liability, and why \"home insurance\" often doesn't cover it",
+    short:
+      "A guest injured by a loose railing, a falling roof tile or a badly maintained pool deck isn't just bad luck — Civil and Commercial Code Sections 434-436 put the liability on the villa's possessor, close to automatically. Most standard Thai fire/home policies don't include public liability at all; it has to be bought separately.",
+    updated: "2026-09-16",
+    body: [
+      "Who's legally responsible if a paying guest slips on a wet pool deck, a balcony railing gives way, or a roof tile falls and injures someone below? Under the Civil and Commercial Code, the answer usually isn't \"nobody's fault, bad luck\" — it's the possessor of the building, and the exposure is uncapped unless it's insured separately from the standard fire or home policy most owners already carry.",
+      { h: "The relevant Civil and Commercial Code sections" },
+      {
+        ul: [
+          "**Section 434 — defective construction or insufficient maintenance.** If damage is caused by a building or structure's defective construction or insufficient maintenance, the **possessor** is liable to compensate — not necessarily the registered owner. If the possessor can show they exercised proper care, liability shifts to the owner instead. For a lease- or company-held villa, this means the person actually in possession and control day-to-day (the resident, the operator, the management company) carries the front-line exposure, not necessarily whoever holds the chanote.",
+          "**Section 435 — the right to demand a fix before anyone is hurt.** Anyone threatened with injury from a neighbouring building can legally require the possessor to take the necessary measures to avert the danger — relevant if a guest, neighbour or passer-by flags a hazard (a loose railing, exposed wiring) before an accident happens.",
+          "**Section 436 — falling or thrown objects.** An occupier is responsible for damage from anything that falls from the building or is thrown into an improper place — a loose roof tile, an unsecured awning, debris from renovation work.",
+          "**Section 437 — a separate, stricter track for genuinely dangerous things.** Possession of a mechanically dangerous item (by nature or by how it's used) carries near strict liability, defeated only by proving force majeure or the injured person's own fault. Whether a specific hazard on a rental property — pool machinery, a generator, gas equipment — would qualify hasn't been clearly tested in reported case law; treat borderline equipment conservatively rather than assuming Section 434's lighter 'proper care' defence applies.",
+          "**None of this requires proving the owner personally did something wrong.** Sections 434 and 436 don't require the claimant to prove negligence the way a general Section 420 tort claim does — the possessor's liability is close to strict, subject only to the Section 434 'proper care' defence.",
+        ],
+      },
+      { h: "Why a standard home or fire policy usually doesn't cover this" },
+      "Standard Thai residential fire policies, and even the broader 'home insurance' add-on packages described in [Insuring a villa on Koh Phangan](/knowledge/insuring-a-villa-koh-phangan-flood-storm-coverage), are built around first-party cover — compensating you for damage to your own building and contents. Public liability — covering a claim against you for a third party's bodily injury or property damage — is a separate line that has to be added or bought as its own policy. It is not automatically bundled in, and residential products sold through banks or developers at the point of purchase typically don't include it at all.",
+      { h: "What a dedicated policy actually looks like" },
+      {
+        ul: [
+          "**Public liability insurance is sold as a distinct product** by insurers active in Thailand — MSIG's Public Liability product is one example — covering third-party bodily injury and property damage claims plus legal defence costs, but excluding injury to the insured or their own staff, and damage to the insured's own property.",
+          "**Recommended cover levels for a villa marketed to international guests run from roughly ฿10 million upward**, with ฿20 million or more suggested for larger properties or added hazards like a pool, cliff-edge position or roof terrace, per property-insurance brokers active in the Samui/Phangan market.",
+          "**A realistic combined annual premium** — building, contents and public liability together for a mid-size villa — runs roughly ฿35,000–60,000/year, rising to roughly ฿55,000–90,000/year if business-interruption cover is added on top.",
+          "**Short-term rental use itself is a separate insurance trap** — as already covered in the villa insurance guide, letting a property on Airbnb-style terms without disclosing it to the insurer commonly voids a standard residential policy altogether, public liability included.",
+        ],
+      },
+      "If your villa hosts paying guests — even occasionally — ask your broker in writing whether the policy includes public liability, at what limit, and whether it's void or restricted for short-term rental use; a villa's rebuild cost is finite, but a serious guest-injury claim run through Sections 434–436 is not. Cross-check against the safe-maintenance basics in [Building a villa on the island](/knowledge/building-a-villa-koh-phangan) and the operational side in [Vetting a villa property management company](/knowledge/vetting-villa-property-management-company), since a management contract is also where responsibility for day-to-day hazard checks — the Section 435 'avert the danger' duty — should be assigned in writing.",
+    ],
+    takeaways: [
+      "CCC Section 434 makes the possessor of a building — not necessarily the registered title-holder — liable for injury caused by defective construction or insufficient maintenance, unless they can show proper care.",
+      "Section 436 makes an occupier liable for objects that fall from the building; Section 435 lets a threatened third party demand a hazard be fixed before anyone is hurt.",
+      "None of these sections require the claimant to prove negligence the way an ordinary tort claim does — liability is close to automatic once the defect and the damage are shown.",
+      "Standard Thai fire/home insurance policies do not include public liability by default — it's a separate product, with combined premiums (building + contents + liability) typically running roughly ฿35,000–90,000/year for a mid-size villa.",
+      "Undisclosed short-term rental use commonly voids a standard residential policy, public liability included — disclose Airbnb-style letting to your insurer explicitly.",
+    ],
+    sources: [
+      {
+        title: "ThailandLawOnline — 420-452 Thai law on Wrongful Acts",
+        url: "https://www.thailandlawonline.com/civil-and-commercial-code/420-452-thai-law-on-wrongful-acts",
+      },
+      {
+        title: "Thailand Law Library (Siam Legal) — Civil and Commercial Code: Torts (Section 420-437)",
+        url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-torts-section-420-437/",
+      },
+      {
+        title: "MSIG Thailand — Public Liability Insurance",
+        url: "https://www.msig-thai.com/en/business-insurance/public-liability",
+      },
+      {
+        title: "Mr Property Siam — Villa Insurance in Thailand: What Owners Actually Need",
+        url: "https://www.mrpropertysiam.com/articles/villa-insurance-thailand-owner-guide",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "If a guest is injured at my Koh Phangan rental villa, am I personally liable, and does my insurance cover it?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
