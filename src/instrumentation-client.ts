@@ -14,11 +14,18 @@
  * phones, owner notes) that has no business inside a session replay.
  */
 import { reportClientError } from "@/lib/report-client-error";
+import { recoverFromChunkError } from "@/lib/lazy-chunk";
 
 // Глобальный захват ошибок браузера — раньше сайт молчал о них (см.
 // lib/report-client-error.ts). Вешается до гидрации, ловит и её падения.
-window.addEventListener("error", (ev) => reportClientError(ev.error ?? ev.message, "window"));
-window.addEventListener("unhandledrejection", (ev) => reportClientError(ev.reason, "promise"));
+window.addEventListener("error", (ev) => {
+  if (recoverFromChunkError(ev.error)) return;
+  reportClientError(ev.error ?? ev.message, "window");
+});
+window.addEventListener("unhandledrejection", (ev) => {
+  if (recoverFromChunkError(ev.reason)) return;
+  reportClientError(ev.reason, "promise");
+});
 
 const KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY;
 // Region is chosen when the project is created; US is PostHog's own default.

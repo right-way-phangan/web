@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import dynamic from "next/dynamic";
+import { lazyMap } from "@/components/objects/lazy-map";
 import Link from "next/link";
 import type { Route } from "next";
 import {
@@ -23,10 +23,9 @@ import { cn } from "@/lib/utils/cn";
  */
 
 // Leaflet touches `window` → map is client-only (ssr:false in a client file).
-const ZoneMapPicker = dynamic(() => import("./zone-map-picker"), {
-  ssr: false,
-  loading: () => <div className="h-full w-full animate-pulse bg-forest-500/[0.06]" />,
-});
+const ZoneMapPicker = lazyMap("zone-picker", () => import("./zone-map-picker"), () => (
+  <div className="h-full w-full animate-pulse bg-forest-500/[0.06]" />
+));
 
 const COPY = {
   en: {

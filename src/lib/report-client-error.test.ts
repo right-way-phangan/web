@@ -23,4 +23,14 @@ describe("reportClientError", () => {
     reportClientError(err, "window");
     expect(beacon).toHaveBeenCalledOnce();
   });
+
+  it("голый Event не шлёт — это бесполезное {\"isTrusted\":true}", () => {
+    reportClientError(new Event("error"), "promise");
+    expect(beacon).not.toHaveBeenCalled();
+  });
+
+  it("ErrorEvent с текстом шлёт", () => {
+    reportClientError(new ErrorEvent("error", { message: "Script load failed" }), "promise");
+    expect(beacon).toHaveBeenCalledOnce();
+  });
 });

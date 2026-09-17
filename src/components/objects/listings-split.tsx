@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import dynamic from "next/dynamic";
+import { lazyMap } from "./lazy-map";
 import Link from "next/link";
 import type { Route } from "next";
 import { useSearchParams } from "next/navigation";
@@ -23,11 +23,9 @@ import { useLocale } from "@/lib/i18n/use-locale";
 import { getListingsDict } from "@/lib/i18n/dictionaries";
 import { cn } from "@/lib/utils/cn";
 
-// Leaflet touches `window`, so the map is client-only (ssr:false).
-const ListingsMap = dynamic(() => import("./listings-map"), {
-  ssr: false,
-  loading: () => <MapSkeleton />,
-});
+// Leaflet touches `window`, so the map is client-only (ssr:false); lazyMap adds
+// the retry and the "didn't load" fallback around it.
+const ListingsMap = lazyMap("listings", () => import("./listings-map"));
 
 /** Сколько карточек отдаём за раз. 24 = 12 рядов на десктопе, хватает,
  *  чтобы понять выдачу, и не роняет DOM на телефоне. */
