@@ -10934,6 +10934,115 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "costs",
     faqQuestion: "If a guest is injured at my Koh Phangan rental villa, am I personally liable, and does my insurance cover it?",
   },
+  {
+    slug: "thai-reit-indirect-real-estate-investment",
+    kbId: "kb-0179",
+    topic: "Ownership",
+    title: "Thai REITs: indirect exposure to Thai real estate that never touches the Land Code",
+    short:
+      "A Real Estate Investment Trust (REIT) listed on the Stock Exchange of Thailand lets any investor, foreign included, buy a security backed by a portfolio of Thai commercial property — without touching the Land Code's foreign land-ownership restriction at all. It's not a substitute for owning your own Phangan villa, but it's a real, regulated route to indirect Thai property exposure worth knowing about.",
+    updated: "2026-09-17",
+    body: [
+      "Can a foreigner invest in Thai real estate without buying land, a condo or a leasehold villa directly? Yes — a Thai Real Estate Investment Trust (REIT) is a security, not a land title, so buying units in one sits entirely outside the ownership routes covered elsewhere on this site ([the 30-year lease and superficies structure](/knowledge/how-foreigners-own-a-villa), [the ฿40 million investment route](/knowledge/thb-40-million-investment-land-ownership-route), [BOI-promoted land ownership](/knowledge/boi-promoted-company-land-ownership-2026)). It's a fundamentally different kind of exposure: a tradeable share of a professionally managed property portfolio, not a specific building you can visit.",
+      { h: "What a Thai REIT actually is" },
+      {
+        ul: [
+          "**Legal basis and licensing.** Thai REITs are authorised under the Trust for Transactions in Capital Market Act B.E. 2550 (2007) — the same narrow statutory trust framework already noted in [why an offshore family trust can't hold Thai land](/knowledge/offshore-family-trust-cannot-hold-thai-land) as Thailand's one real exception to its no-domestic-trust rule. Every REIT must have an SEC-approved trust manager and an SEC-licensed trustee running it; there is no such thing as a self-managed Thai REIT.",
+          "**They replaced the older Property Fund model.** The SEC approved the REIT framework in 2010, and REITs progressively replaced the previous \"Property Fund for Public Offering\" structure as the standard listed real-estate investment vehicle on the Stock Exchange of Thailand (SET).",
+          "**Real-estate concentration and payout rules.** A REIT must invest at least 75% of the value of the units it offers (including any loan proceeds) in ready-to-use, income-producing real estate, and must distribute at least 90% of its adjusted net profit to unitholders every year — this is what makes REITs an income-oriented instrument rather than a growth play.",
+          "**Leverage is capped.** SEC rules limit REIT borrowing to roughly 35% of total asset value, rising to around 60% for a REIT holding assets or debt with an investment-grade credit rating — a REIT cannot gear up the way a leveraged property developer can.",
+          "**A REIT must be genuinely public.** Rules require at least 250 unitholders after listing, with minority unitholders (below a concentration threshold) holding at least 20% of each offering — designed to stop a REIT from being a vehicle for one or two controlling investors.",
+        ],
+      },
+      { h: "The foreign-ownership limit didn't disappear — it just moved onto the REIT itself" },
+      {
+        ul: [
+          "**A 49% foreign-unitholding cap applies to REITs holding freehold Thai real estate** — the same ratio as the Land Code and the Condominium Act's own [foreign quota](/knowledge/condo-foreign-ownership-quota-debate-2026), applied here at the level of the trust rather than a single building. It shows up in practice: Frasers Property Thailand Industrial Freehold & Leasehold REIT (FTREIT), one of the larger listed Thai REITs, states a 49.00% foreign ownership limit on its own SET factsheet.",
+          "**A purely leasehold-asset REIT isn't bound by the same Land Code logic in principle**, since it never holds Thai land outright — but in practice most listed Thai REITs hold mixed freehold and leasehold portfolios and apply the 49% cap uniformly rather than splitting it asset-by-asset.",
+          "**Once a REIT's foreign unitholding hits its cap, new foreign buy orders simply can't clear** on the SET for that counter — mechanically similar to how a condo building stops accepting foreign buyers once its own 49% quota is full, just enforced through the exchange's trading system instead of the Land Office.",
+        ],
+      },
+      { h: "What it actually gives you — and what it doesn't" },
+      {
+        ul: [
+          "**Liquidity, not control.** REIT units trade daily on the SET like any listed security — you can buy or sell in minutes, unlike a villa or leasehold interest. In exchange, you get no say in which properties the trust buys, sells or manages, and no ability to point to a specific unit and call it yours.",
+          "**Bangkok and major-hub commercial assets, not Phangan villas.** Listed Thai REIT portfolios skew toward office towers, shopping malls, hotels and industrial/logistics parks, concentrated in Bangkok and Thailand's other established commercial and tourism hubs. No Thai REIT currently holds a Koh Phangan-specific asset, and this vehicle is not a way to gain economic exposure to a particular island development.",
+          "**Distributions are taxed at source.** REIT distributions paid to a non-resident unitholder generally carry a flat 10% withholding tax, which may be reduced under an applicable double-tax treaty between Thailand and the investor's home country — a materially different tax treatment from the rental-income and capital-gains rules covered in [owner's taxes](/knowledge/owners-taxes-annual-land-and-income).",
+        ],
+      },
+      "None of this replaces the direct-ownership question at the centre of this site — a REIT unit doesn't give you a villa to live in, rent out or leave to your heirs the way [a registered lease and superficies](/knowledge/how-foreigners-own-a-villa) does. But alongside the ฿40 million route and BOI-promoted land ownership, it's a third, genuinely distinct example of Thai law already allowing scaled or indirect foreign exposure to real estate beyond the headline 49% land-ownership ban — worth knowing about even if it never replaces the villa itself.",
+    ],
+    takeaways: [
+      "A Thai REIT is a security traded on the Stock Exchange of Thailand, not a land title — buying units doesn't touch the Land Code's foreign land-ownership restriction at all.",
+      "REITs run under the Trust for Transactions in Capital Market Act B.E. 2550 (2007), with an SEC-approved manager and SEC-licensed trustee required; they replaced the older Property Fund model as the standard listed vehicle.",
+      "A REIT must invest at least 75% of unit-offering value in income-producing real estate and distribute at least 90% of net profit annually; leverage is capped at roughly 35% of assets (up to ~60% for investment-grade-rated debt).",
+      "REITs holding freehold Thai property cap foreign unitholding at 49%, mirroring the Land Code/Condominium Act ratio — once hit, new foreign buy orders can't clear on the exchange.",
+      "Distributions to non-resident unitholders face a flat 10% withholding tax (treaty relief may apply); listed portfolios concentrate in Bangkok/major-hub commercial assets, not Phangan villas.",
+    ],
+    sources: [
+      { title: "The Stock Exchange of Thailand (SET) — Listing of Real Estate Investment Trusts (REITs)", url: "https://www.set.or.th/en/listing/equities/reits" },
+      { title: "Tilleke & Gibbins — REIT: A New Tool for Real Estate Investment and Fund Generation in Thailand", url: "https://www.tilleke.com/insights/reit-new-tool-real-estate-investment-and-fund-generation-thailand/" },
+      { title: "SET — Frasers Property Thailand Industrial Freehold & Leasehold REIT (FTREIT) factsheet", url: "https://www.set.or.th/en/market/product/stock/quote/FTREIT/factsheet" },
+      { title: "PwC Thailand Tax Summaries — Corporate income determination (dividend withholding tax)", url: "https://taxsummaries.pwc.com/thailand/corporate/income-determination" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "ownership",
+    faqQuestion: "Can a foreigner invest in Thai real estate without directly owning land or a condo?",
+  },
+  {
+    slug: "non-resident-baht-account-nrba-property-thailand",
+    kbId: "kb-0180",
+    topic: "Process",
+    title: "Non-Resident Baht Accounts (NRBA): the banking classification most Phangan buyers are in without realising it",
+    short:
+      "Almost every foreign buyer without a Thai work permit or permanent residence permit banks in Thailand as a Bank of Thailand \"non-resident\" — regardless of how long they actually live here. That classification puts baht tied to a property purchase or sale into a Non-Resident Baht Account (NRBA), a distinct regime from the FET form, with its own aggregate balance cap and 2025-tightened documentation rules.",
+    updated: "2026-09-17",
+    body: [
+      "Does it matter which type of Thai bank account holds your property-purchase funds once they've already been converted to baht? Yes — under Bank of Thailand exchange-control rules, a foreign buyer without a Thai work permit or permanent residence permit is classified as a \"non-resident\" regardless of visa type or years spent living in Thailand, and baht held for a purpose like property investment sits in a Non-Resident Baht Account (NRBA) — a separate regime from [the FET form](/knowledge/bringing-money-into-thailand-fet-form) that most buyers already know to keep.",
+      { h: "Why most Phangan buyers are \"non-residents\" for banking purposes, even living here full-time" },
+      "The Bank of Thailand's resident/non-resident distinction for exchange-control purposes has nothing to do with the 180-day tax-residency test covered in [owner's taxes](/knowledge/owners-taxes-annual-land-and-income). It turns on documentation: Thai banking residence is generally proved only by a permanent residence permit or a valid Thai work permit. A retirement visa, a Non-Immigrant O based on marriage, or the DTV — the visas most Phangan buyers actually hold, as covered in [opening a Thai bank account as a foreign buyer](/knowledge/thai-bank-account-foreign-property-buyer-2026) — don't meet that bar. In practice, most foreign villa buyers remain \"non-residents\" under exchange-control rules for as long as they own property here, even after years of genuine, tax-resident living on the island.",
+      { h: "NRBA vs NRBS — and how both differ from the FET form" },
+      {
+        ul: [
+          "**NRBA (Non-Resident Baht Account)** covers general purposes: trade, services, foreign direct investment, loans, and — explicitly, per the Bank of Thailand's own exchange control rules — investment in immovable assets. This is the account classification relevant to a property purchase or sale once funds are held in baht.",
+          "**NRBS (Non-Resident Baht Account for Securities)** is a separate, narrower account type limited to investment in securities and other financial instruments — equities, bonds, unit trusts, derivatives. It's the relevant classification for a [Thai REIT](/knowledge/thai-reit-indirect-real-estate-investment) purchase, not a villa.",
+          "**The FET form is a one-off certificate**, issued the moment foreign currency is converted to baht on arrival, proving the funds' foreign origin. NRBA/NRBS is the ongoing account classification the resulting baht then lives in — a buyer holding sale proceeds, staged construction payments, or rental income as a non-resident needs to think about both, not just the FET form at the point of entry.",
+        ],
+      },
+      { h: "The ฿200 million cap, and the 2025 tightening" },
+      {
+        ul: [
+          "**Aggregate balance cap.** Since 22 July 2019, the Bank of Thailand has capped the combined end-of-day balance across all of a non-resident's NRBA and NRBS accounts, at every Thai bank combined, at ฿200 million (cut from an earlier ฿300 million) — part of a standing package of measures to limit baht-speculation pressure.",
+          "**Further tightened for late 2025.** BOT Circular 5491/2568 (dated 1 September 2025, effective 1 December 2025) refined the same measures: financial institutions generally can't pay interest on NRBA/NRBS balances, except a fixed NRBA with a maturity of six months or more, and separate caps apply to baht lending (฿200 million) and borrowing (฿10 million) by a non-resident group without an underlying trade or investment transaction behind it.",
+        ],
+      },
+      { h: "Why this matters for a buyer or owner, in practice" },
+      {
+        ul: [
+          "**Unlikely to bind a single villa purchase.** A typical Phangan villa transaction sits nowhere near ฿200 million, so the cap itself is rarely the practical constraint for an individual buyer.",
+          "**Real for a larger transaction.** It's directly relevant to a foreign-held company's sale proceeds, a large inheritance, or consolidated funds from selling multiple properties awaiting reinvestment — situations where staying under the cap, or spreading balances across banks, needs active planning.",
+          "**A practical documentation route.** A bank certificate confirming an NRBA withdrawal and its stated purpose (for example, a condo purchase) can serve as supporting evidence for Land Office registration, alongside or instead of a fresh inbound FET form — useful if the funds being used were already sitting in Thailand rather than arriving fresh from abroad.",
+        ],
+      },
+      "None of this changes the advice already given elsewhere on this site: keep the FET form from every inbound transfer, and get your bank's compliance team involved early on anything unusually large. But knowing that you're very likely banking as a Bank of Thailand \"non-resident\" — and what that account classification actually covers — closes a real gap between the one-off FET form most buyers focus on and the ongoing account rules that apply to the baht sitting in Thailand afterward.",
+    ],
+    takeaways: [
+      "Bank of Thailand exchange-control rules classify you as a banking \"resident\" only with a permanent residence permit or a valid Thai work permit — a retirement visa, marriage-based Non-O, or DTV leaves you a \"non-resident\" regardless of actual tax residency or years lived in Thailand.",
+      "Baht held for property-related purposes by a non-resident sits in a Non-Resident Baht Account (NRBA) — a different, ongoing regime from the one-off FET form issued when foreign currency first arrives.",
+      "NRBA covers general purposes including investment in immovable assets; NRBS is a separate, securities-only account type (relevant to a REIT purchase, not a villa).",
+      "Combined NRBA+NRBS balances are capped at ฿200 million per non-resident across all Thai banks, further tightened by BOT Circular 5491/2568 effective 1 December 2025 (interest-payment restrictions, plus separate non-resident baht lending/borrowing caps).",
+      "The cap is unlikely to matter for a single villa purchase but is a real planning consideration for a company sale, large inheritance, or consolidated sale proceeds awaiting reinvestment.",
+    ],
+    sources: [
+      { title: "Bank of Thailand — Exchange Control Regulation", url: "https://www.bot.or.th/en/our-roles/financial-markets/foreign-exchange-regulations/exchange-control-regulation.html" },
+      { title: "Bank of Thailand — Measures to Prevent Thai Baht Speculation", url: "https://www.bot.or.th/en/our-roles/financial-markets/foreign-exchange-regulations/measures-prevent-thb-speculation.html" },
+      { title: "Tilleke & Gibbins — Banking in Thailand: Resident or Non-resident Account?", url: "https://www.tilleke.com/insights/banking-thailand-resident-or-non-resident-account/" },
+      { title: "Conventus Law — Thailand: Non-Resident Baht Accounts Daily Limit Reduced to Baht 200 Million", url: "https://conventuslaw.com/report/thailand-non-resident-baht-accounts-daily-limit/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "What is a Non-Resident Baht Account (NRBA), and does it affect a foreign property buyer on Koh Phangan?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
