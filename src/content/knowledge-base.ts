@@ -11043,6 +11043,101 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "process",
     faqQuestion: "What is a Non-Resident Baht Account (NRBA), and does it affect a foreign property buyer on Koh Phangan?",
   },
+  {
+    slug: "damrongtham-center-land-property-complaints-thailand",
+    kbId: "kb-0181",
+    topic: "Process",
+    title: "The Damrongtham Center: Thailand's free administrative complaint channel for land and permit problems",
+    short:
+      "When a Land Office matter stalls, a neighbor builds without a real permit, or a district official won't act, Thailand's Damrongtham Center offers a free, non-judicial complaint channel — a hotline, walk-in desk and online portal at every provincial hall and district office. It won't cancel a title or freeze a sale itself, but it's often where enforcement action against forged permits or suspicious land deals actually starts.",
+    updated: "2026-09-17",
+    body: [
+      "Is there a way to push a stuck Land Office matter, a suspicious construction permit, or an unresponsive district office without hiring a lawyer and filing a lawsuit? Yes — the Damrongtham Center (ศูนย์ดำรงธรรม), Thailand's Ministry of Interior grievance and complaint network, exists exactly for this: a free, walk-in or phone-in channel at every provincial hall and district (Amphoe) office, distinct from the court-based routes already covered in [the Consumer Case Procedure Act](/knowledge/consumer-case-procedure-act-buyer-developer-disputes), [arbitration](/knowledge/arbitration-clause-thai-property-lease-disputes) and [a court injunction freezing a disputed title](/knowledge/court-injunction-freeze-disputed-property-thailand).",
+      { h: "What the Center actually is and does" },
+      {
+        ul: [
+          "**Origin and reach.** Established in 1994 as a Ministry of Interior public-service arm, the Damrongtham network was reorganised into today's nationwide one-stop format in 2014, with a dedicated office inside every provincial hall (ศาลากลางจังหวัด) and district office (ที่ว่าการอำเภอ) across the country, including Koh Phangan's own Amphoe office.",
+          "**Seven listed functions**, per its own operating framework: receiving complaints, one-stop administrative service, forwarding complaints to the right agency, providing information, giving advice, deploying a rapid-response unit for urgent problems, and channeling public feedback on government policy.",
+          "**Land and permit complaints are explicitly in scope** — alongside complaints against unresponsive or corrupt officials, disputed use of public land, and requests for help navigating another government department.",
+          "**Four ways to file:** the 1567 hotline, in person at the provincial or district office, by post, or through the Center's own website and mobile app.",
+        ],
+      },
+      { h: "What it isn't: no power to cancel a title or stop a sale" },
+      "Filing at the Damrongtham Center is an administrative request, not a lawsuit — it has no power on its own to cancel a registered title, freeze a pending sale, or award compensation. For those outcomes you still need the Land Office's own procedures or the courts: a [Section 83 caveat](/knowledge/land-code-section-83-caveat-title-deed) if you're a private claimant with a narrow window, or [a pre-judgment injunction](/knowledge/court-injunction-freeze-disputed-property-thailand) once a lawsuit is filed. What the Center can do is push the right agency — the Land Office, the local Public Works office, the District Office itself — to investigate, respond, or explain why a matter has stalled. Complaints filed here are a documented input into wider enforcement: the tip-off-and-referral pattern behind Koh Phangan's [forged-permit](/knowledge/forged-building-permits-koh-phangan-verify) and [illegal hillside-construction](/knowledge/illegal-construction-forest-reserve-crackdown-koh-phangan) crackdowns, and the broader [nominee-shareholding enforcement wave](/knowledge/koh-phangan-land-disposal-orders-112-companies-2026), typically starts with exactly this kind of local complaint before DBD, DSI or the Land Department's own investigators get formally involved.",
+      { h: "Using it as a foreigner" },
+      {
+        ul: [
+          "**Bring your passport and a Thailand address** — the Center asks for these on any complaint so it can follow up or request more information.",
+          "**Write or have your complaint translated into Thai.** English-language service has been promised but isn't consistently available at every provincial office; a Thai-language complaint (or one with a Thai translation attached) moves faster.",
+          "**Expect an informal 15-day target, not a guarantee.** Provincial centers aim to act on straightforward matters within about 15 days, but that depends heavily on the complexity of the issue and which agency it gets referred to — there's no statutory deadline or enforceable right to a specific outcome.",
+          "**It's free and doesn't require a lawyer** — but for anything with real money or a title at stake, use it alongside your own legal advice, not instead of it.",
+        ],
+      },
+      "For a buyer or owner on Koh Phangan, the Damrongtham Center is worth knowing about as a low-cost first step — a way to get an unresponsive district office moving, flag a suspicious permit before you buy next to it, or put a land dispute on an agency's radar — not as a substitute for the registered legal protections ([a caveat](/knowledge/land-code-section-83-caveat-title-deed), [proper due diligence](/knowledge/due-diligence-checklist-koh-phangan), a lawyer-drafted contract) that actually bind a title or a sale.",
+    ],
+    takeaways: [
+      "The Damrongtham Center (ศูนย์ดำรงธรรม) is a free Ministry of Interior complaint channel at every provincial hall and district office, reachable via the 1567 hotline, in person, by post, or online.",
+      "It accepts land, permit and official-misconduct complaints, but has no power itself to cancel a title, freeze a sale or award compensation — those outcomes still require the Land Office's own procedures or the courts.",
+      "It targets action within roughly 15 days on straightforward matters, but this is an informal aim, not a statutory deadline or guaranteed outcome.",
+      "Complaints here are often the starting point that gets a matter referred to the Land Department, DBD or DSI for formal investigation — including cases behind Koh Phangan's forged-permit and illegal-construction enforcement.",
+      "Foreigners can file directly; bring a passport and Thailand address, and a Thai-language complaint (or translation) moves faster than an English-only one.",
+    ],
+    sources: [
+      { title: "Tilleke & Gibbins — Legal Options for Addressing Challenges with Land Matters in Thailand", url: "https://www.tilleke.com/insights/legal-options-for-addressing-challenges-with-land-matters-in-thailand/" },
+      { title: "The Phuket News — How to complain in English?", url: "https://www.thephuketnews.com/how-to-complain-in-english-49870.php" },
+      { title: "Bangkok Post — Villagers protest against Damrongtham Centre", url: "https://www.bangkokpost.com/thailand/general/1165960/villagers-protest-against-damrongtham-centre" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "Is there a free way to complain about a land or permit problem in Thailand without going to court?",
+  },
+  {
+    slug: "gift-of-land-ccc-formality-revocation-thailand",
+    kbId: "kb-0182",
+    topic: "Documents",
+    title: "Gifting a villa, land or leasehold in Thailand: the writing-and-registration rule, and when it can be undone",
+    short:
+      "A gift of Thai land, a leasehold, or a registered building right isn't valid just because both sides agree and no money changes hands — the Civil and Commercial Code holds a gift of immovable property to the same writing-and-registration standard as a sale. And even once registered, a narrow set of circumstances can still let the donor take it back.",
+    updated: "2026-09-17",
+    body: [
+      "Can you simply hand a villa, plot of land, or a registered leasehold to a family member as a gift, with nothing more than a signed letter? No — under the Civil and Commercial Code (CCC), a gift of immovable property, or of any right over it that itself requires registration (a lease, [superficies or usufruct](/knowledge/superficies-vs-usufruct-vs-lease)), is held to exactly the same formality the site's [sale-and-purchase guide](/knowledge/sale-purchase-agreement-earnest-money-ccc-thailand) already covers for an ordinary sale: it must be made in writing and registered by the Land Office to have any legal effect at all.",
+      { h: "Section 525: the same formality as a sale, minus delivery" },
+      {
+        ul: [
+          "**No registration, no gift.** Section 525 states that a gift \"of property the sale of which must be made in writing and registered by the competent official is valid only when so made and registered\" — the exact same Land Office formality Section 456 imposes on a sale. A notarised letter, a witnessed family agreement, even a token payment recorded as a \"gift price\" — none of it transfers title unless the Land Office actually registers the transfer.",
+          "**Delivery isn't required once registered** — a contrast with an ordinary gift of movable property (cash, jewellery, a car), which under Section 523 is only complete once physically delivered. Registered land or a registered right transfers on the Land Office's paperwork alone.",
+          "**This is the mechanism, not the tax question.** [Gift tax on lifetime transfers](/knowledge/gift-tax-property-transfers-family-thailand) covers what income-tax and transfer-fee exemptions apply once a gift is properly made; this is the separate, prior question of what actually makes the gift legally real in the first place.",
+        ],
+      },
+      { h: "Once registered, a gift usually can't be undone — except for three narrow reasons" },
+      {
+        ul: [
+          "**Section 531 limits revocation to genuine ingratitude:** the donee committing a serious criminal offence against the donor, seriously defaming or insulting the donor, or refusing to support a donor in genuine need despite being able to. A donor's own later financial hardship, or a simple falling-out, isn't a listed ground on its own.",
+          "**A conditional or \"charged\" gift is different** — if the gift was made expressly subject to the donee performing some obligation (Section 528), the donor can instead demand its return, to the extent the obligation was never met, without needing to prove ingratitude at all.",
+          "**Strict deadlines apply (Section 533):** a revocation claim is barred six months after the donor learns of the act of ingratitude, and barred outright ten years after the act itself, regardless of when it was discovered.",
+          "**Four categories of gift can never be revoked for ingratitude (Section 535):** a remuneratory gift (given for a past service), a charged gift (governed instead by Section 528), a gift made to fulfil a moral duty, and a gift made in consideration of marriage.",
+        ],
+      },
+      { h: "What revoking a registered land gift actually takes" },
+      "Because the transfer is already on the title deed, a donor can't simply notify the Land Office and have a gift undone — Thai courts read the Section 531 grounds narrowly, and reversing a completed registration takes a court judgment establishing one of the three grounds before the Land Office will amend the title, the same pattern seen elsewhere on this site for [a court-ordered freeze on a disputed title](/knowledge/court-injunction-freeze-disputed-property-thailand). Until and unless that happens, the donee's registered ownership stands.",
+      "For a family weighing a lifetime gift over waiting for [intestate succession](/knowledge/intestate-succession-statutory-heirs-thai-property) or a [will](/knowledge/legal-forms-of-a-thai-will) to eventually apply, the formality rule is the first hurdle — nothing is transferred until the Land Office registers it — and the ingratitude grounds are the rare, narrow second one worth understanding before treating a completed gift as entirely irreversible.",
+    ],
+    takeaways: [
+      "A gift of Thai land, or of a registrable right over it (lease, superficies, usufruct), is valid only once made in writing and registered at the Land Office (CCC Section 525) — the same formality required for an ordinary sale.",
+      "Unlike a gift of movable property, which needs physical delivery to be complete (Section 523), a registered land gift transfers on the Land Office paperwork alone.",
+      "A donor can revoke a completed gift only on three narrow ingratitude grounds (Section 531): a serious criminal offence, serious defamation/insult, or refusing support to a needy donor able to give it.",
+      "Revocation claims are barred six months after the donor learns of the act, and barred absolutely after ten years (Section 533); remuneratory, charged, moral-duty and marriage-consideration gifts can never be revoked for ingratitude (Section 535).",
+      "Reversing an already-registered gift isn't self-executing — it takes a court judgment establishing one of the statutory grounds before the Land Office will amend the title.",
+    ],
+    sources: [
+      { title: "ThailandLawOnline — Civil and Commercial Code Sections 521-536: Gift is a Contract", url: "https://www.thailandlawonline.com/civil-and-commercial-code/521-536-gift-is-a-contract" },
+      { title: "Silk Legal — \"Goodbye, honey; and thanks for the house!\" – The law on gifts in Thailand", url: "https://silklegal.com/law-on-gifts-in-thailand/" },
+      { title: "Thailand Law Forum — Civil and Commercial Code Sections 518-571", url: "https://www.thailawforum.com/thailand-civil-and-commercial-code-sections-518-571/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion: "Can I just gift my Thai villa or land to a family member without going through the normal sale process?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
