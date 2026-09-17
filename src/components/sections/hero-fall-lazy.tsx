@@ -17,9 +17,14 @@ export function HeroFallLazy({ children, ...props }: Props) {
 
   useEffect(() => {
     let alive = true;
-    import("./hero-fall").then((m) => {
-      if (alive) setComp(() => m.HeroFall);
-    });
+    import("./hero-fall")
+      .then((m) => {
+        if (alive) setComp(() => m.HeroFall);
+      })
+      // Чанк не догрузился — на экране остаются children, ровно как до
+      // загрузки. Без catch отказ всплывал бы через unhandledrejection и слал
+      // алерт о «поломке» там, где ничего не сломалось.
+      .catch(() => {});
     return () => {
       alive = false;
     };

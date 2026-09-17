@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import dynamic from "next/dynamic";
+import { lazyMap } from "./lazy-map";
 import type { NearbyListing } from "@/types/object";
 import { MapSkeleton } from "./map-skeleton";
 import { useInView } from "@/lib/hooks/use-in-view";
@@ -10,10 +10,7 @@ import { getObjectDict } from "@/lib/i18n/dictionaries";
 
 // Leaflet touches `window`, so the map is client-only (ssr:false). next/dynamic
 // with ssr:false must live in a client component — hence this thin loader.
-const Leaflet = dynamic(() => import("./object-location-map-leaflet"), {
-  ssr: false,
-  loading: () => <MapSkeleton />,
-});
+const Leaflet = lazyMap("object-location", () => import("./object-location-map-leaflet"));
 
 /**
  * Neighbourhood mini-map for an object detail page. Renders a single brass pin

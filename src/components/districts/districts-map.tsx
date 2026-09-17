@@ -1,13 +1,12 @@
 "use client";
 
-import dynamic from "next/dynamic";
+import { lazyMap } from "@/components/objects/lazy-map";
 import { MapSkeleton } from "@/components/objects/map-skeleton";
 import type { DistrictPoint } from "./districts-map-leaflet";
 
-const Leaflet = dynamic(() => import("./districts-map-leaflet"), {
-  ssr: false,
-  loading: () => <MapSkeleton label="Loading island map" />,
-});
+const Leaflet = lazyMap("districts", () => import("./districts-map-leaflet"), () => (
+  <MapSkeleton label="Loading island map" />
+));
 
 /** Client loader for the interactive districts map (ssr:false). */
 export function DistrictsMap({ points }: { points: DistrictPoint[] }) {
