@@ -11138,6 +11138,91 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "documents",
     faqQuestion: "Can I just gift my Thai villa or land to a family member without going through the normal sale process?",
   },
+  {
+    slug: "vat-on-short-term-villa-rental-income",
+    kbId: "kb-0183",
+    topic: "Costs",
+    title: "VAT on short-term villa rental income: the ฿1.8 million threshold that turns a Phangan let into a taxable service",
+    short:
+      "A long-term lease of a Thai property is VAT-exempt, but a nightly or weekly rental bundled with cleaning, linen and check-in is legally a service similar to a hotel's — and once gross revenue from it passes ฿1.8 million a year, Revenue Code Section 85/1 requires VAT registration within 30 days. This sits on top of, not instead of, income tax and Hotel Act licensing.",
+    updated: "2026-09-19",
+    body: [
+      "Does renting out a Koh Phangan villa short-term ever trigger Value Added Tax, separately from the income tax and licensing questions already covered on this site? Yes — once the accommodation service itself, not just the underlying lease, crosses a specific revenue threshold.",
+      { h: "A lease is exempt; a serviced stay usually isn't" },
+      "Revenue Code Section 81(1) exempts the lease of immovable property from VAT outright — an ordinary long-term tenancy, with no services attached, stays outside the VAT system regardless of the rent charged. A short-stay booking is treated differently once it comes bundled with services a hotel would also provide — cleaning between stays, linen, check-in assistance, sometimes breakfast. The Revenue Department's own guidance and multiple independent Thai law firms characterise that combination as a supply of services 'similar to a hotel business' rather than a lease, which pulls it into the ordinary VAT regime.",
+      { h: "The ฿1.8 million registration trigger" },
+      {
+        ul: [
+          "**Section 85/1 sets the threshold at ฿1,800,000 of gross revenue from the taxable service in a 12-month period** — tracked on a rolling annual basis, not a calendar-year reset. Below it, registration is optional; above it, it's mandatory.",
+          "**Registration is due within 30 days** of the date gross revenue crosses the threshold, using the Revenue Department's PP.01 form at the local Revenue office or online.",
+          "**Once registered, you charge 7% VAT on top of the nightly rate**, issue proper tax invoices, and file a monthly PP.30 return — VAT collected from guests is remitted to the Revenue Department, net of any input VAT you can claim on qualifying business expenses.",
+          "**Crossing the threshold once locks in the obligation going forward**, even if a later year's revenue drops back below ฿1.8 million.",
+        ],
+      },
+      { h: "What missing the deadline actually costs" },
+      "Operating above the threshold without registering is a criminal offence under Section 90/2 — imprisonment of up to one month, a fine of up to ฿5,000, or both — but the bigger practical cost is usually the tax exposure itself: you still owe VAT on the revenue earned while unregistered, without having collected it from guests or been able to issue valid tax invoices, and Revenue Department practice adds a penalty of double the tax due (minimum ฿1,000 per month) plus 1.5% monthly interest on top.",
+      { h: "How this sits alongside the taxes and licences you already know about" },
+      "VAT is a distinct question from the [income tax and Hotel Act licensing already covered for villa rental](/knowledge/renting-out-your-villa-rules-and-taxes) — meeting one obligation doesn't excuse the others. It's also a different VAT scenario entirely from [VAT on a developer's new-build sale](/knowledge/vat-vs-specific-business-tax-developer-sales), which taxes the construction and sale of a property, not its ongoing rental income. And it applies regardless of whether the underlying short-term letting itself is properly licensed under the [2026 Hotel Act enforcement crackdown](/knowledge/short-term-rental-airbnb-crackdown-2026) — an unlicensed operator crossing ฿1.8 million in bookings owes VAT exactly the same as a licensed one.",
+      "If your Koh Phangan villa's short-term bookings are approaching or have crossed ฿1.8 million a year in gross revenue, get a Thai accountant to confirm your registration date and back-tax exposure before the Revenue Department does the calculation for you.",
+    ],
+    takeaways: [
+      "An ordinary long-term lease of Thai property is VAT-exempt under Revenue Code Section 81(1); a serviced short-stay rental (cleaning, linen, check-in) is instead treated as a taxable service similar to a hotel business.",
+      "Section 85/1 requires VAT registration within 30 days once gross revenue from that service passes ฿1.8 million in a 12-month period, tracked on a rolling basis.",
+      "Once registered, you charge 7% VAT on the nightly rate, issue tax invoices, and file monthly PP.30 returns; crossing the threshold once makes registration permanent going forward.",
+      "Operating unregistered above the threshold is a criminal offence under Section 90/2 (up to 1 month imprisonment or a ฿5,000 fine), on top of owing back VAT plus a doubled-tax penalty and 1.5% monthly interest.",
+      "VAT is separate from income tax, Hotel Act licensing, and the VAT that applies to a developer's new-build sale — meeting one obligation doesn't satisfy the others.",
+    ],
+    sources: [
+      { title: "Airbnb — Thailand Tax Guide 2026 (prepared by an independent Thai law firm)", url: "https://assets.airbnb.com/help/Airbnb_TaxGuide2026_Thailand_ENGLISH.pdf" },
+      { title: "Thailand Law Library (Siam Legal) — Revenue Code: Value Added Tax Exemption (Section 81)", url: "https://library.siam-legal.com/thai-law/revenue-code-value-added-tax-exemption-section-81/" },
+      { title: "iLawAsia — Thailand Value Added Tax (VAT): Registration, Rates and Compliance", url: "https://ilawasia.com/blogs/value-added-tax-vat-registration-rates-and-compliance-thailand" },
+      { title: "Dharmniti Law Office — VAT registration caveat when revenue exceeds ฿1.8 million/year", url: "https://www.dlo.co.th/tax-articles/2461" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "Do I need to register for and charge VAT if I rent out my Koh Phangan villa short-term?",
+  },
+  {
+    slug: "tm47-90-day-address-report-foreign-resident",
+    kbId: "kb-0184",
+    topic: "Process",
+    title: "TM47: the 90-day address report every long-stay foreign owner living on Koh Phangan must file themselves",
+    short:
+      "TM30 obliges a property owner or host to report a foreign guest to Immigration within 24 hours of arrival. TM47 is a separate, recurring duty on the foreign national personally — reporting your own current address every 90 continuous days you remain in Thailand under a long-stay permission, under Immigration Act Section 37(5).",
+    updated: "2026-09-19",
+    body: [
+      "If you live in your own Koh Phangan villa on a long-stay visa, is there any ongoing paperwork with Immigration beyond renewing the visa itself? Yes — Section 37(5) of the Immigration Act B.E. 2522 (1979) requires you, personally, to report your current address every 90 continuous days you remain in the Kingdom, using form TM47 (ตม.47).",
+      { h: "TM47 vs TM30: two obligations, two different people" },
+      "It's easy to confuse this with [TM30, the 24-hour foreign-guest notification](/knowledge/tm30-foreign-guest-notification-koh-phangan) already covered on this site — but they're distinct duties on different parties. TM30 is filed by whoever owns, possesses or manages the residence (which can be you, as owner) about a foreign national staying there, within 24 hours of arrival. TM47 is filed by the foreign national themselves, on a recurring 90-day cycle tied to continuous presence in Thailand, regardless of who owns the address. Filing one does not satisfy the other — a fully compliant TM30 record doesn't excuse you from your own TM47 report, and vice versa.",
+      { h: "Who has to file, and on what schedule" },
+      {
+        ul: [
+          "**Applies to long-stay visa holders who remain in Thailand continuously through the 90-day mark** — retirement (O-A/O-X), marriage, education, Non-Immigrant B business visas, and most [Destination Thailand Visa (DTV)](/knowledge/visa-residency-property-owner-koh-phangan) holders. Leaving and re-entering Thailand resets the 90-day count from the date of re-entry.",
+          "**LTR visa holders are the exception** — under the [LTR investment route](/knowledge/ltr-visa-property-investment-route), the 90-day cycle is replaced by a single annual report on form TM95, one of the LTR's practical advantages over standard long-stay visas.",
+          "**The filing window opens roughly 15 days before the due date** and stays open for up to 7 days after it, using Immigration's own due-date calculation shown on your last acknowledgment receipt, not a self-counted 90 days.",
+          "**Filing methods**: online through Immigration's TM47 portal, in person at your local Immigration office (bring your passport and previous receipt), or by registered mail to certain offices.",
+        ],
+      },
+      { h: "What missing it costs" },
+      "Reporting late but within the informal grace window is typically settled with a ฿2,000 fine paid in person at the time of filing. The Immigration Act's statutory ceiling under Section 76 is higher — a fine of up to ฿5,000 plus a further daily fine until the report is filed — and offices have discretion to apply the fuller amount, particularly if the lapse surfaces during an unrelated dealing with Immigration (a visa extension, for example) rather than a voluntary late filing. A pattern of missed reports can also complicate future visa extensions and re-entry permits, independent of the fine itself.",
+      "TM47 is a small, recurring piece of paperwork, but it's the kind of compliance record Immigration checks before approving anything else tied to your stay. If you're settling into a Koh Phangan villa on a long-stay visa, put the 90-day cycle in a calendar the same way you would a visa renewal — and keep every acknowledgment slip, the same way [TM30 receipts](/knowledge/tm30-foreign-guest-notification-koh-phangan) are worth keeping.",
+    ],
+    takeaways: [
+      "Immigration Act Section 37(5) requires a long-stay foreign resident to personally report their current address to Immigration every 90 continuous days, using form TM47.",
+      "TM47 is separate from TM30: TM30 is filed by the property owner/host about a guest within 24 hours; TM47 is filed by the resident themselves on a recurring 90-day cycle. Filing one doesn't satisfy the other.",
+      "The filing window runs from about 15 days before the due date to 7 days after it; leaving and re-entering Thailand resets the 90-day count.",
+      "LTR visa holders file an annual TM95 report instead of the 90-day TM47 cycle — a practical advantage over standard long-stay visas.",
+      "A late report is typically settled with a ฿2,000 fine in person, though the statutory ceiling under Section 76 is higher; missed reports can also complicate future visa extensions.",
+    ],
+    sources: [
+      { title: "Immigration Bureau (Royal Thai Police) — Notification of staying in the Kingdom over 90 days", url: "https://www.immigration.go.th/en/?page_id=1666" },
+      { title: "The Thaiger — Thailand 90-day reporting: how to file TM.47 online, in person and everything in between", url: "https://thethaiger.com/guides/visa-information/thailand-90-day-reporting" },
+      { title: "IssaCompass — LTR Visa Reporting: How Annual Reporting Works and Why It Beats 90-Day Reporting", url: "https://www.issacompass.com/insights/ltr-visa-reporting-how-annual-reporting-works-and-why-it-beats-90-day-reporting" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "If I live in my own villa on a long-stay visa, do I still have to file a 90-day report, separately from TM30?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

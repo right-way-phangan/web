@@ -1,36 +1,52 @@
-# Last run — 2026-09-17 (second run, same day)
+# Last run — 2026-09-19
 
-Today's first run already published 2 guides (kb-0179 Thai REITs, kb-0180 Non-Resident Baht Accounts). This second invocation needed genuinely new ground. Two parallel research agents ran first: one fresh-news sweep (2026-09-14/17 window), one evergreen-gap-mining pass over the full 179-slug catalog. Both are logged in detail in `content-pipeline/backlog.md`'s discovery note. Published 2 more guides (EN + RU each) below.
+Published 2 guides (EN + RU each). Backlog's standing ⏳ rows are all still confirmed
+duplicate/thin/unsafe (re-checked this run, see the 2026-09-19 discovery note in
+`backlog.md`), so — following the same pattern as the 2026-09-05/15/16/17 runs — two
+research agents ran (fresh-news sweep + evergreen gap-mining over the full ~183-slug
+catalog) and surfaced two genuinely new, well-sourced topics not previously covered.
 
-## 1. kb-0181 — `damrongtham-center-land-property-complaints-thailand`
-- **Title:** The Damrongtham Center: Thailand's free administrative complaint channel for land and permit problems
-- **faqCategory:** process
-- **Sources:**
-  - Tilleke & Gibbins — "Legal Options for Addressing Challenges with Land Matters in Thailand" — direct fetch; situates the Damrongtham Center among Thailand's non-judicial land-dispute remedies (in-person/post/hotline/app/online channels), alongside direct Land Department complaints and the judicial routes (civil claims, administrative liability, criminal proceedings).
-  - The Phuket News — "How to complain in English?" — direct fetch; practical filing guide (1567 hotline, in-person/mail/website, passport + Thailand address required, ~15-day informal resolution target, foreigner access with a Thai-translation caveat, Phuket Provincial Hall office hours).
-  - Bangkok Post — "Villagers protest against Damrongtham Centre" — search-corroborated; a real land/municipal dispute case illustrating the Center's practical role (and limits).
-  - General 1994-origin / 2014 nationwide-reorganisation history and the hotline/seven-function framework corroborated via multiple search results (Google Play app listing, provincial Damrongtham sites, Nation Thailand's 1567-hotline piece) rather than a single pinned primary instrument — described in the guide at that general level of confidence rather than citing an unverified exact order number.
+## 1. `vat-on-short-term-villa-rental-income` (kb-0183)
 
-**Why it's distinct:** Grepped the full 179-slug catalog for "damrongtham" and "1567" — zero hits. The existing dispute-resolution cluster (consumer-case-procedure-act-buyer-developer-disputes, arbitration-clause-thai-property-lease-disputes, court-injunction-freeze-disputed-property-thailand, land-code-section-83-caveat-title-deed) covers only judicial or quasi-judicial routes; the Damrongtham Center is a distinct, non-judicial, executive-branch administrative complaint channel, and is directly relevant given Koh Phangan's history of forged permits and disputed land-disposal orders, where owners often need a way to escalate before or instead of suing.
+**Title:** VAT on short-term villa rental income: the ฿1.8 million threshold that turns
+a Phangan let into a taxable service
+**faqCategory:** costs
 
-**Framed conservatively:** explicit that it has no power itself to cancel a title, freeze a sale, or award compensation; the 15-day figure is presented as an informal target, not a statutory deadline; did not pin the 2014 reorganisation to a specific unverified order number.
+A long-term lease of Thai property is VAT-exempt (Revenue Code Section 81), but a
+serviced short-stay rental (cleaning, linen, check-in) is treated as a taxable service
+similar to a hotel business — once gross revenue from it passes ฿1.8M/year, Section 85/1
+requires VAT registration within 30 days, with real criminal (Section 90/2) and back-tax
+exposure for missing it.
 
-## 2. kb-0182 — `gift-of-land-ccc-formality-revocation-thailand`
-- **Title:** Gifting a villa, land or leasehold in Thailand: the writing-and-registration rule, and when it can be undone
-- **faqCategory:** documents
-- **Sources:**
-  - ThailandLawOnline — "Civil and Commercial Code Sections 521-536: Gift is a Contract" — direct fetch; Sections 525, 531, 533, 535 quoted directly.
-  - Silk Legal — "Goodbye, honey; and thanks for the house!" – The law on gifts in Thailand — direct fetch; independently corroborates the Section 531 ingratitude grounds and Section 533 deadlines.
-  - Thailand Law Forum — "Thailand Civil and Commercial Code Sections 518-571" — direct fetch; a third independent mirror consistent with the other two on Sections 521, 523, 525, 528, 531, 533, 535.
+Sources: Airbnb's own Thailand Tax Guide 2026 (prepared by an independent Thai law
+firm); Thailand Law Library (Siam Legal) on the Section 81 exemption; iLawAsia on
+Section 85/1 registration/Section 90/2 penalty; Dharmniti Law Office (dlo.co.th) on the
+฿1.8M registration caveat. Confirmed distinct from the existing
+`vat-vs-specific-business-tax-developer-sales` (developer new-build sale VAT) and
+`renting-out-your-villa-rules-and-taxes` (income tax + Hotel Act licensing, never
+mentions VAT) guides by reading both in full.
 
-**Why it's distinct:** Grepped the full 179-slug catalog for "gift", "525", "531" (excluding "gift tax" hits) — the only existing coverage is kb-0129 (gift-tax-property-transfers-family-thailand), which is entirely about Revenue Code income-tax exemptions and the Land Office transfer-fee discount on a gift already properly made. It never addresses the underlying civil-law question of what makes a gift of immovable property legally valid in the first place (Section 525's writing-and-registration formality, mirroring Section 456's sale formality) or when a completed gift can later be revoked (Section 531's narrow ingratitude grounds). Confirmed via full read of kb-0129 that neither topic is mentioned there — genuinely distinct, cross-linked in both directions.
+## 2. `tm47-90-day-address-report-foreign-resident` (kb-0184)
 
-**Framed conservatively:** did not assert that revoking a registered gift is straightforward — explicitly stated it requires a court judgment before the Land Office will amend the title, and that courts read the Section 531 grounds narrowly, consistent with the site's practice elsewhere of not overstating how easily a completed registration can be undone.
+**Title:** TM47: the 90-day address report every long-stay foreign owner living on Koh
+Phangan must file themselves
+**faqCategory:** process
 
-## Process notes
+Immigration Act Section 37(5) requires a long-stay foreign resident to personally
+report their own address to Immigration every 90 continuous days (form TM47) — a
+distinct, recurring duty from TM30 (which the property owner/host files about a guest
+within 24 hours). LTR visa holders file an annual TM95 instead.
 
-Two parallel research agents ran first. The fresh-news sweep (2026-09-14/17 window) found nothing genuinely new — re-confirmed all four standing watch items unchanged and ruled out one incremental nominee-crackdown stats/deadline update (Thai Examiner, 16 Sep 2026) as non-distinct from 10+ already-published guides. The evergreen gap-mining pass proposed six candidates; two were dropped after independent verification by the author: the sin-suan-tua/Thai-spouse land-purchase declaration (already covered in depth inside `foreign-spouse-usufruct-thai-marriage-property`, confirmed via grep — a false positive the agent's slug-only dedup check missed) and title insurance (too thin — the one cited provider's page returned HTTP 403, and broader search found no substantive Thailand-specific coverage or cost detail). The two published topics (Damrongtham Center, CCC gift-of-land formality/revocation) were both independently re-verified by the author via direct WebFetch of primary/law-firm sources before writing, and confirmed via full-catalog grep and full reads of the closest-matching existing guides to have no prior dedicated coverage.
+Sources: Immigration Bureau's own TM47 page (immigration.go.th); The Thaiger's detailed
+90-day-reporting how-to; IssaCompass on LTR annual reporting vs. the standard 90-day
+cycle. Confirmed distinct from the existing `tm30-foreign-guest-notification-koh-phangan`
+guide (a different party and a different trigger) by reading it in full — TM47 itself
+had no prior dedicated coverage in the catalog.
 
-`content-pipeline/backlog.md` updated: a discovery note logged at the top of section A documenting this run's news-sweep/gap-mining findings, the two rejected-as-already-covered/too-thin candidates, and the two published topics with sourcing (neither topic was a pre-existing ⏳ backlog row, so no row needed marking).
+## Why not the two 🔴 backlog rows
 
-TypeScript typecheck (`npx tsc --noEmit -p .`) run clean against both content files. Verified no duplicate slugs/kbIds and full EN/RU slug parity (181 matching entries each, up from 179) before finishing. Verified every internal `/knowledge/<slug>` cross-link added in both new guides resolves to a real, existing slug.
+Both standing 🔴 items (Koh Phangan water-crisis escalation; 2026 Land and Building Tax
+full-rate year) were re-checked and remain blocked for the same reasons logged in
+`backlog.md` on 2026-08-16/22/25/26/28: the water item has no PWA notice newer than
+7/2569, and the tax item substantially duplicates the already-published kb-0027. No
+change found in this run's fresh-news sweep (2026-09-15/19 window). Left ⏳.
