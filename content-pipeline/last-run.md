@@ -1,52 +1,68 @@
-# Last run — 2026-09-19
+# Last run — 2026-09-20
 
 Published 2 guides (EN + RU each). Backlog's standing ⏳ rows are all still confirmed
-duplicate/thin/unsafe (re-checked this run, see the 2026-09-19 discovery note in
-`backlog.md`), so — following the same pattern as the 2026-09-05/15/16/17 runs — two
-research agents ran (fresh-news sweep + evergreen gap-mining over the full ~183-slug
-catalog) and surfaced two genuinely new, well-sourced topics not previously covered.
+duplicate/thin/unsafe (re-checked this run, see the 2026-09-20 discovery note in
+`backlog.md`), so — following the same pattern as recent runs — two research agents ran
+(fresh-news sweep + evergreen gap-mining over the full 185-guide catalog) and surfaced
+two genuinely new, well-sourced topics not previously covered.
 
-## 1. `vat-on-short-term-villa-rental-income` (kb-0183)
+## 1. `road-width-setback-height-limit-koh-phangan` (kb-0185)
 
-**Title:** VAT on short-term villa rental income: the ฿1.8 million threshold that turns
-a Phangan let into a taxable service
-**faqCategory:** costs
+**Title:** The road-width rule that caps your villa's height and setback on Koh Phangan
+**faqCategory:** structures
 
-A long-term lease of Thai property is VAT-exempt (Revenue Code Section 81), but a
-serviced short-stay rental (cleaning, linen, check-in) is treated as a taxable service
-similar to a hotel business — once gross revenue from it passes ฿1.8M/year, Section 85/1
-requires VAT registration within 30 days, with real criminal (Section 90/2) and back-tax
-exposure for missing it.
+Ministerial Regulation No. 55 (B.E. 2543), under the Building Control Act, ties a
+building's maximum height (Clause 44: height ≤ 2× the horizontal distance to the far
+side of the nearest public road) and its setback (Clause 41: road-width-scaled distance
+from the road centerline/boundary) to the width of the road the plot fronts — a layer
+independent of the 2025 coastal/hillside eco-zoning already covered. On Koh Phangan,
+where many villa plots sit off narrow interior sois rather than the ring road, this can
+be the tightest constraint on a design.
 
-Sources: Airbnb's own Thailand Tax Guide 2026 (prepared by an independent Thai law
-firm); Thailand Law Library (Siam Legal) on the Section 81 exemption; iLawAsia on
-Section 85/1 registration/Section 90/2 penalty; Dharmniti Law Office (dlo.co.th) on the
-฿1.8M registration caveat. Confirmed distinct from the existing
-`vat-vs-specific-business-tax-developer-sales` (developer new-build sale VAT) and
-`renting-out-your-villa-rules-and-taxes` (income tax + Hotel Act licensing, never
-mentions VAT) guides by reading both in full.
+Sources: the regulation's own text (Association of Siamese Architects' gazetted-text
+mirror; Clause 44's exact wording independently corroborated via a WebSearch-quoted
+excerpt); G.A.M. Legal Alliance (an existing site source); ddproperty.com's setback
+table (corroborated by an independent WebSearch synthesis of apthai.com/
+thailandhomeplan.com, mutually consistent on the same Clause 41 figures). Confirmed
+distinct from `buying-next-to-undeveloped-land-what-can-be-built` (kb-0083, read in
+full — covers the same regulation's boundary-to-neighbour setback, a different
+measurement point) and from the coastal-setback/hillside-slope/eco-zone/villa-building
+guides (none mention road width) by reading/grepping the catalog.
 
-## 2. `tm47-90-day-address-report-foreign-resident` (kb-0184)
+## 2. `jetty-pier-permit-marine-department-koh-phangan` (kb-0186)
 
-**Title:** TM47: the 90-day address report every long-stay foreign owner living on Koh
-Phangan must file themselves
+**Title:** Building a private jetty or pier at a Koh Phangan waterfront villa: the
+permit most buyers don't know they need
 **faqCategory:** process
 
-Immigration Act Section 37(5) requires a long-stay foreign resident to personally
-report their own address to Immigration every 90 continuous days (form TM47) — a
-distinct, recurring duty from TM30 (which the property owner/host files about a guest
-within 24 hours). LTR visa holders file an annual TM95 instead.
+A private jetty, pier, deck or breakwater extending into or over a waterway needs
+separate permission from the Marine Department (Harbour Department) under Sections
+117–118 of the Navigation in Thai Waters Act B.E. 2456 — a wholly different regulator
+from the one that issues a land-based building permit or checks coastal-zone
+compliance. Unauthorized structures can be ordered demolished and fined by area.
 
-Sources: Immigration Bureau's own TM47 page (immigration.go.th); The Thaiger's detailed
-90-day-reporting how-to; IssaCompass on LTR annual reporting vs. the standard 90-day
-cycle. Confirmed distinct from the existing `tm30-foreign-guest-notification-koh-phangan`
-guide (a different party and a different trigger) by reading it in full — TM47 itself
-had no prior dedicated coverage in the catalog.
+Sources: Department of Marine and Coastal Resources (dmcr.go.th, primary/government —
+confirms every waterway-encroaching project needs prior Harbour Department approval);
+The Pattaya News on active beach/waterway encroachment enforcement. **Caveat:** the
+exact statutory section numbers and the ~฿500–10,000/m² fine figure could not be
+confirmed via a direct primary-text fetch (the Marine Department's own PDF of the Act
+returned unreadable binary; a cited Supreme Court judgment page required login) — they
+rest on convergent WebSearch-indexed secondary/practitioner sourcing only, and the guide
+frames the figure with hedged language ("commonly cited") rather than as exact. A human
+editor could tighten this further with direct access to the consolidated Act text.
+Confirmed distinct from `coastal-setback-rules-koh-phangan-distance-from-beach`,
+`alluvion-foreshore-land-ownership-thailand`, `building-a-villa-koh-phangan` and
+`environmental-impact-assessment-villa-resort-koh-phangan`, and via a full-catalog grep
+for "jetty"/"pier"/"dock"/"marine department"/"navigation act" (no prior hits beyond
+geographic/ferry references).
 
-## Why not the two 🔴 backlog rows
+## Why not the standing ⏳ backlog rows
 
-Both standing 🔴 items (Koh Phangan water-crisis escalation; 2026 Land and Building Tax
-full-rate year) were re-checked and remain blocked for the same reasons logged in
-`backlog.md` on 2026-08-16/22/25/26/28: the water item has no PWA notice newer than
-7/2569, and the tax item substantially duplicates the already-published kb-0027. No
-change found in this run's fresh-news sweep (2026-09-15/19 window). Left ⏳.
+Both remaining 🔴 items (Koh Phangan water-crisis escalation; 2026 Land and Building Tax
+full-rate year) were re-checked this run and remain blocked for the same reasons logged
+in `backlog.md` on 2026-08-16/22/25/26/28: no PWA notice newer than 7/2569 exists, and
+the tax item substantially duplicates the already-published `owners-taxes-annual-land-and-income`
+(kb-0027). The fresh-news sweep (2026-09-15/20 window) found nothing new beyond
+incremental nominee-crackdown statistic refreshes (11,000-firm probe update due 30 Sep;
+AMLO's ~฿20.4bn cumulative seizure count) — both already covered by 10+ existing guides.
+Left ⏳.

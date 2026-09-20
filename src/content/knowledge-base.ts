@@ -11223,6 +11223,109 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "process",
     faqQuestion: "If I live in my own villa on a long-stay visa, do I still have to file a 90-day report, separately from TM30?",
   },
+  {
+    slug: "road-width-setback-height-limit-koh-phangan",
+    kbId: "kb-0185",
+    topic: "Structures",
+    title: "The road-width rule that caps your villa's height and setback on Koh Phangan",
+    short:
+      "A plot can clear the 2025 coastal eco-zone and the hillside slope tiers entirely and still have its buildable height and footprint capped by something else: Ministerial Regulation No. 55 (B.E. 2543) ties both to the width of the public road the plot fronts. On Koh Phangan, where most interior villa plots sit off narrow, unpaved sois rather than the ring road, this is often the tightest constraint of all — and the one buyers check last.",
+    updated: "2026-09-20",
+    body: [
+      "Your plot clears the coastal setback tier and the hillside slope test — so why would a District Office still cap your villa's height or push the design back from the road? Because a third, older, nationwide layer sits on top of both: Ministerial Regulation No. 55 (B.E. 2543/2000), issued under the Building Control Act B.E. 2522 (1979), ties a building's maximum height and its setback distance to the width of the public road it fronts — not to the eco-zone, the elevation, or the slope. On Koh Phangan, where a large share of villa plots are reached by narrow, unpaved interior sois rather than the paved ring road (Route 4169), this can be the tightest limit on a design, and it is easy to miss because it has nothing to do with the coastline or the hill.",
+      { h: "Clause 44: your height cap is set by the road, not the zone" },
+      "Under Clause 44 (ข้อ 44) of the Regulation, a building's height at any point cannot exceed twice the horizontal distance from that point, measured perpendicular to the road, to the far boundary of the nearest public road. Height itself is measured vertically from road or ground level up to the building's highest point. The practical effect: the narrower the road a plot fronts, the lower the ceiling on how tall a structure built close to that road can rise — independent of anything the coastal or hillside zoning already allows.",
+      { h: "Clause 41: how far back you must build, based on the road's width" },
+      "Clause 41 (ข้อ 41) sets separate, road-width-based setback distances, measured from the outermost wall or column line of the building:",
+      {
+        ul: [
+          "**Buildings up to 2 storeys or 8 m in height** — on a public road narrower than 6 m, the building must sit at least 3 m back from the road's centerline.",
+          "**Taller buildings (over 2 storeys or 8 m)** — on a public road narrower than 10 m, at least 6 m back from the centerline; on a road 10–20 m wide, at least one-tenth of the road's width back from the road boundary itself.",
+        ],
+      },
+      { h: "Why this bites on Koh Phangan specifically" },
+      "A large share of Phangan's residential lots — including much of the interior around Sri Thanu, Ban Tai and the hillside developments — are accessed by community sois or unpaved tracks well under 6 m wide, not by a numbered secondary road. A plot can sit entirely outside the tightest tiers of the 2025 eco-zoning — see [Island eco-zoning](/knowledge/koh-phangan-building-zones), [Coastal setback rules](/knowledge/coastal-setback-rules-koh-phangan-distance-from-beach) and [Hillside building limits](/knowledge/hillside-slope-building-limits-koh-phangan) — and still have its buildable height and footprint quietly constrained by nothing more than how wide its own access lane happens to be.",
+      { h: "One caveat: what counts as a \"public road\" matters" },
+      "Both clauses are written around a \"public road\" (ถนนสาธารณะ). Many of Phangan's interior access tracks are informally built or maintained by the local Tambon Administrative Organization without a clear, registered classification as a public road, and how strictly a District Office applies these clauses can turn on that classification. Don't estimate a track's width by eye — before finalizing a design, ask the District Office's Building Control section how they classify the specific road serving the plot, since that decides which of these rules apply, and how.",
+      "None of this replaces the boundary-to-neighbour setbacks already covered in [Buying next to undeveloped land](/knowledge/buying-next-to-undeveloped-land-what-can-be-built) — that guide covers Ministerial Regulation No. 55's separate rules for distance to your property line, not the road. A villa plot on Koh Phangan can clear every zoning and boundary test and still need its massing revisited once an architect runs the road-width numbers — get that check done before committing to a design, not after.",
+    ],
+    takeaways: [
+      "Ministerial Regulation No. 55 (B.E. 2543), Clause 44, caps a building's height at no more than twice the horizontal distance to the far boundary of the nearest public road — a limit that applies regardless of eco-zone or hillside-slope tier.",
+      "Clause 41 sets a separate, road-width-based setback: up to 3 m from the road centerline for buildings up to 2 storeys/8 m on roads under 6 m wide; up to 6 m from the centerline (or 1/10 of the road's width from its boundary on 10–20 m roads) for taller buildings.",
+      "On Koh Phangan, narrow interior sois — common in Sri Thanu, Ban Tai and hillside plots — can make this road-width rule the tightest constraint on a design, tighter than the coastal or hillside zoning tiers.",
+      "This is distinct from the boundary-to-neighbour setback rules in the same regulation, which measure from the property line, not the road.",
+      "Confirm the access road's legal classification and width with the District Office's Building Control section before finalizing a design — informally built interior tracks may not have a settled classification as a \"public road\" under this regulation.",
+    ],
+    sources: [
+      {
+        title: "Association of Siamese Architects — Ministerial Regulation No. 55 (B.E. 2543) issued under the Building Control Act B.E. 2522 (official gazetted text)",
+        url: "https://asa.or.th/wp-content/uploads/2020/03/%E0%B8%81%E0%B8%8E%E0%B8%81%E0%B8%A3%E0%B8%B0%E0%B8%97%E0%B8%A3%E0%B8%A7%E0%B8%87%E0%B8%89%E0%B8%9A%E0%B8%B1%E0%B8%9A%E0%B8%97%E0%B8%B5%E0%B9%88-55-%E0%B8%AD%E0%B8%AD%E0%B8%81%E0%B8%95%E0%B8%B2%E0%B8%A1%E0%B8%84%E0%B8%A7%E0%B8%B2%E0%B8%A1%E0%B9%83%E0%B8%99%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B8%9A%E0%B8%B1%E0%B8%8D%E0%B8%8D%E0%B8%B1%E0%B8%95%E0%B8%B4%E0%B8%84%E0%B8%A7%E0%B8%9A%E0%B8%84%E0%B8%B8%E0%B8%A1%E0%B8%AD%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B8%A3-%E0%B8%9E.%E0%B8%A8.-2522.pdf",
+      },
+      {
+        title: "G.A.M. Legal Alliance — Building Restrictions in Thailand",
+        url: "https://gam-legalalliance.com/investment/building-restrictions-in-thailand/",
+      },
+      {
+        title: "DDproperty.com — ระยะร่นอาคารและที่เว้นว่าง ตาม พ.ร.บ.ควบคุมอาคาร พ.ศ. 2543 (road-width setback table)",
+        url: "https://www.ddproperty.com/%E0%B8%84%E0%B8%B9%E0%B9%88%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%8B%E0%B8%B7%E0%B9%89%E0%B8%AD%E0%B8%82%E0%B8%B2%E0%B8%A2/e0b8a3e0b8b0e0b8a2e0b8b0e0b8a3e0b988e0b899e0b981e0b8a5e0b8b0e0b897e0b8b5e0b988e0b980e0b8a7e0b989e0b899e0b8a7e0b988e0b8b2e0b887-e0b881-19610",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "Why is my buildable height limited even though my plot passes the coastal and hillside zoning rules?",
+  },
+  {
+    slug: "jetty-pier-permit-marine-department-koh-phangan",
+    kbId: "kb-0186",
+    topic: "Process",
+    title: "Building a private jetty or pier at a Koh Phangan waterfront villa: the permit most buyers don't know they need",
+    short:
+      "A jetty, pier, deck or breakwater extending into or over the water isn't covered by your building permit or the 2025 coastal eco-zoning — it needs separate permission from the Marine Department under the Navigation in Thai Waters Act B.E. 2456. Skip it, and you're carrying an unauthorized structure that can be ordered demolished and fined by area.",
+    updated: "2026-09-20",
+    body: [
+      "Want a private jetty, pier or swim deck at a bay-front villa? That isn't covered by a Building Control Act permit or the 2025 coastal eco-zoning rules at all. Any structure built in, over or under a public waterway needs separate permission from Thailand's Marine Department (the Harbour Department, กรมเจ้าท่า), under a law more than a century old: the Navigation in Thai Waters Act B.E. 2456 (1913).",
+      { h: "The legal basis: Sections 117–118" },
+      "Sections 117 and 118 of the Act prohibit building, planting or placing any structure over, in or under the water of the sea, a river, canal, swamp, lake or reservoir that forms part of a navigable waterway, without the Harbour Department's prior permission. The Department of Marine and Coastal Resources' own guidance states plainly that any project encroaching on a waterway needs Harbour Department approval before construction starts — not only large commercial developments. Violating the rule can mean a demolition order plus a fine calculated on the footprint of the unauthorized structure — Thai legal commentary on Sections 117–118 commonly cites a range of roughly ฿500 to ฿10,000 per square metre, though the amount applied depends on the specific case.",
+      { h: "A separate regulator from the one you already know" },
+      "The 2025 coastal eco-zoning (see [Island eco-zoning](/knowledge/koh-phangan-building-zones) and [Coastal setback rules](/knowledge/coastal-setback-rules-koh-phangan-distance-from-beach)) and the standard District Office building permit (see [Building a villa on Koh Phangan](/knowledge/building-a-villa-koh-phangan)) both govern what gets built on land, up to the high-tide line. A jetty, pier, deck, breakwater or mooring structure extending past that line into the water itself falls to a different authority entirely — the Marine Department / local harbour master — and a land-side permit neither covers it nor is covered by it. A villa can be fully compliant on every zoning and building-permit front and still be sitting on an unauthorized structure the moment a private jetty crosses the waterline.",
+      { h: "Enforcement is active, not theoretical" },
+      "This isn't a dead-letter law. Reporting on beachfront and waterway encroachment cases in other Thai tourist provinces in recent years confirms Harbour Department jurisdiction and the per-square-metre fine mechanism are actively applied, including demolition orders against unauthorized structures — not just written into old statute. Koh Phangan's bay-front and hillside-with-private-access villas are exactly the kind of property where an owner might add a jetty or deck after buying without realizing a second, entirely separate permit track applies.",
+      { h: "What to do before you build" },
+      {
+        ul: [
+          "**Confirm with the local Marine Office / harbour master** (the Surat Thani provincial Marine Department office has jurisdiction over Koh Phangan) whether your planned structure needs Section 117 permission — before you build it, not after.",
+          "**Get this cleared alongside, not instead of,** your standard District Office building permit and any coastal-zone compliance check.",
+          "**If buying a villa that already has a jetty, deck or seawall extending into the water,** ask for proof of Harbour Department permission as part of due diligence — an unauthorized structure is a liability you'd be inheriting, not a bonus.",
+          "**Budget time for this separately** — it's a different office, a different application and a different timeline from the land-based building permit.",
+        ],
+      },
+      "A sea view is one thing; a legal way to touch the water from your own plot is another. If villa plans include a jetty, pier, private beach deck or breakwater, treat the Marine Department application as its own line item in due diligence — not an afterthought once the villa itself is built.",
+    ],
+    takeaways: [
+      "A private jetty, pier, deck or breakwater extending into or over a public waterway needs its own permission from the Marine Department (Harbour Department) under Sections 117–118 of the Navigation in Thai Waters Act B.E. 2456 — separate from any land-based Building Control Act permit.",
+      "Unauthorized waterway structures can be ordered demolished and carry a fine calculated per square metre of the unauthorized structure — commonly cited at roughly ฿500–10,000/m² — independent of any land-use penalty.",
+      "This sits alongside, not instead of, the 2025 coastal eco-zoning setback rules — a plot can be fully compliant on land and still need a separate marine permit for anything built over the water.",
+      "The Department of Marine and Coastal Resources confirms every waterway-encroaching structure needs prior Harbour Department approval — this isn't limited to large commercial projects.",
+      "Apply through the local Marine Office/harbour master before construction; if buying a villa with an existing jetty or seawall, verify Harbour Department permission was obtained as part of due diligence.",
+    ],
+    sources: [
+      {
+        title: "Department of Marine and Coastal Resources (dmcr.go.th) — construction encroaching on waterways requires prior Harbour Department permission",
+        url: "https://www.dmcr.go.th/detailAll/32744/nws/22",
+      },
+      {
+        title: "Navigation in Thai Waters Act B.E. 2456 (1913), Sections 117–118 — Marine Department (md.go.th) statutory text",
+        url: "https://laws.md.go.th/mrc/backend/images/viewfile/1-1-2023111412353CF.pdf",
+      },
+      {
+        title: "The Pattaya News — Legal Corner: What Are the Actual Laws Around Beach Encroachment in Thailand?",
+        url: "https://thepattayanews.com/2025/01/09/legal-corner-what-are-the-actual-laws-around-beach-encroachment-in-thailand/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "Can I build a private jetty or pier at my waterfront villa on Koh Phangan?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
