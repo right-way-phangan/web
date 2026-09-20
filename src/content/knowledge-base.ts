@@ -11326,6 +11326,124 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "process",
     faqQuestion: "Can I build a private jetty or pier at my waterfront villa on Koh Phangan?",
   },
+  {
+    slug: "real-estate-backed-digital-tokens-thailand",
+    kbId: "kb-0187",
+    topic: "Structures",
+    title: "Real-estate-backed digital tokens in Thailand: what SiriHub and RealX actually give an investor",
+    short:
+      "SEC-regulated \"investment tokens\" like Sansiri's SiriHub and Origin Property's RealX let an investor buy a fractional claim on a specific Bangkok building's rental income — marketed as a new way to invest in Thai property. The token is a claim on the company that owns the building, not registered land or condo title, which is exactly why the Condominium Act's 49% foreign quota and the Land Code's foreign-ownership ban still apply underneath it, untouched.",
+    updated: "2026-09-20",
+    body: [
+      "Can buying a digital token give a foreign investor real estate exposure in Thailand without the usual ownership restrictions? Not in the way it might sound. Since 2021, Thailand's Securities and Exchange Commission has licensed a small but growing market of \"investment tokens\" backed by specific buildings — Sansiri's SiriHub and Origin Property's RealX are the two best-known examples. They're real, regulated, and open to foreign buyers. But a token is a claim on the company that holds the building, not a claim on the building itself, and that distinction is exactly why it doesn't touch the Land Code or the Condominium Act at all.",
+      { h: "The legal basis: the Emergency Decree on Digital Asset Businesses B.E. 2561" },
+      "Thailand's SEC regulates this market under the Emergency Decree on Digital Asset Businesses B.E. 2561 (2018), which licenses digital-asset businesses across categories including exchanges, brokers, dealers, fund managers and ICO portals. A public offering of an investment token must run through an SEC-approved ICO portal, and secondary trading happens on a licensed digital asset exchange — the Thai Digital Assets Exchange (TDX), SEC-authorized to operate since September 2022, is where both SiriHub and RealX list. The SEC requires the underlying property to be complete and free of disputes before an offering can go live.",
+      { h: "Two examples already operating" },
+      {
+        ul: [
+          "**SiriHub (Sansiri, 2021).** Backed by the Siri Campus office building in Bangkok, raising roughly ฿2 billion from investors who receive quarterly income distributions tied to the building's rental performance. A second offering, SiriHub2, has since followed the same model.",
+          "**RealX (Origin Property, debuted on TDX 25 September 2023).** Backed by three luxury residential projects in central Bangkok (361 condo units), priced at roughly ฿182 per token with a stated ฿300,000 per-investor cap at launch. Token holders receive a quarterly share of net rental income for the first five years, plus a potential share of the price gain on the underlying units after year six.",
+        ],
+      },
+      { h: "What a token actually gives you — and what it doesn't" },
+      "The structure is what makes this legally possible for foreign buyers in the first place: what gets tokenized isn't the property directly, it's the special-purpose company (SPV) that holds registered title to it. An investor's token represents a fractional economic claim on that SPV — its rental income and, potentially, its sale proceeds — not a name on a Chanote or a condo unit register. **The SPV itself is the one that has to comply with Thai ownership law**, meaning the [Condominium Act's 49% foreign quota](/knowledge/condo-foreign-ownership-quota-debate-2026) and the Land Code's ban on foreign land ownership keep applying exactly as they would to any other Thai property owner — a token doesn't create a workaround, it sits one legal layer above the restriction entirely.",
+      { h: "A retail investment cap that was lifted for this specific category" },
+      "Thailand's SEC generally caps a retail investor at ฿300,000 per single token offering, a standard investor-protection limit for higher-risk digital token products. A rule change published in the Royal Gazette on 16 January 2024 removed that cap specifically for real-estate-backed and infrastructure-backed tokens, letting retail investors put more than ฿300,000 into a single offering in this category — a materially lighter-touch regime than for a typical crypto ICO, reflecting the SEC's view that an income-producing, SEC-vetted building is a different risk profile from a speculative token.",
+      { h: "Distinct from a Thai REIT — and from owning a villa outright" },
+      "This isn't the same vehicle as the [Thai REIT](/knowledge/thai-reit-indirect-real-estate-investment) already covered on this site. A REIT is a listed trust unit under a different law (the Trust for Transactions in Capital Market Act B.E. 2550), trading daily on the Stock Exchange of Thailand across a diversified portfolio you don't choose. An investment token is tied to one specific building you do choose, but trades — if at all — on a much thinner, newer secondary market with a shorter track record than an SET listing. Both existing token offerings are Bangkok office or condo projects; no Koh Phangan or Surat Thani asset has been tokenized to date, so this is background knowledge on an indirect investment route, not yet a way to gain exposure to island real estate specifically.",
+      "None of this replaces the direct-ownership question this site otherwise focuses on. A token never gives you a villa to live in, rent out under your own name, or protect with a registered lease or superficies the way [the standard foreign-ownership routes](/knowledge/how-foreigners-own-a-villa) do — it's income exposure to someone else's building, not a property of your own.",
+    ],
+    takeaways: [
+      "Real-estate-backed investment tokens (SiriHub since 2021, RealX since 2023) let investors buy SEC-regulated tokens tied to a specific Thai building's rental income, issued via SEC-approved ICO portals and traded on the Thai Digital Assets Exchange (TDX) under the Emergency Decree on Digital Asset Businesses B.E. 2561.",
+      "A token represents a fractional economic claim on the SPV/company that holds registered title to the property — not registered title itself; an investor's name never appears on a Chanote or condo unit register.",
+      "Because the SPV, not the investor, holds actual title, the Condominium Act's 49% foreign quota and the Land Code's foreign land-ownership ban apply at the SPV level exactly as normal — buying tokens doesn't create a workaround around either restriction.",
+      "The SEC's general ฿300,000-per-offering retail investment cap was removed specifically for real-estate- and infrastructure-backed tokens by a rule published in the Royal Gazette on 16 January 2024.",
+      "No Koh Phangan or Surat Thani property has been tokenized to date — both existing examples (SiriHub, RealX) are Bangkok commercial/residential projects, so this is a general indirect-investment route, not yet a way to gain exposure to island real estate specifically.",
+    ],
+    sources: [
+      {
+        title: "Securities and Exchange Commission, Thailand — Emergency Decree on Digital Asset Businesses B.E. 2561 (2018) (unofficial English translation)",
+        url: "https://www.sec.or.th/EN/Documents/EnforcementIntroduction/digitalasset_decree_2561_EN.pdf",
+      },
+      {
+        title: "Nation Thailand — Thai property developer to sell fraction of condos by issuing digital tokens",
+        url: "https://www.nationthailand.com/business/digital-assets/40027067",
+      },
+      {
+        title: "Bangkok Post — Condo-backed RealX token to debut on TDX",
+        url: "https://www.bangkokpost.com/business/2567786/condo-backed-realx-token-to-debut-on-tdx",
+      },
+      {
+        title: "Cointelegraph — Thailand eases restrictions on infrastructure-backed digital tokens",
+        url: "https://cointelegraph.com/news/thailand-eases-restrictions-infrastructure-backed-digital-tokens",
+      },
+      {
+        title: "Tokenizer.estate — Tokenize Real Estate in Thailand: SEC & Emergency Decree overview",
+        url: "https://tokenizer.estate/thailand",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "Can I invest in Thai real estate through a digital token instead of buying property directly?",
+  },
+  {
+    slug: "land-building-tax-arrears-seizure-auction-thailand",
+    kbId: "kb-0188",
+    topic: "Costs",
+    title: "Unpaid Land and Building Tax in Thailand: the registration bar and seizure power behind a missed bill",
+    short:
+      "Falling behind on annual Land and Building Tax isn't just a growing balance — Section 59 of the LBT Act blocks registering any transfer of the property at the Land Office while arrears exist, and after a 90-day warning period the local administrator can seize, attach and auction the property itself to recover the debt. Here's how the arrears mechanism actually works, and why a buyer should check it too.",
+    updated: "2026-09-20",
+    body: [
+      "What actually happens if Land and Building Tax on a Koh Phangan property goes unpaid? Two separate consequences follow, one immediate and one that escalates on a fixed timeline — both set out in Chapter 8 of the Land and Building Tax Act B.E. 2562 (2019), \"Tax in Arrears\" (Sections 58–67).",
+      { h: "First, and immediately: Section 59 blocks your next transfer" },
+      "The moment a payment is missed past its deadline, it becomes \"tax in arrears\" under Section 58. Section 59 then bars the Land Office from registering any transfer of rights — a sale, a gift, adding a co-owner — over that land or building while the arrears sit unpaid. Section 60 requires the local authority to report arrears data to the Land Office by June each year, feeding exactly this check. In practice, this means unpaid LBT isn't just a debt the owner carries privately; it's a live block on the next registration at the Land Office, which is why it belongs in [due diligence](/knowledge/due-diligence-checklist-koh-phangan) on both sides of a deal — a seller who owes tax can't close, and a buyer who doesn't check risks inheriting a stalled transaction.",
+      { h: "Then: the warning notice and the 90-day countdown to seizure" },
+      {
+        ul: [
+          "**Section 61** — the local authority issues a written warning notice to taxpayers in arrears, due by May each year.",
+          "**Section 62** — if the arrears remain unpaid 90 days after that notice, the local administrator gains the power to issue a written order to seize, attach and auction the taxpayer's property to recover the tax, surcharge and costs. Where the local administrator is a municipal or subdistrict-level official — the level at which Koh Phangan's own local government sits — provincial governor approval is required before this power can be used.",
+          "**Section 63** — the local authority also has powers of inspection and investigation to locate and verify property for this purpose.",
+          "**Section 64** — a seizure is lifted once the tax, surcharge and costs are paid in full.",
+          "**Section 65** — the local administrator can't proceed to auction while an appeal against the assessment, or a related court case, is still pending.",
+          "**Section 66** — auction proceeds first cover the tax, surcharge, penalty and the costs of the seizure/auction itself; any remainder goes back to the owner.",
+        ],
+      },
+      "That Section 65 pause is narrower than it sounds: it only stops the auction once a seizure order already exists — it doesn't touch the payment deadline itself. [Disputing a Land and Building Tax assessment](/knowledge/disputing-land-building-tax-assessment) still doesn't pause the underlying obligation to pay by the statutory deadline; it only pauses a seizure that's already been ordered from proceeding to sale.",
+      { h: "The late-payment surcharge is separate from — and smaller than — the misdeclaration penalty" },
+      "Section 70 sets a flat late-payment surcharge of 1% per month on the arrears (any part of a month counts as a full month), reduced to 0.5% per month if the local authority approves a payment-extension arrangement — and capped so the surcharge itself can never exceed the tax amount owed. This is a distinct, smaller mechanism from the separate penalties under Sections 68–69 (commonly cited in the 10–40% range), which apply to different failures — such as under-declaring or misrepresenting a property in the assessment process — not simply paying late. The two get conflated in some secondary sources; they're not the same provision.",
+      { h: "Why this matters more for a buyer than it looks" },
+      "This is an entirely different mechanism from [buying a property at a Legal Execution Department auction](/knowledge/buying-land-condo-court-auction-thailand), which is a judicial process under the Civil Procedure Code, triggered only after a court judgment — a mortgage default, for instance. The LBT arrears process is non-judicial: the local administrator runs it directly under the LBT Act itself, with no court order required at any stage. Because liability follows the property and the registration bar applies regardless of who currently holds title, confirming a clean, paid-up LBT receipt is worth doing alongside a title search — before a transfer day gets scheduled, not after it stalls.",
+    ],
+    takeaways: [
+      "Unpaid Land and Building Tax isn't just a growing bill: Section 59 of the LBT Act bars registering any transfer of the property at the Land Office while arrears exist — a live risk for a seller trying to close and for a buyer who hasn't checked.",
+      "After a written warning notice (due by May each year, Section 61) goes unpaid for 90 days, Section 62 gives the local administrator power to seize, attach and auction the property to recover the debt; municipal/subdistrict-level administrators — Koh Phangan's level — need provincial governor approval first.",
+      "The Section 70 late-payment surcharge is a flat 1% per month of the arrears (0.5%/month with an approved extension), capped so it can never exceed the tax owed itself — a separate, smaller mechanism than the 10–40% penalties under Sections 68–69 for misdeclaration.",
+      "An assessment appeal doesn't pause the payment deadline, only a seizure already in progress (Section 65) — those are two different pause points, not one.",
+      "This is a non-judicial, administrative auction run directly by the local government under the LBT Act — distinct from a court-ordered Legal Execution Department auction under the Civil Procedure Code, which requires a judgment first; confirm a property's LBT payment status before transfer day, since arrears run with the land, not the person.",
+    ],
+    sources: [
+      {
+        title: "Institute of Legal Studies (drthawip.com) — Land and Building Tax Act B.E. 2562, Chapter 8 \"Tax in Arrears\" (Sections 58–67), Thai statutory text",
+        url: "https://www.drthawip.com/landlaw/035",
+      },
+      {
+        title: "Institute of Legal Studies (drthawip.com) — Land and Building Tax Act B.E. 2562, Chapter 9 \"Penalty and Surcharge\" (Sections 68–72), Thai statutory text",
+        url: "https://www.drthawip.com/landlaw/036",
+      },
+      {
+        title: "AngloSiamLaw — Land and Building Tax in Thailand: Complete Guide 2026",
+        url: "https://anglosiamlaw.com/blog/land-building-tax-thailand-guide",
+      },
+      {
+        title: "Benoit & Partners — Land and Building Tax Thailand",
+        url: "https://benoit-partners.com/land-building-tax-thailand/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "What happens if Land and Building Tax on my Koh Phangan property goes unpaid?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

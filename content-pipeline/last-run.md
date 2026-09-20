@@ -1,68 +1,81 @@
-# Last run — 2026-09-20
+# Last run — 2026-09-20 (second run, same day)
 
-Published 2 guides (EN + RU each). Backlog's standing ⏳ rows are all still confirmed
-duplicate/thin/unsafe (re-checked this run, see the 2026-09-20 discovery note in
-`backlog.md`), so — following the same pattern as recent runs — two research agents ran
-(fresh-news sweep + evergreen gap-mining over the full 185-guide catalog) and surfaced
-two genuinely new, well-sourced topics not previously covered.
+Published 2 guides (EN + RU each). This is the second author run today — an earlier run
+already published `road-width-setback-height-limit-koh-phangan` (kb-0185) and
+`jetty-pier-permit-marine-department-koh-phangan` (kb-0186), and a same-day topic-scout
+sweep had already logged the only remaining fresh, well-sourced backlog row (the
+real-estate-backed digital token topic). All other standing ⏳ rows are still confirmed
+duplicate/thin/unsafe per the extensive prior notes in `backlog.md` — nothing had changed
+since this morning, so they weren't re-checked from scratch. Took the one ready backlog
+topic, then ran a fresh research pass to find one more genuinely new, well-sourced topic
+via evergreen gap-mining.
 
-## 1. `road-width-setback-height-limit-koh-phangan` (kb-0185)
+## 1. `real-estate-backed-digital-tokens-thailand` (kb-0187)
 
-**Title:** The road-width rule that caps your villa's height and setback on Koh Phangan
+**Title:** Real-estate-backed digital tokens in Thailand: what SiriHub and RealX actually
+give an investor
 **faqCategory:** structures
 
-Ministerial Regulation No. 55 (B.E. 2543), under the Building Control Act, ties a
-building's maximum height (Clause 44: height ≤ 2× the horizontal distance to the far
-side of the nearest public road) and its setback (Clause 41: road-width-scaled distance
-from the road centerline/boundary) to the width of the road the plot fronts — a layer
-independent of the 2025 coastal/hillside eco-zoning already covered. On Koh Phangan,
-where many villa plots sit off narrow interior sois rather than the ring road, this can
-be the tightest constraint on a design.
+SEC-regulated "investment tokens" backed by specific Bangkok buildings — Sansiri's
+SiriHub (2021, ~฿2bn raised, Siri Campus office building) and Origin Property's RealX
+(debuted on the Thai Digital Assets Exchange 25 Sep 2023, 361 condo units across three
+projects, ~฿182/token) — let investors buy a fractional claim on a building's rental
+income and price appreciation. The guide's central point: what's tokenized is the SPV
+that holds registered title, not the property itself, so the Condominium Act's 49%
+foreign quota and the Land Code's foreign-ownership ban apply at the SPV level exactly as
+normal — a token doesn't create a workaround.
 
-Sources: the regulation's own text (Association of Siamese Architects' gazetted-text
-mirror; Clause 44's exact wording independently corroborated via a WebSearch-quoted
-excerpt); G.A.M. Legal Alliance (an existing site source); ddproperty.com's setback
-table (corroborated by an independent WebSearch synthesis of apthai.com/
-thailandhomeplan.com, mutually consistent on the same Clause 41 figures). Confirmed
-distinct from `buying-next-to-undeveloped-land-what-can-be-built` (kb-0083, read in
-full — covers the same regulation's boundary-to-neighbour setback, a different
-measurement point) and from the coastal-setback/hillside-slope/eco-zone/villa-building
-guides (none mention road width) by reading/grepping the catalog.
+Sources: the SEC's own Emergency Decree on Digital Asset Businesses B.E. 2561 PDF
+(sec.or.th, primary); Nation Thailand and Bangkok Post on RealX's mechanics and TDX
+debut; Cointelegraph on the 16 Jan 2024 Royal Gazette rule that removed the standard
+฿300,000 retail-investor cap specifically for real-estate-/infrastructure-backed tokens;
+Tokenizer.estate's Thailand primer, which states the SPV/beneficial-interest mechanic
+directly and was independently corroborated by the primary Emergency Decree text.
+Confirmed distinct from the already-published `thai-reit-indirect-real-estate-investment`
+(kb-0179 — a different statute, SET-listed, diversified portfolio) by reading it in full;
+confirmed via a full-catalog grep that no existing guide mentions tokenization, digital
+tokens or fractional ownership. Framed conservatively: noted no Koh Phangan/Surat Thani
+asset has been tokenized to date rather than implying island relevance.
 
-## 2. `jetty-pier-permit-marine-department-koh-phangan` (kb-0186)
+## 2. `land-building-tax-arrears-seizure-auction-thailand` (kb-0188)
 
-**Title:** Building a private jetty or pier at a Koh Phangan waterfront villa: the
-permit most buyers don't know they need
-**faqCategory:** process
+**Title:** Unpaid Land and Building Tax in Thailand: the registration bar and seizure
+power behind a missed bill
+**faqCategory:** costs
 
-A private jetty, pier, deck or breakwater extending into or over a waterway needs
-separate permission from the Marine Department (Harbour Department) under Sections
-117–118 of the Navigation in Thai Waters Act B.E. 2456 — a wholly different regulator
-from the one that issues a land-based building permit or checks coastal-zone
-compliance. Unauthorized structures can be ordered demolished and fined by area.
+The Land and Building Tax Act B.E. 2562's Chapter 8 ("Tax in Arrears," Sections 58–67)
+gives unpaid LBT two escalating consequences neither existing tax guide covers: Section
+59 immediately bars the Land Office from registering any transfer of the property while
+arrears exist, and — after a written warning notice (Section 61, due by May) goes unpaid
+90 days — Section 62 lets the local administrator seize, attach and auction the property
+itself (with provincial-governor approval required at Koh Phangan's municipal/subdistrict
+administrative level). Section 70's late-payment surcharge (flat 1%/month, capped at
+100% of the tax owed) is also distinguished from the separate, larger 10–40%
+misdeclaration penalties under Sections 68–69.
 
-Sources: Department of Marine and Coastal Resources (dmcr.go.th, primary/government —
-confirms every waterway-encroaching project needs prior Harbour Department approval);
-The Pattaya News on active beach/waterway encroachment enforcement. **Caveat:** the
-exact statutory section numbers and the ~฿500–10,000/m² fine figure could not be
-confirmed via a direct primary-text fetch (the Marine Department's own PDF of the Act
-returned unreadable binary; a cited Supreme Court judgment page required login) — they
-rest on convergent WebSearch-indexed secondary/practitioner sourcing only, and the guide
-frames the figure with hedged language ("commonly cited") rather than as exact. A human
-editor could tighten this further with direct access to the consolidated Act text.
-Confirmed distinct from `coastal-setback-rules-koh-phangan-distance-from-beach`,
-`alluvion-foreshore-land-ownership-thailand`, `building-a-villa-koh-phangan` and
-`environmental-impact-assessment-villa-resort-koh-phangan`, and via a full-catalog grep
-for "jetty"/"pier"/"dock"/"marine department"/"navigation act" (no prior hits beyond
-geographic/ferry references).
+Sources: two independent direct fetches of drthawip.com's own page-by-page mirror of the
+Act's Thai statutory text (landlaw/035 for Sections 58–67, landlaw/036 for Sections
+68–72) — this resolved an apparent conflict between two English secondary sources
+(AngloSiamLaw citing a 1%/month surcharge vs. Benoit & Partners citing tiered 10/20/40%
+penalties) by confirming they describe two *different* provisions (Section 70's flat
+late-payment surcharge vs. Sections 68–69's separate misdeclaration penalty), not a
+factual disagreement — and also corrected an initial secondary-source read that had
+misattributed the registration bar to "Section 60" (it's Section 59; Section 60 is the
+local authority's June reporting duty to the Land Office) before anything was published.
+AngloSiamLaw and Benoit & Partners retained as corroborating English secondary sources.
+Confirmed distinct from `disputing-land-building-tax-assessment` (kb-0082 — appeal
+mechanics only, explicitly doesn't cover non-payment) and `buying-land-condo-court-auction-thailand`
+(a judicial Civil Procedure Code/Legal Execution Department auction from a court
+judgment — a different legal basis from this non-judicial LBT Act administrative auction)
+by reading both in full.
 
 ## Why not the standing ⏳ backlog rows
 
-Both remaining 🔴 items (Koh Phangan water-crisis escalation; 2026 Land and Building Tax
-full-rate year) were re-checked this run and remain blocked for the same reasons logged
-in `backlog.md` on 2026-08-16/22/25/26/28: no PWA notice newer than 7/2569 exists, and
-the tax item substantially duplicates the already-published `owners-taxes-annual-land-and-income`
-(kb-0027). The fresh-news sweep (2026-09-15/20 window) found nothing new beyond
-incremental nominee-crackdown statistic refreshes (11,000-firm probe update due 30 Sep;
-AMLO's ~฿20.4bn cumulative seizure count) — both already covered by 10+ existing guides.
-Left ⏳.
+Re-confirmed (without re-researching from scratch, since nothing had changed since this
+morning's 2026-09-20 topic-scout note) that every other ⏳ row remains blocked: water
+crisis (still stuck on PWA Notice 7/2569, no successor), 2026 LBT full-rate year (still a
+duplicate of `owners-taxes-annual-land-and-income`, kb-0027), FBA/AMLA predicate-offence
+(still Ombudsman/AMLO review only), rental yields / power-grid single cable / "who's
+buying Phangan" / stamp duty vs SBT (all still duplicates of existing guides per the
+2026-08-29/09-05 notes), off-plan project vetting (still declined on naming-a-developer
+grounds), coalition property-policy stance and the PND e-filing date (both still thin).
