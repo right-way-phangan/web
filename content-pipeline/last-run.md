@@ -1,81 +1,81 @@
-# Last run — 2026-09-20 (second run, same day)
+# Last run — 2026-09-21
 
-Published 2 guides (EN + RU each). This is the second author run today — an earlier run
-already published `road-width-setback-height-limit-koh-phangan` (kb-0185) and
-`jetty-pier-permit-marine-department-koh-phangan` (kb-0186), and a same-day topic-scout
-sweep had already logged the only remaining fresh, well-sourced backlog row (the
-real-estate-backed digital token topic). All other standing ⏳ rows are still confirmed
-duplicate/thin/unsafe per the extensive prior notes in `backlog.md` — nothing had changed
-since this morning, so they weren't re-checked from scratch. Took the one ready backlog
-topic, then ran a fresh research pass to find one more genuinely new, well-sourced topic
-via evergreen gap-mining.
+Published 2 guides (EN + RU each). Every ⏳ row in `backlog.md` is a repeatedly-reconfirmed
+duplicate/thin/unsafe item (see the extensive inline notes in the backlog file), so this
+run followed the now-standard pattern: one fresh-news sweep plus one evergreen gap-mining
+pass, both run as independent research agents, with the two resulting candidates
+independently re-verified against primary sources before writing.
 
-## 1. `real-estate-backed-digital-tokens-thailand` (kb-0187)
+## 1. `charge-on-immovable-property-thailand-fifth-property-right` (kb-0189)
 
-**Title:** Real-estate-backed digital tokens in Thailand: what SiriHub and RealX actually
-give an investor
+**Title:** Thailand's fifth real property right: the 'charge' on immovable property
+almost nobody uses
 **faqCategory:** structures
 
-SEC-regulated "investment tokens" backed by specific Bangkok buildings — Sansiri's
-SiriHub (2021, ~฿2bn raised, Siri Campus office building) and Origin Property's RealX
-(debuted on the Thai Digital Assets Exchange 25 Sep 2023, 361 condo units across three
-projects, ~฿182/token) — let investors buy a fractional claim on a building's rental
-income and price appreciation. The guide's central point: what's tokenized is the SPV
-that holds registered title, not the property itself, so the Condominium Act's 49%
-foreign quota and the Land Code's foreign-ownership ban apply at the SPV level exactly as
-normal — a token doesn't create a workaround.
+Civil and Commercial Code Sections 1429–1434 create a "charge on immovable property" —
+a fifth registered real right in Thai law, alongside the usufruct, superficies, servitude
+and right of habitation already covered elsewhere in this knowledge base. It entitles a
+beneficiary to a periodical performance from the property or a specified use of it,
+defaults to lifetime duration if no term is set, is non-transferable (even by
+inheritance) unless the creating instrument says otherwise, and gives the beneficiary a
+court remedy (receivership or forced auction) if the owner defaults on the underlying
+obligation. It borrows its registration/extinguishment mechanics from servitude law
+(Sections 1388–1400 via Section 1434).
 
-Sources: the SEC's own Emergency Decree on Digital Asset Businesses B.E. 2561 PDF
-(sec.or.th, primary); Nation Thailand and Bangkok Post on RealX's mechanics and TDX
-debut; Cointelegraph on the 16 Jan 2024 Royal Gazette rule that removed the standard
-฿300,000 retail-investor cap specifically for real-estate-/infrastructure-backed tokens;
-Tokenizer.estate's Thailand primer, which states the SPV/beneficial-interest mechanic
-directly and was independently corroborated by the primary Emergency Decree text.
-Confirmed distinct from the already-published `thai-reit-indirect-real-estate-investment`
-(kb-0179 — a different statute, SET-listed, diversified portfolio) by reading it in full;
-confirmed via a full-catalog grep that no existing guide mentions tokenization, digital
-tokens or fractional ownership. Framed conservatively: noted no Koh Phangan/Surat Thani
-asset has been tokenized to date rather than implying island relevance.
+Sources: two independent primary-text mirrors — thailandlawonline.com's dedicated
+Sections 1429–1434 page and samuiforsale.com's own Thailand Civil Code Part III mirror —
+both quoting identical statutory language, corroborating each other on all six sections.
+Framed honestly: no reported case law or law-firm commentary describing an active,
+real-world use of this right turned up in the research, and the guide says so plainly
+rather than implying it's part of the standard toolkit. Confirmed distinct via a full
+catalog grep — "1429" through "1434" and "charge on immovable" appear nowhere else except
+as an incidental page-range fragment inside two unrelated guides' source URLs, never
+discussed in any title/short/body text.
 
-## 2. `land-building-tax-arrears-seizure-auction-thailand` (kb-0188)
+## 2. `divorce-property-division-foreign-spouse-thailand` (kb-0190)
 
-**Title:** Unpaid Land and Building Tax in Thailand: the registration bar and seizure
-power behind a missed bill
-**faqCategory:** costs
+**Title:** Divorce and property division for a foreign spouse in Thailand: the land, the
+house and the usufruct
+**faqCategory:** ownership
 
-The Land and Building Tax Act B.E. 2562's Chapter 8 ("Tax in Arrears," Sections 58–67)
-gives unpaid LBT two escalating consequences neither existing tax guide covers: Section
-59 immediately bars the Land Office from registering any transfer of the property while
-arrears exist, and — after a written warning notice (Section 61, due by May) goes unpaid
-90 days — Section 62 lets the local administrator seize, attach and auction the property
-itself (with provincial-governor approval required at Koh Phangan's municipal/subdistrict
-administrative level). Section 70's late-payment surcharge (flat 1%/month, capped at
-100% of the tax owed) is also distinguished from the separate, larger 10–40%
-misdeclaration penalties under Sections 68–69.
+The existing marriage-property cluster (`foreign-spouse-usufruct-thai-marriage-property`,
+`thai-prenuptial-agreement-property-protection`,
+`marriage-equality-act-property-rights-same-sex-couples`) covers an intact marriage or
+the period before one — none address what happens to property when the marriage ends.
+This guide covers: the CCC Section 1471/1474 separate-vs-marital-property distinction;
+Section 1533's default 50/50 split of marital property (sin somros) on divorce; Section
+1534's anti-front-running rule (property disposed of to injure the other spouse, without
+required consent, or destroyed is notionally added back into the calculation); Section
+1535's equal split of joint debts; and Land Code Section 94's forced-disposal mechanic
+(already covered for inheritance in `foreign-heir-inheriting-thai-land-section-93`)
+applying equally to land a foreign spouse is awarded in a settlement. The genuinely open
+part, flagged honestly rather than resolved: Section 1469 lets either spouse void an
+inter-spousal agreement made during the marriage, up to a year post-divorce — which can
+reach a previously-registered usufruct or superficies as part of a divorce asset
+division. No reported case of a Thai court actually cancelling a usufruct on this basis
+was found, but the statutory mechanism exists, so the guide says a registered usufruct
+should not be assumed to be automatically divorce-proof.
 
-Sources: two independent direct fetches of drthawip.com's own page-by-page mirror of the
-Act's Thai statutory text (landlaw/035 for Sections 58–67, landlaw/036 for Sections
-68–72) — this resolved an apparent conflict between two English secondary sources
-(AngloSiamLaw citing a 1%/month surcharge vs. Benoit & Partners citing tiered 10/20/40%
-penalties) by confirming they describe two *different* provisions (Section 70's flat
-late-payment surcharge vs. Sections 68–69's separate misdeclaration penalty), not a
-factual disagreement — and also corrected an initial secondary-source read that had
-misattributed the registration bar to "Section 60" (it's Section 59; Section 60 is the
-local authority's June reporting duty to the Land Office) before anything was published.
-AngloSiamLaw and Benoit & Partners retained as corroborating English secondary sources.
-Confirmed distinct from `disputing-land-building-tax-assessment` (kb-0082 — appeal
-mechanics only, explicitly doesn't cover non-payment) and `buying-land-condo-court-auction-thailand`
-(a judicial Civil Procedure Code/Legal Execution Department auction from a court
-judgment — a different legal basis from this non-judicial LBT Act administrative auction)
-by reading both in full.
+Sources: thailandlawonline.com's "Who Gets What in a Thai Divorce" and "Can My Thai Wife
+Cancel My Usufruct?" pages (the latter is the direct source for the Section 1469/usufruct
+tension), samuiforsale.com's "Divorce and the Division of the Marital Home," and
+thailandlawonline.com's Land Code Act translation for Section 94, cross-checked against a
+WebSearch-quoted excerpt of the CCC's own Sections 1533–1535 text. Confirmed distinct via
+a full read of all three existing marriage-property guides — none mention divorce,
+Section 1533, Section 1534, or the usufruct-survival question.
 
 ## Why not the standing ⏳ backlog rows
 
-Re-confirmed (without re-researching from scratch, since nothing had changed since this
-morning's 2026-09-20 topic-scout note) that every other ⏳ row remains blocked: water
-crisis (still stuck on PWA Notice 7/2569, no successor), 2026 LBT full-rate year (still a
-duplicate of `owners-taxes-annual-land-and-income`, kb-0027), FBA/AMLA predicate-offence
-(still Ombudsman/AMLO review only), rental yields / power-grid single cable / "who's
-buying Phangan" / stamp duty vs SBT (all still duplicates of existing guides per the
-2026-08-29/09-05 notes), off-plan project vetting (still declined on naming-a-developer
-grounds), coalition property-policy stance and the PND e-filing date (both still thin).
+A fresh-news sweep (2026-09-15/21 window) re-confirmed all five standing watch items
+unchanged: PWA Notice 7/2569 is still the latest Koh Phangan water notice (no successor);
+the FBA/AMLA nominee-predicate-offence amendment is still Ombudsman/AMLO review only
+(Thai Examiner, 24 Jul 2026); the coalition's "review foreign ownership" pledge is still
+sourced only to marketing sites; the 99-year leasehold bill and condo-quota reform are
+both still cabinet-study-only (Nation Thailand, 19 Jun 2026); and no 2026 LBT reduction
+decree has been issued (still a duplicate of kb-0027 regardless). Everything dated within
+the window was either an incremental nominee-crackdown statistic refresh (already
+10+-times covered) or not property-law-relevant. The other long-stalled ⏳ rows (rental
+yields, power-grid single cable, "who's buying Phangan," stamp duty vs SBT, off-plan
+vetting, PND e-filing date) were not re-researched from scratch today, since nothing in
+the news sweep gave any reason to expect their status had changed since the prior
+extensive checks logged inline in `backlog.md`.

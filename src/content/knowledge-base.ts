@@ -11444,6 +11444,115 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "costs",
     faqQuestion: "What happens if Land and Building Tax on my Koh Phangan property goes unpaid?",
   },
+  {
+    slug: "charge-on-immovable-property-thailand-fifth-property-right",
+    kbId: "kb-0189",
+    topic: "Structures",
+    title: "Thailand's fifth real property right: the 'charge' on immovable property almost nobody uses",
+    short:
+      "Beyond usufruct, superficies, servitude and the right of habitation, Thai law recognises a fifth registered real right in land: a 'charge' under Civil and Commercial Code Sections 1429–1434, entitling a beneficiary to periodical performance or a specified use from a property. It's real, registrable and enforceable — and almost never seen in practice.",
+    updated: "2026-09-21",
+    body: [
+      "Is there a fifth registered real property right in Thailand beyond the usufruct, superficies, servitude and right-of-habitation structures already covered in this knowledge base? Yes: the Civil and Commercial Code's Sections 1429–1434 create a 'charge on immovable property' (ภาระติดพันในอสังหาริมทรัพย์) — a distinct registrable right that almost never comes up in a Koh Phangan transaction, but is worth recognising if it ever does.",
+      { h: "What a charge actually creates (Section 1429)" },
+      "Section 1429 lets an immovable property be made subject to a charge entitling a beneficiary to either a periodical performance out of the property (for example, a fixed periodic payment or delivery of produce) or a specified use and enjoyment of it. That's broader than a simple debt and narrower than full possession — it sits conceptually between a [usufruct](/knowledge/superficies-vs-usufruct-vs-lease) (a full right to possess, use and profit from someone else's property) and a private contractual annuity that never touches the title deed at all.",
+      { h: "How long it lasts, and who can inherit it (Sections 1430–1431)" },
+      {
+        ul: [
+          "**Section 1430** — a charge can be created for a fixed period of time or for the life of the beneficiary; if the creating instrument doesn't specify a term, the law presumes it lasts for the beneficiary's lifetime.",
+          "**Section 1431** — unless the instrument creating the charge says otherwise, it is not transferable, even by inheritance. The right dies with the beneficiary by default, the same restrictive default used for the [right of habitation](/knowledge/right-of-habitation-thailand-fourth-property-right).",
+        ],
+      },
+      { h: "What happens if either side breaks the deal (Sections 1432–1433)" },
+      {
+        ul: [
+          "**Section 1432** — if the beneficiary fails to comply with an essential condition set out in the instrument creating the charge, their right can be terminated.",
+          "**Section 1433** — if the property owner defaults on the underlying obligation (the periodical performance or use the charge entitles the beneficiary to), the beneficiary can ask a court to appoint a receiver to manage the property and fulfil the obligation, or to order the property sold at auction with the proceeds applied to satisfy the claim. A court can refuse either remedy if the owner puts up adequate security instead.",
+        ],
+      },
+      { h: "It borrows its registration and extinguishment machinery from servitude law" },
+      "Section 1434 imports Sections 1388–1400 — the same provisions that govern how a [servitude](/knowledge/superficies-vs-usufruct-vs-lease) is exercised, extinguished and revived — into how a charge operates, with appropriate modification. In practice this means a charge, like a servitude, is meant to be registered against the title deed at the Land Office to bind future owners; an unregistered private arrangement calling itself a 'charge' doesn't get this statutory machinery.",
+      { h: "Why you'll almost never encounter one" },
+      "Unlike usufruct, superficies and lease — the three structures that do virtually all of the practical work in [protecting a foreign spouse's interest](/knowledge/foreign-spouse-usufruct-thai-marriage-property) or anchoring a foreign-financed building on Thai-owned land — the charge on immovable property has essentially no visible footprint in Thai property practice. No reported case law and no law-firm commentary describing an active use case for it turned up in a review of primary and secondary Thai legal sources; even general explainers of Thailand's real property rights aimed at foreign buyers routinely list usufruct, superficies, servitude and habitation while omitting the charge entirely. That doesn't make it invalid — the statute is unambiguous — it just means it isn't part of the standard toolkit anyone will suggest you use.",
+      "The practical takeaway for a Koh Phangan buyer isn't that you should consider using a charge — for anchoring a building or securing an income stream, a usufruct, superficies or a straightforward lease will almost always fit better and come with a lawyer who's actually used the structure before. The value of knowing it exists is recognition: if a title search, an old family arrangement, or an inherited plot turns up a registered notation referencing a 'charge' rather than a usufruct or servitude, it isn't a clerical error or an obsolete mortgage — it's this fifth, distinct real right, and it should be verified at the Land Office and read on its own terms as part of ordinary [due diligence](/knowledge/due-diligence-checklist-koh-phangan) before you assume what it does or doesn't bind you to.",
+    ],
+    takeaways: [
+      "Thai law recognises a fifth registered real right in land — a 'charge' on immovable property under Civil and Commercial Code Sections 1429–1434 — alongside the usufruct, superficies, servitude and right of habitation already covered in this knowledge base.",
+      "A charge entitles a beneficiary to either a periodical performance from the property or a specified use and enjoyment of it; unless the creating instrument says otherwise, it lasts for the beneficiary's lifetime and cannot be transferred, even by inheritance.",
+      "If the property owner defaults on the underlying obligation, Section 1433 lets the beneficiary ask a court to appoint a receiver over the property or force an auction sale to satisfy the claim.",
+      "It borrows servitude law's registration, exercise and extinguishment mechanics (Sections 1388–1400) but has essentially no visible footprint in Thai property practice — no reported case law or practitioner commentary describing active use turned up in this review.",
+      "It is not a mortgage (it doesn't secure a debt) and not a usufruct (narrower than a full right to possess, use and profit) — if one turns up in a title search or an old family deed on Koh Phangan land, get it verified at the Land Office rather than assuming it's obsolete or irrelevant.",
+    ],
+    sources: [
+      {
+        title: "ThailandLawOnline — Civil and Commercial Code Sections 1429–1434, Charge on Immovable Property",
+        url: "https://www.thailandlawonline.com/thai-real-estate-law/1429-1434-charge-on-immovable-property",
+      },
+      {
+        title: "Samui For Sale — Thailand Civil Code, Part III (Property Law), statutory text mirror",
+        url: "https://www.samuiforsale.com/law-texts/thailand-civil-code-part-3.html",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion: "What is a 'charge' on immovable property under Thai law, and how is it different from a usufruct or a mortgage?",
+  },
+  {
+    slug: "divorce-property-division-foreign-spouse-thailand",
+    kbId: "kb-0190",
+    topic: "Ownership",
+    title: "Divorce and property division for a foreign spouse in Thailand: the land, the house and the usufruct",
+    short:
+      "When a Thai marriage ends, marital property (sin somros) splits 50/50 by default under Civil and Commercial Code Section 1533 — but a foreigner still can't hold land even through a divorce settlement, and a registered usufruct protecting a foreign spouse doesn't automatically survive the divorce either. Here's how the division actually works, and the open question worth raising with a lawyer before signing.",
+    updated: "2026-09-21",
+    body: [
+      "What happens to property built up during a Thai-foreign marriage when it ends in divorce? Two separate legal questions apply, and this site's existing marriage-property guides — on [protecting a foreign spouse's interest](/knowledge/foreign-spouse-usufruct-thai-marriage-property) and on [prenuptial agreements](/knowledge/thai-prenuptial-agreement-property-protection) — both address what happens during an intact marriage or before one, not what happens when it ends. First: how Thai law splits marital property on divorce. Second, and less settled: whether a usufruct or superficies registered to protect the foreign spouse survives that split.",
+      { h: "What counts as marital property vs. separate property" },
+      {
+        ul: [
+          "**Sin suan tua** (separate property, Section 1471) — assets owned before the marriage, personal-use items, and gifts or inheritance received by one spouse individually during the marriage.",
+          "**Sin somros** (marital property, Section 1474) — property either spouse acquires during the marriage through work or investment, gifts or bequests explicitly made to both spouses jointly, and the 'fruits' (rental income, dividends, interest) of separate property. Doubtful cases are presumed to be sin somros.",
+        ],
+      },
+      { h: "The default 50/50 split — and the rule against front-running it" },
+      "Section 1533 splits sin somros equally between the spouses on divorce, regardless of whose name it's registered in or whose income produced it. Section 1534 closes the obvious workaround: if a spouse disposed of marital property for their own exclusive benefit, to injure the other spouse, without the other's legally-required consent, or destroyed it, that property is treated as if it still existed for the purpose of calculating the 50/50 split — and the shortfall comes out of the disposing spouse's own share. Section 1535 splits joint marital debts the same way, equally between both spouses.",
+      { h: "Land in the Thai spouse's name: what actually happens to it" },
+      "A foreigner still cannot hold land directly, even when a Thai court awards it as part of a divorce settlement. If land — or a house-and-land package — is awarded to the foreign spouse, Land Code Section 94 applies the same forced-disposal mechanic already covered in [a foreigner inheriting Thai land](/knowledge/foreign-heir-inheriting-thai-land-section-93): the Director-General sets a window of 180 days to one year to sell it, after which the Land Department can arrange the sale itself. In practice, this is exactly why divorce settlements typically award the land to the Thai spouse and give the foreign spouse a cash equalisation payment, the building's value, or other movable assets instead — it sidesteps the forced-sale clock entirely.",
+      { h: "Does a registered usufruct survive the divorce? The genuinely unresolved part" },
+      "Outside of divorce, a registered usufruct or superficies can't be cancelled unilaterally by the Thai spouse — removing it from the title deed needs either the foreign beneficiary's consent or a court order. Divorce changes this. Section 1469 gives either spouse the right to void an agreement made between them during the marriage, at any point during the marriage or within one year after it ends — and a usufruct or superficies one spouse granted the other during the marriage is exactly this kind of inter-spousal agreement. In practice, that means a Thai court hearing a divorce can terminate a previously-registered usufruct as part of dividing the couple's assets, unless the divorcing spouses agree between themselves that it stays in place or is bought out as part of the settlement. No reported case of a Thai court actually cancelling a usufruct on this basis turned up in a review of current legal commentary — but the statutory mechanism to do so exists, so a foreign spouse shouldn't treat a registered usufruct as automatically divorce-proof, and it's worth raising explicitly, before a dispute, with whoever drafts the settlement.",
+      { h: "Does a prenup change any of this?" },
+      "A valid, same-day-registered [prenuptial agreement](/knowledge/thai-prenuptial-agreement-property-protection) fixes more assets as separate property going in, which shrinks what's left exposed to the 50/50 split under Section 1533 — that's real, useful protection. But it doesn't extend to a usufruct or superficies created separately during the marriage (which Section 1469 still reaches), and Section 1467 requires court authorisation to amend a prenup once the marriage is underway. A prenup and a registered usufruct are complementary tools, not substitutes for each other, and neither one gives a foreign spouse the ability to hold land outright.",
+      "The practical bottom line: sin somros divides 50/50 by formula, land itself effectively can't go to the foreign spouse regardless of what a settlement says, and the one document meant to specifically protect the foreign spouse's interest in the property — the registered usufruct — is exposed to court revision as part of the very process it was meant to survive. Any foreign spouse negotiating a Thai divorce settlement involving property should confirm, in writing, what happens to an existing usufruct or superficies, rather than assuming its registration alone settles the question.",
+    ],
+    takeaways: [
+      "Marital property (sin somros) built up during a Thai marriage splits 50/50 on divorce under Civil and Commercial Code Section 1533, regardless of whose name it's registered in or whose income produced it.",
+      "Section 1534 closes the obvious workaround: property a spouse disposed of for personal benefit, to injure the other spouse, without required consent, or destroyed, is added back into the calculation, with the shortfall coming out of that spouse's own share.",
+      "A foreign spouse still cannot hold land even via a divorce settlement — Land Code Section 94 gives 180 days to a year to dispose of any land awarded, which is exactly why settlements usually swap land for a cash equalisation payment or other assets instead.",
+      "A registered usufruct or superficies protecting a foreign spouse is not automatically divorce-proof: Section 1469 lets either spouse void an inter-spousal agreement made during the marriage, up to a year after divorce, and a court can terminate it as part of the settlement.",
+      "A prenuptial agreement narrows what counts as marital property but doesn't reach a usufruct created separately during the marriage and can't itself grant land ownership — get both documents reviewed together as part of any settlement negotiation, not treated as interchangeable protections.",
+    ],
+    sources: [
+      {
+        title: "ThailandLawOnline — Who Gets What in a Thai Divorce: Property Division Explained",
+        url: "https://www.thailandlawonline.com/thai-family-and-marriage-law/who-gets-what-in-a-thai-divorce-property-division-explained",
+      },
+      {
+        title: "ThailandLawOnline — Can My Thai Wife Cancel My Usufruct?",
+        url: "https://www.thailandlawonline.com/59-usufruct-in-thailand/4-can-my-thai-wife-cancel-my-usufruct",
+      },
+      {
+        title: "Samui For Sale — Divorce and the Division of the Marital Home",
+        url: "https://www.samuiforsale.com/family-law/division-divorce-marital-home.html",
+      },
+      {
+        title: "ThailandLawOnline — Thai Land Law: Full Translation of the Land Code Act (Section 94)",
+        url: "https://www.thailandlawonline.com/thai-real-estate-law/thai-land-law-land-code-act",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "ownership",
+    faqQuestion: "What happens to jointly-built-up property and a foreign spouse's usufruct if a Thai marriage ends in divorce?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
