@@ -11553,6 +11553,119 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "ownership",
     faqQuestion: "What happens to jointly-built-up property and a foreign spouse's usufruct if a Thai marriage ends in divorce?",
   },
+  {
+    slug: "50-year-lease-commerce-industry-act-koh-phangan",
+    kbId: "kb-0191",
+    topic: "Structures",
+    title:
+      "The '50-year lease' on Koh Phangan: what the Commerce and Industry Act actually requires — and why it doesn't cover your villa",
+    short:
+      "A genuine, legally registrable lease longer than 30 years does exist in Thai law — but it's a business-investment tool under a 1999 Act for commercial or industrial land, gated by zoning and a minimum investment threshold. For an ordinary residential villa purchase, the 30-year cap under Section 540 still applies in full.",
+    updated: "2026-09-21",
+    body: [
+      "**Can I get a 50-year lease instead of the usual 30-year cap when buying a villa on Koh Phangan?** For an ordinary residential purchase, no. A real 50-year lease mechanism exists in Thai law, but it belongs to a separate 1999 statute aimed at commercial and industrial investment, not home buying, and it comes with zoning and investment-size gates that a typical villa purchase does not meet. Understanding the real mechanism — and why it doesn't apply — matters because '50-year lease' is a phrase that circulates in Phangan marketing conversations, sometimes loosely, alongside genuine long-term structures like [superficies and usufruct](/knowledge/superficies-vs-usufruct-vs-lease).",
+      { h: "The general rule stays put: Section 540 caps leases at 30 years" },
+      "Civil and Commercial Code Section 540 sets an absolute ceiling on a lease of immovable property: 30 years, renewable only by a fresh agreement at expiry, never pre-agreed and stacked in advance. The March 2025 Supreme Court ruling that struck down '30+30+30' structures (Case No. 4655/2566) confirmed there is no contractual workaround to this cap for an ordinary lease — see [Renewing a 30-year lease](/knowledge/renewing-30-year-lease-risks) for how that ruling plays out at renewal time.",
+      { h: "The real 50-year mechanism: the Hire of Immovable Property for Commerce and Industry Act B.E. 2542 (1999)" },
+      "This separate Act does allow a registered lease of more than 30 years — up to 50 years initially, with one further renewal of up to 50 years — but only when specific conditions are met:",
+      {
+        ul: [
+          "**Qualifying zoning (Section 6).** The land must sit in an area designated for commercial or industrial use under Town and Country Planning law, or within a formally established industrial estate.",
+          "**Qualifying investment (Section 7).** The business must meet one of three thresholds: an investment of at least ฿20 million, eligibility for a Board of Investment promotion certificate, or a declaration by the Interior Minister that the business serves the country's economic and social interests.",
+          "**Foreigner eligibility (Section 8).** A foreign lessee may only use this route for a business type it is legally permitted to operate under the Foreign Business Act — see [A Thai company for property](/knowledge/thai-company-for-property-49-51) for the parallel foreign-ownership screen on the corporate side.",
+          "**Extra requirements above 100 rai.** A foreign lessee taking more than 100 rai faces an additional investment threshold of at least ฿100 million (excluding the cost of the lease itself), and that capital must be shown to have entered Thailand via a documented foreign-exchange transfer — the same paper trail this site covers in [Bringing money into Thailand: the FET form](/knowledge/bringing-money-into-thailand-fet-form).",
+          "**Registration.** The lease contract must be made in writing and registered with the competent Land Department official — an unregistered version of this arrangement carries no more protection than an ordinary unregistered lease.",
+        ],
+      },
+      { h: "Why this doesn't cover an ordinary Phangan villa" },
+      "Koh Phangan's land-use layers — the 2015 town-planning comprehensive plan and the 2025 environmental eco-zone notification (see [Koh Phangan building zones](/knowledge/koh-phangan-building-zones)) — classify most of the island for residential, agricultural, tourism or conservation use, not the commercial/industrial designation Section 6 requires. Even where a plot does sit in a qualifying zone, the ฿20 million investment threshold, BOI-promotion route, or ministerial declaration in Section 7 describes a registered business operation — a hotel, resort or industrial facility with real invested capital — not a private individual buying one villa to live in or rent out casually. A genuinely BOI-promoted hospitality operation could in principle use this Act; a standard villa purchase cannot.",
+      { h: "If a seller or agent offers you a '50-year lease'" },
+      "Ask directly whether the lease is being registered under this specific 1999 Act, in a zone that actually qualifies under Section 6, and against which Section 7 investment criterion. If the answer is vague, or the underlying transaction is an ordinary residential purchase, the '50 years' in the marketing conversation is not a legally registrable term — it risks the same fate as the pre-agreed renewal periods in a 30+30+30 structure, which the 2025 Supreme Court ruling already voided beyond year 30. Have your own lawyer verify the registration basis directly at the Land Office before relying on any such promise.",
+    ],
+    takeaways: [
+      "A lease registrable for more than 30 years exists only under the Hire of Immovable Property for Commerce and Industry Act B.E. 2542, capped at 50 years plus one further 50-year renewal.",
+      "It requires land zoned for commercial or industrial use under town planning law, or a formal industrial estate — not Koh Phangan's typical residential, tourism or conservation zoning.",
+      "Qualifying businesses need at least ฿20 million invested, Board of Investment promotion, or a ministerial economic-benefit declaration — a business-investment threshold, not a homebuyer route.",
+      "Foreign lessees taking more than 100 rai face a further ฿100 million minimum investment, funded through a documented inbound foreign-exchange transfer.",
+      "Outside this specific Act, Section 540's 30-year cap is absolute; a '50-year villa lease' not registered under it risks the same fate as the voided 30+30+30 stacked structures.",
+    ],
+    sources: [
+      {
+        title:
+          "ThailandLawOnline — Hire of Immovable Property for Commerce and Industry by Aliens Act B.E. 2542 (translation)",
+        url: "https://www.thailandlawonline.com/translations/property-lease-commerce-industry-by-foreigners",
+      },
+      {
+        title:
+          "FAOLEX (FAO) — Act on Hire of Immovable Property for Commerce and Industry B.E. 2542 (1999), official translation",
+        url: "https://faolex.fao.org/docs/pdf/tha161309.pdf",
+      },
+      {
+        title: "Siam Legal International — Hire of Immovable Property for Commerce and Industry",
+        url: "https://www.siam-legal.com/thailand-law/hire-of-immovable-property-for-commerce-and-industry/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion:
+      "Can I get a 50-year lease instead of the usual 30-year cap when buying property on Koh Phangan?",
+  },
+  {
+    slug: "component-parts-vs-accessories-thai-property-sale",
+    kbId: "kb-0192",
+    topic: "Documents",
+    title:
+      "What's actually included when you buy a Phangan villa: component parts vs. accessories under Thai law",
+    short:
+      "Thai law decides what transfers with a villa sale through a statutory test, not a visual one: 'component parts' (built-in, non-severable elements) transfer automatically, while 'accessories' (furniture, freestanding AC, a solar array) default to following the sale too — unless the contract says otherwise.",
+    updated: "2026-09-21",
+    body: [
+      "**If I buy a resale villa on Koh Phangan, what exactly comes with it — the built-in kitchen, the furniture, the rooftop solar system?** Thai law answers this through Civil and Commercial Code Sections 144–148, which classify everything attached to or associated with a property into three categories with different legal consequences. Getting this right before signing avoids a dispute at handover — see [The Sale and Purchase Agreement](/knowledge/sale-purchase-agreement-earnest-money-ccc-thailand) for how this feeds into the contract itself.",
+      { h: "Component parts (ส่วนควบ) — Section 144: transfer automatically, no clause needed" },
+      "A component part is anything that, by its nature or local custom, is essential to a thing's existence and cannot be separated without destroying, damaging or altering it — think embedded plumbing and wiring, mortared-in cabinetry, a structurally integrated water tank, or the concrete and roof structure itself. Section 144 gives the owner of the principal thing automatic ownership of every component part; no contract clause is required, and none can realistically exclude it, because separating it would damage the property. Section 145 adds a special rule for land: permanently planted trees are component parts of the land, while temporary crops and seasonal plantings are not — relevant if a plot's mature fruit trees are part of its value.",
+      { h: "Temporary fixtures (Section 146) don't count" },
+      "Something only temporarily fixed to land or a building — a tenant's fitting installed for the duration of a rental, for example — never becomes a component part, however solidly it appears attached. This is the carve-out that keeps a temporary installation removable by whoever put it there.",
+      { h: "Accessories (เครื่องอุปกรณ์) — Section 147: the flexible middle category" },
+      "An accessory is a movable item attached to the principal thing, by the owner's intention, permanently for its management, use or preservation — a freestanding air-conditioning unit, a roof-mounted solar array on brackets (see [Off-grid solar and battery storage](/knowledge/off-grid-solar-battery-storage-koh-phangan-villa) and [PEA's rooftop solar buyback scheme](/knowledge/pea-rooftop-solar-buyback-2026)), a water pump, or furniture chosen and fitted for that specific villa. Section 147's default rule is easy to get backwards: **the accessory follows the principal thing, saving special disposition to the contrary** — meaning it is presumed included in a sale unless the contract explicitly excludes it, not the other way around.",
+      { h: "Why the default direction matters at the negotiation stage" },
+      {
+        ul: [
+          "**A seller who wants to keep furniture, appliances or a solar system must say so in writing.** Silence in the Sale and Purchase Agreement favors the buyer under Section 147's default rule.",
+          "**A buyer should still insist on a written schedule regardless of the default.** Whether a specific item counts as a component part, an accessory, or a bare movable the seller can simply take away is a legal characterization, not something settled by how attached it looks — get it itemized rather than argued over later.",
+          "**Section 148's 'fruits' rule matters for a mid-cycle handover.** Natural fruits (a standing coconut or fruit harvest) and legal fruits (rent already accruing on a tenanted unit) belong to whoever holds the relevant right when they fall due or are severed — worth addressing explicitly if you're buying a villa with an active rental booking or a harvest-ready orchard.",
+          "**Built-in vs. freestanding is the practical dividing line on Phangan.** A mortared-in outdoor kitchen counter is a component part; the gas range sitting on it is an accessory; a portable generator stored in a shed is neither and needs its own bill of sale if it's meant to be included.",
+        ],
+      },
+      "None of this replaces a clear inclusion/exclusion schedule attached to the contract. The statutory default protects a buyer who says nothing, but an explicit written list — cross-checked against the [due diligence checklist](/knowledge/due-diligence-checklist-koh-phangan) for the transaction as a whole — is what actually prevents an argument at the handover walk-through.",
+    ],
+    takeaways: [
+      "Section 144 'component parts' — essential, non-severable elements like embedded plumbing, built-in cabinetry, and (per Section 145) permanently planted trees — transfer automatically with ownership; no contract clause is needed.",
+      "Section 147 'accessories' — freestanding AC units, a mounted solar array, furniture fitted to the property — legally default to following the sale too, 'saving special disposition to the contrary.'",
+      "That default runs opposite to many buyers' assumption: a seller who wants to keep furniture, appliances or a solar system must explicitly exclude them in writing, not just leave them off a list.",
+      "Section 146 exempts only genuinely temporary fixtures, and Section 148's 'fruits' rule decides who gets a standing harvest or accruing rent at a mid-cycle handover.",
+      "Because the classification is a legal test, not a visual one, attach an itemized inclusion/exclusion schedule to the Sale and Purchase Agreement regardless of the statutory default.",
+    ],
+    sources: [
+      {
+        title:
+          "ThailandLawOnline — Civil and Commercial Code Sections 137–148: Things (translation)",
+        url: "https://www.thailandlawonline.com/civil-and-commercial-code/137-148-legal-things-or-corporeal-objects-property",
+      },
+      {
+        title:
+          "Thailand Law Library (Siam Legal) — Civil and Commercial Code: Things (Sections 137–148)",
+        url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-things-sections-137-148/",
+      },
+      {
+        title: "Savills — The Foreign Buyer's Complete Guide to Thai Property Law (2025 edition)",
+        url: "https://www.savills.com/blog/article/225735-1/singapore-articles/the-foreign-buyer-s-complete-guide-to-thai-property-law-(2025-edition).aspx",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion:
+      "When I buy a resale villa on Koh Phangan, does the furniture, built-in fixtures and solar system come with it?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

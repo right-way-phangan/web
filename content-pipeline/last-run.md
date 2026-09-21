@@ -1,81 +1,79 @@
-# Last run — 2026-09-21
+# Last run — 2026-09-21 (second run, same day)
 
-Published 2 guides (EN + RU each). Every ⏳ row in `backlog.md` is a repeatedly-reconfirmed
-duplicate/thin/unsafe item (see the extensive inline notes in the backlog file), so this
-run followed the now-standard pattern: one fresh-news sweep plus one evergreen gap-mining
-pass, both run as independent research agents, with the two resulting candidates
-independently re-verified against primary sources before writing.
+Today's first run already published 2 guides (kb-0189, kb-0190) and committed them. Every
+⏳ row in `backlog.md` is a repeatedly-reconfirmed duplicate/thin/unsafe item (see the
+extensive inline notes), so this second pass followed the established same-day pattern:
+a fresh-news sweep plus an evergreen gap-mining pass, both run as independent research
+agents, with the two resulting candidates independently re-verified against primary
+sources before writing.
 
-## 1. `charge-on-immovable-property-thailand-fifth-property-right` (kb-0189)
+## 1. `50-year-lease-commerce-industry-act-koh-phangan` (kb-0191)
 
-**Title:** Thailand's fifth real property right: the 'charge' on immovable property
-almost nobody uses
+**Title:** The '50-year lease' on Koh Phangan: what the Commerce and Industry Act
+actually requires — and why it doesn't cover your villa
 **faqCategory:** structures
 
-Civil and Commercial Code Sections 1429–1434 create a "charge on immovable property" —
-a fifth registered real right in Thai law, alongside the usufruct, superficies, servitude
-and right of habitation already covered elsewhere in this knowledge base. It entitles a
-beneficiary to a periodical performance from the property or a specified use of it,
-defaults to lifetime duration if no term is set, is non-transferable (even by
-inheritance) unless the creating instrument says otherwise, and gives the beneficiary a
-court remedy (receivership or forced auction) if the owner defaults on the underlying
-obligation. It borrows its registration/extinguishment mechanics from servitude law
-(Sections 1388–1400 via Section 1434).
+Civil and Commercial Code Section 540 caps an ordinary lease at 30 years, but a separate
+1999 statute — the Hire of Immovable Property for Commerce and Industry Act B.E. 2542 —
+does allow a registered lease of up to 50 years plus one further 50-year renewal. It's
+gated by conditions an ordinary villa purchase doesn't meet: land zoned for commercial or
+industrial use under town-planning law (or a formal industrial estate), and a qualifying
+business investment of at least ฿20 million, Board of Investment promotion, or a
+ministerial economic-benefit declaration. Foreign lessees taking more than 100 rai face a
+further ฿100 million investment requirement funded through a documented inbound
+foreign-exchange transfer. The guide frames this as a myth-busting piece: Koh Phangan's
+residential/tourism/conservation zoning means this Act essentially never applies to a
+standard villa purchase, and a "50-year lease" offered outside this specific registration
+basis carries the same risk the March 2025 Supreme Court ruling already exposed in
+30+30+30 stacked leases.
 
-Sources: two independent primary-text mirrors — thailandlawonline.com's dedicated
-Sections 1429–1434 page and samuiforsale.com's own Thailand Civil Code Part III mirror —
-both quoting identical statutory language, corroborating each other on all six sections.
-Framed honestly: no reported case law or law-firm commentary describing an active,
-real-world use of this right turned up in the research, and the guide says so plainly
-rather than implying it's part of the standard toolkit. Confirmed distinct via a full
-catalog grep — "1429" through "1434" and "charge on immovable" appear nowhere else except
-as an incidental page-range fragment inside two unrelated guides' source URLs, never
-discussed in any title/short/body text.
+Sources: ThailandLawOnline's translation of the Act (direct fetch), FAOLEX's official PDF
+translation (primary/government source), and Siam Legal International's summary,
+independently corroborated via search results from AIM Bangkok, Tilleke & Gibbins and
+Lexology confirming the 50-year mechanism is reserved for commercial/industrial use and
+doesn't extend to residential villas. Confirmed distinct via a full read of
+`renewing-30-year-lease-risks` and `superficies-vs-usufruct-vs-lease` — neither mentions
+this Act — and a full-catalog grep for "50-year"/"commerce and industry act" (no hits).
 
-## 2. `divorce-property-division-foreign-spouse-thailand` (kb-0190)
+## 2. `component-parts-vs-accessories-thai-property-sale` (kb-0192)
 
-**Title:** Divorce and property division for a foreign spouse in Thailand: the land, the
-house and the usufruct
-**faqCategory:** ownership
+**Title:** What's actually included when you buy a Phangan villa: component parts vs.
+accessories under Thai law
+**faqCategory:** documents
 
-The existing marriage-property cluster (`foreign-spouse-usufruct-thai-marriage-property`,
-`thai-prenuptial-agreement-property-protection`,
-`marriage-equality-act-property-rights-same-sex-couples`) covers an intact marriage or
-the period before one — none address what happens to property when the marriage ends.
-This guide covers: the CCC Section 1471/1474 separate-vs-marital-property distinction;
-Section 1533's default 50/50 split of marital property (sin somros) on divorce; Section
-1534's anti-front-running rule (property disposed of to injure the other spouse, without
-required consent, or destroyed is notionally added back into the calculation); Section
-1535's equal split of joint debts; and Land Code Section 94's forced-disposal mechanic
-(already covered for inheritance in `foreign-heir-inheriting-thai-land-section-93`)
-applying equally to land a foreign spouse is awarded in a settlement. The genuinely open
-part, flagged honestly rather than resolved: Section 1469 lets either spouse void an
-inter-spousal agreement made during the marriage, up to a year post-divorce — which can
-reach a previously-registered usufruct or superficies as part of a divorce asset
-division. No reported case of a Thai court actually cancelling a usufruct on this basis
-was found, but the statutory mechanism exists, so the guide says a registered usufruct
-should not be assumed to be automatically divorce-proof.
+Civil and Commercial Code Sections 144-148 set the legal test for what transfers with a
+villa sale. "Component parts" (Section 144) — embedded plumbing/wiring, built-in
+cabinetry, and (per Section 145) permanently planted trees — transfer automatically with
+ownership, no contract clause needed. "Accessories" (Section 147) — freestanding AC
+units, a mounted solar array, furniture fitted to the property — default to following
+the sale too ("saving special disposition to the contrary"), which runs opposite to many
+buyers' assumption that only explicitly-listed items are included: a seller who wants to
+keep furniture or a solar system must exclude it in writing, not just omit it from a
+list. Section 146 exempts genuinely temporary fixtures, and Section 148's "fruits" rule
+covers who gets a standing harvest or accruing rent at a mid-cycle handover. The guide
+recommends an itemized inclusion/exclusion schedule in the SPA regardless of the
+statutory default, since the classification is a legal question, not a visual one.
 
-Sources: thailandlawonline.com's "Who Gets What in a Thai Divorce" and "Can My Thai Wife
-Cancel My Usufruct?" pages (the latter is the direct source for the Section 1469/usufruct
-tension), samuiforsale.com's "Divorce and the Division of the Marital Home," and
-thailandlawonline.com's Land Code Act translation for Section 94, cross-checked against a
-WebSearch-quoted excerpt of the CCC's own Sections 1533–1535 text. Confirmed distinct via
-a full read of all three existing marriage-property guides — none mention divorce,
-Section 1533, Section 1534, or the usufruct-survival question.
+Sources: ThailandLawOnline's translation of CCC Sections 137-148 (direct fetch), the
+Siam Legal Thailand Law Library's independent treatment of the same sections
+(search-snippet corroborated after a direct-fetch 403), and Savills' 2025 foreign-buyer
+guide corroborating the practical fixtures-vs-furnishings due-diligence issue. Confirmed
+distinct via a full read of `sale-purchase-agreement-earnest-money-ccc-thailand` (SPA/
+earnest-money mechanics only) and `vat-vs-specific-business-tax-developer-sales` (one
+passing mention of furniture-as-VATable-goods for developer sales only) — neither
+addresses this classification test.
 
-## Why not the standing ⏳ backlog rows
+## Why not the standing ⏳ backlog rows, or a third guide
 
-A fresh-news sweep (2026-09-15/21 window) re-confirmed all five standing watch items
+A fresh-news sweep (2026-09-18/21 window) re-confirmed all five standing watch items
 unchanged: PWA Notice 7/2569 is still the latest Koh Phangan water notice (no successor);
-the FBA/AMLA nominee-predicate-offence amendment is still Ombudsman/AMLO review only
-(Thai Examiner, 24 Jul 2026); the coalition's "review foreign ownership" pledge is still
-sourced only to marketing sites; the 99-year leasehold bill and condo-quota reform are
-both still cabinet-study-only (Nation Thailand, 19 Jun 2026); and no 2026 LBT reduction
-decree has been issued (still a duplicate of kb-0027 regardless). Everything dated within
-the window was either an incremental nominee-crackdown statistic refresh (already
-10+-times covered) or not property-law-relevant. The other long-stalled ⏳ rows (rental
-yields, power-grid single cable, "who's buying Phangan," stamp duty vs SBT, off-plan
-vetting, PND e-filing date) were not re-researched from scratch today, since nothing in
-the news sweep gave any reason to expect their status had changed since the prior
-extensive checks logged inline in `backlog.md`.
+the FBA/AMLA nominee-predicate-offence amendment is still Ombudsman/AMLO review only; the
+coalition's "review foreign ownership" pledge is still marketing-site-sourced only; the
+99-year leasehold bill and condo-quota reform are both still cabinet-study-only (one
+source suggests the 99-year plan has been shelved); and no 2026 LBT reduction decree has
+been issued (still a duplicate of kb-0027 regardless). The one in-window news item found
+(Nation Thailand, 18 Sep 2026: ~2,100 nominee-linked firms, ฿80bn+ land, ฿20.39bn seized)
+is a pure incremental statistics refresh to the already 10+-times-covered nominee-
+crackdown cluster — not published. A third evergreen candidate (Ratchaphatsadu/Treasury
+Department state-land leases) was checked and dropped for thin Koh-Phangan-specific
+relevance rather than forced through.
