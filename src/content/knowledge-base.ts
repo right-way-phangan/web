@@ -11785,6 +11785,123 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "If I register a villa or land in my Thai child's name, can I still sell or mortgage it whenever I want?",
   },
+  {
+    slug: "property-dispute-mediation-thailand-act-2562",
+    kbId: "kb-0195",
+    topic: "Process",
+    title:
+      "Mediating a Phangan property dispute: the Dispute Mediation Act and compromise contracts",
+    short:
+      "Rent arrears, an unpaid contractor, or a boundary/access disagreement with a neighbor doesn't have to go straight to arbitration or court. Thailand's Dispute Mediation Act B.E. 2562 and a Civil Procedure Code pre-filing mediation route let parties settle for the cost of a court-appointed conciliator's time, with a settlement that carries the same enforceability as a judgment — but neither can touch a dispute over who actually owns the land.",
+    updated: "2026-09-22",
+    body: [
+      "**Can a property dispute on Koh Phangan be settled through mediation instead of going straight to [arbitration](/knowledge/arbitration-clause-thai-property-lease-disputes) or a lawsuit?** Often, yes — for disputes over money owed, a construction defect, rent arrears, or a boundary or access disagreement short of a title contest. Thailand built two formal, low-cost mediation routes: the Dispute Mediation Act B.E. 2562 (2019), which created a standing out-of-court mediation system, and a Civil Procedure Code amendment adding Section 20 ter, a court-appointed pre-filing conciliation process. Both end, if successful, in a settlement a court can enforce exactly like a judgment.",
+      { h: "What the Dispute Mediation Act actually covers — and what it can't touch" },
+      "Section 20 of the Act sets the scope directly: it cannot be used for disputes over personal or family status, or disputes over **ownership of immovable property** itself. What it can cover instead: land disputes that don't concern ownership (a boundary encroachment's consequences, an access dispute, a lease or construction disagreement), disputes among heirs over how to divide inherited property, and other civil disputes up to ฿5 million (higher only if a royal decree raises the cap). That single carve-out matters more than any other clause in this guide — a genuine title fight over who owns a plot still has to go to court, no matter how much both sides would rather avoid it.",
+      { h: "Compromise contracts: the underlying legal tool (CCC Sections 850–852)" },
+      "Whatever forum produces the settlement, the Civil and Commercial Code's compromise-contract provisions are what actually give it legal force. Section 850 defines a compromise as a contract where the parties settle an actual or contemplated dispute by mutual concession. Section 851 makes it unenforceable by court action unless there is written evidence signed by the party who owes the obligation — an oral handshake settlement over a boundary dispute or unpaid renovation invoice isn't enough to sue on later if one side reneges. Section 852 spells out the payoff: a valid compromise extinguishes the claims each side gave up and confirms the rights each side kept — closing the door on reopening the same dispute afterward.",
+      { h: "The Section 20 ter pre-filing route: mediation before you've even sued" },
+      "The Civil Procedure Code Amendment Act (No. 32) B.E. 2563 (2020), in force since 7 November 2020, added a separate mechanism: before filing a lawsuit at all, either side can petition the competent court to appoint a conciliator. The court checks both parties are actually willing, then summons them and appoints a mediator — with no court filing fee for the mediation stage itself. If the parties reach terms, they submit them to the court, execute a written settlement agreement, and can ask the court to issue a judgment on those terms — an order the Act describes as final, save for fraud or a breach of law. For a landlord chasing rent arrears or a homeowner disputing a contractor's final invoice, this is often faster and cheaper than either arbitration (which needs a pre-existing arbitration clause) or a full civil suit.",
+      {
+        ul: [
+          "**Title disputes are off-limits for Dispute Mediation Act mediation.** Section 20 excludes ownership-of-immovable-property disputes outright — those still need a [court injunction](/knowledge/court-injunction-freeze-disputed-property-thailand) or full litigation, not mediation.",
+          "**A verbal settlement isn't enforceable.** CCC Section 851 requires written evidence signed by the liable party before a compromise can be sued on — get it in writing even for a seemingly minor dispute.",
+          "**The Section 20 ter route needs no pre-existing clause**, unlike [arbitration](/knowledge/arbitration-clause-thai-property-lease-disputes), which only works if the contract already contains an arbitration agreement — mediation can be requested even for a dispute with no dispute-resolution clause at all.",
+          "**There's no court fee for the pre-filing mediation stage itself**, making it one of the cheapest formal dispute routes available before a lawsuit is even filed.",
+          "**A court-recorded settlement is enforceable like a judgment** — a real advantage over an informal side agreement that has no execution mechanism behind it if one party stops paying.",
+        ],
+      },
+      "None of this replaces the [Damrongtham Center](/knowledge/damrongtham-center-land-property-complaints-thailand)'s free administrative complaint channel for a stuck Land Office matter, or the [Consumer Case Procedure Act](/knowledge/consumer-case-procedure-act-buyer-developer-disputes)'s specific buyer-developer track — mediation is a distinct, often-faster off-ramp for the ordinary civil disputes (money, construction quality, access, inherited-property division) that make up most of the friction around owning property on Phangan, while leaving genuine ownership fights to the courts.",
+    ],
+    takeaways: [
+      "Thailand's Dispute Mediation Act B.E. 2562 (2019) lets parties mediate most civil property disputes — but Section 20 explicitly excludes disputes over ownership of immovable property, which must still go to court.",
+      "CCC Section 850 defines a compromise contract as settling a dispute by mutual concession; Section 851 requires written evidence signed by the liable party before it's enforceable by court action; Section 852 confirms it closes off the claims each side gave up.",
+      "A separate Civil Procedure Code Section 20 ter route lets either party petition the court for a conciliator before filing a lawsuit at all — with no court fee for the mediation stage.",
+      "A settlement reached and recorded through either route can be turned into a court judgment, enforceable the same way as a fully litigated verdict.",
+      "Good candidates for mediation: rent arrears, contractor payment or construction-quality disputes, and non-ownership boundary or access disagreements — not a fight over who actually holds title.",
+    ],
+    sources: [
+      {
+        title: "ThailandLawOnline — Civil and Commercial Code Sections 850–852: Compromise Contract",
+        url: "https://www.thailandlawonline.com/civil-and-commercial-code/850-852-compromise-contract",
+      },
+      {
+        title:
+          "Mahanakorn Partners Group — Amendments to the Civil Procedure Code on Civil Mediation (Section 20 ter, Amendment Act No. 32 B.E. 2563)",
+        url: "https://mahanakornpartners.com/amendments-to-the-civil-procedure-code-on-civil-mediation/",
+      },
+      {
+        title: "Tilleke & Gibbins — Amendments to Thailand's Civil Procedure Code to Allow Civil Mediation before Litigation",
+        url: "https://www.tilleke.com/insights/amendments-thailands-civil-procedure-code-allow-civil-mediation-litigation/",
+      },
+      {
+        title:
+          "Lexology — Navigating Commercial Litigation in Thailand (Dispute Mediation Act B.E. 2562 Section 20 scope)",
+        url: "https://www.lexology.com/library/detail.aspx?g=4e46f077-175f-46f8-bd0c-821672d52371",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion:
+      "Can a property dispute in Thailand be settled through mediation instead of going straight to court or arbitration?",
+  },
+  {
+    slug: "unmarried-cohabiting-partner-property-rights-thailand",
+    kbId: "kb-0196",
+    topic: "Ownership",
+    title:
+      "Buying together without marrying in Thailand: why an unmarried partner inherits nothing",
+    short:
+      "Thailand has no concept of common-law marriage — living together for years, sharing a mortgage, or splitting the cost of a villa creates no automatic property or inheritance right for an unmarried partner. Only a marriage registered at the district Amphur office makes a partner a statutory heir; everyone else, regardless of gender, needs a will, a registered interest, or a written cohabitation agreement to have any legal claim at all.",
+    updated: "2026-09-22",
+    body: [
+      "**If my partner and I aren't married, what happens to our Koh Phangan property if one of us dies, or we split up?** Under Thai law, nothing happens automatically in the partner's favor — because Thailand recognizes no common-law or de facto marriage, no matter how many years a couple has lived together, shared expenses, or jointly funded a villa. Only a marriage registered at the district (Amphur) office under Civil and Commercial Code Section 1457 creates a legal spouse. Everything this site has already covered on [protecting a spouse's interest](/knowledge/foreign-spouse-usufruct-thai-marriage-property), a [prenuptial agreement](/knowledge/thai-prenuptial-agreement-property-protection), and [same-sex marriage property rights](/knowledge/marriage-equality-act-property-rights-same-sex-couples) depends on that registration having happened — an unmarried couple, opposite-sex or same-sex, sits entirely outside all of it.",
+      { h: "Inheritance defaults to zero for an unmarried partner" },
+      "As [dying without a will in Thailand](/knowledge/intestate-succession-statutory-heirs-thai-property) already covers, Civil and Commercial Code Sections 1629 and 1635 set a strict order of statutory heirs — descendants, parents, siblings, and so on — with a registered spouse inheriting alongside them. An unmarried partner appears nowhere on that list. If one partner dies without a will, the survivor has no automatic claim at all to a villa, lease, or company shares titled in the deceased's name, regardless of how the purchase was actually funded — the property passes to the deceased's blood relatives (or, absent any, to the state) instead.",
+      { h: "Separation is not divorce — there's no marital-property regime to divide" },
+      "A registered marriage triggers Thailand's marital-property rules on divorce; an unmarried breakup triggers nothing comparable. Property bought during the relationship isn't automatically joint just because a couple lived together while acquiring it — Thai courts have instead applied ordinary co-ownership principles on a case-by-case basis, requiring the claiming partner to prove an actual financial or in-kind contribution to the specific asset. That's a materially heavier burden of proof than a registered spouse faces, and it produces no guaranteed outcome.",
+      { h: "What actually protects an unmarried partner" },
+      {
+        ul: [
+          "**A Thai will naming the partner as legatee.** Thailand has no forced-heirship rule blocking this the way some civil-law jurisdictions do — see [the legal forms a Thai will can take](/knowledge/legal-forms-of-a-thai-will) — so a will is the single most direct fix for the inheritance gap, and it costs far less than any dispute after the fact.",
+          "**A registered usufruct, right of habitation, or superficies granted directly to the partner.** These are available regardless of marital status — see [superficies vs usufruct vs lease](/knowledge/superficies-vs-usufruct-vs-lease) — and, unlike an unregistered claim, bind the property and survive a change of registered owner.",
+          "**Joint registration on a lease, or joint shareholding in a property-holding company**, gives each partner their own registered interest instead of relying on inheriting the other's.",
+          "**A written cohabitation agreement**, drafted and signed like any other civil contract. Thai courts have enforced these and have applied co-ownership principles guided by one, but a cohabitation agreement does not itself transfer title or substitute for a will — it only helps prove what each partner actually contributed if a dispute over separation ever reaches court.",
+          "**None of this expands what a foreign partner can hold.** The Land Code's restrictions on foreign land ownership apply exactly the same to an unmarried foreign partner as to a foreign spouse — a usufruct, superficies, lease, or company structure is still the mechanism, not direct foreign freehold title.",
+        ],
+      },
+      "The practical takeaway: registering a marriage is the only step that brings Thailand's statutory spousal-inheritance and marital-property protections into play at all — everything short of that, gender aside, is legally a stranger's claim unless the couple has actively built protections in with a will, a registered interest, and ideally a written agreement, well before either becomes necessary.",
+    ],
+    takeaways: [
+      "Thailand has no common-law marriage — only a marriage registered at the district Amphur office under CCC Section 1457 creates a legal spouse, regardless of how long a couple has cohabited.",
+      "An unmarried partner is not a statutory heir under CCC Sections 1629/1635 and inherits nothing automatically if the other partner dies without a will — the estate passes to blood relatives instead.",
+      "On separation, there's no marital-property regime to divide; courts apply ordinary co-ownership principles case-by-case, requiring proof of actual financial or in-kind contribution to each specific asset.",
+      "A Thai will (no forced-heirship rule blocks naming a partner), a registered usufruct/superficies/habitation right, or joint registration on a lease or company all create real, partner-specific protection regardless of marital status.",
+      "A written cohabitation agreement can be enforced as an ordinary civil contract and help prove contribution in a separation dispute, but it doesn't transfer title or substitute for a will on inheritance.",
+    ],
+    sources: [
+      {
+        title: "The Thailand Life — Common-Law Marriage in Thailand: A Guide to Cohabitation",
+        url: "https://www.thethailandlife.com/common-law-marriage-thailand",
+      },
+      {
+        title: "Samui For Sale — Common Law Marriage Thailand",
+        url: "https://www.samuiforsale.com/family-law/common-law-marriage-thailand.html",
+      },
+      {
+        title: "PS Law and Business — Cohabitation Agreements in Thailand: Are They Recognized and Why You Might Need One",
+        url: "https://www.pslawbusiness.com/blog/cohabitation-agreements-thailand",
+      },
+      {
+        title: "Thailand Law Library (Siam Legal) — Civil and Commercial Code: Statutory Heirs (Sections 1635–1638)",
+        url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-statutory-heirs-section-1635-1638/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "ownership",
+    faqQuestion:
+      "If my partner and I aren't married, what happens to our Koh Phangan property if one of us dies or we split up?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
