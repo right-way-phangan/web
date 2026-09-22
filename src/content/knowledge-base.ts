@@ -11666,6 +11666,125 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "When I buy a resale villa on Koh Phangan, does the furniture, built-in fixtures and solar system come with it?",
   },
+  {
+    slug: "company-strike-off-defunct-property-holding-thailand",
+    kbId: "kb-0193",
+    topic: "Structures",
+    title:
+      "When a Thai property-holding company goes dormant: the Section 1273 strike-off risk",
+    short:
+      "If a Thai limited company set up to hold a villa or land (the '49/51' structure) stops filing its annual accounts, the Registrar can strike it off the register entirely — leaving the land it holds under a company with no legal personality. Restoring it means a Civil Court petition, only works within a 10-year window, and only if the court finds the company was genuinely active when struck off.",
+    updated: "2026-09-22",
+    body: [
+      "**What happens to a villa held through a 49/51 Thai company (see [when a Thai company makes sense](/knowledge/thai-company-for-property-49-51)) if nobody keeps filing its annual paperwork?** Civil and Commercial Code Sections 1273/1 through 1273/4 give the Department of Business Development's Registrar the power to strike a company off the register entirely for simple inactivity — no fraud, nominee shareholding or Land Code violation required. It is a pure administrative-neglect trap, distinct from the nominee-crackdown and source-of-funds risks already covered elsewhere on this site, and it hits exactly the kind of dormant holding company a foreign owner sets up once, then stops actively managing.",
+      { h: "How a company actually gets struck off (Sections 1273/1–1273/3)" },
+      "The process runs in two notice stages. First, when the Registrar has reasonable cause to believe a company is not carrying on business — typically triggered by a run of missing annual financial statements and shareholder-list filings — it sends a registered letter asking the company to confirm its status within 30 days. If the company confirms it is inactive, or simply does not reply, the Registrar publishes a notice in a local newspaper and sends a second registered letter warning that, unless cause is shown otherwise, the company will be struck off after 90 days. At the end of that period, the Registrar strikes the name off the register and publishes the fact in the Government Gazette. On strike-off, the company immediately loses its status as a juristic person.",
+      { h: "What striking-off actually does to the land" },
+      "A struck-off company cannot execute or register any transaction — it no longer legally exists to sign a sale, mortgage or lease. Land still shown at the Land Office as titled to the company sits in limbo: nobody can deal with it until the company is restored. Section 1273/3 does carry one protection for creditors and buyers: the personal liability of every director, managing officer and shareholder continues exactly as if the company had never lost its status, so strike-off is not an escape route from company debts or claims.",
+      { h: "Restoring the company (Section 1273/4): the 10-year window" },
+      {
+        ul: [
+          "**The trigger is pure paperwork neglect, not fraud.** A run of missing DBD annual filings after a foreign owner stops actively managing the company — common once the family relocates, sells up elsewhere, or simply stops paying an accountant — is enough to start the inquiry.",
+          "**Two mailed and published notices precede strike-off, but only reach an owner who's watching for them.** The 30-day inquiry letter and 90-day final notice go to the company's registered address; an outdated address (a frequent issue for absentee foreign directors) means the first anyone hears of it is when a sale or refinancing stalls at the Land Office.",
+          "**Restoration is a Civil Court petition, not a Department of Business Development form.** The company, a partner, a shareholder or a creditor must petition the court and satisfy it either that the company was genuinely 'carrying on business or in operation' at the time of strike-off, or that restoration is otherwise just.",
+          "**The deadline is 10 years from the strike-off date** — after that, no restoration application can be made at all, regardless of the circumstances.",
+          "**Forgotten property has already forced real restorations.** Tilleke & Gibbins and the Bangkok Post both report cases where a liquidator's overlooked shopping-mall lease, and separately a company's undiscovered land title deeds, were exactly the kind of unresolved asset Thai courts have accepted as grounds to revive a defunct or dissolved company years later.",
+        ],
+      },
+      "The practical takeaway cuts both ways. An owner using a 49/51 structure needs to keep the company's annual financial statements and shareholder filings current for as long as it holds Phangan land — even after the property is no longer actively used — because letting the company go dormant risks exactly this limbo. And a buyer looking at a company-held villa should confirm the seller's company shows as 'active,' not 'defunct' or mid-strike-off, at the [Department of Business Development's own registry search](https://www.dbd.go.th/), as one more line item in the [due diligence checklist](/knowledge/due-diligence-checklist-koh-phangan) alongside the checks already covered for [buying a company-held villa](/knowledge/villa-held-by-thai-company-buyer-due-diligence-2026).",
+    ],
+    takeaways: [
+      "A Thai limited company holding land can be struck off the register (CCC Sections 1273/1–1273/3) simply for failing to file annual financial statements and shareholder lists — no nominee issue or fraud required.",
+      "Strike-off follows a 30-day inquiry letter and then a 90-day final notice, both by post to the company's registered address, ending with strike-off and Government Gazette publication.",
+      "Once struck off, the company loses its juristic personality and cannot execute or register any transaction over land it holds — but Section 1273/3 keeps directors and shareholders personally liable for its debts regardless.",
+      "Restoring a struck-off company requires a Civil Court petition under Section 1273/4, must be filed within 10 years of strike-off, and only succeeds if the court finds the company was genuinely active (or restoration is otherwise just) — the exact argument accepted in reported cases where a forgotten land title deed or lease surfaced years later.",
+      "Buyers of a company-held villa should confirm the company's Department of Business Development status is 'active,' not 'defunct,' as part of ordinary due diligence.",
+    ],
+    sources: [
+      {
+        title:
+          "Integrity Legal — Civil and Commercial Code Title XXII, Chapter IV, Part XI: Removal of Defunct Companies from the Register (Sections 1273/1–1273/4)",
+        url: "https://www.legal.co.th/resources/civil-and-commercial-code/book3/thailand-civil-and-commercial-code-page-163-title-xxii-chapter-iv-limited-companies-part-xi-removal-defunct-companies-register-s/",
+      },
+      {
+        title: "Tilleke & Gibbins — Reviving Dead Companies Using Thai Law",
+        url: "https://www.tilleke.com/insights/reviving-dead-companies-using-thai-law/",
+      },
+      {
+        title: "Bangkok Post — Reviving dead companies using Thai law",
+        url: "https://www.bangkokpost.com/business/general/443258/reviving-dead-companies-using-thai-law",
+      },
+      {
+        title:
+          "companythailand.net — How To Restore A Dissolved Company / Revive a Defunct Company",
+        url: "https://companythailand.net/defunct-company-restore-revoke",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion:
+      "What happens to a villa held by a Thai company if the company stops filing its annual paperwork and gets struck off the register?",
+  },
+  {
+    slug: "minors-thai-land-parent-court-permission-section-1574",
+    kbId: "kb-0194",
+    topic: "Ownership",
+    title:
+      "Registering land in your Thai child's name? Section 1574 means you can't sell it without court permission",
+    short:
+      "Some foreign parents in a Thai-foreign family register land or a villa directly in a Thai-national minor child's name, since a Thai citizen of any age can hold freehold title with no foreign-ownership restriction. Civil and Commercial Code Section 1574 then locks the parent out of selling, mortgaging, leasing beyond three years, or creating a usufruct or superficies over that land without a Thai court's prior permission — and a transaction done without it is void.",
+    updated: "2026-09-22",
+    body: [
+      "**Can a foreign parent just put the villa in their Thai child's name instead of using a 49/51 company or a lease?** Legally, yes — a Thai national, including a minor, can hold freehold land or a house in their own name with none of the restrictions covered in [how foreigners actually own a villa](/knowledge/how-foreigners-own-a-villa). But once the child is the registered owner, Civil and Commercial Code Section 1574 hands control of that asset to the Thai court system, not the parent, for as long as the child remains a minor — a real, if less-discussed, cost of this workaround.",
+      { h: "What Section 1574 actually restricts" },
+      "Section 1574 lists specific transactions a parent or legal representative cannot carry out on a minor's behalf without a Thai court's prior permission. For immovable property, the restricted list covers: selling, exchanging, or selling with a right of redemption; letting the property out on hire-purchase; mortgaging it, or releasing or transferring a mortgage over it; creating a servitude, right of habitation, right of superficies, usufruct, or any other charge over it; and leasing it for a period longer than three years. A transaction falling on this list that goes ahead without the court's permission is void, not merely voidable — the Land Office should refuse to register it, but a family that pushes one through anyway risks a transfer a court can later unwind entirely.",
+      { h: "Why families hit this years after the purchase, not at signing" },
+      "Registering the property in the child's name at purchase doesn't itself trigger Section 1574 — the restriction only bites when the family later wants to *do* something with the asset: sell it to fund a move, remortgage it, or grant the foreign parent a longer lease or a registered usufruct for protection. That's usually years after the original purchase, once the family has stopped thinking about the ownership structure at all, and discovers a straightforward sale now needs a Civil or Provincial Court petition first — adding weeks of lead time and legal cost to a transaction the family expected to be routine.",
+      { h: "The usufruct workaround has its own catch" },
+      "Many Thai-foreign families register a usufruct or right of habitation in the foreign parent's favor over the Thai partner's land, exactly as described in [protecting a foreign spouse's interest](/knowledge/foreign-spouse-usufruct-thai-marriage-property) — and that registration needs no court involvement when the Thai party is an adult. Do the same thing on land titled to a *minor* child, though, and creating that usufruct is itself one of Section 1574's restricted acts: it needs the same court permission as an outright sale, closing off the quickest version of this protection strategy until the child turns 20.",
+      {
+        ul: [
+          "**The restriction runs until the child turns 20** (Thailand's age of majority), from whenever the child becomes the registered owner — not just at a family's moment of crisis.",
+          "**A transaction completed without the required permission is void**, not merely voidable, though the practical safeguard is that the Land Office should decline to register it without evidence of a court order.",
+          "**Permission means a court petition, not a Land Office form** — typically an application to the Civil or Provincial Court showing the transaction serves the minor's interest, such as sale proceeds held for the child's benefit or education.",
+          "**Leasing up to three years needs no court involvement** — only a longer lease, or any of the ownership-transferring or encumbering transactions listed above, triggers Section 1574.",
+          "**This is a real reason not to default to 'just put it in the child's name'** as a foreign-ownership workaround — see [the THB 40 million investment route](/knowledge/thb-40-million-investment-land-ownership-route) and [superficies vs usufruct vs lease](/knowledge/superficies-vs-usufruct-vs-lease) for registered alternatives that don't tie the family's own asset up in a minor's court-supervised estate.",
+        ],
+      },
+      "None of this makes registering land in a Thai child's name unworkable — plenty of Thai-foreign families do it, often deliberately, to avoid the company or leasehold structures covered elsewhere on this site. It just means the family should plan for a Civil Court petition, not a same-day Land Office transaction, whenever they eventually want to sell, refinance or re-register that land — and should get a Thai family lawyer's advice on the required petition before assuming a routine sale will close on the buyer's timeline.",
+    ],
+    takeaways: [
+      "Registering land or a villa directly in a Thai minor child's name avoids the Land Code's foreign-ownership restriction entirely, since a Thai national of any age can hold freehold title.",
+      "CCC Section 1574 then requires a parent to get a Thai court's prior permission before selling, exchanging, mortgaging, granting a lease over three years, or creating a usufruct, superficies or habitation right over that child's immovable property.",
+      "A transaction completed without that permission is void, and the restriction lasts until the child turns 20 (Thailand's age of majority).",
+      "Even creating a usufruct in the foreign parent's own favor — the standard protection used for an adult Thai spouse's land — itself requires court permission when the land is titled to a minor.",
+      "Getting permission means a Civil or Provincial Court petition showing the transaction serves the child's interest, not a Land Office formality — budget weeks of lead time before any sale, refinance or lease renewal.",
+    ],
+    sources: [
+      {
+        title:
+          "Thailand Law Forum — Civil and Commercial Code Sections 1536–1598/41 (Family: Parent and Child)",
+        url: "https://www.thailawforum.com/thailand-civil-and-commercial-code-sections-1536-1598-41/",
+      },
+      {
+        title:
+          "Thailand Law Library (Siam Legal) — Civil and Commercial Code: Parent and Child (Sections 1561–1584/1)",
+        url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-parent-child-section-1561-1584-1/",
+      },
+      {
+        title: "Ake Associates — Child's Property Management",
+        url: "https://ake-associates.co.th/child-property-management/",
+      },
+      {
+        title: "WSR Law Group — Thailand Civil and Commercial Code reference library",
+        url: "https://wsrlawgroup.com/publications/law-library/thailand-civil-and-commercial-code/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "ownership",
+    faqQuestion:
+      "If I register a villa or land in my Thai child's name, can I still sell or mortgage it whenever I want?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

@@ -1,79 +1,83 @@
-# Last run — 2026-09-21 (second run, same day)
+# Last run — 2026-09-22
 
-Today's first run already published 2 guides (kb-0189, kb-0190) and committed them. Every
-⏳ row in `backlog.md` is a repeatedly-reconfirmed duplicate/thin/unsafe item (see the
-extensive inline notes), so this second pass followed the established same-day pattern:
-a fresh-news sweep plus an evergreen gap-mining pass, both run as independent research
-agents, with the two resulting candidates independently re-verified against primary
-sources before writing.
+Every ⏳ row in `backlog.md` is a repeatedly-reconfirmed duplicate/thin/unsafe item (see the
+extensive inline notes), so this run followed the established pattern: a fresh-news sweep
+plus an evergreen gap-mining pass, both run as independent research agents, with the two
+resulting candidates independently re-verified against primary sources before writing.
 
-## 1. `50-year-lease-commerce-industry-act-koh-phangan` (kb-0191)
+## 1. `company-strike-off-defunct-property-holding-thailand` (kb-0193)
 
-**Title:** The '50-year lease' on Koh Phangan: what the Commerce and Industry Act
-actually requires — and why it doesn't cover your villa
+**Title:** When a Thai property-holding company goes dormant: the Section 1273 strike-off risk
 **faqCategory:** structures
 
-Civil and Commercial Code Section 540 caps an ordinary lease at 30 years, but a separate
-1999 statute — the Hire of Immovable Property for Commerce and Industry Act B.E. 2542 —
-does allow a registered lease of up to 50 years plus one further 50-year renewal. It's
-gated by conditions an ordinary villa purchase doesn't meet: land zoned for commercial or
-industrial use under town-planning law (or a formal industrial estate), and a qualifying
-business investment of at least ฿20 million, Board of Investment promotion, or a
-ministerial economic-benefit declaration. Foreign lessees taking more than 100 rai face a
-further ฿100 million investment requirement funded through a documented inbound
-foreign-exchange transfer. The guide frames this as a myth-busting piece: Koh Phangan's
-residential/tourism/conservation zoning means this Act essentially never applies to a
-standard villa purchase, and a "50-year lease" offered outside this specific registration
-basis carries the same risk the March 2025 Supreme Court ruling already exposed in
-30+30+30 stacked leases.
+Civil and Commercial Code Sections 1273/1–1273/4 let the Department of Business
+Development's Registrar strike a Thai limited company off the register entirely for
+simple inactivity — no fraud, nominee shareholding or Land Code violation required. This
+hits exactly the kind of dormant 49/51 villa-holding company a foreign owner sets up
+once and stops actively managing: a run of missing annual financial-statement filings
+triggers a 30-day inquiry letter, then a 90-day newspaper-and-post final notice, ending
+in strike-off and Government Gazette publication. Once struck off, the company loses its
+juristic personality and cannot execute or register any transaction over land it holds —
+leaving that land in limbo until the company is restored. Restoration requires a Civil
+Court petition under Section 1273/4, must be filed within 10 years of strike-off, and
+only succeeds if the court finds the company was genuinely active (or restoration is
+otherwise just) — the guide cites two reported cases (a shopping-mall lease, a company's
+undiscovered land title deeds) where exactly this argument succeeded years later.
 
-Sources: ThailandLawOnline's translation of the Act (direct fetch), FAOLEX's official PDF
-translation (primary/government source), and Siam Legal International's summary,
-independently corroborated via search results from AIM Bangkok, Tilleke & Gibbins and
-Lexology confirming the 50-year mechanism is reserved for commercial/industrial use and
-doesn't extend to residential villas. Confirmed distinct via a full read of
-`renewing-30-year-lease-risks` and `superficies-vs-usufruct-vs-lease` — neither mentions
-this Act — and a full-catalog grep for "50-year"/"commerce and industry act" (no hits).
+Sources: Integrity Legal's translation of CCC Title XXII Ch. IV Part XI (Sections
+1273/1–1273/4) — direct fetch returned HTTP 403, corroborated via a WebSearch-quoted
+excerpt of the same page's text; Tilleke & Gibbins' "Reviving Dead Companies Using Thai
+Law" (direct fetch); Bangkok Post's piece of the same title (direct fetch, corroborating
+the same reported cases); companythailand.net's practitioner summary (direct fetch).
+Confirmed distinct via direct reads of `thai-company-for-property-49-51`,
+`villa-held-by-thai-company-buyer-due-diligence-2026`,
+`land-department-audit-existing-landholding-companies-2026`,
+`personal-guarantee-suretyship-thai-property-company`,
+`selling-thai-company-holding-villa-share-sale-tax` and
+`dbd-source-of-funds-orders-company-registration-2026` in
+`src/content/knowledge-base.ts` — none mention Section 1273 strike-off.
 
-## 2. `component-parts-vs-accessories-thai-property-sale` (kb-0192)
+## 2. `minors-thai-land-parent-court-permission-section-1574` (kb-0194)
 
-**Title:** What's actually included when you buy a Phangan villa: component parts vs.
-accessories under Thai law
-**faqCategory:** documents
+**Title:** Registering land in your Thai child's name? Section 1574 means you can't sell
+it without court permission
+**faqCategory:** ownership
 
-Civil and Commercial Code Sections 144-148 set the legal test for what transfers with a
-villa sale. "Component parts" (Section 144) — embedded plumbing/wiring, built-in
-cabinetry, and (per Section 145) permanently planted trees — transfer automatically with
-ownership, no contract clause needed. "Accessories" (Section 147) — freestanding AC
-units, a mounted solar array, furniture fitted to the property — default to following
-the sale too ("saving special disposition to the contrary"), which runs opposite to many
-buyers' assumption that only explicitly-listed items are included: a seller who wants to
-keep furniture or a solar system must exclude it in writing, not just omit it from a
-list. Section 146 exempts genuinely temporary fixtures, and Section 148's "fruits" rule
-covers who gets a standing harvest or accruing rent at a mid-cycle handover. The guide
-recommends an itemized inclusion/exclusion schedule in the SPA regardless of the
-statutory default, since the classification is a legal question, not a visual one.
+A Thai national of any age, including a minor, can hold freehold land with none of the
+Land Code's foreign-ownership restrictions — which tempts some Thai-foreign families to
+register a villa or land directly in a Thai minor child's name instead of using a 49/51
+company or a lease. Civil and Commercial Code Section 1574 then requires the parent to
+get a Thai court's prior permission before selling, exchanging, mortgaging, leasing
+beyond three years, or creating a usufruct/superficies/habitation right over that
+child's immovable property — a transaction done without it is void, not merely
+voidable. The guide flags a specific trap: registering a usufruct in the foreign
+parent's own favor (the standard protection strategy for an adult Thai spouse's land,
+already covered elsewhere on the site) itself requires this same court permission when
+the land is titled to a minor, closing off the quickest version of that protection until
+the child turns 20.
 
-Sources: ThailandLawOnline's translation of CCC Sections 137-148 (direct fetch), the
-Siam Legal Thailand Law Library's independent treatment of the same sections
-(search-snippet corroborated after a direct-fetch 403), and Savills' 2025 foreign-buyer
-guide corroborating the practical fixtures-vs-furnishings due-diligence issue. Confirmed
-distinct via a full read of `sale-purchase-agreement-earnest-money-ccc-thailand` (SPA/
-earnest-money mechanics only) and `vat-vs-specific-business-tax-developer-sales` (one
-passing mention of furniture-as-VATable-goods for developer sales only) — neither
-addresses this classification test.
+Sources: Thailand Law Forum's direct-fetch translation of CCC Sections 1536–1598/41
+(Section 1574 quoted); Thailand Law Library (Siam Legal)'s Parent-Child sections page
+(1561–1584/1); Ake Associates' "Child's Property Management" practitioner summary; WSR
+Law Group's CCC reference library. Confirmed distinct via direct reads of
+`foreign-spouse-usufruct-thai-marriage-property`,
+`thai-prenuptial-agreement-property-protection`,
+`divorce-property-division-foreign-spouse-thailand`,
+`intestate-succession-statutory-heirs-thai-property` and
+`estate-administrator-probate-thai-property-transfer` — the only prior mention anywhere
+in the catalog was a single unrelated clause noting an heir "is... a minor," with no
+Section 1574 mechanic explained.
 
 ## Why not the standing ⏳ backlog rows, or a third guide
 
-A fresh-news sweep (2026-09-18/21 window) re-confirmed all five standing watch items
-unchanged: PWA Notice 7/2569 is still the latest Koh Phangan water notice (no successor);
-the FBA/AMLA nominee-predicate-offence amendment is still Ombudsman/AMLO review only; the
-coalition's "review foreign ownership" pledge is still marketing-site-sourced only; the
-99-year leasehold bill and condo-quota reform are both still cabinet-study-only (one
-source suggests the 99-year plan has been shelved); and no 2026 LBT reduction decree has
-been issued (still a duplicate of kb-0027 regardless). The one in-window news item found
-(Nation Thailand, 18 Sep 2026: ~2,100 nominee-linked firms, ฿80bn+ land, ฿20.39bn seized)
-is a pure incremental statistics refresh to the already 10+-times-covered nominee-
-crackdown cluster — not published. A third evergreen candidate (Ratchaphatsadu/Treasury
-Department state-land leases) was checked and dropped for thin Koh-Phangan-specific
-relevance rather than forced through.
+A fresh-news sweep (2026-09-18/22 window) re-confirmed all standing watch items
+unchanged: PWA Notice 7/2569 is still the latest Koh Phangan-specific water notice (no
+successor found in English or Thai search); the FBA/AMLA nominee-predicate-offence
+amendment is still Ombudsman/AMLO review only; the coalition's "review foreign
+ownership" pledge is still marketing-site-sourced only; the 99-year leasehold bill and
+condo-quota reform are both still cabinet-study-only. A Sept 11 AMLO statistics refresh
+(81.77% drop in flagged firms) and the 15 Sep 2026 visa-exemption tightening (already
+published as `thailand-visa-exemption-cut-30-days-dtv-tightening-2026`, kb-0137) were
+both checked and ruled incremental/duplicate rather than fresh. No third evergreen
+candidate was forced through — the two topics above cleared the sourcing bar on their
+own.
