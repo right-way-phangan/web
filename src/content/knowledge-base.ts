@@ -11902,6 +11902,124 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "If my partner and I aren't married, what happens to our Koh Phangan property if one of us dies or we split up?",
   },
+  {
+    slug: "spousal-consent-section-1476-property-purchase-thailand",
+    kbId: "kb-0197",
+    topic: "Documents",
+    title:
+      "The spouse who didn't sign: Section 1476 consent and buying land from a married Thai seller",
+    short:
+      "If a married Thai seller's spouse never signed off on the sale, the other spouse can go to court to cancel it — even after you've paid and registered. Civil and Commercial Code Section 1476 requires both spouses' written consent to sell marital property, and Section 1480 gives the non-signing spouse up to a year to challenge a sale made without it.",
+    updated: "2026-09-23",
+    body: [
+      "Can a Thai seller's spouse undo your purchase after the fact, just because they never agreed to it? Yes, in principle — Civil and Commercial Code Section 1476 requires both spouses' written consent before one of them alone can sell, exchange, mortgage, or lease for more than three years any **sin somros** (marital property, property acquired during the marriage). If that consent is missing, Section 1480 lets the other spouse sue to revoke the sale. It doesn't make the transaction automatically void, and a genuinely good-faith buyer has a defence — but it's a document gap worth closing before you sign, not after a dispute lands.",
+      { h: "What Section 1476 actually requires" },
+      {
+        ul: [
+          "**Joint consent is required for specific transactions only** — selling, exchanging, mortgaging, leasing for more than three years, or granting a usufruct/servitude/superficies over land or a house classed as sin somros. Everyday management of marital property doesn't need it.",
+          "**Consent must be in writing** (Section 1479) for a land or house transaction — a verbal nod from the other spouse isn't enough to satisfy the law, even if both spouses later agree the sale was fine.",
+          "**Sin somros vs sin suan tua matters first.** The requirement only bites if the land is marital property in the first place. Property the Thai spouse owned before marriage, or received individually as a gift or inheritance, is **sin suan tua** (separate property) and can be sold without the other spouse's consent — see [Protecting a foreign spouse's interest during a Thai marriage](/knowledge/foreign-spouse-usufruct-thai-marriage-property) for how that separate-property line gets drawn and documented in practice.",
+        ],
+      },
+      { h: "What happens if consent was never obtained" },
+      "Section 1480 doesn't make an unconsented sale void outright — it's **voidable**. The non-signing spouse can file suit to revoke it, but only within one year from the date they learned of the sale, or ten years from the sale itself, whichever comes first. Critically, the law also protects a buyer who acted in good faith and paid genuine consideration: a court weighs whether the buyer knew, or should have known, that the seller was married and that the property was marital, before deciding whether to unwind a completed, registered transfer. That defence exists, but it depends entirely on what the buyer's due-diligence file can show — which is exactly why this is a document to collect at signing, not an argument to make in court afterward.",
+      { h: "What to check before you pay" },
+      {
+        ul: [
+          "**Confirm marital status first.** A Thai national's house registration book (tabien baan) or a marriage certificate search at the district office (Amphur) establishes whether the seller is married and, if so, since when — relevant to whether the land was acquired before or during the marriage.",
+          "**If married, get the spouse's written consent to the specific sale**, ideally on the same document set the Land Office will review at transfer, not a separate side letter that could go missing from the file.",
+          "**If the seller claims the land is sin suan tua (separate property)**, ask for the documentary basis — a title deed dated before the marriage, or a gift/inheritance deed naming the seller individually — rather than taking the claim at face value.",
+          "**Have your lawyer confirm this alongside the rest of the standard checks** in [the due-diligence checklist](/knowledge/due-diligence-checklist-koh-phangan) and the [land office registration day](/knowledge/land-office-registration-day) process — the Land Office clerk may ask for a spousal consent form as a matter of routine practice even though it isn't a universal statutory filing requirement for every transfer.",
+        ],
+      },
+      "None of this changes who can hold Thai land as a foreigner — that's still governed by the Land Code, not the marital-property rules. What Section 1476 changes is how solid the title is that you're paying for: a sale by a married seller without their spouse's documented consent carries a real, if time-limited, risk of being unwound. A short paper trail collected before registration closes that gap.",
+    ],
+    takeaways: [
+      "Civil and Commercial Code Section 1476 requires both spouses' written consent before one can sell, mortgage, or lease marital land for more than three years.",
+      "The rule only applies to sin somros (marital property) — property the Thai spouse owned before marriage or received individually as a gift or inheritance (sin suan tua) is exempt.",
+      "An unconsented sale isn't automatically void; Section 1480 makes it voidable, and the non-signing spouse has one year from discovering the sale (or ten years from the sale itself) to challenge it.",
+      "A good-faith buyer who paid genuine consideration has a legal defence, but it depends on what the due-diligence file can show — collect marital-status confirmation and written spousal consent before you pay, not after a dispute.",
+      "This is a title-security issue, not a foreign-ownership issue — it applies to any land purchase from a married Thai seller and sits alongside, not instead of, the standard due-diligence checklist.",
+    ],
+    sources: [
+      {
+        title:
+          "Integrity Legal (legal.co.th) — Civil and Commercial Code Book V, Title I, Chapter IV: Property Between Husband and Wife (Sections 1471–1479)",
+        url: "https://www.legal.co.th/resources/civil-and-commercial-code/book5/thailand-civil-and-commercial-code-page-189-book-v-family-title-i-chapter-iv-property-husband-and-wife-section-1471-1476/",
+      },
+      {
+        title:
+          "Siam Center Law Group — Unauthorized Sale of Marital Land in Thailand: Legal Guide",
+        url: "https://siamcenterlawgroup.com/unauthorized-sale-marital-land-thailand/",
+      },
+      {
+        title: "Acclime Thailand — Marital Property & Assets",
+        url: "https://thailand.acclime.com/guides/marital-property-assets/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion:
+      "What if the Thai seller's spouse never agreed to the sale — can they cancel it after I've already bought the land?",
+  },
+  {
+    slug: "double-tax-treaty-rental-income-thailand",
+    kbId: "kb-0198",
+    topic: "Costs",
+    title:
+      "The tax-treaty myth: why a DTA doesn't reduce Thailand's tax on your villa's rental income",
+    short:
+      "A double tax agreement (DTA) between Thailand and your home country doesn't lower the tax Thailand collects on rental income from your Koh Phangan villa. Under the immovable-property article that almost every Thai DTA uses, the country where the property sits keeps unlimited taxing rights — the treaty's real function is letting you claim a foreign tax credit at home, not cutting your Thai bill.",
+    updated: "2026-09-23",
+    body: [
+      "Does having a tax treaty with Thailand mean less Thai tax on your rental income? No — and this is one of the most common misunderstandings among foreign villa owners. Nearly every double tax agreement (DTA) Thailand has signed follows the OECD-style Article 6 on income from immovable property, which explicitly preserves the source country's full taxing rights over rental income from real estate. Dividends, interest and royalties often get a treaty-reduced withholding rate; rental income from land or a building doesn't. [Owner's taxes on Koh Phangan](/knowledge/owners-taxes-annual-land-and-income) already covers the underlying Thai personal income tax mechanics — this guide is about the treaty layer many owners assume sits on top of it, and mostly doesn't.",
+      { h: "What Article 6 actually says" },
+      {
+        ul: [
+          "**The source country taxes rental income without a treaty cap.** The US–Thailand DTA, for example, states Thailand may tax income from immovable property situated in Thailand at its own domestic rates, with no treaty-imposed ceiling — unlike the reduced rates the same treaty sets for dividends and interest.",
+          "**This pattern is standard across Thailand's DTA network**, not a US-specific quirk — the immovable-property article is one of the least-negotiated clauses in most double tax treaties precisely because governments rarely give up taxing rights over land within their own borders.",
+          "**The existing 15% non-resident withholding stands regardless of treaty.** A non-resident owner's Thai-source rental income is still subject to the standard withholding and progressive personal income tax rules described in [Owner's taxes on Koh Phangan](/knowledge/owners-taxes-annual-land-and-income) — a DTA doesn't change that rate or exempt the income.",
+        ],
+      },
+      { h: "So what does the treaty actually do for a rental-income owner?" },
+      "A DTA's practical value for rental income isn't a lower Thai rate — it's avoiding being taxed twice on the same income. If your home country also taxes worldwide income (including foreign rental income), the DTA is what lets you claim a foreign tax credit at home for the Thai tax already paid, rather than paying full tax in both countries. That credit mechanism, and whether your home country requires the income to be reported even when fully offset by the credit, depends on your own country's tax rules and the specific treaty text — worth confirming with a tax adviser in your home jurisdiction, not just a Thai one.",
+      { h: "Where treaties do reduce Thai withholding" },
+      "The confusion often comes from other parts of the same treaties genuinely cutting Thai withholding tax — just not on rental income. [Thai REIT distributions](/knowledge/thai-reit-indirect-real-estate-investment) to a non-resident unitholder, for example, carry a flat 10% withholding that a treaty can reduce, and treaty-reduced rates commonly apply to dividends, interest and royalties from Thai companies. None of that extends to income from directly owning and renting out land or a building — that income stays under Article 6, taxed by Thailand at full domestic rates.",
+      "The practical takeaway: budget for the full 15% non-resident withholding (or your progressive PIT liability if Thai tax-resident) on villa rental income regardless of what treaty your home country has with Thailand, and treat the treaty as a foreign tax credit tool at home rather than a Thai tax discount.",
+    ],
+    takeaways: [
+      "Thailand's double tax agreements almost universally follow an Article 6 structure that gives the source country (Thailand) unlimited taxing rights over rental income from Thai real estate.",
+      "This differs from dividends, interest and royalties, which typically do get treaty-reduced withholding rates under the same agreements.",
+      "A non-resident owner's rental income still faces the standard 15% Thai withholding regardless of which country's treaty applies — no DTA lowers this.",
+      "A DTA's real function for rental income is enabling a foreign tax credit at home for Thai tax already paid, avoiding double taxation, not reducing what Thailand collects.",
+      "Treaty-reduced rates do apply elsewhere in Thai property-adjacent income, such as Thai REIT distributions to non-residents — just not to direct rental income from owning land or a building.",
+    ],
+    sources: [
+      {
+        title:
+          "IRS — United States–Thailand Income Tax Convention (official treaty text, Article 6: Income from Immovable Property)",
+        url: "https://www.irs.gov/pub/irs-trty/thailand.pdf",
+      },
+      {
+        title:
+          "HLB Thailand — Double Tax Agreement Between the United States of America and Thailand (Including Examples)",
+        url: "https://www.hlbthai.com/double-tax-agreement-between-the-united-states-of-america-and-thailand-including-examples/",
+      },
+      {
+        title:
+          "Forbes & Partners — Foreigner's Guide to Thai Rental Income Tax",
+        url: "https://www.forbesandpartners.com/thailand-rental-income-tax-guide-foreigners/",
+      },
+      {
+        title: "PwC Tax Summaries — Thailand: Corporate Withholding Taxes",
+        url: "https://taxsummaries.pwc.com/thailand/corporate/withholding-taxes",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion:
+      "Does my home country's tax treaty with Thailand reduce the tax I pay on rental income from my villa?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
