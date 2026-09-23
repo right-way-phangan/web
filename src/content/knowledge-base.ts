@@ -12020,6 +12020,121 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "Does my home country's tax treaty with Thailand reduce the tax I pay on rental income from my villa?",
   },
+  {
+    slug: "land-trading-prohibition-foreign-business-act-thailand",
+    kbId: "kb-0199",
+    topic: "Structures",
+    title:
+      "Why a foreigner can't run a villa-flipping or land-development business on Koh Phangan",
+    short:
+      "Buying one villa to live in is not the same, under Thai law, as buying and reselling land or villas as a business. The Foreign Business Act puts 'trading in land' on its strictest list — closed to foreigners entirely, with no licence available at any capital level.",
+    updated: "2026-09-23",
+    body: [
+      "Can a foreigner buy plots, renovate or build villas, and resell them for profit as an ongoing business on Koh Phangan? No — and this is a different question from buying one villa to live in. The Foreign Business Act B.E. 2542 (1999) places **'trading in land'** on List One (Schedule One), item 9 — the Act's strictest tier of prohibited activities. Unlike List Two or List Three businesses, a List One activity has no licensing path at all: no Foreign Business Licence, no Cabinet approval, no exception at any investment level. This sits alongside, but is legally distinct from, the [Land Code's separate ban on foreigners owning land outright](/knowledge/how-foreigners-own-a-villa).",
+      { h: "Personal ownership vs. running a land-trading business" },
+      "The distinction turns on Section 4's test of what counts as regulated 'business' — activity carried on 'for the purpose of trade or profession.' A foreigner who buys a single villa through the standard [lease-plus-superficies structure](/knowledge/superficies-vs-usufruct-vs-lease) or a genuine [49/51 Thai company](/knowledge/thai-company-for-property-49-51) to live in isn't trading in land; they're acquiring a home. Repeatedly buying, developing and reselling land or villas for profit as your own commercial activity is a different thing entirely — it's the business the Act closes off, regardless of how the land itself is structured underneath it.",
+      { h: "Why land trading sits on the strictest list" },
+      {
+        ul: [
+          "**List One businesses have no licensing route, full stop** — contrast this with List Three, which covers brokerage and agency work (already covered in [Can a foreigner work as a real estate agent on Koh Phangan?](/knowledge/foreign-real-estate-agent-restrictions-thailand)): a List Three business can, in principle, obtain a Foreign Business Licence or rely on treaty exceptions. Land trading has no equivalent door.",
+          "**Trading as principal is different from brokerage.** List Three's agency restriction covers arranging deals for other people; List One's land-trading restriction covers buying and reselling land or property for your own account, as a business. They're separate provisions addressing separate roles in a transaction.",
+          "**A company counts as 'foreign' once more than 49% of its registered capital is non-Thai-held** (Section 4) — the same threshold behind the standard 49/51 structuring already covered on this site, but here the consequence isn't a land-ownership problem, it's a business-licensing one.",
+        ],
+      },
+      { h: "Can a foreigner invest in a Thai land-trading or development company?" },
+      "Yes, as a minority position — a company genuinely majority-owned and controlled by Thai nationals is not 'foreign' under Section 4 and can lawfully trade in land as its business, with a foreign national holding up to 49% and sitting on the board. What it can't be is a Thai-on-paper vehicle actually run and funded for a foreigner's benefit. Land-trading and development companies are exactly the profile the Land Department's [existing audit of landholding companies](/knowledge/land-department-audit-existing-landholding-companies-2026) and the [DBD's source-of-funds orders](/knowledge/dbd-source-of-funds-orders-company-registration-2026) are built to catch, since a company that repeatedly buys and sells land draws more scrutiny than one that holds a single family home.",
+      { h: "The penalty for operating without authorisation" },
+      "Section 37 sets the penalty for a foreigner operating a List One business without authorisation at up to three years' imprisonment and/or a fine of ฿100,000–1,000,000, plus a further daily fine of ฿10,000–50,000 for as long as the violation continues, and the court can order the business activity, shareholding or partnership stopped outright.",
+      "The practical line for a Phangan-based foreigner: owning and living in a villa, or holding one investment property through a compliant structure, is untouched by this rule. Turning land or villa purchases into a repeat, for-profit trading business is not something a foreigner can do personally, or through a company they actually control — only as a genuine minority stake in an authentically Thai-run operation, which then carries its own nominee-scrutiny exposure.",
+    ],
+    takeaways: [
+      "The Foreign Business Act's List One, item 9 — 'trading in land' — bans foreigners entirely, with no Foreign Business Licence, Cabinet approval or exception available at any capital level.",
+      "This is a business-activity restriction on buying and reselling land or property for profit, distinct from the Land Code's personal land-ownership ban — buying one villa to live in isn't 'trading.'",
+      "It's also distinct from List Three's brokerage restriction (arranging deals for others, already covered for real estate agents) — land trading means buying and reselling as principal, for your own account.",
+      "A genuinely Thai-majority-owned company can lawfully trade in land with a foreigner holding up to 49% and a board seat — but such companies face the same nominee-shareholding scrutiny already applied to landholding companies generally.",
+      "Violating Section 37 carries up to 3 years' imprisonment and/or a ฿100,000–1,000,000 fine, plus a ฿10,000–50,000 daily fine for continued violation and court-ordered cessation of the business.",
+    ],
+    sources: [
+      {
+        title:
+          "Baker McKenzie — Schedules to the Foreign Business Act B.E. 2542 (1999): Schedule One, item 9, 'Trading in land'",
+        url: "https://resourcehub.bakermckenzie.com/en/-/media/atad/new-folder/schedules-to-the-foreign-business-act-of-thailand.pdf?sc_lang=en",
+      },
+      {
+        title:
+          "Board of Investment (Thailand) — Foreign Business Act B.E. 2542 (1999), official English translation (Sections 4 and 37)",
+        url: "https://www.boi.go.th/upload/Foreign%20Business%20Act_5dd766122ff27.pdf",
+      },
+      {
+        title:
+          "Dej-Udom & Associates — Thailand Foreign Business Act: A Practical Guide for Foreign Investors",
+        url: "https://dejudomlaw.com/en/insight/thailand-foreign-business-act-a-practical-guide-for-foreign-investors",
+      },
+      {
+        title:
+          "terms.law — Thailand Foreign Business Act: What Foreigners Cannot Do",
+        url: "https://terms.law/Thai/business/foreign-business-act-explained.html",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion:
+      "Can a foreigner buy, renovate and resell villas or land on Koh Phangan as a business?",
+  },
+  {
+    slug: "amla-civil-forfeiture-bona-fide-purchaser-thailand",
+    kbId: "kb-0200",
+    topic: "Ownership",
+    title:
+      "Could your legally bought villa be seized years later? Civil forfeiture and the bona fide purchaser defence",
+    short:
+      "Thailand's Anti-Money Laundering Act lets the state pursue forfeiture of a property tied to a crime through a civil court process, without convicting anyone. A buyer who can show they acquired the property honestly and for genuine value has a defence — but it has to be proven, not assumed.",
+    updated: "2026-09-23",
+    body: [
+      "Can the Thai state take a property you bought legally and registered cleanly, because the money behind it — yours, or an earlier owner's — later turns out to be linked to a crime? In a narrow but real set of circumstances, yes. The Anti-Money Laundering Act B.E. 2542 (1999) (AMLA) runs a **civil, non-conviction-based forfeiture** system: the state can pursue an asset itself through the civil courts without ever securing a criminal conviction over the underlying offence. That's a different, broader mechanism than the [Land Office's own source-of-funds checks](/knowledge/land-office-source-of-funds-checks-2026) or a [real estate agent's AML customer-due-diligence duty](/knowledge/amlo-anti-money-laundering-checks-real-estate-agents) — those operate before or at the moment of registration; AMLA's forfeiture power can, in principle, reach an asset already sitting on a clean title deed.",
+      { h: "How civil forfeiture works — no conviction required" },
+      {
+        ul: [
+          "**Section 48** — AMLO's Transaction Committee can provisionally restrain or seize an asset it has probable cause to believe is connected to a predicate offence (a defined list that includes fraud, corruption, narcotics and organised gambling, among others), for up to 90 days while the case is built.",
+          "**Section 49** — if the evidence holds up, the Secretary-General refers the case to the public prosecutor, who petitions the court to order the asset forfeited to the state: a civil action against the property itself, run separately from any criminal case against whoever is accused of the underlying offence.",
+          "**Section 51** — the court orders forfeiture once satisfied the asset is related to an offence, and if the current claimant is, or was, connected to the person who committed it, the law presumes the asset is tainted — shifting the practical burden onto the claimant to prove otherwise.",
+        ],
+      },
+      { h: "The bona fide purchaser defence" },
+      "Section 50 lets anyone with a genuine interest in the asset petition the court, before a forfeiture order is made, to protect their rights — but the petitioner \"must satisfy the Court that he or she is an honest recipient and a bona fide purchaser,\" or that the interest was acquired honestly, morally, or by charity. Section 52 goes further: even after a forfeiture order, if the court later finds a bona fide claimant's petition has merit, it can still protect that claimant's rights, with or without conditions. A genuine good-faith buyer isn't automatically stripped of the property — but has to actively prove that status in court. It is never assumed.",
+      { h: "What this means in practice for a Koh Phangan buyer" },
+      "There are two distinct ways a buyer could end up exposed. First, as the buyer: if your own incoming transfer of purchase funds is later connected to an offence — proceeds mischaracterised, or funds received from a source that turns out to be under investigation. Second, as a resale buyer: if a previous owner's original purchase money, one or more sales back, is later found to be tainted, the property can in a worst case still be 'related to an offence' even after changing hands cleanly on paper — a different legal basis, but a similar principle to how [public-domain land such as forest reserve stays exposed regardless of how many times a title has changed hands](/knowledge/land-code-section-94-forfeiture-amendment).",
+      "The practical defence is the same documentation this site already recommends for other reasons: your own [FET form and bank remittance records](/knowledge/bringing-money-into-thailand-fet-form) showing how the purchase money entered Thailand, and a clean paper trail from the standard [due-diligence checklist](/knowledge/due-diligence-checklist-koh-phangan) on the property's chain of title. This is a rare, worst-case mechanism, not a routine risk on an ordinary, well-documented purchase — most transactions never come near it. But it's the concrete legal reason that keeping those records isn't just Land Office paperwork; it's the evidence base a genuine bona fide purchaser would need if this mechanism was ever triggered years after closing.",
+    ],
+    takeaways: [
+      "AMLA Sections 48–52 let the Thai state pursue forfeiture of an asset connected to a predicate offence through a civil court process — no criminal conviction of anyone is required.",
+      "This is a separate, broader power than the Land Office's source-of-funds checks or a real estate agent's own AML reporting duty, both of which act before or at registration, not years afterward.",
+      "AMLO's Transaction Committee can freeze an asset for up to 90 days (Section 48) while a case is built; the prosecutor then petitions the court for forfeiture (Section 49).",
+      "A person who acquired the asset can protect their rights by proving to the court they were an 'honest recipient and bona fide purchaser' (Section 50) — a defence that has to be actively established, not an automatic protection.",
+      "Keeping FET-form and bank-transfer records for how purchase funds entered Thailand, plus a clean due-diligence trail on the property's history, is the practical evidence base for that defence if it's ever needed.",
+    ],
+    sources: [
+      {
+        title:
+          "samuiforsale.com — Anti-Money Laundering Act B.E. 2542 (1999), English translation (Sections 48–52)",
+        url: "https://www.samuiforsale.com/law-texts/anti-money-laundering-act.html",
+      },
+      {
+        title:
+          "Siam Center Law Group — Anti-Money Laundering Laws in Thailand: A Comprehensive Guide for Foreign Businesses and Individuals",
+        url: "https://siamcenterlawgroup.com/anti-money-laundering-laws-in-thailand-a-comprehensive-guide-for-foreign-businesses-and-individuals/",
+      },
+      {
+        title:
+          "Jus Laws & Business — Anti-Money Laundering in Thailand: 2026 Compliance Guide",
+        url: "https://www.juslaws.com/articles/anti-money-laundering-thailand-2026-compliance-guide",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "ownership",
+    faqQuestion:
+      "Can Thailand seize a villa I bought legally if the money behind it is later linked to a crime?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

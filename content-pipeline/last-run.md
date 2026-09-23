@@ -1,31 +1,36 @@
-# Last run — 2026-09-23
+# Last run — 2026-09-23 (second run, same day)
 
-Published 2 guides (EN + RU each).
+Published 2 guides (EN + RU each). Today's first run already published kb-0197/kb-0198, so this pass needed genuinely new ground.
 
-## 1. kb-0197 — `spousal-consent-section-1476-property-purchase-thailand`
-**Title:** The spouse who didn't sign: Section 1476 consent and buying land from a married Thai seller
-**faqCategory:** documents
+## 1. kb-0199 — `land-trading-prohibition-foreign-business-act-thailand`
+**Title:** Why a foreigner can't run a villa-flipping or land-development business on Koh Phangan
+**faqCategory:** structures
 
-Buyer-side risk when a married Thai seller's spouse never gave written consent to the sale (CCC Section 1476/1480: voidable, not void; 1-year/10-year challenge window; good-faith-buyer defence). Confirmed genuinely uncovered by reading the four closest existing guides in full (foreign-spouse-usufruct, prenup, divorce-property-division, due-diligence-checklist) — none address the purchase-risk angle from the buyer's side.
-
-Sources used:
-- Integrity Legal (legal.co.th) — CCC Sections 1471–1479 translation
-- Siam Center Law Group — Unauthorized Sale of Marital Land in Thailand
-- Acclime Thailand — Marital Property & Assets
-
-## 2. kb-0198 — `double-tax-treaty-rental-income-thailand`
-**Title:** The tax-treaty myth: why a DTA doesn't reduce Thailand's tax on your villa's rental income
-**faqCategory:** costs
-
-Explains that Thailand's DTAs almost universally preserve full source-country taxing rights over real-estate rental income (Article 6), unlike dividends/interest/royalties which do get treaty-reduced rates. Confirmed uncovered by grepping owners-taxes-annual-land-and-income and foreign-income-remittance-tax-thailand-por-161-2566 in full for "treaty"/"DTA" — no rental-income treaty-interaction coverage existed.
+Foreign Business Act B.E. 2542 (1999), Schedule One, item 9 ("trading in land") is the Act's strictest tier — closed to foreigners entirely, no Foreign Business Licence or Cabinet approval possible at any capital level. Distinct from the Land Code's personal-ownership ban (buying one villa to live in isn't "trading") and from List Three's brokerage restriction (already covered for real estate agents) — this is about buying/reselling land or villas as a business, as principal. Explains the minority-investor route via a genuinely Thai-majority company and Section 37's penalties.
 
 Sources used:
-- IRS — official US–Thailand tax treaty text (Article 6)
-- HLB Thailand — worked DTA example
-- Forbes & Partners — Thai rental income tax guide for foreigners
-- PwC Tax Summaries — Thailand withholding tax tables (cross-check)
+- Baker McKenzie — Schedules to the Foreign Business Act, Schedule One item 9 (WebSearch-quoted excerpt of primary PDF; direct fetch returned unreadable binary)
+- Board of Investment (Thailand) — official FBA English translation (Sections 4, 37; already used as a source in kb-0116)
+- Dej-Udom & Associates — Thailand Foreign Business Act: A Practical Guide for Foreign Investors
+- terms.law — Thailand Foreign Business Act: What Foreigners Cannot Do
+
+## 2. kb-0200 — `amla-civil-forfeiture-bona-fide-purchaser-thailand`
+**Title:** Could your legally bought villa be seized years later? Civil forfeiture and the bona fide purchaser defence
+**faqCategory:** ownership
+
+Anti-Money Laundering Act Sections 48-52: Thailand's civil, non-conviction-based asset forfeiture system, under which a cleanly registered property could in principle still face a state forfeiture petition if funds behind it (the buyer's own, or an earlier owner's) are later linked to a predicate offence. Covers the Transaction Committee's 90-day seize power, the prosecutor's court petition, and the Section 50/52 "honest recipient and bona fide purchaser" defence a good-faith buyer must actively prove. Framed conservatively as a rare, worst-case mechanism — the practical takeaway ties into keeping FET-form/source-of-funds records this site already recommends for other reasons.
+
+Sources used:
+- samuiforsale.com — Anti-Money Laundering Act B.E. 2542, Sections 48-52 (direct fetch, quoted verbatim)
+- Siam Center Law Group — Anti-Money Laundering Laws in Thailand: A Comprehensive Guide
+- Jus Laws & Business — Anti-Money Laundering in Thailand: 2026 Compliance Guide (used only for the general Section 48 seize/freeze framework — its separate claim that FBA nominee-shareholding violations became an AMLA predicate offence via "2025 amendments" was deliberately NOT used, since that exact claim was already investigated and rejected as uncorroborated by this pipeline's 2026-09-19 discovery note)
 
 ## Process notes
-Ran the standard two-agent sweep (fresh news + evergreen gap-mining) rather than pulling straight from `backlog.md`'s `⏳` rows: every pending backlog row (water-crisis escalation, FBA/AMLA predicate-offence, rental yields, power-grid single-cable, stamp duty vs SBT, off-plan vetting, coalition stance, PND e-filing date) has already been re-checked repeatedly across prior runs and remains a confirmed duplicate/thin/unsafe item — re-confirmed unchanged again this run (see backlog.md discovery note for details). No new dated news survived scrutiny in the 2026-09-18/23 window. Both published guides came from the evergreen-gap-mining pass instead, each independently verified against 3+ sources and checked for non-overlap by reading the closest existing guides in full.
 
-`content-pipeline/backlog.md` left unchanged (no ⏳ rows were consumed) aside from a discovery note logging this run's findings, per the established pattern in that file.
+Ran the standard two-agent sweep (fresh news + evergreen gap-mining). News sweep found nothing genuinely new — every standing watch item re-confirmed unchanged, and the week's nominee-crackdown stats refreshes (Thai Examiner 11 Sep/16 Sep) ruled incremental, matching prior runs' findings.
+
+The evergreen gap-mining agent's two proposed topics (adverse possession under CCC Section 1382, and EIA thresholds for resort/condo projects) turned out to **both already be published** (`adverse-possession-squatters-vacant-land-koh-phangan`, `environmental-impact-assessment-villa-resort-koh-phangan`). This was caught before writing by re-grepping the actual file directly — the agent's dedup slug list (assembled from a truncated grep in the orchestrating turn) had silently dropped a ~25-slug range that happened to include exactly those two guides. Lesson logged in `backlog.md`: always verify a proposed slug/topic against a direct grep of the source file immediately before writing, never trust a manually-compiled slug list alone.
+
+The author then researched the two published topics independently via WebSearch/WebFetch rather than delegating further, confirming genuine novelty against the full, freshly-verified 198-slug catalog before writing.
+
+`content-pipeline/backlog.md` left unchanged aside from a discovery note logging this run's findings (no ⏳ rows were consumed — all remain confirmed duplicate/thin/unsafe per prior runs).
