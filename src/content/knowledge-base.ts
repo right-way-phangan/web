@@ -12135,6 +12135,70 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "Can Thailand seize a villa I bought legally if the money behind it is later linked to a crime?",
   },
+  {
+    slug: "leasehold-superficies-mortgage-priority-thailand",
+    kbId: "kb-0201",
+    topic: "Documents",
+    title:
+      "Can a bank mortgage on the land outrank your registered lease or superficies?",
+    short:
+      "A registered 30-year lease and superficies protect your villa against most changes of landowner — but not automatically against a mortgage. Civil and Commercial Code Section 722 gives an earlier-registered mortgage priority, and if your lease was registered after it without the bank's consent, it can be struck from the register at foreclosure.",
+    updated: "2026-09-24",
+    body: [
+      "Does your registered leasehold-plus-superficies survive if the landowner's bank forecloses on the land underneath it? It depends entirely on timing. [A registered lease generally survives an ordinary sale](/knowledge/tenant-lease-survives-sale-ccc-section-569) — the new owner simply steps into the old landowner's position. A mortgage foreclosure is a different, harder case, governed by a separate rule: Civil and Commercial Code **Section 722**, which lets an earlier-registered mortgage outrank a later-registered lease or superficies entirely.",
+      { h: "What Section 722 actually says" },
+      "Section 722 provides that when land has already been mortgaged, and a servitude or other real right is registered afterward without the mortgagee's (lender's) consent, the mortgage has priority — and the later right **can be struck from the register** if its existence prejudices the mortgagee at enforcement. A registered lease and a registered superficies are both exactly this kind of real right. Applied to Koh Phangan's standard structure — a foreign buyer holding a 30-year [lease plus superficies](/knowledge/superficies-vs-usufruct-vs-lease) over land a Thai landowner still holds freehold — the question becomes simple to state and easy to miss: which was registered first, the mortgage or your lease?",
+      { h: "Before the mortgage vs. after it" },
+      {
+        ul: [
+          "**Lease/superficies registered before any mortgage exists.** You're in the stronger position — nothing in Section 722 touches a real right that predates the mortgage. A bank lending against the land afterward takes it subject to your existing lease.",
+          "**Mortgage already exists when you register your lease.** The mortgage outranks you by default. If the landowner later defaults and the bank forecloses, your lease is exposed — the auction buyer is not automatically bound to honour it, and the Land Office can strike the registration to clear the way for enforcement.",
+          "**The fix is the mortgagee's written consent.** Section 722 only subordinates a right registered \"without the consent of the mortgagee.\" If the bank formally consents to (or is joined in) the lease/superficies registration, your right stands even though it came second — this is the document to obtain, not just a landowner's verbal assurance that a loan is fine.",
+        ],
+      },
+      { h: "Why this is easy to miss during due diligence" },
+      "A [Land Office encumbrance search](/knowledge/due-diligence-checklist-koh-phangan) shows you whether a mortgage exists on the title today — but it doesn't tell you whether the landowner will take one out next year, after your lease is already registered. That's the harder half of the risk: a clean title search at signing doesn't protect you from a mortgage the landowner registers afterward, since Section 722's priority runs by registration order regardless of which one existed when you did your homework. This is also a materially different risk from [multiple mortgages stacked on one title](/knowledge/mortgage-priority-ranking-thai-title-deed), which only ranks mortgages against each other — Section 722 ranks a mortgage against a lease or superficies, a different kind of right entirely.",
+      { h: "What a Koh Phangan buyer should actually do" },
+      {
+        ul: [
+          "**Check for an existing mortgage before signing anything.** If the Land Office record shows one, get written legal advice on priority before registering your lease and superficies — and treat the landowner's cooperation in obtaining the bank's consent as a condition of the deal, not an afterthought.",
+          "**Ask your lawyer to build in ongoing protection**, not just a point-in-time check: a contractual undertaking from the landowner not to mortgage the land during your term without your — and ideally the existing lender's — written consent, mirroring the [prohibition-on-mortgaging clause](/knowledge/lease-contract-clauses-to-check) this site already recommends for every lease.",
+          "**If a mortgage does appear after your lease is registered**, that's exactly when independent legal advice matters most — whether the specific facts trigger Section 722 depends on registration dates, the mortgagee's conduct, and the lender's own consent, not a general rule you can apply yourself.",
+        ],
+      },
+      "None of this makes leasehold-plus-superficies unsafe as a structure — it remains the standard, workable route for foreign ownership on Koh Phangan, and most landowners never mortgage the underlying land during a buyer's term. But Section 722 is the concrete legal reason a mortgage check isn't a one-time box to tick at signing: it's the difference between a lease that survives foreclosure and one that doesn't.",
+    ],
+    takeaways: [
+      "CCC Section 722 lets an earlier-registered mortgage on the land outrank a later-registered lease or superficies, which can then be struck from the register if it prejudices the lender at foreclosure.",
+      "A lease/superficies registered before any mortgage exists is unaffected; one registered after an existing mortgage, without the lender's written consent, is the exposed scenario.",
+      "The mortgagee's written consent to the lease/superficies registration is the fix — it preserves the lease's priority even though it was registered second.",
+      "A clean encumbrance search at signing doesn't protect against a mortgage the landowner registers later — this is a different, ongoing risk from the one-time mortgage check most due-diligence checklists cover.",
+      "A contractual clause requiring the landowner's consent (and ideally the lender's) before mortgaging the land during the lease term is the practical protection to negotiate into the contract, on top of the point-in-time title search.",
+    ],
+    sources: [
+      {
+        title:
+          "ThailandLawOnline — Thai Civil and Commercial Code, Section 722 (mortgage priority over later-registered real rights)",
+        url: "https://www.thailawonline.com/th/thai-civil-code/section-722/",
+      },
+      {
+        title: "Samui For Sale — Thailand Civil and Commercial Code, Part II (Mortgage, Sections 702-746)",
+        url: "https://www.samuiforsale.com/law-texts/thailand-civil-code-part-2.html",
+      },
+      {
+        title: "GMG — Villa Finance in Thailand: The Leasehold Lending Problem",
+        url: "https://www.gmg.asia/villa-finance-thailand/",
+      },
+      {
+        title: "Town & Country Property — The Uncomfortable Truth About Leasehold Villas in Thailand",
+        url: "https://towncountryproperty.com/news/the-uncomfortable-truth-about-leasehold-villas-in-thailand",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion:
+      "Can a bank mortgage on the land override my registered lease or superficies in Thailand?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
