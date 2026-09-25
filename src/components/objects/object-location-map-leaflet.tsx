@@ -131,10 +131,10 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
   const initialBase: BaseLayer =
     prefs.base && prefs.base !== "terrain" ? prefs.base : hasPolygon ? "sat" : "map";
   const [base, setBase] = useState<BaseLayer>(initialBase);
-  const [parcels, setParcels] = useState(prefs.parcels ?? false);
+  const [parcels, setParcels] = useState(prefs.parcels ?? true);
   const [zoning, setZoning] = useState(prefs.zoning ?? false);
   const [poi, setPoi] = useState(prefs.poi ?? false);
-  const [zoom, setZoom] = useState(15);
+  const [zoom, setZoom] = useState(PARCEL_MIN_ZOOM + 1);
   const [me, setMe] = useState<{ lat: number; lng: number; acc: number } | null>(null);
   const [geoBusy, setGeoBusy] = useState(false);
   const [geoError, setGeoError] = useState<string | null>(null);
@@ -239,7 +239,7 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
       <MapContainer
         ref={mapRef}
         center={[lat, lng]}
-        zoom={15}
+        zoom={PARCEL_MIN_ZOOM + 1}
         // With a traced contour, open framed on the plot itself.
         {...(hasPolygon
           ? { bounds: L.latLngBounds(plotPolygon!).pad(0.6), boundsOptions: { maxZoom: 18 } }

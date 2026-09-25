@@ -10,6 +10,9 @@ import {
   CITYPLAN_TILE_URL,
   CITYPLAN_MIN_NATIVE_ZOOM,
   CITYPLAN_MAX_NATIVE_ZOOM,
+  PARCEL_TILE_URL,
+  PARCEL_MIN_ZOOM,
+  PARCEL_MAX_NATIVE_ZOOM,
   LONGDO_ATTRIBUTION,
 } from "@/lib/leaflet/tiles";
 
@@ -36,12 +39,12 @@ function ClickCapture({ onPick }: { onPick: (lat: number, lng: number) => void }
   return null;
 }
 
-// Recenter on a pin set from the text input (not from a map click — those are
-// already in view). Zooms in to at least z16 so the zone colour is readable.
+// Parcel tiles start at z17; frame a selected point one step closer so the
+// cadastral boundaries are visible without extra zoom clicks.
 function Recenter({ marker }: { marker: { lat: number; lng: number } | null }) {
   const map = useMap();
   useEffect(() => {
-    if (marker) map.flyTo([marker.lat, marker.lng], Math.max(map.getZoom(), 16));
+    if (marker) map.flyTo([marker.lat, marker.lng], Math.max(map.getZoom(), PARCEL_MIN_ZOOM + 1));
   }, [marker?.lat, marker?.lng]); // eslint-disable-line react-hooks/exhaustive-deps
   return null;
 }
@@ -78,6 +81,14 @@ export default function ZoneMapPicker({
         zIndex={5}
         minNativeZoom={CITYPLAN_MIN_NATIVE_ZOOM}
         maxNativeZoom={CITYPLAN_MAX_NATIVE_ZOOM}
+        maxZoom={MAX_ZOOM}
+      />
+      <TileLayer
+        url={PARCEL_TILE_URL}
+        attribution={LONGDO_ATTRIBUTION}
+        zIndex={6}
+        minZoom={PARCEL_MIN_ZOOM}
+        maxNativeZoom={PARCEL_MAX_NATIVE_ZOOM}
         maxZoom={MAX_ZOOM}
       />
       <ClickCapture onPick={onPick} />
