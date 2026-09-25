@@ -131,7 +131,9 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
   const initialBase: BaseLayer =
     prefs.base && prefs.base !== "terrain" ? prefs.base : hasPolygon ? "sat" : "map";
   const [base, setBase] = useState<BaseLayer>(initialBase);
-  const [parcels, setParcels] = useState(prefs.parcels ?? true);
+  // Every object page opens with the plot boundaries visible, including for
+  // visitors whose old saved map preference had the layer off.
+  const [parcels, setParcels] = useState(true);
   const [zoning, setZoning] = useState(prefs.zoning ?? false);
   const [poi, setPoi] = useState(prefs.poi ?? false);
   const [zoom, setZoom] = useState(PARCEL_MIN_ZOOM + 1);
@@ -211,7 +213,7 @@ export default function ObjectLocationMapLeaflet({ lat, lng, plotPolygon, showSu
 
   useEffect(() => stopWatch, []);
 
-  // Remember the layer choice for the next map (object detail / listings).
+  // Share layer choices with listings; object detail always starts with parcels on.
   useEffect(() => {
     saveLayerPrefs({ base, parcels, zoning, poi });
   }, [base, parcels, zoning, poi]);
