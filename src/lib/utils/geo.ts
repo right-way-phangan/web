@@ -96,6 +96,7 @@ export function formatDistance(meters: number, locale: "en" | "ru"): string {
 export function parseLatLngText(s: string): { lat: number; lng: number } | null {
   const m =
     s.match(/@(-?\d{1,2}\.\d+),(-?\d{1,3}\.\d+)/) ??
+    s.match(/\/maps\/search\/(-?\d{1,2}\.\d+)(?:,|%2C)(?:\+|%20| )?(-?\d{1,3}\.\d+)/i) ??
     s.match(/[?&](?:q|query|ll|center)=(-?\d{1,2}\.\d+)\s*,\s*(-?\d{1,3}\.\d+)/) ??
     s.match(/!3d(-?\d{1,2}\.\d+)!4d(-?\d{1,3}\.\d+)/) ??
     s.match(/^\s*(-?\d{1,2}\.\d+)\s*[, ]\s*(-?\d{1,3}\.\d+)\s*$/);
