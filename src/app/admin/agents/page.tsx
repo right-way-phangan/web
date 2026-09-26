@@ -25,7 +25,7 @@ const SOURCE_META: Record<string, { icon: string; label: string }> = {
 };
 
 const SESSION_STATUS: Record<string, { label: string; cls: string } | null> = {
-  done: null,
+  done: { label: "✓ ответ получен", cls: "bg-forest-900/10 text-forest-900/70" },
   pending: { label: "⏳ в очереди", cls: "bg-brass-500/15 text-brass-600" },
   processing: { label: "🧠 Зевс думает…", cls: "bg-brass-500/20 text-brass-700 animate-pulse" },
   error: { label: "⚠️ ошибка", cls: "bg-red-500/10 text-red-700/80" },
@@ -164,7 +164,7 @@ export default async function AdminAgentsPage() {
         <h1 className="text-2xl font-semibold text-forest-900 md:text-3xl">Агенты</h1>
         <p className="mt-2 max-w-2xl text-sm text-forest-900/60">
           Задачи и история советов ИИ-команды. <b>Совет можно спросить прямо отсюда</b> (форма
-          справа) — Зевс соберёт пантеон на Max и вернёт ответ через ~1–2 мин. Задачи ставишь в
+          справа) — бот на VPS соберёт совет через ИИ-движок. Обычно это занимает несколько минут. Задачи ставишь в
           Telegram (@rightway_assistant_bot): голосом, текстом <code>/задача</code> или кнопкой
           «Разбить на задачи» под советом.
         </p>
@@ -220,7 +220,7 @@ export default async function AdminAgentsPage() {
             />
             <div className="mt-2 flex items-center justify-between gap-3">
               <span className="text-[11px] text-forest-900/40">
-                Зевс соберёт совет на Max — ответ через ~1–2 мин, появится здесь и придёт в Telegram.
+                Запрос попадёт в очередь VPS. Здесь появится ответ или ошибка движка; статус сервера сам по себе не подтверждает работу ИИ.
               </span>
               <button
                 type="submit"
