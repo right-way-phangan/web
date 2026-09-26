@@ -1,25 +1,28 @@
-# Last run — 2026-09-24
+# Content pipeline — last run
 
-Published 1 guide (EN + RU). Ran the standard two-agent sweep (fresh news + evergreen gap-mining); the news sweep found nothing genuinely new, and the first gap-mining pass surfaced only one candidate strong enough to clear this pipeline's sourcing bar. A second gap-mining pass found one more candidate, but its central legal claim turned out to be insufficiently verified — see "Declined" below. Publishing 1 rather than padding with a thinner second guide, per the hard quality gate.
+**Date:** 2026-09-26
 
-## 1. kb-0201 — `leasehold-superficies-mortgage-priority-thailand`
-**Title:** Can a bank mortgage on the land outrank your registered lease or superficies?
-**faqCategory:** documents
+No pre-existing ⏳ backlog row cleared the bar (all re-confirmed duplicate/thin/unsafe — see the 2026-09-26 discovery note in `backlog.md`). A fresh-news sweep (2026-09-24/26 window) found nothing genuinely new and Koh-Phangan-relevant — a Deputy Interior Minister probe into Israeli-linked/Chabad land purchases and a Phuket permit violation is a real, novel enforcement angle, but it's southern-border/Phuket-specific, not Phangan/Samui, and one day outside the window, so it wasn't published. Both guides below came from independent evergreen gap-mining against the full 202-guide catalog.
 
-Civil and Commercial Code Section 722: when land already carries a registered mortgage, a lease or superficies registered afterward *without the mortgagee's consent* is subordinate to it, and can be struck from the register if it prejudices the lender at foreclosure. Applied to Koh Phangan's standard leasehold-plus-superficies structure: a lease/superficies registered before any mortgage exists is safe; one registered after an existing mortgage — without the bank's written consent — is exposed if the landowner later defaults. The practical gap: a clean encumbrance search at signing doesn't protect against a mortgage the landowner registers later, since Section 722 runs by registration order, not by what existed when a buyer did their due diligence.
+## 1. kb-0202 — `fraudulent-property-transfer-creditor-revocation-thailand`
 
-Sources used:
-- ThailandLawOnline — Civil and Commercial Code, Section 722 (direct fetch, quoted)
-- Samui For Sale — Thailand Civil and Commercial Code, Part II (Mortgage, Sections 702-746)
-- GMG — Villa Finance in Thailand: The Leasehold Lending Problem
-- Town & Country Property — The Uncomfortable Truth About Leasehold Villas in Thailand (independent practitioner corroboration of the foreclosure-priority risk and the "get legal advice on priority" recommendation)
+- **Title:** CCC Section 237: can a creditor unwind the transfer that put your land in the seller's hands?
+- **faqCategory:** documents
+- **Sources:**
+  - ThailandLawOnline — CCC Sections 194-240 (Contract, Obligations and Performance Law) — primary-text translation of Sections 237-240.
+  - Siam Legal Thailand Law Library — CCC Obligations (Sections 233-240) — independent translation, cross-check.
+  - Integrity Legal — dedicated commentary on Section 237 (Cancellation of Fraudulent Acts).
+  - Watson Farley & Williams (2026) — Thai courts' treatment of fraudulent asset transfers in restructuring, for real-world application.
+  - All four independently re-verified via a direct quote-check of the operative section text before writing.
 
-## Declined candidate — not published
+## 2. kb-0203 — `land-code-section-95-nationality-change-land-disposal`
 
-**Impersonation / forged-ID land fraud against absentee foreign owners**, and whether CCC Section 1299's good-faith-registered-purchaser protection reaches a truly forged (void) transfer as opposed to only a voidable one. A second gap-mining pass proposed this and flagged its own central point as only "moderately sourced." Independent follow-up research found the same thing: one line of authority states a forged deed "is a nullity and conveys no title," but Supreme Court judgment 7680/2551 protected a good-faith purchaser despite a forged spousal-consent signature — a different fact pattern (voidable, not void, since the true owner-spouse's act was real) that the topic would need to distinguish cleanly to be legally accurate, and no primary case text or authoritative secondary source could be found doing that distinguishing work for a true-impersonation scenario specifically. Rather than assert an inferential legal conclusion on a topic where an error could genuinely mislead a buyer about the strength of their title protection, this was declined. Logged in `backlog.md` as a discovery note.
+- **Title:** Land Code Section 95: what happens to land a Thai national held before losing Thai nationality
+- **faqCategory:** ownership
+- **Sources:**
+  - ThailandLawOnline — full Land Code Act translation (Section 95 text, plus Sections 86-87/94 for the cap and disposal mechanism).
+  - Siam Legal Thailand Law Library — Land Act 2497: Limitations of Foreigner Rights (Sections 86-96) — independent cross-check.
+  - FAOLEX (FAO) — official translation PDF of the Land Code Promulgating Act, B.E. 2497.
+  - Note: sourcing here is thinner than usual — no dedicated practitioner article analyzing Section 95's practical stakes was found, only bundled Sections 86-96 overview/translation pages. The guide leans on the primary statute text (independently re-verified via direct quote-check) plus explicit cross-links to the site's own Section 94/93 guides, and is framed conservatively (flags that actual loss of Thai nationality is a separate question under the Nationality Act B.E. 2508, not asserted as automatic).
 
-## Process notes
-
-Two-agent sweep: fresh-news agent covered the 2026-09-20/24 window and confirmed no change on any standing watch item (water crisis, FBA/AMLA predicate-offence status, 99-year leasehold bill, condo quota reform); a BOT inbound-forex tightening lead and a Samui/Phangan lease-scrutiny-expansion lead both traced to older news being recirculated, not September 2026 developments. First evergreen gap-mining agent re-confirmed the full 199-slug catalog via direct grep before proposing Section 722, and read the three closest existing guides in full to confirm no overlap. A second gap-mining agent (explicitly told the Section 722 topic was taken) surfaced the forged-ID/impersonation candidate; the author independently re-verified its central claim via WebSearch rather than taking the agent's "moderately sourced" flag at face value, and declined it on finding the sourcing didn't hold up under direct scrutiny.
-
-`content-pipeline/backlog.md` left otherwise unchanged aside from the discovery note (no ⏳ rows were consumed — all remain confirmed duplicate/thin/unsafe per prior runs' checks).
+Both EN/RU pairs added to `src/content/knowledge-base.ts` / `.ru.ts` (kbId kb-0202, kb-0203), dedup-checked against all 202 existing slugs, `tsc --noEmit` clean. `content-pipeline/backlog.md` updated with a discovery note (neither was a pre-existing ⏳ row).

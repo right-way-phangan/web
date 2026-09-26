@@ -12199,6 +12199,122 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "Can a bank mortgage on the land override my registered lease or superficies in Thailand?",
   },
+  {
+    slug: "fraudulent-property-transfer-creditor-revocation-thailand",
+    kbId: "kb-0202",
+    topic: "Documents",
+    title:
+      "CCC Section 237: can a creditor unwind the transfer that put your land in the seller's hands?",
+    short:
+      "A creditor can sue to cancel a debtor's earlier gift or below-market sale made to dodge a debt — even years later. For a buyer, the real exposure is upstream: if your seller received the land that way, that transfer can still be attacked, though a good-faith buyer who pays value is generally protected.",
+    updated: "2026-09-26",
+    body: [
+      "Can someone else's old, unrelated debt undo a purchase you had nothing to do with? Under Civil and Commercial Code Section 237, a creditor can go to court to cancel a juristic act — a gift, an undervalue sale, a transfer into a relative's name — that a debtor made while knowing it would prejudice that creditor. It's a real mechanism, not a theoretical one, and it reaches backward through a chain of title further than most buyers assume.",
+      { h: "What Section 237 actually allows" },
+      {
+        ul: [
+          "**Section 237** — a creditor may sue to cancel any juristic act the debtor did knowing it would prejudice the creditor. This doesn't apply if the person who benefited didn't know, at the time, the facts making it prejudicial — **except** for a gratuitous act (a gift), where the debtor's own knowledge alone is enough to void it.",
+          "**Section 238** — cancellation can't touch the right of a third party who acquired it in good faith **and for value**. That protection disappears if the third party got the right gratuitously (a further gift down the chain).",
+          "**Section 239** — a successful cancellation benefits all of the debtor's creditors, not just the one who sued.",
+          "**Section 240** — the claim is time-barred one year after a creditor discovers the grounds for cancellation, or ten years after the act itself, whichever comes first.",
+        ],
+      },
+      { h: "Why this matters for chain-of-title on Koh Phangan" },
+      "Picture a plot that changed hands as a suspiciously cheap 'sale' or an outright gift shortly before your seller acquired it — perhaps from someone facing a lawsuit, unpaid debts, or (amid 2026's intensified enforcement) a company under scrutiny for [nominee shareholding](/knowledge/land-department-audit-existing-landholding-companies-2026) or [Section 94 disposal](/knowledge/land-code-section-94-forfeiture-amendment). If that earlier transfer prejudiced a creditor, Section 237 lets that creditor sue to cancel it — and if it's cancelled, everything registered afterward in that chain is built on a title that no longer legally exists at that link.",
+      { h: "The buyer's shield: good faith and value" },
+      "This is where Section 238 matters. If you registered your own purchase for a real price and in genuine good faith — without knowing about the earlier prejudicial act — your right generally survives even if an earlier link in the chain gets cancelled. The buyer with no protection at all is the one who received the land as a gift, or at a price so far below market that a court could treat it as effectively gratuitous: a gratuitous recipient gets no Section 238 shield, no matter how far down the chain they sit.",
+      { h: "What this means for due diligence" },
+      {
+        ul: [
+          "**Check how your seller acquired the land, not just how you're acquiring it** — a registered sale at a plausible market price is far safer than a gift or a fire-sale transfer shortly before a change of hands.",
+          "**Ask how recently that prior transfer happened.** Section 240's ten-year outer limit means a transfer from decades ago is settled; one from the last one to ten years is still theoretically exposed.",
+          "**Have your lawyer check for pending lawsuits or a [Section 83 caveat](/knowledge/land-code-section-83-caveat-title-deed) against any prior owner in the chain**, not only the current seller — a caveat or an active claim is the clearest sign a creditor is already circling.",
+          "**Treat this as a separate risk layer from [AMLA civil forfeiture](/knowledge/amla-civil-forfeiture-bona-fide-purchaser-thailand)** — that mechanism reaches assets linked to a predicate crime through a different statute; Section 237 requires only an ordinary civil debt and a prejudicial transfer, a lower and more common bar.",
+        ],
+      },
+      "Section 237 isn't a reason to distrust every transaction — most Thai land changes hands through an ordinary, arm's-length sale that this provision never touches. But it's a concrete reason why [due diligence](/knowledge/due-diligence-checklist-koh-phangan) on Koh Phangan should look one step further back than the seller's own name on the title: at how, and how recently, they got it.",
+    ],
+    takeaways: [
+      "CCC Section 237 lets a creditor sue to cancel a debtor's earlier gift or undervalue sale made knowing it would prejudice that creditor.",
+      "A gift can be cancelled on the debtor's knowledge alone — no bad faith by the recipient is required.",
+      "Section 238 protects a later buyer who paid value and acted in good faith, even if an earlier link in the chain is cancelled — but a gratuitous downstream recipient gets no such protection.",
+      "The claim is time-barred one year after a creditor discovers it, or ten years after the act, whichever is sooner.",
+      "Check how — and how recently — your seller acquired the land, not just the current registered owner's name.",
+    ],
+    sources: [
+      {
+        title: "ThailandLawOnline — Civil and Commercial Code: Contract, Obligations and Performance Law (Sections 194-240)",
+        url: "https://www.thailandlawonline.com/civil-and-commercial-code/contract-obligations-and-performance-law",
+      },
+      {
+        title: "Siam Legal Thailand Law Library — Civil and Commercial Code, Obligations (Sections 233-240)",
+        url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-obligations-sections-233-240/",
+      },
+      {
+        title: "Integrity Legal — Cancellation of Fraudulent Acts, CCC Section 237",
+        url: "https://www.legal.co.th/resources/civil-and-commercial-code/book2/thailand-civil-and-commercial-code-page-39-obligations-part-iv-cancellation-fraudulent-acts-part-v-right-retention-section-237-2/",
+      },
+      {
+        title: "Watson Farley & Williams — Thai courts' approach on fraudulent asset transfers in restructuring",
+        url: "https://www.wfw.com/articles/thai-courts-approach-on-fraudulent-asset-transfers-in-restructuring/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion:
+      "Could a court unwind my purchase because the seller received the land through an earlier fraudulent transfer?",
+  },
+  {
+    slug: "land-code-section-95-nationality-change-land-disposal",
+    kbId: "kb-0203",
+    topic: "Ownership",
+    title:
+      "Land Code Section 95: what happens to land a Thai national held before losing Thai nationality",
+    short:
+      "Land bought lawfully while Thai stays lawful — but if the owner later changes nationality, Section 95 caps how much they can keep to whatever an alien in their position could hold, and the excess must be disposed of under the same process used for unlawful foreign holdings.",
+    updated: "2026-09-26",
+    body: [
+      "Does becoming a foreign national retroactively affect land someone already legally owned as a Thai citizen? Yes, in principle: Land Code Section 95 provides that a person who acquired land while a Thai national, and later changes nationality, keeps the right to hold only as much land as an alien in that position could lawfully hold — the rest 'shall be disposed of and the provisions of Section 94 shall apply mutatis mutandis.'",
+      { h: "What Section 95 says, and how the disposal works" },
+      {
+        ul: [
+          "**The trigger** is a change of nationality after lawfully acquiring land as a Thai national — not a foreign buyer acquiring land unlawfully in the first place (that's Section 96, covered in the [nominee-crackdown enforcement](/knowledge/land-code-section-94-forfeiture-amendment) guides).",
+          "**The cap** is whatever amount an alien in the same position is permitted to hold — under Section 87's own limits (1 rai for residence, per family) and, crucially, only if a treaty currently allows an alien to hold land at all. No such treaty has existed since the last one was terminated in 1970, so for most people the amount 'such alien may have' under Sections 86-87 alone is effectively zero.",
+          "**The mechanism** borrows Section 94: the Land Department's Director-General orders the excess disposed of within a period of not less than 180 days and not more than one year, with a Director-General auction if the owner doesn't sell it themselves in that window.",
+        ],
+      },
+      { h: "The separate, narrow exceptions that could still apply" },
+      "Section 95 only measures against what an alien could hold under the Land Code's own Sections 86-87 — it doesn't touch the handful of separate statutory routes that let a foreigner hold land through other laws, such as a BOI-promoted investment or the [THB 40 million investment route](/knowledge/thb-40-million-investment-land-ownership-route). Someone who changes nationality and separately qualifies under one of those distinct mechanisms would be assessed under that statute, not measured as zero — but that qualification has to exist independently; Section 95 itself creates no such right.",
+      { h: "Who this realistically touches on Koh Phangan" },
+      "The most common real-world shape of this on Phangan isn't a dramatic citizenship renunciation — it's the long-term pattern of a Thai spouse holding land in their own name for a foreign partner's benefit (see [the usufruct/superficies structure](/knowledge/foreign-spouse-usufruct-thai-marriage-property)), where that spouse later naturalizes in another country. Whether — and when — Thai nationality is actually lost in that process is governed by the separate Nationality Act B.E. 2508, not by this Land Code section, and outcomes vary by exact circumstances (dual-nationality treaties, voluntary renunciation, marriage-based rules). A family relying on a Thai national's landholding as a long-term arrangement should get bespoke advice on both statutes together, rather than assume a change of passport is legally invisible to the Land Department.",
+      "None of this affects land you hold today through a compliant lease-and-superficies structure — Section 95 is about a person who once held title as a Thai national, not about a foreigner's registered rights under [the standard ownership structure](/knowledge/how-foreigners-own-a-villa). But it's a genuine, if narrow, planning question for any household where the landowner's own nationality could change.",
+    ],
+    takeaways: [
+      "Land Code Section 95 caps how much land a person can keep after changing from Thai to foreign nationality — measured against what an alien in that position could lawfully hold.",
+      "Since no treaty currently permits foreigners to hold land under Sections 86-87 (the last one ended in 1970), that cap is effectively zero for most people.",
+      "The excess is disposed of using the same Section 94 machinery as unlawful foreign land holdings: a Director-General order, 180 days to one year to sell, then a forced auction.",
+      "Separate routes — BOI promotion, the THB 40 million investment route — aren't measured by Section 95 itself; they'd have to independently apply.",
+      "This most realistically touches a Thai spouse who later naturalizes abroad; whether Thai nationality is actually lost is a separate question under the Nationality Act, worth checking with a lawyer rather than assuming.",
+    ],
+    sources: [
+      {
+        title: "ThailandLawOnline — Thai Land Law: Full Translation of the Land Code Act",
+        url: "https://www.thailandlawonline.com/thai-real-estate-law/thai-land-law-land-code-act",
+      },
+      {
+        title: "Siam Legal Thailand Law Library — Land Act 2497: Limitations of Foreigner Rights (Sections 86-96)",
+        url: "https://library.siam-legal.com/thai-law/land-act-2497-limitations-of-foreigner-rights-sections-86-96/",
+      },
+      {
+        title: "FAOLEX (FAO) — Land Code Promulgating Act, B.E. 2497 (1954), official translation",
+        url: "https://faolex.fao.org/docs/pdf/tha33176.pdf",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "ownership",
+    faqQuestion:
+      "What happens to land already owned by someone who later loses or changes their Thai nationality?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
