@@ -1,48 +1,43 @@
-# Discovery run — 2026-09-20
+# Discovery run — 2026-09-27
 
-**New topics queued:** 1
-**Searches run:** ~34 (across 3 parallel research agents, 6 discovery angles)
-**Sources read:** 12
+**New topics queued:** 2
+**Searches run:** ~20 (2 parallel research agents, 6 discovery angles)
+**Sources read:** 20+ (WebSearch + WebFetch across both agents, plus 2 direct verification passes by the author)
 
 ## Topics added
 
 | Topic | faqCategory | Priority |
 |---|---|---|
-| Real-estate-backed digital token investment in Thailand (SEC-regulated fractional ownership via platforms like Sansiri's SiriHub and RealX): what a token actually gives an investor — SPV/trust economic rights, not registered title — and why the Condominium Act's 49% foreign quota and the Land Code's foreign land-ownership ban still fully apply underneath the structure | structures | 🟡 |
+| NACC "Anti-Corruption Pinpoint Area" designation for Koh Samui/Phangan/Tao (FY2026) — dedicated oversight of local officials, reviewed every 3 months, distinct from the nominee-company crackdown | phangan | 🔴 |
+| Developer "guaranteed rental yield" marketing programs (12-16% claims) on new Phangan villa projects — mechanics and red flags | costs | 🟢 |
 
 ## Sources consulted
 
-- thaiexaminer.com (11 & 16 Sep 2026) — 11,000-firm/฿85bn nominee probe, 30 Sep 2026 completion deadline; confirmed as an incremental stat refresh to the already-published nominee-crackdown cluster, not a new legal mechanism.
-- thaienquirer.com — ~68% of Koh Phangan/Samui registered firms flagged with foreign shareholders; same conclusion, duplicate of `koh-samui-phangan-raid-leases-nominee-scrutiny-2026`.
-- aimbangkok.com — Section 94 forfeiture-to-State Cabinet study (24 Feb 2026); confirmed duplicate of published `land-code-section-94-forfeiture-amendment`.
-- lexbangkok.com / dansiam-property.com — 2026 Land & Building Tax full statutory rates (no reduction decree); confirms the already-queued ⏳ backlog row, no new angle.
-- nationthailand.com ("Bangkok Moves to Plug Urban Property Loophole") — Bangkok-only proposal to triple agricultural-land tax rate; rejected for lack of Phangan/island-wide relevance and non-enactment.
-- brerrabbitlegal.co.th / aimbangkok.com — foreign-sourced income remittance 2-year grace-period exemption; still an unenacted draft, reportedly shelved post-election, overlaps published Por. 161/2566 guide.
-- nationthailand.com/news/general/40071022 (14 Sep 2026) — nationwide dry-season reservoir story; Koh Phangan appears only as a single rainfall data point, no new water-supply policy or PWA notice.
-- nationthailand.com/news/general/40070710 (6 Sep 2026) — "Truth Investigation" TV segment revisiting the Laem Son Beach public-land/accretion dispute; fully anchored by existing published guides on alluvion/foreshore and the nominee-crackdown cluster.
-- thaiexaminer.com (Supreme Court Decision 4655/2566 coverage via lexology.com) — 30+30+30 lease-clause voiding; duplicate of already-published lease-renewal guide.
-- blog.tokenizer.estate — explains the mechanics of SEC-approved real-estate-backed digital tokens in Thailand (SiriHub, RealX): token holders get SPV/trust economic rights, not land title.
-- nationthailand.com/business/digital-assets/40027067 — corroborates the tokenization model and confirms the Condominium Act's 49% quota and Land Code ownership ban remain unaffected by the token structure.
-- Various forum/market-sentiment searches (Reddit, Facebook-group proxies, Conrad Properties yield pages) — surfaced only questions already covered by published guides or already-queued ⏳ rows (rental yields, buyer-nationality mix, market pipeline).
+- zonesamui.com — Jul 2026 story on Thailand's anti-corruption agency accusing Koh Phangan authorities of negligence on forest encroachment; led to the NACC pinpoint-area lead (confirmed independently, see below).
+- nationthailand.com (40070710) — 6 Sep 2026 Laem Son Beach dispute reporting; already fully absorbed into two existing guides (`land-code-section-61-title-deed-revocation`, `alluvion-foreshore-land-ownership-thailand`), confirmed via direct grep/read — not re-queued, but it is the backdrop for the NACC item above (its "commentators called for a wider anti-corruption probe" line is the informal precursor to the now-confirmed formal designation).
+- khaosodenglish.com — corroborates 93-violation Koh Samui luxury-villa investigation and the ~70%-foreign-backed-business audit that sit alongside the NACC designation.
+- Independent WebSearch verification (author, not delegated) — confirmed NACC Deputy Secretary-General Suchart Kruaykitanon's FY2026 "Anti-Corruption Pinpoint Area" designation for all three islands and the 3-month review cadence, cross-checking the research agent's finding before queuing it.
+- pattayamail.com / khaosodenglish.com — DSI Special Case 94/2026 ("P Law Firm" nominee mill, 100+ companies at one address): checked directly against `src/content/knowledge-base.ts` line 4131 (inside `villa-held-by-thai-company-buyer-due-diligence-2026`) and found this exact fact already cited there — not queued as a new topic.
+- kellerhenson.com — Phangan villa-development guaranteed-yield marketing lead; page 403'd on direct fetch, so not cited as a source, but corroborated independently via a fresh WebSearch that surfaced Akiraya Villa's own "12% guaranteed yield, 9 years" claim.
+- oceanwwp.com — Phuket-market rental-guarantee red-flags framework (mechanism is directly transferable to Phangan; used as supporting, not primary, sourcing).
+- nationthailand.com (40067434, 40066940) — Q1 2026 Colliers data on Phangan/Samui investment volume and villa-development surge, supporting market context for the guaranteed-yield topic.
+- aseannow.com — English recap of the Laem Son Beach dispute; consistent with nationthailand.com, no new facts beyond what's already published.
 
 ## Skipped candidates
 
-- 11,000-firm/฿85bn nominee probe (Sept 30 deadline) — duplicate/incremental to 10+ published nominee-crackdown guides.
-- Chief Ombudsman's nominee-shareholding predicate-offence proposal (imprisonment/fine) — close variant of already-queued ⏳ backlog row.
-- 99-year leasehold bill status — duplicate of published `thailand-99-year-leasehold-bill-status`.
-- 49%→25-39% or →75% (SEZ) condo-quota proposals — duplicate of published quota-debate guide; SEZ variant is EEC-specific (Chonburi/Rayong), not Phangan-relevant.
-- Israeli/European/Australian buyer-nationality breakdown — duplicate of already-queued ⏳ "who's actually buying on Phangan" row.
-- Laem Son Beach investigative TV segment (4/6 Sep 2026) — duplicate of published alluvion/foreshore guide already grounded in that exact dispute.
-- Bangkok agricultural-land tax triple-rate proposal — Bangkok-only, unenacted, not Phangan/island-wide relevant.
-- Foreign-sourced income remittance grace-period exemption — still an unenacted draft, overlaps existing Por. 161/2566 guide.
-- Continued Koh Phangan water rationing (3,500-4,000 m³/day) — same story as the existing ⏳ "water crisis turns acute" row; no new PWA notice number to hang a fresh article on.
-- Avani/KAIA rebrand timeline detail — incremental update to the already-published Avani/KAIA guide.
-- National Parks Dept nationwide boundary-resurvey initiative (75,000 km²) — no Phangan-specific sourcing found.
-- Marine national park yachting/mooring rules 2026 — concerns boating/anchoring fees, not construction or land-buyer relevance.
+- Laem Son Beach enforcement-failure story — already fully covered in two existing guides (verified by direct read); the genuinely new fact (formal NACC pinpoint-area designation) was extracted and queued separately instead.
+- DSI Case 94/2026 "P Law Firm" nominee mill / vetting-your-own-lawyer angle — the underlying fact (100+ companies at one law-office address) is already cited in `villa-held-by-thai-company-buyer-due-diligence-2026`; too close to existing coverage to justify a dedicated guide.
+- Phuket hillside height-limit change, "Samui Model" surveillance task force, Avani/Minor Hotels branding, 112-company disposal orders, forest-reserve construction task force — all confirmed duplicates of existing guides by slug match.
+- Supreme Court Decision 4655/2566 (30+30+30 automatic lease-renewal voiding) — not a new topic; flagged as a freshness check for the existing `renewing-30-year-lease-risks` / `lease-contract-clauses-to-check` guides (an edit, not a new guide — left for the daily author to consider, not queued here).
+- 22-foreigner nominee dawn raid (May 2026, ~THB 200M seized) — incremental to the already heavily-covered nominee-raid cluster.
+- Land & Building Tax "no 2026 relief decree," foreign-income remittance exemption stall, DBD Order 2/2569, May 2026 source-of-funds circular — all confirmed updates to already-published guides, not new mechanisms.
+- Unlicensed Iranian-run school (Arki Kids Co Ltd raid) — real but off-topic (education/immigration, not property law).
+- Reddit/forum buyer-question mining — no relevant threads surfaced via search; angle 5's community-questions sub-task came up empty this run.
+- Digital nomad/co-living demand, wellness-retreat licensing, digital/QR title-deed rollout, villa-insurance storm-claim denials — all either too thin, unconfirmed for 2026, or already covered by existing guides.
 
 ## Gaps still open
 
-- No successor to PWA Notice 7/2569 has been found in three consecutive weekly checks (this run plus 2026-08-25/26/28 and 2026-09-13) — the "water crisis turns acute" ⏳ row remains blocked on a dated, Phangan-specific PWA source. Worth a monthly direct pwa.co.th browse rather than relying on search indexing.
-- The FBA/AMLA nominee-predicate-offence amendment remains stuck at "Ombudsman recommendation under AMLO review" with no bill or cabinet movement found across many weekly checks — still not safe to publish, but worth re-checking after any cabinet reshuffle news.
-- Coalition's "review foreign ownership regulations" pledge is still sourced only to real-estate marketing sites, never a reputable outlet naming this specific coalition — needs a dedicated political-news search (not just property-news search) to resolve.
-- Real-estate tokenization is a genuinely fresh mechanism but thinly covered even in general Thai financial press (mostly Sansiri/RealX's own marketing plus one Nation Thailand business piece) — the daily author should treat regulatory specifics (SEC framework name, exact investor-protection rules) cautiously and verify against a primary SEC source before publishing.
+- Whether `renewing-30-year-lease-risks` and `lease-contract-clauses-to-check` already cite Supreme Court Decision 4655/2566 (18 Mar 2025, voiding automatic 30+30+30 renewal clauses) is unconfirmed — worth a direct read-through; if the case predates the guides' last update, they may be citing the general risk without this specific, now-more-actively-enforced precedent.
+- The NACC pinpoint-area designation is fresh (confirmed via search, not yet via a primary NACC document) — the daily author should do one more direct-source pass (nacc.go.th or a Bangkok Post/Nation Thailand primary report naming the designation explicitly) before publishing, per this site's conservative-sourcing standard.
+- The guaranteed-rental-yield topic's strongest primary source (kellerhenson.com) returned HTTP 403 on direct fetch both times; the daily author should retry or lean on the independently-surfaced Akiraya Villa marketing page plus the Phuket-market red-flags framework instead.
+- No successor to PWA Notice 7/2569 (Koh Phangan water crisis) was specifically re-checked this run — the daily author's own weekly checks have covered this more recently and more directly than this run did.
