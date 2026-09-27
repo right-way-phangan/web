@@ -12315,6 +12315,128 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "What happens to land already owned by someone who later loses or changes their Thai nationality?",
   },
+  {
+    slug: "land-code-section-58-ter-chanote-upgrade-aerial-photo",
+    kbId: "kb-0204",
+    topic: "Documents",
+    title:
+      "Land Code Section 58 ter: how Nor Sor 3 Gor land gets upgraded to a Chanote without a full survey",
+    short:
+      "Section 58 ter lets the Minister of Interior order Title Deed issuance across a declared district using the aerial-photo map already attached to an existing Utilization Certificate, skipping a fresh ground survey. It only switches on once the government schedules that district, though — not on an individual owner's request.",
+    updated: "2026-09-27",
+    body: [
+      "Can land held only as a Nor Sor 3 Gor certificate become a full Chanote without commissioning a new ground survey? Yes — under Land Code Section 58 ter, the Minister can order Title Deed issuance across a declared locality using the aerial-photo map already attached to an existing Utilization Certificate, skipping a fresh cadastral survey \"except in case of necessity.\" It's a different, faster route than the first-time adjudication process already covered in [How a Thai title deed is actually created](/knowledge/land-code-section-58-title-adjudication-sor-kor-1) — and knowing which mechanism actually applies to a given plot matters before anyone promises a buyer, or a lender, that an upgrade is imminent.",
+      { h: "What Section 58 ter actually does" },
+      {
+        ul: [
+          "**It targets land that already holds a Utilization Certificate with an aerial-photo map** — in practice, Nor Sor 3 Gor (น.ส.3ก) land, which was already surveyed by aerial photography when that certificate was first issued.",
+          "**The Minister publishes the locality and a commencement date in the Government Gazette**, at least 30 days before the process starts, naming the specific district or sub-district covered.",
+          "**Officials adjust the existing aerial-photo map to a shared theoretical reference basis and issue the Title Deed from it** — a full new ground (cadastral) survey is carried out only \"in case of necessity,\" not as standard practice.",
+        ],
+      },
+      { h: "Why this is a government program, not an individual right" },
+      "This is the detail that catches owners out. [Section 59](/knowledge/land-code-section-58-title-adjudication-sor-kor-1) already lets an individual landholder request title adjudication on demand, whenever officials consider it appropriate. Section 58 ter doesn't work that way — it only activates once the Ministry has actually declared a district for aerial-photo-based Title Deed issuance. An owner holding Nor Sor 3 Gor land in a district the Ministry hasn't scheduled can't invoke Section 58 ter directly; the individual Section 59 request, which typically does still require a proper survey, remains the only route until the Ministry acts.",
+      { h: "A registration pause can follow the announcement" },
+      "Once a commencement date is set for a locality, the law halts ordinary registration of rights and juristic acts on the affected land that would otherwise require an aerial-photo cadastral survey — sales, mortgages, leases needing a fresh survey — except where officials grant case-by-case permission. For a buyer mid-transaction on Nor Sor 3 Gor land inside a newly declared Section 58 ter zone, that can mean an unexpected pause at the [Land Office](/knowledge/land-office-registration-day) while the government's own title-issuance process runs, not because anything is wrong with the deal itself.",
+      { h: "What it means for a Koh Phangan buyer or seller" },
+      {
+        ul: [
+          "**Ask which mechanism actually applies before relying on an \"upgrade to Chanote\" promise.** A seller or agent citing \"the government will convert this to Chanote soon\" should be able to say whether that means a declared Section 58 ter program for the specific district, or just the general possibility of a future Section 59 request — the two have very different timelines and certainty.",
+          "**Check with the Land Office whether the district has an active or announced Section 58 ter round** before assuming any pending upgrade is real; nothing on the face of a Nor Sor 3 Gor certificate signals whether one has been scheduled.",
+          "**Budget realistically on timing.** Practitioner reporting puts the practical process — once a district is actually declared — at roughly three months to a year and a half depending on the local Land Office's workload; that range isn't a statutory deadline, only the 30-day advance gazette notice is.",
+          "**A declared program can temporarily complicate a sale already in progress**, so if buying or selling Nor Sor 3 Gor land, ask the Land Office directly whether the plot sits inside a currently declared Section 58 ter locality as part of standard [due diligence](/knowledge/due-diligence-checklist-koh-phangan).",
+        ],
+      },
+      "None of this changes what a [Nor Sor 3 Gor certificate is worth today](/knowledge/land-titles-chanote-vs-nor-sor-3) — it remains a transferable, mortgageable document, upgrade or not. Section 58 ter is simply the specific, government-initiated shortcut that turns a district's aerial-photo-mapped certificates into full Chanote titles without a fresh ground survey — genuinely faster once it's actually been declared for a given area, and not something to bank on until it has.",
+    ],
+    takeaways: [
+      "Land Code Section 58 ter lets the Minister order Title Deed (Chanote) issuance across a declared locality using the aerial-photo map already attached to an existing Utilization Certificate (Nor Sor 3 Gor), skipping a fresh ground survey except \"in case of necessity.\"",
+      "It only activates once the Ministry publishes the locality and commencement date in the Government Gazette at least 30 days in advance — a government-initiated program, not something an individual landholder can request directly.",
+      "An owner outside a declared Section 58 ter district still has only the general Section 59 on-request adjudication route, which typically does require a proper survey.",
+      "Once a commencement date is set, ordinary registrations requiring an aerial-photo cadastral survey on the affected land can be paused except by case-by-case permission — a real risk for a sale already in progress.",
+      "Practitioners commonly report roughly three months to a year and a half for the process once a district is actually declared, though the only statutory deadline is the 30-day advance gazette notice — confirm a district's status directly with the Land Office, not from a seller's assurance.",
+    ],
+    sources: [
+      {
+        title: "Thailand Law Online — full translation of the Thailand Land Code Act (Section 58 ter)",
+        url: "https://www.thailandlawonline.com/thai-real-estate-law/thai-land-law-land-code-act",
+      },
+      {
+        title: "Siam Legal Thailand Law Library — Land Act 2497: Rights in Land (Sections 56-58)",
+        url: "https://library.siam-legal.com/thai-law/land-act-2497-rights-in-land-sections-56-58/",
+      },
+      {
+        title: "G.A.M. Legal Alliance — Land Code Act 1954",
+        url: "https://gam-legalalliance.com/thai-statutory-laws/land-code-act-1954/",
+      },
+      {
+        title: "FAOLEX (FAO) — Land Code Promulgating Act, B.E. 2497 (1954), official translation",
+        url: "https://faolex.fao.org/docs/pdf/tha33176.pdf",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion:
+      "Can Nor Sor 3 Gor land on Koh Phangan be upgraded to a Chanote without a new survey, and how does that actually work?",
+  },
+  {
+    slug: "land-code-section-63-lost-title-deed-substitute-fraud-risk",
+    kbId: "kb-0205",
+    topic: "Documents",
+    title:
+      "Your title deed is lost: Land Code Section 63's substitute-deed process, and the fraud window built into it",
+    short:
+      "Section 63 lets an owner replace a lost, destroyed or defaced title deed without a full re-survey — but the law cancels the original the moment a substitute issues, and builds in a 30-day public objection window precisely because a false loss report is a known way to obtain a clean-looking replacement deed. Absentee owners are the profile most exposed to missing that window.",
+    updated: "2026-09-27",
+    body: [
+      "What actually happens if a Koh Phangan title deed is lost, stolen or destroyed — and could someone else abuse that process to take land out from under an owner who lives abroad? Land Code Section 63 lets an owner apply for a substitute title deed (ใบแทน) rather than repeating a full survey, but the same mechanism carries a deliberate public notice period precisely because it's a known fraud vector — one particularly relevant to Koh Phangan's many long-distance, foreign-linked owners.",
+      { h: "What Section 63 actually provides" },
+      {
+        ul: [
+          "**Loss, destruction or defacement of a title deed lets the owner apply for a substitute**, not a full re-adjudication — Section 63 extends the same mechanism to a Nor Sor 3, Nor Sor 3 Gor, or use certificate, not just a Chanote.",
+          "**Once issued, the substitute cancels the original** — the statute provides that the original title deed is voided unless a court orders otherwise, which is the genuine owner's fallback if a substitute was wrongly obtained.",
+          "**The replacement is visibly marked** — Land Offices stamp the new document in red with the word \"substitute\" (ใบแทน), a permanent flag distinguishing it from a deed issued through ordinary adjudication or transfer.",
+        ],
+      },
+      { h: "The procedure, and the notice window that's the real safeguard" },
+      "Thai conveyancing practitioners consistently describe the same sequence: a police report of the loss, an application at the local Land Office with two ID-carrying witnesses, and a public announcement the Land Office posts — commonly reported as a **30-day notice period** at the district, sub-district and municipal offices — during which anyone with a competing claim can object. If nobody objects, the substitute is issued; practitioners commonly cite roughly 45 days total for the whole process, with a nominal government fee (around ฿300) though conveyancing services quote far higher all-in costs for handling the filing. The 30-day count and posting locations come from consistent practitioner reporting on department practice rather than being quoted verbatim from the short statutory text of Section 63 itself.",
+      { h: "Why this specifically matters for an absentee owner on Koh Phangan" },
+      {
+        ul: [
+          "**A false loss report is the textbook abuse of this process** — someone who never actually lost the deed can file a loss report and let the notice period run out unchallenged if the true owner lives abroad, visits rarely, and never sees the posted announcement.",
+          "**A wrongly obtained substitute can then be used to sell or mortgage the property**, leaving the true owner to prove after the fact — via Section 63's own court-order exception — that the loss was fabricated, a materially harder and costlier position than simply objecting during the original notice window.",
+          "**Objecting during the notice period is far cheaper than reversing it afterward** — the same logic that makes periodic Land Office checks worthwhile against [adverse possession risk](/knowledge/adverse-possession-squatters-vacant-land-koh-phangan) applies here, and belongs in the same routine as [Koh Phangan's due-diligence checklist](/knowledge/due-diligence-checklist-koh-phangan).",
+          "**Know where your original deed physically is, and keep a certified copy** — the simplest defense is never letting a genuine loss happen, followed closely by finding out immediately if someone else files a loss report against your title, rather than discovering a substitute deed later at the [Land Office](/knowledge/land-office-registration-day).",
+        ],
+      },
+      "None of this makes an ordinary lost-deed replacement something to fear — most substitute-deed applications are exactly what they claim to be: a genuine owner replacing a genuinely lost document. The narrower point is that because a lawful path exists to cancel an original title and issue a facially clean replacement with only a 30-day public notice standing in the way, an absentee Phangan owner should treat \"does my deed still say what I think it says\" as a periodic check, not a one-time confirmation made at closing.",
+    ],
+    takeaways: [
+      "Land Code Section 63 lets an owner whose title deed is lost, destroyed or defaced apply for a substitute (ใบแทน) rather than a full re-adjudication — covering Nor Sor 3, Nor Sor 3 Gor and use certificates as well as Chanote.",
+      "Once a substitute is issued, the original title deed is cancelled by law unless a court orders otherwise — that court-order route is the genuine owner's remedy if a substitute was wrongly obtained.",
+      "Practitioners consistently report a 30-day public notice period (posted at the district, sub-district and municipal offices) plus a police report and two ID-verified witnesses at the Land Office; the government fee is nominal but conveyancing services quote far higher all-in costs.",
+      "The notice window exists precisely because a false loss report is a known fraud vector — someone who never lost the deed could obtain a substitute and use it to sell or mortgage the property before the true owner notices.",
+      "Objecting during the original 30-day notice period is far cheaper than contesting a completed substitute deed afterward — the same reasoning behind periodic Land Office checks recommended for other absentee-owner risks like adverse possession.",
+    ],
+    sources: [
+      {
+        title: "Siam Legal Thailand Law Library — Land Act 2497: Rights in Land (Sections 61-64)",
+        url: "https://library.siam-legal.com/thai-law/land-act-2497-rights-in-land-sections-61-64/",
+      },
+      {
+        title: "PropertyScout — Land Title: What to do in case of Loss or Damage",
+        url: "https://propertyscout.co.th/en/dictionary/what-to-do-in-case-of-land-title-damage-or-loss/",
+      },
+      {
+        title: "Company Thailand — Title deed lost and how to do a replacement title deed in Thailand",
+        url: "https://www.companythailand.net/replacement-title-deed/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion:
+      "What happens if a Koh Phangan title deed is lost, and could someone abuse that process to take the land?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
