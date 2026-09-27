@@ -12437,6 +12437,118 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "What happens if a Koh Phangan title deed is lost, and could someone abuse that process to take the land?",
   },
+  {
+    slug: "nacc-anti-corruption-pinpoint-area-phangan-model-2026",
+    kbId: "kb-0206",
+    topic: "Phangan",
+    title: "Koh Phangan named an NACC 'Anti-Corruption Pinpoint Area' for 2026: why officials, not just buyers, are now a target",
+    short:
+      "For fiscal year 2026, Thailand's National Anti-Corruption Commission designated Koh Samui, Koh Phangan and Koh Tao 'Anti-Corruption Pinpoint Areas,' reviewed every three months. Unlike the nominee-company crackdown, which targets buyers and landholding firms, this layer investigates the local officials who let land, construction and forest violations slide — directly relevant to why some plainly unlawful occupations on Phangan have gone unenforced for decades.",
+    updated: "2026-09-27",
+    body: [
+      "Most of 2026's enforcement news on Koh Phangan has been about who's buying — nominee shareholdings, disposal orders, source-of-funds checks. A separate, newer layer asks a different question: why did local officials let some of these violations stand unaddressed for years in the first place? That's what the National Anti-Corruption Commission's (NACC) 'Anti-Corruption Pinpoint Area' designation is built to investigate.",
+      { h: "What the designation actually is" },
+      {
+        ul: [
+          "**For fiscal year 2026 (B.E. 2569), the NACC designated Koh Samui, Koh Phangan and Koh Tao as \"Anti-Corruption Pinpoint Areas\"** (พื้นที่ปักหมุดหยุดทุจริต) — a formal, named enforcement priority, not a routine inspection cycle.",
+          "**NACC Deputy Secretary-General Suchart Kruaykitanon** stated the aim is for \"every agency [to] enforce laws transparently and directly,\" with a dedicated NACC team assigned to the islands.",
+          "**Progress is reviewed every three months**, giving the designation an ongoing cadence rather than a one-off inspection.",
+          "**The mandate spans five areas of law at once**: building control, construction, hotel licensing, environmental protection and foreign business operations — checked together rather than by separate agencies working in isolation.",
+        ],
+      },
+      { h: "The \"Phangan Model\": what the first sweep found" },
+      "On 14-15 July 2026, NACC Region 8 Deputy Secretary-General Phuthep Thawichotitanakul led a joint operation with the Surat Thani provincial governor and other agencies onto Koh Phangan itself — branded internally as the \"Phangan Model\" (พะงันโมเดล). Across five inspected sites, the team found: unauthorised earth excavation with suspected forest encroachment at two locations; a resort with illegal beach and canal encroachment whose operator held no land title documentation at all; a childcare facility operating with 89 children against a licensed capacity of 18 (its licence was revoked the day before the operation); and a yoga business run on land held by a foreign national, with its operating licence suspended pending investigation. A 30-day deadline was set for evidence collection and case completion, with results reported to provincial authorities.",
+      {
+        ul: [
+          "**Scale, from the same sweep**: across Koh Phangan and Koh Samui combined, 11,426 registered companies were found with foreign shareholdings — in some cases up to 67.97% of equity. Of 4,761 companies registered on Koh Phangan alone, 3,213 involved foreign investment with suspected nominee structures.",
+          "**One Koh Samui law firm was found using a single residential address to register close to 100 companies** — the kind of pattern that has repeatedly flagged suspected mass nominee-registration schemes elsewhere in this year's crackdown.",
+        ],
+      },
+      { h: "The genuinely new angle: officials as a named target" },
+      "What distinguishes this from the nominee-shareholding crackdown already covered in [Koh Phangan's land disposal orders](/knowledge/koh-phangan-land-disposal-orders-112-companies-2026) and [nominee crackdown in the islands](/knowledge/nominee-crackdown-krabi-islands-2026) is who gets investigated. On 10 July 2026, the NACC's Surat Thani office publicly accused Koh Phangan's local authorities of \"laxism\" over illegal forest encroachment — heavy machinery had been used to excavate and level forest land, and the responsible local administration's only response was to say it didn't know who was responsible and put up modest warning signs, without filing a formal complaint to protect the public domain. The NACC's statement was explicit that \"protection of natural resources is not limited to organising activities to give the impression of acting.\" Complaints over official misconduct are now being referred to provincial NACC offices alongside the environmental-crime complaints against the violators themselves.",
+      "The long-running Laem Son Beach dispute is the case that makes this concrete: roughly 119 rai (about 19 hectares) of land designated for public use has been occupied by businesses without title deeds since the early 1980s, and court rulings ordering the land cleared have gone unenforced for years. As one commentator on the dispute put it, \"if a court ruling cannot be enforced in practice, the law on paper is meaningless\" — precisely the enforcement gap the new pinpoint-area mandate and its three-month review cycle are meant to close.",
+      { h: "What it means for a buyer's due diligence" },
+      {
+        ul: [
+          "**\"It's been there for decades\" is not proof of legality** — it may just be evidence of the enforcement gap this designation now explicitly targets. See [the illegal-construction forest-reserve crackdown](/knowledge/illegal-construction-forest-reserve-crackdown-koh-phangan) for how that enforcement has already reached completed buildings.",
+          "**A property or business that has operated unchallenged for years carries a different risk profile now** than it did before mid-2026 — officials who previously let a violation slide face their own scrutiny for doing so, which changes the incentive to finally act.",
+          "**This adds an oversight layer on top of the existing checks**, not a replacement for them — a buyer's own due-diligence review under [Koh Phangan's due-diligence checklist](/knowledge/due-diligence-checklist-koh-phangan) still has to independently verify title, permits and licensing; it shouldn't assume a lack of past enforcement means a clean file.",
+          "**Watch for the next quarterly review** — the three-month cadence means fresh findings, and potentially fresh disposal or licence-revocation actions, are due on a predictable schedule rather than an unpredictable one.",
+        ],
+      },
+      "None of this changes the underlying ownership rules for foreigners. What it adds is a credible, dated signal that the enforcement gap protecting some long-standing violations on Koh Phangan is now itself under formal, recurring scrutiny — worth factoring into how much weight to put on \"nobody's ever had a problem with it\" as a due-diligence answer.",
+    ],
+    takeaways: [
+      "For fiscal year 2026, the NACC designated Koh Samui, Koh Phangan and Koh Tao 'Anti-Corruption Pinpoint Areas,' with a dedicated team reviewing progress every three months.",
+      "Unlike the nominee-shareholding crackdown, which targets buyers and landholding companies, this layer investigates the local officials who failed to enforce building, environmental and forest-encroachment laws.",
+      "The July 2026 'Phangan Model' sweep of five sites found unauthorised forest excavation, a title-less resort encroaching on a beach and canal, and two over-capacity/foreign-linked businesses with licences revoked or suspended.",
+      "Of 4,761 companies registered on Koh Phangan, 3,213 involved foreign investment with suspected nominee structures; one Koh Samui law firm used a single address to register close to 100 companies.",
+      "The 30-year Laem Son Beach dispute — public land occupied without title, court orders unenforced — is the case cited as exactly what the new officials-accountability mandate is meant to address.",
+    ],
+    sources: [
+      { title: "Khaosod English — Luxury Villa Investigation Uncovers 93 Violations on Koh Samui", url: "https://www.khaosodenglish.com/news/2025/09/25/luxury-villa-investigation-uncovers-93-violations-on-koh-samui/" },
+      { title: "Nation Thailand — Koh Phangan land dispute raises questions over nominee businesses", url: "https://www.nationthailand.com/news/general/40070710" },
+      { title: "ZoneSamui.com — Koh Phangan: Thailand's anti-corruption agency accuses local authorities of negligence over forest encroachment (10 Jul 2026)", url: "https://zonesamui.com/2026/07/koh-phangan-lagence-anticorruption-thailandaise-accuse-les-autorites-de-negligence-face-aux-accapareurs-de-forets/" },
+      { title: "Dailynews.co.th — NACC field operation against transnational nominee networks and public-land encroachment", url: "https://www.dailynews.co.th/news/6032343/" },
+      { title: "NationTV — NACC 'Phangan Model': single address used to register nearly 100 companies", url: "https://www.nationtv.tv/news/378980239" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "What is the NACC's 'Anti-Corruption Pinpoint Area' designation for Koh Phangan, and how is it different from the nominee crackdown?",
+  },
+  {
+    slug: "developer-guaranteed-rental-yield-red-flags-thailand",
+    kbId: "kb-0207",
+    topic: "Costs",
+    title: "Developer 'guaranteed rental yield' villa deals: how the guarantee is actually funded, and where it can break",
+    short:
+      "New Koh Phangan and Koh Samui developments increasingly advertise 12-16% 'guaranteed' or 'projected' annual rental returns. In most programs, that guarantee is funded predominantly by an inflated purchase price rather than genuine rental income, is an ordinary civil contract rather than a regulated investment product, and can be suspended under a force-majeure clause Thai coastal developers have already invoked once, at scale.",
+    updated: "2026-09-27",
+    body: [
+      "Some new Koh Phangan villa developments market 12-16% guaranteed or projected annual returns — well above what an independently managed villa typically earns. Is the guarantee real? Usually the payment mechanism is real, but the return isn't what it looks like: most of it is commonly the buyer's own money, returned on a schedule, wrapped in a contract that a developer has real legal room to walk away from.",
+      { h: "Where the \"guarantee\" money actually comes from" },
+      {
+        ul: [
+          "**An inflated purchase price is the dominant funding source.** Units in guaranteed-return programs are typically priced above comparable market value; the premium effectively sits in a fund the developer draws on to pay the \"guarantee\" back to the buyer — in substance, the buyer is partly repaid with their own money.",
+          "**Genuine rental income supplements it**, particularly once a project is established and occupancy has ramped up, but for most guaranteed-return offerings it is not the dominant source.",
+          "**A developer subsidy funded from the marketing budget happens occasionally**, mostly on branded-residence or condotel-style projects, but it's the exception rather than the rule.",
+          "**Compare the unit's price per square metre against comparable, independently sold villas nearby** before judging whether the yield is real — a 15-25% price premium funds most of a headline guarantee on its own.",
+        ],
+      },
+      { h: "What the \"guarantee\" legally is — and isn't" },
+      "A rental guarantee is typically documented as a separate rental-pool or leaseback management agreement running alongside the Sale and Purchase Agreement, not as a bank deposit guarantee, an insurance product, or a licensed investment scheme with statutory investor protections. Its value depends entirely on the paying entity's solvency and willingness to perform — an ordinary civil-law payment obligation, not a guaranteed return in the financial sense of the word. If that entity is a thin, single-project company and it later stops filing its own annual accounts, it can be struck off the corporate register altogether under Civil and Commercial Code Sections 1273/1-1273/4 — see [when a Thai property-holding company goes dormant](/knowledge/company-strike-off-defunct-property-holding-thailand) — leaving a guarantee obligation owed by a company that, legally, no longer exists.",
+      { h: "Force majeure: the clause that has already been used to stop payments" },
+      "Civil and Commercial Code Section 8 defines force majeure broadly, as \"any event the happening or pernicious result of which could not be prevented even though a person against whom it happened or threatened to happen were to take such appropriate care as might be expected from him.\" Section 219 relieves a debtor of an obligation that becomes impossible to perform through a circumstance it isn't responsible for. This isn't theoretical: when COVID-19 collapsed occupancy across Thailand's coastal resort markets, several developers that had sold units with rental guarantees sent force-majeure notices to suspend the payments — a pattern that has already played out once at scale, not a hypothetical risk being flagged for the first time.",
+      "Where a developer stops paying without a genuine force-majeure basis, a buyer's remedies are the ordinary breach-of-contract ones under Thai law: damages limited to losses that naturally arise from the breach (speculative loss isn't recoverable), statutory default interest on overdue amounts, and — for a serious breach — rescission of the guarantee agreement with restitution. Claims on periodic payments such as a rental guarantee are generally subject to a 5-year prescription period. All of this depends on the paying entity actually having assets to satisfy a judgment against it, which is the real-world constraint on enforcing any of these remedies against an undercapitalised project company.",
+      { h: "A red-flags checklist before signing" },
+      {
+        ul: [
+          "**A headline yield well above what independent management realistically achieves.** A well-run Samui or Phangan villa typically earns a 7-10% gross yield before a 15-25% management fee — see [vetting an independent property manager](/knowledge/vetting-villa-property-management-company) for the realistic cost stack. A double-digit \"net guaranteed\" figure for a multi-year term deserves scrutiny, not automatic trust.",
+          "**Identify exactly which legal entity is contractually obligated to pay** — the developer itself, or a thinly capitalised single-project company — and what happens to that obligation if the entity is sold, dissolved, or struck off the register.",
+          "**Check whether the guarantee is genuinely payable regardless of occupancy**, or contains a force-majeure or hardship clause broad enough to suspend payment during an ordinary demand downturn, not just a genuine disaster.",
+          "**Get the guarantee's exact term, and ask what happens on the day it expires.** Many programs quietly revert to a standard rental-pool split at that point — at which point the earlier price premium becomes a real cost, not a return, unless market rents have since caught up.",
+          "**Have an independent lawyer — not the developer's recommended one — review the guarantee as its own contract**, separate from the Sale and Purchase Agreement, with its own termination, dispute-resolution and governing-law clauses.",
+        ],
+      },
+      "Treat a guaranteed-yield headline as a financing structure, not an investment return: it's a way of spreading part of the purchase price back over several years, wrapped in a promise that depends on one counterparty staying solvent and willing to pay. See [buying off-plan on Koh Phangan](/knowledge/buying-off-plan-new-developments) for the wider developer-vetting checklist this sits alongside.",
+    ],
+    takeaways: [
+      "Most developer 'guaranteed rental yield' programs on new Koh Phangan/Samui villas are funded predominantly from an inflated purchase price (commonly a 15-25% premium over comparable market value), not from genuine rental income.",
+      "The guarantee is typically a separate rental-pool/leaseback contract, not a licensed or government-backed investment product — its value depends entirely on the paying entity's solvency.",
+      "Civil and Commercial Code Section 8 defines force majeure broadly and Section 219 relieves a debtor of an impossible obligation; Thai coastal developers have already invoked this once, at scale, to suspend rental-guarantee payments during the COVID-19 occupancy collapse.",
+      "If the paying entity is a thin single-project company that later stops filing accounts, it can be struck off the register under CCC Sections 1273/1-1273/4, leaving the guarantee owed by a company that no longer legally exists.",
+      "Compare a guaranteed yield against realistic independently managed returns (roughly 7-10% gross before a 15-25% management fee) before treating a double-digit 'guaranteed net' figure as a genuine return rather than a marketing structure.",
+    ],
+    sources: [
+      { title: "Houseviser — Rental pool and guaranteed return programs in Phuket: how they actually work", url: "https://houseviser.com/guide/investment/rental-pool-programs-explained" },
+      { title: "ThailandLawOnline — Civil and Commercial Code, Section 8 (force majeure)", url: "https://www.thailandlawonline.com/civil-and-commercial-code/1-64-general-provisions-and-natural-persons" },
+      { title: "FazWaz Thailand Property News — How developers may invoke Force Majeure in Thailand Real Estate", url: "https://news.fazwaz.com/news/how-developers-may-invoke-force-majeure-in-thailand-real-estate/" },
+      { title: "Thai Real Estate Attorneys — Breach of Contract in Thailand", url: "https://thai-realestate-attorneys.com/breach-of-contract-in-thailand.html" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion: "How do developer 'guaranteed rental yield' programs on new Koh Phangan villas actually work, and what's the catch?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
