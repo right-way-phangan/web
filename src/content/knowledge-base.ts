@@ -12549,6 +12549,137 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "costs",
     faqQuestion: "How do developer 'guaranteed rental yield' programs on new Koh Phangan villas actually work, and what's the catch?",
   },
+  {
+    slug: "class-action-lawsuit-civil-procedure-code-thailand",
+    kbId: "kb-0208",
+    topic: "Process",
+    title:
+      "Can multiple Phangan buyers sue one developer together? Thailand's class-action lawsuit procedure",
+    short:
+      "Since a 2015 amendment to Thailand's Civil Procedure Code, a certified representative plaintiff can sue a developer on behalf of an entire class of buyers harmed by the same conduct, with the judgment binding everyone in the class who doesn't opt out. It's a separate tool from the individual Consumer Case Procedure Act route already covered on this site — built for a stalled or defective multi-unit development affecting many buyers at once.",
+    updated: "2026-09-28",
+    body: [
+      "If a Koh Phangan condo or villa development stalls, is delivered defectively, or breaches the same clause against dozens of buyers at once, does every buyer have to sue separately? Not necessarily. Since 2015, Thailand's Civil Procedure Code has included a genuine class-action mechanism — Sections 222/1 through 222/49, added by the Act to Amend the Civil Procedure Code (No. 26) B.E. 2558 (2015) — letting one certified representative plaintiff litigate on behalf of an entire class sharing the same facts and legal issue.",
+      { h: "How it differs from suing individually" },
+      {
+        ul: [
+          "**One or more class members files as a representative plaintiff** and asks the court to certify the case as a class action, rather than every affected buyer filing — and paying for — a separate case.",
+          "**Certification runs through a discretionary, multi-factor test under Section 222/12** — among other things, whether the class is numerous enough that joining everyone individually would be impractical, whether members share common facts and legal issues, and whether a class action is genuinely a superior method of resolving the dispute compared with separate suits.",
+          "**Certification is not automatic or guaranteed.** Thai courts have declined class-action status where facts affecting individual claimants diverged too much, or where the numerosity or commonality tests weren't clearly met — this is a real procedural hurdle, not a formality.",
+        ],
+      },
+      { h: "Opt-out, not opt-in — who actually gets bound" },
+      "Thailand uses an opt-out model, not opt-in: once a class is certified, the court publishes notice of the case, and anyone who fits the class definition is automatically included and bound by the outcome unless they affirmatively opt out within the court-set window. A buyer who does nothing is still bound by whatever the court decides — for better or worse — the opposite of most contract-dispute mechanics already covered on this site, where each buyer's rights depend on their own signed agreement.",
+      { h: "Where this fits alongside the Consumer Case Procedure Act" },
+      {
+        ul: [
+          "**Not the same tool as [the Consumer Case Procedure Act](/knowledge/consumer-case-procedure-act-buyer-developer-disputes).** That Act gives one individual consumer a faster, fee-free, buyer-favouring court route against one business operator. A class action is the mechanism for combining many such claims into a single case with one binding outcome.",
+          "**Not limited to real estate.** Sections 222/1-222/49 are a general civil-procedure tool also used in environmental, labour, securities and consumer-goods cases — real estate is one application, not the Act's specific subject.",
+          "**Both routes can, in principle, apply to the same underlying facts.** A stalled development with widespread defects could support either an individual consumer case or, if enough buyers share the same claim and the court agrees to certify, a single class action covering all of them.",
+        ],
+      },
+      { h: "What it's realistic to expect" },
+      "Thai law firms tracking the mechanism describe its use against real-estate developers as a live, if still developing, area — but caution against overselling it: certification is discretionary, it took years after the 2015 amendment before Thai courts certified their first cases at all, and a representative plaintiff still needs a Thai litigation lawyer to bring and manage the case. For an individual buyer with a single dispute, [the Consumer Case Procedure Act](/knowledge/consumer-case-procedure-act-buyer-developer-disputes) or [ordinary seller-defect remedies](/knowledge/seller-liability-property-defects-after-closing-thailand) remain the more direct route; the class-action mechanism matters mainly once you discover other buyers in the same development facing the identical problem.",
+    ],
+    takeaways: [
+      "Since a 2015 amendment (Act No. 26, Civil Procedure Code Sections 222/1-222/49), a certified representative plaintiff can sue on behalf of an entire class of buyers harmed by the same conduct — one case, one binding outcome, instead of many separate lawsuits.",
+      "Certification is discretionary under a multi-factor test (Section 222/12) — numerosity, common facts/legal issues, and whether a class action is the superior method — and is not automatic.",
+      "Thailand uses an opt-out model: once a class is certified, anyone fitting the class definition is automatically bound by the outcome unless they affirmatively opt out within the court-set window.",
+      "This is a general civil-procedure tool also used in environmental, labour and securities cases, not a real-estate-specific statute — condo/villa developer disputes are one application among several.",
+      "It's distinct from the individual Consumer Case Procedure Act route already covered on this site — the class action combines many claims into one case; it doesn't replace an individual buyer's own remedies.",
+    ],
+    sources: [
+      {
+        title: "Tilleke & Gibbins — Class Action Legal Proceedings Now Available in Thailand",
+        url: "https://www.tilleke.com/insights/class-action-legal-proceedings-now-available-thailand/",
+      },
+      {
+        title: "Tilleke & Gibbins — Thailand Certifies First Class Action",
+        url: "https://www.tilleke.com/resources/thailand-certifies-first-class-action",
+      },
+      {
+        title: "DFDL — Thailand Legal Update: Incoming Class Action Law – Section 222/8 of the Civil Procedure Code",
+        url: "https://www.dfdl.com/insights/legal-and-tax-updates/thailand-legal-update-incoming-class-action-law/",
+      },
+      {
+        title: "Siam Legal (Thailand Law Library) — Class Action Lawsuit in Thailand",
+        url: "https://library.siam-legal.com/class-actions-in-thailand/",
+      },
+      {
+        title: "Legal 500 — Thailand: Class Actions – Country Comparative Guides",
+        url: "https://www.legal500.com/guides/chapter/thailand-class-actions/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion:
+      "Can multiple Thai property buyers sue a developer together in one class-action lawsuit?",
+  },
+  {
+    slug: "social-security-workmens-compensation-villa-staff-thailand",
+    kbId: "kb-0209",
+    topic: "Costs",
+    title:
+      "Hiring villa or resort staff on Koh Phangan: Social Security and Workmen's Compensation obligations",
+    short:
+      "Once an owner moves from a single Airbnb listing to actually employing cleaners, gardeners or front-desk staff through a Thai company, Social Security Act registration becomes mandatory from the first employee — with no minimum headcount — alongside a separate Workmen's Compensation contribution. This is distinct from the domestic-worker carve-out already covered on this site, which applies only to staff employed directly for personal household use.",
+    updated: "2026-09-28",
+    body: [
+      "Does a Thai company running a villa-rental operation or small resort on Koh Phangan have to register its cleaning, gardening or front-desk staff for social insurance? Yes — as soon as that company has even one employee, Social Security Act registration is mandatory, and a separate Workmen's Compensation contribution applies on top of it. This sits apart from [the domestic-worker carve-out already covered on this site](/knowledge/domestic-worker-labour-law-villa-staff-thailand), which excludes only staff employed directly for an owner's own household, not staff employed through a business.",
+      { h: "Social Security Act Section 33: mandatory from employee one" },
+      {
+        ul: [
+          "**No minimum headcount threshold** — a single employee triggers mandatory Social Security Office (SSO) registration for the employer, unlike the voluntary Section 40 scheme available to the self-employed.",
+          "**Both employer and employee contribute 5% of monthly wage each**, capped against a statutory wage ceiling that rose from ฿15,000 to ฿17,500 per month effective January 2026 — raising the maximum monthly contribution on each side from ฿750 to ฿875.",
+          "**Contributions are due by the 15th of the following month**; late payment triggers a 2% monthly surcharge on the outstanding amount.",
+          "**Coverage funds sickness, maternity, invalidity, death, child-allowance, unemployment and old-age benefits** for the employee — a materially different package from the domestic-worker carve-out, which has none of this.",
+        ],
+      },
+      { h: "Workmen's Compensation Act: a separate, employer-only contribution" },
+      "Alongside Social Security, the Workmen's Compensation Act B.E. 2537 (1994) requires a separate, employer-only contribution — the employee pays nothing into this fund — set at a rate of roughly 0.2% to 1.0% of wages, calculated against a wage base capped at ฿240,000 per employee per year. The exact percentage depends on the employer's industry risk classification, assigned case-by-case by the Workmen's Compensation Fund office rather than published as one fixed figure for the whole hospitality sector. The fund pays medical expenses, compensation for lost income and, in the worst cases, death benefits for a workplace injury — regardless of whether the employer was at fault.",
+      { h: "Why this doesn't overlap with what's already covered" },
+      {
+        ul: [
+          "**Not the same as [hiring your own household staff](/knowledge/domestic-worker-labour-law-villa-staff-thailand).** A housekeeper, gardener or driver employed directly by an owner for personal household use is expressly carved out of Social Security and Workmen's Compensation coverage under Ministerial Regulation 15 (2024). The moment that same kind of role is employed through a business — a rental operation, a managed villa, a small resort — the carve-out no longer applies, and full registration is mandatory.",
+          "**Not the same as [a foreign owner's own work-permit exposure](/knowledge/work-permit-foreign-owner-rental-management-business)** when personally running a rental business — that's about the owner's own right to work, not the employer's duties toward Thai staff it hires.",
+          "**Not the same as [vetting an outsourced property management company](/knowledge/vetting-villa-property-management-company).** If staff are employed by a third-party management company rather than the owner's own entity, that company — not the villa owner — carries the SSO/Workmen's Compensation registration burden; confirming it's actually compliant is one more due-diligence item for that vetting process, not a separate obligation on the owner.",
+        ],
+      },
+      { h: "The practical trigger point" },
+      "For most Phangan villa owners, this becomes relevant the moment a personal rental listing turns into an actual staffed operation — hiring a cleaner, a gardener, a pool technician or front-desk help through [a Thai company holding the business](/knowledge/thai-company-for-property-49-51), rather than engaging occasional day-labour informally. Registering with the Social Security Office and the Workmen's Compensation Fund is a company-level compliance step done once at the point of first hire, with monthly contribution filings after that — a real, recurring payroll cost to budget for alongside wages themselves, not an optional formality.",
+    ],
+    takeaways: [
+      "Once a Thai employer has even one employee, Social Security Act Section 33 registration is mandatory — there is no minimum headcount threshold.",
+      "Employer and employee each contribute 5% of monthly wage, capped against a wage ceiling raised from ฿15,000 to ฿17,500/month in January 2026 (maximum ฿875/month per side).",
+      "The separate Workmen's Compensation Act requires an employer-only contribution of roughly 0.2%-1.0% of wages (wage base capped at ฿240,000/employee/year), funding work-injury medical costs, lost-income compensation and death benefits.",
+      "This is distinct from the domestic-worker carve-out already covered on this site — that exemption applies only to staff employed directly for an owner's personal household, not staff employed through a rental or resort business.",
+      "If staff are employed through a third-party management company rather than the owner's own entity, that company carries the registration burden — worth confirming as part of due diligence on any management contract.",
+    ],
+    sources: [
+      {
+        title: "Omni HR — SSO Thailand: Social Security Contributions Guide (2026)",
+        url: "https://www.omnihr.co/blog/sso-thailand",
+      },
+      {
+        title:
+          "One Asia Lawyers — Updated Social Security Contribution Wage Base and Enhanced Benefits under Section 33",
+        url: "https://oneasia.legal/en/7032",
+      },
+      {
+        title:
+          "Gentle Law/IBL — Thailand Social Security Registration 2026: Employer Setup, Monthly Filing, and the New Wage Ceiling",
+        url: "https://www.gentlelawibl.com/post/thailand-social-security-registration-2026-employer-setup-monthly-filing-and-the-new-wage-ceiling",
+      },
+      {
+        title: "TMA Group — The Workmen's Compensation Fund (WCF) in Thailand",
+        url: "https://tmathaigroup.com/blogeng/index.php/post/55.html",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion:
+      "Does a Thai company that employs villa or resort staff on Koh Phangan have to register for Social Security and Workmen's Compensation?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
