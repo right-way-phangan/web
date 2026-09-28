@@ -12680,6 +12680,109 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "Does a Thai company that employs villa or resort staff on Koh Phangan have to register for Social Security and Workmen's Compensation?",
   },
+  {
+    slug: "penalty-clause-reduction-section-383-property-contracts-thailand",
+    kbId: "kb-0210",
+    topic: "Process",
+    title:
+      "Penalty clauses in Thai property contracts: when a court can cut an excessive forfeiture (CCC Section 383)",
+    short:
+      "A contract clause that says you pay a fixed sum if you breach is not always enforced at face value in Thailand. Under Civil and Commercial Code Section 383, a court may reduce a disproportionate contractual penalty to a reasonable amount — but genuine earnest money (มัดจำ) under Section 378 is treated differently.",
+    updated: "2026-09-28",
+    body: [
+      "If you sign a Koh Phangan sale, reservation or construction contract with a 'pay X if you breach' clause, can a Thai court cut that amount if it is far larger than the other side's real loss? Often yes: CCC Section 383 says that if a forfeited penalty is disproportionately high, the court may reduce it to a reasonable amount. The catch is that this power applies to a *penalty*, not to true earnest money, and the label in the contract is not always decisive.",
+      { h: "Earnest money vs. stipulated penalty: two different tools" },
+      {
+        ul: [
+          "**Earnest money (Sections 377-378)** — proof that the contract was concluded and security for its performance. If the party who gave it fails to perform, it is forfeited; if the party who received it fails, it is returned. See [the SPA and earnest-money guide](/knowledge/sale-purchase-agreement-earnest-money-ccc-thailand).",
+          "**Stipulated penalty (Sections 379-383)** — a sum a debtor promises to pay if they do not perform, or perform improperly. The creditor may demand the penalty as minimum compensation for the breach; if the debtor promises it for not performing at all, the creditor generally chooses between the penalty and performance, not both.",
+          "**Section 383** — 'if a forfeited penalty is disproportionately high, it may be reduced to a reasonable amount by the Court', taking into account every legitimate interest of the creditor, not merely their financial interest. The right to ask for reduction is barred once the penalty has actually been paid.",
+        ],
+      },
+      { h: "What this looks like in a property dispute" },
+      "Thai Supreme Court decision 2139/2565, as summarised by a Thai law-firm article, involved a property-sale dispute with a THB 300,000 contract-related payment. The court found it excessive because the other side's actual loss was limited to a temporary lost opportunity to sell to other buyers, applied Section 383, cut the amount to THB 30,000 and ordered the balance refunded with interest. Treat this as one illustration, not a formula — reduction is a judicial judgement on the facts, and there is no fixed percentage.",
+      { h: "Practical points for buyers, sellers and builders" },
+      {
+        ul: [
+          "**Do not assume a big forfeiture is safe to collect.** A seller who keeps a large 'penalty' after a failed deal may face a court reduction claim if it was paid as a penalty rather than as earnest money.",
+          "**Do not assume a heavy penalty clause is safe to sign either.** Reduction is discretionary and requires litigation; it is a fallback, not a plan.",
+          "**Draft the label and purpose clearly.** State whether a payment is earnest (Section 378) or a penalty for late completion or breach, and tie the amount to a realistic loss (for example a daily rate for late villa handover).",
+          "**Consumer-facing terms have extra limits.** Deposit-forfeiture terms in villa and land reservation contracts are separately restricted — see [the OCPB deposit-ban guide](/knowledge/ocpb-deposit-ban-villa-land-reservations). Thai courts may also review one-sided standard-form terms under the Unfair Contract Terms Act.",
+          "**Timing matters.** Once a penalty has been paid voluntarily, Section 383 reduction is no longer available, so raise the issue before paying.",
+        ],
+      },
+      "Related: [instalment purchases with forfeiture risk](/knowledge/hire-purchase-installment-villa-forfeiture-risk-thailand) are where penalty-style clauses most often bite. This guide is general information, not legal advice; have a Thai lawyer review any clause before signing.",
+    ],
+    takeaways: [
+      "CCC Section 383 lets a Thai court reduce a disproportionately high contractual penalty to a reasonable amount.",
+      "Earnest money (Section 378) and a stipulated penalty (Sections 379-383) are distinct; the label alone may not decide which rules apply.",
+      "In Supreme Court decision 2139/2565 a THB 300,000 penalty in a property dispute was reduced to THB 30,000 because actual loss was limited.",
+      "The right to seek reduction is barred once the penalty has been paid.",
+      "Spell out in the contract whether a payment is earnest or a penalty, and tie it to a realistic loss.",
+    ],
+    sources: [
+      { title: "ThaiLawOnline — Civil and Commercial Code, Sections 377-385: Earnest and Stipulated Penalty", url: "https://www.thailandlawonline.com/civil-and-commercial-code/377-385-earnest-and-stipulated-penalty" },
+      { title: "Siam Legal Thailand Law Library — Civil and Commercial Code: Obligations (Sections 377-385)", url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-obligations-section-377-385/" },
+      { title: "Thailandlawoffice — How have Thai courts interpreted Section 4 of the Unfair Contract Terms Act (incl. Supreme Court 2139/2565)", url: "https://www.thailandlawoffice.com/legal-articles/3132" },
+      { title: "Chiang Mai Business — Deposits in Thailand: legal and tax rules", url: "https://chiangmaibusiness.net/thailand-business-deposits-legal-tax-rules/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion:
+      "Can a Thai court reduce an excessive penalty or forfeiture clause in a property contract?",
+  },
+  {
+    slug: "private-loan-interest-cap-15-percent-thailand-property",
+    kbId: "kb-0211",
+    topic: "Costs",
+    title:
+      "Private loans against Thai property: the 15% interest cap, written-evidence rule and default interest",
+    short:
+      "Seller financing, a private lender or a friend's bridging loan for a Koh Phangan purchase is governed by Civil and Commercial Code Sections 653-655 and a separate anti-usury statute. Interest is capped at 15% a year, larger loans need a signed writing, and excessive interest can carry criminal penalties for the lender.",
+    updated: "2026-09-28",
+    body: [
+      "What is the maximum interest a private (non-bank) lender can lawfully charge on a loan connected to Thai property? Under CCC Section 654, interest may not exceed 15% per year; if the contract fixes a higher rate, it is reduced to 15%. Banks and other financial institutions operate under separate legislation and can charge differently, so this cap matters mainly for private and seller-financed arrangements.",
+      { h: "The three CCC rules that matter" },
+      {
+        ul: [
+          "**Section 653 — writing** — a loan of money above THB 2,000 is not enforceable by court action unless there is written evidence of the loan signed by the borrower.",
+          "**Section 654 — the 15% cap** — 'Interest shall not exceed 15% per year; when a higher rate of interest is fixed by the contract, it shall be reduced to 15% per year.'",
+          "**Section 655 — no interest on interest** — interest does not bear interest, except that the parties may agree in writing that interest due for at least one year is added to the capital.",
+        ],
+      },
+      { h: "The criminal-law layer" },
+      "Thailand's Act Prohibiting the Collection of Interest at an Excessive Rate B.E. 2560 (2017), in force from 16 January 2017, replaced the 1932 law. Per a Tilleke & Gibbins summary, it raised the maximum penalty to up to two years' imprisonment and/or a fine of up to THB 200,000, and it also targets attempts to conceal excessive interest, such as false statements about the loan amount or taking benefits other than interest. For a lender, structuring around the cap is therefore a real legal risk, not just a contract technicality.",
+      { h: "Default interest when nothing is agreed" },
+      "The 2021 emergency decree amending the CCC (effective 11 April 2021) set the Section 7 statutory rate at 3% per year, reviewable by the Ministry of Finance every three years, and reset the Section 224 default rate on money debts to the Section 7 rate plus 2 percentage points (5% at the time of enactment). Section 224/1 applies default interest to the unpaid instalment rather than the whole principal. These apply only where the contract does not set its own rate; because the Section 7 rate can be revised, confirm the current figure with a lawyer.",
+      { h: "Where this bites in property deals" },
+      {
+        ul: [
+          "**Seller financing or a private bridging loan** — keep the rate at or below 15%, put the loan in a signed writing, and avoid fees that look like disguised interest.",
+          "**A mortgage as security** — a registered mortgage secures the debt but does not lift the interest cap; see [mortgage default and foreclosure](/knowledge/mortgage-default-foreclosure-process-thailand) and [mortgage priority ranking](/knowledge/mortgage-priority-ranking-thai-title-deed).",
+          "**Khai fak instead of a loan** — some lenders use a sale with right of redemption to sidestep lending rules; see [khai fak explained](/knowledge/khai-fak-sale-with-right-of-redemption-thailand) for why that is risky for the seller and regulated by a protective statute.",
+          "**Bank financing** — foreigners' bank-loan options are covered in [financing as a foreigner](/knowledge/financing-buying-as-a-foreigner).",
+        ],
+      },
+      "This is general information, not legal advice; have a Thai lawyer draft any private loan or seller-finance agreement.",
+    ],
+    takeaways: [
+      "CCC Section 654 caps interest on ordinary loans at 15% per year; a higher contractual rate is reduced to 15%.",
+      "A money loan above THB 2,000 needs written evidence signed by the borrower to be enforceable (Section 653).",
+      "Interest on interest is barred unless agreed in writing for interest due at least one year (Section 655).",
+      "The 2017 anti-usury Act carries up to two years' imprisonment and/or THB 200,000 fine and targets disguised interest.",
+      "Where no default rate is agreed, the statutory rate and Section 224 default rate apply — confirm the current Section 7 figure.",
+    ],
+    sources: [
+      { title: "Siam Legal Thailand Law Library — Civil and Commercial Code: Loans (Sections 650-656)", url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-loans-section-650-656/" },
+      { title: "Tilleke & Gibbins — Thailand: New Law on Interest Overcharging", url: "https://www.tilleke.com/insights/thailand-new-law-interest-overcharging/" },
+      { title: "DFDL — Thailand Makes Changes to Penalty Interest Rates Charged on Loan Repayments that Go into Default", url: "https://www.dfdl.com/insights/legal-and-tax-updates/thailand-makes-changes-to-penalty-interest-rates-charged-on-loan-repayments-that-go-into-default/" },
+      { title: "Lexology — Thailand: amendment to the CCC on the interest rate and default interest rate", url: "https://www.lexology.com/library/detail.aspx?g=43fbff99-b788-41d5-a0db-b5457747b00e" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion:
+      "What is the maximum interest a private lender can charge on a loan tied to Thai property?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
