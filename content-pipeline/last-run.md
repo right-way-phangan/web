@@ -8,3 +8,6 @@ Published 2 guides (EN+RU):
    - Sources: Siam Legal CCC Sections 193/30-193/35 and 193/9-193/29; ThaiLawOnline CCC 149-193.
 
 Notes: no fresh news found; all backlog rows still duplicate/thin, so both are evergreen gaps (grep showed no lease-default or prescription coverage). Section 193/34 professional-fee list summarised, not exhaustively enumerated. `tsc --noEmit` passes.
+
+## Second run 2026-09-29 — published 0
+Today's first run already published kb-0212/kb-0213. Every pre-existing ⏳ backlog row remains a confirmed duplicate/thin item (per the inline notes), and the 213-guide catalog leaves no clearly distinct, well-sourced topic identifiable without a full fresh research sweep. Per the quality gate, nothing was published rather than padding.
