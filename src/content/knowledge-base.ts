@@ -12783,6 +12783,127 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "What is the maximum interest a private lender can charge on a loan tied to Thai property?",
   },
+  {
+    slug: "villa-lease-landlord-tenant-duties-termination-ccc-thailand",
+    kbId: "kb-0212",
+    topic: "Process",
+    title:
+      "Renting a villa in Thailand: who repairs what, and when a landlord can terminate (CCC Sections 546-570)",
+    short:
+      "The Civil and Commercial Code sets default rules for every lease: the landlord delivers the property in good repair and covers necessary repairs, the tenant handles ordinary upkeep, and unpaid rent allows termination only after a notice of at least 15 days for monthly rent. These defaults apply where the contract is silent.",
+    updated: "2026-09-29",
+    body: [
+      "If a Koh Phangan villa lease says nothing about repairs, late rent or ending the lease, who is responsible for what? The Civil and Commercial Code (CCC) chapter on hire of property (Sections 537-571) fills the gaps: the landlord ('letter') must deliver the property in good repair and make necessary repairs during the term, the tenant ('hirer') must use it as agreed and do ordinary maintenance and petty repairs, and a landlord can terminate for unpaid rent only after a notice giving at least 15 days where rent is payable monthly or longer.",
+      { h: "The default rules, section by section" },
+      {
+        ul: [
+          "**Section 546** — the landlord must deliver the property in a good state of repair.",
+          "**Sections 547 and 550** — the landlord reimburses the tenant's necessary and reasonable expenses to preserve the property (not ordinary maintenance or petty repairs) and is liable for defects arising during the lease, making the repairs that become necessary, except those which by law or custom fall on the tenant.",
+          "**Section 552** — the tenant may not use the property for anything other than ordinary and usual purposes or those stated in the contract. A villa let as a home is not a licence to run a guesthouse; see [renting out your villa: rules and taxes](/knowledge/renting-out-your-villa-rules-and-taxes).",
+          "**Section 553** — the tenant must take the care an ordinarily prudent person takes of their own property and do ordinary maintenance and petty repairs.",
+          "**Section 555** — the tenant must allow the landlord or agents to inspect at reasonable times.",
+          "**Section 562** — the tenant is liable for loss or damage caused by their own fault, by people living with them or by a sub-tenant, but not for damage from proper use.",
+        ],
+      },
+      { h: "When a landlord can end the lease early" },
+      {
+        ul: [
+          "**Misuse or breach (Section 554)** — if the tenant acts contrary to Section 552 or 553 or the contract terms, the landlord may notify them to comply and, if they do not, terminate.",
+          "**Unpaid rent (Sections 559-560)** — with no agreed date, rent is due at the end of each rent period. On non-payment the landlord may terminate, but where rent is payable monthly or at longer intervals must first notify the tenant that payment is required within a period of not less than 15 days.",
+          "**Lease with no fixed term (Section 566)** — either side can end it at the end of a rent period on notice of one rent period, though no more than two months' notice is needed.",
+          "**Holding over (Section 570)** — if the tenant stays after the term and the landlord, knowing, does not object, the lease is deemed renewed for an indefinite period, which then falls under the Section 566 notice rule.",
+          "**Loss of the property (Section 567)** — if the whole property is lost, the lease is extinguished.",
+        ],
+      },
+      { h: "Condition on return" },
+      "Under Section 561, if no written description of the property's condition was signed by both parties, the tenant is presumed to have received it in good repair and must return it that way unless they can prove it was out of repair at delivery. A signed handover inventory with photos is therefore the single most useful document for both sides when a deposit dispute arises.",
+      { h: "What this means in practice" },
+      {
+        ul: [
+          "**These are defaults** — a contract can allocate repairs and termination differently, and Section 549 makes the sale-law rules on defects and eviction apply to leases as well; see [seller liability for defects](/knowledge/seller-liability-property-defects-after-closing-thailand) and [seller warranty against eviction](/knowledge/seller-warranty-against-eviction-thai-property).",
+          "**Residential leases may be a controlled contract** — the Consumer Protection Board's controlled-contract rules can override unfair terms; see [the 2025 residential lease controlled contract](/knowledge/ocpb-residential-lease-controlled-contract-2025).",
+          "**Write the gaps** — state who pays for pool, pump, air-con and roof repairs, and define what counts as 'petty'; see [lease contract clauses to check](/knowledge/lease-contract-clauses-to-check).",
+          "**A sale does not end the lease** — see [tenant lease survives sale (Section 569)](/knowledge/tenant-lease-survives-sale-ccc-section-569).",
+        ],
+      },
+      "This is general information, not legal advice; the exact notice mechanics for a termination should be confirmed with a Thai lawyer before you act.",
+    ],
+    takeaways: [
+      "The landlord must deliver a villa in good repair and make necessary repairs during the lease (Sections 546, 550).",
+      "The tenant handles ordinary maintenance and petty repairs and must use the property only as agreed (Sections 552-553).",
+      "For monthly rent, termination for non-payment first requires a notice giving at least 15 days to pay (Section 560).",
+      "If no signed condition report exists, the tenant is presumed to have received the property in good repair (Section 561).",
+      "A tenant who stays on with the landlord's knowledge and no objection creates a lease of indefinite duration (Section 570).",
+    ],
+    sources: [
+      { title: "Samui For Sale — Thailand Civil and Commercial Code Part II (Hire of Property)", url: "https://www.samuiforsale.com/law-texts/thailand-civil-code-part-2.html" },
+      { title: "ThaiLawOnline — CCC Sections 537-571 Lease or Hire of Property", url: "https://www.thailandlawonline.com/civil-and-commercial-code/537-571-lease-or-hire-of-property-laws" },
+      { title: "Thailand Law Library (Siam Legal) — Civil and Commercial Code sections on hire of property", url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-exchange-section-552-563/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion:
+      "Who pays for repairs and when can a landlord terminate a villa lease in Thailand if the contract is silent?",
+  },
+  {
+    slug: "limitation-periods-property-claims-prescription-thailand",
+    kbId: "kb-0213",
+    topic: "Documents",
+    title:
+      "How long do you have to sue? Limitation periods for Thai property and rent claims (CCC Sections 193/9-193/34)",
+    short:
+      "Thai civil claims expire if not enforced in time. The default is ten years, unpaid rent and interest arrears are five years, and many service-type claims are two years. The clock can be interrupted by a written acknowledgement, part payment or a court filing.",
+    updated: "2026-09-29",
+    body: [
+      "How long can you wait before a property-related claim (unpaid rent, a loan, a contractor's bill) becomes unenforceable in Thailand? Under CCC Section 193/9 a claim is barred by prescription if not enforced within the period fixed by law. Section 193/30 sets a residual period of ten years where no other is provided, but shorter periods apply to specific claims, so the category of claim matters.",
+      { h: "The periods that matter for property owners" },
+      {
+        ul: [
+          "**Ten years (Section 193/30)** — the default for claims with no specific period.",
+          "**Ten years (Sections 193/31-193/32)** — government claims for taxes and rates, and claims established by a final judgment or a compromise contract.",
+          "**Five years (Section 193/33)** — arrears of interest, instalment payments, arrears of rent or hire of property other than movables, and arrears of salaries and other periodic payments.",
+          "**Two years (Section 193/34)** — a long list of service-type claims, including innkeepers' charges, rent of movables, wages, and fees of certain professionals such as lawyers, doctors and engineers or architects.",
+        ],
+      },
+      "Two contrasts are worth noting. Unpaid rent on a villa lease has a five-year window, while rent for movable items (furniture, vehicles) is two. A written compromise or court judgment resets the claim to ten years.",
+      { h: "When the clock starts, stops and restarts" },
+      {
+        ul: [
+          "**Start (Section 193/12)** — prescription runs from the moment the claim can be enforced.",
+          "**Interruption (Section 193/14)** — a debtor's written acknowledgement or part payment, a creditor's court action, or submission to arbitration interrupts it.",
+          "**Fresh period (Section 193/15)** — time elapsed before an interruption does not count, and a new period starts when the interruption ceases.",
+          "**Dismissed suits (Section 193/17)** — if an action is dismissed or withdrawn, prescription is treated as never interrupted, though the creditor gets 60 days from the final judgment to re-file if the period expired in the meantime.",
+          "**Paying a barred debt (Section 193/28)** — a debtor who performs a claim already barred by prescription cannot demand the value back.",
+        ],
+      },
+      { h: "Practical uses" },
+      {
+        ul: [
+          "**Landlords** — chase unpaid rent within five years, and get a signed acknowledgement of the arrears if you agree a payment plan.",
+          "**Buyers with a dispute** — do not let a defect or refund claim age; some claims carry their own statutory periods, see [seller liability for defects](/knowledge/seller-liability-property-defects-after-closing-thailand) and [residential construction controlled contracts](/knowledge/residential-construction-controlled-contract-thailand).",
+          "**Not the same as ownership prescription** — acquiring land by long possession is a different doctrine; see [adverse possession](/knowledge/adverse-possession-squatters-vacant-land-koh-phangan).",
+          "**Loans** — private-loan interest limits are in [the 15% interest cap guide](/knowledge/private-loan-interest-cap-15-percent-thailand-property).",
+        ],
+      },
+      "This is general information, not legal advice; which period applies to a specific claim, and whether a document counts as an acknowledgement, should be checked with a Thai lawyer.",
+    ],
+    takeaways: [
+      "A Thai claim not enforced within its legal period is barred by prescription (Section 193/9).",
+      "The residual limitation period is ten years (Section 193/30).",
+      "Rent arrears and interest arrears are five years; movable-rent and many service claims are two (Sections 193/33-193/34).",
+      "A debtor's written acknowledgement, part payment or a creditor's court action interrupts the period and a fresh one begins.",
+      "A debt already barred by prescription that is paid cannot be reclaimed (Section 193/28).",
+    ],
+    sources: [
+      { title: "Siam Legal Thailand Law Library — CCC Prescription (Sections 193/30-193/35)", url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-prescription-sections-193-30-193-35/" },
+      { title: "Siam Legal Thailand Law Library — CCC Prescriptions (Sections 193/9-193/29)", url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-prescriptions-sections-193-9-193-29/" },
+      { title: "ThaiLawOnline — CCC Sections 149-193 Juristic Acts, Legal Effect and Prescription", url: "https://www.thailandlawonline.com/civil-and-commercial-code/149-193-juristic-acts-legal-effect-and-prescription" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion:
+      "How long do I have to bring a claim for unpaid rent or other property debts in Thailand?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

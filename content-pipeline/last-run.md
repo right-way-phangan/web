@@ -1,10 +1,10 @@
-# Last run — 2026-09-28
+# Last run — 2026-09-29
 
 Published 2 guides (EN+RU):
 
-1. `penalty-clause-reduction-section-383-property-contracts-thailand` (kb-0210) — "Penalty clauses in Thai property contracts: when a court can cut an excessive forfeiture (CCC Section 383)" — faqCategory: process
-   - Sources: ThaiLawOnline CCC 377-385 text; Siam Legal Law Library; Thailandlawoffice.com (Supreme Court 2139/2565, THB 300k → 30k); Chiang Mai Business deposits article.
-2. `private-loan-interest-cap-15-percent-thailand-property` (kb-0211) — "Private loans against Thai property: the 15% interest cap, written-evidence rule and default interest" — faqCategory: costs
-   - Sources: Siam Legal CCC 650-656 (Sections 653-655 quoted); Tilleke & Gibbins on the 2017 interest-overcharging Act; DFDL and Lexology on the 2021 Section 7/224 amendment.
+1. `villa-lease-landlord-tenant-duties-termination-ccc-thailand` (kb-0212) — "Renting a villa in Thailand: who repairs what, and when a landlord can terminate (CCC Sections 546-570)" — faqCategory: process
+   - Sources: Samui For Sale CCC Part II (Sections 546-570 quoted verbatim); ThaiLawOnline CCC 537-571; Siam Legal Thailand Law Library.
+2. `limitation-periods-property-claims-prescription-thailand` (kb-0213) — "How long do you have to sue? Limitation periods for Thai property and rent claims (CCC Sections 193/9-193/34)" — faqCategory: documents
+   - Sources: Siam Legal CCC Sections 193/30-193/35 and 193/9-193/29; ThaiLawOnline CCC 149-193.
 
-Notes: no fresh news sweep this run; both are evergreen gaps. Current Section 7 rate not verified beyond the 2021 figure (guide tells readers to confirm). Section 383 checked for overlap with the SPA/earnest guide (which cites 378 only). `tsc --noEmit` passes.
+Notes: no fresh news found; all backlog rows still duplicate/thin, so both are evergreen gaps (grep showed no lease-default or prescription coverage). Section 193/34 professional-fee list summarised, not exhaustively enumerated. `tsc --noEmit` passes.
