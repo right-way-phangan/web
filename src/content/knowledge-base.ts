@@ -12904,6 +12904,114 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "How long do I have to bring a claim for unpaid rent or other property debts in Thailand?",
   },
+  {
+    slug: "mistake-fraud-misrepresentation-voidable-contract-thailand",
+    kbId: "kb-0214",
+    topic: "Process",
+    title:
+      "Misled into buying? Mistake, fraud and concealment as grounds to cancel a Thai property contract (CCC Sections 156-164, 181)",
+    short:
+      "A Thai contract signed because of fraud, intentional concealment or a mistake about an essential quality of the property can be avoided, but the right is time-limited and does not defeat a good-faith third party. Rescission is a separate remedy, and merely 'incidental' fraud gives only damages.",
+    updated: "2026-09-30",
+    body: [
+      "Can you cancel a Thai property contract if the seller or agent lied about the land or hid a defect? Sometimes. The Civil and Commercial Code (CCC) treats a declaration of intention that was produced by fraud or made under a qualifying mistake as defective, but the label matters: some defects make a contract **void**, others only **voidable**, and voidable contracts must be attacked within strict deadlines.",
+      { h: "What the Code says" },
+      {
+        ul: [
+          "**Essential mistake (Section 156)** — a declaration made under a mistake as to an essential element of the juristic act is void.",
+          "**Mistake as to a quality (Section 157)** — a mistake about a quality of the person or property that is regarded as essential in ordinary dealings makes the act voidable.",
+          "**Fraud (Section 159)** — a declaration produced by fraud is voidable, but only where the act would not have been made without the fraud. Section 160 says avoidance for fraud cannot be set up against a third person acting in good faith.",
+          "**Incidental fraud (Section 161)** — if the fraud only led the victim to accept worse terms, the victim can claim compensation for the damage, not cancel the contract.",
+          "**Silence (Section 162)** — intentional silence about a fact or quality the other party does not know is treated as fraud. That is the provision most relevant to a seller who hides a known problem.",
+          "**Duress (Section 164)** — the threat must be imminent and severe enough to make the person fear, and the act would not otherwise have been made.",
+        ],
+      },
+      { h: "Deadlines and effects" },
+      {
+        ul: [
+          "**Time limit (Section 181)** — a voidable act cannot be avoided later than one year from when ratification could have been made, or later than ten years from the act. Discovering a misrepresentation and then carrying on as normal risks being read as ratification.",
+          "**How (Sections 175 onward)** — avoidance is made by a declaration to the other party. Ratification is valid only once the ground for voidability has ceased to exist.",
+          "**Restitution (Section 176)** — an avoided act is treated as void from the start, the parties are restored to their prior position (or compensated with an equivalent), and the restitution claim itself expires one year after avoidance.",
+        ],
+      },
+      { h: "Why this matters on Koh Phangan" },
+      {
+        ul: [
+          "**Typical misstatements** — the land's title type, road access, a permit, or whether a building is legally built. Compare against the documents in the [due diligence checklist](/knowledge/due-diligence-checklist-koh-phangan).",
+          "**Registered transfers** — once ownership has moved to a good-faith third party, the fraud avoidance rule in Section 160 does not reach them. See [double sales and good-faith buyers](/knowledge/double-sale-good-faith-buyer-protection-thailand). Act quickly, and consider whether a court [injunction](/knowledge/court-injunction-freeze-disputed-property-thailand) is appropriate.",
+          "**Not the same as warranty** — a seller's liability for hidden defects and eviction is a separate regime; see [seller liability for defects](/knowledge/seller-liability-property-defects-after-closing-thailand) and the [contract rescission rules](/knowledge/sale-purchase-agreement-earnest-money-ccc-thailand).",
+          "**Proof** — courts weigh evidence of what was said. Keep messages, listing text and brochures, and put key facts into the contract as express representations.",
+        ],
+      },
+      "Whether a particular misstatement counts as essential, fraudulent or merely incidental is a fact-heavy question, and how Thai courts treat any specific facts should be confirmed with a Thai lawyer before you act or stop paying. This is general information, not legal advice.",
+    ],
+    takeaways: [
+      "A mistake about an essential element is void (Section 156); a mistake about an essential quality of person or property is voidable (Section 157).",
+      "Fraud makes a contract voidable if it caused the deal; intentional silence about a fact the other party does not know can count as fraud (Sections 159, 162).",
+      "Fraud that only worsened the terms gives damages, not cancellation (Section 161).",
+      "Avoidance must come within one year of when ratification was possible and no later than ten years from the act (Section 181).",
+      "Avoiding fraud cannot be set up against a good-faith third party (Section 160), so move fast before the property changes hands.",
+    ],
+    sources: [
+      { title: "Siam Legal Thailand Law Library — CCC Juristic Act (Sections 149-171)", url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-juristic-act-sections-149-171/" },
+      { title: "Siam Legal Thailand Law Library — CCC Juristic Act (Sections 172-193)", url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-juristic-act-sections-172-193/" },
+      { title: "ThaiLawOnline — CCC Sections 149-193 Juristic Acts, Legal Effect and Prescription", url: "https://www.thailandlawonline.com/civil-and-commercial-code/149-193-juristic-acts-legal-effect-and-prescription" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion:
+      "Can I cancel a Thai property purchase if the seller lied or hid a problem?",
+  },
+  {
+    slug: "assigning-property-purchase-contract-rights-section-306-thailand",
+    kbId: "kb-0215",
+    topic: "Documents",
+    title:
+      "Can you hand your purchase contract to someone else? Assignment of claims under CCC Sections 303-309",
+    short:
+      "A contractual claim, such as a right to a refund or to receive a property, can generally be transferred in Thailand, but the transfer must be in writing and only binds the debtor after written notice or consent. It does not transfer land title and does not replace the Land Office registration.",
+    updated: "2026-09-30",
+    body: [
+      "Can you sell or hand over your rights under a reservation or purchase agreement before the property is registered in your name? Thai law has a general mechanism for transferring a claim, but the formalities are strict and it is easy to assume it does more than it does.",
+      { h: "The rules" },
+      {
+        ul: [
+          "**Transferable by default (Section 303)** — a claim may be transferred unless its nature does not admit it. The parties can agree otherwise, but that restriction cannot be set up against a good-faith third party.",
+          "**Security follows (Section 305)** — mortgages, pledges and suretyships attached to the claim pass to the new holder.",
+          "**Writing and notice (Section 306)** — a transfer of an obligation owed to a specific creditor is not valid unless in writing. It can be set up against the debtor or third persons only if written notice was given to the debtor or the debtor consented in writing.",
+          "**Payment before notice** — the debtor is discharged if they pay the transferor before receiving notice or consenting.",
+          "**Competing transfers (Section 307)** — if the same right is transferred more than once, the first transfer notified or agreed to is preferred.",
+          "**Debtor's defences (Section 308)** — a debtor who consents without reservation cannot raise earlier defences against the new holder. With notice only, the debtor can still raise defences that existed against the original creditor.",
+        ],
+      },
+      { h: "Limits to keep in mind" },
+      {
+        ul: [
+          "**Not a title transfer** — assigning contract rights does not make the assignee the owner. Ownership of land still passes only by registration at the Land Office; see [registration day](/knowledge/land-office-registration-day).",
+          "**Read the contract first** — many developer and seller contracts require consent or charge a transfer fee, and the [sale and purchase agreement guide](/knowledge/sale-purchase-agreement-earnest-money-ccc-thailand) covers the contract basics. For off-plan units see [buying off-plan](/knowledge/buying-off-plan-new-developments).",
+          "**Foreign-ownership rules still apply** — an assignee who is a foreigner cannot acquire what the foreign-ownership rules forbid them to hold, whatever the contract paper says.",
+          "**Assignment is not delegation of your duties** — Section 306 concerns claims. Handing over your own obligations, such as paying the remaining instalments, is a different step that in general needs the other party's agreement.",
+          "**Assignor risk** — the notice should be sent by written, provable means, and the same right should never be sold twice.",
+        ],
+      },
+      "This is general information, not legal advice; check the contract's own transfer clause and have a Thai lawyer draft the assignment and the notice.",
+    ],
+    takeaways: [
+      "A claim can be transferred unless its nature does not allow it (Section 303).",
+      "The transfer must be in writing and binds the debtor only after written notice or consent (Section 306).",
+      "If the same right is transferred twice, the first one notified or agreed to prevails (Section 307).",
+      "Assigning a contract claim does not transfer land ownership; registration at the Land Office does.",
+      "Check the contract for consent or fee clauses before assigning.",
+    ],
+    sources: [
+      { title: "Siam Legal Thailand Law Library — CCC Obligations (Sections 303-313)", url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-obligations-section-303-313/" },
+      { title: "ThaiLawOnline — CCC Sections 303-313 Transfer of Claims", url: "https://www.thailandlawonline.com/civil-and-commercial-code/303-313-transfer-of-claims" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion:
+      "Can I transfer my Thai property reservation or purchase contract to another buyer?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
