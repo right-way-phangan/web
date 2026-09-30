@@ -81,6 +81,12 @@ export const arqa: DeveloperProfile = {
         ru: "Вилловый посёлок-сад в Най Воке, рядом с Тонг Салой: шесть вилл в трёх планировках, тёмное дерево в кокосовой роще, общий бассейн с зоной отдыха и сад с десятками видов тропических растений. Построен с ноября 2023 по апрель 2025; виллы сданы и работают в аренде. Три минуты до международной школы, пятнадцать пешком до моря, тихая улица без сквозного движения.",
       },
       photo: "/images/developers/arqa/phangaia-pool.jpg",
+      // Облёт дрона ARQA (апрель 2026, публикация согласована Денисом 30.09):
+      // посёлок с морем → ряд вилл сверху → бассейн. Номера машин не читаются.
+      video: {
+        src: "/videos/developers/arqa/phangaia-flyover.mp4",
+        poster: "/videos/developers/arqa/phangaia-flyover-poster.jpg",
+      },
     },
     {
       // The developer's own house, for sale through us as RW-0625 — facts come

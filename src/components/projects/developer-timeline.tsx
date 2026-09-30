@@ -87,6 +87,7 @@ function EntryDetail({
   // Кадры проекта живут в общем альбоме; связь — по названию проекта.
   const photos = useDeveloperPhotos();
   const shots = photos?.countOf(entry.title) ?? 0;
+  const reduceMotion = useReducedMotion();
   return (
     <div className="grid gap-5 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:gap-7">
       {/* Fixed frame height on md+ keeps every project's card the same size, so
@@ -95,12 +96,24 @@ function EntryDetail({
       <div
         className={cn(
           "group/photo relative aspect-[3/2] overflow-hidden rounded-sm md:aspect-auto md:h-64",
-          entry.photo
+          entry.photo || entry.video
             ? "bg-forest-900/[0.04]"
             : "flex items-center justify-center border border-dashed border-forest-500/20",
         )}
       >
-        {entry.photo ? (
+        {entry.video ? (
+          <video
+            src={entry.video.src}
+            poster={entry.video.poster}
+            autoPlay={!reduceMotion}
+            muted
+            loop
+            playsInline
+            preload={reduceMotion ? "none" : "metadata"}
+            aria-label={entry.title}
+            className="h-full w-full object-cover"
+          />
+        ) : entry.photo ? (
           <Image
             src={entry.photo}
             alt={entry.title}
