@@ -13012,6 +13012,114 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "Can I transfer my Thai property reservation or purchase contract to another buyer?",
   },
+  {
+    slug: "thai-tax-id-tin-foreign-property-owner-thailand",
+    kbId: "kb-0216",
+    topic: "Costs",
+    title:
+      "Does a foreign property owner need a Thai tax ID (TIN)? Who must apply, where and by when",
+    short:
+      "A foreigner with assessable income in Thailand, such as villa rental income, generally needs a Thai tax identification number before filing a return. It is applied for in person at a Revenue Department office on Form L.P. 10.1, is free, and should be requested within 60 days of first receiving the income.",
+    updated: "2026-09-30",
+    body: [
+      "Do you need a Thai tax ID if you own a villa or lease on Koh Phangan? Only if you have assessable income that has to be reported. Owning property alone does not trigger it, but renting it out does, and so can bringing foreign income into Thailand as a tax resident.",
+      { h: "When a TIN is required" },
+      {
+        ul: [
+          "**Thai-source income** — for example rental income from a Thai villa. Sources describe a 60-day deadline from the date you first derive assessable income.",
+          "**Foreign-source income brought into Thailand** — if you are a tax resident (180 days or more in a tax year) and remit income earned from 1 January 2024 onward, see [foreign income remittance rules](/knowledge/foreign-income-remittance-tax-thailand-por-161-2566). The 60-day clock is described as running from becoming a tax resident or the funds arriving.",
+          "**No assessable income** — sources note that only people with assessable income must obtain a TIN.",
+          "**Already have a Thai ID number** — holders of a pink ID card or a yellow house book can reportedly use their 13-digit personal number, though some offices still ask for a separate registration.",
+        ],
+      },
+      { h: "How to apply" },
+      {
+        ul: [
+          "**Form** — L.P. 10.1 for individuals.",
+          "**Documents** — passport, valid visa or entry stamp, and proof of address such as a rental agreement with the landlord's ID copy or a house registration; see [the yellow house book](/knowledge/yellow-house-book-tabien-baan-foreign-owner).",
+          "**Where** — an area Revenue Department office. One source states any area office or branch will accept it regardless of domicile. Phangan filers usually use the Koh Phangan office or the Surat Thani provincial office; confirm locally.",
+          "**Cost and result** — the service is free and issues a 10-digit number.",
+          "**Representative** — some practitioner sources say an authorised representative can file, which would need a power of attorney; ask the office before relying on it.",
+        ],
+      },
+      { h: "What it is used for and what a miss costs" },
+      "The TIN is what you use to file the annual return by 31 March of the following year; see [annual taxes for owners](/knowledge/owners-taxes-annual-land-and-income) and [the mid-year PND 94 return](/knowledge/pnd-94-mid-year-tax-return-rental-income). Failing to obtain a TIN in time is reported to carry a fine not exceeding THB 2,000, in addition to any late-filing penalties. A sale of property is a separate event handled at the Land Office; see [withholding tax on a sale](/knowledge/withholding-tax-property-sale-individual-vs-company).",
+      "Requirements change and offices apply them differently, so confirm the current form and documents with the Revenue Department or an accountant. This is general information, not tax advice.",
+    ],
+    takeaways: [
+      "Owning a villa does not itself require a TIN; assessable income such as rent does.",
+      "Apply in person on Form L.P. 10.1 with passport, visa and proof of address; the service is free.",
+      "The commonly cited deadline is 60 days from first deriving assessable income.",
+      "Tax residency in Thailand starts at 180 days in a tax year.",
+      "Failing to register is reported to carry a fine of up to THB 2,000, plus late-filing penalties.",
+    ],
+    sources: [
+      { title: "Siam Legal — Tax Identification Number Thailand", url: "https://www.siam-legal.com/Business-in-Thailand/tax-identification-number-thailand.php" },
+      { title: "ThaiLawOnline — How to Get a Thai Tax ID (TIN)", url: "https://www.thailawonline.com/register-a-tax-id-number-in-thailand/" },
+      { title: "Forbes & Partners — Thai rental income tax guide for foreigners", url: "https://www.forbesandpartners.com/thailand-rental-income-tax-guide-foreigners/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion:
+      "Do I need a Thai tax ID number if I rent out my villa on Koh Phangan as a foreigner?",
+  },
+  {
+    slug: "building-use-certificate-or-6-section-32-villa-koh-phangan",
+    kbId: "kb-0217",
+    topic: "Process",
+    title:
+      "Building completion and use certificate (Or.6): what Section 32 requires and what to ask a villa seller",
+    short:
+      "The Building Control Act requires the owner of certain controlled-use buildings, such as hotels and condominiums, to notify the local official on completion and obtain a certificate before using the building. For a villa, ask for the permit and any Or.6 and check that the approved use matches how the building is actually used.",
+    updated: "2026-09-30",
+    body: [
+      "If a Koh Phangan villa has a building permit, is that enough? A permit covers construction. Under Section 32 of the Building Control Act B.E. 2522, some building types also need an inspection and a certificate after completion, issued on Form Or.6, before they are used.",
+      { h: "What the Act says" },
+      {
+        ul: [
+          "**Section 31** — no one may build, alter, demolish or move a building in deviation from the approved plans and specifications.",
+          "**Section 32** — for controlled-use buildings (listed types include warehouses, hotels, condominiums, health facilities and buildings for commercial, industrial, educational or public-health activity), the licensee must notify the local official on completion within 30 days, and the official inspects. After approval, a certificate permitting use is issued.",
+          "**Penalties (Section 65)** — breaches of Sections 31 and 32 are punishable by up to three months' imprisonment, a fine of up to THB 60,000, or both, plus a daily fine of up to THB 10,000 while the breach continues.",
+          "**Tall or very large buildings** — an engineer's inspection certification is also required, and the application and inspection process is described as taking up to 30 days.",
+        ],
+      },
+      { h: "What it means for a villa buyer" },
+      {
+        ul: [
+          "**A private house is not among the listed types** — I found no source confirming how strictly local offices require an Or.6 for an ordinary residence, so ask the local municipal or sub-district (TAO) building office rather than assuming either way.",
+          "**Use must match the approved purpose** — practitioner sources say a residential building run as a hotel risks orders to stop that use and fines, and a hotel needs a permit that shows the hotel purpose; see [renting out a villa and the hotel licence](/knowledge/renting-out-villa-foreign-business-act-license) and [the 2026 short-term rental crackdown](/knowledge/short-term-rental-airbnb-crackdown-2026).",
+          "**Build matches plan** — a villa built differently from its permit engages Section 31; see [verifying building permits](/knowledge/forged-building-permits-koh-phangan-verify) and [building a villa](/knowledge/building-a-villa-koh-phangan).",
+          "**Existing duty to keep buildings safe** — Section 32 is also described as a continuing duty on owners; periodic inspection of large buildings is covered in [Section 32 bis](/knowledge/building-safety-inspection-section-32-bis-thailand).",
+        ],
+      },
+      { h: "Checklist to ask the seller" },
+      {
+        ul: [
+          "The building permit and approved plans, compared against the real building.",
+          "Any completion or use certificate (Or.6) issued, and the stated use.",
+          "Any notice, order or fine from the local office.",
+          "Whether the plan to rent short-term is allowed on the approved use.",
+        ],
+      },
+      "This is general information, not legal advice; the practice at each local office varies, so confirm with a Thai lawyer and the local building office.",
+    ],
+    takeaways: [
+      "A building permit authorises construction; Section 32 adds a completion inspection and use certificate for controlled-use buildings.",
+      "Section 31 prohibits building in deviation from the approved plans.",
+      "Penalties under Section 65 reach three months' jail, THB 60,000 and daily fines of up to THB 10,000.",
+      "Ordinary houses are not among the listed controlled types; ask the local office how it treats an Or.6.",
+      "Check that how you use the villa, especially short-term rental, matches the approved purpose.",
+    ],
+    sources: [
+      { title: "Samui For Sale — Building Control Act B.E. 2522 (1979), English text", url: "https://www.samuiforsale.com/law-texts/building-control-act-b-e-2522-1979.html" },
+      { title: "Benoit & Partners — Construction in Thailand: procedures and building regulations", url: "https://benoit-partners.com/construction-in-thailand/" },
+      { title: "Benoit & Partners — Airbnb legal in Thailand", url: "https://benoit-partners.com/airbnb-legal-thailand/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion:
+      "Does a Koh Phangan villa need a building completion certificate (Or.6) as well as a building permit?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
