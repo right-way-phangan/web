@@ -27,6 +27,12 @@ export interface DeveloperTimelineEntry {
   note?: Localized;
   /** Path under /public, e.g. "/images/developers/arqa/phangaia.jpg". */
   photo?: string;
+  /**
+   * Short muted loop (drone flyover) shown in place of the photo; paths under
+   * /public. The poster is the clip's first frame, so there is no jump when it
+   * starts. Reduced-motion visitors get the poster only.
+   */
+  video?: { src: string; poster: string };
   /** RW-P#### of a published catalog project → the entry links to its landing. */
   rwNumber?: string;
   /**
