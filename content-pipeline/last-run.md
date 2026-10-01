@@ -1,10 +1,8 @@
-# Last run — 2026-09-30 (second run)
+# Last run — 2026-10-01
 
-Published 2 guides (no ⏳ backlog rows were non-duplicate; both are evergreen gaps).
+Published 2 guides (no pre-existing backlog ⏳ rows were usable: all duplicate/thin/unsafe; two evergreen gaps authored instead).
 
-1. `thai-tax-id-tin-foreign-property-owner-thailand` — kb-0216 — "Does a foreign property owner need a Thai tax ID (TIN)?" — faqCategory: costs
-   - Sources: Siam Legal TIN page (fetched: 60-day deadline, documents, THB 2,000 fine); ThaiLawOnline TIN guide (fetched: Form L.P. 10.1, free, 10-digit number, any area office); Forbes & Partners (search result).
-2. `building-use-certificate-or-6-section-32-villa-koh-phangan` — kb-0217 — "Building completion and use certificate (Or.6): what Section 32 requires" — faqCategory: process
-   - Sources: Building Control Act English text at samuiforsale.com (fetched: Sections 31, 32, 65); Benoit & Partners construction guide (fetched: Or.6 after completion, 30 days); Benoit Airbnb article (search result, use vs approved purpose). Hedged: no source confirmed how an Or.6 applies to an ordinary private house.
-
-tsc --noEmit passed.
+1. `closing-a-thai-villa-holding-company-liquidation-land` (kb-0218) — "Closing a Thai villa-holding company: voluntary liquidation and what happens to the land" — faqCategory: structures
+   - Sources: ThailandLawOnline CCC 1096-1297 (Sections 1236-1272), FRANK Legal & Tax liquidation steps, Jus Laws (timeline/tax clearance), Siam Legal Revenue Code 65-76. Tax treatment of land on liquidation hedged (no source detailed it).
+2. `annual-audit-agm-filing-duties-thai-villa-holding-company` (kb-0219) — "Annual duties of a villa-holding Thai company: audit, AGM, DBD filing and corporate tax" — faqCategory: costs
+   - Sources: Siam Legal CCC 1196-1199 text, Forbes & Partners audit/filing guide, PDLegal compliance checklist. Fine amounts attributed to practitioners and flagged to confirm.

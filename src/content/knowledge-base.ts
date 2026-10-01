@@ -13120,6 +13120,120 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "Does a Koh Phangan villa need a building completion certificate (Or.6) as well as a building permit?",
   },
+  {
+    slug: "closing-a-thai-villa-holding-company-liquidation-land",
+    kbId: "kb-0218",
+    topic: "Structures",
+    title:
+      "Closing a Thai villa-holding company: voluntary liquidation and what happens to the land",
+    short:
+      "A Thai limited company that holds a villa or land cannot simply be 'closed' — it must be dissolved by shareholder resolution, wound up by a liquidator, and removed from the register, and the land has to be sold or otherwise dealt with first. Foreign shareholders cannot take the land in their own names, so a sale is the realistic route.",
+    updated: "2026-10-01",
+    body: [
+      "**How do you close a 49/51 company that owns a Phangan villa, and what happens to the land?** Under the Civil and Commercial Code (CCC) the company is dissolved by a special resolution, a liquidator settles its affairs and pays its debts, and only surplus property is distributed to shareholders (Section 1269). Land does not disappear with the company: it must be sold, or transferred in a way Thai law allows, during the liquidation. For the structure itself see [when a Thai company makes sense for property](/knowledge/thai-company-for-property-49-51).",
+      { h: "The statutory steps (CCC Sections 1236–1272)" },
+      {
+        ul: [
+          "**Dissolution** — a special resolution of shareholders is one of the grounds listed in Section 1236. Practitioners describe it as requiring at least 75% of votes cast at a properly noticed meeting.",
+          "**Registration within 14 days** — the dissolution and the liquidators' names must be registered within fourteen days (Section 1254). Under Section 1249 the company is treated as continuing to exist only as far as needed for liquidation.",
+          "**Creditor notice within 14 days** — liquidators publish a newspaper notice and send registered letters to known creditors (Section 1253).",
+          "**Liquidator's powers** — to sue, sell assets and do what settlement requires (Section 1259); liquidation costs rank ahead of other debts (Section 1263).",
+          "**Distribution** — only property left after liabilities may be divided among shareholders (Section 1269).",
+          "**Final accounts and meeting** — the liquidator prepares accounts and calls a general meeting; registration of the result ends the liquidation (Section 1270).",
+          "**Records and tail risk** — books are deposited with the Registrar for ten years (Section 1271), and debt claims can still be brought up to two years after liquidation ends (Section 1272).",
+        ],
+      },
+      { h: "What this means for the land" },
+      "A company in liquidation still owns its land until a registered transfer is made at the Land Office. The practical options are a sale to a third party (a Thai buyer, or a foreign buyer through a lawful structure), or, where the shareholders are eligible to hold it, a transfer to them. A foreign shareholder generally cannot receive land in their own name (see [how foreigners own a villa](/knowledge/how-foreigners-own-a-villa)); land left in a foreign-controlled company that is wound up without a lawful disposal invites the disposal orders described in [the Section 94 forfeiture guide](/knowledge/land-code-section-94-forfeiture-amendment). Settle the land first, then finish the liquidation.",
+      { h: "Tax and timeline" },
+      "The Revenue Department generally will not give tax clearance until corporate income tax, VAT, withholding tax and, where relevant, specific business tax are filed and paid; a final corporate income tax return is commonly cited as due within 150 days of dissolution. Revenue Code Section 74 values assets on dissolution at market price, so a land sale or a distribution of land can crystallise tax and transfer fees — see [the cost of buying and selling](/knowledge/cost-of-buying-taxes-and-fees) and [selling a company that holds a villa](/knowledge/selling-thai-company-holding-villa-share-sale-tax). Practitioners report that simple voluntary liquidations commonly take around 6–12 months, with complex cases running well beyond; treat these as indicative, not guaranteed.",
+      { h: "Alternatives" },
+      "If the aim is only to exit, selling the shares may be simpler than liquidating, but it carries different tax and due-diligence consequences. If the company is merely dormant, do not let it be struck off instead — see [the Section 1273 strike-off risk](/knowledge/company-strike-off-defunct-property-holding-thailand), which leaves land in legal limbo.",
+      "This is general information, not legal or tax advice; have a Thai lawyer and accountant confirm the sequence for your specific company before passing the resolution.",
+    ],
+    takeaways: [
+      "Dissolution by special resolution is only the start; a liquidator must settle debts before shareholders receive anything (CCC Section 1269).",
+      "Register the dissolution and notify creditors within 14 days (Sections 1253–1254).",
+      "Land stays in the company until a registered transfer; sell or lawfully transfer it before completing liquidation.",
+      "Tax clearance from the Revenue Department is the usual bottleneck, and assets are valued at market price on dissolution (Revenue Code Section 74).",
+      "Records are kept ten years and creditors can claim up to two years after liquidation ends (Sections 1271–1272).",
+    ],
+    sources: [
+      {
+        title: "ThailandLawOnline — Civil Law: Thai Limited Company (CCC Sections 1096–1297)",
+        url: "https://www.thailandlawonline.com/thai-company-and-foreign-business-law/civil-law-companies-and-business-formation-thai-limited-company",
+      },
+      {
+        title: "FRANK Legal & Tax — Liquidation Process in Thailand",
+        url: "https://franklegaltax.com/liquidation-process-in-thailand/",
+      },
+      {
+        title: "Jus Laws & Business — Company Liquidation and Dissolution in Thailand",
+        url: "https://www.juslaws.com/articles/company-liquidation-dissolution-thailand",
+      },
+      {
+        title: "Siam Legal Thailand Law Library — Revenue Code: Corporate Income Tax (Sections 65–76)",
+        url: "https://library.siam-legal.com/thai-law/revenue-code-corporate-income-tax-sections-65-76/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion:
+      "How do I close the Thai company that owns my Koh Phangan villa, and what happens to the land?",
+  },
+  {
+    slug: "annual-audit-agm-filing-duties-thai-villa-holding-company",
+    kbId: "kb-0219",
+    topic: "Costs",
+    title:
+      "Annual duties of a villa-holding Thai company: audit, AGM, DBD filing and corporate tax",
+    short:
+      "Even a company that only owns a villa and earns nothing must keep accounts, have them audited, approve them at a general meeting and file them each year. Missing these filings carries fines and can eventually lead to strike-off.",
+    updated: "2026-10-01",
+    body: [
+      "**What must a Thai company that holds my villa do every year?** Quite a lot, regardless of whether it earns income. Most Thai limited companies must have annual accounts examined by an auditor, approved at a general meeting and filed with the Department of Business Development (DBD), plus file a corporate income tax return. Practitioners stress that this applies even to dormant property-holding companies. Background on the structure: [49/51 Thai companies](/knowledge/thai-company-for-property-49-51).",
+      { h: "The yearly cycle" },
+      {
+        ul: [
+          "**Balance sheet** — must be made at least every twelve months (CCC Section 1196).",
+          "**Audit and general meeting** — examined by an auditor and submitted to a general meeting within four months of its date, with shareholders receiving copies at least three days before (Section 1197). The directors' report accompanies it (Section 1198).",
+          "**DBD filing** — adopted accounts go to the Registrar within one month of the meeting (Section 1199), with the shareholder list and meeting minutes.",
+          "**Corporate income tax (PND 50)** — commonly cited as due within 150 days of the accounting year-end, i.e. late May for a 31 December year-end, even with no income.",
+          "**Dates for a December year-end** — roughly: hold the AGM by 30 April, file with DBD and Revenue by 30 May.",
+        ],
+      },
+      { h: "Penalties and knock-on risks" },
+      "Section 1196 non-compliance carries fines of up to THB 50,000 plus daily fines, and failing to call the general meeting carries a fine of up to THB 20,000, as reported by practitioners summarising the offences Act; confirm current amounts with an accountant. Fines can fall on the company and responsible directors. Persistent non-filing is exactly the pattern that triggers [strike-off under Section 1273](/knowledge/company-strike-off-defunct-property-holding-thailand), and filings are also what authorities review in the [land-department audit of landholding companies](/knowledge/land-department-audit-existing-landholding-companies-2026). Buyers of a company-held villa should ask for these filings (see [villa held by a Thai company: buyer due diligence](/knowledge/villa-held-by-thai-company-buyer-due-diligence-2026)).",
+      { h: "Practical budgeting" },
+      "Accountant, auditor and filing fees are a recurring cost of the structure; budget for them alongside [annual owner taxes](/knowledge/owners-taxes-annual-land-and-income). Fees vary by provider, so get a fixed quote.",
+      "General information only; your accountant should confirm deadlines for your company's specific accounting period.",
+    ],
+    takeaways: [
+      "A company that merely holds a villa still needs annual accounts, an auditor and a general meeting (CCC Sections 1196–1198).",
+      "Adopted accounts must reach the DBD within one month of the meeting (Section 1199).",
+      "Corporate income tax return is commonly due within 150 days of year-end, even with zero income.",
+      "Late filing can bring fines up to THB 50,000 plus daily fines, and prolonged neglect risks strike-off.",
+      "Buyers of company-held villas should request the last years' filed accounts and shareholder lists.",
+    ],
+    sources: [
+      {
+        title: "Siam Legal Thailand Law Library — Civil and Commercial Code: Limited Companies (Sections 1196–1199)",
+        url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-limited-companies-section-1196-1199/",
+      },
+      {
+        title: "Forbes & Partners — Mandatory Annual Audit and Tax Filing for Your Thai Property Company",
+        url: "https://www.forbesandpartners.com/thailand-company-annual-audit-tax-filing/",
+      },
+      {
+        title: "PDLegal — Corporate Compliance Checklist for Thai Companies",
+        url: "https://pdlegal.co.th/corporate-compliance-checklist-thai-companies/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion:
+      "What annual audit, meeting and filing obligations does the Thai company holding my villa have?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
