@@ -13234,6 +13234,135 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "What annual audit, meeting and filing obligations does the Thai company holding my villa have?",
   },
+  {
+    slug: "dividends-from-thai-villa-holding-company-rules-tax",
+    kbId: "kb-0220",
+    topic: "Structures",
+    title:
+      "Taking profit out of a Thai villa-holding company: dividend rules and 10% withholding tax",
+    short:
+      "A Thai company can pay dividends only out of profit, after a 5% reserve allocation and a shareholder resolution. Thai-source dividends normally bear 10% withholding tax, including when paid to a foreign shareholder.",
+    updated: "2026-10-01",
+    body: [
+      "**Can a foreign shareholder simply take money out of the Thai company that owns the villa?** Not freely. Money leaves a company as a lawful dividend (or as repayment of a genuine [shareholder loan](/knowledge/foreign-shareholder-loan-to-thai-villa-company-tax-stamp-duty)), not as an informal transfer. Dividends have legal conditions under the Civil and Commercial Code (CCC) and tax consequences under the Revenue Code. Structure background: [49/51 Thai companies](/knowledge/thai-company-for-property-49-51).",
+      { h: "Legal conditions for paying a dividend" },
+      {
+        ul: [
+          "**Profit only (CCC Section 1201)** — no dividend may be declared except by resolution of a general meeting, and none may be paid other than out of profits. If the company has losses, they must be made good first. Directors may pay interim dividends where profits justify it.",
+          "**Reserve fund (CCC Section 1202)** — at each distribution the company must set aside at least one-twentieth (5%) of profit until the reserve reaches one-tenth (10%) of capital, or a higher proportion if its regulations say so.",
+          "**Meeting and records** — practitioners describe board and shareholder approval and written minutes as the basis for the payment, and these are the documents banks ask for when dividends are sent abroad.",
+        ],
+      },
+      "A company that only holds a villa and earns no rent usually has no profit, so it often has nothing lawful to distribute. Holding-company costs are then funded by shareholders, which is where loans and share capital come in.",
+      { h: "Tax on the dividend" },
+      {
+        ul: [
+          "**Withholding tax** — the commonly stated rate on Thai-source dividends is 10%, for resident individuals and for non-resident shareholders alike. The company withholds and pays it to the Revenue Department.",
+          "**Treaties** — a double tax agreement can modify the rate or allocate taxing rights, but treaty benefits require documented tax residency and beneficial ownership. Do not assume a lower rate; some sources note that Section 70 withholding is not always reduced.",
+          "**Resident individuals** — may be able to claim a credit under Revenue Code Section 47 bis in certain conditions; ask an accountant.",
+          "**Home-country tax** — the recipient's country may tax the dividend as well, with credit for Thai tax depending on its rules.",
+        ],
+      },
+      { h: "Practical points for villa owners" },
+      {
+        ul: [
+          "**Do the paperwork first** — resolution, adopted accounts and tax certificates should exist before money is wired abroad; remittances above roughly USD 50,000 are reported to be accompanied by foreign exchange forms.",
+          "**Link to annual compliance** — dividends rest on accounts that are audited and filed each year; see [annual audit, AGM and filing duties](/knowledge/annual-audit-agm-filing-duties-thai-villa-holding-company).",
+          "**Sale proceeds are different** — selling the villa or the shares raises other taxes; see [selling a company that holds a villa](/knowledge/selling-thai-company-holding-villa-share-sale-tax) and [repatriating sale proceeds](/knowledge/repatriating-sale-proceeds-exchange-control-act).",
+          "**Rental tax interplay** — rental profits are taxed at company level first; see [double tax treaties and rental income](/knowledge/double-tax-treaty-rental-income-thailand).",
+        ],
+      },
+      "Takeaway: dividends are a regulated, taxed channel that requires real profit. Plan the exit route with an accountant before the structure is built, not after. General information only; rates and treaty positions change.",
+    ],
+    takeaways: [
+      "Dividends may be paid only out of profit, by general-meeting resolution (CCC Section 1201).",
+      "At least 5% of profit goes to a reserve until it reaches 10% of capital (Section 1202).",
+      "Thai-source dividends are commonly subject to 10% withholding, including for non-resident shareholders.",
+      "Treaty relief needs documented residency and beneficial ownership; do not assume it applies.",
+      "A holding company with no income typically has no distributable profit.",
+    ],
+    sources: [
+      {
+        title: "Integrity Legal — Civil and Commercial Code: Dividend and Reserve (Sections 1201-1202)",
+        url: "https://www.legal.co.th/resources/civil-and-commercial-code/book3/thailand-civil-and-commercial-code-page-158-title-xxii-chapter-iv-limited-companies-part-iii-management-limited-companies-5-divi/",
+      },
+      {
+        title: "Benoit & Partners — Dividend Taxation in Thailand 2026",
+        url: "https://benoit-partners.com/dividend-taxation-thailand/",
+      },
+      {
+        title: "VBA Partners — Guide to Dividend Payments in Thailand for Expats",
+        url: "https://vbapartners.com/best-guide-to-dividend-payments-in-thailand-for-expats/",
+      },
+      {
+        title: "Company Thailand — Dividend and Legal Reserve",
+        url: "https://www.companythailand.net/dividend-and-legal-reserve/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "structures",
+    faqQuestion:
+      "How can a foreign shareholder take profit out of the Thai company that owns a villa, and what tax applies?",
+  },
+  {
+    slug: "foreign-shareholder-loan-to-thai-villa-company-tax-stamp-duty",
+    kbId: "kb-0221",
+    topic: "Costs",
+    title:
+      "Funding a Thai villa company with a shareholder loan: written contract, stamp duty and 15% interest withholding",
+    short:
+      "Foreign owners often fund a Thai holding company by lending rather than buying more shares. A loan needs a written, stamped agreement, and interest paid abroad is generally subject to 15% withholding tax, so informal 'loans' create avoidable problems.",
+    updated: "2026-10-01",
+    body: [
+      "**If I fund the company that owns my villa, should it be a loan or share capital?** Either can be lawful, but a loan must be documented and taxed like one. Under the 49/51 model the foreign owner is usually a minority shareholder, so the money that actually pays for land and construction is often a loan. Authorities now look closely at where such money comes from and whether the structure is genuine; see [Land Office source-of-funds checks](/knowledge/land-office-source-of-funds-checks-2026) and [49/51 Thai companies](/knowledge/thai-company-for-property-49-51).",
+      { h: "Paperwork that makes it a real loan" },
+      {
+        ul: [
+          "**Written agreement** — loans above THB 2,000 require written evidence signed by the borrower to be enforceable, and repayment should also be evidenced in writing (Civil and Commercial Code Section 653, as summarised by practitioners).",
+          "**Stamp duty** — commonly stated as THB 1 per THB 2,000 of the amount (0.05%), capped at THB 10,000 per instrument. An unstamped instrument may not be admissible in court until duty and a penalty (reported as up to six times the duty) are paid.",
+          "**Board and shareholder approvals** — the company's minutes should record the borrowing, so later buyers and auditors can follow it.",
+          "**Bank trail** — the transfer into Thailand should be documented; see [bringing money into Thailand and the FET form](/knowledge/bringing-money-into-thailand-fet-form).",
+        ],
+      },
+      { h: "Tax on interest" },
+      {
+        ul: [
+          "**Withholding** — interest paid to a foreign lender is generally subject to 15% withholding tax; a treaty may reduce it, and reductions are described as most relevant for financial institutions. Check the treaty and the lender's status.",
+          "**Filing** — the company withholds and files (PND 54 for foreign recipients), with a deadline reported as the 7th of the following month; failure to withhold can make the company liable for the tax, plus surcharges.",
+          "**Interest cap** — private lending is subject to Thai interest limits; see [private loan interest cap](/knowledge/private-loan-interest-cap-15-percent-thailand-property).",
+          "**Interest-free loans** — often used for simplicity. Ask an accountant about transfer-pricing and deemed-income questions on related-party loans before choosing; this guide does not confirm a specific rule.",
+        ],
+      },
+      { h: "Why it matters at exit" },
+      "A documented loan can be repaid to the lender as repayment of principal, rather than treated as a dividend, but only if the paper trail exists. Repayment is a separate step from [taking dividends](/knowledge/dividends-from-thai-villa-holding-company-rules-tax) and from [repatriating sale proceeds](/knowledge/repatriating-sale-proceeds-exchange-control-act). Undocumented money in a company is a common due-diligence red flag for buyers of [company-held villas](/knowledge/villa-held-by-thai-company-buyer-due-diligence-2026).",
+      "General information only; the foreign-exchange reporting requirements for foreign loans were not confirmed from a primary source here, so verify them with your bank and lawyer.",
+    ],
+    takeaways: [
+      "A shareholder loan needs a signed written agreement to be enforceable.",
+      "Stamp duty is commonly THB 1 per THB 2,000, capped at THB 10,000; unstamped papers can be inadmissible.",
+      "Interest paid to a foreign lender is generally subject to 15% withholding unless a treaty reduces it.",
+      "The company, not the lender, must withhold, file and bear liability if it does not.",
+      "Confirm foreign-exchange reporting for the inbound loan with your bank before wiring.",
+    ],
+    sources: [
+      {
+        title: "TMA Group — Stamp Duty in Thailand",
+        url: "https://www.tmathai.com/blogeng/index.php/post/27.html",
+      },
+      {
+        title: "Benoit & Partners — The Thai Withholding Tax: Legal Framework, Rates and Filing Forms",
+        url: "https://benoit-partners.com/thai-withholding-tax/",
+      },
+      {
+        title: "GoLaw Phuket — Loan Agreement Thailand",
+        url: "https://www.golawphuket.com/foreign-investment-lawyer-thailand/loan-money-agreement-thailand-law/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion:
+      "Should I fund my Thai villa company with a shareholder loan, and what stamp duty and withholding tax apply?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
