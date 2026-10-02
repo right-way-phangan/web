@@ -1,6 +1,13 @@
-# Last run — 2026-10-01 (second run)
+# Last run — 2026-10-02
 
-Published 2 guides (no backlog ⏳ rows were usable; both are evergreen gaps, 0 prior hits for "shareholder loan"):
+Published 1 guide (not 2): no second distinct, well-sourced topic cleared the quality gate (all backlog rows still duplicate/thin; candidates co-ownership and khai fak already exist).
 
-1. `dividends-from-thai-villa-holding-company-rules-tax` (kb-0220) — "Taking profit out of a Thai villa-holding company: dividend rules and 10% withholding tax" — faqCategory: structures. Sources: Integrity Legal CCC 1201-1202 text; Benoit & Partners dividend taxation 2026; VBA Partners dividend guide (fetched).
-2. `foreign-shareholder-loan-to-thai-villa-company-tax-stamp-duty` (kb-0221) — "Funding a Thai villa company with a shareholder loan..." — faqCategory: costs. Sources: TMA Group stamp duty (fetched); Benoit & Partners withholding tax (fetched); GoLaw Phuket loan agreement (search-sourced). BOT foreign-loan reporting could not be confirmed and is flagged as unverified in the guide.
+- slug: seller-developer-bankruptcy-rehabilitation-property-buyer-thailand (kb-0222)
+- title: When a Thai seller or developer goes bankrupt or enters rehabilitation: what happens to your villa purchase
+- faqCategory: process
+
+Sources:
+- Silk Legal bankruptcy overview: absolute receivership, official receiver, filing threshold THB 2m.
+- Tilleke & Gibbins: rehabilitation automatic stay, creditor claim deadline.
+- Lexnova Partners: rehabilitation debt thresholds, contracts stay in force, asset-disposal limits.
+- Legal 500 / Lexology summaries (via search): preference 3 months/1 year insiders, undervalue 1 year, good-faith defence; claims hedged as practitioner-reported.

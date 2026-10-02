@@ -13363,6 +13363,79 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "Should I fund my Thai villa company with a shareholder loan, and what stamp duty and withholding tax apply?",
   },
+  {
+    slug: "seller-developer-bankruptcy-rehabilitation-property-buyer-thailand",
+    kbId: "kb-0222",
+    topic: "Process",
+    title:
+      "When a Thai seller or developer goes bankrupt or enters rehabilitation: what happens to your villa purchase",
+    short:
+      "If the seller of a villa, or the developer of an off-plan project, becomes insolvent, a court-appointed official takes over their affairs and recent transfers can be challenged. Buyers are better protected by registering early, paying through escrow and checking for insolvency filings before signing.",
+    updated: "2026-10-02",
+    body: [
+      "**What if my seller or developer goes bankrupt before or after I buy?** In Thailand two different court processes can apply under the Bankruptcy Act B.E. 2483 (1940): bankruptcy (liquidation) and business rehabilitation (restructuring). Which one applies, and whether your transfer was already registered, largely decides your position. This is general information, not advice, and outcomes depend on the facts.",
+      { h: "Bankruptcy versus rehabilitation" },
+      {
+        ul: [
+          "**Bankruptcy** — once the court issues an absolute receivership order, an official receiver takes control of the debtor's assets and collects and distributes them to creditors. Creditors may file for debts above THB 2 million; the debtor may also file.",
+          "**Business rehabilitation** — a restructuring route. Practitioners report minimum debt thresholds of THB 2 million for individuals, THB 3 million for private companies and THB 10 million for larger companies. Once the court accepts the petition, an automatic stay stops lawsuits and enforcement against the debtor, and the debtor cannot dispose of assets or take on new debt without court approval.",
+          "**Contracts** — practitioners report that contracts stay in force during rehabilitation, but the court-appointed plan preparer can seek approval to reject unfavourable ones. An unfinished off-plan contract is therefore not automatically safe.",
+          "**Secured creditors** — banks holding a mortgage generally cannot enforce outside the rehabilitation for an initial period (reported as one year, extendable by the court). See [mortgage default and foreclosure](/knowledge/mortgage-default-foreclosure-process-thailand).",
+        ],
+      },
+      { h: "Can an earlier sale to you be undone?" },
+      "The Act lets the official receiver ask the court to revoke certain transactions made before the bankruptcy petition. As summarised by practitioners:",
+      {
+        ul: [
+          "**Preference** — a transfer of assets within three months before the petition, made to favour one creditor, can be set aside; the period is reported as one year if the other party is an insider.",
+          "**Undervalue** — acts within one year before the petition where the debtor received less than reasonable value are presumed to be intended to prejudice creditors.",
+          "**Good-faith defence** — a third party who acquired rights in good faith is reported to have a defence. Paying a fair, documented price is the best evidence of good faith.",
+          "**Time limits** — a revocation request must be filed within one year of the official receiver learning of the act, and no later than ten years after it.",
+        ],
+      },
+      "The same logic as the ordinary-creditor remedy in [creditor revocation of fraudulent transfers](/knowledge/fraudulent-property-transfer-creditor-revocation-thailand) applies: a below-market or gift-like sale from a distressed owner is the riskiest kind of purchase.",
+      { h: "Practical steps for buyers" },
+      {
+        ul: [
+          "**Check the seller before paying** — ask your lawyer to search for bankruptcy and rehabilitation filings, pending lawsuits and caveats; see the [due diligence checklist](/knowledge/due-diligence-checklist-koh-phangan).",
+          "**Pay at registration, not in advance** — avoid large deposits released to the developer before the transfer; see [escrow and off-plan deposit protection](/knowledge/thailand-escrow-act-off-plan-deposit-protection).",
+          "**Pay a documented fair price** — it supports a good-faith defence and the [Land Office source-of-funds checks](/knowledge/land-office-source-of-funds-checks-2026).",
+          "**Check mortgages on the land** — a prior mortgage can outrank your rights; see [leasehold, superficies and mortgage priority](/knowledge/leasehold-superficies-mortgage-priority-thailand).",
+          "**Off-plan buyers** — if a developer enters rehabilitation, file your claim with the official receiver by the deadline (reported as one month after the plan preparer's appointment is published in the Government Gazette) through a Thai attorney. See [buying off-plan](/knowledge/buying-off-plan-new-developments).",
+        ],
+      },
+      "In short: a completed, registered transfer for fair value, made in good faith well before any filing, is the strongest position; unregistered deposits to a struggling developer are the weakest. This guide does not cover how courts have ruled on specific property cases, so take legal advice before relying on any of the rules above.",
+    ],
+    takeaways: [
+      "Bankruptcy liquidates the debtor's assets under an official receiver; rehabilitation restructures them under an automatic stay.",
+      "Preference transfers within three months (one year for insiders) before a petition can be set aside.",
+      "Below-value transfers within one year before a petition are presumed to prejudice creditors.",
+      "A good-faith third party is reported to have a defence; a documented fair price helps.",
+      "Off-plan buyers should avoid advance payments and file claims quickly if a developer enters rehabilitation.",
+    ],
+    sources: [
+      {
+        title: "Silk Legal — Bankruptcy Proceedings in Thailand: An Updated Overview",
+        url: "https://silklegal.com/bankruptcy-proceedings-in-thailand-an-updated-overview/",
+      },
+      {
+        title: "Tilleke & Gibbins — Business Rehabilitation in Thailand: Issues Creditors Need to Consider",
+        url: "https://www.tilleke.com/insights/business-rehabilitation-in-thailand-issues-creditors-need-to-consider/",
+      },
+      {
+        title: "Lexnova Partners — Business Rehabilitation in Thailand: Process & Costs",
+        url: "https://lexnovapartners.com/business-rehabilitation-in-thailand/",
+      },
+      {
+        title: "Legal 500 — Thailand: Restructuring & Insolvency",
+        url: "https://www.legal500.com/guides/chapter/thailand-restructuring-insolvency/",
+      },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion:
+      "What happens to my Thai villa purchase if the seller or developer goes bankrupt?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
