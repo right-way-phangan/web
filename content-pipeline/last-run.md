@@ -1,13 +1,11 @@
-# Last run — 2026-10-02
+# Last run — 2026-10-02 (second run)
 
-Published 1 guide (not 2): no second distinct, well-sourced topic cleared the quality gate (all backlog rows still duplicate/thin; candidates co-ownership and khai fak already exist).
+**Published: 0 guides.**
 
-- slug: seller-developer-bankruptcy-rehabilitation-property-buyer-thailand (kb-0222)
-- title: When a Thai seller or developer goes bankrupt or enters rehabilitation: what happens to your villa purchase
-- faqCategory: process
+Reason (hard quality gate): no genuinely distinct, well-sourced topic found.
+- All remaining ⏳ backlog rows are still duplicate/thin/unsafe watch items (see inline notes in backlog.md).
+- Fresh-news searches (Koh Phangan / Land Department, Oct 2026) returned only already-covered items: nominee crackdown stats, lease-scrutiny expansion (Thai Examiner 16 Aug 2026), 112-company disposal story. No new legal mechanism or dated development.
+- Evergreen angles checked by grep against knowledge-base.ts and found already covered: rescission/default (kb sale-purchase-agreement-earnest-money-ccc-thailand, CCC 386-394), hidden defects (seller-liability-property-defects-after-closing-thailand), right of habitation, right of way/servitude, co-ownership/partition, boundary/neighbour law.
+- Earlier today kb-0222 was already published.
 
-Sources:
-- Silk Legal bankruptcy overview: absolute receivership, official receiver, filing threshold THB 2m.
-- Tilleke & Gibbins: rehabilitation automatic stay, creditor claim deadline.
-- Lexnova Partners: rehabilitation debt thresholds, contracts stay in force, asset-disposal limits.
-- Legal 500 / Lexology summaries (via search): preference 3 months/1 year insiders, undervalue 1 year, good-faith defence; claims hedged as practitioner-reported.
+No edits made to knowledge-base.ts / knowledge-base.ru.ts.

@@ -413,3 +413,4 @@ Status: ⏳ queued · ✅ published.
 | Phangan vs Samui vs Tao for investment: an honest comparison | costs | 🟡 | ✅ |
 | Land vs finished villa vs off-plan: choosing by goal | process | 🟡 | ✅ |
 | Freehold condo vs leasehold villa for a foreigner | ownership | 🟡 | ✅ |
+<!-- discovered 2026-10-02 (second run): published nothing. Fresh-news searches found only already-covered nominee/lease-scrutiny items; evergreen candidates (rescission, hidden defects, habitation, right of way, co-ownership) grep-confirmed already covered. Quality gate applied. -->
