@@ -13436,6 +13436,134 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "What happens to my Thai villa purchase if the seller or developer goes bankrupt?",
   },
+  {
+    slug: "renovating-villa-alteration-permit-section-39-bis-thailand",
+    kbId: "kb-0223",
+    topic: "Process",
+    title:
+      "Renovating or extending a Koh Phangan villa: when you need a permit, a Section 39 bis notification, or nothing",
+    short:
+      "Under the Building Control Act, altering a building's structure generally needs a licence from the local office, or a notification under Section 39 bis backed by an engineer's certification. Cosmetic work usually needs neither. Unpermitted alterations carry fines, possible jail and demolition orders that can complicate a later sale.",
+    updated: "2026-10-03",
+    body: [
+      "**Do I need a permit to renovate or extend a villa on Koh Phangan?** It depends on whether the work changes the structure or floor area. Under Section 21 of the Building Control Act B.E. 2522 (1979), anyone intending to construct, alter or remove a building must either obtain a licence from the local competent official or notify the official and proceed under Section 39 bis. This is general information, not legal advice.",
+      { h: "What counts as an alteration" },
+      "Section 4 defines alteration as a change, addition, reduction or expansion of the characteristics, limits, design, shape, proportions, weight or area of the structural elements of a building, so that it differs from the original state. In practice, practitioner sources describe the following as typically needing approval:",
+      {
+        ul: [
+          "**Structural changes** — removing load-bearing walls, or altering foundations, beams, columns or slabs.",
+          "**Extensions** — adding floor area or enclosing a terrace.",
+          "**Roof work** — changes to the roof frame, weight or form.",
+          "**Change of use** — for example turning a residence into a shop, restaurant or guesthouse; see [the Or.6 use certificate](/knowledge/building-use-certificate-or-6-section-32-villa-koh-phangan).",
+          "**Demolition** of part of a building.",
+        ],
+      },
+      "Cosmetic work such as painting, retiling, replacing fixtures or updating cabinets is generally reported not to need approval, provided structure and floor area are unchanged. A search excerpt of the Ministerial Regulations compilation also indicates that certain minor changes are exempt, such as changes not adding load to the structure by more than 10%, or changing floor or roof area by no more than 5 m² in total without changing the number of posts or beams. I could not open the regulation text itself, so confirm the exact conditions with the local office before relying on an exemption. A widely repeated 150 m² figure is not a universal exemption.",
+      { h: "Two routes: licence or Section 39 bis notification" },
+      {
+        ul: [
+          "**Licence** — apply to the municipality, sub-district administration (TAO) or district office. The statutory review period is reported as generally 45 days from a complete application, and revisions can extend it.",
+          "**Notification (Section 39 bis)** — the owner notifies the official with architect and engineer certifications that the work complies with the law, plus plans and calculations. The official issues a receipt, and the notified work may start from the date of that receipt.",
+          "**Official review (Section 39 ter)** — the official may order corrections within seven days if information is wrong, and has 120 days to raise objections. If none are raised, the work is deemed authorised, except for encroachments on public places or breaches of distance requirements.",
+          "**Completion** — for notified works, the owner notifies completion in writing so the building can be inspected within thirty days of receipt.",
+        ],
+      },
+      { h: "What happens without a permit" },
+      {
+        ul: [
+          "**Section 65** — breach of Section 21 is punishable by up to three months' imprisonment, a fine of up to THB 60,000, or both, with a further daily fine of up to THB 10,000 while it continues.",
+          "**Sections 40-42** — the official may order work suspended and, for non-rectifiable breaches, order demolition of all or part of the building within a set period.",
+          "**Section 67** — ignoring a suspension or demolition order carries up to six months' imprisonment, a fine of up to THB 100,000, or both, plus daily fines.",
+          "**A contractor's mistake does not automatically protect the owner** — responsibility generally rests with the owner or occupier of the building.",
+        ],
+      },
+      { h: "What it means for buyers and owners" },
+      {
+        ul: [
+          "**Compare the building to the permit** — extensions, enclosed terraces and added floors are the usual discrepancies; see [verifying building permits](/knowledge/forged-building-permits-koh-phangan-verify) and the [due diligence checklist](/knowledge/due-diligence-checklist-koh-phangan).",
+          "**Renovations trigger current rules** — an older villa may have to meet today's coastal, hillside and zoning limits; see [coastal setback rules](/knowledge/coastal-setback-rules-koh-phangan-distance-from-beach) and [hillside limits](/knowledge/hillside-slope-building-limits-koh-phangan).",
+          "**Renovated plumbing** — septic upgrades fall under a separate rule; see [septic and wastewater rules](/knowledge/septic-tank-wastewater-rules-koh-phangan-villa).",
+          "**Ask before you start** — the local building office decides whether a project needs a licence, a notification or no filing; get that answer in writing.",
+        ],
+      },
+      "In short: cosmetic work is generally free of filings, but anything touching structure, floor area, roof or use should go through the local office before work starts. Confirm with a Thai lawyer and the local office, since practice varies by municipality.",
+    ],
+    takeaways: [
+      "Section 21 requires a licence or a Section 39 bis notification before altering a building's structure.",
+      "Cosmetic work with unchanged structure and floor area generally needs no approval; small structural exemptions exist but must be confirmed locally.",
+      "A 39 bis notification needs architect and engineer certifications; the official has 120 days to object under Section 39 ter.",
+      "Unpermitted alteration risks up to three months' jail, THB 60,000 plus daily fines, and a demolition order.",
+      "Buyers should compare the actual building with the permitted plans, including extensions and enclosed terraces.",
+    ],
+    sources: [
+      { title: "Samui For Sale — Building Control Act B.E. 2522 (1979), English text", url: "https://www.samuiforsale.com/law-texts/building-control-act-b-e-2522-1979.html" },
+      { title: "ThailandLawOnline — Building Control Act B.E. 2522 (1979)", url: "https://www.thailandlawonline.com/translations/building-control-act-be-2522-1979-english" },
+      { title: "Chiang Rai Times — Thailand Renovation Permits: When Approval Is Required", url: "https://www.chiangraitimes.com/expat-life/thailand-renovation-permits/" },
+      { title: "IIBH — Existing Ministerial Regulations Based on the Building Control Act", url: "https://www.iibh.org/kijun/pdf/Thai_02_MRs.pdf" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion:
+      "Do I need a permit to renovate or extend my villa on Koh Phangan?",
+  },
+  {
+    slug: "cutting-trees-private-land-forest-act-koh-phangan",
+    kbId: "kb-0224",
+    topic: "Phangan",
+    title:
+      "Clearing or cutting trees on your Koh Phangan plot: what the 2019 Forest Act amendment changed",
+    short:
+      "Since the Forest Act amendment of 2019, owners of land with a title deed, Nor Sor 3 or Sor Kor 1 document can reportedly fell trees on it, including formerly reserved species such as teak, without a forestry permit. The rule does not cover forest or state land, and other building, zoning and environmental rules still apply.",
+    updated: "2026-10-03",
+    body: [
+      "**Can I cut down trees on my Koh Phangan land?** On land with recognised ownership papers, generally yes under the Forest Act, but the answer depends on what your document actually is, and clearing for a build is separately regulated. This is general information, not legal advice.",
+      { h: "What changed in 2019" },
+      "Before 2019, Section 7 of the Forest Act B.E. 2484 (1941) kept a list of valuable species, including teak, rubber, chingchan and phayung rosewood, under state regulation even when growing on private land, so owners needed permission to cut, move or sell them. Reports on the Forest Act (No. 8) B.E. 2562 (2019) describe Section 7 as revised so that 158 formerly reserved species plus 13 rare species can be felled, transported and traded by owners without formal permission. Older compliance guides still describe permits for teak and rosewood on private land, so check which version a source reflects.",
+      { h: "Which land documents qualify" },
+      {
+        ul: [
+          "**Title deed (Chanote)**, **Nor Sor 3** and **Sor Kor 1** are the documents reported as qualifying. Some sources also list Nor Sor 3 Gor and Nor Sor 2.",
+          "**No qualifying document, no exemption** — land held only on an informal tax receipt or occupation basis falls outside the rule. See [land titles: Chanote vs Nor Sor 3](/knowledge/land-titles-chanote-vs-nor-sor-3).",
+          "**Forest and state land** — in National Reserved Forest, all harvesting needs permission, and timber on state forest land belongs to the state. See [illegal construction and the forest reserve crackdown](/knowledge/illegal-construction-forest-reserve-crackdown-koh-phangan).",
+        ],
+      },
+      { h: "What the exemption does not cover" },
+      {
+        ul: [
+          "**Clearing for construction** — felling is not building approval. Hillside, coastal and zoning limits still apply; see [hillside and slope limits](/knowledge/hillside-slope-building-limits-koh-phangan) and [coastal setbacks](/knowledge/coastal-setback-rules-koh-phangan-distance-from-beach).",
+          "**Earthworks and drainage** — heavy clearing on a slope can damage neighbours; see [neighbouring properties law](/knowledge/neighboring-properties-law-nuisance-drainage-thailand) and [flood and drainage diligence](/knowledge/flood-drainage-due-diligence-koh-phangan).",
+          "**Large projects** — see [environmental impact assessment](/knowledge/environmental-impact-assessment-villa-resort-koh-phangan).",
+          "**Transport and trade** — rules on moving timber off the island were not verified here; ask the Forestry Department.",
+        ],
+      },
+      { h: "Practical checks for buyers" },
+      {
+        ul: [
+          "**Verify the boundary** — a title-deed plot adjoining forest means cutting past your line is encroachment; see [boundary resurvey](/knowledge/land-code-section-69-bis-boundary-resurvey).",
+          "**Check the document type before you clear** — a Sor Kor 1 plot can carry other risks; see [Sor Kor 1 adjudication](/knowledge/land-code-section-58-title-adjudication-sor-kor-1).",
+          "**Tree-covered plots** — if a plot looks suspiciously forested, confirm it is not forest land; see the [due diligence checklist](/knowledge/due-diligence-checklist-koh-phangan).",
+        ],
+      },
+      "In short: the 2019 change removed the special permit for valuable species on titled land, not the wider limits on forest land, slopes and building. Confirm the current rule with the provincial forestry office and a Thai lawyer.",
+    ],
+    takeaways: [
+      "The 2019 Forest Act amendment reportedly removed the special permit for 158 reserved and 13 rare species on private land.",
+      "Qualifying documents reported are a title deed, Nor Sor 3 and Sor Kor 1.",
+      "Forest reserve and state land are not covered, and harvesting there needs permission.",
+      "Felling is not building approval; hillside, coastal and zoning rules still apply.",
+      "Older guides still describe teak and rosewood permits, so verify with the forestry office.",
+    ],
+    sources: [
+      { title: "The Nation Thailand — Forest Act to be amended to encourage felling and growing of rare trees", url: "https://www.nationthailand.com/news/30364415" },
+      { title: "Bangkok Post — Precious trees to become 'cash crop'", url: "https://www.bangkokpost.com/thailand/general/1517598/precious-trees-to-become-cash-crop" },
+      { title: "Preferred by Nature — Thailand Timber Document Guide", url: "https://www.preferredbynature.org/sites/default/files/SourcingHubDownload/Thailand/Thailand%20TIMBER%20Document%20Guide-EN-V1.0-Nov21.pdf" },
+      { title: "Timber Trade Portal — Legal framework for forest management and timber trade of Thailand", url: "https://www.timbertradeportal.com/en/thailand/143/legal-framework" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion:
+      "Can I cut down trees on my land in Koh Phangan?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
