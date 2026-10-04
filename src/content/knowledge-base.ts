@@ -13564,6 +13564,134 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "Can I cut down trees on my land in Koh Phangan?",
   },
+  {
+    slug: "option-to-buy-villa-land-promise-of-sale-section-454-thailand",
+    kbId: "kb-0225",
+    topic: "Documents",
+    title: "Option to buy a villa or land in Thailand: how a promise of sale works under CCC Section 454",
+    short:
+      "Can you lock in a price on a villa or plot without buying yet? Thai law has no dedicated 'option' statute; the closest tool is a promise of sale under Civil and Commercial Code Section 454, which becomes a binding sale only when the other party gives notice that reaches the promisor. The promise still has to meet Section 456's evidence rules, and nothing transfers until registration at the Land Office.",
+    updated: "2026-10-04",
+    body: [
+      "Can you reserve a villa or plot at a fixed price while you finish due diligence or arrange funds? Yes, in practice, through a written promise of sale (an 'option'), but it is a weaker tool than many buyers assume. Under Thai law it creates, at most, a contractual right; ownership of land or a building passes only when the final sale is registered at the Land Office.",
+      { h: "What Section 454 says" },
+      {
+        ul: [
+          "**A promise has the effect of a sale only on notice** — a promise of sale by one party takes effect as a sale when the other party notifies their intention to complete it and that notice reaches the person who made the promise.",
+          "**No deadline in the promise** — the promisor may set a reasonable time and call on the other party to give a definite answer. If none is given within that time, the promise loses its effect.",
+          "**Evidence rule (Section 456)** — a promise of sale of immovable property cannot be enforced in court unless there is written evidence signed by the party being sued, earnest was given, or there was part performance.",
+          "**The final sale is separate** — the sale itself is void unless made in writing and registered by the competent official. See [earnest money and backing out](/knowledge/sale-purchase-agreement-earnest-money-ccc-thailand).",
+        ],
+      },
+      "The Code does not use the word 'option' or set a fee, form or maximum duration for it. What follows is how practitioners generally use Section 454; treat the commercial details as negotiated terms, not statutory rights.",
+      { h: "Option vs. ordinary sale agreement" },
+      {
+        ul: [
+          "**Ordinary SPA with earnest** — both sides are bound to complete; a buyer who walks away normally risks losing the deposit (see the earnest guide above).",
+          "**Promise of sale / option** — one side (usually the seller) is bound to sell at a stated price if the other gives notice within a stated window; the holder is not obliged to buy. The price paid for that right is whatever the contract says, and whether it is refundable or credited to the price must be written down.",
+          "**Reservation deposits** — a deposit for a developer's villa or land reservation is a different question; see [the OCPB deposit-confiscation ban](/knowledge/ocpb-deposit-ban-villa-land-reservations).",
+        ],
+      },
+      { h: "What a sound option should spell out" },
+      {
+        ul: [
+          "**Exact property** — title deed number, plot and area, and any building included.",
+          "**Price and exercise window** — the fixed price, the last day for notice, and how notice must be given (the Code requires that it reach the promisor).",
+          "**Option fee** — amount, whether it is credited to the price, and what happens to it if the option lapses.",
+          "**Seller's covenants during the window** — no further sale, mortgage, lease or new encumbrance. A contract promise does not stop a later registered buyer; see [double sales and good-faith buyers](/knowledge/double-sale-good-faith-buyer-protection-thailand).",
+          "**Conditions** — for example clean title, lender approval or a foreign buyer's lawful structure; see [due diligence checklist](/knowledge/due-diligence-checklist-koh-phangan).",
+          "**Transferability** — whether the holder may assign the right; see [assigning purchase contract rights](/knowledge/assigning-property-purchase-contract-rights-section-306-thailand).",
+        ],
+      },
+      { h: "Limits and risks" },
+      {
+        ul: [
+          "**No ownership during the option** — the holder has a contract claim against the seller, not title. Whether a caveat can be lodged on the title deed to protect that claim is a question for a Thai lawyer; see [Land Code Section 83 caveats](/knowledge/land-code-section-83-caveat-title-deed).",
+          "**Foreign buyers** — an option does not make a foreigner eligible to own land. Only the lawful routes apply; see [how foreigners own a villa](/knowledge/how-foreigners-own-a-villa).",
+          "**Missed window** — if the notice does not reach the seller in time, the right lapses and the seller may sell elsewhere.",
+          "**Drafting traps** — a vague 'option' that is really a binding SPA with a forfeitable deposit has very different consequences. Have it reviewed; see [lawyer fees on Phangan](/knowledge/phangan-property-lawyer-fees-what-they-cover).",
+        ],
+      },
+      "In short: Section 454 lets one party's promise become a sale on the other party's notice, and Section 456 sets the evidence needed to enforce it, but only the registered sale transfers title. Use a written, lawyer-reviewed option with a clear window and fee, and keep doing due diligence while it runs.",
+    ],
+    takeaways: [
+      "Thai law has no dedicated option statute; the closest tool is a promise of sale under CCC Section 454.",
+      "A promise becomes a sale only when the other party's notice of intent reaches the promisor.",
+      "If no time is fixed, the promisor can set a reasonable time, and silence ends the promise.",
+      "Enforcing a promise needs signed writing, earnest or part performance (Section 456); transfer needs registration.",
+      "An option gives a contract claim, not ownership, and does not block a later good-faith registered buyer by itself.",
+    ],
+    sources: [
+      { title: "ThailandLawOnline — Civil and Commercial Code, Sections 453-457", url: "https://www.thailandlawonline.com/civil-and-commercial-code/453-457-book-iii-specific-thai-contracts-law" },
+      { title: "Siam Legal Thailand Law Library — CCC Contracts (Sections 453-457)", url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-contracts-section-453-457/" },
+      { title: "Thailand Law Forum — CCC Sections 453-485", url: "https://www.thailawforum.com/thailand-civil-and-commercial-code-sections-453-485/" },
+      { title: "Acclime Thailand — Property Purchase Agreement in Thailand", url: "https://thailand.acclime.com/legal/property-purchase-agreement/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion:
+      "Can I get an option to buy a villa or land in Thailand to lock in the price?",
+  },
+  {
+    slug: "building-permit-validity-renewal-transfer-heirs-thailand",
+    kbId: "kb-0226",
+    topic: "Process",
+    title: "Building permit validity in Thailand: expiry, renewal, transfer to a buyer and what heirs must do",
+    short:
+      "A Thai construction licence is not open-ended: the Building Control Act says it is valid for the period stated on it, must be renewed by applying before it expires, cannot be transferred without the local official's written permission, and has a 90-day notice route for heirs. Buyers of half-built villas on Koh Phangan should check all four points.",
+    updated: "2026-10-04",
+    body: [
+      "You are buying a villa that was built, or is half-built, on a permit. Is that permit still good, and does it pass to you? Under the Building Control Act B.E. 2522 (1979), the answer depends on the validity period written on the licence, whether a renewal was filed in time, and whether the local official approved a transfer.",
+      { h: "What the Act says" },
+      {
+        ul: [
+          "**Section 35 — validity** — a licence under Section 21 (construction) or 22 (alteration, etc.) is valid for the period specified in it.",
+          "**Section 35 — renewal** — the licensee must apply before the licence expires. After applying, work may continue until the local official orders that renewal is not granted.",
+          "**Section 36 — transfer** — a licence under Section 21, 22 or 33 is not transferable unless written permission is obtained from the local official.",
+          "**Section 37 — death of the licensee** — heirs may continue the work by notifying the local official within ninety days.",
+          "**Section 65 — penalty** — breaching Section 21 (building without a licence) carries up to three months' imprisonment, a fine up to THB 60,000, or both, plus a further daily fine of up to THB 10,000 for continuing breaches.",
+        ],
+      },
+      "The validity period is set by the licence and local rules, not one national figure. Sources describe a one-year licence period for smaller buildings, with extensions once the foundation or a set share of the work is done; the exact terms are in the ministerial regulations and should be confirmed with the local office. This guide does not rely on those figures.",
+      { h: "Checking a permit before you buy" },
+      {
+        ul: [
+          "**Read the dates** — find the validity period on the licence and whether a renewal application was filed before expiry. An expired, unrenewed licence is not an ongoing authorisation.",
+          "**Match the plans to the building** — work outside the approved plans needs its own approval; see [renovating and altering a villa (Section 39 bis)](/knowledge/renovating-villa-alteration-permit-section-39-bis-thailand).",
+          "**Verify authenticity** — forged permits are a known risk; see [verifying building permits](/knowledge/forged-building-permits-koh-phangan-verify).",
+          "**Ask about completion** — a finished house also needs the completion-stage paperwork; see [building use certificate (Or.6)](/knowledge/building-use-certificate-or-6-section-32-villa-koh-phangan).",
+          "**Transfer on purchase** — if you take over an unfinished build, ask whether the local official's written permission under Section 36 was obtained, or whether a new licence in the buyer's name is the safer route. Confirm with a Thai lawyer.",
+        ],
+      },
+      { h: "If the owner dies mid-build" },
+      "Section 37 lets heirs continue construction by notifying the local official within ninety days. Ownership of the land itself passes under the estate rules; see [estate administration and probate](/knowledge/estate-administrator-probate-thai-property-transfer).",
+      { h: "Owners: avoid the lapse" },
+      {
+        ul: [
+          "**Diarise the expiry** and file the renewal early; the Act protects continued work only once an application has been submitted.",
+          "**Keep the contractor aligned** — see [building a villa on Koh Phangan](/knowledge/building-a-villa-koh-phangan) and [controlled construction contracts](/knowledge/residential-construction-controlled-contract-thailand).",
+          "**Do not build on after expiry** without confirming status; unlicensed work can draw the penalties above and demolition orders.",
+        ],
+      },
+      "In short: a building licence is time-limited, renewal must be filed before expiry, and transfer or inheritance needs official permission or notice. Check the dates and paper trail before paying for any half-built villa.",
+    ],
+    takeaways: [
+      "Building Control Act Section 35: a licence is valid for the period stated on it.",
+      "Renewal must be applied for before expiry; work may continue after applying until the official refuses.",
+      "Section 36: a licence is not transferable without the local official's written permission.",
+      "Section 37: heirs of a deceased licensee can continue by notifying the official within 90 days.",
+      "Building without a licence risks up to 3 months' jail, a THB 60,000 fine, or both, plus daily fines.",
+    ],
+    sources: [
+      { title: "Samui For Sale — Building Control Act B.E. 2522 (1979), English text", url: "https://www.samuiforsale.com/law-texts/building-control-act-b-e-2522-1979.html" },
+      { title: "ThailandLawOnline — Building Control Act B.E. 2522 (1979)", url: "https://www.thailandlawonline.com/translations/building-control-act-be-2522-1979-english" },
+      { title: "G.A.M. Legal Alliance — Building Control Act of Thailand", url: "https://gam-legalalliance.com/thai-statutory-laws/building-control-act-thailand/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion:
+      "Does a Thai building permit expire, and does it transfer to me if I buy a half-built villa?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

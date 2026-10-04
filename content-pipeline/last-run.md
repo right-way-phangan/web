@@ -1,10 +1,10 @@
-# Last run — 2026-10-03
+# Last run — 2026-10-04
 
-Published 2 guides (EN + RU each). Backlog ⏳ rows were all duplicate/thin, so two evergreen gaps were authored instead.
+Published 2 guides (EN + RU each):
 
-1. `renovating-villa-alteration-permit-section-39-bis-thailand` (kb-0223) — "Renovating or extending a Koh Phangan villa: when you need a permit, a Section 39 bis notification, or nothing" — faqCategory: process
-   - Sources: Building Control Act text (samuiforsale.com, ThailandLawOnline), Chiang Rai Times renovation-permit explainer; 10% load / 5 m² exemption hedged (regulation PDF unreadable).
-2. `cutting-trees-private-land-forest-act-koh-phangan` (kb-0224) — "Clearing or cutting trees on your Koh Phangan plot: what the 2019 Forest Act amendment changed" — faqCategory: phangan
-   - Sources: Nation Thailand (Forest Act amendment), Preferred by Nature timber guide, Timber Trade Portal; hedged because older sources still describe teak/rosewood permits and Bangkok Post could not be fetched.
+1. `option-to-buy-villa-land-promise-of-sale-section-454-thailand` — kb-0225 — "Option to buy a villa or land in Thailand: how a promise of sale works under CCC Section 454" — faqCategory: documents
+   - Sources: CCC ss.453-457 text via ThailandLawOnline (fetched), Siam Legal library, Thailand Law Forum, Acclime. No dedicated option statute; practitioner detail hedged.
+2. `building-permit-validity-renewal-transfer-heirs-thailand` — kb-0226 — "Building permit validity in Thailand: expiry, renewal, transfer to a buyer and what heirs must do" — faqCategory: process
+   - Sources: Building Control Act ss.35-37, 65 via samuiforsale.com (fetched), ThailandLawOnline, G.A.M. Legal Alliance. Validity-period figures not asserted (regulation text not verified).
 
-tsc --noEmit passed.
+Backlog ⏳ rows were all still duplicate/thin/unsafe; both topics were evergreen gaps (grep-checked) and not backlog rows.
