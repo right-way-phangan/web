@@ -13692,6 +13692,124 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "Does a Thai building permit expire, and does it transfer to me if I buy a half-built villa?",
   },
+  {
+    slug: "buyer-remedies-seller-refuses-transfer-court-judgment-thailand",
+    kbId: "kb-0227",
+    topic: "Process",
+    title: "When the seller refuses to transfer: compulsory performance and a court judgment in place of the seller's signature",
+    short:
+      "If a seller who has signed a contract to sell simply stops cooperating, the Civil and Commercial Code lets the buyer ask a court to compel performance, and for a juristic act such as a transfer, to substitute a judgment for the seller's declaration of intention. It is slow and fact-dependent, and it sits alongside rescission and damages.",
+    updated: "2026-10-05",
+    body: [
+      "A seller signed the sale contract, took a deposit, then goes silent or refuses to attend the Land Office. Can the buyer force the transfer? In principle yes: CCC Section 213 lets a creditor demand compulsory performance from the court, and where the obligation is a juristic act, a judgment may stand in for the debtor's declaration of intention. Whether this is the right remedy, and how long it takes, depends heavily on the facts.",
+      { h: "What the Code says" },
+      {
+        ul: [
+          "**Section 213 — compulsory performance** — if a debtor fails to perform, the creditor may demand compulsory performance from the Court, unless the nature of the obligation does not permit it.",
+          "**Judgment in place of intention** — where the obligation is to do a juristic act (such as consenting to a transfer), a judgment may be substituted for the debtor's declaration of intention. The creditor's damages claim is preserved.",
+          "**Section 214** — the creditor can satisfy the claim from the whole of the debtor's property.",
+          "**Sections 215 and 222** — damages for improper performance cover the loss that usually arises from non-performance, and more where special circumstances were foreseeable.",
+        ],
+      },
+      { h: "The routes a buyer has" },
+      {
+        ul: [
+          "**Compulsory performance** — sue for an order that the transfer be completed. Practitioners describe a judgment of this kind as capable of being used to register the transfer without the seller's cooperation; confirm the exact Land Office procedure with a Thai lawyer.",
+          "**Rescission and refund** — end the contract after the notice-and-cure steps in [the sale and purchase agreement guide](/knowledge/sale-purchase-agreement-earnest-money-ccc-thailand) and recover what was paid.",
+          "**Damages** — claimed alongside either route, subject to proof of loss.",
+          "**Interim protection** — see [freezing disputed property by court injunction](/knowledge/court-injunction-freeze-disputed-property-thailand) to stop the seller selling to someone else mid-case.",
+        ],
+      },
+      { h: "Practical limits" },
+      {
+        ul: [
+          "**Compulsory transfer needs a transferable title.** If the land is mortgaged, the seller is a foreign-held nominee company, or a third party has registered first, a judgment against the seller may not deliver the property; see [double sales and good-faith buyers](/knowledge/double-sale-good-faith-buyer-protection-thailand).",
+          "**Your own performance must be in order.** Keep proof you paid on time and were ready to complete.",
+          "**Enforcement is a separate step.** After judgment, a losing party is normally given a period to comply, and the winner can then apply to the execution court. One practitioner source cites a ten-year window to enforce a final judgment (Civil Procedure Code Section 198).",
+          "**Time bars apply** — see [limitation periods for property claims](/knowledge/limitation-periods-property-claims-prescription-thailand).",
+          "**Mediation first** — many disputes settle; see [property dispute mediation](/knowledge/property-dispute-mediation-thailand-act-2562).",
+        ],
+      },
+      "Litigation is the last resort, not a plan. Draft the SPA with clear completion dates, a registered-transfer deadline and a remedies clause, and keep every payment traceable, so that if a seller walks away you can choose between completion and rescission with evidence in hand.",
+    ],
+    takeaways: [
+      "CCC Section 213 lets a creditor ask the court to compel performance unless the obligation's nature does not allow it.",
+      "For a juristic act such as a transfer, a judgment can be substituted for the debtor's declaration of intention.",
+      "Damages remain available alongside compulsory performance or rescission.",
+      "A judgment cannot fix a title the seller cannot lawfully convey, such as one already registered to someone else.",
+      "Good SPA drafting and traceable payments matter more than the remedy itself.",
+    ],
+    sources: [
+      { title: "ThailandLawOnline — Civil and Commercial Code, Sections 194-240 (obligations and performance)", url: "https://www.thailandlawonline.com/civil-and-commercial-code/contract-obligations-and-performance-law" },
+      { title: "Siam Legal Thailand Law Library — Civil and Commercial Code: Obligations (Sections 203-225)", url: "https://library.siam-legal.com/thai-law/civil-and-commercial-code-obligations-sections-203-225/" },
+      { title: "Siam Center Law Group — Civil Enforcement Procedures in Thailand", url: "https://siamcenterlawgroup.com/civil-enforcement-procedures-in-thailand-a-complete-guide-for-foreign-residents/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion:
+      "What can I do if the seller of a Thai property signed the contract but refuses to transfer?",
+  },
+  {
+    slug: "buyer-or-seller-dies-before-transfer-property-contract-heirs-thailand",
+    kbId: "kb-0228",
+    topic: "Inheritance",
+    title: "If the buyer or seller dies before the transfer: does the purchase contract survive?",
+    short:
+      "Under the Civil and Commercial Code the estate of a deceased person passes to heirs at death, including rights and liabilities that are not purely personal. A signed sale contract can therefore bind the heirs, who are liable only up to what they inherit, but a foreign heir still cannot take the land itself.",
+    updated: "2026-10-05",
+    body: [
+      "You have signed a contract to buy a Koh Phangan plot, or to sell one, and one party dies before the Land Office transfer. Does the deal die too? Generally not automatically. CCC Section 1599 says the estate devolves on the heirs at death, and Section 1600 says the estate includes the deceased's rights, duties and liabilities, except those purely personal. A sale contract is ordinarily a transferable property obligation, though the specific contract and facts matter.",
+      { h: "What the Code says" },
+      {
+        ul: [
+          "**Section 1599** — when a person dies, the estate devolves on the heirs.",
+          "**Section 1600** — the estate includes properties of every kind and rights, duties and liabilities, except those purely personal by law or nature.",
+          "**Section 1601** — an heir is not liable beyond the property devolving on them.",
+        ],
+      },
+      { h: "If the seller dies" },
+      {
+        ul: [
+          "**The buyer's claim continues** against the estate, so the heirs may be bound to complete. In practice an estate administrator or the heirs must be in place to sign; see [estate administration and probate](/knowledge/estate-administrator-probate-thai-property-transfer).",
+          "**Expect delay.** Probate and heir identification can take months, so the SPA completion date may pass; check what the contract says about delay.",
+          "**Keep paying into the agreed channel.** Do not pay a family member informally; get written confirmation of who is authorised to receive money.",
+        ],
+      },
+      { h: "If the buyer dies" },
+      {
+        ul: [
+          "**The buyer's heirs may inherit the contract**, including the duty to pay the balance, limited by Section 1601 to the inherited assets.",
+          "**A foreign heir cannot hold land.** If the heir is a foreigner, the land cannot simply be registered to them; see [foreign heirs and Land Code Section 93](/knowledge/foreign-heir-inheriting-thai-land-section-93). The heir may need to assign the contract, see [assigning purchase contract rights](/knowledge/assigning-property-purchase-contract-rights-section-306-thailand), or sell on.",
+          "**Who inherits** depends on a will or statutory heirs; see [statutory heirs](/knowledge/intestate-succession-statutory-heirs-thai-property).",
+        ],
+      },
+      { h: "What to put in the contract" },
+      {
+        ul: [
+          "**An express death clause** — state whether the contract binds heirs, and who may complete on a party's behalf.",
+          "**A Thai will** covering Thai assets, including contractual rights under pending purchases.",
+          "**Escrow or lawyer-held funds** so a deposit is not stranded.",
+        ],
+      },
+      "Whether a particular contract survives death is a question for a Thai lawyer, because a clause or a purely personal element can change the outcome. The default rule, though, is that death does not wipe the deal out.",
+    ],
+    takeaways: [
+      "CCC Section 1599: the estate devolves on the heirs at death.",
+      "Section 1600 includes rights and duties, except purely personal ones, so a sale contract can bind the heirs.",
+      "Section 1601: heirs are not liable beyond the property they inherit.",
+      "A foreign heir cannot take title to the land, only the contractual or monetary value.",
+      "Add a death clause and a will to avoid a stranded deposit or failed completion.",
+    ],
+    sources: [
+      { title: "ThailandLawOnline — Civil law on succession, inheritance, heirs and wills (CCC Sections 1599-1601)", url: "https://www.thailandlawonline.com/thai-family-and-marriage-law/civil-law-on-succession-inheritance-heirs-and-wills" },
+      { title: "Thai Law Forum — Civil and Commercial Code Sections 1599-1645", url: "https://www.thailawforum.com/thailand-civil-and-commercial-code-sections-1599-1645/" },
+      { title: "Tilleke & Gibbins — Inheritance of Condominium Units by Foreigners in Thailand", url: "https://www.tilleke.com/insights/inheritance-condominium-units-foreigners-thailand/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "documents",
+    faqQuestion:
+      "What happens to a Thai property purchase contract if the buyer or seller dies before the transfer?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
