@@ -1,9 +1,5 @@
-# Last run — 2026-10-04 (second run)
+# Last run — 2026-10-05
 
 Published: 0 guides.
 
-Reason: quality gate. No usable ⏳ backlog rows remain (all duplicate/thin/unsafe per prior runs), and the catalog already has 226 guides. Two gap candidates were researched and rejected:
-- Private swimming pool construction permit: sources (lawyersforexpatsthailand.com, thetropicalarchitect.com, iibh.org Ministerial Regulations PDF) only say "pools need permits / check local codes". The "100 m³ = building" threshold and the 30 m coastline setback could not be verified against the regulation text (PDF unreadable, Lorenz & Partners 403). Not published to avoid misleading Thai-law claims.
-- Hillside excavation/earthwork permit: searches (DLA Piper, G.A.M., samuiforsale) returned no earthwork-specific provisions.
-
-Retry if a readable primary source for Ministerial Regulation No. 55 B.E. 2543 pool provisions is found.
+Reason (hard quality gate): all remaining ⏳ backlog rows are duplicates of existing guides (water shortage, SBT/VAT, short-term rental, off-grid solar, utilities) or thin/unverifiable. Power-grid topic researched: search returned only a past navy-anchor cable blackout (Bangkok Post, Thaiger) and Samui PEA planned outages; the "no major upgrade before 2030" claim could not be verified, and Phangan-specific detail overlaps utilities-water-electricity-internet-koh-phangan and off-grid-solar-battery-storage-koh-phangan. No slugs, kbIds or backlog statuses changed.
