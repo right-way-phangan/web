@@ -1,10 +1,10 @@
-# Last run — 2026-10-05
+# Last run — 2026-10-06
 
-Published 2 guides (EN + RU):
+Published 2 guides (EN + RU each). All ⏳ backlog rows were still duplicate/thin/unsafe, so both are evergreen gaps (not pre-existing rows).
 
-1. `buyer-remedies-seller-refuses-transfer-court-judgment-thailand` (kb-0227) — "When the seller refuses to transfer: compulsory performance and a court judgment in place of the seller's signature" — faqCategory: process
-   - Sources: ThailandLawOnline CCC 194-240 (s.213-215, 222 quoted); Siam Legal CCC obligations 203-225; Siam Center Law Group civil enforcement (substitute order, 10-year enforcement window). Land Office procedure hedged.
-2. `buyer-or-seller-dies-before-transfer-property-contract-heirs-thailand` (kb-0228) — "If the buyer or seller dies before the transfer: does the purchase contract survive?" — faqCategory: documents
-   - Sources: ThailandLawOnline succession page (CCC 1599-1601 quoted); Thai Law Forum CCC 1599-1645; Tilleke & Gibbins on foreign heirs. Outcome framed as contract-dependent.
+1. `independent-property-appraisal-valuer-thailand-koh-phangan` — kb-0229 — "Independent property appraisal in Thailand: when to commission a valuer and how to read the report" — faqCategory: costs
+   - Sources: Thai Appraisal Foundation (how to read a report), CBRE Thailand (valuer licensing via SEC/Valuers Association), PropertySights (methods, indicative fees). Fee figures hedged as non-tariff.
+2. `thai-permanent-residence-property-owner-what-it-does-not-change` — kb-0230 — "Thai permanent residence for a property owner: what it requires and what it does not change" — faqCategory: ownership
+   - Sources: Siam Legal (categories, quota, fees, PR does not allow land ownership), Acclime Thailand (categories, timeline), Thailand Starter Kit (cross-check). Thresholds, condo and citizenship points hedged as practitioner-reported.
 
-Backlog: every pre-existing ⏳ row still duplicate/thin/unsafe; both topics were evergreen gaps (logged as a discovery note).
+Backlog: no ⏳ rows were chosen; a discovery note was added. Internal links verified; `tsc --noEmit` passes.

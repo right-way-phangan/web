@@ -13810,6 +13810,138 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "What happens to a Thai property purchase contract if the buyer or seller dies before the transfer?",
   },
+  {
+    slug: "independent-property-appraisal-valuer-thailand-koh-phangan",
+    kbId: "kb-0229",
+    topic: "Costs",
+    title: "Independent property appraisal in Thailand: when to commission a valuer and how to read the report",
+    short:
+      "A licensed independent valuer estimates market value using sales-comparison, cost and income methods, unlike the Treasury's appraised value, which is a tax and fee base. It costs a small fraction of the price and is worth commissioning before a large purchase, a loan or a company share deal.",
+    updated: "2026-10-06",
+    body: [
+      "Is the asking price for a Phangan villa or plot fair, and who can tell you? An independent appraisal by a licensed valuer is the standard answer. It is not the same thing as the government's appraised value (the figure on which transfer fees and taxes are calculated, covered in the [D-value check guide](/knowledge/d-value-check-official-appraised-value-online) and the [2027 appraisal reform guide](/knowledge/land-appraisal-value-reform-2027-treasury-big-data)).",
+      { h: "Appraised value vs market value" },
+      {
+        ul: [
+          "**Treasury appraised value** — an official schedule used as a tax and fee base. It is updated on a multi-year cycle and is generally reported to sit below real market prices.",
+          "**Independent appraisal** — a professional opinion of market value on a stated date and purpose, prepared by a valuer using current comparable evidence.",
+          "**Bank appraisal** — commissioned by a lender to size its collateral; it serves the lender, not you, and may not be shared in full.",
+          "**Agent opinion** — a broker's price view. Useful, but the broker is paid on the sale; see [lawyer fees and what they cover](/knowledge/phangan-property-lawyer-fees-what-they-cover) for the independent-advice side.",
+        ],
+      },
+      { h: "Who is qualified" },
+      "Valuer qualification in Thailand is tied to professional bodies and the Securities and Exchange Commission. Sources describe \"key valuer\" licences issued through the SEC and the Valuers Association of Thailand, with the Thai Appraisal Foundation as a non-profit standards and education body. Ask for the valuer's licence and whether the firm is SEC-approved, and check it independently rather than relying on a logo.",
+      { h: "The three valuation methods" },
+      {
+        ul: [
+          "**Market (sales-comparison) approach** — compares recent sales or current asking prices of similar properties. It is the usual method for land and ordinary houses.",
+          "**Cost approach** — land value at market plus the replacement cost of the building, less depreciation. It suits new or unique buildings with few comparables.",
+          "**Income approach** — discounts projected net rental income. It fits rental-yield investments; see [villa-rental VAT](/knowledge/vat-on-short-term-villa-rental-income) and [rental rules and taxes](/knowledge/renting-out-your-villa-rules-and-taxes) for the income side.",
+        ],
+      },
+      { h: "Cost" },
+      "Published fee lists vary by firm and are not regulated tariffs. Sources quote roughly THB 4,000-17,000 for vacant land by size, about THB 20,000 and up for a detached house, and higher for luxury villas. The Thai Appraisal Foundation notes that appraisal fees are typically a small fraction of a property's value compared with broker commissions. Get a written quote for your specific asset; remote islands may add travel costs.",
+      { h: "How to read the report" },
+      {
+        ul: [
+          "**Do not read only the last line.** The Thai Appraisal Foundation advises checking whether the valuer did enough research, whether the analysis is sound and whether the sources are explained.",
+          "**Check purpose and date** — a valuation for a mortgage differs from one for a sale negotiation, and values age quickly.",
+          "**Check the assumptions** — a report often assumes a clean title and lawful buildings. It is not a title check or a building-permit check; do those via the [due diligence checklist](/knowledge/due-diligence-checklist-koh-phangan).",
+          "**Check the comparables** — they should be genuinely similar in location, title type and size. Phangan has few transactions and wide spreads between beachfront and inland plots, so thin evidence is common; see [price per rai benchmarks](/knowledge/price-per-area-benchmark-2026-thong-sala-sri-thanu-haad-yao).",
+          "**Ask questions** — valuers do not guarantee a price, and you can ask them to explain anything unclear before relying on it.",
+        ],
+      },
+      { h: "When it pays to commission one" },
+      {
+        ul: [
+          "**Before paying for an expensive plot or villa** where the seller's price is unsupported by recent sales.",
+          "**Before buying shares in a company holding land**, see [buying a villa held by a Thai company](/knowledge/villa-held-by-thai-company-buyer-due-diligence-2026).",
+          "**Before a loan or dispute** where a neutral number is needed, for example [co-owner partition](/knowledge/co-ownership-partition-thai-property) or a [court-auction purchase](/knowledge/buying-land-condo-court-auction-thailand).",
+        ],
+      },
+      "An appraisal tells you what the market is likely to pay, not whether the title and permits are sound. Use it alongside, not instead of, legal due diligence.",
+    ],
+    takeaways: [
+      "The Treasury appraised value is a tax base, not a market price; an independent valuer estimates market value.",
+      "Thai valuers work under SEC and Valuers Association licensing; ask for the licence and verify it.",
+      "Three methods exist: sales comparison, cost and income; land mostly uses sales comparison.",
+      "Published quotes are roughly THB 4,000-17,000 for land and from about THB 20,000 for a house; fees are not a fixed tariff.",
+      "A valuation does not check title or permits, so read its assumptions and pair it with legal due diligence.",
+    ],
+    sources: [
+      { title: "Thai Appraisal Foundation — Property Appraisal Report: Do not look only at the last line", url: "https://www.thaiappraisal.org/english/practices/practices2.htm" },
+      { title: "CBRE Thailand — Don't Overlook the Importance of Property Appraisal in Thailand", url: "https://www.cbre.co.th/insights/articles/do-not-overlook-the-importance-of-property-appraisal-in-thailand" },
+      { title: "PropertySights — Real Estate Land Appraisal in Thailand: Why It's Important, How To Use It, and Alternatives", url: "https://propertysights.com/blog/property-appraisal-thailand" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion:
+      "Should I get an independent valuation before buying property on Koh Phangan, and what does it cost?",
+  },
+  {
+    slug: "thai-permanent-residence-property-owner-what-it-does-not-change",
+    kbId: "kb-0230",
+    topic: "Ownership",
+    title: "Thai permanent residence for a property owner: what it requires and what it does not change",
+    short:
+      "Permanent residence is a separate, quota-limited immigration status requiring years on a non-immigrant visa and a qualifying category. Owning a villa does not qualify you, and PR does not let you own land in your own name.",
+    updated: "2026-10-06",
+    body: [
+      "Does buying property in Thailand lead to permanent residence, and does PR unlock land ownership? No to both. Permanent residence (PR) is granted by the Immigration Bureau under its own categories and annual quota, and holding it leaves the Land Code's limits on foreign land ownership in place.",
+      { h: "Basic requirements" },
+      {
+        ul: [
+          "**Three consecutive years** on a non-immigrant visa extension before applying, as stated by practitioner sources. A tourist visa or DTV stay does not count; see [visa routes for property owners](/knowledge/visa-residency-property-owner-koh-phangan) and [the LTR property route](/knowledge/ltr-visa-property-investment-route).",
+          "**A qualifying category** — sources list investment, work or business, humanitarian or family ties (for example a Thai spouse), expert, and case-by-case.",
+          "**Annual quota** — a maximum of 100 people per nationality and 50 stateless people a year, as reported by practitioner sources.",
+          "**Application window** — usually announced for the last months of the year, commonly cited as October-November to 31 December. Confirm the current dates with Immigration, because they can change.",
+        ],
+      },
+      { h: "Reported financial thresholds" },
+      "Practitioner sources describe the following as typical thresholds; they are administrative practice and can change, so verify before relying on them.",
+      {
+        ul: [
+          "**Investment** — at least THB 10 million brought from abroad and placed in categories such as a limited or public company, the stock market or government securities. Those sources do not list buying a villa or land, so property purchase alone is not a PR investment.",
+          "**Employment** — roughly THB 80,000 monthly income or THB 100,000 annual personal income tax, for about two years.",
+          "**Family ties** — income thresholds that depend on the sponsor, commonly cited at THB 30,000-65,000 a month.",
+        ],
+      },
+      { h: "Fees and timing" },
+      {
+        ul: [
+          "**Application fee** — THB 7,600 non-refundable.",
+          "**Residence permit fee on approval** — THB 191,400, or reportedly THB 95,700 for a spouse of a Thai or family of a PR holder.",
+          "**Processing** — reported at one to two years or more.",
+        ],
+      },
+      { h: "What PR changes and what it does not" },
+      {
+        ul: [
+          "**Changes:** no annual extensions or 90-day reports, a place in the house registration (blue) book, and easier work-permit and banking steps. Under Bank of Thailand exchange-control rules, PR holders are classed as residents, see [non-resident baht accounts](/knowledge/non-resident-baht-account-nrba-property-thailand) and [the yellow book guide](/knowledge/yellow-house-book-tabien-baan-foreign-owner).",
+          "**Does not change land ownership.** Siam Legal states that a PR holder cannot directly own land. Villa structures remain [leasehold, superficies or usufruct](/knowledge/superficies-vs-usufruct-vs-lease) or a [Thai company](/knowledge/thai-company-for-property-49-51) with its [nominee risks](/knowledge/nominee-crackdown-krabi-islands-2026).",
+          "**Condominiums:** sources suggest PR holders may buy without proving foreign-currency remittance, but the quota and rules for condominiums are in the [condo quota guide](/knowledge/condo-foreign-ownership-quota-debate-2026); check with the Land Office.",
+          "**Citizenship:** practitioner sources say naturalisation can be applied for after about five years of PR, but it has its own criteria and is not automatic.",
+        ],
+      },
+      "PR is a long-term immigration goal that property neither buys nor replaces. Plan the property structure and the visa as two separate decisions, with a Thai lawyer for each.",
+    ],
+    takeaways: [
+      "Owning a villa or condo does not qualify you for Thai permanent residence.",
+      "Applicants generally need three consecutive years on a non-immigrant visa extension and a qualifying category.",
+      "The annual quota is reported as 100 people per nationality; fees are THB 7,600 to apply and THB 191,400 on approval.",
+      "The investment category is reported as THB 10 million into a company, shares or government securities, not land.",
+      "PR does not let you own land in your own name; the usual villa structures still apply.",
+    ],
+    sources: [
+      { title: "Siam Legal — Applying for Permanent Residence Thailand", url: "https://www.siam-legal.com/thailand-visa/permanent-residence-thailand.php" },
+      { title: "Acclime Thailand — Permanent Residency in Thailand", url: "https://thailand.acclime.com/hr/immigration/permanent-residency/" },
+      { title: "Thailand Starter Kit — Thailand Permanent Residence: Cost, Requirements, and Procedure", url: "https://www.thailandstarterkit.com/visas/permanent-residence-thailand/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "ownership",
+    faqQuestion:
+      "Does buying property in Thailand qualify me for permanent residence, and can a PR holder own land?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
