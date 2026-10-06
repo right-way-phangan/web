@@ -1,10 +1,16 @@
-# Last run — 2026-10-06
+# Last run — 2026-10-06 (second run)
 
-Published 2 guides (EN + RU each). All ⏳ backlog rows were still duplicate/thin/unsafe, so both are evergreen gaps (not pre-existing rows).
+Published: **0 guides**.
 
-1. `independent-property-appraisal-valuer-thailand-koh-phangan` — kb-0229 — "Independent property appraisal in Thailand: when to commission a valuer and how to read the report" — faqCategory: costs
-   - Sources: Thai Appraisal Foundation (how to read a report), CBRE Thailand (valuer licensing via SEC/Valuers Association), PropertySights (methods, indicative fees). Fee figures hedged as non-tariff.
-2. `thai-permanent-residence-property-owner-what-it-does-not-change` — kb-0230 — "Thai permanent residence for a property owner: what it requires and what it does not change" — faqCategory: ownership
-   - Sources: Siam Legal (categories, quota, fees, PR does not allow land ownership), Acclime Thailand (categories, timeline), Thailand Starter Kit (cross-check). Thresholds, condo and citizenship points hedged as practitioner-reported.
+Why: every ⏳ backlog row is still a duplicate/thin/unsafe watch item. The only new
+evergreen gap found was the Agricultural Land Reform Act / Sor Por Kor 4-01 (ALRO) land.
+Verified so far: Tilleke & Gibbins (Lex Mundi guide) on the 50/100 rai caps, Thai-only
+holders, and the transfer ban except by inheritance or to ALRO or an agricultural institution.
+Search summaries of Bangkok Post pieces on unlawful ALRO holdings and revocation.
+Not verified: statute section numbers, penalties, and the buyer's remedy against the seller.
+The Bangkok Post fetches redirected and the Thai-language sources returned snippets only.
+It also overlaps the existing Sor Por Kor 4-01 paragraphs (untitled-sea-view-land-pbt5-sor-por-kor-scam and the land-titles guide).
+Per the quality gate, nothing was published rather than pad with thinly sourced content.
 
-Backlog: no ⏳ rows were chosen; a discovery note was added. Internal links verified; `tsc --noEmit` passes.
+Candidate for a future run if a primary source (ALRO or Act text) can be fetched:
+alro-sor-por-kor-4-01-land-why-it-cannot-be-bought-thailand (faqCategory: documents).
