@@ -1,10 +1,10 @@
-# Last run — 2026-10-07
+# Last run — 2026-10-07 (second run)
 
-Published 2 guides (EN + RU each). No pre-existing ⏳ backlog row was usable (all duplicate/thin/unsafe), so two evergreen gaps were mined.
+All ⏳ backlog rows were still duplicate/thin/unsafe, so two evergreen CCC gaps were published.
 
-1. `owner-remedies-unlawful-occupant-section-1336-trespass-thailand` (kb-0231) — "An unlawful occupant on your Thai land or villa: owner's remedies under Section 1336 and the trespass laws". faqCategory: process.
-   Sources: ThaiLawOnline CCC s.1336 text; ThaiLawOnline Penal Code ss.362/365 text; terms.law rental-disputes guide (self-help eviction risk, 6-18 month estimate, hedged as practitioner estimate).
-2. `real-estate-broker-commission-when-owed-ccc-sections-845-848-thailand` (kb-0232) — "When is a property broker's commission owed in Thailand? CCC Sections 845-848 explained". faqCategory: costs.
-   Sources: ThaiLawOnline CCC ss.845-848; Benoit & Partners brokerage agreement guide (3-5% rate hedged as market practice, no statutory rate).
+1. `penalty-clauses-liquidated-damages-property-contracts-ccc-379-385-thailand` (kb-0233) — "Penalty clauses in Thai property contracts: how CCC Sections 379-385 work and when a court can cut them". faqCategory: process.
+   Sources: ThaiLawOnline penalty-clause explainer and CCC ss.379/383 text; ThaiLawOnline Dika 1511/2569 commentary (translations flagged unverified; ~10% construction cap hedged as practice).
+2. `statutory-default-interest-rate-property-contracts-ccc-224-654-thailand` (kb-0234) — "Interest on late payments and private loans in Thailand: the 3% / 5% statutory rates and the 15% cap". faqCategory: costs.
+   Sources: Tilleke & Gibbins on the 2021 statutory interest decree; ThaiLawOnline s.654 (Thai); Chambers Banking & Finance 2025; Conventus Law.
 
-Deliberately not asserted: Penal Code ss.363/364 content, CCC s.849 (not verified). tsc --noEmit passed.
+Skipped: Sor Por Kor 4-01 transferability — press reports of a 2023-24 rule change conflict with existing guides and no official text was found.

@@ -14069,6 +14069,112 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "When do I owe a real estate broker's commission in Thailand, and how much is normal?",
   },
+  {
+    slug: "penalty-clauses-liquidated-damages-property-contracts-ccc-379-385-thailand",
+    kbId: "kb-0233",
+    topic: "Process",
+    title: "Penalty clauses in Thai property contracts: how CCC Sections 379-385 work and when a court can cut them",
+    short: "Thai contracts often fix a penalty for late completion, late transfer or early termination. The Civil and Commercial Code lets the creditor claim it, and lets a court reduce it if it is disproportionately high, but only before it is paid.",
+    updated: "2026-10-07",
+    body: [
+      "Is a fixed penalty in a Thai villa, land or construction contract enforceable? Generally yes. Sections 379-385 of the Civil and Commercial Code (CCC) treat an agreed penalty (known in Thai as *bia prap*) as valid, and the court's main control is Section 383, which allows a disproportionately high forfeited penalty to be reduced to a reasonable amount.",
+      { h: "The main rules at a glance" },
+      {
+        ul: [
+          "**Section 379 — trigger.** If a debtor promises a sum as a penalty and does not perform properly, the penalty is forfeited once the debtor is in default.",
+          "**Section 380 — non-performance.** The creditor may claim the penalty instead of performance; once the penalty is claimed, performance can no longer be demanded. If the actual loss is larger, the penalty can be claimed as a minimum and the excess proved.",
+          "**Section 381 — improper performance (for example, late).** The creditor may claim both the penalty and performance, but loses the penalty if performance is accepted without reserving it. Reserve it in writing.",
+          "**Section 383 — court reduction.** A disproportionately high penalty may be reduced to a reasonable amount, taking all of the creditor's legitimate interests into account, not only money. The right to ask for reduction is lost once the penalty has been paid.",
+          "**Section 384 — void obligations.** A penalty attached to a void obligation is itself void.",
+        ],
+      },
+      { h: "Where penalties show up in property deals" },
+      {
+        ul: [
+          "**Sale contracts** — a seller or buyer who fails to appear at the Land Office on the agreed date. See the [earnest money guide](/knowledge/sale-purchase-agreement-earnest-money-ccc-thailand) and [what a buyer can do if the seller refuses to transfer](/knowledge/buyer-remedies-seller-refuses-transfer-court-judgment-thailand).",
+          "**Construction contracts** — daily late-completion penalties, often expressed as a small percentage of the price per day and commonly capped around 10% (a practitioner convention, not a statutory figure). Fix the completion date and the extension mechanism in writing; see the [controlled construction contract guide](/knowledge/residential-construction-controlled-contract-thailand).",
+          "**Leases** — early-termination penalties and forfeited deposits.",
+          "**Instalment sales** — forfeiture of instalments paid; see [hire-purchase and forfeiture risk](/knowledge/hire-purchase-installment-villa-forfeiture-risk-thailand).",
+        ],
+      },
+      { h: "Practical points for buyers and owners" },
+      {
+        ul: [
+          "**Reduction is discretionary.** The court decides what is reasonable. A party who shows the other side suffered little real loss (for example, the unit was quickly resold) has a better case, but there is no guaranteed percentage.",
+          "**Raise it before you pay.** Because Section 383 relief is lost after payment, a party who intends to contest the amount should not simply pay and sue later; take legal advice first.",
+          "**Penalty is not the same as earnest money.** Earnest money is governed by Sections 377-378. A later payment that is really part-payment of the price is treated differently; commentary on Supreme Court decision 1511/2569 reports that a court refused to let a developer keep such a payment as security.",
+          "**Standard-form and consumer contracts** are additionally subject to the Unfair Contract Terms Act B.E. 2540, which commentary describes as giving a parallel power to moderate excessive penalties and forfeited deposits.",
+          "**Agreed termination sums can be enforced in full.** Commentary notes that the Supreme Court has treated a sum agreed as the price of terminating a construction contract as agreed compensation rather than a penalty.",
+        ],
+      },
+      "Takeaway: a penalty clause is a real, usually enforceable cost, not a formality, and its reduction is a court remedy, not a right you can assume. Draft clear triggers, reasonable amounts and written reservations of rights, and have a Thai lawyer review any clause that fixes a large sum before you sign. The ThaiLawOnline English translations are marked as unverified against the Thai original, so rely on a lawyer for the authoritative text.",
+    ],
+    takeaways: [
+      "Under CCC Section 379 an agreed penalty is forfeited once the debtor is in default.",
+      "For late (improper) performance the creditor can claim penalty and performance (Section 381), but must reserve the penalty when accepting performance.",
+      "Section 383 lets a court reduce a disproportionately high penalty, but not after it has been paid.",
+      "Construction late-completion penalties are commonly capped around 10% by practice, not by statute.",
+      "Standard-form and consumer contracts can also be moderated under the Unfair Contract Terms Act B.E. 2540.",
+    ],
+    sources: [
+      { title: "Thai Law Online — Penalty Clause (Bia Prap) and Liquidated Damages: Section 383", url: "https://www.thailawonline.com/glossary/penalty-clause/" },
+      { title: "Thai Law Online — Civil and Commercial Code Section 379", url: "https://www.thailawonline.com/thai-civil-code/section-379/" },
+      { title: "Thai Law Online — Civil and Commercial Code Section 383", url: "https://www.thailawonline.com/thai-civil-code/section-383/" },
+      { title: "Thai Law Online — Condo Deposit Forfeiture in Thailand: Dika 1511/2569", url: "https://www.thailawonline.com/condo-deposit-forfeiture-in-thailand-dika-1511-2569/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion:
+      "Can a penalty or forfeited deposit in a Thai property contract be reduced by a court?",
+  },
+  {
+    slug: "statutory-default-interest-rate-property-contracts-ccc-224-654-thailand",
+    kbId: "kb-0234",
+    topic: "Costs",
+    title: "Interest on late payments and private loans in Thailand: the 3% / 5% statutory rates and the 15% cap",
+    short: "If a Thai property contract is silent on late-payment interest, the Civil and Commercial Code supplies 5% a year as default interest. A private loan generally cannot charge more than 15% a year, and the excess is reduced.",
+    updated: "2026-10-07",
+    body: [
+      "What interest applies if a buyer pays late, or if you lend money to a Thai buyer or builder? Since 11 April 2021 the statutory rate is 3% a year (CCC Section 7) and the statutory default interest on a money debt is that rate plus 2%, i.e. 5% a year (Section 224). Parties may agree a different rate in the contract, but loan interest above 15% a year is generally capped under Section 654.",
+      { h: "The rules" },
+      {
+        ul: [
+          "**Section 7 — statutory rate.** Cut from 7.5% to 3% a year by an Emergency Decree published on 10 April 2021 and effective 11 April 2021. The Ministry of Finance reviews the rate every three years and it can be changed by royal decree.",
+          "**Section 224 — default interest.** The Section 7 rate plus 2%, currently 5% a year. It moves automatically if the Section 7 rate changes.",
+          "**Section 224/1 — instalments.** Default interest runs only on the instalment that is overdue, not on the whole unpaid principal; a contract clause applying the default rate to non-defaulted principal is void.",
+          "**Agreed rates prevail.** The statutory rates fill the gap; a contract can set its own late-payment rate within the limits of the law.",
+          "**Section 654 — loan ceiling.** Interest on a loan may not exceed 15% a year; a higher contractual rate is reduced to 15%. Chambers notes banks can announce their own maximum rates for commercial baht loans above that cap, and that charging above the applicable ceiling can render the interest void.",
+        ],
+      },
+      { h: "Where this matters for a Phangan buyer" },
+      {
+        ul: [
+          "**Instalment payments to a developer or seller** — the contract should state the late rate; if it does not, 5% applies from default. See the [off-plan guide](/knowledge/buying-off-plan-new-developments).",
+          "**Private or vendor financing** — a seller-financed or friend-of-a-friend loan above 15% a year is exposed to being cut back. For bank routes see [financing as a foreigner](/knowledge/financing-buying-as-a-foreigner) and [mortgage default and foreclosure](/knowledge/mortgage-default-foreclosure-process-thailand).",
+          "**Flat fees dressed as interest** — a penalty is a separate mechanism; see [penalty clauses under CCC 379-385](/knowledge/penalty-clauses-liquidated-damages-property-contracts-ccc-379-385-thailand).",
+          "**Court claims** — when a buyer sues for non-transfer, interest on money owed is part of the claim; see [buyer remedies](/knowledge/buyer-remedies-seller-refuses-transfer-court-judgment-thailand).",
+        ],
+      },
+      "Takeaway: always write the late-payment rate into the contract. Do not rely on the old 7.5% figure still quoted online, and do not assume a high private-loan rate is enforceable. Car and motorcycle hire-purchase has its own separate caps and is not a change to Section 224. Rates can be revised by royal decree, so confirm the current figure with a Thai lawyer.",
+    ],
+    takeaways: [
+      "The statutory rate (CCC Section 7) has been 3% a year since 11 April 2021, down from 7.5%.",
+      "Default interest on a money debt (Section 224) is the Section 7 rate plus 2%, currently 5% a year.",
+      "Default interest applies only to the overdue instalment, not to non-defaulted principal (Section 224/1).",
+      "Loan interest is generally capped at 15% a year under Section 654; the excess is reduced.",
+      "Agreed contract rates prevail over the statutory default, so write the rate into the contract.",
+    ],
+    sources: [
+      { title: "Tilleke & Gibbins — Thailand changes its statutory interest rate", url: "https://www.tilleke.com/insights/thailand-changes-its-statutory-interest-rate/" },
+      { title: "Thai Law Online — Civil and Commercial Code Section 654 (Thai text)", url: "https://www.thailawonline.com/th/thai-civil-code/section-654/" },
+      { title: "Chambers — Banking and Finance 2025, Thailand", url: "https://gpg-pdf.chambers.com/banking-and-finance-2025/625/" },
+      { title: "Conventus Law — New default interest rate in Thailand", url: "https://conventuslaw.com/report/new-default-interest-rate-in-thailand/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion:
+      "What interest rate applies to late payments or private loans in Thai property deals?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
