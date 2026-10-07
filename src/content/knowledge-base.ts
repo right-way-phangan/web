@@ -13942,6 +13942,133 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "Does buying property in Thailand qualify me for permanent residence, and can a PR holder own land?",
   },
+  {
+    slug: "owner-remedies-unlawful-occupant-section-1336-trespass-thailand",
+    kbId: "kb-0231",
+    topic: "Ownership",
+    title: "An unlawful occupant on your Thai land or villa: owner's remedies under Section 1336 and the trespass laws",
+    short:
+      "An owner can demand return of property from anyone with no right to keep it (CCC Section 1336), and unlawful entry onto land can be a criminal trespass. But removing an occupant yourself is risky: practitioners say actual eviction needs a court judgment and execution, not the police or a change of locks.",
+    updated: "2026-10-07",
+    body: [
+      "Can you remove someone who is living on your land or in your villa without any right? The Civil and Commercial Code (CCC) gives the owner a clear right to recover the property, but the way to enforce it is through the courts, not self-help. This guide covers the owner's basic remedies; adverse possession by long-term occupants is covered in the [squatters guide](/knowledge/adverse-possession-squatters-vacant-land-koh-phangan).",
+      { h: "The civil right: CCC Section 1336" },
+      "Section 1336 states that, within the limits of the law, the owner has the right to use and dispose of the property and to take its fruits, and \"has the right to follow and recover his property from any person who has no right to retain it, and the right to prevent any unlawful interference with such property.\" In practice this is the legal basis of a claim to recover possession and to stop interference.",
+      {
+        ul: [
+          "**Who it works against** — someone holding without a legal right, such as an occupant who never had permission or a former tenant whose right has ended.",
+          "**Who it does not work against** — someone who holds a valid right, such as a lease, usufruct or superficies. Then the dispute turns on that contract; see the [lease landlord and tenant duties guide](/knowledge/villa-lease-landlord-tenant-duties-termination-ccc-thailand) and the [lease clauses to check](/knowledge/lease-contract-clauses-to-check).",
+          "**What you need to prove** — that you are the owner. A registered Chanote is the strongest evidence; for lesser titles, see the [title deed types guide](/knowledge/land-titles-chanote-vs-nor-sor-3).",
+        ],
+      },
+      { h: "The criminal side: trespass" },
+      "Section 362 of the Penal Code covers entering another person's immovable property to take possession of it, wholly or partly, or to disturb the peaceful possession of it. The stated penalty is imprisonment up to one year, a fine up to THB 20,000, or both. Section 365 raises the penalty to up to five years or THB 100,000 where force or threats are used, a weapon is carried, two or more people act together, or the act happens at night.",
+      {
+        ul: [
+          "**It protects possession, not only ownership** — the provision is framed around the person in peaceful possession, which matters if you are a lessee or caretaker as well as an owner.",
+          "**Compounding** — sources indicate trespass offences can be settled by agreement except the aggravated offence under Section 365. Confirm the current position with a Thai lawyer.",
+          "**Police reality** — police may treat a dispute between an owner and someone who claims a right to stay as a civil matter. Do not assume a report will result in removal.",
+        ],
+      },
+      { h: "Do not evict yourself" },
+      "Practitioner summaries warn that changing locks, cutting utilities, removing belongings or intimidating an occupant without court involvement can expose the owner to criminal liability, including under the trespass provisions. One such guide describes the proper route as written notice, a lawsuit, a hearing, a judgment and execution by court officials, and gives a 6-18 month range for tenancy evictions. Treat that timeline as a practitioner estimate rather than a statutory period; contested or remote-island cases can differ.",
+      { h: "A practical sequence" },
+      {
+        ul: [
+          "**Document first** — dated photos, a copy of the title deed, any written permission or lease, and witness statements of when and how the occupant arrived.",
+          "**Send a written demand** to leave, in Thai and English, through a lawyer. It also helps show the occupant knew they had no right.",
+          "**Check the clock** — claims can be time-limited; see [limitation periods for property claims](/knowledge/limitation-periods-property-claims-prescription-thailand). Long, open occupation is also what adverse possession arguments rely on.",
+          "**File the civil claim** for recovery of possession and, where relevant, compensation. If there is a risk of transfer or damage in the meantime, ask about [interim court orders](/knowledge/court-injunction-freeze-disputed-property-thailand).",
+          "**Use the criminal complaint selectively** — it may add leverage in a clear-cut entry case, but it does not replace the civil judgment.",
+          "**Enforce through the court** — after judgment, execution is carried out by court officials.",
+        ],
+      },
+      { h: "Why it matters on Phangan" },
+      "Absentee owners with unfenced plots or a villa left empty between seasons are the typical target of quiet occupation. Regular site visits, clear boundary markers and a written caretaker arrangement make a later claim far easier. Budget for [lawyer fees](/knowledge/phangan-property-lawyer-fees-what-they-cover) if it escalates.",
+      "The short version: the law is on the owner's side, but the process is judicial, and doing it yourself can turn an owner into the defendant.",
+    ],
+    takeaways: [
+      "CCC Section 1336 gives the owner the right to recover property from anyone with no right to retain it and to prevent unlawful interference.",
+      "Penal Code Section 362 punishes entering another's land to take possession or disturb peaceful possession with up to one year and/or THB 20,000; Section 365 raises it to up to five years and THB 100,000 for force, weapons, groups or night-time.",
+      "Section 1336 does not override a valid lease, usufruct or superficies; those disputes turn on the contract.",
+      "Practitioners warn that lock changes and utility cut-offs without a court order can expose the owner to liability.",
+      "Document evidence, send a written demand, then sue through a Thai lawyer; the 6-18 month eviction range is a practitioner estimate.",
+    ],
+    sources: [
+      { title: "Thai Law Online — Civil and Commercial Code Section 1336", url: "https://www.thailawonline.com/thai-civil-code/section-1336/" },
+      { title: "Thai Law Online — Penal Code Section 362 (trespass on immovable property)", url: "https://www.thailawonline.com/thai-penal-code/section-362/" },
+      { title: "Thai Law Online — Penal Code Section 365 (aggravated trespass)", url: "https://www.thailawonline.com/thai-penal-code/section-365/" },
+      { title: "terms.law — Thai Rental Law: eviction, trespass and self-help", url: "https://terms.law/Thai/criminal/rental-disputes.html" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion:
+      "What can I do if someone is occupying my land or villa in Thailand without any right to be there?",
+  },
+  {
+    slug: "real-estate-broker-commission-when-owed-ccc-sections-845-848-thailand",
+    kbId: "kb-0232",
+    topic: "Costs",
+    title: "When is a property broker's commission owed in Thailand? CCC Sections 845-848 explained",
+    short:
+      "Under the Civil and Commercial Code a broker is paid only if the contract is concluded as a result of their introduction or procurement. Listing terms, exclusivity and tail periods are set by the brokerage agreement, and there is no statutory fixed rate.",
+    updated: "2026-10-07",
+    body: [
+      "When does a Phangan seller or buyer actually owe a broker's commission? Under CCC Sections 845-848, the starting rule is that commission is earned only when the broker's work leads to a concluded contract. Everything else, such as the rate, exclusivity and what happens after the mandate ends, comes from the brokerage agreement. For who may legally act as a broker, see [foreign real estate agent restrictions](/knowledge/foreign-real-estate-agent-restrictions-thailand).",
+      { h: "The four core rules" },
+      {
+        ul: [
+          "**Section 845 — success-based.** A person who agrees to pay a broker for indicating an opportunity to conclude a contract, or for procuring one, is liable to pay only if the contract is concluded in consequence of that indication or procurement. If the contract is subject to a condition precedent, the commission cannot be claimed until the condition is fulfilled. Expenses are reimbursable only if so agreed, even if no contract results.",
+          "**Section 846 — implied remuneration.** Commission is deemed impliedly agreed if the work entrusted to the broker would, in the circumstances, only be expected for payment. If no amount is fixed, the usual remuneration is deemed agreed.",
+          "**Section 847 — no double-dealing.** A broker is not entitled to remuneration or expenses if, contrary to the engagement, they also acted for the third party or accepted a promise of payment from that party inconsistent with acting in good faith.",
+          "**Section 848 — limited liability.** A broker is not personally liable for performance of the contract they brokered, unless they did not tell one party the other party's name.",
+        ],
+      },
+      { h: "What this means in practice" },
+      {
+        ul: [
+          "**Commission is tied to the deal, not the viewing.** A broker who only showed a villa is not automatically owed a fee. They need to be the cause of the contract. One law-firm guide describes this as being the \"effective cause\" and says commission is typically earned on signing the sale and purchase agreement or lease. Check how your agreement defines the trigger: signing the SPA, paying the deposit or transfer at the Land Office.",
+          "**Conditions matter.** If your purchase is conditional, for example on obtaining a permit, Section 845 delays the claim until the condition is met. Say so in the agreement; see the [sale and purchase agreement guide](/knowledge/sale-purchase-agreement-earnest-money-ccc-thailand).",
+          "**Who pays is a matter of agreement.** The same law firm states the owner usually pays, and on Phangan the seller commonly pays the agent. See the [step-by-step buying guide](/knowledge/how-to-buy-property-step-by-step) before assuming a buyer pays nothing.",
+          "**There is no statutory rate.** The same source describes market practice of roughly three to five percent of the price for residential sales, with other property varying. Treat it as a market range and negotiate it.",
+          "**Exclusive vs non-exclusive.** An exclusive mandate restricts the owner from using other brokers or selling directly during the exclusivity period. A non-exclusive one lets several brokers work and pays only the successful introducer.",
+          "**Tail periods.** Agreements often protect the broker if a previously introduced buyer signs shortly after the mandate expires. Read how long and which buyers it covers.",
+        ],
+      },
+      { h: "Conflicts of interest" },
+      "Section 847 is the basis for questioning a broker who took money from both sides without disclosure. Ask any agent in writing whether they represent you, the other party or both, and whether they receive any payment from the developer or the other party. Agents also carry anti-money-laundering duties; see the [AMLO checks guide](/knowledge/amlo-anti-money-laundering-checks-real-estate-agents).",
+      { h: "Checklist before signing a brokerage agreement" },
+      {
+        ul: [
+          "Commission rate, in baht or percent, and what it is calculated on (price, net of fees, or per-rai).",
+          "The event that earns it, and whether conditions defer it.",
+          "Exclusivity period, termination rights and tail period.",
+          "Which buyers count as introduced by the broker.",
+          "Expenses, only if you intend to reimburse them, per Section 845.",
+          "A written agreement. Practitioners strongly recommend it, and it is far easier to prove than oral terms.",
+        ],
+      },
+      "If an agent asks for payment before any contract exists, that is outside the Section 845 default and should be treated with caution. Have a Thai lawyer review any non-standard fee or an exclusivity clause before you sign, and for an agent acting under your authority see [agency and power of attorney liability](/knowledge/agency-law-power-of-attorney-liability-thailand).",
+    ],
+    takeaways: [
+      "Under CCC Section 845 commission is owed only if the contract is concluded as a result of the broker's introduction or procurement.",
+      "A conditional contract defers the broker's claim until the condition is fulfilled; expenses are reimbursable only if agreed.",
+      "Section 847 denies commission to a broker who acted also for the other party, or accepted inconsistent payment from them, contrary to the engagement.",
+      "There is no statutory rate; one law firm describes three to five percent as common market practice for residential sales.",
+      "Exclusivity, trigger event and tail period are contractual, so get them in writing.",
+    ],
+    sources: [
+      { title: "Thai Law Online — Civil and Commercial Code Section 845 (broker's remuneration)", url: "https://www.thailawonline.com/thai-civil-code/section-845/" },
+      { title: "Thai Law Online — Civil and Commercial Code Section 846", url: "https://www.thailawonline.com/thai-civil-code/section-846/" },
+      { title: "Thai Law Online — Civil and Commercial Code Section 847", url: "https://www.thailawonline.com/thai-civil-code/section-847/" },
+      { title: "Thai Law Online — Civil and Commercial Code Section 848", url: "https://www.thailawonline.com/thai-civil-code/section-848/" },
+      { title: "Benoit & Partners — Real Estate Brokerage Agreement in Thailand", url: "https://benoit-partners.com/real-estate-brokerage-agreement-thailand/" },
+    ],
+    faqHref: "/faq",
+    faqCategory: "costs",
+    faqQuestion:
+      "When do I owe a real estate broker's commission in Thailand, and how much is normal?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
