@@ -14175,6 +14175,132 @@ export const KB_ARTICLES: KbArticle[] = [
     faqQuestion:
       "What interest rate applies to late payments or private loans in Thai property deals?",
   },
+  {
+    slug: "builder-defects-liability-ccc-598-600-villa-construction-thailand",
+    kbId: "kb-0235",
+    topic: "Phangan",
+    title: "Builder defects after handover: how long your Thai contractor is liable (CCC 598-600)",
+    short: "A Thai building contract is a 'hire of work' contract. Unless the contract says otherwise, the contractor is liable for defects that appear within one year of delivery, or five years for a structure on land other than a wooden building — but accepting defective work can end the claim. This guide explains the rules and how to protect a villa build.",
+    updated: "2026-10-08",
+    body: [
+      "How long can you claim against your builder for defects in a villa on Koh Phangan? Under the Civil and Commercial Code (CCC) rules on hire of work (Sections 587-607), and unless your contract provides otherwise, the contractor is liable for defects appearing within **one year** after delivery, or **five years** where the work is a structure on land other than a wooden building (Section 600). The limit does not protect a contractor who concealed the defect.",
+      {
+        "h": "The key rules"
+      },
+      {
+        "ul": [
+          "**Section 600 — defect period.** Default one year after delivery; five years for a permanent structure on land (not wooden). Contract terms can differ, so read the warranty clause.",
+          "**Section 598 — acceptance.** If you accept defective work, expressly or impliedly, the contractor is generally not liable — except for defects that could not have been discovered at acceptance, or that the contractor concealed.",
+          "**Section 599 — withholding payment.** For late or defective delivery you may withhold the remuneration unless the contractor gives proper security.",
+          "**Controlled-contract overlay.** A personal-use residential build also falls under consumer contract control; see [the controlled-contract guide](/knowledge/residential-construction-controlled-contract-thailand)."
+        ]
+      },
+      {
+        "h": "Practical steps for a Phangan villa build"
+      },
+      {
+        "ul": [
+          "**Do a written snag list before accepting.** Silent acceptance can be read as implied acceptance under Section 598; record defects and reserve rights in writing.",
+          "**Tie the final instalment to handover.** Keep a retention until defects are fixed (Section 599), rather than paying in full on completion.",
+          "**Write the warranty into the contract.** State period, scope (structure, waterproofing, roofing, electrics) and who repairs; island conditions such as salt air and heavy rain make this worth specifying.",
+          "**Keep dated evidence.** Photos, inspection reports and messages help prove when a defect appeared and whether it was hidden.",
+          "**Mind the clock.** Court claims also face limitation periods; see [limitation periods for property claims](/knowledge/limitation-periods-property-claims-prescription-thailand).",
+          "**Unpaid builder?** The builder has remedies too; see [the contractor lien guide](/knowledge/contractor-preferential-lien-unpaid-builder-thailand)."
+        ]
+      },
+      "Takeaway: assume you have a short window. Inspect hard before acceptance, hold back part of the price, and put an explicit warranty in the contract. The English texts of the sections cited are unverified translations; the Thai originals govern, so have a Thai lawyer confirm your position before a dispute."
+    ],
+    takeaways: [
+      "A villa build is a 'hire of work' contract under CCC Sections 587-607.",
+      "Default defect liability: one year after delivery, or five years for a non-wooden structure on land (Section 600).",
+      "Concealed defects are not protected by the time limit.",
+      "Accepting defective work can release the contractor, except for undiscoverable or concealed defects (Section 598).",
+      "You may withhold payment for late or defective work unless proper security is given (Section 599)."
+    ],
+    sources: [
+      {
+        "title": "Thai Law Online — Civil and Commercial Code Section 600 (defect liability period)",
+        "url": "https://www.thailawonline.com/thai-civil-code/section-600/"
+      },
+      {
+        "title": "Thai Law Online — Civil and Commercial Code Section 598 (acceptance of defective work)",
+        "url": "https://www.thailawonline.com/thai-civil-code/section-598/"
+      },
+      {
+        "title": "Thai Law Online — Civil and Commercial Code Section 599 (withholding payment)",
+        "url": "https://www.thailawonline.com/thai-civil-code/section-599/"
+      },
+      {
+        "title": "Thai Law Online — Construction law in Thailand",
+        "url": "https://www.thailawonline.com/construction-law-in-thailand/"
+      }
+    ],
+    faqHref: "/faq",
+    faqCategory: "phangan",
+    faqQuestion: "How long is my builder liable for defects in a villa built in Thailand?",
+  },
+  {
+    slug: "set-off-withholding-payment-property-deals-ccc-341-344-thailand",
+    kbId: "kb-0236",
+    topic: "Process",
+    title: "Deducting what the other side owes you: set-off in Thai property deals (CCC 341-344)",
+    short: "Thai law lets two people who owe each other the same kind of due debt cancel them against each other by a simple declaration. This guide explains the conditions, why set-off cannot be conditional, and where it matters in villa deals such as deposits, rent and builder payments.",
+    updated: "2026-10-08",
+    body: [
+      "Can you deduct what a seller, tenant or builder owes you from what you owe them? Often yes: under CCC Sections 341-344, where two persons owe each other obligations of the same kind and both are due, either may discharge their debt by set-off up to the matching amount, unless the nature of an obligation excludes it.",
+      {
+        "h": "How set-off works"
+      },
+      {
+        "ul": [
+          "**Section 341 — conditions.** Same kind of obligation (typically money), both due, and not excluded by their nature. Parties may agree otherwise, but such an agreement cannot be used against a good-faith third party.",
+          "**Section 342 — by declaration.** Set-off is made by a declaration from one party to the other. It cannot carry a condition or start/end date, and it takes effect retroactively to when the two debts could first have been set off.",
+          "**Section 343 — different places.** Differing places of payment do not block set-off, but the party relying on it compensates the other for resulting loss.",
+          "**Section 344 — defences and limitation.** A claim subject to a defence cannot be set off. A claim that became time-barred can still be used if it was not yet barred when it could first be set off."
+        ]
+      },
+      {
+        "h": "Where it matters on Phangan"
+      },
+      {
+        "ul": [
+          "**Rent vs deposit or repair costs** — a landlord or tenant can net amounts, but a disputed claim may not qualify; see [landlord and tenant duties](/knowledge/villa-lease-landlord-tenant-duties-termination-ccc-thailand).",
+          "**Penalties and late interest** — netting a penalty against a price balance depends on the penalty being due; see [penalty clauses](/knowledge/penalty-clauses-liquidated-damages-property-contracts-ccc-379-385-thailand).",
+          "**Builder payments** — withholding for defects is a separate statutory right; see [builder defects liability](/knowledge/builder-defects-liability-ccc-598-600-villa-construction-thailand).",
+          "**Deposits** — earnest money has its own rules; see [earnest money](/knowledge/sale-purchase-agreement-earnest-money-ccc-thailand)."
+        ]
+      },
+      "Takeaway: set-off is a unilateral, unconditional written declaration, so send a clear notice stating the debts and amounts. Do not simply short-pay on a disputed figure, because that can itself be a default. The section texts are unverified English translations, so confirm with a Thai lawyer."
+    ],
+    takeaways: [
+      "Set-off needs two debts of the same kind, both due (CCC Section 341).",
+      "It is made by a declaration to the other party and cannot be conditional (Section 342).",
+      "It takes effect from when the debts could first be set off.",
+      "A claim still open to a defence cannot be set off (Section 344).",
+      "Send a written notice rather than quietly short-paying."
+    ],
+    sources: [
+      {
+        "title": "Thai Law Online — Civil and Commercial Code Section 341 (set-off)",
+        "url": "https://www.thailawonline.com/thai-civil-code/section-341/"
+      },
+      {
+        "title": "Thai Law Online — Civil and Commercial Code Section 342 (how set-off is made)",
+        "url": "https://www.thailawonline.com/thai-civil-code/section-342/"
+      },
+      {
+        "title": "Thai Law Online — Civil and Commercial Code Section 343",
+        "url": "https://www.thailawonline.com/thai-civil-code/section-343/"
+      },
+      {
+        "title": "Thai Law Online — Civil and Commercial Code Section 344",
+        "url": "https://www.thailawonline.com/thai-civil-code/section-344/"
+      }
+    ],
+    faqHref: "/faq",
+    faqCategory: "process",
+    faqQuestion: "Can I deduct what a seller, tenant or builder owes me from what I owe them in Thailand?",
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
