@@ -14301,6 +14301,126 @@ export const KB_ARTICLES: KbArticle[] = [
     faqCategory: "process",
     faqQuestion: "Can I deduct what a seller, tenant or builder owes me from what I owe them in Thailand?",
   },
+  {
+    "slug": "terminating-villa-construction-contract-employer-right-ccc-605-607-thailand",
+    "kbId": "kb-0237",
+    "topic": "Process",
+    "title": "Ending a villa construction contract early: the employer's right to terminate (CCC 605-607)",
+    "short": "While a villa is still unfinished, Thai law lets the owner end the building contract, but they must compensate the contractor for the loss this causes. This guide covers Sections 605-607: termination, what happens if the contractor dies or cannot continue, and subcontracting.",
+    "updated": "2026-10-08",
+    "body": [
+      "Can you fire your builder halfway through a villa? Generally yes: under CCC Section 605, as long as the work is not finished, the employer may terminate the contract, but must compensate the contractor for any injury resulting from the termination. The right is not free, and it does not replace a termination clause for the contractor's breach.",
+      {
+        "h": "What the three sections say"
+      },
+      {
+        "ul": [
+          "**Section 605 — termination by the employer.** Available until the work is finished. The price of using it is compensation for the contractor's resulting loss; how much is a question of fact, usually argued over work done, materials ordered and lost profit.",
+          "**Section 606 — personal contracts.** Where the contractor's personal qualifications were essential, the contract ends if the contractor dies or, without fault, can no longer do the work. If part of the work already done is useful to the employer, they must accept it and pay reasonable remuneration for it.",
+          "**Section 607 — subcontracting.** The contractor may use subcontractors for all or part of the work, except the major part that required the contractor's own ability. The contractor remains responsible for the work and for any subcontractor's mistakes."
+        ]
+      },
+      {
+        "h": "Practical points for Koh Phangan owners"
+      },
+      {
+        "ul": [
+          "**Terminating for breach is different.** If the builder is late or defective, the remedies for default and rescission apply; see [rescission and notice-and-cure](/knowledge/sale-purchase-agreement-earnest-money-ccc-thailand) and [builder defects liability](/knowledge/builder-defects-liability-ccc-598-600-villa-construction-thailand). Section 605 is the no-fault exit.",
+          "**Document the state of works** before terminating: a dated survey, photos and a payment reconciliation, ideally by an independent engineer, to fix what is owed.",
+          "**Check the contract.** A negotiated clause may set termination notice or a compensation formula; for residential builds also read the [controlled construction contract rules](/knowledge/residential-construction-controlled-contract-thailand).",
+          "**Unpaid builders have leverage.** See the [contractor's preferential lien](/knowledge/contractor-preferential-lien-unpaid-builder-thailand) before the final settlement.",
+          "**Subcontractors on island sites are normal.** Ask who does structural work and make sure the contract names the main contractor as liable under Section 607.",
+          "**Set-off** of what the builder owes you against what you owe needs a proper declaration; see [set-off](/knowledge/set-off-withholding-payment-property-deals-ccc-341-344-thailand)."
+        ]
+      },
+      "Takeaway: the owner can usually exit an unfinished build, but pays for the exit. Get a joint inventory of works and money before sending any termination notice, and have a Thai lawyer review the wording. The section texts used here are unofficial translations; the Thai original governs."
+    ],
+    "takeaways": [
+      "Section 605 lets the employer terminate until the work is finished.",
+      "The employer must compensate the contractor for loss resulting from the termination.",
+      "Section 606 ends personal-skill contracts on the contractor's death or inability, with useful completed work still paid for.",
+      "Section 607 allows subcontracting except the major part requiring the contractor's own ability; the contractor stays liable.",
+      "Record the state of works and payments before terminating."
+    ],
+    "sources": [
+      {
+        "title": "ThaiLawOnline — Civil and Commercial Code Section 605 (unofficial translation)",
+        "url": "https://www.thailawonline.com/thai-civil-code/section-605/"
+      },
+      {
+        "title": "ThaiLawOnline — Civil and Commercial Code Section 606 (unofficial translation)",
+        "url": "https://www.thailawonline.com/thai-civil-code/section-606/"
+      },
+      {
+        "title": "ThaiLawOnline — Civil and Commercial Code Section 607 (unofficial translation)",
+        "url": "https://www.thailawonline.com/thai-civil-code/section-607/"
+      }
+    ],
+    "faqHref": "/faq",
+    "faqCategory": "process",
+    "faqQuestion": "Can I terminate my villa builder's contract before the work is finished in Thailand?"
+  },
+  {
+    "slug": "after-rescission-restoring-parties-damages-ccc-389-392-property-contracts-thailand",
+    "kbId": "kb-0238",
+    "topic": "Process",
+    "title": "After a property contract is rescinded: restoring the parties and claiming damages (CCC 389-392)",
+    "short": "Rescinding a Thai property contract is not the end of the dispute: each side must restore the other to their former position, interest runs on money to be returned, and damages remain claimable. This guide covers Sections 389, 391 and 392.",
+    "updated": "2026-10-08",
+    "body": [
+      "You have validly rescinded a villa or land contract. What happens to the money and possession? Under CCC Section 391, each party must restore the other to their former position (without harming third-party rights), and rescission does not affect a claim for damages.",
+      {
+        "h": "The core rules"
+      },
+      {
+        "ul": [
+          "**Section 391 — restitution.** Each party restores the other to the former condition. Third parties' rights cannot be impaired.",
+          "**Interest.** Money to be repaid carries interest from the date it was received, so the deposit or instalments are returned with interest, not just face value.",
+          "**Services and use.** Where restitution is of services or use of property, it is made by paying their value, or the money counter-payment stated in the contract. A buyer who occupied the villa may owe for that use.",
+          "**Damages survive.** Exercising the right to rescind does not prejudice a claim for damages.",
+          "**Section 389 — impossibility through the debtor's fault.** If the debtor's own fault makes performance wholly or partly impossible, the creditor may choose to end the contract.",
+          "**Section 392 — mutual performance.** The obligations arising on rescission are carried out under the rules of Section 369 on reciprocal contracts. Check the Thai text with a lawyer on how this applies to simultaneous return."
+        ]
+      },
+      {
+        "h": "Where it bites on Phangan"
+      },
+      {
+        "ul": [
+          "**Instalments and deposits.** Earnest has its own forfeiture rules; see [earnest money and rescission notice](/knowledge/sale-purchase-agreement-earnest-money-ccc-thailand) and [penalty clauses](/knowledge/penalty-clauses-liquidated-damages-property-contracts-ccc-379-385-thailand).",
+          "**Interest rate.** The statutory default rate is covered in [default interest](/knowledge/statutory-default-interest-rate-property-contracts-ccc-224-654-thailand).",
+          "**Third parties.** If the seller already resold or mortgaged the land, restitution cannot harm a good-faith third party; see [double sales](/knowledge/double-sale-good-faith-buyer-protection-thailand).",
+          "**Forcing transfer instead.** Often a court judgment for transfer is the better remedy; see [buyer remedies](/knowledge/buyer-remedies-seller-refuses-transfer-court-judgment-thailand).",
+          "**Time limits.** Claims lapse; see [limitation periods](/knowledge/limitation-periods-property-claims-prescription-thailand)."
+        ]
+      },
+      "Takeaway: rescission unwinds the deal, with interest and possible damages, but a rescission that was not properly grounded can itself be a breach. Rescind in writing after taking Thai legal advice. Section texts are unofficial translations; the Thai original governs."
+    ],
+    "takeaways": [
+      "Section 391: on rescission each party restores the other to the former condition.",
+      "Third-party rights cannot be impaired by restitution.",
+      "Money to be returned carries interest from the date it was received.",
+      "Use of property or services is restored by paying their value.",
+      "Rescission does not remove a claim for damages."
+    ],
+    "sources": [
+      {
+        "title": "ThaiLawOnline — Civil and Commercial Code Section 389",
+        "url": "https://www.thailawonline.com/thai-civil-code/section-389/"
+      },
+      {
+        "title": "ThaiLawOnline — Civil and Commercial Code Section 391",
+        "url": "https://www.thailawonline.com/thai-civil-code/section-391/"
+      },
+      {
+        "title": "ThaiLawOnline — Civil and Commercial Code Section 392",
+        "url": "https://www.thailawonline.com/thai-civil-code/section-392/"
+      }
+    ],
+    "faqHref": "/faq",
+    "faqCategory": "process",
+    "faqQuestion": "What happens to my money and the property after I rescind a property contract in Thailand?"
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
