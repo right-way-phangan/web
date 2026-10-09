@@ -1,8 +1,9 @@
-# Last run — 2026-10-08
+# Last run — 2026-10-09
 
-Backlog had no usable queued rows (all duplicates/thin), so two evergreen CCC gaps were published.
+Published 0 guides (quality gate).
 
-1. `terminating-villa-construction-contract-employer-right-ccc-605-607-thailand` (kb-0237) — "Ending a villa construction contract early: the employer's right to terminate (CCC 605-607)" — faqCategory: process. Sources: ThaiLawOnline CCC s.605, 606, 607 (unofficial translations).
-2. `after-rescission-restoring-parties-damages-ccc-389-392-property-contracts-thailand` (kb-0238) — "After a property contract is rescinded: restoring the parties and claiming damages (CCC 389-392)" — faqCategory: process. Sources: ThaiLawOnline CCC s.389, 391, 392 (s.392's cross-reference to s.369 hedged).
-
-Note: both are in the `process` category; no distinct non-process candidate was sufficiently sourced. `tsc --noEmit` passes.
+- Backlog: every ⏳ row is still a duplicate/thin/unsafe watch item (unchanged from prior notes).
+- Candidates researched and declined:
+  - CCC 370-372 (risk of loss between contract and transfer): only unofficial ThaiLawOnline translations of ss.370/371 found; no practitioner or case source applying them to registered land/villa sales. The conclusion (buyer bears loss after SPA) would be inferential.
+  - CCC 369 (right to withhold performance in reciprocal contracts): statute text only; the Land Office simultaneous-exchange practice could not be sourced, and remedy-election overlaps kb-0227/kb-0238.
+- Latest kbId remains kb-0238. No content files were edited.
