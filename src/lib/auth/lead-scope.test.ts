@@ -52,7 +52,8 @@ describe("partner note visibility", () => {
   });
 
   it("fails closed when the backend sends no flag at all", () => {
-    expect(partnerVisibleNotes([{ id: 9, text: "old backend" }])).toEqual([]);
+    const legacy: { id: number; text: string; sharedWithPartner?: boolean }[] = [{ id: 9, text: "old backend" }];
+    expect(partnerVisibleNotes(legacy)).toEqual([]);
     expect(partnerVisibleNotes(undefined)).toEqual([]);
   });
 });
