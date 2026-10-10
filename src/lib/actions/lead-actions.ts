@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { backendFetch } from "@/lib/api/backend";
-import { isAdmin, requireLeadAccess, requireStaff } from "@/lib/auth/require-admin";
+import { currentPartnerDeveloper, isAdmin, requireLeadAccess, requireStaff } from "@/lib/auth/require-admin";
 
 const API = process.env.OBJECTS_API_URL;
 const JSON_HEADERS = { "Content-Type": "application/json" };
@@ -215,13 +215,16 @@ export async function addNoteAction(formData: FormData): Promise<void> {
   const leadId = Number(formData.get("leadId"));
   if (!(await requireLeadAccess(leadId))) return;
   const text = String(formData.get("text") ?? "").trim();
+  // A partner's own note is always visible to them; staff opt in via the checkbox.
+  const sharedWithPartner =
+    (await currentPartnerDeveloper()) !== null || formData.get("sharedWithPartner") === "on";
   if (API && text) {
     try {
       await backendFetch(`/leads/${leadId}/notes`, {
         method: "POST",
         headers: JSON_HEADERS,
         cache: "no-store",
-        body: JSON.stringify({ text }),
+        body: JSON.stringify({ text, sharedWithPartner }),
       });
     } catch (err) {
       console.error("[crm] addNote failed:", err);

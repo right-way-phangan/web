@@ -644,6 +644,10 @@ export default async function LeadDetailPage({
           placeholder="Добавить заметку…"
           className="w-full rounded-md border border-forest-900/15 bg-cream-50 px-3 py-2 text-sm outline-none focus:border-brass-500"
         />
+        <label className="mt-1 flex items-center gap-2 text-xs text-forest-900/70">
+          <input type="checkbox" name="sharedWithPartner" />
+          Видно партнёру
+        </label>
         <button
           type="submit"
           className="mt-1 rounded-md bg-panel px-3 py-1.5 text-sm font-medium text-panel-fg hover:bg-panel/90"
@@ -658,7 +662,10 @@ export default async function LeadDetailPage({
         {lead.notes.map((n) => (
           <li key={n.id} className="border-l-2 border-brass-500/40 pl-3">
             <p className="whitespace-pre-wrap text-sm text-forest-900">{n.text}</p>
-            <p className="mt-0.5 text-[11px] text-forest-900/40">{fmt(n.createdAt)}</p>
+            <p className="mt-0.5 text-[11px] text-forest-900/40">
+              {fmt(n.createdAt)}
+              {n.sharedWithPartner && <span className="ml-2 text-brass-600">· видно партнёру</span>}
+            </p>
           </li>
         ))}
       </ul>

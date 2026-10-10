@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { developerTag, filterLeadsForPartner, leadInPartnerScope } from "./lead-scope";
+import { developerTag, filterLeadsForPartner, leadInPartnerScope, partnerVisibleNotes } from "./lead-scope";
 
 const leads = [
   { id: 1, tags: ["developer:arqa-development", "intent:price_pack"] },
@@ -36,5 +36,23 @@ describe("partner isolation", () => {
         expect(l.tags).toContain(`developer:${dev}`);
       }
     }
+  });
+});
+
+describe("partner note visibility", () => {
+  const notes = [
+    { id: 1, text: "Квалификация: goal=live", sharedWithPartner: false },
+    { id: 2, text: "internal: commission 3%" },
+    { id: 3, text: "shared", sharedWithPartner: true },
+    { id: 4, text: "null flag", sharedWithPartner: null },
+  ];
+
+  it("partner never gets an internal note — only explicitly shared ones", () => {
+    expect(partnerVisibleNotes(notes).map((n) => n.id)).toEqual([3]);
+  });
+
+  it("fails closed when the backend sends no flag at all", () => {
+    expect(partnerVisibleNotes([{ id: 9, text: "old backend" }])).toEqual([]);
+    expect(partnerVisibleNotes(undefined)).toEqual([]);
   });
 });
