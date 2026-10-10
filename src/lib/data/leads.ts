@@ -1,7 +1,7 @@
 import "server-only";
 import { backendFetch } from "@/lib/api/backend";
 import { currentPartnerDeveloper } from "@/lib/auth/require-admin";
-import { filterLeadsForPartner, leadInPartnerScope } from "@/lib/auth/lead-scope";
+import { filterLeadsForPartner, leadInPartnerScope, partnerVisibleNotes } from "@/lib/auth/lead-scope";
 
 /**
  * CRM data (Phase B) — reads the own backend (OBJECTS_API_URL). The CRM board
@@ -78,7 +78,8 @@ export async function getLeads(): Promise<CrmLead[]> {
     const all = (await r.json()) as CrmLead[];
     // Partner: server-side isolation — only leads tagged developer:<their developer>.
     const dev = await currentPartnerDeveloper();
-    return dev === null ? all : filterLeadsForPartner(all, dev);
+    // notesText concatenates ALL notes (incl. internal) — never for a partner.
+    return dev === null ? all : filterLeadsForPartner(all, dev).map((l) => ({ ...l, notesText: undefined }));
   } catch (err) {
     console.error("[crm] getLeads failed:", err);
     return [];
@@ -99,6 +100,8 @@ export async function getPipelines(): Promise<CrmPipeline[]> {
 export interface CrmNote {
   id: number;
   text: string;
+  /** Visible to the developer's partner. Absent (older backend) = internal. */
+  sharedWithPartner?: boolean;
   createdAt: string;
 }
 
@@ -196,8 +199,10 @@ export async function getLead(id: number): Promise<CrmLeadDetail | null> {
     const lead = (await r.json()) as CrmLeadDetail;
     // Partner: a lead outside their developer is indistinguishable from a missing one.
     const dev = await currentPartnerDeveloper();
-    if (dev !== null && !leadInPartnerScope(lead.tags, dev)) return null;
-    return lead;
+    if (dev === null) return lead;
+    if (!leadInPartnerScope(lead.tags, dev)) return null;
+    // Partner sees only notes explicitly shared with them; internal ones never leave the server.
+    return { ...lead, notes: partnerVisibleNotes(lead.notes) };
   } catch (err) {
     console.error("[crm] getLead failed:", err);
     return null;

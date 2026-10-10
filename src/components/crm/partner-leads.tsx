@@ -52,6 +52,9 @@ export function PartnerLeadList({ leads }: { leads: CrmLead[] }) {
   );
 }
 
+const touch = (t?: Record<string, string>) =>
+  t ? Object.entries(t).map(([k, v]) => `${k}: ${v}`).join(" · ") : null;
+
 export function PartnerLeadCard({ lead }: { lead: CrmLeadDetail }) {
   const q = lead.qualification;
   const rows: Array<[string, string | null | undefined]> = [
@@ -65,6 +68,8 @@ export function PartnerLeadCard({ lead }: { lead: CrmLeadDetail }) {
     ["Цель", q?.goal],
     ["Бюджет", q?.budget],
     ["Горизонт", q?.horizon],
+    ["Источник (первое касание)", touch(lead.attribution?.first)],
+    ["Источник (последнее касание)", touch(lead.attribution?.last)],
     ["Создан", fmt(lead.createdAt)],
   ];
   const stageEvents = (lead.events ?? []).filter((e) => e.type === "stage" || e.type === "created");
