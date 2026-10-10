@@ -30,4 +30,18 @@ describe("canAccessAdminPath", () => {
     expect(canAccessAdminPath("", "/admin/crm")).toBe(false);
     expect(canAccessAdminPath("viewer", "/admin/crm")).toBe(false);
   });
+
+  it("partner reaches only the lead board and a numeric lead card", () => {
+    expect(canAccessAdminPath("partner", "/admin/crm")).toBe(true);
+    expect(canAccessAdminPath("partner", "/admin/crm/42")).toBe(true);
+    for (const p of [
+      "/admin", "/admin/finance", "/admin/objects", "/admin/new", "/admin/guide",
+      "/admin/crm/new", "/admin/crm/export", "/admin/crm/tasks", "/admin/crm/contacts",
+      "/admin/crm/contacts/dupes", "/admin/crm/triage", "/admin/crm/import", "/admin/crm/stats",
+      "/admin/crm/42/edit", "/admin/crm/42/../tasks", "/admin/crm/4x", "/admin/api/search",
+      "/admin/api/photo-audit/purge", "/admin/journey", "/admin/partners",
+    ]) {
+      expect(canAccessAdminPath("partner", p), p).toBe(false);
+    }
+  });
 });

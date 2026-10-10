@@ -26,6 +26,8 @@ import { makeShortlistToken } from "@/lib/shortlist-token";
 import { LeadMatches, type MatchItem } from "@/components/crm/lead-matches";
 import { MessageTemplates } from "@/components/crm/message-templates";
 import { addNoteAction, addTaskAction } from "@/lib/actions/lead-actions";
+import { currentPartnerDeveloper } from "@/lib/auth/require-admin";
+import { PartnerLeadCard } from "@/components/crm/partner-leads";
 
 export const metadata: Metadata = {
   title: "CRM — лид",
@@ -89,7 +91,8 @@ export default async function LeadDetailPage({
   if (!CRM_ENABLED) notFound();
   const { id } = await params;
   const lead = await getLead(Number(id));
-  if (!lead) notFound();
+  if (!lead) notFound(); // partner + чужой лид → getLead уже вернул null → 404
+  if ((await currentPartnerDeveloper()) !== null) return <PartnerLeadCard lead={lead} />;
 
   const [allObjects, pipelines] = await Promise.all([getAllObjects(), getPipelines()]);
   // Reverse object↔lead link: the object this lead is about (any status).

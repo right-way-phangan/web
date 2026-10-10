@@ -1,5 +1,7 @@
 import "server-only";
 import { backendFetch } from "@/lib/api/backend";
+import { currentPartnerDeveloper } from "@/lib/auth/require-admin";
+import { filterLeadsForPartner, leadInPartnerScope } from "@/lib/auth/lead-scope";
 
 /**
  * CRM data (Phase B) — reads the own backend (OBJECTS_API_URL). The CRM board
@@ -44,6 +46,12 @@ export interface CrmLead {
   expectedCloseAt?: string | null;
   /** Concatenated notes (truncated) — board search looks into them. */
   notesText?: string;
+  telegram?: string | null;
+  whatsapp?: string | null;
+  preferredChannel?: string | null;
+  intent?: string | null;
+  qualification?: { goal?: string; budget?: string; horizon?: string } | null;
+  attribution?: { first?: Record<string, string>; last?: Record<string, string> } | null;
 }
 
 export interface CrmStage {
@@ -66,7 +74,11 @@ export async function getLeads(): Promise<CrmLead[]> {
   if (!API) return [];
   try {
     const r = await backendFetch("/leads", { cache: "no-store" });
-    return r.ok ? ((await r.json()) as CrmLead[]) : [];
+    if (!r.ok) return [];
+    const all = (await r.json()) as CrmLead[];
+    // Partner: server-side isolation — only leads tagged developer:<their developer>.
+    const dev = await currentPartnerDeveloper();
+    return dev === null ? all : filterLeadsForPartner(all, dev);
   } catch (err) {
     console.error("[crm] getLeads failed:", err);
     return [];
@@ -112,7 +124,7 @@ export interface CrmContact {
 
 /** The contact book: every contact (incl. the imported amo book), name-ascending. */
 export async function getContacts(): Promise<CrmContact[]> {
-  if (!API) return [];
+  if (!API || (await currentPartnerDeveloper()) !== null) return [];
   try {
     const r = await backendFetch("/contacts", { cache: "no-store" });
     return r.ok ? ((await r.json()) as CrmContact[]) : [];
@@ -133,7 +145,7 @@ export interface CrmTaskItem extends CrmTask {
 
 /** Open (or done=true) tasks across all leads, due-date ascending, NULLs last. */
 export async function getTasks(done = false): Promise<CrmTaskItem[]> {
-  if (!API) return [];
+  if (!API || (await currentPartnerDeveloper()) !== null) return [];
   try {
     const r = await backendFetch(`/tasks${done ? "?done=1" : ""}`, { cache: "no-store" });
     return r.ok ? ((await r.json()) as CrmTaskItem[]) : [];
@@ -157,7 +169,7 @@ export interface CrmEvent {
 
 /** Recent activity across all leads — dashboard feed + stage-cycle analytics. */
 export async function getEvents(limit = 200): Promise<CrmEvent[]> {
-  if (!API) return [];
+  if (!API || (await currentPartnerDeveloper()) !== null) return [];
   try {
     const r = await backendFetch(`/events?limit=${limit}`, { cache: "no-store" });
     return r.ok ? ((await r.json()) as CrmEvent[]) : [];
@@ -180,7 +192,12 @@ export async function getLead(id: number): Promise<CrmLeadDetail | null> {
   if (!API) return null;
   try {
     const r = await backendFetch(`/leads/${id}`, { cache: "no-store" });
-    return r.ok ? ((await r.json()) as CrmLeadDetail) : null;
+    if (!r.ok) return null;
+    const lead = (await r.json()) as CrmLeadDetail;
+    // Partner: a lead outside their developer is indistinguishable from a missing one.
+    const dev = await currentPartnerDeveloper();
+    if (dev !== null && !leadInPartnerScope(lead.tags, dev)) return null;
+    return lead;
   } catch (err) {
     console.error("[crm] getLead failed:", err);
     return null;

@@ -22,7 +22,7 @@ export async function loginAction(
     return { error: "Слишком много попыток входа. Подождите несколько минут." };
   }
 
-  let user: { id: number; email: string; name?: string | null; role: string };
+  let user: { id: number; email: string; name?: string | null; role: string; developer?: string | null };
   try {
     const res = await backendFetch("/auth/login", {
       method: "POST",

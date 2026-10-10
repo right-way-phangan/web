@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getLeads, getPipelines, CRM_ENABLED } from "@/lib/data/leads";
+import { currentPartnerDeveloper } from "@/lib/auth/require-admin";
+import { PartnerLeadList } from "@/components/crm/partner-leads";
 import { CrmBoard } from "@/components/crm/crm-board";
 import { leadScore } from "@/lib/crm/score";
 import { nextAction } from "@/lib/crm/next-action";
@@ -32,6 +34,9 @@ export default async function CrmPage({
       </section>
     );
   }
+
+  // Partner: plain list of own leads (getLeads is already scoped server-side).
+  if ((await currentPartnerDeveloper()) !== null) return <PartnerLeadList leads={await getLeads()} />;
 
   const [pipelines, leads] = await Promise.all([getPipelines(), getLeads()]);
   const { p, q, f } = await searchParams;

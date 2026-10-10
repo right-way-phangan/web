@@ -29,6 +29,8 @@ export interface SessionUser {
   email: string;
   name?: string | null;
   role: string;
+  /** partner only: developer slug; the partner sees leads tagged `developer:<slug>` */
+  developer?: string | null;
 }
 
 export async function signSession(user: SessionUser): Promise<string> {
@@ -60,11 +62,15 @@ export async function verifySession(token?: string): Promise<SessionUser | null>
     // "undefined", а id — NaN, и fail-closed держится только на roles.ts.
     if (typeof payload.role !== "string" || !payload.role) return null;
     if (typeof payload.id !== "number" || !Number.isFinite(payload.id)) return null;
+    // Партнёр без застройщика — не сессия: иначе фильтр лидов нечем строить.
+    const developer = typeof payload.developer === "string" && payload.developer ? payload.developer : null;
+    if (payload.role === "partner" && !developer) return null;
     return {
       id: payload.id,
       email: String(payload.email ?? ""),
       name: (payload.name as string | null) ?? null,
       role: payload.role,
+      developer,
     };
   } catch {
     return null;

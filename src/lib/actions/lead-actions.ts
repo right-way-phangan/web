@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { backendFetch } from "@/lib/api/backend";
-import { isAdmin, requireStaff } from "@/lib/auth/require-admin";
+import { isAdmin, requireLeadAccess, requireStaff } from "@/lib/auth/require-admin";
 
 const API = process.env.OBJECTS_API_URL;
 const JSON_HEADERS = { "Content-Type": "application/json" };
@@ -212,8 +212,8 @@ export async function deleteLeadAction(formData: FormData): Promise<void> {
 
 /** Add a note to a lead (history feed). Form action. */
 export async function addNoteAction(formData: FormData): Promise<void> {
-  await requireStaff();
   const leadId = Number(formData.get("leadId"));
+  if (!(await requireLeadAccess(leadId))) return;
   const text = String(formData.get("text") ?? "").trim();
   if (API && text) {
     try {
