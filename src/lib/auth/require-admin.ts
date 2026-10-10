@@ -2,13 +2,17 @@ import "server-only";
 
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { AUTH_ENABLED, SESSION_COOKIE, verifySession } from "./session";
+import { AUTH_ENABLED, SESSION_COOKIE, verifySession, type SessionUser } from "./session";
+import { backendFetch } from "@/lib/api/backend";
+import { leadInPartnerScope } from "./lead-scope";
 
-export type ActionRole = "staff" | "admin";
+/** "lead" = actions on a single lead that a partner may also run (still scope-checked per lead). */
+export type ActionRole = "staff" | "admin" | "lead";
 
 /** Pure role policy, kept testable separately from Next request APIs. */
 export function canRunAction(role: string | null, required: ActionRole): boolean {
   if (required === "admin") return role === "admin";
+  if (required === "lead") return role === "admin" || role === "agent" || role === "partner";
   return role === "admin" || role === "agent";
 }
 
@@ -48,6 +52,34 @@ export async function requireActionRole(required: ActionRole): Promise<void> {
   const role = await currentRole();
   if (canRunAction(role, required)) return;
   redirect(AUTH_ENABLED && role ? "/admin/crm" : AUTH_ENABLED ? "/admin/login" : "/admin");
+}
+
+/** Developer slug of the current partner session; null for admin/agent/anonymous. */
+export async function currentPartnerDeveloper(): Promise<string | null> {
+  if (!AUTH_ENABLED) return null;
+  const token = (await cookies()).get(SESSION_COOKIE)?.value;
+  const session: SessionUser | null = await verifySession(token);
+  return session?.role === "partner" ? (session.developer ?? "") : null;
+}
+
+/**
+ * Backstop for single-lead actions open to partners: role must be allowed AND
+ * a partner may only touch a lead tagged with their developer. Checked on the
+ * server against the backend (never trusts the client-sent leadId alone).
+ */
+export async function requireLeadAccess(leadId: number): Promise<boolean> {
+  if (!Number.isInteger(leadId) || leadId <= 0) return false;
+  if (!canRunAction(await currentRole(), "lead")) return false;
+  const dev = await currentPartnerDeveloper();
+  if (dev === null) return true; // admin / agent
+  try {
+    const r = await backendFetch(`/leads/${leadId}`, { cache: "no-store" });
+    if (!r.ok) return false;
+    const lead = (await r.json()) as { tags?: string[] | null };
+    return leadInPartnerScope(lead.tags, dev);
+  } catch {
+    return false;
+  }
 }
 
 /** Compatibility helper for existing admin-only actions. */

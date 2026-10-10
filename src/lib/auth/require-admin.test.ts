@@ -13,4 +13,13 @@ describe("canRunAction", () => {
     expect(canRunAction(null, "staff")).toBe(false);
     expect(canRunAction("viewer", "admin")).toBe(false);
   });
+
+  it("partner is only allowed the single-lead action level, never staff/admin", () => {
+    expect(canRunAction("partner", "lead")).toBe(true);
+    expect(canRunAction("partner", "staff")).toBe(false);
+    expect(canRunAction("partner", "admin")).toBe(false);
+    expect(canRunAction("agent", "lead")).toBe(true);
+    expect(canRunAction(null, "lead")).toBe(false);
+    expect(canRunAction("viewer", "lead")).toBe(false);
+  });
 });

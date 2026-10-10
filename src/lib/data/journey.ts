@@ -1,5 +1,6 @@
 import "server-only";
 import { backendFetch } from "@/lib/api/backend";
+import { currentPartnerDeveloper } from "@/lib/auth/require-admin";
 
 /**
  * Visitor journeys (backend GET /journey/summary). Stitches a converting lead
@@ -64,7 +65,7 @@ export interface HotLead {
 }
 
 export async function getHotLeads(): Promise<HotLead[]> {
-  if (!process.env.OBJECTS_API_URL) return [];
+  if (!process.env.OBJECTS_API_URL || (await currentPartnerDeveloper()) !== null) return [];
   try {
     const r = await backendFetch("/leads/hot", { cache: "no-store" });
     return r.ok ? ((await r.json()) as HotLead[]) : [];

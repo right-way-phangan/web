@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { AdminNav } from "@/components/admin/admin-nav";
 import { CommandPalette } from "@/components/admin/command-palette";
+import { currentPartnerDeveloper } from "@/lib/auth/require-admin";
 
 /**
  * Admin-only PWA wiring: a dedicated manifest (scope /admin, opens on the CRM
@@ -20,7 +21,7 @@ export const viewport: Viewport = {
   themeColor: "#1F3A2E",
 };
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       {/* Навигация одна на всю админку; страницы её не подключают. Отступы
@@ -30,7 +31,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <AdminNav />
       </div>
       {children}
-      <CommandPalette />
+      {(await currentPartnerDeveloper()) === null && <CommandPalette />}
     </>
   );
 }
