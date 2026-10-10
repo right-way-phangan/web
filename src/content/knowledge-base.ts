@@ -14421,6 +14421,116 @@ export const KB_ARTICLES: KbArticle[] = [
     "faqCategory": "process",
     "faqQuestion": "What happens to my money and the property after I rescind a property contract in Thailand?"
   },
+  {
+    "slug": "koh-phangan-power-supply-undersea-cable-outage-risk-villa-buyers",
+    "kbId": "kb-0239",
+    "topic": "Koh Phangan",
+    "title": "Koh Phangan's power supply: the aging undersea cable, outage risk and what a villa buyer should check",
+    "short": "Koh Phangan has no large power plant of its own and relies on electricity sent through ageing submarine cables from the mainland via the Samui system. EGAT's planned 230 kV upgrade is scheduled for 2028-2029, so for now a buyer should plan for occasional outages.",
+    "updated": "2026-10-10",
+    "body": [
+      "How reliable is mains power on Koh Phangan, and is an upgrade coming? Power reaches the southern islands (Samui, Phangan and Tao) through submarine cables from the mainland. EGAT describes the existing Samui cable system as ageing and frequently malfunctioning, with a planned 230 kV replacement scheduled for 2028-2029. Until then, outage risk is a due-diligence item rather than a footnote.",
+      {
+        "h": "What the sources say"
+      },
+      {
+        "ul": [
+          "**Existing system.** EGAT states that Koh Samui has no power plant of its own and is supplied from EGAT's Khanom Substation (Nakhon Si Thammarat) through the Provincial Electricity Authority's submarine cable system: two 115 kV and two 33 kV circuits with a combined capacity of 174 MW. The cables are described as ageing and often malfunctioning, so they cannot always deliver full capacity.",
+          "**Outage pattern.** EGAT notes frequent outages, especially in April-May peak season, with rolling blackouts and mobile generators as temporary measures. Phangan is served from the same southern-islands system.",
+          "**A precedent.** In March 2021 an anchor strike was reported to have damaged the 115 kV Khanom-Samui cable, cutting supply to parts of Samui and Phangan to about half of requirements until repairs finished that week (Bangkok Post).",
+          "**The upgrade.** EGAT says the Cabinet approved on 28 February 2023 two 230 kV submarine circuits (about 50 km) from Khanom to a new Samui substation, adding 400 MW. Construction is slated to start in 2026, with the first circuit due in 2028 and the second in 2029. These are planned dates, and large infrastructure projects often slip. The project is aimed at power instability on Samui, Phangan and Tao."
+        ]
+      },
+      {
+        "h": "What it means for a villa buyer"
+      },
+      {
+        "ul": [
+          "**Assume short outages.** Budget for a backup plan, particularly if the villa has a well pump, pool pump, or if you rent it out and guests expect air-conditioning and wifi.",
+          "**Backup options.** A petrol/diesel generator is cheapest upfront; battery storage with solar can ride through outages. See [off-grid solar and battery storage](/knowledge/off-grid-solar-battery-storage-koh-phangan-villa) and the [PEA rooftop solar buyback scheme](/knowledge/pea-rooftop-solar-buyback-2026).",
+          "**Water depends on power.** Pumps and storage tanks turn an outage into a water problem; see [water supply and shortage risk](/knowledge/water-supply-shortage-risk-koh-phangan) and [groundwater well permits](/knowledge/groundwater-well-permit-koh-phangan).",
+          "**Verify the connection itself.** Confirm the meter exists, is in the seller's name and is the right phase; see [utilities on Koh Phangan](/knowledge/utilities-water-electricity-internet-koh-phangan). Remote plots may need a costly line extension.",
+          "**Ask locals.** Ask neighbours and the current owner how often power drops at that specific location, since outages vary by feeder line."
+        ]
+      },
+      "Takeaway: mains power on Phangan is generally available but depends on ageing undersea infrastructure. A replacement is approved and planned for 2028-2029; until it is built, price a backup system into your purchase and check the specific plot's connection."
+    ],
+    "takeaways": [
+      "Koh Phangan has no major power plant; supply comes via the Samui submarine cable system from Khanom on the mainland.",
+      "EGAT describes the existing cables as ageing and frequently malfunctioning, with outages most common in April-May.",
+      "Cabinet approved two 230 kV cables on 28 February 2023; first circuit planned 2028, second 2029.",
+      "Planned dates can slip, so treat backup power as a purchase-budget item.",
+      "Pumps, pools and rental guests make outages costlier; check the plot's meter and line before buying."
+    ],
+    "sources": [
+      {
+        "title": "EGAT — 230 kV Submarine Cables Connect Ko Samui to a Sustainable Future of Energy",
+        "url": "https://www.egat.co.th/home/en/230-kv-submarine-cables-connect-ko-samui-to-a-sustainable-future-of-energy/"
+      },
+      {
+        "title": "Bangkok Post — Cable repaired, power supply to Samui resumes (March 2021)",
+        "url": "https://www.bangkokpost.com/thailand/general/2080743/cable-repaired-power-supply-to-samui-resumes"
+      }
+    ],
+    "faqHref": "/faq",
+    "faqCategory": "phangan",
+    "faqQuestion": "How reliable is electricity on Koh Phangan, and should I plan for power cuts when buying a villa?"
+  },
+  {
+    "slug": "land-building-tax-2026-no-reduction-decree-full-rates-thailand",
+    "kbId": "kb-0240",
+    "topic": "Costs",
+    "title": "Land and Building Tax for 2026 (B.E. 2569): no general reduction, so check your bill",
+    "short": "For tax year 2026 no across-the-board Land and Building Tax reduction had been decreed as of early 2026, so owners should expect the full statutory rates. Payment windows were extended and instalments reported, but dates vary by local office, so rely on your own notice.",
+    "updated": "2026-10-10",
+    "body": [
+      "Did Thailand cut Land and Building Tax (LBT) again for 2026? As of mid-January 2026, commentators reported no royal decree granting a general reduction for B.E. 2569, so it is treated as a full-rate year unless something later changed. Earlier years saw percentage cuts by decree (for example 15% for 2023). Do not assume a past discount carries over.",
+      {
+        "h": "What to know"
+      },
+      {
+        "ul": [
+          "**Reductions need a decree.** The Act itself provides special reductions in specific cases (such as certain inherited and foreclosed properties). A general annual cut needs a separate royal decree.",
+          "**Bill comes from the local authority.** The local administrative body (on Phangan, the municipality or OrBorTor) assesses and sends the notice; owners do not self-assess.",
+          "**Deadlines move.** Normal payment is by the end of April, but extensions are common. Secondary sources reported payment pushed into June 2026 with instalments for bills of 3,000 THB or more, and a 24 April 2026 Thairath report mentioned a further extension to September with three instalments. These reports differ, so treat your notice as authoritative.",
+          "**Late payment has consequences.** Surcharges and penalties can apply and, for serious arrears, enforcement and registration blocks are possible. See [LBT arrears, seizure and auction](/knowledge/land-building-tax-arrears-seizure-auction-thailand).",
+          "**Disagree with the valuation?** There is an appeal route; see [disputing a Land and Building Tax assessment](/knowledge/disputing-land-building-tax-assessment)."
+        ]
+      },
+      {
+        "h": "Practical steps for owners"
+      },
+      {
+        "ul": [
+          "**Find the notice.** If you are a registered owner, confirm the local office has your correct address. A leasehold villa's LBT normally falls on the registered landowner, so check the lease; see [owner's taxes](/knowledge/owners-taxes-annual-land-and-income).",
+          "**Budget the full rate.** Do not model a discount into holding costs for 2026.",
+          "**Ask about instalments** where the bill is large enough.",
+          "**Keep receipts** for sale-time due diligence, since buyers and lawyers may ask for proof that LBT is current."
+        ]
+      },
+      "Takeaway: for 2026 plan on the full statutory LBT, rely on your local office's notice for amounts and deadlines, and pay on time. Check with a Thai accountant whether any later decree changed this."
+    ],
+    "takeaways": [
+      "As of January 2026, no general royal decree reduced Land and Building Tax for B.E. 2569.",
+      "A general annual reduction needs a royal decree; past cuts do not automatically repeat.",
+      "Payment deadlines were reported extended with instalments, but reports differ by source.",
+      "Your local authority's notice is the authoritative source for amount and deadline.",
+      "Arrears can bring surcharges and, in serious cases, enforcement."
+    ],
+    "sources": [
+      {
+        "title": "Lex Bangkok — Land and Building Tax Thailand 2026",
+        "url": "https://lexbangkok.com/land-building-tax-thailand-2026/"
+      },
+      {
+        "title": "Thairath English — 2026 land and building tax collection period extension (24 April 2026)",
+        "url": "https://en.thairath.co.th/news/politic/2928550"
+      }
+    ],
+    "faqHref": "/faq",
+    "faqCategory": "costs",
+    "faqQuestion": "Is there a Land and Building Tax discount in 2026, and when do I have to pay?"
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
