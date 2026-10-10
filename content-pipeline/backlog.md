@@ -10,6 +10,7 @@ Status: ⏳ queued · ✅ published.
 > Dedup is enforced against the actual slugs already in `src/content/knowledge-base.ts` —
 > never re-publish an existing slug even if it appears ⏳ here.
 
+<!-- discovered 2026-10-10 (second run): published kb-0241 (interior-ministry-circular-aug-2026-nominee-land-investigation-committees-thailand; Tilleke & Gibbins). No second distinct topic found. -->
 <!-- discovered 2026-10-10: published kb-0239 (koh-phangan-power-supply-undersea-cable-outage-risk-villa-buyers; EGAT, Bangkok Post) and kb-0240 (land-building-tax-2026-no-reduction-decree-full-rates-thailand; Lex Bangkok, Thairath). Water-crisis 🔴 row left ⏳: 2026 Phangan rationing figures not verifiable from reputable sources. -->
 <!-- discovered 2026-10-09 (third run): published nothing. CCC 370-372 risk-of-loss and CCC 369 withholding researched; only unofficial statute translations found, no practitioner/case application to land sales. See last-run.md. -->
 <!-- discovered 2026-10-09 run (dated 2026-10-08, second): all ⏳ rows still duplicate/thin/unsafe. Published two evergreen CCC gaps: kb-0237 (terminating-villa-construction-contract-employer-right-ccc-605-607-thailand; ThaiLawOnline CCC 605/606/607) and kb-0238 (after-rescission-restoring-parties-damages-ccc-389-392-property-contracts-thailand; ThaiLawOnline CCC 389/391/392). Translations unverified; hedged. -->

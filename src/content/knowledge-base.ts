@@ -14531,6 +14531,59 @@ export const KB_ARTICLES: KbArticle[] = [
     "faqCategory": "costs",
     "faqQuestion": "Is there a Land and Building Tax discount in 2026, and when do I have to pay?"
   },
+  {
+    "slug": "interior-ministry-circular-aug-2026-nominee-land-investigation-committees-thailand",
+    "kbId": "kb-0241",
+    "topic": "Ownership",
+    "title": "Interior Ministry's August 2026 circular on nominee land ownership: what changes for companies holding land",
+    "short": "On 25 August 2026 the Ministry of Interior sent provincial governors an urgent circular on suspected nominee land ownership. It adds police and other investigators to provincial committees, asks Land Offices to screen companies proactively, and sets two tracks: forced land disposal or criminal complaint.",
+    "updated": "2026-10-10",
+    "body": [
+      "What did the August 2026 Interior circular change? According to Tilleke & Gibbins, an urgent circular (No. MorTor 0515.2/Wor 19097) dated 25 August 2026 went to all provincial governors, building on an earlier circular of 19 April 2023. It does not change the Land Code; it changes how provinces investigate companies suspected of holding land for foreigners.",
+      {
+        "h": "The three measures"
+      },
+      {
+        "ul": [
+          "**Wider committees** — provincial fact-finding committees add representatives of specialised investigative agencies (for example local police superintendents), with broader access to shareholding, tax, immigration and financial records.",
+          "**Proactive screening** — Provincial Land Offices are to screen companies and other juristic persons for nominee risk indicators and refer flagged entities to the committee, rather than waiting for a complaint.",
+          "**Two tracks** — if the committee finds an entity is in substance a 'foreign national' under the Land Code, the governor sets a deadline to dispose of the land; if it was set up to hold land for a foreigner in circumvention of the law, officers must file a criminal complaint and follow it through to final judgment."
+        ]
+      },
+      {
+        "h": "What the report does not say"
+      },
+      "The published summary does not list the screening risk indicators, the length of disposal deadlines or specific penalties. Do not assume thresholds beyond what officials publish. This guide relies on one law-firm summary; read the circular text or ask a Thai lawyer before acting.",
+      {
+        "h": "What this means for owners and buyers"
+      },
+      {
+        "ul": [
+          "**Company-held villas** — a Thai company with a majority-Thai shareholder register but foreign-funded, with silent control, is exactly the profile the screening targets. See [villa held by a Thai company: buyer due diligence](/knowledge/villa-held-by-thai-company-buyer-due-diligence-2026).",
+          "**Lease and superficies structures** — a documented lease with properly remitted funds is a different legal footing from a nominee company; see [leasehold vs freehold](/knowledge/leasehold-vs-freehold).",
+          "**Earlier steps** — this follows the 2026 audit and disposal-order stories; see [land disposal orders for 112 companies](/knowledge/koh-phangan-land-disposal-orders-112-companies-2026) and the [21-agency anti-nominee MOU](/knowledge/21-agency-anti-nominee-mou-2026).",
+          "**Professionals** — the report notes advisers who facilitate nominee arrangements may face greater scrutiny too."
+        ]
+      },
+      "Takeaway: the legal bar is unchanged, but enforcement is more systematic and more criminal-leaning. If you hold land through a company, have a Thai lawyer review the shareholding, funding and control before a committee does it for you."
+    ],
+    "takeaways": [
+      "Interior Ministry urgent circular dated 25 August 2026 went to all provincial governors.",
+      "Provincial committees add police and other investigators with access to tax, immigration and financial records.",
+      "Provincial Land Offices are to screen companies proactively for nominee indicators.",
+      "Outcomes: a governor-set deadline to dispose of land, or a criminal complaint pursued to final judgment.",
+      "The Land Code itself is unchanged; indicators and deadlines were not published in the source summary."
+    ],
+    "sources": [
+      {
+        "title": "Tilleke & Gibbins — Thailand tightens enforcement against nominee land ownership by foreign nationals",
+        "url": "https://www.tilleke.com/insights/thailand-tightens-enforcement-against-nominee-land-ownership-by-foreign-nationals/"
+      }
+    ],
+    "faqHref": "/faq",
+    "faqCategory": "ownership",
+    "faqQuestion": "What did the August 2026 Interior Ministry circular on nominee land ownership change?"
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
