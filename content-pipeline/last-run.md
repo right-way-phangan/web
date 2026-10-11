@@ -1,8 +1,5 @@
-# Last run — 2026-10-10 (second run)
+# Last run — 2026-10-11
 
-Published 1 guide.
+Published 0 guides.
 
-1. `interior-ministry-circular-aug-2026-nominee-land-investigation-committees-thailand` (kb-0241) — faqCategory: ownership
-   - Source: Tilleke & Gibbins summary of the Ministry of Interior urgent circular MorTor 0515.2/Wor 19097 (25 Aug 2026). Single-source; screening indicators and deadlines not published, hedged in text.
-
-Not published (second guide): fresh-news search found no other new, verifiable item; all ⏳ rows remain duplicate/thin/unsafe. Quality gate applied.
+Why: quality gate. Remaining ⏳ backlog rows are duplicates or already covered (SBT vs stamp duty is covered in existing transfer-tax and SBT guides; water crisis, FBA/AMLA and coalition-policy rows remain unverifiable watch items; rental yields overlap the developer-guaranteed-yield and rental-tax guides). Fresh-news searches (Land Department rules Oct 2026; Koh Phangan property news Oct 2026) returned only agency blogs and listings, with no official or reputable source for any new item. Next free kbId: kb-0242.
