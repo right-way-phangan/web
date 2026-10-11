@@ -1,5 +1,5 @@
-# Last run — 2026-10-11
+# Last run — 2026-10-11 (second)
 
 Published 0 guides.
 
-Why: quality gate. Remaining ⏳ backlog rows are duplicates or already covered (SBT vs stamp duty is covered in existing transfer-tax and SBT guides; water crisis, FBA/AMLA and coalition-policy rows remain unverifiable watch items; rental yields overlap the developer-guaranteed-yield and rental-tax guides). Fresh-news searches (Land Department rules Oct 2026; Koh Phangan property news Oct 2026) returned only agency blogs and listings, with no official or reputable source for any new item. Next free kbId: kb-0242.
+Why: quality gate. All ⏳ rows remain duplicates/thin/unverifiable (see backlog notes). I tried one evergreen gap, unjust enrichment / wrongly paid money (CCC 406 ff.) for property deposits. Only ThaiLawOnline's wrong-bank-transfer guide was usable. It is a secondary source, its one-year limitation period has no section citation, and it contradicts itself on when interest starts. Publishing legal claims on that basis risks misleading buyers. Next free kbId: kb-0242.
