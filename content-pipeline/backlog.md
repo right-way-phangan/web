@@ -401,6 +401,9 @@ Status: ⏳ queued · ✅ published.
 | Divorce and property division for a foreign spouse: CCC ss.1471/1474 marital-vs-separate property definitions, the s.1533 50/50 split and s.1534 anti-dissipation rule, Land Code s.94's forced-disposal mechanic applied to land awarded in a settlement, and the open question of whether a registered usufruct/superficies survives divorce under s.1469 — distinct from the existing usufruct-during-marriage and prenup guides, neither of which addresses what happens when the marriage ends | ownership | 🟢 | ✅ |
 <!-- 2026-09-21: published as kb-0190 (divorce-property-division-foreign-spouse-thailand). -->
 
+<!-- discovered 2026-10-11, sources: tilleke.com, hunton.com, mondaq.com -->
+| Ministerial Regulation No. 72 B.E. 2568 (Government Gazette 19 Nov 2025): rooftop solar on any building is no longer a building alteration needing an Aor.1 permit if the installation stays at or below 20 kg/m² (old rule: residential <160 m² with inspection/notification). Self-assessed weight limit, what a Phangan villa owner should still get in writing from the installer, and how it pairs with the PEA feed-in scheme | documents | 🟡 | ⏳ |
+
 ## C. Per-district guides (~18 districts in districts.ts)
 
 | Topic | faqCategory | Priority | Status |

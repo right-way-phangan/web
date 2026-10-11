@@ -1,34 +1,34 @@
-# Discovery run — 2026-10-04
+# Discovery run — 2026-10-11
 
-**New topics queued:** 0
-**Searches run:** 10
-**Sources read:** 2 fetched pages (Pattaya Mail, Nation Thailand) plus search-result summaries
+**New topics queued:** 1
+**Searches run:** 8
+**Sources read:** 1 fetched page (Tilleke & Gibbins) plus search-result summaries
 
 ## Topics added
 
-None. No candidate passed all four checks (distinct, valuable, sourceable, Phangan-relevant).
+| Topic | faqCategory | Priority |
+|---|---|---|
+| Ministerial Regulation No. 72 B.E. 2568: rooftop solar exempt from the Aor.1 building-alteration permit at <=20 kg/m2 | documents | 🟡 |
 
 ## Sources consulted
 
-- pattayamail.com — May 2026 developer allegations on zoning, nominee networks, Laem Son (already covered)
-- nationthailand.com — Laem Son beach dispute and nominee concerns (already covered)
-- bangkokpost.com, thaiexaminer.com, timesofisrael.com (search results) — May 2026 Arki Kids illegal school raid (already covered)
-- siam-legal.com, lexology.com, thailawonline.com (search results) — Supreme Court 4655/2566 lease ruling, usufruct/superficies (already covered)
-- tvc.co.th, ownpropertyabroad.com, moregroup.estate (search results) — 2026 tax rates, 0.01% fee Thai-only (already covered)
+- tilleke.com — 25 Aug 2026 Interior circular (already published); Reg. No. 72 solar exemption
+- hunton.com, mondaq.com — Reg. No. 72 details (Gazette 19 Nov 2025, self-assessed weight limit)
+- globallawexperts.com, luther-lawfirm.com, asterofasia.com — 2026 nominee crackdown (already covered; dates inconsistent between sources)
+- thethaiger.com, cornerstone.co.th, lexbangkok.com — transfer fee, SBT, rental tax (already covered)
+- fazwaz.com, kellerhenson.com, lazudi.com — listings only, no news
 
 ## Skipped candidates
 
-- Laem Son / 119 rai public land occupation — duplicate (published guides)
-- Illegal school raid and foreign-community crackdown — duplicate / off-topic
-- Supreme Court 4655/2566 auto-renewal leases void — duplicate
-- Capital gains / seller withholding tax — duplicate (withholding-tax-property-sale-individual-vs-company)
-- Phangan 41 projects / THB 7.9bn pipeline — duplicate
-- Condo 49% quota real-time digital tracking — single commercial source, unverified
-- Smart Land Office digital lease renewal — unsourced; the search found no primary source
-- Koh Kho Khao bridge (Phangnga) — off-topic
+- Interior circular MorTor 0515.2/Wor 19097 (25 Aug 2026) — duplicate (already published)
+- 0.01% transfer fee for Thai buyers under THB 7m, extended to 30 Jun 2027 — duplicate (transfer-fee-discount-thai-nationals-only-2026-2027)
+- Foreign residential land draft regulation — only the 2022 draft found; no 2026 draft confirmed
+- Condo 49% quota tracking system — single commercial source, unverified
+- 99-year lease — duplicate; still only a proposal
+- Phuket Route 402 widening — off-topic
 
 ## Gaps still open
 
-- Verify on dol.go.th whether digital lease registration/renewal exists
-- Verify the Land Department condo foreign-quota tracking system
-- Thai/Phangan-language news (zonesamui.com July 2026 NACC items) may hold fresher angles
+- No Sept/Oct 2026 Phangan-specific news found in English; Thai-language provincial sources (Surat Thani, zonesamui.com) may hold fresher angles
+- Confirm Reg. No. 72 wording against the Royal Gazette text before authoring
+- Rental income tax for non-residents (flat 15% claim) — sources conflict; verify with the Revenue Department
