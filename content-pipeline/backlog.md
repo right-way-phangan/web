@@ -285,7 +285,7 @@ Status: ⏳ queued · ✅ published.
 <!-- discovered 2026-08-09, sources: thailawonline.com, terms.law, dlapiperrealworld.com, oceanwwp.com, lordspropconsult.com, bangkokpost.com -->
 | Foreign spouse/heir inheriting Thai land directly (not via leasehold): the Land Code Section 93-94 rule forcing disposal within 1 year, and why Ministerial permission to keep it is effectively unavailable | ownership | 🟢 | ✅ |
 <!-- 2026-08-14: skipped — substantially duplicates the already-published kb-0084 (specific-business-tax-five-year-exemption-clock), which already states the mutual-exclusivity rule explicitly ("SBT and stamp duty are mutually exclusive on the same transfer — a sale never pays both") alongside the 0.5%/3.3% rates and the 5-year clock. Left ⏳; a future run could revisit narrowly only with a genuinely distinct angle (e.g. a worked multi-scenario example) not already covered. -->
-| Stamp Duty vs Specific Business Tax: the mutual-exclusivity rule — when the 0.5% stamp duty applies instead of SBT, and why you never pay both | costs | 🟡 | ⏳ |
+| Stamp Duty vs Specific Business Tax: the mutual-exclusivity rule — when the 0.5% stamp duty applies instead of SBT, and why you never pay both | costs | 🟡 | ✅ |
 <!-- 2026-08-22: re-checked — still no distinct angle beyond what kb-0084 already states. Left ⏳. -->
 | VAT vs Specific Business Tax on new-build/developer sales: what a buyer actually pays, and why sources disagree — needs primary Revenue Department verification before publishing | costs | 🟡 | ✅ |
 <!-- 2026-08-14: skipped — substantially overlaps the already-published kb-0009 (buying-off-plan-new-developments), which already covers developer track record, land title, permits, staged/milestone payments and contract review; could not independently verify the backlog's "154 projects, THB 61bn+" figure as a fresh number (it is the same Q1 2026 combined Samui+Phangan dataset already cited in kb-0014). Left ⏳; a future run could revisit narrowly by naming and vetting one specific live project, which kb-0009 deliberately does not do. -->
@@ -403,7 +403,7 @@ Status: ⏳ queued · ✅ published.
 <!-- 2026-09-21: published as kb-0190 (divorce-property-division-foreign-spouse-thailand). -->
 
 <!-- discovered 2026-10-11, sources: tilleke.com, hunton.com, mondaq.com -->
-| Ministerial Regulation No. 72 B.E. 2568 (Government Gazette 19 Nov 2025): rooftop solar on any building is no longer a building alteration needing an Aor.1 permit if the installation stays at or below 20 kg/m² (old rule: residential <160 m² with inspection/notification). Self-assessed weight limit, what a Phangan villa owner should still get in writing from the installer, and how it pairs with the PEA feed-in scheme | documents | 🟡 | ⏳ |
+| Ministerial Regulation No. 72 B.E. 2568 (Government Gazette 19 Nov 2025): rooftop solar on any building is no longer a building alteration needing an Aor.1 permit if the installation stays at or below 20 kg/m² (old rule: residential <160 m² with inspection/notification). Self-assessed weight limit, what a Phangan villa owner should still get in writing from the installer, and how it pairs with the PEA feed-in scheme | documents | 🟡 | ✅ |
 
 ## C. Per-district guides (~18 districts in districts.ts)
 

@@ -14584,6 +14584,72 @@ export const KB_ARTICLES: KbArticle[] = [
     "faqCategory": "ownership",
     "faqQuestion": "What did the August 2026 Interior Ministry circular on nominee land ownership change?"
   },
+  {
+    "slug": "rooftop-solar-building-permit-exemption-ministerial-regulation-72-thailand",
+    "kbId": "kb-0242",
+    "topic": "Documents",
+    "title": "Rooftop solar on a Koh Phangan villa: when no building permit is needed (Ministerial Regulation No. 72, 2025)",
+    "short": "Since 19 November 2025, putting solar panels on a roof is no longer treated as a 'building alteration' under the Building Control Act if the installation weighs no more than 20 kg/m². That removes the old permit-style steps, but it does not remove grid-connection, structural or installer-quality checks.",
+    "updated": "2026-10-12",
+    "body": [
+      "Do you need a building permit to put solar panels on your villa roof in Thailand? Not if the installation stays within the weight limit. Ministerial Regulation No. 72 B.E. 2568, published in the Government Gazette on 19 November 2025 and effective immediately, says rooftop solar on any building is no longer a 'building alteration' under the Building Control Act B.E. 2522 provided the total weight of the installation does not exceed 20 kg/m² (per Tilleke & Gibbins).",
+      {
+        "h": "What changed"
+      },
+      {
+        "ul": [
+          "**Old rule (2015)** — the exemption covered only residential buildings under 160 m², and came with inspection and notification conditions.",
+          "**New rule (2025)** — any building, any installation area, as long as total weight is at or below 20 kg/m².",
+          "**No structural certificate** — a structural stability certificate from a licensed civil engineer is no longer required.",
+          "**No prior notification** — the owner or possessor no longer has to notify the local authority before installing."
+        ]
+      },
+      {
+        "h": "What this does not settle"
+      },
+      {
+        "ul": [
+          "**Grid connection is separate** — the summary we relied on does not address the electricity authority. If you want to export power, the PEA process in our [rooftop solar buyback guide](/knowledge/pea-rooftop-solar-buyback-2026) still applies.",
+          "**Weight is on you** — the limit is total installed weight per m² (panels, rails, ballast). Ask your installer to state it in writing, and to confirm the roof can carry it; the regulation removes the paperwork, not the physics.",
+          "**Other building rules still apply** — if the work also changes the structure (new roof, raised frame, added floor), that is a separate alteration question; see [alteration permits under Section 39 bis](/knowledge/renovating-villa-alteration-permit-section-39-bis-thailand).",
+          "**Exact wording** — we could not read the Gazette text itself; confirm conditions with a Thai lawyer or the local municipality (tessaban/OrBorTor) before a heavy or ground-assisted installation.",
+          "**Off-grid systems** — for batteries and independent systems see [off-grid solar and storage for a Phangan villa](/knowledge/off-grid-solar-battery-storage-koh-phangan-villa)."
+        ]
+      },
+      {
+        "h": "Practical checklist for an owner"
+      },
+      {
+        "ul": [
+          "Get the installer's total system weight in kg/m² on the quote.",
+          "Keep the quote, drawings and installer details in your villa file; it helps at resale, see [due diligence](/knowledge/due-diligence-checklist-koh-phangan).",
+          "If the villa has no valid building permit to begin with, solar does not fix that; see [building permit validity](/knowledge/building-permit-validity-renewal-transfer-heirs-thailand).",
+          "Check your insurance covers roof-mounted equipment, see [insuring a villa](/knowledge/insuring-a-villa-koh-phangan-flood-storm-coverage)."
+        ]
+      },
+      "Takeaway: for a lightweight rooftop array (20 kg/m² or less) you no longer need a permit, engineer's certificate or local notification, but you still need a sound roof, a documented weight, and PEA approval if you connect to the grid."
+    ],
+    "takeaways": [
+      "Ministerial Regulation No. 72 B.E. 2568 was published in the Government Gazette on 19 November 2025 and took effect immediately.",
+      "Rooftop solar is not a 'building alteration' if the installation weighs 20 kg/m² or less, on any building type or size.",
+      "The structural stability certificate and prior notice to the local authority are no longer required.",
+      "The earlier 2015 exemption covered only residential buildings under 160 m² with inspection and notification conditions.",
+      "Grid connection (PEA) and roof load-bearing remain separate issues; verify the exact Gazette text before relying on it."
+    ],
+    "sources": [
+      {
+        "title": "Tilleke & Gibbins — Thailand eases rules for solar rooftop installations (21 Nov 2025)",
+        "url": "https://www.tilleke.com/insights/thailand-eases-rules-for-solar-rooftop-installations"
+      },
+      {
+        "title": "Mondaq repost — Thailand eases rules for solar rooftop installations",
+        "url": "https://webiis10.mondaq.com/renewables/1710390/thailand-eases-rules-for-solar-rooftop-installations"
+      }
+    ],
+    "faqHref": "/faq",
+    "faqCategory": "documents",
+    "faqQuestion": "Do I need a building permit to install solar panels on my villa roof in Thailand?"
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
