@@ -434,3 +434,4 @@ Status: ⏳ queued · ✅ published.
 | Land vs finished villa vs off-plan: choosing by goal | process | 🟡 | ✅ |
 | Freehold condo vs leasehold villa for a foreigner | ownership | 🟡 | ✅ |
 <!-- discovered 2026-10-02 (second run): published nothing. Fresh-news searches found only already-covered nominee/lease-scrutiny items; evergreen candidates (rescission, hidden defects, habitation, right of way, co-ownership) grep-confirmed already covered. Quality gate applied. -->
+<!-- discovered 2026-10-12: no guide published; no fresh news; architect/engineer licensing gap had only blog sources (no statute text). -->
