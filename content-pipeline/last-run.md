@@ -1,8 +1,5 @@
-# Last run — 2026-10-13
+# Last run — 2026-10-13 (second run)
 
-Published 1 guide (quality gate: no second distinct, verifiable topic).
+Published: 0 guides.
 
-- **sor-por-kor-4-01-agricultural-reform-land-foreigners-thailand** (kb-0243) — "Sor Por Kor 4-01 (ALRO) land: why a foreigner can't buy, lease or inherit it, and how to spot it". faqCategory: documents.
-  - Sources: ThaiLawOnline SPK page (updated Aug 2026; Act B.E. 2518, s.39 transfer bar); Chiang Rai Times SPK guide; DDproperty title-deed guide. Statute text and Supreme Court case numbers not verified, so the guide omits case numbers and hedges.
-
-Second guide not published: backlog ⏳ rows are duplicate/thin/unverifiable and no other gap could be sourced reliably. Next free kbId: kb-0244.
+Reason: the day's first run already published kb-0243 (sor-por-kor-4-01-agricultural-reform-land-foreigners-thailand). All remaining ⏳ backlog rows are duplicate/thin/unsafe. One evergreen gap candidate (court attachment/injunction on land, CPC s.254, what a buyer checks at the Land Office) was searched, but the sources found only covered adjacent topics (Land Office investigation annotations), so it was not safe to publish. Quality gate applied: no padding.
