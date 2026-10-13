@@ -406,6 +406,28 @@ export function financeSummary(
   };
 }
 
+/**
+ * Расходы месяца для RW API (GET /finance/summary → Плутос в «Великом Древе»).
+ * Те же функции, что у /admin/finance: факт месяца — из ledger, план и баланс — как в
+ * financeSummary. Только RW-цифры: личный дневник трат (Transactions) сюда не идёт.
+ */
+export function apiFinanceSummary(
+  subs: Subscription[] = subscriptions,
+  led: LedgerEntry[] = ledger,
+  now: Date = new Date(),
+) {
+  const month = currentYM(now);
+  const spent = ledgerMonthlySeries(led).find((p) => p.month === month)?.spent ?? 0;
+  return {
+    currency: "THB" as const,
+    month,
+    spentMonth: Math.round(spent),
+    opexMonthly: Math.round(opexActiveMonthly(subs)),
+    monthlyBalance: Math.round(monthlyBalance(subs)),
+    updatedAt: now.toISOString(),
+  };
+}
+
 // ── Дневник разовых трат: личное/бизнес + категории ─────────────────────────
 //
 // Источник — лист `Transactions` мастер-таблицы (loadTransactionsFromSheet),
