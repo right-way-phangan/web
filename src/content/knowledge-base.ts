@@ -14650,6 +14650,70 @@ export const KB_ARTICLES: KbArticle[] = [
     "faqCategory": "documents",
     "faqQuestion": "Do I need a building permit to install solar panels on my villa roof in Thailand?"
   },
+  {
+    "slug": "sor-por-kor-4-01-agricultural-reform-land-foreigners-thailand",
+    "kbId": "kb-0243",
+    "topic": "Documents",
+    "title": "Sor Por Kor 4-01 (ALRO) land: why a foreigner can't buy, lease or inherit it, and how to spot it",
+    "short": "Sor Por Kor 4-01 is not a title deed: it is a farming allotment of State land to landless Thai farmers under the Agricultural Land Reform Act B.E. 2518 (1975). It generally cannot be sold, mortgaged or leased on to others, and foreign money in it is exposed to loss. Here is how to recognise it and what to do instead.",
+    "updated": "2026-10-13",
+    "body": [
+      "Can a foreigner buy, lease or inherit Sor Por Kor 4-01 (ส.ป.ก. 4-01) land on Koh Phangan? No. It is not freehold property: it is an allotment of State land, issued by the Agricultural Land Reform Office (ALRO) to a landless Thai farmer to work, and the conditions of that allotment follow the land. A Thai-law practitioner source reports that foreigners cannot hold it directly or through any structure, and disguised arrangements are void.",
+      {
+        "h": "What it is — and what it is not"
+      },
+      {
+        "ul": [
+          "**Issuer** — ALRO under the Agricultural Land Reform Act B.E. 2518 (1975), not the Department of Lands. It is not a chanote or Nor Sor 3 Gor, and the Land Office does not keep its register.",
+          "**Purpose** — farming by qualified, landless Thai farmers. Building a villa, resort or second home is generally outside the allotment conditions.",
+          "**Transfer** — as reported by Thai legal sources, the land generally cannot be sold, mortgaged or transferred, except by inheritance to statutory heirs or to ALRO/farmers' institutions for land-reform purposes.",
+          "**Registration** — the Land Office generally cannot register a lease, usufruct, superficies or mortgage on it, so the protections described in [leasehold vs freehold](/knowledge/leasehold-vs-freehold) do not exist here."
+        ]
+      },
+      {
+        "h": "Why foreign money is exposed"
+      },
+      "Reported consequences of breaching the conditions include revocation of the allotment and recovery of the land by the State, and removal of buildings. A disguised transfer through a Thai spouse, nominee or company is treated as void, and a foreign buyer who paid a 'seller' may have only a weak claim to recover the money. The same logic as in [nominee structures](/knowledge/nominee-crackdown-krabi-islands-2026) applies: the arrangement offers no title and invites enforcement. Reported Supreme Court practice is also strict, including on divorce settlements and wills; confirm any case with a lawyer before relying on it.",
+      {
+        "h": "How to spot it before you pay"
+      },
+      {
+        "ul": [
+          "**Read the header** — a genuine form names the Agricultural Land Reform Office; chanote and Nor Sor 3 Gor carry the Department of Lands Garuda. Compare with the grades in [land titles](/knowledge/land-titles-chanote-vs-nor-sor-3).",
+          "**Distrust 'will be converted'** — a promise that the plot will become a chanote or that you can build later needs written confirmation from the provincial ALRO office; some allotments are reportedly being converted to 'agricultural' title documents, but those keep the farming condition and the transfer ban (the scheme's terms were not verified here).",
+          "**Run the full checks** — see [due diligence](/knowledge/due-diligence-checklist-koh-phangan) and the [PBT5/Sor Por Kor warning](/knowledge/untitled-sea-view-land-pbt5-sor-por-kor-scam)."
+        ]
+      },
+      {
+        "h": "What to do instead"
+      },
+      "Look for titled land (chanote, or Nor Sor 3 Gor with a clear route to chanote) and use a registered lease or a compliant structure as explained in [how foreigners own a villa](/knowledge/how-foreigners-own-a-villa). Have a Thai lawyer verify the document with the issuing office before any deposit."
+    ],
+    "takeaways": [
+      "Sor Por Kor 4-01 is an ALRO farming allotment of State land, not a title deed.",
+      "It is issued under the Agricultural Land Reform Act B.E. 2518 (1975) to landless Thai farmers.",
+      "Sale, mortgage and transfer are generally barred except by inheritance to qualified heirs or to ALRO.",
+      "Foreign ownership through a spouse, nominee or company is treated as void and risks State recovery.",
+      "Verify any 'will be converted to chanote' promise with the provincial ALRO office in writing."
+    ],
+    "sources": [
+      {
+        "title": "ThaiLawOnline — Sor Por Kor 4-01 (SPK), updated Aug 2026",
+        "url": "https://www.thailawonline.com/?p=1841"
+      },
+      {
+        "title": "Chiang Rai Times — Buying Sor Por Kor land in Chiang Rai",
+        "url": "https://www.chiangraitimes.com/expat-life/buying-sor-por-kor-land-in-chiang-rai/"
+      },
+      {
+        "title": "DDproperty — Home title deeds in Thailand",
+        "url": "https://www.ddproperty.com/en/property-guides/home-title-deeds-in-thailand-4168"
+      }
+    ],
+    "faqHref": "/faq",
+    "faqCategory": "documents",
+    "faqQuestion": "Can a foreigner buy or lease Sor Por Kor 4-01 land in Thailand?"
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

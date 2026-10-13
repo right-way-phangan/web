@@ -11,6 +11,7 @@ Status: ⏳ queued · ✅ published.
 > never re-publish an existing slug even if it appears ⏳ here.
 
 <!-- discovered 2026-10-10 (second run): published kb-0241 (interior-ministry-circular-aug-2026-nominee-land-investigation-committees-thailand; Tilleke & Gibbins). No second distinct topic found. -->
+<!-- discovered 2026-10-13: published kb-0243 (sor-por-kor-4-01-agricultural-reform-land-foreigners-thailand; ThaiLawOnline, Chiang Rai Times, DDproperty). No second distinct verifiable topic; all other ⏳ rows still duplicate/thin/unsafe. -->
 <!-- discovered 2026-10-11 (second run): no guide published. Candidate "wrong transfer / unjust enrichment (CCC 406 ff.) for property deposits" (0 grep hits) researched, but only one secondary source (ThaiLawOnline) with unverified limitation period and internal inconsistencies; revisit if the statute text or Supreme Court sources can be fetched. -->
 <!-- discovered 2026-10-11: no guide published; all ⏳ rows still duplicate/thin/unsafe and fresh-news search found no verifiable new item. Stamp-duty-vs-SBT row is covered by existing guides (could be marked ✅). -->
 <!-- discovered 2026-10-10: published kb-0239 (koh-phangan-power-supply-undersea-cable-outage-risk-villa-buyers; EGAT, Bangkok Post) and kb-0240 (land-building-tax-2026-no-reduction-decree-full-rates-thailand; Lex Bangkok, Thairath). Water-crisis 🔴 row left ⏳: 2026 Phangan rationing figures not verifiable from reputable sources. -->
