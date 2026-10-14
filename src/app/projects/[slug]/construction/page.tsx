@@ -10,7 +10,7 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 /** Только проекты с фотоотчётами — у остальных страницы нет (404). */
 export async function generateStaticParams() {

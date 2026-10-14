@@ -62,7 +62,7 @@ export async function updateObjectAction(
     return { ok: false, error: "Сетевая ошибка при сохранении." };
   }
   revalidatePath("/admin/objects");
-  // Каталог-грид кэшируется под тегом "catalog" (TTL 300с). Статус/цена меняют
+  // Каталог-грид кэшируется под тегом "catalog" (TTL 1 ч). Статус/цена меняют
   // видимость и карточку — без сброса тега правка всплыла бы только по TTL.
   revalidateTag("catalog");
   revalidatePath("/listings");

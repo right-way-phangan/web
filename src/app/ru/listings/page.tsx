@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/ru/listings", languages: { en: "/listings", ru: "/ru/listings", "x-default": "/listings" } },
 };
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 interface PageProps {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
