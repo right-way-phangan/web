@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 };
 
 // Engine reads the live catalog; keep the page fresh but cacheable.
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default function EstimatePage() {
   const siteUrl = getSiteUrl();

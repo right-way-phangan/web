@@ -20,7 +20,7 @@ function fmtDate(iso: string): string {
   });
 }
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
 export default async function RussianBlogPage() {
   const posts = await getAllBlogPosts("ru");

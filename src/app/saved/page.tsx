@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true },
 };
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function SavedPage() {
   // The saved set lives in the browser; we hand the full catalog to the client

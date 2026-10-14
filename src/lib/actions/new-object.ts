@@ -8,6 +8,7 @@ import { classifyImageIsDocument } from "@/lib/classify/image-doc";
 import { backendFetch } from "@/lib/api/backend";
 import { uploadImageToR2 } from "@/lib/storage/r2";
 import { requireStaff } from "@/lib/auth/require-admin";
+import { revalidateTag } from "next/cache";
 
 /**
  * Migration off amoCRM (Phase A): when OBJECTS_API_URL is set, new objects are
@@ -277,6 +278,7 @@ export async function createObject(
     const res = OBJECTS_API_URL
       ? await createViaApi(input)
       : await createObjectCard(input);
+    revalidateTag("catalog"); // каталог кэшируется на час — новый объект показываем сразу
 
     await notifyObjectCreated({
       rwNumber: res.rwNumber,

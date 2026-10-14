@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/ru/districts", languages: { en: "/districts", ru: "/ru/districts", "x-default": "/districts" } },
 };
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 async function buildDistrictPoints(): Promise<DistrictPoint[]> {
   const objects = await getPublicObjects();

@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     "Every district of Koh Phangan, mapped by Right Way — each with its own character, price profile, and buyer match, from the wellness west coast to the quiet inland hills.",
 };
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 /**
  * Build map markers per district: live-catalog centroid + listing count when we
