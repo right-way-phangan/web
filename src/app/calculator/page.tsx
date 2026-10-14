@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     "Project the value, ROI, and capital growth of a Koh Phangan property over time — and see matching listings for your budget.",
 };
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function CalculatorPage({
   searchParams,

@@ -13,7 +13,7 @@ import type { RealEstateObject, ObjectStatus, NearbyListing } from "@/types/obje
  * Cache TTL for catalog fetches (Next.js fetch revalidation).
  * 5 min — balances freshness vs amoCRM API rate limits.
  */
-export const CATALOG_REVALIDATE_SECONDS = 300;
+export const CATALOG_REVALIDATE_SECONDS = 3600;
 
 const PUBLIC_STATUSES: ObjectStatus[] = ["Active"];
 /**
@@ -200,7 +200,7 @@ async function apiObjects(path: string): Promise<RealEstateObject[]> {
   // not also land in the sticky fetch Data Cache — for the low-traffic
   // /objects/all entry that cache could wedge stale for hours (a deleted object
   // kept 200-ing its "unavailable" page; neither a redeploy nor `vercel cache
-  // purge` cleared it). This keyspace refreshes on the 300s TTL and busts
+  // purge` cleared it). This keyspace refreshes on the 1 h TTL and busts
   // instantly on revalidateTag("catalog") — see POST /api/revalidate-catalog.
   const load = unstable_cache(
     async () => {

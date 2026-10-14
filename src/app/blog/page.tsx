@@ -22,7 +22,7 @@ function fmtDate(iso: string): string {
   });
 }
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
 export default async function BlogPage() {
   const posts = await getAllBlogPosts("en");

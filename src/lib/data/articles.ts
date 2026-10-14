@@ -123,7 +123,7 @@ async function fetchPublished(lang: string): Promise<DbArticle[]> {
   if (!BACKEND_URL) return [];
   try {
     const r = await backendFetch(`/articles?status=published&lang=${lang}`, {
-      next: { revalidate: 60, tags: ["articles"] },
+      next: { revalidate: 3600, tags: ["articles"] },
     });
     if (!r.ok) return [];
     return (await r.json()) as DbArticle[];
@@ -216,7 +216,7 @@ export async function getBlogPost(
     try {
       // ?lang= picks the right row of the EN+RU pair sharing this slug
       const r = await backendFetch(`/articles/slug/${encodeURIComponent(slug)}?lang=${lang}`, {
-        next: { revalidate: 60, tags: ["articles"] },
+        next: { revalidate: 3600, tags: ["articles"] },
       });
       if (r.ok) {
         const a = (await r.json()) as DbArticle;

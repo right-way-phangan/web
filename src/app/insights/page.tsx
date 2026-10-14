@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     "Check what your Koh Phangan villa could earn per night, see median land prices by district, the premium a pool or sea view commands, and which configuration is worth building for rental. Based on live listings.",
 };
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function InsightsPage() {
   const data = getRentalMarket();
