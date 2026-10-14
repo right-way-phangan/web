@@ -10,6 +10,7 @@ Status: ⏳ queued · ✅ published.
 > Dedup is enforced against the actual slugs already in `src/content/knowledge-base.ts` —
 > never re-publish an existing slug even if it appears ⏳ here.
 
+<!-- discovered 2026-10-14: no guide published. Fresh-news searches found nothing verifiable and dated; all ⏳ rows still duplicate/thin/unsafe. Single-vendor claim of a real-time condo-quota tracking system (superagent.co blog) remains unverified. -->
 <!-- discovered 2026-10-13 (second run): no guide published. Today's first run already published kb-0243. Candidate 'court attachment / injunction (lis pendens equivalent, CPC s.254) on land: what a buyer checks at the Land Office' (0 grep hits) searched; results returned only adjacent Tilleke annotation material, no primary/secondary source on the mechanics. Revisit if CPC s.254 / Land Office practice source is found. -->
 <!-- discovered 2026-10-10 (second run): published kb-0241 (interior-ministry-circular-aug-2026-nominee-land-investigation-committees-thailand; Tilleke & Gibbins). No second distinct topic found. -->
 <!-- discovered 2026-10-13: published kb-0243 (sor-por-kor-4-01-agricultural-reform-land-foreigners-thailand; ThaiLawOnline, Chiang Rai Times, DDproperty). No second distinct verifiable topic; all other ⏳ rows still duplicate/thin/unsafe. -->

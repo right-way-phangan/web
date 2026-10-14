@@ -1,5 +1,5 @@
-# Last run — 2026-10-13 (second run)
+# Last run — 2026-10-14
 
 Published: 0 guides.
 
-Reason: the day's first run already published kb-0243 (sor-por-kor-4-01-agricultural-reform-land-foreigners-thailand). All remaining ⏳ backlog rows are duplicate/thin/unsafe. One evergreen gap candidate (court attachment/injunction on land, CPC s.254, what a buyer checks at the Land Office) was searched, but the sources found only covered adjacent topics (Land Office investigation annotations), so it was not safe to publish. Quality gate applied: no padding.
+Reason: quality gate. Latest published guide is kb-0243 (sor-por-kor-4-01-agricultural-reform-land-foreigners-thailand). Remaining ⏳ backlog rows are still duplicate/thin/unsafe. Two fresh-news searches (Koh Phangan land news Oct 2026; Land Department foreign-ownership rule Oct 2026) returned only listings, old 2022/2024 items and one unverified single-vendor blog, so there was no verifiable new item. No padding.
