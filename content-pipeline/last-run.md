@@ -1,5 +1,8 @@
-# Last run — 2026-10-14
+# Last run — 2026-10-15
 
-Published: 0 guides.
+Published: 0 guides (quality gate).
 
-Reason: quality gate. Latest published guide is kb-0243 (sor-por-kor-4-01-agricultural-reform-land-foreigners-thailand). The ⏳ backlog rows are still duplicate/thin/unsafe, and the existing catalog (~240 guides) already covers the evergreen topics checked. A fresh-news search (Thailand foreign property ownership / Land Department rule, Oct 2026) returned only the withdrawn 2022 draft, the 2024 THB 40M scheme (already covered) and one unverified single-vendor blog (superagent.co) claiming a Land Department digital quota tracker. No verifiable, dated new item was found. No padding.
+Reasons:
+- FBA/AMLA nominee predicate-offence amendment: only the 2025 draft (public hearing 27 Mar–25 Apr 2025; Tilleke & Gibbins, Siam Premier newsletter) is findable; no 2026 source confirms enactment. Publishing would risk a false legal claim. Adjacent AMLA risk already covered by `amla-civil-forfeiture-bona-fide-purchaser-thailand`.
+- "Realistic villa rental yields": generic, overlaps `developer-guaranteed-rental-yield-red-flags-thailand` and the rental-tax guides; no distinct well-sourced angle.
+- Other ⏳ rows (water crisis, buyer demographics, off-plan vetting, election policy, PND.90/91 deadline) remain unverifiable/thin per earlier runs.
