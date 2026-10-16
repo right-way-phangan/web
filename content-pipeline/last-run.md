@@ -1,7 +1,10 @@
-# Last run — 2026-10-15
+# Last run — 2026-10-16
 
-Published: 0 guides.
+Published: 2 guides.
 
-Reason: HARD QUALITY GATE. All remaining ⏳ backlog rows are duplicates of existing guides, thin, or unverifiable. Checked the FBA/AML nominee-predicate-offence row: only the 2025 draft (Tilleke; Siam Premier hearing 27 Mar–25 Apr 2025) is documented; no Royal Gazette or official source confirms enactment or final form in 2026, so publishing would risk misleading buyers. Nominee enforcement is already covered by existing guides (nominee-crackdown-krabi-islands-2026, 21-agency-anti-nominee-mou-2026, koh-samui-phangan-raid-leases-nominee-scrutiny-2026).
+1. `land-area-shortfall-title-deed-vs-survey-ccc-466-467-thailand` (kb-0244) — "Land smaller than the deed says: area shortfall remedies in Thai land sales (CCC 466-467)". faqCategory: process.
+   - Sources: ThaiLawOnline CCC Sections 466 and 467 (unofficial translation; Thai text governs); ThaiLawOnline Land Code Ch. 5 (survey). Ambiguities (which area counts, lump-sum sales, "delivery") hedged.
+2. `architect-house-plans-copyright-ownership-reuse-villa-thailand` (kb-0245) — "Who owns your villa's architectural plans? Copyright and reuse under Thai law". faqCategory: documents.
+   - Sources: Copyright Act B.E. 2537 English translation (Wikisource; ss.4, 6, 9, 10, 19, 22); Tilleke & Gibbins commentary on employee/commissioned works. Architecture-vs-applied-art term question flagged for lawyer confirmation.
 
-Sources consulted: Tilleke & Gibbins (draft nominee/AML controls), Siam Premier newsletter (Jul 2025).
+Fresh-news searches (new foreign-ownership rules, Phangan/Samui land office, Oct 2026) found nothing new and verifiable, so both guides are evergreen gaps (catalog grep: no prior coverage of CCC 466-467 or plan copyright). `tsc --noEmit` passed.

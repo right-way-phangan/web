@@ -14714,6 +14714,150 @@ export const KB_ARTICLES: KbArticle[] = [
     "faqCategory": "documents",
     "faqQuestion": "Can a foreigner buy or lease Sor Por Kor 4-01 land in Thailand?"
   },
+  {
+    "slug": "land-area-shortfall-title-deed-vs-survey-ccc-466-467-thailand",
+    "kbId": "kb-0244",
+    "topic": "Process",
+    "title": "Land smaller than the deed says: area shortfall remedies in Thai land sales (CCC 466-467)",
+    "short": "If a Thai land sale states the total area and the plot turns out smaller or larger, CCC Section 466 gives the buyer a proportionate-price or rejection remedy depending on a 5% threshold, and Section 467 sets a one-year deadline from delivery. This guide explains what the sections say, what they leave open, and how to avoid the problem on Koh Phangan.",
+    "updated": "2026-10-16",
+    "body": [
+      "What can you do if the land you bought is smaller than the area in the contract or title deed? If the sale stated the total area, CCC Section 466 lets the buyer deal with a shortfall (or excess) by paying a proportionate price or, above a threshold, rejecting the land. Section 467 bars any court action more than one year after delivery. The two sections are short, so the practical lesson is to check the area before you transfer, not after.",
+      {
+        "h": "What Sections 466 and 467 say"
+      },
+      {
+        "ul": [
+          "**Scope** — a sale of immovable property where the **total area is specified** and the seller delivers less or more than contracted.",
+          "**Buyer's option** — to reject the property, or to accept it and pay the proportionate price.",
+          "**The 5% band** — in the ThaiLawOnline translation, if the deficiency or excess does not exceed 5% of the specified area, the buyer is bound to accept and pay the proportionate price.",
+          "**Rescission safety valve** — even inside that band, the buyer may rescind if the gap is such that, had they known of it, they would not have entered the contract.",
+          "**Section 467 — one year** — no action for liability on account of deficiency or excess can be brought later than one year after delivery."
+        ]
+      },
+      {
+        "h": "Why this matters on Koh Phangan"
+      },
+      "Land here is sold by the rai, and many older plots (Nor Sor 3 Gor, or chanote surveyed long ago) carry areas that differ from what a modern survey finds. Prices are often quoted per rai, so a small percentage gap can be a large amount of money; see [how land is priced per rai](/knowledge/how-land-is-priced-price-per-rai). Section 466 is a remedy for the buyer after the fact, but it is not a substitute for checking.",
+      {
+        "h": "Open points to take legal advice on"
+      },
+      {
+        "ul": [
+          "**Which area counts** — the translation refers to the 'total area so specified'. Whether that means the area written in the contract, the area on the deed, or a figure from a new survey depends on the facts and the wording of your agreement.",
+          "**Lump-sum sales** — a price expressed for the whole plot 'as is' rather than per unit of area may change how a court reads the clause. This is a point for a Thai lawyer, not something the statute text settles.",
+          "**'Delivery' for land** — when time starts running (registration, handover or both) should be fixed in the contract rather than argued later; see [limitation periods](/knowledge/limitation-periods-property-claims-prescription-thailand).",
+          "**Official resurvey** — if the Land Office resurveys and the boundaries change, a separate statutory process applies; see [boundary resurvey under Section 69 bis](/knowledge/land-code-section-69-bis-boundary-resurvey)."
+        ]
+      },
+      {
+        "h": "How to avoid it"
+      },
+      {
+        "ul": [
+          "**Commission an independent survey** before signing and compare it with the deed area and the [LandsMaps check](/knowledge/landsmaps-online-title-deed-verification-thailand).",
+          "**State the basis in the SPA**: a per-rai price with an adjustment formula, a tolerance, and a right to withdraw beyond it; see [the sale and purchase agreement](/knowledge/sale-purchase-agreement-earnest-money-ccc-thailand).",
+          "**Hold part of the price** back until the survey is confirmed, using a lawyer-drafted mechanism rather than informal short-paying.",
+          "**Work through the checklist** in the [due diligence guide](/knowledge/due-diligence-checklist-koh-phangan)."
+        ]
+      },
+      "Takeaway: the Code gives a buyer a price adjustment or exit for area gaps, but only for a short window after delivery. Section texts here are unofficial English translations and the Thai text governs, so confirm the details with a Thai lawyer before relying on them."
+    ],
+    "takeaways": [
+      "CCC Section 466 applies where a land sale specifies the total area and the delivered area differs.",
+      "The buyer may reject or accept at a proportionate price; within a 5% gap acceptance at a proportionate price is the rule.",
+      "Even within 5%, the buyer may rescind if they would not have contracted had they known.",
+      "Section 467 bars an action brought more than one year after delivery.",
+      "Survey before you sign and write the area basis and tolerance into the contract."
+    ],
+    "sources": [
+      {
+        "title": "ThaiLawOnline — Civil and Commercial Code Section 466",
+        "url": "https://www.thailawonline.com/thai-civil-code/section-466/"
+      },
+      {
+        "title": "ThaiLawOnline — Civil and Commercial Code Section 467",
+        "url": "https://www.thailawonline.com/thai-civil-code/section-467/"
+      },
+      {
+        "title": "ThaiLawOnline — Land Code, Chapter 5: Land Survey",
+        "url": "https://www.thailawonline.com/fr/thailand-land-code/chapter-5/"
+      }
+    ],
+    "faqHref": "/faq",
+    "faqCategory": "process",
+    "faqQuestion": "What can I do if the land I bought in Thailand is smaller than the area in the contract or title deed?"
+  },
+  {
+    "slug": "architect-house-plans-copyright-ownership-reuse-villa-thailand",
+    "kbId": "kb-0245",
+    "topic": "Documents",
+    "title": "Who owns your villa's architectural plans? Copyright and reuse under Thai law",
+    "short": "Architectural designs are protected by the Thai Copyright Act B.E. 2537, and under Section 10 a person who commissions a work generally holds its copyright unless otherwise agreed. This guide explains what that means for owners who hire a Koh Phangan architect, want to reuse plans, or sell the villa.",
+    "updated": "2026-10-16",
+    "body": [
+      "Who owns the drawings when you pay an architect to design your villa? Under the Copyright Act B.E. 2537, the default in Section 10 is that for a commissioned work the hirer holds copyright unless the author and hirer agree otherwise. Because many design contracts do agree otherwise, the signed contract decides, and it is worth reading before you reuse, adapt or sell the plans.",
+      {
+        "h": "What the Act says"
+      },
+      {
+        "ul": [
+          "**Architecture is protected** — Section 4 defines work of architecture as designing a building or construction, including interior or exterior design and a model of the building. Ideas and methods are not protected (Section 6).",
+          "**Commissioned work (Section 10)** — the hirer enjoys copyright 'save where otherwise agreed upon by the author and the hirer'.",
+          "**Employees (Section 9)** — the opposite default: the employee-author keeps copyright unless agreed in writing, though the employer may communicate the work to the public for the purpose of the employment.",
+          "**Term** — generally the author's life plus 50 years (Section 19); works of applied art are given 25 years from creation (Section 22). Whether a house design counts as architecture or applied art is a legal question to confirm.",
+          "**Registration is not required** for protection."
+        ]
+      },
+      {
+        "h": "Why it matters for villa owners"
+      },
+      {
+        "ul": [
+          "**Reusing plans** — building a second villa from the same drawings, or having a different builder adapt them, can be an issue if the architect retained copyright or the contract limits use to one site.",
+          "**Switching professionals** — a new architect or engineer who needs to amend the drawings for a permit change may need a licence; see [renovation permits](/knowledge/renovating-villa-alteration-permit-section-39-bis-thailand).",
+          "**Selling the villa** — a buyer will want the permit set and as-built drawings; confirm you can transfer the right to use them. See [building permit validity and transfer](/knowledge/building-permit-validity-renewal-transfer-heirs-thailand).",
+          "**Builder-supplied designs** — in a design-and-build deal, the construction contract should say who owns the plans; see [controlled residential construction contracts](/knowledge/residential-construction-controlled-contract-thailand)."
+        ]
+      },
+      {
+        "h": "Clauses to ask for"
+      },
+      {
+        "ul": [
+          "An express statement that the **owner holds copyright** in the design, or a perpetual licence to use, modify, and complete the building.",
+          "The right to **have another professional amend** the drawings and to use them for permits, sale and repairs.",
+          "Whether the architect may **publish photos or drawings**, and any credit requirement.",
+          "Delivery of **editable files** (CAD) and signed permit drawings on final payment."
+        ]
+      },
+      "Takeaway: the statutory default favours the person who commissions a design, but contracts routinely change it. Get ownership and reuse written into the architect and builder agreements, and see [building a villa on Koh Phangan](/knowledge/building-a-villa-koh-phangan) for the wider process. The Act's section texts here come from an unofficial English translation, so confirm with a Thai IP or property lawyer."
+    ],
+    "takeaways": [
+      "Architectural designs are protected under the Thai Copyright Act B.E. 2537; no registration is needed.",
+      "Section 10: for commissioned work the hirer holds copyright unless otherwise agreed.",
+      "Section 9 reverses the default for employees, who keep copyright unless agreed in writing.",
+      "Design contracts often override the default, so read yours before reusing or selling plans.",
+      "Ask for ownership or a perpetual licence, amendment rights and editable files in writing."
+    ],
+    "sources": [
+      {
+        "title": "Wikisource — Translation: Copyright Act, 2537 BE",
+        "url": "https://en.wikisource.org/wiki/Translation:Copyright_Act,_2537_BE"
+      },
+      {
+        "title": "Tilleke & Gibbins — Employee inventions and creativity: ownership and compensation",
+        "url": "https://www.tilleke.com/insights/employee-inventions-and-creativity-ownership-and-compensation/2/"
+      },
+      {
+        "title": "Tilleke & Gibbins — International Copyright Law: Thailand chapter",
+        "url": "https://www.tilleke.com/insights/international-copyright-law-a-practical-global-guide-second-edition-thailand-chapter/6/"
+      }
+    ],
+    "faqHref": "/faq",
+    "faqCategory": "documents",
+    "faqQuestion": "Who owns the architect's plans for my villa in Thailand, and can I reuse them?"
+  },
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {
