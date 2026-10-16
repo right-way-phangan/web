@@ -1,10 +1,9 @@
-# Last run — 2026-10-16
+# Last run — 2026-10-16 (second run)
 
-Published: 2 guides.
+Published: 0 guides.
 
-1. `land-area-shortfall-title-deed-vs-survey-ccc-466-467-thailand` (kb-0244) — "Land smaller than the deed says: area shortfall remedies in Thai land sales (CCC 466-467)". faqCategory: process.
-   - Sources: ThaiLawOnline CCC Sections 466 and 467 (unofficial translation; Thai text governs); ThaiLawOnline Land Code Ch. 5 (survey). Ambiguities (which area counts, lump-sum sales, "delivery") hedged.
-2. `architect-house-plans-copyright-ownership-reuse-villa-thailand` (kb-0245) — "Who owns your villa's architectural plans? Copyright and reuse under Thai law". faqCategory: documents.
-   - Sources: Copyright Act B.E. 2537 English translation (Wikisource; ss.4, 6, 9, 10, 19, 22); Tilleke & Gibbins commentary on employee/commissioned works. Architecture-vs-applied-art term question flagged for lawyer confirmation.
+Reason (quality gate): all ⏳ backlog rows are still duplicate/thin/unsafe, and the two evergreen gaps researched did not reach the sourcing bar.
+- Mortgage discharge on a seller's paid-off mortgage (CCC 744 / Land Office cancellation): searches returned only generic checklists. No official Department of Lands source on the procedure, forms or fees. Revisit with Thai-language sources (จดทะเบียนลบจำนอง).
+- Overhanging branches and roots (CCC 1346-1348): only an unverified ThaiLawOnline translation of s.1347 (the "reasonable notice" standard is undefined) plus a Chula thesis snippet. No commentary or case law. Too thin for a standalone guide.
 
-Fresh-news searches (new foreign-ownership rules, Phangan/Samui land office, Oct 2026) found nothing new and verifiable, so both guides are evergreen gaps (catalog grep: no prior coverage of CCC 466-467 or plan copyright). `tsc --noEmit` passed.
+Next free kbId: kb-0246. Earlier today's run published kb-0244/kb-0245.
