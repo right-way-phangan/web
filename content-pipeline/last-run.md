@@ -1,7 +1,7 @@
-# Last run — 2026-10-17
+# Last run — 2026-10-17 (second run)
 
 Published: 0 guides.
 
-Reason (quality gate): every remaining ⏳ backlog row is a duplicate of an existing guide (off-plan vetting → buying-off-plan-new-developments, thailand-escrow-act-off-plan-deposit-protection; yields → developer-guaranteed-rental-yield-red-flags-thailand; rental tax → pnd-94 / vat / double-tax-treaty guides) or is thin/unverifiable (Phangan water-crisis figures, FBA/AML nominee amendment enactment, 2026 coalition policy watch-item, buyer-nationality investment figures). No new web research was run to avoid padding with unverifiable content.
+Reason (quality gate): all remaining ⏳ backlog rows are duplicates of existing guides (off-plan vetting, rental yields, rental tax) or thin/unverifiable (Phangan water-crisis 2026 figures, FBA/AML nominee amendment enactment, 2026 coalition policy, buyer-nationality investment figures, PND.90/91 deadline). No padding published.
 
 Backlog needs fresh, verifiable topics. Next free kbId: kb-0246.
