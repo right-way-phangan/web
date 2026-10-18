@@ -14858,6 +14858,154 @@ export const KB_ARTICLES: KbArticle[] = [
     "faqCategory": "documents",
     "faqQuestion": "Who owns the architect's plans for my villa in Thailand, and can I reuse them?"
   },
+  {
+    "slug": "joint-and-several-liability-co-buyers-co-borrowers-ccc-290-296-thailand",
+    "kbId": "kb-0246",
+    "topic": "Structures",
+    "title": "Two buyers, one debt: joint and several liability for co-buyers and co-borrowers (CCC 290-296)",
+    "short": "When two or more people owe the same payment on a Thai property deal, the Civil and Commercial Code distinguishes between equal-share liability and joint and several liability, where the creditor can demand everything from any one of them. This guide explains the rules for friends, couples and partners buying or financing a Koh Phangan property together.",
+    "updated": "2026-10-18",
+    "body": [
+      "If two people buy a villa together and one stops paying, can the seller or lender demand the whole amount from the other? Under CCC Section 291, where the obligation is joint and several, yes: the creditor may demand performance in whole or in part from any one debtor. Where it is not, Section 290 says that in case of doubt each debtor owes only an equal share. Which rule applies depends on what the contract says, so the wording matters.",
+      {
+        "h": "What the Code says"
+      },
+      {
+        "ul": [
+          "**Section 290 — divisible performance** — if several persons owe a divisible performance (such as a sum of money) and nothing else is agreed, each is liable only for an equal share in case of doubt.",
+          "**Section 291 — joint and several** — the creditor may demand the performance from any one of the debtors, in whole or in part, and all remain bound until it is fully performed.",
+          "**Section 292** — performance by one joint debtor benefits the others. A claim belonging to one debtor may not be set off by the other debtors.",
+          "**Section 293** — a release granted to one joint debtor benefits the others only to the extent of the released debtor's share, per the ThaiLawOnline translation.",
+          "**Section 294** — the creditor's default towards one joint debtor also benefits the others.",
+          "**Section 295** — facts other than those in Sections 292-294 affect only the debtor concerned, unless the nature of the obligation indicates otherwise.",
+          "**Section 296** — among themselves, joint debtors share in equal parts unless otherwise agreed (ThaiLawOnline summary; read the full text for the treatment of a co-debtor who cannot pay)."
+        ]
+      },
+      {
+        "h": "Where this appears in property deals"
+      },
+      {
+        "ul": [
+          "**Co-buyers on an SPA** — if the contract says 'the Buyers shall pay', it may be argued either way; a clear clause avoids the argument.",
+          "**Co-borrowers on a loan** — lenders usually insist on joint and several wording, so each borrower is exposed for the full amount. See [financing as a foreigner](/knowledge/financing-buying-as-a-foreigner).",
+          "**Co-tenants on a lease** — the landlord will normally want to be able to claim the whole rent from either tenant.",
+          "**Contractors and builders** — owners who sign a construction contract together are exposed in the same way; see [the controlled-contract guide](/knowledge/residential-construction-controlled-contract-thailand)."
+        ]
+      },
+      {
+        "h": "Joint and several is not the same as co-ownership"
+      },
+      "Owning land together is a property-law question (shares, partition, who can sell), covered in [co-ownership and partition](/knowledge/co-ownership-partition-thai-property). Joint and several liability is about who can be made to pay a debt. A couple can own 50/50 and still each owe 100% of a loan, and the reverse is possible too. A guarantor is a different legal position again; see [personal guarantees](/knowledge/personal-guarantee-suretyship-thai-property-company).",
+      {
+        "h": "Practical steps"
+      },
+      {
+        "ul": [
+          "Decide before signing whether you want to be liable only for your own share, and say so in the contract in plain words.",
+          "Agree between yourselves in writing how a shortfall is shared and how a partner who pays more recovers it, rather than relying on the default equal-share rule.",
+          "Treat a lender's 'jointly and severally' clause as a real obligation: each signer can be pursued for the whole sum.",
+          "Have a Thai lawyer review who is named as 'Buyer', 'Borrower' or 'Tenant', and how a release or exit of one party is documented."
+        ]
+      },
+      "Takeaway: shared purchase does not automatically mean shared-only liability. Check whether your contract makes you liable for a share or for everything. The section texts are unofficial English translations and the Thai text governs, so confirm with a Thai lawyer."
+    ],
+    "takeaways": [
+      "Under CCC Section 290, in case of doubt, co-debtors on a divisible obligation owe equal shares.",
+      "Under Section 291, a joint and several creditor can demand all or part of the debt from any one debtor.",
+      "A release of one joint debtor benefits the others only to the extent of the released debtor's share (Section 293).",
+      "Between themselves, joint debtors share equally unless otherwise agreed (Section 296).",
+      "Write down whether you are liable for a share or the whole sum, and agree recovery rights between co-buyers."
+    ],
+    "sources": [
+      {
+        "title": "ThaiLawOnline — Civil and Commercial Code Section 290",
+        "url": "https://www.thailawonline.com/thai-civil-code/section-290/"
+      },
+      {
+        "title": "ThaiLawOnline — Civil and Commercial Code Section 291",
+        "url": "https://www.thailawonline.com/thai-civil-code/section-291/"
+      },
+      {
+        "title": "ThaiLawOnline — Civil and Commercial Code Sections 292-295",
+        "url": "https://www.thailawonline.com/thai-civil-code/section-292/"
+      },
+      {
+        "title": "ThaiLawOnline — Civil and Commercial Code Section 296",
+        "url": "https://www.thailawonline.com/thai-civil-code/section-296/"
+      }
+    ],
+    "faqHref": "/faq",
+    "faqCategory": "structures",
+    "faqQuestion": "If I buy a Thai property with a partner and they stop paying, can the seller or lender demand the full amount from me?"
+  },
+  {
+    "slug": "payment-default-demand-notice-ccc-203-205-property-contracts-thailand",
+    "kbId": "kb-0247",
+    "topic": "Process",
+    "title": "When is a buyer or seller 'in default'? Due dates and demand notices under CCC 203-205",
+    "short": "Under CCC Section 204, a debtor is in default after a creditor's warning following the due date, or without any warning if the contract fixes a calendar date. This guide explains how that affects late payments and late transfers on Koh Phangan property deals and why contracts should state exact dates.",
+    "updated": "2026-10-18",
+    "body": [
+      "When does a late buyer or seller legally count as 'in default'? Under CCC Section 204, if the debt is due and the creditor gives a warning, the debtor is in default if still not performing. If the contract fixes a time by calendar, the debtor is in default on that date without any warning. Default is the trigger for many remedies, so the date wording in your contract matters.",
+      {
+        "h": "What Sections 203-205 say"
+      },
+      {
+        "ul": [
+          "**Section 203 — no time fixed** — where no time for performance is fixed or inferable, the creditor may demand performance at once and the debtor may perform at once. Where a time is fixed, the creditor generally cannot demand earlier, though the debtor may perform earlier.",
+          "**Section 204 — default** — after maturity, the debtor is in default through the creditor's warning. If a time by calendar is fixed, the debtor is in default without warning.",
+          "**Section 205 — no fault** — a debtor is not in default so long as non-performance results from a circumstance for which they are not responsible."
+        ]
+      },
+      {
+        "h": "Why it matters for property deals"
+      },
+      {
+        "ul": [
+          "**Instalments to a developer or seller** — a payment schedule with calendar dates puts a late buyer in default without a reminder; vague wording ('upon completion of the foundation') may need a written warning first.",
+          "**Transfer day** — if the SPA says 'transfer on or before 30 November', a seller who does not appear is in default from the next day. If it says 'within a reasonable time', a written demand is the safer route. See [the Land Office registration day](/knowledge/land-office-registration-day).",
+          "**Remedies that follow** — default interest ([statutory rate](/knowledge/statutory-default-interest-rate-property-contracts-ccc-224-654-thailand)), [penalty clauses](/knowledge/penalty-clauses-liquidated-damages-property-contracts-ccc-379-385-thailand) and [rescission](/knowledge/after-rescission-restoring-parties-damages-ccc-389-392-property-contracts-thailand) generally depend on a party being in default; the precise conditions for each are in those guides.",
+          "**Contractor delays** — the same logic applies to a builder's completion date; see [terminating a construction contract](/knowledge/terminating-villa-construction-contract-employer-right-ccc-605-607-thailand)."
+        ]
+      },
+      {
+        "h": "Practical steps"
+      },
+      {
+        "ul": [
+          "Put exact calendar dates on every payment and transfer deadline.",
+          "If a date is open-ended, send a dated written demand giving a reasonable deadline, ideally in Thai and English, and keep proof of delivery.",
+          "Record any reason you could not perform (Section 205), such as a Land Office closure or the other side's missing documents, in writing at the time.",
+          "Do not stop paying or declare termination until a Thai lawyer has checked whether the other side is actually in default."
+        ]
+      },
+      "Takeaway: default is a legal status, not just lateness. Calendar dates make it automatic; otherwise a clear warning does. The section texts are unofficial English translations and the Thai text governs, so confirm the details with a Thai lawyer."
+    ],
+    "takeaways": [
+      "CCC Section 204: a debtor is in default after a creditor's warning given once the debt is due.",
+      "If the contract fixes a calendar date, the debtor is in default on that date without warning.",
+      "Section 205: a debtor is not in default while non-performance is due to circumstances they are not responsible for.",
+      "Many remedies (interest, penalties, rescission) depend on default, so exact dates in the SPA matter.",
+      "If the date is vague, send a dated written demand and keep proof of delivery."
+    ],
+    "sources": [
+      {
+        "title": "ThaiLawOnline — Civil and Commercial Code Section 203",
+        "url": "https://www.thailawonline.com/thai-civil-code/section-203/"
+      },
+      {
+        "title": "ThaiLawOnline — Civil and Commercial Code Section 204",
+        "url": "https://www.thailawonline.com/thai-civil-code/section-204/"
+      },
+      {
+        "title": "ThaiLawOnline — Civil and Commercial Code Section 205",
+        "url": "https://www.thailawonline.com/thai-civil-code/section-205/"
+      }
+    ],
+    "faqHref": "/faq",
+    "faqCategory": "process",
+    "faqQuestion": "At what point is a buyer or seller legally in default if a payment or property transfer is late in Thailand?"
+  }
 ];
 
 export function getKbArticleBySlug(slug: string): KbArticle | undefined {

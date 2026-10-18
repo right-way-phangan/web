@@ -1,7 +1,9 @@
-# Last run — 2026-10-17 (second run)
+# Last run — 2026-10-18
 
-Published: 0 guides.
+Published: 2 guides (backlog had no usable ⏳ rows; evergreen CCC gaps).
 
-Reason (quality gate): all remaining ⏳ backlog rows are duplicates of existing guides (off-plan vetting, rental yields, rental tax) or thin/unverifiable (Phangan water-crisis 2026 figures, FBA/AML nominee amendment enactment, 2026 coalition policy, buyer-nationality investment figures, PND.90/91 deadline). No padding published.
+1. `joint-and-several-liability-co-buyers-co-borrowers-ccc-290-296-thailand` (kb-0246) — "Two buyers, one debt: joint and several liability for co-buyers and co-borrowers (CCC 290-296)". faqCategory: structures. Source: ThaiLawOnline CCC Sections 290-296 (unofficial translation; hedged).
+2. `payment-default-demand-notice-ccc-203-205-property-contracts-thailand` (kb-0247) — "When is a buyer or seller 'in default'? Due dates and demand notices under CCC 203-205". faqCategory: process. Source: ThaiLawOnline CCC Sections 203-205 (unofficial translation; hedged).
 
-Backlog needs fresh, verifiable topics. Next free kbId: kb-0246.
+Skipped: leasehold/superficies mortgageability (CCC 703) — only secondary sources, not verifiable.
+Next free kbId: kb-0248.

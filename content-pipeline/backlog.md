@@ -10,6 +10,7 @@ Status: ⏳ queued · ✅ published.
 > Dedup is enforced against the actual slugs already in `src/content/knowledge-base.ts` —
 > never re-publish an existing slug even if it appears ⏳ here.
 
+<!-- discovered 2026-10-18: no ⏳ rows usable. Published two evergreen CCC gaps (grep: 'joint and several' 0 hits, 'section 204' 0 hits): kb-0246 (joint-and-several-liability-co-buyers-co-borrowers-ccc-290-296-thailand; ThaiLawOnline CCC 290-296) and kb-0247 (payment-default-demand-notice-ccc-203-205-property-contracts-thailand; ThaiLawOnline CCC 203-205). Translations unofficial; hedged. Leasehold-mortgage (CCC 703) researched but only secondary-source claims; not published. -->
 <!-- discovered 2026-10-16 (second run): no guide published. Mortgage-discharge-at-Land-Office (no official procedure source) and CCC 1346-1348 trees/branches/roots (only unverified s.1347 translation) judged too thin. -->
 <!-- discovered 2026-10-16: fresh-news searches found nothing new or verifiable. Published two evergreen gaps: kb-0244 (land-area-shortfall-title-deed-vs-survey-ccc-466-467-thailand; ThaiLawOnline CCC 466/467, translation unofficial, which-area-counts and lump-sum points hedged) and kb-0245 (architect-house-plans-copyright-ownership-reuse-villa-thailand; Copyright Act B.E. 2537 ss.4/9/10/19/22 via Wikisource translation, Tilleke & Gibbins). Not pre-existing rows. -->
 <!-- discovered 2026-10-15: no guide published. FBA-nominee AML predicate amendment only verifiable as a 2025 draft (no 2026 status); rental-yields row overlaps existing guides. -->
