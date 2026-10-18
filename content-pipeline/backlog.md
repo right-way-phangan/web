@@ -444,3 +444,4 @@ Status: ⏳ queued · ✅ published.
 | Freehold condo vs leasehold villa for a foreigner | ownership | 🟡 | ✅ |
 <!-- discovered 2026-10-02 (second run): published nothing. Fresh-news searches found only already-covered nominee/lease-scrutiny items; evergreen candidates (rescission, hidden defects, habitation, right of way, co-ownership) grep-confirmed already covered. Quality gate applied. -->
 <!-- discovered 2026-10-12: no guide published; no fresh news; architect/engineer licensing gap had only blog sources (no statute text). -->
+<!-- discovered 2026-10-18: no new topics queued. 6-angle sweep (standard searches + fetches of asterofasia, nationthailand/Colliers, tilleke) found only already-published items (Aug 2026 Interior nominee circular kb-0241, transfer-fee discount, lease registration 1.1%, septic rules kb-0099, 9-plot MONRE inspection coverage, Colliers Q1 2026 market data). -->
