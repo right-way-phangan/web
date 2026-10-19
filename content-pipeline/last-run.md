@@ -1,6 +1,5 @@
-# Last run — 2026-10-18 (second run)
+# Last run — 2026-10-19
 
 Published: 0 guides.
 
-Why: two guides (kb-0246, kb-0247) were already published earlier today. Remaining ⏳ backlog rows are thin, unverifiable (water-crisis figures, FBA/AML amendment status, buyer-surge statistics) or duplicate existing guides. Per the quality gate, nothing was padded.
-Next free kbId: kb-0248.
+Reason (quality gate): the ⏳ rows left in the backlog are still duplicates, thin, or not verifiable. A fresh-news search (Oct 2026) found only ongoing nominee-crackdown coverage (The Star, 2026-10-05; Edge Malaysia) that existing guides already cover (nominee, DBD, Koh Samui/Phangan raids, visa-exemption cut). No official Land Department notice or Royal Gazette change dated Oct 2026 was found. The ~250 existing guides already cover the evergreen CCC and Land Code topics I could think of, so I did not pad.
