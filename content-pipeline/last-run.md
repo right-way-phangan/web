@@ -2,4 +2,6 @@
 
 Published: 0 guides.
 
-Reason (quality gate): the ⏳ rows left in the backlog are still duplicates, thin, or not verifiable. A fresh-news search (Oct 2026) found only ongoing nominee-crackdown coverage (The Star, 2026-10-05; Edge Malaysia) that existing guides already cover (nominee, DBD, Koh Samui/Phangan raids, visa-exemption cut). No official Land Department notice or Royal Gazette change dated Oct 2026 was found. The ~250 existing guides already cover the evergreen CCC and Land Code topics I could think of, so I did not pad.
+Reason (hard quality gate): the top-priority 🔴 row (Koh Phangan water crisis) is already covered by `water-supply-shortage-risk-koh-phangan` (kb-0077, updated 2026-07-31), so it was marked ✅. A fresh search surfaced only undated Phangan articles and Samui-focused coverage, nothing that adds verifiable new facts. The remaining ⏳ rows are thin, duplicate or unverifiable, and padding would hurt quality.
+
+Sources checked: WebSearch on Phangan water rationing (Pattaya Mail, ASEAN Now, dpa/Samui reports). Year of the Phangan articles could not be confirmed.
