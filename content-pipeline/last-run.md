@@ -1,7 +1,8 @@
-# Last run — 2026-10-19
+# Last run — 2026-10-20
 
 Published: 0 guides.
 
-Reason (hard quality gate): the top-priority 🔴 row (Koh Phangan water crisis) is already covered by `water-supply-shortage-risk-koh-phangan` (kb-0077, updated 2026-07-31), so it was marked ✅. A fresh search surfaced only undated Phangan articles and Samui-focused coverage, nothing that adds verifiable new facts. The remaining ⏳ rows are thin, duplicate or unverifiable, and padding would hurt quality.
-
-Sources checked: WebSearch on Phangan water rationing (Pattaya Mail, ASEAN Now, dpa/Samui reports). Year of the Phangan articles could not be confirmed.
+Reason (quality gate): the remaining ⏳ backlog rows are thin, unverifiable, or overlap existing guides
+(developer-guaranteed-rental-yield-red-flags-thailand, pnd-94-mid-year-tax-return-rental-income,
+renting-out-your-villa-rules-and-taxes). No fresh, verifiable official rule change was identified.
+No sources were used for publication; no content files were changed.

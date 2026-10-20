@@ -10,6 +10,7 @@ Status: ⏳ queued · ✅ published.
 > Dedup is enforced against the actual slugs already in `src/content/knowledge-base.ts` —
 > never re-publish an existing slug even if it appears ⏳ here.
 
+<!-- discovered 2026-10-20: no guide published. Remaining ⏳ rows (yield drivers, buyer demographics, off-plan vetting, election policy, PND.90/91 deadline) are thin, unverifiable or overlap existing guides (developer-guaranteed-rental-yield-red-flags, pnd-94, renting-out-your-villa). -->
 <!-- discovered 2026-10-19 (run 2): no guide published. Water-crisis row (L85) already covered by water-supply-shortage-risk-koh-phangan (kb-0077) -> marked ✅. Remaining ⏳ rows thin/unverifiable. -->
 <!-- discovered 2026-10-19: no guide published. Fresh-news search found only ongoing nominee-crackdown coverage already in existing guides; no official Oct 2026 rule change; remaining ⏳ rows duplicate/thin/unverifiable. -->
 <!-- discovered 2026-10-18: no ⏳ rows usable. Published two evergreen CCC gaps (grep: 'joint and several' 0 hits, 'section 204' 0 hits): kb-0246 (joint-and-several-liability-co-buyers-co-borrowers-ccc-290-296-thailand; ThaiLawOnline CCC 290-296) and kb-0247 (payment-default-demand-notice-ccc-203-205-property-contracts-thailand; ThaiLawOnline CCC 203-205). Translations unofficial; hedged. Leasehold-mortgage (CCC 703) researched but only secondary-source claims; not published. -->
