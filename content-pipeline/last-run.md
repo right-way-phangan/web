@@ -1,4 +1,5 @@
 # Last run — 2026-10-20
+(Re-run same day: backlog unchanged, still no publishable topic.)
 
 Published: 0 guides.
 
