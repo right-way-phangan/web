@@ -10,6 +10,7 @@ Status: ⏳ queued · ✅ published.
 > Dedup is enforced against the actual slugs already in `src/content/knowledge-base.ts` —
 > never re-publish an existing slug even if it appears ⏳ here.
 
+<!-- discovered 2026-10-21: no guide published. Evergreen gap grep (guarantor/suretyship, easement, usufruct, boundary, adverse possession etc.) all already covered; ⏳ rows still thin/duplicate. -->
 <!-- discovered 2026-10-20: no guide published. Remaining ⏳ rows (yield drivers, buyer demographics, off-plan vetting, election policy, PND.90/91 deadline) are thin, unverifiable or overlap existing guides (developer-guaranteed-rental-yield-red-flags, pnd-94, renting-out-your-villa). -->
 <!-- discovered 2026-10-19 (run 2): no guide published. Water-crisis row (L85) already covered by water-supply-shortage-risk-koh-phangan (kb-0077) -> marked ✅. Remaining ⏳ rows thin/unverifiable. -->
 <!-- discovered 2026-10-19: no guide published. Fresh-news search found only ongoing nominee-crackdown coverage already in existing guides; no official Oct 2026 rule change; remaining ⏳ rows duplicate/thin/unverifiable. -->

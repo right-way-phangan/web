@@ -1,9 +1,5 @@
-# Last run — 2026-10-20
-(Re-run same day: backlog unchanged, still no publishable topic.)
+# Last run — 2026-10-21
 
 Published: 0 guides.
 
-Reason (quality gate): the remaining ⏳ backlog rows are thin, unverifiable, or overlap existing guides
-(developer-guaranteed-rental-yield-red-flags-thailand, pnd-94-mid-year-tax-return-rental-income,
-renting-out-your-villa-rules-and-taxes). No fresh, verifiable official rule change was identified.
-No sources were used for publication; no content files were changed.
+Reason: quality gate. Remaining ⏳ backlog rows are thin, unverifiable, or overlap existing guides (as noted in prior runs). Evergreen gap check over the ~237-guide catalog (usufruct, superficies, easement, boundary, surveyor, adverse possession, guarantor/suretyship, mediation, arbitration, foreclosure, gift, trust) found each topic already covered; suretyship (CCC 680-701) exists as `personal-guarantee-suretyship-thai-property-company`. No verifiable new official rule change found. Nothing padded.
