@@ -1,5 +1,5 @@
-# Last run — 2026-10-21
+# Last run — 2026-10-22 (dated 2026-10-21 by runner clock)
 
 Published: 0 guides.
 
-Reason: quality gate. Remaining ⏳ backlog rows are thin, unverifiable, or overlap existing guides (as noted in prior runs). Evergreen gap check over the ~237-guide catalog (usufruct, superficies, easement, boundary, surveyor, adverse possession, guarantor/suretyship, mediation, arbitration, foreclosure, gift, trust) found each topic already covered; suretyship (CCC 680-701) exists as `personal-guarantee-suretyship-thai-property-company`. No verifiable new official rule change found. Nothing padded.
+Reason: quality gate. The ⏳ backlog rows are thin, unverifiable or overlap existing guides (same finding as the previous five runs). The catalog (~250 guides, latest kb-0247) already covers the evergreen CCC/Land Code gaps checked previously; no new official rule change was found. Nothing padded.
