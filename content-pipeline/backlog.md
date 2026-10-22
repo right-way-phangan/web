@@ -10,6 +10,7 @@ Status: ⏳ queued · ✅ published.
 > Dedup is enforced against the actual slugs already in `src/content/knowledge-base.ts` —
 > never re-publish an existing slug even if it appears ⏳ here.
 
+<!-- discovered 2026-10-22 (second run): no guide published. Not re-researched; ⏳ rows unchanged (duplicate/thin/unverifiable) per prior runs; catalog saturated. -->
 <!-- discovered 2026-10-22: no guide published. Catalog saturated; ⏳ rows still thin/duplicate; no verifiable new official change. -->
 <!-- discovered 2026-10-21 (later run): no guide published. Catalog saturated; remaining ⏳ rows still thin/duplicate; no verifiable new official change. -->
 <!-- discovered 2026-10-21: no guide published. Evergreen gap grep (guarantor/suretyship, easement, usufruct, boundary, adverse possession etc.) all already covered; ⏳ rows still thin/duplicate. -->
