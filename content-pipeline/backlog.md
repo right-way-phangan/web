@@ -10,6 +10,7 @@ Status: ⏳ queued · ✅ published.
 > Dedup is enforced against the actual slugs already in `src/content/knowledge-base.ts` —
 > never re-publish an existing slug even if it appears ⏳ here.
 
+<!-- discovered 2026-10-22: no guide published. Catalog saturated; ⏳ rows still thin/duplicate; no verifiable new official change. -->
 <!-- discovered 2026-10-21 (later run): no guide published. Catalog saturated; remaining ⏳ rows still thin/duplicate; no verifiable new official change. -->
 <!-- discovered 2026-10-21: no guide published. Evergreen gap grep (guarantor/suretyship, easement, usufruct, boundary, adverse possession etc.) all already covered; ⏳ rows still thin/duplicate. -->
 <!-- discovered 2026-10-20: no guide published. Remaining ⏳ rows (yield drivers, buyer demographics, off-plan vetting, election policy, PND.90/91 deadline) are thin, unverifiable or overlap existing guides (developer-guaranteed-rental-yield-red-flags, pnd-94, renting-out-your-villa). -->
