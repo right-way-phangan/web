@@ -1,37 +1,35 @@
-# Discovery run — 2026-10-18
+# Discovery run — 2026-10-25
 
 **New topics queued:** 0
-**Searches run:** 16
-**Sources read:** 3 fetched pages (plus search-result summaries)
+**Searches run:** 9
+**Sources read:** 0 pages fetched (search-result summaries only)
 
 ## Topics added
 
-None. Every candidate that passed the sourceability check was already covered by a published slug or backlog row.
+None. No candidate passed all four checks (distinct, valuable, sourceable, Phangan-relevant). The catalog has about 250 guides and the backlog is saturated.
 
 ## Sources consulted
 
-- asterofasia.com — Phangan 9-plot MONRE inspection (Apr 2026); AI-generated blog, unsourced, low reliability
-- nationthailand.com — Colliers Q1 2026 Phangan data (THB 7.94bn, 41 projects/438 units, mostly 30-year leaseholds)
-- tilleke.com — Interior circular (fetched page was a 2011 article, no new content); search summary cites 25 Aug 2026 circular
-- hlbthai.com / tilleke.com — reduced transfer/mortgage fee extension to 30 Jun 2027 (Thai buyers ≤ THB 7m only)
-- thailand-business-news.com, asterofasia.com — FBA List 3 reform (May 2026 cabinet in principle), 99-year lease / 75% condo quota still not law
-- lexbangkok.com, khaosodenglish.com — Phangan zoning notification and illegal-development coverage
+- tilleke.com — transfer and mortgage fee reduction extended to 30 Jun 2027 (already covered by transfer-fee-discount-thai-nationals-only-2026-2027)
+- nationthailand.com — THB 7.9bn Phangan investment and buyer mix (already covered by kb-0014 and a backlog skip note)
+- pattayamail.com / khaosodenglish.com — Phangan illegal development and nominee allegations (covered by the forest-reserve and NACC guides)
+- hlbthai.com, cornerstone.co.th — rental income tax for foreigners (covered by pnd-94, double-tax-treaty and withholding guides)
+- bangkokpost.com, nationthailand.com — Samui/Tao submarine cable (grep shows existing coverage)
+- austchamthailand.com — Supreme Court March 2025 lease ruling (covered by existing lease guides)
 
 ## Skipped candidates
 
-- Interior Ministry 25 Aug 2026 nominee circular — duplicate (kb-0241)
-- Transfer/mortgage fee reduction extension — duplicate (transfer-fee-discount-thai-nationals-only-2026-2027)
-- Lease registration cost (1% + 0.1% stamp duty) — already in existing guides
-- Septic/wastewater rules — duplicate (kb-0099)
-- Phangan MONRE 9-plot inspection / nominee allegations — covered by land-disposal and illegal-construction guides; sources unreliable
-- Colliers Q1 2026 market figures — overlaps market-outlook guide and existing Colliers backlog row
-- FBA List 3 reform — only relevant to brokerage (kb-0113 covers it); no property-rights change
-- Rental income tax / 180-day residency — covered by foreign-income-remittance and rental tax guides
-- PEA submarine cable / Phangan power upgrade — no 2026 reporting found
-- Land Department 17 Jun 2026 guideline — blog-only, no primary text
+- Transfer fee extension to June 2027 — duplicate
+- Aug 25 2026 MoI nominee circular — duplicate
+- Phangan buyer demographics (THB 7.9bn) — duplicate, already skipped in backlog
+- Seven-zone MNRE notification (22 May 2025) — duplicate
+- Samui bridge, cruise terminal, airport status — duplicates
+- Submarine cable and power supply — covered
+- Non-resident 15% rental withholding and 30% deduction — covered
+- Condo 49% quota "digital tracking" — single unverified source, and the quota topic is covered
 
 ## Gaps still open
 
-- Colliers per-segment supply data (231 new villas 2024–25, condo/housing estate split) could support a "Phangan new-supply" guide if a primary Colliers report is found.
-- Primary-source text of the reported 17 Jun 2026 Land Department foreign-buyer guidelines.
-- Any official PEA/Surat Thani announcement on Phangan grid upgrades.
+- Official Surat Thani or Royal Gazette notices for 2026 (not indexed by search). A direct check of ratchakitcha.soc.go.th could surface new items.
+- Phangan water and waste infrastructure news, which was not searched separately.
+- Hipflat price data (villa prices -3% since Jan 2026). Worth revisiting if a stronger source appears.
