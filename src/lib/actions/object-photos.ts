@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { backendFetch } from "@/lib/api/backend";
 import { requireStaff } from "@/lib/auth/require-admin";
 import { uploadImageToR2 } from "@/lib/storage/r2";
@@ -61,6 +61,7 @@ export async function addObjectPhotosAction(formData: FormData): Promise<AddPhot
       return { ok: false, added: 0, error: `API ${res.status}: ${body.slice(0, 120)}` };
     }
     const data = (await res.json()) as { added?: number; coverSet?: boolean };
+    revalidateTag("catalog"); // обложка влияет на каталог («безфотные скрыты»)
     revalidatePath("/admin/objects");
     revalidatePath("/admin");
     revalidatePath("/listings");

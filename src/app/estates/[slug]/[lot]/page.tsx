@@ -11,7 +11,7 @@ interface Props {
   params: Promise<{ slug: string; lot: string }>;
 }
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 /** Каждый лот каждой опубликованной подборки → своя статичная страница. */
 export function generateStaticParams() {

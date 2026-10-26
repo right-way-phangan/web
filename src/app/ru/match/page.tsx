@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 300;
+export const revalidate = 3600;
 export const maxDuration = 30;
 
 export default function RussianMatchPage() {
