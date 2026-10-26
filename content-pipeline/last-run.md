@@ -1,5 +1,5 @@
-# Last run — 2026-10-26
+# Last run — 2026-10-26 (second run)
 
 Published: 0 guides.
 
-Reason: quality gate. Catalog is saturated (~247 guides). The remaining ⏳ backlog rows are duplicate, thin or unverifiable, as concluded on every run since 2026-10-19. I did not re-research them this run, and I did not pad with duplicate or unsourced content.
+Reason: quality gate. The catalog is saturated (about 249 guides). Every ⏳ row in the backlog is a duplicate, thin or unverifiable, as the runs since 2026-10-19 concluded. This run did not re-research those rows or do a new evergreen-gap search, because today's earlier run had already found nothing. No slugs, titles or sources to report, and no content files were changed.
