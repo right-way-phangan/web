@@ -11,6 +11,7 @@ Status: ⏳ queued · ✅ published.
 > never re-publish an existing slug even if it appears ⏳ here.
 
 <!-- discovered 2026-10-25 (weekly scout): 9 searches, 0 fetches; no new topic cleared all four checks. Candidates (transfer-fee extension to 30 Jun 2027, Aug 25 MoI nominee circular, THB 7.9bn buyer surge, 22 May 2025 seven-zone notification, Samui bridge, Koh Tao/Phangan submarine cable, 15% non-resident rental withholding) are all already covered by existing slugs or backlog rows. -->
+<!-- discovered 2026-10-27: no guide published. Catalog saturated (~249 guides); ⏳ rows still thin/duplicate/unverifiable; quality gate applied. -->
 <!-- discovered 2026-10-25 (daily run): no guide published. Catalog saturated (~247 guides); remaining ⏳ rows thin/duplicate/unverifiable; quality gate applied. -->
 <!-- discovered 2026-10-25: no guide published. Search found only the Aug 25 2026 MoI nominee circular (already covered in catalog); ⏳ rows still thin/duplicate/unverifiable. -->
 <!-- discovered 2026-10-24: no guide published. Catalog saturated; remaining ⏳ rows still thin/duplicate/unverifiable; no new verifiable official change identified. -->
