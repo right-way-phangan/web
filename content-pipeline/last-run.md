@@ -1,7 +1,7 @@
 # Last run — 2026-10-28
 
-Published: 0 guides.
+No guides published (quality gate).
 
-Reason: quality gate. Catalog is saturated (~250 guides); remaining ⏳ backlog rows are
-duplicate, thin or unverifiable, and prior runs (2026-10-19 to 2026-10-27) found no new
-verifiable official change. No slugs, titles or sources to report; no content files edited.
+Reason: catalog is saturated (~250 guides); remaining ⏳ backlog rows are duplicate/thin/unverifiable per prior runs.
+A fresh search (foreign property ownership rule, Oct 2026) found no new official change; only the 2022 residential-land draft
+(Tilleke & Gibbins), which was withdrawn on 8 Nov 2022 and is already covered.
