@@ -1,7 +1,9 @@
 # Last run — 2026-10-31
 
-**Published: 0 guides (quality gate applied).**
+Published: 0 guides.
 
-- Backlog ⏳ rows are still duplicate / thin / unverifiable, and the catalog (~249 guides) is saturated.
-- One fresh WebSearch (Thailand foreign ownership / Koh Phangan, Oct 2026) found only the ongoing nominee crackdown and the 25 Aug 2026 MoI circular. Both are already covered in the catalog, and the sources were mostly property blogs that contradict each other. No dated official change for October 2026 turned up.
-- No slugs, kbIds or FAQ categories were added. No content files were edited.
+Reason: no ⏳ topic rows remain in the backlog, and recent scouting (2026-10-25 to 10-31) found no new
+verifiable official change that isn't already covered by an existing slug. Quality gate applied rather than
+padding with duplicate or thin content.
+
+Sources used: none (no new research this run).
