@@ -11,6 +11,7 @@ Status: ⏳ queued · ✅ published.
 > never re-publish an existing slug even if it appears ⏳ here.
 
 <!-- discovered 2026-10-25 (weekly scout): 9 searches, 0 fetches; no new topic cleared all four checks. Candidates (transfer-fee extension to 30 Jun 2027, Aug 25 MoI nominee circular, THB 7.9bn buyer surge, 22 May 2025 seven-zone notification, Samui bridge, Koh Tao/Phangan submarine cable, 15% non-resident rental withholding) are all already covered by existing slugs or backlog rows. -->
+<!-- discovered 2026-10-31: no guide published. One fresh search found only the nominee crackdown / 25 Aug MoI circular (already covered); catalog saturated; quality gate applied. -->
 <!-- discovered 2026-10-30 (second run): no guide published; backlog/dedup review only, no new verifiable topic; quality gate applied. -->
 <!-- discovered 2026-10-30: no guide published. One fresh search found only ongoing "Phangan model" nominee crackdown coverage (already in catalog) and an undated Cabinet proposal of unverifiable status; catalog saturated; quality gate applied. -->
 <!-- discovered 2026-10-29: no guide published. Catalog saturated; ⏳ rows still thin/duplicate/unverifiable; quality gate applied (backlog and dedup review only, no new research). -->
