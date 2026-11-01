@@ -1,35 +1,35 @@
-# Discovery run — 2026-10-25
+# Discovery run — 2026-11-01
 
-**New topics queued:** 0
-**Searches run:** 9
-**Sources read:** 0 pages fetched (search-result summaries only)
+**New topics queued:** 2
+**Searches run:** 8 (3 angle searches + 2 follow-ups + 1 Phangan news; angles 3-6 only lightly covered)
+**Sources read:** 3 fetched (nst.com.my, tilleke.com, thailawonline.com) plus search summaries
 
 ## Topics added
 
-None. No candidate passed all four checks (distinct, valuable, sourceable, Phangan-relevant). The catalog has about 250 guides and the backlog is saturated.
+| Description | faqCategory | Priority |
+|---|---|---|
+| Oct 19 2026 PM order: nominee-land investigations to finish by end Dec 2026; 2,360 plots / THB 14.01bn / 1,397 nominees | structures | 🔴 |
+| What to do if investigators contact you about a nominee/company-held villa (document file, restructuring) | structures | 🟢 |
 
 ## Sources consulted
 
-- tilleke.com — transfer and mortgage fee reduction extended to 30 Jun 2027 (already covered by transfer-fee-discount-thai-nationals-only-2026-2027)
-- nationthailand.com — THB 7.9bn Phangan investment and buyer mix (already covered by kb-0014 and a backlog skip note)
-- pattayamail.com / khaosodenglish.com — Phangan illegal development and nominee allegations (covered by the forest-reserve and NACC guides)
-- hlbthai.com, cornerstone.co.th — rental income tax for foreigners (covered by pnd-94, double-tax-treaty and withholding guides)
-- bangkokpost.com, nationthailand.com — Samui/Tao submarine cable (grep shows existing coverage)
-- austchamthailand.com — Supreme Court March 2025 lease ruling (covered by existing lease guides)
+- nst.com.my (AFP) — 2,360 plots, THB 14.01bn, 1,397 proxies, civil and criminal action, UBO focus
+- thailawonline.com — December deadline is for investigations only; legal basis (Land Code ss.74, 86, 94, 96; CCC s.150; FBA s.36); 180-day to 1-year disposal period
+- tilleke.com — residential-land draft regulation (THB 40m, 1 rai) is the 2022 draft, withdrawn 8 Nov 2022
+- pattayamail.com, thairath.co.th, thestar.com.my — corroborated the figures in search results only (not fetched)
 
 ## Skipped candidates
 
-- Transfer fee extension to June 2027 — duplicate
-- Aug 25 2026 MoI nominee circular — duplicate
-- Phangan buyer demographics (THB 7.9bn) — duplicate, already skipped in backlog
-- Seven-zone MNRE notification (22 May 2025) — duplicate
-- Samui bridge, cruise terminal, airport status — duplicates
-- Submarine cable and power supply — covered
-- Non-resident 15% rental withholding and 30% deduction — covered
-- Condo 49% quota "digital tracking" — single unverified source, and the quota topic is covered
+- THB 40m / 1 rai foreign residential land regulation — draft withdrawn in 2022; already covered (thb-40-million-investment-land-ownership-route)
+- Land and building tax 2026 / rental income tax — already covered (owners-taxes-annual-land-and-income, pnd-94, land-building-tax-2026)
+- Koh Phangan airport, tourism zone, development pipeline — already covered
+- 99-year lease and condo quota changes — already covered, still unconfirmed proposals
+- Investment Confirmation Letter for company filings (1 Apr 2026) — single law-firm claim, unverified
+- Phangan market/price commentary — marketing content only
 
 ## Gaps still open
 
-- Official Surat Thani or Royal Gazette notices for 2026 (not indexed by search). A direct check of ratchakitcha.soc.go.th could surface new items.
-- Phangan water and waste infrastructure news, which was not searched separately.
-- Hipflat price data (villa prices -3% since Jan 2026). Worth revisiting if a stronger source appears.
+- Angles 3, 4 and 6 (tax, structures, zoning) got only one broad search each; they were not deeply mined, though the catalog is already dense there
+- Thai-language Surat Thani provincial sources for Phangan infrastructure and zoning news
+- Verify the Investment Confirmation Letter claim against a primary source (DBD)
+- Follow Dec 2026 investigation outcomes for a follow-up news guide
