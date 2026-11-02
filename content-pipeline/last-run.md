@@ -1,8 +1,5 @@
-# Last run — 2026-11-02
+# Last run — 2026-11-02 (second run)
 
-Published: 1 guide (kb-0248).
+Published: 0 guides.
 
-- `nominee-land-probes-december-2026-deadline-what-it-means` — "Thailand's December 2026 nominee-land investigation deadline: what the PM's 19 October order does and doesn't change" — faqCategory: structures
-  - Sources: The Nation (three-part crackdown), ThaiLawOnline (Dec deadline, figures, Land Code ss.86/94), Pattaya Mail (1,397 entities).
-
-Second guide not published: the remaining 🟢 row (what to do if contacted by a land office) would be mostly legal-advice speculation without a reliable source, and overlaps existing due-diligence guides. Quality gate applied. Land Code s.96 text not verified, so it is not cited.
+Reason: quality gate. Catalog is saturated (~248 guides). The earlier 2026-11-02 run already published kb-0248 on the nominee-land probes. The remaining ⏳ rows are thin, unverifiable or duplicate existing guides: the land-office contact row, FBA/AML predicate offence (unenacted), yield drivers, buyer demographics, off-plan vetting, election policy and the PND.90/91 deadline. No new research was done, so no sources were used.
