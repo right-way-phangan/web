@@ -15005,6 +15005,78 @@ export const KB_ARTICLES: KbArticle[] = [
     "faqHref": "/faq",
     "faqCategory": "process",
     "faqQuestion": "At what point is a buyer or seller legally in default if a payment or property transfer is late in Thailand?"
+  },
+  {
+    "slug": "nominee-land-probes-december-2026-deadline-what-it-means",
+    "kbId": "kb-0248",
+    "updated": "2026-11-02",
+    "faqCategory": "structures",
+    "topic": "Structures",
+    "title": "Thailand's December 2026 nominee-land investigation deadline: what the PM's 19 October order does and doesn't change",
+    "short": "On 19 October 2026 PM Anutin told provincial governors to finish priority nominee-land investigations by the end of December. Preliminary Department of Lands figures cite 2,360 plots worth about THB 14.01bn. The deadline is for investigations, not for completed sales, and the Land Code is unchanged.",
+    "body": [
+      "Is there a deadline for Thailand's nominee-land crackdown? Partly. On 19 October 2026 Prime Minister Anutin Charnvirakul (who also holds the Interior portfolio) ordered provincial governors to finish priority investigations into land held for foreigners by the end of December 2026. It is a deadline for investigations, not a deadline for owners to sell.",
+      {
+        "h": "What was ordered"
+      },
+      {
+        "ul": [
+          "**Investigations** — complete priority, high-risk cases by December, looking past names on title deeds and share certificates to the real controllers and beneficiaries, and tracing financial and asset trails.",
+          "**Compulsory sales** — land found to be held unlawfully is to be sold under the forced-sale procedure, with checks on buyers so ownership does not simply pass from one nominee to another.",
+          "**Prevention** — monitoring of land registrations and corporate structures before and after transactions, public tip-offs, and regular disclosure of enforcement results.",
+          "**Agencies** — reports name the police, Provincial Administration, AMLO, DSI and BOI alongside the Department of Lands; governors and land officials were promised government backing."
+        ]
+      },
+      {
+        "h": "The numbers being reported"
+      },
+      "Preliminary Department of Lands figures reported by ThaiLawOnline: about 2,360 plots, roughly THB 14.01 billion, linked to 1,397 suspected nominee holders and around 5,467 rai. Pattaya Mail reports the 1,397 figure as legal entities. These are preliminary counts of cases under scrutiny, not findings of guilt, and one outlier report cites a much larger figure, so treat the totals with caution.",
+      {
+        "h": "What it does not change"
+      },
+      {
+        "ul": [
+          "**The law.** Foreign land acquisition remains governed by Land Code s.86, and unlawfully acquired land by s.94: the Director-General sets a disposal period of at least 180 days and not more than one year, after which the Director-General may dispose of the land. The December date does not shorten that period.",
+          "**Legitimate ownership.** Freehold condos within the 49% foreign quota, registered leases and other lawful structures are not the target.",
+          "**Individual outcomes.** A completed investigation is not a completed sale; each case still follows its own process."
+        ]
+      },
+      {
+        "h": "What a Phangan owner or buyer should do"
+      },
+      {
+        "ul": [
+          "If you hold through a Thai company or a Thai spouse or friend, have a Thai lawyer review the structure against the beneficial-ownership focus — see [the 21-agency anti-nominee pact](/knowledge/21-agency-anti-nominee-mou-2026) and [the Land Department audit of landholding companies](/knowledge/land-department-audit-existing-landholding-companies-2026).",
+          "Keep the funding trail: who paid, from where, and how it is documented.",
+          "Before buying a company-held villa, read [buying a villa already held by a Thai company](/knowledge/villa-held-by-thai-company-buyer-due-diligence-2026).",
+          "See [the regional crackdown guide](/knowledge/nominee-crackdown-krabi-islands-2026) for the island context."
+        ]
+      },
+      "Bottom line: the December date raises the tempo of enforcement but adds no new legal rule. Structures that rely on a nominee are exposed; compliant ownership is not."
+    ],
+    "takeaways": [
+      "On 19 October 2026 the PM ordered governors to finish priority nominee-land investigations by end of December 2026.",
+      "Preliminary figures reported: about 2,360 plots, THB 14.01bn, 1,397 suspected holders, ~5,467 rai.",
+      "Investigations now target real controllers and beneficiaries, not only registered owners.",
+      "Land Code s.94 still gives a disposal period of 180 days to one year before forced sale.",
+      "The deadline covers investigations, not completed sales, and creates no new ownership rules."
+    ],
+    "sources": [
+      {
+        "title": "The Nation — PM Anutin launches three-part Thai land nominee crackdown with probes due by December",
+        "url": "https://www.nationthailand.com/news/general/40072471"
+      },
+      {
+        "title": "ThaiLawOnline — Governors given until December to finish the nominee land files",
+        "url": "https://www.thailawonline.com/?p=10859"
+      },
+      {
+        "title": "Pattaya Mail — Thailand targets 1,397 entities suspected of illegal nominee landholdings",
+        "url": "https://www.pattayamail.com/thailandnews/thailand-targets-1397-entities-suspected-of-illegal-nominee-landholdings-569235"
+      }
+    ],
+    "faqHref": "/faq",
+    "faqQuestion": "Is there a December 2026 deadline for Thailand's nominee land investigations, and does it change anything for my villa?"
   }
 ];
 
