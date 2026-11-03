@@ -1,5 +1,5 @@
-# Last run — 2026-11-02 (second run)
+# Last run — 2026-11-03
 
-Published: 0 guides.
+Published: 0 guides (quality gate).
 
-Reason: quality gate. Catalog is saturated (~248 guides). The earlier 2026-11-02 run already published kb-0248 on the nominee-land probes. The remaining ⏳ rows are thin, unverifiable or duplicate existing guides: the land-office contact row, FBA/AML predicate offence (unenacted), yield drivers, buyer demographics, off-plan vetting, election policy and the PND.90/91 deadline. No new research was done, so no sources were used.
+Reason: the only viable queued topic (documents/response plan when a land office or investigator contacts a nominee/company-held villa owner) could not be sourced. The ThaiLawOnline article (thailawonline.com/?p=10859) is paywalled beyond the 19 Oct deadline, preliminary figures and Land Code ss.86/94 text; a search found no official or reputable source on the investigation procedure or required documents. A checklist would be inference, so it was not published. Rest of the catalog is saturated (see backlog notes). Row left ⏳; no kbIds consumed.
