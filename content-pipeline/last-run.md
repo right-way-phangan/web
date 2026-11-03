@@ -1,5 +1,5 @@
-# Last run — 2026-11-03
+# Last run — 2026-11-03 (second run)
 
 Published: 0 guides (quality gate).
 
-Reason: the only viable queued topic (documents/response plan when a land office or investigator contacts a nominee/company-held villa owner) could not be sourced. The ThaiLawOnline article (thailawonline.com/?p=10859) is paywalled beyond the 19 Oct deadline, preliminary figures and Land Code ss.86/94 text; a search found no official or reputable source on the investigation procedure or required documents. A checklist would be inference, so it was not published. Rest of the catalog is saturated (see backlog notes). Row left ⏳; no kbIds consumed.
+Reason: no ⏳ backlog row is usable. Remaining rows are duplicates of existing guides (rental yield, buyer demographics, off-plan vetting, SBT vs stamp duty, PND.90/91) or unsourceable (land-office contact checklist was found paywalled/unofficial earlier today; FBA/AMLA predicate-offence still unenacted). The catalog (~250 guides) is saturated and no new verifiable official change was identified. No kbIds consumed; no sources used.
