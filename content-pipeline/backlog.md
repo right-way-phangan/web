@@ -15,6 +15,7 @@ Status: ⏳ queued · ✅ published.
 <!-- discovered 2026-10-30 (second run): no guide published; backlog/dedup review only, no new verifiable topic; quality gate applied. -->
 <!-- discovered 2026-11-03: no guide published. Only fresh ⏳ row (what to do if a land office contacts you) researched: ThaiLawOnline article paywalled beyond deadline/figures/ss.86,94; search found no official or reputable source on investigation procedure or document requirements; any checklist would be inference. Quality gate applied; row left ⏳. -->
 <!-- discovered 2026-11-04: no guide published. Backlog/dedup review only; all ⏳ rows duplicate/thin/unverifiable; quality gate applied. -->
+<!-- discovered 2026-11-04 (second run): no guide published; backlog/dedup review only, all ⏳ rows duplicate/thin/unverifiable; quality gate applied. -->
 <!-- discovered 2026-11-03 (second run): no guide published; backlog/dedup review only, all ⏳ rows duplicate/thin/unverifiable; quality gate applied. -->
 <!-- discovered 2026-11-02 (second run): no guide published. Catalog saturated; remaining ⏳ rows thin/duplicate/unverifiable; quality gate applied. -->
 <!-- discovered 2026-11-01: no guide published. No ⏳ rows remain; catalog saturated; quality gate applied. -->
