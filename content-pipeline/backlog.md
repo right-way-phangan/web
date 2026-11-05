@@ -13,6 +13,7 @@ Status: ⏳ queued · ✅ published.
 <!-- discovered 2026-10-25 (weekly scout): 9 searches, 0 fetches; no new topic cleared all four checks. Candidates (transfer-fee extension to 30 Jun 2027, Aug 25 MoI nominee circular, THB 7.9bn buyer surge, 22 May 2025 seven-zone notification, Samui bridge, Koh Tao/Phangan submarine cable, 15% non-resident rental withholding) are all already covered by existing slugs or backlog rows. -->
 <!-- discovered 2026-10-31: no guide published. One fresh search found only the nominee crackdown / 25 Aug MoI circular (already covered); catalog saturated; quality gate applied. -->
 <!-- discovered 2026-10-30 (second run): no guide published; backlog/dedup review only, no new verifiable topic; quality gate applied. -->
+<!-- discovered 2026-11-05 (second run): no guide published; ⏳ rows unchanged (duplicate/thin/unverifiable); quality gate applied. -->
 <!-- discovered 2026-11-03: no guide published. Only fresh ⏳ row (what to do if a land office contacts you) researched: ThaiLawOnline article paywalled beyond deadline/figures/ss.86,94; search found no official or reputable source on investigation procedure or document requirements; any checklist would be inference. Quality gate applied; row left ⏳. -->
 <!-- discovered 2026-11-05: no guide published. Backlog/dedup review only; all ⏳ rows duplicate/thin/unverifiable; quality gate applied. -->
 <!-- discovered 2026-11-04: no guide published. Backlog/dedup review only; all ⏳ rows duplicate/thin/unverifiable; quality gate applied. -->
