@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import type { Route } from "next";
@@ -104,6 +104,10 @@ export function ObjectCard({ object, priority = false, priceMode = "buy", buildB
   const [thumbFailed, setThumbFailed] = useState(false);
   const thumb = object.coverImage ? thumbFromProxiedUrl(object.coverImage) : null;
   const coverSrc = thumb && !thumbFailed ? thumb : object.coverImage!;
+  // «Свежесть» зависит от Date.now(): в закэшированном HTML она застывает на
+  // момент сборки и расходится с клиентом → React #418. Считаем после монтирования.
+  const [isFresh, setIsFresh] = useState(false);
+  useEffect(() => setIsFresh(isFreshListing(object.dateAdded)), [object.dateAdded]);
   const locale = useLocale();
   const t = getListingsDict(locale);
   const { fmt } = useCurrency();
@@ -197,7 +201,7 @@ export function ObjectCard({ object, priority = false, priceMode = "buy", buildB
           <span className="rounded-sm bg-cream-50/90 px-2 py-1 text-[11px] font-medium tracking-[0.06em] text-forest-500 backdrop-blur-sm">
             {object.rwNumber}
           </span>
-          {isFreshListing(object.dateAdded) ? (
+          {isFresh ? (
             <span className="rounded-sm bg-brass-500 px-2 py-1 text-[11px] font-semibold tracking-[0.06em] text-panel-fg">
               {t.newBadge}
             </span>
