@@ -2,4 +2,6 @@
 
 Published: 0 guides.
 
-Reason: HARD QUALITY GATE. Catalog is saturated (~250 guides). Remaining ⏳ backlog rows are duplicate, thin or unverifiable against official sources (see prior discovery notes in backlog.md). No genuinely distinct, well-sourced topic was identified; padding would harm quality/GEO.
+Reason: HARD QUALITY GATE. Backlog review and slug dedup show the catalog is saturated. All remaining ⏳ rows duplicate existing guides or are thin/unverifiable from reputable sources. Padding would harm GEO/AEO.
+
+Sources used: none (no new claims authored).
