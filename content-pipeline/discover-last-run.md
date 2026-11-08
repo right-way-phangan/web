@@ -1,35 +1,32 @@
-# Discovery run — 2026-11-01
+# Discovery run — 2026-11-08
 
-**New topics queued:** 2
-**Searches run:** 8 (3 angle searches + 2 follow-ups + 1 Phangan news; angles 3-6 only lightly covered)
-**Sources read:** 3 fetched (nst.com.my, tilleke.com, thailawonline.com) plus search summaries
+**New topics queued:** 0
+**Searches run:** 8 (6 angle searches + 2 follow-ups)
+**Sources read:** 2 fetched (asterofasia.com, nationthailand.com) plus search summaries
 
 ## Topics added
 
-| Description | faqCategory | Priority |
-|---|---|---|
-| Oct 19 2026 PM order: nominee-land investigations to finish by end Dec 2026; 2,360 plots / THB 14.01bn / 1,397 nominees | structures | 🔴 |
-| What to do if investigators contact you about a nominee/company-held villa (document file, restructuring) | structures | 🟢 |
+None. Every candidate failed the "distinct" check against the 200+ published slugs and backlog rows.
 
 ## Sources consulted
 
-- nst.com.my (AFP) — 2,360 plots, THB 14.01bn, 1,397 proxies, civil and criminal action, UBO focus
-- thailawonline.com — December deadline is for investigations only; legal basis (Land Code ss.74, 86, 94, 96; CCC s.150; FBA s.36); 180-day to 1-year disposal period
-- tilleke.com — residential-land draft regulation (THB 40m, 1 rai) is the 2022 draft, withdrawn 8 Nov 2022
-- pattayamail.com, thairath.co.th, thestar.com.my — corroborated the figures in search results only (not fetched)
+- nationthailand.com (Colliers, 15 Jun 2026) — Q1 2026: 41 active Phangan projects / 438 units / THB 7.94bn; 26 holiday-villa projects; buyers Israel/Europe/Australia. Covered by koh-phangan-market-outlook-2026 and the development-pipeline slug.
+- asterofasia.com — Apr 2026 Phangan land inspections (9 plots, police aerial monitoring). AI-generated page, no primary sources; covered by the existing crackdown slugs.
+- Search summaries: tilleke.com (transfer-fee reduction extended to 30 Jun 2027), lexbangkok.com (2569 no reduction decree), thailawonline.com (99-year lease and 75% quota not enacted), austchamthailand.com / siam-legal.com (Supreme Court 4655/2566 lease-renewal ruling).
 
 ## Skipped candidates
 
-- THB 40m / 1 rai foreign residential land regulation — draft withdrawn in 2022; already covered (thb-40-million-investment-land-ownership-route)
-- Land and building tax 2026 / rental income tax — already covered (owners-taxes-annual-land-and-income, pnd-94, land-building-tax-2026)
-- Koh Phangan airport, tourism zone, development pipeline — already covered
-- 99-year lease and condo quota changes — already covered, still unconfirmed proposals
-- Investment Confirmation Letter for company filings (1 Apr 2026) — single law-firm claim, unverified
-- Phangan market/price commentary — marketing content only
+- Supreme Court 30+30+30 lease ruling — duplicate (renewing-30-year-lease-risks)
+- Transfer-fee discount extension to Jun 2027 — duplicate (transfer-fee-discount-thai-nationals-only-2026-2027)
+- 2569 land & building tax full rates — duplicate (several land-building-tax-2026 slugs)
+- May 2026 Land Dept circulars on proxy-held land / DBD source-of-funds — duplicate
+- Colliers pipeline and buyer nationality data — duplicate
+- Phangan infrastructure (airport, roads, grid) — no new authoritative 2026 reports
+- Layan (Phuket) administrative court case — off-topic
+- internationaltrucks.com pages — spam, unusable
 
 ## Gaps still open
 
-- Angles 3, 4 and 6 (tax, structures, zoning) got only one broad search each; they were not deeply mined, though the catalog is already dense there
-- Thai-language Surat Thani provincial sources for Phangan infrastructure and zoning news
-- Verify the Investment Confirmation Letter claim against a primary source (DBD)
-- Follow Dec 2026 investigation outcomes for a follow-up news guide
+- Official Thai-language Land Department circular texts (May 2026) — only secondary commentary found.
+- Any Surat Thani / Koh Phangan municipal announcements on wastewater or master plan — no verifiable source.
+- Capital gains on sale by non-resident individuals (only partly covered by the withholding-tax slug) — worth a check if a primary source appears.
