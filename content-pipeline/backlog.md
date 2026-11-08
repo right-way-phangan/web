@@ -14,6 +14,7 @@ Status: ⏳ queued · ✅ published.
 <!-- discovered 2026-10-31: no guide published. One fresh search found only the nominee crackdown / 25 Aug MoI circular (already covered); catalog saturated; quality gate applied. -->
 <!-- discovered 2026-10-30 (second run): no guide published; backlog/dedup review only, no new verifiable topic; quality gate applied. -->
 <!-- discovered 2026-11-07: no guide published. One fresh search found no new dated official rule; catalog saturated; quality gate applied. -->
+<!-- discovered 2026-11-08: no guide published; backlog/dedup review only, catalog saturated; quality gate applied. -->
 <!-- discovered 2026-11-06 (second run): no guide published; catalog saturated (235 slugs, max kb-0236 seen), remaining ⏳ rows duplicate/thin/unverifiable; quality gate applied. -->
 <!-- discovered 2026-11-06: no guide published. Backlog/dedup review only; all ⏳ rows duplicate/thin/unverifiable; quality gate applied. -->
 <!-- discovered 2026-11-05 (second run): no guide published; ⏳ rows unchanged (duplicate/thin/unverifiable); quality gate applied. -->
