@@ -19,7 +19,7 @@ import {
   TERRAIN_TYPES,
   CONDITIONS,
   ZONES,
-} from "@/lib/amocrm/dictionaries";
+} from "@/lib/dictionaries";
 import { FACTOR_DEFS, FACTOR_GROUP_LABELS, type FactorDef } from "@/lib/valuation/factors";
 import type { ValuationResult, ValuationSubject, MethodResult } from "@/lib/valuation/engine";
 import {

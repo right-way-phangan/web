@@ -11,7 +11,7 @@
  */
 
 import { PNG } from "pngjs";
-import type { Zone } from "@/lib/amocrm/dictionaries";
+import type { Zone } from "@/lib/dictionaries";
 import type { PlanZone } from "@/lib/data/building-norms";
 
 export interface ZoneLookupResult {

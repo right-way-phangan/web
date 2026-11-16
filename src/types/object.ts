@@ -1,6 +1,6 @@
 /**
  * Domain type — RealEstateObject — normalized view of an amoCRM catalog element.
- * Used by all UI components. Mapper lives in `src/lib/amocrm/mapper.ts`.
+ * Used by all UI components. Comes from the backend API as-is (amoCRM mapper removed 2026-11-16).
  */
 
 export type ObjectType =

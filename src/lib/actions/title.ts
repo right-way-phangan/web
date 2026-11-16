@@ -1,7 +1,7 @@
 "use server";
 
 import { generateObjectTitle } from "@/lib/generate/object-title";
-import { titleAttrsFromInput, type NewObjectInput } from "@/lib/amocrm/object-writer";
+import { titleAttrsFromInput, type NewObjectInput } from "@/lib/object-input";
 import { requireStaff } from "@/lib/auth/require-admin";
 
 /** Subset of the intake form needed to suggest a title (preview, pre-create). */

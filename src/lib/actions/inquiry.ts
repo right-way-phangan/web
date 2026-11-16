@@ -1,8 +1,6 @@
 "use server";
 
 import { z } from "zod";
-import { createLead, AmoApiError } from "@/lib/amocrm/client";
-import { amoEnv } from "@/lib/amocrm/env";
 import { backendFetch } from "@/lib/api/backend";
 import { getObjectByRwNumber } from "@/lib/data/objects";
 import { notifyLeadCreated } from "@/lib/notify/telegram";
@@ -74,28 +72,9 @@ const inquirySchema = z
   });
 
 /**
- * Choose CRM pipeline based on the property type the inquiry is about.
- * /contact (no object) defaults to Land pipeline + a website-contact tag.
+ * Leads go to the own CRM via the backend API (amoCRM removed 2026-11-16).
+ * /contact (no object) defaults to the land pipeline + a website-contact tag.
  */
-function pipelineFor(type: ObjectType | undefined): number {
-  if (
-    type === "Villa" ||
-    type === "House" ||
-    type === "Apartment" ||
-    type === "Project"
-  ) {
-    return amoEnv.AMOCRM_PIPELINE_VILLA_HOUSE;
-  }
-  return amoEnv.AMOCRM_PIPELINE_LAND;
-}
-
-/**
- * Migration off amoCRM (Phase B): when OBJECTS_API_URL is set, leads are created
- * in the own CRM via the backend API instead of amoCRM /leads/complex. Unset →
- * amoCRM (current prod behavior). The own-CRM pipeline is keyed, not id'd.
- */
-const CRM_API_URL = process.env.OBJECTS_API_URL;
-
 function pipelineKeyFor(
   type: ObjectType | undefined,
   isSeller: boolean,
@@ -200,7 +179,7 @@ export async function submitInquiry(
   const isConstruction = data.kind === "construction";
   const isMatch = data.kind === "match";
   // Construction requests carry no rwNumber → route to the villas pipeline
-  // (one decision point for both the own-CRM and amoCRM branches below).
+  // (one decision point for the pipeline below).
   const pipelineType: ObjectType | undefined = isConstruction
     ? "Villa"
     : objectType;
@@ -240,7 +219,6 @@ export async function submitInquiry(
     ? `${data.message}\n\n${extras.join("\n")}`
     : data.message;
 
-  // Build amoCRM payload — leads/complex creates lead + contact in one call.
   const namePrefix = isViewing
     ? "Viewing request"
     : isMatch
@@ -264,76 +242,31 @@ export async function submitInquiry(
     ? `${namePrefix} · ${data.rwNumber}${objectTitle ? ` · ${objectTitle.slice(0, 60)}` : ""}`
     : `${namePrefix} · ${data.name}`;
 
-  const contactCustomFields: Array<{
-    field_code: "PHONE" | "EMAIL";
-    values: Array<{ value: string; enum_code?: string }>;
-  }> = [];
-  if (data.email) {
-    contactCustomFields.push({
-      field_code: "EMAIL",
-      values: [{ value: data.email, enum_code: "WORK" }],
-    });
-  }
-  if (data.phone) {
-    contactCustomFields.push({
-      field_code: "PHONE",
-      values: [{ value: data.phone, enum_code: "WORK" }],
-    });
-  }
-
   try {
-    let leadId: number;
-
-    if (CRM_API_URL) {
-      // Own CRM (Phase B): create lead+contact+note in our DB.
-      const res = await backendFetch(`/leads`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        cache: "no-store",
-        body: JSON.stringify({
-          leadName,
-          pipeline: pipelineKeyFor(pipelineType, isValuation),
-          contact: {
-            name: data.name,
-            email: data.email || undefined,
-            phone: data.phone || undefined,
-          },
-          note: noteMessage,
-          tags,
-          rwNumber: data.rwNumber || undefined,
-          source: data.source,
-          kind: data.kind,
-          vid: data.vid || undefined,
-        }),
-      });
-      if (!res.ok) throw new Error(`leads API → ${res.status}`);
-      const body = (await res.json()) as { leadId?: number };
-      leadId = body.leadId ?? 0;
-    } else {
-      const pipelineId = pipelineFor(pipelineType);
-      const res = await createLead({
-        name: leadName,
-        pipeline_id: pipelineId,
-        _embedded: {
-          contacts: [
-            {
-              first_name: data.name,
-              custom_fields_values: contactCustomFields,
-            },
-          ],
-          tags: tags.map((name) => ({ name })),
+    // Own CRM: create lead+contact+note in our DB.
+    const res = await backendFetch(`/leads`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      cache: "no-store",
+      body: JSON.stringify({
+        leadName,
+        pipeline: pipelineKeyFor(pipelineType, isValuation),
+        contact: {
+          name: data.name,
+          email: data.email || undefined,
+          phone: data.phone || undefined,
         },
-      });
-      leadId = res[0]?.id ?? 0;
-      // Descriptive message → lead's first note (best-effort; don't fail the form).
-      if (leadId > 0) {
-        try {
-          await postLeadNote(leadId, noteMessage);
-        } catch (err) {
-          console.error("[inquiry] note attach failed:", err);
-        }
-      }
-    }
+        note: noteMessage,
+        tags,
+        rwNumber: data.rwNumber || undefined,
+        source: data.source,
+        kind: data.kind,
+        vid: data.vid || undefined,
+      }),
+    });
+    if (!res.ok) throw new Error(`leads API → ${res.status}`);
+    const body = (await res.json()) as { leadId?: number };
+    const leadId = body.leadId ?? 0;
 
     // Telegram heads-up. Non-blocking — failures are logged, not surfaced.
     await notifyLeadCreated({
@@ -355,47 +288,11 @@ export async function submitInquiry(
         : "Thanks — we'll reply within the working day.",
     };
   } catch (err) {
-    if (err instanceof AmoApiError) {
-      console.error(
-        "[inquiry] amoCRM error",
-        err.status,
-        err.body.slice(0, 300),
-      );
-    } else {
-      console.error("[inquiry] unexpected:", err);
-    }
+    console.error("[inquiry] unexpected:", err);
     return {
       status: "error",
       message:
         "Something went wrong on our side. Please message us on Telegram or WhatsApp instead — we'll fix this shortly.",
     };
-  }
-}
-
-/**
- * Attach the visitor's message as a note on the lead.
- * Uses the lower-level fetch since we don't have a wrapper helper for notes.
- */
-async function postLeadNote(leadId: number, text: string): Promise<void> {
-  const url = `https://${amoEnv.AMOCRM_DOMAIN}/api/v4/leads/${leadId}/notes`;
-  const body = [
-    {
-      entity_id: leadId,
-      note_type: "common" as const,
-      params: { text },
-    },
-  ];
-  const res = await fetch(url, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${amoEnv.AMOCRM_TOKEN}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-    cache: "no-store",
-  });
-  if (!res.ok) {
-    const t = await res.text().catch(() => "");
-    throw new Error(`note POST ${res.status}: ${t.slice(0, 200)}`);
   }
 }

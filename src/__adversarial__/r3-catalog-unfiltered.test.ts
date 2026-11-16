@@ -35,26 +35,12 @@ vi.mock("@/lib/storage/r2-public", () => ({
   proxyR2VideoUrl: (u: string) => u,
 }));
 
-// Ветка без OBJECTS_API_URL (АТАКА 48) ходит в amoCRM — подменяем источник.
-let amoElements: RealEstateObject[] = [];
-vi.mock("@/lib/amocrm/client", () => ({
-  listCatalogElements: () => Promise.resolve(amoElements),
-  AmoApiError: class AmoApiError extends Error {
-    status = 500;
-    body = "";
-  },
-}));
-vi.mock("@/lib/amocrm/mapper", () => ({
-  mapElementToObject: (e: RealEstateObject) => e,
-}));
-
 const o = (p: Partial<RealEstateObject>): RealEstateObject => p as RealEstateObject;
 
 beforeEach(() => {
   vi.resetModules();
   vi.stubEnv("OBJECTS_API_URL", "https://backend.test");
   apiObjects = [];
-  amoElements = [];
 });
 
 // АТАКА 45 [HIGH, публикация]: снятый с публикации проект открывается полным
@@ -259,7 +245,7 @@ describe("АТАКА 47 — скрытые объекты попадают в п
 // расхождение не видно; переключение обратно (или локальный dev на amoCRM)
 // молча возвращает АТАКУ 42 второго раунда.
 // код: src/lib/data/objects.ts:231-234 против :250-258
-describe("АТАКА 48 — «Unfiltered» в amoCRM-ветке отдаёт гейтованный набор", () => {
+describe("АТАКА 48 — «Unfiltered» отдаёт набор без гейта обложки (amoCRM-ветка удалена 2026-11-16)", () => {
   const coverStripped = o({
     id: 1,
     rwNumber: "RW-P0070",
@@ -273,15 +259,5 @@ describe("АТАКА 48 — «Unfiltered» в amoCRM-ветке отдаёт г�
     apiObjects = [coverStripped];
     const { getPublicObjectsUnfiltered } = await import("@/lib/data/objects");
     expect((await getPublicObjectsUnfiltered()).map((x) => x.rwNumber)).toEqual(["RW-P0070"]);
-  });
-
-  it("в amoCRM-ветке тот же вызов отдаёт пустоту — и лендинг снова 404", async () => {
-    vi.stubEnv("OBJECTS_API_URL", "");
-    amoElements = [coverStripped];
-    const { getPublicObjectsUnfiltered } = await import("@/lib/data/objects");
-    expect(await getPublicObjectsUnfiltered()).toEqual([]);
-
-    const { getProjectBySlug } = await import("@/lib/data/projects");
-    expect(await getProjectBySlug("legacy-bay")).toBeNull();
   });
 });
