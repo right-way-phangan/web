@@ -91,6 +91,9 @@ describe("АТАКА 60 — SSRF в чекере зон", () => {
   });
 
   it("экшен троттлится per-IP через backend /ratelimit", async () => {
+    // Без заглушки экшен ходил в живые Longdo/Open-Meteo, и на раннерах GitHub
+    // тест падал по 5-сек таймауту; проверяем только троттлинг.
+    vi.stubGlobal("fetch", vi.fn(() => Promise.resolve(new Response("{}", { status: 200 }))));
     vi.doMock("@/lib/notify/telegram", () => ({ notifyZoneLookupError: vi.fn() }));
     const { lookupZoneRules } = await import("@/lib/actions/zone-rules-lookup");
     await lookupZoneRules("9.7, 100.0", "en");
