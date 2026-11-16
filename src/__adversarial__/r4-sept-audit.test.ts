@@ -223,7 +223,6 @@ describe("АТАКА 64 — /admin/api без собственного гейт�
 // CRM-строку и рвало Telegram-алерт | ОЖИДАЛОСЬ: .max() на полях
 describe("АТАКА 65 — публичная форма без .max()", () => {
   it("сообщение в 5 000 символов отбивается схемой, лид не создаётся", async () => {
-    vi.doMock("@/lib/amocrm/env", () => ({ amoEnv: { AMOCRM_PIPELINE_LAND: 1, AMOCRM_PIPELINE_VILLA_HOUSE: 2 } }));
     vi.doMock("@/lib/notify/telegram", () => ({ notifyLeadCreated: vi.fn() }));
     const { submitInquiry } = await import("@/lib/actions/inquiry");
     const fd = new FormData();

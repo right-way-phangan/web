@@ -1,22 +1,15 @@
 "use server";
 
-import { createObjectCard, ObjectInputError, type NewObjectInput } from "@/lib/amocrm/object-writer";
-import { AmoApiError } from "@/lib/amocrm/client";
+import { ObjectInputError, type NewObjectInput } from "@/lib/object-input";
 import { notifyObjectCreated } from "@/lib/notify/telegram";
-import { OBJECT_TYPES } from "@/lib/amocrm/dictionaries";
+import { OBJECT_TYPES } from "@/lib/dictionaries";
 import { classifyImageIsDocument } from "@/lib/classify/image-doc";
 import { backendFetch } from "@/lib/api/backend";
 import { uploadImageToR2 } from "@/lib/storage/r2";
 import { requireStaff } from "@/lib/auth/require-admin";
 import { revalidateTag } from "next/cache";
 
-/**
- * Migration off amoCRM (Phase A): when OBJECTS_API_URL is set, new objects are
- * written to the own DB via the backend API instead of the amoCRM catalog.
- * Unset → amoCRM (current prod behavior, untouched).
- */
-const OBJECTS_API_URL = process.env.OBJECTS_API_URL;
-
+/** New objects are written to the own DB via the backend API (amoCRM removed 2026-11-16). */
 async function createViaApi(
   input: NewObjectInput,
 ): Promise<{ rwNumber: string; url: string }> {
@@ -184,8 +177,7 @@ export async function createObject(
 
   // Structured seller contact captured at intake — one primary contact (usually
   // the owner); extra contacts/roles are added on the object card afterwards.
-  // A legacy `owner` string is also composed so the amoCRM fallback path keeps
-  // populating its OWNER field.
+  // A legacy `owner` string is also composed (the backend seeds a contact from it).
   const contactName = str(formData.get("contactName"));
   const contactPhone = str(formData.get("contactPhone"));
   const contactLine = str(formData.get("contactLine"));
@@ -273,18 +265,14 @@ export async function createObject(
     docUrls,
   };
 
-  const target = OBJECTS_API_URL ? "базе" : "amoCRM";
   try {
-    const res = OBJECTS_API_URL
-      ? await createViaApi(input)
-      : await createObjectCard(input);
+    const res = await createViaApi(input);
     revalidateTag("catalog"); // каталог кэшируется на час — новый объект показываем сразу
 
     await notifyObjectCreated({
       rwNumber: res.rwNumber,
       type: input.type,
       district: input.district,
-      elementUrl: res.url,
       photoCount: photoUrls.length,
     });
 
@@ -294,7 +282,7 @@ export async function createObject(
       url: res.url,
       photoCount: photoUrls.length,
       docCount: docUrls.length,
-      message: `Объект ${res.rwNumber} создан в ${target}.`,
+      message: `Объект ${res.rwNumber} создан в базе.`,
     };
   } catch (err) {
     // Validation errors (e.g. unknown parent project) carry a user-facing
@@ -302,14 +290,10 @@ export async function createObject(
     if (err instanceof ObjectInputError) {
       return { status: "error", message: err.message };
     }
-    if (err instanceof AmoApiError) {
-      console.error("[new-object] amoCRM", err.status, err.body.slice(0, 300));
-    } else {
-      console.error("[new-object] unexpected:", err);
-    }
+    console.error("[new-object] unexpected:", err);
     return {
       status: "error",
-      message: `Не удалось создать карточку в ${target}. Фото уже загружены — попробуйте опубликовать ещё раз.`,
+      message: `Не удалось создать карточку в базе. Фото уже загружены — попробуйте опубликовать ещё раз.`,
     };
   }
 }

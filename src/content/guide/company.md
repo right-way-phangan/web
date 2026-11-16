@@ -56,7 +56,6 @@ keywords: компания about right way услуги комиссия leaseho
 | Админка | [/admin](/admin) — дашборд, объекты, CRM, DD, финансы |
 | Telegram-канал | [@rightwaykpg](https://t.me/rightwaykpg) (запуск контента — после базы+юр+сайта) |
 | WhatsApp Business | +66 84 362 7784 |
-| amoCRM (до полного cut-over) | rightwaykpg.amocrm.ru |
 | Drive (корень RW) | папка `1ohAVBE5nuErFf3SzOx6HpExAfddq7ZlV` |
 
 ## Инфраструктура одним абзацем

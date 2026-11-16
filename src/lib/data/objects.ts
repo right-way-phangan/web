@@ -1,7 +1,5 @@
 import "server-only";
 import { unstable_cache } from "next/cache";
-import { listCatalogElements, AmoApiError } from "@/lib/amocrm/client";
-import { mapElementToObject } from "@/lib/amocrm/mapper";
 import { backendFetch } from "@/lib/api/backend";
 import { proxyR2Url, proxyR2VideoUrl } from "@/lib/storage/r2-public";
 import { getUsdPerThb } from "@/lib/data/fx";
@@ -10,8 +8,8 @@ import { normalizeTenure } from "@/lib/utils/tenure";
 import type { RealEstateObject, ObjectStatus, NearbyListing } from "@/types/object";
 
 /**
- * Cache TTL for catalog fetches (Next.js fetch revalidation).
- * 5 min — balances freshness vs amoCRM API rate limits.
+ * Cache TTL for catalog fetches. Час: правки через админку и запись в backend
+ * /objects* сбрасывают тег "catalog" сразу, TTL — только страховка.
  */
 export const CATALOG_REVALIDATE_SECONDS = 3600;
 
@@ -25,12 +23,10 @@ const PUBLIC_STATUSES: ObjectStatus[] = ["Active"];
 const LANDING_STATUSES: ObjectStatus[] = ["Active", "Reserved"];
 
 /**
- * Migration off amoCRM (Phase A): when OBJECTS_API_URL is set, objects come from
- * the own DB via the backend API (RealEstateObject JSON, same shape) instead of
- * the amoCRM catalog. Unset → amoCRM (current prod behavior, untouched).
- * The API already returns the public set sorted; getAllObjects returns all.
+ * Objects come from the own DB via the backend API (OBJECTS_API_URL). The API
+ * already returns the public set sorted; getAllObjects returns all.
+ * amoCRM fallback removed 2026-11-16 — без OBJECTS_API_URL каталог пуст.
  */
-const OBJECTS_API_URL = process.env.OBJECTS_API_URL;
 
 /**
  * Strip CRM-internal fields before an object can reach a public page. These
@@ -187,7 +183,7 @@ async function withUsd(objs: RealEstateObject[]): Promise<RealEstateObject[]> {
   );
 }
 
-// Last successful fetch, kept per server instance: an amoCRM hiccup serves
+// Last successful fetch, kept per server instance: a backend hiccup serves
 // slightly stale inventory instead of an empty site. Survives only within a
 // warm lambda — a cold start during an outage still degrades to [] (alerted
 // by the prod-smoke workflow).
@@ -256,56 +252,16 @@ export async function getPublicObjectsUnfiltered(): Promise<RealEstateObject[]> 
 }
 
 export async function getPublicObjects(): Promise<RealEstateObject[]> {
-  if (OBJECTS_API_URL) {
-    try {
-      const fetched = await withUsd((await apiObjects("/objects")).map(sanitizePublicObject));
-      // Кэш «последнего удачного» держим ДО гейта: иначе один штатный ответ с
-      // обнулёнными обложками отравляет его пустотой и переживает падение backend.
-      lastGoodPublic = fetched;
-      return fetched.filter(isPubliclyListable);
-    } catch (err) {
-      console.error("[objects] own-API failed:", err);
-      return (lastGoodPublic ?? []).filter(isPubliclyListable);
-    }
-  }
   try {
-    const elements = await listCatalogElements();
-    const all = elements.map(mapElementToObject);
-    lastGoodPublic = await withUsd(
-      all
-        .filter(
-          (o) => o.rwNumber && PUBLIC_STATUSES.includes(o.status) && !!o.coverImage,
-        )
-        .map(sanitizePublicObject)
-        .sort(sortByRecentAndPremium),
-    );
-    return lastGoodPublic;
+    const fetched = await withUsd((await apiObjects("/objects")).map(sanitizePublicObject));
+    // Кэш «последнего удачного» держим ДО гейта: иначе один штатный ответ с
+    // обнулёнными обложками отравляет его пустотой и переживает падение backend.
+    lastGoodPublic = fetched;
+    return fetched.filter(isPubliclyListable);
   } catch (err) {
-    if (err instanceof AmoApiError) {
-      console.error(`[objects] amoCRM ${err.status}:`, err.body.slice(0, 200));
-    } else {
-      console.error("[objects] unexpected:", err);
-    }
-    return lastGoodPublic ?? [];
+    console.error("[objects] own-API failed:", err);
+    return (lastGoodPublic ?? []).filter(isPubliclyListable);
   }
-}
-
-/**
- * Sort premium features first (beachfront → sea-view → mountain-view), then by
- * date_added desc. All public objects already have a cover photo (filtered in
- * getPublicObjects), so the coverImage term below is now effectively constant.
- */
-function sortByRecentAndPremium(a: RealEstateObject, b: RealEstateObject) {
-  const score = (o: RealEstateObject) =>
-    (o.coverImage ? 8 : 0) +
-    (o.beachfront ? 4 : 0) +
-    (o.seaView ? 2 : 0) +
-    (o.mountainView ? 1 : 0);
-  const sd = score(b) - score(a);
-  if (sd !== 0) return sd;
-  const ad = a.dateAdded ?? "";
-  const bd = b.dateAdded ?? "";
-  return bd.localeCompare(ad);
 }
 
 export async function getObjectByRwNumber(
@@ -351,27 +307,11 @@ export async function getAdminObjectByRwNumber(
  * Active ones. Returns [] on failure. Do NOT use for the public listings grid.
  */
 export async function getAllObjects(): Promise<RealEstateObject[]> {
-  if (OBJECTS_API_URL) {
-    try {
-      lastGoodAll = await apiObjects("/objects/all");
-      return lastGoodAll;
-    } catch (err) {
-      console.error("[objects:all] own-API failed:", err);
-      return lastGoodAll ?? [];
-    }
-  }
   try {
-    const elements = await listCatalogElements();
-    lastGoodAll = elements
-      .map(mapElementToObject)
-      .filter((o) => o.rwNumber);
+    lastGoodAll = await apiObjects("/objects/all");
     return lastGoodAll;
   } catch (err) {
-    if (err instanceof AmoApiError) {
-      console.error(`[objects:all] amoCRM ${err.status}:`, err.body.slice(0, 200));
-    } else {
-      console.error("[objects:all] unexpected:", err);
-    }
+    console.error("[objects:all] own-API failed:", err);
     return lastGoodAll ?? [];
   }
 }

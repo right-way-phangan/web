@@ -44,7 +44,7 @@ import {
   STAGES,
   FURNISHINGS,
   STATUSES,
-} from "@/lib/amocrm/dictionaries";
+} from "@/lib/dictionaries";
 
 const initialState: NewObjectState = { status: "idle" };
 
@@ -479,7 +479,7 @@ export function ObjectForm() {
           rel="noreferrer"
           className="mt-4 inline-flex items-center gap-1.5 text-sm text-forest-500 underline-offset-4 hover:underline"
         >
-          Открыть {state.rwNumber} в amoCRM <ExternalLink className="size-4" />
+          Открыть {state.rwNumber} <ExternalLink className="size-4" />
         </a>
       </div>
     );

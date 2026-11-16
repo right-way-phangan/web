@@ -20,9 +20,6 @@ import "server-only";
 /** Site origin for admin deep-links (rightwaygroup.co in prod). */
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://rightwaygroup.co").replace(/\/$/, "");
 
-/** Phase B: leads/objects live in our own DB (amoCRM is the dev-only fallback). */
-const OWN_CRM = Boolean(process.env.OBJECTS_API_URL);
-
 type Button = { text: string; url: string };
 
 export async function notifyLeadCreated(opts: {
@@ -57,7 +54,6 @@ export async function notifyObjectCreated(opts: {
   rwNumber: string;
   type: string;
   district?: string;
-  elementUrl: string;
   photoCount: number;
 }): Promise<void> {
   const lines: string[] = [];
@@ -68,7 +64,7 @@ export async function notifyObjectCreated(opts: {
   lines.push(`<b>Photos:</b> ${opts.photoCount}`);
   lines.push(`<b>Source:</b> website /admin/new`);
 
-  await send(lines, objectButton(opts.rwNumber, opts.elementUrl));
+  await send(lines, objectButton(opts.rwNumber));
 }
 
 /**
@@ -131,25 +127,15 @@ export async function notifySiteError(opts: {
   await send(lines, url ? { text: "🔗 Открыть страницу →", url } : null);
 }
 
-/** Lead deep-link: own CRM card in prod, amoCRM lead only as dev fallback. */
-function leadButton(leadId: number): Button | null {
-  if (OWN_CRM) {
-    const url = leadId > 0 ? `${SITE_URL}/admin/crm/${leadId}` : `${SITE_URL}/admin/crm`;
-    return { text: "📋 Открыть в CRM →", url };
-  }
-  const amocrmDomain = process.env.AMOCRM_DOMAIN;
-  if (leadId > 0 && amocrmDomain) {
-    return { text: "Open in amoCRM →", url: `https://${amocrmDomain}/leads/detail/${leadId}` };
-  }
-  return null;
+/** Lead deep-link: own CRM card. */
+function leadButton(leadId: number): Button {
+  const url = leadId > 0 ? `${SITE_URL}/admin/crm/${leadId}` : `${SITE_URL}/admin/crm`;
+  return { text: "📋 Открыть в CRM →", url };
 }
 
-/** Object deep-link: own admin object page in prod, amoCRM element as fallback. */
-function objectButton(rwNumber: string, amoUrl: string): Button | null {
-  if (OWN_CRM) {
-    return { text: "🏠 Открыть объект →", url: `${SITE_URL}/admin/objects/${rwNumber}` };
-  }
-  return amoUrl ? { text: "Open in amoCRM →", url: amoUrl } : null;
+/** Object deep-link: own admin object page. */
+function objectButton(rwNumber: string): Button {
+  return { text: "🏠 Открыть объект →", url: `${SITE_URL}/admin/objects/${rwNumber}` };
 }
 
 /**

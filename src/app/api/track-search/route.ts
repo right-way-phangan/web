@@ -1,7 +1,7 @@
 import { backendFetch, BACKEND_URL } from "@/lib/api/backend";
 import { isFirstParty } from "@/lib/api/first-party";
 import { rateLimit } from "@/lib/ratelimit";
-import { DISTRICTS } from "@/lib/amocrm/dictionaries";
+import { DISTRICTS } from "@/lib/dictionaries";
 
 /**
  * Demand beacon for FILTER selections on /listings (NL search is logged
