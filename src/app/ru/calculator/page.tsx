@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/ru/calculator", languages: { en: "/calculator", ru: "/ru/calculator", "x-default": "/calculator" } },
 };
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function RussianCalculatorPage({
   searchParams,

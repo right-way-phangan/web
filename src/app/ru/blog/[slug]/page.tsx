@@ -19,7 +19,7 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
 export function generateStaticParams() {
   return BLOG_POSTS_RU.map((p) => ({ slug: p.slug }));

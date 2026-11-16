@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     "Every active property on Koh Phangan: land, villas, and houses. Filter by district, type, and key features.",
 };
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 interface PageProps {
   searchParams: Promise<Record<string, string | string[] | undefined>>;

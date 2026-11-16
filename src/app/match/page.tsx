@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     "Tell our AI what you're looking for on Koh Phangan — in a short conversation — and get a ranked shortlist with a fit score for each place.",
 };
 
-export const revalidate = 300;
+export const revalidate = 3600;
 // Финальный ход зовёт две модели (интервью + ранжирование) — даём запас времени.
 export const maxDuration = 30;
 

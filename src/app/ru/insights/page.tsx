@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/ru/insights", languages: { en: "/insights", ru: "/ru/insights", "x-default": "/insights" } },
 };
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export default async function RussianInsightsPage() {
   const data = getRentalMarket();

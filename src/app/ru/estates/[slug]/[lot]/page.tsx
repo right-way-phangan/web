@@ -11,7 +11,7 @@ interface Props {
   params: Promise<{ slug: string; lot: string }>;
 }
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export function generateStaticParams() {
   return getPublishedEstates().flatMap((e) => e.plots.map((p) => ({ slug: e.slug, lot: p.code })));

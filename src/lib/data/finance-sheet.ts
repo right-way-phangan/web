@@ -119,7 +119,7 @@ export async function loadFinanceFromSheet(): Promise<SheetFinance | null> {
       `?ranges=${encodeURIComponent("OpEx!A2:I")}&ranges=${encodeURIComponent("Ledger!A2:H")}`;
     const res = await fetch(url, {
       headers: { Authorization: `Bearer ${token}` },
-      next: { revalidate: 60 },
+      cache: "no-store",
     });
     if (!res.ok) return null;
     const data = (await res.json()) as { valueRanges?: Array<{ values?: string[][] }> };
@@ -164,7 +164,7 @@ async function getRange(token: string, range: string): Promise<string[][] | null
   try {
     const res = await fetch(
       `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(range)}`,
-      { headers: { Authorization: `Bearer ${token}` }, next: { revalidate: 60 } },
+      { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" },
     );
     if (!res.ok) return null;
     return ((await res.json()) as { values?: string[][] }).values ?? [];
