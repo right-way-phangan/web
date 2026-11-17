@@ -20,10 +20,10 @@ type Freq = NonNullable<MetadataRoute.Sitemap[number]["changeFrequency"]>;
 const STATIC_LASTMOD = new Date("2026-09-04");
 
 /**
- * Every public page exists in EN and RU (`/ru/...`). Emit the pair with
- * hreflang alternates on BOTH entries — an EN entry without alternates told
- * crawlers the RU mirror was a separate, unrelated page (184 of 528 URLs had
- * them before the 2026-09-03 audit).
+ * Every public page exists in EN, RU (`/ru/...`) and TH (`/th/...`). Emit the
+ * set with hreflang alternates on EVERY entry — an EN entry without alternates
+ * told crawlers the mirror was a separate, unrelated page (184 of 528 URLs had
+ * them before the 2026-09-03 audit). TH carries the RU priority.
  */
 function pair(
   base: string,
@@ -36,10 +36,12 @@ function pair(
 ): MetadataRoute.Sitemap {
   const en = `${base}${path === "/" ? "/" : path}`;
   const ru = `${base}/ru${path === "/" ? "" : path}`;
-  const languages = { en, ru, "x-default": en };
+  const th = `${base}/th${path === "/" ? "" : path}`;
+  const languages = { en, ru, th, "x-default": en };
   return [
     { url: en, lastModified, changeFrequency, priority, alternates: { languages }, ...extra },
     { url: ru, lastModified, changeFrequency, priority: ruPriority, alternates: { languages }, ...extra },
+    { url: th, lastModified, changeFrequency, priority: ruPriority, alternates: { languages }, ...extra },
   ];
 }
 

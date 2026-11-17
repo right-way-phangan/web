@@ -10,7 +10,7 @@
  * amoCRM); the chrome and marketing copy localize first.
  */
 
-export const LOCALES = ["en", "ru"] as const;
+export const LOCALES = ["en", "ru", "th"] as const;
 export type Locale = (typeof LOCALES)[number];
 export const DEFAULT_LOCALE: Locale = "en";
 

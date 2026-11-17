@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     "Безопасный способ для иностранца владеть виллой на Пангане: здание — на вас, земля — в зарегистрированной долгосрочной аренде, без номиналов и тайской компании-прокладки. Зарегистрированная аренда, задаток на счёте юрфирмы, двухуровневый due diligence.",
   alternates: {
     canonical: "/ru/leasehold",
-    languages: { en: "/leasehold", ru: "/ru/leasehold", "x-default": "/leasehold" },
+    languages: { en: "/leasehold", ru: "/ru/leasehold", th: "/th/leasehold", "x-default": "/leasehold" },
   },
 };
 

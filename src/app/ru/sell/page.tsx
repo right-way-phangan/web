@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     "Разместите землю, виллу или дом на Пангане в агентстве, которое проверяет то, что продаёт. Честная оценка по данным, реальный охват в нужных каналах, due diligence и все документы — под ключ.",
   alternates: {
     canonical: "/ru/sell",
-    languages: { en: "/sell", ru: "/ru/sell", "x-default": "/sell" },
+    languages: { en: "/sell", ru: "/ru/sell", th: "/th/sell", "x-default": "/sell" },
   },
 };
 

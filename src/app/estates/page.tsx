@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     "Plot collections on Koh Phangan — several building plots from a single owner under one title, sold or leased individually. Live availability: available, reserved, sold or leased.",
   alternates: {
     canonical: "/estates",
-    languages: { en: "/estates", ru: "/ru/estates", "x-default": "/estates" },
+    languages: { en: "/estates", ru: "/ru/estates", th: "/th/estates", "x-default": "/estates" },
   },
 };
 

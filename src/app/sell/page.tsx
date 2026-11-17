@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     "List your Koh Phangan land, villa or house with an agency that checks what it sells. Honest, data-backed valuation, real exposure across the right channels, and the due diligence and paperwork handled end to end.",
   alternates: {
     canonical: "/sell",
-    languages: { en: "/sell", ru: "/ru/sell", "x-default": "/sell" },
+    languages: { en: "/sell", ru: "/ru/sell", th: "/th/sell", "x-default": "/sell" },
   },
 };
 

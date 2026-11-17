@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     "Вставьте локацию на Ко Пангане и узнайте индикативные правила застройки — зону городского плана (ผังเมือง), разрешённое использование и что проверить до стройки. Бесплатно; точные цифры подтверждаются в нашем due diligence.",
   alternates: {
     canonical: "/ru/tools/zoning",
-    languages: { en: "/tools/zoning", ru: "/ru/tools/zoning", "x-default": "/tools/zoning" },
+    languages: { en: "/tools/zoning", ru: "/ru/tools/zoning", th: "/th/tools/zoning", "x-default": "/tools/zoning" },
   },
   openGraph: {
     title: "Что можно построить на этом участке на Пангане?",

@@ -5,7 +5,7 @@ import { ContactChannels } from "@/components/sections/contact-channels";
 import { getContactDict } from "@/lib/i18n/dictionaries";
 
 export const metadata: Metadata = {
-  alternates: { canonical: "/contact", languages: { en: "/contact", ru: "/ru/contact", "x-default": "/contact" } },
+  alternates: { canonical: "/contact", languages: { en: "/contact", ru: "/ru/contact", th: "/th/contact", "x-default": "/contact" } },
   title: "Contact",
   description:
     "Tell us what you're looking for on Koh Phangan. We reply within the working day.",

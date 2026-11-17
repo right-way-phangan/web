@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     "Paste a Koh Phangan location and see its indicative building rules — the city-plan (ผังเมือง) zone, permitted use and what to verify before you build. Free; exact figures are confirmed in our due diligence.",
   alternates: {
     canonical: "/tools/zoning",
-    languages: { en: "/tools/zoning", ru: "/ru/tools/zoning", "x-default": "/tools/zoning" },
+    languages: { en: "/tools/zoning", ru: "/ru/tools/zoning", th: "/th/tools/zoning", "x-default": "/tools/zoning" },
   },
   openGraph: {
     title: "What can I build on this Koh Phangan plot?",

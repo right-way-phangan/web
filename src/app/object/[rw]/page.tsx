@@ -76,6 +76,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages: {
         en: `/object/${object.rwNumber}`,
         ru: `/ru/object/${object.rwNumber}`,
+        th: `/th/object/${object.rwNumber}`,
         "x-default": `/object/${object.rwNumber}`,
       },
     },

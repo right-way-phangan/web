@@ -69,7 +69,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description,
     alternates: {
       canonical: `/ru/object/${object.rwNumber}`,
-      languages: { en: `/object/${object.rwNumber}`, ru: `/ru/object/${object.rwNumber}`, "x-default": `/object/${object.rwNumber}` },
+      languages: { en: `/object/${object.rwNumber}`, ru: `/ru/object/${object.rwNumber}`, th: `/th/object/${object.rwNumber}`, "x-default": `/object/${object.rwNumber}` },
     },
     // og:title/og:description иначе наследуются generic из layout (см. EN-версию).
     openGraph: {

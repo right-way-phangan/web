@@ -2,14 +2,16 @@
 
 import Link from "next/link";
 import type { Route } from "next";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Globe } from "lucide-react";
 import { useAppPathname } from "@/lib/hooks/use-app-pathname";
 import { cn } from "@/lib/utils/cn";
+import { LOCALES } from "@/lib/i18n/dictionaries";
+import { localeFromPath, localePath, stripLocale } from "@/lib/i18n/locale-path";
 
-// The RU tree mirrors EN under /ru with identical slugs (objects, projects,
-// blog posts, districts), so locale switching is a prefix swap. Only routes
-// listed here have no RU counterpart and fall back to the RU home.
+// The RU and TH trees mirror EN under /ru and /th with identical slugs (objects,
+// projects, blog posts, districts), so locale switching is a prefix swap. Only
+// routes listed here have no mirror and fall back to the locale home.
 const EN_ONLY = ["/due-diligence"];
 
 export function LanguageSwitcher({
@@ -20,7 +22,7 @@ export function LanguageSwitcher({
   tone?: "default" | "light";
 }) {
   const pathname = useAppPathname();
-  const isRu = pathname === "/ru" || pathname.startsWith("/ru/");
+  const current = localeFromPath(pathname);
   const light = tone === "light";
 
   // Carry query/hash (calculator deep-links, listing filters) across the
@@ -31,12 +33,8 @@ export function LanguageSwitcher({
     setSuffix(window.location.search + window.location.hash);
   }, [pathname]);
 
-  const enPath = isRu ? pathname.slice("/ru".length) || "/" : pathname;
-  const hasRu = !EN_ONLY.some((p) => enPath === p || enPath.startsWith(`${p}/`));
-  const enHref = enPath + suffix;
-  const ruHref = hasRu
-    ? (enPath === "/" ? "/ru" : `/ru${enPath}`) + suffix
-    : "/ru";
+  const enPath = stripLocale(pathname);
+  const hasMirror = !EN_ONLY.some((p) => enPath === p || enPath.startsWith(`${p}/`));
 
   return (
     <div
@@ -50,33 +48,32 @@ export function LanguageSwitcher({
         className={cn("h-3.5 w-3.5", light ? "text-panel-fg/50" : "text-forest-500/50")}
         aria-hidden
       />
-      <Link
-        href={enHref as Route}
-        aria-current={!isRu ? "page" : undefined}
-        className={cn(
-          // Надпись остаётся мелкой, но нажимается по площади 44px: невидимый
-          // псевдоэлемент расширяет цель, не трогая вёрстку строки.
-          "relative rounded-sm px-1.5 py-0.5 transition-colors before:absolute before:-inset-x-1.5 before:-inset-y-[0.6875rem] before:content-['']",
-          light ? "hover:text-brass-300" : "hover:text-brass-500",
-          !isRu && (light ? "text-panel-fg" : "text-forest-500"),
-        )}
-      >
-        EN
-      </Link>
-      <span aria-hidden className={light ? "text-panel-fg/30" : "text-forest-500/25"}>/</span>
-      <Link
-        href={ruHref as Route}
-        aria-current={isRu ? "page" : undefined}
-        className={cn(
-          // Надпись остаётся мелкой, но нажимается по площади 44px: невидимый
-          // псевдоэлемент расширяет цель, не трогая вёрстку строки.
-          "relative rounded-sm px-1.5 py-0.5 transition-colors before:absolute before:-inset-x-1.5 before:-inset-y-[0.6875rem] before:content-['']",
-          light ? "hover:text-brass-300" : "hover:text-brass-500",
-          isRu && (light ? "text-panel-fg" : "text-forest-500"),
-        )}
-      >
-        RU
-      </Link>
+      {LOCALES.map((l, i) => {
+        const active = l === current;
+        const href =
+          l === "en" || hasMirror ? localePath(l, enPath) + suffix : localePath(l, "/");
+        return (
+          <Fragment key={l}>
+            {i > 0 && (
+              <span aria-hidden className={light ? "text-panel-fg/30" : "text-forest-500/25"}>/</span>
+            )}
+            <Link
+              href={href as Route}
+              hrefLang={l}
+              aria-current={active ? "page" : undefined}
+              className={cn(
+                // Надпись остаётся мелкой, но нажимается по площади 44px: невидимый
+                // псевдоэлемент расширяет цель, не трогая вёрстку строки.
+                "relative rounded-sm px-1.5 py-0.5 transition-colors before:absolute before:-inset-x-1.5 before:-inset-y-[0.6875rem] before:content-['']",
+                light ? "hover:text-brass-300" : "hover:text-brass-500",
+                active && (light ? "text-panel-fg" : "text-forest-500"),
+              )}
+            >
+              {l.toUpperCase()}
+            </Link>
+          </Fragment>
+        );
+      })}
     </div>
   );
 }

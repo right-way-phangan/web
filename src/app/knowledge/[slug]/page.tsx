@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: a.short,
     alternates: {
       canonical: `/knowledge/${a.slug}`,
-      languages: { en: `/knowledge/${a.slug}`, ru: `/ru/knowledge/${a.slug}`, "x-default": `/knowledge/${a.slug}` },
+      languages: { en: `/knowledge/${a.slug}`, ru: `/ru/knowledge/${a.slug}`, th: `/th/knowledge/${a.slug}`, "x-default": `/knowledge/${a.slug}` },
     },
   };
 }

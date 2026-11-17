@@ -68,8 +68,8 @@ const config: Config = {
       },
       fontFamily: {
         // loaded via next/font in layout.tsx
-        serif: ["var(--font-serif)", "Georgia", "serif"],
-        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        serif: ["var(--font-serif)", "var(--font-thai)", "Georgia", "serif"],
+        sans: ["var(--font-sans)", "var(--font-thai)", "system-ui", "sans-serif"],
       },
       maxWidth: {
         prose: "65ch",

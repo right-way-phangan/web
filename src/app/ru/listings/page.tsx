@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   title: "Объекты",
   description:
     "Все активные объекты на Ко Пангане: земля, виллы и дома. Фильтр по району, типу и ключевым характеристикам.",
-  alternates: { canonical: "/ru/listings", languages: { en: "/listings", ru: "/ru/listings", "x-default": "/listings" } },
+  alternates: { canonical: "/ru/listings", languages: { en: "/listings", ru: "/ru/listings", th: "/th/listings", "x-default": "/listings" } },
 };
 
 export const revalidate = 3600;

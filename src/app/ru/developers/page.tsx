@@ -10,6 +10,7 @@ export const metadata: Metadata = {
     languages: {
       en: "/developers",
       ru: "/ru/developers",
+      th: "/th/developers",
       "x-default": "/developers",
     },
   },

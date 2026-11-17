@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   title: "Инвестиционный калькулятор",
   description:
     "Спрогнозируйте стоимость, ROI и рост капитала по объекту на Ко Пангане во времени — и посмотрите подходящие объекты под бюджет.",
-  alternates: { canonical: "/ru/calculator", languages: { en: "/calculator", ru: "/ru/calculator", "x-default": "/calculator" } },
+  alternates: { canonical: "/ru/calculator", languages: { en: "/calculator", ru: "/ru/calculator", th: "/th/calculator", "x-default": "/calculator" } },
 };
 
 export const revalidate = 3600;

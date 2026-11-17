@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   title: "О нас",
   description:
     "Right Way Phangan Group — агентство недвижимости на Ко Пангане: проверенные объекты, сопровождение сделок и аналитика рынка.",
-  alternates: { canonical: "/ru/about", languages: { en: "/about", ru: "/ru/about", "x-default": "/about" } },
+  alternates: { canonical: "/ru/about", languages: { en: "/about", ru: "/ru/about", th: "/th/about", "x-default": "/about" } },
 };
 
 export default function RussianAboutPage() {

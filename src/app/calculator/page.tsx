@@ -12,7 +12,7 @@ import { getPublicObjects, slimObjectForCard } from "@/lib/data/objects";
 import { getRentalMarket } from "@/lib/data/rental-market";
 
 export const metadata: Metadata = {
-  alternates: { canonical: "/calculator", languages: { en: "/calculator", ru: "/ru/calculator", "x-default": "/calculator" } },
+  alternates: { canonical: "/calculator", languages: { en: "/calculator", ru: "/ru/calculator", th: "/th/calculator", "x-default": "/calculator" } },
   title: "Investment calculator",
   description:
     "Project the value, ROI, and capital growth of a Koh Phangan property over time — and see matching listings for your budget.",

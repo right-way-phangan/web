@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: estate.tagline.en,
     alternates: {
       canonical: `/estates/${slug}`,
-      languages: { en: `/estates/${slug}`, ru: `/ru/estates/${slug}`, "x-default": `/estates/${slug}` },
+      languages: { en: `/estates/${slug}`, ru: `/ru/estates/${slug}`, th: `/th/estates/${slug}`, "x-default": `/estates/${slug}` },
     },
   };
 }
