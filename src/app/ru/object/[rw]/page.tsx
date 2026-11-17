@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { notFound, redirect } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import Link from "next/link";
 import type { Route } from "next";
 import { MapPin, ShieldCheck } from "lucide-react";
@@ -99,7 +99,7 @@ export default async function RussianObjectPage({ params }: Props) {
   // должны вести туда. Юниты (RW-P####-N) проходят на обычную страницу.
   if (object.type === "Project" && !isProjectUnit(object.rwNumber)) {
     const projects = await getPublicProjects();
-    redirect(`/ru/projects/${projectSlug(object, projects)}`);
+    permanentRedirect(`/ru/projects/${projectSlug(object, projects)}`);
   }
 
   // Карточные поля: полный каталог (галереи, описания, RU-заметки) иначе

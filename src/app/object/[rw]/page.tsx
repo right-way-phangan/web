@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { notFound, redirect } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import Link from "next/link";
 import type { Route } from "next";
 import { MapPin } from "lucide-react";
@@ -109,7 +109,7 @@ export default async function ObjectPage({ params }: Props) {
   // /object links should resolve there too. Units (RW-P####-N) fall through.
   if (object.type === "Project" && !isProjectUnit(object.rwNumber)) {
     const projects = await getPublicProjects();
-    redirect(`/projects/${projectSlug(object, projects)}`);
+    permanentRedirect(`/projects/${projectSlug(object, projects)}`);
   }
 
   // Карточные поля: полный каталог (галереи, описания, RU-заметки) иначе
