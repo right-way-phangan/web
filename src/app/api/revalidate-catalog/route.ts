@@ -26,6 +26,7 @@ export async function POST(req: Request) {
   revalidateTag("catalog");
   revalidatePath("/object/[rw]", "page");
   revalidatePath("/ru/object/[rw]", "page");
+  revalidatePath("/th/object/[rw]", "page");
   revalidatePath("/listings");
 
   return NextResponse.json({ revalidated: true });

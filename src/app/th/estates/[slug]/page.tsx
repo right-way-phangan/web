@@ -22,8 +22,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const estate = getEstateBySlug(slug);
   if (!estate) return { title: "ไม่พบโครงการที่ดิน" };
   return {
-    title: estate.name.en,
-    description: estate.tagline.en,
+    title: estate.name.th,
+    description: estate.tagline.th,
     alternates: {
       canonical: `/th/estates/${slug}`,
       languages: { en: `/estates/${slug}`, ru: `/ru/estates/${slug}`, th: `/th/estates/${slug}`, "x-default": `/estates/${slug}` },
@@ -44,7 +44,7 @@ export default async function ThaiEstateLandingPage({ params }: Props) {
         crumbs={[
           { name: "หน้าแรก", url: `${siteUrl}/th` },
           { name: "โครงการที่ดิน", url: `${siteUrl}/th/estates` },
-          { name: estate.name.en, url: pageUrl },
+          { name: estate.name.th, url: pageUrl },
         ]}
       />
       <LandEstateLanding estate={estate} locale="th" />

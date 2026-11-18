@@ -24,8 +24,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const plot = estate?.plots.find((p) => p.code === lot);
   if (!estate || !plot) return { title: "ไม่พบแปลงที่ดิน" };
   const price = plotPriceVisible(plot.status) && plot.priceThb ? ` · ${formatPriceCompact(plot.priceThb)}` : "";
-  const title = `${plot.code} — ${estate.name.en}${price}`;
-  const description = plot.note?.en ?? estate.tagline.en;
+  const title = `${plot.code} — ${estate.name.th}${price}`;
+  const description = plot.note?.th ?? estate.tagline.th;
   const img = plot.photos?.[0] ?? estate.cover;
   const siteUrl = getSiteUrl();
   return {
@@ -62,7 +62,7 @@ export default async function ThaiEstateLotPage({ params }: Props) {
         crumbs={[
           { name: "หน้าแรก", url: `${siteUrl}/th` },
           { name: "โครงการที่ดิน", url: `${siteUrl}/th/estates` },
-          { name: estate.name.en, url: pageUrl },
+          { name: estate.name.th, url: pageUrl },
           { name: plot.code, url: `${pageUrl}/${plot.code}` },
         ]}
       />

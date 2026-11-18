@@ -40,7 +40,7 @@ export async function GET(): Promise<Response> {
   lines.push(
     `Right Way's focus areas are foreign ownership structures, leasehold vs freehold land, ` +
       `legal due diligence (Chanote/NS3 title checks, building zones), and end-to-end deal ` +
-      `support on Koh Phangan. The Russian-language site lives under ${base}/ru.`,
+      `support on Koh Phangan. The Russian-language site lives under ${base}/ru, the Thai-language site under ${base}/th.`,
   );
   lines.push("");
 

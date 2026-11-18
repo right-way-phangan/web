@@ -13,6 +13,7 @@ function revalidateBlog() {
   revalidatePath("/admin");
   revalidatePath("/blog");
   revalidatePath("/ru/blog");
+  revalidatePath("/th/blog");
 }
 
 /** Approve → publish (goes live on /blog). */

@@ -24,8 +24,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!dev && !profile) return { title: "ไม่พบผู้พัฒนาโครงการ" };
   const name = dev?.name ?? profile!.name;
   return {
-    title: `${name} — โครงการของผู้พัฒนา`,
-    description: `โครงการของ ${name} บนเกาะพะงัน — ยูนิต ราคา และสถานะว่าง`,
+    title: profile?.seo?.title?.th ?? `${name} — โครงการของผู้พัฒนา`,
+    description:
+      profile?.seo?.description?.th ?? `โครงการของ ${name} บนเกาะพะงัน — ยูนิต ราคา และสถานะว่าง`,
     alternates: {
       canonical: `/th/developers/${slug}`,
       languages: { en: `/developers/${slug}`, ru: `/ru/developers/${slug}`, th: `/th/developers/${slug}`, "x-default": `/developers/${slug}` },

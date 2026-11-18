@@ -15,6 +15,7 @@ export function useAppPathname(): string {
   const pathname = usePathname();
   if (pathname === "/index") return "/";
   if (pathname === "/ru/index") return "/ru";
+  if (pathname === "/th/index") return "/th";
   return pathname;
 }
 

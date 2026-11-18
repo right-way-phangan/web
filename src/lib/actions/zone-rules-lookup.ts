@@ -28,6 +28,7 @@ import { fetchTerrain } from "@/lib/geo/terrain";
 import { notifyZoneLookupError } from "@/lib/notify/telegram";
 import { isAllowedShortLinkUrl } from "@/lib/geo/short-link-hosts";
 import { rateLimit } from "@/lib/ratelimit";
+import { L } from "@/lib/i18n/locale-path";
 
 // De-spam admin alerts: at most one Telegram ping per window across all genuine
 // failures (clicks are user-paced, so this only guards against a burst while
@@ -134,7 +135,7 @@ export async function lookupZoneRules(
   overrides: NormOverrides = {},
 ): Promise<ZoneRulesLookupResult> {
   const raw = (input ?? "").trim();
-  if (!raw) return { ok: false, error: locale === "ru" ? "Вставьте локацию" : "Paste a location" };
+  if (!raw) return { ok: false, error: L(locale, { en: "Paste a location", ru: "Вставьте локацию", th: "วางตำแหน่งที่ตั้ง" }) };
 
   // Public, unauthenticated, and each call fans out to tile + DEM + (maybe)
   // redirect fetches — cap per IP so a loop can't run the lambda for free.
@@ -142,9 +143,11 @@ export async function lookupZoneRules(
     return {
       ok: false,
       error:
-        locale === "ru"
-          ? "Слишком много запросов — попробуйте через час."
-          : "Too many requests — please try again in an hour.",
+        L(locale, {
+          en: "Too many requests — please try again in an hour.",
+          ru: "Слишком много запросов — попробуйте через час.",
+          th: "มีคำขอมากเกินไป — โปรดลองอีกครั้งในอีกหนึ่งชั่วโมง",
+        }),
     };
   }
 
@@ -155,9 +158,11 @@ export async function lookupZoneRules(
     return {
       ok: false,
       error:
-        locale === "ru"
-          ? "Не удалось распознать координаты. Вставьте «широта, долгота» или ссылку Google Maps."
-          : "Couldn't read coordinates. Paste “lat, lng” or a Google Maps link.",
+        L(locale, {
+          en: "Couldn't read coordinates. Paste “lat, lng” or a Google Maps link.",
+          ru: "Не удалось распознать координаты. Вставьте «широта, долгота» или ссылку Google Maps.",
+          th: "อ่านพิกัดไม่ได้ วาง “ละติจูด, ลองจิจูด” หรือลิงก์ Google Maps",
+        }),
     };
   }
 
@@ -167,9 +172,11 @@ export async function lookupZoneRules(
       lat: coords.lat,
       lng: coords.lng,
       error:
-        locale === "ru"
-          ? "Точка вне Ко Пангана — карта зон покрывает только остров."
-          : "Point is outside Koh Phangan — the zoning map only covers the island.",
+        L(locale, {
+          en: "Point is outside Koh Phangan — the zoning map only covers the island.",
+          ru: "Точка вне Ко Пангана — карта зон покрывает только остров.",
+          th: "จุดนี้อยู่นอกเกาะพะงัน — แผนที่ผังเมืองครอบคลุมเฉพาะบนเกาะ",
+        }),
     };
   }
 
@@ -190,9 +197,11 @@ export async function lookupZoneRules(
           lat: coords.lat,
           lng: coords.lng,
           error:
-            locale === "ru"
-              ? "Городской план (ผังเมือง) эту точку не покрывает — зона уточняется в due diligence."
-              : "The city plan (ผังเมือง) doesn’t cover this point — the zone is confirmed in due diligence.",
+            L(locale, {
+              en: "The city plan (ผังเมือง) doesn’t cover this point — the zone is confirmed in due diligence.",
+              ru: "Городской план (ผังเมือง) эту точку не покрывает — зона уточняется в due diligence.",
+              th: "ผังเมืองไม่ครอบคลุมจุดนี้ — เขตจะได้รับการยืนยันในการตรวจสอบสถานะ (Due Diligence)",
+            }),
         };
       }
       // Anything else from the classifier = a genuine service outage (Longdo
@@ -209,9 +218,11 @@ export async function lookupZoneRules(
         lat: coords.lat,
         lng: coords.lng,
         error:
-          locale === "ru"
-            ? "Сервис зон сейчас недоступен — попробуйте ещё раз чуть позже."
-            : "The zoning service is unavailable right now — please try again shortly.",
+          L(locale, {
+            en: "The zoning service is unavailable right now — please try again shortly.",
+            ru: "Сервис зон сейчас недоступен — попробуйте ещё раз чуть позже.",
+            th: "บริการตรวจสอบผังเมืองไม่พร้อมใช้งานขณะนี้ — โปรดลองอีกครั้งในไม่ช้า",
+          }),
       };
     }
 
@@ -285,9 +296,11 @@ export async function lookupZoneRules(
       lat: coords.lat,
       lng: coords.lng,
       error:
-        locale === "ru"
-          ? "Не удалось определить зону — попробуйте ещё раз."
-          : "Couldn't determine the zone — please try again.",
+        L(locale, {
+          en: "Couldn't determine the zone — please try again.",
+          ru: "Не удалось определить зону — попробуйте ещё раз.",
+          th: "ไม่สามารถระบุเขตได้ — โปรดลองอีกครั้ง",
+        }),
     };
   }
 }
