@@ -10,7 +10,7 @@ import { getServicesDict } from "@/lib/i18n/dictionaries";
 export const metadata: Metadata = {
   title: "บริการ",
   description:
-    "สามบริการ: ที่ปรึกษาการซื้อที่ดิน ธุรกรรมวิลล่าและบ้าน และการสนับสนุนธุรกรรมแบบเดี่ยว ทุกบริการมีเอกสารชัดเจนและรับผิดชอบได้",
+    "ซื้อที่ดินและบ้านบนเกาะพะงัน: ตรวจโฉนดและผังเมือง เทียบราคาต่อไร่ และดูแลจนโอนกรรมสิทธิ์ที่สำนักงานที่ดิน ผู้ซื้อไม่ต้องจ่ายค่านายหน้า",
   alternates: { canonical: "/th/services", languages: { en: "/services", ru: "/ru/services", th: "/th/services", "x-default": "/services" } },
 };
 
