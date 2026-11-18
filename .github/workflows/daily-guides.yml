@@ -195,6 +195,15 @@ jobs:
             echo "::error::last-run.md claims ${published} guides but src/content/knowledge-base.ts is unchanged — the agent reported authorship it did not perform. Failing loudly."
             exit 1
           fi
+          # Parity tripwire: the site is EN+RU+TH — a new guide must land in all three files.
+          if [ "${published:-0}" -gt 0 ]; then
+            for f in src/content/knowledge-base.ru.ts src/content/knowledge-base.th.ts; do
+              if git diff --quiet -- "$f"; then
+                echo "::error::${published} guides published but $f is unchanged — RU/TH mirrors are required."
+                exit 1
+              fi
+            done
+          fi
 
       - name: Type-check gate
         if: steps.already.outputs.skip != 'true'
@@ -207,7 +216,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           # stage only pipeline + content outputs
-          git add src/content/knowledge-base.ts src/content/knowledge-base.ru.ts \
+          git add src/content/knowledge-base.ts src/content/knowledge-base.ru.ts src/content/knowledge-base.th.ts \
                   content-pipeline/backlog.md content-pipeline/last-run.md 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No new guides this run (backlog exhausted or quality gate). Nothing to commit."

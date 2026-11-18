@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { Route } from "next";
 import { getAdminArticles, type DbArticle } from "@/lib/data/articles";
+import { LOCALES } from "@/lib/i18n/dictionaries";
 
 export const metadata: Metadata = {
   title: "Статьи",
@@ -39,15 +40,16 @@ export default async function AdminArticlesPage({
       (!query || `${a.title} ${a.slug} ${a.topic ?? ""}`.toLowerCase().includes(query)),
   );
 
-  // every article ships as an EN+RU pair (same slug) — flag cards missing theirs
+  // every article ships as an EN+RU+TH set (same slug) — flag cards missing a language
   const langsBySlug = new Map<string, Set<string>>();
   for (const a of articles) {
     if (!langsBySlug.has(a.slug)) langsBySlug.set(a.slug, new Set());
     langsBySlug.get(a.slug)!.add(a.lang);
   }
   const missingPair = (a: DbArticle): string | null => {
-    const other = a.lang === "ru" ? "en" : "ru";
-    return langsBySlug.get(a.slug)?.has(other) ? null : other;
+    const have = langsBySlug.get(a.slug);
+    const missing = LOCALES.filter((l) => !have?.has(l));
+    return missing.length ? missing.join(", ") : null;
   };
 
   const groups = ORDER.map((status) => ({

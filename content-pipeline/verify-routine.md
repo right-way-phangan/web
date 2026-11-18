@@ -15,6 +15,7 @@ then get cited by ChatGPT/Perplexity/AI Overviews. This pass keeps the corpus ho
 
 - `src/content/knowledge-base.ts`    → EN guides, `KB_ARTICLES` array (source of truth).
 - `src/content/knowledge-base.ru.ts` → RU mirror, `KB_ARTICLES_RU`.
+- `src/content/knowledge-base.th.ts` → TH mirror, `KB_ARTICLES_TH` (JSON-style double quotes).
 - `content-pipeline/verify-log.md`   → ledger: one row per guide, when it was last verified.
 - `content-pipeline/verify-last-run.md` → digest of THIS run (overwrite it entirely).
 
@@ -54,7 +55,7 @@ For each chosen guide:
 3. Decide per guide:
    - **Still accurate** → change NOTHING in the guide body. Record it as `ok` in the log.
    - **Stale / changed** → edit the affected `body` blocks, `takeaways`, and/or `sources`
-     in **both** `knowledge-base.ts` (EN) and `knowledge-base.ru.ts` (RU) — keep the two
+     in **all three** `knowledge-base.ts` (EN), `knowledge-base.ru.ts` (RU) and `knowledge-base.th.ts` (TH) — keep the
      languages at parity, never fix one and leave the other. Bump that guide's `updated`
      to today's date (this is a real content change, so `dateModified` should move). Add
      or refresh a `sources` entry pointing to what you verified against. Record it as

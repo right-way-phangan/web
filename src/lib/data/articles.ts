@@ -168,12 +168,11 @@ export async function getAdminArticles(): Promise<DbArticle[]> {
 }
 
 /**
- * The other language version of an EN+RU pair (same slug, other lang) — the
- * review page shows whether the paired translation exists and its status.
+ * Another language version of an article set (same slug, `other` lang — the
+ * site is EN+RU+TH) — the review page shows whether each translation exists.
  */
-export async function getPairedArticle(slug: string, lang: string): Promise<DbArticle | null> {
+export async function getPairedArticle(slug: string, other: string): Promise<DbArticle | null> {
   if (!BACKEND_URL) return null;
-  const other = lang === "en" ? "ru" : "en";
   try {
     const r = await backendFetch(
       `/articles/slug/${encodeURIComponent(slug)}?lang=${other}`,
