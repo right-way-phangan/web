@@ -6,7 +6,7 @@ import type { Route } from "next";
 import { Sparkles, ArrowRight } from "lucide-react";
 import { type RentalMarket, fmtThb, confidenceOf } from "@/lib/data/rental-market";
 import type { CalcDict } from "@/lib/i18n/calculator";
-import { useLocale } from "@/lib/i18n/use-locale";
+import { localeHref, useLocale } from "@/lib/i18n/use-locale";
 import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 
 import { estimateNightly, type Scenario } from "@/lib/data/rental-estimate";
@@ -73,6 +73,7 @@ export function MarketPreset({
   onApply: (p: { nightlyRateThb: number; occupancyPct: number }) => void;
   t: CalcDict;
 }) {
+  const locale = useLocale();
   const [district, setDistrict] = useState<string>("");
   const [type, setType] = useState<string>("");
   const [bedrooms, setBedrooms] = useState<string>("");
@@ -91,7 +92,7 @@ export function MarketPreset({
           {t.fillFromMarket}
         </p>
         <Link
-          href={"/insights" as Route}
+          href={localeHref(locale, "/insights") as Route}
           className="text-[11px] text-forest-500/60 underline-offset-2 hover:text-brass-500 hover:underline"
         >
           {t.seeFullReport}
@@ -236,7 +237,8 @@ function Select({
  * rate + the feature that moves price most, with a link to the full /insights.
  */
 export function MarketMiniBlock({ market }: { market: RentalMarket }) {
-  const t = MM[useLocale()];
+  const locale = useLocale();
+  const t = MM[locale];
   const top = market.districts.slice(0, 5);
   const max = Math.max(...top.map((d) => d.adrMedian), 1);
   const topFeature = [...market.featurePremiums]
@@ -252,7 +254,7 @@ export function MarketMiniBlock({ market }: { market: RentalMarket }) {
             <h3 className="mt-2 font-serif text-xl text-forest-900">{t.nightlyByDistrict}</h3>
           </div>
           <Link
-            href={"/insights" as Route}
+            href={localeHref(locale, "/insights") as Route}
             className="inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-forest-500 hover:text-brass-500"
           >
             {t.fullReport}

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Route } from "next";
+import { localePath } from "@/lib/i18n/locale-path";
 import { ShieldCheck } from "lucide-react";
 import type { Locale } from "@/lib/i18n/dictionaries";
 
@@ -122,7 +123,7 @@ export function CalculatorFaq({ locale }: { locale: Locale }) {
         {d.title}
       </h2>
       <Link
-        href={"/due-diligence" as Route}
+        href={localePath(locale, "/due-diligence") as Route}
         className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-forest-500/80 transition-colors hover:text-brass-600"
       >
         <ShieldCheck className="h-4 w-4 text-brass-500" />
