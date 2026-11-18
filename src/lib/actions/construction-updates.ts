@@ -56,6 +56,7 @@ export async function saveConstructionUpdatesAction(
     revalidatePath(`/admin/objects/${rwNumber}`);
     revalidatePath("/projects", "layout");
     revalidatePath("/ru/projects", "layout");
+    revalidatePath("/th/projects", "layout");
     return { ok: true };
   } catch (err) {
     console.error("[admin] saveConstructionUpdates failed:", err);

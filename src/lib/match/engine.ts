@@ -16,6 +16,8 @@ import {
   monthlyRentOf,
   matchesTypeFilter,
 } from "@/lib/filters/listings";
+import type { Locale } from "@/lib/i18n/dictionaries";
+import { L } from "@/lib/i18n/locale-path";
 
 /**
  * RW Match — движок подбора (чистые функции, без сети и LLM).
@@ -97,7 +99,7 @@ export function sanitizeProfile(
   const timeframe = oneOf(r.timeframe, VALID_TIMEFRAMES);
   if (timeframe) p.timeframe = timeframe;
   if (typeof r.notes === "string" && r.notes.trim()) p.notes = r.notes.trim().slice(0, 600);
-  const lang = oneOf(r.lang, ["en", "ru"] as const);
+  const lang = oneOf(r.lang, ["en", "ru", "th"] as const);
   if (lang) p.lang = lang;
   return p;
 }
@@ -266,7 +268,7 @@ export function scoreObject(p: BuyerProfile, o: RealEstateObject): MatchScore {
   return { fitPct, met };
 }
 
-const REASON_TEXT: Record<"en" | "ru", Record<string, string>> = {
+const REASON_TEXT: Record<Locale, Record<string, string>> = {
   en: {
     budget: "within budget",
     type: "matches your type",
@@ -303,13 +305,32 @@ const REASON_TEXT: Record<"en" | "ru", Record<string, string>> = {
     "feature:parking": "парковка",
     "feature:gated": "охраняемый",
   },
+  th: {
+    budget: "อยู่ในงบประมาณ",
+    type: "ตรงประเภทที่ต้องการ",
+    district: "อยู่ในย่านของคุณ",
+    tenure: "รูปแบบกรรมสิทธิ์เหมาะสม",
+    bedrooms: "ห้องนอนเพียงพอ",
+    yield: "สร้างรายได้",
+    "feature:seaView": "วิวทะเล",
+    "feature:beachfront": "ติดชายหาด",
+    "feature:mountainView": "วิวภูเขา",
+    "feature:jungleView": "วิวป่า",
+    "feature:flatLand": "ที่ดินราบ",
+    "feature:quiet": "เงียบสงบ",
+    "feature:electricity": "มีไฟฟ้าในพื้นที่",
+    "feature:pool": "สระว่ายน้ำ",
+    "feature:parking": "ที่จอดรถ",
+    "feature:gated": "มีรั้วรอบขอบชิด",
+  },
 };
 
 /** Совпавшие критерии → одна человекочитаемая фраза на языке клиента. */
-export function formatReasons(met: MatchReasonCode[], locale: "en" | "ru"): string {
+export function formatReasons(met: MatchReasonCode[], locale: Locale): string {
   const dict = REASON_TEXT[locale];
   const bits = met.map((c) => dict[c]).filter(Boolean).slice(0, 3);
-  if (bits.length === 0) return locale === "ru" ? "близко к вашим критериям" : "close to your criteria";
+  if (bits.length === 0)
+    return L(locale, { en: "close to your criteria", ru: "близко к вашим критериям", th: "ใกล้เคียงกับเกณฑ์ของคุณ" });
   return bits.join(locale === "ru" ? " · " : " · ");
 }
 
@@ -320,7 +341,7 @@ export function formatReasons(met: MatchReasonCode[], locale: "en" | "ru"): stri
 export function deterministicRank(
   p: BuyerProfile,
   candidates: RealEstateObject[],
-  locale: "en" | "ru" = "en",
+  locale: Locale = "en",
   limit = 10,
 ): MatchResult[] {
   return candidates

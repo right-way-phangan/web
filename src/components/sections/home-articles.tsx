@@ -5,6 +5,7 @@ import { SectionEyebrow } from "./section-eyebrow";
 import { Appear } from "@/components/motion/appear";
 import { getAllBlogPosts } from "@/lib/data/articles";
 import type { Locale } from "@/lib/i18n/dictionaries";
+import { localeBase } from "@/lib/i18n/locale-path";
 
 const COPY = {
   en: {
@@ -21,6 +22,13 @@ const COPY = {
     all: "Все статьи",
     read: "Читать",
   },
+  th: {
+    eyebrow: "คู่มือและบล็อก",
+    title: "ศึกษาข้อมูลไปพร้อมกับเรา",
+    lede: "การตรวจสอบสถานะ กลไกสิทธิการเช่า และวิลล่าทำรายได้จริงเท่าไร — ตอบอย่างเปิดเผย",
+    all: "บทความทั้งหมด",
+    read: "อ่าน",
+  },
 } as const;
 
 /**
@@ -30,7 +38,7 @@ const COPY = {
  */
 export async function HomeArticles({ locale }: { locale: Locale }) {
   const t = COPY[locale];
-  const base = locale === "ru" ? "/ru" : "";
+  const base = localeBase(locale);
   let posts: Awaited<ReturnType<typeof getAllBlogPosts>> = [];
   try {
     posts = (await getAllBlogPosts(locale)).slice(0, 3);

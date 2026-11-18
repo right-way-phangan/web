@@ -26,10 +26,10 @@ export interface EconomicsFormat {
 export interface ProjectEconomics {
   rwNumber: string;
   /** Where the numbers came from, shown as a source line. */
-  source: { en: string; ru: string };
+  source: { en: string; ru: string; th: string };
   formats: EconomicsFormat[];
   /** Our own caveats — the things the developer's table leaves out. */
-  caveats: Array<{ en: string; ru: string }>;
+  caveats: Array<{ en: string; ru: string; th: string }>;
 }
 
 const VERANA: ProjectEconomics = {
@@ -37,6 +37,7 @@ const VERANA: ProjectEconomics = {
   source: {
     en: "Figures published by ARQA Development, August 2026. Management fee is 25% of operating profit; letting costs assume 18% platform commission and 5% of revenue set aside for repairs.",
     ru: "Цифры опубликованы застройщиком ARQA Development в августе 2026. Комиссия управляющей компании — 25% от операционной прибыли; в расходах заложены 18% комиссии площадок и 5% выручки на ремонт.",
+    th: "ตัวเลขเผยแพร่โดย ARQA Development เมื่อเดือนสิงหาคม 2026 ค่าบริหารจัดการคิดเป็น 25% ของกำไรจากการดำเนินงาน ต้นทุนการปล่อยเช่าคิดค่าคอมมิชชันแพลตฟอร์ม 18% และกันเงิน 5% ของรายได้ไว้สำหรับการซ่อมแซม",
   },
   formats: [
     {
@@ -83,18 +84,22 @@ const VERANA: ProjectEconomics = {
     {
       en: "Payback is measured against the entry sum, which covers only the first five years of land lease. The next lease payment falls due in year six — 330,000 THB for a one-bedroom villa — so the real payback is longer than the table shows.",
       ru: "Окупаемость считается от суммы входа, в которую аренда земли включена только за первые пять лет. Следующий платёж приходит на шестой год — 330 000 ฿ для виллы с одной спальней, — поэтому реальная окупаемость длиннее табличной.",
+      th: "ระยะเวลาคืนทุนคำนวณจากเงินลงทุนเริ่มต้น ซึ่งรวมค่าเช่าที่ดินเพียงห้าปีแรก ค่าเช่างวดถัดไปครบกำหนดในปีที่หก — 330,000 บาทสำหรับวิลล่าหนึ่งห้องนอน — ระยะเวลาคืนทุนจริงจึงนานกว่าที่ตารางแสดง",
     },
     {
       en: "The nightly rate and occupancy behind the revenue line are not disclosed, and rates for the two- and three-bedroom villas are assumed at +35% and +50% over the one-bedroom.",
       ru: "Ставка за ночь и загрузка, из которых сложена выручка, не раскрыты; ставки для вилл с двумя и тремя спальнями приняты как +35% и +50% к односпальной.",
+      th: "ไม่มีการเปิดเผยค่าห้องต่อคืนและอัตราการเข้าพักที่ใช้คำนวณรายได้ และค่าห้องของวิลล่าสองและสามห้องนอนสมมติไว้ที่ +35% และ +50% จากวิลล่าหนึ่งห้องนอน",
     },
     {
       en: "Annual land and building tax, and utilities during the owner's own stays, sit outside the calculation. So does replacing furniture and appliances over a 30-year lease.",
       ru: "Ежегодный налог на землю и строение и коммунальные услуги в периоды личного проживания в расчёт не входят — как и замена мебели и техники за 30 лет аренды.",
+      th: "ภาษีที่ดินและสิ่งปลูกสร้างรายปี และค่าสาธารณูปโภคในช่วงที่เจ้าของเข้าพักเอง ไม่รวมอยู่ในการคำนวณ รวมถึงการเปลี่ยนเฟอร์นิเจอร์และเครื่องใช้ไฟฟ้าตลอดสัญญาเช่า 30 ปี",
     },
     {
       en: "A rental forecast is not a guarantee. Season, rates and occupancy on Phangan move year to year.",
       ru: "Прогноз аренды — не гарантия дохода. Сезон, ставки и загрузка на Пангане меняются год к году.",
+      th: "ประมาณการรายได้ค่าเช่าไม่ใช่การรับประกันรายได้ ฤดูกาล ค่าห้อง และอัตราการเข้าพักบนเกาะพะงันเปลี่ยนแปลงทุกปี",
     },
   ],
 };
@@ -134,6 +139,23 @@ export const ECONOMICS_LABELS = {
     sourceLabel: "Источник",
     caveatsLabel: "Чего расчёт не учитывает",
     rowHeaderLabel: "Показатель",
+  },
+  th: {
+    heading: "ตัวเลขของผู้พัฒนาโครงการ",
+    lede: "รายได้ต่อปีของวิลล่าแต่ละแบบตามประมาณการของ ARQA ด้านล่างคือหมายเหตุของเราว่าตารางนี้ไม่ได้รวมอะไรบ้าง",
+    entry: "เงินลงทุนเริ่มต้น",
+    grossRevenue: "รายได้รวม",
+    opex: "ค่าใช้จ่ายในการดำเนินงาน",
+    operatingProfit: "กำไรจากการดำเนินงาน",
+    managementFee: "ค่าบริหารจัดการ",
+    netOwnerIncome: "รายได้สุทธิของเจ้าของ",
+    netMonthly: "ต่อเดือน",
+    yieldPct: "ผลตอบแทนต่อเงินลงทุน",
+    payback: "ระยะเวลาคืนทุน",
+    years: (n: number) => `${n} ปี`,
+    sourceLabel: "แหล่งที่มา",
+    caveatsLabel: "สิ่งที่ตารางไม่ได้รวมไว้",
+    rowHeaderLabel: "รายการ",
   },
 } as const;
 

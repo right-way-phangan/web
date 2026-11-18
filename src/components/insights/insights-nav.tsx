@@ -1,6 +1,7 @@
 "use client";
 
 import { useLocale } from "@/lib/i18n/use-locale";
+import type { Locale } from "@/lib/i18n/dictionaries";
 import { ProjectNav, type NavItem } from "@/components/projects/project-nav";
 
 /**
@@ -10,7 +11,7 @@ import { ProjectNav, type NavItem } from "@/components/projects/project-nav";
  * ones. The CTA jumps to that tab's primary action.
  */
 const NAV: Record<
-  "en" | "ru",
+  Locale,
   { owner: NavItem[]; investor: NavItem[]; ctaOwner: string; ctaInvestor: string; ariaLabel: string }
 > = {
   en: {
@@ -40,6 +41,20 @@ const NAV: Record<
     ctaOwner: "Оценить мой объект",
     ctaInvestor: "Полный отчёт",
     ariaLabel: "Разделы аналитики",
+  },
+  th: {
+    owner: [
+      { id: "rate-check", label: "ตรวจค่าห้อง" },
+      { id: "rents", label: "บ้านสร้างรายได้เท่าไร" },
+    ],
+    investor: [
+      { id: "land", label: "ราคาที่ดิน" },
+      { id: "build", label: "ควรสร้างอะไร" },
+      { id: "report", label: "รายงานฉบับเต็ม" },
+    ],
+    ctaOwner: "ตรวจค่าห้องของฉัน",
+    ctaInvestor: "รายงานฉบับเต็ม",
+    ariaLabel: "หัวข้อข้อมูลเชิงลึกตลาด",
   },
 };
 

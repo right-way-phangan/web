@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     "Подборки участков на Ко Пангане — несколько участков под застройку от одного собственника под единым титулом, продаются или сдаются по отдельности. Актуальный статус: свободен, резерв, продан или арендован.",
   alternates: {
     canonical: "/ru/estates",
-    languages: { en: "/estates", ru: "/ru/estates", "x-default": "/estates" },
+    languages: { en: "/estates", ru: "/ru/estates", th: "/th/estates", "x-default": "/estates" },
   },
 };
 

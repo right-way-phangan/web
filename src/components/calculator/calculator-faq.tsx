@@ -1,6 +1,8 @@
 import Link from "next/link";
 import type { Route } from "next";
+import { localePath } from "@/lib/i18n/locale-path";
 import { ShieldCheck } from "lucide-react";
+import type { Locale } from "@/lib/i18n/dictionaries";
 
 /**
  * FAQ block under the calculator. Two jobs:
@@ -13,7 +15,7 @@ import { ShieldCheck } from "lucide-react";
 type FaqItem = { q: string; a: string };
 
 const CONTENT: Record<
-  "en" | "ru",
+  Locale,
   { title: string; ddLine: string; ddCta: string; items: FaqItem[] }
 > = {
   en: {
@@ -70,9 +72,36 @@ const CONTENT: Record<
       },
     ],
   },
+  th: {
+    title: "ผลตอบแทนอสังหาริมทรัพย์บนเกาะพะงัน — คำถามที่พบบ่อย",
+    ddLine: "ทรัพย์ทุกรายการผ่านการตรวจสอบสถานะ Listing-Vetting ของเราก่อนเผยแพร่",
+    ddCta: "ดูว่าเราตรวจสอบอะไรบ้าง",
+    items: [
+      {
+        q: "อสังหาริมทรัพย์บนเกาะพะงันให้ผลตอบแทนเท่าไร?",
+        a: "ขึ้นอยู่กับราคาที่คุณจ่าย ระยะเวลาถือครอง และการปล่อยเช่าหรือไม่ เครื่องคำนวณนี้จึงให้คุณกำหนดอัตราการเติบโตและระยะเวลาเอง แทนการบอกตัวเลขเดียว ค่าตั้งต้นการเติบโตของทุนอ้างอิงข้อมูลตลาด และปรับได้ทุกค่า",
+      },
+      {
+        q: "ประมาณการคำนวณอย่างไร?",
+        a: "มูลค่าที่คาดไว้คำนวณจากอัตราการเติบโตต่อปีแบบทบต้นตลอดระยะถือครอง ROI คือกำไรรวมหารด้วยเงินสดที่คุณลงทุน CAGR คือผลตอบแทนนั้นคิดเป็นรายปี ในโหมดปล่อยเช่าจะรวมรายได้ค่าเช่าสุทธิ สำหรับสิทธิการเช่าจะสะท้อนมูลค่าที่ลดลงตามระยะเช่าที่เหลือ รวมค่าใช้จ่ายขาเข้า ขาออก และการถือครองแล้ว",
+      },
+      {
+        q: "รองรับโครงการก่อนสร้างเสร็จและสิทธิการเช่าหรือไม่?",
+        a: "รองรับ เปลี่ยนเป็นโหมดแบบเต็ม: โครงการก่อนสร้างเสร็จจำลองแผนชำระเงินระหว่างก่อสร้างและการส่งมอบ ส่วนสิทธิการเช่าสะท้อนระยะเช่าที่สั้นลงตามเวลา ค่าเริ่มต้นคือการขายต่อแบบกรรมสิทธิ์ (ฟรีโฮลด์)",
+      },
+      {
+        q: "คำนวณการซื้อหลายยูนิตหรือหลายแปลงได้หรือไม่?",
+        a: "ได้ ในหน้าโครงการหรือชุดที่ดิน เลือกยูนิตหรือแปลงที่คุณจะซื้อ เครื่องคำนวณจะรวมต้นทุนและประมาณการให้ ผลตอบแทนเป็นเปอร์เซ็นต์ (ROI, CAGR) คิดต่อหนึ่งยูนิตและไม่เปลี่ยนตามจำนวน",
+      },
+      {
+        q: "ตัวเลขเหล่านี้รับประกันหรือไม่?",
+        a: "ไม่ ทุกตัวเลขเป็นตัวอย่างประกอบและขึ้นกับสมมติฐานของคุณ เราลงประกาศเฉพาะทรัพย์ที่ตรวจสอบด้วยตนเองและแสดงตัวเลขตามจริง แต่ตลาดเปลี่ยนแปลงได้ ใช้เครื่องคำนวณเพื่อเปรียบเทียบสถานการณ์ แล้วปรึกษาเราก่อนตัดสินใจ",
+      },
+    ],
+  },
 };
 
-export function CalculatorFaq({ locale }: { locale: "en" | "ru" }) {
+export function CalculatorFaq({ locale }: { locale: Locale }) {
   const d = CONTENT[locale];
   const jsonLd = {
     "@context": "https://schema.org",
@@ -94,7 +123,7 @@ export function CalculatorFaq({ locale }: { locale: "en" | "ru" }) {
         {d.title}
       </h2>
       <Link
-        href={"/due-diligence" as Route}
+        href={localePath(locale, "/due-diligence") as Route}
         className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-forest-500/80 transition-colors hover:text-brass-600"
       >
         <ShieldCheck className="h-4 w-4 text-brass-500" />

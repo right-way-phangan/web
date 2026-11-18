@@ -5,7 +5,7 @@ import { getHomeDict } from "@/lib/i18n/dictionaries";
 export const metadata: Metadata = {
   alternates: {
     canonical: "/",
-    languages: { en: "/", ru: "/ru", "x-default": "/" },
+    languages: { en: "/", ru: "/ru", th: "/th", "x-default": "/" },
     types: { "application/rss+xml": "/feed.xml" },
   },
 };

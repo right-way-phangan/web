@@ -11,6 +11,7 @@ import { rankShortlist } from "@/lib/match/llm";
 import { backendFetch } from "@/lib/api/backend";
 import { requireAdmin } from "@/lib/auth/require-admin";
 import type { BuyerProfile, MatchResult } from "@/types/match";
+import type { Locale } from "@/lib/i18n/dictionaries";
 
 /**
  * RW Match — server actions админ-twin (/admin/match). Тот же движок, что и на
@@ -24,7 +25,7 @@ const CRM_API_URL = process.env.OBJECTS_API_URL;
 /** Подбор под профиль клиента (агент заполняет за него). Возвращает карточки. */
 export async function adminMatch(
   rawProfile: unknown,
-  locale: "en" | "ru" = "ru",
+  locale: Locale = "ru",
 ): Promise<{ results: MatchResult[] }> {
   await requireAdmin();
   const objects = await getAllObjects();

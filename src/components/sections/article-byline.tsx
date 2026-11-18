@@ -2,12 +2,14 @@ import Link from "next/link";
 import type { Route } from "next";
 import type { Author } from "@/content/authors";
 import { authorPath } from "@/content/authors";
+import type { Locale } from "@/lib/i18n/dictionaries";
+import { L, intlLocale } from "@/lib/i18n/locale-path";
 
 interface Props {
   author: Author;
   /** ISO date string, e.g. "2026-06-14". */
   dateISO: string;
-  locale: "en" | "ru";
+  locale: Locale;
   /** "updated" prefixes the date with Updated/Обновлено (knowledge base). */
   dateKind?: "published" | "updated";
   /** Licensed reviewer for legal/YMYL guides — adds a "Legally reviewed by" line. */
@@ -35,14 +37,14 @@ export function ArticleByline({
   reviewer,
 }: Props) {
   const href = authorPath(locale) as Route;
-  const date = new Date(dateISO).toLocaleDateString(locale === "ru" ? "ru-RU" : "en-GB", {
+  const date = new Date(dateISO).toLocaleDateString(intlLocale(locale, "en-GB"), {
     day: "numeric",
     month: "long",
     year: "numeric",
   });
   const dateLabel =
-    dateKind === "updated" ? (locale === "ru" ? "Обновлено " : "Updated ") : "";
-  const reviewLabel = locale === "ru" ? "Юридически проверено — " : "Legally reviewed by ";
+    dateKind === "updated" ? L(locale, { en: "Updated ", ru: "Обновлено ", th: "อัปเดต " }) : "";
+  const reviewLabel = L(locale, { en: "Legally reviewed by ", ru: "Юридически проверено — ", th: "ตรวจสอบทางกฎหมายโดย " });
 
   return (
     <div className="mt-6 flex items-center gap-3">

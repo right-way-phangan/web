@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     "Проверки за каждым объектом Right Way на Пангане: титул в Земельном управлении, обременения, зонирование, легальный доступ к дороге, границы по GPS, коммуникации, полномочия продавца и разрешения на строительство.",
   alternates: {
     canonical: "/ru/due-diligence",
-    languages: { en: "/due-diligence", ru: "/ru/due-diligence", "x-default": "/due-diligence" },
+    languages: { en: "/due-diligence", ru: "/ru/due-diligence", th: "/th/due-diligence", "x-default": "/due-diligence" },
   },
 };
 

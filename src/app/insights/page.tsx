@@ -10,7 +10,7 @@ import { buildSalePriceByDistrict } from "@/lib/data/sale-prices";
 import { getSiteUrl } from "@/lib/site-url";
 
 export const metadata: Metadata = {
-  alternates: { canonical: "/insights", languages: { en: "/insights", ru: "/ru/insights", "x-default": "/insights" } },
+  alternates: { canonical: "/insights", languages: { en: "/insights", ru: "/ru/insights", th: "/th/insights", "x-default": "/insights" } },
   title: "Market insights — Koh Phangan land prices & rental data",
   description:
     "Check what your Koh Phangan villa could earn per night, see median land prices by district, the premium a pool or sea view commands, and which configuration is worth building for rental. Based on live listings.",

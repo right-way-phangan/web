@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Onest, Source_Serif_4 } from "next/font/google";
+import { IBM_Plex_Sans_Thai, Onest, Source_Serif_4 } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Header } from "@/components/layout/header";
@@ -42,6 +42,17 @@ const serif = Source_Serif_4({
   axes: ["opsz"],
   variable: "--font-serif",
   display: "swap",
+});
+
+// Тайский: ни Onest, ни Source Serif 4 не рисуют тайское письмо. Plex Sans Thai
+// стоит вторым в стеке sans и serif (tailwind.config.ts), без preload — файлы
+// с unicode-range тайского качаются только там, где есть тайский текст (/th).
+const thai = IBM_Plex_Sans_Thai({
+  subsets: ["thai"],
+  weight: ["400", "500", "600"],
+  variable: "--font-thai",
+  display: "swap",
+  preload: false,
 });
 
 const siteUrl = getSiteUrl();
@@ -112,7 +123,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${sans.variable} ${serif.variable}`}
+      className={`${sans.variable} ${serif.variable} ${thai.variable}`}
     >
       <body className="flex min-h-svh flex-col">
         {/* Hoisted into <head> by React. Both origins are hit after first paint —

@@ -11,6 +11,7 @@ const COPY: Record<"investment", Record<Locale, string>> = {
   investment: {
     en: "Figures and projections shown here are illustrative estimates based on public and our own market data, for general information only. They are not financial, investment, legal or tax advice, not an offer, and not a guarantee of any return. Property values and rental income can fall as well as rise. Take independent professional advice before you buy.",
     ru: "Приведённые цифры и прогнозы — иллюстративные оценки на основе публичных и наших рыночных данных, только для общего сведения. Это не финансовая, инвестиционная, юридическая или налоговая консультация, не оферта и не гарантия какой-либо доходности. Стоимость недвижимости и доход от аренды могут как расти, так и снижаться. Перед покупкой получите независимую профессиональную консультацию.",
+    th: "ตัวเลขและประมาณการที่แสดงเป็นการประเมินเพื่อเป็นตัวอย่าง อ้างอิงจากข้อมูลสาธารณะและข้อมูลตลาดของเรา ใช้เพื่อเป็นข้อมูลทั่วไปเท่านั้น ไม่ใช่คำแนะนำด้านการเงิน การลงทุน กฎหมาย หรือภาษี ไม่ใช่ข้อเสนอ และไม่ใช่การรับประกันผลตอบแทนใด ๆ มูลค่าอสังหาริมทรัพย์และรายได้ค่าเช่าอาจลดลงหรือเพิ่มขึ้นได้ กรุณาขอคำปรึกษาจากผู้เชี่ยวชาญอิสระก่อนตัดสินใจซื้อ",
   },
 };
 

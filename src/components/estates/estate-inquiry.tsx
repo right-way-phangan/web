@@ -5,6 +5,7 @@ import { LeadForm } from "@/components/forms/lead-form";
 import { whatsappLink, telegramDmLink } from "@/lib/site-config";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { getObjectDict, getEstatesDict } from "@/lib/i18n/dictionaries";
+import { L } from "@/lib/i18n/locale-path";
 
 interface Props {
   /** Slug подборки — для чистого Telegram start-payload. */
@@ -26,12 +27,16 @@ export function EstateInquiry({ slug, name, selectedLot }: Props) {
   const t = getObjectDict(locale);
   const te = getEstatesDict(locale);
   const reference = selectedLot
-    ? locale === "ru"
-      ? `Подборка: ${name} · Участок ${selectedLot}`
-      : `Collection: ${name} · Plot ${selectedLot}`
-    : locale === "ru"
-      ? `Подборка: ${name}`
-      : `Collection: ${name}`;
+    ? L(locale, {
+        en: `Collection: ${name} · Plot ${selectedLot}`,
+        ru: `Подборка: ${name} · Участок ${selectedLot}`,
+        th: `โครงการที่ดิน: ${name} · แปลง ${selectedLot}`,
+      })
+    : L(locale, {
+        en: `Collection: ${name}`,
+        ru: `Подборка: ${name}`,
+        th: `โครงการที่ดิน: ${name}`,
+      });
   const defaultMessage = selectedLot ? te.lotPrefill(selectedLot) : t.inquiryDefaultMessage(name);
 
   return (

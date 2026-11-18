@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import type { LandEstate, PlotStatus } from "@/content/land-estates";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getEstatesDict } from "@/lib/i18n/dictionaries";
+import { intlLocale } from "@/lib/i18n/locale-path";
 
 interface Props {
   estate: LandEstate;
@@ -283,7 +284,7 @@ export function EstateSitePlan({ estate, locale, hovered, selected, onHover, onS
                   </text>
                   {p.areaSqm ? (
                     <text x={cx} y={cy + 3.15} textAnchor="middle" style={{ fill: "var(--esp-chip-sub)", fontSize: 2.4, letterSpacing: 0.1 }}>
-                      {p.areaSqm.toLocaleString(locale === "ru" ? "ru-RU" : "en-US")} m²
+                      {p.areaSqm.toLocaleString(intlLocale(locale))} m²
                     </text>
                   ) : null}
                 </>

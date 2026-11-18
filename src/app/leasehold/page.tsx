@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     "The safe way for foreigners to hold a villa on Koh Phangan: own the building outright, lease the land on a registered long lease — no nominees, no Thai shell company. Registered lease, lawyer-held deposit, two-level due diligence.",
   alternates: {
     canonical: "/leasehold",
-    languages: { en: "/leasehold", ru: "/ru/leasehold", "x-default": "/leasehold" },
+    languages: { en: "/leasehold", ru: "/ru/leasehold", th: "/th/leasehold", "x-default": "/leasehold" },
   },
 };
 

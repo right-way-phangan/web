@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Images } from "lucide-react";
 import type { EstatePlot } from "@/content/land-estates";
 import type { Locale } from "@/lib/i18n/dictionaries";
+import { L } from "@/lib/i18n/locale-path";
 import { BLUR_PLACEHOLDER } from "@/lib/utils/blur";
 import { estateThumb } from "@/lib/utils/thumb";
 import { PhotoLightbox } from "@/components/media/photo-lightbox";
@@ -24,7 +25,7 @@ interface Props {
  */
 export function EstateLeadGallery({ photoPlots, estateName, locale }: Props) {
   const [open, setOpen] = useState<number | null>(null);
-  const viewLabel = locale === "ru" ? "Открыть фото" : "View photo";
+  const viewLabel = L(locale, { en: "View photo", ru: "Открыть фото", th: "ดูรูป" });
 
   // Полный плоский список (для лайтбокса) + индекс первого фото каждого лота.
   const flat: { src: string; alt: string; caption: string }[] = [];
@@ -64,7 +65,7 @@ export function EstateLeadGallery({ photoPlots, estateName, locale }: Props) {
           <span className="absolute inset-0 bg-forest-900/0 transition-colors duration-300 group-hover:bg-forest-900/10" />
           <span className="absolute bottom-2.5 left-2.5 inline-flex items-center gap-1.5 rounded-full bg-forest-900/55 px-2.5 py-1 text-[11px] font-medium text-cream-50 backdrop-blur-sm">
             <Images className="h-3.5 w-3.5" />
-            {flat.length} {locale === "ru" ? "фото" : "photos"}
+            {flat.length} {L(locale, { en: "photos", ru: "фото", th: "รูป" })}
           </span>
         </button>
 
@@ -108,9 +109,9 @@ export function EstateLeadGallery({ photoPlots, estateName, locale }: Props) {
         unoptimized
         title={estateName}
         labels={{
-          prev: locale === "ru" ? "Назад" : "Previous",
-          next: locale === "ru" ? "Вперёд" : "Next",
-          close: locale === "ru" ? "Закрыть" : "Close",
+          prev: L(locale, { en: "Previous", ru: "Назад", th: "ก่อนหน้า" }),
+          next: L(locale, { en: "Next", ru: "Вперёд", th: "ถัดไป" }),
+          close: L(locale, { en: "Close", ru: "Закрыть", th: "ปิด" }),
         }}
       />
     </>

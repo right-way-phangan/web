@@ -4,7 +4,7 @@ import { ChevronRight, ArrowLeft } from "lucide-react";
 import type { RealEstateObject } from "@/types/object";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getProjectsDict } from "@/lib/i18n/dictionaries";
-import { localePath } from "@/lib/i18n/locale-path";
+import { localePath, L } from "@/lib/i18n/locale-path";
 import { countPhotos } from "@/lib/utils/construction";
 import { InquiryForm } from "@/components/objects/inquiry-form";
 import { SectionEyebrow } from "@/components/sections/section-eyebrow";
@@ -30,7 +30,7 @@ export function ConstructionPage({
   const projectHref = localePath(locale, `/projects/${slug}`) as Route;
   const projectsHref = localePath(locale, "/projects") as Route;
   const homeHref = localePath(locale, "/") as Route;
-  const projectsCrumb = locale === "ru" ? "Проекты" : "Projects";
+  const projectsCrumb = L(locale, { en: "Projects", ru: "Проекты", th: "โครงการ" });
 
   return (
     <article className="container-prose py-8 md:py-10">

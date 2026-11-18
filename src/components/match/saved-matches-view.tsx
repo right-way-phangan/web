@@ -4,6 +4,7 @@ import { getPublicObjects } from "@/lib/data/objects";
 import { shortlistCandidates, deterministicRank } from "@/lib/match/engine";
 import { ObjectCard } from "@/components/objects/object-card";
 import { MatchUnsubscribe } from "@/components/match/match-unsubscribe";
+import type { Locale } from "@/lib/i18n/dictionaries";
 
 /**
  * Страница «Мои совпадения» — magic-link по HMAC-токену. Читает сохранённый
@@ -32,6 +33,16 @@ const COPY = {
     unsub: "Отключить уведомления",
     unsubDone: "Уведомления отключены.",
   },
+  th: {
+    title: "ทรัพย์ที่ตรงใจคุณ",
+    lede: "บันทึกจากการจับคู่ด้วย AI ของคุณ หน้านี้อัปเดตเมื่อมีประกาศใหม่",
+    fit: "ตรงใจ",
+    empty:
+      "ยังไม่มีทรัพย์ที่ใกล้เคียงในรายการสาธารณะตอนนี้ — เราจะค้นหาต่อไป",
+    inactive: "การแจ้งเตือนของโปรไฟล์นี้ปิดอยู่",
+    unsub: "ปิดการแจ้งเตือน",
+    unsubDone: "ปิดการแจ้งเตือนแล้ว",
+  },
 } as const;
 
 export async function SavedMatchesView({
@@ -39,7 +50,7 @@ export async function SavedMatchesView({
   locale,
 }: {
   token: string;
-  locale: "en" | "ru";
+  locale: Locale;
 }) {
   const saved = await fetchMatchProfile(token);
   if (!saved) notFound();

@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       `Проекты застройщика ${name} на Ко Пангане — юниты, цены и доступность.`,
     alternates: {
       canonical: `/ru/developers/${slug}`,
-      languages: { en: `/developers/${slug}`, ru: `/ru/developers/${slug}`, "x-default": `/developers/${slug}` },
+      languages: { en: `/developers/${slug}`, ru: `/ru/developers/${slug}`, th: `/th/developers/${slug}`, "x-default": `/developers/${slug}` },
     },
     ...(profile?.hero?.photo
       ? { openGraph: { images: [`${getSiteUrl()}${profile.hero.photo}`] } }

@@ -12,17 +12,19 @@
 
 import type { FaqCategoryId } from "@/content/faq";
 import { siteConfig } from "@/lib/site-config";
+import type { Locale } from "@/lib/i18n/dictionaries";
+import { localePath } from "@/lib/i18n/locale-path";
 
 export interface Author {
   /** Stable slug; doubles as an /about anchor id when a person has a bio there. */
   slug: string;
   name: string;
   /** Locale-keyed job title shown next to the name. */
-  jobTitle: { en: string; ru: string };
+  jobTitle: Record<Locale, string>;
   /** One-line role label for the byline (name + this). */
-  byline: { en: string; ru: string };
+  byline: Record<Locale, string>;
   /** Full bio; feeds Person.description when a person is the author. */
-  bio: { en: string; ru: string };
+  bio: Record<Locale, string>;
   /** Topics the author has demonstrable experience in (Person.knowsAbout). */
   knowsAbout: string[];
   /** External profiles, if any (Person.sameAs). Empty until confirmed. */
@@ -33,9 +35,9 @@ export interface Author {
 export const BRAND_AUTHOR: Author = {
   slug: "right-way-phangan",
   name: siteConfig.name,
-  jobTitle: { en: "Editorial", ru: "Редакция" },
-  byline: { en: "Editorial", ru: "Редакция" },
-  bio: { en: "", ru: "" },
+  jobTitle: { en: "Editorial", ru: "Редакция", th: "กองบรรณาธิการ" },
+  byline: { en: "Editorial", ru: "Редакция", th: "กองบรรณาธิการ" },
+  bio: { en: "", ru: "", th: "" },
   knowsAbout: [],
   sameAs: [],
 };
@@ -43,8 +45,8 @@ export const BRAND_AUTHOR: Author = {
 export const DEFAULT_AUTHOR = BRAND_AUTHOR;
 
 /** Path behind the byline link — the brand's own /about. */
-export function authorPath(locale: "en" | "ru"): string {
-  return locale === "ru" ? "/ru/about" : "/about";
+export function authorPath(locale: Locale): string {
+  return localePath(locale, "/about");
 }
 
 /**
@@ -101,7 +103,7 @@ export function legalReviewerFor(faqCategory?: FaqCategoryId): Author | null {
 export function reviewerPersonSchema(
   reviewer: Author,
   siteUrl: string,
-  locale: "en" | "ru",
+  locale: Locale,
 ) {
   return {
     "@type": "Person",

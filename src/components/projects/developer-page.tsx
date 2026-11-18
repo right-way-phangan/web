@@ -19,7 +19,7 @@ import { estateThumb } from "@/lib/utils/thumb";
 import { cn } from "@/lib/utils/cn";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getProjectsDict } from "@/lib/i18n/dictionaries";
-import { localePath } from "@/lib/i18n/locale-path";
+import { localePath, L } from "@/lib/i18n/locale-path";
 import { LeadForm } from "@/components/forms/lead-form";
 import { ProjectCard } from "./project-card";
 import { DeveloperTimeline } from "./developer-timeline";
@@ -293,10 +293,10 @@ export async function DeveloperPage({
           <ol className="flex flex-wrap items-center gap-1.5 text-sm text-forest-500/70">
             <li>
               <Link
-                href={(locale === "ru" ? "/ru" : "/") as Route}
+                href={localePath(locale, "/") as Route}
                 className="inline-block -my-1.5 py-1.5 transition-colors hover:text-brass-500"
               >
-                {locale === "ru" ? "Главная" : "Home"}
+                {L(locale, { en: "Home", ru: "Главная", th: "หน้าแรก" })}
               </Link>
             </li>
             <li aria-hidden>
@@ -561,8 +561,8 @@ export async function DeveloperPage({
       <BreadcrumbJsonLd
         crumbs={[
           {
-            name: locale === "ru" ? "Главная" : "Home",
-            url: locale === "ru" ? `${base}/ru` : `${base}/`,
+            name: L(locale, { en: "Home", ru: "Главная", th: "หน้าแรก" }),
+            url: `${base}${localePath(locale, "/")}`,
           },
           { name: t.developers.indexEyebrow, url: `${base}${devIndexHref}` },
           { name, url: pageUrl },
@@ -581,9 +581,9 @@ export async function DeveloperPage({
           groups={photoGroups}
           title={t.developers.sections.photosTitle}
           labels={{
-            prev: locale === "ru" ? "Назад" : "Previous",
-            next: locale === "ru" ? "Вперёд" : "Next",
-            close: locale === "ru" ? "Закрыть" : "Close",
+            prev: L(locale, { en: "Previous", ru: "Назад", th: "ก่อนหน้า" }),
+            next: L(locale, { en: "Next", ru: "Вперёд", th: "ถัดไป" }),
+            close: L(locale, { en: "Close", ru: "Закрыть", th: "ปิด" }),
           }}
         >
           {content}

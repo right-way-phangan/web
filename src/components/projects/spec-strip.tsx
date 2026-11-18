@@ -1,6 +1,7 @@
 import { Bed, Bath, Maximize2, ScrollText, CalendarClock, Hourglass, type LucideIcon } from "lucide-react";
 import type { RealEstateObject } from "@/types/object";
 import type { Locale } from "@/lib/i18n/dictionaries";
+import { L, intlLocale } from "@/lib/i18n/locale-path";
 import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 
 /** Compact key-facts strip under the hero — fast scanning without jumping to
@@ -14,17 +15,16 @@ export function SpecStrip({
   units?: RealEstateObject[];
   locale: Locale;
 }) {
-  const ru = locale === "ru";
   const items: Array<{ icon: LucideIcon; value: string }> = [];
 
   // A project with 1/2/3BR units said "1 bd" (the parent's own field) — show
   // the range across its units when they carry bedrooms.
   const bedroomsLabel = bedroomsRange(units) ?? (p.bedrooms != null ? String(p.bedrooms) : null);
-  if (bedroomsLabel) items.push({ icon: Bed, value: `${bedroomsLabel} ${ru ? "спал." : "bd"}` });
-  if (p.bathrooms != null) items.push({ icon: Bath, value: `${p.bathrooms} ${ru ? "сан." : "ba"}` });
-  if (p.areaSqm) items.push({ icon: Maximize2, value: `${p.areaSqm.toLocaleString(ru ? "ru-RU" : "en-US")} m²` });
+  if (bedroomsLabel) items.push({ icon: Bed, value: `${bedroomsLabel} ${L(locale, { en: "bd", ru: "спал.", th: "ห้องนอน" })}` });
+  if (p.bathrooms != null) items.push({ icon: Bath, value: `${p.bathrooms} ${L(locale, { en: "ba", ru: "сан.", th: "ห้องน้ำ" })}` });
+  if (p.areaSqm) items.push({ icon: Maximize2, value: `${p.areaSqm.toLocaleString(intlLocale(locale))} ${L(locale, { en: "m²", ru: "m²", th: "ตร.ม." })}` });
   if (p.tenure?.[0]) items.push({ icon: ScrollText, value: p.tenure[0] });
-  if (p.leaseTermYears) items.push({ icon: Hourglass, value: `${p.leaseTermYears} ${ru ? "лет" : "yr"}` });
+  if (p.leaseTermYears) items.push({ icon: Hourglass, value: `${p.leaseTermYears} ${L(locale, { en: "yr", ru: "лет", th: "ปี" })}` });
   if (p.completion) items.push({ icon: CalendarClock, value: p.completion });
 
   if (items.length === 0) return null;
@@ -39,7 +39,7 @@ export function SpecStrip({
 
   return (
     <div className="mt-8">
-      <SectionEyebrow className="mb-3">{ru ? "Ключевые факты" : "Key specs"}</SectionEyebrow>
+      <SectionEyebrow className="mb-3">{L(locale, { en: "Key specs", ru: "Ключевые факты", th: "ข้อมูลสำคัญ" })}</SectionEyebrow>
       <div className="flex flex-wrap items-center gap-x-6 gap-y-3 border-y border-forest-500/10 py-4">
         {items.map((it, i) => {
           const Icon = it.icon;

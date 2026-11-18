@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     "Расскажите ИИ в коротком разговоре, что ищете на Ко Пангане — и получите ранжированную подборку с оценкой соответствия по каждому объекту.",
   alternates: {
     canonical: "/ru/match",
-    languages: { en: "/match", ru: "/ru/match", "x-default": "/match" },
+    languages: { en: "/match", ru: "/ru/match", th: "/th/match", "x-default": "/match" },
   },
 };
 

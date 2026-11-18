@@ -8,6 +8,7 @@ import { getPublicObjects, slimObjectForCard } from "@/lib/data/objects";
 import { normalizeTenure } from "@/lib/utils/tenure";
 import { offersLeasehold } from "@/lib/filters/listings";
 import type { Locale } from "@/lib/i18n/dictionaries";
+import { localeBase } from "@/lib/i18n/locale-path";
 
 /**
  * Live leasehold inventory on the /leasehold explainer — every published object
@@ -30,6 +31,11 @@ const COPY = {
     lede: "Эти объекты можно оформить в долгосрочный лизинг — строение на вас, земля в аренде, без номиналов и тайской компании-прокладки.",
     all: "Все объекты в лизинге",
   },
+  th: {
+    heading: "พร้อมให้เช่าระยะยาว (ลีสโฮลด์) ตอนนี้",
+    lede: "บ้านเหล่านี้ถือครองได้ด้วยสัญญาเช่าระยะยาวที่จดทะเบียน — สิ่งปลูกสร้างเป็นชื่อคุณ ที่ดินเป็นสิทธิการเช่า ไม่มีนอมินี ไม่ต้องตั้งบริษัทไทย",
+    all: "ดูประกาศลีสโฮลด์ทั้งหมด",
+  },
 } as const;
 
 export async function LeaseholdListings({ locale = "en" }: { locale?: Locale }) {
@@ -39,8 +45,8 @@ export async function LeaseholdListings({ locale = "en" }: { locale?: Locale }) 
     .map(slimObjectForCard);
   if (leasehold.length === 0) return null;
 
-  const t = COPY[locale === "ru" ? "ru" : "en"];
-  const base = locale === "ru" ? "/ru" : "";
+  const t = COPY[locale];
+  const base = localeBase(locale);
   const allHref = `${base}/listings?tenure=Leasehold` as Route;
 
   return (

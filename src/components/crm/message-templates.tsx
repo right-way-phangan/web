@@ -18,10 +18,10 @@ export function MessageTemplates({
   objectTitle?: string | null;
   objectRw?: string | null;
 }) {
-  const [lang, setLang] = useState<"en" | "ru">("en");
+  const [lang, setLang] = useState<"en" | "ru" | "th">("en");
   const [copiedKey, setCopiedKey] = useState("");
 
-  const name = contactName || (lang === "ru" ? "Здравствуйте" : "Hello");
+  const name = contactName || (lang === "ru" ? "Здравствуйте" : lang === "th" ? "สวัสดี" : "Hello");
   const objLine = objectTitle && objectRw
     ? `${objectTitle} — https://rightwaygroup.co/object/${objectRw}`
     : null;
@@ -39,6 +39,21 @@ export function MessageTemplates({
         follow: {
           label: "Напоминание",
           text: `${name}, на связи Right Way Phangan. Хотел узнать, актуален ли ещё поиск? Появились новые варианты — могу прислать подборку.`,
+        },
+      }
+    : lang === "th"
+    ? {
+        greet: {
+          label: "ทักทาย",
+          text: `${name} นี่คือ Right Way Phangan — อสังหาริมทรัพย์บนเกาะพะงัน เราได้รับคำขอของคุณแล้ว${objLine ? ` เกี่ยวกับ:\n${objLine}` : ""} สะดวกให้โทรคุยหรือนัดดูทรัพย์เมื่อไหร่?`,
+        },
+        after: {
+          label: "หลังดูทรัพย์",
+          text: `${name} ขอบคุณที่มาดูทรัพย์วันนี้${objectTitle ? ` (${objectTitle})` : ""}! ยินดีตอบทุกคำถามเรื่องเอกสาร เงื่อนไข และขั้นตอนถัดไป`,
+        },
+        follow: {
+          label: "ติดตามผล",
+          text: `${name} จาก Right Way Phangan ขอสอบถามว่ายังมองหาทรัพย์อยู่ไหม? เรามีตัวเลือกใหม่ที่อาจเหมาะกับคุณ ยินดีส่งรายการให้`,
         },
       }
     : {
@@ -93,7 +108,7 @@ export function MessageTemplates({
       ))}
       <button
         type="button"
-        onClick={() => setLang(lang === "en" ? "ru" : "en")}
+        onClick={() => setLang(lang === "en" ? "ru" : lang === "ru" ? "th" : "en")}
         className="rounded-full bg-forest-900/5 px-2 py-1 text-[11px] font-medium text-forest-900/55 hover:bg-forest-900/10"
       >
         {lang.toUpperCase()}

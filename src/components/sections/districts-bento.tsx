@@ -4,10 +4,12 @@ import type { Route } from "next";
 import { ArrowRight, MapPin } from "lucide-react";
 import { DISTRICTS } from "@/content/districts";
 import { DISTRICTS_RU } from "@/content/districts.ru";
+import { DISTRICTS_TH } from "@/content/districts.th";
 import { SectionEyebrow } from "./section-eyebrow";
 import { Appear } from "@/components/motion/appear";
 import { getPublicObjects } from "@/lib/data/objects";
 import type { Locale } from "@/lib/i18n/dictionaries";
+import { L, localeBase } from "@/lib/i18n/locale-path";
 
 // Шесть витринных районов — у всех есть фото /images/districts/<slug>.jpg.
 const FEATURED_SLUGS = ["sri-thanu", "haad-yao", "chaloklum", "thong-sala", "ban-tai"];
@@ -27,10 +29,18 @@ const COPY = {
     lede: "У каждого района свой покупатель. Начните с того, который ваш.",
     all: "Все районы",
   },
+  th: {
+    guide: "คู่มือย่าน",
+    eyebrow: "มองหาที่ไหนดี",
+    title: "ย่านที่มีเอกลักษณ์",
+    lede: "แต่ละย่านมีผู้ซื้อของตัวเอง เริ่มจากย่านที่ใช่สำหรับคุณ",
+    all: "ทุกย่าน",
+  },
 } as const;
 
 function listingsLabel(n: number, locale: Locale): string {
   if (locale === "en") return n === 1 ? "1 listing" : `${n} listings`;
+  if (locale === "th") return `${n} ประกาศ`;
   const mod10 = n % 10;
   const mod100 = n % 100;
   if (mod10 === 1 && mod100 !== 11) return `${n} объект`;
@@ -46,8 +56,8 @@ function listingsLabel(n: number, locale: Locale): string {
  */
 export async function DistrictsBento({ locale }: { locale: Locale }) {
   const t = COPY[locale];
-  const base = locale === "ru" ? "/ru" : "";
-  const source = locale === "ru" ? DISTRICTS_RU : DISTRICTS;
+  const base = localeBase(locale);
+  const source = L(locale, { en: DISTRICTS, ru: DISTRICTS_RU, th: DISTRICTS_TH });
   const featured = FEATURED_SLUGS.map((slug) => source.find((d) => d.slug === slug)).filter(
     (d): d is (typeof source)[number] => Boolean(d),
   );

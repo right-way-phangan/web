@@ -1,4 +1,5 @@
 import { VALID_FEATURES } from "@/lib/match/engine";
+import type { Locale } from "@/lib/i18n/dictionaries";
 
 /**
  * Системные промпты RW Match. Интервьюер собирает `BuyerProfile` в разговоре
@@ -6,9 +7,7 @@ import { VALID_FEATURES } from "@/lib/match/engine";
  * оценивает шортлист под профиль. Оба обязаны отвечать ТОЛЬКО JSON.
  */
 
-type Locale = "en" | "ru";
-
-const LOCALE_NAME: Record<Locale, string> = { en: "English", ru: "Russian" };
+const LOCALE_NAME: Record<Locale, string> = { en: "English", ru: "Russian", th: "Thai" };
 
 const PROFILE_TYPES = ["Land", "Villa", "House", "Apartment", "Project"];
 

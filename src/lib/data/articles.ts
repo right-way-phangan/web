@@ -4,6 +4,8 @@ import type { KbBlock } from "@/content/knowledge-base";
 import type { BlogPost } from "@/content/blog";
 import { BLOG_POSTS } from "@/content/blog";
 import { BLOG_POSTS_RU } from "@/content/blog.ru";
+import { BLOG_POSTS_TH } from "@/content/blog.th";
+import type { Locale } from "@/lib/i18n/dictionaries";
 
 /**
  * DB-backed blog articles (content pipeline with review-gate). Published rows
@@ -136,13 +138,14 @@ async function fetchPublished(lang: string): Promise<DbArticle[]> {
 const STATIC_BY_LANG: Record<string, BlogPost[]> = {
   en: BLOG_POSTS,
   ru: BLOG_POSTS_RU,
+  th: BLOG_POSTS_TH,
 };
 
 /**
  * All blog posts for a language — DB-published merged with static, newest
  * first. On slug collision the DB row wins (it is the editable source).
  */
-export async function getAllBlogPosts(lang: "en" | "ru" = "en"): Promise<BlogPost[]> {
+export async function getAllBlogPosts(lang: Locale = "en"): Promise<BlogPost[]> {
   const dbPosts = (await fetchPublished(lang)).map(dbArticleToBlogPost);
   const bySlug = new Map<string, BlogPost>();
   for (const p of STATIC_BY_LANG[lang] ?? []) bySlug.set(p.slug, p);
@@ -170,7 +173,7 @@ export async function getAdminArticles(): Promise<DbArticle[]> {
  */
 export async function getPairedArticle(slug: string, lang: string): Promise<DbArticle | null> {
   if (!BACKEND_URL) return null;
-  const other = lang === "ru" ? "en" : "ru";
+  const other = lang === "en" ? "ru" : "en";
   try {
     const r = await backendFetch(
       `/articles/slug/${encodeURIComponent(slug)}?lang=${other}`,
@@ -210,7 +213,7 @@ export async function getPendingArticleCount(): Promise<number> {
 /** One post by slug (DB-published first, then static). */
 export async function getBlogPost(
   slug: string,
-  lang: "en" | "ru" = "en",
+  lang: Locale = "en",
 ): Promise<BlogPost | null> {
   if (BACKEND_URL) {
     try {

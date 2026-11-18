@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { whatsappLink } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  alternates: { canonical: "/about", languages: { en: "/about", ru: "/ru/about", "x-default": "/about" } },
+  alternates: { canonical: "/about", languages: { en: "/about", ru: "/ru/about", th: "/th/about", "x-default": "/about" } },
   title: "About",
   description:
     "Right Way Phangan Group — real estate advisory on Koh Phangan: vetted listings, due diligence and market analytics.",

@@ -15,8 +15,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils/cn";
 import { estimatePublic, type PublicEstimate } from "@/lib/actions/public-estimate";
+import type { Locale } from "@/lib/i18n/dictionaries";
+import { L, intlLocale } from "@/lib/i18n/locale-path";
 
-type Lang = "en" | "ru";
+type Lang = Locale;
 
 // Районы и документы — стабильные значения каталога (как в админ-форме), но
 // подписи нейтральные; держим списком тут, чтобы публичный бандл не тянул
@@ -111,10 +113,49 @@ const T = {
     leadSubmit: "Запросить бесплатную оценку",
     again: "Оценить другой объект",
   },
+  th: {
+    typeLabel: "คุณต้องการประเมินอะไร?",
+    types: { Land: "ที่ดิน", Villa: "วิลล่า", House: "บ้าน" } as Record<string, string>,
+    district: "พื้นที่ / ย่าน",
+    areaRai: "ขนาดแปลง (ไร่)",
+    areaHint: "1 ไร่ = 1,600 ตร.ม. ใส่ทศนิยมได้ (เช่น 1.5)",
+    builtSqm: "พื้นที่อาคาร (ตร.ม.)",
+    bedrooms: "ห้องนอน",
+    document: "เอกสารสิทธิ์ที่ดิน",
+    road: "ทางเข้า",
+    tenure: "รูปแบบกรรมสิทธิ์",
+    tenureOpts: { Freehold: "กรรมสิทธิ์ (ฟรีโฮลด์)", Leasehold: "สิทธิการเช่า (ลีสโฮลด์)" } as Record<string, string>,
+    features: "คุณสมบัติ",
+    seaView: "วิวทะเล",
+    beachfront: "ติดชายหาด",
+    mountainView: "วิวภูเขา",
+    electricity: "มีไฟฟ้าในแปลง",
+    pool: "สระว่ายน้ำ",
+    estimate: "ดูราคาประเมินของฉัน",
+    estimating: "กำลังประเมิน…",
+    pick: "—",
+    resultEyebrow: "ราคาตลาดประเมินเบื้องต้น",
+    expectedRange: "ช่วงราคาตลาดที่เป็นไปได้",
+    midpoint: "ค่ากลาง",
+    perRai: "ต่อไร่",
+    confidence: { high: "ความเชื่อมั่นสูง", medium: "ความเชื่อมั่นปานกลาง", low: "เป็นตัวบ่งชี้เท่านั้น" } as Record<string, string>,
+    confidenceNote:
+      "เกาะพะงันเป็นตลาดขนาดเล็กที่มีบันทึกการซื้อขายสาธารณะน้อย ช่วงราคาจึงกว้างโดยตั้งใจ การลงพื้นที่จะช่วยให้แคบลงมาก",
+    disclaimer:
+      "นี่คือราคาประเมินอัตโนมัติจากข้อมูลตลาดของ Right Way เอง — ไม่ใช่การประเมินราคาอย่างเป็นทางการ สำหรับตัวเลขที่แม่นยำ เราจะตรวจสอบเอกสารสิทธิ์ ทางเข้า และตำแหน่งที่แน่นอน",
+    insufficient:
+      "เรายังมีข้อมูลเปรียบเทียบไม่เพียงพอสำหรับกรณีนี้ กรอกข้อมูลด้านล่าง แล้วเราจะประเมินให้ด้วยตนเอง — ฟรี",
+    unsupported: "เครื่องมือแบบทันทียังไม่รองรับประเภทนี้ ติดต่อเรา แล้วเราจะประเมินให้ด้วยตนเอง",
+    leadHeading: "รับการประเมินราคาที่แม่นยำ — ฟรี",
+    leadLede:
+      "ทีมงานจะยืนยันตัวเลขกับเอกสารสิทธิ์และตำแหน่งของคุณ และบอกว่าจะขายหรือให้เช่าได้จริงในราคาเท่าไร ไม่มีข้อผูกมัด",
+    leadSubmit: "ขอประเมินราคาฟรี",
+    again: "ประเมินทรัพย์อื่น",
+  },
 } satisfies Record<Lang, Record<string, unknown>>;
 
 const fmtTHB = (v: number, lang: Lang) =>
-  new Intl.NumberFormat(lang === "ru" ? "ru-RU" : "en-US", { maximumFractionDigits: 0 }).format(Math.round(v)) + " ฿";
+  new Intl.NumberFormat(intlLocale(lang), { maximumFractionDigits: 0 }).format(Math.round(v)) + " ฿";
 const fmtCompact = (v: number) => (v >= 1e6 ? `฿${(v / 1e6).toFixed(2)}M` : `฿${Math.round(v / 1000)}k`);
 
 const selectCls = cn(
@@ -216,7 +257,7 @@ export function EstimateTool({ lang }: { lang: Lang }) {
     const parts = [
       t.types[v.type] ?? v.type,
       v.district,
-      isLand && v.areaRai ? `${v.areaRai} ${lang === "ru" ? "рай" : "rai"}` : "",
+      isLand && v.areaRai ? `${v.areaRai} ${L(lang, { en: "rai", ru: "рай", th: "ไร่" })}` : "",
       isBuilt && v.builtSqm ? `${v.builtSqm} m²` : "",
       isBuilt && v.bedrooms ? `${v.bedrooms} BR` : "",
       v.document,
@@ -224,10 +265,10 @@ export function EstimateTool({ lang }: { lang: Lang }) {
       [v.seaView && t.seaView, v.beachfront && t.beachfront, v.electricity && t.electricity, v.pool && t.pool]
         .filter(Boolean).join(", "),
     ].filter(Boolean);
-    const head = lang === "ru" ? "Объект на оценку" : "Property to value";
+    const head = L(lang, { en: "Property to value", ru: "Объект на оценку", th: "ทรัพย์ที่ต้องการประเมิน" });
     let line = `${head}: ${parts.join(" · ")}`;
     if (result?.ok) {
-      const est = lang === "ru" ? "Авто-оценка" : "Auto-estimate";
+      const est = L(lang, { en: "Auto-estimate", ru: "Авто-оценка", th: "ราคาประเมินอัตโนมัติ" });
       line += `\n${est}: ${fmtCompact(result.low)}–${fmtCompact(result.high)} (${t.confidence[result.confidence]})`;
     }
     return line;

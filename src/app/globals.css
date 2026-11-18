@@ -424,7 +424,7 @@
    деталь в духе печатных изданий. Латунная заглавная в serif. */
 .dropcap::first-letter {
   float: left;
-  font-family: var(--font-serif), Georgia, serif;
+  font-family: var(--font-serif), var(--font-thai), Georgia, serif;
   /* Кегль опущен с 3.3em: у Source Serif 4 крупнее строчные, и прежний размер
      перекрывал четвёртую строку абзаца вместо трёх. */
   font-size: 2.9em;

@@ -11,6 +11,7 @@ import {
 import { ALL_FAQ_ITEMS } from "@/content/faq-derived";
 import { FaqAnswer } from "./faq-blocks";
 import { cn } from "@/lib/utils/cn";
+import type { Locale } from "@/lib/i18n/dictionaries";
 
 interface FaqExplorerDict {
   searchPlaceholder: (n: number) => string;
@@ -24,7 +25,7 @@ interface FaqExplorerDict {
 
 // Dicts live inside the client component — functions can't cross the
 // server→client boundary, so the page passes a plain `locale` string instead.
-const DICTS: Record<"en" | "ru", FaqExplorerDict> = {
+const DICTS: Record<Locale, FaqExplorerDict> = {
   en: {
     searchPlaceholder: (n) => `Search ${n} questions…`,
     searchAria: "Search FAQ",
@@ -46,6 +47,16 @@ const DICTS: Record<"en" | "ru", FaqExplorerDict> = {
     emptyBody: (total) =>
       `Попробуйте меньше или другие слова, либо сбросьте фильтр, чтобы увидеть все ${total} вопросов.`,
   },
+  th: {
+    searchPlaceholder: (n) => `ค้นหาจาก ${n} คำถาม…`,
+    searchAria: "ค้นหาคำถามที่พบบ่อย",
+    clearSearch: "ล้างการค้นหา",
+    all: "ทั้งหมด",
+    shown: (filtered, total) => `แสดง ${filtered} จาก ${total} คำถาม`,
+    emptyTitle: "ไม่พบผลลัพธ์ที่ตรงกับการค้นหา",
+    emptyBody: (total) =>
+      `ลองใช้คำน้อยลงหรือคำอื่น หรือล้างตัวกรองเพื่อดูคำถามทั้งหมด ${total} ข้อ`,
+  },
 };
 
 export function FaqExplorer({
@@ -55,7 +66,7 @@ export function FaqExplorer({
 }: {
   items?: FaqItem[];
   categories?: Array<{ id: FaqCategoryId; title: string; lead: string }>;
-  locale?: "en" | "ru";
+  locale?: Locale;
 } = {}) {
   const dict = DICTS[locale];
   const [query, setQuery] = useState("");

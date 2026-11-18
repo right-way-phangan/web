@@ -18,6 +18,7 @@ import { getVid } from "@/lib/analytics/visitor";
 import { getFormDict, type Locale } from "@/lib/i18n/dictionaries";
 import { whatsappLink, telegramDmLink } from "@/lib/site-config";
 import { cn } from "@/lib/utils/cn";
+import { localePath } from "@/lib/i18n/locale-path";
 
 const initialState: FormState = { status: "idle" };
 
@@ -66,7 +67,7 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
   const [replyVia, setReplyVia] = useState<string>("");
   const [hasPhone, setHasPhone] = useState(false);
   const needsPhone = (replyVia === "whatsapp" || replyVia === "telegram") && !hasPhone;
-  const listingsHref = (locale === "ru" ? "/ru/listings" : "/listings") as Route;
+  const listingsHref = localePath(locale, "/listings") as Route;
 
   // Top of the funnel: fire once when the form scrolls into view, so the
   // view → start → submit drop-off is measurable per surface (source/kind) in
@@ -279,7 +280,7 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
       <p className="text-center text-xs text-forest-500/80">
         {t.privacyConsent}{" "}
         <Link
-          href={(locale === "ru" ? "/ru/privacy" : "/privacy") as Route}
+          href={localePath(locale, "/privacy") as Route}
           className="underline underline-offset-2 hover:text-brass-500"
         >
           {t.privacyLink}

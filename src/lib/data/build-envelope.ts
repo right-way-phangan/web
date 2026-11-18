@@ -1,5 +1,6 @@
 import type { RealEstateObject, ObjectType } from "@/types/object";
-import type { RuleLocale } from "./building-norms";
+import type { Locale } from "@/lib/i18n/dictionaries";
+import { L } from "@/lib/i18n/locale-path";
 import { seaDistanceMeters } from "@/lib/geo/sea-distance";
 
 /**
@@ -28,19 +29,19 @@ export interface BuildBadge {
 
 const BUILDABLE: ReadonlySet<ObjectType> = new Set(["Land", "Villa", "House"]);
 
-export function buildEnvelopeBadge(o: RealEstateObject, locale: RuleLocale): BuildBadge | null {
+export function buildEnvelopeBadge(o: RealEstateObject, locale: Locale): BuildBadge | null {
   if (o.lat == null || o.lng == null) return null;
   if (!BUILDABLE.has(o.type)) return null;
 
   const sea = seaDistanceMeters(o.lat, o.lng);
   if (sea < 10) {
     return {
-      text: locale === "ru" ? "берег · стройка ограничена" : "coastal · build restricted",
+      text: L(locale, { en: "coastal · build restricted", ru: "берег · стройка ограничена", th: "ริมทะเล · จำกัดการก่อสร้าง" }),
       restricted: true,
     };
   }
   // Island/BCA height cap is 12 m; the sea-setback tier drops it to 6 m within 50 m.
   const heightM = sea < 50 ? 6 : 12;
-  const text = locale === "ru" ? `до 70% · ${heightM} м` : `up to 70% · ${heightM} m`;
+  const text = L(locale, { en: `up to 70% · ${heightM} m`, ru: `до 70% · ${heightM} м`, th: `สูงสุด 70% · ${heightM} ม.` });
   return { text, restricted: false };
 }

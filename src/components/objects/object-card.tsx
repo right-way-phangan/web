@@ -21,6 +21,7 @@ import type { BuildBadge } from "@/lib/data/build-envelope";
 import { BLUR_PLACEHOLDER } from "@/lib/utils/blur";
 import { thumbFromProxiedUrl } from "@/lib/storage/r2-public";
 import { useLocale, localeHref } from "@/lib/i18n/use-locale";
+import { L, intlLocale } from "@/lib/i18n/locale-path";
 import { getListingsDict, type ListingsDict } from "@/lib/i18n/dictionaries";
 import { escalatedLeaseTotalThb } from "@/lib/objects/lease-format";
 import { zoneCategory, buildWarnLabels } from "@/lib/data/zone-rules";
@@ -112,7 +113,7 @@ export function ObjectCard({ object, priority = false, priceMode = "buy", buildB
   const t = getListingsDict(locale);
   const { fmt } = useCurrency();
   // Explicit locale so server/client number formatting matches (hydration).
-  const nl = locale === "ru" ? "ru-RU" : "en-US";
+  const nl = intlLocale(locale);
   const zoneCat = zoneCategory(object, locale);
   const buildWarns = buildWarnLabels(object, locale);
 
@@ -139,7 +140,7 @@ export function ObjectCard({ object, priority = false, priceMode = "buy", buildB
                   (object.type === "Project" ? "&phase=offplan" : ""),
               ) as Route
             }
-            title={locale === "ru" ? "Калькулятор доходности" : "ROI calculator"}
+            title={L(locale, { en: "ROI calculator", ru: "Калькулятор доходности", th: "เครื่องคำนวณ ROI" })}
             className="relative inline-flex items-center gap-1 rounded-sm bg-panel/85 px-2 py-1 text-[11px] font-semibold tracking-[0.06em] text-panel-fg backdrop-blur-sm transition-colors before:absolute before:-inset-x-2 before:-bottom-3 before:-top-1.5 before:content-[''] hover:bg-panel"
           >
             <TrendingUp className="h-3 w-3" />
@@ -299,7 +300,7 @@ export function ObjectCard({ object, priority = false, priceMode = "buy", buildB
               ),
             )}
             <span className="ml-1">
-              {locale === "ru" ? `за ${object.leaseTermYears} лет` : `over ${object.leaseTermYears}y`}
+              {L(locale, { en: `over ${object.leaseTermYears}y`, ru: `за ${object.leaseTermYears} лет`, th: `ตลอด ${object.leaseTermYears} ปี` })}
             </span>
           </p>
         ) : null}
@@ -309,9 +310,11 @@ export function ObjectCard({ object, priority = false, priceMode = "buy", buildB
         {buildBadge ? (
           <span
             title={
-              locale === "ru"
-                ? "Максимум по нормам застройки — точные лимиты в due diligence"
-                : "Maximum allowed by building norms — exact limits in due diligence"
+              L(locale, {
+                en: "Maximum allowed by building norms — exact limits in due diligence",
+                ru: "Максимум по нормам застройки — точные лимиты в due diligence",
+                th: "สูงสุดตามข้อกำหนดการก่อสร้าง — ข้อจำกัดที่แน่นอนอยู่ในการตรวจสอบสถานะ (Due Diligence)",
+              })
             }
             className={`inline-flex w-fit items-center gap-1.5 rounded-sm border px-2 py-1 text-[11px] font-medium ${
               buildBadge.restricted
@@ -352,7 +355,7 @@ export function ObjectCard({ object, priority = false, priceMode = "buy", buildB
               {zoneCat ? (
                 <span>{zoneCat}</span>
               ) : (
-                <span>{locale === "ru" ? "проверить нормы" : "check norms"}</span>
+                <span>{L(locale, { en: "check norms", ru: "проверить нормы", th: "ตรวจสอบข้อกำหนด" })}</span>
               )}
             </span>
           ) : null}

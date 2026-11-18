@@ -5,6 +5,7 @@ import type { EstatePlot } from "@/content/land-estates";
 import { plotPriceVisible } from "@/content/land-estates";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getEstatesDict } from "@/lib/i18n/dictionaries";
+import { L } from "@/lib/i18n/locale-path";
 import { formatPriceCompact } from "@/lib/utils/price";
 import { EstateLotCarousel } from "./estate-lot-carousel";
 import { PlotStatusBadge } from "./plot-status-badge";
@@ -59,7 +60,7 @@ export function EstateGallery({ photoPlots, estateName, locale }: Props) {
                 priceLabel: plotPriceVisible(plot.status) && plot.priceThb ? formatPriceCompact(plot.priceThb) : null,
               }}
               hint={pi === 0}
-              hintLabel={locale === "ru" ? "Листайте" : "Swipe"}
+              hintLabel={L(locale, { en: "Swipe", ru: "Листайте", th: "ปัดดูรูป" })}
             />
           </div>
         ))}
@@ -73,9 +74,9 @@ export function EstateGallery({ photoPlots, estateName, locale }: Props) {
         unoptimized
         title={t.sections.gallery}
         labels={{
-          prev: locale === "ru" ? "Назад" : "Previous",
-          next: locale === "ru" ? "Вперёд" : "Next",
-          close: locale === "ru" ? "Закрыть" : "Close",
+          prev: L(locale, { en: "Previous", ru: "Назад", th: "ก่อนหน้า" }),
+          next: L(locale, { en: "Next", ru: "Вперёд", th: "ถัดไป" }),
+          close: L(locale, { en: "Close", ru: "Закрыть", th: "ปิด" }),
         }}
       />
     </>

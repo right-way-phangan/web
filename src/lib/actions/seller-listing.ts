@@ -30,7 +30,7 @@ const sellerSchema = z
 
     // Hidden context
     vid: z.string().max(64).optional(),
-    lang: z.preprocess(emptyToUndef, z.enum(["en", "ru"]).optional()),
+    lang: z.preprocess(emptyToUndef, z.enum(["en", "ru", "th"]).optional()),
     utm_source: z.string().max(200).optional(),
     utm_medium: z.string().max(200).optional(),
     utm_campaign: z.string().max(200).optional(),

@@ -40,4 +40,7 @@ describe("leaseLine", () => {
   it("RU: term only when the total is unknown", () => {
     expect(leaseLine("ru", 30, undefined, false)).toBe("лизинг 30 лет");
   });
+  it("TH: term + total + indexation", () => {
+    expect(leaseLine("th", 30, "฿14.4M", true)).toBe("สิทธิการเช่า 30 ปี · ≈ ฿14.4M รวม + ปรับขึ้นตามดัชนี");
+  });
 });

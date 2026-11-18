@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { L } from "@/lib/i18n/locale-path";
 
 /**
  * Голосовой ввод через браузерный Web Speech API — ноль затрат и серверов
@@ -11,7 +12,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
  * перед отправкой.
  */
 
-type Locale = "en" | "ru";
+import type { Locale } from "@/lib/i18n/dictionaries";
 
 interface SpeechRecognitionLike {
   lang: string;
@@ -59,7 +60,7 @@ export function useSpeechInput(
     const Ctor = getCtor();
     if (!Ctor) return;
     const rec = new Ctor();
-    rec.lang = locale === "ru" ? "ru-RU" : "en-US";
+    rec.lang = L(locale, { en: "en-US", ru: "ru-RU", th: "th-TH" });
     rec.continuous = false;
     rec.interimResults = false;
     rec.onresult = (e) => {

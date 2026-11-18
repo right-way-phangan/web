@@ -7,6 +7,7 @@ import {
   fmtThb,
 } from "@/lib/data/rental-market";
 import type { Locale } from "@/lib/i18n/dictionaries";
+import { localeBase } from "@/lib/i18n/locale-path";
 
 const DM = {
   en: {
@@ -53,6 +54,28 @@ const DM = {
     footnote: (sample: number, date: string) =>
       `Медиана по ${sample} объявлениям Airbnb · ${date}. Годовой доход — при допущении базовой загрузки; «занято» — текущая доступность активных объектов на 90 дней вперёд. Метод — в полном отчёте.`,
   },
+  th: {
+    eyebrow: "ตลาดเช่าในย่านนี้",
+    title: (name: string) => `บ้านใน${name}สร้างรายได้เท่าไร`,
+    rank: (rank: number, count: number) => `อันดับ ${rank} จาก ${count} บนเกาะ`,
+    medianNightly: "ค่าห้องต่อคืนมัธยฐาน",
+    comps: (n: number) => `${n} ทรัพย์เปรียบเทียบ`,
+    annualIncome: "รายได้ต่อปีโดยประมาณ",
+    perYr: (v: string) => `${v}/ปี`,
+    atOcc: (pct: number, booked: number | null) =>
+      `ที่อัตราการเข้าพักพื้นฐาน ${pct}%${booked != null ? ` · จองแล้ว ${booked}%` : ""}`,
+    landPrice: "ราคาที่ดิน",
+    perSqm: (v: string) => `${v}/ตร.ม.`,
+    fromLand: "จากประกาศที่ดินของเรา",
+    noLand: "ยังไม่มีข้อมูลที่ดินเปรียบเทียบ",
+    byBedrooms: "ตามห้องนอน:",
+    studio: "สตูดิโอ",
+    br: (n: number) => `${n} ห้องนอน`,
+    fullData: "ข้อมูลตลาดทั้งหมด",
+    modelRoi: "จำลอง ROI",
+    footnote: (sample: number, date: string) =>
+      `มัธยฐานจากประกาศ Airbnb ${sample} รายการ · ${date} รายได้ต่อปีใช้สมมติฐานอัตราการเข้าพักพื้นฐาน; “จองแล้ว” คือความว่างล่วงหน้า 90 วันของประกาศที่ใช้งานอยู่ ดูวิธีการในรายงานฉบับเต็ม`,
+  },
 } as const;
 
 function pluralComps(n: number): string {
@@ -77,7 +100,7 @@ export function DistrictMarketPanel({
   locale?: Locale;
 }) {
   const t = DM[locale];
-  const base = locale === "ru" ? "/ru" : "";
+  const base = localeBase(locale);
   const meta = getRentalMarket().meta;
   const { district: d } = dm;
 

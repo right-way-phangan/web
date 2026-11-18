@@ -6,6 +6,7 @@ import type { SalePriceStats } from "@/lib/data/sale-prices";
 import { DISTRICT_PAGE_SLUGS } from "@/lib/data/rental-market";
 import { formatPriceCompact } from "@/lib/utils/price";
 import type { Locale } from "@/lib/i18n/dictionaries";
+import { L, localeBase } from "@/lib/i18n/locale-path";
 
 const SP = {
   en: {
@@ -40,6 +41,22 @@ const SP = {
     ctaLink: "Получите бесплатную оценку",
     ctaPost: " — по этим же данным.",
   },
+  th: {
+    title: "ราคาที่ดินตามย่าน",
+    intro: (median: string, sample: number): React.ReactNode => (
+      <>
+        ราคาเสนอขายมัธยฐานต่อไร่จากประกาศที่ดินที่เปิดขายอยู่ของเรา มัธยฐานทั้งเกาะอยู่ที่{" "}
+        <strong className="text-forest-900">{median}</strong> จาก {sample} แปลงที่มีราคา แถบแสดง
+        ตำแหน่งของแต่ละย่านเทียบกับย่านที่แพงที่สุด
+      </>
+    ),
+    plots: (n: number) => `${n} แปลง`,
+    footnote:
+      "มัธยฐานจากภาพ ณ ปัจจุบันของประกาศที่เปิดขายอยู่ — เป็นตัวบ่งชี้ ไม่ใช่การประเมินราคา แต่ละแปลงต่างกันตามทางเข้า ผังเมือง และหน้ากว้าง",
+    ctaPre: "มีที่ดินหรือวิลล่าที่นี่? ",
+    ctaLink: "รับการประเมินราคาทรัพย์ของคุณฟรี",
+    ctaPost: " — จากข้อมูลชุดเดียวกันนี้",
+  },
 } as const;
 
 function pluralPlots(n: number): string {
@@ -64,13 +81,13 @@ export function SalePrices({
   locale?: Locale;
 }) {
   const t = SP[locale];
-  const base = locale === "ru" ? "/ru" : "";
+  const base = localeBase(locale);
   const landRows = stats.rows.filter((r) => r.landPerRaiMedian != null);
   if (landRows.length === 0) return null;
 
   const max = Math.max(...landRows.map((r) => r.landPerRaiMedian ?? 0), 1);
   const medianAll = stats.landPerRaiMedianAll
-    ? `${formatPriceCompact(stats.landPerRaiMedianAll)}/${locale === "ru" ? "рай" : "rai"}`
+    ? `${formatPriceCompact(stats.landPerRaiMedianAll)}/${L(locale, { en: "rai", ru: "рай", th: "ไร่" })}`
     : "—";
 
   return (

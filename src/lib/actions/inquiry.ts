@@ -42,7 +42,7 @@ const inquirySchema = z
     rwNumber: z.string().max(20).optional(), // present on object inquiry, absent on /contact
     vid: z.string().max(64).optional(), // anonymous visitor id → links lead to its browse journey
     source: z.enum(["object", "contact"]), // discriminator
-    lang: z.enum(["en", "ru"]).optional(), // UI language the visitor submitted in → reply in their language
+    lang: z.enum(["en", "ru", "th"]).optional(), // UI language the visitor submitted in → reply in their language
     kind: z
       .enum([
         "inquiry",
@@ -209,7 +209,9 @@ export async function submitInquiry(
   const extras = [
     data.lang === "ru"
       ? "🗣️ Submitted on the RU site — reply in Russian"
-      : null,
+      : data.lang === "th"
+        ? "🗣️ Submitted on the TH site — reply in Thai"
+        : null,
     isViewing ? `Preferred viewing date: ${data.viewingDate}` : null,
     wantsVideoTour ? "🎥 Video tour requested" : null,
     data.replyVia ? `Reply via: ${data.replyVia}` : null,

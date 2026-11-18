@@ -220,12 +220,57 @@ const L = {
       developer: (d: string) => `Застройщик: ${d}`,
     },
   },
+  th: {
+    docLabel: { Chanote: "โฉนด", NS3: "น.ส.3", NS3K: "น.ส.3 ก.", Other: "เอกสารสิทธิ์" },
+    featAdj: {
+      beachfront: "ติดชายหาด",
+      seaView: "วิวทะเล",
+      mountainView: "วิวภูเขา",
+      jungle: "ท่ามกลางป่า",
+      flat: "พื้นที่ราบ",
+    } as Record<NonNullable<FeatureKey>, string>,
+    featNoun: {
+      beachfront: "ทางลงชายหาดโดยตรง",
+      seaView: "วิวทะเลเปิดโล่ง",
+      mountainView: "วิวภูเขาเขียวขจี",
+      jungle: "ความเป็นส่วนตัวท่ามกลางป่าเขียวชอุ่ม",
+      flat: "พื้นที่ราบพร้อมก่อสร้าง",
+    } as Record<NonNullable<FeatureKey>, string>,
+    landNoun: ["ที่ดินสำหรับปลูกสร้าง", "ที่ดิน", "ที่ดินแปลง"],
+    onKoh: "บนเกาะพะงัน",
+    inHeart: "ใจกลางเกาะ",
+    roads: { Concrete: "ถนนคอนกรีต", Asphalt: "ถนนลาดยาง", Dirt: "ถนนลูกรัง", None: "ยังไม่มีถนนเข้าถึง" },
+    bullets: {
+      rai: (n: number) => `${n.toLocaleString("th-TH")} ไร่`,
+      sqm: (n: number) => `${n.toLocaleString("th-TH")} ตร.ม.`,
+      bedbath: (b?: number, ba?: number) =>
+        [b ? `${b} ห้องนอน` : "", ba ? `${ba} ห้องน้ำ` : ""].filter(Boolean).join(" · "),
+      tenure: (fh: boolean, lh: boolean) =>
+        fh && lh ? "กรรมสิทธิ์หรือสิทธิการเช่า" : lh ? "สิทธิการเช่า (ลีสโฮลด์)" : fh ? "กรรมสิทธิ์ (ฟรีโฮลด์)" : "",
+      built: (y: number) => `สร้างปี ${y}`,
+      brandNew: "สร้างใหม่",
+      pool: "สระว่ายน้ำส่วนตัว",
+      garden: "สวนส่วนตัว",
+      parking: "ที่จอดรถ",
+      gated: "โครงการมีรั้วรอบ",
+      furnished: "พร้อมเฟอร์นิเจอร์",
+      power: "มีไฟฟ้าเข้าถึงแล้ว",
+      vetted: "ตรวจสอบแล้ว — Right Way DD (โซน เอกสารสิทธิ์ ทางเข้า)",
+      unitsLeft: (a: number, t: number) => `ว่าง ${a} จาก ${t} ยูนิต`,
+      completion: (c: string) => `แล้วเสร็จ ${c}`,
+      developer: (d: string) => `ผู้พัฒนาโครงการ: ${d}`,
+    },
+  },
 } as const;
 
 function where(f: Facts, locale: Locale): string {
   const d = f.district;
   const t = L[locale];
   if (!d) return t.onKoh;
+  if (locale === "th") {
+    if (f.central) return pick(f.rw, "loc", [`ในพื้นที่ ${d}`, t.inHeart]);
+    return pick(f.rw, "loc", [`ในพื้นที่ ${d}`, `ในพื้นที่ ${d} เกาะพะงัน`]);
+  }
   if (f.central) return pick(f.rw, "loc", locale === "ru" ? [`в районе ${d}`, t.inHeart] : [`in ${d}`, t.inHeart]);
   return locale === "ru" ? `в районе ${d}` : pick(f.rw, "loc", [`in ${d}`, `in ${d}, Koh Phangan`]);
 }
@@ -234,6 +279,7 @@ function where(f: Facts, locale: Locale): string {
 // both languages grammatical). "flat" carries no clause; it surfaces in body.
 function featClause(f: Facts, locale: Locale): string {
   if (!f.feature || f.feature === "flat") return "";
+  if (locale === "th") return ` พร้อม${L.th.featNoun[f.feature]}`;
   return locale === "ru" ? ` с ${L.ru.featNoun[f.feature]}` : ` with ${L.en.featNoun[f.feature]}`;
 }
 
@@ -275,6 +321,26 @@ function leadRu(f: Facts): string {
   return tidy(`${newLead}${beds}${noun} ${loc}${fc}.`);
 }
 
+// Thai prose: no sentence-final periods, clauses separated by spaces.
+function leadTh(f: Facts): string {
+  const t = L.th;
+  const loc = where(f, "th");
+  const fc = featClause(f, "th");
+  if (f.isProject) {
+    const units = f.unitsTotal ? ` ว่าง ${f.unitsAvailable ?? f.unitsTotal} จาก ${f.unitsTotal} ยูนิต` : "";
+    return tidy(`โครงการ${f.pool ? "พูลวิลล่า" : "วิลล่า"}ก่อนสร้างเสร็จ ${loc}${fc}${units}`);
+  }
+  if (f.isLand) {
+    const noun = pick(f.rw, "noun", t.landNoun);
+    const size = f.rai ? ` ขนาด ${f.rai.toLocaleString("th-TH")} ไร่` : "";
+    return tidy(`${noun}${size} ${loc}${fc}`);
+  }
+  const noun = f.pool ? "พูลวิลล่า" : "บ้าน";
+  const beds = f.beds ? ` ${f.beds} ห้องนอน` : "";
+  const isNew = f.brandNew ? " สร้างใหม่" : "";
+  return tidy(`${noun}${beds}${isNew} ${loc}${fc}`);
+}
+
 function bodyEn(f: Facts): string {
   const parts: string[] = [];
   if (f.quiet) parts.push("Set in a quiet, private spot");
@@ -300,6 +366,18 @@ function bodyRu(f: Facts): string {
   if (s) s = s.charAt(0).toUpperCase() + s.slice(1);
   if (f.leasehold && !f.freehold) s += " Оформляется в долгосрочную аренду (registered lease).";
   if (f.vetted) s += " Объект проверен Right Way — зона, тип документа и доступ подтверждены до публикации.";
+  return tidy(s);
+}
+
+function bodyTh(f: Facts): string {
+  const parts: string[] = [];
+  if (f.quiet) parts.push("ตั้งอยู่ในทำเลที่เงียบสงบและเป็นส่วนตัว");
+  else if (f.central) parts.push("ทำเลใจกลาง เดินทางสะดวก");
+  if (f.flat && f.isLand) parts.push("พื้นที่ราบ พร้อมก่อสร้าง");
+  if (f.road && f.road !== "None" && L.th.roads[f.road]) parts.push(`เข้าถึงด้วย${L.th.roads[f.road]}`);
+  let s = parts.join(" ");
+  if (f.leasehold && !f.freehold) s += " เสนอขายในรูปแบบสัญญาเช่าระยะยาวที่จดทะเบียน";
+  if (f.vetted) s += " ผ่านการตรวจสอบโดย Right Way — ตรวจสอบโซน ประเภทเอกสารสิทธิ์ และทางเข้าก่อนเผยแพร่";
   return tidy(s);
 }
 
@@ -339,8 +417,8 @@ function bullets(f: Facts, locale: Locale): string[] {
 export function buildObjectDescription(o: RealEstateObject, locale: Locale): ObjectDescription {
   const f = extract(o);
   return {
-    lead: locale === "ru" ? leadRu(f) : leadEn(f),
-    body: locale === "ru" ? bodyRu(f) : bodyEn(f),
+    lead: locale === "ru" ? leadRu(f) : locale === "th" ? leadTh(f) : leadEn(f),
+    body: locale === "ru" ? bodyRu(f) : locale === "th" ? bodyTh(f) : bodyEn(f),
     bullets: bullets(f, locale),
   };
 }
@@ -351,7 +429,7 @@ export function buildObjectDescription(o: RealEstateObject, locale: Locale): Obj
  */
 export function objectDescriptionText(o: RealEstateObject, locale: Locale): string {
   const d = buildObjectDescription(o, locale);
-  const sep = locale === "ru" ? "Ключевое: " : "Key facts: ";
+  const sep = locale === "ru" ? "Ключевое: " : locale === "th" ? "ข้อมูลสำคัญ: " : "Key facts: ";
   return tidy([d.lead, d.body, d.bullets.length ? sep + d.bullets.join("; ") + "." : ""].filter(Boolean).join(" "));
 }
 
@@ -381,6 +459,15 @@ Rules:
 - НИКОГДА не упоминай цену, комиссию или доходность.
 - Используй только факты из JSON; не выдумывай удобства, расстояния и числа.
 - Выведи ТОЛЬКО прозу описания.`,
+  th: `You write property listing descriptions for Right Way, a specialised real-estate agency on Koh Phangan, Thailand. Given JSON facts about ONE property, write its description in Thai (ภาษาไทย).
+Rules:
+- Open with one answer-shaped sentence stating what it is (type, district, standout feature) — so AI answer engines can quote it.
+- Then 1–2 short paragraphs of useful context (setting, access, tenure, what is verified). 4–6 sentences total.
+- Professional, clear and polite; no ครับ/ค่ะ. Keep the brand "Right Way" and district names in Latin script; units as ไร่, ตร.ม.
+- Factual and calm: NO hype words, NO emoji, NO markdown, NO headings.
+- NEVER mention price, commission or yield figures.
+- Use only facts present in the JSON; do not invent amenities, distances or numbers.
+- Output ONLY the description prose.`,
 };
 
 function factsFor(o: RealEstateObject): string {
@@ -423,6 +510,7 @@ function sanitiseLlm(raw: string, locale: Locale): string | null {
   const hasCyr = /[А-Яа-яЁё]/.test(t);
   if (locale === "ru" && !hasCyr) return null; // RU output must be Russian
   if (locale === "en" && hasCyr) return null; // EN output must be English
+  if (locale === "th" && (hasCyr || !/[\u0E00-\u0E7F]/.test(t))) return null; // TH output must be Thai
   if (t.length < 40 || t.length > 1400) return null;
   return t.replace(/[*#`]/g, "").trim(); // strip stray markdown
 }

@@ -5,7 +5,7 @@ import { MatchChat } from "@/components/match/match-chat";
 export const metadata: Metadata = {
   alternates: {
     canonical: "/match",
-    languages: { en: "/match", ru: "/ru/match", "x-default": "/match" },
+    languages: { en: "/match", ru: "/ru/match", th: "/th/match", "x-default": "/match" },
   },
   title: "AI property match",
   description:

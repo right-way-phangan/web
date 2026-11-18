@@ -8,6 +8,7 @@ import { useSaved } from "@/lib/saved/saved-context";
 import { useCurrency, CurrencyToggle } from "@/components/ui/currency";
 import { cn } from "@/lib/utils/cn";
 import { useLocale, localeHref } from "@/lib/i18n/use-locale";
+import { intlLocale } from "@/lib/i18n/locale-path";
 import { zoneShort, buildWarnLabels } from "@/lib/data/zone-rules";
 
 interface Row {
@@ -76,6 +77,35 @@ const CT = {
     vMountain: "На горы",
     vJungle: "На джунгли",
   },
+  th: {
+    heading: "เปรียบเทียบ",
+    lede: "แถวที่แตกต่างกันจะถูกเน้น ส่วนข้อมูลที่ตรงกันจะถูกทำให้จางลง",
+    spec: "รายละเอียด",
+    best: "ดีที่สุด",
+    remove: (rw: string) => `นำ ${rw} ออก`,
+    onRequest: "สอบถามราคา",
+    perRai: "/ไร่",
+    perMo: "/เดือน",
+    perRaiMo: "/ไร่/เดือน",
+    rai: "ไร่",
+    yr: "ปี",
+    rPrice: "ราคา",
+    rPricePerRai: "ราคา / ไร่",
+    rType: "ประเภท",
+    rDistrict: "พื้นที่",
+    rArea: "ขนาด",
+    rTenure: "รูปแบบการถือครอง",
+    rDocument: "เอกสารสิทธิ์",
+    rLease: "ระยะเวลาเช่า",
+    rBedrooms: "ห้องนอน",
+    rView: "วิว",
+    rZone: "โซน",
+    rCheck: "ตรวจสอบก่อนก่อสร้าง",
+    vBeachfront: "ติดชายหาด",
+    vSeaView: "วิวทะเล",
+    vMountain: "วิวภูเขา",
+    vJungle: "วิวป่า",
+  },
 } as const;
 
 function buildRows(
@@ -109,9 +139,9 @@ function buildRows(
       label: t.rArea,
       get: (o) =>
         o.areaRai
-          ? `${o.areaRai.toLocaleString(locale === "ru" ? "ru-RU" : "en-US", { maximumFractionDigits: 2 })} ${t.rai}`
+          ? `${o.areaRai.toLocaleString(intlLocale(locale), { maximumFractionDigits: 2 })} ${t.rai}`
           : o.areaSqm
-            ? `${o.areaSqm.toLocaleString(locale === "ru" ? "ru-RU" : "en-US")} m²`
+            ? `${o.areaSqm.toLocaleString(intlLocale(locale))} m²`
             : "—",
     },
     { label: t.rTenure, get: (o) => o.tenure?.join(", ") ?? "—" },

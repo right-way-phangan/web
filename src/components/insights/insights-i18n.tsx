@@ -604,6 +604,278 @@ export const INS = {
     unlockDefaultMessage:
       "Пришлите, пожалуйста, отчёт по рынку аренды Ко Пангана. Интересует строительство / покупка под аренду.",
   },
+  th: {
+    dataRefreshing: "กำลังอัปเดตข้อมูลตลาด — โปรดกลับมาตรวจสอบอีกครั้งในไม่ช้า",
+    zoneOwnersEyebrow: "สำหรับเจ้าของและผู้ให้เช่า",
+    zoneOwners: "ทรัพย์ของคุณสร้างรายได้ได้เท่าไร",
+    zoneInvestorsEyebrow: "สำหรับผู้ซื้อและนักลงทุน",
+    zoneInvestors: "ซื้อที่ไหนและควรสร้างอะไร",
+    tabOwners: "สำหรับเจ้าของ",
+    tabOwnersHint: "ทรัพย์ของคุณสร้างรายได้เท่าไร",
+    tabInvestors: "สำหรับนักลงทุน",
+    tabInvestorsHint: "ซื้อและสร้างที่ไหน",
+    audienceAria: "เลือกมุมมอง",
+    trustDetails: "รายละเอียด",
+    marketPulse: "ชีพจรตลาด",
+    listingsAnalysed: "ประกาศที่วิเคราะห์",
+    source: "แหล่งข้อมูล",
+    snapshot: "ข้อมูล ณ วันที่",
+    activeOcc: "อัตราการเข้าพักที่ใช้งานอยู่ (90 วัน)",
+    trendLabel: "แนวโน้ม ADR ทั้งเกาะ",
+    dedupNote: (collected: number, unique: number) =>
+      `เก็บได้ ${collected.toLocaleString("th-TH")} · ไม่ซ้ำ ${unique.toLocaleString("th-TH")} หลังตัดรายการซ้ำ`,
+    triangulationEyebrow: "ตรวจสอบข้ามแหล่งข้อมูล",
+    triangulationTitle: "การตรวจสอบราคาสามทาง",
+    triangulationNote:
+      "ค่าห้องต่อคืนมัธยฐานของตลาดวิลล่าเดียวกัน แยกตามแพลตฟอร์ม เมื่อแพลตฟอร์มอิสระให้ตัวเลขใกล้เคียงกัน ตัวเลขนั้นเชื่อถือได้",
+    agree: (pct: number) => `แพลตฟอร์มสอดคล้องกัน — ภายใน ±${pct}%`,
+    diverge: (pct: number) => `แพลตฟอร์มต่างกัน — ส่วนต่าง ${pct}%`,
+    agreeSized: (pct: number) => `แพลตฟอร์มสอดคล้องกัน — ±${pct}% ในขนาดที่เทียบเคียงได้`,
+    divergeSized: (pct: number) => `ส่วนต่าง ${pct}% ในขนาดที่เทียบเคียงได้`,
+    matchedPairs: (n: number, diff: number) =>
+      `วิลล่าเดียวกัน ${n} หลังบนทั้งสองแพลตฟอร์ม: Booking ${diff >= 0 ? "+" : "−"}${Math.abs(diff)}% เทียบกับ Airbnb`,
+    sourceN: (n: number) => `${n.toLocaleString("th-TH")} ประกาศ`,
+    supplyUnder: "อุปทานน้อย",
+    supplySaturated: "อิ่มตัว",
+    yieldSuffix: (pct: number) => ` · รายได้ต่อที่ดิน ${pct}%`,
+    yieldNote:
+      "“รายได้ต่อที่ดิน” = รายได้ต่อปีโดยประมาณ ÷ ราคาที่ดินอ้างอิง 400 ตร.ม. ในย่านนั้น (ไม่รวมค่าก่อสร้าง) — เป็นสัญญาณบ่งชี้มูลค่าที่ดิน ไม่ใช่ผลตอบแทนเต็มรูปแบบ",
+    trustEyebrow: "ทำไมตัวเลขนี้เชื่อถือได้",
+    trustTitle: "ราคาผ่านการตรวจสอบอย่างไร",
+    trustNote:
+      "เบื้องหลังค่าห้องหลักมีการตรวจสอบข้ามอิสระสองชั้น: เทียบแพลตฟอร์มกันเอง และเทียบตัวเลขของเรากับตัวติดตามภายนอก",
+    bedroomCheckTitle: "แยกตามห้องนอน ทั้งสองแพลตฟอร์ม",
+    bedroomCheckNote:
+      "ค่าห้องต่อคืนของวิลล่าตามจำนวนห้องนอน — Airbnb เทียบกับ Booking ในกรณีที่ทั้งคู่มีวิลล่า ≥8 หลัง เป็นแหล่งข้อมูลที่สองของกราฟตามขนาด ไม่ใช่แค่มัธยฐานทั้งเกาะ",
+    bedroomCheckCol: (br: number) => (br === 0 ? "สตูดิโอ" : `${br} ห้องนอน`),
+    freshToday: "อัปเดตวันนี้",
+    freshDaysAgo: (n: number) => `อัปเดตเมื่อ ${n} วันก่อน`,
+    extEyebrow: "ตัวติดตามอิสระ",
+    extTitle: "ผู้อื่นวัดตลาดอย่างไร",
+    extNote:
+      "ตัวติดตามตลาดเช่าอิสระนับเกาะพะงันต่างกัน — วิธีสุ่มตัวอย่าง นิยามของ “ใช้งานอยู่” เฉพาะ Airbnb หรือรวม Vrbo — ตัวเลขจึงต่างกัน ตัวเลขของเราอยู่ในช่วงนั้น และใช้กลุ่มตัวอย่างที่โปร่งใสและใหญ่ที่สุด",
+    extOurs: "Right Way (วัดจริง)",
+    extOursTag: "ของเรา",
+    extRowSub: (listings: number, occ: number | null, asOf: string, note?: string) =>
+      `${listings.toLocaleString("th-TH")} ประกาศ${occ != null ? ` · เข้าพัก ${occ}%` : ""} · ${asOf}${note ? ` · ${note}` : ""}`,
+    extWithin: (adr: string, n: number) =>
+      `มัธยฐาน ${adr} ของเรา (${n.toLocaleString("th-TH")} ประกาศ) อยู่ในช่วงของแหล่งอิสระ`,
+    extRefreshed: (date: string) =>
+      `อ่านตัวเลขภายนอกเมื่อ ${date} · แสดงเพื่อตรวจสอบข้ามเท่านั้น ไม่นำมารวมกับมัธยฐานของเรา`,
+    freePreview: "ตัวอย่างฟรี",
+    teaserTitle: "ย่านที่น่าสร้างเพื่อปล่อยเช่ามากที่สุด",
+    teaserNote: "ค่าห้องต่อคืนมัธยฐาน (ADR) ของประกาศแบบทั้งหลัง แยกตามย่าน",
+    topPick: "ตัวเลือกอันดับหนึ่ง",
+    poolPremium: (pct: number): ReactNode => (
+      <>
+        ประกาศที่มีสระว่ายน้ำมีค่าห้องมัธยฐานสูงกว่า{" "}
+        <strong className="text-forest-900">+{pct}%</strong> — เป็นส่วนต่างของมัธยฐาน
+        (วิลล่าที่มีสระมักใหญ่กว่าและใกล้ทะเลกว่า) ไม่ใช่ส่วนเพิ่มแบบเทียบเท่ากัน
+      </>
+    ),
+    seasonNote: (season: "low" | "high", from: string, to: string): ReactNode => (
+      <>
+        <strong>ช่วงฤดูที่ครอบคลุม:</strong> ข้อมูลทุกชุดจนถึงตอนนี้ ({from} → {to}) อยู่ใน{" "}
+        {season === "low" ? "ฤดูท่องเที่ยวต่ำ (พ.ค.–ต.ค.)" : "ฤดูท่องเที่ยวสูง (พ.ย.–เม.ย.)"} ค่าห้องและอัตราการเข้าพัก
+        ที่นี่เป็นตัวเลข{season === "low" ? "ฤดูต่ำ" : "ฤดูสูง"} ไม่ใช่ค่าเฉลี่ยทั้งปี —
+        ภาพจะสมบูรณ์เมื่อวัดอีกฤดูหนึ่งแล้ว
+      </>
+    ),
+    teaserSub: (n: number, annual: string, lowPct: number, basePct: number, booked: number | null) =>
+      `${n} ประกาศ · ประมาณ ${annual}/ปี ที่อัตราการเข้าพัก ${lowPct}–${basePct}%${
+        booked != null ? ` · จองแล้ว ${booked}%` : ""
+      }`,
+    fullReportEyebrow: "รายงานฉบับเต็ม",
+    unlockEyebrow: "ปลดล็อกรายงานฉบับเต็ม",
+    gateTitle: "ภาพรวมการสร้างเพื่อปล่อยเช่าแบบครบถ้วน",
+    gateNote:
+      "ทุกย่าน ส่วนเพิ่มตามคุณสมบัติ ค่าห้องตามประเภททรัพย์และจำนวนห้องนอน พร้อมสมมติฐานเบื้องหลังทุกตัวเลข",
+    unlockedConfirm: "ปลดล็อกรายงานแล้ว — ขอบคุณ เราจะติดต่อกลับ",
+    whatDataSuggests: "ข้อมูลบอกอะไร",
+    featurePhrase: {
+      pool: "สระว่ายน้ำ",
+      private_pool: "สระว่ายน้ำส่วนตัว",
+      sea_view: "วิวทะเล",
+      beachfront: "ทำเลติดชายหาด",
+      luxury: "งานตกแต่งระดับหรู",
+    } as Record<string, string>,
+    homeWord: "บ้าน",
+    configLabel: (bedrooms: number | null, typeLabel: string | null) => {
+      const type = typeLabel ? typeLabel.toLowerCase() : "บ้าน";
+      if (bedrooms == null) return type;
+      return `${type} ${bedrooms === 0 ? "แบบสตูดิโอ" : `${bedrooms} ห้องนอน`}`;
+    },
+    buildSentence: (p: {
+      config: ReactNode;
+      feat: string | null;
+      district: string;
+      nightly: string;
+      annual: string;
+      lowPct: number;
+      basePct: number;
+      booked: number | null;
+    }): ReactNode => (
+      <>
+        สร้าง <strong>{p.config}</strong>
+        {p.feat ? (
+          <>
+            {" "}
+            พร้อม<strong>{p.feat}</strong>
+          </>
+        ) : null}{" "}
+        ที่<strong>{p.district}</strong> นี่คือตลาดค่าห้องรายคืนที่แข็งแกร่งที่สุดบนเกาะ —
+        มัธยฐาน <strong>{p.nightly}/คืน</strong> ประมาณ <strong>{p.annual}/ปี</strong>{" "}
+        ที่อัตราการเข้าพัก {p.lowPct}–{p.basePct}% (วัดจริง → สถานการณ์พื้นฐาน)
+        {p.booked != null ? ` (ขณะนี้จองแล้ว ${p.booked}%)` : ""}
+      </>
+    ),
+    pillAdds: (label: string, pct: number) => `${label} เพิ่ม +${pct}%`,
+    pillHighestType: (label: string) => `${label} = ประเภทที่ ADR สูงสุด`,
+    pillComps: (n: number, district: string) => `${n} ทรัพย์เปรียบเทียบใน${district}`,
+    modelThisRoi: "จำลองในเครื่องคำนวณ ROI",
+    ourXmarket: "ประกาศของเรา × ตลาด",
+    invTitle: "ประกาศของเราสร้างรายได้ได้เท่าไร",
+    invNote:
+      "ประกาศที่เปิดขายอยู่ของ Right Way เทียบกับค่าห้องต่อคืนของย่าน — ผลตอบแทนรวมและสุทธิ (สุทธิหลังหักค่าบริหาร 25% + ค่าใช้จ่ายดำเนินงาน 3%) เป็นตัวเลขบ่งชี้ ไม่ใช่การรับประกัน",
+    netSuffix: (pct: number) => `สุทธิ ${pct}%`,
+    brSuffix: (n: number) => ` · ${n} ห้องนอน`,
+    bookedNow: (pct: number) => ` · จองแล้ว ${pct}%`,
+    mPrice: "ราคา",
+    mGross: "รวม",
+    mNet: "สุทธิ",
+    mPayback: "คืนทุน",
+    paybackY: (n: number) => `${n} ปี`,
+    invFootnote:
+      "ผลตอบแทนรวม = ADR มัธยฐานของย่าน × 365 × อัตราการเข้าพักพื้นฐาน ÷ ราคา สุทธิหักค่าบริหาร 25% + ค่าใช้จ่ายดำเนินงาน 3% “จองแล้ว” = ความว่างล่วงหน้า 90 วันของประกาศที่ใช้งานอยู่ ไม่รวมที่ดิน",
+    sortLabels: {
+      adr: "ค่าห้องต่อคืน",
+      annual: "รายได้ต่อปี",
+      yield: "รายได้ต่อที่ดิน",
+      sample: "ขนาดกลุ่มตัวอย่าง",
+      name: "ชื่อ A–Z",
+    } as Record<DistrictSort, string>,
+    subAllDistricts: "ค่าห้องต่อคืนตามย่าน — ทุกย่าน",
+    subByType: "ค่าห้องต่อคืนตามประเภททรัพย์",
+    subByBedroom: "ค่าห้องต่อคืนตามจำนวนห้องนอน",
+    subWhatRaises: "อะไรทำให้ค่าห้องต่อคืนสูงขึ้น",
+    subDistrictBedroom: "ย่าน × จำนวนห้องนอน (กลุ่มตัวอย่าง ≥2)",
+    heatmapNote:
+      "ค่าห้องต่อคืนมัธยฐานของแต่ละคู่ย่าน × จำนวนห้องนอน สีเข้ม = ค่าห้องสูงกว่า; ว่าง = ทรัพย์เปรียบเทียบน้อยเกินไป (n<2) วางเมาส์บนช่องเพื่อดูขนาดกลุ่มตัวอย่าง",
+    heatmapLegendLow: "ต่ำกว่า",
+    heatmapLegendHigh: "สูงกว่า",
+    bedroomNote: "จำนวนห้องนอนดึงจากข้อความประกาศเมื่อมีระบุ — เป็นกลุ่มตัวอย่างบางส่วน",
+    nListings: (n: number) => `${n} ประกาศ`,
+    districtSub: (n: number, p25p75: string | null, annual: string, booked: number | null) =>
+      `${n} ประกาศ · ${p25p75 ? `${p25p75} p25–p75 · ` : ""}ประมาณ ${annual}/ปี${
+        booked != null ? ` · จองแล้ว ${booked}%` : ""
+      }`,
+    typeSub: (n: number, rating: number | null) =>
+      `${n} ประกาศ${rating ? ` · ★ ${rating}` : ""}`,
+    featureSub: (withStr: string, withoutStr: string, nWith: number, nWithout: number) =>
+      `${withStr} เทียบกับ ${withoutStr} · มี ${nWith} / ไม่มี ${nWithout}`,
+    bedroomLabel: (n: number) => (n === 0 ? "สตูดิโอ" : `${n} ห้องนอน`),
+    brShort: (n: number) => (n === 0 ? "สตูดิโอ" : `${n} ห้องนอน`),
+    thDistrict: "ย่าน",
+    thBedrooms: "ห้องนอน",
+    thAdrMedian: "ADR มัธยฐาน",
+    thN: "n",
+    perNightShort: " /คืน",
+    capexText: (source: string, perSqm: string, nSale: number): ReactNode => (
+      <>
+        <strong>ข้อมูลอ้างอิง CapEx:</strong>{" "}
+        {source === "own_land" ? "ราคาที่ดินมัธยฐาน" : "ราคาขายมัธยฐาน"} {perSqm}/ตร.ม.
+        {source === "own_land" ? ` จากประกาศที่ดินของ Right Way ${nSale} รายการ` : ` (${nSale} ประกาศ)`}
+        {" "}ที่ดินคือรายการลงทุนหลักของการสร้างเพื่อปล่อยเช่า — ใช้คู่กับคอลัมน์รายได้ต่อปีด้านบนเพื่อดู
+        ผลตอบแทนต่อต้นทุนโดยคร่าว
+      </>
+    ),
+    capexMarket: (perSqm: string, n: number, ratio: string | null): ReactNode => (
+      <>
+        {" "}
+        <strong>ราคาเสนอขายในตลาด</strong> อยู่ที่ {perSqm}/ตร.ม. จากประกาศที่ดิน {n} รายการ (FazWaz)
+        {ratio ? <> — ประมาณ <strong>{ratio}</strong> ของฐานด้านบน</> : null}
+      </>
+    ),
+    ctaTitle: "เปลี่ยนข้อมูลนี้เป็นประมาณการของคุณเอง",
+    ctaBody:
+      "เครื่องคำนวณ ROI เชื่อมกับข้อมูลชุดนี้ — เลือกย่านและประเภททรัพย์ ระบบจะใส่ค่าห้องต่อคืนและอัตราการเข้าพักให้อัตโนมัติ",
+    ctaButton: "เปิดเครื่องคำนวณ ROI",
+    demandEyebrow: "ฤดูกาลของความต้องการ",
+    demandTitle: "ความต้องการสูงสุดเมื่อไร",
+    demandNote:
+      "ความสนใจค้นหา Koh Phangan บน Google ทั่วโลกรายเดือน (เฉลี่ย 5 ปี) — สัญญาณความต้องการล่วงหน้า: เดือนพีคคือช่วงที่แขกวางแผนและจอง จึงควรสร้าง ตกแต่ง และตั้งราคาเพื่อรองรับช่วงนั้น",
+    demandPeakLow: (peak: string, low: string): ReactNode => (
+      <>
+        สูงสุด <strong className="text-forest-900">{peak}</strong> · ต่ำสุด{" "}
+        <strong className="text-forest-900">{low}</strong>
+      </>
+    ),
+    demandVsAvg: (pct: number) => `${pct > 0 ? "+" : ""}${pct}% เทียบค่าเฉลี่ย`,
+    demandSource: (src: string, asOf: string) => `${src} · ${asOf}`,
+    seasonalTrend: "แนวโน้มตามฤดูกาล",
+    collecting: (n: number): ReactNode => (
+      <>
+        กำลังเก็บข้อมูล — มีแล้ว <strong>{n}</strong> ชุด แนวโน้ม ADR ตามฤดูกาล (ฤดูสูงเทียบฤดูต่ำ)
+        จะแสดงเมื่อมีอย่างน้อยสองชุด เก็บข้อมูลชุดใหม่ทุกสัปดาห์
+      </>
+    ),
+    island: "ทั้งเกาะ",
+    seasonalOverTime: "แนวโน้มตามฤดูกาล — ค่าห้องต่อคืนตามช่วงเวลา",
+    seasonalMeasured: (n: number): string =>
+      `วัดจากข้อมูลที่เราเก็บเอง (มีแล้ว ${n} ชุด) — เส้นกราฟจะละเอียดขึ้นทุกครั้งที่เก็บข้อมูล`,
+    methodSummary: "วิธีการและสมมติฐาน",
+    methodBullets: (meta: RentalMarket["meta"]): ReactNode[] => [
+      <>
+        ข้อมูลเป็นภาพ ณ วันที่ของประกาศแบบทั้งหลังที่ไม่ซ้ำกัน <strong>{meta.sample}</strong> รายการบน
+        เกาะพะงัน ({meta.date}) ราคาเป็น {meta.currency} เก็บจาก{" "}
+        {(meta.sources ?? []).map((s) => s.label).join(", ") || "Airbnb"} และตัดรายการซ้ำตาม
+        ตำแหน่งและชื่อ วิลล่าที่ลงหลายแพลตฟอร์มจึงนับครั้งเดียว เป็นงานวิจัยภายใน ไม่ใช่
+        การเผยแพร่ข้อมูลซ้ำ
+      </>,
+      <>
+        <strong>การตรวจสอบราคาสามทาง:</strong> เปรียบเทียบค่าห้องต่อคืนมัธยฐานของแต่ละแพลตฟอร์ม —
+        เมื่อแหล่งอิสระสอดคล้องกัน (ส่วนต่างน้อย) ตัวเลขจะน่าเชื่อถือขึ้น ข้อมูลพิกัดมีมากที่สุด
+        บน Airbnb/Vrbo การแยกระดับย่านจึงอิงแหล่งเหล่านี้ ส่วน Booking/Agoda ใช้ยืนยันราคาทั้งเกาะเป็นหลัก
+      </>,
+      <>
+        <strong>รายได้ต่อปีใช้อัตราการเข้าพักพื้นฐานที่สมมติไว้</strong>{" "}
+        {Math.round(meta.occupancy.base * 100)}% — ช่วง 90 วันข้างหน้าช่วงเดียว (มักเป็นฤดูต่ำ)
+        ใช้แทนทั้งปีไม่ได้ เราจึงไม่ใช้เป็นตัวเลขหลัก สถานการณ์:{" "}
+        {Math.round(meta.occupancy.conservative * 100)}/{Math.round(meta.occupancy.base * 100)}/
+        {Math.round(meta.occupancy.high * 100)}%
+      </>,
+      <>
+        <strong>&ldquo;จองแล้ว&rdquo;</strong> คือสัญญาณความต้องการปัจจุบัน: สัดส่วนของ ~90 วันข้างหน้า
+        ที่ไม่ว่าง วัดจากปฏิทินของแต่ละประกาศ เฉพาะประกาศที่{" "}
+        <em>ใช้งานอยู่</em> (รีวิว ≥5) ประกาศที่ไม่เคลื่อนไหว (ไม่มีรีวิว) อยู่ใกล้ 0% และถูกตัดออก —
+        หากนับรวมจะทำให้ความต้องการจริงต่ำเกินไป
+      </>,
+      <>
+        <strong>ผลตอบแทนสุทธิ</strong> หักค่าบริหาร 25% และค่าใช้จ่ายดำเนินงาน 3% จากผลตอบแทนรวม
+        ความต้องการยังประเมินจากจำนวนรีวิวและสัดส่วน guest favorite
+      </>,
+      <>
+        จุดความเชื่อมั่นสะท้อนขนาดกลุ่มตัวอย่างของแต่ละย่าน (
+        <span className="inline-block h-1.5 w-1.5 rounded-full bg-panel align-middle" /> สูง
+        ≥12 ·{" "}
+        <span className="inline-block h-1.5 w-1.5 rounded-full bg-brass-400 align-middle" /> กลาง
+        ≥5 ·{" "}
+        <span className="inline-block h-1.5 w-1.5 rounded-full bg-brass-400/50 align-middle" /> ต่ำ
+        &lt;5) ย่านที่มีกลุ่มตัวอย่างน้อยใช้เป็นตัวบ่งชี้เท่านั้น
+      </>,
+      <>
+        ย่านกำหนดจากพิกัดของประกาศ (จุดศูนย์กลางที่ใกล้ที่สุด) Airbnb ปรับพิกัดบางส่วนให้หยาบลง
+        จึงเป็นค่าประมาณ ห้องนอน/คุณสมบัติมาจากข้อความประกาศ
+      </>,
+      <>ราคาสะท้อนวันที่เก็บข้อมูลและฤดูกาล — เก็บใหม่ทุกสัปดาห์เพื่อดูแนวโน้มตามฤดูกาล</>,
+    ],
+    unlockHeadline: (n: number) => `รับรายละเอียดฉบับเต็มจาก ${n} ประกาศ`,
+    unlockBody:
+      "กรอกอีเมลแล้วรายงานฉบับเต็มจะเปิดทันที — ทุกย่าน ส่วนเพิ่มของแต่ละคุณสมบัติ ค่าห้องตามประเภทและจำนวนห้องนอน และวิธีการเบื้องหลัง ไม่มีอีเมลการตลาด เราจะติดต่อเรื่องโครงการของคุณเฉพาะเมื่อคุณขอเท่านั้น",
+    unlockSubmit: "ปลดล็อกรายงาน",
+    unlockDefaultMessage:
+      "โปรดส่งรายงานตลาดเช่าเกาะพะงันให้ฉัน ฉันสนใจสร้าง / ซื้อเพื่อปล่อยเช่า",
+  },
 } as const;
 
 export type InsLocale = keyof typeof INS;

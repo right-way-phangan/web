@@ -7,7 +7,7 @@ import { Appear } from "@/components/motion/appear";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
-  alternates: { canonical: "/process", languages: { en: "/process", ru: "/ru/process", "x-default": "/process" } },
+  alternates: { canonical: "/process", languages: { en: "/process", ru: "/ru/process", th: "/th/process", "x-default": "/process" } },
   title: "Process",
   description:
     "How a Right Way transaction unfolds: seven stages, each with a defined deliverable and a clear walk-away point.",

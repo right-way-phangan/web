@@ -40,7 +40,7 @@ export interface SellerListingInput {
   hasDocs?: boolean;
   message?: string;
   replyVia?: "whatsapp" | "telegram" | "email";
-  lang?: "en" | "ru";
+  lang?: "en" | "ru" | "th";
   utmSource?: string;
   utmMedium?: string;
   utmCampaign?: string;
@@ -78,6 +78,7 @@ export function composeSellerLead(input: SellerListingInput): ComposedLead {
     input.message ? `Owner's note:\n${input.message}` : null,
     input.replyVia ? `Reply via: ${input.replyVia}` : null,
     input.lang === "ru" ? "🗣️ Submitted on the RU site — reply in Russian" : null,
+    input.lang === "th" ? "🗣️ Submitted on the TH site — reply in Thai" : null,
     trafficLine(input),
   ].filter(Boolean);
 

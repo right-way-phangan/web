@@ -5,7 +5,8 @@ import Link from "next/link";
 import type { RealEstateObject } from "@/types/object";
 import type { ProjectAvailability } from "@/lib/data/projects";
 import { useLocale, localeHref } from "@/lib/i18n/use-locale";
-import { getProjectsDict } from "@/lib/i18n/dictionaries";
+import { getProjectsDict, type Locale } from "@/lib/i18n/dictionaries";
+import { L, intlLocale } from "@/lib/i18n/locale-path";
 import { cn } from "@/lib/utils/cn";
 import { AvailabilityBar } from "./availability-bar";
 import { CurrencyProvider, CurrencyToggle, useCurrency } from "@/components/ui/currency";
@@ -93,15 +94,15 @@ function Stat({
   );
 }
 
-function UnitRows({ units, locale }: { units: RealEstateObject[]; locale: "en" | "ru" }) {
+function UnitRows({ units, locale }: { units: RealEstateObject[]; locale: Locale }) {
   const { fmt } = useCurrency();
-  const priceOnRequest = locale === "ru" ? "Цена по запросу" : "Price on request";
+  const priceOnRequest = L(locale, { en: "Price on request", ru: "Цена по запросу", th: "สอบถามราคา" });
   const statusLabel: Record<string, string> = {
-    Active: locale === "ru" ? "Доступен" : "Available",
-    Reserved: locale === "ru" ? "Резерв" : "Reserved",
-    Sold: locale === "ru" ? "Продан" : "Sold",
-    Hold: locale === "ru" ? "Холд" : "On hold",
-    Withdrawn: locale === "ru" ? "Снят" : "Withdrawn",
+    Active: L(locale, { en: "Available", ru: "Доступен", th: "ว่าง" }),
+    Reserved: L(locale, { en: "Reserved", ru: "Резерв", th: "จองแล้ว" }),
+    Sold: L(locale, { en: "Sold", ru: "Продан", th: "ขายแล้ว" }),
+    Hold: L(locale, { en: "On hold", ru: "Холд", th: "พักการขาย" }),
+    Withdrawn: L(locale, { en: "Withdrawn", ru: "Снят", th: "ถอนประกาศ" }),
   };
   const rowClass =
     "grid grid-cols-[auto_1fr_auto] items-center gap-2 py-3 sm:grid-cols-[auto_1fr_auto_auto]";
@@ -112,7 +113,7 @@ function UnitRows({ units, locale }: { units: RealEstateObject[]; locale: "en" |
           <>
             <dt className="text-sm font-medium text-forest-900">{u.rwNumber}</dt>
             <dd className="hidden text-sm text-forest-500/70 sm:block">
-              {u.areaSqm ? `${u.areaSqm.toLocaleString(locale === "ru" ? "ru-RU" : "en-US")} m²` : u.titleEn}
+              {u.areaSqm ? `${u.areaSqm.toLocaleString(intlLocale(locale))} ${L(locale, { en: "m²", ru: "m²", th: "ตร.ม." })}` : u.titleEn}
             </dd>
             <dd className="num text-sm text-forest-900">
               {u.priceThb ? fmt(u.priceThb) : priceOnRequest}

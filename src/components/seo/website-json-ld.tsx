@@ -15,7 +15,7 @@ export function WebsiteJsonLd({ siteUrl }: { siteUrl: string }) {
     "@id": `${siteUrl}#website`,
     url: siteUrl,
     name: siteConfig.name,
-    inLanguage: ["en", "ru"],
+    inLanguage: ["en", "ru", "th"],
     publisher: { "@id": `${siteUrl}#org` },
     potentialAction: {
       "@type": "SearchAction",

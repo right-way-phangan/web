@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "Контакты",
   description:
     "Расскажите, что вы ищете на Ко Пангане. Отвечаем в течение рабочего дня.",
-  alternates: { canonical: "/ru/contact", languages: { en: "/contact", ru: "/ru/contact", "x-default": "/contact" } },
+  alternates: { canonical: "/ru/contact", languages: { en: "/contact", ru: "/ru/contact", th: "/th/contact", "x-default": "/contact" } },
 };
 
 interface PageProps {

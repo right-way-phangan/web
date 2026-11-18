@@ -40,10 +40,10 @@ function invitesIndexing(route: string): boolean {
   return !/index:\s*false|noindex/.test(source);
 }
 
-/** `/ru/about` → `/about`, `/ru` → `/` — RU-зеркало покрывается парой EN. */
+/** `/ru/about` → `/about`, `/th` → `/` — RU/TH-зеркала покрываются парой EN. */
 function route(r: string): string {
-  if (r === "/ru") return "/";
-  return r.startsWith("/ru/") ? r.slice(3) : r;
+  if (r === "/ru" || r === "/th") return "/";
+  return r.startsWith("/ru/") || r.startsWith("/th/") ? r.slice(3) : r;
 }
 
 describe("sitemap covers every indexable static page", () => {

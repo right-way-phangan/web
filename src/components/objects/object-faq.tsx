@@ -6,9 +6,11 @@ import type { ObjectType, RealEstateObject } from "@/types/object";
 import type { FaqBlock } from "@/content/faq";
 import { FAQ_ITEMS } from "@/content/faq";
 import { FAQ_ITEMS_RU } from "@/content/faq.ru";
+import { FAQ_ITEMS_TH } from "@/content/faq.th";
 import { FaqAnswer } from "@/components/faq/faq-blocks";
 import { buildabilityFaq } from "@/lib/data/zone-rules";
 import { getObjectDict, type Locale } from "@/lib/i18n/dictionaries";
+import { localePath } from "@/lib/i18n/locale-path";
 
 type FaqItem = { id: string; question: string; answer: FaqBlock[] };
 
@@ -49,6 +51,24 @@ function leaseholdFaqItems(locale: Locale): FaqItem[] {
         question: "Что происходит в конце срока лизинга?",
         answer: [
           "Земельный лизинг на Пангане оформляется на 30 лет, часто с опциями продления (ещё 30+30). По окончании срока земля и построенное на ней возвращаются собственнику, если лизинг не продлён. На сайте публикуем первые 30 лет; условия продления согласуются с собственником земли.",
+        ],
+      },
+    ];
+  }
+  if (locale === "th") {
+    return [
+      {
+        id: "lease-resale",
+        question: "สามารถขายหรือโอนสิทธิการเช่าได้หรือไม่?",
+        answer: [
+          "ได้ สิทธิการเช่าสามารถโอนให้ผู้ซื้อรายอื่นหรือส่งต่อได้ตามระยะเวลาที่เหลืออยู่ของสัญญา ภายใต้เงื่อนไขของสัญญาเช่า เราจัดโครงสร้างสัญญาเช่าให้การขายต่อหรือการโอนทำได้อย่างตรงไปตรงมา",
+        ],
+      },
+      {
+        id: "lease-end",
+        question: "เมื่อสิ้นสุดสัญญาเช่าจะเกิดอะไรขึ้น?",
+        answer: [
+          "สัญญาเช่าที่ดินบนเกาะพะงันมีระยะเวลา 30 ปี และมักระบุสิทธิต่ออายุ (อีก 30+30 ปี) เมื่อครบกำหนด ที่ดินและสิ่งปลูกสร้างบนที่ดินจะกลับคืนสู่เจ้าของ เว้นแต่จะมีการต่ออายุสัญญา เราเผยแพร่เฉพาะระยะเวลาเริ่มต้น 30 ปี ส่วนเงื่อนไขการต่ออายุตกลงกับเจ้าของที่ดิน",
         ],
       },
     ];
@@ -94,7 +114,7 @@ export function ObjectFaq({
   object?: RealEstateObject;
 }) {
   const t = getObjectDict(locale);
-  const source = locale === "ru" ? FAQ_ITEMS_RU : FAQ_ITEMS;
+  const source = locale === "ru" ? FAQ_ITEMS_RU : locale === "th" ? FAQ_ITEMS_TH : FAQ_ITEMS;
   const picked: FaqItem[] = PICKS[type]
     .map((id) => source.find((q) => q.id === id))
     .filter((q): q is NonNullable<typeof q> => !!q);
@@ -112,7 +132,7 @@ export function ObjectFaq({
   ];
   if (items.length === 0) return null;
 
-  const faqHref = (locale === "ru" ? "/ru/faq" : "/faq") as Route;
+  const faqHref = localePath(locale, "/faq") as Route;
 
   const jsonLd = {
     "@context": "https://schema.org",

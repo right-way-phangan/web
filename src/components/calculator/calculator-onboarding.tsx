@@ -4,8 +4,9 @@
  * first-time visitors and for crawlers. Copy lives here to keep EN/RU in parity.
  */
 import { SectionEyebrow } from "@/components/sections/section-eyebrow";
+import type { Locale } from "@/lib/i18n/dictionaries";
 
-const CONTENT: Record<"en" | "ru", { eyebrow: string; steps: string[] }> = {
+const CONTENT: Record<Locale, { eyebrow: string; steps: string[] }> = {
   en: {
     eyebrow: "How it works",
     steps: [
@@ -22,9 +23,17 @@ const CONTENT: Record<"en" | "ru", { eyebrow: string; steps: string[] }> = {
       "Смотрите прогноз. Поделитесь ссылкой или сохраните PDF.",
     ],
   },
+  th: {
+    eyebrow: "วิธีใช้งาน",
+    steps: [
+      "กำหนดราคา หรือเริ่มจากทรัพย์ในรายการของเรา หรือทรัพย์ของคุณเอง",
+      "ปรับการเติบโต ระยะเวลา และค่าเช่าให้ตรงกับกรณีของคุณ",
+      "ดูประมาณการ แชร์ลิงก์หรือบันทึกเป็น PDF",
+    ],
+  },
 };
 
-export function CalculatorOnboarding({ locale }: { locale: "en" | "ru" }) {
+export function CalculatorOnboarding({ locale }: { locale: Locale }) {
   const d = CONTENT[locale];
   return (
     <section aria-label={d.eyebrow} className="container-prose mt-10 md:mt-12">

@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { localeFromPath } from "@/lib/i18n/locale-path";
 
 /**
  * Keeps <html lang> in sync with the active locale. The root layout is a single
@@ -15,7 +16,7 @@ import { usePathname } from "next/navigation";
 export function HtmlLang() {
   const pathname = usePathname();
   useEffect(() => {
-    const lang = pathname?.startsWith("/ru") ? "ru" : "en";
+    const lang = localeFromPath(pathname ?? "/");
     if (document.documentElement.lang !== lang) {
       document.documentElement.lang = lang;
     }

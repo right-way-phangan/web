@@ -68,6 +68,7 @@ export async function updateObjectAction(
   revalidatePath("/listings");
   revalidatePath(`/object/${rwNumber}`);
   revalidatePath(`/ru/object/${rwNumber}`);
+  revalidatePath(`/th/object/${rwNumber}`);
   return { ok: true };
 }
 

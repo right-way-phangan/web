@@ -13,6 +13,7 @@ import { interviewTurn, rankShortlist, scriptedTurn } from "@/lib/match/llm";
 import { rateLimit } from "@/lib/ratelimit";
 import type { BuyerProfile, MatchMessage, MatchResult } from "@/types/match";
 import type { RealEstateObject } from "@/types/object";
+import type { Locale } from "@/lib/i18n/dictionaries";
 
 /**
  * RW Match — server actions разговорного подбора. Сервер stateless: клиент
@@ -32,7 +33,7 @@ const turnSchema = z.object({
   message: z.string().trim().max(1000),
   history: z.array(messageSchema).max(30).default([]),
   profile: z.record(z.string(), z.unknown()).default({}),
-  locale: z.enum(["en", "ru"]).default("en"),
+  locale: z.enum(["en", "ru", "th"]).default("en"),
 });
 
 const rerankSchema = z.object({
@@ -41,7 +42,7 @@ const rerankSchema = z.object({
     liked: z.array(z.string().max(20)).max(50).default([]),
     rejected: z.array(z.string().max(20)).max(50).default([]),
   }),
-  locale: z.enum(["en", "ru"]).default("en"),
+  locale: z.enum(["en", "ru", "th"]).default("en"),
 });
 
 export interface MatchTurnResult {
@@ -53,9 +54,10 @@ export interface MatchTurnResult {
   limited?: boolean;
 }
 
-const LIMIT_MSG: Record<"en" | "ru", string> = {
+const LIMIT_MSG: Record<Locale, string> = {
   en: "We've chatted a lot! Message us on Telegram or WhatsApp and an agent will take it from here.",
   ru: "Мы уже много обсудили! Напишите нам в Telegram или WhatsApp — дальше подключится агент.",
+  th: "เราคุยกันมาเยอะแล้ว! ส่งข้อความหาเราทาง Telegram หรือ WhatsApp แล้วนายหน้าจะดูแลต่อจากนี้",
 };
 
 /** RankedItem[]/детерминированная выдача → MatchResult[] с облегчёнными карточками. */
@@ -63,7 +65,7 @@ function toResults(
   ranked: { rw: string; fitPct: number; reason: string }[] | null,
   profile: BuyerProfile,
   candidates: RealEstateObject[],
-  locale: "en" | "ru",
+  locale: Locale,
 ): MatchResult[] {
   if (ranked) {
     return ranked

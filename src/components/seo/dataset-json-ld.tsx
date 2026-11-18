@@ -1,6 +1,8 @@
 import { siteConfig } from "@/lib/site-config";
 import { jsonLdHtml } from "@/lib/seo/json-ld";
 import type { RmMeta } from "@/lib/data/rental-market";
+import type { Locale } from "@/lib/i18n/dictionaries";
+import { L, localePath } from "@/lib/i18n/locale-path";
 
 /**
  * Dataset structured data for /insights. Turns our market analytics into a
@@ -17,37 +19,48 @@ export function DatasetJsonLd({
 }: {
   siteUrl: string;
   meta: RmMeta;
-  locale?: "en" | "ru";
+  locale?: Locale;
 }) {
-  const url = `${siteUrl}${locale === "ru" ? "/ru" : ""}/insights`;
+  const url = `${siteUrl}${localePath(locale, "/insights")}`;
 
-  const copy =
-    locale === "ru"
-      ? {
-          name: "Индекс рынка недвижимости Ко Пангана: аренда и цены на землю",
-          description:
-            "Медианные ставки аренды за ночь (ADR) и цены на землю за рай по районам Ко Пангана, наценка за бассейн и вид на море, доходность по конфигурациям. Снимок живого рынка от агентства Right Way.",
-        }
-      : {
-          name: "Koh Phangan Property Market Index: rental & land prices",
-          description:
-            "Median nightly rental rates (ADR) and land prices per rai by district on Koh Phangan, pool and sea-view price premiums, and rental yield by configuration. A live-market snapshot by Right Way Phangan.",
-        };
+  const copy = L(locale, {
+    ru: {
+      name: "Индекс рынка недвижимости Ко Пангана: аренда и цены на землю",
+      description:
+        "Медианные ставки аренды за ночь (ADR) и цены на землю за рай по районам Ко Пангана, наценка за бассейн и вид на море, доходность по конфигурациям. Снимок живого рынка от агентства Right Way.",
+    },
+    en: {
+      name: "Koh Phangan Property Market Index: rental & land prices",
+      description:
+        "Median nightly rental rates (ADR) and land prices per rai by district on Koh Phangan, pool and sea-view price premiums, and rental yield by configuration. A live-market snapshot by Right Way Phangan.",
+    },
+    th: {
+      name: "ดัชนีตลาดอสังหาริมทรัพย์เกาะพะงัน: ค่าเช่าและราคาที่ดิน",
+      description:
+        "ค่าห้องต่อคืนเฉลี่ยมัธยฐาน (ADR) และราคาที่ดินต่อไร่แยกตามย่านบนเกาะพะงัน ส่วนเพิ่มราคาสำหรับสระว่ายน้ำและวิวทะเล และผลตอบแทนค่าเช่าตามรูปแบบวิลล่า ภาพรวมตลาดปัจจุบันโดย Right Way Phangan",
+    },
+  });
 
-  const variableMeasured =
-    locale === "ru"
-      ? [
-          "Медианная ставка аренды за ночь (ADR) по районам",
-          "Цена земли за рай по районам",
-          "Наценка за бассейн и вид на море",
-          "Годовой доход и доходность по конфигурациям вилл",
-        ]
-      : [
-          "Median nightly rental rate (ADR) by district",
-          "Land price per rai by district",
-          "Pool and sea-view price premium",
-          "Annual income and rental yield by villa configuration",
-        ];
+  const variableMeasured = L(locale, {
+    ru: [
+      "Медианная ставка аренды за ночь (ADR) по районам",
+      "Цена земли за рай по районам",
+      "Наценка за бассейн и вид на море",
+      "Годовой доход и доходность по конфигурациям вилл",
+    ],
+    en: [
+      "Median nightly rental rate (ADR) by district",
+      "Land price per rai by district",
+      "Pool and sea-view price premium",
+      "Annual income and rental yield by villa configuration",
+    ],
+    th: [
+      "ค่าห้องต่อคืนมัธยฐาน (ADR) แยกตามย่าน",
+      "ราคาที่ดินต่อไร่แยกตามย่าน",
+      "ส่วนเพิ่มราคาสำหรับสระว่ายน้ำและวิวทะเล",
+      "รายได้ต่อปีและผลตอบแทนค่าเช่าตามรูปแบบวิลล่า",
+    ],
+  });
 
   const data = {
     "@context": "https://schema.org",
