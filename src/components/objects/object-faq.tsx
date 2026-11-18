@@ -50,7 +50,7 @@ function leaseholdFaqItems(locale: Locale): FaqItem[] {
         id: "lease-end",
         question: "Что происходит в конце срока лизинга?",
         answer: [
-          "Земельный лизинг на Пангане оформляется на 30 лет, часто с опциями продления (ещё 30+30). По окончании срока земля и построенное на ней возвращаются собственнику, если лизинг не продлён. На сайте публикуем первые 30 лет; условия продления согласуются с собственником земли.",
+          "Земельный лизинг на Пангане оформляется на 30 лет. По окончании срока земля и построенное на ней возвращаются собственнику, если стороны не договорились о продлении. На сайте публикуем первые 30 лет; условия продления согласуются с собственником земли.",
         ],
       },
     ];
@@ -68,7 +68,7 @@ function leaseholdFaqItems(locale: Locale): FaqItem[] {
         id: "lease-end",
         question: "เมื่อสิ้นสุดสัญญาเช่าจะเกิดอะไรขึ้น?",
         answer: [
-          "สัญญาเช่าที่ดินบนเกาะพะงันมีระยะเวลา 30 ปี และมักระบุสิทธิต่ออายุ (อีก 30+30 ปี) เมื่อครบกำหนด ที่ดินและสิ่งปลูกสร้างบนที่ดินจะกลับคืนสู่เจ้าของ เว้นแต่จะมีการต่ออายุสัญญา เราเผยแพร่เฉพาะระยะเวลาเริ่มต้น 30 ปี ส่วนเงื่อนไขการต่ออายุตกลงกับเจ้าของที่ดิน",
+          "สัญญาเช่าที่ดินบนเกาะพะงันมีระยะเวลา 30 ปี เมื่อครบกำหนด ที่ดินและสิ่งปลูกสร้างบนที่ดินจะกลับคืนสู่เจ้าของ เว้นแต่ทั้งสองฝ่ายตกลงต่ออายุ เราเผยแพร่เฉพาะระยะเวลาเริ่มต้น 30 ปี ส่วนเงื่อนไขการต่ออายุตกลงกับเจ้าของที่ดิน",
         ],
       },
     ];
@@ -85,7 +85,7 @@ function leaseholdFaqItems(locale: Locale): FaqItem[] {
       id: "lease-end",
       question: "What happens at the end of the lease?",
       answer: [
-        "A Phangan land lease runs 30 years, often written with renewal options (a further 30+30). At the end of the term the land — and anything built on it — reverts to the owner unless the lease is renewed. We publish the initial 30-year term; renewal terms are agreed with the landowner.",
+        "A Phangan land lease runs 30 years. At the end of the term the land — and anything built on it — reverts to the owner unless both sides agree an extension. We publish the initial 30-year term; renewal terms are agreed with the landowner.",
       ],
     },
   ];

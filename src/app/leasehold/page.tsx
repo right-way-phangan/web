@@ -48,8 +48,8 @@ const PILLARS = [
   },
   {
     icon: CalendarClock,
-    title: "Renewal written in (30+30)",
-    text: "Leases are structured with contractual renewals — typically framed as 30+30 — and, on the right deal, a registered option to renew or to buy the land later. The horizon stretches well past the first term.",
+    title: "Beyond 30 years — by agreement",
+    text: "We publish the registered 30-year term and price on it. Any extension past that is agreed directly with the landowner, deal by deal. We put it in writing, but it is not a guarantee.",
   },
   {
     icon: Landmark,
@@ -70,7 +70,7 @@ const FAQ = [
   },
   {
     q: "What happens when the lease ends?",
-    a: "A Thai land lease is registrable for up to 30 years at a time. Contracts are written with renewal options — usually framed as 30+30 — and, on the right deal, a registered option to renew or to buy. What's enforceable depends on the wording and the landowner, which is why the lease is part of our transaction due diligence and your lawyer's review before you sign.",
+    a: "A Thai land lease is registrable for up to 30 years at a time. Anything beyond the first 30 years is agreed with the landowner and is not guaranteed, so value the lease on 30 years. What's enforceable depends on the wording and the landowner, which is why the lease is part of our transaction due diligence and your lawyer's review before you sign.",
   },
   {
     q: "Do I actually own the villa, or just rent it?",
@@ -119,7 +119,7 @@ export default function LeaseholdPage() {
           <LeaseholdScheme
             rows={[
               { icon: "home", title: "The villa — yours", text: "Building title registered in your name." },
-              { icon: "land", title: "The land — leased", text: "30-year registered lease, renewals written into the contract." },
+              { icon: "land", title: "The land — leased", text: "30-year lease, registered at the Land Office." },
               { icon: "law", title: "The money — protected", text: "Deposit sits with the lawyer until registration day." },
             ]}
           />

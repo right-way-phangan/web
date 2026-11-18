@@ -18,7 +18,7 @@ const ARTICLES = KB_ARTICLES.map((a) => getKbArticleThBySlug(a.slug) ?? a);
 export const metadata: Metadata = {
   title: "คลังความรู้",
   description:
-    "คู่มือที่เข้าใจง่ายเรื่องการซื้ออสังหาริมทรัพย์บนเกาะพะงัน — การถือครองของชาวต่างชาติ โครงสร้างสิทธิการเช่า ผังเมืองสำหรับการก่อสร้าง และกฎที่มีผลต่อดีลจริง",
+    "คู่มือที่เข้าใจง่ายเรื่องการซื้ออสังหาริมทรัพย์บนเกาะพะงัน — โฉนดและเอกสารสิทธิ์ ค่าโอนและภาษี ผังเมืองสำหรับการก่อสร้าง การถือครองของชาวต่างชาติ และกฎที่มีผลต่อดีลจริง",
   alternates: { canonical: "/th/knowledge", languages: { en: "/knowledge", ru: "/ru/knowledge", th: "/th/knowledge", "x-default": "/knowledge" } },
 };
 
