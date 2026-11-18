@@ -14,7 +14,7 @@ import { getAboutDict } from "@/lib/i18n/dictionaries";
 export const metadata: Metadata = {
   title: "เกี่ยวกับเรา",
   description:
-    "Right Way Phangan Group — ที่ปรึกษาอสังหาริมทรัพย์บนเกาะพะงัน: ประกาศที่ตรวจสอบแล้ว การตรวจสอบสถานะ (Due Diligence) และการวิเคราะห์ตลาด",
+    "Right Way Phangan Group ทีมอสังหาริมทรัพย์บนเกาะพะงัน: คัดทรัพย์ ตรวจโฉนดและผังเมือง และดูแลผู้ซื้อจนโอนกรรมสิทธิ์ที่สำนักงานที่ดิน",
   alternates: { canonical: "/th/about", languages: { en: "/about", ru: "/ru/about", th: "/th/about", "x-default": "/about" } },
 };
 
