@@ -17,8 +17,9 @@ import { getAttribution } from "@/lib/analytics/attribution";
 import { getVid } from "@/lib/analytics/visitor";
 import { whatsappLink, telegramDmLink } from "@/lib/site-config";
 import { cn } from "@/lib/utils/cn";
+import { localePath } from "@/lib/i18n/locale-path";
 
-type Locale = "en" | "ru";
+type Locale = "en" | "ru" | "th";
 
 const initialState: SellerFormState = { status: "idle" };
 
@@ -103,6 +104,33 @@ const COPY: Record<Locale, {
     privacyLink: "политикой конфиденциальности",
     successTitle: "Принято — спасибо.",
     successLede: "Мы изучим ваш объект и вернёмся в течение рабочего дня. Также можно написать напрямую:",
+  },
+  th: {
+    name: "ชื่อของคุณ",
+    phone: "โทรศัพท์",
+    email: "อีเมล",
+    contactHint: "กรุณาระบุโทรศัพท์หรืออีเมลเพื่อให้เราติดต่อกลับ",
+    type: "ประเภททรัพย์",
+    types: { land: "ที่ดิน", villa: "วิลล่า", house: "บ้าน", apartment: "อพาร์ตเมนต์", project: "โครงการก่อนสร้างเสร็จ" },
+    location: "ทำเลบนเกาะพะงัน",
+    locationPh: "เช่น หาดยาว, ศรีธนู, โฉลกหลำ…",
+    size: "ขนาด",
+    sizePh: "เช่น 2 ไร่ หรือพื้นที่ใช้สอย 180 ตร.ม.",
+    tenure: "รูปแบบการถือครอง",
+    tenures: { freehold: "กรรมสิทธิ์ (ฟรีโฮลด์)", leasehold: "สิทธิการเช่า (ลีสโฮลด์)", either: "ฟรีโฮลด์หรือลีสโฮลด์", unsure: "ไม่แน่ใจ" },
+    tenurePick: "เลือก…",
+    price: "ราคาที่ต้องการขาย",
+    pricePh: "เช่น 8,000,000 THB — หรือต่อรองได้",
+    hasDocs: "ฉันมีเอกสารสิทธิ์ (โฉนด / สัญญาเช่า) อยู่ในมือ",
+    replyVia: "ติดต่อกลับทาง",
+    message: "ข้อมูลเพิ่มเติม (ไม่บังคับ)",
+    messagePh: "ทางเข้า สาธารณูปโภค เหตุผลที่ขาย ลิงก์รูปภาพหรือตำแหน่ง…",
+    submit: "ส่งข้อมูลทรัพย์",
+    sending: "กำลังส่ง…",
+    privacy: "การส่งข้อมูลถือว่าคุณยอมรับ",
+    privacyLink: "นโยบายความเป็นส่วนตัว",
+    successTitle: "ได้รับข้อมูลแล้ว — ขอบคุณ",
+    successLede: "เราจะตรวจสอบทรัพย์ของคุณและติดต่อกลับภายในวันทำการ หรือติดต่อเราโดยตรงได้ที่:",
   },
 };
 
@@ -296,7 +324,7 @@ export function SellerListingForm({ locale = "en" }: Props) {
       <p className="text-center text-xs text-forest-500/80">
         {t.privacy}{" "}
         <Link
-          href={(locale === "ru" ? "/ru/privacy" : "/privacy") as Route}
+          href={localePath(locale, "/privacy") as Route}
           className="underline underline-offset-2 hover:text-brass-500"
         >
           {t.privacyLink}

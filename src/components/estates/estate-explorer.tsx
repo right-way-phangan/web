@@ -9,7 +9,7 @@ import { estatePhotoPlots, estateStats, estatePriceFrom } from "@/content/land-e
 import { formatPriceCompact } from "@/lib/utils/price";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getEstatesDict } from "@/lib/i18n/dictionaries";
-import { localePath } from "@/lib/i18n/locale-path";
+import { localePath, L } from "@/lib/i18n/locale-path";
 import { cn } from "@/lib/utils/cn";
 import { Appear } from "@/components/motion/appear";
 import { ObjectLocationMap } from "@/components/objects/object-location-map";
@@ -289,7 +289,7 @@ export function EstateExplorer({ estate, locale, initialLot }: Props) {
               {priceFrom ? (
                 <span className="text-forest-900">
                   {" · "}
-                  {locale === "ru" ? "от" : "from"} {formatPriceCompact(priceFrom)}
+                  {L(locale, { en: "from", ru: "от", th: "เริ่มต้น" })} {formatPriceCompact(priceFrom)}
                 </span>
               ) : null}
             </span>

@@ -6,6 +6,7 @@ import type { LandEstate } from "@/content/land-estates";
 import { plotPriceVisible, buildPotential } from "@/content/land-estates";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getEstatesDict } from "@/lib/i18n/dictionaries";
+import { intlLocale } from "@/lib/i18n/locale-path";
 import { useEstateCurrency } from "./estate-currency";
 
 interface Props {
@@ -35,7 +36,7 @@ export function EstateCompare({ estate, codes, locale, onRemove, onClear, hidden
     .filter((p): p is NonNullable<typeof p> => Boolean(p));
 
   const fmtArea = (sqm?: number) =>
-    sqm ? `${sqm.toLocaleString(locale === "ru" ? "ru-RU" : "en-US")} m²` : "—";
+    sqm ? `${sqm.toLocaleString(intlLocale(locale))} m²` : "—";
   const fmtPrice = (code: string) => {
     const p = estate.plots.find((x) => x.code === code);
     if (!p || !plotPriceVisible(p.status)) return "—";
@@ -44,7 +45,7 @@ export function EstateCompare({ estate, codes, locale, onRemove, onClear, hidden
   const fmtPerSqm = (code: string) => {
     const p = estate.plots.find((x) => x.code === code);
     if (!p || !plotPriceVisible(p.status) || !p.priceThb || !p.areaSqm) return "—";
-    return `฿${Math.round(p.priceThb / p.areaSqm).toLocaleString(locale === "ru" ? "ru-RU" : "en-US")}`;
+    return `฿${Math.round(p.priceThb / p.areaSqm).toLocaleString(intlLocale(locale))}`;
   };
 
   const rows: { label: string; cell: (code: string) => string }[] = [
@@ -61,7 +62,7 @@ export function EstateCompare({ estate, codes, locale, onRemove, onClear, hidden
       cell: (c) => {
         const p = estate.plots.find((x) => x.code === c);
         const bp = p ? buildPotential(p) : null;
-        return bp ? `~${bp.coverageSqm.toLocaleString(locale === "ru" ? "ru-RU" : "en-US")} m²` : "—";
+        return bp ? `~${bp.coverageSqm.toLocaleString(intlLocale(locale))} m²` : "—";
       },
     },
     {

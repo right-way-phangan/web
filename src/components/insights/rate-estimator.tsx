@@ -5,6 +5,7 @@ import { track } from "@vercel/analytics";
 import { Calculator, Waves, Eye, Lock, TrendingUp, Link2, CheckCircle2 } from "lucide-react";
 import { LeadForm } from "@/components/forms/lead-form";
 import { useLocale } from "@/lib/i18n/use-locale";
+import type { Locale } from "@/lib/i18n/dictionaries";
 import { type RentalMarket, type MoneyFmt } from "@/lib/data/rental-market";
 import {
   estimateRate,
@@ -161,6 +162,76 @@ const RE = {
     urlNotFound: "Пока нет в нашей выборке — выберите параметры ниже (покрытие растёт еженедельно).",
     urlBadLink: "Это не похоже на ссылку объявления Airbnb.",
     urlError: "Сейчас не получилось прочитать — выберите параметры ниже.",
+  },
+  th: {
+    eyebrow: "ตรวจค่าห้อง",
+    title: "ทรัพย์ของคุณสร้างรายได้ได้เท่าไร?",
+    note: "เลือกทรัพย์ของคุณด้านล่างเพื่อดูค่าห้องต่อคืนและรายได้โดยประมาณทันทีจากตลาดจริง — จากนั้นปลดล็อกประมาณการรายเดือน",
+    district: "ย่าน",
+    type: "ประเภททรัพย์",
+    bedrooms: "ห้องนอน",
+    any: "ทั้งหมด",
+    studio: "สตูดิโอ",
+    br: (n: number) => `${n} ห้องนอน`,
+    pool: "สระว่ายน้ำ",
+    seaView: "วิวทะเล",
+    occupancy: "อัตราการเข้าพัก",
+    scen: {
+      conservative: "อนุรักษ์นิยม",
+      base: "พื้นฐาน",
+      high: "สูง",
+      measured: "วัดจริง",
+    } as Record<OccScenario, string>,
+    pickDistrict: "เลือกย่านเพื่อดูประมาณการ",
+    perNight: "/คืน",
+    estRate: "ค่าห้องต่อคืนโดยประมาณ",
+    range: (lo: string, hi: string) => `ช่วงปกติ ${lo}–${hi}`,
+    atOcc: (pct: number) => `ที่อัตราการเข้าพัก ${pct}%`,
+    perMonth: "รายได้ / เดือน",
+    perYear: "รายได้ / ปี (รวม)",
+    conf: { low: "กลุ่มตัวอย่างน้อย", medium: "กลุ่มตัวอย่างปานกลาง", high: "กลุ่มตัวอย่างมาก" } as Record<
+      "low" | "medium" | "high",
+      string
+    >,
+    basisLabel: {
+      districtBedrooms: (d: string, br: string) => `ทรัพย์เปรียบเทียบ ${br} ใน${d}`,
+      districtType: (d: string) => `มัธยฐานย่านปรับตามประเภท, ${d}`,
+      district: (d: string) => `มัธยฐานย่าน, ${d}`,
+      islandBedrooms: () => "มัธยฐานทั้งเกาะตามห้องนอน",
+      island: () => "มัธยฐานทั้งเกาะ",
+    } as Record<RateEstimate["basis"], (d: string, br: string) => string>,
+    basisFoot: (basis: string, n: number) =>
+      `ฐานข้อมูล: ${basis} · ${n} ประกาศ อัตราการเข้าพักเป็นสมมติฐาน — ดูวิธีการ`,
+    demandCue: (peak: string, pct: number) =>
+      `ความต้องการเพิ่มขึ้นช่วง ${peak} — ค่าห้องช่วงพีคสูงกว่าตอนนี้ประมาณ +${pct}%`,
+    demandFlat: "ความต้องการค่อนข้างคงที่ในช่วงเดือนข้างหน้า",
+    unlockTitle: "ปลดล็อกประมาณการฉบับเต็ม",
+    unlockNote:
+      "กรอกอีเมลเพื่อดูประมาณการรายได้รายเดือน ย่านของคุณเทียบกับทั้งเกาะ และมุมมองหลังหักค่าใช้จ่าย — พร้อมการวิเคราะห์ทรัพย์ของคุณโดยทีมงาน",
+    unlockSubmit: "แสดงประมาณการของฉัน",
+    forecastTitle: "ประมาณการรายได้รายเดือน",
+    forecastNote: (occ: number) =>
+      `รายได้ต่อเดือนที่อัตราการเข้าพัก ${occ}% ปรับตามความต้องการตามฤดูกาล เป็นตัวบ่งชี้จากความต้องการ ไม่ใช่ค่าห้องที่รับประกัน`,
+    compareTitle: "ย่านของคุณเทียบกับทั้งเกาะ",
+    islandMed: "มัธยฐานทั้งเกาะ",
+    netTitle: "หลังหักค่าใช้จ่าย",
+    netAnnual: "สุทธิ / ปี",
+    netAfter: "หลังหักค่าบริหาร 25%",
+    longTerm: "ค่าเช่าระยะยาว / เดือน",
+    longTermNote: "หากปล่อยเช่าระยะยาวแบบไม่มีเฟอร์นิเจอร์",
+    leadMsg: (summary: string) =>
+      `ตรวจค่าห้อง — ${summary} โปรดส่งประมาณการฉบับเต็มและการวิเคราะห์ทรัพย์นี้ให้ฉัน`,
+    summary: (p: { config: string; district: string; feats: string; nightly: string; monthly: string }) =>
+      `${p.config} ใน${p.district}${p.feats} — ประมาณ ${p.nightly}/คืน (~${p.monthly}/เดือน)`,
+    urlLabel: "ลงประกาศบน Airbnb แล้ว?",
+    urlPlaceholder: "วางลิงก์ประกาศ Airbnb ของคุณ",
+    urlCheck: "ใช้ข้อมูลจากประกาศ",
+    urlChecking: "กำลังอ่าน…",
+    urlHint: "เราเทียบกับกลุ่มตัวอย่างตลาดของเรา — ไม่มีการส่งคำขอไปยัง Airbnb",
+    urlFound: (cfg: string) => `กรอกจากประกาศของคุณแล้ว: ${cfg} ปรับแก้ด้านล่างได้`,
+    urlNotFound: "ยังไม่มีในกลุ่มตัวอย่างของเรา — เลือกรายละเอียดด้านล่าง (ความครอบคลุมเพิ่มขึ้นทุกสัปดาห์)",
+    urlBadLink: "ลิงก์นี้ดูไม่เหมือนลิงก์ประกาศ Airbnb",
+    urlError: "ขณะนี้อ่านไม่ได้ — เลือกรายละเอียดด้านล่าง",
   },
 };
 
@@ -537,7 +608,7 @@ function GatePreview({
   fmt: MoneyFmt;
   forecast: ReturnType<typeof forecastMonths>;
   t: ReDict;
-  locale: "en" | "ru";
+  locale: Locale;
   summary: string;
   onUnlock: () => void;
 }) {

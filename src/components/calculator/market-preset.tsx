@@ -40,6 +40,19 @@ const MM = {
     median: (n: number, date: string) =>
       `Медиана по ${n} объявлениям Airbnb · ${date}. Загрузка — допущение; метод — в полном отчёте.`,
   },
+  th: {
+    context: "บริบทตลาด",
+    nightlyByDistrict: "ค่าห้องต่อคืนตามพื้นที่",
+    fullReport: "รายงานฉบับเต็ม",
+    driver: (label: string, pct: number) => (
+      <>
+        ปัจจัยที่มีผลต่อราคามากที่สุด: <strong className="text-forest-900">{label}</strong> — ค่าห้องต่อคืนสูงขึ้น{" "}
+        <strong className="text-forest-900">+{pct}%</strong>
+      </>
+    ),
+    median: (n: number, date: string) =>
+      `ค่ามัธยฐานจากประกาศ Airbnb ${n} รายการ · ${date} อัตราการเข้าพักเป็นสมมติฐาน ดูวิธีการในรายงานฉบับเต็ม`,
+  },
 };
 
 /**

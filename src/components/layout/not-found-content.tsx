@@ -4,6 +4,8 @@ import Link from "next/link";
 import type { Route } from "next";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import type { Locale } from "@/lib/i18n/dictionaries";
+import { localeFromPath, localePath } from "@/lib/i18n/locale-path";
 
 const COPY = {
   en: {
@@ -24,16 +26,25 @@ const COPY = {
     home: "На главную",
     fresh: "Свежее на острове прямо сейчас",
   },
+  th: {
+    title: "ไม่พบหน้านี้",
+    lede: "ลิงก์อาจเสีย ทรัพย์อาจไม่ได้เปิดขายแล้ว หรือพิมพ์ URL ผิด หน้าด้านล่างครอบคลุมสิ่งที่คนส่วนใหญ่มองหา",
+    listings: "ดูประกาศ",
+    districts: "ย่าน",
+    faq: "คำถามที่พบบ่อย",
+    home: "หน้าแรก",
+    fresh: "ทรัพย์ใหม่บนเกาะตอนนี้",
+  },
 };
 
 /**
  * Локаль 404: явный `locale` (RU not-found под app/ru рендерится на сервере
  * уже по-русски), иначе — из URL после гидрации (корневая 404 общая).
  */
-export function useNotFoundCopy(locale?: "en" | "ru") {
+export function useNotFoundCopy(locale?: Locale) {
   const pathname = usePathname();
-  const isRu = locale ? locale === "ru" : pathname === "/ru" || pathname.startsWith("/ru/");
-  return { t: isRu ? COPY.ru : COPY.en, isRu };
+  const l = locale ?? localeFromPath(pathname);
+  return { t: COPY[l], locale: l };
 }
 
 /**
@@ -47,10 +58,10 @@ export function NotFoundContent({
   locale,
 }: {
   fresh?: React.ReactNode;
-  locale?: "en" | "ru";
+  locale?: Locale;
 }) {
-  const { t, isRu } = useNotFoundCopy(locale);
-  const home = (isRu ? "/ru" : "/") as Route;
+  const { t, locale: l } = useNotFoundCopy(locale);
+  const home = localePath(l, "/") as Route;
 
   return (
     <section className="container-prose py-24">

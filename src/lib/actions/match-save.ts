@@ -7,6 +7,7 @@ import { sanitizeProfile } from "@/lib/match/engine";
 import { makeMatchToken, verifyMatchToken } from "@/lib/match/match-token";
 import { rateLimit } from "@/lib/ratelimit";
 import type { BuyerProfile } from "@/types/match";
+import type { Locale } from "@/lib/i18n/dictionaries";
 
 /**
  * RW Match — сохранение профиля подбора и доступ к нему по HMAC-токену.
@@ -19,7 +20,7 @@ const CRM_API_URL = process.env.OBJECTS_API_URL;
 /** Сохранить профиль → вернуть токен для страницы «Мои совпадения». */
 export async function saveMatchProfile(
   rawProfile: unknown,
-  locale: "en" | "ru" = "en",
+  locale: Locale = "en",
 ): Promise<{ ok: boolean; token?: string; error?: string }> {
   if (!CRM_API_URL) return { ok: false, error: "unavailable" };
   if (!(await rateLimit("match-save", 10, 60 * 60)))

@@ -5,6 +5,7 @@ import type { LandEstate, EstatePlot } from "@/content/land-estates";
 import { estateStats, plotPriceVisible } from "@/content/land-estates";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getEstatesDict } from "@/lib/i18n/dictionaries";
+import { intlLocale, L } from "@/lib/i18n/locale-path";
 import { PlotStatusBadge } from "./plot-status-badge";
 import { useEstateCurrency } from "./estate-currency";
 
@@ -39,9 +40,9 @@ export function EstatePlanAside({ estate, plot, locale, onOpen, onEnquire }: Pro
 
           <dl className="mt-3 space-y-1.5 text-sm">
             <Row label={t.table.area}>
-              {plot.areaRai ? `${plot.areaRai} ${locale === "ru" ? "рай" : "rai"}` : null}
+              {plot.areaRai ? `${plot.areaRai} ${L(locale, { en: "rai", ru: "рай", th: "ไร่" })}` : null}
               {plot.areaRai && plot.areaSqm ? <span className="text-forest-500/45"> · </span> : null}
-              {plot.areaSqm ? `${plot.areaSqm.toLocaleString(locale === "ru" ? "ru-RU" : "en-US")} m²` : null}
+              {plot.areaSqm ? `${plot.areaSqm.toLocaleString(intlLocale(locale))} m²` : null}
             </Row>
             <Row label={t.drawer.view}>
               {plot.seaView ? (

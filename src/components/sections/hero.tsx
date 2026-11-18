@@ -8,6 +8,7 @@ import { Parallax } from "@/components/motion/parallax";
 import { Magnetic } from "@/components/motion/magnetic";
 import { AnimatedNumber } from "@/components/motion/animated-number";
 import { getHomeDict, type Locale } from "@/lib/i18n/dictionaries";
+import { localeBase } from "@/lib/i18n/locale-path";
 import { getPublicObjects } from "@/lib/data/objects";
 
 /**
@@ -45,7 +46,7 @@ export async function Hero({
 }) {
   const dict = getHomeDict(locale).hero;
   const t = getHomeDict(locale).stats;
-  const base = locale === "ru" ? "/ru" : "";
+  const base = localeBase(locale);
 
   // Live counts for the ticker. Degrade gracefully — if the catalog is
   // unreachable the numeric items simply drop, the hero still paints.

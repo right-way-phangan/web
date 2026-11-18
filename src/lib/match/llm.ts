@@ -4,6 +4,7 @@ import type { RealEstateObject } from "@/types/object";
 import { interviewerSystem, rankerSystem } from "@/lib/match/prompts";
 import { sanitizeProfile, mergeProfile, serializeCandidate } from "@/lib/match/engine";
 import { parseHeuristic } from "@/lib/search/parse-query";
+import type { Locale } from "@/lib/i18n/dictionaries";
 
 /**
  * RW Match — LLM-слой (server-only). Разговорный интервьюер и семантический
@@ -15,8 +16,6 @@ import { parseHeuristic } from "@/lib/search/parse-query";
 
 const API_URL = "https://api.anthropic.com/v1/messages";
 const MODEL = process.env.ANTHROPIC_MODEL ?? "claude-haiku-4-5-20251001";
-
-type Locale = "en" | "ru";
 
 /** Один вызов Claude → сырой текст ответа. null при отсутствии ключа или ошибке. */
 async function callClaude(
@@ -131,9 +130,9 @@ export async function rankShortlist(
 /** Извлекает быстрое сырое goal из текста (parseHeuristic его не знает). */
 function goalFrom(text: string): BuyerProfile["goal"] | undefined {
   const t = text.toLowerCase();
-  if (/\binvest|доходност|аренд.*сдав|rent out|rent-out|yield|окупа/.test(t)) return "invest";
-  if (/\blive|жить|переехать|residence|permanent|пмж/.test(t)) return "live";
-  if (/\bholiday|vacation|отпуск|дача|second home/.test(t)) return "vacation";
+  if (/\binvest|доходност|аренд.*сдав|rent out|rent-out|yield|окупа|ลงทุน|ปล่อยเช่า|ผลตอบแทน/.test(t)) return "invest";
+  if (/\blive|жить|переехать|residence|permanent|пмж|อยู่อาศัย|ย้ายมา/.test(t)) return "live";
+  if (/\bholiday|vacation|отпуск|дача|second home|พักผ่อน|วันหยุด/.test(t)) return "vacation";
   return undefined;
 }
 
@@ -160,7 +159,7 @@ function paramsToProfile(params: Record<string, string>): BuyerProfile {
  * скрипта клиент отвечает числом.
  */
 function budgetFrom(text: string): Pick<BuyerProfile, "budgetMinMThb" | "budgetMaxMThb"> | undefined {
-  const unit = "(?:m(?![²2a-zа-яё])|mio|million|млн|миллион\\w*)";
+  const unit = "(?:m(?![²2a-zа-яё])|mio|million|млн|миллион\\w*|ล้าน)";
   const t = text.toLowerCase().replace(/,/g, "");
   const range = t.match(new RegExp(`(\\d+(?:\\.\\d+)?)\\s*[-–—]\\s*(\\d+(?:\\.\\d+)?)\\s*${unit}`));
   if (range) return { budgetMinMThb: Number(range[1]), budgetMaxMThb: Number(range[2]) };
@@ -184,11 +183,19 @@ const SCRIPT: Record<Locale, string[]> = {
     "Есть предпочтительный район? (Sri Thanu, Ban Tai, Chaloklum, Haad Yao…) Или искать по всему острову?",
     "Последнее — что важнее всего? Вид на море, тишина, бассейн, ровный участок, рядом пляж?",
   ],
+  th: [
+    "สวัสดี! เราจะช่วยคุณหาทรัพย์ที่ใช่บนเกาะพะงัน ก่อนอื่น — คุณซื้อเพื่ออยู่อาศัย ลงทุน ปล่อยเช่า หรือพักผ่อนในวันหยุด?",
+    "เข้าใจแล้ว งบประมาณของคุณประมาณกี่ล้านบาท?",
+    "แล้วคุณมองหาอะไร — ที่ดิน วิลล่า บ้าน อพาร์ตเมนต์ หรือโครงการก่อนสร้างเสร็จ?",
+    "มีย่านที่ชอบไหม? (ศรีธนู, บ้านใต้, โฉลกหลำ, หาดยาว…) หรือให้ค้นหาทั่วทั้งเกาะ?",
+    "ข้อสุดท้าย — อะไรสำคัญที่สุด? วิวทะเล ความเงียบสงบ สระว่ายน้ำ ที่ดินราบ หรือใกล้ชายหาด?",
+  ],
 };
 
 const CLOSING: Record<Locale, string> = {
   en: "Perfect — let me pull the best matches for you now.",
   ru: "Отлично — сейчас подберу для вас лучшие варианты.",
+  th: "เยี่ยมเลย — เราจะค้นหาทรัพย์ที่ตรงใจคุณที่สุดให้ตอนนี้",
 };
 
 /** Заполнено ли поле, которое закрывает вопрос скрипта с тем же индексом. */

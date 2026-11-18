@@ -11,7 +11,7 @@ export interface Testimonial {
   name: string;
   /** Контекст: «купил участок в Шри Тану», «застройщик, 12 вилл» и т.п. */
   role: string;
-  lang: "en" | "ru";
+  lang: "en" | "ru" | "th";
 }
 
 export const TESTIMONIALS: Testimonial[] = [];

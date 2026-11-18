@@ -11,6 +11,7 @@
 export interface Localized {
   en: string;
   ru: string;
+  th: string;
 }
 
 export type TimelineStatus = "built" | "under-construction" | "planned";

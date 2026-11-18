@@ -6,6 +6,7 @@ import type { Locale } from "@/lib/i18n/dictionaries";
 const COPY = {
   en: { eyebrow: "In their words", title: "What clients say." },
   ru: { eyebrow: "Их словами", title: "Что говорят клиенты." },
+  th: { eyebrow: "จากปากลูกค้า", title: "ลูกค้าพูดถึงเราอย่างไร" },
 } as const;
 
 /**

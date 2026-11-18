@@ -11,14 +11,15 @@ import {
   whatsappLink,
 } from "@/lib/site-config";
 import { getChromeDict } from "@/lib/i18n/dictionaries";
+import { L, localeFromPath, localePath } from "@/lib/i18n/locale-path";
 
 const currentYear = new Date().getFullYear();
 
 export function Footer() {
   const pathname = useAppPathname();
   const isAdmin = useIsAdminRoute();
-  const isRu = pathname === "/ru" || pathname.startsWith("/ru/");
-  const chrome = getChromeDict(isRu ? "ru" : "en");
+  const locale = localeFromPath(pathname);
+  const chrome = getChromeDict(locale);
   const f = chrome.footer;
   // Колонки подвала = те же группы, что и в шапке. Первая собирает основные
   // ссылки бара и группу «Разделы», последняя добирает «Журнал».
@@ -30,20 +31,20 @@ export function Footer() {
       label: companyGroup?.label ?? "",
       items: [
         ...(companyGroup?.items ?? []),
-        { label: f.journal, href: isRu ? "/ru/blog" : "/blog" },
+        { label: f.journal, href: localePath(locale, "/blog") },
       ],
     },
   ].filter((c) => c.label && c.items.length > 0);
-  const creditsHref = (isRu ? "/ru/credits" : "/credits") as Route;
-  const creditsLabel = isRu ? "Кредиты фото" : "Photo credits";
-  const privacyHref = (isRu ? "/ru/privacy" : "/privacy") as Route;
-  const privacyLabel = isRu ? "Конфиденциальность" : "Privacy";
+  const creditsHref = localePath(locale, "/credits") as Route;
+  const creditsLabel = L(locale, { en: "Photo credits", ru: "Кредиты фото", th: "เครดิตภาพ" });
+  const privacyHref = localePath(locale, "/privacy") as Route;
+  const privacyLabel = L(locale, { en: "Privacy", ru: "Конфиденциальность", th: "ความเป็นส่วนตัว" });
 
   // The homepage ends on the full-bleed IslandCta band; let the footer sit flush
   // against it. Other pages close on light content and get a thin breath — the
   // last section already carries 96px of its own bottom padding, so the former
   // mt-32 stacked into a ~300px empty band on every page (measured 2026-08-11).
-  const isHome = pathname === "/" || pathname === "/ru";
+  const isHome = pathname === "/" || pathname === "/ru" || pathname === "/th";
 
   // Под CRM маркетинговый подвал не нужен: 21 ссылка на публичные разделы и
   // описание агентства под таблицей лидов — чистый шум. Хедер остаётся.

@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getChromeDict } from "@/lib/i18n/dictionaries";
 import { cn } from "@/lib/utils/cn";
+import { localeFromPath, localePath } from "@/lib/i18n/locale-path";
 
 /**
  * Header search: a magnifier in the chrome that hands the query to the
@@ -27,8 +28,8 @@ export function HeaderSearch({ light = false }: { light?: boolean }) {
   const [query, setQuery] = useState("");
   const router = useRouter();
   const pathname = usePathname();
-  const isRu = pathname === "/ru" || pathname.startsWith("/ru/");
-  const chrome = getChromeDict(isRu ? "ru" : "en");
+  const locale = localeFromPath(pathname);
+  const chrome = getChromeDict(locale);
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,7 +37,7 @@ export function HeaderSearch({ light = false }: { light?: boolean }) {
     if (!q) return;
     setOpen(false);
     setQuery("");
-    const base = isRu ? "/ru/listings" : "/listings";
+    const base = localePath(locale, "/listings");
     router.push(`${base}?q=${encodeURIComponent(q)}` as Route);
   };
 

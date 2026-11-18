@@ -6,6 +6,7 @@ import { combineBuildingNorms, type PlanZone } from "@/lib/data/building-norms";
 import { seaDistanceMeters } from "@/lib/geo/sea-distance";
 import { fetchTerrain } from "@/lib/geo/terrain";
 import type { Locale } from "@/lib/i18n/dictionaries";
+import { localePath } from "@/lib/i18n/locale-path";
 import { Appear } from "@/components/motion/appear";
 import { cn } from "@/lib/utils/cn";
 
@@ -57,6 +58,23 @@ const COPY = {
       "Индикативно. Использование зоны — по городскому плану Пангана; точные лимиты — из закона об охране среды (май 2025), применённого к оценённым расстоянию до моря, высоте и уклону. Точные цифры для этого участка проверяются в нашем",
     ddLink: "due diligence",
     disclaimerTail: "до любого предложения.",
+  },
+  th: {
+    heading: "สร้างอะไรได้บ้างบนที่ดินนี้",
+    zone: "โซน",
+    check: "ตรวจสอบก่อนก่อสร้าง",
+    note: "บันทึกจากนายหน้าสำหรับแปลงนี้",
+    precise: "ข้อจำกัดการก่อสร้างโดยประมาณ",
+    notBuildable: "ไม่อนุญาตให้ก่อสร้าง ณ จุดนี้",
+    basis: "คำนวณจาก",
+    sea: "ถึงทะเล",
+    elev: "ระดับความสูง",
+    slope: "ความลาดชัน",
+    estimated: "ค่าประมาณ",
+    disclaimer:
+      "ข้อมูลเบื้องต้น การใช้ประโยชน์ในโซนอ้างอิงจากผังเมืองเกาะพะงัน ส่วนข้อจำกัดที่แม่นยำมาจากกฎหมายคุ้มครองสิ่งแวดล้อม (พฤษภาคม 2025) โดยใช้ระยะถึงทะเล ระดับความสูง และความลาดชันโดยประมาณ ตัวเลขที่แน่นอนของแปลงนี้จะได้รับการตรวจสอบใน",
+    ddLink: "การตรวจสอบสถานะ (Due Diligence)",
+    disclaimerTail: "ของเราก่อนการยื่นข้อเสนอใด ๆ",
   },
 } as const;
 
@@ -112,7 +130,7 @@ export async function BuildingRules({
   if (!info && !manual && !norms) return null;
 
   const t = COPY[locale];
-  const ddHref = (locale === "ru" ? "/ru/due-diligence" : "/due-diligence") as Route;
+  const ddHref = localePath(locale, "/due-diligence") as Route;
 
   // "Based on ~120 m to sea · ~45 m elevation · ~22% slope (estimated)"
   const basisParts: string[] = [];

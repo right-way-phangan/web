@@ -38,9 +38,9 @@ export function DistanceChips({
     { poi: hospitals[0], d: Infinity },
   );
 
-  const beachName = locale === "ru" ? nearestBeach.poi.ru : nearestBeach.poi.en;
-  const townName = locale === "ru" ? THONG_SALA.ru : THONG_SALA.en;
-  const hospitalName = locale === "ru" ? nearestHospital.poi.ru : nearestHospital.poi.en;
+  const beachName = nearestBeach.poi[locale];
+  const townName = THONG_SALA[locale];
+  const hospitalName = nearestHospital.poi[locale];
 
   const chips: Array<{ icon: typeof Waves; label: string }> = [
     { icon: Waves, label: `${beachName} ≈ ${formatDistance(nearestBeach.d, locale)}` },

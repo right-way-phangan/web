@@ -3,6 +3,7 @@ import type { Route } from "next";
 import { KeyRound, ScrollText, ShieldCheck } from "lucide-react";
 import type { RealEstateObject } from "@/types/object";
 import type { Locale } from "@/lib/i18n/dictionaries";
+import { L, localeBase, localePath } from "@/lib/i18n/locale-path";
 import { Button } from "@/components/ui/button";
 import { Appear } from "@/components/motion/appear";
 
@@ -20,7 +21,7 @@ export function LeaseTermBadge({
 }) {
   const years = object.leaseTermYears;
   if (!years) return null;
-  const label = locale === "ru" ? `Лизинг ${years} лет` : `${years}-year lease`;
+  const label = L(locale, { en: `${years}-year lease`, ru: `Лизинг ${years} лет`, th: `สิทธิการเช่า ${years} ปี` });
   return (
     <span className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-brass-500/30 bg-brass-500/[0.08] px-2.5 py-0.5 text-xs font-medium text-forest-700">
       <ScrollText className="h-3.5 w-3.5 text-brass-500" aria-hidden />
@@ -48,6 +49,15 @@ const COPY = {
     year0: "Год 0",
     registered: "Лизинг зарегистрирован в Земельном офисе",
   },
+  th: {
+    heading: "สิทธิการเช่า (ลีสโฮลด์) ที่นี่ทำงานอย่างไร",
+    body: "ชาวต่างชาติไม่สามารถถือกรรมสิทธิ์ที่ดินบนเกาะพะงันได้โดยตรง แต่สามารถเป็นเจ้าของสิ่งปลูกสร้างและถือที่ดินผ่านสัญญาเช่าระยะยาวได้ ซึ่งเป็นวิธีที่ผู้ซื้อต่างชาติส่วนใหญ่ใช้ บ้านจดทะเบียนในชื่อของคุณ ส่วนที่ดินอยู่ภายใต้สัญญาเช่า",
+    model: "คำนวณสัญญาเช่านี้",
+    learn: "สิทธิการเช่าทำงานอย่างไร",
+    horizon: "ระยะเวลาสัญญาเช่า",
+    year0: "ปีที่ 0",
+    registered: "จดทะเบียนสัญญาเช่าที่สำนักงานที่ดินแล้ว",
+  },
 } as const;
 
 /**
@@ -67,10 +77,10 @@ export function LeaseholdStructure({
   if (!object.tenure?.includes("Leasehold")) return null;
   const t = COPY[locale];
   const years = object.leaseTermYears;
-  const calcHref = (`${locale === "ru" ? "/ru" : ""}/calculator?tenure=leasehold${
+  const calcHref = (`${localeBase(locale)}/calculator?tenure=leasehold${
     years ? `&lease=${years}` : ""
   }`) as Route;
-  const leaseHref = (locale === "ru" ? "/ru/leasehold" : "/leasehold") as Route;
+  const leaseHref = localePath(locale, "/leasehold") as Route;
   return (
     <Appear>
       <section className="rounded-lg border border-forest-500/15 bg-forest-500/[0.03] p-5 md:p-6">
@@ -83,13 +93,13 @@ export function LeaseholdStructure({
           <div className="mt-5">
             <div className="flex items-baseline justify-between text-xs font-medium text-forest-500/70">
               <span>{t.horizon}</span>
-              <span>{locale === "ru" ? `${years} лет` : `${years} years`}</span>
+              <span>{L(locale, { en: `${years} years`, ru: `${years} лет`, th: `${years} ปี` })}</span>
             </div>
             <div className="mt-1.5 flex items-center gap-2">
               <span className="text-[10px] text-forest-500/60">{t.year0}</span>
               <div className="h-2 flex-1 rounded-full bg-gradient-to-r from-brass-500/70 to-brass-500/15" />
               <span className="text-[10px] text-forest-500/60">
-                {locale === "ru" ? `Год ${years}` : `Year ${years}`}
+                {L(locale, { en: `Year ${years}`, ru: `Год ${years}`, th: `ปีที่ ${years}` })}
               </span>
             </div>
           </div>

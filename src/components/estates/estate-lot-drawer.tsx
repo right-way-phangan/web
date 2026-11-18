@@ -8,7 +8,7 @@ import type { LandEstate, EstatePlot } from "@/content/land-estates";
 import { plotPriceVisible, buildPotential } from "@/content/land-estates";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getEstatesDict } from "@/lib/i18n/dictionaries";
-import { localePath } from "@/lib/i18n/locale-path";
+import { localePath, intlLocale, L } from "@/lib/i18n/locale-path";
 import { whatsappLink, telegramDmLink } from "@/lib/site-config";
 import { cn } from "@/lib/utils/cn";
 import { EstateLotCarousel } from "./estate-lot-carousel";
@@ -160,9 +160,9 @@ export function EstateLotDrawer({
     priceVisible && plot.priceThb && plot.areaSqm ? Math.round(plot.priceThb / plot.areaSqm) : null;
 
   const area = plot.areaRai
-    ? `${plot.areaRai} ${locale === "ru" ? "рай" : "rai"}`
+    ? `${plot.areaRai} ${L(locale, { en: "rai", ru: "рай", th: "ไร่" })}`
     : plot.areaSqm
-      ? `${plot.areaSqm.toLocaleString(locale === "ru" ? "ru-RU" : "en-US")} m²`
+      ? `${plot.areaSqm.toLocaleString(intlLocale(locale))} m²`
       : "—";
 
   const roiHref =
@@ -194,13 +194,14 @@ export function EstateLotDrawer({
     if (Math.abs(dx) >= 60 && Math.abs(dx) > Math.abs(dy) * 1.4) navTo(dx > 0 ? -1 : 1);
   };
 
-  const ru = locale === "ru";
   // Каноническая страница лота /estates/<slug>/<code> (свой OG/мета).
   const origin = typeof window !== "undefined" ? window.location.origin : "https://rightwaygroup.co";
   const lotUrl = `${origin}${localePath(locale, `/estates/${estate.slug}/${plot.code}`)}`;
-  const waText = ru
-    ? `Здравствуйте! Интересует участок ${plot.code} — ${estateName}. ${lotUrl}`
-    : `Hi! I'm interested in plot ${plot.code} — ${estateName}. ${lotUrl}`;
+  const waText = L(locale, {
+    en: `Hi! I'm interested in plot ${plot.code} — ${estateName}. ${lotUrl}`,
+    ru: `Здравствуйте! Интересует участок ${plot.code} — ${estateName}. ${lotUrl}`,
+    th: `สวัสดี สนใจแปลง ${plot.code} — ${estateName} ${lotUrl}`,
+  });
 
   // Поделиться лотом: Web Share API → fallback в буфер обмена.
   const onShare = async () => {
@@ -283,7 +284,7 @@ export function EstateLotDrawer({
             <button
               type="button"
               onClick={onShare}
-              aria-label={locale === "ru" ? "Поделиться" : "Share"}
+              aria-label={L(locale, { en: "Share", ru: "Поделиться", th: "แชร์" })}
               className="rounded-full p-1.5 text-forest-500/70 transition-colors hover:bg-forest-500/10 hover:text-forest-900"
             >
               {copied ? <Check className="h-5 w-5 text-brass-600" /> : <Share2 className="h-5 w-5" />}
@@ -293,7 +294,7 @@ export function EstateLotDrawer({
                 <button
                   type="button"
                   onClick={() => navTo(-1)}
-                  aria-label={locale === "ru" ? "Предыдущий лот" : "Previous lot"}
+                  aria-label={L(locale, { en: "Previous lot", ru: "Предыдущий лот", th: "แปลงก่อนหน้า" })}
                   className="rounded-full p-1.5 text-forest-500/70 transition-colors hover:bg-forest-500/10 hover:text-forest-900"
                 >
                   <ChevronLeft className="h-5 w-5" />
@@ -301,7 +302,7 @@ export function EstateLotDrawer({
                 <button
                   type="button"
                   onClick={() => navTo(1)}
-                  aria-label={locale === "ru" ? "Следующий лот" : "Next lot"}
+                  aria-label={L(locale, { en: "Next lot", ru: "Следующий лот", th: "แปลงถัดไป" })}
                   className="rounded-full p-1.5 text-forest-500/70 transition-colors hover:bg-forest-500/10 hover:text-forest-900"
                 >
                   <ChevronRight className="h-5 w-5" />
@@ -311,7 +312,7 @@ export function EstateLotDrawer({
             <button
               type="button"
               onClick={close}
-              aria-label={locale === "ru" ? "Закрыть" : "Close"}
+              aria-label={L(locale, { en: "Close", ru: "Закрыть", th: "ปิด" })}
               className="rounded-full p-1.5 text-forest-500/70 transition-colors hover:bg-forest-500/10 hover:text-forest-900"
             >
               <X className="h-5 w-5" />
@@ -336,7 +337,7 @@ export function EstateLotDrawer({
                   priceLabel: priceVisible && plot.priceThb ? fmt(plot.priceThb) : null,
                 }}
                 hint
-                hintLabel={locale === "ru" ? "Листайте" : "Swipe"}
+                hintLabel={L(locale, { en: "Swipe", ru: "Листайте", th: "ปัดดูรูป" })}
               />
               <button
                 type="button"
@@ -344,7 +345,7 @@ export function EstateLotDrawer({
                 className="flex w-full items-center justify-center gap-1.5 text-xs font-medium text-forest-500/70 transition-colors hover:text-brass-600"
               >
                 <Images className="h-3.5 w-3.5" />
-                {locale === "ru" ? "Все фото участка в галерее" : "All plot photos in gallery"}
+                {L(locale, { en: "All plot photos in gallery", ru: "Все фото участка в галерее", th: "ดูรูปทั้งหมดของแปลงในแกลเลอรี" })}
               </button>
             </div>
           ) : null}
@@ -367,27 +368,23 @@ export function EstateLotDrawer({
                 accent={priceVisible && !!plot.priceThb}
               />
               <Fact label={t.drawer.view} value={plot.seaView ? `🌊 ${t.view.sea}` : `⛰ ${t.view.mountain}`} />
-              {pricePerSqm ? <Fact label={t.compare.pricePerSqm} value={`฿${pricePerSqm.toLocaleString(locale === "ru" ? "ru-RU" : "en-US")}`} /> : null}
+              {pricePerSqm ? <Fact label={t.compare.pricePerSqm} value={`฿${pricePerSqm.toLocaleString(intlLocale(locale))}`} /> : null}
             </dl>
           </div>
 
           {/* Готовность / доверие */}
           {priceVisible ? (
             <div className="flex flex-wrap gap-1.5">
-              <TrustBadge icon={ShieldCheck} label={ru ? "Проверен · DD" : "Vetted · DD"} />
-              {estate.utilities?.road ? <TrustBadge icon={RouteIcon} label={ru ? "Дорога" : "Road"} /> : null}
-              {estate.utilities?.power ? <TrustBadge icon={Zap} label={ru ? "Электричество" : "Power"} /> : null}
+              <TrustBadge icon={ShieldCheck} label={L(locale, { en: "Vetted · DD", ru: "Проверен · DD", th: "ตรวจสอบแล้ว · DD" })} />
+              {estate.utilities?.road ? <TrustBadge icon={RouteIcon} label={L(locale, { en: "Road", ru: "Дорога", th: "ถนน" })} /> : null}
+              {estate.utilities?.power ? <TrustBadge icon={Zap} label={L(locale, { en: "Power", ru: "Электричество", th: "ไฟฟ้า" })} /> : null}
               <TrustBadge
                 icon={plot.chanote === "inProgress" ? Clock : FileCheck}
                 ok={plot.chanote !== "inProgress"}
                 label={
                   plot.chanote === "inProgress"
-                    ? ru
-                      ? "Чанот в процессе"
-                      : "Title in progress"
-                    : ru
-                      ? "Чанот готов"
-                      : "Title ready"
+                    ? L(locale, { en: "Title in progress", ru: "Чанот в процессе", th: "อยู่ระหว่างออกโฉนด" })
+                    : L(locale, { en: "Title ready", ru: "Чанот готов", th: "โฉนดพร้อม" })
                 }
               />
             </div>
@@ -401,7 +398,7 @@ export function EstateLotDrawer({
               </h3>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <div className="num text-2xl text-forest-900">~{bp.coverageSqm.toLocaleString(locale === "ru" ? "ru-RU" : "en-US")} m²</div>
+                  <div className="num text-2xl text-forest-900">~{bp.coverageSqm.toLocaleString(intlLocale(locale))} m²</div>
                   <div className="mt-0.5 text-[11px] text-forest-500/60">{t.drawer.coverage}</div>
                 </div>
                 <div>
@@ -523,9 +520,9 @@ export function EstateLotDrawer({
           unoptimized
           title={plot.code}
           labels={{
-            prev: locale === "ru" ? "Назад" : "Previous",
-            next: locale === "ru" ? "Вперёд" : "Next",
-            close: locale === "ru" ? "Закрыть" : "Close",
+            prev: L(locale, { en: "Previous", ru: "Назад", th: "ก่อนหน้า" }),
+            next: L(locale, { en: "Next", ru: "Вперёд", th: "ถัดไป" }),
+            close: L(locale, { en: "Close", ru: "Закрыть", th: "ปิด" }),
           }}
         />
       ) : null}

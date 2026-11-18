@@ -6,6 +6,7 @@ import { ObjectCard } from "@/components/objects/object-card";
 import { Appear } from "@/components/motion/appear";
 import { getPublicObjects, slimObjectForCard } from "@/lib/data/objects";
 import { getHomeDict, type Locale } from "@/lib/i18n/dictionaries";
+import { L, localeBase } from "@/lib/i18n/locale-path";
 import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 
 /**
@@ -17,14 +18,14 @@ import { SectionEyebrow } from "@/components/sections/section-eyebrow";
  */
 export async function FeaturedListings({ locale = "en" }: { locale?: Locale }) {
   const dict = getHomeDict(locale).featured;
-  const base = locale === "ru" ? "/ru" : "";
+  const base = localeBase(locale);
   const allHref = `${base}/listings` as Route;
 
   const all = await getPublicObjects();
   if (all.length === 0) return null;
 
   const allLabel =
-    locale === "ru" ? `Все ${all.length} объектов` : `All ${all.length} listings`;
+    L(locale, { en: `All ${all.length} listings`, ru: `Все ${all.length} объектов`, th: `ประกาศทั้งหมด ${all.length} รายการ` });
 
   const withPhotos = all.filter((o) => o.coverImage);
   const featured = (withPhotos.length >= 6 ? withPhotos : all)

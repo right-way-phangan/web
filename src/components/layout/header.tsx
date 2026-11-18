@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { useSaved } from "@/lib/saved/saved-context";
 import { getChromeDict } from "@/lib/i18n/dictionaries";
 import type { NavGroup } from "@/lib/i18n/dictionaries";
+import { localeFromPath, localePath } from "@/lib/i18n/locale-path";
 import {
   siteConfig,
   telegramDmLink,
@@ -26,14 +27,14 @@ export function Header() {
   const { saved, ready } = useSaved();
   const savedCount = ready ? saved.length : 0;
   const pathname = useAppPathname();
-  const isRu = pathname === "/ru" || pathname.startsWith("/ru/");
-  const chrome = getChromeDict(isRu ? "ru" : "en");
-  const contactHref = (isRu ? "/ru/contact" : "/contact") as Route;
-  const savedHref = isRu ? "/ru/saved" : "/saved";
+  const locale = localeFromPath(pathname);
+  const chrome = getChromeDict(locale);
+  const contactHref = localePath(locale, "/contact") as Route;
+  const savedHref = localePath(locale, "/saved");
 
   // On the homepage the header floats transparent over the hero photo and
   // only gains its cream background after the visitor scrolls.
-  const isHome = pathname === "/" || pathname === "/ru";
+  const isHome = pathname === "/" || pathname === "/ru" || pathname === "/th";
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     if (!isHome) return;

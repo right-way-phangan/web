@@ -3,7 +3,8 @@ import Link from "next/link";
 import type { PartnerReport } from "@/lib/partner/stats";
 import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 
-type Locale = "en" | "ru";
+import type { Locale } from "@/lib/i18n/dictionaries";
+import { intlLocale, localeBase } from "@/lib/i18n/locale-path";
 type NumCol = "views7" | "views30" | "uniques30" | "clicks30" | "calc30" | "save30" | "leads30" | "leadsTotal" | "lastLeadAt";
 
 const T = {
@@ -37,13 +38,28 @@ const T = {
     ],
     open: "Открыть страницу",
   },
+  th: {
+    eyebrow: "รายงานพันธมิตร",
+    title: (n: string) => `${n} บน Right Way`,
+    lead: "ผู้ซื้อมีปฏิสัมพันธ์กับโครงการของคุณบน rightwaygroup.co อย่างไร แสดงเฉพาะตัวเลขสถิติ — Right Way เป็นผู้คัดกรองและดูแลลูกค้า ชื่อและเบอร์โทรศัพท์เก็บไว้กับเรา",
+    asOf: (d: string) => `ข้อมูล ณ ${d}, Asia/Bangkok ช่วง 30 วันล่าสุด เว้นแต่ระบุไว้เป็นอย่างอื่น`,
+    tiles: { views30: "การเข้าชมหน้า 30 วัน", uniques30: "ผู้เข้าชมไม่ซ้ำ 30 วัน", clicks30: "การคลิกติดต่อ 30 วัน", leads30: "คำขอ 30 วัน" },
+    cols: { project: "โครงการ", views7: "เข้าชม 7 วัน", views30: "เข้าชม 30 วัน", uniques30: "ผู้เข้าชม", clicks30: "คลิกติดต่อ", calc30: "เครื่องคำนวณ ROI", save30: "บันทึกไว้", leads30: "คำขอ 30 วัน", leadsTotal: "คำขอทั้งหมด", lastLeadAt: "คำขอล่าสุด" },
+    empty: "ยังไม่มีโครงการที่เผยแพร่",
+    notes: [
+      "การเข้าชมหน้านับจากการเปิดหน้าโครงการและยูนิตบนเว็บไซต์ ผู้เข้าชมไม่ซ้ำคือรหัสเบราว์เซอร์แบบไม่ระบุตัวตน ไม่มีข้อมูลส่วนบุคคล",
+      "การคลิกติดต่อคือการแตะ WhatsApp, Telegram, โทรศัพท์ หรืออีเมลบนหน้าโครงการ เครื่องคำนวณ ROI คือการเปิดเครื่องคำนวณผลตอบแทน บันทึกไว้คือการเพิ่มในรายการที่บันทึกไว้",
+      "คำขอคือคำขอจากผู้ซื้อที่ Right Way ได้รับสำหรับโครงการนี้ รวมถึงยูนิตต่าง ๆ เราคัดกรองทุกรายก่อนแนะนำ",
+    ],
+    open: "เปิดหน้า",
+  },
 } as const;
 
-const fmt = (n: number, locale: Locale) => n.toLocaleString(locale === "ru" ? "ru-RU" : "en-GB");
+const fmt = (n: number, locale: Locale) => n.toLocaleString(intlLocale(locale, "en-GB"));
 
 export function PartnerReportView({ report, locale }: { report: PartnerReport; locale: Locale }) {
   const t = T[locale];
-  const base = locale === "ru" ? "/ru" : "";
+  const base = localeBase(locale);
   const tiles: (keyof typeof t.tiles)[] = ["views30", "uniques30", "clicks30", "leads30"];
   const cols: NumCol[] = ["views7", "views30", "uniques30", "clicks30", "calc30", "save30", "leads30", "leadsTotal", "lastLeadAt"];
 

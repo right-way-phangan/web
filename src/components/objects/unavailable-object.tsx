@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { thumbFromProxiedUrl } from "@/lib/storage/r2-public";
 import { RelatedListings } from "@/components/objects/related-listings";
 import { getObjectDict, type Locale } from "@/lib/i18n/dictionaries";
+import { localePath } from "@/lib/i18n/locale-path";
 import { BLUR_PLACEHOLDER } from "@/lib/utils/blur";
 
 interface Props {
@@ -30,8 +31,8 @@ export function UnavailableObject({ object, catalog, locale }: Props) {
       : object.status === "Reserved"
         ? t.unavail.reserved
         : t.unavail.generic;
-  const listingsHref = (locale === "ru" ? "/ru/listings" : "/listings") as Route;
-  const contactHref = (locale === "ru" ? "/ru/contact" : "/contact") as Route;
+  const listingsHref = localePath(locale, "/listings") as Route;
+  const contactHref = localePath(locale, "/contact") as Route;
 
   return (
     <article className="container-prose py-12 md:py-16">

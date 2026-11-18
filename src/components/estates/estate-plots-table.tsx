@@ -5,6 +5,7 @@ import type { LandEstate, EstatePlot } from "@/content/land-estates";
 import { plotPriceVisible } from "@/content/land-estates";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getEstatesDict } from "@/lib/i18n/dictionaries";
+import { intlLocale, L } from "@/lib/i18n/locale-path";
 import { cn } from "@/lib/utils/cn";
 import { AvailabilityBar } from "@/components/projects/availability-bar";
 import { PlotStatusBadge } from "./plot-status-badge";
@@ -102,9 +103,9 @@ function PlotRow({
   const taken = plot.status === "sold" || plot.status === "rented";
 
   const area = plot.areaRai
-    ? `${plot.areaRai} ${locale === "ru" ? "рай" : "rai"}`
+    ? `${plot.areaRai} ${L(locale, { en: "rai", ru: "рай", th: "ไร่" })}`
     : plot.areaSqm
-      ? `${plot.areaSqm.toLocaleString(locale === "ru" ? "ru-RU" : "en-US")} m²`
+      ? `${plot.areaSqm.toLocaleString(intlLocale(locale))} m²`
       : "—";
 
   const priceNode = plotPriceVisible(plot.status) ? (
@@ -158,7 +159,7 @@ function PlotRow({
         {plot.chanote === "inProgress" ? (
           <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-brass-500/12 px-2 py-0.5 align-middle text-[10px] font-medium text-brass-700">
             <Clock className="h-3 w-3" />
-            {locale === "ru" ? "чанот в процессе" : "title in progress"}
+            {L(locale, { en: "title in progress", ru: "чанот в процессе", th: "อยู่ระหว่างออกโฉนด" })}
           </span>
         ) : null}
         {plot.note ? (

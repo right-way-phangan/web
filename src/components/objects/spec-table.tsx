@@ -2,6 +2,7 @@
 
 import type { RealEstateObject } from "@/types/object";
 import { useLocale } from "@/lib/i18n/use-locale";
+import { intlLocale } from "@/lib/i18n/locale-path";
 import { getObjectDict, getListingsDict, type ObjectDict } from "@/lib/i18n/dictionaries";
 import { useCurrency } from "@/components/ui/currency";
 
@@ -130,7 +131,7 @@ export function SpecTable({ object }: { object: RealEstateObject }) {
   const locale = useLocale();
   const t = getObjectDict(locale);
   const typeName = getListingsDict(locale).types[object.type];
-  const numberLocale = locale === "ru" ? "ru-RU" : "en-US";
+  const numberLocale = intlLocale(locale);
   const { fmt, fmtFull } = useCurrency();
   const groups = buildGroups(object, t, typeName, numberLocale, fmt, fmtFull);
 

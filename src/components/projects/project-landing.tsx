@@ -28,7 +28,7 @@ import { getAllObjects } from "@/lib/data/objects";
 import { buildObjectDescription } from "@/lib/generate/object-description";
 import { formatPriceTHB } from "@/lib/utils/price";
 import { updateDate, countPhotos } from "@/lib/utils/construction";
-import { localePath } from "@/lib/i18n/locale-path";
+import { localePath, L } from "@/lib/i18n/locale-path";
 import { ObjectGallery } from "@/components/objects/object-gallery";
 import { ObjectLocationMap } from "@/components/objects/object-location-map";
 import { InquiryForm } from "@/components/objects/inquiry-form";
@@ -166,7 +166,7 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
     `/projects/${projectSlug(project, allProjects)}/construction`,
   ) as Route;
   const homeHref = localePath(locale, "/") as Route;
-  const projectsCrumb = locale === "ru" ? "Проекты" : "Projects";
+  const projectsCrumb = L(locale, { en: "Projects", ru: "Проекты", th: "โครงการ" });
 
   return (
     <article className="container-prose py-8 md:py-10">
@@ -226,7 +226,7 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
               <div className="mt-6 rounded-bezel bg-cream-200/50 p-1.5 ring-1 ring-forest-900/5">
                 <div className="rounded-core bg-cream-50 p-5 shadow-bezel">
                   <h3 className="mb-2 text-[0.8125rem] font-medium uppercase tracking-eyebrow text-brass-500">
-                    {locale === "ru" ? "Площади" : "Areas"}
+                    {L(locale, { en: "Areas", ru: "Площади", th: "พื้นที่ใช้สอย" })}
                   </h3>
                   <p className="text-sm leading-relaxed text-forest-500/85">{project.areaNote}</p>
                 </div>
@@ -332,7 +332,7 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
                   <Row label={t.sections.leasePrepayment} value={formatPriceTHB(project.leasePrepayment)} />
                 ) : null}
                 {project.furnishing ? (
-                  <Row label={locale === "ru" ? "Меблировка" : "Furnishing"} value={project.furnishing} />
+                  <Row label={L(locale, { en: "Furnishing", ru: "Меблировка", th: "การตกแต่งเฟอร์นิเจอร์" })} value={project.furnishing} />
                 ) : null}
               </dl>
               {hasReturns ? (
@@ -340,7 +340,7 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
                   href="#returns"
                   className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-brass-600 underline-offset-2 transition-colors hover:text-brass-700 hover:underline"
                 >
-                  {locale === "ru" ? "Посчитать доходность →" : "See ROI projection →"}
+                  {L(locale, { en: "See ROI projection →", ru: "Посчитать доходность →", th: "ดูประมาณการ ROI →" })}
                 </a>
               ) : null}
               {project.paymentTerms ? (
@@ -413,7 +413,11 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
                   marketSeed={(() => {
                     const s = objectCalcSeed(getRentalMarket(), project.district, null, "villa");
                     if (!s) return null;
-                    return locale === "ru" ? { ...s, basis: `объявления района ${project.district}` } : s;
+                    return L(locale, {
+                      en: s,
+                      ru: { ...s, basis: `объявления района ${project.district}` },
+                      th: { ...s, basis: `ประกาศในย่าน ${project.district}` },
+                    });
                   })()}
                 />
                 </CalculatorDisclosure>
@@ -433,9 +437,11 @@ export async function ProjectLanding({ project, catalog, locale }: Props) {
                     }
                     className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-brass-600 underline-offset-2 transition-colors hover:text-brass-700 hover:underline"
                   >
-                    {locale === "ru"
-                      ? "Открыть в полном калькуляторе — со сравнением по каталогу →"
-                      : "Open in the full calculator — compare against the catalogue →"}
+                    {L(locale, {
+                      en: "Open in the full calculator — compare against the catalogue →",
+                      ru: "Открыть в полном калькуляторе — со сравнением по каталогу →",
+                      th: "เปิดในเครื่องคำนวณแบบเต็ม — เปรียบเทียบกับรายการทรัพย์ →",
+                    })}
                   </Link>
                 ) : null}
               </div>
@@ -580,13 +586,15 @@ function EnquireDisclosure({
     <details id="enquire" className="group mt-16 scroll-mt-32 print:hidden md:mt-20">
       <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-sm border border-forest-500/10 bg-cream-50 px-5 py-4 transition-colors hover:border-brass-500/40 [&::-webkit-details-marker]:hidden">
         <span className="text-sm text-forest-500/85">
-          {locale === "ru" ? "Заинтересовал проект?" : "Interested in this project?"}
+          {L(locale, { en: "Interested in this project?", ru: "Заинтересовал проект?", th: "สนใจโครงการนี้?" })}
           {/* Хвост подписи — только с sm: на 390px он ломал строку-переключатель
               на три строки. */}
           <span className="hidden sm:inline">
-            {locale === "ru"
-              ? " Задайте вопрос или запишитесь на просмотр"
-              : " Ask a question or book a viewing"}
+            {L(locale, {
+              en: " Ask a question or book a viewing",
+              ru: " Задайте вопрос или запишитесь на просмотр",
+              th: " สอบถามหรือนัดชมโครงการ",
+            })}
           </span>
         </span>
         <span className="inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-brass-600">

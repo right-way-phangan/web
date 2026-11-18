@@ -7,6 +7,7 @@ import { getChromeDict } from "@/lib/i18n/dictionaries";
 import { whatsappLink, telegramDmLink } from "@/lib/site-config";
 import { hasMobileCtaBar } from "@/components/objects/mobile-cta-bar";
 import { cn } from "@/lib/utils/cn";
+import { localeFromPath } from "@/lib/i18n/locale-path";
 
 /**
  * Mobile-only floating "message us" button: one tap opens WhatsApp / Telegram
@@ -20,8 +21,8 @@ export function MessengerFab() {
   // перекрывала CTA hero на мобильном (SSR рендерит null — гидрация чистая).
   const [shown, setShown] = useState(false);
   const pathname = usePathname();
-  const isRu = pathname === "/ru" || pathname.startsWith("/ru/");
-  const chrome = getChromeDict(isRu ? "ru" : "en");
+  const locale = localeFromPath(pathname);
+  const chrome = getChromeDict(locale);
 
   useEffect(() => {
     const onScroll = () => setShown(window.scrollY > window.innerHeight * 0.6);

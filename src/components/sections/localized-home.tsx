@@ -13,6 +13,7 @@ import { Reveal } from "@/components/sections/reveal";
 import { Appear } from "@/components/motion/appear";
 import { Magnetic } from "@/components/motion/magnetic";
 import type { HomeDict, Locale } from "@/lib/i18n/dictionaries";
+import { localeBase } from "@/lib/i18n/locale-path";
 import { SectionEyebrow } from "@/components/sections/section-eyebrow";
 
 const TOOL_ICONS = [Calculator, Scale, BarChart3] as const;
@@ -29,7 +30,7 @@ const TOOL_ICONS = [Calculator, Scale, BarChart3] as const;
  * cards, cinematic scroll reveals, sand/teal/amber palette.
  */
 export function LocalizedHome({ dict, locale }: { dict: HomeDict; locale: Locale }) {
-  const base = locale === "ru" ? "/ru" : "";
+  const base = localeBase(locale);
   const browseHref = `${base}/listings` as Route;
   const contactHref = `${base}/contact` as Route;
 

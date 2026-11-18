@@ -48,7 +48,7 @@ export interface EstatePlot {
   /** Статус чанота (тайтл-дид): «ready» (по умолчанию) или «inProgress». */
   chanote?: "ready" | "inProgress";
   /** Короткая бейзлайн-заметка по лоту (двуязычно). */
-  note?: { en: string; ru: string };
+  note?: { en: string; ru: string; th: string };
   /**
    * Фото лота — пути под /public (например /images/estates/<slug>/r7-1.jpg).
    * Рендерятся в секции «Галерея» сгруппированными по лоту. Пока файлов нет —
@@ -80,13 +80,13 @@ export interface LandEstate {
   slug: string;
   /** Публикуется ли на сайте. false → черновик, в индекс/маршруты не попадает. */
   published: boolean;
-  name: { en: string; ru: string };
+  name: { en: string; ru: string; th: string };
   /** Название района — должно совпадать со значением DISTRICT в amoCRM (для ссылки «все объекты района»). */
   district: string;
   /** Подзаголовок-слоган. */
-  tagline: { en: string; ru: string };
+  tagline: { en: string; ru: string; th: string };
   /** Описание подборки — массив абзацев. */
-  description: { en: string[]; ru: string[] };
+  description: { en: string[]; ru: string[]; th: string[] };
   /** Обложка: путь под /public (например /images/estates/<slug>/cover.jpg) или абсолютный URL. */
   cover?: string;
   lat?: number;
@@ -96,7 +96,7 @@ export interface LandEstate {
   /** Суммарная площадь подборки, рай (для шапки). Если не задано — суммируется из лотов. */
   totalAreaRai?: number;
   /** Преимущества подборки (буллеты). */
-  highlights?: { en: string; ru: string }[];
+  highlights?: { en: string; ru: string; th: string }[];
   /** Готовность инфраструктуры (estate-wide) — для бейджей доверия на лотах. */
   utilities?: { road?: boolean; power?: boolean; water?: boolean };
   /** Схема плана разбивки (опц.) — рендерится EstateSitePlan, если задана и у лотов есть plotShape. */
@@ -122,11 +122,13 @@ export const LAND_ESTATES: LandEstate[] = [
     name: {
       en: "Haad Yao Hillside — plot collection",
       ru: "Хад Яо, холмы — подборка участков",
+      th: "เนินเขาหาดยาว — รวมแปลงที่ดิน",
     },
     district: "Haad Yao",
     tagline: {
       en: "Sunset sea-view and mountain-view building plots from one owner on the same hillside — bought individually.",
       ru: "Участки под застройку с видом на закатное море и на горы от одного собственника на одном склоне — покупка по отдельности.",
+      th: "แปลงที่ดินพร้อมปลูกสร้าง วิวทะเลยามพระอาทิตย์ตกและวิวภูเขา จากเจ้าของรายเดียวบนเนินเขาเดียวกัน — ซื้อแยกแปลงได้",
     },
     description: {
       en: [
@@ -137,16 +139,20 @@ export const LAND_ESTATES: LandEstate[] = [
         "Склон над Хад Яо на западном берегу Пангана, разбитый одним собственником на участки под застройку в два ряда. Верхний ряд R открывает закатный вид на море 360° — на Хад Яо, Хад Салад и морской парк Анг Тонг; ряд M расположен чуть ниже, с видом на зелёные горы и долину. Подборку дополняет отдельный премиум-лот C10 на границе с охраняемой сельхозземлёй. По всей территории уже проложены бетонные дороги и подземное трёхфазное электричество.",
         "Все лоты — от одного надёжного собственника, поэтому due diligence упрощён, и перед любым резервом мы проверяем индивидуальный чанот по каждому лоту. Здесь это важно: не на каждый лот чанот уже оформлен (по M10 перевод в чанот ещё идёт, см. заметку к лоту). Доступность отслеживаем вживую ниже — по мере продажи лоты помечаются, поддерживаем актуальность.",
       ],
+      th: [
+        "เนินเขาเหนือหาดยาวบนชายฝั่งตะวันตกของเกาะพะงัน แบ่งโดยเจ้าของรายเดียวเป็นแปลงพร้อมปลูกสร้างสองแถว แถว R ด้านบนเปิดรับวิวทะเลยามพระอาทิตย์ตก 360° มองเห็นหาดยาว หาดสลัด และอุทยานแห่งชาติหมู่เกาะอ่างทอง ส่วนแถว M อยู่ต่ำลงมาเล็กน้อย พร้อมวิวภูเขาและหุบเขาเขียวขจี เสริมด้วยแปลงพรีเมียมแยกต่างหาก (C10) ซึ่งติดกับพื้นที่เกษตรกรรมที่ได้รับการคุ้มครอง ทั้งโครงการมีถนนคอนกรีตและไฟฟ้าสามเฟสใต้ดินพร้อมแล้ว",
+        "ทุกแปลงมาจากเจ้าของรายเดียวที่เชื่อถือได้ การตรวจสอบสถานะ (Due Diligence) จึงคล่องตัวขึ้น และก่อนการจองทุกครั้ง เราตรวจสอบโฉนดของแต่ละแปลงทีละแปลง ขั้นตอนนี้สำคัญ เพราะยังไม่ใช่ทุกแปลงที่มีโฉนดสมบูรณ์ (แปลง M10 ยังอยู่ระหว่างการออกโฉนด ดูหมายเหตุของแปลงนั้น) สถานะว่างอัปเดตแบบเรียลไทม์ด้านล่าง — เมื่อแปลงใดขายแล้วจะมีการระบุไว้ และเราอัปเดตข้อมูลให้เป็นปัจจุบันเสมอ",
+      ],
     },
     cover: "/images/estates/haad-yao-hillside/r7-2.jpg", // закатный кадр R7
     lat: 9.776124,
     lng: 99.975139,
     locationUrl: "https://maps.google.com/?q=9.776124,99.975139",
     highlights: [
-      { en: "One owner across the hillside — DD streamlined", ru: "Один собственник на весь склон — DD упрощён" },
-      { en: "Two view tiers: sunset sea-view (R) & mountain-view (M)", ru: "Два ряда: закатный вид на море (R) и вид на горы (M)" },
-      { en: "Concrete roads + underground 3-phase power in place", ru: "Бетонные дороги + подземное 3-фазное электричество готовы" },
-      { en: "Individual Chanote verified per lot before reservation", ru: "Индивидуальный чанот проверяем по каждому лоту до резерва" },
+      { en: "One owner across the hillside — DD streamlined", ru: "Один собственник на весь склон — DD упрощён", th: "เจ้าของรายเดียวทั้งเนินเขา — การตรวจสอบสถานะคล่องตัว" },
+      { en: "Two view tiers: sunset sea-view (R) & mountain-view (M)", ru: "Два ряда: закатный вид на море (R) и вид на горы (M)", th: "วิวสองระดับ: วิวทะเลยามพระอาทิตย์ตก (R) และวิวภูเขา (M)" },
+      { en: "Concrete roads + underground 3-phase power in place", ru: "Бетонные дороги + подземное 3-фазное электричество готовы", th: "ถนนคอนกรีต + ไฟฟ้า 3 เฟสใต้ดินพร้อมใช้งาน" },
+      { en: "Individual Chanote verified per lot before reservation", ru: "Индивидуальный чанот проверяем по каждому лоту до резерва", th: "ตรวจสอบโฉนดของแต่ละแปลงก่อนการจอง" },
     ],
     // Схема разбивки по реальному мастер-плану NXS (топология лотов, не кадастр):
     // R9 — большой верхний лот-«шея», правым основанием примыкает к M1; ниже
@@ -182,6 +188,7 @@ export const LAND_ESTATES: LandEstate[] = [
         note: {
           en: "Flat ridge-top platform, 360° sunset sea view. Chanote confirmed.",
           ru: "Ровная площадка на гребне, закатный вид на море 360°. Чанот подтверждён.",
+          th: "ลานราบบนสันเขา วิวทะเลยามพระอาทิตย์ตก 360° ยืนยันโฉนดแล้ว",
         },
         photos: [
           "/images/estates/haad-yao-hillside/r1-1.jpg",
@@ -233,6 +240,7 @@ export const LAND_ESTATES: LandEstate[] = [
         note: {
           en: "Double-bay view (Haad Yao + Haad Salad), large flat areas & granite boulders. Chanote confirmed.",
           ru: "Вид на две бухты (Хад Яо + Хад Салад), большие ровные площадки и гранитные валуны. Чанот подтверждён.",
+          th: "วิวสองอ่าว (หาดยาว + หาดสลัด) พื้นที่ราบกว้างและหินแกรนิตก้อนใหญ่ ยืนยันโฉนดแล้ว",
         },
         photos: [
           "/images/estates/haad-yao-hillside/r7-1.jpg",
@@ -256,6 +264,7 @@ export const LAND_ESTATES: LandEstate[] = [
         note: {
           en: "Large R-row lot, sunset sea view.",
           ru: "Большой лот ряда R, закатный вид на море.",
+          th: "แปลงขนาดใหญ่ในแถว R วิวทะเลยามพระอาทิตย์ตก",
         },
         // photos: ["/images/estates/haad-yao-hillside/r8-1.jpg", ...],
       },
@@ -272,6 +281,7 @@ export const LAND_ESTATES: LandEstate[] = [
         note: {
           en: "Largest plot in the collection — nearly 5 rai, sunset sea view.",
           ru: "Самый большой лот подборки — почти 5 рай, закатный вид на море.",
+          th: "แปลงใหญ่ที่สุดในโครงการ — เกือบ 5 ไร่ วิวทะเลยามพระอาทิตย์ตก",
         },
         // photos: ["/images/estates/haad-yao-hillside/r9-1.jpg", ...],
       },
@@ -288,6 +298,7 @@ export const LAND_ESTATES: LandEstate[] = [
         note: {
           en: "Sea view from the upper part, quiet end of the loop road.",
           ru: "Вид на море из верхней части, тихий конец кольцевой дороги.",
+          th: "วิวทะเลจากส่วนบนของแปลง อยู่ปลายถนนวงรอบที่เงียบสงบ",
         },
         photos: [
           "/images/estates/haad-yao-hillside/r10-2.jpg",
@@ -319,6 +330,7 @@ export const LAND_ESTATES: LandEstate[] = [
         note: {
           en: "Mountain & valley view; Chanote being confirmed.",
           ru: "Вид на горы и долину; чанот уточняется.",
+          th: "วิวภูเขาและหุบเขา อยู่ระหว่างยืนยันโฉนด",
         },
         photos: [
           "/images/estates/haad-yao-hillside/m1-1.jpg",
@@ -342,6 +354,7 @@ export const LAND_ESTATES: LandEstate[] = [
         note: {
           en: "Mountain & valley view; Chanote being confirmed.",
           ru: "Вид на горы и долину; чанот уточняется.",
+          th: "วิวภูเขาและหุบเขา อยู่ระหว่างยืนยันโฉนด",
         },
         photos: [
           "/images/estates/haad-yao-hillside/m2-1.jpg",
@@ -382,6 +395,7 @@ export const LAND_ESTATES: LandEstate[] = [
         note: {
           en: "Largest M-row lot; mountain & valley view. Chanote being confirmed.",
           ru: "Самый большой лот ряда M; вид на горы и долину. Чанот уточняется.",
+          th: "แปลงใหญ่ที่สุดในแถว M วิวภูเขาและหุบเขา อยู่ระหว่างยืนยันโฉนด",
         },
         photos: [
           "/images/estates/haad-yao-hillside/m5-1.jpg",
@@ -404,6 +418,7 @@ export const LAND_ESTATES: LandEstate[] = [
         note: {
           en: "Mountain & valley view. Chanote being confirmed.",
           ru: "Вид на горы и долину. Чанот уточняется.",
+          th: "วิวภูเขาและหุบเขา อยู่ระหว่างยืนยันโฉนด",
         },
         photos: [
           "/images/estates/haad-yao-hillside/m6-1.jpg",
@@ -427,6 +442,7 @@ export const LAND_ESTATES: LandEstate[] = [
         note: {
           en: "Mountain & valley view. Chanote being confirmed.",
           ru: "Вид на горы и долину. Чанот уточняется.",
+          th: "วิวภูเขาและหุบเขา อยู่ระหว่างยืนยันโฉนด",
         },
         photos: [
           "/images/estates/haad-yao-hillside/m7-1.jpg",
@@ -449,6 +465,7 @@ export const LAND_ESTATES: LandEstate[] = [
         note: {
           en: "Compact M-row lot; mountain & valley view. Chanote being confirmed.",
           ru: "Компактный лот ряда M; вид на горы и долину. Чанот уточняется.",
+          th: "แปลงขนาดกะทัดรัดในแถว M วิวภูเขาและหุบเขา อยู่ระหว่างยืนยันโฉนด",
         },
         photos: [
           "/images/estates/haad-yao-hillside/m8-2.jpg",
@@ -480,6 +497,7 @@ export const LAND_ESTATES: LandEstate[] = [
         note: {
           en: "Mountain view. Chanote conversion still in progress — title is under the parent deed for now (verify before reserving).",
           ru: "Вид на горы. Перевод в чанот ещё идёт — пока титул в составе родительского (проверить до резерва).",
+          th: "วิวภูเขา อยู่ระหว่างการออกโฉนด — ปัจจุบันกรรมสิทธิ์ยังอยู่ภายใต้โฉนดแปลงแม่ (ควรตรวจสอบก่อนจอง)",
         },
         photos: [
           "/images/estates/haad-yao-hillside/m10-2.jpg",
@@ -501,6 +519,7 @@ export const LAND_ESTATES: LandEstate[] = [
         note: {
           en: "Standalone premium sunset plot (separate Chanote), bordering 37 rai of protected agricultural land — open views that stay.",
           ru: "Отдельный премиум-лот с закатным видом (свой чанот), граничит с 37 рай охраняемой сельхозземли — открытый вид сохранится.",
+          th: "แปลงพรีเมียมแยกต่างหาก วิวพระอาทิตย์ตก (มีโฉนดของตัวเอง) ติดกับพื้นที่เกษตรกรรมคุ้มครอง 37 ไร่ — วิวเปิดโล่งที่จะคงอยู่ตลอดไป",
         },
         // photos: ["/images/estates/haad-yao-hillside/c10-1.jpg", ...],
       },

@@ -1,5 +1,6 @@
 import { Info } from "lucide-react";
 import type { Locale } from "@/lib/i18n/dictionaries";
+import { intlLocale } from "@/lib/i18n/locale-path";
 import { formatPriceTHB } from "@/lib/utils/price";
 import { ECONOMICS_LABELS, type ProjectEconomics } from "@/content/projects/economics";
 import { cn } from "@/lib/utils/cn";
@@ -18,7 +19,7 @@ export function DeveloperEconomics({
 }) {
   const t = ECONOMICS_LABELS[locale];
   const { formats } = economics;
-  const pct = (n: number) => `${n.toLocaleString(locale === "ru" ? "ru-RU" : "en-US")}%`;
+  const pct = (n: number) => `${n.toLocaleString(intlLocale(locale))}%`;
 
   const rows: Array<{ label: string; value: (f: (typeof formats)[number]) => string; strong?: boolean; negative?: boolean }> = [
     { label: t.entry, value: (f) => formatPriceTHB(f.entryThb) },

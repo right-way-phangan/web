@@ -46,6 +46,22 @@ const DD = {
     reviews: (n: number) => `${n} отзывов (медиана)`,
     empty: "",
   },
+  th: {
+    occEyebrow: "จองแล้วขณะนี้",
+    occTitle: "อัตราการเข้าพักตามย่าน",
+    occNote:
+      "สัดส่วนของ ~90 วันข้างหน้าที่ไม่ว่างแล้ว วัดจากปฏิทินประกาศจริง (เฉพาะประกาศที่ใช้งานอยู่ รีวิว ≥5) เป็นภาพความต้องการปัจจุบัน ไม่ใช่ตัวเลขทั้งปี",
+    occSub: (n: number) => `วัดจากประกาศที่ใช้งานอยู่ ${n} รายการ`,
+    coverage: (measured: number, total: number) =>
+      `วัดแล้ว ${measured} จาก ${total} ย่าน — ความครอบคลุมเพิ่มขึ้นทุกสัปดาห์`,
+    qualEyebrow: "แขกกลับมาที่ไหน",
+    qualTitle: "คุณภาพความต้องการตามย่าน",
+    qualNote:
+      "สัดส่วน guest favorite (ป้ายประกาศยอดนิยมของ Airbnb) และจำนวนรีวิวมัธยฐาน — ตัวบ่งชี้ว่าย่านนั้นดึงดูดและรักษาแขกได้ดีเพียงใด",
+    guestFav: "guest favorite",
+    reviews: (n: number) => `รีวิวมัธยฐาน ${n}`,
+    empty: "",
+  },
 } as const;
 
 export function DistrictDemand({ data }: { data: RentalMarket }) {

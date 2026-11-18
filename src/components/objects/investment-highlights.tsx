@@ -2,6 +2,7 @@
 
 import type { RealEstateObject } from "@/types/object";
 import { useLocale } from "@/lib/i18n/use-locale";
+import { intlLocale } from "@/lib/i18n/locale-path";
 import { getObjectDict, type ObjectDict } from "@/lib/i18n/dictionaries";
 
 interface Highlight {
@@ -40,7 +41,7 @@ function deriveHighlights(o: RealEstateObject, hl: ObjectDict["hl"], nl: string)
 export function InvestmentHighlights({ object }: { object: RealEstateObject }) {
   const locale = useLocale();
   const t = getObjectDict(locale);
-  const items = deriveHighlights(object, t.hl, locale === "ru" ? "ru-RU" : "en-US");
+  const items = deriveHighlights(object, t.hl, intlLocale(locale));
   if (items.length === 0) return null;
 
   return (

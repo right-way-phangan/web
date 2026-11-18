@@ -1,5 +1,7 @@
 import type { RealEstateObject, ObjectType, TenureType } from "@/types/object";
 import { escalatedLeaseTotalThb } from "@/lib/objects/lease-format";
+import type { Locale } from "@/lib/i18n/dictionaries";
+import { L } from "@/lib/i18n/locale-path";
 
 export type SortOption = "featured" | "newest" | "price-asc" | "price-desc";
 
@@ -345,7 +347,7 @@ export function describeFilter(f: ListingsFilter, query?: string): string {
 export function summarizeForBrief(
   f: ListingsFilter,
   query?: string,
-  locale: "en" | "ru" = "en",
+  locale: Locale = "en",
 ): string | undefined {
   const bits: string[] = [];
   if (f.mode === "rent") bits.push("for rent");
@@ -368,18 +370,23 @@ export function summarizeForBrief(
 
   // Текст уходит в поле сообщения на /ru тоже — без локали русскоязычный
   // посетитель получал заготовку по-английски (правило EN+RU одновременно).
-  const lines =
-    locale === "ru"
-      ? ["Здравствуйте! На сайте не нашёл подходящего варианта."]
-      : ["Hi — I couldn't find a match on the site for what I'm after."];
+  const lines = [
+    L(locale, {
+      en: "Hi — I couldn't find a match on the site for what I'm after.",
+      ru: "Здравствуйте! На сайте не нашёл подходящего варианта.",
+      th: "สวัสดี ฉันยังไม่พบทรัพย์ที่ตรงกับความต้องการบนเว็บไซต์",
+    }),
+  ];
   if (query)
-    lines.push(locale === "ru" ? `Искал: «${query}».` : `I searched: "${query}".`);
+    lines.push(L(locale, { en: `I searched: "${query}".`, ru: `Искал: «${query}».`, th: `คำค้นหา: "${query}"` }));
   if (bits.length)
-    lines.push(locale === "ru" ? `Критерии: ${bits.join(", ")}.` : `Criteria: ${bits.join(", ")}.`);
+    lines.push(L(locale, { en: `Criteria: ${bits.join(", ")}.`, ru: `Критерии: ${bits.join(", ")}.`, th: `เงื่อนไข: ${bits.join(", ")}` }));
   lines.push(
-    locale === "ru"
-      ? "Пришлите, пожалуйста, закрытые или готовящиеся объекты, которые подходят."
-      : "Could you send any private or upcoming listings that fit?",
+    L(locale, {
+      en: "Could you send any private or upcoming listings that fit?",
+      ru: "Пришлите, пожалуйста, закрытые или готовящиеся объекты, которые подходят.",
+      th: "รบกวนส่งทรัพย์นอกตลาดหรือที่กำลังจะเปิดขายที่ตรงกับความต้องการให้ด้วย",
+    }),
   );
   return lines.join("\n");
 }

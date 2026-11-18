@@ -6,6 +6,7 @@ import "leaflet/dist/leaflet.css";
 import { TILE_URL, TILE_ATTRIBUTION } from "@/lib/leaflet/tiles";
 import type { DeveloperLocation } from "@/content/developers/types";
 import type { Locale } from "@/lib/i18n/dictionaries";
+import { L as pick } from "@/lib/i18n/locale-path";
 
 // Brass teardrop pin — same shape as the object map ([[object-location-map-leaflet]]).
 const pinIcon = L.divIcon({
@@ -60,7 +61,7 @@ export default function DeveloperMapLeaflet({
                 rel="noopener noreferrer"
                 className="mt-1.5 block text-[11px] font-medium text-brass-500"
               >
-                {locale === "ru" ? "Маршрут" : "Directions"}
+                {pick(locale, { en: "Directions", ru: "Маршрут", th: "เส้นทาง" })}
               </a>
             </Popup>
           </Marker>

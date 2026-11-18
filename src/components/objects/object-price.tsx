@@ -2,6 +2,7 @@
 
 import { CurrencyToggle, useCurrency } from "@/components/ui/currency";
 import { leaseLine, escalatedLeaseTotalThb } from "@/lib/objects/lease-format";
+import type { Locale } from "@/lib/i18n/dictionaries";
 
 interface Props {
   priceThb?: number;
@@ -12,12 +13,13 @@ interface Props {
   leaseEscPercent?: number;
   leaseEscPeriodYears?: number;
   isLand?: boolean;
-  locale?: "en" | "ru";
+  locale?: Locale;
 }
 
 const LABELS = {
   en: { perRai: "/ rai", perMonth: "/ month", perRaiMonth: "/ rai / month", onRequest: "Price on request" },
   ru: { perRai: "/ рай", perMonth: "/ мес", perRaiMonth: "/ рай / мес", onRequest: "Цена по запросу" },
+  th: { perRai: "/ ไร่", perMonth: "/ เดือน", perRaiMonth: "/ ไร่ / เดือน", onRequest: "สอบถามราคา" },
 } as const;
 
 /**

@@ -62,6 +62,13 @@ describe("composeSellerLead — note", () => {
     expect(ru.note).toContain("🗣️ Submitted on the RU site — reply in Russian");
   });
 
+  it("flags a TH submission so the agent replies in Thai", () => {
+    const th = composeSellerLead({ ...base, lang: "th" });
+    expect(th.note).toContain("🗣️ Submitted on the TH site — reply in Thai");
+    expect(th.note).not.toContain("RU site");
+    expect(th.tags).toContain("lang:th");
+  });
+
   it("adds a Traffic line only when attribution is present", () => {
     expect(composeSellerLead(base).note).not.toContain("Traffic:");
     const withUtm = composeSellerLead({ ...base, utmSource: "facebook", landing: "/ru/sell" });

@@ -28,43 +28,54 @@ export const arqa: DeveloperProfile = {
       "Сданные виллы передаются под ключ: мебель, техника, кондиционеры, ландшафт и бассейн. В Phangaia есть общий бассейн с зоной отдыха; Demaya Resort — отдельный сданный резорт из шести вилл с одной и двумя спальнями — построен по тому же стандарту.",
       "Проект начинается с аудита участка и регламентов, финансовой модели и инженерной проработки — рендеры появляются позже. Виллы строят по усиленному европейскому стандарту: двойные стены, панорамное остекление со звуко- и теплоизоляцией, утеплённые потолки и премиальный климат-контроль.",
     ].join("\n\n"),
+    th: [
+      "ARQA Development เป็นผู้พัฒนาโครงการวิลล่าบนเกาะพะงัน ทีมงานดูแลหมู่บ้านของตนครบวงจร — ตั้งแต่ผังแม่บท การก่อสร้าง บ้านที่สร้างเสร็จ ไปจนถึงการบริหารการปล่อยเช่าแบบวันต่อวัน วิลล่าที่ขายจึงมีวิลล่าที่บริหารอยู่จริงเป็นหลักประกัน",
+      "Phangaia Garden Resort บนชายฝั่งตะวันตกของเกาะใกล้ท้องศาลาส่งมอบแล้ว — วิลล่าหกหลังที่เปิดให้เช่าอยู่ในปัจจุบัน Verana Villas หมู่บ้านแยกต่างหากบนชายฝั่งเดียวกัน ก่อสร้างเป็นเฟส: วิลล่าแปดหลังในเฟส 1 สิบสองหลังในเฟส 2 และสิ่งอำนวยความสะดวกส่วนกลางในเฟส 3 — คาเฟ่ ห้องอบสมุนไพรแบบดั้งเดิม และห้องออกกำลังกาย",
+      "วิลล่าที่ส่งมอบแล้วเป็นแบบพร้อมอยู่ — เฟอร์นิเจอร์ เครื่องใช้ไฟฟ้า เครื่องปรับอากาศ จัดสวน และสระว่ายน้ำ Phangaia ยังมีสระว่ายน้ำส่วนกลางพร้อมลานอาบแดดภายในหมู่บ้าน ส่วน Demaya Resort รีสอร์ตที่ส่งมอบแล้วอีกแห่งซึ่งมีวิลล่าหกหลังแบบหนึ่งและสองห้องนอน สร้างตามมาตรฐานเดียวกัน",
+      "แต่ละโครงการเริ่มจากการตรวจสอบที่ดินและข้อกำหนดการก่อสร้างในพื้นที่ แบบจำลองทางการเงิน และงานออกแบบวิศวกรรม — ภาพเรนเดอร์มาทีหลัง วิลล่าสร้างตามสเปกยุโรปที่ยกระดับ: ผนังสองชั้น กระจกพาโนรามาที่กันเสียงและกันความร้อน ฝ้าเพดานบุฉนวน และระบบปรับอากาศระดับพรีเมียม",
+    ].join("\n\n"),
   },
   facts: [
     {
-      label: { en: "Focus", ru: "Специализация" },
+      label: { en: "Focus", ru: "Специализация", th: "ความเชี่ยวชาญ" },
       value: {
         en: "Villa communities on Koh Phangan",
         ru: "Вилловые посёлки на Пангане",
+        th: "หมู่บ้านวิลล่าบนเกาะพะงัน",
       },
     },
     {
-      label: { en: "Flagship", ru: "Флагман" },
+      label: { en: "Flagship", ru: "Флагман", th: "โครงการเรือธง" },
       value: {
         en: "Phangaia Garden Resort, Nai Wok",
         ru: "Phangaia Garden Resort, Най Вок",
+        th: "Phangaia Garden Resort, ในวก",
       },
     },
     {
-      label: { en: "Delivered", ru: "Сдано" },
+      label: { en: "Delivered", ru: "Сдано", th: "ส่งมอบแล้ว" },
       value: {
         en: "Phangaia (2023–2025), Demaya, Tree House and 9 villas at Verana",
         ru: "Phangaia (2023–2025), Demaya, Tree House и 9 вилл в Verana",
+        th: "Phangaia (2023–2025), Demaya, Tree House และวิลล่า 9 หลังใน Verana",
       },
     },
     {
-      label: { en: "Under construction", ru: "Строится" },
+      label: { en: "Under construction", ru: "Строится", th: "กำลังก่อสร้าง" },
       value: {
         en: "Verana Villas — 7 villas for sale in phase 2",
         ru: "Verana Villas — 7 вилл в продаже, фаза 2",
+        th: "Verana Villas — วิลล่า 7 หลังพร้อมขายในเฟส 2",
       },
     },
     {
       // Public Airbnb standing of the villas the team runs — the developer
       // confirmed in writing that we may quote it.
-      label: { en: "Rental record", ru: "В аренде" },
+      label: { en: "Rental record", ru: "В аренде", th: "ผลงานการปล่อยเช่า" },
       value: {
         en: "Airbnb Superhost · 4.91 across ~192 reviews",
         ru: "Суперхозяин Airbnb · 4,91 по ~192 отзывам",
+        th: "Airbnb Superhost · 4.91 จากรีวิวราว 192 รายการ",
       },
     },
   ],
@@ -79,6 +90,7 @@ export const arqa: DeveloperProfile = {
       description: {
         en: "Garden villa community in Nai Wok, near Thong Sala: six villas in three layouts, dark timber among the coconut palms, a shared pool with a sun deck and a garden planted with dozens of tropical species. Built from November 2023 to April 2025; the villas are delivered and operate as rentals. Three minutes from the international school, fifteen on foot to the sea, on a quiet road with no through traffic.",
         ru: "Вилловый посёлок-сад в Най Воке, рядом с Тонг Салой: шесть вилл в трёх планировках, тёмное дерево в кокосовой роще, общий бассейн с зоной отдыха и сад с десятками видов тропических растений. Построен с ноября 2023 по апрель 2025; виллы сданы и работают в аренде. Три минуты до международной школы, пятнадцать пешком до моря, тихая улица без сквозного движения.",
+        th: "หมู่บ้านวิลล่าท่ามกลางสวนในในวก ใกล้ท้องศาลา: วิลล่าหกหลังในสามแบบแปลน ไม้สีเข้มท่ามกลางสวนมะพร้าว สระว่ายน้ำส่วนกลางพร้อมลานอาบแดด และสวนที่ปลูกพันธุ์ไม้เขตร้อนหลายสิบชนิด ก่อสร้างตั้งแต่พฤศจิกายน 2023 ถึงเมษายน 2025 วิลล่าส่งมอบแล้วและเปิดให้เช่า ห่างโรงเรียนนานาชาติสามนาที เดินถึงทะเลสิบห้านาที บนถนนเงียบสงบที่ไม่มีรถสัญจรผ่าน",
       },
       photo: "/images/developers/arqa/phangaia-pool.jpg",
       // Облёт дрона ARQA (апрель 2026, публикация согласована Денисом 30.09):
@@ -94,10 +106,11 @@ export const arqa: DeveloperProfile = {
       title: "Tree House",
       status: "built",
       objectRw: "RW-0625",
-      note: { en: "For sale · Madeau Wan", ru: "В продаже · Мадеуван" },
+      note: { en: "For sale · Madeau Wan", ru: "В продаже · Мадеуван", th: "พร้อมขาย · มะเดื่อหวาน" },
       description: {
         en: "A three-bedroom villa of 151 m² on an 800 m² Chanote plot in Madeau Wan, in the middle of the island. A pool with a sun deck, a covered terrace behind a lattice-block screen, micro-cement walls and timber ceilings, kitchen and living room in one volume. Delivered and furnished — the house is in our catalog.",
         ru: "Вилла с тремя спальнями, 151 м², на участке 800 м² с чанотом в Мадеуване, в центре острова. Бассейн с зоной отдыха, крытая терраса за решётчатой кладкой, микроцемент и дерево в отделке, кухня и гостиная одним объёмом. Дом сдан и меблирован — он есть в нашем каталоге.",
+        th: "วิลล่าสามห้องนอน 151 ตร.ม. บนที่ดินโฉนด 800 ตร.ม. ในมะเดื่อหวาน ใจกลางเกาะ สระว่ายน้ำพร้อมลานอาบแดด ระเบียงมีหลังคาหลังผนังบล็อกช่องลม ผนังไมโครซีเมนต์และฝ้าไม้ ครัวและห้องนั่งเล่นในพื้นที่เดียวกัน ส่งมอบแล้วพร้อมเฟอร์นิเจอร์ — บ้านหลังนี้อยู่ในรายการทรัพย์ของเรา",
       },
       photo: "/images/developers/arqa/treehouse-pool.jpg",
     },
@@ -107,6 +120,7 @@ export const arqa: DeveloperProfile = {
       description: {
         en: "A delivered resort of six villas in two formats — one- and two-bedroom — inland, near Phaeng waterfall. Each has a private pool and sun loungers behind a green screen, an open kitchen-living room, a bedroom facing the water and a stone-clad bathroom. Handed over furnished.",
         ru: "Сданный резорт из шести вилл в двух форматах — с одной и двумя спальнями — в глубине острова, рядом с водопадом Пэнг. У каждой приватный бассейн и лежаки за зелёной ширмой, кухня-гостиная, спальня с выходом к воде и ванная в камне. Передаются меблированными.",
+        th: "รีสอร์ตที่ส่งมอบแล้ว วิลล่าหกหลังในสองแบบ — หนึ่งและสองห้องนอน — ในพื้นที่ด้านในของเกาะ ใกล้น้ำตกแพง ทุกหลังมีสระว่ายน้ำส่วนตัวและเตียงอาบแดดหลังแนวต้นไม้ ครัวและห้องนั่งเล่นแบบเปิด ห้องนอนหันหน้าสู่สระ และห้องน้ำบุหิน ส่งมอบพร้อมเฟอร์นิเจอร์",
       },
       photo: "/images/developers/arqa/demaya-pool-view.jpg",
     },
@@ -117,10 +131,12 @@ export const arqa: DeveloperProfile = {
       note: {
         en: "A community of its own, built in three phases",
         ru: "Отдельный посёлок, три очереди",
+        th: "หมู่บ้านแยกเป็นของตัวเอง ก่อสร้างสามเฟส",
       },
       description: {
         en: "Phase 1 — eight villas, four of them completed. Phase 2 — twelve villas, five completed and seven available to buy in one-, two- and three-bedroom formats. Phase 3 — the shared amenities: a café, traditional baths and a training hall.",
         ru: "Фаза 1 — восемь вилл, четыре из них сданы. Фаза 2 — двенадцать вилл, пять сданы, семь доступны к покупке в форматах с одной, двумя и тремя спальнями. Фаза 3 — общая инфраструктура: кафе, баня и зал для тренировок.",
+        th: "เฟส 1 — วิลล่าแปดหลัง สร้างเสร็จแล้วสี่หลัง เฟส 2 — วิลล่าสิบสองหลัง สร้างเสร็จแล้วห้าหลัง และอีกเจ็ดหลังพร้อมขายในแบบหนึ่ง สอง และสามห้องนอน เฟส 3 — สิ่งอำนวยความสะดวกส่วนกลาง: คาเฟ่ ห้องอบสมุนไพรแบบดั้งเดิม และห้องออกกำลังกาย",
       },
       photo: "/images/developers/arqa/verana-exterior-pool.jpg",
     },
@@ -131,6 +147,7 @@ export const arqa: DeveloperProfile = {
     tagline: {
       en: "Builds and operates villa communities on Koh Phangan.",
       ru: "Строит вилловые посёлки на Пангане и сам ими управляет.",
+      th: "สร้างและบริหารหมู่บ้านวิลล่าบนเกาะพะงัน",
     },
   },
   // The developer's own shoots (handed over Aug 2026, publication confirmed by
@@ -139,7 +156,7 @@ export const arqa: DeveloperProfile = {
   gallery: [
     {
       title: "Phangaia Garden Resort",
-      note: { en: "Delivered · Nai Wok", ru: "Сдан · Най Вок" },
+      note: { en: "Delivered · Nai Wok", ru: "Сдан · Най Вок", th: "ส่งมอบแล้ว · ในวก" },
       // Обложки (hero страницы и кадр карточки в ленте) входят в набор: иначе
       // они не листаются в лайтбоксе, а у проекта не сходится счётчик кадров.
       photos: [
@@ -164,12 +181,12 @@ export const arqa: DeveloperProfile = {
     },
     {
       title: "Tree House",
-      note: { en: "For sale · Madeau Wan", ru: "В продаже · Мадеуван" },
+      note: { en: "For sale · Madeau Wan", ru: "В продаже · Мадеуван", th: "พร้อมขาย · มะเดื่อหวาน" },
       photos: ["/images/developers/arqa/treehouse-pool.jpg"],
     },
     {
       title: "Demaya Resort",
-      note: { en: "Delivered · one-bedroom villa", ru: "Сдан · вилла с одной спальней" },
+      note: { en: "Delivered · one-bedroom villa", ru: "Сдан · вилла с одной спальней", th: "ส่งมอบแล้ว · วิลล่าหนึ่งห้องนอน" },
       photos: [
         "/images/developers/arqa/demaya-pool-view.jpg",
         "/images/developers/arqa/demaya-pool.jpg",
@@ -188,6 +205,7 @@ export const arqa: DeveloperProfile = {
       note: {
         en: "Phase III, under construction · a completed villa of the same type",
         ru: "Фаза III, строится · построенная вилла того же типа",
+        th: "เฟส III กำลังก่อสร้าง · วิลล่าแบบเดียวกันที่สร้างเสร็จแล้ว",
       },
       photos: [
         "/images/developers/arqa/verana-exterior-pool.jpg",
@@ -210,41 +228,43 @@ export const arqa: DeveloperProfile = {
       title: "Phangaia Garden Resort",
       lat: 9.7215145,
       lng: 99.9876952,
-      note: { en: "Delivered · Nai Wok, near Thong Sala", ru: "Сдан · Най Вок, рядом с Тонг Салой" },
+      note: { en: "Delivered · Nai Wok, near Thong Sala", ru: "Сдан · Най Вок, рядом с Тонг Салой", th: "ส่งมอบแล้ว · ในวก ใกล้ท้องศาลา" },
     },
     {
       title: "Verana Villas",
       lat: 9.7215625,
       lng: 99.9881875,
-      note: { en: "Under construction · phase III", ru: "Строится · фаза III" },
+      note: { en: "Under construction · phase III", ru: "Строится · фаза III", th: "กำลังก่อสร้าง · เฟส III" },
     },
     {
       title: "Tree House",
       lat: 9.718785,
       lng: 100.005172,
-      note: { en: "For sale · Madeau Wan", ru: "В продаже · Мадеуван" },
+      note: { en: "For sale · Madeau Wan", ru: "В продаже · Мадеуван", th: "พร้อมขาย · มะเดื่อหวาน" },
     },
     {
       title: "Demaya Resort",
       lat: 9.7369985,
       lng: 100.009027,
-      note: { en: "Delivered · island centre", ru: "Сдан · центр острова" },
+      note: { en: "Delivered · island centre", ru: "Сдан · центр острова", th: "ส่งมอบแล้ว · ใจกลางเกาะ" },
     },
     {
       title: "AyA Villas",
       lat: 9.728544,
       lng: 100.004779,
-      note: { en: "Site — details to come", ru: "Площадка — данные уточняются" },
+      note: { en: "Site — details to come", ru: "Площадка — данные уточняются", th: "ที่ดินโครงการ — รอข้อมูลเพิ่มเติม" },
     },
   ],
   seo: {
     title: {
       en: "ARQA Development — villa developer on Koh Phangan",
       ru: "ARQA Development — застройщик вилл на Ко Пангане",
+      th: "ARQA Development — ผู้พัฒนาโครงการวิลล่าบนเกาะพะงัน",
     },
     description: {
       en: "Track record and current projects by ARQA Development on Koh Phangan: the delivered Phangaia Garden Resort and Demaya Resort, and Verana Villas under construction with seven villas for sale. Enquire through Right Way.",
       ru: "Проекты застройщика ARQA Development на Ко Пангане: сданные Phangaia Garden Resort и Demaya Resort, строящиеся Verana Villas — семь вилл в продаже. Заявка — через Right Way.",
+      th: "ผลงานและโครงการปัจจุบันของ ARQA Development บนเกาะพะงัน: Phangaia Garden Resort และ Demaya Resort ที่ส่งมอบแล้ว และ Verana Villas ที่กำลังก่อสร้างพร้อมวิลล่า 7 หลังสำหรับขาย ส่งคำขอผ่าน Right Way",
     },
   },
 };

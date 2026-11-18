@@ -591,6 +591,7 @@ export function RoiCalculator({
           <div className="inline-flex overflow-hidden rounded-sm border border-forest-500/20 text-[11px] font-medium" role="group" aria-label={t.langLabel}>
             <button type="button" onClick={() => setLocale("en")} className={`px-2.5 py-1 transition-colors ${locale === "en" ? "bg-panel text-panel-fg" : "text-forest-500/60 hover:bg-forest-500/8"}`}>EN</button>
             <button type="button" onClick={() => setLocale("ru")} className={`px-2.5 py-1 transition-colors ${locale === "ru" ? "bg-panel text-panel-fg" : "text-forest-500/60 hover:bg-forest-500/8"}`}>RU</button>
+            <button type="button" onClick={() => setLocale("th")} className={`px-2.5 py-1 transition-colors ${locale === "th" ? "bg-panel text-panel-fg" : "text-forest-500/60 hover:bg-forest-500/8"}`}>TH</button>
           </div>
         </div>
 

@@ -6,6 +6,7 @@ import type { LandEstate } from "@/content/land-estates";
 import { estateStats } from "@/content/land-estates";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getEstatesDict } from "@/lib/i18n/dictionaries";
+import { L } from "@/lib/i18n/locale-path";
 import { cn } from "@/lib/utils/cn";
 import { AvailabilityBar } from "@/components/projects/availability-bar";
 
@@ -70,7 +71,7 @@ export function EstateCard({ estate, href, locale }: Props) {
             {estate.district}
           </span>
           {s.areaRai > 0 ? (
-            <span>· {s.areaRai} {locale === "ru" ? "рай всего" : "rai total"}</span>
+            <span>· {s.areaRai} {L(locale, { en: "rai total", ru: "рай всего", th: "ไร่ทั้งหมด" })}</span>
           ) : null}
         </div>
 

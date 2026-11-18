@@ -1,4 +1,5 @@
 import type { ObjectType, TenureType, RealEstateObject } from "@/types/object";
+import type { Locale } from "@/lib/i18n/dictionaries";
 
 /**
  * RW Match — типы разговорного ИИ-подбора недвижимости.
@@ -49,7 +50,7 @@ export interface BuyerProfile {
   timeframe?: MatchTimeframe;
   /** Накопленный свободный текст пожеланий — семантическое сырьё для ранжировщика. */
   notes?: string;
-  lang?: "en" | "ru";
+  lang?: Locale;
 }
 
 /** Код совпавшего критерия — стабильный ключ, локализуется на UI/в форматтере. */

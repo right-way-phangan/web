@@ -6,7 +6,7 @@ import type { LandEstate } from "@/content/land-estates";
 import { estateStats, estatePhotoPlots, estatePriceFrom, getPublishedEstates } from "@/content/land-estates";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getEstatesDict } from "@/lib/i18n/dictionaries";
-import { localePath } from "@/lib/i18n/locale-path";
+import { localePath, L } from "@/lib/i18n/locale-path";
 import { formatPriceCompact } from "@/lib/utils/price";
 import { EstateExplorer } from "./estate-explorer";
 import { EstateSectionNav, type NavSection } from "./estate-section-nav";
@@ -32,7 +32,7 @@ export function LandEstateLanding({ estate, locale, initialLot }: Props) {
   const photoPlots = estatePhotoPlots(estate);
   const hasLeadPhotos = photoPlots.length > 0;
   const priceFrom = estatePriceFrom(estate);
-  const fromLabel = locale === "ru" ? "от" : "from";
+  const fromLabel = L(locale, { en: "from", ru: "от", th: "เริ่มต้น" });
   // Покупаемые участки для пикчера калькулятора — freehold available с ценой.
   const availablePlots = estate.plots.filter(
     (p) => p.status === "available" && p.tenure === "Freehold" && p.priceThb,
@@ -51,13 +51,11 @@ export function LandEstateLanding({ estate, locale, initialLot }: Props) {
     const rai = plotRai(p);
     return {
       rwNumber: p.code,
-      label: rai ? `${p.code} · ${rai.toFixed(1)} ${locale === "ru" ? "рай" : "rai"}` : p.code,
+      label: rai ? `${p.code} · ${rai.toFixed(1)} ${L(locale, { en: "rai", ru: "рай", th: "ไร่" })}` : p.code,
       priceThb: p.priceThb as number,
       badge:
         availablePlots.length > 1 && p.code === bestValueCode
-          ? locale === "ru"
-            ? "Лучшая цена/рай"
-            : "Best ฿/rai"
+          ? L(locale, { en: "Best ฿/rai", ru: "Лучшая цена/рай", th: "ราคา/ไร่ดีที่สุด" })
           : undefined,
     };
   });
@@ -125,7 +123,7 @@ export function LandEstateLanding({ estate, locale, initialLot }: Props) {
               {s.total} {t.plots.toLowerCase()}
             </span>
             {s.areaRai > 0 ? (
-              <span>· {s.areaRai} {locale === "ru" ? "рай всего" : "rai total"}</span>
+              <span>· {s.areaRai} {L(locale, { en: "rai total", ru: "рай всего", th: "ไร่ทั้งหมด" })}</span>
             ) : null}
             {priceFrom ? (
               <span className="text-brass-200">· {fromLabel} {formatPriceCompact(priceFrom)}</span>
@@ -224,7 +222,7 @@ export function LandEstateLanding({ estate, locale, initialLot }: Props) {
               ) : null}
               <DistanceChips lat={estate.lat} lng={estate.lng} locale={locale} />
               <div className="mt-3">
-                <EstatePrintButton label={locale === "ru" ? "Печать / PDF" : "Print / PDF"} slug={estate.slug} />
+                <EstatePrintButton label={L(locale, { en: "Print / PDF", ru: "Печать / PDF", th: "พิมพ์ / PDF" })} slug={estate.slug} />
               </div>
             </aside>
           ) : null}

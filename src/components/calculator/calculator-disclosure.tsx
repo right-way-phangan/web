@@ -4,6 +4,7 @@ import { useEffect, useRef, type ReactNode } from "react";
 import { ChevronDown } from "lucide-react";
 import type { RoiPreview } from "@/lib/calculator/preview";
 import { formatPriceTHB } from "@/lib/utils/price";
+import type { Locale } from "@/lib/i18n/dictionaries";
 
 const COPY = {
   en: {
@@ -23,6 +24,15 @@ const COPY = {
       `+${g}%/год на актив, ≈${eff >= 0 ? "+" : ""}${eff}%/год с учётом тающего срока аренды`,
     show: "Показать расчёт",
     hide: "Свернуть расчёт",
+  },
+  th: {
+    eyebrow: "ซื้อและถือครอง ตัวอย่างประกอบ",
+    inYears: (y: number) => `มูลค่าในอีก ${y} ปี`,
+    growth: (g: number) => `ที่ +${g}%/ปี`,
+    leaseGrowth: (g: number, eff: number) =>
+      `+${g}%/ปี ต่อทรัพย์สิน ≈${eff >= 0 ? "+" : ""}${eff}%/ปี หลังหักระยะเช่าที่ลดลง`,
+    show: "แสดงประมาณการทั้งหมด",
+    hide: "ซ่อนประมาณการ",
   },
 };
 
@@ -47,7 +57,7 @@ export function CalculatorDisclosure({
   children,
 }: {
   preview: RoiPreview | null;
-  locale: "en" | "ru";
+  locale: Locale;
   anchor: string;
   children: ReactNode;
 }) {

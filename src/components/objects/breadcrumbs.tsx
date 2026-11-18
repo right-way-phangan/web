@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import { useLocale } from "@/lib/i18n/use-locale";
 import { getObjectDict } from "@/lib/i18n/dictionaries";
+import { localePath } from "@/lib/i18n/locale-path";
 
 interface Props {
   /** Middle crumb — the collection this object belongs to. */
@@ -24,7 +25,7 @@ export function Breadcrumbs({ trailHref, trailLabel, current }: Props) {
   const router = useRouter();
   const locale = useLocale();
   const t = getObjectDict(locale);
-  const homeHref = (locale === "ru" ? "/ru" : "/") as Route;
+  const homeHref = localePath(locale, "/") as Route;
 
   const onTrailClick = (e: React.MouseEvent) => {
     if (

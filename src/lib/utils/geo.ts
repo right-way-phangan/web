@@ -1,3 +1,6 @@
+import type { Locale } from "@/lib/i18n/dictionaries";
+import { L } from "@/lib/i18n/locale-path";
+
 /**
  * Spherical area of a [lat, lng] ring (м²) — the classic spherical-excess
  * approximation used by Leaflet.GeometryUtil/turf for small polygons. Exact
@@ -79,13 +82,13 @@ export function haversineMeters(
 }
 
 /** «350 м» / «4.2 км» (ru) · «350 m» / «4.2 km» (en) — straight-line readout. */
-export function formatDistance(meters: number, locale: "en" | "ru"): string {
+export function formatDistance(meters: number, locale: Locale): string {
   if (meters < 950) {
     const m = Math.round(meters / 10) * 10;
-    return locale === "ru" ? `${m} м` : `${m} m`;
+    return L(locale, { en: `${m} m`, ru: `${m} м`, th: `${m} ม.` });
   }
   const km = (meters / 1000).toFixed(1);
-  return locale === "ru" ? `${km} км` : `${km} km`;
+  return L(locale, { en: `${km} km`, ru: `${km} км`, th: `${km} กม.` });
 }
 
 /**

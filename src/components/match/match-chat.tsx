@@ -12,8 +12,8 @@ import { MatchResultCard } from "@/components/match/match-result-card";
 import { useSpeechInput } from "@/components/match/use-speech-input";
 import type { BuyerProfile, MatchMessage, MatchResult } from "@/types/match";
 import { cn } from "@/lib/utils/cn";
-
-type Locale = "en" | "ru";
+import type { Locale } from "@/lib/i18n/dictionaries";
+import { L, localePath } from "@/lib/i18n/locale-path";
 
 const COPY: Record<
   Locale,
@@ -90,6 +90,31 @@ const COPY: Record<
     notifyDone: "Сохранено. Сохраните ссылку на страницу совпадений:",
     notifyOpen: "открыть",
   },
+  th: {
+    opening:
+      "สวัสดี! เราจะช่วยคุณหาทรัพย์ที่ใช่บนเกาะพะงัน ก่อนอื่น — คุณซื้อเพื่ออยู่อาศัย ลงทุน ปล่อยเช่า หรือพักผ่อนในวันหยุด?",
+    placeholder: "พิมพ์คำตอบของคุณ…",
+    send: "ส่ง",
+    thinking: "กำลังคิด…",
+    fit: "ตรงใจ",
+    like: "ชอบ",
+    reject: "ไม่ใช่สำหรับฉัน",
+    resultsTitle: "ทรัพย์ที่ตรงใจคุณที่สุด",
+    refine: "ปรับตามที่ฉันเลือก",
+    relaxed: "เราขยายการค้นหาเล็กน้อยเพื่อให้มีตัวเลือกเพียงพอ:",
+    ctaTitle: "ต้องการให้แนะนำนายหน้าไหม?",
+    ctaLede:
+      "ฝากช่องทางติดต่อไว้ แล้วนายหน้าจะพาคุณดูรายการเหล่านี้ — รวมถึงตัวเลือกนอกตลาดที่เหมาะกับคุณ",
+    ctaSubmit: "ติดต่อฉันกับนายหน้า",
+    ctaMessage: (s) => `ฉันใช้ระบบจับคู่ AI แล้ว สิ่งที่ฉันมองหา:\n${s}`,
+    empty:
+      "ยังไม่พบทรัพย์ที่ใกล้เคียงในรายการที่เผยแพร่อยู่ตอนนี้ — ฝากช่องทางติดต่อไว้ แล้วเราจะตรวจสอบรายการส่วนตัว/ที่กำลังจะมา",
+    mic: "พูด",
+    micStop: "หยุด",
+    notify: "แจ้งเตือนเมื่อมีทรัพย์ใหม่ที่ตรงใจ",
+    notifyDone: "บันทึกแล้ว บุ๊กมาร์กหน้ารายการที่ตรงใจของคุณ:",
+    notifyOpen: "เปิด",
+  },
 };
 
 const RELAX_LABEL: Record<Locale, Record<string, string>> = {
@@ -107,6 +132,13 @@ const RELAX_LABEL: Record<Locale, Record<string, string>> = {
     bedrooms: "спальни",
     type: "тип",
   },
+  th: {
+    district: "ย่าน",
+    budget: "งบประมาณ",
+    features: "วิว",
+    bedrooms: "ห้องนอน",
+    type: "ประเภท",
+  },
 };
 
 /** Короткая человекочитаемая сводка профиля для сообщения лида. */
@@ -118,11 +150,11 @@ function summarize(p: BuyerProfile, liked: string[], locale: Locale): string {
   if (p.districts?.length) bits.push(p.districts.join(", "));
   if (p.tenure?.length) bits.push(p.tenure.join("/"));
   if (p.bedroomsMin)
-    bits.push(`${p.bedroomsMin}+ ${locale === "ru" ? "спален" : "bed"}`);
+    bits.push(`${p.bedroomsMin}+ ${L(locale, { en: "bed", ru: "спален", th: "ห้องนอน" })}`);
   if (p.mustHaves?.length) bits.push(p.mustHaves.join(", "));
   const line = bits.join(" · ");
   const likedLine = liked.length
-    ? `\n${locale === "ru" ? "Понравились" : "Liked"}: ${liked.join(", ")}`
+    ? `\n${L(locale, { en: "Liked", ru: "Понравились", th: "ที่ชอบ" })}: ${liked.join(", ")}`
     : "";
   return `${line}${likedLine}`;
 }
@@ -366,9 +398,7 @@ export function MatchChat({ locale }: { locale: Locale }) {
                 {t.notifyDone}{" "}
                 <Link
                   href={
-                    (locale === "ru"
-                      ? `/ru/match/saved/${savedToken}`
-                      : `/match/saved/${savedToken}`) as Route
+                    localePath(locale, `/match/saved/${savedToken}`) as Route
                   }
                   className="text-brass-500 underline underline-offset-2"
                 >

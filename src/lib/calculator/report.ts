@@ -4,12 +4,13 @@
  * Returns a full standalone HTML document (inline styles + inline SVG chart) so
  * it can be opened in a new window and printed to PDF, or saved/shared as-is —
  * no app CSS, no dependencies. Figures are rendered in the currency the user is
- * viewing; all maths stays in THB upstream. Localised (EN/RU) to match the
+ * viewing; all maths stays in THB upstream. Localised (EN/RU/TH) to match the
  * calculator's language toggle.
  */
 import { formatMoney, type Currency } from "@/lib/calculator/currency";
 import type { RoiInputs, RoiResult } from "@/lib/calculator/roi";
 import { calcDict, type CalcLocale } from "@/lib/i18n/calculator";
+import { intlLocale } from "@/lib/i18n/locale-path";
 
 interface ReportArgs {
   inputs: RoiInputs;
@@ -74,6 +75,31 @@ const REPORT_STRINGS = {
     perMonth: "/мес",
     indexedYr: "индексация",
   },
+  th: {
+    analysisTitle: "การวิเคราะห์การลงทุน",
+    saveBtn: "บันทึกเป็น PDF / พิมพ์",
+    assumptions: "สมมติฐาน",
+    yearByYear: "รายปี",
+    tenure: "รูปแบบการถือครอง",
+    strategy: "กลยุทธ์",
+    construction: "การก่อสร้าง",
+    paymentPlan: "แผนการชำระเงิน",
+    postHandover: " (หลังส่งมอบ)",
+    highSeason: "ไฮซีซั่น",
+    lowSeason: "โลว์ซีซั่น",
+    horizon: "ระยะเวลา",
+    more: "มากกว่าธนาคาร",
+    less: "น้อยกว่าธนาคาร",
+    months: "เดือน",
+    years: "ปี",
+    planDown: "ดาวน์",
+    planBuild: "ก่อสร้าง",
+    planHandover: "ส่งมอบ",
+    rate: "ค่าห้อง",
+    occupancyWord: "อัตราการเข้าพัก",
+    perMonth: "/เดือน",
+    indexedYr: "ปรับขึ้น",
+  },
 } as const;
 
 const esc = (s: string) =>
@@ -136,7 +162,7 @@ export function buildCalcReportHtml({ inputs, result, currency, rates, rwNumber,
   const isRent = (inputs.mode === "rent" && !isOffplan) || (isOffplan && inputs.rentAfterHandover);
   const isLeasehold = inputs.tenure === "leasehold";
   const installmentPct = Math.max(0, 100 - inputs.downPaymentPct - inputs.handoverPaymentPct);
-  const today = new Date().toLocaleDateString(locale === "ru" ? "ru-RU" : "en-GB", {
+  const today = new Date().toLocaleDateString(intlLocale(locale, "en-GB"), {
     day: "numeric",
     month: "long",
     year: "numeric",

@@ -64,7 +64,7 @@ export function PoiMarkers({
                 {t[CAT_LABEL[a.cat]]}
               </span>
               <span className="block font-serif text-sm leading-snug text-forest-900">
-                {locale === "ru" ? a.ru : a.en}
+                {a[locale]}
               </span>
               {dist ? (
                 <span className="num mt-0.5 block text-xs text-forest-500/80">≈ {dist}</span>
