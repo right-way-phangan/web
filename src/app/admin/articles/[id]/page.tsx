@@ -5,6 +5,8 @@ import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { ArticleBody } from "@/components/sections/article-body";
 import { ArticleReview } from "@/components/admin/article-review";
+import { LOCALES, type Locale } from "@/lib/i18n/dictionaries";
+import { localePath } from "@/lib/i18n/locale-path";
 import {
   editorialNotes,
   getAdminArticle,
@@ -37,10 +39,10 @@ export default async function AdminArticlePage({ params }: Props) {
   const { id } = await params;
   const article = await getAdminArticle(Number(id));
   if (!article) notFound();
-  const paired = await getPairedArticle(article.slug, article.lang);
-  const otherLang = article.lang === "ru" ? "en" : "ru";
+  const otherLangs = LOCALES.filter((l) => l !== article.lang);
+  const pairs = await Promise.all(otherLangs.map((l) => getPairedArticle(article.slug, l)));
 
-  const blogBase = article.lang === "ru" ? "/ru/blog" : "/blog";
+  const blogBase = localePath((LOCALES as readonly string[]).includes(article.lang) ? (article.lang as Locale) : "en", "/blog");
   const publicHref = `${blogBase}/${article.slug}`;
   const blocks = mdToBlocks(article.bodyMd);
   const notes = editorialNotes(article.bodyMd);
@@ -113,21 +115,26 @@ export default async function AdminArticlePage({ params }: Props) {
                 <dt className="text-forest-900/50">URL (slug)</dt>
                 <dd className="truncate font-mono text-xs text-forest-900/70">{article.slug}</dd>
               </div>
-              <div className="flex justify-between gap-4">
-                <dt className="text-forest-900/50">Версия {otherLang.toUpperCase()}</dt>
-                <dd className="font-medium">
-                  {paired ? (
-                    <Link
-                      href={`/admin/articles/${paired.id}` as Route}
-                      className="text-forest-900 underline decoration-forest-900/30 hover:text-brass-600"
-                    >
-                      {STATUS_LABEL[paired.status]}
-                    </Link>
-                  ) : (
-                    <span className="text-red-700/80">нет — нужна вторая языковая версия</span>
-                  )}
-                </dd>
-              </div>
+              {otherLangs.map((lang, i) => {
+                const paired = pairs[i];
+                return (
+                  <div key={lang} className="flex justify-between gap-4">
+                    <dt className="text-forest-900/50">Версия {lang.toUpperCase()}</dt>
+                    <dd className="font-medium">
+                      {paired ? (
+                        <Link
+                          href={`/admin/articles/${paired.id}` as Route}
+                          className="text-forest-900 underline decoration-forest-900/30 hover:text-brass-600"
+                        >
+                          {STATUS_LABEL[paired.status]}
+                        </Link>
+                      ) : (
+                        <span className="text-red-700/80">нет — нужна языковая версия</span>
+                      )}
+                    </dd>
+                  </div>
+                );
+              })}
               <div className="flex justify-between gap-4">
                 <dt className="text-forest-900/50">Создано</dt>
                 <dd className="text-forest-900/70">{fmtDate(article.createdAt)}</dd>
