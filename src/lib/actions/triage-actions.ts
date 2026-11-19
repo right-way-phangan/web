@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { backendFetch } from "@/lib/api/backend";
-import { requireAdmin } from "@/lib/auth/require-admin";
+import { requireAdmin, requireLeadWrite } from "@/lib/auth/require-admin";
 
 const API = process.env.OBJECTS_API_URL;
 const JSON_HEADERS = { "Content-Type": "application/json" };
@@ -125,7 +125,8 @@ export async function touchLeadAction(
   leadId: number,
   kind: "call" | "message" | "meet",
 ): Promise<void> {
-  await requireAdmin();
+  // The touch log is everyday lead work — an agent may log it on their own lead.
+  if (!(await requireLeadWrite(leadId))) return;
   if (API) {
     try {
       await backendFetch(`/leads/${leadId}/touch`, {

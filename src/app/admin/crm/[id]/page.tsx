@@ -338,6 +338,7 @@ export default async function LeadDetailPage({
           email={lead.email}
           phone={lead.phone}
           rwNumber={lead.rwNumber}
+          canDelete={!isAgent}
         />
       </div>
 
@@ -420,7 +421,7 @@ export default async function LeadDetailPage({
         <div className="col-span-2 sm:col-span-3">
           <dt className="text-xs uppercase tracking-wide text-forest-900/40">
             Сумма сделки
-            {lead.dealValue ? (
+            {lead.dealValue && !isAgent ? (
               <span className="ml-2 normal-case text-brass-600">
                 комиссия ≈ ฿{nf(Math.max(lead.dealValue * 0.05, 150_000))}
               </span>
@@ -434,7 +435,7 @@ export default async function LeadDetailPage({
             />
           </dd>
         </div>
-        {lead.status === "won" && (
+        {lead.status === "won" && !isAgent && (
           <div className="col-span-2 sm:col-span-3">
             <dt className="text-xs uppercase tracking-wide text-forest-900/40">
               Комиссия (факт)

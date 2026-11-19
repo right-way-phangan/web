@@ -163,7 +163,7 @@ export default async function AdminObjectPage({
         </div>
       )}
 
-      {object.type === "Project" && (
+      {object.type === "Project" && !isAgent && (
         <ConstructionEditor
           rwNumber={object.rwNumber}
           initial={object.constructionUpdates ?? []}

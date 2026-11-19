@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { backendFetch } from "@/lib/api/backend";
-import { isAdmin } from "@/lib/auth/require-admin";
+import { isAdmin, isStaff, requireLeadWrite } from "@/lib/auth/require-admin";
 
 const API = process.env.OBJECTS_API_URL;
 const JSON_HEADERS = { "Content-Type": "application/json" };
@@ -20,7 +20,12 @@ function settle(results: PromiseSettledResult<Response>[]): BulkLeadsResult {
 export async function bulkMoveLeads(ids: number[], stageKey: string): Promise<BulkLeadsResult> {
   // Экшен вызывается по Next-Action ID с любого пути — middleware /admin его не
   // видит, гейт обязан быть здесь. Уровень тот же, что у одиночного moveLead.
-  if (!(await isAdmin())) return { ok: false, done: 0, failed: ids.length };
+  if (!(await isStaff())) return { ok: false, done: 0, failed: ids.length };
+  // Agent: only their own leads (each id checked against the lead's agent tag).
+  if (!(await isAdmin())) {
+    const own = await Promise.all(ids.map((id) => requireLeadWrite(id)));
+    if (own.some((ok) => !ok)) return { ok: false, done: 0, failed: ids.length };
+  }
   if (!API || ids.length === 0 || ids.length > MAX_BATCH) {
     return { ok: false, done: 0, failed: ids.length };
   }
