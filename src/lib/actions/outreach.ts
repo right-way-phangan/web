@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { backendFetch } from "@/lib/api/backend";
-import { requireStaff } from "@/lib/auth/require-admin";
+import { requireAdmin } from "@/lib/auth/require-admin";
 
 const API = process.env.OBJECTS_API_URL;
 
@@ -41,7 +41,7 @@ export async function recordCallOutcome(
   outcome: OutreachOutcome,
   opts: { note?: string; prevNote?: string; prevAttempts?: number } = {},
 ): Promise<OutreachResult> {
-  await requireStaff();
+  await requireAdmin();
   if (!API) return { ok: false, error: "Backend не подключён (OBJECTS_API_URL)." };
 
   const stamp = today();

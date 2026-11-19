@@ -2,7 +2,8 @@ import type { Metadata, Route } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { getAdminObjectByRwNumber } from "@/lib/data/objects";
+import { getStaffObject } from "@/lib/data/staff-objects";
+import { currentAgentId } from "@/lib/auth/require-admin";
 import { getLeads, CRM_ENABLED } from "@/lib/data/leads";
 import { matchLeadsToObject } from "@/lib/crm/matching";
 import { ObjectWarmLeads, type WarmLeadRow } from "@/components/admin/object-warm-leads";
@@ -54,7 +55,8 @@ export default async function AdminObjectPage({
     if (BACK_KEYS.includes(k)) backParams.set(k, v);
   }
   const backQs = backParams.toString();
-  const object = await getAdminObjectByRwNumber(rw);
+  const object = await getStaffObject(rw);
+  const isAgent = (await currentAgentId()) !== null;
   if (!object) notFound();
 
   const leads = CRM_ENABLED ? await getLeads() : [];
@@ -155,9 +157,11 @@ export default async function AdminObjectPage({
         </div>
       </div>
 
-      <div className="mt-8">
-        <ObjectContactsEditor rwNumber={object.rwNumber} initial={object.contacts ?? []} />
-      </div>
+      {!isAgent && (
+        <div className="mt-8">
+          <ObjectContactsEditor rwNumber={object.rwNumber} initial={object.contacts ?? []} />
+        </div>
+      )}
 
       {object.type === "Project" && (
         <ConstructionEditor

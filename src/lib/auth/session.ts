@@ -31,6 +31,8 @@ export interface SessionUser {
   role: string;
   /** partner only: developer slug; the partner sees leads tagged `developer:<slug>` */
   developer?: string | null;
+  /** /admin UI language (agents: th/en); null → ru */
+  lang?: "ru" | "en" | "th" | null;
 }
 
 export async function signSession(user: SessionUser): Promise<string> {
@@ -71,6 +73,7 @@ export async function verifySession(token?: string): Promise<SessionUser | null>
       name: (payload.name as string | null) ?? null,
       role: payload.role,
       developer,
+      lang: payload.lang === "en" || payload.lang === "th" || payload.lang === "ru" ? payload.lang : null,
     };
   } catch {
     return null;

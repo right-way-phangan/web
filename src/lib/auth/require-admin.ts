@@ -4,7 +4,7 @@ import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { AUTH_ENABLED, SESSION_COOKIE, verifySession, type SessionUser } from "./session";
 import { backendFetch } from "@/lib/api/backend";
-import { leadInPartnerScope } from "./lead-scope";
+import { leadInAgentScope, leadInPartnerScope } from "./lead-scope";
 
 /** "lead" = actions on a single lead that a partner may also run (still scope-checked per lead). */
 export type ActionRole = "staff" | "admin" | "lead";
@@ -62,6 +62,14 @@ export async function currentPartnerDeveloper(): Promise<string | null> {
   return session?.role === "partner" ? (session.developer ?? "") : null;
 }
 
+/** User id of the current agent session; null for admin/partner/anonymous. */
+export async function currentAgentId(): Promise<number | null> {
+  if (!AUTH_ENABLED) return null;
+  const token = (await cookies()).get(SESSION_COOKIE)?.value;
+  const session: SessionUser | null = await verifySession(token);
+  return session?.role === "agent" ? session.id : null;
+}
+
 /**
  * Backstop for single-lead actions open to partners: role must be allowed AND
  * a partner may only touch a lead tagged with their developer. Checked on the
@@ -71,15 +79,37 @@ export async function requireLeadAccess(leadId: number): Promise<boolean> {
   if (!Number.isInteger(leadId) || leadId <= 0) return false;
   if (!canRunAction(await currentRole(), "lead")) return false;
   const dev = await currentPartnerDeveloper();
-  if (dev === null) return true; // admin / agent
+  const agentId = await currentAgentId();
+  if (dev === null && agentId === null) return true; // admin
+  const lead = await fetchLeadScope(leadId);
+  if (!lead) return false;
+  return agentId !== null ? leadInAgentScope(lead.tags, agentId) : leadInPartnerScope(lead.tags, dev);
+}
+
+async function fetchLeadScope(leadId: number): Promise<{ tags?: string[] | null; tasks?: { id: number }[] } | null> {
   try {
     const r = await backendFetch(`/leads/${leadId}`, { cache: "no-store" });
-    if (!r.ok) return false;
-    const lead = (await r.json()) as { tags?: string[] | null };
-    return leadInPartnerScope(lead.tags, dev);
+    return r.ok ? ((await r.json()) as { tags?: string[] | null; tasks?: { id: number }[] }) : null;
   } catch {
-    return false;
+    return null;
   }
+}
+
+/** Staff action on one lead: staff role AND (admin, or the lead is the agent's own). */
+export async function requireLeadWrite(leadId: number): Promise<boolean> {
+  if (!(await isStaff())) return false;
+  return requireLeadAccess(leadId);
+}
+
+/**
+ * Task actions get taskId + leadId from the client: for an agent the task must
+ * really belong to that (own) lead, otherwise any task id could be toggled.
+ */
+export async function requireTaskWrite(taskId: number, leadId: number): Promise<boolean> {
+  if (!(await requireLeadWrite(leadId))) return false;
+  if ((await currentAgentId()) === null) return true;
+  const lead = await fetchLeadScope(leadId);
+  return !!lead?.tasks?.some((t) => t.id === taskId);
 }
 
 /** Compatibility helper for existing admin-only actions. */

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getLead, getPipelines, CRM_ENABLED } from "@/lib/data/leads";
-import { getAllObjects } from "@/lib/data/objects";
+import { getStaffObjects } from "@/lib/data/staff-objects";
 import type { RealEstateObject } from "@/types/object";
 import { MoveLeadSelect } from "@/components/crm/move-lead-select";
 import { MovePipelineSelect } from "@/components/crm/move-pipeline-select";
@@ -26,7 +26,10 @@ import { makeShortlistToken } from "@/lib/shortlist-token";
 import { LeadMatches, type MatchItem } from "@/components/crm/lead-matches";
 import { MessageTemplates } from "@/components/crm/message-templates";
 import { addNoteAction, addTaskAction } from "@/lib/actions/lead-actions";
-import { currentPartnerDeveloper } from "@/lib/auth/require-admin";
+import { currentAgentId, currentPartnerDeveloper } from "@/lib/auth/require-admin";
+import { AssignAgentSelect } from "@/components/crm/assign-agent-select";
+import { getUsers } from "@/lib/data/users";
+import { assignedAgentIds } from "@/lib/auth/lead-scope";
 import { PartnerLeadCard } from "@/components/crm/partner-leads";
 
 export const metadata: Metadata = {
@@ -94,7 +97,12 @@ export default async function LeadDetailPage({
   if (!lead) notFound(); // partner + чужой лид → getLead уже вернул null → 404
   if ((await currentPartnerDeveloper()) !== null) return <PartnerLeadCard lead={lead} />;
 
-  const [allObjects, pipelines] = await Promise.all([getAllObjects(), getPipelines()]);
+  const [allObjects, pipelines] = await Promise.all([getStaffObjects(), getPipelines()]);
+  // Assignment select — admin only (an agent never sees the team list).
+  const isAgent = (await currentAgentId()) !== null;
+  const agents = isAgent
+    ? []
+    : (await getUsers()).filter((u) => u.role === "agent").map((u) => ({ id: u.id, label: u.name || u.email }));
   // Reverse object↔lead link: the object this lead is about (any status).
   const obj = lead.rwNumber
     ? allObjects.find((o) => o.rwNumber === lead.rwNumber) ?? null
@@ -355,6 +363,14 @@ export default async function LeadDetailPage({
             />
           </dd>
         </div>
+        {!isAgent && agents.length > 0 && (
+          <div>
+            <dt className="text-xs uppercase tracking-wide text-forest-900/40">Агент</dt>
+            <dd className="mt-1">
+              <AssignAgentSelect leadId={lead.id} agents={agents} currentId={assignedAgentIds(lead.tags)[0] ?? null} />
+            </dd>
+          </div>
+        )}
         <Meta label="Email" value={lead.email ?? "—"} />
         <Meta label="Телефон" value={lead.phone ?? "—"} />
         <div>

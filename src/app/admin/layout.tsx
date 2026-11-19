@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { AdminNav } from "@/components/admin/admin-nav";
 import { CommandPalette } from "@/components/admin/command-palette";
-import { currentPartnerDeveloper } from "@/lib/auth/require-admin";
+import { currentAgentId, currentPartnerDeveloper } from "@/lib/auth/require-admin";
 
 /**
  * Admin-only PWA wiring: a dedicated manifest (scope /admin, opens on the CRM
@@ -31,7 +31,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         <AdminNav />
       </div>
       {children}
-      {(await currentPartnerDeveloper()) === null && <CommandPalette />}
+      {(await currentPartnerDeveloper()) === null && (await currentAgentId()) === null && <CommandPalette />}
     </>
   );
 }

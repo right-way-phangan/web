@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getLeads, getPipelines, CRM_ENABLED } from "@/lib/data/leads";
-import { currentPartnerDeveloper } from "@/lib/auth/require-admin";
+import { currentAgentId, currentPartnerDeveloper } from "@/lib/auth/require-admin";
 import { PartnerLeadList } from "@/components/crm/partner-leads";
 import { CrmBoard } from "@/components/crm/crm-board";
 import { leadScore } from "@/lib/crm/score";
@@ -39,6 +39,7 @@ export default async function CrmPage({
   if ((await currentPartnerDeveloper()) !== null) return <PartnerLeadList leads={await getLeads()} />;
 
   const [pipelines, leads] = await Promise.all([getPipelines(), getLeads()]);
+  const isAgent = (await currentAgentId()) !== null;
   const { p, q, f } = await searchParams;
   const active = pipelines.find((pl) => pl.key === p) ?? pipelines[0];
 
@@ -147,13 +148,15 @@ export default async function CrmPage({
           </Link>
           {/* Остальные разделы CRM живут в общей навигации (группа «CRM»);
               экспорт — действие, а не раздел, поэтому кнопкой здесь. */}
-          {/* eslint-disable-next-line @next/next/no-html-link-for-pages -- route handler returns file download, not page nav */}
+          {!isAgent && (
+          // eslint-disable-next-line @next/next/no-html-link-for-pages -- route handler returns file download, not page nav
           <a
             href="/admin/crm/export"
             className="rounded-full border border-forest-900/15 px-3 py-2 text-sm font-medium text-forest-900/70 hover:bg-forest-900/5"
           >
             ⇩ Экспорт CSV
           </a>
+          )}
           <Link
             href={{ pathname: "/admin/crm/new" }}
             className="rounded-full bg-panel px-4 py-2 text-sm font-medium text-panel-fg hover:bg-panel/90"

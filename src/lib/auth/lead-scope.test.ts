@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { developerTag, filterLeadsForPartner, leadInPartnerScope, partnerVisibleNotes } from "./lead-scope";
+import { agentTag, assignedAgentIds, developerTag, filterLeadsForAgent, filterLeadsForPartner, leadInAgentScope, leadInPartnerScope, partnerVisibleNotes } from "./lead-scope";
 
 const leads = [
   { id: 1, tags: ["developer:arqa-development", "intent:price_pack"] },
@@ -55,5 +55,25 @@ describe("partner note visibility", () => {
     const legacy: { id: number; text: string; sharedWithPartner?: boolean }[] = [{ id: 9, text: "old backend" }];
     expect(partnerVisibleNotes(legacy)).toEqual([]);
     expect(partnerVisibleNotes(undefined)).toEqual([]);
+  });
+});
+
+describe("agent scope", () => {
+  const leads = [
+    { id: 1, tags: ["website", "agent:7"] },
+    { id: 2, tags: ["agent:8"] },
+    { id: 3, tags: null },
+    { id: 4, tags: ["agent:77"] },
+  ];
+  it("agent sees only leads tagged with their own id (no prefix collisions)", () => {
+    expect(filterLeadsForAgent(leads, 7).map((l) => l.id)).toEqual([1]);
+  });
+  it("fails closed for a missing or bad id", () => {
+    expect(filterLeadsForAgent(leads, null)).toEqual([]);
+    expect(leadInAgentScope(["agent:0"], 0)).toBe(false);
+  });
+  it("reads assignment back from tags", () => {
+    expect(assignedAgentIds(["agent:7", "x", "agent:12", "agent:abc"])).toEqual([7, 12]);
+    expect(agentTag(5)).toBe("agent:5");
   });
 });
