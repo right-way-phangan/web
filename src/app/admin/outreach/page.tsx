@@ -23,7 +23,8 @@ export default async function AdminOutreachPage() {
   const objects = await getAllObjects();
 
   const rows: OutreachRow[] = objects
-    .filter((o) => o.type === "Land")
+    // все типы, кроме юнитов проекта (их актуальность = актуальность родителя)
+    .filter((o) => !/^RW-P\d{4}-/.test(o.rwNumber))
     .filter((o) => ["Active", "Reserved", "Hold"].includes(o.status))
     .map((o) => {
       const missing: string[] = [];
@@ -33,6 +34,7 @@ export default async function AdminOutreachPage() {
       if (!o.areaRai && !o.areaSqm && !o.areaNote) missing.push("площадь");
       return {
         rwNumber: o.rwNumber,
+        type: o.type,
         titleEn: o.titleEn,
         district: o.district,
         areaLabel: o.areaRai
@@ -71,7 +73,7 @@ export default async function AdminOutreachPage() {
     <section className="px-4 py-8 md:px-8">
       <h1 className="text-2xl font-semibold text-forest-900">Обзвон собственников</h1>
       <p className="mt-3 max-w-2xl text-sm text-forest-900/70">
-        Кампания актуализации земельных лотов: подтвердить продажу и цену,
+        Кампания актуализации всех объектов каталога: подтвердить продажу и цену,
         неактуальные — в архив (объект уходит с сайта), согласных на аренду — в
         leasehold-трек. Красным — что уточнить в звонке. Контакт собственника
         сохраняется при выходе из поля; заметка прикрепляется к итогу звонка.
