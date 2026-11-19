@@ -213,16 +213,11 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     id: "q11",
     category: "structures",
-    question: "How does the Thai company structure work for foreigners?",
+    question: "Should I buy land through a Thai company?",
     answer: [
-      "A Thai limited company (Co. Ltd.) is a legitimate structure to hold land where 51% of shares are held by Thai shareholders and 49% by the foreigner. Key requirements:",
-      { ul: [
-        "**Real Thai shareholders.** Must be genuine investors with economic stake, not paid nominees. Typically a Thai partner you know well, a business associate, or a Thai director hired through a reputable firm.",
-        "**Active company.** Real business activity (real-estate holding qualifies, but must file annual returns, pay accounting fees ~30–50K THB/year).",
-        "**Foreign director with control rights.** Through articles of association — preferred shares, voting rights, or director appointments — the foreigner can maintain operational control despite minority equity.",
-      ] },
-      "**Cost to set up:** ~50–100K THB (lawyer + government fees), 1–2 months timeline. **Annual cost:** ~30–50K THB (accounting + filings).",
-      "Right Way doesn't set up companies but works with 2–3 reputable Bangkok/Phuket firms who do. This is a question for a lawyer, not your real-estate agent.",
+      "We don't recommend it. A Thai limited company can hold land only if it is a real business with Thai shareholders who invest their own money. A company set up so that a foreigner effectively owns the land is a nominee structure, and that is illegal.",
+      "Since 2025 the authorities have been checking such companies on Koh Phangan and Koh Samui much more strictly. If the structure fails the check, the owner can lose the land and face criminal liability.",
+      "For foreign buyers the safer route is a registered 30-year lease plus ownership of the building. Right Way does not set up companies and does not recommend company structures.",
     ],
   },
   {
