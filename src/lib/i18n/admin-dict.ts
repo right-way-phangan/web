@@ -514,4 +514,11 @@ export const ADMIN_DICT: Record<string, readonly [string, string]> = {
   "8% каждые 5 лет": ["8% every 5 years", "8% ทุก 5 ปี"],
   "напр. RW-P0001": ["e.g. RW-P0001", "เช่น RW-P0001"],
   "напр. Sea-view 2-rai plot in Sri Thanu": ["e.g. Sea-view 2-rai plot in Sri Thanu", "เช่น Sea-view 2-rai plot in Sri Thanu"],
+  "публичных (Active + фото) ·": ["public (Active + photos) ·", "เผยแพร่ (Active + รูป) ·"],
+  ". Скрытые объекты вернутся на сайт автоматически после заливки фото.": [". Hidden properties return to the site automatically once photos are added.", " ทรัพย์ที่ซ่อนจะกลับขึ้นเว็บอัตโนมัติเมื่อเพิ่มรูป"],
+  "База объектов · Right Way Phangan": ["Properties · Right Way Phangan", "ทรัพย์ · Right Way Phangan"],
+  "Villa": ["Villa", "วิลล่า"],
+  "House": ["House", "บ้าน"],
+  "Project": ["Project", "โครงการ"],
+  "Apartment": ["Apartment", "คอนโด"],
 };

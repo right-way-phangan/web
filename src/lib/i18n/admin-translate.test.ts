@@ -25,3 +25,12 @@ describe("translateUi patterns", () => {
     expect(translateUi("CRM — лиды · Right Way Phangan", "en")).toBe("CRM — leads · Right Way Phangan");
   });
 });
+
+describe("latin stage names", () => {
+  it("translates exact DB stage names for th, leaves longer English text alone", () => {
+    expect(translateUi("Incoming", "th")).toBe("เข้ามาใหม่");
+    expect(translateUi(" Land ", "th")).toBe(" ที่ดิน ");
+    expect(translateUi("Land for Sale Nai Wok", "th")).toBe("Land for Sale Nai Wok");
+    expect(translateUi("Incoming", "en")).toBe("Incoming");
+  });
+});
