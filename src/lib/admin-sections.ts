@@ -13,6 +13,7 @@ export type AdminSection =
   | "objects"
   | "dd"
   | "outreach"
+  | "owners"
   | "crm"
   | "crm-today"
   | "crm-tasks"
@@ -108,6 +109,15 @@ export const ADMIN_SECTIONS: AdminSectionMeta[] = [
     group: "objects",
     keywords: "outreach обзвон собственники звонки",
     guideSlug: "outreach",
+    needsGuide: true,
+  },
+  {
+    key: "owners",
+    label: "Собственники",
+    href: "/admin/owners" as Route,
+    group: "objects",
+    keywords: "owners собственники владельцы справочник контакты продавцы застройщики",
+    guideSlug: "owners-directory",
     needsGuide: true,
   },
   {

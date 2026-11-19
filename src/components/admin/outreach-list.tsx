@@ -68,6 +68,7 @@ function mergeOwner(
 /** Row prepared by /admin/outreach (unsanitized objects, internal-only). */
 export interface OutreachRow {
   rwNumber: string;
+  type: string;
   titleEn: string;
   district?: string;
   areaLabel: string;
@@ -192,7 +193,7 @@ export function OutreachList({ rows }: { rows: OutreachRow[] }) {
                   {r.rwNumber}
                 </Link>
                 <span className="text-sm text-forest-500">
-                  {r.district ?? "район?"} · {r.areaLabel} · {r.priceLabel}
+                  {r.type} · {r.district ?? "район?"} · {r.areaLabel} · {r.priceLabel}
                 </span>
                 {r.onSite ? <span title="Опубликован на сайте">🌐</span> : null}
                 {(r.outreachAttempts ?? 0) > 0 ? (
