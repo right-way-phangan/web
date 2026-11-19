@@ -2,12 +2,12 @@
 
 import { revalidatePath } from "next/cache";
 import { backendFetch } from "@/lib/api/backend";
-import { requireStaff } from "@/lib/auth/require-admin";
+import { requireAdmin } from "@/lib/auth/require-admin";
 
 export type OwnerActionResult = { ok: boolean; error?: string; missing?: string[] };
 
 async function call(path: string, method: string, body?: unknown): Promise<OwnerActionResult & { data?: unknown }> {
-  await requireStaff();
+  await requireAdmin();
   try {
     const r = await backendFetch(path, {
       method,

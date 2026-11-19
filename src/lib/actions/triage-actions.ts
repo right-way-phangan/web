@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { backendFetch } from "@/lib/api/backend";
-import { requireStaff } from "@/lib/auth/require-admin";
+import { requireAdmin } from "@/lib/auth/require-admin";
 
 const API = process.env.OBJECTS_API_URL;
 const JSON_HEADERS = { "Content-Type": "application/json" };
@@ -25,7 +25,7 @@ export async function reviveLeadAction(
   leadId: number,
   pipeline: "land" | "villa_house",
 ): Promise<TriageResult> {
-  await requireStaff();
+  await requireAdmin();
   if (!API) return { ok: false, error: "Backend не подключён." };
   try {
     const d = await backendFetch(`/leads/${leadId}`, { cache: "no-store" });
@@ -77,7 +77,7 @@ export async function reviveLeadAction(
 
 /** Mark a legacy lead dead with a reason. */
 export async function markDeadAction(leadId: number, reason: string): Promise<TriageResult> {
-  await requireStaff();
+  await requireAdmin();
   if (!API) return { ok: false, error: "Backend не подключён." };
   try {
     const res = await backendFetch(`/leads/${leadId}`, {
@@ -97,7 +97,7 @@ export async function markDeadAction(leadId: number, reason: string): Promise<Tr
 
 /** «Позже»: leave in the queue but pin a date-only follow-up task. */
 export async function triageLaterAction(leadId: number, days: number): Promise<TriageResult> {
-  await requireStaff();
+  await requireAdmin();
   if (!API) return { ok: false, error: "Backend не подключён." };
   try {
     const due = new Date();
@@ -125,7 +125,7 @@ export async function touchLeadAction(
   leadId: number,
   kind: "call" | "message" | "meet",
 ): Promise<void> {
-  await requireStaff();
+  await requireAdmin();
   if (API) {
     try {
       await backendFetch(`/leads/${leadId}/touch`, {
@@ -147,7 +147,7 @@ export async function mergeContactsAction(
   keepId: number,
   mergeId: number,
 ): Promise<{ ok: boolean; error?: string }> {
-  await requireStaff();
+  await requireAdmin();
   if (!API) return { ok: false, error: "Backend не подключён." };
   try {
     const res = await backendFetch(`/contacts/merge`, {

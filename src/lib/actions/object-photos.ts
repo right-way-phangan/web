@@ -2,7 +2,7 @@
 
 import { revalidatePath, revalidateTag } from "next/cache";
 import { backendFetch } from "@/lib/api/backend";
-import { requireStaff } from "@/lib/auth/require-admin";
+import { requireAdmin } from "@/lib/auth/require-admin";
 import { uploadImageToR2 } from "@/lib/storage/r2";
 
 const API = process.env.OBJECTS_API_URL;
@@ -28,7 +28,7 @@ async function uploadBlob(file: File): Promise<string> {
  * which auto-republishes it on the site. Used by the /admin/objects uploader.
  */
 export async function addObjectPhotosAction(formData: FormData): Promise<AddPhotosResult> {
-  await requireStaff();
+  await requireAdmin();
   if (!API) return { ok: false, added: 0, error: "Backend не подключён." };
   const rwNumber = String(formData.get("rwNumber") ?? "").trim();
   if (!rwNumber) return { ok: false, added: 0, error: "Нет RW-номера." };

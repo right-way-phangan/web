@@ -39,6 +39,7 @@ export type AdminSection =
   | "zoning"
   | "photo-audit"
   | "health"
+  | "users"
   | "guide"
   | "new";
 
@@ -334,6 +335,15 @@ export const ADMIN_SECTIONS: AdminSectionMeta[] = [
     group: "system",
     keywords: "agents агенты ии задачи консилиум совет",
     guideSlug: "agents",
+    needsGuide: true,
+  },
+  {
+    key: "users",
+    label: "Пользователи",
+    href: "/admin/users" as Route,
+    group: "system",
+    keywords: "users пользователи агенты доступ аккаунты пароли логин",
+    guideSlug: "agents-access",
     needsGuide: true,
   },
   {

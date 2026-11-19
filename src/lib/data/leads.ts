@@ -1,7 +1,7 @@
 import "server-only";
 import { backendFetch } from "@/lib/api/backend";
-import { currentPartnerDeveloper } from "@/lib/auth/require-admin";
-import { filterLeadsForPartner, leadInPartnerScope, partnerVisibleNotes } from "@/lib/auth/lead-scope";
+import { currentPartnerDeveloper, currentAgentId } from "@/lib/auth/require-admin";
+import { filterLeadsForPartner, leadInPartnerScope, partnerVisibleNotes, filterLeadsForAgent, leadInAgentScope } from "@/lib/auth/lead-scope";
 
 /**
  * CRM data (Phase B) — reads the own backend (OBJECTS_API_URL). The CRM board
@@ -78,8 +78,13 @@ export async function getLeads(): Promise<CrmLead[]> {
     const all = (await r.json()) as CrmLead[];
     // Partner: server-side isolation — only leads tagged developer:<their developer>.
     const dev = await currentPartnerDeveloper();
-    // notesText concatenates ALL notes (incl. internal) — never for a partner.
-    return dev === null ? all : filterLeadsForPartner(all, dev).map((l) => ({ ...l, notesText: undefined }));
+    if (dev !== null) {
+      // notesText concatenates ALL notes (incl. internal) — never for a partner.
+      return filterLeadsForPartner(all, dev).map((l) => ({ ...l, notesText: undefined }));
+    }
+    // Agent: only leads assigned to them (tag agent:<id>); the archive stays admin-only.
+    const agentId = await currentAgentId();
+    return agentId === null ? all : filterLeadsForAgent(all, agentId).filter((l) => l.pipelineKey !== "legacy");
   } catch (err) {
     console.error("[crm] getLeads failed:", err);
     return [];
@@ -90,7 +95,10 @@ export async function getPipelines(): Promise<CrmPipeline[]> {
   if (!API) return [];
   try {
     const r = await backendFetch("/pipelines", { cache: "no-store" });
-    return r.ok ? ((await r.json()) as CrmPipeline[]) : [];
+    if (!r.ok) return [];
+    const all = (await r.json()) as CrmPipeline[];
+    // Agents work only the live pipelines; the archive is admin-only.
+    return (await currentAgentId()) === null ? all : all.filter((p) => p.key !== "legacy");
   } catch (err) {
     console.error("[crm] getPipelines failed:", err);
     return [];
@@ -127,7 +135,8 @@ export interface CrmContact {
 
 /** The contact book: every contact (incl. the imported amo book), name-ascending. */
 export async function getContacts(): Promise<CrmContact[]> {
-  if (!API || (await currentPartnerDeveloper()) !== null) return [];
+  // The whole contact book is the company's base — not for partners or agents.
+  if (!API || (await currentPartnerDeveloper()) !== null || (await currentAgentId()) !== null) return [];
   try {
     const r = await backendFetch("/contacts", { cache: "no-store" });
     return r.ok ? ((await r.json()) as CrmContact[]) : [];
@@ -151,7 +160,9 @@ export async function getTasks(done = false): Promise<CrmTaskItem[]> {
   if (!API || (await currentPartnerDeveloper()) !== null) return [];
   try {
     const r = await backendFetch(`/tasks${done ? "?done=1" : ""}`, { cache: "no-store" });
-    return r.ok ? ((await r.json()) as CrmTaskItem[]) : [];
+    if (!r.ok) return [];
+    const all = (await r.json()) as CrmTaskItem[];
+    return keepOwnLeadRows(all);
   } catch (err) {
     console.error("[crm] getTasks failed:", err);
     return [];
@@ -175,7 +186,8 @@ export async function getEvents(limit = 200): Promise<CrmEvent[]> {
   if (!API || (await currentPartnerDeveloper()) !== null) return [];
   try {
     const r = await backendFetch(`/events?limit=${limit}`, { cache: "no-store" });
-    return r.ok ? ((await r.json()) as CrmEvent[]) : [];
+    if (!r.ok) return [];
+    return keepOwnLeadRows((await r.json()) as CrmEvent[]);
   } catch (err) {
     console.error("[crm] getEvents failed:", err);
     return [];
@@ -198,6 +210,8 @@ export async function getLead(id: number): Promise<CrmLeadDetail | null> {
     if (!r.ok) return null;
     const lead = (await r.json()) as CrmLeadDetail;
     // Partner: a lead outside their developer is indistinguishable from a missing one.
+    const agentId = await currentAgentId();
+    if (agentId !== null) return leadInAgentScope(lead.tags, agentId) ? lead : null;
     const dev = await currentPartnerDeveloper();
     if (dev === null) return lead;
     if (!leadInPartnerScope(lead.tags, dev)) return null;
@@ -207,4 +221,11 @@ export async function getLead(id: number): Promise<CrmLeadDetail | null> {
     console.error("[crm] getLead failed:", err);
     return null;
   }
+}
+
+/** Agent: keep only rows (tasks/events) of the agent's own leads. Admin gets all. */
+async function keepOwnLeadRows<T extends { leadId?: number }>(rows: T[]): Promise<T[]> {
+  if ((await currentAgentId()) === null) return rows;
+  const own = new Set((await getLeads()).map((l) => l.id));
+  return rows.filter((r) => r.leadId != null && own.has(r.leadId));
 }

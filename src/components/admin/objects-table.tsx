@@ -58,9 +58,12 @@ export function ObjectsTable({
   rows,
   headerCells,
   backQs,
+  canEdit = true,
 }: {
   rows: AdminObjectRow[];
   headerCells: ReactNode;
+  /** Агент: каталог только на чтение — без массовых действий и правки. */
+  canEdit?: boolean;
   /** Текущий срез списка — уезжает в карточку как ?back=, чтобы вернуться в него. */
   backQs?: string;
 }) {
@@ -154,7 +157,7 @@ export function ObjectsTable({
   return (
     <div>
       {/* Bulk action bar */}
-      {selected.size > 0 && (
+      {canEdit && selected.size > 0 && (
         <div className="mb-3 flex flex-wrap items-center gap-3 rounded-xl border border-brass-500/30 bg-brass-500/[0.07] px-4 py-2.5">
           <span className="text-sm font-medium text-forest-900">
             Выбрано: {selected.size}
@@ -373,6 +376,7 @@ export function ObjectsTable({
                       )}
                     </td>
                     <td className="px-3 py-2 text-center">
+                      {canEdit && (
                       <ObjectEditButton
                         object={{
                           rwNumber: o.rwNumber,
@@ -392,6 +396,7 @@ export function ObjectsTable({
                           descriptionManualRu: o.descriptionManualRu,
                         }}
                       />
+                      )}
                     </td>
                   </tr>
                 );

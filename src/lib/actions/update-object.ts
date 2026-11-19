@@ -2,7 +2,7 @@
 
 import { revalidatePath, revalidateTag } from "next/cache";
 import { backendFetch } from "@/lib/api/backend";
-import { requireStaff } from "@/lib/auth/require-admin";
+import { requireStaff, requireAdmin, isAdmin } from "@/lib/auth/require-admin";
 
 const API = process.env.OBJECTS_API_URL;
 
@@ -45,6 +45,15 @@ export async function updateObjectAction(
   patch: ObjectPatch,
 ): Promise<UpdateObjectResult> {
   await requireStaff();
+  // Agents don't edit the catalogue (prices, texts) — only the deal-driven status
+  // flip from the lead card (Reserved ↔ Active). Everything else is admin.
+  if (!(await isAdmin())) {
+    const keys = Object.keys(patch);
+    const st = (patch as { status?: string }).status;
+    if (keys.length !== 1 || keys[0] !== "status" || !["Active", "Reserved"].includes(String(st))) {
+      return { ok: false, error: "Only an admin can edit objects." };
+    }
+  }
   if (!API) return { ok: false, error: "Backend не подключён (OBJECTS_API_URL)." };
   try {
     const res = await backendFetch(`/objects/${encodeURIComponent(rwNumber)}`, {
@@ -80,7 +89,7 @@ export async function updateObjectAction(
 export async function regenerateDescriptionAction(
   rwNumber: string,
 ): Promise<{ ok: boolean; en?: string; ru?: string; error?: string }> {
-  await requireStaff();
+  await requireAdmin();
   const { getObjectByRwNumber } = await import("@/lib/data/objects");
   const { generateObjectDescription } = await import("@/lib/generate/object-description");
   const obj = await getObjectByRwNumber(rwNumber);

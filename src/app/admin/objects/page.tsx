@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getAllObjects, getPublicObjects } from "@/lib/data/objects";
+import { getPublicObjects } from "@/lib/data/objects";
+import { getStaffObjects } from "@/lib/data/staff-objects";
+import { currentAgentId } from "@/lib/auth/require-admin";
 import { getLeads } from "@/lib/data/leads";
 import { getViewsByRw } from "@/lib/data/views";
 import { getEngagementByRw } from "@/lib/data/events";
@@ -117,7 +119,7 @@ export default async function ObjectsPage({
 }) {
   const sp = await searchParams;
   const [all, publicObjs, leads, viewsByRw, engagementByRw] = await Promise.all([
-    getAllObjects(),
+    getStaffObjects(),
     getPublicObjects(),
     getLeads(),
     getViewsByRw(),
@@ -547,7 +549,7 @@ export default async function ObjectsPage({
         </div>
       </div>
 
-      <ObjectsTable rows={rows} headerCells={headerCells} backQs={backQs} />
+      <ObjectsTable rows={rows} headerCells={headerCells} backQs={backQs} canEdit={(await currentAgentId()) === null} />
 
       {/* Pagination */}
       <div className="mt-4 flex items-center justify-between text-xs text-forest-900/55">

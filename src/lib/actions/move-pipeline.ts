@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { backendFetch } from "@/lib/api/backend";
-import { requireStaff } from "@/lib/auth/require-admin";
+import { requireLeadWrite, isAdmin } from "@/lib/auth/require-admin";
 
 const API = process.env.OBJECTS_API_URL;
 
@@ -13,7 +13,9 @@ const API = process.env.OBJECTS_API_URL;
  * (incoming) and records the move in the timeline.
  */
 export async function moveLeadPipeline(leadId: number, pipelineKey: string): Promise<void> {
-  await requireStaff();
+  if (!(await requireLeadWrite(leadId))) return;
+  // The archive pipeline is admin-only; an agent can't park a lead there.
+  if (pipelineKey === "legacy" && !(await isAdmin())) return;
   if (!API) return;
   try {
     await backendFetch(`/leads/${leadId}`, {

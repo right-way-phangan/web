@@ -9,9 +9,18 @@ describe("canAccessAdminPath", () => {
 
   it("lets an agent into CRM, catalogue and intake", () => {
     expect(canAccessAdminPath("agent", "/admin/crm")).toBe(true);
-    expect(canAccessAdminPath("agent", "/admin/crm/leads/42")).toBe(true);
+    expect(canAccessAdminPath("agent", "/admin/crm/42")).toBe(true);
+    expect(canAccessAdminPath("agent", "/admin/crm/today")).toBe(true);
+    expect(canAccessAdminPath("agent", "/admin/crm/new")).toBe(true);
     expect(canAccessAdminPath("agent", "/admin/objects")).toBe(true);
     expect(canAccessAdminPath("agent", "/admin/new")).toBe(true);
+  });
+
+  it("keeps an agent out of the company base (export, contacts, import, archive)", () => {
+    for (const p of ["/admin/crm/export", "/admin/crm/contacts", "/admin/crm/contacts/dupes", "/admin/crm/import",
+      "/admin/crm/triage", "/admin/crm/stats", "/admin/crm/health", "/admin/owners", "/admin/outreach"]) {
+      expect(canAccessAdminPath("agent", p)).toBe(false);
+    }
   });
 
   it("keeps an agent out of money and infrastructure", () => {

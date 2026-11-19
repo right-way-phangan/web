@@ -2,7 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 import { backendFetch } from "@/lib/api/backend";
-import { requireStaff } from "@/lib/auth/require-admin";
+import { requireLeadWrite, isAdmin } from "@/lib/auth/require-admin";
+import { getLead } from "@/lib/data/leads";
 
 const API = process.env.OBJECTS_API_URL;
 const JSON_HEADERS = { "Content-Type": "application/json" };
@@ -29,7 +30,7 @@ async function patchLead(leadId: number, body: object): Promise<boolean> {
 
 /** Set / clear the expected deal size (THB). */
 export async function updateLeadValue(leadId: number, dealValue: number | null): Promise<boolean> {
-  await requireStaff();
+  if (!(await requireLeadWrite(leadId))) return false;
   return patchLead(leadId, { dealValue });
 }
 
@@ -38,13 +39,19 @@ export async function updateExpectedClose(
   leadId: number,
   expectedCloseAt: string | null,
 ): Promise<boolean> {
-  await requireStaff();
+  if (!(await requireLeadWrite(leadId))) return false;
   return patchLead(leadId, { expectedCloseAt });
 }
 
 /** Replace the lead's tags — used by the shortlist (object:RW-… tags). */
 export async function updateLeadTags(leadId: number, tags: string[]): Promise<boolean> {
-  await requireStaff();
+  if (!(await requireLeadWrite(leadId))) return false;
+  // Assignment (agent:<id>) is admin-only: an agent's tag edit keeps the current assignment as is.
+  if (!(await isAdmin())) {
+    const current = await getLead(leadId);
+    const keep = (current?.tags ?? []).filter((t) => t.startsWith("agent:"));
+    tags = [...tags.filter((t) => !t.startsWith("agent:")), ...keep];
+  }
   return patchLead(leadId, { tags });
 }
 
@@ -53,7 +60,7 @@ export async function updateLeadCommission(
   leadId: number,
   commissionValue: number | null,
 ): Promise<boolean> {
-  await requireStaff();
+  if (!(await isAdmin())) return false; // commission ledger — admin only
   const ok = await patchLead(leadId, { commissionValue });
   revalidatePath("/admin/finance");
   return ok;
@@ -65,7 +72,7 @@ export async function toggleDealStep(
   key: string,
   done: boolean,
 ): Promise<boolean> {
-  await requireStaff();
+  if (!(await requireLeadWrite(leadId))) return false;
   if (!API) return false;
   try {
     const r = await backendFetch(`/leads/${leadId}/deal-checklist`, {

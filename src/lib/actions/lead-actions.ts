@@ -3,7 +3,8 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { backendFetch } from "@/lib/api/backend";
-import { currentPartnerDeveloper, isAdmin, requireLeadAccess, requireStaff } from "@/lib/auth/require-admin";
+import { agentTag } from "@/lib/auth/lead-scope";
+import { currentPartnerDeveloper, isAdmin, requireLeadAccess, requireStaff, requireLeadWrite, requireTaskWrite, currentAgentId } from "@/lib/auth/require-admin";
 
 const API = process.env.OBJECTS_API_URL;
 const JSON_HEADERS = { "Content-Type": "application/json" };
@@ -15,7 +16,7 @@ export async function updateLeadContactAction(
   leadId: number,
   patch: { contactName?: string; email?: string; phone?: string; rwNumber?: string },
 ): Promise<LeadEditResult> {
-  await requireStaff();
+  if (!(await requireLeadWrite(leadId))) return { ok: false, error: "Нет доступа к лиду." };
   if (!API) return { ok: false, error: "Backend не подключён." };
   try {
     const res = await backendFetch(`/leads/${leadId}/contact`, {
@@ -77,6 +78,7 @@ function slug(s: string): string {
  */
 export async function createManualLeadAction(formData: FormData): Promise<CreateLeadResult> {
   await requireStaff();
+  const agentId = await currentAgentId();
   if (!API) return { ok: false, error: "Backend не подключён." };
 
   const s = (k: string) => String(formData.get(k) ?? "").trim();
@@ -165,6 +167,8 @@ export async function createManualLeadAction(formData: FormData): Promise<Create
     ...(interestType ? [`interest:${interestType}`] : []),
     ...(timeframe === "now" ? ["hot"] : []),
     ...(rwNumber ? [`object:${rwNumber}`] : []),
+    // A lead an agent creates is theirs at once; admin assigns their own later.
+    ...(agentId !== null ? [agentTag(agentId)] : []),
   ];
 
   try {
@@ -235,8 +239,8 @@ export async function addNoteAction(formData: FormData): Promise<void> {
 
 /** Add a task to a lead. Form action. */
 export async function addTaskAction(formData: FormData): Promise<void> {
-  await requireStaff();
   const leadId = Number(formData.get("leadId"));
+  if (!(await requireLeadWrite(leadId))) return;
   const title = String(formData.get("title") ?? "").trim();
   const dueDate = String(formData.get("dueAt") ?? "").trim();
   const dueTime = String(formData.get("dueTime") ?? "").trim();
@@ -264,7 +268,7 @@ export async function addTaskAction(formData: FormData): Promise<void> {
  * button on the card, no form.
  */
 export async function remindLeadAction(leadId: number, days: number): Promise<void> {
-  await requireStaff();
+  if (!(await requireLeadWrite(leadId))) return;
   if (API && leadId && days > 0) {
     const due = new Date();
     due.setUTCDate(due.getUTCDate() + days);
@@ -292,7 +296,7 @@ export async function toggleTaskAction(
   leadId: number,
   done: boolean,
 ): Promise<void> {
-  await requireStaff();
+  if (!(await requireTaskWrite(taskId, leadId))) return;
   if (API) {
     try {
       await backendFetch(`/tasks/${taskId}`, {
@@ -315,7 +319,7 @@ export async function rescheduleTaskAction(
   leadId: number,
   dueAt: string | null,
 ): Promise<void> {
-  await requireStaff();
+  if (!(await requireTaskWrite(taskId, leadId))) return;
   if (API) {
     try {
       await backendFetch(`/tasks/${taskId}`, {
