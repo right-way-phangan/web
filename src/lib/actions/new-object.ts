@@ -6,7 +6,7 @@ import { OBJECT_TYPES } from "@/lib/dictionaries";
 import { classifyImageIsDocument } from "@/lib/classify/image-doc";
 import { backendFetch } from "@/lib/api/backend";
 import { uploadImageToR2 } from "@/lib/storage/r2";
-import { requireStaff } from "@/lib/auth/require-admin";
+import { requireStaff, currentAgentId } from "@/lib/auth/require-admin";
 import { revalidateTag } from "next/cache";
 
 /** New objects are written to the own DB via the backend API (amoCRM removed 2026-11-16). */
@@ -260,7 +260,8 @@ export async function createObject(
     description: str(formData.get("description")),
     title: str(formData.get("title")),
     parentProjectRw: str(formData.get("parentProjectRw")),
-    status: str(formData.get("status")),
+    // Agent-added objects land as Draft (not on the site): admin checks and activates.
+    status: (await currentAgentId()) !== null ? "Draft" : str(formData.get("status")),
     photoUrls,
     docUrls,
   };

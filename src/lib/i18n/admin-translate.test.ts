@@ -16,3 +16,12 @@ describe("translateUi", () => {
     expect(translateUi("RW-0541", "th")).toBe("RW-0541");
   });
 });
+
+describe("translateUi patterns", () => {
+  it("handles numbers, ids, dates and ' · ' segments", () => {
+    expect(translateUi("Выделить RW-P0019-3", "en")).toBe("Select RW-P0019-3");
+    expect(translateUi("15 мес", "th")).toBe("15 เดือน");
+    expect(translateUi("20 нояб. · 10:00", "en")).toBe("20 Nov · 10:00");
+    expect(translateUi("CRM — лиды · Right Way Phangan", "en")).toBe("CRM — leads · Right Way Phangan");
+  });
+});
