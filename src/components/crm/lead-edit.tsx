@@ -15,7 +15,9 @@ export function LeadEdit({
   email,
   phone,
   rwNumber,
+  canDelete = true,
 }: {
+  canDelete?: boolean;
   leadId: number;
   contactName?: string | null;
   email?: string | null;
@@ -112,6 +114,7 @@ export function LeadEdit({
           Отмена
         </button>
 
+        {canDelete && (
         <form
           action={deleteLeadAction}
           className="ml-auto"
@@ -129,6 +132,7 @@ export function LeadEdit({
             Удалить лид
           </button>
         </form>
+        )}
       </div>
     </div>
   );
