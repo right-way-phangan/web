@@ -5,7 +5,7 @@ import Link from "next/link";
 import type { Route } from "next";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { BLOG_POSTS_TH } from "@/content/blog.th";
-import { getBlogPost, getAllBlogPosts } from "@/lib/data/articles";
+import { getBlogPost, getAllBlogPosts, blogLanguages } from "@/lib/data/articles";
 import { Button } from "@/components/ui/button";
 import { ArticleBody } from "@/components/sections/article-body";
 import { ArticleByline } from "@/components/sections/article-byline";
@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: p.excerpt,
     alternates: {
       canonical: `/th/blog/${p.slug}`,
-      languages: { en: `/blog/${p.slug}`, ru: `/ru/blog/${p.slug}`, th: `/th/blog/${p.slug}`, "x-default": `/blog/${p.slug}` },
+      languages: await blogLanguages(p.slug),
     },
   };
 }
