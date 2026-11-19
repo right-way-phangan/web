@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { editorialNotes, mdToBlocks } from "./articles";
+import { blogLanguages, editorialNotes, mdToBlocks } from "./articles";
 
 describe("mdToBlocks", () => {
   it("drops HTML comments instead of rendering them as paragraphs", () => {
@@ -24,5 +24,19 @@ describe("editorialNotes", () => {
       "ЧЕРНОВИК — до юриста",
     ]);
     expect(editorialNotes("Текст без пометок.")).toEqual([]);
+  });
+});
+
+describe("blogLanguages", () => {
+  // Без OBJECTS_API_URL тест офлайновый: работает только статика (EN+RU+TH).
+  it("lists every language a static post exists in", async () => {
+    const langs = await blogLanguages("buying-land-koh-phangan-checks-that-matter");
+    expect(Object.keys(langs).sort()).toEqual(["en", "ru", "th", "x-default"]);
+  });
+
+  it("does not advertise a language the post lacks (was a hreflang to a TH 404)", async () => {
+    const langs = await blogLanguages("no-such-post");
+    expect(langs.th).toBeUndefined();
+    expect(langs.ru).toBeUndefined();
   });
 });

@@ -230,3 +230,22 @@ export async function getBlogPost(
   }
   return (STATIC_BY_LANG[lang] ?? []).find((p) => p.slug === slug) ?? null;
 }
+
+/**
+ * hreflang map for a post — only languages that actually have the post. A DB
+ * article can exist in EN+RU without TH; advertising /th/blog/<slug> then sent
+ * crawlers (and Thai readers) to a 404.
+ */
+export async function blogLanguages(slug: string): Promise<Record<string, string>> {
+  const [en, ru, th] = await Promise.all([
+    getBlogPost(slug, "en"),
+    getBlogPost(slug, "ru"),
+    getBlogPost(slug, "th"),
+  ]);
+  return {
+    ...(en && { en: `/blog/${slug}` }),
+    ...(ru && { ru: `/ru/blog/${slug}` }),
+    ...(th && { th: `/th/blog/${slug}` }),
+    "x-default": en ? `/blog/${slug}` : ru ? `/ru/blog/${slug}` : `/th/blog/${slug}`,
+  };
+}

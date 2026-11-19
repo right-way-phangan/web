@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { getSiteUrl } from "@/lib/site-url";
 import { DISTRICTS } from "@/content/districts";
 import { KB_ARTICLES } from "@/content/knowledge-base";
-import { BLOG_POSTS } from "@/content/blog";
+import { getAllBlogPosts } from "@/lib/data/articles";
 import { getPublicObjects } from "@/lib/data/objects";
 import { getPublicProjects, projectSlug, isProjectUnit, getDevelopers } from "@/lib/data/projects";
 import { getPublishedEstates } from "@/content/land-estates";
@@ -86,9 +86,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const knowledgeEntries = KB_ARTICLES.flatMap((a) =>
     pair(base, `/knowledge/${a.slug}`, "monthly", 0.6, 0.5, new Date(a.updated)),
   );
-  const blogEntries = BLOG_POSTS.flatMap((p) =>
-    pair(base, `/blog/${p.slug}`, "monthly", 0.6, 0.5, new Date(p.published)),
-  );
+  // Blog = static posts + DB-published articles, and a DB article may lack a
+  // language (EN+RU without TH), so each entry lists only the versions that exist.
+  const blogByLang = await Promise.all((["en", "ru", "th"] as const).map((l) => getAllBlogPosts(l)));
+  const blogSlugs = new Map<string, { languages: Record<string, string>; lastModified: Date }>();
+  (["en", "ru", "th"] as const).forEach((l, i) => {
+    for (const p of blogByLang[i]) {
+      const e = blogSlugs.get(p.slug) ?? { languages: {}, lastModified: new Date(p.updated ?? p.published) };
+      e.languages[l] = `${base}${l === "en" ? "" : `/${l}`}/blog/${p.slug}`;
+      blogSlugs.set(p.slug, e);
+    }
+  });
+  const blogEntries: MetadataRoute.Sitemap = [...blogSlugs.values()].flatMap(({ languages, lastModified }) => {
+    const alternates = { languages: { ...languages, "x-default": languages.en ?? Object.values(languages)[0] } };
+    return Object.entries(languages).map(([l, url]) => ({
+      url,
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: l === "en" ? 0.6 : 0.5,
+      alternates,
+    }));
+  });
 
   // Active objects — fetched fresh per sitemap regeneration. Developer projects
   // (RW-P) and their unit cards (RW-P####-N) are excluded here; projects have
