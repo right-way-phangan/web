@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { AdminNav } from "@/components/admin/admin-nav";
 import { CommandPalette } from "@/components/admin/command-palette";
 import { currentAgentId, currentPartnerDeveloper } from "@/lib/auth/require-admin";
+import { AdminTranslator } from "@/components/admin/admin-translator";
+import { currentAdminLang } from "@/lib/auth/admin-lang";
 
 /**
  * Admin-only PWA wiring: a dedicated manifest (scope /admin, opens on the CRM
@@ -23,7 +25,7 @@ export const viewport: Viewport = {
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <>
+    <AdminTranslator lang={await currentAdminLang()}>
       {/* Навигация одна на всю админку; страницы её не подключают. Отступы
           повторяют стандартную обёртку страниц (px-4 md:px-8), низ даёт
           собственный mb навигации. */}
@@ -32,6 +34,6 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       </div>
       {children}
       {(await currentPartnerDeveloper()) === null && (await currentAgentId()) === null && <CommandPalette />}
-    </>
+    </AdminTranslator>
   );
 }

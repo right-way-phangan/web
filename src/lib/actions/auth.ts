@@ -15,11 +15,11 @@ export async function loginAction(
 ): Promise<LoginState> {
   const email = String(formData.get("email") ?? "").trim();
   const password = String(formData.get("password") ?? "");
-  if (!email || !password) return { error: "Введите email и пароль." };
+  if (!email || !password) return { error: "Введите email и пароль. · Enter email and password. · กรุณากรอกอีเมลและรหัสผ่าน" };
 
   // Throttle password attempts per IP (10 / 15 min) — blunts brute-force.
   if (!(await rateLimit("login", 10, 15 * 60, { failClosed: true }))) {
-    return { error: "Слишком много попыток входа. Подождите несколько минут." };
+    return { error: "Слишком много попыток. · Too many attempts, wait a few minutes. · พยายามหลายครั้งเกินไป กรุณารอสักครู่" };
   }
 
   let user: { id: number; email: string; name?: string | null; role: string; developer?: string | null; lang?: "ru" | "en" | "th" | null };
@@ -30,11 +30,11 @@ export async function loginAction(
       cache: "no-store",
       body: JSON.stringify({ email, password }),
     });
-    if (!res.ok) return { error: "Неверный email или пароль." };
+    if (!res.ok) return { error: "Неверный email или пароль. · Wrong email or password. · อีเมลหรือรหัสผ่านไม่ถูกต้อง" };
     ({ user } = await res.json());
   } catch (err) {
     console.error("[auth] login failed:", err);
-    return { error: "Сервис недоступен, попробуйте позже." };
+    return { error: "Сервис недоступен. · Service unavailable, try later. · ระบบไม่พร้อมใช้งาน กรุณาลองใหม่" };
   }
 
   // signSession бросает на нечисловом id (строгий mint под строгий verify).
@@ -46,7 +46,7 @@ export async function loginAction(
     token = await signSession(user);
   } catch (err) {
     console.error("[auth] не удалось выпустить сессию:", err);
-    return { error: "Не удалось создать сессию. Сообщите администратору." };
+    return { error: "Не удалось создать сессию. · Could not sign in, tell the admin. · เข้าสู่ระบบไม่สำเร็จ กรุณาแจ้งแอดมิน" };
   }
   (await cookies()).set(SESSION_COOKIE, token, {
     httpOnly: true,
