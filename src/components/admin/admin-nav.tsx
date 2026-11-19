@@ -53,5 +53,6 @@ export async function AdminNav() {
     guideSlug: s.guideSlug ?? null,
     badge: badges[s.key] || 0,
   }));
-  return <AdminNavClient sections={sections} />;
+  // Справочник (/admin/guide) агенту закрыт — у него своя страница помощи.
+  return <AdminNavClient sections={sections} helpHref={role === "agent" ? "/admin/crm/help" : undefined} />;
 }

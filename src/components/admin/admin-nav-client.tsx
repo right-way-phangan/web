@@ -25,7 +25,7 @@ export interface NavItem {
  * (механика NavDropdown из хедера сайта, включая pt-мостик). Мобильный:
  * прежний <details>, внутри — чипы, сгруппированные заголовками.
  */
-export function AdminNavClient({ sections }: { sections: NavItem[] }) {
+export function AdminNavClient({ sections, helpHref: helpOverride }: { sections: NavItem[]; helpHref?: string }) {
   const pathname = usePathname();
   if (pathname === "/admin/login") return null;
 
@@ -35,7 +35,7 @@ export function AdminNavClient({ sections }: { sections: NavItem[] }) {
     .filter((s) => isActive(s.href))
     .sort((a, b) => b.href.length - a.href.length)[0];
 
-  const helpHref = active?.guideSlug ? `/admin/guide/${active.guideSlug}` : "/admin/guide";
+  const helpHref = helpOverride ?? (active?.guideSlug ? `/admin/guide/${active.guideSlug}` : "/admin/guide");
   const groups = ADMIN_GROUPS.map((g) => ({
     ...g,
     items: sections.filter((s) => s.group === g.key),
