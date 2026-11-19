@@ -77,7 +77,7 @@ describe("АТАКА 57 — login-экшен падает наружу вмес�
   it("неверный пароль — аккуратная ошибка в форме", async () => {
     loginResponse = () => new Response("nope", { status: 401 });
     const { loginAction } = await import("@/lib/actions/auth");
-    expect(await loginAction({}, form())).toEqual({ error: "Неверный email или пароль." });
+    expect(await loginAction({}, form())).toEqual({ error: "Неверный email или пароль. · Wrong email or password. · อีเมลหรือรหัสผ่านไม่ถูกต้อง" });
     resetLogin();
   });
 
@@ -91,7 +91,7 @@ describe("АТАКА 57 — login-экшен падает наружу вмес�
       );
     const { loginAction } = await import("@/lib/actions/auth");
     const res = await loginAction({}, form());
-    expect(res).toEqual({ error: "Не удалось создать сессию. Сообщите администратору." });
+    expect(res).toEqual({ error: "Не удалось создать сессию. · Could not sign in, tell the admin. · เข้าสู่ระบบไม่สำเร็จ กรุณาแจ้งแอดมิน" });
     expect(cookieSets).toHaveLength(0);
     resetLogin();
   });
@@ -101,7 +101,7 @@ describe("АТАКА 57 — login-экшен падает наружу вмес�
       new Response(JSON.stringify({ user: { email: "a@b.c", role: "admin" } }), { status: 200 });
     const { loginAction } = await import("@/lib/actions/auth");
     expect(await loginAction({}, form())).toEqual({
-      error: "Не удалось создать сессию. Сообщите администратору.",
+      error: "Не удалось создать сессию. · Could not sign in, tell the admin. · เข้าสู่ระบบไม่สำเร็จ กรุณาแจ้งแอดมิน",
     });
     expect(cookieSets).toHaveLength(0);
     resetLogin();

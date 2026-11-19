@@ -806,3 +806,15 @@
     font-size: 16px !important;
   }
 }
+
+/* Админка агента (EN/TH): скрыть русский до первого прохода переводчика.
+   Страховка: если JS не отработал, через 1.5 с показываем как есть. */
+[data-i18n-pending] {
+  visibility: hidden;
+  animation: i18nReveal 0s 1.5s forwards;
+}
+@keyframes i18nReveal {
+  to {
+    visibility: visible;
+  }
+}

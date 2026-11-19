@@ -18,7 +18,7 @@ export function LoginForm() {
         />
       </div>
       <div>
-        <label className="block text-xs uppercase tracking-wide text-forest-900/50">Пароль</label>
+        <label className="block text-xs uppercase tracking-wide text-forest-900/50">Пароль · Password · รหัสผ่าน</label>
         <input
           name="password"
           type="password"
@@ -33,7 +33,7 @@ export function LoginForm() {
         disabled={pending}
         className="w-full rounded-md bg-panel px-3 py-2 text-sm font-medium text-panel-fg hover:bg-panel/90 disabled:opacity-50"
       >
-        {pending ? "Вход…" : "Войти"}
+        {pending ? "…" : "Войти · Sign in · เข้าสู่ระบบ"}
       </button>
     </form>
   );
