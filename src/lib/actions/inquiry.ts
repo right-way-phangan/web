@@ -116,6 +116,25 @@ function trafficLine(input: z.infer<typeof inquirySchema>): string | null {
   return parts.length ? `Traffic: ${parts.join(" · ")}` : null;
 }
 
+// Error banners in the visitor's UI language (form posts hidden `lang`).
+const ERR = {
+  check: {
+    en: "Please check the form and try again.",
+    ru: "Проверьте форму и попробуйте ещё раз.",
+    th: "กรุณาตรวจสอบแบบฟอร์มแล้วลองอีกครั้ง",
+  },
+  rate: {
+    en: "Too many requests. Please try again in a little while.",
+    ru: "Слишком много запросов. Попробуйте чуть позже.",
+    th: "มีคำขอมากเกินไป กรุณาลองใหม่อีกครั้งในภายหลัง",
+  },
+  fail: {
+    en: "Something went wrong on our side. Please message us on Telegram or WhatsApp instead — we'll fix this shortly.",
+    ru: "У нас что-то сломалось. Напишите нам в Telegram или WhatsApp — скоро починим.",
+    th: "เกิดข้อผิดพลาดจากระบบของเรา กรุณาส่งข้อความหาเราทาง Telegram หรือ WhatsApp แทน เราจะแก้ไขโดยเร็ว",
+  },
+} as const;
+
 export async function submitInquiry(
   _prev: FormState,
   formData: FormData,
@@ -125,6 +144,7 @@ export async function submitInquiry(
   for (const [k, v] of formData.entries()) {
     if (typeof v === "string") raw[k] = v;
   }
+  const lang = raw.lang === "ru" || raw.lang === "th" ? raw.lang : "en";
 
   const parsed = inquirySchema.safeParse(raw);
   if (!parsed.success) {
@@ -135,7 +155,7 @@ export async function submitInquiry(
     }
     return {
       status: "error",
-      message: "Please check the form and try again.",
+      message: ERR.check[lang],
       fieldErrors,
     };
   }
@@ -156,7 +176,7 @@ export async function submitInquiry(
   if (!(await rateLimit("inquiry", 8, 60 * 60))) {
     return {
       status: "error",
-      message: "Too many requests. Please try again in a little while.",
+      message: ERR.rate[lang],
     };
   }
 
@@ -293,8 +313,7 @@ export async function submitInquiry(
     console.error("[inquiry] unexpected:", err);
     return {
       status: "error",
-      message:
-        "Something went wrong on our side. Please message us on Telegram or WhatsApp instead — we'll fix this shortly.",
+      message: ERR.fail[lang],
     };
   }
 }

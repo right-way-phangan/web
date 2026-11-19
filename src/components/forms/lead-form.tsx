@@ -261,7 +261,7 @@ export function LeadForm({ rwNumber, source, defaultMessage, layout = "card", ki
 
       {state.status === "ok" ? (
         <SuccessBlock
-          message={state.message}
+          message={t.success}
           lede={t.successLede}
           browseLabel={t.successBrowse}
           browseHref={listingsHref}
