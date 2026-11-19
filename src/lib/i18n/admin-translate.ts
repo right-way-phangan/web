@@ -33,8 +33,14 @@ function fill(tpl: string, m: RegExpExecArray): string {
 }
 
 export function translateUi(text: string, lang: AdminLang): string {
-  if (lang === "ru" || !CYR.test(text)) return text;
+  if (lang === "ru") return text;
   const idx = lang === "en" ? 0 : 1;
+  // Latin UI strings (stage / pipeline names from the DB: Incoming, Land…): exact match only,
+  // so English user data inside longer text is never touched.
+  if (!CYR.test(text)) {
+    const hit = ADMIN_DICT[text.trim()];
+    return hit && hit[idx] !== text.trim() ? text.replace(text.trim(), hit[idx]) : text;
+  }
   const lead = text.match(/^\s*/)?.[0] ?? "";
   const trail = text.match(/\s*$/)?.[0] ?? "";
   const core = text.trim().replace(/\s+/g, " ");

@@ -50,7 +50,16 @@ export function AdminTranslator({ lang, children }: { lang: AdminLang; children:
       }
     });
     obs.observe(root, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: [...ATTRS] });
-    return () => obs.disconnect();
+    // Next sets <title> after navigation/streaming — keep the tab title translated too.
+    const titleObs = new MutationObserver(() => {
+      const t = translateUi(document.title, lang);
+      if (t !== document.title) document.title = t;
+    });
+    titleObs.observe(document.head, { subtree: true, childList: true, characterData: true });
+    return () => {
+      obs.disconnect();
+      titleObs.disconnect();
+    };
   }, [lang]);
   if (lang === "ru") return <>{children}</>;
   return (
