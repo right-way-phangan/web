@@ -38,7 +38,7 @@ export function ConstructionEditor({
     setUpdates((list) => list.map((u, j) => (i === j ? { ...u, ...next } : u)));
 
   function addUpdate() {
-    setUpdates((list) => [{ date: "", dateRu: "", note: "", noteRu: "", photos: [] }, ...list]);
+    setUpdates((list) => [{ date: "", dateRu: "", dateTh: "", note: "", noteRu: "", noteTh: "", photos: [] }, ...list]);
   }
 
   async function uploadInto(i: number, files: FileList) {
@@ -132,6 +132,14 @@ export function ConstructionEditor({
                 />
               </label>
               <label className="space-y-1">
+                <span className={labelCls}>Дата (TH) — «กรกฎาคม 2569»</span>
+                <input
+                  value={u.dateTh ?? ""}
+                  onChange={(e) => patch(i, { dateTh: e.target.value })}
+                  className={field}
+                />
+              </label>
+              <label className="space-y-1">
                 <span className={labelCls}>Подпись (EN)</span>
                 <textarea
                   rows={2}
@@ -146,6 +154,15 @@ export function ConstructionEditor({
                   rows={2}
                   value={u.noteRu ?? ""}
                   onChange={(e) => patch(i, { noteRu: e.target.value })}
+                  className={field}
+                />
+              </label>
+              <label className="space-y-1">
+                <span className={labelCls}>Подпись (TH)</span>
+                <textarea
+                  rows={2}
+                  value={u.noteTh ?? ""}
+                  onChange={(e) => patch(i, { noteTh: e.target.value })}
                   className={field}
                 />
               </label>

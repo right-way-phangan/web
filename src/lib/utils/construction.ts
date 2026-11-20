@@ -1,14 +1,16 @@
 import type { ConstructionUpdate } from "@/types/object";
 import type { Locale } from "@/lib/i18n/dictionaries";
 
-/** Дата записи на языке страницы; RU-вариант необязателен. */
+/** Дата записи на языке страницы; RU/TH-варианты необязательны → падаем в EN. */
 export function updateDate(u: ConstructionUpdate, locale: Locale): string {
-  return (locale === "ru" ? u.dateRu : u.date)?.trim() || u.date;
+  const local = locale === "ru" ? u.dateRu : locale === "th" ? u.dateTh : u.date;
+  return local?.trim() || u.date;
 }
 
-/** Подпись к записи на языке страницы; RU-вариант необязателен → падаем в EN. */
+/** Подпись к записи на языке страницы; RU/TH-варианты необязательны → падаем в EN. */
 export function updateNote(u: ConstructionUpdate, locale: Locale): string | undefined {
-  return ((locale === "ru" ? u.noteRu : u.note) || u.note)?.trim() || undefined;
+  const local = locale === "ru" ? u.noteRu : locale === "th" ? u.noteTh : u.note;
+  return (local?.trim() || u.note?.trim()) || undefined;
 }
 
 /** Сколько всего фото во всех записях — для подписей «N фото». */
