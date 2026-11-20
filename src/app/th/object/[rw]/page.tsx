@@ -154,7 +154,7 @@ export default async function ThaiObjectPage({ params }: Props) {
             title={object.titleEn}
           />
         </div>
-        <PrintBrochure object={object} />
+        <PrintBrochure object={object} locale="th" />
 
         <header className="mt-8 md:mt-12">
           <div className="flex items-start justify-between gap-4">
