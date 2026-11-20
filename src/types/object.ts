@@ -16,13 +16,15 @@ export type Furnishing = "Full" | "Partial" | "None";
 
 /**
  * Одна запись «хода стройки» — фотоотчёт со стройплощадки на дату.
- * Публичное: рендерится на /projects/[slug]/construction (EN) и /ru/... (RU).
+ * Публичное: рендерится на /projects/[slug]/construction (EN), /ru/... и /th/....
  */
 export interface ConstructionUpdate {
   date: string;      // "July 2026" — как показываем в EN
   dateRu?: string;   // "Июль 2026"; пусто → берём date
   note?: string;     // подпись к этапу (EN)
   noteRu?: string;
+  dateTh?: string;   // "กรกฎาคม 2569"; пусто → берём date
+  noteTh?: string;   // пусто → note (EN)
   photos: string[];
 }
 
