@@ -1,6 +1,7 @@
 import { isFirstParty } from "@/lib/api/first-party";
 import { rateLimit } from "@/lib/ratelimit";
 import { reportSiteError } from "@/lib/notify/site-error";
+import { isCrawlerUa } from "@/lib/crawler-ua";
 
 /**
  * Маячок клиентских ошибок (см. lib/report-client-error.ts). Только со своих
@@ -8,6 +9,8 @@ import { reportSiteError } from "@/lib/notify/site-error";
  */
 export async function POST(req: Request): Promise<Response> {
   if (!isFirstParty(req)) return new Response(null, { status: 403 });
+  const ua = req.headers.get("user-agent");
+  if (isCrawlerUa(ua)) return new Response(null, { status: 204 });
   if (!(await rateLimit("track-error", 20, 3600))) return new Response(null, { status: 429 });
 
   let body: Record<string, unknown>;
@@ -26,7 +29,7 @@ export async function POST(req: Request): Promise<Response> {
     stack: str(body.stack, 2000),
     url: str(body.url, 500),
     digest: str(body.digest, 64),
-    ua: req.headers.get("user-agent") ?? undefined,
+    ua: ua ?? undefined,
   });
   return new Response(null, { status: 204 });
 }
